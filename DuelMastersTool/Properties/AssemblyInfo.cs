@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DuelMastersModels")]
+[assembly: AssemblyTitle("DuelMastersTool")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DuelMastersModels")]
+[assembly: AssemblyProduct("DuelMastersTool")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8959a481-6d73-445e-b137-f1837d674d39")]
+[assembly: Guid("7486bb0d-3e46-4096-922a-f3bde9919b0a")]
 
 // Version information for an assembly consists of the following four values:
 //
