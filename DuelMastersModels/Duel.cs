@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.GameActions.StateBasedActions;
+using DuelMastersModels.PlayerActions;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts a duel.
         /// </summary>
-        public void StartDuel()
+        public PlayerAction StartDuel()
         {
             Player1.ShuffleDeck();
             Player2.ShuffleDeck();
@@ -69,16 +70,18 @@ namespace DuelMastersModels
             PutFromTheTopOfDeckIntoShieldZone(Player2, InitialNumberOfShields);
             DrawCards(Player1, InitialNumberOfHandCards);
             DrawCards(Player2, InitialNumberOfHandCards);
+            return StartNewTurn(Player1, Player2);
         }
 
         /// <summary>
         /// Creates a new turn and starts it.
         /// </summary>
-        public void StartNewTurn(Player activePlayer, Player nonActivePlayer)
+        public PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
             var turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
             Turns.Add(turn);
-            turn.Start();
+            turn.Start(this);
+            return Progress();
         }
 
         /// <summary>
@@ -136,21 +139,55 @@ namespace DuelMastersModels
         /// Progresses in the duel.
         /// </summary>
         /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        public PlayerRequest Progress()
+        public PlayerAction Progress()
         {
-            while (!Ended)
+            if (!Ended)
             {
-                CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
                 CheckStateBasedActions();
                 if (!Ended)
                 {
-                    if (CurrentTurn.ChangeStep())
+                    var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired();
+                    if (playerAction != null)
                     {
-                        StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
+                        if (playerAction.Player is AIPlayer aiPlayer)
+                        {
+                            aiPlayer.PerformPlayerAction(this, playerAction);
+                            return Progress();
+                        }
+                        else
+                        {
+                            return playerAction;
+                        }
+                    }
+                    else
+                    {
+                        if (CurrentTurn.ChangeStep())
+                        {
+                            return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
+                        }
+                        else
+                        {
+                            CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                            return Progress();
+                        }
                     }
                 }
             }
             return null;
+        }
+
+        public static void PutFromHandToManaZone(Player player, Card card)
+        {
+            if (player == null)
+            {
+                throw new ArgumentNullException("player");
+            }
+            if (card == null)
+            {
+                throw new ArgumentNullException("card");
+            }
+            player.Hand.Cards.Remove(card);
+            player.ManaZone.Cards.Add(card);
         }
         #endregion Public methods
 

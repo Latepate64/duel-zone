@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.GameActions.TurnBasedActions;
+using DuelMastersModels.PlayerActions;
 
 namespace DuelMastersModels.Steps
 {
@@ -9,6 +10,11 @@ namespace DuelMastersModels.Steps
     {
         public DrawStep(Player player) : base(player, "Draw")
         {
+        }
+
+        public override PlayerAction PlayerActionRequired()
+        {
+            return null;
         }
 
         /// <summary>

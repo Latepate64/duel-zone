@@ -1,8 +1,10 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Factories;
+using DuelMastersModels.PlayerActions;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 
 namespace DuelMastersTool
@@ -33,40 +35,83 @@ namespace DuelMastersTool
                     {
                         Name = "Shobu",
                     },
-                    Player2 = new Player()
+                    Player2 = new AIPlayer()
                     {
                         Name = "Kokujo",
                     },
                 };
-                var half = cards.Count / 2;
-                duel.Player1.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(0, half)));
-                duel.Player2.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(half, half)));
+                var count = 40;
+                duel.Player1.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(0, count)));
+                duel.Player2.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(count, count)));
                 duel.Player1.SetupDeck();
                 duel.Player2.SetupDeck();
-                duel.StartDuel();
-                duel.StartNewTurn(duel.Player1, duel.Player2);
-                const int DuelTimeOut = 99999;
-                var duelIndex = 0;
-                while (duelIndex++ < DuelTimeOut)
+                var playerAction = duel.StartDuel();
+
+                while (playerAction != null)
                 {
-                    var playerRequest = duel.Progress();
-                    if (playerRequest == null)
-                    {
-                        // There is nothing left to do in the duel.
-                        break;
-                    }
-                    else
-                    {
-                        throw new NotImplementedException("The user should act according to the player request so that player response is sent to the duel.");
-                    }
+                    ProcessPlayerAction(duel, playerAction);
+                    playerAction = duel.Progress();
                 }
-                if (duelIndex >= DuelTimeOut)
-                {
-                    throw new TimeoutException("Duel time out.");
-                }
-                Console.WriteLine(String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} won the duel!", duel.Winner.Name));
+
+                Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0} won the duel!", duel.Winner.Name));
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
+            }
+        }
+
+        private static void ProcessPlayerAction(Duel duel, PlayerAction playerAction)
+        {
+            if (playerAction is ChargeMana chargeMana)
+            {
+                ChargeMana(chargeMana);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("playerAction");
+            }
+            playerAction.Perform(duel);
+            WriteLineWithEquals();
+        }
+
+        private static void WriteLineWithEquals()
+        {
+            var line = "";
+            for (var i = 0; i < 100; ++i)
+            {
+                line += "=";
+            }
+            Console.WriteLine(line);
+        }
+
+        private static void WriteLinePlayerName(string name, string text)
+        {
+            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", name, text));
+        }
+
+        private static void ChargeMana(ChargeMana chargeMana)
+        {
+            WriteLinePlayerName(chargeMana.Player.Name, "Which card do you want to put into your mana zone?");
+            var index = 0;
+            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", index++, "Do not charge mana"));
+            foreach (var card in chargeMana.Player.Hand.Cards)
+            {
+                Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", index++, card.Name));
+            }
+            while (true)
+            {
+                var consoleKeyInfo = Console.ReadKey();
+                if (Int32.TryParse(consoleKeyInfo.KeyChar.ToString(), out int number))
+                {
+                    if (number <= chargeMana.Player.Hand.Cards.Count)
+                    {
+                        if (number != 0)
+                        {
+                            chargeMana.SelectedCard = chargeMana.Player.Hand.Cards[number - 1];
+                        }
+                        Console.WriteLine();
+                        break;
+                    }
+                }
             }
         }
     }

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIPlayer.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
@@ -62,8 +63,8 @@
     <Compile Include="GameActions\TurnBasedActions\DrawCardAtDrawStep.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerRequest.cs" />
-    <Compile Include="PlayerResponse.cs" />
+    <Compile Include="PlayerActions\ChargeMana.cs" />
+    <Compile Include="PlayerActions\PlayerAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AttackStep.cs" />
     <Compile Include="Steps\ChargeStep.cs" />

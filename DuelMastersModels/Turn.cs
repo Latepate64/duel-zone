@@ -50,9 +50,10 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        public void Start()
+        public void Start(Duel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
+            CurrentStep.ProcessTurnBasedActions(duel);
         }
 
         /// <summary>
