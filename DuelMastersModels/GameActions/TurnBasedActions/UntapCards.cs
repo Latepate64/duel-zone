@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.GameActions.TurnBasedActions
 {
-    public class DrawCardAtDrawStep : TurnBasedAction
+    public class UntapCards : TurnBasedAction
     {
         public override void Perform(Duel duel)
         {
@@ -8,7 +8,8 @@
             {
                 throw new System.ArgumentNullException("duel");
             }
-            Duel.DrawCard(duel.CurrentTurn.ActivePlayer);
+            duel.CurrentTurn.ActivePlayer.BattleZone.UntapCards();
+            duel.CurrentTurn.ActivePlayer.ManaZone.UntapCards();
         }
     }
 }

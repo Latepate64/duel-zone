@@ -19,5 +19,7 @@
         /// Performs the action.
         /// </summary>
         public abstract void Perform(Duel duel);
+
+        public abstract bool SelectAutomatically();
     }
 }

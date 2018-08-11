@@ -149,9 +149,14 @@ namespace DuelMastersModels
                     var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired();
                     if (playerAction != null)
                     {
-                        if (playerAction.Player is AIPlayer aiPlayer)
+                        if (playerAction.SelectAutomatically())
                         {
-                            aiPlayer.PerformPlayerAction(this, playerAction);
+                            playerAction.Perform(this);
+                            return Progress();
+                        }
+                        else if (playerAction.Player is AIPlayer aiPlayer)
+                        {
+                            AIPlayer.PerformPlayerAction(this, playerAction);
                             return Progress();
                         }
                         else

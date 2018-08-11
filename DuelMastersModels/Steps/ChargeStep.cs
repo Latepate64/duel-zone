@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
             else
             {
                 _mustBeEnded = true;
-                return new ChargeMana(ActivePlayer);
+                return new ChargeMana(ActivePlayer, ActivePlayer.Hand.Cards);
             }
         }
     }

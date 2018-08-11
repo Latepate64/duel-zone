@@ -49,7 +49,7 @@ namespace DuelMastersTool
 
                 while (playerAction != null)
                 {
-                    ProcessPlayerAction(duel, playerAction);
+                    PerformPlayerAction(duel, playerAction);
                     playerAction = duel.Progress();
                 }
 
@@ -59,20 +59,114 @@ namespace DuelMastersTool
             }
         }
 
-        private static void ProcessPlayerAction(Duel duel, PlayerAction playerAction)
+        private static void PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
-            if (playerAction is ChargeMana chargeMana)
+            if (playerAction is CardSelection cardSelection)
             {
-                ChargeMana(chargeMana);
+                int index;
+                if (playerAction is ChargeMana chargeMana)
+                {
+                    index = SelectCardOptional("Which card do you want to put into your mana zone?", chargeMana);
+                }
+                else if (playerAction is UseCardDeclaration useCardDeclaration)
+                {
+                    index = SelectCardOptional("Which card do you want to use?", useCardDeclaration);
+                }
+                else if (playerAction is UseCardPayCivilization useCardPayCivilization)
+                {
+                    index = SelectCard("Which mana do you want to use to pay the civilization of the card to be used?", useCardPayCivilization);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("playerAction");
+                }
+                if (index <= cardSelection.Cards.Count())
+                {
+                    cardSelection.SelectedCard = cardSelection.Cards[index - 1];
+                }
+            }
+            else if (playerAction is UseCardPayRemainingMana useCardPayRemainingMana)
+            {
+                SelectCards(useCardPayRemainingMana);
             }
             else
             {
                 throw new ArgumentOutOfRangeException("playerAction");
             }
+            Console.WriteLine();
             playerAction.Perform(duel);
             WriteLineWithEquals();
         }
 
+        private static int SelectCard(string question, CardSelection cardSelection)
+        {
+            WriteLineWithBracket(cardSelection.Player.Name, question);
+            var index = 1;
+            foreach (var card in cardSelection.Cards)
+            {
+                WriteLineWithBracket(index++, card.Name);
+            }
+            while (true)
+            {
+                var consoleKeyInfo = Console.ReadKey();
+                if (Int32.TryParse(consoleKeyInfo.KeyChar.ToString(), out int number) && number <= cardSelection.Cards.Count)
+                {
+                    return number;
+                }
+            }
+        }
+
+        private static int SelectCardOptional(string question, CardSelection cardSelection)
+        {
+            WriteLineWithBracket(cardSelection.Player.Name, question);
+            var index = 1;
+            foreach (var card in cardSelection.Cards)
+            {
+                WriteLineWithBracket(index++, card.Name);
+            }
+            WriteLineWithBracket(index++, "None");
+            while (true)
+            {
+                var consoleKeyInfo = Console.ReadKey();
+                if (Int32.TryParse(consoleKeyInfo.KeyChar.ToString(), out int number) && number <= cardSelection.Cards.Count + 1)
+                {
+                    return number;
+                }
+            }
+        }
+
+        private static void SelectCards(UseCardPayRemainingMana useCardPayRemainingMana)
+        {
+            WriteLineWithBracket(useCardPayRemainingMana.Player.Name, String.Format(CultureInfo.InvariantCulture, "Select {0} mana to pay the remaining cost.", useCardPayRemainingMana.PayAmount));
+            var index = 1;
+            foreach (var card in useCardPayRemainingMana.ManaCards)
+            {
+                WriteLineWithBracket(index++, card.Name);
+            }
+            while (true)
+            {
+                var line = Console.ReadLine();
+                if (!String.IsNullOrEmpty(line))
+                {
+                    var indices = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Distinct().Select(i => Int32.Parse(i, CultureInfo.InvariantCulture)).Where(i => i <= useCardPayRemainingMana.ManaCards.Count());
+                    if (indices.Count() == useCardPayRemainingMana.PayAmount)
+                    {
+                        foreach (var manaIndex in indices)
+                        {
+                            useCardPayRemainingMana.SelectedCards.Add(useCardPayRemainingMana.ManaCards[manaIndex - 1]);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("The cost ({0}) and the number of legal distinct indices ({1}) didn't match.", useCardPayRemainingMana.PayAmount, indices.Count());
+                    }
+                }
+                Console.WriteLine("The indices must be distinct, legal and separated with spaces.");
+            }
+        }
+
+        #region WriteLine
         private static void WriteLineWithEquals()
         {
             var line = "";
@@ -83,36 +177,15 @@ namespace DuelMastersTool
             Console.WriteLine(line);
         }
 
-        private static void WriteLinePlayerName(string name, string text)
+        private static void WriteLineWithBracket(int bracketNumber, string text)
         {
-            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", name, text));
+            WriteLineWithBracket(bracketNumber.ToString(CultureInfo.InvariantCulture), text);
         }
 
-        private static void ChargeMana(ChargeMana chargeMana)
+        private static void WriteLineWithBracket(string bracketText, string text)
         {
-            WriteLinePlayerName(chargeMana.Player.Name, "Which card do you want to put into your mana zone?");
-            var index = 0;
-            Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", index++, "Do not charge mana"));
-            foreach (var card in chargeMana.Player.Hand.Cards)
-            {
-                Console.WriteLine(String.Format(CultureInfo.InvariantCulture, "[{0}] {1}", index++, card.Name));
-            }
-            while (true)
-            {
-                var consoleKeyInfo = Console.ReadKey();
-                if (Int32.TryParse(consoleKeyInfo.KeyChar.ToString(), out int number))
-                {
-                    if (number <= chargeMana.Player.Hand.Cards.Count)
-                    {
-                        if (number != 0)
-                        {
-                            chargeMana.SelectedCard = chargeMana.Player.Hand.Cards[number - 1];
-                        }
-                        Console.WriteLine();
-                        break;
-                    }
-                }
-            }
+            Console.WriteLine("[{0}] {1}", bracketText, text);
         }
+        #endregion WriteLine
     }
 }

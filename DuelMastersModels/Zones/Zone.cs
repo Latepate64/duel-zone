@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
@@ -9,6 +10,22 @@ namespace DuelMastersModels.Zones
         /// The cards that are in the zone.
         /// </summary>
         public Collection<Card> Cards { get; } = new Collection<Card>();
+
+        public Collection<Card> TappedCards
+        {
+            get
+            {
+                return new Collection<Card>(Cards.Where(card => card.Tapped).ToList());
+            }
+        }
+
+        public Collection<Card> UntappedCards
+        {
+            get
+            {
+                return new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
+            }
+        }
 
         /// <summary>
         /// True if the zone is public, false if it is private.
@@ -32,6 +49,19 @@ namespace DuelMastersModels.Zones
         /// Removes a card from the zone.
         ///</summary>
         public abstract void Remove(Card card);
+
+        public Collection<Card> UntappedCardsWithCivilizations(Collection<Civilization> civilizations)
+        {
+            return new Collection<Card>(UntappedCards.Where(card => card.Civilizations.Intersect(civilizations).Count() > 0).ToList());
+        }
+
+        public void UntapCards()
+        {
+            foreach (var card in TappedCards)
+            {
+                card.Tapped = false;
+            }
+        }
         #endregion Methods
     }
 }

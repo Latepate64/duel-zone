@@ -62,9 +62,16 @@
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\DrawCardAtDrawStep.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
+    <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerActions\CardSelection.cs" />
     <Compile Include="PlayerActions\ChargeMana.cs" />
+    <Compile Include="PlayerActions\MandatoryCardSelection.cs" />
+    <Compile Include="PlayerActions\OptionalCardSelection.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />
+    <Compile Include="PlayerActions\UseCardDeclaration.cs" />
+    <Compile Include="PlayerActions\UseCardPayCivilization.cs" />
+    <Compile Include="PlayerActions\UseCardPayRemainingMana.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AttackStep.cs" />
     <Compile Include="Steps\ChargeStep.cs" />

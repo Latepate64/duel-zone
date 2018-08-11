@@ -1,12 +1,11 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions
 {
-    public class ChargeMana : PlayerAction
+    public class ChargeMana : OptionalCardSelection
     {
-        public Card SelectedCard { get; set; }
-
-        public ChargeMana(Player player) : base(player)
+        public ChargeMana(Player player, Collection<Card> cards) : base(player, cards)
         { }
 
         public override void Perform(Duel duel)
