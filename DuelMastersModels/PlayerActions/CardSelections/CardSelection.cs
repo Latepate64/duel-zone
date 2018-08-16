@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.ObjectModel;
 
-namespace DuelMastersModels.PlayerActions
+namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class CardSelection : PlayerAction
     {

@@ -11,6 +11,14 @@ namespace DuelMastersModels.Zones
         /// </summary>
         public Collection<Card> Cards { get; } = new Collection<Card>();
 
+        public Collection<Creature> Creatures
+        {
+            get
+            {
+                return new Collection<Creature>(Cards.Where(card => card is Creature).Cast<Creature>().ToList());
+            }
+        }
+
         public Collection<Card> TappedCards
         {
             get
@@ -19,11 +27,35 @@ namespace DuelMastersModels.Zones
             }
         }
 
+        public Collection<Creature> TappedCreatures
+        {
+            get
+            {
+                return new Collection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());
+            }
+        }
+
         public Collection<Card> UntappedCards
         {
             get
             {
                 return new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
+            }
+        }
+
+        public Collection<Creature> UntappedCreatures
+        {
+            get
+            {
+                return new Collection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
+            }
+        }
+
+        public Collection<Creature> CreaturesThatCanAttack
+        {
+            get
+            {
+                return new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
             }
         }
 

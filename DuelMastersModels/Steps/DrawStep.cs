@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override PlayerAction PlayerActionRequired()
+        public override PlayerAction PlayerActionRequired(Duel duel)
         {
             return null;
         }
@@ -20,10 +20,11 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
-        public override void ProcessTurnBasedActions(Duel duel)
+        public override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
             var action = new DrawCardAtDrawStep();
             action.Perform(duel);
+            return null;
         }
     }
 }

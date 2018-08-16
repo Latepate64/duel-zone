@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.PlayerActions.CreatureSelections;
 using System;
 using System.Linq;
 
@@ -8,20 +10,17 @@ namespace DuelMastersModels
     {
         public static void PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
-            if (playerAction is ChargeMana chargeMana)
+            if (duel == null)
             {
-                if (chargeMana.Cards.Count > 1)
-                {
-                    chargeMana.SelectedCard = chargeMana.Cards.First();
-                }
+                throw new ArgumentNullException("duel");
             }
-            else if (playerAction is UseCardDeclaration useCardDeclaration)
+            if (playerAction is CardSelection cardSelection)
             {
-                useCardDeclaration.SelectedCard = useCardDeclaration.Cards.First();
+                SelectCard(cardSelection);
             }
-            else if (playerAction is UseCardPayCivilization useCardPayCivilization)
+            else if (playerAction is CreatureSelection creatureSelection)
             {
-                useCardPayCivilization.SelectedCard = useCardPayCivilization.Cards.First();
+                SelectCreature(creatureSelection);
             }
             else if (playerAction is UseCardPayRemainingMana useCardPayRemainingMana)
             {
@@ -35,6 +34,31 @@ namespace DuelMastersModels
                 throw new ArgumentOutOfRangeException("playerAction");
             }
             playerAction.Perform(duel);
+            duel.CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
+        }
+
+        private static void SelectCard(CardSelection cardSelection)
+        {
+            if (cardSelection is ChargeMana chargeMana)
+            {
+                if (chargeMana.Cards.Count > 1)
+                {
+                    chargeMana.SelectedCard = chargeMana.Cards.First();
+                }
+            }
+            else if (cardSelection is UseCardDeclaration useCardDeclaration)
+            {
+                useCardDeclaration.SelectedCard = useCardDeclaration.Cards.First();
+            }
+            else if (cardSelection is UseCardPayCivilization useCardPayCivilization)
+            {
+                useCardPayCivilization.SelectedCard = useCardPayCivilization.Cards.First();
+            }
+        }
+
+        private static void SelectCreature(CreatureSelection creatureSelection)
+        {
+            creatureSelection.SelectedCreature = creatureSelection.Creatures.First();
         }
     }
 }

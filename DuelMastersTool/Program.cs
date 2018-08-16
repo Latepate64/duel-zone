@@ -2,8 +2,12 @@
 using DuelMastersModels.Cards;
 using DuelMastersModels.Factories;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.PlayerActions.CreatureSelections;
+using DuelMastersModels.Steps;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 
@@ -40,7 +44,10 @@ namespace DuelMastersTool
                         Name = "Kokujo",
                     },
                 };
-                var count = 40;
+
+                duel.Turns.CollectionChanged += TurnChanged;
+
+                var count = 20;
                 duel.Player1.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(0, count)));
                 duel.Player2.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(count, count)));
                 duel.Player1.SetupDeck();
@@ -59,31 +66,43 @@ namespace DuelMastersTool
             }
         }
 
+        private static void TurnChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Turn turn in e.NewItems)
+            {
+                WriteLineWithEquals();
+                Console.WriteLine("Turn number {0} started, active player: {1}, nonactive player: {2}", turn.Number, turn.ActivePlayer.Name, turn.NonActivePlayer.Name);
+                turn.Steps.CollectionChanged += StepChanged;
+            }
+        }
+
+        private static void StepChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Step step in e.NewItems)
+            {
+                //WriteLineWithDashes();
+                Console.WriteLine("{0} step started.", step.Name);
+                step.PlayerActions.CollectionChanged += PlayerActionPerformed;
+            }
+        }
+
+        private static void PlayerActionPerformed(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (PlayerAction playerAction in e.NewItems)
+            {
+                WriteLineWithBracket("Player action", playerAction.Message);
+            }
+        }
+
         private static void PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
             if (playerAction is CardSelection cardSelection)
             {
-                int index;
-                if (playerAction is ChargeMana chargeMana)
-                {
-                    index = SelectCardOptional("Which card do you want to put into your mana zone?", chargeMana);
-                }
-                else if (playerAction is UseCardDeclaration useCardDeclaration)
-                {
-                    index = SelectCardOptional("Which card do you want to use?", useCardDeclaration);
-                }
-                else if (playerAction is UseCardPayCivilization useCardPayCivilization)
-                {
-                    index = SelectCard("Which mana do you want to use to pay the civilization of the card to be used?", useCardPayCivilization);
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("playerAction");
-                }
-                if (index <= cardSelection.Cards.Count())
-                {
-                    cardSelection.SelectedCard = cardSelection.Cards[index - 1];
-                }
+                CardSelection(cardSelection);
+            }
+            else if (playerAction is CreatureSelection creatureSelection)
+            {
+                CreatureSelection(creatureSelection);
             }
             else if (playerAction is UseCardPayRemainingMana useCardPayRemainingMana)
             {
@@ -95,9 +114,56 @@ namespace DuelMastersTool
             }
             Console.WriteLine();
             playerAction.Perform(duel);
-            WriteLineWithEquals();
+            duel.CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
         }
 
+        private static void CardSelection(CardSelection cardSelection)
+        {
+            int index;
+            if (cardSelection is ChargeMana chargeMana)
+            {
+                index = SelectCardOptional("Which card do you want to put into your mana zone?", chargeMana);
+            }
+            else if (cardSelection is UseCardDeclaration useCardDeclaration)
+            {
+                index = SelectCardOptional("Which card do you want to use?", useCardDeclaration);
+            }
+            else if (cardSelection is UseCardPayCivilization useCardPayCivilization)
+            {
+                index = SelectCard("Which mana do you want to use to pay the civilization of the card to be used?", useCardPayCivilization);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("cardSelection");
+            }
+            if (index <= cardSelection.Cards.Count())
+            {
+                cardSelection.SelectedCard = cardSelection.Cards[index - 1];
+            }
+        }
+
+        private static void CreatureSelection(CreatureSelection creatureSelection)
+        {
+            int index;
+            if (creatureSelection is DeclareAttacker declareAttacker)
+            {
+                index = SelectCreatureOptional("Which creature do you want to declare as an attacker?", declareAttacker, "None");
+            }
+            else if (creatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
+            {
+                index = SelectCreatureOptional("Which creature do you want to attack?", declareTargetOfAttack, "Attack opponent");
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("creatureSelection");
+            }
+            if (index <= creatureSelection.Creatures.Count())
+            {
+                creatureSelection.SelectedCreature = creatureSelection.Creatures[index - 1];
+            }
+        }
+
+        #region Select
         private static int SelectCard(string question, CardSelection cardSelection)
         {
             WriteLineWithBracket(cardSelection.Player.Name, question);
@@ -135,6 +201,25 @@ namespace DuelMastersTool
             }
         }
 
+        private static int SelectCreatureOptional(string question, CreatureSelection creatureSelection, string option)
+        {
+            WriteLineWithBracket(creatureSelection.Player.Name, question);
+            var index = 1;
+            foreach (var card in creatureSelection.Creatures)
+            {
+                WriteLineWithBracket(index++, card.Name);
+            }
+            WriteLineWithBracket(index++, option);
+            while (true)
+            {
+                var consoleKeyInfo = Console.ReadKey();
+                if (Int32.TryParse(consoleKeyInfo.KeyChar.ToString(), out int number) && number <= creatureSelection.Creatures.Count + 1)
+                {
+                    return number;
+                }
+            }
+        }
+
         private static void SelectCards(UseCardPayRemainingMana useCardPayRemainingMana)
         {
             WriteLineWithBracket(useCardPayRemainingMana.Player.Name, String.Format(CultureInfo.InvariantCulture, "Select {0} mana to pay the remaining cost.", useCardPayRemainingMana.PayAmount));
@@ -154,8 +239,8 @@ namespace DuelMastersTool
                         foreach (var manaIndex in indices)
                         {
                             useCardPayRemainingMana.SelectedCards.Add(useCardPayRemainingMana.ManaCards[manaIndex - 1]);
-                            return;
                         }
+                        return;
                     }
                     else
                     {
@@ -165,14 +250,25 @@ namespace DuelMastersTool
                 Console.WriteLine("The indices must be distinct, legal and separated with spaces.");
             }
         }
+        #endregion Select
 
         #region WriteLine
+        /*private static void WriteLineWithDashes()
+        {
+            WriteLineWithCharacters('-');
+        }*/
+
         private static void WriteLineWithEquals()
+        {
+            WriteLineWithCharacters('=');
+        }
+
+        private static void WriteLineWithCharacters(char character)
         {
             var line = "";
             for (var i = 0; i < 100; ++i)
             {
-                line += "=";
+                line += character;
             }
             Console.WriteLine(line);
         }

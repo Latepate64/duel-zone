@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Steps;
+﻿using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Steps;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        public Collection<Step> Steps { get; } = new Collection<Step>();
+        public ObservableCollection<Step> Steps { get; } = new ObservableCollection<Step>();
 
         /// <summary>
         /// The step that is currently being processed.
@@ -50,10 +51,10 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        public void Start(Duel duel)
+        public PlayerAction Start(Duel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
-            CurrentStep.ProcessTurnBasedActions(duel);
+            return CurrentStep.ProcessTurnBasedActions(duel);
         }
 
         /// <summary>
@@ -84,11 +85,38 @@ namespace DuelMastersModels
             }
             else if (CurrentStep is MainStep)
             {
-                Steps.Add(new AttackStep(ActivePlayer));
+                Steps.Add(new AttackDeclarationStep(ActivePlayer, NonActivePlayer));
             }
-            else if (CurrentStep is AttackStep)
+            else if (CurrentStep is AttackDeclarationStep attackDeclarationStep)
             {
-                Steps.Add(new EndOfTurnStep(ActivePlayer));
+                if (attackDeclarationStep.AttackingCreature != null)
+                {
+                    Steps.Add(new BlockDeclarationStep(ActivePlayer));
+                }
+                else
+                {
+                    Steps.Add(new EndOfTurnStep(ActivePlayer));
+                }
+            }
+            else if (CurrentStep is BlockDeclarationStep)
+            {
+                var attackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
+                if (attackDeclaration.AttackedCreature != null)
+                {
+                    Steps.Add(new BattleStep(ActivePlayer, attackDeclaration.AttackingCreature, attackDeclaration.AttackedCreature));
+                }
+                else
+                {
+                    Steps.Add(new DirectAttackStep(ActivePlayer, attackDeclaration.AttackingCreature));
+                }
+            }
+            else if (CurrentStep is BattleStep || CurrentStep is DirectAttackStep)
+            {
+                Steps.Add(new EndOfAttackStep(ActivePlayer));
+            }
+            else if (CurrentStep is EndOfAttackStep)
+            {
+                Steps.Add(new AttackDeclarationStep(ActivePlayer, NonActivePlayer));
             }
             else if (CurrentStep is EndOfTurnStep)
             {

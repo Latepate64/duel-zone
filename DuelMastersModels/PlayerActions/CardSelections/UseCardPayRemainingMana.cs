@@ -2,8 +2,9 @@
 using DuelMastersModels.Steps;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
-namespace DuelMastersModels.PlayerActions
+namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class UseCardPayRemainingMana : PlayerAction
     {
@@ -12,6 +13,14 @@ namespace DuelMastersModels.PlayerActions
         public int PayAmount { get; private set; }
 
         public Collection<Card> SelectedCards { get; } = new Collection<Card>();
+
+        public override string Message
+        {
+            get
+            {
+                return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} paid the remaining cost with: {1}", Player.Name, string.Join(" * ", SelectedCards.Select(card => card.Name)));
+            }
+        }
 
         public UseCardPayRemainingMana(Player player, Collection<Card> manaCards, Card cardToBeUsed, int payAmount) : base(player)
         {
@@ -58,6 +67,10 @@ namespace DuelMastersModels.PlayerActions
 
         public override bool SelectAutomatically()
         {
+            if (PayAmount == 0)
+            {
+                return true;
+            }
             if (ManaCards.Count == PayAmount)
             {
                 foreach (var manaCard in ManaCards)

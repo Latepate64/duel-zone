@@ -34,7 +34,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        public Collection<Turn> Turns { get; } = new Collection<Turn>();
+        public ObservableCollection<Turn> Turns { get; } = new ObservableCollection<Turn>();
 
         /// <summary>
         /// The turn that is currently being processed.
@@ -80,8 +80,15 @@ namespace DuelMastersModels
         {
             var turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
             Turns.Add(turn);
-            turn.Start(this);
-            return Progress();
+            var playerAction = turn.Start(this);
+            if (playerAction != null)
+            {
+                return PerformAutomatically(playerAction);
+            }
+            else
+            {
+                return Progress();
+            }
         }
 
         /// <summary>
@@ -146,23 +153,10 @@ namespace DuelMastersModels
                 CheckStateBasedActions();
                 if (!Ended)
                 {
-                    var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired();
+                    var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
                     if (playerAction != null)
                     {
-                        if (playerAction.SelectAutomatically())
-                        {
-                            playerAction.Perform(this);
-                            return Progress();
-                        }
-                        else if (playerAction.Player is AIPlayer aiPlayer)
-                        {
-                            AIPlayer.PerformPlayerAction(this, playerAction);
-                            return Progress();
-                        }
-                        else
-                        {
-                            return playerAction;
-                        }
+                        return PerformAutomatically(playerAction);
                     }
                     else
                     {
@@ -172,8 +166,15 @@ namespace DuelMastersModels
                         }
                         else
                         {
-                            CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                            return Progress();
+                            var action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                            if (action != null)
+                            {
+                                return PerformAutomatically(action);
+                            }
+                            else
+                            {
+                                return Progress();
+                            }
                         }
                     }
                 }
@@ -181,7 +182,7 @@ namespace DuelMastersModels
             return null;
         }
 
-        public static void PutFromHandToManaZone(Player player, Card card)
+        public static void PutFromHandIntoManaZone(Player player, Card card)
         {
             if (player == null)
             {
@@ -193,6 +194,56 @@ namespace DuelMastersModels
             }
             player.Hand.Cards.Remove(card);
             player.ManaZone.Cards.Add(card);
+        }
+
+        public static void PutFromBattleIntoGraveyard(Player player, Creature creature)
+        {
+            if (player == null)
+            {
+                throw new ArgumentNullException("player");
+            }
+            if (creature == null)
+            {
+                throw new ArgumentNullException("creature");
+            }
+            player.BattleZone.Cards.Remove(creature);
+            player.Graveyard.Cards.Add(creature);
+        }
+
+        /// <summary>
+        /// TODO: Handle destruction as a state-based action. 703.4d
+        /// </summary>
+        public static void Battle(Creature attackingCreature, Creature defendingCreature, Player attackingPlayer, Player defendingPlayer)
+        {
+            if (attackingCreature == null)
+            {
+                throw new ArgumentNullException("attackingCreature");
+            }
+            else if (defendingCreature == null)
+            {
+                throw new ArgumentNullException("defendingCreature");
+            }
+            else if (attackingPlayer == null)
+            {
+                throw new ArgumentNullException("attackingPlayer");
+            }
+            else if (defendingPlayer == null)
+            {
+                throw new ArgumentNullException("defendingPlayer");
+            }
+            else if (attackingCreature.Power > defendingCreature.Power)
+            {
+                PutFromBattleIntoGraveyard(defendingPlayer, defendingCreature);
+            }
+            else if (attackingCreature.Power < defendingCreature.Power)
+            {
+                PutFromBattleIntoGraveyard(attackingPlayer, attackingCreature);
+            }
+            else
+            {
+                PutFromBattleIntoGraveyard(attackingPlayer, attackingCreature);
+                PutFromBattleIntoGraveyard(defendingPlayer, defendingCreature);
+            }
         }
         #endregion Public methods
 
@@ -234,6 +285,25 @@ namespace DuelMastersModels
         {
             var checkDeckHasCards = new CheckDeckHasCards();
             checkDeckHasCards.Perform(this);
+        }
+
+        private PlayerAction PerformAutomatically(PlayerAction playerAction)
+        {
+            if (playerAction.SelectAutomatically())
+            {
+                playerAction.Perform(this);
+                CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
+                return Progress();
+            }
+            else if (playerAction.Player is AIPlayer aiPlayer)
+            {
+                AIPlayer.PerformPlayerAction(this, playerAction);
+                return Progress();
+            }
+            else
+            {
+                return playerAction;
+            }
         }
         #endregion Private methods
     }

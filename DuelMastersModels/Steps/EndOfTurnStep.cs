@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override PlayerAction PlayerActionRequired()
+        public override PlayerAction PlayerActionRequired(Duel duel)
         {
             return null;
         }

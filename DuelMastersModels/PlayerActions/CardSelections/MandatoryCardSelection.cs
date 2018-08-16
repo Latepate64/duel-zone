@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.PlayerActions
+namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class MandatoryCardSelection : CardSelection
     {
@@ -11,9 +11,12 @@ namespace DuelMastersModels.PlayerActions
 
         public override bool SelectAutomatically()
         {
-            if (Cards.Count == 1)
+            if (Cards.Count <= 1)
             {
-                SelectedCard = Cards.First();
+                if (Cards.Count == 1)
+                {
+                    SelectedCard = Cards.First();
+                }
                 return true;
             }
             else

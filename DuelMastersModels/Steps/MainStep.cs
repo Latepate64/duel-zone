@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace DuelMastersModels.Steps
             EndStep,
         }
 
-        public Collection<PlayerAction> PlayerActions { get; } = new Collection<PlayerAction>();
+        private Collection<PlayerAction> _playerActions = new Collection<PlayerAction>();
 
         private State _state = State.DeclareCard;
 
@@ -27,14 +28,14 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override PlayerAction PlayerActionRequired()
+        public override PlayerAction PlayerActionRequired(Duel duel)
         {
             switch (_state)
             {
                 case State.DeclareCard:
-                    return DeclareCard();
+                    return DeclareCard(duel);
                 case State.PayCivilization:
-                    return PayCivilization();
+                    return PayCivilization(duel);
                 case State.PayRemainingMana:
                     return PayRemainingMana(1);
                 case State.EndStep:
@@ -49,27 +50,27 @@ namespace DuelMastersModels.Steps
             _state = State.EndStep;
         }
 
-        private PlayerAction DeclareCard()
+        private PlayerAction DeclareCard(Duel duel)
         {
             var usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
             if (usableCards.Count > 0)
             {
                 _state = State.PayCivilization;
                 var useCardDeclaration = new UseCardDeclaration(ActivePlayer, usableCards);
-                PlayerActions.Add(useCardDeclaration);
+                _playerActions.Add(useCardDeclaration);
                 return useCardDeclaration;
             }
             else
             {
                 _state = State.EndStep;
-                return PlayerActionRequired();
+                return PlayerActionRequired(duel);
             }
         }
 
-        private PlayerAction PayCivilization()
+        private PlayerAction PayCivilization(Duel duel)
         {
             _state = State.PayRemainingMana;
-            if (PlayerActions.Last() is UseCardDeclaration useCardDeclaration)
+            if (_playerActions.Last() is UseCardDeclaration useCardDeclaration)
             {
                 var card = useCardDeclaration.SelectedCard;
                 if (card != null)
@@ -81,14 +82,14 @@ namespace DuelMastersModels.Steps
                     else
                     {
                         var useCardPayCivilization = new UseCardPayCivilization(ActivePlayer, ActivePlayer.ManaZone.UntappedCardsWithCivilizations(card.Civilizations));
-                        PlayerActions.Add(useCardPayCivilization);
+                        _playerActions.Add(useCardPayCivilization);
                         return useCardPayCivilization;
                     }
                 }
                 else
                 {
                     _state = State.EndStep;
-                    return PlayerActionRequired();
+                    return PlayerActionRequired(duel);
                 }
             }
             else
@@ -100,9 +101,9 @@ namespace DuelMastersModels.Steps
         private PlayerAction PayRemainingMana(int payDecrease)
         {
             _state = State.DeclareCard;
-            var declaredCard = (PlayerActions.Where(action => action is UseCardDeclaration).Last() as UseCardDeclaration).SelectedCard;
+            var declaredCard = (_playerActions.Where(action => action is UseCardDeclaration).Last() as UseCardDeclaration).SelectedCard;
             var useCardPayRemainingMana = new UseCardPayRemainingMana(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, declaredCard, declaredCard.Cost - payDecrease); //TODO: Add support for multicolored cards.
-            PlayerActions.Add(useCardPayRemainingMana);
+            _playerActions.Add(useCardPayRemainingMana);
             return useCardPayRemainingMana;
         }
 

@@ -10,6 +10,8 @@
         /// </summary>
         public Player Player { get; private set; }
 
+        public abstract string Message { get; }
+
         protected PlayerAction(Player player)
         {
             Player = player;

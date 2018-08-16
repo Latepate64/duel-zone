@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
 
 namespace DuelMastersModels.Steps
 {
@@ -13,7 +14,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override PlayerAction PlayerActionRequired()
+        public override PlayerAction PlayerActionRequired(Duel duel)
         {
             if (_mustBeEnded || ActivePlayer.Hand.Cards.Count == 0)
             {
