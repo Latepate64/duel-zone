@@ -20,13 +20,13 @@ namespace DuelMastersModels.Cards
         public string Flavor { get; private set; }
         public string Illustrator { get; private set; }
         public Collection<string> Races { get; private set; }
-        public int Power { get; private set; }
+        public string Power { get; private set; }
 
         /// <summary>
         /// Creates a JsonCard.
         /// </summary>
         [JsonConstructor]
-        public JsonCard(string name, string set, string id, string civilization, Collection<string> civilizations, string type, string rarity, int cost, string text, string flavor, string illustrator, string race, Collection<string> races, int power)
+        public JsonCard(string name, string set, string id, string civilization, Collection<string> civilizations, string type, string rarity, int cost, string text, string flavor, string illustrator, string race, Collection<string> races, string power)
         {
 
             Name = name;

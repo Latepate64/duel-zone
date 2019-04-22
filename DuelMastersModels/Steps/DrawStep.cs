@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class DrawStep : Step
     {
-        public DrawStep(Player player) : base(player, "Draw")
+        public DrawStep(Player player) : base(player)
         {
         }
 

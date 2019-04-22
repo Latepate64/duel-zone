@@ -1,37 +1,24 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
+using System;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class ChargeMana : OptionalCardSelection
-    {
-        public ChargeMana(Player player, Collection<Card> cards) : base(player, cards)
+    { 
+        public ChargeMana() { }
+
+        public ChargeMana(Player player) : base(player, player.Hand.Cards)
         { }
 
-        public override string Message
-        {
-            get
-            {
-                if (SelectedCard != null)
-                {
-                    return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} charged mana with {1}.", Player.Name, SelectedCard.Name);
-                }
-                else
-                {
-                    return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} did not charge mana.", Player.Name);
-                }
-            }
-        }
-
-        public override void Perform(Duel duel)
+        public override void Perform(Duel duel, Card card)
         {
             if (duel == null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new ArgumentNullException("duel");
             }
-            if (SelectedCard != null)
+            if (card != null)
             {
-                Duel.PutFromHandIntoManaZone(Player, SelectedCard);
+                duel.PutFromHandIntoManaZone(Player, card);
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.PlayerActionResponses;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -56,6 +58,8 @@ namespace DuelMastersModels
         /// The number of cards each player draw at the start of a duel.
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
+
+        public PlayerAction CurrentPlayerAction { get; set; }
         #endregion Properties
 
         #region Public methods
@@ -70,13 +74,13 @@ namespace DuelMastersModels
             PutFromTheTopOfDeckIntoShieldZone(Player2, InitialNumberOfShields);
             DrawCards(Player1, InitialNumberOfHandCards);
             DrawCards(Player2, InitialNumberOfHandCards);
-            return StartNewTurn(Player1, Player2);
+            return SetCurrentPlayerAction(StartNewTurn(Player1, Player2));
         }
 
         /// <summary>
         /// Creates a new turn and starts it.
         /// </summary>
-        public PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
+        private PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
             var turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
             Turns.Add(turn);
@@ -142,6 +146,42 @@ namespace DuelMastersModels
             DrawCards(player, 1);
         }
 
+        private PlayerAction SetCurrentPlayerAction(PlayerAction playerAction)
+        {
+            CurrentPlayerAction = playerAction;
+            return playerAction;
+        }
+
+        public PlayerAction Progress(PlayerActionResponse response)
+        {
+            if (response is CardSelectionResponse cardSelectionResponse)
+            {
+                Card card = null;
+                if (cardSelectionResponse.SelectedCards.Count == 1)
+                {
+                    card = cardSelectionResponse.SelectedCards.First();
+                }
+                if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
+                {
+                    optionalCardSelection.Perform(this, card);
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+                
+            }
+            else if (response is DeclareAttackResponse declareAttackResponse)
+            {
+                (CurrentPlayerAction as DeclareAttack).Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("response");
+            }
+            return SetCurrentPlayerAction(Progress());
+        }
+
         /// <summary>
         /// Progresses in the duel.
         /// </summary>
@@ -156,33 +196,33 @@ namespace DuelMastersModels
                     var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
                     if (playerAction != null)
                     {
-                        return PerformAutomatically(playerAction);
+                        return SetCurrentPlayerAction(PerformAutomatically(playerAction));
                     }
                     else
                     {
                         if (CurrentTurn.ChangeStep())
                         {
-                            return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
+                            return SetCurrentPlayerAction(StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer));
                         }
                         else
                         {
                             var action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
                             if (action != null)
                             {
-                                return PerformAutomatically(action);
+                                return SetCurrentPlayerAction(PerformAutomatically(action));
                             }
                             else
                             {
-                                return Progress();
+                                return SetCurrentPlayerAction(Progress());
                             }
                         }
                     }
                 }
             }
-            return null;
+            return SetCurrentPlayerAction(null);
         }
 
-        public static void PutFromHandIntoManaZone(Player player, Card card)
+        public void PutFromHandIntoManaZone(Player player, Card card)
         {
             if (player == null)
             {
@@ -192,22 +232,8 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException("card");
             }
-            player.Hand.Cards.Remove(card);
-            player.ManaZone.Cards.Add(card);
-        }
-
-        public static void PutFromBattleIntoGraveyard(Player player, Creature creature)
-        {
-            if (player == null)
-            {
-                throw new ArgumentNullException("player");
-            }
-            if (creature == null)
-            {
-                throw new ArgumentNullException("creature");
-            }
-            player.BattleZone.Cards.Remove(creature);
-            player.Graveyard.Cards.Add(creature);
+            player.Hand.Remove(card);
+            player.ManaZone.Add(card);
         }
 
         /// <summary>
@@ -233,16 +259,32 @@ namespace DuelMastersModels
             }
             else if (attackingCreature.Power > defendingCreature.Power)
             {
-                PutFromBattleIntoGraveyard(defendingPlayer, defendingCreature);
+                PutFromBattleZoneIntoGraveyard(defendingPlayer, defendingCreature);
             }
             else if (attackingCreature.Power < defendingCreature.Power)
             {
-                PutFromBattleIntoGraveyard(attackingPlayer, attackingCreature);
+                PutFromBattleZoneIntoGraveyard(attackingPlayer, attackingCreature);
             }
             else
             {
-                PutFromBattleIntoGraveyard(attackingPlayer, attackingCreature);
-                PutFromBattleIntoGraveyard(defendingPlayer, defendingCreature);
+                PutFromBattleZoneIntoGraveyard(attackingPlayer, attackingCreature);
+                PutFromBattleZoneIntoGraveyard(defendingPlayer, defendingCreature);
+            }
+        }
+
+        public Player GetPlayer(int id)
+        {
+            if (Player1.Id == id)
+            {
+                return Player1;
+            }
+            else if (Player2.Id == id)
+            {
+                return Player2;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("id");
             }
         }
         #endregion Public methods
@@ -289,9 +331,8 @@ namespace DuelMastersModels
 
         private PlayerAction PerformAutomatically(PlayerAction playerAction)
         {
-            if (playerAction.SelectAutomatically())
+            if (playerAction.PerformAutomatically(this))
             {
-                playerAction.Perform(this);
                 CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
                 return Progress();
             }
@@ -304,6 +345,20 @@ namespace DuelMastersModels
             {
                 return playerAction;
             }
+        }
+
+        private static void PutFromBattleZoneIntoGraveyard(Player player, Creature creature)
+        {
+            if (player == null)
+            {
+                throw new ArgumentNullException("player");
+            }
+            if (creature == null)
+            {
+                throw new ArgumentNullException("creature");
+            }
+            player.BattleZone.Cards.Remove(creature);
+            player.Graveyard.Cards.Add(creature);
         }
         #endregion Private methods
     }

@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8959A481-6D73-445E-B137-F1837D674D39}</ProjectGuid>
+    <ProjectGuid>{D705B82E-8397-458F-BAFD-416174591A4E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DuelMastersModels</RootNamespace>
-    <AssemblyName>DuelMastersModels</AssemblyName>
+    <RootNamespace>UnitTests</RootNamespace>
+    <AssemblyName>UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -23,8 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>DuelMasters.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,13 +32,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -62,60 +56,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIPlayer.cs" />
-    <Compile Include="Cards\Card.cs" />
-    <Compile Include="Cards\Creature.cs" />
-    <Compile Include="Cards\CrossGear.cs" />
-    <Compile Include="Cards\EvolutionCreature.cs" />
-    <Compile Include="Cards\JsonCard.cs" />
-    <Compile Include="Cards\Spell.cs" />
-    <Compile Include="Duel.cs" />
-    <Compile Include="Factories\CardFactory.cs" />
-    <Compile Include="Factories\JsonCardFactory.cs" />
-    <Compile Include="GameActions\GameAction.cs" />
-    <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
-    <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
-    <Compile Include="GameActions\TurnBasedActions\DrawCardAtDrawStep.cs" />
-    <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
-    <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
-    <Compile Include="PlayerActionResponses\CardSelectionResponse.cs" />
-    <Compile Include="PlayerActionResponses\DeclareAttackResponse.cs" />
-    <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
-    <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
-    <Compile Include="PlayerActions\CardSelections\OptionalCardSelection.cs" />
-    <Compile Include="PlayerActions\CardSelections\PayCost.cs" />
-    <Compile Include="PlayerActions\CardSelections\UseCard.cs" />
-    <Compile Include="PlayerActions\DeclareAttack.cs" />
-    <Compile Include="PlayerActions\PlayerAction.cs" />
+    <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\AttackDeclarationStep.cs" />
-    <Compile Include="Steps\BattleStep.cs" />
-    <Compile Include="Steps\BlockDeclarationStep.cs" />
-    <Compile Include="Steps\ChargeStep.cs" />
-    <Compile Include="Steps\DirectAttackStep.cs" />
-    <Compile Include="Steps\DrawStep.cs" />
-    <Compile Include="Steps\EndOfAttackStep.cs" />
-    <Compile Include="Steps\EndOfTurnStep.cs" />
-    <Compile Include="Steps\MainStep.cs" />
-    <Compile Include="Steps\StartOfTurnStep.cs" />
-    <Compile Include="Steps\Step.cs" />
-    <Compile Include="Turn.cs" />
-    <Compile Include="Zones\BattleZone.cs" />
-    <Compile Include="Zones\Deck.cs" />
-    <Compile Include="Zones\Graveyard.cs" />
-    <Compile Include="Zones\Hand.cs" />
-    <Compile Include="Zones\ManaZone.cs" />
-    <Compile Include="Zones\ShieldZone.cs" />
-    <Compile Include="Zones\Zone.cs" />
+    <Compile Include="XmlUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DuelMastersModels\DuelMastersModels.csproj">
+      <Project>{8959a481-6d73-445e-b137-f1837d674d39}</Project>
+      <Name>DuelMastersModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DuelMasters.ruleset" />
-    <None Include="packages.config" />
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -124,6 +82,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
 </Project>

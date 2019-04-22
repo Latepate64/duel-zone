@@ -5,20 +5,12 @@ using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
-    public class UseCardPayCivilization : MandatoryCardSelection
+    public class UseCard : OptionalCardSelection
     {
-        public UseCardPayCivilization(Player player, Collection<Card> cards) : base(player, cards)
+        public UseCard(Player player, Collection<Card> cards) : base(player, cards)
         { }
 
-        public override string Message
-        {
-            get
-            {
-                return string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} paid civilization mana with {1}.", Player.Name, SelectedCard.Name);
-            }
-        }
-
-        public override void Perform(Duel duel)
+        public override void Perform(Duel duel, Card card)
         {
             if (duel == null)
             {
@@ -26,13 +18,16 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
             else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
             {
-                if (SelectedCard != null)
+                if (card != null)
                 {
-                    SelectedCard.Tapped = true;
+                    // 601.1a The card leaves the zone it is currently in (usually the player's hand) and is moved to the anywhere zone.
+                    Player.Hand.Remove(card);
+                    mainStep.CardToBeUsed = card;
+                    mainStep.State = MainStepState.Pay;
                 }
                 else
                 {
-                    throw new NotSupportedException();
+                    mainStep.State = MainStepState.MustBeEnded;
                 }
             }
             else

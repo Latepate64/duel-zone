@@ -1,6 +1,6 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
-using DuelMastersModels.PlayerActions.CreatureSelections;
 using System;
 using System.Linq;
 
@@ -16,49 +16,40 @@ namespace DuelMastersModels
             }
             if (playerAction is CardSelection cardSelection)
             {
-                SelectCard(cardSelection);
+                SelectCard(duel, cardSelection);
             }
-            else if (playerAction is CreatureSelection creatureSelection)
+            else if (playerAction is DeclareAttack declareAttack)
             {
-                SelectCreature(creatureSelection);
-            }
-            else if (playerAction is UseCardPayRemainingMana useCardPayRemainingMana)
-            {
-                foreach (var card in useCardPayRemainingMana.ManaCards.ToList().GetRange(0, useCardPayRemainingMana.PayAmount))
-                {
-                    useCardPayRemainingMana.SelectedCards.Add(card);
-                }
+                declareAttack.Declare(duel, declareAttack.CreaturesThatCanAttack.First(), null);
             }
             else
             {
                 throw new ArgumentOutOfRangeException("playerAction");
             }
-            playerAction.Perform(duel);
-            duel.CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
         }
 
-        private static void SelectCard(CardSelection cardSelection)
+        private static void SelectCard(Duel duel, CardSelection cardSelection)
         {
-            if (cardSelection is ChargeMana chargeMana)
+            if (cardSelection is OptionalCardSelection optionalCardSelection)
             {
-                if (chargeMana.Cards.Count > 1)
+                Card card = null;
+                if (optionalCardSelection.Cards.Count > 1)
                 {
-                    chargeMana.SelectedCard = chargeMana.Cards.First();
+                    card = optionalCardSelection.Cards.First();
                 }
+                optionalCardSelection.Perform(duel, card);
             }
-            else if (cardSelection is UseCardDeclaration useCardDeclaration)
+            else if (cardSelection is PayCost payCost)
             {
-                useCardDeclaration.SelectedCard = useCardDeclaration.Cards.First();
+                var civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
+                var manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
+                manaCards.Add(civCard);
+                payCost.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(manaCards));
             }
-            else if (cardSelection is UseCardPayCivilization useCardPayCivilization)
+            else
             {
-                useCardPayCivilization.SelectedCard = useCardPayCivilization.Cards.First();
+                throw new ArgumentOutOfRangeException("cardSelection");
             }
-        }
-
-        private static void SelectCreature(CreatureSelection creatureSelection)
-        {
-            creatureSelection.SelectedCreature = creatureSelection.Creatures.First();
         }
     }
 }

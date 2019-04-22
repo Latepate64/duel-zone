@@ -35,13 +35,15 @@ namespace DuelMastersModels.Cards
         public string Name { get; set; }
         public string Set { get; set; }
         public string Id { get; set; }
-        public Collection<Civilization> Civilizations { get; }
+        public Collection<Civilization> Civilizations { get; } = new Collection<Civilization>();
         public Rarity Rarity { get; set; }
-        public int Cost { get; }
+        public int Cost { get; set; }
         public string Text { get; set; }
         public string Flavor { get; set; }
         public string Illustrator { get; set; }
         public bool Tapped { get; set; } = false;
+
+        public abstract Card DeepCopy { get; }
         #endregion Properties
 
         #region Fields
@@ -55,6 +57,8 @@ namespace DuelMastersModels.Cards
             { NoRarityText, Rarity.None },
         };
         #endregion Fields
+
+        protected Card() { }
 
         /// <summary>
         /// Creates a card.

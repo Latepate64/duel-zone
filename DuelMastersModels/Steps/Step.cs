@@ -12,20 +12,14 @@ namespace DuelMastersModels.Steps
         public Player ActivePlayer { get; }
 
         /// <summary>
-        /// Name of the step.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// All the player actions performed during the step.
         /// </summary>
         public ObservableCollection<PlayerAction> PlayerActions { get; } = new ObservableCollection<PlayerAction>();
         #endregion Properties
 
-        protected Step(Player activePlayer, string name)
+        protected Step(Player activePlayer)
         {
             ActivePlayer = activePlayer;
-            Name = name;
         }
 
         /// <summary>

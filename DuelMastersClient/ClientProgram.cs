@@ -41,15 +41,12 @@ namespace DuelMastersClient
         private static ManualResetEvent _connectDone = new ManualResetEvent(false);
         private static ManualResetEvent _sendDone = new ManualResetEvent(false);
         private static ManualResetEvent _receiveDone = new ManualResetEvent(false);
-        private static string _response = String.Empty;
-        //private static string _name;
         #endregion Fields
 
         static void Main(string[] args)
         {
             Console.WriteLine("Started Duel Masters Client.");
-            var name = EnterName();
-            StartClient(name);
+            StartClient(EnterName());
         }
 
         #region Callbacks
@@ -85,27 +82,47 @@ namespace DuelMastersClient
                 // Retrieve the state object and the client socket from the asynchronous state object.  
                 var state = (StateObject)ar.AsyncState;
 
-                // Read data from the remote device.  
+                // Read data from the remote device.
                 var bytesRead = state.ClientSocket.EndReceive(ar);
                 if (bytesRead > 0)
                 {
                     // There might be more data, so store the data received so far.  
                     state.StringBuilder.Append(Encoding.ASCII.GetString(state.Buffer, 0, bytesRead));
+                    try
+                    {
+                        var xElement = XmlUtility.GetXElement(state.StringBuilder.ToString());
+                        Console.WriteLine("Response received: {0}", xElement);
 
-                    // Get the rest of the data.  
-                    state.ClientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                        // Signal that all bytes have been received.  
+                        _receiveDone.Set();
+                    }
+                    catch (System.Xml.XmlException e)
+                    {
+                        // Get the rest of the data.  
+                        state.ClientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+                    }
                 }
                 else
                 {
-                    // All the data has arrived; put it in response.  
-                    if (state.StringBuilder.Length > 1)
-                    {
-                        _response = state.StringBuilder.ToString();
-                    }
-
-                    // Signal that all bytes have been received.  
-                    _receiveDone.Set();
+                    throw new Exception("ReceiveCallback: Expected bytes.");
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private static void SendCallback(IAsyncResult ar)
+        {
+            try
+            {
+                // Complete sending the data to the remote device.  
+                var bytesSent = ((Socket)ar.AsyncState).EndSend(ar);
+                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
+
+                // Signal that all bytes have been sent.  
+                _sendDone.Set();
             }
             catch (Exception e)
             {
@@ -128,13 +145,18 @@ namespace DuelMastersClient
             {
                 var ipAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
                 clientSocket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                clientSocket.BeginConnect(new IPEndPoint(ipAddress, Port), new AsyncCallback(ConnectCallback), new StateObject() { ClientSocket = clientSocket, Buffer = Encoding.ASCII.GetBytes(name) });
+                clientSocket.BeginConnect(new IPEndPoint(ipAddress, Port), new AsyncCallback(ConnectCallback), clientSocket);
                 _connectDone.WaitOne();
-                //SendConnectionRequest(client);
-                //_sendDone.WaitOne();
-                Receive(clientSocket);
-                _receiveDone.WaitOne();
-                Console.WriteLine("Response received : {0}", _response);
+
+                Send(clientSocket, new XElement("Name", name).ToString());
+                _sendDone.WaitOne();
+
+                while (true)
+                {
+                    _receiveDone.Reset();
+                    Receive(clientSocket);
+                    _receiveDone.WaitOne();
+                }
                 Console.WriteLine("Press any key to exit.");
                 Console.ReadKey();
             }
@@ -152,7 +174,8 @@ namespace DuelMastersClient
                 var state = new StateObject() { ClientSocket = client };
 
                 // Begin receiving the data from the remote device.  
-                client.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                client.BeginReceive(state.Buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), state);
+                Console.WriteLine("Waiting for data from the server...");
             }
             catch (Exception e)
             {
@@ -162,38 +185,13 @@ namespace DuelMastersClient
 
         private static void Send(Socket client, string data)
         {
+            Console.WriteLine(String.Format("Sending data to server: {0}", data));
+
             // Convert the string data to byte data using ASCII encoding.  
             var byteData = Encoding.ASCII.GetBytes(data);
 
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(SendCallback), client);
-        }
-
-        private static void SendConnectionRequest(Socket client)
-        {
-            //Send(client, new XElement("ConnectionRequest", _name).ToString());
-        }
-
-        private static void SendDisconnectRequest(Socket client)
-        {
-            //Send(client, new XElement("DisconnectRequest", _name).ToString());
-        }
-
-        private static void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Complete sending the data to the remote device.  
-                var bytesSent = ((Socket)ar.AsyncState).EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
-
-                // Signal that all bytes have been sent.  
-                _sendDone.Set();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
         }
     }
 }

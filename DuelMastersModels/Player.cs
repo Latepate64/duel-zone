@@ -9,6 +9,11 @@ namespace DuelMastersModels
     {
         #region Properties
         /// <summary>
+        /// The identifier of the player.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// The name of the player.
         /// </summary>
         public string Name { get; set; }
@@ -19,12 +24,12 @@ namespace DuelMastersModels
         public Collection<Card> DeckBeforeDuel { get; } = new Collection<Card>();
 
         #region Zones
-        public BattleZone BattleZone { get; } = new BattleZone();
-        public Deck Deck { get; } = new Deck();
-        public Graveyard Graveyard { get; } = new Graveyard();
-        public Hand Hand { get; } = new Hand();
-        public ManaZone ManaZone { get; } = new ManaZone();
-        public ShieldZone ShieldZone { get; } = new ShieldZone();
+        public BattleZone BattleZone { get; set; } = new BattleZone();
+        public Deck Deck { get; set; } = new Deck();
+        public Graveyard Graveyard { get; set; } = new Graveyard();
+        public Hand Hand { get; set; } = new Hand();
+        public ManaZone ManaZone { get; set; } = new ManaZone();
+        public ShieldZone ShieldZone { get; set; } = new ShieldZone();
         #endregion Zones
         #endregion Properties
 

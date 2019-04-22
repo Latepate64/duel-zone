@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.PlayerActions
+﻿using System.Xml.Serialization;
+
+namespace DuelMastersModels.PlayerActions
 {
     /// <summary>
     /// Represents an action a player must perform.
@@ -8,20 +10,26 @@
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        public Player Player { get; private set; }
+        [XmlIgnore]
+        public Player Player { get; set; }
 
-        public abstract string Message { get; }
+        /// <summary>
+        /// Identifier of the player performing the action.
+        /// </summary>
+        public int PlayerId
+        {
+            get { return Player.Id; }
+            set { }
+        }
+
+        protected PlayerAction() { }
 
         protected PlayerAction(Player player)
         {
             Player = player;
+            PlayerId = player.Id;
         }
 
-        /// <summary>
-        /// Performs the action.
-        /// </summary>
-        public abstract void Perform(Duel duel);
-
-        public abstract bool SelectAutomatically();
+        public abstract bool PerformAutomatically(Duel duel);
     }
 }

@@ -6,6 +6,7 @@ namespace DuelMastersModels.Zones
 {
     public abstract class Zone
     {
+        #region Properties
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
@@ -70,6 +71,7 @@ namespace DuelMastersModels.Zones
         /// 400.4. The order of the cards in the shield zone or deck will be aligned unless it is effect or rule It can not be changed. Other cards in other zones, as the player wishes You can sort them. However, whether or not you tap it, the card attached to it Something must remain obvious to all players.
         /// </summary>
         public abstract bool Ordered { get; }
+        #endregion Properties
 
         #region Methods
         ///<summary>
@@ -93,6 +95,11 @@ namespace DuelMastersModels.Zones
             {
                 card.Tapped = false;
             }
+        }
+
+        public Card GetCard(int gameId)
+        {
+            return Cards.First(card => card.GameId == gameId);
         }
         #endregion Methods
     }

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class EndOfTurnStep : Step
     {
-        public EndOfTurnStep(Player player) : base(player, "End of turn")
+        public EndOfTurnStep(Player player) : base(player)
         {
         }
 

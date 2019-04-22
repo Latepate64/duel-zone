@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
         public Creature AttackingCreature { get; private set; }
         public Creature DefendingCreature { get; private set; }
 
-        public BattleStep(Player activePlayer, Creature attackingCreature, Creature defendingCreature) : base(activePlayer, "Battle")
+        public BattleStep(Player activePlayer, Creature attackingCreature, Creature defendingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             DefendingCreature = defendingCreature;
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                throw new System.NotSupportedException();
+                throw new System.InvalidOperationException();
             }
         }
 

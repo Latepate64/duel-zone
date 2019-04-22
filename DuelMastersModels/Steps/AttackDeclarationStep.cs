@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CreatureSelections;
 
 namespace DuelMastersModels.Steps
 {
@@ -10,29 +9,30 @@ namespace DuelMastersModels.Steps
         public Creature AttackedCreature { get; set; }
         public Player NonactivePlayer { get; private set; }
 
-        private bool _mustBeEnded = false;
-
-        public AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer, "Attack declaration")
+        public AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer)
         {
             NonactivePlayer = nonactivePlayer;
         }
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
-            if (!_mustBeEnded && AttackingCreature != null)
+            return null;
+        }
+
+        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        {
+            if (duel == null)
             {
-                _mustBeEnded = true;
-                return new DeclareTargetOfAttack(ActivePlayer, NonactivePlayer.BattleZone.TappedCreatures);
+                throw new System.ArgumentNullException("duel");
+            }
+            if (ActivePlayer.BattleZone.CreaturesThatCanAttack.Count > 0)
+            {
+                return new DeclareAttack(ActivePlayer, ActivePlayer.BattleZone.CreaturesThatCanAttack);
             }
             else
             {
                 return null;
             }
-        }
-
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
-        {
-            return new DeclareAttacker(ActivePlayer, ActivePlayer.BattleZone.CreaturesThatCanAttack);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class StartOfTurnStep : Step
     {
-        public StartOfTurnStep(Player player) : base(player, "Start of turn")
+        public StartOfTurnStep(Player player) : base(player)
         {
         }
 

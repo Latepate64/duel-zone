@@ -4,6 +4,35 @@ namespace DuelMastersModels.Cards
 {
     public class Spell : Card
     {
+        public override Card DeepCopy
+        {
+            get
+            {
+                var spell = new Spell()
+                {
+                    Cost = Cost,
+                    Flavor = Flavor,
+                    GameId = GameId,
+                    Id = Id,
+                    Illustrator = Illustrator,
+                    Name = Name,
+                    Rarity = Rarity,
+                    Set = Set,
+                    Tapped = Tapped,
+                    Text = Text
+                };
+                foreach (var civilization in Civilizations)
+                {
+                    spell.Civilizations.Add(civilization);
+                }
+                return spell;
+            }
+        }
+
+        public Spell() : base()
+        {
+        }
+
         /// <summary>
         /// Creates a spell.
         /// </summary>

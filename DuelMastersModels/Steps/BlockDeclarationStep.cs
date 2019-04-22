@@ -4,7 +4,7 @@ namespace DuelMastersModels.Steps
 {
     public class BlockDeclarationStep : Step
     {
-        public BlockDeclarationStep(Player activePlayer) : base(activePlayer, "Block declaration")
+        public BlockDeclarationStep(Player activePlayer) : base(activePlayer)
         {
         }
 

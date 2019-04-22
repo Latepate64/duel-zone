@@ -7,104 +7,41 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
+    public enum MainStepState
+    {
+        Use,
+        Pay,
+        MustBeEnded,
+    }
+
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
     public class MainStep : Step
     {
-        private enum State
-        {
-            DeclareCard,
-            PayCivilization,
-            PayRemainingMana,
-            EndStep,
-        }
+        public MainStepState State { get; set; } = MainStepState.Use;
 
-        private Collection<PlayerAction> _playerActions = new Collection<PlayerAction>();
+        public Card CardToBeUsed { get; set; }
 
-        private State _state = State.DeclareCard;
-
-        public MainStep(Player player) : base(player, "Main")
+        public MainStep(Player player) : base(player)
         {
         }
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
-            switch (_state)
-            {
-                case State.DeclareCard:
-                    return DeclareCard(duel);
-                case State.PayCivilization:
-                    return PayCivilization(duel);
-                case State.PayRemainingMana:
-                    return PayRemainingMana(1);
-                case State.EndStep:
-                    return null;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        public void EndStep()
-        {
-            _state = State.EndStep;
-        }
-
-        private PlayerAction DeclareCard(Duel duel)
-        {
             var usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-            if (usableCards.Count > 0)
+            if (State == MainStepState.Use && usableCards.Count > 0)
             {
-                _state = State.PayCivilization;
-                var useCardDeclaration = new UseCardDeclaration(ActivePlayer, usableCards);
-                _playerActions.Add(useCardDeclaration);
-                return useCardDeclaration;
+                return new UseCard(ActivePlayer, usableCards);
+            }
+            else if (State == MainStepState.Pay)
+            {
+                return new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost);
             }
             else
             {
-                _state = State.EndStep;
-                return PlayerActionRequired(duel);
+                return null;
             }
-        }
-
-        private PlayerAction PayCivilization(Duel duel)
-        {
-            _state = State.PayRemainingMana;
-            if (_playerActions.Last() is UseCardDeclaration useCardDeclaration)
-            {
-                var card = useCardDeclaration.SelectedCard;
-                if (card != null)
-                {
-                    if (card.Cost == ActivePlayer.ManaZone.UntappedCards.Count)
-                    {
-                        return PayRemainingMana(0);
-                    }
-                    else
-                    {
-                        var useCardPayCivilization = new UseCardPayCivilization(ActivePlayer, ActivePlayer.ManaZone.UntappedCardsWithCivilizations(card.Civilizations));
-                        _playerActions.Add(useCardPayCivilization);
-                        return useCardPayCivilization;
-                    }
-                }
-                else
-                {
-                    _state = State.EndStep;
-                    return PlayerActionRequired(duel);
-                }
-            }
-            else
-            {
-                throw new NotSupportedException();
-            }
-        }
-
-        private PlayerAction PayRemainingMana(int payDecrease)
-        {
-            _state = State.DeclareCard;
-            var declaredCard = (_playerActions.Where(action => action is UseCardDeclaration).Last() as UseCardDeclaration).SelectedCard;
-            var useCardPayRemainingMana = new UseCardPayRemainingMana(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, declaredCard, declaredCard.Cost - payDecrease); //TODO: Add support for multicolored cards.
-            _playerActions.Add(useCardPayRemainingMana);
-            return useCardPayRemainingMana;
         }
 
         /// <summary>

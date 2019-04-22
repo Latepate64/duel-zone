@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Factories;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -39,26 +41,27 @@ namespace DuelMastersServer
     public class SocketWithName
     {
         public Socket Socket { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; } = "Anonym";
+        public int Id { get; set; }
 
-        public SocketWithName(Socket socket, string name)
+        public SocketWithName(Socket socket, int id)
         {
             Socket = socket;
-            Name = name;
+            Id = id;
         }
     }
 
     class ServerProgram
     {
-        public static ManualResetEvent _allDone = new ManualResetEvent(false);
-        //public static ObservableCollection<string> _clientNames = new ObservableCollection<string>();
-        public static ObservableCollection<SocketWithName> _clientSockets = new ObservableCollection<SocketWithName>();
+        private static ManualResetEvent _allDone = new ManualResetEvent(false);
+        private static ManualResetEvent _clientDone = new ManualResetEvent(false);
+        private static ObservableCollection<SocketWithName> _clientSocketsWithNames = new ObservableCollection<SocketWithName>();
 
         static void Main(string[] args)
         {
             Console.WriteLine("Started Duel Masters Server.");
             //_clientNames.CollectionChanged += CollectionChangedClientNames;
-            _clientSockets.CollectionChanged += CollectionChangedClientSockets;
+            _clientSocketsWithNames.CollectionChanged += CollectionChangedClientSockets;
             CollectionChangedClientSockets(null, null);
             //CollectionChangedClientNames(null, null);
             StartListening();
@@ -66,15 +69,15 @@ namespace DuelMastersServer
 
         private static void CollectionChangedClientSockets(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (_clientSockets.Count == 0)
+            if (_clientSocketsWithNames.Count == 0)
             {
                 Console.WriteLine("Waiting for two clients to connect...");
             }
-            else if (_clientSockets.Count == 1)
+            else if (_clientSocketsWithNames.Count == 1)
             {
                 Console.WriteLine("Waiting for one more client to connect...");
             }
-            else if (_clientSockets.Count == 2)
+            else if (_clientSocketsWithNames.Count == 2)
             {
                 Console.WriteLine("Two clients connected!");
             }
@@ -82,36 +85,15 @@ namespace DuelMastersServer
             {
                 throw new Exception("Too many clients.");
             }
-            if (_clientSockets.Count > 0)
+            if (_clientSocketsWithNames.Count > 0)
             {
                 Console.WriteLine("Connected clients:");
-                foreach (var clientSocket in _clientSockets)
+                foreach (var clientSocketWithName in _clientSocketsWithNames)
                 {
-                    Console.WriteLine("- {0}", clientSocket.Name);
+                    Console.WriteLine("- {0}", clientSocketWithName.Name);
                 }
             }
         }
-
-        /*
-        private static void CollectionChangedClientNames(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (_clientNames.Count == 0)
-            {
-                Console.WriteLine("Waiting for two clients to connect...");
-            }
-            else if (_clientNames.Count == 1)
-            {
-                Console.WriteLine("Waiting for one more client to connect...");
-            }
-            else if (_clientNames.Count == 2)
-            {
-                Console.WriteLine("Two clients connected!");
-            }
-            else
-            {
-                throw new Exception("Too many clients.");
-            }
-        }*/
 
         private static void StartListening()
         {
@@ -121,7 +103,7 @@ namespace DuelMastersServer
             {
                 serverSocket.Bind(new IPEndPoint(ipAddress, 11000));
                 serverSocket.Listen(100);
-                while (true)
+                while (_clientSocketsWithNames.Count < 2)
                 {
                     _allDone.Reset();
 
@@ -129,35 +111,104 @@ namespace DuelMastersServer
                     serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), serverSocket);
                     _allDone.WaitOne();
                 }
+                LaunchDuel();
+                while (true)
+                {
+                    _clientDone.Reset();
+                    Console.WriteLine("Waiting for client's response...");
+                    _clientDone.WaitOne();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-            Console.WriteLine("\nPress ENTER to continue...");
+            Console.WriteLine("\nServer has shut down. Press ENTER to continue...");
             Console.Read();
         }
 
+        private static void LaunchDuel()
+        {
+            var jsonPath = "C:\\duel-masters-json\\DuelMastersCards.json";
+            var jsonCards = JsonCardFactory.GetJsonCards(jsonPath);
+            var cards = CardFactory.GetCardsFromJsonCards(jsonCards);
+            var duel = new Duel()
+            {
+                Player1 = new Player()
+                {
+                    Id = 0,
+                    Name = _clientSocketsWithNames[0].Name,
+                },
+                Player2 = new AIPlayer()
+                {
+                    Id = 1,
+                    Name = _clientSocketsWithNames[1].Name,
+                },
+            };
+
+            //duel.Turns.CollectionChanged += TurnChanged;
+
+            var count = 20;
+            duel.Player1.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(0, count)));
+            duel.Player2.SetDeckBeforeDuel(new Collection<Card>(cards.ToList().GetRange(count, count)));
+            duel.Player1.SetupDeck();
+            duel.Player2.SetupDeck();
+            var playerAction = duel.StartDuel();
+
+            var xmlAction = XmlUtility.SerializeToString(playerAction);
+            Send(GetSocket(playerAction.Player.Id), xmlAction);
+            Send(GetSocketOpponent(playerAction.Player.Id), new XElement("Message", "Opponent is performing an action.").ToString());
+        }
+
+        private static Socket GetSocket(int id)
+        {
+            return _clientSocketsWithNames.First(s => s.Id == id).Socket;
+        }
+
+        private static Socket GetSocketOpponent(int id)
+        {
+            var opponents = _clientSocketsWithNames.Where(s => s.Id != id);
+            if (opponents.Count() == 1)
+            {
+                return opponents.First().Socket;
+            }
+            else
+            {
+                throw new Exception("Expected one opponent.");
+            }
+        }
+        
+        private static void Send(Socket socket, string data)
+        {
+            Console.WriteLine(String.Format("Sending data to client: {0}", data));
+
+            // Convert the string data to byte data using ASCII encoding.
+            var byteData = Encoding.ASCII.GetBytes(data);
+
+            // Begin sending the data to the remote device.
+            socket.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(SendCallback), socket);
+        }
+
+        #region Callbacks
         public static void AcceptCallback(IAsyncResult ar)
         {
             // Signal the main thread to continue.  
             _allDone.Set();
 
             // Get the socket that handles the client request.
-            var serverState = (StateObject)ar.AsyncState;
-            var clientSocket = serverState.ClientSocket.EndAccept(ar);
-            _clientSockets.Add(new SocketWithName(clientSocket, serverState.StringBuilder.ToString()));
+            var serverSocket = (Socket)ar.AsyncState;
+            var clientSocket = serverSocket.EndAccept(ar);
+            _clientSocketsWithNames.Add(new SocketWithName(clientSocket, _clientSocketsWithNames.Count));
 
             // Create the state object.  
             var state = new StateObject() { ClientSocket = clientSocket };
-            clientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReadCallback), state);
+            clientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(ReadCallback), state);
         }
 
         public static void ReadCallback(IAsyncResult ar)
         {
             // Retrieve the state object and the handler socket from the asynchronous state object.  
             var state = (StateObject)ar.AsyncState;
-
             try
             {
                 // Read data from the client socket.   
@@ -165,43 +216,45 @@ namespace DuelMastersServer
 
                 if (bytesRead > 0)
                 {
-                    var text = Encoding.ASCII.GetString(state.Buffer, 0, bytesRead);
-                    var xmlElement = XElement.Parse(text);
+                    // There might be more data, so store the data received so far.  
+                    state.StringBuilder.Append(Encoding.ASCII.GetString(state.Buffer, 0, bytesRead));
+                    var content = state.StringBuilder.ToString();
 
-                    /*
-                    if (xmlElement.Name == "ConnectionRequest")
+                    // TODO: If more to read, read more.
+                    if (true/*content.IndexOf("<EOF>") > -1*/)
                     {
-                        _clientNames.Add(xmlElement.Value);
-                    }
-                    else if (xmlElement.Name == "DisconnectRequest")
-                    {
-                        _clientNames.Remove(xmlElement.Value);
+                        var xElement = XElement.Parse(content);
+                        if (xElement.Name == "Name")
+                        {
+                            _clientSocketsWithNames.First(cs => cs.Socket == state.ClientSocket).Name = xElement.Value;
+
+                            // Echo the data back to the client.  
+                            Send(state.ClientSocket, String.Format("<Message>Hello {0}!</Message>", xElement.Value)); //TODO: uncomment
+                            //Send(state.ClientSocket, "<Testi>I sexually Identify as Johny. Ever since I was a boy I dreamed of eating lollipops with chiya and lying to papa about eating sugar. People say to me that a person being Johny is Impossible and I'm fucking retarded but to that I say, \"no papa\". I'm having a plastic surgeon shrink me down to the size of a baby, severely elongate my arms and make my head the size of a fucking beach ball. From now on I want you guys to always follow my name with \"doo doo doo doo doo doo doo and respect my right to If you can't accept me you\'re a Johnyphobe and need to check your papa privilege.Thank you for being so understanding.</Testi>");
+                        }
+                        else
+                        {
+                            throw new Exception("Expected name.");
+
+                        }
+
+                        // All the data has been read from the client. Display it on the console.
+                        Console.WriteLine("Read {0} bytes from socket. \n Data : {1}", content.Length, content);
                     }
                     else
                     {
-                        throw new NotSupportedException("xmlElement.Name");
-                    }*/
-
-                    // There might be more data, so store the data received so far.  
-                    state.StringBuilder.Append(text);
-
-                    // Check for end-of-file tag. If it is not there, read more data.  
-                    var content = state.StringBuilder.ToString();
-
-                    // All the data has been read from the client. Display it on the console.  
-                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}", content.Length, content);
-
-                    // Echo the data back to the client.  
-                    Send(state.ClientSocket, content);
+                        // Not all data received. Get more.  
+                        state.ClientSocket.BeginReceive(state.Buffer, 0, StateObject.BufferSize, SocketFlags.None, new AsyncCallback(ReadCallback), state);
+                    }
                 }
             }
-            catch (SocketException se)
+            catch (SocketException)
             {
-                foreach (var clientSocket in _clientSockets)
+                foreach (var clientSocket in _clientSocketsWithNames)
                 {
                     if (clientSocket.Socket == state.ClientSocket)
                     {
-                        _clientSockets.Remove(clientSocket);
+                        _clientSocketsWithNames.Remove(clientSocket);
                         return;
                     }
                 }
@@ -209,34 +262,20 @@ namespace DuelMastersServer
             }
         }
 
-        private static void Send(Socket handler, String data)
-        {
-            // Convert the string data to byte data using ASCII encoding.  
-            var byteData = Encoding.ASCII.GetBytes(data);
-
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(SendCallback), handler);
-        }
-
+        /// <summary>
+        /// Complete sending the data to the remote device.
+        /// </summary>
         private static void SendCallback(IAsyncResult ar)
         {
             try
             {
-                // Retrieve the socket from the state object.  
-                var handler = (Socket)ar.AsyncState;
-
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-
+                Console.WriteLine("Sent {0} bytes to client.", ((Socket)ar.AsyncState).EndSend(ar));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
         }
+        #endregion Callbacks
     }
 }
