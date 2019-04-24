@@ -2,7 +2,9 @@
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActionResponses;
+using DuelMastersModels.Steps;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -41,13 +43,7 @@ namespace DuelMastersModels
         /// <summary>
         /// The turn that is currently being processed.
         /// </summary>
-        public Turn CurrentTurn
-        {
-            get
-            {
-                return Turns.Last();
-            }
-        }
+        public Turn CurrentTurn => Turns.Last();
 
         /// <summary>
         /// The number of shields each player has at the start of a duel. 
@@ -82,9 +78,9 @@ namespace DuelMastersModels
         /// </summary>
         private PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
-            var turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
+            Turn turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
             Turns.Add(turn);
-            var playerAction = turn.Start(this);
+            PlayerAction playerAction = turn.Start(this);
             if (playerAction != null)
             {
                 return PerformAutomatically(playerAction);
@@ -156,70 +152,78 @@ namespace DuelMastersModels
         {
             if (response is CardSelectionResponse cardSelectionResponse)
             {
-                Card card = null;
-                if (cardSelectionResponse.SelectedCards.Count == 1)
-                {
-                    card = cardSelectionResponse.SelectedCards.First();
-                }
                 if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
                 {
-                    optionalCardSelection.Perform(this, card);
+                    Card card = null;
+                    if (cardSelectionResponse.SelectedCards.Count == 1)
+                    {
+                        card = cardSelectionResponse.SelectedCards.First();
+                    }
+                    if (optionalCardSelection.Validate(card))
+                    {
+                        optionalCardSelection.Perform(this, card);
+                    }
+                    else
+                    {
+                        return CurrentPlayerAction;
+                    }
+                }
+                else if (CurrentPlayerAction is PayCost payCost)
+                {
+                    if (payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
+                    {
+                        payCost.Perform(this, cardSelectionResponse.SelectedCards);
+                    }
+                    else
+                    {
+                        return CurrentPlayerAction;
+                    }
                 }
                 else
                 {
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("Could not identify current player action.");
                 }
-                
+            }
+            else if (response is CreatureSelectionResponse creatureSelectionResponse)
+            {
+                if (CurrentPlayerAction is OptionalCreatureSelection optionalCreatureSelection)
+                {
+                    Creature creature = null;
+                    if (creatureSelectionResponse.SelectedCreatures.Count == 1)
+                    {
+                        creature = creatureSelectionResponse.SelectedCreatures.First();
+                    }
+                    if (optionalCreatureSelection.Validate(creature))
+                    {
+                        optionalCreatureSelection.Perform(this, creature);
+                    }
+                    else
+                    {
+                        return CurrentPlayerAction;
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("Could not identify current player action.");
+                }
             }
             else if (response is DeclareAttackResponse declareAttackResponse)
             {
-                (CurrentPlayerAction as DeclareAttack).Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
+                DeclareAttack declareAttack = CurrentPlayerAction as DeclareAttack;
+                if (declareAttack.Validate(declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack))
+                {
+                    declareAttack.Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
+                }
+                else
+                {
+                    return CurrentPlayerAction;
+                }
             }
             else
             {
                 throw new ArgumentOutOfRangeException("response");
             }
             return SetCurrentPlayerAction(Progress());
-        }
-
-        /// <summary>
-        /// Progresses in the duel.
-        /// </summary>
-        /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        public PlayerAction Progress()
-        {
-            if (!Ended)
-            {
-                CheckStateBasedActions();
-                if (!Ended)
-                {
-                    var playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
-                    if (playerAction != null)
-                    {
-                        return SetCurrentPlayerAction(PerformAutomatically(playerAction));
-                    }
-                    else
-                    {
-                        if (CurrentTurn.ChangeStep())
-                        {
-                            return SetCurrentPlayerAction(StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer));
-                        }
-                        else
-                        {
-                            var action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                            if (action != null)
-                            {
-                                return SetCurrentPlayerAction(PerformAutomatically(action));
-                            }
-                            else
-                            {
-                                return SetCurrentPlayerAction(Progress());
-                            }
-                        }
-                    }
-                }
-            }
-            return SetCurrentPlayerAction(null);
         }
 
         public void PutFromHandIntoManaZone(Player player, Card card)
@@ -295,7 +299,7 @@ namespace DuelMastersModels
         ///</summary>
         private static void PutFromTheTopOfDeckIntoShieldZone(Player player, int amount)
         {
-            for (var i = 0; i < amount; ++i)
+            for (int i = 0; i < amount; ++i)
             {
                 player.ShieldZone.Add(RemoveTheTopCardOfDeck(player));
             }
@@ -314,7 +318,7 @@ namespace DuelMastersModels
         /// </summary>
         private static void DrawCards(Player player, int amount)
         {
-            for (var i = 0; i < amount; ++i)
+            for (int i = 0; i < amount; ++i)
             {
                 player.Hand.Add(RemoveTheTopCardOfDeck(player));
             }
@@ -325,7 +329,7 @@ namespace DuelMastersModels
         /// </summary>
         private void CheckStateBasedActions()
         {
-            var checkDeckHasCards = new CheckDeckHasCards();
+            CheckDeckHasCards checkDeckHasCards = new CheckDeckHasCards();
             checkDeckHasCards.Perform(this);
         }
 
@@ -359,6 +363,46 @@ namespace DuelMastersModels
             }
             player.BattleZone.Cards.Remove(creature);
             player.Graveyard.Cards.Add(creature);
+        }
+
+        /// <summary>
+        /// Progresses in the duel.
+        /// </summary>
+        /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
+        private PlayerAction Progress()
+        {
+            if (!Ended)
+            {
+                CheckStateBasedActions();
+                if (!Ended)
+                {
+                    PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
+                    if (playerAction != null)
+                    {
+                        return SetCurrentPlayerAction(PerformAutomatically(playerAction));
+                    }
+                    else
+                    {
+                        if (CurrentTurn.ChangeStep())
+                        {
+                            return SetCurrentPlayerAction(StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer));
+                        }
+                        else
+                        {
+                            PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                            if (action != null)
+                            {
+                                return SetCurrentPlayerAction(PerformAutomatically(action));
+                            }
+                            else
+                            {
+                                return SetCurrentPlayerAction(Progress());
+                            }
+                        }
+                    }
+                }
+            }
+            return SetCurrentPlayerAction(null);
         }
         #endregion Private methods
     }

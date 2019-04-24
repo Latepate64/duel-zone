@@ -9,7 +9,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     public class PayCost : CardSelection
     {
         public int Cost { get; set; }
-        //public Collection<Civilization> Civilizations { get; } //TODO: Check that required civilizations are used in paying the mana cost.
 
         public PayCost() { }
 
@@ -28,6 +27,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             return false;
         }
 
+        public bool Validate(Collection<Card> cards, Card cardToBeUsed)
+        {
+            return Cards.Intersect(cards).Count() == Cost && CivilizationsPaid(cards, cardToBeUsed);
+        }
+
         public void Perform(Duel duel, Collection<Card> cards)
         {
             if (duel == null)
@@ -38,9 +42,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             {
                 throw new ArgumentNullException("cards");
             }
-            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep && cards.SelectMany(c => c.Civilizations).Intersect(mainStep.CardToBeUsed. Civilizations).Any())
+            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep && CivilizationsPaid(cards, mainStep.CardToBeUsed))
             {
-                foreach (var card in cards)
+                foreach (Card card in cards)
                 {
                     card.Tapped = true;
                 }
@@ -50,8 +54,14 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
             else
             {
-                throw new NotSupportedException();
+                throw new InvalidOperationException();
             }
+        }
+
+        private bool CivilizationsPaid(Collection<Card> cards, Card cardToBeUsed)
+        {
+            return cards.SelectMany(c => c.Civilizations).Intersect(cardToBeUsed.Civilizations).Any();
+            //TODO: Check that ALL civilization are paid.
         }
     }
 }

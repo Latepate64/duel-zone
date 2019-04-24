@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using DuelMastersModels.Abilities.Static;
+using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Cards
 {
@@ -7,12 +8,13 @@ namespace DuelMastersModels.Cards
         public int Power { get; set; }
         public Collection<string> Races { get; } = new Collection<string>();
         public bool SummoningSickness { get; set; } = true;
+        public Collection<StaticAbility> StaticAbilities { get; } = new Collection<StaticAbility>();
 
         public override Card DeepCopy
         {
             get
             {
-                var creature = new Creature()
+                Creature creature = new Creature()
                 {
                     Cost = Cost,
                     Flavor = Flavor,
@@ -27,11 +29,11 @@ namespace DuelMastersModels.Cards
                     Tapped = Tapped,
                     Text = Text
                 };
-                foreach (var civilization in Civilizations)
+                foreach (Civilization civilization in Civilizations)
                 {
                     creature.Civilizations.Add(civilization);
                 }
-                foreach (var race in Races)
+                foreach (string race in Races)
                 {
                     creature.Races.Add(race);
                 }

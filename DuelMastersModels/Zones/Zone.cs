@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities.Static;
+using DuelMastersModels.Cards;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -12,53 +13,19 @@ namespace DuelMastersModels.Zones
         /// </summary>
         public Collection<Card> Cards { get; } = new Collection<Card>();
 
-        public Collection<Creature> Creatures
-        {
-            get
-            {
-                return new Collection<Creature>(Cards.Where(card => card is Creature).Cast<Creature>().ToList());
-            }
-        }
+        public Collection<Creature> Creatures => new Collection<Creature>(Cards.Where(card => card is Creature).Cast<Creature>().ToList());
 
-        public Collection<Card> TappedCards
-        {
-            get
-            {
-                return new Collection<Card>(Cards.Where(card => card.Tapped).ToList());
-            }
-        }
+        public Collection<Card> TappedCards => new Collection<Card>(Cards.Where(card => card.Tapped).ToList());
 
-        public Collection<Creature> TappedCreatures
-        {
-            get
-            {
-                return new Collection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());
-            }
-        }
+        public Collection<Creature> TappedCreatures => new Collection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());
 
-        public Collection<Card> UntappedCards
-        {
-            get
-            {
-                return new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
-            }
-        }
+        public Collection<Creature> UntappedBlockers => new Collection<Creature>(UntappedCreatures.Where(c => c.StaticAbilities.Count(a => a.GetType() == typeof(Blocker)) > 0).ToList());
 
-        public Collection<Creature> UntappedCreatures
-        {
-            get
-            {
-                return new Collection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
-            }
-        }
+        public Collection<Card> UntappedCards => new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
 
-        public Collection<Creature> CreaturesThatCanAttack
-        {
-            get
-            {
-                return new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
-            }
-        }
+        public Collection<Creature> UntappedCreatures => new Collection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
+
+        public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
 
         /// <summary>
         /// True if the zone is public, false if it is private.
@@ -91,7 +58,7 @@ namespace DuelMastersModels.Zones
 
         public void UntapCards()
         {
-            foreach (var card in TappedCards)
+            foreach (Card card in TappedCards)
             {
                 card.Tapped = false;
             }
