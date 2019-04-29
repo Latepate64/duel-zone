@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersModels", "DuelMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{D705B82E-8397-458F-BAFD-416174591A4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersServer", "DuelMastersServer\DuelMastersServer.csproj", "{B6811480-1238-4676-9CFC-B397C360C5B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D705B82E-8397-458F-BAFD-416174591A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D705B82E-8397-458F-BAFD-416174591A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D705B82E-8397-458F-BAFD-416174591A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6811480-1238-4676-9CFC-B397C360C5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6811480-1238-4676-9CFC-B397C360C5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6811480-1238-4676-9CFC-B397C360C5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6811480-1238-4676-9CFC-B397C360C5B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

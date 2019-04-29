@@ -157,13 +157,13 @@ namespace UnitTests
                     Name = "Player2",
                 }
             };
-            const int Count = 40;
+            const int DeckSize = 40;
             Collection<Card> p1Cards = new Collection<Card>();
             Collection<Card> p2Cards = new Collection<Card>();
-            for (int i = 0; i < Count; ++i)
+            for (int i = 0; i < DeckSize; ++i)
             {
                 p1Cards.Add(GetTestCreature(i));
-                p2Cards.Add(GetTestCreature(i+Count));
+                p2Cards.Add(GetTestCreature(i+DeckSize));
             }
             duel.Player1.SetDeckBeforeDuel(p1Cards);
             duel.Player2.SetDeckBeforeDuel(p2Cards);
