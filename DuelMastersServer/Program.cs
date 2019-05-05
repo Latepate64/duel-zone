@@ -13,12 +13,14 @@ namespace DuelMastersServer
         Success = 0,
         NameAlreadyExists = 1,
         InvalidName = 2,
+        ClientAlreadyChallenged = 3,
+        ClientAlreadyInDuel = 4,
     }
 
     class Program
     {
         const int Port = 11000;
-        const string IPAddress = "192.168.1.1";     
+        const string IPAddress = "192.168.1.3";
 
         static List<ClientInformation> _clients = new List<ClientInformation>();
 
@@ -207,10 +209,26 @@ namespace DuelMastersServer
                 else if (element is ChallengeRequest challengeRequest)
                 {
                     ClientInformation challengeeClient = GetClientInformation(challengeRequest.ChallengeeName);
-                    senderClient.ChangeStateToChallenge(challengeeClient.Id);
-                    challengeeClient.ChangeStateToChallenge(senderClient.Id);
-                    BeginSend(senderClient, XMLManager.Serialize(new ChallengePendingResponse() { ChallengeeName = challengeRequest.ChallengeeName }));
-                    BeginSend(challengeeClient, XMLManager.Serialize(new ChallengeRequest(senderClient.Name)));
+                    if (challengeeClient.State == ClientState.Available)
+                    {
+                        senderClient.ChangeStateToChallenge(challengeeClient.Id);
+                        challengeeClient.ChangeStateToChallenge(senderClient.Id);
+                        BeginSend(senderClient, XMLManager.Serialize(new ChallengePendingResponse() { ChallengeeName = challengeRequest.ChallengeeName }));
+                        BeginSend(challengeeClient, XMLManager.Serialize(new ChallengeRequest(senderClient.Name)));
+                    }
+                    else if (challengeeClient.State == ClientState.Challenge)
+                    {
+                        BeginSend(senderClient, XMLManager.Serialize(new ErrorResponse((int)ErrorCode.ClientAlreadyChallenged)));
+                    }
+                    else if (challengeeClient.State == ClientState.Duel)
+                    {
+                        BeginSend(senderClient, XMLManager.Serialize(new ErrorResponse((int)ErrorCode.ClientAlreadyInDuel)));
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Unknown client state.");
+                    }
+                    
                 }
                 else if (element is CancelChallengeRequest)
                 {
