@@ -20,5 +20,20 @@ namespace DuelMastersModels.Factories
         {
             return new Collection<JsonCard>(JsonConvert.DeserializeObject<Collection<JsonCard>>(File.ReadAllText(path)).ToList());
         }
+
+        public static Collection<JsonCard> GetJsonCards(string path, XmlDeck deck)
+        {
+            Collection<JsonCard> cards = new Collection<JsonCard>();
+            Collection<JsonCard> allJsonCards = GetJsonCards(path);
+            foreach (XmlCard card in deck.Card)
+            {
+                for (int amount = 0; amount < card.Amount; ++amount)
+                {
+                    JsonCard foundCard = allJsonCards.Where(c => c.Set == card.Set && c.Id == card.Id).First().DeepCopy;
+                    cards.Add(foundCard);
+                }
+            }
+            return cards;
+        }
     }
 }

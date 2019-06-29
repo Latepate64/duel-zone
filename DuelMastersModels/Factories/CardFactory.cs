@@ -23,9 +23,9 @@ namespace DuelMastersModels.Factories
             {
                 throw new ArgumentNullException("jsonCards");
             }
-            var cards = new List<Card>();
-            var gameId = 0;
-            foreach (var jsonCard in jsonCards)
+            List<Card> cards = new List<Card>();
+            int gameId = 0;
+            foreach (JsonCard jsonCard in jsonCards)
             {
                 cards.Add(GetCardFromJsonCard(jsonCard, gameId++));
             }

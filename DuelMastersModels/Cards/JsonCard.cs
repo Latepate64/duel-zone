@@ -22,13 +22,14 @@ namespace DuelMastersModels.Cards
         public Collection<string> Races { get; private set; }
         public string Power { get; private set; }
 
+        public JsonCard() { }
+
         /// <summary>
         /// Creates a JsonCard.
         /// </summary>
         [JsonConstructor]
         public JsonCard(string name, string set, string id, string civilization, Collection<string> civilizations, string type, string rarity, int cost, string text, string flavor, string illustrator, string race, Collection<string> races, string power)
         {
-
             Name = name;
             Set = set;
             Id = id;
@@ -55,6 +56,35 @@ namespace DuelMastersModels.Cards
                 Races = new Collection<string>(new List<string>() { race });
             }
             Power = power;
+        }
+
+        public JsonCard DeepCopy
+        {
+            get
+            {
+                JsonCard card = new JsonCard()
+                {
+                    CardType = CardType,
+                    Cost = Cost,
+                    Flavor = Flavor,
+                    Id = Id,
+                    Illustrator = Illustrator,
+                    Name = Name,
+                    Power = Power,
+                    Rarity = Rarity,
+                    Set = Set,
+                    Text = Text,
+                };
+                if (Civilizations != null)
+                {
+                    card.Civilizations = new Collection<string>(Civilizations);
+                }
+                if (Races != null)
+                {
+                    card.Races = new Collection<string>(Races);
+                }
+                return card;
+            }
         }
     }
 }

@@ -116,6 +116,7 @@
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />
     <Compile Include="Turn.cs" />
+    <Compile Include="XmlDeck.cs" />
     <Compile Include="Zones\BattleZone.cs" />
     <Compile Include="Zones\Deck.cs" />
     <Compile Include="Zones\Graveyard.cs" />
