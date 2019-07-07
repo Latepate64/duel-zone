@@ -20,17 +20,20 @@ namespace DuelMastersApplication
         const int DeckRow = 1;
 
         Grid _mainGrid = new Grid() { ShowGridLines = true };
-        TextBox _textBoxPlayer1Deck = new TextBox();
-        TextBox _textBoxPlayer2Deck = new TextBox();
+        TextBox _textBoxPlayer1Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/testipakka.xml" };
+        TextBox _textBoxPlayer2Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/testipakka.xml" };
         TextBox _textBoxPlayer1Name = new TextBox() { Text = "Player1" };
         TextBox _textBoxPlayer2Name = new TextBox() { Text = "Player2" };
         Duel _duel;
+        MainWindow _mainWindow;
 
         public event EventHandler StartDuel;
 
-        public SetupCanvas(Duel duel)
+        public SetupCanvas(Duel duel, MainWindow mainWindow)
         {
             _duel = duel;
+            _mainWindow = mainWindow;
+
             Height = 300;
             Width = 600;
             //HorizontalAlignment = HorizontalAlignment.Center;
@@ -103,12 +106,9 @@ namespace DuelMastersApplication
             Grid.SetRow(labelPlayerDeck, DeckRow);
             grid.Children.Add(labelPlayerDeck);
 
-            ColumnDefinition columnDefinition = new ColumnDefinition();
-            _mainGrid.ColumnDefinitions.Add(columnDefinition);
-            RowDefinition rowDefinitionTop = new RowDefinition();
-            RowDefinition rowDefinitionBottom = new RowDefinition();
-            _mainGrid.RowDefinitions.Add(rowDefinitionTop);
-            _mainGrid.RowDefinitions.Add(rowDefinitionBottom);
+            _mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            _mainGrid.RowDefinitions.Add(new RowDefinition());
+            _mainGrid.RowDefinitions.Add(new RowDefinition());
 
             Grid.SetColumn(grid, 0);
             Grid.SetRow(grid, 0);
@@ -116,7 +116,7 @@ namespace DuelMastersApplication
 
             Button startDuelButton = new Button() { Content = "Start duel" };
             startDuelButton.Click += StartDuelButton_Click;
-            Grid.SetColumn(grid, 0);
+            Grid.SetColumn(startDuelButton, 0);
             Grid.SetRow(startDuelButton, 1);
             _mainGrid.Children.Add(startDuelButton);
 
@@ -157,6 +157,8 @@ namespace DuelMastersApplication
             _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(_textBoxPlayer2Deck.Text))));
             _duel.Player1.SetupDeck();
             _duel.Player2.SetupDeck();
+            _duel.StartDuel();
+            _mainWindow.TestHandBinding();
 
             Visibility = Visibility.Hidden;
             //StartDuel.Invoke(this, null);
