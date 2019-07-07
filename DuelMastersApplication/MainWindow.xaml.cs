@@ -84,6 +84,10 @@ namespace DuelMastersApplication
             cardCanvasFactory.SetBinding(CardCanvas.CardNameProperty, new Binding("Name"));
             cardCanvasFactory.SetBinding(CardCanvas.CivilizationProperty, new Binding("Civilizations"));
             cardCanvasFactory.SetBinding(CardCanvas.CardTextProperty, new Binding("Text"));
+            cardCanvasFactory.SetBinding(CardCanvas.CostProperty, new Binding("Cost"));
+            cardCanvasFactory.SetBinding(CardCanvas.PowerProperty, new Binding("Power"));
+            cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));
+            cardCanvasFactory.SetBinding(CardCanvas.CardTypeProperty, new Binding() { Converter = new ObjectToCardTypeConverter() });
             MultiBinding multiBinding = new MultiBinding() { Converter = new SetAndIdConverter() };
             multiBinding.Bindings.Add(new Binding("Set"));
             multiBinding.Bindings.Add(new Binding("Id"));
@@ -135,6 +139,40 @@ namespace DuelMastersApplication
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class ObjectToCardTypeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var type = value.GetType();
+            if (type == typeof(EvolutionCreature))
+            {
+                return "Evolution Creature";
+            }
+            else if (type == typeof(Creature))
+            {
+                return "Creature";
+            }
+            else if (type == typeof(Spell))
+            {
+                return "Spell";
+            }
+            else if (type == typeof(CrossGear))
+            {
+                return "Cross Gear";
+            }
+            else
+            {
+                throw new Exception("Unknown card type.");
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new InvalidOperationException();
         }
     }
 }

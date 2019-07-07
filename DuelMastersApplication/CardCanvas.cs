@@ -22,6 +22,7 @@ namespace DuelMastersApplication
         const int CardNameRow = 0;
         const int ArtworkRow = 1;
         const int TextRow = 2;
+        const int CardTypeRow = 3;
         #endregion Constants
 
         #region DependencyProperties
@@ -32,6 +33,14 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty SetAndIdProperty = DependencyProperty.Register("SetAndId", typeof(SetAndId), typeof(CardCanvas), new PropertyMetadata(OnSetAndIdChanged));
 
         public static readonly DependencyProperty CardTextProperty = DependencyProperty.Register("CardText", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTextChanged));
+
+        public static readonly DependencyProperty CostProperty = DependencyProperty.Register("Cost", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCostChanged));
+
+        public static readonly DependencyProperty CardTypeProperty = DependencyProperty.Register("CardType", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTypeChanged));
+
+        public static readonly DependencyProperty PowerProperty = DependencyProperty.Register("Power", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnPowerChanged));
+
+        public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -73,31 +82,41 @@ namespace DuelMastersApplication
         private TextBox _textBoxCardName = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
         private Image _artwork = new Image();
         private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, IsReadOnly = true, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
+        private TextBox _textBoxCost = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Background = Brushes.Black, Foreground = Brushes.White, FontWeight = FontWeights.Bold };
+        private TextBox _textBoxPower = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden };
+        private TextBox _textBoxCardType = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+        private TextBox _textBoxRace = new TextBox() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden };
 
         private Canvas _cardCanvas = new Canvas() { Background = Brushes.Black };
-        private Grid _mainGrid = new Grid() { ShowGridLines = true };
+        private Grid _mainGrid = new Grid();
         #endregion Fields
 
         public CardCanvas()
         {
+            //HorizontalAlignment = HorizontalAlignment.Stretch;
+
             Grid gridCostAndName = new Grid();
             gridCostAndName.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.2, GridUnitType.Star) });
             gridCostAndName.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.8, GridUnitType.Star) });
             gridCostAndName.RowDefinitions.Add(new RowDefinition());
 
-            /*Grid.SetColumn(, 0);
-            Grid.SetRow(, 0);
-            gridCostAndName.Children.Add();*/
+            Grid.SetColumn(_textBoxCost, 0);
+            Grid.SetRow(_textBoxCost, 0);
+            gridCostAndName.Children.Add(_textBoxCost);
 
+            Grid.SetColumn(_textBoxCardName, 1);
+            Grid.SetRow(_textBoxCardName, 0);
+            gridCostAndName.Children.Add(_textBoxCardName);
 
             _mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
             _mainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionCardName", Height = new GridLength(0.1, GridUnitType.Star) });
-            _mainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionArtwork", Height = new GridLength(0.4, GridUnitType.Star) });
+            _mainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionArtwork", Height = new GridLength(0.3, GridUnitType.Star) });
             _mainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionTextRow", Height = new GridLength(0.4, GridUnitType.Star) });
+            _mainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionCardType", Height = new GridLength(0.1, GridUnitType.Star) });
 
-            Grid.SetColumn(_textBoxCardName, 0);
-            Grid.SetRow(_textBoxCardName, CardNameRow);
-            _mainGrid.Children.Add(_textBoxCardName);
+            Grid.SetColumn(gridCostAndName, 0);
+            Grid.SetRow(gridCostAndName, CardNameRow);
+            _mainGrid.Children.Add(gridCostAndName);
 
             Grid.SetColumn(_artwork, 0);
             Grid.SetRow(_artwork, ArtworkRow);
@@ -107,6 +126,28 @@ namespace DuelMastersApplication
             Grid.SetRow(_textBoxCardText, TextRow);
             _mainGrid.Children.Add(_textBoxCardText);
 
+            Grid gridType = new Grid();
+            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            gridType.RowDefinitions.Add(new RowDefinition());
+
+            Grid.SetColumn(_textBoxPower, 0);
+            Grid.SetRow(_textBoxPower, CardTypeRow);
+            gridType.Children.Add(_textBoxPower);
+
+            Grid.SetColumn(_textBoxCardType, 1);
+            Grid.SetRow(_textBoxCardType, CardTypeRow);
+            gridType.Children.Add(_textBoxCardType);
+
+            Grid.SetColumn(_textBoxRace, 2);
+            Grid.SetRow(_textBoxRace, CardTypeRow);
+            gridType.Children.Add(_textBoxRace);
+
+            Grid.SetColumn(gridType, 0);
+            Grid.SetRow(gridType, CardTypeRow);
+            _mainGrid.Children.Add(gridType);
+
             _cardCanvas.Children.Add(_mainGrid);
             Children.Add(_cardCanvas);
 
@@ -115,6 +156,8 @@ namespace DuelMastersApplication
 
         private void CardCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            //Width = ActualHeight;
+
             _cardCanvas.Height = e.NewSize.Height;
             _cardCanvas.Width = e.NewSize.Height * 222 / 307;
             SetLeft(_cardCanvas, (e.NewSize.Width - _cardCanvas.Width) / 2);
@@ -132,6 +175,13 @@ namespace DuelMastersApplication
             double fontSize = Math.Max(MinimumFontSize, e.NewSize.Height * FontScale);
             _textBoxCardName.FontSize = fontSize;
             _textBoxCardText.FontSize = fontSize;
+            _textBoxCost.FontSize = fontSize;
+
+            const double FontScaleCardType = 0.04;
+            double fontSizeCardType = Math.Max(MinimumFontSize, e.NewSize.Height * FontScaleCardType);
+            _textBoxPower.FontSize = fontSizeCardType;
+            _textBoxCardType.FontSize = fontSizeCardType;
+            _textBoxRace.FontSize = fontSizeCardType;
 
             //RenderTransform = new RotateTransform(45, e.NewSize.Height / 2, e.NewSize.Height / 2);
         }
@@ -188,6 +238,54 @@ namespace DuelMastersApplication
             }
         }
 
+        private static void OnCostChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnCostChanged(e);
+        }
 
+        private void OnCostChanged(DependencyPropertyChangedEventArgs e)
+        {
+            _textBoxCost.Text = e.NewValue.ToString();
+        }
+
+        private static void OnCardTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnCardTypeChanged(e);
+        }
+
+        private void OnCardTypeChanged(DependencyPropertyChangedEventArgs e)
+        {
+            _textBoxCardType.Text = e.NewValue.ToString();
+        }
+
+        private static void OnPowerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnPowerChanged(e);
+        }
+
+        private void OnPowerChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string power = e.NewValue.ToString();
+            if (!string.IsNullOrEmpty(power))
+            {
+                _textBoxPower.Visibility = Visibility.Visible;
+                _textBoxPower.Text = power;
+            }
+        }
+
+        private static void OnRaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnRaceChanged(e);
+        }
+
+        private void OnRaceChanged(DependencyPropertyChangedEventArgs e)
+        {
+            string raceText = string.Join("/", (Collection<string>)e.NewValue);
+            if (!string.IsNullOrEmpty(raceText))
+            {
+                _textBoxRace.Visibility = Visibility.Visible;
+                _textBoxRace.Text = raceText;
+            }
+        }
     }
 }
