@@ -152,6 +152,9 @@ namespace DuelMastersApplication
             Children.Add(_cardCanvas);
 
             SizeChanged += CardCanvas_SizeChanged;
+
+            //SetLeft(this, 500);
+            //SetTop(this, 500);
         }
 
         private void CardCanvas_SizeChanged(object sender, SizeChangedEventArgs e)

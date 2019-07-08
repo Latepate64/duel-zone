@@ -1,17 +1,13 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Factories;
 using Microsoft.Win32;
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Xml.Serialization;
 
 namespace DuelMastersApplication
 {
     public class SetupCanvas : Canvas
     {
-        const string JsonPath = "C:\\duel-masters-json\\DuelMastersCards.json";
         const int Player1Column = 0;
         const int MiddleColumn = 1;
         const int Player2Column = 2;
@@ -151,28 +147,10 @@ namespace DuelMastersApplication
 
         private void StartDuelButton_Click(object sender, RoutedEventArgs e)
         {
-            _duel.Player1 = new Player() { Id = 0, Name = _textBoxPlayer1Name.Text };
-            _duel.Player2 = new Player() { Id = 1, Name = _textBoxPlayer2Name.Text };
-            _duel.Player1.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(_textBoxPlayer1Deck.Text))));
-            _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(_textBoxPlayer2Deck.Text))));
-            _duel.Player1.SetupDeck();
-            _duel.Player2.SetupDeck();
-            _duel.StartDuel();
-            _mainWindow.TestHandBinding();
-
+            _mainWindow.InitializeDuel(_textBoxPlayer1Name.Text, _textBoxPlayer2Name.Text, _textBoxPlayer1Deck.Text, _textBoxPlayer2Deck.Text);
             Visibility = Visibility.Hidden;
             //StartDuel.Invoke(this, null);
             //StartDuel.i
-        }
-
-        private static XmlDeck Deserialize(string path)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(XmlDeck));
-            using (StreamReader reader = new StreamReader(path))
-            {
-                XmlDeck deck = (XmlDeck)serializer.Deserialize(reader);
-                return deck;
-            }
         }
 
         private void SetupCanvas_SizeChanged(object sender, SizeChangedEventArgs e)

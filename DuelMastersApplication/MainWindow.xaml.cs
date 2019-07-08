@@ -1,10 +1,15 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Cards;
+using DuelMastersModels.Factories;
+using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace DuelMastersApplication
 {
@@ -14,6 +19,7 @@ namespace DuelMastersApplication
     public partial class MainWindow : Window
     {
         const int SideColumnWidth = 150;
+        const string JsonPath = "C:\\duel-masters-json\\DuelMastersCards.json";
 
         #region Fields
         Duel _duel = new Duel();
@@ -66,9 +72,58 @@ namespace DuelMastersApplication
             mainCanvas.SizeChanged += MainCanvas_SizeChanged;
             //_setupCanvas.star            //mainGrid.Children.Add(canvas);
             //Content = canvas;
+
+            
         }
 
-        public void TestHandBinding()
+        #region Public methods
+        public void InitializeDuel(string player1Name, string player2Name, string player1DeckPath, string player2DeckPath)
+        {
+            _duel.Player1 = new Player() { Id = 0, Name = player1Name };
+            _duel.Player2 = new Player() { Id = 1, Name = player2Name };
+            _duel.Player1.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player1DeckPath))));
+            _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player2DeckPath))));
+            _duel.Player1.SetupDeck();
+            _duel.Player2.SetupDeck();
+            UpdateViewToShowPlayerAction(_duel.StartDuel());
+            TestHandBinding();
+        }
+        #endregion Public methods
+
+        #region Private methods
+        private void UpdateViewToShowPlayerAction(PlayerAction playerAction)
+        {
+            if  (playerAction is CardSelection cardSelection)
+            {
+                //todo: animate selectable cards
+                if (cardSelection is ChargeMana chargeMana)
+                {
+
+                    //chargeMana.
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    throw new ArgumentException("Unknown card selection.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Unknown player action.");
+            }
+        }
+
+        private static XmlDeck Deserialize(string path)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(XmlDeck));
+            using (StreamReader reader = new StreamReader(path))
+            {
+                XmlDeck deck = (XmlDeck)serializer.Deserialize(reader);
+                return deck;
+            }
+        }
+
+        private void TestHandBinding()
         {
             _listViewActiveHand.ItemsSource = _duel.CurrentTurn.ActivePlayer.Hand.Cards;
 
@@ -80,6 +135,8 @@ namespace DuelMastersApplication
 
             cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = _listViewActiveHand });
             cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = _listViewActiveHand });
+
+            //cardCanvasFactory.SetBinding()
 
             cardCanvasFactory.SetBinding(CardCanvas.CardNameProperty, new Binding("Name"));
             cardCanvasFactory.SetBinding(CardCanvas.CivilizationProperty, new Binding("Civilizations"));
@@ -103,7 +160,11 @@ namespace DuelMastersApplication
 
             _listViewActiveHand.ItemTemplate = new DataTemplate() { VisualTree = textBlockFactory };
             */
+
+            //var cardCanvas = _listViewActiveHand.Items[0] as CardCanvas;
+            //var left = cardCanvas.p
         }
+        #endregion Private methods
 
         #region Events
         private void MainCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
