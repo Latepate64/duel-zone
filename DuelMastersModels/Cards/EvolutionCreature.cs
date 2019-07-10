@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards
         {
             get
             {
-                var creature = new EvolutionCreature()
+                EvolutionCreature creature = new EvolutionCreature()
                 {
                     Cost = Cost,
                     Flavor = Flavor,
@@ -23,11 +23,11 @@ namespace DuelMastersModels.Cards
                     Tapped = Tapped,
                     Text = Text
                 };
-                foreach (var civilization in Civilizations)
+                foreach (Civilization civilization in Civilizations)
                 {
                     creature.Civilizations.Add(civilization);
                 }
-                foreach (var race in Races)
+                foreach (string race in Races)
                 {
                     creature.Races.Add(race);
                 }

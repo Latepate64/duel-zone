@@ -18,10 +18,10 @@ namespace DuelMastersModels
             {
                 SelectCard(duel, cardSelection);
             }
-            else if (playerAction is DeclareAttack declareAttack)
+            /*else if (playerAction is DeclareAttack declareAttack)
             {
                 declareAttack.Declare(duel, declareAttack.CreaturesThatCanAttack.First(), null);
-            }
+            }*/
             else
             {
                 throw new ArgumentOutOfRangeException("playerAction");
@@ -37,12 +37,14 @@ namespace DuelMastersModels
                 {
                     card = optionalCardSelection.Cards.First();
                 }
+                optionalCardSelection.SelectedCard = card;
                 optionalCardSelection.Perform(duel, card);
+                duel.CurrentTurn.CurrentStep.PlayerActions.Add(optionalCardSelection);
             }
             else if (cardSelection is PayCost payCost)
             {
-                var civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
-                var manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
+                Card civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
+                System.Collections.Generic.List<Card> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
                 manaCards.Add(civCard);
                 payCost.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(manaCards));
             }

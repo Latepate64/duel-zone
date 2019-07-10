@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards
         {
             get
             {
-                var crossGear = new CrossGear()
+                CrossGear crossGear = new CrossGear()
                 {
                     Cost = Cost,
                     Flavor = Flavor,
@@ -21,7 +21,7 @@ namespace DuelMastersModels.Cards
                     Tapped = Tapped,
                     Text = Text
                 };
-                foreach (var civilization in Civilizations)
+                foreach (Civilization civilization in Civilizations)
                 {
                     crossGear.Civilizations.Add(civilization);
                 }

@@ -11,7 +11,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
-        public Collection<Card> Cards { get; } = new Collection<Card>();
+        public ObservableCollection<Card> Cards { get; } = new ObservableCollection<Card>();
 
         public Collection<Creature> Creatures => new Collection<Creature>(Cards.Where(card => card is Creature).Cast<Creature>().ToList());
 

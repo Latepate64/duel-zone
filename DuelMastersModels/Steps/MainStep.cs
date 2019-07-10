@@ -29,7 +29,7 @@ namespace DuelMastersModels.Steps
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
-            var usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            Collection<Card> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
             if (State == MainStepState.Use && usableCards.Count > 0)
             {
                 return new UseCard(ActivePlayer, usableCards);
@@ -49,8 +49,8 @@ namespace DuelMastersModels.Steps
         /// </summary>
         private static Collection<Card> GetUsableCards(Collection<Card> handCards, Collection<Card> manaCards)
         {
-            var usableCards = new Collection<Card>();
-            foreach (var handCard in handCards)
+            Collection<Card> usableCards = new Collection<Card>();
+            foreach (Card handCard in handCards)
             {
                 if (CanBeUsed(handCard, manaCards))
                 {
@@ -65,7 +65,7 @@ namespace DuelMastersModels.Steps
         /// </summary>
         private static bool CanBeUsed(Card card, Collection<Card> manaCards)
         {
-            var manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
+            System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
             return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
         }
     }

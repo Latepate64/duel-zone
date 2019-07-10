@@ -95,13 +95,15 @@
     <Compile Include="PlayerActionResponses\DeclareAttackResponse.cs" />
     <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
+    <Compile Include="PlayerActions\CreatureSelections\DeclareAttacker.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareBlock.cs" />
     <Compile Include="PlayerActions\CardSelections\OptionalCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\PayCost.cs" />
     <Compile Include="PlayerActions\CardSelections\UseCard.cs" />
     <Compile Include="PlayerActions\CreatureSelections\CreatureSelection.cs" />
+    <Compile Include="PlayerActions\CreatureSelections\DeclareTargetOfAttack.cs" />
     <Compile Include="PlayerActions\CreatureSelections\OptionalCreatureSelection.cs" />
-    <Compile Include="PlayerActions\DeclareAttack.cs" />
+    <Compile Include="PlayerActions\DrawCard.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />

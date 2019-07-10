@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace DuelMastersApplication
@@ -41,6 +42,12 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty PowerProperty = DependencyProperty.Register("Power", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnPowerChanged));
 
         public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
+
+        public static readonly DependencyProperty GameIdProperty = DependencyProperty.Register("GameId", typeof(int), typeof(CardCanvas));
+
+        public static readonly DependencyProperty GameIdsProperty = DependencyProperty.Register("GameIds", typeof(Collection<int>), typeof(CardCanvas), new PropertyMetadata(OnGameIdsChanged));
+
+        public static readonly DependencyProperty TappedProperty = DependencyProperty.Register("Tapped", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnTapStatusChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -67,6 +74,18 @@ namespace DuelMastersApplication
             get { return (string)GetValue(CardTextProperty); }
             set { SetValue(CardTextProperty, value); }
         }
+
+        public int GameId
+        {
+            get { return (int)GetValue(GameIdProperty); }
+            set { SetValue(GameIdProperty, value); }
+        }
+
+        public bool Tapped
+        {
+            get { return (bool)GetValue(TappedProperty); }
+            set { SetValue(TappedProperty, value); }
+        }
         #endregion Other properties
 
         #region Fields
@@ -87,13 +106,13 @@ namespace DuelMastersApplication
         private TextBox _textBoxCardType = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
         private TextBox _textBoxRace = new TextBox() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden };
 
-        private Canvas _cardCanvas = new Canvas() { Background = Brushes.Black };
+        private Canvas _cardCanvas = new Canvas();
         private Grid _mainGrid = new Grid();
         #endregion Fields
 
         public CardCanvas()
         {
-            //HorizontalAlignment = HorizontalAlignment.Stretch;
+            _cardCanvas.Background = new SolidColorBrush(Colors.Black);
 
             Grid gridCostAndName = new Grid();
             gridCostAndName.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.2, GridUnitType.Star) });
@@ -153,14 +172,17 @@ namespace DuelMastersApplication
 
             SizeChanged += CardCanvas_SizeChanged;
 
-            //SetLeft(this, 500);
-            //SetTop(this, 500);
+            DoubleAnimation loadedAnimation = new DoubleAnimation(0.0, 1.0, new Duration(new TimeSpan(0, 0, 0, 1, 5)));
+            Storyboard.SetTargetProperty(loadedAnimation, new PropertyPath(OpacityProperty)); 
+            var eventTrigger = new EventTrigger(LoadedEvent);
+            var storyboard = new Storyboard();
+            storyboard.Children.Add(loadedAnimation);
+            eventTrigger.Actions.Add(new BeginStoryboard() { Storyboard = storyboard });
+            Triggers.Add(eventTrigger);
         }
 
         private void CardCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //Width = ActualHeight;
-
             _cardCanvas.Height = e.NewSize.Height;
             _cardCanvas.Width = e.NewSize.Height * 222 / 307;
             SetLeft(_cardCanvas, (e.NewSize.Width - _cardCanvas.Width) / 2);
@@ -185,8 +207,6 @@ namespace DuelMastersApplication
             _textBoxPower.FontSize = fontSizeCardType;
             _textBoxCardType.FontSize = fontSizeCardType;
             _textBoxRace.FontSize = fontSizeCardType;
-
-            //RenderTransform = new RotateTransform(45, e.NewSize.Height / 2, e.NewSize.Height / 2);
         }
 
         private static void OnCardNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -207,7 +227,6 @@ namespace DuelMastersApplication
         private void OnCardTextChanged(DependencyPropertyChangedEventArgs e)
         {
             _textBoxCardText.Text = e.NewValue.ToString();
-            //_labelCardName.Content = e.NewValue.ToString();
         }
 
         private static void OnSetAndIdChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -230,7 +249,7 @@ namespace DuelMastersApplication
 
         private void OnCivilizationsChanged(DependencyPropertyChangedEventArgs e)
         {
-            var civilizations = e.NewValue as Collection<Civilization>;
+            Collection<Civilization> civilizations = e.NewValue as Collection<Civilization>;
             if (civilizations.Count == 1)
             {
                 _mainGrid.Background = _civilizationDictionary[civilizations[0]];
@@ -288,6 +307,55 @@ namespace DuelMastersApplication
             {
                 _textBoxRace.Visibility = Visibility.Visible;
                 _textBoxRace.Text = raceText;
+            }
+        }
+
+        private static void OnGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnGameIdsChanged(e);
+        }
+
+        private void OnGameIdsChanged(DependencyPropertyChangedEventArgs e)
+        {
+            var gameIds = (Collection<int>)e.NewValue;
+            if (gameIds.Contains(GameId))
+            {
+                var colorAnimation = new ColorAnimation(Colors.Black, Colors.White, new Duration(new TimeSpan(0, 0, 0, 1, 5)))
+                {
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever,
+                };
+                _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+            }
+            else
+            {
+                _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, null);
+            }
+        }
+
+        private static void OnTapStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnTapStatusChanged(e);
+        }
+
+        private void OnTapStatusChanged(DependencyPropertyChangedEventArgs e)
+        {
+            bool tapped = (bool)e.NewValue;
+            if (tapped != (bool)e.OldValue)
+            {
+                double fromValue = 0.0;
+                double toValue = 90.0;
+                if (!tapped)
+                {
+                    fromValue = 90.0;
+                    toValue = 0.0;
+                }
+                RenderTransform = new RotateTransform(0, Height / 2, Height / 2);
+                DoubleAnimation animation = new DoubleAnimation(fromValue, toValue, new Duration(new TimeSpan(0, 0, 1)))
+                {
+                    RepeatBehavior = new RepeatBehavior(1)
+                };
+                RenderTransform.BeginAnimation(RotateTransform.AngleProperty, animation);
             }
         }
     }

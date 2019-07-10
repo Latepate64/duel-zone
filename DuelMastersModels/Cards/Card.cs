@@ -10,7 +10,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
-    public abstract class Card
+    public abstract class Card : System.ComponentModel.INotifyPropertyChanged
     {
         #region Constants
         private const string LightText = "Light";
@@ -41,7 +41,27 @@ namespace DuelMastersModels.Cards
         public string Text { get; set; }
         public string Flavor { get; set; }
         public string Illustrator { get; set; }
-        public bool Tapped { get; set; } = false;
+        private bool _tapped;
+        public bool Tapped
+        {
+            get
+            {
+                return _tapped;
+            }
+            set
+            {
+                if (value != _tapped)
+                {
+                    _tapped = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
 
         public abstract Card DeepCopy { get; }
         #endregion Properties
@@ -57,6 +77,8 @@ namespace DuelMastersModels.Cards
             { NoRarityText, Rarity.None },
         };
         #endregion Fields
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
         protected Card() { }
 
@@ -90,7 +112,7 @@ namespace DuelMastersModels.Cards
             }
             else
             {
-                var civilizations = new Collection<Civilization>();
+                Collection<Civilization> civilizations = new Collection<Civilization>();
                 if (civilizationTexts.Contains(LightText))
                 {
                     civilizations.Add(Civilization.Light);

@@ -10,6 +10,8 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         protected OptionalCardSelection(Player player, Collection<Card> cards) : base(player, 0, 1, cards)
         { }
 
+        public Card SelectedCard { get; set; }
+
         public override bool PerformAutomatically(Duel duel)
         {
             return Cards.Count == 0;

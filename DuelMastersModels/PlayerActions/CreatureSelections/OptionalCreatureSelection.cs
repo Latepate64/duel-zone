@@ -10,6 +10,8 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         protected OptionalCreatureSelection(Player player, Collection<Creature> creatures) : base(player, 0, 1, creatures)
         { }
 
+        public Creature SelectedCreature { get; set; }
+
         public override bool PerformAutomatically(Duel duel)
         {
             return Creatures.Count == 0;

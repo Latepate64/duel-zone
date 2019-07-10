@@ -14,7 +14,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Represents a duel that is played between two players.
     /// </summary>
-    public class Duel
+    public class Duel : System.ComponentModel.INotifyPropertyChanged
     {
         #region Properties
         public Player Player1 { get; set; }
@@ -55,7 +55,59 @@ namespace DuelMastersModels
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
 
-        public PlayerAction CurrentPlayerAction { get; set; }
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        private PlayerAction _currentPlayerAction;
+        public PlayerAction CurrentPlayerAction
+        {
+            get
+            {
+                return _currentPlayerAction;
+            }
+            set
+            {
+                if (value != _currentPlayerAction)
+                {
+                    _currentPlayerAction = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+
+        public Player PlayerWithPriority
+        {
+            get { return CurrentPlayerAction.Player; }
+        }
+
+        public Player PlayerWithoutPriority
+        {
+            get { return GetOpponent(PlayerWithPriority); }
+        }
+
+        /*public ObservableCollection<PlayerAction> PlayerActions
+        {
+            get
+            {
+                ObservableCollection<PlayerAction> playerActions = new ObservableCollection<PlayerAction>();
+                foreach (Turn turn in Turns)
+                {
+                    foreach (Step step in turn.Steps)
+                    {
+                        foreach (PlayerAction playerAction in step.PlayerActions)
+                        {
+                            playerActions.Add(playerAction);
+                        }
+                    }
+                }
+                return playerActions;
+            }
+        }*/
+        //public ObservableCollection<PlayerAction> PlayerActions { get; }
         #endregion Properties
 
         #region Public methods
@@ -161,7 +213,9 @@ namespace DuelMastersModels
                     }
                     if (optionalCardSelection.Validate(card))
                     {
+                        optionalCardSelection.SelectedCard = card;
                         optionalCardSelection.Perform(this, card);
+                        CurrentTurn.CurrentStep.PlayerActions.Add(optionalCardSelection);
                     }
                     else
                     {
@@ -195,7 +249,9 @@ namespace DuelMastersModels
                     }
                     if (optionalCreatureSelection.Validate(creature))
                     {
+                        optionalCreatureSelection.SelectedCreature = creature;
                         optionalCreatureSelection.Perform(this, creature);
+                        CurrentTurn.CurrentStep.PlayerActions.Add(optionalCreatureSelection);
                     }
                     else
                     {
@@ -207,18 +263,22 @@ namespace DuelMastersModels
                     throw new InvalidOperationException("Could not identify current player action.");
                 }
             }
+            /*
             else if (response is DeclareAttackResponse declareAttackResponse)
             {
                 DeclareAttack declareAttack = CurrentPlayerAction as DeclareAttack;
-                if (declareAttack.Validate(declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack))
+                if (declareAttackResponse.Attacker != null)
                 {
-                    declareAttack.Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
+                    if (declareAttack.Validate(declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack))
+                    {
+                        declareAttack.Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
+                    }
+                    else
+                    {
+                        return CurrentPlayerAction;
+                    }
                 }
-                else
-                {
-                    return CurrentPlayerAction;
-                }
-            }
+            }*/
             else
             {
                 throw new ArgumentOutOfRangeException("response");

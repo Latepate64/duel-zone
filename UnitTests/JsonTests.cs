@@ -13,7 +13,8 @@ namespace UnitTests
         private Duel GetDuelJson()
         {
             Collection<JsonCard> jsonCards = JsonCardFactory.GetJsonCards(JsonPath);
-            Collection<Card> cards = CardFactory.GetCardsFromJsonCards(jsonCards);
+            int gameId = 0;
+            Collection<Card> cards = CardFactory.GetCardsFromJsonCards(jsonCards, ref gameId);
             Duel duel = new Duel()
             {
                 Player1 = new Player()

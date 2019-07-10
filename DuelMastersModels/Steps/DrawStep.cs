@@ -22,9 +22,11 @@ namespace DuelMastersModels.Steps
         /// </summary>
         public override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
+            return new DrawCard(duel.CurrentTurn.ActivePlayer);
+            /*
             var action = new DrawCardAtDrawStep();
             action.Perform(duel);
-            return null;
+            return null;*/
         }
     }
 }
