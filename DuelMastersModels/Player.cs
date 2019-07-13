@@ -24,14 +24,30 @@ namespace DuelMastersModels
         public Collection<Card> DeckBeforeDuel { get; } = new Collection<Card>();
 
         #region Zones
-        public BattleZone BattleZone { get; set; } = new BattleZone();
-        public Deck Deck { get; set; } = new Deck();
-        public Graveyard Graveyard { get; set; } = new Graveyard();
-        public Hand Hand { get; set; } = new Hand();
-        public ManaZone ManaZone { get; set; } = new ManaZone();
-        public ShieldZone ShieldZone { get; set; } = new ShieldZone();
+        public BattleZone BattleZone { get; set; }
+        public Deck Deck { get; set; }
+        public Graveyard Graveyard { get; set; }
+        public Hand Hand { get; set; }
+        public ManaZone ManaZone { get; set; }
+        public ShieldZone ShieldZone { get; set; }
         #endregion Zones
+
+        public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
+
+        //public Collection<Card> UsableShieldTriggers { get; } = new Collection<Card>();
+
+        public Collection<Card> ShieldTriggersToUse { get; } = new Collection<Card>();
         #endregion Properties
+
+        public Player()
+        {
+            BattleZone = new BattleZone(this);
+            Deck = new Deck(this);
+            Graveyard = new Graveyard(this);
+            Hand = new Hand(this);
+            ManaZone = new ManaZone(this);
+            ShieldZone = new ShieldZone(this);
+        }
 
         /// <summary>
         /// Sets the cards the player is going to use in a duel.
@@ -42,7 +58,7 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException("cards");
             }
-            foreach (var card in cards)
+            foreach (Card card in cards)
             {
                 DeckBeforeDuel.Add(card);
             }
@@ -53,7 +69,7 @@ namespace DuelMastersModels
         /// </summary>
         public void SetupDeck()
         {
-            foreach (var card in DeckBeforeDuel)
+            foreach (Card card in DeckBeforeDuel)
             {
                 Deck.Add(card);
             }

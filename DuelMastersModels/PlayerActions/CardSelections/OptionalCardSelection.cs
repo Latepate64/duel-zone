@@ -22,6 +22,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             return card == null || Cards.Contains(card);
         }
 
-        public abstract void Perform(Duel duel, Card card);
+        public abstract PlayerAction Perform(Duel duel, Card card);
     }
 }

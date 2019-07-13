@@ -7,8 +7,14 @@ namespace DuelMastersModels.Zones
         public override bool Public { get; } = true;
         public override bool Ordered { get; } = false;
 
+        public ManaZone(Player owner) : base(owner) { }
+
         public override void Add(Card card)
         {
+            if (card.Civilizations.Count > 1)
+            {
+                card.Tapped = true;
+            }
             Cards.Add(card);
         }
 

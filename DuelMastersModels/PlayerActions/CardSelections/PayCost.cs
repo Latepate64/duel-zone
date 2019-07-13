@@ -2,7 +2,6 @@
 using DuelMastersModels.Steps;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -29,10 +28,10 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public bool Validate(Collection<Card> cards, Card cardToBeUsed)
         {
-            return Cards.Intersect(cards).Count() == Cost && CivilizationsPaid(cards, cardToBeUsed);
+            return Duel.CanBeUsed(cardToBeUsed, cards);
         }
 
-        public void Perform(Duel duel, Collection<Card> cards)
+        public PlayerAction Perform(Duel duel, Collection<Card> cards)
         {
             if (duel == null)
             {
@@ -42,26 +41,21 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             {
                 throw new ArgumentNullException("cards");
             }
-            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep && CivilizationsPaid(cards, mainStep.CardToBeUsed))
+            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
             {
                 foreach (Card card in cards)
                 {
                     card.Tapped = true;
                 }
-                Player.BattleZone.Add(mainStep.CardToBeUsed);
+                duel.PlayCard(mainStep.CardToBeUsed, Player);
                 mainStep.CardToBeUsed = null;
                 mainStep.State = MainStepState.Use;
+                return null;
             }
             else
             {
                 throw new InvalidOperationException();
             }
-        }
-
-        private bool CivilizationsPaid(Collection<Card> cards, Card cardToBeUsed)
-        {
-            return cards.SelectMany(c => c.Civilizations).Intersect(cardToBeUsed.Civilizations).Any();
-            //TODO: Check that ALL civilization are paid.
         }
     }
 }

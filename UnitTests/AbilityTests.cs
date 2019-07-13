@@ -14,6 +14,7 @@ namespace UnitTests
 {
     public class AbilityTests
     {
+        /*
         [Fact]
         public void ShouldReturnDeclareBlock()
         {
@@ -49,7 +50,7 @@ namespace UnitTests
             duel.Progress(new CardSelectionResponse());
             declareAttack = duel.Progress(new CardSelectionResponse()) as DeclareAttack;
         }
-
+        */
         private Duel GetDuel()
         {
             Duel duel = new Duel()
@@ -91,7 +92,7 @@ namespace UnitTests
             };
             creature.Civilizations.Add(Civilization.Light);
             creature.Races.Add("Initiate");
-            creature.StaticAbilities.Add(new Blocker());
+            //creature.StaticAbilities.Add(new Blocker());
             return creature;
         }
     }

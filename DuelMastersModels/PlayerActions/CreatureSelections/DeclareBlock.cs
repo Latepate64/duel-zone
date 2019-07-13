@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         public DeclareBlock(Player player, Collection<Creature> creatures) : base(player, creatures)
         { }
 
-        public override void Perform(Duel duel, Creature creature)
+        public override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {
@@ -25,6 +25,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
                 creature.Tapped = true;
                 // 507.1d The attacking creature becomes a blocked creature. It remains a blocked creature until it's removed from the attack or until the end of attack step, whichever comes first. A creature remains blocked even if all the blocking creature is removed from the attack.
             }
+            return null;
         }
     }
 }

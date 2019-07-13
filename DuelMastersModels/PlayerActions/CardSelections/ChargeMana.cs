@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         public ChargeMana(Player player) : base(player, player.Hand.Cards)
         { }
 
-        public override void Perform(Duel duel, Card card)
+        public override PlayerAction Perform(Duel duel, Card card)
         {
             if (duel == null)
             {
@@ -20,6 +20,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             {
                 duel.PutFromHandIntoManaZone(Player, card);
             }
+            return null;
         }
     }
 }

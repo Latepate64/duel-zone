@@ -14,7 +14,6 @@ namespace UnitTests
         {
             Collection<JsonCard> jsonCards = JsonCardFactory.GetJsonCards(JsonPath);
             int gameId = 0;
-            Collection<Card> cards = CardFactory.GetCardsFromJsonCards(jsonCards, ref gameId);
             Duel duel = new Duel()
             {
                 Player1 = new Player()
@@ -28,6 +27,7 @@ namespace UnitTests
                     Name = "Player2",
                 }
             };
+            Collection<Card> cards = CardFactory.GetCardsFromJsonCards(jsonCards, ref gameId, duel.Player1);
             const int Count = 40;
             Collection<Card> p1Cards = new Collection<Card>();
             Collection<Card> p2Cards = new Collection<Card>();

@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         public DeclareTargetOfAttack(Player player, Collection<Creature> creatures) : base(player, creatures)
         { }
 
-        public override void Perform(Duel duel, Creature creature)
+        public override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {
@@ -19,16 +19,25 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             AttackDeclarationStep step = (duel.CurrentTurn.CurrentStep as AttackDeclarationStep);
             step.AttackedCreature = creature;
             step.TargetOfAttackDeclared = true;
+            return null;
         }
 
         public override bool PerformAutomatically(Duel duel)
         {
-            if (Creatures.Count == 0)
+            if (!duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1)
+            {
+                Perform(duel, Creatures[0]);
+                return true;
+            }
+            else if (Creatures.Count == 0)
             {
                 Perform(duel, null);
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

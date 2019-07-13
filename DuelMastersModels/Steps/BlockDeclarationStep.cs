@@ -27,7 +27,7 @@ namespace DuelMastersModels.Steps
                 throw new System.ArgumentNullException("duel");
             }
             Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
-            Collection<Creature> creatures = nonActivePlayer.BattleZone.GetCreaturesThatCanBlock(AttackingCreature);
+            Collection<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
             if (creatures.Count > 0)
             {
                 return new DeclareBlock(nonActivePlayer, creatures);

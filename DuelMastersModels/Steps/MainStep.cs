@@ -2,6 +2,7 @@
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -52,21 +53,12 @@ namespace DuelMastersModels.Steps
             Collection<Card> usableCards = new Collection<Card>();
             foreach (Card handCard in handCards)
             {
-                if (CanBeUsed(handCard, manaCards))
+                if (Duel.CanBeUsed(handCard, manaCards))
                 {
                     usableCards.Add(handCard);
                 }
             }
             return usableCards;
-        }
-
-        /// <summary>
-        /// Checks if a card can be used.
-        /// </summary>
-        private static bool CanBeUsed(Card card, Collection<Card> manaCards)
-        {
-            System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
-            return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
         }
     }
 }

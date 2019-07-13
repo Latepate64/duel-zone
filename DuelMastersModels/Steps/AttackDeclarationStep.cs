@@ -21,7 +21,7 @@ namespace DuelMastersModels.Steps
             if (AttackingCreature != null && !TargetOfAttackDeclared)
             {
                 //TODO: If attacked creature is not null, check that it can be attacked.
-                return new DeclareTargetOfAttack(ActivePlayer, NonactivePlayer.BattleZone.TappedCreatures);
+                return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer, AttackingCreature));
             }
             else
             {
@@ -35,10 +35,10 @@ namespace DuelMastersModels.Steps
             {
                 throw new System.ArgumentNullException("duel");
             }
-            if (ActivePlayer.BattleZone.CreaturesThatCanAttack.Count > 0)
+            System.Collections.ObjectModel.Collection<Creature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+            if (creatures.Count > 0)
             {
-                //return new DeclareAttack(ActivePlayer, ActivePlayer.BattleZone.CreaturesThatCanAttack);
-                return new DeclareAttacker(ActivePlayer, ActivePlayer.BattleZone.CreaturesThatCanAttack);
+                return new DeclareAttacker(ActivePlayer, creatures);
             }
             else
             {

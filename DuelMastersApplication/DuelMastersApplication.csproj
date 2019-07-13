@@ -102,5 +102,13 @@
       <Name>DuelMastersModels</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\card_back.jpg" />
+    <Resource Include="Images\graveyard.png" />
+    <Resource Include="Images\hand.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

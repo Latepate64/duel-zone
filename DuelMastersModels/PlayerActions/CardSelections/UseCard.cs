@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         public UseCard(Player player, Collection<Card> cards) : base(player, cards)
         { }
 
-        public override void Perform(Duel duel, Card card)
+        public override PlayerAction Perform(Duel duel, Card card)
         {
             if (duel == null)
             {
@@ -29,6 +29,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
                 {
                     mainStep.State = MainStepState.MustBeEnded;
                 }
+                return null;
             }
             else
             {

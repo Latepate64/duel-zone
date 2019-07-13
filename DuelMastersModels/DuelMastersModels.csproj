@@ -71,8 +71,17 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
+    <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
     <Compile Include="Abilities\Static\StaticAbility.cs" />
+    <Compile Include="Abilities\Static\StaticAbilityForCreature.cs" />
+    <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
+    <Compile Include="Abilities\Trigger\TriggerAbility.cs" />
+    <Compile Include="Abilities\Trigger\TriggerCondition.cs" />
+    <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="AIPlayer.cs" />
+    <Compile Include="CardFilters\CardFilter.cs" />
+    <Compile Include="CardFilters\CreatureFilter.cs" />
+    <Compile Include="CardFilters\TargetCreatureFilter.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
@@ -80,8 +89,20 @@
     <Compile Include="Cards\JsonCard.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
+    <Compile Include="Effects\ContinuousEffects\BlockerEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\CannotAttackPlayersEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\ContinuousEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\CreatureContinuousEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\CreatureShieldTriggerEffect.cs" />
+    <Compile Include="Effects\Effect.cs" />
+    <Compile Include="Effects\Periods\Indefinite.cs" />
+    <Compile Include="Effects\Periods\Period.cs" />
+    <Compile Include="Factories\AbilityTypeFactory.cs" />
     <Compile Include="Factories\CardFactory.cs" />
+    <Compile Include="Factories\EffectFactory.cs" />
     <Compile Include="Factories\JsonCardFactory.cs" />
+    <Compile Include="Factories\StaticAbilityFactory.cs" />
+    <Compile Include="Factories\TriggerConditionFactory.cs" />
     <Compile Include="GameActions\GameAction.cs" />
     <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
@@ -90,11 +111,18 @@
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
+    <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
+    <Compile Include="PlayerActions\AutomaticActions\AutomaticAction.cs" />
+    <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
     <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
     <Compile Include="PlayerActionResponses\CardSelectionResponse.cs" />
     <Compile Include="PlayerActionResponses\DeclareAttackResponse.cs" />
     <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\DeclareShieldTriggers.cs" />
+    <Compile Include="PlayerActions\CardSelections\MandatoryCardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\MultipleCardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\UseShieldTrigger.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareAttacker.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareBlock.cs" />
     <Compile Include="PlayerActions\CardSelections\OptionalCardSelection.cs" />
@@ -103,7 +131,9 @@
     <Compile Include="PlayerActions\CreatureSelections\CreatureSelection.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareTargetOfAttack.cs" />
     <Compile Include="PlayerActions\CreatureSelections\OptionalCreatureSelection.cs" />
-    <Compile Include="PlayerActions\DrawCard.cs" />
+    <Compile Include="PlayerActions\AutomaticActions\DrawCard.cs" />
+    <Compile Include="PlayerActions\OptionalActions\OptionalAction.cs" />
+    <Compile Include="PlayerActions\OptionalActions\YouMayDrawACard.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
@@ -135,7 +165,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Abilities\Trigger\" />
+    <Folder Include="Effects\OneShotEffects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

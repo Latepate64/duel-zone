@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.GameActions.TurnBasedActions;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.AutomaticActions;
 
 namespace DuelMastersModels.Steps
 {

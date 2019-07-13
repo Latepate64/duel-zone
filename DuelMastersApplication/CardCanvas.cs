@@ -24,6 +24,7 @@ namespace DuelMastersApplication
         const int ArtworkRow = 1;
         const int TextRow = 2;
         const int CardTypeRow = 3;
+        const double TextOpacity = 0.7;
         #endregion Constants
 
         #region DependencyProperties
@@ -45,9 +46,11 @@ namespace DuelMastersApplication
 
         public static readonly DependencyProperty GameIdProperty = DependencyProperty.Register("GameId", typeof(int), typeof(CardCanvas));
 
-        public static readonly DependencyProperty GameIdsProperty = DependencyProperty.Register("GameIds", typeof(Collection<int>), typeof(CardCanvas), new PropertyMetadata(OnGameIdsChanged));
+        public static readonly DependencyProperty CandidateGameIdsProperty = DependencyProperty.Register("CandidateGameIds", typeof(Collection<int>), typeof(CardCanvas), new PropertyMetadata(OnCandidateGameIdsChanged));
 
         public static readonly DependencyProperty TappedProperty = DependencyProperty.Register("Tapped", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnTapStatusChanged));
+
+        public static readonly DependencyProperty SelectedGameIdsProperty = DependencyProperty.Register("SelectedGameIds", typeof(Collection<int>), typeof(CardCanvas), new PropertyMetadata(OnSelectedGameIdsChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -89,25 +92,27 @@ namespace DuelMastersApplication
         #endregion Other properties
 
         #region Fields
-        private static readonly Dictionary<Civilization, Brush> _civilizationDictionary = new Dictionary<Civilization, Brush>()
+        private static readonly Dictionary<Civilization, Color> _civilizationDictionary = new Dictionary<Civilization, Color>()
         {
-            { Civilization.Light, Brushes.LightYellow },
-            { Civilization.Water, Brushes.LightBlue },
-            { Civilization.Darkness, Brushes.Gray },
-            { Civilization.Fire, Brushes.Red },
-            { Civilization.Nature, Brushes.LightGreen },
+            { Civilization.Light, Color.FromRgb(250, 250, 140) },
+            { Civilization.Water, Color.FromRgb(120, 180, 215) },
+            { Civilization.Darkness, Color.FromRgb(75, 75, 75) },
+            { Civilization.Fire, Color.FromRgb(210, 35, 40) },
+            { Civilization.Nature, Color.FromRgb(80, 100, 50) },
         };
 
-        private TextBox _textBoxCardName = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top };
+        private TextBox _textBoxCardName = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, Opacity = TextOpacity };
         private Image _artwork = new Image();
-        private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, IsReadOnly = true, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
+        private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, IsReadOnly = true, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Opacity = TextOpacity };
         private TextBox _textBoxCost = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Background = Brushes.Black, Foreground = Brushes.White, FontWeight = FontWeights.Bold };
-        private TextBox _textBoxPower = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden };
-        private TextBox _textBoxCardType = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
-        private TextBox _textBoxRace = new TextBox() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden };
+        private TextBox _textBoxPower = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity };
+        private TextBox _textBoxCardType = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Opacity = TextOpacity };
+        private TextBox _textBoxRace = new TextBox() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity };
 
         private Canvas _cardCanvas = new Canvas();
         private Grid _mainGrid = new Grid();
+
+        private bool _candidate;
         #endregion Fields
 
         public CardCanvas()
@@ -188,7 +193,7 @@ namespace DuelMastersApplication
             SetLeft(_cardCanvas, (e.NewSize.Width - _cardCanvas.Width) / 2);
             SetTop(_cardCanvas, (e.NewSize.Height - _cardCanvas.Height) / 2);
 
-            const double Scale = 0.1;
+            const double Scale = 0.07;
             _mainGrid.Height = e.NewSize.Height - e.NewSize.Height * Scale;
             _mainGrid.Width = _cardCanvas.Width - e.NewSize.Height * Scale;
 
@@ -252,11 +257,20 @@ namespace DuelMastersApplication
             Collection<Civilization> civilizations = e.NewValue as Collection<Civilization>;
             if (civilizations.Count == 1)
             {
-                _mainGrid.Background = _civilizationDictionary[civilizations[0]];
+                _mainGrid.Background = new SolidColorBrush(_civilizationDictionary[civilizations[0]]);
+            }
+            else if (civilizations.Count == 2)
+            {
+                var brushes = new List<Color>();
+                foreach (var civilization in civilizations)
+                {
+                    brushes.Add(_civilizationDictionary[civilization]);
+                }
+                _mainGrid.Background = new LinearGradientBrush(brushes[0], brushes[1], 45);
             }
             else
             {
-                throw new NotImplementedException("Implement multicolor painting");
+                throw new Exception();
             }
         }
 
@@ -310,27 +324,34 @@ namespace DuelMastersApplication
             }
         }
 
-        private static void OnGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnCandidateGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as CardCanvas).OnGameIdsChanged(e);
+            (d as CardCanvas).OnCandidateGameIdsChanged(e);
         }
 
-        private void OnGameIdsChanged(DependencyPropertyChangedEventArgs e)
+        private void OnCandidateGameIdsChanged(DependencyPropertyChangedEventArgs e)
         {
             var gameIds = (Collection<int>)e.NewValue;
             if (gameIds.Contains(GameId))
             {
-                var colorAnimation = new ColorAnimation(Colors.Black, Colors.White, new Duration(new TimeSpan(0, 0, 0, 1, 5)))
-                {
-                    AutoReverse = true,
-                    RepeatBehavior = RepeatBehavior.Forever,
-                };
-                _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+                BeginCandidateAnimation();
+                _candidate = true;
             }
             else
             {
                 _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, null);
+                _candidate = false;
             }
+        }
+
+        private void BeginCandidateAnimation()
+        {
+            var colorAnimation = new ColorAnimation(Colors.Black, Colors.White, new Duration(new TimeSpan(0, 0, 0, 1, 0)))
+            {
+                AutoReverse = true,
+                RepeatBehavior = RepeatBehavior.Forever,
+            };
+            _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
         }
 
         private static void OnTapStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -356,6 +377,33 @@ namespace DuelMastersApplication
                     RepeatBehavior = new RepeatBehavior(1)
                 };
                 RenderTransform.BeginAnimation(RotateTransform.AngleProperty, animation);
+            }
+        }
+
+        private static void OnSelectedGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas).OnSelectedGameIdsChanged(e);
+        }
+
+        private void OnSelectedGameIdsChanged(DependencyPropertyChangedEventArgs e)
+        {
+            var gameIds = (Collection<int>)e.NewValue;
+            if (gameIds.Contains(GameId))
+            {
+                var colorAnimation = new ColorAnimation(Colors.White, Colors.Red, new Duration(new TimeSpan(0, 0, 0, 0, 250)))
+                {
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever,
+                };
+                _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+            }
+            else if (_candidate)
+            {
+                BeginCandidateAnimation();
+            }
+            else
+            {
+                _cardCanvas.Background.BeginAnimation(SolidColorBrush.ColorProperty, null);
             }
         }
     }

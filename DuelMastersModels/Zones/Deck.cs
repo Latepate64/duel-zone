@@ -8,6 +8,8 @@ namespace DuelMastersModels.Zones
         public override bool Public { get; } = false;
         public override bool Ordered { get; } = true;
 
+        public Deck(Player owner) : base(owner) { }
+
         public override void Add(Card card)
         {
             Cards.Add(card);
@@ -23,13 +25,13 @@ namespace DuelMastersModels.Zones
         /// </summary>
         public void Shuffle()
         {
-            var random = new Random(Guid.NewGuid().GetHashCode());
-            var n = Cards.Count;
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int n = Cards.Count;
             while (n > 1)
             {
                 n--;
-                var k = random.Next(n + 1);
-                var value = Cards[k];
+                int k = random.Next(n + 1);
+                Card value = Cards[k];
                 Cards[k] = Cards[n];
                 Cards[n] = value;
             }
@@ -50,7 +52,7 @@ namespace DuelMastersModels.Zones
         {
             if (Cards.Count > 0)
             {
-                var topCard = Cards[Cards.Count - 1];
+                Card topCard = Cards[Cards.Count - 1];
                 if (remove)
                 {
                     Remove(topCard);

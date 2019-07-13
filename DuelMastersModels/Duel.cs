@@ -1,11 +1,17 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities.Static;
+using DuelMastersModels.Abilities.Trigger;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Effects;
+using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using DuelMastersModels.PlayerActions.OptionalActions;
 using DuelMastersModels.PlayerActionResponses;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -79,35 +85,9 @@ namespace DuelMastersModels
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
 
-        public Player PlayerWithPriority
-        {
-            get { return CurrentPlayerAction.Player; }
-        }
+        public Collection<Spell> SpellsBeingResolved { get; } = new Collection<Spell>();
 
-        public Player PlayerWithoutPriority
-        {
-            get { return GetOpponent(PlayerWithPriority); }
-        }
-
-        /*public ObservableCollection<PlayerAction> PlayerActions
-        {
-            get
-            {
-                ObservableCollection<PlayerAction> playerActions = new ObservableCollection<PlayerAction>();
-                foreach (Turn turn in Turns)
-                {
-                    foreach (Step step in turn.Steps)
-                    {
-                        foreach (PlayerAction playerAction in step.PlayerActions)
-                        {
-                            playerActions.Add(playerAction);
-                        }
-                    }
-                }
-                return playerActions;
-            }
-        }*/
-        //public ObservableCollection<PlayerAction> PlayerActions { get; }
+        public static Collection<string> NotParsedAbilities { get; } = new Collection<string>();
         #endregion Properties
 
         #region Public methods
@@ -135,7 +115,7 @@ namespace DuelMastersModels
             PlayerAction playerAction = turn.Start(this);
             if (playerAction != null)
             {
-                return PerformAutomatically(playerAction);
+                return TryToPerformAutomatically(playerAction);
             }
             else
             {
@@ -189,19 +169,15 @@ namespace DuelMastersModels
         /// <summary>
         /// Player draws a card.
         /// </summary>
-        public static void DrawCard(Player player)
+        public static PlayerAction DrawCard(Player player)
         {
             DrawCards(player, 1);
-        }
-
-        private PlayerAction SetCurrentPlayerAction(PlayerAction playerAction)
-        {
-            CurrentPlayerAction = playerAction;
-            return playerAction;
+            return null;
         }
 
         public PlayerAction Progress(PlayerActionResponse response)
         {
+            PlayerAction playerAction = null;
             if (response is CardSelectionResponse cardSelectionResponse)
             {
                 if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
@@ -214,7 +190,7 @@ namespace DuelMastersModels
                     if (optionalCardSelection.Validate(card))
                     {
                         optionalCardSelection.SelectedCard = card;
-                        optionalCardSelection.Perform(this, card);
+                        playerAction = optionalCardSelection.Perform(this, card);
                         CurrentTurn.CurrentStep.PlayerActions.Add(optionalCardSelection);
                     }
                     else
@@ -226,11 +202,44 @@ namespace DuelMastersModels
                 {
                     if (payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
                     {
-                        payCost.Perform(this, cardSelectionResponse.SelectedCards);
+                        playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
                     }
                     else
                     {
                         return CurrentPlayerAction;
+                    }
+                }
+                else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
+                {
+                    if (multipleCardSelection.Validate(cardSelectionResponse.SelectedCards))
+                    {
+                        foreach (Card card in cardSelectionResponse.SelectedCards)
+                        {
+                            multipleCardSelection.SelectedCards.Add(card);
+                        }
+                        playerAction = multipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+                        CurrentTurn.CurrentStep.PlayerActions.Add(multipleCardSelection);
+                    }
+                }
+                else if (CurrentPlayerAction is MandatoryCardSelection mandatoryCardSelection)
+                {
+                    if (cardSelectionResponse.SelectedCards.Count == 1)
+                    {
+                        Card card = cardSelectionResponse.SelectedCards.First();
+                        if (mandatoryCardSelection.Validate(card))
+                        {
+                            mandatoryCardSelection.SelectedCard = card;
+                            playerAction = mandatoryCardSelection.Perform(this, card);
+                            CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryCardSelection);
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("mandatoryCardSelection");
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("mandatoryCardSelection");
                     }
                 }
                 else
@@ -250,7 +259,7 @@ namespace DuelMastersModels
                     if (optionalCreatureSelection.Validate(creature))
                     {
                         optionalCreatureSelection.SelectedCreature = creature;
-                        optionalCreatureSelection.Perform(this, creature);
+                        playerAction = optionalCreatureSelection.Perform(this, creature);
                         CurrentTurn.CurrentStep.PlayerActions.Add(optionalCreatureSelection);
                     }
                     else
@@ -261,6 +270,18 @@ namespace DuelMastersModels
                 else
                 {
                     throw new InvalidOperationException("Could not identify current player action.");
+                }
+            }
+            else if (response is OptionalActionResponse optionalActionResponse)
+            {
+                if (CurrentPlayerAction is OptionalAction optionalAction)
+                {
+                    playerAction = optionalAction.Perform(this, optionalActionResponse.TakeAction);
+                    CurrentTurn.CurrentStep.PlayerActions.Add(optionalAction);
+                }
+                else
+                {
+                    throw new InvalidOperationException("optionalActionResponse");
                 }
             }
             /*
@@ -283,7 +304,15 @@ namespace DuelMastersModels
             {
                 throw new ArgumentOutOfRangeException("response");
             }
-            return SetCurrentPlayerAction(Progress());
+            if (playerAction == null)
+            {
+                return SetCurrentPlayerAction(Progress());
+            }
+            else
+            {
+                return SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+                //return SetCurrentPlayerAction(Progress(playerAction));
+            }
         }
 
         public void PutFromHandIntoManaZone(Player player, Card card)
@@ -351,6 +380,109 @@ namespace DuelMastersModels
                 throw new ArgumentOutOfRangeException("id");
             }
         }
+
+        /// <summary>
+        /// Checks if a card can be used.
+        /// </summary>
+        public static bool CanBeUsed(Card card, Collection<Card> manaCards)
+        {
+            //System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
+            //return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
+            return card.Cost <= manaCards.Count && HasCivilizations(manaCards, card.Civilizations);
+        }
+
+        public Collection<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
+        {
+            return new Collection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(GetOpponent(GetOwner(attackingCreature))).Where(c => !c.Tapped).ToList());
+            //TODO: consider situations where abilities of attacking creature matter etc.
+        }
+
+        public Collection<Creature> GetCreaturesThatCanAttack(Player player)
+        {
+            IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
+            List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList();
+
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player, c).Count == 0);
+            /*
+            foreach (CreatureContinuousEffect creatureContinuousEffect in cannotAttackPlayersEffects)
+            {
+                Collection<Creature> creaturesThatCannotAttackPlayers = creatureContinuousEffect.CreatureFilter.FilteredCreatures;
+                creatures.RemoveAll(c => creaturesThatCannotAttackPlayers.Contains(c));
+            }*/
+            creatures.RemoveAll(c => creaturesThatCannotAttack.Contains(c));
+            return new Collection<Creature>(creatures);
+        }
+
+        public bool CanAttackOpponent(Creature creature)
+        {
+            IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            return !creature.SummoningSickness && !creaturesThatCannotAttackPlayers.Contains(creature);
+        }
+
+        public Collection<Creature> GetCreaturesThatCanBeAttacked(Player player, Creature attackingCreature)
+        {
+            Player opponent = GetOpponent(player);
+            return opponent.BattleZone.TappedCreatures;
+            //TODO: improve
+        }
+
+        public bool HasShieldTrigger(Card card)
+        {
+            if (card is Creature creature)
+            {
+                return HasShieldTrigger(creature);
+            }
+            else if (card is Spell spell)
+            {
+                return HasShieldTrigger(spell);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public PlayerAction PutFromShieldZoneToHand(Player player, Collection<Card> cards)
+        {
+            Collection<Card> shieldTriggerCards = new Collection<Card>();
+            foreach (Card card in cards)
+            {
+                PutFromShieldZoneToHand(player, card);
+                if (HasShieldTrigger(card))
+                {
+                    shieldTriggerCards.Add(card);
+                }
+            }
+            if (shieldTriggerCards.Count > 0)
+            {
+                return new DeclareShieldTriggers(player, shieldTriggerCards);
+            }
+            return null;
+        }
+
+        public void PlayCard(Card card, Player player)
+        {
+            if (card is Creature creature)
+            {
+                player.BattleZone.Add(card);
+            }
+            else if (card is Spell spell)
+            {
+                SpellsBeingResolved.Add(spell);
+            }
+            else
+            {
+                throw new InvalidOperationException("mainStep.CardToBeUsed");
+            }
+        }
+
+        public PlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(Player player)
+        {
+            player.ManaZone.Add(RemoveTheTopCardOfDeck(player));
+            return null;
+        }
         #endregion Public methods
 
         #region Private methods
@@ -393,7 +525,7 @@ namespace DuelMastersModels
             checkDeckHasCards.Perform(this);
         }
 
-        private PlayerAction PerformAutomatically(PlayerAction playerAction)
+        private PlayerAction TryToPerformAutomatically(PlayerAction playerAction)
         {
             if (playerAction.PerformAutomatically(this))
             {
@@ -436,10 +568,68 @@ namespace DuelMastersModels
                 CheckStateBasedActions();
                 if (!Ended)
                 {
+                    //TODO: Resolve spell abilities
+                    while (SpellsBeingResolved.Count > 0)
+                    {
+                        Spell spell = SpellsBeingResolved.Last();
+                        SpellsBeingResolved.Remove(spell);
+                        GetOwner(spell).Graveyard.Add(spell);
+                    }
+
+                    if (CurrentTurn.NonActivePlayer.ShieldTriggersToUse.Count > 0)
+                    {
+                        return SetCurrentPlayerAction(TryToPerformAutomatically(new UseShieldTrigger(CurrentTurn.NonActivePlayer, CurrentTurn.NonActivePlayer.ShieldTriggersToUse)));
+                    }
+
+                    /*if (CurrentTurn.ActivePlayer.UsableShieldTriggers.Count > 0)
+                    {
+                        PlayerAction action = new DeclareShieldTriggers(CurrentTurn.ActivePlayer);
+                    }*/
+
+                    //TODO: shield triggers nonactive
+
+                    if (CurrentTurn.ActivePlayer.TriggerAbilities.Count == 1)
+                    {
+                        TriggerAbility ability = CurrentTurn.ActivePlayer.TriggerAbilities.First();
+
+                        //todo: remove ability from stack after it is has completely resolved
+                        CurrentTurn.ActivePlayer.TriggerAbilities.Remove(ability);
+                        
+
+                        return SetCurrentPlayerAction(TryToPerformAutomatically(ability.StartResolving(this, CurrentTurn.ActivePlayer)));
+                        
+                    }
+                    else if (CurrentTurn.ActivePlayer.TriggerAbilities.Count > 1)
+                    {
+                        throw new NotImplementedException("select ability to resolve");
+                    }
+
+                    if (CurrentTurn.NonActivePlayer.TriggerAbilities.Count == 1)
+                    {
+                        TriggerAbility ability = CurrentTurn.NonActivePlayer.TriggerAbilities.First();
+                        return SetCurrentPlayerAction(TryToPerformAutomatically(ability.StartResolving(this, CurrentTurn.NonActivePlayer)));
+                        //todo: remove ability from stack after it is has completely resolved
+
+                        /*
+                        if (ability.Effects.Count == 1)
+                        {
+                            return ability.StartResolving();
+                            //todo: remove ability from stack after it is has completely resolved
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }*/
+                    }
+                    else if (CurrentTurn.NonActivePlayer.TriggerAbilities.Count > 1)
+                    {
+                        throw new NotImplementedException("select ability to resolve");
+                    }
+
                     PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
                     if (playerAction != null)
                     {
-                        return SetCurrentPlayerAction(PerformAutomatically(playerAction));
+                        return SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
                     }
                     else
                     {
@@ -452,7 +642,7 @@ namespace DuelMastersModels
                             PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
                             if (action != null)
                             {
-                                return SetCurrentPlayerAction(PerformAutomatically(action));
+                                return SetCurrentPlayerAction(TryToPerformAutomatically(action));
                             }
                             else
                             {
@@ -463,6 +653,184 @@ namespace DuelMastersModels
                 }
             }
             return SetCurrentPlayerAction(null);
+        }
+
+        private Player GetOwner(Card card)
+        {
+            if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            {
+                return Player1;
+            }
+            else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            {
+                return Player2;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("card");
+            }
+        }
+
+        /// <summary>
+        /// Checks if selected mana cards have the required civilizations.
+        /// </summary>
+        private static bool HasCivilizations(Collection<Card> paymentCards, Collection<Civilization> requiredCivilizations)
+        {
+            if (paymentCards == null)
+            {
+                throw new ArgumentNullException("paymentCards");
+            }
+            else if (requiredCivilizations == null)
+            {
+                throw new ArgumentNullException("requiredCivilizations");
+            }
+            else
+            {
+                List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
+                foreach (Card card in paymentCards)
+                {
+                    civilizationGroups.Add(card.Civilizations.ToList());
+                }
+                List<List<Civilization>> testi = GetCivilizationCombinations(civilizationGroups, new List<Civilization>());
+                IEnumerable<IEnumerable<Civilization>> combinations = testi.Select(combination => combination.Distinct());
+                foreach (IEnumerable<Civilization> combination in combinations)
+                {
+                    for (int i = 0; i < requiredCivilizations.Count; ++i)
+                    {
+                        if (!combination.Contains(requiredCivilizations[i]))
+                        {
+                            break;
+                        }
+                        else if (requiredCivilizations.Count - 1 == i)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
+        private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
+        {
+            if (civilizationGroups.Count > 0)
+            {
+                List<Civilization> civilizations = civilizationGroups.First();
+                List<List<Civilization>> newCivilizationGroups = new List<List<Civilization>>(civilizationGroups);
+                newCivilizationGroups.Remove(civilizations);
+                List<List<Civilization>> output = new List<List<Civilization>>();
+                foreach (Civilization civilization in civilizations)
+                {
+                    List<Civilization> newKnownCivilizations = new List<Civilization>(knownCivilizations) { civilization };
+
+                    output.AddRange(
+                        GetCivilizationCombinations(
+                            newCivilizationGroups,
+                            newKnownCivilizations));
+                }
+                return output;
+            }
+            else
+            {
+                List<Civilization> copyOfKnownCivilizations = new List<Civilization>(knownCivilizations);
+                return new List<List<Civilization>> { copyOfKnownCivilizations };
+            }
+        }
+
+        private PlayerAction SetCurrentPlayerAction(PlayerAction playerAction)
+        {
+            CurrentPlayerAction = playerAction;
+            return playerAction;
+        }
+
+        private Collection<Card> GetAllCards()
+        {
+            List<Card> cards = Player1.DeckBeforeDuel.ToList();
+            cards.AddRange(Player2.DeckBeforeDuel);
+            return new Collection<Card>(cards);
+        }
+
+        private Collection<ContinuousEffect> GetContinuousEffects()
+        {
+            List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
+            foreach (Card card in GetAllCards())
+            {
+                foreach (StaticAbility staticAbility in card.StaticAbilities)
+                {
+                    if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
+                    {
+                        if (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.Anywhere ||
+                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card))
+                        {
+                            continuousEffects.AddRange(staticAbility.ContinuousEffects);
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException("staticAbilityForCreature");
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("staticAbility");
+                    }
+                }
+            }
+            return new Collection<ContinuousEffect>(continuousEffects);
+        }
+
+        private Collection<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
+        {
+            List<Creature> blockers = new List<Creature>();
+            IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects().Where(e => e is BlockerEffect).Cast<BlockerEffect>();
+            /*foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
+            {
+
+                blockers.AddRange(player.BattleZone.Creatures.Where( creatureContinuousEffect.CreatureFilter.FilteredCreatures);
+            }*/
+            foreach (Creature creature in player.BattleZone.Creatures)
+            {
+                foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
+                {
+                    if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
+                    {
+                        blockers.Add(creature);
+                    }
+                }
+            }
+            return new Collection<Creature>(blockers);
+        }
+
+        private void PutFromShieldZoneToHand(Player player, Card card)
+        {
+            player.ShieldZone.Remove(card);
+            player.Hand.Add(card);
+        }
+
+        private bool HasShieldTrigger(Creature creature)
+        {
+            foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects().Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
+            {
+                if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasShieldTrigger(Spell spell)
+        {
+            throw new NotImplementedException();
+            /*
+            foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects().Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
+            {
+                if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(spell))
+                {
+                    return true;
+                }
+            }
+            return false;
+            */
         }
         #endregion Private methods
     }

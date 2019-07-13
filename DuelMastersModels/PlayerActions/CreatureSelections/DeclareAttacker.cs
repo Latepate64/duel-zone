@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         public DeclareAttacker(Player player, Collection<Creature> creatures) : base(player, creatures)
         { }
 
-        public override void Perform(Duel duel, Creature creature)
+        public override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {
@@ -22,6 +22,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
                 AttackDeclarationStep step = (duel.CurrentTurn.CurrentStep as AttackDeclarationStep);
                 step.AttackingCreature = creature;
             }
+            return null;
         }
     }
 }

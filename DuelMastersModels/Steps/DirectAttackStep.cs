@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -9,6 +10,8 @@ namespace DuelMastersModels.Steps
     {
         public Creature AttackingCreature { get; private set; }
         public bool DirectAttack { get; private set; }
+        private bool _breakingDone;
+        //public Collection<Card> BrokenShields { get; private set; }
 
         public DirectAttackStep(Player activePlayer, Creature attackingCreature, bool directAttack) : base(activePlayer)
         {
@@ -18,8 +21,9 @@ namespace DuelMastersModels.Steps
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
-            if (DirectAttack)
+            if (DirectAttack && !_breakingDone)
             {
+                _breakingDone = true;
                 if (AttackingCreature == null)
                 {
                     throw new InvalidOperationException();
@@ -27,7 +31,8 @@ namespace DuelMastersModels.Steps
                 Player opponent = duel.GetOpponent(ActivePlayer);
                 if (opponent.ShieldZone.Cards.Count > 0)
                 {
-                    PutFromShieldZoneToHand(opponent, opponent.ShieldZone.Cards.Last());
+                    //TODO: consider multibreaker
+                    return duel.PutFromShieldZoneToHand(opponent, new Collection<Card>() { opponent.ShieldZone.Cards.Last() });
                 }
                 else
                 {
@@ -36,12 +41,6 @@ namespace DuelMastersModels.Steps
                 }
             }
             return null;
-        }
-
-        private static void PutFromShieldZoneToHand(Player player, Card card)
-        {
-            player.ShieldZone.Remove(card);
-            player.Hand.Add(card);
         }
     }
 }

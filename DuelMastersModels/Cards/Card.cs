@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DuelMastersModels.Abilities.Static;
+using DuelMastersModels.Abilities.Trigger;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -64,6 +66,9 @@ namespace DuelMastersModels.Cards
         }
 
         public abstract Card DeepCopy { get; }
+
+        public Collection<StaticAbility> StaticAbilities { get; } = new Collection<StaticAbility>();
+        public Collection<TriggerAbility> TriggerAbilities { get; } = new Collection<TriggerAbility>();
         #endregion Properties
 
         #region Fields

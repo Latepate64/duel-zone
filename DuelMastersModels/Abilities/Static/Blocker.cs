@@ -1,7 +1,10 @@
-﻿namespace DuelMastersModels.Abilities.Static
+﻿using DuelMastersModels.Cards;
+
+namespace DuelMastersModels.Abilities.Static
 {
-    public class Blocker : StaticAbility
+    public class Blocker : StaticAbilityForCreature
     {
-        public Blocker() { }
+        public Blocker(Creature creature) : base(new Effects.ContinuousEffects.BlockerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone)
+        { }
     }
 }

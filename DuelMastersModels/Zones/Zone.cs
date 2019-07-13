@@ -19,13 +19,13 @@ namespace DuelMastersModels.Zones
 
         public Collection<Creature> TappedCreatures => new Collection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());
 
-        public Collection<Creature> UntappedBlockers => new Collection<Creature>(UntappedCreatures.Where(c => c.StaticAbilities.Count(a => a.GetType() == typeof(Blocker)) > 0).ToList());
+        //public Collection<Creature> UntappedBlockers => new Collection<Creature>(UntappedCreatures.Where(c => c.StaticAbilities.Count(a => a.GetType() == typeof(Blocker)) > 0).ToList());
 
         public Collection<Card> UntappedCards => new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
 
         public Collection<Creature> UntappedCreatures => new Collection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
 
-        public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
+        //public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
 
         /// <summary>
         /// True if the zone is public, false if it is private.
@@ -38,7 +38,11 @@ namespace DuelMastersModels.Zones
         /// 400.4. The order of the cards in the shield zone or deck will be aligned unless it is effect or rule It can not be changed. Other cards in other zones, as the player wishes You can sort them. However, whether or not you tap it, the card attached to it Something must remain obvious to all players.
         /// </summary>
         public abstract bool Ordered { get; }
+
+        public Player Owner { get; private set; }
         #endregion Properties
+
+        protected Zone(Player owner) { Owner = owner; }
 
         #region Methods
         ///<summary>

@@ -22,6 +22,6 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             return creature == null || Creatures.Contains(creature);
         }
 
-        public abstract void Perform(Duel duel, Creature creature);
+        public abstract PlayerAction Perform(Duel duel, Creature creature);
     }
 }

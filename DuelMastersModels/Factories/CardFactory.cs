@@ -17,7 +17,7 @@ namespace DuelMastersModels.Factories
         private const string CrossGearText = "Cross Gear";
         #endregion Constants
 
-        public static Collection<Card> GetCardsFromJsonCards(Collection<JsonCard> jsonCards, ref int gameId)
+        public static Collection<Card> GetCardsFromJsonCards(Collection<JsonCard> jsonCards, ref int gameId, Player owner)
         {
             if (jsonCards == null)
             {
@@ -26,7 +26,7 @@ namespace DuelMastersModels.Factories
             List<Card> cards = new List<Card>();
             foreach (JsonCard jsonCard in jsonCards)
             {
-                cards.Add(GetCardFromJsonCard(jsonCard, gameId++));
+                cards.Add(GetCardFromJsonCard(jsonCard, gameId++, owner));
             }
             return new Collection<Card>(cards);
         }
@@ -34,16 +34,16 @@ namespace DuelMastersModels.Factories
         /// <summary>
         /// Returns a card for card template.
         /// </summary>
-        private static Card GetCardFromJsonCard(JsonCard jsonCard, int gameId)
+        private static Card GetCardFromJsonCard(JsonCard jsonCard, int gameId, Player owner)
         {
             switch (jsonCard.CardType)
             {
                 case CreatureText:
-                    return new Creature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races);
+                    return new Creature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races, owner);
                 case SpellText:
                     return new Spell(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId);
                 case EvolutionCreatureText:
-                    return new EvolutionCreature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races);
+                    return new EvolutionCreature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races, owner);
                 case CrossGearText:
                     return new CrossGear(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId);
                 default:
