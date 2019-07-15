@@ -10,12 +10,12 @@ namespace DuelMastersModels.Zones
 
         public Deck(Player owner) : base(owner) { }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
         }
@@ -40,22 +40,22 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public Card RemoveAndGetTopCard()
+        public Card RemoveAndGetTopCard(Duel duel)
         {
-            return GetTopCard(true);
+            return GetTopCard(true, duel);
         }
 
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private Card GetTopCard(bool remove)
+        private Card GetTopCard(bool remove, Duel duel)
         {
             if (Cards.Count > 0)
             {
                 Card topCard = Cards[Cards.Count - 1];
                 if (remove)
                 {
-                    Remove(topCard);
+                    Remove(topCard, duel);
                 }
                 return topCard;
             }

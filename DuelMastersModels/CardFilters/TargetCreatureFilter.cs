@@ -12,7 +12,7 @@ namespace DuelMastersModels.CardFilters
             Creature = creature;
         }
 
-        public override Collection<Creature> FilteredCreatures
+        public override Collection<Creature> FilteredSpells
         {
             get { return new Collection<Creature>() { Creature }; }
         } 

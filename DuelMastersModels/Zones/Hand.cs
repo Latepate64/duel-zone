@@ -9,12 +9,12 @@ namespace DuelMastersModels.Zones
 
         public Hand(Player owner) : base(owner) { }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
         }

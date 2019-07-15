@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
                 if (card != null)
                 {
                     // 601.1a The card leaves the zone it is currently in (usually the player's hand) and is moved to the anywhere zone.
-                    Player.Hand.Remove(card);
+                    Player.Hand.Remove(card, duel);
                     mainStep.CardToBeUsed = card;
                     mainStep.State = MainStepState.Pay;
                 }

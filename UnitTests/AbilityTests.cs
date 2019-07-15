@@ -76,8 +76,8 @@ namespace UnitTests
             }
             duel.Player1.SetDeckBeforeDuel(p1Cards);
             duel.Player2.SetDeckBeforeDuel(p2Cards);
-            duel.Player1.SetupDeck();
-            duel.Player2.SetupDeck();
+            duel.Player1.SetupDeck(duel);
+            duel.Player2.SetupDeck(duel);
             return duel;
         }
 

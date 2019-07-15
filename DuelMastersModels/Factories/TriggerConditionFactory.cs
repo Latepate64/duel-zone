@@ -22,8 +22,8 @@ namespace DuelMastersModels.Factories
             ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _triggerConditionDictionary, out Dictionary<string, object> parsedObjects);
             if (parsedType != null)
             {
-                remainingText = parsedType.ParsedText;
-                return Activator.CreateInstance(parsedType.TypeParsed/*, new Collection<object>(parsedObjects.Values.ToList())*/) as TriggerCondition;
+                remainingText = parsedType.RemainingText;
+                return Activator.CreateInstance(parsedType.TypesParsed[0]/*, new Collection<object>(parsedObjects.Values.ToList())*/) as TriggerCondition;
             }
             else
             {

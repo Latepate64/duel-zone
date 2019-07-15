@@ -15,15 +15,12 @@ namespace DuelMastersApplication
         const int NameRow = 0;
         const int DeckRow = 1;
 
-        Grid _mainGrid = new Grid() { ShowGridLines = true };
-        //TextBox _textBoxPlayer1Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/Deadly Fighter Braid Claw.xml" };
-        TextBox _textBoxPlayer1Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/FN Rush.xml" };
-        TextBox _textBoxPlayer2Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/FN Rush.xml" };
+        Grid _mainGrid = new Grid();
+        TextBox _textBoxPlayer1Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/LWN Tempo.xml" };
+        TextBox _textBoxPlayer2Deck = new TextBox() { Text = "C:/DuelMastersArenaUnity/Decks/LWN Tempo.xml" };
         TextBox _textBoxPlayer1Name = new TextBox() { Text = "Player1" };
         TextBox _textBoxPlayer2Name = new TextBox() { Text = "Player2" };
         MainWindow _mainWindow;
-
-        public event EventHandler StartDuel;
 
         public SetupCanvas(MainWindow mainWindow)
         {
@@ -31,10 +28,8 @@ namespace DuelMastersApplication
 
             Height = 300;
             Width = 600;
-            //HorizontalAlignment = HorizontalAlignment.Center;
-            //VerticalAlignment = VerticalAlignment.Center;
 
-            Grid grid = new Grid() { ShowGridLines = true };
+            Grid grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
             grid.ColumnDefinitions.Add(new ColumnDefinition());

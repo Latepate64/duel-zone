@@ -5,6 +5,7 @@ using DuelMastersModels.Effects;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.AutomaticActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActions.OptionalActions;
@@ -88,6 +89,36 @@ namespace DuelMastersModels
         public Collection<Spell> SpellsBeingResolved { get; } = new Collection<Spell>();
 
         public static Collection<string> NotParsedAbilities { get; } = new Collection<string>();
+
+        public Collection<Creature> CreaturesInTheBattleZone
+        {
+            get
+            {
+                List<Creature> creatures = Player1.BattleZone.Creatures.ToList();
+                creatures.AddRange(Player2.BattleZone.Creatures);
+                return new Collection<Creature>(creatures);
+            }
+        }
+
+        public TriggerAbility TriggerAbilityBeingResolved { get; private set; }
+
+        public Collection<TriggerAbility> PendingTriggerAbilities { get; private set; } = new Collection<TriggerAbility>();
+
+        public Collection<TriggerAbility> PendingTriggerAbilitiesForActivePlayer
+        {
+            get
+            {
+                return new Collection<TriggerAbility>(PendingTriggerAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
+            }
+        }
+
+        public Collection<TriggerAbility> PendingTriggerAbilitiesForNonActivePlayer
+        {
+            get
+            {
+                return new Collection<TriggerAbility>(PendingTriggerAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
+            }
+        }
         #endregion Properties
 
         #region Public methods
@@ -103,24 +134,6 @@ namespace DuelMastersModels
             DrawCards(Player1, InitialNumberOfHandCards);
             DrawCards(Player2, InitialNumberOfHandCards);
             return SetCurrentPlayerAction(StartNewTurn(Player1, Player2));
-        }
-
-        /// <summary>
-        /// Creates a new turn and starts it.
-        /// </summary>
-        private PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
-        {
-            Turn turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
-            Turns.Add(turn);
-            PlayerAction playerAction = turn.Start(this);
-            if (playerAction != null)
-            {
-                return TryToPerformAutomatically(playerAction);
-            }
-            else
-            {
-                return Progress();
-            }
         }
 
         /// <summary>
@@ -169,12 +182,17 @@ namespace DuelMastersModels
         /// <summary>
         /// Player draws a card.
         /// </summary>
-        public static PlayerAction DrawCard(Player player)
+        public PlayerAction DrawCard(Player player)
         {
             DrawCards(player, 1);
             return null;
         }
 
+        /// <summary>
+        /// Tries to progress in the duel based on the latest player action, and returns new player action for a player to take.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
         public PlayerAction Progress(PlayerActionResponse response)
         {
             PlayerAction playerAction = null;
@@ -284,22 +302,6 @@ namespace DuelMastersModels
                     throw new InvalidOperationException("optionalActionResponse");
                 }
             }
-            /*
-            else if (response is DeclareAttackResponse declareAttackResponse)
-            {
-                DeclareAttack declareAttack = CurrentPlayerAction as DeclareAttack;
-                if (declareAttackResponse.Attacker != null)
-                {
-                    if (declareAttack.Validate(declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack))
-                    {
-                        declareAttack.Declare(this, declareAttackResponse.Attacker, declareAttackResponse.TargetOfAttack);
-                    }
-                    else
-                    {
-                        return CurrentPlayerAction;
-                    }
-                }
-            }*/
             else
             {
                 throw new ArgumentOutOfRangeException("response");
@@ -325,14 +327,14 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException("card");
             }
-            player.Hand.Remove(card);
-            player.ManaZone.Add(card);
+            player.Hand.Remove(card, this);
+            player.ManaZone.Add(card, this);
         }
 
         /// <summary>
         /// TODO: Handle destruction as a state-based action. 703.4d
         /// </summary>
-        public static void Battle(Creature attackingCreature, Creature defendingCreature, Player attackingPlayer, Player defendingPlayer)
+        public void Battle(Creature attackingCreature, Creature defendingCreature, Player attackingPlayer, Player defendingPlayer)
         {
             if (attackingCreature == null)
             {
@@ -402,7 +404,7 @@ namespace DuelMastersModels
             IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
             List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList();
 
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredSpells).Distinct();
             IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player, c).Count == 0);
             /*
             foreach (CreatureContinuousEffect creatureContinuousEffect in cannotAttackPlayersEffects)
@@ -417,7 +419,7 @@ namespace DuelMastersModels
         public bool CanAttackOpponent(Creature creature)
         {
             IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredSpells).Distinct();
             return !creature.SummoningSickness && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
@@ -466,7 +468,7 @@ namespace DuelMastersModels
         {
             if (card is Creature creature)
             {
-                player.BattleZone.Add(card);
+                player.BattleZone.Add(card, this);
             }
             else if (card is Spell spell)
             {
@@ -480,7 +482,27 @@ namespace DuelMastersModels
 
         public PlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(Player player)
         {
-            player.ManaZone.Add(RemoveTheTopCardOfDeck(player));
+            player.ManaZone.Add(RemoveTheTopCardOfDeck(player), this);
+            return null;
+        }
+
+        public PlayerAction PutTheTopCardOfYourDeckIntoYourManaZoneThenAddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
+        {
+            player.ManaZone.Add(RemoveTheTopCardOfDeck(player), this);
+            return new AddTheTopCardOfYourDeckToYourShieldsFaceDown(player);
+        }
+
+        public PlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
+        {
+            PutFromTheTopOfDeckIntoShieldZone(player, 1);
+            return null;
+        }
+
+        public PlayerAction ReturnFromBattleZoneToHand(Creature creature)
+        {
+            Player owner = GetOwner(creature);
+            owner.BattleZone.Remove(creature, this);
+            owner.Hand.Add(creature, this);
             return null;
         }
         #endregion Public methods
@@ -489,30 +511,30 @@ namespace DuelMastersModels
         ///<summary>
         /// Removes the top cards from a player's deck and puts them into their shield zone.
         ///</summary>
-        private static void PutFromTheTopOfDeckIntoShieldZone(Player player, int amount)
+        private void PutFromTheTopOfDeckIntoShieldZone(Player player, int amount)
         {
             for (int i = 0; i < amount; ++i)
             {
-                player.ShieldZone.Add(RemoveTheTopCardOfDeck(player));
+                player.ShieldZone.Add(RemoveTheTopCardOfDeck(player), this);
             }
         }
 
         /// <summary>
         /// Removes the top card from a player's deck and returns it.
         /// </summary>
-        private static Card RemoveTheTopCardOfDeck(Player player)
+        private Card RemoveTheTopCardOfDeck(Player player)
         {
-            return player.Deck.RemoveAndGetTopCard();
+            return player.Deck.RemoveAndGetTopCard(this);
         }
 
         /// <summary>
         /// A player draws a number of cards.
         /// </summary>
-        private static void DrawCards(Player player, int amount)
+        private void DrawCards(Player player, int amount)
         {
             for (int i = 0; i < amount; ++i)
             {
-                player.Hand.Add(RemoveTheTopCardOfDeck(player));
+                player.Hand.Add(RemoveTheTopCardOfDeck(player), this);
             }
         }
 
@@ -527,23 +549,38 @@ namespace DuelMastersModels
 
         private PlayerAction TryToPerformAutomatically(PlayerAction playerAction)
         {
-            if (playerAction.PerformAutomatically(this))
+            PlayerAction newPlayerAction = playerAction.TryToPerformAutomatically(this);
+            if (playerAction == newPlayerAction)
             {
-                CurrentTurn.CurrentStep.PlayerActions.Add(playerAction);
-                return Progress();
+                //Player action was not performed automatically.
+                if (playerAction.Player is AIPlayer aiPlayer)
+                {
+                    PlayerAction aiAction = aiPlayer.PerformPlayerAction(this, newPlayerAction);
+                    if (aiAction != null)
+                    {
+                        return TryToPerformAutomatically(aiAction);
+                    }
+                    else
+                    {
+                        return Progress();
+                    }
+                }
+                else
+                {
+                    return playerAction;
+                }
             }
-            else if (playerAction.Player is AIPlayer aiPlayer)
+            else if (newPlayerAction != null)
             {
-                AIPlayer.PerformPlayerAction(this, playerAction);
-                return Progress();
+                return TryToPerformAutomatically(newPlayerAction);
             }
             else
             {
-                return playerAction;
+                return Progress();
             }
         }
 
-        private static void PutFromBattleZoneIntoGraveyard(Player player, Creature creature)
+        private void PutFromBattleZoneIntoGraveyard(Player player, Creature creature)
         {
             if (player == null)
             {
@@ -553,8 +590,8 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException("creature");
             }
-            player.BattleZone.Cards.Remove(creature);
-            player.Graveyard.Cards.Add(creature);
+            player.BattleZone.Remove(creature, this);
+            player.Graveyard.Add(creature, this);
         }
 
         /// <summary>
@@ -573,86 +610,72 @@ namespace DuelMastersModels
                     {
                         Spell spell = SpellsBeingResolved.Last();
                         SpellsBeingResolved.Remove(spell);
-                        GetOwner(spell).Graveyard.Add(spell);
+                        GetOwner(spell).Graveyard.Add(spell, this);
                     }
 
-                    if (CurrentTurn.NonActivePlayer.ShieldTriggersToUse.Count > 0)
+                    foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer })
                     {
-                        return SetCurrentPlayerAction(TryToPerformAutomatically(new UseShieldTrigger(CurrentTurn.NonActivePlayer, CurrentTurn.NonActivePlayer.ShieldTriggersToUse)));
-                    }
-
-                    /*if (CurrentTurn.ActivePlayer.UsableShieldTriggers.Count > 0)
-                    {
-                        PlayerAction action = new DeclareShieldTriggers(CurrentTurn.ActivePlayer);
-                    }*/
-
-                    //TODO: shield triggers nonactive
-
-                    if (CurrentTurn.ActivePlayer.TriggerAbilities.Count == 1)
-                    {
-                        TriggerAbility ability = CurrentTurn.ActivePlayer.TriggerAbilities.First();
-
-                        //todo: remove ability from stack after it is has completely resolved
-                        CurrentTurn.ActivePlayer.TriggerAbilities.Remove(ability);
-                        
-
-                        return SetCurrentPlayerAction(TryToPerformAutomatically(ability.StartResolving(this, CurrentTurn.ActivePlayer)));
-                        
-                    }
-                    else if (CurrentTurn.ActivePlayer.TriggerAbilities.Count > 1)
-                    {
-                        throw new NotImplementedException("select ability to resolve");
-                    }
-
-                    if (CurrentTurn.NonActivePlayer.TriggerAbilities.Count == 1)
-                    {
-                        TriggerAbility ability = CurrentTurn.NonActivePlayer.TriggerAbilities.First();
-                        return SetCurrentPlayerAction(TryToPerformAutomatically(ability.StartResolving(this, CurrentTurn.NonActivePlayer)));
-                        //todo: remove ability from stack after it is has completely resolved
-
-                        /*
-                        if (ability.Effects.Count == 1)
+                        if (player.ShieldTriggersToUse.Count > 0)
                         {
-                            return ability.StartResolving();
-                            //todo: remove ability from stack after it is has completely resolved
+                            return TryToPerformAutomatically(new UseShieldTrigger(player, player.ShieldTriggersToUse));
+                        }
+                    }
+
+                    if (TriggerAbilityBeingResolved != null)
+                    {
+                        PlayerAction playerActionFromTriggerAbility = TriggerAbilityBeingResolved.ContinueResolution(this, out bool resolved);
+                        if (!resolved)
+                        {
+                            return TryToPerformAutomatically(playerActionFromTriggerAbility);
                         }
                         else
                         {
-                            throw new NotImplementedException();
-                        }*/
+                            TriggerAbilityBeingResolved = null;
+                        }
                     }
-                    else if (CurrentTurn.NonActivePlayer.TriggerAbilities.Count > 1)
+
+                    foreach (Collection<TriggerAbility> triggerAbilities in new List<Collection<TriggerAbility>>() { PendingTriggerAbilitiesForActivePlayer, PendingTriggerAbilitiesForNonActivePlayer })
                     {
-                        throw new NotImplementedException("select ability to resolve");
+                        if (triggerAbilities.Count == 1)
+                        {
+                            TriggerAbility triggerAbility = triggerAbilities.First();
+                            PendingTriggerAbilities.Remove(triggerAbility);
+                            TriggerAbilityBeingResolved = triggerAbility;
+                            return Progress();
+                        }
+                        else if (triggerAbilities.Count > 1)
+                        {
+                            throw new NotImplementedException("select ability to resolve");
+                        }
                     }
 
                     PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
                     if (playerAction != null)
                     {
-                        return SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+                        return TryToPerformAutomatically(playerAction);
                     }
                     else
                     {
                         if (CurrentTurn.ChangeStep())
                         {
-                            return SetCurrentPlayerAction(StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer));
+                            return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
                         }
                         else
                         {
                             PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
                             if (action != null)
                             {
-                                return SetCurrentPlayerAction(TryToPerformAutomatically(action));
+                                return TryToPerformAutomatically(action);
                             }
                             else
                             {
-                                return SetCurrentPlayerAction(Progress());
+                                return Progress();
                             }
                         }
                     }
                 }
             }
-            return SetCurrentPlayerAction(null);
+            return null;
         }
 
         private Player GetOwner(Card card)
@@ -791,7 +814,7 @@ namespace DuelMastersModels
             {
                 foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
                 {
-                    if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
+                    if (creatureContinuousEffect.CreatureFilter.FilteredSpells.Contains(creature))
                     {
                         blockers.Add(creature);
                     }
@@ -802,15 +825,15 @@ namespace DuelMastersModels
 
         private void PutFromShieldZoneToHand(Player player, Card card)
         {
-            player.ShieldZone.Remove(card);
-            player.Hand.Add(card);
+            player.ShieldZone.Remove(card, this);
+            player.Hand.Add(card, this);
         }
 
         private bool HasShieldTrigger(Creature creature)
         {
             foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects().Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
             {
-                if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
+                if (creatureContinuousEffect.CreatureFilter.FilteredSpells.Contains(creature))
                 {
                     return true;
                 }
@@ -820,17 +843,41 @@ namespace DuelMastersModels
 
         private bool HasShieldTrigger(Spell spell)
         {
-            throw new NotImplementedException();
-            /*
-            foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects().Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
+            foreach (SpellContinuousEffect spellContinuousEffect in GetContinuousEffects().Where(e => e is SpellShieldTriggerEffect).Cast<SpellShieldTriggerEffect>())
             {
-                if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(spell))
+                if (spellContinuousEffect.SpellFilter.FilteredSpells.Contains(spell))
                 {
                     return true;
                 }
             }
             return false;
-            */
+        }
+
+        /// <summary>
+        /// Creates a new turn and starts it.
+        /// </summary>
+        private PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
+        {
+            Turn turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
+            Turns.Add(turn);
+            PlayerAction playerAction = turn.Start(this);
+            if (playerAction != null)
+            {
+                return TryToPerformAutomatically(playerAction);
+            }
+            else
+            {
+                return Progress();
+            }
+        }
+
+        /// <summary>
+        /// 603.3. Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
+        /// </summary>
+        /// <param name="ability"></param>
+        public void TriggerTriggerAbility(TriggerAbility ability, Player controller)
+        {
+            PendingTriggerAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
         #endregion Private methods
     }

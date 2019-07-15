@@ -72,8 +72,10 @@
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
     <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
+    <Compile Include="Abilities\Static\SpellShieldTrigger.cs" />
     <Compile Include="Abilities\Static\StaticAbility.cs" />
     <Compile Include="Abilities\Static\StaticAbilityForCreature.cs" />
+    <Compile Include="Abilities\Static\StaticAbilityForSpell.cs" />
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
     <Compile Include="Abilities\Trigger\TriggerAbility.cs" />
     <Compile Include="Abilities\Trigger\TriggerCondition.cs" />
@@ -81,7 +83,9 @@
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />
+    <Compile Include="CardFilters\SpellFilter.cs" />
     <Compile Include="CardFilters\TargetCreatureFilter.cs" />
+    <Compile Include="CardFilters\TargetSpellFilter.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
@@ -94,7 +98,14 @@
     <Compile Include="Effects\ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\CreatureContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\CreatureShieldTriggerEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\SpellContinuousEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\SpellShieldTriggerEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
+    <Compile Include="Effects\OneShotEffects\OneShotEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\PutTheTopCardOfYourDeckIntoYourManaZoneEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\YouMayDrawACardEffect.cs" />
     <Compile Include="Effects\Periods\Indefinite.cs" />
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Factories\AbilityTypeFactory.cs" />
@@ -112,6 +123,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
     <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
+    <Compile Include="PlayerActions\AutomaticActions\AddTheTopCardOfYourDeckToYourShieldsFaceDown.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AutomaticAction.cs" />
     <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
     <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
@@ -132,6 +144,7 @@
     <Compile Include="PlayerActions\CreatureSelections\DeclareTargetOfAttack.cs" />
     <Compile Include="PlayerActions\CreatureSelections\OptionalCreatureSelection.cs" />
     <Compile Include="PlayerActions\AutomaticActions\DrawCard.cs" />
+    <Compile Include="PlayerActions\CreatureSelections\YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.cs" />
     <Compile Include="PlayerActions\OptionalActions\OptionalAction.cs" />
     <Compile Include="PlayerActions\OptionalActions\YouMayDrawACard.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />
@@ -164,9 +177,7 @@
     <None Include="DuelMasters.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Effects\OneShotEffects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -20,8 +20,8 @@ namespace DuelMastersModels.Factories
             #region Shield trigger
             { "Shield trigger (When this creature is put into your hand from your shield zone, you may summon it immediately for no cost.)", typeof(CreatureShieldTrigger) },
             { "Shield trigger (When this creature is put into your hand from your shield zone, you may summon it for no cost.)", typeof(CreatureShieldTrigger) },
-            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it immediately for no cost.)", typeof(CreatureShieldTrigger) },
-            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(CreatureShieldTrigger) },
+            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it immediately for no cost.)", typeof(SpellShieldTrigger) },
+            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(SpellShieldTrigger) },
             #endregion Shield trigger
             { "This creature can't attack players.", typeof(ThisCreatureCannotAttackPlayers) },
         });
@@ -35,7 +35,7 @@ namespace DuelMastersModels.Factories
             ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForCreatures, out Dictionary<string, object> parsedObjects);
             if (parsedType != null)
             {
-                return Activator.CreateInstance(parsedType.TypeParsed, AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
+                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
             }
             else
             {

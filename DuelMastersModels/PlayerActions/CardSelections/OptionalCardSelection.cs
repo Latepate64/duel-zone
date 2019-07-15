@@ -12,9 +12,16 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public Card SelectedCard { get; set; }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return Cards.Count == 0;
+            if (Cards.Count == 0)
+            {
+                return Perform(duel, null);
+            }
+            else
+            {
+                return this;
+            }
         }
 
         public bool Validate(Card card)

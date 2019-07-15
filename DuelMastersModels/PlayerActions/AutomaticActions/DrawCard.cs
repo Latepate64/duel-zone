@@ -8,7 +8,7 @@
 
         public override PlayerAction Perform(Duel duel)
         {
-            return Duel.DrawCard(Player);
+            return duel.DrawCard(Player);
         }
     }
 }

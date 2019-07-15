@@ -22,21 +22,19 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             return null;
         }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (!duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1)
             {
-                Perform(duel, Creatures[0]);
-                return true;
+                return Perform(duel, Creatures[0]);
             }
             else if (Creatures.Count == 0)
             {
-                Perform(duel, null);
-                return true;
+                return Perform(duel, null);
             }
             else
             {
-                return false;
+                return this;
             }
         }
     }

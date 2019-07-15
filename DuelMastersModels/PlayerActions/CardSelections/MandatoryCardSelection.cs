@@ -10,17 +10,17 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public Card SelectedCard { get; set; }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (Cards.Count == 1)
             {
                 SelectedCard = Cards[0];
-                Perform(duel, Cards[0]);
-                return true;
+                duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
+                return Perform(duel, Cards[0]);
             }
             else
             {
-                return false;
+                return this;
             }
         }
 

@@ -12,9 +12,17 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         public Creature SelectedCreature { get; set; }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return Creatures.Count == 0;
+            if (Creatures.Count == 0)
+            {
+                return Perform(duel, null);
+            }
+            else
+            {
+                return this;
+            }
+            //return Creatures.Count == 0;
         }
 
         public bool Validate(Creature creature)

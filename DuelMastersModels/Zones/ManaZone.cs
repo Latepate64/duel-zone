@@ -9,7 +9,7 @@ namespace DuelMastersModels.Zones
 
         public ManaZone(Player owner) : base(owner) { }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             if (card.Civilizations.Count > 1)
             {
@@ -18,9 +18,10 @@ namespace DuelMastersModels.Zones
             Cards.Add(card);
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
+            card.Tapped = false;
         }
     }
 }

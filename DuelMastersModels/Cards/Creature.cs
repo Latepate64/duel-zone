@@ -1,10 +1,11 @@
 ﻿using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 //using DuelMastersModels.Effects;
-//using DuelMastersModels.Effects.OneShotEffects;
+using DuelMastersModels.Effects.OneShotEffects;
 using DuelMastersModels.Factories;
 using DuelMastersModels.PlayerActions;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
@@ -61,7 +62,7 @@ namespace DuelMastersModels.Cards
             Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
             Races = races;
 
-            string[] textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+            System.Collections.Generic.IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
             foreach (string textPart in textParts)
             {
                 StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbility(textPart, this, owner);
@@ -74,15 +75,14 @@ namespace DuelMastersModels.Cards
                     TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
                     if (triggerCondition != null)
                     {
-                        PlayerAction effect = EffectFactory.ParseOneShotEffect(remainingText, this, owner);
-                        if (effect != null)
+                        Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, this, owner);
+                        if (effects != null)
                         {
-                            TriggerAbilities.Add(new TriggerAbility(triggerCondition, new Collection<PlayerAction>() { effect }));
+                            TriggerAbilities.Add(new TriggerAbility(triggerCondition, effects));
                         }
                         else
                         {
                             Duel.NotParsedAbilities.Add(remainingText);
-                            //throw new System.InvalidOperationException("effect");
                         }
                     }
                     else

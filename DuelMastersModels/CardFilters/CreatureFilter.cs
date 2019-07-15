@@ -9,6 +9,6 @@ namespace DuelMastersModels.CardFilters
         {
         }
 
-        public abstract Collection<Creature> FilteredCreatures { get; }
+        public abstract Collection<Creature> FilteredSpells { get; }
     }
 }

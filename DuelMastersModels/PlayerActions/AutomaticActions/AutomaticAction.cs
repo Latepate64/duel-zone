@@ -4,10 +4,11 @@
     {
         protected AutomaticAction(Player player) : base(player) { }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            Perform(duel);
-            return true;
+            PlayerAction newAction = Perform(duel);
+            duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
+            return newAction;
         }
 
         public abstract PlayerAction Perform(Duel duel);

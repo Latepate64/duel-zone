@@ -241,8 +241,9 @@ namespace DuelMastersApplication
         #region Public methods
         public void InitializeDuel(string player1Name, string player2Name, string player1DeckPath, string player2DeckPath)
         {
+            //TODO: implement checkbox for toggling ai
             _duel.Player1 = new Player() { Id = 0, Name = player1Name };
-            _duel.Player2 = new Player() { Id = 1, Name = player2Name };
+            _duel.Player2 = new AIPlayer() { Id = 1, Name = player2Name };
             int gameId = 0;
             _duel.Player1.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player1DeckPath)), ref gameId, _duel.Player1));
             _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player2DeckPath)), ref gameId, _duel.Player2));
@@ -255,8 +256,8 @@ namespace DuelMastersApplication
                 MessageBox.Show(string.Join("\r\n\r\n", message, string.Join("\r\n", abilities)));
             }
 
-            _duel.Player1.SetupDeck();
-            _duel.Player2.SetupDeck();
+            _duel.Player1.SetupDeck(_duel);
+            _duel.Player2.SetupDeck(_duel);
             PlayerAction playerAction = _duel.StartDuel();
 
             _textBoxNonPriorityName.SetBinding(TextBox.TextProperty, new Binding("PlayerWithoutPriority.Name") { Source = _duel });
@@ -494,6 +495,11 @@ namespace DuelMastersApplication
                         _actionTextBox.Text = "You may declare a creature to block the attack with.";
                         _actionButton.Content = "Do not block";
                     }
+                    else if (optionalCreatureSelection is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
+                    {
+                        _actionTextBox.Text = "You may choose a creature in the battle zone and return it to its owner's hand.";
+                        _actionButton.Content = "Decline";
+                    }
                     else
                     {
                         throw new ArgumentException("Unknown optional creature selection.");
@@ -638,9 +644,20 @@ namespace DuelMastersApplication
             {
                 LogMessages.Add(string.Format("{0} used the shield trigger ability of {1}.", useShieldTrigger.Player.Name, useShieldTrigger.SelectedCard.Name));
             }
-            else if (playerAction is PutTheTopCardOfYourDeckIntoYourManaZone putTheTopCardOfYourDeckIntoYourManaZone)
+            else if (playerAction is PutTheTopCardOfYourDeckIntoYourManaZone/* || playerAction is PutTheTopCardOfYourDeckIntoYourManaZoneThenAddTheTopCardOfYourDeckToYourShieldsFaceDown*/) //TODO: remove commented part
             {
-                LogMessages.Add(string.Format("{0} put the top card of their deck into their mana zone.", putTheTopCardOfYourDeckIntoYourManaZone.Player.Name));
+                LogMessages.Add(string.Format("{0} put the top card of their deck into their mana zone.", playerAction.Player.Name));
+            }
+            else if (playerAction is AddTheTopCardOfYourDeckToYourShieldsFaceDown)
+            {
+                LogMessages.Add(string.Format("{0} added the top card of their deck to their shields face down.", playerAction.Player.Name));
+            }
+            else if (playerAction is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
+            {
+                if (youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature != null)
+                {
+                    LogMessages.Add(string.Format("{0} returned {1} to its owner's hand.", youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.Player.Name, youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature.Name));
+                }
             }
             else if (!(playerAction is OptionalAction))
             {
@@ -797,10 +814,10 @@ namespace DuelMastersApplication
                     {
                         _textBoxLog.AppendText("\r\n");
                     }
-                    //_textBoxLog.Text = string.Join("\r\n", _textBoxLog.Text, item as string);
                 }
                 _textBoxLog.AppendText(text);
             }
+            _textBoxLog.ScrollToEnd();
         }
 
         private void Turns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -901,7 +918,8 @@ namespace DuelMastersApplication
             }
             else if (_duel.CurrentPlayerAction is OptionalCreatureSelection)
             {
-                UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse()));
+                UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new Collection<Creature>(SelectedCards.Cast<Creature>().ToList()))));
+                SelectedCards = new ObservableCollection<Card>();
             }
             else if (_duel.CurrentPlayerAction is OptionalAction optionalAction)
             {

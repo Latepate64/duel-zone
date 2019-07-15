@@ -16,14 +16,16 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             Cost = cost;
         }
 
-        public override bool PerformAutomatically(Duel duel)
+        public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (MinimumSelection == MaximumSelection && Cards.Count == MaximumSelection)
             {
-                Perform(duel, Cards);
-                return true;
+                return Perform(duel, Cards);
             }
-            return false;
+            else
+            {
+                return this;
+            }
         }
 
         public bool Validate(Collection<Card> cards, Card cardToBeUsed)

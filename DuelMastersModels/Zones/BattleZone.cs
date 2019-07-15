@@ -12,25 +12,27 @@ namespace DuelMastersModels.Zones
         
         public BattleZone(Player owner) : base(owner) { }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
+            if (card is Creature creature)
+            {
+                creature.SummoningSickness = true;
+            }
             Cards.Add(card);
             foreach (TriggerAbility ability in card.TriggerAbilities.Where(ability => ability.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone))
             {
-                Owner.TriggerAbilities.Add(ability.DeepCopy());
+                duel.TriggerTriggerAbility(ability, Owner);
             }
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
+            card.Tapped = false;
+            if (card is Creature creature)
+            {
+                creature.SummoningSickness = true;
+            }
         }
-
-        /*
-        public Collection<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
-        {
-            return UntappedBlockers;
-            //TODO: consider situations where abilities of attacking creature matter etc.
-        }*/
     }
 }

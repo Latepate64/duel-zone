@@ -32,7 +32,7 @@ namespace DuelMastersModels
         public ShieldZone ShieldZone { get; set; }
         #endregion Zones
 
-        public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
+        //public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
 
         //public Collection<Card> UsableShieldTriggers { get; } = new Collection<Card>();
 
@@ -67,11 +67,11 @@ namespace DuelMastersModels
         /// <summary>
         /// Setups the player's deck from the cards they are going to use in a duel.
         /// </summary>
-        public void SetupDeck()
+        public void SetupDeck(Duel duel)
         {
             foreach (Card card in DeckBeforeDuel)
             {
-                Deck.Add(card);
+                Deck.Add(card, duel);
             }
         }
 

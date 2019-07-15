@@ -10,13 +10,19 @@ namespace DuelMastersModels.Factories
 {
     public class ParsedType
     {
-        public Type TypeParsed { get; private set; }
-        public string ParsedText { get; private set; }
+        public Collection<Type> TypesParsed { get; private set; }
+        public string RemainingText { get; private set; }
 
-        public ParsedType(Type type, string parsedText)
+        public ParsedType(Type type, string remainingText)
         {
-            TypeParsed = type;
-            ParsedText = parsedText;
+            TypesParsed = new Collection<Type>() { type };
+            RemainingText = remainingText;
+        }
+
+        public ParsedType(Type[] types, string remainingText)
+        {
+            TypesParsed = new Collection<Type>(types);
+            RemainingText = remainingText;
         }
     }
 
@@ -257,7 +263,120 @@ namespace DuelMastersModels.Factories
         /// <summary>
         /// Find a key from dictionary which matches the text.
         /// </summary>
-        public static ParsedType GetTypeFromDictionary(string inputText, ReadOnlyDictionary<string, Type> dictionary, out Dictionary<string, object> parsedObjects)
+        public static ParsedType GetTypeFromDictionary<T>(string inputText, ReadOnlyDictionary<string, T> dictionary, out Dictionary<string, object> parsedObjects)
+        {
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException("dictionary");
+            }
+            if (inputText == null)
+            {
+                throw new ArgumentNullException("inputText");
+            }
+            else
+            {
+                parsedObjects = new Dictionary<string, object>();
+                List<string> possibleKeys = dictionary.Keys.ToList();
+                string[] inputWords = inputText.Split(' ');
+                int inputWordIndex = 0;
+                int addIndex = 0;
+                int updatedAddIndex = 0;
+                bool keyFound = false;
+                while (!keyFound && possibleKeys.Count > 0 && inputWordIndex < inputWords.Count())
+                {
+                    if (updatedAddIndex != addIndex)
+                    {
+                        updatedAddIndex = addIndex;
+                    }
+                    if (inputWordIndex < inputWords.Count())
+                    {
+                        int keyIndex = 0;
+                        while (keyIndex < possibleKeys.Count)
+                        {
+                            string[] keyWordSplits = possibleKeys[keyIndex].Split(' ');
+                            if (inputWordIndex < keyWordSplits.Count())
+                            {
+                                string keyWord = keyWordSplits[inputWordIndex];
+                                string inputWord = inputWords[inputWordIndex + addIndex];
+                                if (KeyWordMatchesInputWord(keyWord, inputWord, parsedObjects, inputWordIndex, inputWords, ref addIndex, updatedAddIndex))
+                                {
+                                    ++keyIndex;
+                                }
+                                else
+                                {
+                                    possibleKeys.RemoveAt(keyIndex);
+                                }
+                            }
+                            else if (possibleKeys.Count == 1)
+                            {
+                                keyFound = true;
+                                break;
+                            }
+                            else
+                            {
+                                possibleKeys.RemoveAt(keyIndex);
+                            }
+                        }
+                        ++inputWordIndex;
+                    }
+                    else
+                    {
+                        possibleKeys = new List<string>() { };
+                    }
+                }
+                if (possibleKeys.Count == 0)
+                {
+                    return null;
+                }
+                else if (possibleKeys.Count == 1)
+                {
+                    string matchingKey = possibleKeys[0];
+                    ManageParsedObjects(matchingKey, ref parsedObjects);
+                    List<string> wordList = inputWords.ToList();
+                    wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                    inputText = string.Join(" ", wordList);
+                    if (inputText.Length > 0)
+                    {
+                        inputText = UppercaseFirstLetter(inputText);
+                    }
+                    return GetParsedTypes(inputText, dictionary, matchingKey);
+                }
+                else
+                {
+                    string matchingKey = possibleKeys.OrderBy(key => key.Length).First();
+                    ManageParsedObjects(matchingKey, ref parsedObjects);
+                    List<string> wordList = inputWords.ToList();
+                    wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                    inputText = string.Join(" ", wordList);
+                    if (inputText.Length > 0)
+                    {
+                        inputText = UppercaseFirstLetter(inputText);
+                    }
+                    return GetParsedTypes(inputText, dictionary, matchingKey);
+                }
+            }
+        }
+
+        private static ParsedType GetParsedTypes<T>(string inputText, ReadOnlyDictionary<string, T> dictionary, string matchingKey)
+        {
+            if (typeof(T) == typeof(Type))
+            {
+                return new ParsedType(dictionary[matchingKey] as Type, inputText);
+            }
+            else if (typeof(T) == typeof(Type[]))
+            {
+                return new ParsedType(dictionary[matchingKey] as Type[], inputText);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        /// <summary>
+        /// Find a key from dictionary which matches the text.
+        /// </summary>
+        /*public static ParsedType GetTypeFromDictionary(string inputText, ReadOnlyDictionary<string, Type> dictionary, out Dictionary<string, object> parsedObjects)
         {
             if (dictionary == null)
             {
@@ -349,7 +468,7 @@ namespace DuelMastersModels.Factories
                     return new ParsedType(dictionary[matchingKey], inputText);
                 }
             }
-        }
+        }*/
 
         #region Private
         #region bool

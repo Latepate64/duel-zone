@@ -8,7 +8,7 @@
             {
                 throw new System.ArgumentNullException("duel");
             }
-            Duel.DrawCard(duel.CurrentTurn.ActivePlayer);
+            duel.DrawCard(duel.CurrentTurn.ActivePlayer);
         }
     }
 }

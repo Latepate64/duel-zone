@@ -30,6 +30,11 @@ namespace DuelMastersModels.PlayerActions
             PlayerId = player.Id;
         }
 
-        public abstract bool PerformAutomatically(Duel duel);
+        /// <summary>
+        /// Tries to perform the player action automatically if possible. Returns the player action itself if it is not possible to perform action automatically, otherwise returns new player action based on what happened during the automatic performance (may return null, in that case the performance does not require further player actions).
+        /// </summary>
+        /// <param name="duel"></param>
+        /// <returns></returns>
+        public abstract PlayerAction TryToPerformAutomatically(Duel duel);
     }
 }
