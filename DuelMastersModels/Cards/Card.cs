@@ -1,8 +1,10 @@
-﻿using DuelMastersModels.Abilities.Static;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
@@ -60,15 +62,28 @@ namespace DuelMastersModels.Cards
             }
         }
 
-        private void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
+        protected void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
 
         public abstract Card DeepCopy { get; }
 
-        public Collection<StaticAbility> StaticAbilities { get; } = new Collection<StaticAbility>();
-        public Collection<TriggerAbility> TriggerAbilities { get; } = new Collection<TriggerAbility>();
+        public Collection<Ability> Abilities { get; } = new Collection<Ability>();
+        public Collection<StaticAbility> StaticAbilities
+        {
+            get
+            {
+                return new Collection<StaticAbility>(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>().ToList());
+            }
+        }
+        public Collection<TriggerAbility> TriggerAbilities
+        {
+            get
+            {
+                return new Collection<TriggerAbility>(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>().ToList());
+            }
+        }
         #endregion Properties
 
         #region Fields

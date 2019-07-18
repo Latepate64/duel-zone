@@ -13,7 +13,23 @@ namespace DuelMastersModels.Cards
     {
         public int Power { get; set; }
         public Collection<string> Races { get; } = new Collection<string>();
-        public bool SummoningSickness { get; set; } = true;
+
+        private bool _summoningSickness = true;
+        public bool SummoningSickness
+        {
+            get
+            {
+                return _summoningSickness;
+            }
+            set
+            {
+                if (value != _summoningSickness)
+                {
+                    _summoningSickness = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public override Card DeepCopy
         {
@@ -62,32 +78,35 @@ namespace DuelMastersModels.Cards
             Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
             Races = races;
 
-            System.Collections.Generic.IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
-            foreach (string textPart in textParts)
+            if (!string.IsNullOrEmpty(text))
             {
-                StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbility(textPart, this, owner);
-                if (staticAbility != null)
+                System.Collections.Generic.IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
+                foreach (string textPart in textParts)
                 {
-                    StaticAbilities.Add(staticAbility);
-                }
-                else
-                {
-                    TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
-                    if (triggerCondition != null)
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbility(textPart, this, owner);
+                    if (staticAbility != null)
                     {
-                        Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, this, owner);
-                        if (effects != null)
-                        {
-                            TriggerAbilities.Add(new TriggerAbility(triggerCondition, effects));
-                        }
-                        else
-                        {
-                            Duel.NotParsedAbilities.Add(remainingText);
-                        }
+                        Abilities.Add(staticAbility);
                     }
                     else
                     {
-                        Duel.NotParsedAbilities.Add(textPart);
+                        TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
+                        if (triggerCondition != null)
+                        {
+                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, this, owner);
+                            if (effects != null)
+                            {
+                                Abilities.Add(new TriggerAbility(triggerCondition, effects));
+                            }
+                            else
+                            {
+                                Duel.NotParsedAbilities.Add(remainingText);
+                            }
+                        }
+                        else
+                        {
+                            Duel.NotParsedAbilities.Add(textPart);
+                        }
                     }
                 }
             }

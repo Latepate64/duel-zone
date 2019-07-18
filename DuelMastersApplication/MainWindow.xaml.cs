@@ -263,19 +263,21 @@ namespace DuelMastersApplication
             _textBoxNonPriorityName.SetBinding(TextBox.TextProperty, new Binding("PlayerWithoutPriority.Name") { Source = _duel });
             _textBoxPriorityName.SetBinding(TextBox.TextProperty, new Binding("PlayerWithPriority.Name") { Source = _duel });
 
-            _listViewPlayer2BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.BattleZone.Cards") { Source = _duel });
-            _listViewPlayer2Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.Hand.Cards") { Source = _duel });
-            _listViewPlayer2ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.ManaZone.Cards") { Source = _duel });
             _listViewPlayer1BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.BattleZone.Cards") { Source = _duel });
             _listViewPlayer1Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.Hand.Cards") { Source = _duel });
             _listViewPlayer1ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.ManaZone.Cards") { Source = _duel });
+            _listViewPlayer2BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.BattleZone.Cards") { Source = _duel });
+            _listViewPlayer2Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.Hand.Cards") { Source = _duel });
+            _listViewPlayer2ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.ManaZone.Cards") { Source = _duel });
             
-            TestHandBinding(_listViewPlayer2BattleZone);
-            TestHandBinding(_listViewPlayer2Hand);
-            TestHandBinding(_listViewPlayer2ManaZone);
-            TestHandBinding(_listViewPlayer1BattleZone);
-            TestHandBinding(_listViewPlayer1Hand);
-            TestHandBinding(_listViewPlayer1ManaZone);
+            BindCardCanvasToListView(_listViewPlayer1Hand);
+            BindCardCanvasToListView(_listViewPlayer1ManaZone);
+            BindCardCanvasToListView(_listViewPlayer2Hand);
+            BindCardCanvasToListView(_listViewPlayer2ManaZone);
+
+            BindBattleZoneCreatureCanvasToListView(_listViewPlayer1BattleZone);
+            BindBattleZoneCreatureCanvasToListView(_listViewPlayer2BattleZone);
+
             //_previousPriorityPlayer = _duel.CurrentPlayerAction.Player;
             UpdateViewToShowPlayerAction(playerAction);
         }
@@ -543,31 +545,44 @@ namespace DuelMastersApplication
             return stackPanelFactory;
         }
 
-        private void TestHandBinding(ListView listView)
+        private void BindCardCanvasToListView(ListView listView)
         {
-            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = GetStackPanelFactory() };
             FrameworkElementFactory cardCanvasFactory = new FrameworkElementFactory(typeof(CardCanvas));
+            BindAbstractCardCanvas(listView, cardCanvasFactory);
 
-            cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView });
-            cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView });
-
-            cardCanvasFactory.SetBinding(CardCanvas.CardNameProperty, new Binding("Name"));
-            cardCanvasFactory.SetBinding(CardCanvas.CivilizationProperty, new Binding("Civilizations"));
             cardCanvasFactory.SetBinding(CardCanvas.CardTextProperty, new Binding("Text"));
             cardCanvasFactory.SetBinding(CardCanvas.CostProperty, new Binding("Cost"));
-            cardCanvasFactory.SetBinding(CardCanvas.PowerProperty, new Binding("Power"));
-            cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));
-            cardCanvasFactory.SetBinding(CardCanvas.GameIdProperty, new Binding("GameId"));
-            cardCanvasFactory.SetBinding(CardCanvas.TappedProperty, new Binding("Tapped"));
+            cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));  
             cardCanvasFactory.SetBinding(CardCanvas.CardTypeProperty, new Binding() { Converter = new ObjectToCardTypeConverter() });
+        }
+
+        private void BindBattleZoneCreatureCanvasToListView(ListView listView)
+        {
+            FrameworkElementFactory canvasFactory = new FrameworkElementFactory(typeof(BattleZoneCreatureCanvas));
+            BindAbstractCardCanvas(listView, canvasFactory);
+
+            canvasFactory.SetBinding(BattleZoneCreatureCanvas.SummoningSicknessProperty, new Binding("SummoningSickness"));
+            canvasFactory.SetBinding(BattleZoneCreatureCanvas.AbilitiesProperty, new Binding("Abilities"));
+        }
+
+        private void BindAbstractCardCanvas(ListView listView, FrameworkElementFactory cardCanvasFactory)
+        {
+            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = GetStackPanelFactory() };
+
+            cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = 0.96 });
+            cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = 0.96 });
+
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.CardNameProperty, new Binding("Name"));
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.CivilizationProperty, new Binding("Civilizations"));
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.PowerProperty, new Binding("Power"));
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.GameIdProperty, new Binding("GameId"));
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.TappedProperty, new Binding("Tapped"));
             MultiBinding multiBinding = new MultiBinding() { Converter = new SetAndIdConverter() };
             multiBinding.Bindings.Add(new Binding("Set"));
             multiBinding.Bindings.Add(new Binding("Id"));
-            cardCanvasFactory.SetBinding(CardCanvas.SetAndIdProperty, multiBinding);
-
-            cardCanvasFactory.SetBinding(CardCanvas.CandidateGameIdsProperty, new Binding("CurrentPlayerAction") { Converter = new PlayerActionToIntCollectionConverter(), Source = _duel });
-            cardCanvasFactory.SetBinding(CardCanvas.SelectedGameIdsProperty, new Binding("SelectedCards") { Converter = new CardCollectionToIntCollectionConverter(), Source = this });
-            //cardCanvasFactory.SetBinding(CardCanvas.SelectedGameIdsProperty, new Binding("") { Converter = new CardCollectionToIntCollectionConverter(), Source = this });
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.SetAndIdProperty, multiBinding);
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.CandidateGameIdsProperty, new Binding("CurrentPlayerAction") { Converter = new PlayerActionToIntCollectionConverter(), Source = _duel });
+            cardCanvasFactory.SetBinding(AbstractCardCanvas.SelectedGameIdsProperty, new Binding("SelectedCards") { Converter = new CardCollectionToIntCollectionConverter(), Source = this });
 
             cardCanvasFactory.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(CardCanvas_MouseLeftButtonDown));
             listView.ItemTemplate = new DataTemplate() { VisualTree = cardCanvasFactory };
@@ -772,6 +787,17 @@ namespace DuelMastersApplication
 
             buttonGraveyard.Content = canvasPlayerGraveyard;
         }
+
+        private void GetJsonCardsTest()
+        {
+            Collection<JsonCard> jsonCards = JsonCardFactory.GetJsonCards(JsonPath);
+            System.Collections.Generic.List<XmlCard> xmlCards = jsonCards.Select(j => new XmlCard() { Set = j.Set, Id = j.Id, Amount = 1 }).ToList();
+            XmlSerializer writer = new XmlSerializer(typeof(System.Collections.Generic.List<XmlCard>));
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//AllCards.xml";
+            FileStream file = File.Create(path);
+            writer.Serialize(file, xmlCards);
+            file.Close();
+        }
         #endregion Private methods
 
         #region Events
@@ -850,7 +876,7 @@ namespace DuelMastersApplication
 
         private void CardCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var cardCanvas = sender as CardCanvas;
+            var cardCanvas = sender as AbstractCardCanvas;
             if (_duel.CurrentPlayerAction is CardSelection cardSelection)
             {
                 if (cardSelection.CardIds.Contains(cardCanvas.GameId))
@@ -861,7 +887,7 @@ namespace DuelMastersApplication
                     }
                     else if (cardSelection is PayCost payCost)
                     {
-                        NewMethod(cardCanvas, payCost.Cards);
+                        UpdateSelectedCards(cardCanvas, payCost.Cards);
                         if (SelectedCards.Count == payCost.MaximumSelection && payCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
                         {
                             var response = new CardSelectionResponse(new Collection<Card>(SelectedCards));
@@ -871,7 +897,7 @@ namespace DuelMastersApplication
                     }
                     else if (cardSelection is MultipleCardSelection multipleCardSelection)
                     {
-                        NewMethod(cardCanvas, multipleCardSelection.Cards);
+                        UpdateSelectedCards(cardCanvas, multipleCardSelection.Cards);
                     }
                     else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
                     {
@@ -888,15 +914,15 @@ namespace DuelMastersApplication
                     UpdateViewToShowPlayerAction(_duel.Progress(response));
                 }
             }
-            else
+            else if (!(_duel.CurrentPlayerAction is OptionalAction))
             {
-                throw new ArgumentException("Unknown card selection.");
+                throw new ArgumentException("Unknown player action.");
             }
         }
 
-        private void NewMethod(CardCanvas cardCanvas, Collection<Card> cards)
+        private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, Collection<Card> cards)
         {
-            var card = cards.First(c => c.GameId == cardCanvas.GameId);
+            Card card = cards.First(c => c.GameId == cardCanvas.GameId);
             if (!SelectedCards.Contains(card))
             {
                 SelectedCards = new ObservableCollection<Card>(SelectedCards) { card };
@@ -1077,6 +1103,20 @@ namespace DuelMastersApplication
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    [ValueConversion(typeof(double), typeof(double))]
+    public class ListViewSizeToCardCanvasSizeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return (double)parameter * (double)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new InvalidOperationException();
         }
     }
     #endregion Converters
