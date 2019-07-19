@@ -505,6 +505,11 @@ namespace DuelMastersModels
             owner.Hand.Add(creature, this);
             return null;
         }
+
+        public Card GetCard(int gameId)
+        {
+            return GetAllCards().First(c => c.GameId == gameId);
+        }
         #endregion Public methods
 
         #region Private methods

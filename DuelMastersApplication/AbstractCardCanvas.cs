@@ -14,7 +14,6 @@ namespace DuelMastersApplication
     public abstract class AbstractCardCanvas : Canvas
     {
         #region Constants
-        private const int CornerRadius = 5;
         private const double UntappedDegree = 0.0;
         private const double TappedDegree = 10.0;
 
@@ -32,7 +31,6 @@ namespace DuelMastersApplication
         };
 
         #region DependencyProperties
-        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(AbstractCardCanvas), new PropertyMetadata(OnCivilizationsChanged));
         public static readonly DependencyProperty GameIdProperty = DependencyProperty.Register("GameId", typeof(int), typeof(AbstractCardCanvas));
         public static readonly DependencyProperty CandidateGameIdsProperty = DependencyProperty.Register("CandidateGameIds", typeof(Collection<int>), typeof(AbstractCardCanvas), new PropertyMetadata(OnCandidateGameIdsChanged));
         public static readonly DependencyProperty SelectedGameIdsProperty = DependencyProperty.Register("SelectedGameIds", typeof(Collection<int>), typeof(AbstractCardCanvas), new PropertyMetadata(OnSelectedGameIdsChanged));
@@ -40,29 +38,35 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty PowerProperty = DependencyProperty.Register("Power", typeof(string), typeof(AbstractCardCanvas), new PropertyMetadata(OnPowerChanged));
         public static readonly DependencyProperty TappedProperty = DependencyProperty.Register("Tapped", typeof(bool), typeof(AbstractCardCanvas), new PropertyMetadata(OnTapStatusChanged));
         public static readonly DependencyProperty SetAndIdProperty = DependencyProperty.Register("SetAndId", typeof(SetAndId), typeof(AbstractCardCanvas), new PropertyMetadata(OnSetAndIdChanged));
+        public static readonly DependencyProperty MainWindowProperty = DependencyProperty.Register("MainWindow", typeof(MainWindow), typeof(AbstractCardCanvas));
         #endregion DependencyProperties
 
         #region Properties
-        protected Grid MainGrid = new Grid();
-
         /// <summary>
         /// The background frame of the card that is (usually) painted black.
         /// </summary>
-        protected Rectangle RectangleCardFrame = new Rectangle() { Fill = new SolidColorBrush(Colors.Black), RadiusX = CornerRadius, RadiusY = CornerRadius };
+        protected Rectangle RectangleCardFrame = new Rectangle() { Fill = new SolidColorBrush(Colors.Black) };
 
         /// <summary>
         /// A canvas for the card frame which contains elements for the card object.
         /// </summary>
         protected Canvas CanvasFrame = new Canvas();
 
-        protected TextBlock TextBoxCardName = new TextBlock() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Top, FontFamily = new FontFamily("Microsoft Sans Serif"), FontWeight = FontWeights.Bold };
-        protected Image Artwork = new Image() { Stretch = Stretch.Fill };
+        protected TextBox TextBoxCardName = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, FontFamily = new FontFamily("Microsoft Sans Serif"), FontWeight = FontWeights.Bold, Background = Brushes.Transparent, Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false, BorderThickness = new Thickness(0) };
+        protected Image Artwork = new Image();
         protected TextBlock TextBoxPower = new TextBlock() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, FontFamily = new FontFamily("Microsoft Sans Serif"), FontWeight = FontWeights.Bold, Foreground = Brushes.White };
+        protected Rectangle _rectangleColorFrame = new Rectangle();
 
         public int GameId
         {
             get { return (int)GetValue(GameIdProperty); }
             set { SetValue(GameIdProperty, value); }
+        }
+
+        public MainWindow MainWindow
+        {
+            get { return (MainWindow)GetValue(MainWindowProperty); }
+            set { SetValue(MainWindowProperty, value); }
         }
         #endregion Properties
 
@@ -70,8 +74,6 @@ namespace DuelMastersApplication
         
         protected AbstractCardCanvas()
         {
-            CanvasFrame.Children.Add(MainGrid);
-
             Children.Add(RectangleCardFrame);
             Children.Add(CanvasFrame);
 
@@ -82,16 +84,16 @@ namespace DuelMastersApplication
             storyboard.Children.Add(loadedAnimation);
             eventTrigger.Actions.Add(new BeginStoryboard() { Storyboard = storyboard });
             Triggers.Add(eventTrigger);
+
+            MouseEnter += AbstractCardCanvas_MouseEnter;
+            MouseLeave += AbstractCardCanvas_MouseLeave;
         }
 
-        #region Events
-        private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        protected static Brush GetBrushForCivilizations(Collection<Civilization> civilizations)
         {
-            AbstractCardCanvas canvas = d as AbstractCardCanvas;
-            Collection<Civilization> civilizations = e.NewValue as Collection<Civilization>;
             if (civilizations.Count == 1)
             {
-                canvas.MainGrid.Background = new SolidColorBrush(_civilizationDictionary[civilizations[0]]);
+                return new SolidColorBrush(_civilizationDictionary[civilizations[0]]);
             }
             else if (civilizations.Count == 2)
             {
@@ -100,7 +102,7 @@ namespace DuelMastersApplication
                 {
                     brushes.Add(_civilizationDictionary[civilization]);
                 }
-                canvas.MainGrid.Background = new LinearGradientBrush(brushes[0], brushes[1], 45);
+                return new LinearGradientBrush(brushes[0], brushes[1], 45);
             }
             else
             {
@@ -108,6 +110,17 @@ namespace DuelMastersApplication
             }
         }
 
+        private void AbstractCardCanvas_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            MainWindow?.ZoomCardCanvas(GameId);
+        }
+
+        private void AbstractCardCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            MainWindow?.UnzoomCardCanvas();
+        }
+
+        #region Events
         private static void OnCandidateGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             AbstractCardCanvas canvas = d as AbstractCardCanvas;
@@ -159,11 +172,18 @@ namespace DuelMastersApplication
         private static void OnPowerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             AbstractCardCanvas canvas = d as AbstractCardCanvas;
-            string power = e.NewValue.ToString();
-            if (!string.IsNullOrEmpty(power))
+            if (e.NewValue != null)
             {
-                canvas.TextBoxPower.Visibility = Visibility.Visible;
-                canvas.TextBoxPower.Text = power;
+                string power = e.NewValue.ToString();
+                if (!string.IsNullOrEmpty(power))
+                {
+                    canvas.TextBoxPower.Visibility = Visibility.Visible;
+                    canvas.TextBoxPower.Text = power;
+                }
+            }
+            else
+            {
+                canvas.TextBoxPower.Visibility = Visibility.Hidden;
             }
         }
 
@@ -194,13 +214,20 @@ namespace DuelMastersApplication
             const string RootPath = "C:/DuelMastersCardImages";
             SetAndId setAndId = (SetAndId)e.NewValue;
             string path = System.IO.Path.Combine(RootPath, setAndId.Set, string.Format("{0} {1}.jpg", setAndId.Set, setAndId.Id));
-            (d as AbstractCardCanvas).Artwork.Source = new BitmapImage(new Uri(path));
+            if (System.IO.File.Exists(path))
+            {
+                (d as AbstractCardCanvas).Artwork.Source = new BitmapImage(new Uri(path));
+            }
+            else
+            {
+                (d as AbstractCardCanvas).Artwork.Source = null;
+            }
         }
         #endregion Events
 
         private void BeginCandidateAnimation()
         {
-            var colorAnimation = new ColorAnimation(Colors.Black, Colors.White, new Duration(new TimeSpan(0, 0, 0, 1, 0)))
+            ColorAnimation colorAnimation = new ColorAnimation(Colors.Black, Colors.White, new Duration(new TimeSpan(0, 0, 0, 1, 0)))
             {
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
@@ -220,19 +247,41 @@ namespace DuelMastersApplication
             SetLeft(CanvasFrame, (cardCanvasWidth - frameWidth) / 2);
             SetTop(CanvasFrame, (cardCanvasHeight - frameHeight) / 2);
 
-            MainGrid.Width = frameWidth - frameWidth * FrameOffset;
-            MainGrid.Height = frameHeight - frameHeight * FrameOffset;
+            RectangleCardFrame.RadiusX = 0.03 * cardCanvasWidth;
+            RectangleCardFrame.RadiusY = RectangleCardFrame.RadiusX;
+        }
 
-            SetLeft(MainGrid, (frameWidth - MainGrid.Width) / 2);
-            SetTop(MainGrid, (frameHeight - MainGrid.Height) / 2);
+        public void AdjustCardNameSize(double frameWidth, double frameHeight, double fontScale = 0.09, double yPositionScale = 0.0875)
+        {
+            TextBoxCardName.Width = 0.69 * Width;
+            TextBoxCardName.Height = 0.1 * Height;
 
-            const double FontScale = 0.07;
-            double fontSize = Math.Max(MinimumFontSize, cardCanvasHeight * FontScale);
+            double fontSize = Math.Max(MinimumFontSize, frameWidth * fontScale);
             TextBoxCardName.FontSize = fontSize;
 
-            const double FontScalePower = 0.12;
-            double fontSizeCardType = Math.Max(MinimumFontSize, cardCanvasHeight * FontScalePower);
-            TextBoxPower.FontSize = fontSizeCardType;
+            while (true)
+            {
+                double nameWidth = MeasureString(TextBoxCardName.Text, TextBoxCardName.FontSize, frameWidth, frameHeight, TextBoxCardName.FontWeight, TextBoxCardName.FontStyle, TextBoxCardName.FontFamily).Width;
+                if (nameWidth < 0.985 * TextBoxCardName.Width)
+                {
+                    break;
+                }
+                else
+                {
+                    TextBoxCardName.FontSize = 0.99 * TextBoxCardName.FontSize;
+                }
+            }
+
+            SetLeft(TextBoxCardName, (CanvasFrame.Width - TextBoxCardName.Width) / 2);
+            SetTop(TextBoxCardName, 0.085 * frameHeight - TextBoxCardName.Height / 2);
+        }
+
+        protected Size MeasureString(string text, double fontSize, double width, double height, FontWeight fontWeight, FontStyle fontStyle, FontFamily fontFamily)
+        {
+            TextBlock textBlock = new TextBlock { Text = text, TextWrapping = TextWrapping.NoWrap, FontSize = fontSize, FontWeight = fontWeight, FontStyle = fontStyle, FontFamily = fontFamily };
+            textBlock.Measure(new Size(width, height));
+            textBlock.Arrange(new Rect(textBlock.DesiredSize));
+            return textBlock.RenderSize;
         }
     }
 }

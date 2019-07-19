@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
+using DuelMastersModels.Cards;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace DuelMastersApplication
     {
         public static readonly DependencyProperty SummoningSicknessProperty = DependencyProperty.Register("SummoningSickness", typeof(bool), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnSummoningSicknessChanged));
         public static readonly DependencyProperty AbilitiesProperty = DependencyProperty.Register("Abilities", typeof(Collection<Ability>), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnAbilitiesChanged));
+        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnCivilizationsChanged));
 
         private Image _imageSummoningSickness = new Image() { Stretch = Stretch.Fill, Opacity = 0, Source = new BitmapImage(new Uri("../../Images/summoning_sickness.png", UriKind.Relative)) };
         private Rectangle _rectanglePowerFrame = new Rectangle() { Fill = new SolidColorBrush(Colors.Black) };
@@ -23,8 +25,9 @@ namespace DuelMastersApplication
 
         public BattleZoneCreatureCanvas()
         {
-            CanvasFrame.Children.Add(TextBoxCardName);
+            CanvasFrame.Children.Add(_rectangleColorFrame);
             CanvasFrame.Children.Add(Artwork);
+            CanvasFrame.Children.Add(TextBoxCardName);
             CanvasFrame.Children.Add(_rectanglePowerFrame);
             CanvasFrame.Children.Add(TextBoxPower);
             CanvasFrame.Children.Add(_imageSummoningSickness);
@@ -34,6 +37,8 @@ namespace DuelMastersApplication
             stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Vertical);
             stackPanelFactory.SetValue(VerticalAlignmentProperty, VerticalAlignment.Bottom);
             _abilitiesItemsControl.ItemsPanel = new ItemsPanelTemplate() { VisualTree = stackPanelFactory };
+
+            Artwork.Stretch = Stretch.Fill;
 
             TextBoxPower.HorizontalAlignment = HorizontalAlignment.Center;
             SizeChanged += CardCanvas_SizeChanged;
@@ -47,22 +52,11 @@ namespace DuelMastersApplication
             double frameHeight = 0.9 * e.NewSize.Width;
             AdjustSize(cardCanvasWidth, cardCanvasHeight, frameWidth, frameHeight);
 
-            while (true)
-            {
-                TextBoxCardName.Measure(new Size(frameWidth, 0.2 * frameHeight));
-                TextBoxCardName.Arrange(new Rect(TextBoxCardName.DesiredSize));
-                if (TextBoxCardName.ActualWidth < frameWidth * 0.9)
-                {
-                    break;
-                }
-                else
-                {
-                    TextBoxCardName.FontSize = 0.99 * TextBoxCardName.FontSize;
-                }
-            }
-            
-            SetLeft(TextBoxCardName, (frameWidth - TextBoxCardName.ActualWidth) / 2);
-            SetTop(TextBoxCardName, 0.03 * frameHeight);
+            const double FontScalePower = 0.12;
+            double fontSizeCardType = Math.Max(MinimumFontSize, cardCanvasHeight * FontScalePower);
+            TextBoxPower.FontSize = fontSizeCardType;
+
+            AdjustCardNameSize(frameWidth, frameHeight, fontScale: 0.07, yPositionScale: 0.07);
 
             Artwork.Width = (1 - 2 * FrameOffset) * frameWidth;
             Artwork.Height = 0.8 * frameHeight;
@@ -104,6 +98,11 @@ namespace DuelMastersApplication
             
             SetLeft(_abilitiesItemsControl, GetLeft(this) - _abilitiesItemsControl.Width / 2);
             SetBottom(_abilitiesItemsControl, GetBottom(this));
+
+            _rectangleColorFrame.Width = frameWidth - frameWidth * FrameOffset;
+            _rectangleColorFrame.Height = frameHeight - frameHeight * FrameOffset;
+            SetLeft(_rectangleColorFrame, (frameWidth - _rectangleColorFrame.Width) / 2);
+            SetTop(_rectangleColorFrame, (frameHeight - _rectangleColorFrame.Height) / 2);
         }
 
         private static void OnSummoningSicknessChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -151,6 +150,11 @@ namespace DuelMastersApplication
                     }
                 }
             }
+        }
+
+        private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as BattleZoneCreatureCanvas)._rectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
         }
 
         private static void AddAbilityIcon(BattleZoneCreatureCanvas canvas, string fileName)

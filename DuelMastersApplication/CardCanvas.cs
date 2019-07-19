@@ -1,6 +1,8 @@
 ﻿using DuelMastersModels.Cards;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,6 +24,7 @@ namespace DuelMastersApplication
         const int CardTypeRow = 3;
 
         const double TextOpacity = 0.7;
+        const double TypeRowHeightScale = 0.93;
         #endregion Constants
 
         #region DependencyProperties
@@ -29,6 +32,7 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty CostProperty = DependencyProperty.Register("Cost", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCostChanged));
         public static readonly DependencyProperty CardTypeProperty = DependencyProperty.Register("CardType", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTypeChanged));
         public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
+        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -42,12 +46,6 @@ namespace DuelMastersApplication
         {
             get { return (Collection<Civilization>)GetValue(CivilizationProperty); }
             set { SetValue(CivilizationProperty, value); }
-        }
-
-        public SetAndId SetAndId
-        {
-            get { return (SetAndId)GetValue(SetAndIdProperty); }
-            set { SetValue(SetAndIdProperty, value); }
         }
 
         public string CardText
@@ -64,89 +62,128 @@ namespace DuelMastersApplication
         #endregion Other properties
 
         #region Fields
-        private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, IsReadOnly = true, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Opacity = TextOpacity, FontFamily = new FontFamily("Microsoft Sans Serif") };
-        private TextBox _textBoxCost = new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Background = Brushes.Black, Foreground = Brushes.White, FontWeight = FontWeights.Bold };
-        private TextBox _textBoxCardType = new TextBox() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Opacity = TextOpacity };
-        private TextBox _textBoxRace = new TextBox() { HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity };
+        private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, VerticalScrollBarVisibility = ScrollBarVisibility.Hidden, Opacity = TextOpacity, FontFamily = new FontFamily("Microsoft Sans Serif"), Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false };
+        private TextBox _textBoxCost = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Top, Background = Brushes.Black, Foreground = Brushes.White, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0) };
+        private TextBox _textBoxCardType = new TextBox() { Opacity = TextOpacity, HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0), Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false };
+        private TextBox _textBoxRace = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Right, VerticalContentAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity, Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0), };
         #endregion Fields
 
         public CardCanvas()
         {
-            Grid gridCostAndName = new Grid();
-            gridCostAndName.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.2, GridUnitType.Star) });
-            gridCostAndName.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0.8, GridUnitType.Star) });
-            gridCostAndName.RowDefinitions.Add(new RowDefinition());
-
-            Grid.SetColumn(_textBoxCost, 0);
-            Grid.SetRow(_textBoxCost, 0);
-            gridCostAndName.Children.Add(_textBoxCost);
-
-            Grid.SetColumn(TextBoxCardName, 1);
-            Grid.SetRow(TextBoxCardName, 0);
-            gridCostAndName.Children.Add(TextBoxCardName);
-
-            MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            MainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionCardName", Height = new GridLength(0.1, GridUnitType.Star) });
-            MainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionArtwork", Height = new GridLength(0.3, GridUnitType.Star) });
-            MainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionTextRow", Height = new GridLength(0.4, GridUnitType.Star) });
-            MainGrid.RowDefinitions.Add(new RowDefinition() { Name = "RowDefinitionCardType", Height = new GridLength(0.1, GridUnitType.Star) });
-
-            Grid.SetColumn(gridCostAndName, 0);
-            Grid.SetRow(gridCostAndName, CardNameRow);
-            MainGrid.Children.Add(gridCostAndName);
-
-            Grid.SetColumn(Artwork, 0);
-            Grid.SetRow(Artwork, ArtworkRow);
-            MainGrid.Children.Add(Artwork);
-
-            Grid.SetColumn(_textBoxCardText, 0);
-            Grid.SetRow(_textBoxCardText, TextRow);
-            MainGrid.Children.Add(_textBoxCardText);
-
-            Grid gridType = new Grid();
-            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            gridType.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            gridType.RowDefinitions.Add(new RowDefinition());
-
-            Grid.SetColumn(TextBoxPower, 0);
-            Grid.SetRow(TextBoxPower, CardTypeRow);
-            gridType.Children.Add(TextBoxPower);
-
-            Grid.SetColumn(_textBoxCardType, 1);
-            Grid.SetRow(_textBoxCardType, CardTypeRow);
-            gridType.Children.Add(_textBoxCardType);
-
-            Grid.SetColumn(_textBoxRace, 2);
-            Grid.SetRow(_textBoxRace, CardTypeRow);
-            gridType.Children.Add(_textBoxRace);
-
-            Grid.SetColumn(gridType, 0);
-            Grid.SetRow(gridType, CardTypeRow);
-            MainGrid.Children.Add(gridType);
-
             SizeChanged += CardCanvas_SizeChanged;
+
+            CanvasFrame.Children.Add(_rectangleColorFrame);
+            CanvasFrame.Children.Add(_textBoxCost);
+            CanvasFrame.Children.Add(Artwork);
+            CanvasFrame.Children.Add(TextBoxCardName);
+            CanvasFrame.Children.Add(_textBoxCardText);
+            CanvasFrame.Children.Add(TextBoxPower);
+            CanvasFrame.Children.Add(_textBoxCardType);
+            CanvasFrame.Children.Add(_textBoxRace);
+            
+            _textBoxCost.SetBinding(Control.BackgroundProperty, new System.Windows.Data.Binding("Fill") { Source = RectangleCardFrame });
         }
 
         #region Events
         private void CardCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            AdjustSize(e.NewSize.Width, e.NewSize.Height, e.NewSize.Height * 222 / 307, e.NewSize.Height);
-
-            const double FontScale = 0.06;
-            double fontSize = Math.Max(MinimumFontSize, e.NewSize.Height * FontScale);
-            _textBoxCardText.FontSize = fontSize;
-            _textBoxCost.FontSize = fontSize;
+            double frameWidth = e.NewSize.Width;
+            double frameHeight = e.NewSize.Height;
+            AdjustSize(frameWidth, frameHeight, frameWidth, frameHeight);
 
             const double FontScaleCardType = 0.04;
-            double fontSizeCardType = Math.Max(MinimumFontSize, e.NewSize.Height * FontScaleCardType);
+            double fontSizeCardType = Math.Max(MinimumFontSize, frameHeight * FontScaleCardType);
             _textBoxCardType.FontSize = fontSizeCardType;
-            _textBoxRace.FontSize = fontSizeCardType;
+            _textBoxRace.FontSize = 0.7 * fontSizeCardType;
+
+            _rectangleColorFrame.Width = CanvasFrame.Width * (1 - FrameOffset);
+            _rectangleColorFrame.Height = CanvasFrame.Height * (1 - FrameOffset);
+            SetLeft(_rectangleColorFrame, (frameWidth - _rectangleColorFrame.Width) / 2);
+            SetTop(_rectangleColorFrame, (frameHeight - _rectangleColorFrame.Height) / 2);
+
+            _textBoxCost.FontSize = frameHeight * 0.07;
+
+            double costLength = CanvasFrame.Width * 0.115;
+            _textBoxCost.Width = costLength;
+            _textBoxCost.Height = costLength;
+
+            double leftAndTop = (frameWidth - _rectangleColorFrame.Width) / 2;
+
+            SetLeft(_textBoxCost, leftAndTop);
+            SetTop(_textBoxCost, leftAndTop);
+
+            AdjustCardNameSize(frameWidth, frameHeight);
+
+            Artwork.Width = _rectangleColorFrame.Width;
+            Artwork.Height = 0.48 * frameHeight;
+            SetLeft(Artwork, (CanvasFrame.Width - _rectangleColorFrame.Width) / 2);
+            SetTop(Artwork, 0.14 * frameHeight);
+
+            const double FontScale = 0.029;
+            double fontSize = frameHeight * FontScale;
+            _textBoxCardText.FontSize = fontSize;
+
+            _textBoxCardText.Width = CanvasFrame.Width * (1 - 2 * FrameOffset);
+            _textBoxCardText.Height = 0.27 * frameHeight;
+            SetLeft(_textBoxCardText, 0.07 * frameWidth);
+            SetTop(_textBoxCardText, 0.63 * frameHeight);
+
+            double typeRowHeight = TypeRowHeightScale * frameHeight; 
+
+            const double FontScalePower = 0.06;
+            double fontSizePower = Math.Max(MinimumFontSize, Height * FontScalePower);
+            TextBoxPower.FontSize = fontSizePower;
+
+            TextBoxPower.Measure(new Size(frameWidth, 0.2 * frameHeight));
+            TextBoxPower.Arrange(new Rect(TextBoxPower.DesiredSize));
+            SetLeft(TextBoxPower, 0.05 * frameWidth);
+            SetTop(TextBoxPower, typeRowHeight - TextBoxPower.ActualHeight / 2);
+
+            _textBoxCardType.Width = 0.3 * frameWidth;
+            _textBoxCardType.Height = TextBoxPower.ActualHeight;
+            SetLeft(_textBoxCardType, (CanvasFrame.Width - _textBoxCardType.Width) / 2);
+            SetTop(_textBoxCardType, typeRowHeight - _textBoxCardType.Height / 2);
+
+            AdjustRaceSize(frameWidth, frameHeight);
+        }
+
+        public void AdjustRaceSize(double frameWidth, double frameHeight)
+        {
+            double typeRowHeight = TypeRowHeightScale * Height;
+            _textBoxRace.Width = 0.32 * Width;
+            _textBoxRace.Height = TextBoxPower.ActualHeight;
+
+            while (true)
+            {
+                double raceWidth = MeasureString(_textBoxRace.Text, _textBoxRace.FontSize, frameWidth, frameHeight, _textBoxRace.FontWeight, _textBoxRace.FontStyle, _textBoxRace.FontFamily).Width;
+                if (raceWidth < 0.95 * _textBoxRace.Width)
+                {
+                    break;
+                }
+                else
+                {
+                    _textBoxRace.FontSize = 0.99 * _textBoxRace.FontSize;
+                }
+            }
+
+            SetLeft(_textBoxRace, 0.95 * CanvasFrame.Width - _textBoxRace.Width);
+            SetTop(_textBoxRace, typeRowHeight - _textBoxRace.Height / 2);
         }
 
         private static void OnCardTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as CardCanvas)._textBoxCardText.Text = e.NewValue.ToString();
+            string cardText = e.NewValue.ToString();
+            string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
+            if (newCardText.StartsWith("\n"))
+            {
+                newCardText.Remove(0, 2);
+            }
+            if (!string.IsNullOrEmpty(newCardText))
+            {
+                newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
+                newCardText = newCardText.Replace("■ \n", string.Empty);
+            }
+            (d as CardCanvas)._textBoxCardText.Text = newCardText;
         }
 
         private static void OnCostChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -156,18 +193,40 @@ namespace DuelMastersApplication
 
         private static void OnCardTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as CardCanvas)._textBoxCardType.Text = e.NewValue.ToString();
+            CardCanvas canvas = d as CardCanvas;
+            string cardType = e.NewValue.ToString();
+            canvas._textBoxCardType.Text = cardType;
+            if (cardType.Contains("Creature"))
+            {
+                canvas.Artwork.HorizontalAlignment = HorizontalAlignment.Right;
+            }
+            else if (cardType == "Spell")
+            {
+                canvas.Artwork.HorizontalAlignment = HorizontalAlignment.Center;
+            }
         }
 
         private static void OnRaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             CardCanvas canvas = d as CardCanvas;
-            string raceText = string.Join("/", (Collection<string>)e.NewValue);
-            if (!string.IsNullOrEmpty(raceText))
+            if (e.NewValue != null)
             {
-                canvas._textBoxRace.Visibility = Visibility.Visible;
-                canvas._textBoxRace.Text = raceText;
+                string raceText = string.Join("/", (Collection<string>)e.NewValue);
+                if (!string.IsNullOrEmpty(raceText))
+                {
+                    canvas._textBoxRace.Visibility = Visibility.Visible;
+                    canvas._textBoxRace.Text = raceText;
+                }
             }
+            else
+            {
+                canvas._textBoxRace.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CardCanvas)._rectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
         }
         #endregion Events
     }
