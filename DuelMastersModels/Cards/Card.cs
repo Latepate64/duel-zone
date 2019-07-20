@@ -48,10 +48,7 @@ namespace DuelMastersModels.Cards
         private bool _tapped;
         public bool Tapped
         {
-            get
-            {
-                return _tapped;
-            }
+            get => _tapped;
             set
             {
                 if (value != _tapped)
@@ -70,18 +67,20 @@ namespace DuelMastersModels.Cards
         public abstract Card DeepCopy { get; }
 
         public Collection<Ability> Abilities { get; } = new Collection<Ability>();
-        public Collection<StaticAbility> StaticAbilities
+        public Collection<StaticAbility> StaticAbilities => new Collection<StaticAbility>(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>().ToList());
+        public Collection<TriggerAbility> TriggerAbilities => new Collection<TriggerAbility>(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>().ToList());
+
+        public bool KnownToOwner { get; set; }
+        public bool KnownToOpponent { get; set; }
+
+        private bool _knownToPlayerWithPriority;
+        public bool KnownToPlayerWithPriority
         {
-            get
+            get => _knownToPlayerWithPriority;
+            set
             {
-                return new Collection<StaticAbility>(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>().ToList());
-            }
-        }
-        public Collection<TriggerAbility> TriggerAbilities
-        {
-            get
-            {
-                return new Collection<TriggerAbility>(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>().ToList());
+                _knownToPlayerWithPriority = value;
+                NotifyPropertyChanged();
             }
         }
         #endregion Properties

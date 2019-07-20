@@ -12,6 +12,8 @@ namespace DuelMastersModels.Zones
         public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
+            card.KnownToOwner = true;
+            card.KnownToOpponent = true;
         }
 
         public override void Remove(Card card, Duel duel)

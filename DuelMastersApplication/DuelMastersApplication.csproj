@@ -60,6 +60,7 @@
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />
+    <Compile Include="ZoneCanvas.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

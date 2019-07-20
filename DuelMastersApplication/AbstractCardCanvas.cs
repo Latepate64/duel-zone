@@ -56,7 +56,7 @@ namespace DuelMastersApplication
         protected Image Artwork = new Image();
         protected TextBlock TextBoxPower = new TextBlock() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, FontFamily = new FontFamily("Microsoft Sans Serif"), FontWeight = FontWeights.Bold, Foreground = Brushes.White };
         protected Rectangle _rectangleColorFrame = new Rectangle();
-
+        
         public int GameId
         {
             get { return (int)GetValue(GameIdProperty); }
@@ -110,12 +110,12 @@ namespace DuelMastersApplication
             }
         }
 
-        private void AbstractCardCanvas_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        protected void AbstractCardCanvas_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainWindow?.ZoomCardCanvas(GameId);
         }
 
-        private void AbstractCardCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        protected void AbstractCardCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainWindow?.UnzoomCardCanvas();
         }

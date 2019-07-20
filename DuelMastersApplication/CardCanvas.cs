@@ -33,6 +33,7 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty CardTypeProperty = DependencyProperty.Register("CardType", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTypeChanged));
         public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
         public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
+        public static readonly DependencyProperty KnownToPlayerWithPriorityProperty = DependencyProperty.Register("KnownToPlayerWithPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithPriorityChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -59,6 +60,12 @@ namespace DuelMastersApplication
             get { return (bool)GetValue(TappedProperty); }
             set { SetValue(TappedProperty, value); }
         }
+
+        public bool KnownToPlayerWithPriority
+        {
+            get { return (bool)GetValue(KnownToPlayerWithPriorityProperty); }
+            set { SetValue(KnownToPlayerWithPriorityProperty, value); }
+        }
         #endregion Other properties
 
         #region Fields
@@ -66,6 +73,11 @@ namespace DuelMastersApplication
         private TextBox _textBoxCost = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Top, Background = Brushes.Black, Foreground = Brushes.White, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0) };
         private TextBox _textBoxCardType = new TextBox() { Opacity = TextOpacity, HorizontalContentAlignment = HorizontalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0), Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false };
         private TextBox _textBoxRace = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Right, VerticalContentAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity, Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0), };
+        private Image _imageCardBack = new Image()
+        {
+            Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("../../Images/card_back.jpg", UriKind.Relative)),
+            Stretch = Stretch.Fill,
+        };
         #endregion Fields
 
         public CardCanvas()
@@ -80,8 +92,12 @@ namespace DuelMastersApplication
             CanvasFrame.Children.Add(TextBoxPower);
             CanvasFrame.Children.Add(_textBoxCardType);
             CanvasFrame.Children.Add(_textBoxRace);
-            
+            CanvasFrame.Children.Add(_imageCardBack);
+
             _textBoxCost.SetBinding(Control.BackgroundProperty, new System.Windows.Data.Binding("Fill") { Source = RectangleCardFrame });
+
+            MouseEnter -= AbstractCardCanvas_MouseEnter;
+            MouseLeave -= AbstractCardCanvas_MouseLeave;
         }
 
         #region Events
@@ -145,6 +161,9 @@ namespace DuelMastersApplication
             SetTop(_textBoxCardType, typeRowHeight - _textBoxCardType.Height / 2);
 
             AdjustRaceSize(frameWidth, frameHeight);
+
+            _imageCardBack.Width = frameWidth;
+            _imageCardBack.Height = frameHeight;
         }
 
         public void AdjustRaceSize(double frameWidth, double frameHeight)
@@ -173,17 +192,20 @@ namespace DuelMastersApplication
         private static void OnCardTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             string cardText = e.NewValue.ToString();
-            string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
-            if (newCardText.StartsWith("\n"))
+            if (!string.IsNullOrEmpty(cardText))
             {
-                newCardText.Remove(0, 2);
+                string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
+                if (newCardText.StartsWith("\n"))
+                {
+                    newCardText.Remove(0, 2);
+                }
+                if (!string.IsNullOrEmpty(newCardText))
+                {
+                    newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
+                    newCardText = newCardText.Replace("■ \n", string.Empty);
+                }
+                (d as CardCanvas)._textBoxCardText.Text = newCardText;
             }
-            if (!string.IsNullOrEmpty(newCardText))
-            {
-                newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
-                newCardText = newCardText.Replace("■ \n", string.Empty);
-            }
-            (d as CardCanvas)._textBoxCardText.Text = newCardText;
         }
 
         private static void OnCostChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -227,6 +249,24 @@ namespace DuelMastersApplication
         private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as CardCanvas)._rectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
+        }
+
+        private static void OnKnownToPlayerWithPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CardCanvas canvas = d as CardCanvas;
+            bool known = (bool)e.NewValue;
+            if (known)
+            {
+                canvas._imageCardBack.Visibility = Visibility.Hidden;
+                canvas.MouseEnter += canvas.AbstractCardCanvas_MouseEnter;
+                canvas.MouseLeave += canvas.AbstractCardCanvas_MouseLeave;
+            }
+            else
+            {
+                canvas._imageCardBack.Visibility = Visibility.Visible;
+                canvas.MouseEnter -= canvas.AbstractCardCanvas_MouseEnter;
+                canvas.MouseLeave -= canvas.AbstractCardCanvas_MouseLeave;
+            }
         }
         #endregion Events
     }

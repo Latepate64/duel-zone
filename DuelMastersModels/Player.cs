@@ -21,7 +21,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
-        public Collection<Card> DeckBeforeDuel { get; } = new Collection<Card>();
+        public ObservableCollection<Card> DeckBeforeDuel { get; } = new ObservableCollection<Card>();
 
         #region Zones
         public BattleZone BattleZone { get; set; }

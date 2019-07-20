@@ -16,6 +16,8 @@ namespace DuelMastersModels.Zones
                 card.Tapped = true;
             }
             Cards.Add(card);
+            card.KnownToOwner = true;
+            card.KnownToOpponent = true;
         }
 
         public override void Remove(Card card, Duel duel)

@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -19,6 +18,8 @@ namespace DuelMastersModels.Zones
                 creature.SummoningSickness = true;
             }
             Cards.Add(card);
+            card.KnownToOwner = true;
+            card.KnownToOpponent = true;
             foreach (TriggerAbility ability in card.TriggerAbilities.Where(ability => ability.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone))
             {
                 duel.TriggerTriggerAbility(ability, Owner);

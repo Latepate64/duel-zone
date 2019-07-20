@@ -1,6 +1,4 @@
-﻿using DuelMastersModels;
-using Microsoft.Win32;
-using System;
+﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
