@@ -59,6 +59,7 @@
     <Compile Include="AbstractCardCanvas.cs" />
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="ManaZoneCardCanvas.cs" />
     <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />

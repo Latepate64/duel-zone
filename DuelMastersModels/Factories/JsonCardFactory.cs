@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 
 namespace DuelMastersModels.Factories
 {
@@ -23,8 +24,12 @@ namespace DuelMastersModels.Factories
 
         public static Collection<JsonCard> GetJsonCards(string path, XmlDeck deck)
         {
+            return GetCardsForXmlDeck(deck, GetJsonCards(path));
+        }
+
+        private static Collection<JsonCard> GetCardsForXmlDeck(XmlDeck deck, Collection<JsonCard> allJsonCards)
+        {
             Collection<JsonCard> cards = new Collection<JsonCard>();
-            Collection<JsonCard> allJsonCards = GetJsonCards(path);
             foreach (XmlCard card in deck.Card)
             {
                 for (int amount = 0; amount < card.Amount; ++amount)
@@ -34,6 +39,25 @@ namespace DuelMastersModels.Factories
                 }
             }
             return cards;
+        }
+
+        public static Collection<JsonCard> GetJsonCardsFromUrl(System.Uri url)
+        {
+            string html = string.Empty;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.AutomaticDecompression = DecompressionMethods.GZip;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                html = reader.ReadToEnd();
+            }
+            return new Collection<JsonCard>(JsonConvert.DeserializeObject<Collection<JsonCard>>(html).ToList());
+        }
+
+        public static Collection<JsonCard> GetJsonCardsFromUrl(System.Uri url, XmlDeck deck)
+        {
+            return GetCardsForXmlDeck(deck, GetJsonCardsFromUrl(url));
         }
     }
 }

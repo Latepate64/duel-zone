@@ -18,6 +18,13 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
+    public enum StartingPlayer
+    {
+        Player1 = 0,
+        Player2 = 1,
+        Random = 2,
+    }
+
     /// <summary>
     /// Represents a duel that is played between two players.
     /// </summary>
@@ -125,15 +132,35 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts a duel.
         /// </summary>
-        public PlayerAction StartDuel()
+        public PlayerAction StartDuel(StartingPlayer startingPlayer = StartingPlayer.Player1)
         {
-            Player1.ShuffleDeck();
-            Player2.ShuffleDeck();
-            PutFromTheTopOfDeckIntoShieldZone(Player1, InitialNumberOfShields);
-            PutFromTheTopOfDeckIntoShieldZone(Player2, InitialNumberOfShields);
-            DrawCards(Player1, InitialNumberOfHandCards);
-            DrawCards(Player2, InitialNumberOfHandCards);
-            return SetCurrentPlayerAction(StartNewTurn(Player1, Player2));
+            Player activePlayer = Player1;
+            Player nonActivePlayer = Player2;
+
+            if (startingPlayer == StartingPlayer.Random)
+            {
+                const int RandomMax = 100;
+                int randomNumber = new Random().Next(0, RandomMax);
+                startingPlayer = (randomNumber % 2 == 0) ? StartingPlayer.Player1 : StartingPlayer.Player2;
+            }
+
+            if (startingPlayer == StartingPlayer.Player2)
+            {
+                activePlayer = Player2;
+                nonActivePlayer = Player1;
+            }
+            else if (startingPlayer != StartingPlayer.Player1)
+            {
+                throw new InvalidOperationException();
+            }
+
+            activePlayer.ShuffleDeck();
+            nonActivePlayer.ShuffleDeck();
+            PutFromTheTopOfDeckIntoShieldZone(activePlayer, InitialNumberOfShields);
+            PutFromTheTopOfDeckIntoShieldZone(nonActivePlayer, InitialNumberOfShields);
+            DrawCards(activePlayer, InitialNumberOfHandCards);
+            DrawCards(nonActivePlayer, InitialNumberOfHandCards);
+            return SetCurrentPlayerAction(StartNewTurn(activePlayer, nonActivePlayer));
         }
 
         /// <summary>

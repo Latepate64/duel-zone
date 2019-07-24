@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -140,9 +141,9 @@ namespace DuelMastersApplication
 
         protected static BitmapImage GetArtwork(SetAndId setAndId)
         {
-            const string RootPath = "C:/DuelMastersCardImages";
-            string path = System.IO.Path.Combine(RootPath, setAndId.Set, string.Format("{0} {1}.jpg", setAndId.Set, setAndId.Id));
-            if (System.IO.File.Exists(path))
+            const string RootPath = "Artworks";
+            string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), RootPath, setAndId.Set, string.Format("{0} {1}.jpg", setAndId.Set, setAndId.Id));
+            if (File.Exists(path))
             {
                 return new BitmapImage(new Uri(path));
             }

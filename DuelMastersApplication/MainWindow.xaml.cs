@@ -29,11 +29,14 @@ namespace DuelMastersApplication
     /// </summary>
     public partial class MainWindow : Window, System.ComponentModel.INotifyPropertyChanged
     {
+        #region Constants
         const int SideColumnWidth = 200;
-        const string JsonPath = "C:\\duel-masters-json\\DuelMastersCards.json";
 
         const double ZoomCardCanvasMaximumWidth = ZoomCardCanvasMaximumHeight * 222 / 307;
         const double ZoomCardCanvasMaximumHeight = 500;
+
+        const string ConfigurationPath = "./configuration.xml";
+        #endregion Constants
 
         #region Fields
         Duel _duel = new Duel();
@@ -131,7 +134,7 @@ namespace DuelMastersApplication
             _duel.Turns.CollectionChanged += Turns_CollectionChanged;
             LogMessages.CollectionChanged += LogMessages_CollectionChanged;
 
-            _setupCanvas = new SetupCanvas(this);
+            _setupCanvas = new SetupCanvas(this, Deserialize<Configuration>(ConfigurationPath));
             InitializeComponent();
             Title = "Duel Masters Application";
             WindowState = WindowState.Maximized;
@@ -273,14 +276,31 @@ namespace DuelMastersApplication
         }
 
         #region Public methods
-        public void InitializeDuel(string player1Name, string player2Name, string player1DeckPath, string player2DeckPath)
+        public void InitializeDuel(Configuration configuration)
         {
-            //TODO: implement checkbox for toggling ai
-            _duel.Player1 = new AIPlayer() { Id = 0, Name = player1Name };
-            _duel.Player2 = new Player() { Id = 1, Name = player2Name };
+            _duel.Player1 = configuration.Player1Configuration.ControlledByComputer ? new AIPlayer() : new Player();
+            _duel.Player1.Id = 0;
+            _duel.Player1.Name = configuration.Player1Configuration.Name;
+            _duel.Player2 = configuration.Player2Configuration.ControlledByComputer ? new AIPlayer() : new Player();
+            _duel.Player2.Id = 1;
+            _duel.Player2.Name = configuration.Player2Configuration.Name;
             int gameId = 0;
-            _duel.Player1.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player1DeckPath)), ref gameId, _duel.Player1));
-            _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(JsonCardFactory.GetJsonCards(JsonPath, Deserialize(player2DeckPath)), ref gameId, _duel.Player2));
+
+            Collection<JsonCard> player1JsonCards, player2JsonCards;
+            if (configuration.FetchJsonOnline)
+            {
+                Uri uri = new Uri(configuration.JsonUrlOrPath);
+                player1JsonCards = JsonCardFactory.GetJsonCardsFromUrl(uri, Deserialize<XmlDeck>(configuration.Player1Configuration.DeckPath));
+                player2JsonCards = JsonCardFactory.GetJsonCardsFromUrl(uri, Deserialize<XmlDeck>(configuration.Player2Configuration.DeckPath));
+            }
+            else
+            {
+                player1JsonCards = JsonCardFactory.GetJsonCards(configuration.JsonUrlOrPath, Deserialize<XmlDeck>(configuration.Player1Configuration.DeckPath));
+                player2JsonCards = JsonCardFactory.GetJsonCards(configuration.JsonUrlOrPath, Deserialize<XmlDeck>(configuration.Player2Configuration.DeckPath));
+            }
+
+            _duel.Player1.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(player1JsonCards, ref gameId, _duel.Player1));
+            _duel.Player2.SetDeckBeforeDuel(CardFactory.GetCardsFromJsonCards(player2JsonCards, ref gameId, _duel.Player2));
 
             if (Duel.NotParsedAbilities.Count > 0)
             {
@@ -291,7 +311,9 @@ namespace DuelMastersApplication
 
             _duel.Player1.SetupDeck(_duel);
             _duel.Player2.SetupDeck(_duel);
-            PlayerAction playerAction = _duel.StartDuel();
+            PlayerAction playerAction = _duel.StartDuel((StartingPlayer)configuration.WhoGoesFirst);
+
+            Serialize(configuration, ConfigurationPath);
 
             _textBlockPlayer1Name.SetBinding(TextBlock.TextProperty, new Binding("Player1.Name") { Source = _duel });
             _textBlockPlayer2Name.SetBinding(TextBlock.TextProperty, new Binding("Player2.Name") { Source = _duel });
@@ -360,6 +382,19 @@ namespace DuelMastersApplication
             _zoomCardCanvas.Visibility = Visibility.Hidden;
             _zoomCardCanvas.BeginAnimation(OpacityProperty, null);
             _zoomCardCanvas.Opacity = 0;
+        }
+
+        public void BindCardCanvasToListView(ListView listView)
+        {
+            FrameworkElementFactory cardCanvasFactory = new FrameworkElementFactory(typeof(CardCanvas));
+            BindAbstractCardCanvas(listView, cardCanvasFactory, 222.0 / 307.0);
+
+            cardCanvasFactory.SetBinding(CardCanvas.CivilizationProperty, new Binding("Civilizations"));
+            cardCanvasFactory.SetBinding(CardCanvas.CardTextProperty, new Binding("Text"));
+            cardCanvasFactory.SetBinding(CardCanvas.CostProperty, new Binding("Cost"));
+            cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));
+            cardCanvasFactory.SetBinding(CardCanvas.CardTypeProperty, new Binding() { Converter = new ObjectToCardTypeConverter() });
+            cardCanvasFactory.SetBinding(CardCanvas.KnownToPlayerWithPriorityProperty, new Binding("KnownToPlayerWithPriority"));
         }
         #endregion Public methods
 
@@ -629,13 +664,22 @@ namespace DuelMastersApplication
             }
         }
 
-        private static XmlDeck Deserialize(string path)
+        private static T Deserialize<T>(string path)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(XmlDeck));
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
             using (StreamReader reader = new StreamReader(path))
             {
-                XmlDeck deck = (XmlDeck)serializer.Deserialize(reader);
-                return deck;
+                return (T)serializer.Deserialize(reader);
+            }
+        }
+
+        private static void Serialize<T>(T objectToSerialize, string configurationPath)
+        {
+            XmlSerializer writer = new XmlSerializer(typeof(T));
+            using (FileStream file = File.Create(configurationPath))
+            {
+                writer.Serialize(file, objectToSerialize);
+                file.Close();
             }
         }
 
@@ -644,19 +688,6 @@ namespace DuelMastersApplication
             FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
             stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
             return stackPanelFactory;
-        }
-
-        public void BindCardCanvasToListView(ListView listView)
-        {
-            FrameworkElementFactory cardCanvasFactory = new FrameworkElementFactory(typeof(CardCanvas));
-            BindAbstractCardCanvas(listView, cardCanvasFactory, 222.0 / 307.0);
-
-            cardCanvasFactory.SetBinding(CardCanvas.CivilizationProperty, new Binding("Civilizations"));
-            cardCanvasFactory.SetBinding(CardCanvas.CardTextProperty, new Binding("Text"));
-            cardCanvasFactory.SetBinding(CardCanvas.CostProperty, new Binding("Cost"));
-            cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));  
-            cardCanvasFactory.SetBinding(CardCanvas.CardTypeProperty, new Binding() { Converter = new ObjectToCardTypeConverter() });
-            cardCanvasFactory.SetBinding(CardCanvas.KnownToPlayerWithPriorityProperty, new Binding("KnownToPlayerWithPriority"));
         }
 
         private void BindBattleZoneCreatureCanvasToListView(ListView listView)
@@ -919,6 +950,7 @@ namespace DuelMastersApplication
             buttonGraveyard.Content = canvasPlayerGraveyard;
         }
 
+        /*
         private void GetJsonCardsTest()
         {
             Collection<JsonCard> jsonCards = JsonCardFactory.GetJsonCards(JsonPath);
@@ -929,10 +961,38 @@ namespace DuelMastersApplication
             writer.Serialize(file, xmlCards);
             file.Close();
         }
+        */
 
         private void UpdateZoomCard(int gameId)
         {
             ZoomCard = _duel.GetCard(gameId);
+        }
+
+        private void ToggleVisibility(UIElement uiElement)
+        {
+            if (uiElement.Visibility == Visibility.Hidden)
+            {
+                uiElement.Visibility = Visibility.Visible;
+            }
+            else if (uiElement.Visibility == Visibility.Visible)
+            {
+                uiElement.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, Collection<Card> cards)
+        {
+            Card card = cards.First(c => c.GameId == cardCanvas.GameId);
+            if (!SelectedCards.Contains(card))
+            {
+                SelectedCards = new ObservableCollection<Card>(SelectedCards) { card };
+            }
+            else
+            {
+                ObservableCollection<Card> newCards = new ObservableCollection<Card>(SelectedCards);
+                newCards.Remove(card);
+                SelectedCards = newCards;
+            }
         }
         #endregion Private methods
 
@@ -942,7 +1002,6 @@ namespace DuelMastersApplication
             _mainGrid.Width = e.NewSize.Width;
             _mainGrid.Height = e.NewSize.Height;
             
-
             Canvas.SetLeft(_setupCanvas, (e.NewSize.Width - _setupCanvas.Width) / 2);
             Canvas.SetTop(_setupCanvas, (e.NewSize.Height - _setupCanvas.Height) / 2);
 
@@ -1065,21 +1124,6 @@ namespace DuelMastersApplication
             }
         }
 
-        private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, Collection<Card> cards)
-        {
-            Card card = cards.First(c => c.GameId == cardCanvas.GameId);
-            if (!SelectedCards.Contains(card))
-            {
-                SelectedCards = new ObservableCollection<Card>(SelectedCards) { card };
-            }
-            else
-            {
-                ObservableCollection<Card> newCards = new ObservableCollection<Card>(SelectedCards);
-                newCards.Remove(card);
-                SelectedCards = newCards;
-            }
-        }
-
         private void _actionButton_Click(object sender, RoutedEventArgs e)
         {
             if (_duel.CurrentPlayerAction is CardSelection)
@@ -1144,18 +1188,6 @@ namespace DuelMastersApplication
             ToggleVisibility(_player2GraveyardCanvas);
         }
         #endregion Events
-
-        private void ToggleVisibility(UIElement uIElement)
-        {
-            if (uIElement.Visibility == Visibility.Hidden)
-            {
-                uIElement.Visibility = Visibility.Visible;
-            }
-            else if (uIElement.Visibility == Visibility.Visible)
-            {
-                uIElement.Visibility = Visibility.Hidden;
-            }
-        }
     }
 
     #region Converters
