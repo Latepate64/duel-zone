@@ -142,10 +142,12 @@ namespace DuelMastersApplication
             _mainGrid.RowDefinitions.Add(new RowDefinition());
 
             _centerGrid.ColumnDefinitions.Add(new ColumnDefinition());
-            for (int i = 0; i < 5; ++i)
-            {
-                _centerGrid.RowDefinitions.Add(new RowDefinition());
-            }
+            _centerGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(2, GridUnitType.Star) });
+            _centerGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(3, GridUnitType.Star) });
+            _centerGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(3, GridUnitType.Star) });
+            _centerGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(2, GridUnitType.Star) });
+            _centerGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(4, GridUnitType.Star) });
+
             Grid.SetColumn(_centerGrid, 1);
             _mainGrid.Children.Add(_centerGrid);
 
@@ -283,7 +285,7 @@ namespace DuelMastersApplication
             if (Duel.NotParsedAbilities.Count > 0)
             {
                 string message = "The following abilities could not be parsed (the game can still be played without those abilities):";
-                System.Collections.Generic.List<string> abilities = Duel.NotParsedAbilities.Distinct().ToList();
+                List<string> abilities = Duel.NotParsedAbilities.Distinct().ToList();
                 MessageBox.Show(string.Join("\r\n\r\n", message, string.Join("\r\n", abilities)));
             }
 
@@ -309,12 +311,11 @@ namespace DuelMastersApplication
             _player2HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player2.Name), new Binding("Player2.Hand.Cards") { Source = _duel }, this);
 
             BindCardCanvasToListView(_listViewPlayer1Hand);
-            BindCardCanvasToListView(_listViewPlayer1ManaZone);
             BindCardCanvasToListView(_listViewPlayer2Hand);
-            BindCardCanvasToListView(_listViewPlayer2ManaZone);
-
             BindBattleZoneCreatureCanvasToListView(_listViewPlayer1BattleZone);
             BindBattleZoneCreatureCanvasToListView(_listViewPlayer2BattleZone);
+            BindManaZoneCardCanvasToListView(_listViewPlayer1ManaZone);
+            BindManaZoneCardCanvasToListView(_listViewPlayer2ManaZone);
 
             UpdateZoomCard(0);
             BindZoomCardCanvas();
@@ -345,7 +346,7 @@ namespace DuelMastersApplication
             }
             Canvas.SetTop(_zoomCardCanvas, topPosition);
             UpdateZoomCard(gameId);
-            _zoomCardCanvas.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 300))));
+            _zoomCardCanvas.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 300))) { BeginTime = new TimeSpan(0, 0, 0, 0, 800) });
 
             _zoomCardCanvas.AdjustCardNameSize(ZoomCardCanvasMaximumWidth, ZoomCardCanvasMaximumHeight);
             if (_zoomCardCanvas is CardCanvas cardCanvas)
@@ -668,15 +669,23 @@ namespace DuelMastersApplication
             canvasFactory.SetBinding(BattleZoneCreatureCanvas.AbilitiesProperty, new Binding("Abilities"));
         }
 
-        private void BindAbstractCardCanvas(ListView listView, FrameworkElementFactory cardCanvasFactory, double multiplier)
+        private void BindManaZoneCardCanvasToListView(ListView listView)
+        {
+            FrameworkElementFactory canvasFactory = new FrameworkElementFactory(typeof(ManaZoneCardCanvas));
+            BindAbstractCardCanvas(listView, canvasFactory, 1, 0.92);
+
+            canvasFactory.SetBinding(ManaZoneCardCanvas.CivilizationProperty, new Binding("Civilizations"));
+        }
+
+        private void BindAbstractCardCanvas(ListView listView, FrameworkElementFactory cardCanvasFactory, double multiplier, double listViewScale = 0.96)
         {
             listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = GetStackPanelFactory() };
 
-            cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = 0.96 });
-            cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = 0.96 * multiplier });
+            cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale });
+            cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale * multiplier });
 
-            cardCanvasFactory.SetBinding(AbstractCardCanvas.CardNameProperty, new Binding("Name"));
-            cardCanvasFactory.SetBinding(AbstractCardCanvas.PowerProperty, new Binding("Power"));
+            cardCanvasFactory.SetBinding(RectangleCardCanvas.CardNameProperty, new Binding("Name"));
+            cardCanvasFactory.SetBinding(RectangleCardCanvas.PowerProperty, new Binding("Power"));
             cardCanvasFactory.SetBinding(AbstractCardCanvas.GameIdProperty, new Binding("GameId"));
             cardCanvasFactory.SetBinding(AbstractCardCanvas.TappedProperty, new Binding("Tapped"));
 
@@ -694,8 +703,8 @@ namespace DuelMastersApplication
 
         private void BindZoomCardCanvas()
         {
-            _zoomCardCanvas.SetBinding(AbstractCardCanvas.CardNameProperty, new Binding("ZoomCard.Name") { Source = this });            
-            _zoomCardCanvas.SetBinding(AbstractCardCanvas.PowerProperty, new Binding("ZoomCard.Power") { Source = this });
+            _zoomCardCanvas.SetBinding(RectangleCardCanvas.CardNameProperty, new Binding("ZoomCard.Name") { Source = this });            
+            _zoomCardCanvas.SetBinding(RectangleCardCanvas.PowerProperty, new Binding("ZoomCard.Power") { Source = this });
             _zoomCardCanvas.SetBinding(AbstractCardCanvas.GameIdProperty, new Binding("ZoomCard.GameId") { Source = this });
             MultiBinding multiBinding = new MultiBinding() { Converter = new SetAndIdConverter() };
             multiBinding.Bindings.Add(new Binding("ZoomCard.Set") { Source = this });

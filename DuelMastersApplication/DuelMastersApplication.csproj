@@ -59,6 +59,8 @@
     <Compile Include="AbstractCardCanvas.cs" />
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
+    <Compile Include="ManaZoneCardCanvas.cs" />
+    <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />
     <Compile Include="ZoneCanvas.cs" />
     <Page Include="MainWindow.xaml">

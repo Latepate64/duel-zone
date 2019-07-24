@@ -1,8 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,7 +13,7 @@ namespace DuelMastersApplication
         public string Id { get; set; }
     }
 
-    public class CardCanvas : AbstractCardCanvas
+    public class CardCanvas : RectangleCardCanvas
     {
         #region Constants
         const int CardNameRow = 0;
@@ -37,12 +35,6 @@ namespace DuelMastersApplication
         #endregion DependencyProperties
 
         #region Other properties
-        public string CardName
-        {
-            get { return (string)GetValue(CardNameProperty); }
-            set { SetValue(CardNameProperty, value); }
-        }
-
         public Collection<Civilization> Civilizations
         {
             get { return (Collection<Civilization>)GetValue(CivilizationProperty); }
@@ -84,7 +76,7 @@ namespace DuelMastersApplication
         {
             SizeChanged += CardCanvas_SizeChanged;
 
-            CanvasFrame.Children.Add(_rectangleColorFrame);
+            CanvasFrame.Children.Add(RectangleColorFrame);
             CanvasFrame.Children.Add(_textBoxCost);
             CanvasFrame.Children.Add(Artwork);
             CanvasFrame.Children.Add(TextBoxCardName);
@@ -112,10 +104,10 @@ namespace DuelMastersApplication
             _textBoxCardType.FontSize = fontSizeCardType;
             _textBoxRace.FontSize = 0.7 * fontSizeCardType;
 
-            _rectangleColorFrame.Width = CanvasFrame.Width * (1 - FrameOffset);
-            _rectangleColorFrame.Height = CanvasFrame.Height * (1 - FrameOffset);
-            SetLeft(_rectangleColorFrame, (frameWidth - _rectangleColorFrame.Width) / 2);
-            SetTop(_rectangleColorFrame, (frameHeight - _rectangleColorFrame.Height) / 2);
+            RectangleColorFrame.Width = CanvasFrame.Width * (1 - FrameOffset);
+            RectangleColorFrame.Height = CanvasFrame.Height * (1 - FrameOffset);
+            SetLeft(RectangleColorFrame, (frameWidth - RectangleColorFrame.Width) / 2);
+            SetTop(RectangleColorFrame, (frameHeight - RectangleColorFrame.Height) / 2);
 
             _textBoxCost.FontSize = frameHeight * 0.07;
 
@@ -123,16 +115,16 @@ namespace DuelMastersApplication
             _textBoxCost.Width = costLength;
             _textBoxCost.Height = costLength;
 
-            double leftAndTop = (frameWidth - _rectangleColorFrame.Width) / 2;
+            double leftAndTop = (frameWidth - RectangleColorFrame.Width) / 2;
 
             SetLeft(_textBoxCost, leftAndTop);
             SetTop(_textBoxCost, leftAndTop);
 
             AdjustCardNameSize(frameWidth, frameHeight);
 
-            Artwork.Width = _rectangleColorFrame.Width;
+            Artwork.Width = RectangleColorFrame.Width;
             Artwork.Height = 0.48 * frameHeight;
-            SetLeft(Artwork, (CanvasFrame.Width - _rectangleColorFrame.Width) / 2);
+            SetLeft(Artwork, (CanvasFrame.Width - RectangleColorFrame.Width) / 2);
             SetTop(Artwork, 0.14 * frameHeight);
 
             const double FontScale = 0.029;
@@ -191,20 +183,23 @@ namespace DuelMastersApplication
 
         private static void OnCardTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            string cardText = e.NewValue.ToString();
-            if (!string.IsNullOrEmpty(cardText))
+            if (e.NewValue != null)
             {
-                string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
-                if (newCardText.StartsWith("\n"))
+                string cardText = e.NewValue.ToString();
+                if (!string.IsNullOrEmpty(cardText))
                 {
-                    newCardText.Remove(0, 2);
+                    string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
+                    if (newCardText.StartsWith("\n"))
+                    {
+                        newCardText.Remove(0, 2);
+                    }
+                    if (!string.IsNullOrEmpty(newCardText))
+                    {
+                        newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
+                        newCardText = newCardText.Replace("■ \n", string.Empty);
+                    }
+                    (d as CardCanvas)._textBoxCardText.Text = newCardText;
                 }
-                if (!string.IsNullOrEmpty(newCardText))
-                {
-                    newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
-                    newCardText = newCardText.Replace("■ \n", string.Empty);
-                }
-                (d as CardCanvas)._textBoxCardText.Text = newCardText;
             }
         }
 
@@ -248,7 +243,7 @@ namespace DuelMastersApplication
 
         private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as CardCanvas)._rectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
+            (d as CardCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
         }
 
         private static void OnKnownToPlayerWithPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
