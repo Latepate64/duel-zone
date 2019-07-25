@@ -13,9 +13,12 @@ namespace DuelMastersModels.Factories
         private static readonly ReadOnlyDictionary<string, Type> _effectDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
             { "Put the top card of your deck into your mana zone.", typeof(PutTheTopCardOfYourDeckIntoYourManaZoneEffect) },
-            //{ "Put the top card of your deck into your mana zone. Then add the top card of your deck to your shields face down.", typeof(PutTheTopCardOfYourDeckIntoYourManaZoneThenAddTheTopCardOfYourDeckToYourShieldsFaceDownEffect) },
+            { "Tap all your opponent's creatures in the battle zone.", typeof(TapAllYourOpponentsCreaturesInTheBattleZoneEffect) },
+            #region You may
+            { "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.", typeof(YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShieldEffect) },
             { "You may choose a creature in the battle zone and return it to its owner's hand.", typeof(YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect) },
             { "You may draw a card.", typeof(YouMayDrawACardEffect) },
+            #endregion You may
         });
 
         private static readonly ReadOnlyDictionary<string, Type[]> _effectsDictionary = new ReadOnlyDictionary<string, Type[]>(new Dictionary<string, Type[]>
@@ -23,7 +26,7 @@ namespace DuelMastersModels.Factories
             { "Put the top card of your deck into your mana zone. Then add the top card of your deck to your shields face down.", new Type[] { typeof(PutTheTopCardOfYourDeckIntoYourManaZoneEffect), typeof(AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect) } },
         });
 
-        public static Collection<OneShotEffect> ParseOneShotEffect(string text, Creature creature, Player owner)
+        public static Collection<OneShotEffect> ParseOneShotEffect(string text, Player owner)
         {
             if (text == null)
             {

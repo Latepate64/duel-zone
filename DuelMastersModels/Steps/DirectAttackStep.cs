@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
+using DuelMastersModels.PlayerActions.CardSelections;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -32,7 +32,7 @@ namespace DuelMastersModels.Steps
                 if (opponent.ShieldZone.Cards.Count > 0)
                 {
                     //TODO: consider multibreaker
-                    return duel.PutFromShieldZoneToHand(opponent, new Collection<Card>() { opponent.ShieldZone.Cards.Last() });
+                    return new BreakShields(ActivePlayer, 1, duel.GetOpponent(ActivePlayer).ShieldZone.Cards, AttackingCreature);
                 }
                 else
                 {

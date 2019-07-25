@@ -83,6 +83,17 @@ namespace DuelMastersModels.Cards
                 NotifyPropertyChanged();
             }
         }
+
+        private bool _knownToPlayerWithoutPriority;
+        public bool KnownToPlayerWithoutPriority
+        {
+            get => _knownToPlayerWithoutPriority;
+            set
+            {
+                _knownToPlayerWithoutPriority = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion Properties
 
         #region Fields

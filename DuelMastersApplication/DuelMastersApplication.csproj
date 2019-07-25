@@ -130,5 +130,11 @@
   <ItemGroup>
     <Resource Include="Images\AbilityIcons\this_creature_cannot_attack_players.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\card_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\eye.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

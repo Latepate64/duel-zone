@@ -1,9 +1,8 @@
 ﻿using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
-//using DuelMastersModels.Effects;
 using DuelMastersModels.Effects.OneShotEffects;
 using DuelMastersModels.Factories;
-using DuelMastersModels.PlayerActions;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -17,10 +16,7 @@ namespace DuelMastersModels.Cards
         private bool _summoningSickness = true;
         public bool SummoningSickness
         {
-            get
-            {
-                return _summoningSickness;
-            }
+            get => _summoningSickness;
             set
             {
                 if (value != _summoningSickness)
@@ -80,10 +76,10 @@ namespace DuelMastersModels.Cards
 
             if (!string.IsNullOrEmpty(text))
             {
-                System.Collections.Generic.IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
+                IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbility(textPart, this, owner);
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this, owner);
                     if (staticAbility != null)
                     {
                         Abilities.Add(staticAbility);
@@ -93,10 +89,10 @@ namespace DuelMastersModels.Cards
                         TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
                         if (triggerCondition != null)
                         {
-                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, this, owner);
+                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, owner);
                             if (effects != null)
                             {
-                                Abilities.Add(new TriggerAbility(triggerCondition, effects));
+                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner));
                             }
                             else
                             {

@@ -26,7 +26,13 @@ namespace DuelMastersModels.Factories
             { "This creature can't attack players.", typeof(ThisCreatureCannotAttackPlayers) },
         });
 
-        public static StaticAbility ParseStaticAbility(string text, Creature creature, Player owner)
+        private static readonly ReadOnlyDictionary<string, Type> _staticAbilityDictionaryForSpells = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
+        {
+            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it immediately for no cost.)", typeof(SpellShieldTrigger) },
+            { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(SpellShieldTrigger) },
+        });
+
+        public static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature, Player owner)
         {
             if (text == null)
             {
@@ -36,6 +42,23 @@ namespace DuelMastersModels.Factories
             if (parsedType != null)
             {
                 return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell, Player owner)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
+            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForSpells, out Dictionary<string, object> parsedObjects);
+            if (parsedType != null)
+            {
+                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */spell, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
             }
             else
             {

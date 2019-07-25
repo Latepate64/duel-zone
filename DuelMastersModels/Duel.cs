@@ -1,7 +1,7 @@
-﻿using DuelMastersModels.Abilities.Static;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
-using DuelMastersModels.Effects;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
@@ -107,7 +107,7 @@ namespace DuelMastersModels
             }
         }
 
-        public TriggerAbility TriggerAbilityBeingResolved { get; private set; }
+        public NonStaticAbility NonStaticAbilityBeingResolved { get; private set; }
 
         public Collection<TriggerAbility> PendingTriggerAbilities { get; private set; } = new Collection<TriggerAbility>();
 
@@ -243,15 +243,31 @@ namespace DuelMastersModels
                         return CurrentPlayerAction;
                     }
                 }
-                else if (CurrentPlayerAction is PayCost payCost)
+                else if (CurrentPlayerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                 {
-                    if (payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
+                    if (CurrentPlayerAction is PayCost payCost)
                     {
-                        playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
+                        if (payCost.Validate(cardSelectionResponse.SelectedCards) && payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
+                        {
+                            playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
+                            CurrentTurn.CurrentStep.PlayerActions.Add(payCost);
+                        }
+                        else
+                        {
+                            return CurrentPlayerAction;
+                        }
                     }
                     else
                     {
-                        return CurrentPlayerAction;
+                        if (mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards))
+                        {
+                            playerAction = mandatoryMultipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+                            CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryMultipleCardSelection);
+                        }
+                        else
+                        {
+                            return CurrentPlayerAction;
+                        }
                     }
                 }
                 else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
@@ -431,7 +447,7 @@ namespace DuelMastersModels
             IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
             List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList();
 
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredSpells).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
             IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player, c).Count == 0);
             /*
             foreach (CreatureContinuousEffect creatureContinuousEffect in cannotAttackPlayersEffects)
@@ -446,7 +462,7 @@ namespace DuelMastersModels
         public bool CanAttackOpponent(Creature creature)
         {
             IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredSpells).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
             return !creature.SummoningSickness && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
@@ -473,13 +489,19 @@ namespace DuelMastersModels
             }
         }
 
-        public PlayerAction PutFromShieldZoneToHand(Player player, Collection<Card> cards)
+        public PlayerAction PutFromShieldZoneToHand(Player player, Card card, bool canUseShieldTrigger)
+        {
+            return PutFromShieldZoneToHand(player, new Collection<Card>() { card }, canUseShieldTrigger);
+        }
+
+        public PlayerAction PutFromShieldZoneToHand(Player player, Collection<Card> cards, bool canUseShieldTrigger)
         {
             Collection<Card> shieldTriggerCards = new Collection<Card>();
-            foreach (Card card in cards)
+            for (int i = 0; i < cards.Count; ++i)
             {
+                Card card = cards[i];
                 PutFromShieldZoneToHand(player, card);
-                if (HasShieldTrigger(card))
+                if (canUseShieldTrigger && HasShieldTrigger(card))
                 {
                     shieldTriggerCards.Add(card);
                 }
@@ -637,14 +659,6 @@ namespace DuelMastersModels
                 CheckStateBasedActions();
                 if (!Ended)
                 {
-                    //TODO: Resolve spell abilities
-                    while (SpellsBeingResolved.Count > 0)
-                    {
-                        Spell spell = SpellsBeingResolved.Last();
-                        SpellsBeingResolved.Remove(spell);
-                        GetOwner(spell).Graveyard.Add(spell, this);
-                    }
-
                     foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer })
                     {
                         if (player.ShieldTriggersToUse.Count > 0)
@@ -653,16 +667,40 @@ namespace DuelMastersModels
                         }
                     }
 
-                    if (TriggerAbilityBeingResolved != null)
+                    if (NonStaticAbilityBeingResolved != null)
                     {
-                        PlayerAction playerActionFromTriggerAbility = TriggerAbilityBeingResolved.ContinueResolution(this, out bool resolved);
+                        PlayerAction playerActionFromNonStaticAbility = NonStaticAbilityBeingResolved.ContinueResolution(this, out bool resolved);
                         if (!resolved)
                         {
-                            return TryToPerformAutomatically(playerActionFromTriggerAbility);
+                            return TryToPerformAutomatically(playerActionFromNonStaticAbility);
                         }
                         else
                         {
-                            TriggerAbilityBeingResolved = null;
+                            if (NonStaticAbilityBeingResolved is SpellAbility)
+                            {
+                                Spell spell = SpellsBeingResolved.Last();
+                                SpellsBeingResolved.Remove(spell);
+                                GetOwner(spell).Graveyard.Add(spell, this);
+                            }
+
+                            NonStaticAbilityBeingResolved = null;
+                        }
+                    }
+
+                    if (SpellsBeingResolved.Count > 0)
+                    {
+                        Spell spell = SpellsBeingResolved.Last();
+                        if (spell.SpellAbilities.Count > 0)
+                        {
+                            //TODO: spell may have more than one spell ability.
+                            SpellAbility spellAbility = spell.SpellAbilities.First();
+                            NonStaticAbilityBeingResolved = spellAbility;
+                            return Progress();
+                        }
+                        else
+                        {
+                            SpellsBeingResolved.Remove(spell);
+                            GetOwner(spell).Graveyard.Add(spell, this);
                         }
                     }
 
@@ -672,7 +710,7 @@ namespace DuelMastersModels
                         {
                             TriggerAbility triggerAbility = triggerAbilities.First();
                             PendingTriggerAbilities.Remove(triggerAbility);
-                            TriggerAbilityBeingResolved = triggerAbility;
+                            NonStaticAbilityBeingResolved = triggerAbility;
                             return Progress();
                         }
                         else if (triggerAbilities.Count > 1)
@@ -815,13 +853,17 @@ namespace DuelMastersModels
                     if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
                     {
                         if (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.Anywhere ||
-                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card))
+                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card) ||
+                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
                         {
-                            continuousEffects.AddRange(staticAbility.ContinuousEffects);
+                            continuousEffects.AddRange(staticAbilityForCreature.ContinuousEffects);
                         }
-                        else
+                    }
+                    else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
+                    {
+                        if (staticAbilityForSpell.ActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
                         {
-                            throw new InvalidOperationException("staticAbilityForCreature");
+                            continuousEffects.AddRange(staticAbilityForSpell.ContinuousEffects);
                         }
                     }
                     else
@@ -846,7 +888,7 @@ namespace DuelMastersModels
             {
                 foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
                 {
-                    if (creatureContinuousEffect.CreatureFilter.FilteredSpells.Contains(creature))
+                    if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
                     {
                         blockers.Add(creature);
                     }
@@ -865,7 +907,7 @@ namespace DuelMastersModels
         {
             foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects().Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
             {
-                if (creatureContinuousEffect.CreatureFilter.FilteredSpells.Contains(creature))
+                if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
                 {
                     return true;
                 }
@@ -910,6 +952,12 @@ namespace DuelMastersModels
         public void TriggerTriggerAbility(TriggerAbility ability, Player controller)
         {
             PendingTriggerAbilities.Add(ability.CreatePendingTriggerAbility(controller));
+        }
+
+        public void AddFromYourHandToYourShieldsFaceDown(Player player, Card card)
+        {
+            player.Hand.Cards.Remove(card);
+            player.ShieldZone.Cards.Add(card);
         }
         #endregion Private methods
     }

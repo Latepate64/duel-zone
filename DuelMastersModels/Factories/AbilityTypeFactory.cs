@@ -149,6 +149,13 @@ namespace DuelMastersModels.Factories
             return parameters.ToArray();
         }
 
+        public static object[] GetInstanceParameters(Spell spell, Collection<object> parsedObjects)
+        {
+            List<object> parameters = new List<object>() { spell };
+            parameters.AddRange(parsedObjects);
+            return parameters.ToArray();
+        }
+
         public static object[] GetInstanceParameters(Player owner, Collection<object> parsedObjects)
         {
             List<object> parameters = new List<object>() { owner };

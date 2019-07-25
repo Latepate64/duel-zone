@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace DuelMastersApplication
 {
@@ -32,6 +33,7 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
         public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
         public static readonly DependencyProperty KnownToPlayerWithPriorityProperty = DependencyProperty.Register("KnownToPlayerWithPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithPriorityChanged));
+        public static readonly DependencyProperty KnownToPlayerWithoutPriorityProperty = DependencyProperty.Register("KnownToPlayerWithoutPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithoutPriorityChanged));
         #endregion DependencyProperties
 
         #region Other properties
@@ -67,7 +69,13 @@ namespace DuelMastersApplication
         private TextBox _textBoxRace = new TextBox() { HorizontalContentAlignment = HorizontalAlignment.Right, VerticalContentAlignment = VerticalAlignment.Center, Visibility = Visibility.Hidden, Opacity = TextOpacity, Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false, Background = Brushes.Transparent, FontWeight = FontWeights.Bold, BorderThickness = new Thickness(0), };
         private Image _imageCardBack = new Image()
         {
-            Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("../../Images/card_back.jpg", UriKind.Relative)),
+            Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("../../Images/card_back.png", UriKind.Relative)),
+            Stretch = Stretch.Fill,
+        };
+        private Image _imageKnownToPlayerWithoutPriority = new Image()
+        {
+            Opacity = 0.0,
+            Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("../../Images/eye.png", UriKind.Relative)),
             Stretch = Stretch.Fill,
         };
         #endregion Fields
@@ -85,6 +93,7 @@ namespace DuelMastersApplication
             CanvasFrame.Children.Add(_textBoxCardType);
             CanvasFrame.Children.Add(_textBoxRace);
             CanvasFrame.Children.Add(_imageCardBack);
+            CanvasFrame.Children.Add(_imageKnownToPlayerWithoutPriority);
 
             _textBoxCost.SetBinding(Control.BackgroundProperty, new System.Windows.Data.Binding("Fill") { Source = RectangleCardFrame });
 
@@ -154,8 +163,15 @@ namespace DuelMastersApplication
 
             AdjustRaceSize(frameWidth, frameHeight);
 
-            _imageCardBack.Width = frameWidth;
-            _imageCardBack.Height = frameHeight;
+            _imageCardBack.Width = CanvasFrame.Width * (1 - FrameOffset);
+            _imageCardBack.Height = CanvasFrame.Height * (1 - FrameOffset);
+            SetLeft(_imageCardBack, (frameWidth - _imageCardBack.Width) / 2);
+            SetTop(_imageCardBack, (frameHeight - _imageCardBack.Height) / 2);
+
+            _imageKnownToPlayerWithoutPriority.Width = 0.7 * CanvasFrame.Width;
+            _imageKnownToPlayerWithoutPriority.Height = 0.3 * CanvasFrame.Height;
+            SetLeft(_imageKnownToPlayerWithoutPriority, (frameWidth - _imageKnownToPlayerWithoutPriority.Width) / 2);
+            SetTop(_imageKnownToPlayerWithoutPriority, (frameHeight - _imageKnownToPlayerWithoutPriority.Height) / 2);
         }
 
         public void AdjustRaceSize(double frameWidth, double frameHeight)
@@ -261,6 +277,26 @@ namespace DuelMastersApplication
                 canvas._imageCardBack.Visibility = Visibility.Visible;
                 canvas.MouseEnter -= canvas.AbstractCardCanvas_MouseEnter;
                 canvas.MouseLeave -= canvas.AbstractCardCanvas_MouseLeave;
+            }
+        }
+
+        private static void OnKnownToPlayerWithoutPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CardCanvas canvas = d as CardCanvas;
+            bool known = (bool)e.NewValue;
+            if (known)
+            {
+
+                DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, 0.0, new Duration(new TimeSpan(0, 0, 1)))
+                {
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever,
+                };
+                canvas._imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, doubleAnimation);
+            }
+            else
+            {
+                canvas._imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, null);
             }
         }
         #endregion Events

@@ -329,8 +329,8 @@ namespace DuelMastersApplication
             _player2ShieldZoneCanvas.Initialize(string.Format("{0}'s shield zone", _duel.Player2.Name), new Binding("Player2.ShieldZone.Cards") { Source = _duel }, this);
             _player1GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player1.Name), new Binding("Player1.Graveyard.Cards") { Source = _duel }, this);
             _player2GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player2.Name), new Binding("Player2.Graveyard.Cards") { Source = _duel }, this);
-            _player1HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player1.Name), new Binding("Player1.Hand.Cards") { Source = _duel }, this);
-            _player2HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player2.Name), new Binding("Player2.Hand.Cards") { Source = _duel }, this);
+            _player1HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player1.Name), new Binding("Player1.Hand.Cards") { Source = _duel }, this, showKnownToPlayerWithoutPriority: false);
+            _player2HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player2.Name), new Binding("Player2.Hand.Cards") { Source = _duel }, this, showKnownToPlayerWithoutPriority: false);
 
             BindCardCanvasToListView(_listViewPlayer1Hand);
             BindCardCanvasToListView(_listViewPlayer2Hand);
@@ -384,7 +384,7 @@ namespace DuelMastersApplication
             _zoomCardCanvas.Opacity = 0;
         }
 
-        public void BindCardCanvasToListView(ListView listView)
+        public void BindCardCanvasToListView(ListView listView, bool showKnownToPlayerWithoutPriority = true)
         {
             FrameworkElementFactory cardCanvasFactory = new FrameworkElementFactory(typeof(CardCanvas));
             BindAbstractCardCanvas(listView, cardCanvasFactory, 222.0 / 307.0);
@@ -395,6 +395,10 @@ namespace DuelMastersApplication
             cardCanvasFactory.SetBinding(CardCanvas.RaceProperty, new Binding("Races"));
             cardCanvasFactory.SetBinding(CardCanvas.CardTypeProperty, new Binding() { Converter = new ObjectToCardTypeConverter() });
             cardCanvasFactory.SetBinding(CardCanvas.KnownToPlayerWithPriorityProperty, new Binding("KnownToPlayerWithPriority"));
+            if (showKnownToPlayerWithoutPriority)
+            {
+                cardCanvasFactory.SetBinding(CardCanvas.KnownToPlayerWithoutPriorityProperty, new Binding("KnownToPlayerWithoutPriority"));
+            }
         }
         #endregion Public methods
 
@@ -424,10 +428,12 @@ namespace DuelMastersApplication
                 foreach (Card card in cardsOwner)
                 {
                     card.KnownToPlayerWithPriority = card.KnownToOwner;
+                    card.KnownToPlayerWithoutPriority = card.KnownToOpponent;
                 }
                 foreach (Card card in cardsOpponent)
                 {
                     card.KnownToPlayerWithPriority = card.KnownToOpponent;
+                    card.KnownToPlayerWithoutPriority = card.KnownToOwner;
                 }
 
                 if (playerAction.Player != _previousPriorityPlayer)
@@ -555,6 +561,8 @@ namespace DuelMastersApplication
 
                 _actionButtonGrid.RowDefinitions[1].Height = new GridLength(0, GridUnitType.Star);
 
+                HideZoneCanvases();
+
                 if (playerAction is CardSelection cardSelection)
                 {
                     if (cardSelection is OptionalCardSelection optionalCardSelection)
@@ -570,14 +578,31 @@ namespace DuelMastersApplication
                             _actionTextBlock.Text = "You may use a card.";
                             _actionButton.Content = "Skip";
                         }
+                        else if (optionalCardSelection is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+                        {
+                            _actionTextBlock.Text = "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
+                            _actionButton.Content = "Decline";
+                        }
                         else
                         {
                             throw new ArgumentException("Unknown card selection.");
                         }
                     }
-                    else if (cardSelection is PayCost payCost)
+                    else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
-                        _actionTextBlock.Text = string.Format("Pay the mana cost for {0}.", (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed.Name);
+                        if (mandatoryMultipleCardSelection is PayCost)
+                        {
+                            _actionTextBlock.Text = string.Format("Pay the mana cost for {0}.", (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed.Name);
+                        }
+                        else if (mandatoryMultipleCardSelection is BreakShields breakShields)
+                        {
+                            _actionTextBlock.Text = (breakShields.MinimumSelection == 1) ? "Choose a shield to break" : string.Format("Choose {0} shields to break.", breakShields.MinimumSelection);
+                            ToggleVisibility(GetShieldZoneCanvas(_duel.GetOpponent(breakShields.Player)));
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Unknown mandatory multiple card selection.");
+                        }
                     }
                     else if (cardSelection is MultipleCardSelection multipleCardSelection)
                     {
@@ -597,6 +622,11 @@ namespace DuelMastersApplication
                         if (mandatoryCardSelection is UseShieldTrigger)
                         {
                             _actionTextBlock.Text = "Declare shield trigger to be used.";
+                        }
+                        else if (mandatoryCardSelection is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+                        {
+                            _actionTextBlock.Text = "Choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
+                            ToggleVisibility(GetShieldZoneCanvas(mandatoryCardSelection.Player));
                         }
                         else
                         {
@@ -661,6 +691,22 @@ namespace DuelMastersApplication
                 {
                     throw new ArgumentException("Unknown player action.");
                 }
+            }
+        }
+
+        private UIElement GetShieldZoneCanvas(Player player)
+        {
+            if (player == _duel.Player1)
+            {
+                return _player1ShieldZoneCanvas;
+            }
+            else if (player == _duel.Player2)
+            {
+                return _player2ShieldZoneCanvas;
+            }
+            else
+            {
+                throw new InvalidOperationException();
             }
         }
 
@@ -758,11 +804,7 @@ namespace DuelMastersApplication
             }
             else if (playerAction is ChargeMana chargeMana)
             {
-                if (chargeMana.SelectedCard == null)
-                {
-                    LogMessages.Add(string.Format("{0} did not charge mana.", chargeMana.Player.Name));
-                }
-                else
+                if (chargeMana.SelectedCard != null)
                 {
                     LogMessages.Add(string.Format("{0} charged {1} as mana.", chargeMana.Player.Name, chargeMana.SelectedCard.Name));
                 }
@@ -781,9 +823,24 @@ namespace DuelMastersApplication
                     }
                 }
             }
-            else if (playerAction is PayCost payCost)
+            else if (playerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
             {
-                //no need to log
+                if (playerAction is BreakShields breakShields)
+                {
+                    if (breakShields.MinimumSelection > 1)
+                    {
+                        LogMessages.Add(string.Format("{0} broke {1} of {2}'s shields.", breakShields.ShieldBreakingCreature.Name, breakShields.MinimumSelection, _duel.GetOpponent(breakShields.Player).Name));
+                    }
+                    else
+                    {
+                        LogMessages.Add(string.Format("{0} broke one of {1}'s shields.", breakShields.ShieldBreakingCreature.Name, _duel.GetOpponent(breakShields.Player).Name));
+                    }
+
+                }
+                else if (!(playerAction is PayCost payCost))
+                {
+                    throw new ArgumentOutOfRangeException("Unknown mandatory multiple card selection.");
+                }
             }
             else if (playerAction is DeclareAttacker declareAttacker)
             {
@@ -835,6 +892,18 @@ namespace DuelMastersApplication
                 {
                     LogMessages.Add(string.Format("{0} returned {1} to its owner's hand.", youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.Player.Name, youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature.Name));
                 }
+            }
+            else if (playerAction is TapAllYourOpponentsCreaturesInTheBattleZone)
+            {
+                LogMessages.Add(string.Format("{0} tapped all their opponent's creatures in the battle zone.", playerAction.Player.Name));
+            }
+            else if (playerAction is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+            {
+                LogMessages.Add(string.Format("{0} added a card from their hand to their shields face down.", playerAction.Player.Name));
+            }
+            else if (playerAction is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+            {
+                LogMessages.Add(string.Format("{0} chose one of their shields and put it into their hand.", playerAction.Player.Name));
             }
             else if (!(playerAction is OptionalAction))
             {
@@ -980,6 +1049,14 @@ namespace DuelMastersApplication
             }
         }
 
+        private void HideZoneCanvases()
+        {
+            foreach (Canvas canvas in new List<Canvas>() { _player1ShieldZoneCanvas, _player2ShieldZoneCanvas, _player1GraveyardCanvas, _player2GraveyardCanvas, _player1HandCanvas, _player2HandCanvas })
+            {
+                canvas.Visibility = Visibility.Hidden;
+            }
+        }
+
         private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, Collection<Card> cards)
         {
             Card card = cards.First(c => c.GameId == cardCanvas.GameId);
@@ -1089,10 +1166,10 @@ namespace DuelMastersApplication
                     {
                         UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new Collection<Card>(optionalCardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
                     }
-                    else if (cardSelection is PayCost payCost)
+                    else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
-                        UpdateSelectedCards(cardCanvas, payCost.Cards);
-                        if (SelectedCards.Count == payCost.MaximumSelection && payCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
+                        UpdateSelectedCards(cardCanvas, mandatoryMultipleCardSelection.Cards);
+                        if (mandatoryMultipleCardSelection.Validate(SelectedCards) && !(mandatoryMultipleCardSelection is PayCost payCost && !payCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed)))
                         {
                             CardSelectionResponse response = new CardSelectionResponse(new Collection<Card>(SelectedCards));
                             UpdateViewToShowPlayerAction(_duel.Progress(response));
@@ -1160,31 +1237,37 @@ namespace DuelMastersApplication
 
         private void _buttonPlayer1Hand_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player1HandCanvas);
         }
 
         private void _buttonPlayer1Shields_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player1ShieldZoneCanvas);
         }
 
         private void _buttonPlayer1Graveyard_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player1GraveyardCanvas);
         }
 
         private void _buttonPlayer2Hand_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player2HandCanvas);
         }
 
         private void _buttonPlayer2Shields_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player2ShieldZoneCanvas);
         }
 
         private void _buttonPlayer2Graveyard_Click(object sender, RoutedEventArgs e)
         {
+            HideZoneCanvases();
             ToggleVisibility(_player2GraveyardCanvas);
         }
         #endregion Events

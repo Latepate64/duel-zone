@@ -12,10 +12,7 @@ namespace DuelMastersModels.CardFilters
             Spell = spell;
         }
 
-        public override Collection<Spell> FilteredSpells
-        {
-            get { return new Collection<Spell>() { Spell }; }
-        }
+        public override Collection<Spell> FilteredSpells => new Collection<Spell>() { Spell };
     }
 }
 

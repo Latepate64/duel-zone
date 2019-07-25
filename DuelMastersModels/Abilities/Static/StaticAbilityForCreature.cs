@@ -15,6 +15,7 @@ namespace DuelMastersModels.Abilities.Static
 
         protected StaticAbilityForCreature(ContinuousEffect continuousEffect, StaticAbilityForCreatureActivityCondition activityCondition) : base(continuousEffect)
         {
+            ActivityCondition = activityCondition;
         }
     }
 }

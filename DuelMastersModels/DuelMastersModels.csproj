@@ -70,6 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\NonStaticAbility.cs" />
+    <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
     <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
     <Compile Include="Abilities\Static\SpellShieldTrigger.cs" />
@@ -104,6 +106,8 @@
     <Compile Include="Effects\OneShotEffects\OneShotEffect.cs" />
     <Compile Include="Effects\OneShotEffects\PutTheTopCardOfYourDeckIntoYourManaZoneEffect.cs" />
     <Compile Include="Effects\OneShotEffects\AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\TapAllYourOpponentsCreaturesInTheBattleZoneEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShieldEffect.cs" />
     <Compile Include="Effects\OneShotEffects\YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect.cs" />
     <Compile Include="Effects\OneShotEffects\YouMayDrawACardEffect.cs" />
     <Compile Include="Effects\Periods\Indefinite.cs" />
@@ -126,15 +130,20 @@
     <Compile Include="PlayerActions\AutomaticActions\AddTheTopCardOfYourDeckToYourShieldsFaceDown.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AutomaticAction.cs" />
     <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
+    <Compile Include="PlayerActions\AutomaticActions\TapAllYourOpponentsCreaturesInTheBattleZone.cs" />
+    <Compile Include="PlayerActions\CardSelections\BreakShields.cs" />
     <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
     <Compile Include="PlayerActionResponses\CardSelectionResponse.cs" />
     <Compile Include="PlayerActionResponses\DeclareAttackResponse.cs" />
     <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
     <Compile Include="PlayerActions\CardSelections\DeclareShieldTriggers.cs" />
     <Compile Include="PlayerActions\CardSelections\MandatoryCardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\MandatoryMultipleCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\MultipleCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\UseShieldTrigger.cs" />
+    <Compile Include="PlayerActions\CardSelections\YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareAttacker.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareBlock.cs" />
     <Compile Include="PlayerActions\CardSelections\OptionalCardSelection.cs" />

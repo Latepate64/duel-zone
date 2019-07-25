@@ -4,6 +4,7 @@ using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActions.OptionalActions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels
@@ -25,9 +26,35 @@ namespace DuelMastersModels
                 if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
                 {
                     Creature creature = null;
-                    if (optionalCreatureSelection.Creatures.Count > 0)
+                    if (optionalCreatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
                     {
-                        creature = optionalCreatureSelection.Creatures.First();
+                        List<int> listOfPoints = new List<int>();
+                        Creature attacker = (duel.CurrentTurn.CurrentStep as Steps.AttackDeclarationStep).AttackingCreature;
+                        foreach (Creature targetOfAttack in declareTargetOfAttack.Creatures)
+                        {
+                            int points = 0;
+                            if (attacker.Power == targetOfAttack.Power)
+                            {
+                                points = 1;
+                            }
+                            else if (attacker.Power > targetOfAttack.Power)
+                            {
+                                points = targetOfAttack.Power;
+                            }
+                            listOfPoints.Add(points);
+                        }
+                        int maxPoints = listOfPoints.Max();
+                        if (maxPoints > 0)
+                        {
+                            creature = declareTargetOfAttack.Creatures[listOfPoints.IndexOf(maxPoints)];
+                        }
+                    }
+                    else
+                    {
+                        if (optionalCreatureSelection.Creatures.Count > 0)
+                        {
+                            creature = optionalCreatureSelection.Creatures.First();
+                        }
                     }
                     optionalCreatureSelection.SelectedCreature = creature;
                     PlayerAction newAction = optionalCreatureSelection.Perform(duel, creature);
@@ -75,12 +102,19 @@ namespace DuelMastersModels
                     newAction = optionalCardSelection.Perform(duel, card);
                 }
             }
-            else if (cardSelection is PayCost payCost)
+            else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
             {
-                Card civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
-                System.Collections.Generic.List<Card> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
-                manaCards.Add(civCard);
-                newAction = payCost.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(manaCards));
+                if (cardSelection is PayCost payCost)
+                {
+                    Card civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
+                    List<Card> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
+                    manaCards.Add(civCard);
+                    newAction = payCost.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(manaCards));
+                }
+                else
+                {
+                    mandatoryMultipleCardSelection.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
+                }
             }
             else if (cardSelection is MultipleCardSelection multipleCardSelection)
             {

@@ -44,7 +44,7 @@ namespace DuelMastersApplication
             _mainGrid.Height = e.NewSize.Height;
         }
 
-        public void Initialize(string title, Binding listViewBinding, MainWindow mainWindow)
+        public void Initialize(string title, Binding listViewBinding, MainWindow mainWindow, bool showKnownToPlayerWithoutPriority = true)
         {
             TextBlock textBlockTitle = new TextBlock() { TextAlignment = TextAlignment.Center, Text = title, VerticalAlignment = VerticalAlignment.Center };
             Grid.SetColumn(textBlockTitle, 0);
@@ -52,7 +52,7 @@ namespace DuelMastersApplication
             _mainGrid.Children.Add(textBlockTitle);
 
             _listViewZone.SetBinding(ItemsControl.ItemsSourceProperty, listViewBinding);
-            mainWindow.BindCardCanvasToListView(_listViewZone);
+            mainWindow.BindCardCanvasToListView(_listViewZone, showKnownToPlayerWithoutPriority);
         }
 
         private void HideButton_Click(object sender, RoutedEventArgs e)
