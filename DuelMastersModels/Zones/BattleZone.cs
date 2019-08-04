@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -23,6 +24,13 @@ namespace DuelMastersModels.Zones
             foreach (TriggerAbility ability in card.TriggerAbilities.Where(ability => ability.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone))
             {
                 duel.TriggerTriggerAbility(ability, Owner);
+            }
+            foreach (Creature battleZoneCreature in duel.CreaturesInTheBattleZone.Except(new List<Card>() { card }))
+            {
+                foreach (TriggerAbility ability in battleZoneCreature.TriggerAbilities.Where(ability => ability.TriggerCondition is WheneverAnotherCreatureIsPutIntoTheBattleZone))
+                {
+                    duel.TriggerTriggerAbility(ability, ability.Controller);
+                }
             }
         }
 

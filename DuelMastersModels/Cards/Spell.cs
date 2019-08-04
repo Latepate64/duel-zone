@@ -61,7 +61,7 @@ namespace DuelMastersModels.Cards
                         Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(textPart, owner);
                         if (effects != null)
                         {
-                            Abilities.Add(new SpellAbility(effects, owner));
+                            Abilities.Add(new SpellAbility(effects, owner, this));
                         }
                         else
                         {

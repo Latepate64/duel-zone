@@ -10,7 +10,7 @@ namespace DuelMastersModels.Abilities.Trigger
     {
         public TriggerCondition TriggerCondition { get; private set; }
 
-        public TriggerAbility(TriggerCondition triggerCondition, Collection<OneShotEffect> effects, Player controller) : base(effects, controller)
+        public TriggerAbility(TriggerCondition triggerCondition, Collection<OneShotEffect> effects, Player controller, Cards.Card card) : base(effects, controller, card)
         {
             TriggerCondition = triggerCondition;
         }
@@ -22,7 +22,7 @@ namespace DuelMastersModels.Abilities.Trigger
         /// <returns></returns>
         public TriggerAbility CreatePendingTriggerAbility(Player controller)
         {
-            return new TriggerAbility(TriggerCondition, Effects, controller);
+            return new TriggerAbility(TriggerCondition, Effects, controller, Source);
             /*
             var effects = new List<Effect>();
             foreach (var effect in Effects)

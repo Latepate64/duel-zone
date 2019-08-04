@@ -3,6 +3,7 @@ using DuelMastersModels.Cards;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
@@ -11,6 +12,7 @@ namespace DuelMastersModels.Factories
         private static readonly ReadOnlyDictionary<string, Type> _triggerConditionDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
             { "When you put this creature into the battle zone,", typeof(WhenYouPutThisCreatureIntoTheBattleZone) },
+            { "Whenever another creature is put into the battle zone,", typeof(WheneverAnotherCreatureIsPutIntoTheBattleZone) },
         });
 
         public static TriggerCondition ParseTriggerCondition(string text, Creature creature, Player owner, out string remainingText)
@@ -30,6 +32,11 @@ namespace DuelMastersModels.Factories
                 remainingText = null;
                 return null;
             }
+        }
+
+        public static string GetTextForTriggerCondition(TriggerCondition triggerCondition)
+        {
+            return _triggerConditionDictionary.First(condition => condition.Value == triggerCondition.GetType()).Key;
         }
     }
 }

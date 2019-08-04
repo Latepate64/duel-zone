@@ -107,25 +107,13 @@ namespace DuelMastersModels
             }
         }
 
-        public NonStaticAbility NonStaticAbilityBeingResolved { get; private set; }
+        public NonStaticAbility AbilityBeingResolved { get; set; }
 
-        public Collection<TriggerAbility> PendingTriggerAbilities { get; private set; } = new Collection<TriggerAbility>();
+        public Collection<NonStaticAbility> PendingAbilities { get; private set; } = new Collection<NonStaticAbility>();
 
-        public Collection<TriggerAbility> PendingTriggerAbilitiesForActivePlayer
-        {
-            get
-            {
-                return new Collection<TriggerAbility>(PendingTriggerAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
-            }
-        }
+        public ObservableCollection<NonStaticAbility> PendingAbilitiesForActivePlayer => new ObservableCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
 
-        public Collection<TriggerAbility> PendingTriggerAbilitiesForNonActivePlayer
-        {
-            get
-            {
-                return new Collection<TriggerAbility>(PendingTriggerAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
-            }
-        }
+        public ObservableCollection<NonStaticAbility> PendingAbilitiesForNonActivePlayer => new ObservableCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
         #endregion Properties
 
         #region Public methods
@@ -345,6 +333,21 @@ namespace DuelMastersModels
                     throw new InvalidOperationException("optionalActionResponse");
                 }
             }
+            else if (response is SelectAbilityToResolveResponse selectAbilityToResolveResponse)
+            {
+                if (CurrentPlayerAction is SelectAbilityToResolve selectAbilityToResolve)
+                {
+                    selectAbilityToResolve.SelectedAbility = selectAbilityToResolveResponse.Ability;
+                    selectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
+                    CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
+                }
+                else
+                {
+                    throw new InvalidOperationException("optionalActionResponse");
+                }
+            }
+            //TODO SelectAbilityToResolveResponse
+            //else if (response if )
             else
             {
                 throw new ArgumentOutOfRangeException("response");
@@ -559,6 +562,22 @@ namespace DuelMastersModels
         {
             return GetAllCards().First(c => c.GameId == gameId);
         }
+
+        public Player GetOwner(Card card)
+        {
+            if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            {
+                return Player1;
+            }
+            else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            {
+                return Player2;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("card");
+            }
+        }
         #endregion Public methods
 
         #region Private methods
@@ -667,23 +686,23 @@ namespace DuelMastersModels
                         }
                     }
 
-                    if (NonStaticAbilityBeingResolved != null)
+                    if (AbilityBeingResolved != null)
                     {
-                        PlayerAction playerActionFromNonStaticAbility = NonStaticAbilityBeingResolved.ContinueResolution(this, out bool resolved);
+                        PlayerAction playerActionFromNonStaticAbility = AbilityBeingResolved.ContinueResolution(this, out bool resolved);
                         if (!resolved)
                         {
                             return TryToPerformAutomatically(playerActionFromNonStaticAbility);
                         }
                         else
                         {
-                            if (NonStaticAbilityBeingResolved is SpellAbility)
+                            if (AbilityBeingResolved is SpellAbility)
                             {
                                 Spell spell = SpellsBeingResolved.Last();
                                 SpellsBeingResolved.Remove(spell);
                                 GetOwner(spell).Graveyard.Add(spell, this);
                             }
 
-                            NonStaticAbilityBeingResolved = null;
+                            AbilityBeingResolved = null;
                         }
                     }
 
@@ -694,7 +713,7 @@ namespace DuelMastersModels
                         {
                             //TODO: spell may have more than one spell ability.
                             SpellAbility spellAbility = spell.SpellAbilities.First();
-                            NonStaticAbilityBeingResolved = spellAbility;
+                            AbilityBeingResolved = spellAbility;
                             return Progress();
                         }
                         else
@@ -704,20 +723,21 @@ namespace DuelMastersModels
                         }
                     }
 
-                    foreach (Collection<TriggerAbility> triggerAbilities in new List<Collection<TriggerAbility>>() { PendingTriggerAbilitiesForActivePlayer, PendingTriggerAbilitiesForNonActivePlayer })
+                    if (PendingAbilitiesForActivePlayer.Count > 0)
                     {
-                        if (triggerAbilities.Count == 1)
-                        {
-                            TriggerAbility triggerAbility = triggerAbilities.First();
-                            PendingTriggerAbilities.Remove(triggerAbility);
-                            NonStaticAbilityBeingResolved = triggerAbility;
-                            return Progress();
-                        }
-                        else if (triggerAbilities.Count > 1)
-                        {
-                            throw new NotImplementedException("select ability to resolve");
-                        }
+                        return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.ActivePlayer, PendingAbilitiesForActivePlayer));
                     }
+
+                    if (PendingAbilitiesForNonActivePlayer.Count > 0)
+                    {
+                        return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.NonActivePlayer, PendingAbilitiesForNonActivePlayer));
+                    }
+
+                    /*foreach (Collection<NonStaticAbility> pendingAbilities in new List<Collection<NonStaticAbility>>() { PendingAbilitiesForActivePlayer, PendingAbilitiesForNonActivePlayer })
+                    {
+                        SelectAbilityToResolve selectAbilityToResolve = new SelectAbilityToResolve(pendingAbilities.First().Controller, pendingAbilities);
+                        return TryToPerformAutomatically(selectAbilityToResolve);
+                    }*/
 
                     PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
                     if (playerAction != null)
@@ -746,22 +766,6 @@ namespace DuelMastersModels
                 }
             }
             return null;
-        }
-
-        private Player GetOwner(Card card)
-        {
-            if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
-            {
-                return Player1;
-            }
-            else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
-            {
-                return Player2;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("card");
-            }
         }
 
         /// <summary>
@@ -951,7 +955,7 @@ namespace DuelMastersModels
         /// <param name="ability"></param>
         public void TriggerTriggerAbility(TriggerAbility ability, Player controller)
         {
-            PendingTriggerAbilities.Add(ability.CreatePendingTriggerAbility(controller));
+            PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
 
         public void AddFromYourHandToYourShieldsFaceDown(Player player, Card card)

@@ -18,7 +18,7 @@ namespace DuelMastersApplication
         private const double UntappedDegree = 0.0;
 
         protected const double MinimumFontSize = 9;
-        protected const double FrameOffset = 0.07;
+        public const double FrameOffset = 0.07;
         #endregion Constants
 
         private static readonly Dictionary<Civilization, Color> _civilizationDictionary = new Dictionary<Civilization, Color>()
@@ -139,7 +139,7 @@ namespace DuelMastersApplication
         }
         #endregion Events
 
-        protected static BitmapImage GetArtwork(SetAndId setAndId)
+        public static BitmapImage GetArtwork(SetAndId setAndId)
         {
             const string RootPath = "Artworks";
             string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), RootPath, setAndId.Set, string.Format("{0} {1}.jpg", setAndId.Set, setAndId.Id));

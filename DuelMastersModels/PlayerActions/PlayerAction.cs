@@ -18,7 +18,7 @@ namespace DuelMastersModels.PlayerActions
         /// </summary>
         public int PlayerId
         {
-            get { return Player.Id; }
+            get => Player.Id;
             set { }
         }
 

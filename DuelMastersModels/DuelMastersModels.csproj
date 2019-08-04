@@ -81,6 +81,7 @@
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
     <Compile Include="Abilities\Trigger\TriggerAbility.cs" />
     <Compile Include="Abilities\Trigger\TriggerCondition.cs" />
+    <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
     <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
+    <Compile Include="PlayerActionResponses\SelectAbilityToResolveResponse.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AddTheTopCardOfYourDeckToYourShieldsFaceDown.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AutomaticAction.cs" />
     <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="PlayerActions\OptionalActions\OptionalAction.cs" />
     <Compile Include="PlayerActions\OptionalActions\YouMayDrawACard.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />
+    <Compile Include="PlayerActions\SelectAbilityToResolve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
     <Compile Include="Steps\BattleStep.cs" />

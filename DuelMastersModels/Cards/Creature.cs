@@ -92,7 +92,7 @@ namespace DuelMastersModels.Cards
                             Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, owner);
                             if (effects != null)
                             {
-                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner));
+                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner, this));
                             }
                             else
                             {

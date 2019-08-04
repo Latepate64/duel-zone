@@ -55,12 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AbilityCanvas.cs" />
     <Compile Include="AbilityIconCanvas.cs" />
     <Compile Include="AbstractCardCanvas.cs" />
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ManaZoneCardCanvas.cs" />
+    <Compile Include="PendingAbilitiesCanvas.cs" />
     <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />
     <Compile Include="ZoneCanvas.cs" />

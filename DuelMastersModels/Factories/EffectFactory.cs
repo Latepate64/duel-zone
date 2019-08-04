@@ -45,6 +45,23 @@ namespace DuelMastersModels.Factories
             }
         }
 
+        public static string GetTextForEffects(Collection<OneShotEffect> oneShotEffects)
+        {
+            if (oneShotEffects.Count == 1)
+            {
+                return _effectDictionary.First(effect => effect.Value == oneShotEffects.First().GetType()).Key;
+            }
+            else if (oneShotEffects.Count > 1)
+            {
+                Type[] types = oneShotEffects.Select(e => e.GetType()).ToArray();
+                return _effectsDictionary.First(effects => Enumerable.SequenceEqual(effects.Value, types)).Key;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
         private static Collection<OneShotEffect> TryParseMultipleEffects(string text)
         {
             ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _effectsDictionary, out Dictionary<string, object> parsedObjects);

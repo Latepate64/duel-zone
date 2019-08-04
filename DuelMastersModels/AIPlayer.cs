@@ -70,6 +70,13 @@ namespace DuelMastersModels
             {
                 return optionalAction.Perform(duel, true);
             }
+            else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
+            {
+                selectAbilityToResolve.SelectedAbility = selectAbilityToResolve.Abilities.First();
+                selectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
+                duel.CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
+                return null;
+            }
             else
             {
                 throw new ArgumentOutOfRangeException("playerAction");
