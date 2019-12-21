@@ -73,7 +73,7 @@ namespace DuelMastersModels
             else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
             {
                 selectAbilityToResolve.SelectedAbility = selectAbilityToResolve.Abilities.First();
-                selectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
+                SelectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
                 duel.CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
                 return null;
             }

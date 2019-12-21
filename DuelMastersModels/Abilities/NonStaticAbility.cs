@@ -33,18 +33,11 @@ namespace DuelMastersModels.Abilities
         /// <param name="duel"></param>
         /// <param name="player"></param>
         /// <returns></returns>
-        public PlayerAction ContinueResolution(Duel duel, out bool resolved)
+        public System.Tuple<PlayerAction, bool> ContinueResolution(Duel duel)
         {
-            if (_effectIndex < Effects.Count)
-            {
-                resolved = false;
-                return Effects[_effectIndex++].Apply(duel, Controller);
-            }
-            else
-            {
-                resolved = true;
-                return null;
-            }
+            return _effectIndex < Effects.Count
+                ? new System.Tuple<PlayerAction, bool>(Effects[_effectIndex++].Apply(duel, Controller), false)
+                : new System.Tuple<PlayerAction, bool>(null, true);
             //TODO: consider all effects.
             //return PlayerActions[0].Apply(duel, player);
             //return Effects.Apply(duel, player);

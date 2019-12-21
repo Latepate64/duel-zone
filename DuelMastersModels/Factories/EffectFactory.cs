@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Effects;
-using DuelMastersModels.Effects.OneShotEffects;
+﻿using DuelMastersModels.Effects.OneShotEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,13 +24,14 @@ namespace DuelMastersModels.Factories
             { "Put the top card of your deck into your mana zone. Then add the top card of your deck to your shields face down.", new Type[] { typeof(PutTheTopCardOfYourDeckIntoYourManaZoneEffect), typeof(AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect) } },
         });
 
-        public static Collection<OneShotEffect> ParseOneShotEffect(string text, Player owner)
+        public static Collection<OneShotEffect> ParseOneShotEffect(string text)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary, out Dictionary<string, object> parsedObjects);
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary);
+            ParsedType parsedType = parsed.ParsedType;
             if (parsedType != null && string.IsNullOrEmpty(parsedType.RemainingText))
             {
                 OneShotEffect oneShotEffect = Activator.CreateInstance(parsedType.TypesParsed[0]) as OneShotEffect;
@@ -64,11 +63,11 @@ namespace DuelMastersModels.Factories
 
         private static Collection<OneShotEffect> TryParseMultipleEffects(string text)
         {
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _effectsDictionary, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null)
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectsDictionary);
+            if (parsed.ParsedType != null)
             {
                 Collection<OneShotEffect> oneShotEffects = new Collection<OneShotEffect>();
-                foreach (Type type in parsedType.TypesParsed)
+                foreach (Type type in parsed.ParsedType.TypesParsed)
                 {
                     OneShotEffect oneShotEffect = Activator.CreateInstance(type) as OneShotEffect;
                     oneShotEffects.Add(oneShotEffect);

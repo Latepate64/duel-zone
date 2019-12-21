@@ -13,6 +13,7 @@ namespace DuelMastersModels.Abilities.Static
 
         protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition activityCondition) : base(continuousEffect)
         {
+            ActivityCondition = activityCondition;
         }
     }
 }

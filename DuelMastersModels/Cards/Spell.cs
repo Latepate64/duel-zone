@@ -51,14 +51,14 @@ namespace DuelMastersModels.Cards
                 IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, this, owner);
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, this);
                     if (staticAbility != null)
                     {
                         Abilities.Add(staticAbility);
                     }
                     else
                     {
-                        Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(textPart, owner);
+                        Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(textPart);
                         if (effects != null)
                         {
                             Abilities.Add(new SpellAbility(effects, owner, this));

@@ -744,28 +744,28 @@ namespace DuelMastersApplication
 
         private static T Deserialize<T>(string path)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
             using (StreamReader reader = new StreamReader(path))
             {
-                return (T)serializer.Deserialize(reader);
+                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
             }
         }
 
         private static void Serialize<T>(T objectToSerialize, string configurationPath)
         {
-            XmlSerializer writer = new XmlSerializer(typeof(T));
             using (FileStream file = File.Create(configurationPath))
             {
-                writer.Serialize(file, objectToSerialize);
-                file.Close();
+                new XmlSerializer(typeof(T)).Serialize(file, objectToSerialize);
             }
         }
 
-        private static FrameworkElementFactory GetStackPanelFactory()
+        private static FrameworkElementFactory StackPanelFactory
         {
-            FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-            stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-            return stackPanelFactory;
+            get
+            {
+                FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
+                stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+                return stackPanelFactory;
+            }
         }
 
         private void BindBattleZoneCreatureCanvasToListView(ListView listView)
@@ -788,7 +788,7 @@ namespace DuelMastersApplication
 
         private void BindAbstractCardCanvas(ListView listView, FrameworkElementFactory cardCanvasFactory, double multiplier, double listViewScale = 0.96)
         {
-            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = GetStackPanelFactory() };
+            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = StackPanelFactory};
 
             cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale });
             cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale * multiplier });
@@ -1211,7 +1211,7 @@ namespace DuelMastersApplication
                     else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
                         UpdateSelectedCards(cardCanvas, mandatoryMultipleCardSelection.Cards);
-                        if (mandatoryMultipleCardSelection.Validate(SelectedCards) && !(mandatoryMultipleCardSelection is PayCost payCost && !payCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed)))
+                        if (mandatoryMultipleCardSelection.Validate(SelectedCards) && !(mandatoryMultipleCardSelection is PayCost payCost && !PayCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed)))
                         {
                             CardSelectionResponse response = new CardSelectionResponse(new Collection<Card>(SelectedCards));
                             UpdateViewToShowPlayerAction(_duel.Progress(response));

@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             Cost = cost;
         }
 
-        public bool Validate(Collection<Card> cards, Card cardToBeUsed)
+        public static bool Validate(Collection<Card> cards, Card cardToBeUsed)
         {
             return Duel.CanBeUsed(cardToBeUsed, cards);
         }

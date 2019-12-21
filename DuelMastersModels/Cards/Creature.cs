@@ -79,24 +79,24 @@ namespace DuelMastersModels.Cards
                 IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this, owner);
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this);
                     if (staticAbility != null)
                     {
                         Abilities.Add(staticAbility);
                     }
                     else
                     {
-                        TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
+                        TriggerConditionAndRemainingText triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart);
                         if (triggerCondition != null)
                         {
-                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, owner);
+                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(triggerCondition.RemainingText);
                             if (effects != null)
                             {
-                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner, this));
+                                Abilities.Add(new TriggerAbility(triggerCondition.TriggerCondition, effects, owner, this));
                             }
                             else
                             {
-                                Duel.NotParsedAbilities.Add(remainingText);
+                                Duel.NotParsedAbilities.Add(triggerCondition.RemainingText);
                             }
                         }
                         else

@@ -74,10 +74,7 @@ namespace DuelMastersModels
         private PlayerAction _currentPlayerAction;
         public PlayerAction CurrentPlayerAction
         {
-            get
-            {
-                return _currentPlayerAction;
-            }
+            get => _currentPlayerAction;
             set
             {
                 if (value != _currentPlayerAction)
@@ -109,7 +106,7 @@ namespace DuelMastersModels
 
         public NonStaticAbility AbilityBeingResolved { get; set; }
 
-        public Collection<NonStaticAbility> PendingAbilities { get; private set; } = new Collection<NonStaticAbility>();
+        public Collection<NonStaticAbility> PendingAbilities { get; } = new Collection<NonStaticAbility>();
 
         public ObservableCollection<NonStaticAbility> PendingAbilitiesForActivePlayer => new ObservableCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
 
@@ -235,7 +232,7 @@ namespace DuelMastersModels
                 {
                     if (CurrentPlayerAction is PayCost payCost)
                     {
-                        if (payCost.Validate(cardSelectionResponse.SelectedCards) && payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
+                        if (payCost.Validate(cardSelectionResponse.SelectedCards) && PayCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
                         {
                             playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
                             CurrentTurn.CurrentStep.PlayerActions.Add(payCost);
@@ -338,7 +335,7 @@ namespace DuelMastersModels
                 if (CurrentPlayerAction is SelectAbilityToResolve selectAbilityToResolve)
                 {
                     selectAbilityToResolve.SelectedAbility = selectAbilityToResolveResponse.Ability;
-                    selectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
+                    SelectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
                     CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
                 }
                 else
@@ -352,15 +349,7 @@ namespace DuelMastersModels
             {
                 throw new ArgumentOutOfRangeException("response");
             }
-            if (playerAction == null)
-            {
-                return SetCurrentPlayerAction(Progress());
-            }
-            else
-            {
-                return SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
-                //return SetCurrentPlayerAction(Progress(playerAction));
-            }
+            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
 
         public void PutFromHandIntoManaZone(Player player, Card card)
@@ -509,18 +498,14 @@ namespace DuelMastersModels
                     shieldTriggerCards.Add(card);
                 }
             }
-            if (shieldTriggerCards.Count > 0)
-            {
-                return new DeclareShieldTriggers(player, shieldTriggerCards);
-            }
-            return null;
+            return shieldTriggerCards.Count > 0 ? new DeclareShieldTriggers(player, shieldTriggerCards) : null;
         }
 
         public void PlayCard(Card card, Player player)
         {
             if (card is Creature creature)
             {
-                player.BattleZone.Add(card, this);
+                player.BattleZone.Add(creature, this);
             }
             else if (card is Spell spell)
             {
@@ -629,27 +614,16 @@ namespace DuelMastersModels
                 if (playerAction.Player is AIPlayer aiPlayer)
                 {
                     PlayerAction aiAction = aiPlayer.PerformPlayerAction(this, newPlayerAction);
-                    if (aiAction != null)
-                    {
-                        return TryToPerformAutomatically(aiAction);
-                    }
-                    else
-                    {
-                        return Progress();
-                    }
+                    return aiAction != null ? TryToPerformAutomatically(aiAction) : Progress();
                 }
                 else
                 {
                     return playerAction;
                 }
             }
-            else if (newPlayerAction != null)
-            {
-                return TryToPerformAutomatically(newPlayerAction);
-            }
             else
             {
-                return Progress();
+                return newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
             }
         }
 
@@ -688,10 +662,11 @@ namespace DuelMastersModels
 
                     if (AbilityBeingResolved != null)
                     {
-                        PlayerAction playerActionFromNonStaticAbility = AbilityBeingResolved.ContinueResolution(this, out bool resolved);
-                        if (!resolved)
+                        //PlayerAction playerActionFromNonStaticAbility = AbilityBeingResolved.ContinueResolution(this);
+                        Tuple<PlayerAction, bool> action = AbilityBeingResolved.ContinueResolution(this);
+                        if (!action.Item2)
                         {
-                            return TryToPerformAutomatically(playerActionFromNonStaticAbility);
+                            return TryToPerformAutomatically(action.Item1);
                         }
                         else
                         {
@@ -753,14 +728,7 @@ namespace DuelMastersModels
                         else
                         {
                             PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                            if (action != null)
-                            {
-                                return TryToPerformAutomatically(action);
-                            }
-                            else
-                            {
-                                return Progress();
-                            }
+                            return action != null ? TryToPerformAutomatically(action) : Progress();
                         }
                     }
                 }
@@ -857,8 +825,8 @@ namespace DuelMastersModels
                     if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
                     {
                         if (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.Anywhere ||
-                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card) ||
-                            staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
+                            (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card)) ||
+                            (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card)))
                         {
                             continuousEffects.AddRange(staticAbilityForCreature.ContinuousEffects);
                         }
@@ -939,14 +907,7 @@ namespace DuelMastersModels
             Turn turn = new Turn(activePlayer, nonActivePlayer, Turns.Count + 1);
             Turns.Add(turn);
             PlayerAction playerAction = turn.Start(this);
-            if (playerAction != null)
-            {
-                return TryToPerformAutomatically(playerAction);
-            }
-            else
-            {
-                return Progress();
-            }
+            return playerAction != null ? TryToPerformAutomatically(playerAction) : Progress();
         }
 
         /// <summary>
@@ -958,7 +919,7 @@ namespace DuelMastersModels
             PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
 
-        public void AddFromYourHandToYourShieldsFaceDown(Player player, Card card)
+        public static void AddFromYourHandToYourShieldsFaceDown(Player player, Card card)
         {
             player.Hand.Cards.Remove(card);
             player.ShieldZone.Cards.Add(card);

@@ -26,6 +26,18 @@ namespace DuelMastersModels.Factories
         }
     }
 
+    public class ParsedTypesAndObjects
+    {
+        public ParsedType ParsedType { get; private set; }
+        public Dictionary<string, object> Objects { get; private set; }
+
+        public ParsedTypesAndObjects(ParsedType parsedType, Dictionary<string, object> parsedObjects)
+        {
+            ParsedType = parsedType;
+            Objects = parsedObjects;
+        }
+    }
+
     public static class AbilityTypeFactory
     {
         #region const
@@ -270,7 +282,7 @@ namespace DuelMastersModels.Factories
         /// <summary>
         /// Find a key from dictionary which matches the text.
         /// </summary>
-        public static ParsedType GetTypeFromDictionary<T>(string inputText, ReadOnlyDictionary<string, T> dictionary, out Dictionary<string, object> parsedObjects)
+        public static ParsedTypesAndObjects GetTypeFromDictionary<T>(string inputText, ReadOnlyDictionary<string, T> dictionary)
         {
             if (dictionary == null)
             {
@@ -282,7 +294,7 @@ namespace DuelMastersModels.Factories
             }
             else
             {
-                parsedObjects = new Dictionary<string, object>();
+                Dictionary<string, object> parsedObjects = new Dictionary<string, object>();
                 List<string> possibleKeys = dictionary.Keys.ToList();
                 string[] inputWords = inputText.Split(' ');
                 int inputWordIndex = 0;
@@ -346,7 +358,7 @@ namespace DuelMastersModels.Factories
                     {
                         inputText = UppercaseFirstLetter(inputText);
                     }
-                    return GetParsedTypes(inputText, dictionary, matchingKey);
+                    return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
                 }
                 else
                 {
@@ -359,7 +371,7 @@ namespace DuelMastersModels.Factories
                     {
                         inputText = UppercaseFirstLetter(inputText);
                     }
-                    return GetParsedTypes(inputText, dictionary, matchingKey);
+                    return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
                 }
             }
         }
@@ -515,7 +527,7 @@ namespace DuelMastersModels.Factories
         {
             if (Regex.IsMatch(text, @"^\d+$"))
             {
-                UpdateParsedObjects(parsedObjects, variableWord, Int32.Parse(text, CultureInfo.InvariantCulture));
+                UpdateParsedObjects(parsedObjects, variableWord, int.Parse(text, CultureInfo.InvariantCulture));
                 return true;
             }
             else
@@ -541,7 +553,7 @@ namespace DuelMastersModels.Factories
         {
             if (Regex.IsMatch(text, @"\+\d+"))
             {
-                UpdateParsedObjects(parsedObjects, PlusIntegerText, Int32.Parse(text.Substring(1), CultureInfo.InvariantCulture));
+                UpdateParsedObjects(parsedObjects, PlusIntegerText, int.Parse(text.Substring(1), CultureInfo.InvariantCulture));
                 return true;
             }
             else
@@ -550,10 +562,10 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        private static bool IsRace(int inputWordIndex, List<string> inputWords, Dictionary<string, object> parsedObjects, ref int addIndex, string variableWord, int updatedAddIndex)
+        /*private static bool IsRace(int inputWordIndex, List<string> inputWords, Dictionary<string, object> parsedObjects, ref int addIndex, string variableWord, int updatedAddIndex)
         {
             throw new NotImplementedException();
-            /*
+            
             inputWords.RemoveRange(0, inputWordIndex + updatedAddIndex);
             string text = stringJoin(" ", inputWords);
             string possibleRace = null;
@@ -582,13 +594,13 @@ namespace DuelMastersModels.Factories
             {
                 return false;
             }
-            */
-        }
+            
+        }*/
 
-        private static bool IsRaces(int inputWordIndex, List<string> inputWords, Dictionary<string, object> parsedObjects, ref int addIndex, string variableWord, int updatedAddIndex)
+        /*private static bool IsRaces(int inputWordIndex, List<string> inputWords, Dictionary<string, object> parsedObjects, ref int addIndex, string variableWord, int updatedAddIndex)
         {
             throw new NotImplementedException();
-            /*
+
             inputWords.RemoveRange(0, inputWordIndex + updatedAddIndex);
             string text = string.Join(" ", inputWords);
             string possibleRace = null;
@@ -613,14 +625,14 @@ namespace DuelMastersModels.Factories
             else
             {
                 return false;
-            }*/
-        }
+            }
+        }*/
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "racegroup")]
+        /*[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "racegroup")]
         private static bool IsRaceGroup(string text, Dictionary<string, object> parsedObjects)
         {
             throw new NotImplementedException();
-            /*
+
             foreach (string raceGroup in RaceManager.RaceGroups.Keys)
             {
                 if (string.Compare(text, raceGroup.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
@@ -630,8 +642,8 @@ namespace DuelMastersModels.Factories
                 }
             }
             return false;
-            */
-        }
+
+        }*/
 
         private static bool IsKeyWordVariable(string keyWord, string variableText)
         {
@@ -642,7 +654,7 @@ namespace DuelMastersModels.Factories
             string keyWord, string inputWord, Dictionary<string, object> parsedObjects,
             int inputWordIndex, string[] inputWords, ref int addIndex, int updatedAddIndex)
         {
-            return (
+            return 
                 keyWord == inputWord ||
                 (IsKeyWordVariable(keyWord, "$integer") && IsInteger(GetProperInputText(inputWord), parsedObjects, "$integer")) ||
                 (IsKeyWordVariable(keyWord, "$integer2") && IsInteger(GetProperInputText(inputWord), parsedObjects, "$integer2")) ||
@@ -653,9 +665,9 @@ namespace DuelMastersModels.Factories
                 (IsKeyWordVariable(keyWord, "$noncivilization") && IsNonCivilization(GetProperInputText(inputWord), parsedObjects)) ||
                 (IsKeyWordVariable(keyWord, "$race") && IsRace(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$race", updatedAddIndex)) ||
                 (IsKeyWordVariable(keyWord, "$race2") && IsRace(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$race2", updatedAddIndex)) ||
-                (IsKeyWordVariable(keyWord, "$races") && IsRaces(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$races", updatedAddIndex)) ||
-                (IsKeyWordVariable(keyWord, "$races2") && IsRaces(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$races2", updatedAddIndex)) ||
-                (IsKeyWordVariable(keyWord, "$racegroup") && IsRaceGroup(GetProperInputText(inputWord), parsedObjects)));
+                /*(IsKeyWordVariable(keyWord, "$races") && IsRaces(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$races", updatedAddIndex)) ||
+                (IsKeyWordVariable(keyWord, "$races2") && IsRaces(inputWordIndex, inputWords.ToList(), parsedObjects, ref addIndex, "$races2", updatedAddIndex)) ||*/
+                (IsKeyWordVariable(keyWord, "$racegroup") && IsRaceGroup(GetProperInputText(inputWord), parsedObjects));
         }
 
         private static bool UpdateParsedObjects(Dictionary<string, object> parsedObjects, string text, object parsedObject)

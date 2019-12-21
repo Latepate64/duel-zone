@@ -19,7 +19,6 @@ namespace DuelMastersModels.PlayerActions
         public int PlayerId
         {
             get => Player.Id;
-            set { }
         }
 
         protected PlayerAction() { }

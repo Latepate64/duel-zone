@@ -97,7 +97,7 @@ namespace DuelMastersModels.Cards
         #endregion Properties
 
         #region Fields
-        private static Dictionary<string, Rarity> _rarities = new Dictionary<string, Rarity>()
+        private static readonly Dictionary<string, Rarity> _rarities = new Dictionary<string, Rarity>()
         {
             { CommonText, Rarity.Common },
             { UncommonText, Rarity.Uncommon },
