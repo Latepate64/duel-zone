@@ -12,6 +12,7 @@ namespace DuelMastersModels.Factories
         private static readonly ReadOnlyDictionary<string, Type> _triggerConditionDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
             { "When you put this creature into the battle zone,", typeof(WhenYouPutThisCreatureIntoTheBattleZone) },
+            { "Whenever a player casts a spell,", typeof(WheneverAPlayerCastsASpell) },
             { "Whenever another creature is put into the battle zone,", typeof(WheneverAnotherCreatureIsPutIntoTheBattleZone) },
         });
 

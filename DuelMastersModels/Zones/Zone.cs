@@ -27,6 +27,11 @@ namespace DuelMastersModels.Zones
 
         //public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
 
+        //ANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZone
+        public Collection<Creature> NonEvolutionCreatures => new Collection<Creature>(Creatures.Where(c => !(c is EvolutionCreature)).ToList());
+
+        public Collection<Creature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new Collection<Creature>(NonEvolutionCreatures.Where(c => c.Cost <= Cards.Count).ToList());
+
         /// <summary>
         /// True if the zone is public, false if it is private.
         /// 400.2a Public zone is a zone where all players can see cards that are not facing downside It is.

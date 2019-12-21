@@ -10,6 +10,9 @@ namespace DuelMastersModels.Cards
 {
     public class Creature : Card
     {
+        /// <summary>
+        /// The base power of creature. Use Duel's method GetPower(creature) in order to get the actual power of a creature.
+        /// </summary>
         public int Power { get; set; }
         public Collection<string> Races { get; } = new Collection<string>();
 
@@ -96,8 +99,17 @@ namespace DuelMastersModels.Cards
                             }
                             else
                             {
-                                Duel.NotParsedAbilities.Add(remainingText);
+                                OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(remainingText, this);
+                                if (oneShotEffectForCreature != null)
+                                {
+                                    Abilities.Add(new TriggerAbility(triggerCondition, new Collection<OneShotEffect>() { oneShotEffectForCreature }, owner, this));
+                                }
+                                else
+                                {
+                                    Duel.NotParsedAbilities.Add(remainingText);
+                                }
                             }
+
                         }
                         else
                         {

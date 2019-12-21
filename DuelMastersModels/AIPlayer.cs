@@ -23,6 +23,7 @@ namespace DuelMastersModels
             }
             else if (playerAction is CreatureSelection creatureSelection)
             {
+                PlayerAction newAction;
                 if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
                 {
                     Creature creature = null;
@@ -33,13 +34,15 @@ namespace DuelMastersModels
                         foreach (Creature targetOfAttack in declareTargetOfAttack.Creatures)
                         {
                             int points = 0;
-                            if (attacker.Power == targetOfAttack.Power)
+                            int attackerPower = duel.GetPower(attacker);
+                            int targetOfAttackPower = duel.GetPower(targetOfAttack);
+                            if (attackerPower == targetOfAttackPower)
                             {
                                 points = 1;
                             }
-                            else if (attacker.Power > targetOfAttack.Power)
+                            else if (attackerPower > targetOfAttackPower)
                             {
-                                points = targetOfAttack.Power;
+                                points = duel.GetPower(targetOfAttack);
                             }
                             listOfPoints.Add(points);
                         }
@@ -57,14 +60,21 @@ namespace DuelMastersModels
                         }
                     }
                     optionalCreatureSelection.SelectedCreature = creature;
-                    PlayerAction newAction = optionalCreatureSelection.Perform(duel, creature);
+                    newAction = optionalCreatureSelection.Perform(duel, creature);
                     duel.CurrentTurn.CurrentStep.PlayerActions.Add(optionalCreatureSelection);
-                    return newAction;
+                }
+                else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
+                {
+                    Creature creature = mandatoryCreatureSelection.Creatures.First();
+                    mandatoryCreatureSelection.SelectedCreature = creature;
+                    newAction = mandatoryCreatureSelection.Perform(duel, creature);
+                    duel.CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryCreatureSelection);
                 }
                 else
                 {
                     throw new InvalidOperationException();
-                }   
+                }
+                return newAction;
             }
             else if (playerAction is OptionalAction optionalAction)
             {

@@ -580,110 +580,45 @@ namespace DuelMastersApplication
                 {
                     if (cardSelection is OptionalCardSelection optionalCardSelection)
                     {
-                        _actionButton.IsEnabled = true;
-                        if (optionalCardSelection is ChargeMana chargeMana)
-                        {
-                            _actionTextBlock.Text = "You may charge mana.";
-                            _actionButton.Content = "Skip";
-                        }
-                        else if (optionalCardSelection is UseCard useCard)
-                        {
-                            _actionTextBlock.Text = "You may use a card.";
-                            _actionButton.Content = "Skip";
-                        }
-                        else if (optionalCardSelection is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
-                        {
-                            _actionTextBlock.Text = "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
-                            _actionButton.Content = "Decline";
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown card selection.");
-                        }
+                        UpdateOptionalCardSelection(optionalCardSelection);
                     }
                     else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
-                        if (mandatoryMultipleCardSelection is PayCost)
-                        {
-                            _actionTextBlock.Text = string.Format("Pay the mana cost for {0}.", (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed.Name);
-                        }
-                        else if (mandatoryMultipleCardSelection is BreakShields breakShields)
-                        {
-                            _actionTextBlock.Text = (breakShields.MinimumSelection == 1) ? "Choose a shield to break" : string.Format("Choose {0} shields to break.", breakShields.MinimumSelection);
-                            ToggleVisibility(GetShieldZoneCanvas(_duel.GetOpponent(breakShields.Player)));
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown mandatory multiple card selection.");
-                        }
+                        UpdateMandatoryMultipleCardSelection(mandatoryMultipleCardSelection);
                     }
                     else if (cardSelection is MultipleCardSelection multipleCardSelection)
                     {
-                        _actionButton.IsEnabled = true;
-                        if (multipleCardSelection is DeclareShieldTriggers)
-                        {
-                            _actionTextBlock.Text = "Declare shield triggers to be used.";
-                            _actionButton.Content = "Confirm";
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown multiple card selection.");
-                        }
+                        UpdateMultipleCardSelection(multipleCardSelection);
                     }
                     else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
                     {
-                        if (mandatoryCardSelection is UseShieldTrigger)
-                        {
-                            _actionTextBlock.Text = "Declare shield trigger to be used.";
-                        }
-                        else if (mandatoryCardSelection is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
-                        {
-                            _actionTextBlock.Text = "Choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
-                            ToggleVisibility(GetShieldZoneCanvas(mandatoryCardSelection.Player));
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown mandatory card selection.");
-                        }
+                        UpdateMandatoryCardSelection(mandatoryCardSelection);
                     }
                     else
                     {
                         throw new ArgumentException("Unknown card selection.");
                     }
                 }
-                else if (playerAction is OptionalCreatureSelection optionalCreatureSelection)
+                else if (playerAction is CreatureSelection creatureSelection)
                 {
-                    _actionButton.IsEnabled = true;
-                    if (optionalCreatureSelection is DeclareAttacker)
+                    if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
                     {
-                        _actionTextBlock.Text = "You may declare a creature to attack with.";
-                        _actionButton.Content = "Do not attack";
+                        UpdateOptionalCreatureSelection(optionalCreatureSelection);
                     }
-                    else if (optionalCreatureSelection is DeclareTargetOfAttack)
+                    else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
                     {
-                        _actionTextBlock.Text = "Declare the target of the attack.";
-                        if (_duel.CanAttackOpponent((_duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature))
+                        if (mandatoryCreatureSelection is ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone)
                         {
-                            _actionButton.Content = "Attack opponent";
+                            _actionTextBlock.Text = "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.";
                         }
                         else
                         {
-                            _actionButton.IsEnabled = false;
+                            throw new ArgumentException("Unknown mandatory creature selection.");
                         }
-                    }
-                    else if (optionalCreatureSelection is DeclareBlock)
-                    {
-                        _actionTextBlock.Text = "You may declare a creature to block the attack with.";
-                        _actionButton.Content = "Do not block";
-                    }
-                    else if (optionalCreatureSelection is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
-                    {
-                        _actionTextBlock.Text = "You may choose a creature in the battle zone and return it to its owner's hand.";
-                        _actionButton.Content = "Decline";
                     }
                     else
                     {
-                        throw new ArgumentException("Unknown optional creature selection.");
+                        throw new ArgumentException("Unknown creature selection.");
                     }
                 }
                 else if (playerAction is OptionalAction optionalAction)
@@ -702,27 +637,145 @@ namespace DuelMastersApplication
                 }
                 else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
                 {
-                    _actionTextBlock.Text = "Select which ability resolves first.";
-                    if (selectAbilityToResolve.Player == _duel.CurrentTurn.ActivePlayer)
-                    {
-                        _activePlayerPendingAbilitiesCanvas.Visibility = Visibility.Visible;
-                        _activePlayerPendingAbilitiesCanvas.SetItemsSource(_duel.PendingAbilitiesForActivePlayer);
-                    }
-                    else if (selectAbilityToResolve.Player == _duel.CurrentTurn.NonActivePlayer)
-                    {
-                        _nonActivePlayerPendingAbilitiesCanvas.Visibility = Visibility.Visible;
-                        _nonActivePlayerPendingAbilitiesCanvas.SetItemsSource(_duel.PendingAbilitiesForNonActivePlayer);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
-                    }
-                    //_activePlayerPendingAbilitiesCanvas// = new PendingAbilitiesCanvas(this, selectAbilityToResolve.Abilities);
+                    UpdateSelectAbilityToResolve(selectAbilityToResolve);
                 }
                 else
                 {
                     throw new ArgumentException("Unknown player action.");
                 }
+            }
+        }
+
+        private void UpdateOptionalCreatureSelection(OptionalCreatureSelection optionalCreatureSelection)
+        {
+            _actionButton.IsEnabled = true;
+            if (optionalCreatureSelection is DeclareAttacker)
+            {
+                _actionTextBlock.Text = "You may declare a creature to attack with.";
+                _actionButton.Content = "Do not attack";
+            }
+            else if (optionalCreatureSelection is DeclareTargetOfAttack)
+            {
+                _actionTextBlock.Text = "Declare the target of the attack.";
+                if (_duel.CanAttackOpponent((_duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature))
+                {
+                    _actionButton.Content = "Attack opponent";
+                }
+                else
+                {
+                    _actionButton.IsEnabled = false;
+                }
+            }
+            else if (optionalCreatureSelection is DeclareBlock)
+            {
+                _actionTextBlock.Text = "You may declare a creature to block the attack with.";
+                _actionButton.Content = "Do not block";
+            }
+            else if (optionalCreatureSelection is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
+            {
+                _actionTextBlock.Text = "You may choose a creature in the battle zone and return it to its owner's hand.";
+                _actionButton.Content = "Decline";
+            }
+            else if (optionalCreatureSelection is SoulSwapSelection)
+            {
+                _actionTextBlock.Text = "You may choose a creature in the battle zone and put it into its owner's mana zone. If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.";
+                _actionButton.Content = "Decline";
+            }
+            else
+            {
+                throw new ArgumentException("Unknown optional creature selection.");
+            }
+        }
+
+        private void UpdateSelectAbilityToResolve(SelectAbilityToResolve selectAbilityToResolve)
+        {
+            _actionTextBlock.Text = "Select which ability resolves first.";
+            if (selectAbilityToResolve.Player == _duel.CurrentTurn.ActivePlayer)
+            {
+                _activePlayerPendingAbilitiesCanvas.Visibility = Visibility.Visible;
+                _activePlayerPendingAbilitiesCanvas.SetItemsSource(_duel.PendingAbilitiesForActivePlayer);
+            }
+            else if (selectAbilityToResolve.Player == _duel.CurrentTurn.NonActivePlayer)
+            {
+                _nonActivePlayerPendingAbilitiesCanvas.Visibility = Visibility.Visible;
+                _nonActivePlayerPendingAbilitiesCanvas.SetItemsSource(_duel.PendingAbilitiesForNonActivePlayer);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+            //_activePlayerPendingAbilitiesCanvas// = new PendingAbilitiesCanvas(this, selectAbilityToResolve.Abilities);
+        }
+
+        private void UpdateOptionalCardSelection(OptionalCardSelection optionalCardSelection)
+        {
+            _actionButton.IsEnabled = true;
+            if (optionalCardSelection is ChargeMana chargeMana)
+            {
+                _actionTextBlock.Text = "You may charge mana.";
+                _actionButton.Content = "Skip";
+            }
+            else if (optionalCardSelection is UseCard useCard)
+            {
+                _actionTextBlock.Text = "You may use a card.";
+                _actionButton.Content = "Skip";
+            }
+            else if (optionalCardSelection is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+            {
+                _actionTextBlock.Text = "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
+                _actionButton.Content = "Decline";
+            }
+            else
+            {
+                throw new ArgumentException("Unknown card selection.");
+            }
+        }
+
+        private void UpdateMandatoryMultipleCardSelection(MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+        {
+            if (mandatoryMultipleCardSelection is PayCost)
+            {
+                _actionTextBlock.Text = string.Format("Pay the mana cost for {0}.", (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed.Name);
+            }
+            else if (mandatoryMultipleCardSelection is BreakShields breakShields)
+            {
+                _actionTextBlock.Text = (breakShields.MinimumSelection == 1) ? "Choose a shield to break" : string.Format("Choose {0} shields to break.", breakShields.MinimumSelection);
+                ToggleVisibility(GetShieldZoneCanvas(_duel.GetOpponent(breakShields.Player)));
+            }
+            else
+            {
+                throw new ArgumentException("Unknown mandatory multiple card selection.");
+            }
+        }
+
+        private void UpdateMultipleCardSelection(MultipleCardSelection multipleCardSelection)
+        {
+            _actionButton.IsEnabled = true;
+            if (multipleCardSelection is DeclareShieldTriggers)
+            {
+                _actionTextBlock.Text = "Declare shield triggers to be used.";
+                _actionButton.Content = "Confirm";
+            }
+            else
+            {
+                throw new ArgumentException("Unknown multiple card selection.");
+            }
+        }
+
+        private void UpdateMandatoryCardSelection(MandatoryCardSelection mandatoryCardSelection)
+        {
+            if (mandatoryCardSelection is UseShieldTrigger)
+            {
+                _actionTextBlock.Text = "Declare shield trigger to be used.";
+            }
+            else if (mandatoryCardSelection is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+            {
+                _actionTextBlock.Text = "Choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
+                ToggleVisibility(GetShieldZoneCanvas(mandatoryCardSelection.Player));
+            }
+            else
+            {
+                throw new ArgumentException("Unknown mandatory card selection.");
             }
         }
 
@@ -830,112 +883,182 @@ namespace DuelMastersApplication
 
         private void LogPlayerAction(PlayerAction playerAction)
         {
-            if (playerAction is DrawCard drawCard)
+            if (playerAction is AutomaticAction automaticAction)
             {
-                LogMessages.Add(string.Format("{0} drew a card.", drawCard.Player.Name));
-            }
-            else if (playerAction is ChargeMana chargeMana)
-            {
-                if (chargeMana.SelectedCard != null)
+                if (automaticAction is DrawCard drawCard)
                 {
-                    LogMessages.Add(string.Format("{0} charged {1} as mana.", chargeMana.Player.Name, chargeMana.SelectedCard.Name));
+                    LogMessages.Add(string.Format("{0} drew a card.", drawCard.Player.Name));
                 }
-            }
-            else if (playerAction is UseCard useCard)
-            {
-                if (useCard.SelectedCard != null)
+                else if (automaticAction is PutTheTopCardOfYourDeckIntoYourManaZone)
                 {
-                    if (useCard.SelectedCard is Creature creature)
-                    {
-                        LogMessages.Add(string.Format("{0} summoned {1}.", useCard.Player.Name, creature.Name));
-                    }
-                    else if (useCard.SelectedCard is Spell spell)
-                    {
-                        LogMessages.Add(string.Format("{0} cast {1}.", useCard.Player.Name, spell.Name));
-                    }
+                    LogMessages.Add(string.Format("{0} put the top card of their deck into their mana zone.", automaticAction.Player.Name));
                 }
-            }
-            else if (playerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
-            {
-                if (playerAction is BreakShields breakShields)
+                else if (automaticAction is AddTheTopCardOfYourDeckToYourShieldsFaceDown)
                 {
-                    if (breakShields.MinimumSelection > 1)
-                    {
-                        LogMessages.Add(string.Format("{0} broke {1} of {2}'s shields.", breakShields.ShieldBreakingCreature.Name, breakShields.MinimumSelection, _duel.GetOpponent(breakShields.Player).Name));
-                    }
-                    else
-                    {
-                        LogMessages.Add(string.Format("{0} broke one of {1}'s shields.", breakShields.ShieldBreakingCreature.Name, _duel.GetOpponent(breakShields.Player).Name));
-                    }
-
+                    LogMessages.Add(string.Format("{0} added the top card of their deck to their shields face down.", automaticAction.Player.Name));
                 }
-                else if (!(playerAction is PayCost payCost))
+                else if (playerAction is TapAllYourOpponentsCreaturesInTheBattleZone)
                 {
-                    throw new ArgumentOutOfRangeException("Unknown mandatory multiple card selection.");
-                }
-            }
-            else if (playerAction is DeclareAttacker declareAttacker)
-            {
-                if (declareAttacker.SelectedCreature != null)
-                {
-                    LogMessages.Add(string.Format("{0} declared {1} as an attacking creature.", declareAttacker.Player.Name, declareAttacker.SelectedCreature.Name));
-                }
-            }
-            else if (playerAction is DeclareTargetOfAttack declareTargetOfAttack)
-            {
-                if (declareTargetOfAttack.SelectedCreature != null)
-                {
-                    LogMessages.Add(string.Format("{0} declared {1} as the target of attack.", declareTargetOfAttack.Player.Name, declareTargetOfAttack.SelectedCreature.Name));
+                    LogMessages.Add(string.Format("{0} tapped all their opponent's creatures in the battle zone.", automaticAction.Player.Name));
                 }
                 else
                 {
-                    LogMessages.Add(string.Format("{0} declared {1} as the target of attack.", declareTargetOfAttack.Player.Name, _duel.GetOpponent(declareTargetOfAttack.Player).Name));
+                    throw new InvalidOperationException();
                 }
             }
-            else if (playerAction is DeclareBlock declareBlock)
+            else if (playerAction is CardSelection cardSelection)
             {
-                if (declareBlock.SelectedCreature != null)
+                if (cardSelection is OptionalCardSelection optionalCardSelection)
                 {
-                    LogMessages.Add(string.Format("{0} blocked the attack with {1}.", declareBlock.Player.Name, declareBlock.SelectedCreature.Name));
+                    if (optionalCardSelection is ChargeMana chargeMana)
+                    {
+                        if (chargeMana.SelectedCard != null)
+                        {
+                            LogMessages.Add(string.Format("{0} charged {1} as mana.", chargeMana.Player.Name, chargeMana.SelectedCard.Name));
+                        }
+                    }
+                    else if (optionalCardSelection is UseCard useCard)
+                    {
+                        if (useCard.SelectedCard != null)
+                        {
+                            if (useCard.SelectedCard is Creature creature)
+                            {
+                                LogMessages.Add(string.Format("{0} summoned {1}.", useCard.Player.Name, creature.Name));
+                            }
+                            else if (useCard.SelectedCard is Spell spell)
+                            {
+                                LogMessages.Add(string.Format("{0} cast {1}.", useCard.Player.Name, spell.Name));
+                            }
+                        }
+                    }
+                    else if (optionalCardSelection is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+                    {
+                        LogMessages.Add(string.Format("{0} added a card from their hand to their shields face down.", optionalCardSelection.Player.Name));
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("optionalCardSelection");
+                    }
                 }
-            }
-            else if (playerAction is DeclareShieldTriggers declareShieldTriggers)
-            {
-                if (declareShieldTriggers.SelectedCards.Count > 0)
+                else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
                 {
-                    LogMessages.Add(string.Format("{0} declared to use the following shield triggers: {1}", declareShieldTriggers.Player.Name, string.Join("; ", declareShieldTriggers.SelectedCards.Select(c => c.Name))));
+                    if (mandatoryCardSelection is UseShieldTrigger useShieldTrigger)
+                    {
+                        LogMessages.Add(string.Format("{0} used the shield trigger ability of {1}.", useShieldTrigger.Player.Name, useShieldTrigger.SelectedCard.Name));
+                    }
+                    else if (mandatoryCardSelection is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
+                    {
+                        LogMessages.Add(string.Format("{0} chose one of their shields and put it into their hand.", mandatoryCardSelection.Player.Name));
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("mandatoryCardSelection");
+                    }
                 }
-            }
-            else if (playerAction is UseShieldTrigger useShieldTrigger)
-            {
-                LogMessages.Add(string.Format("{0} used the shield trigger ability of {1}.", useShieldTrigger.Player.Name, useShieldTrigger.SelectedCard.Name));
-            }
-            else if (playerAction is PutTheTopCardOfYourDeckIntoYourManaZone)
-            {
-                LogMessages.Add(string.Format("{0} put the top card of their deck into their mana zone.", playerAction.Player.Name));
-            }
-            else if (playerAction is AddTheTopCardOfYourDeckToYourShieldsFaceDown)
-            {
-                LogMessages.Add(string.Format("{0} added the top card of their deck to their shields face down.", playerAction.Player.Name));
-            }
-            else if (playerAction is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
-            {
-                if (youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature != null)
+                else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                 {
-                    LogMessages.Add(string.Format("{0} returned {1} to its owner's hand.", youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.Player.Name, youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature.Name));
+                    if (mandatoryMultipleCardSelection is BreakShields breakShields)
+                    {
+                        if (breakShields.MinimumSelection > 1)
+                        {
+                            LogMessages.Add(string.Format("{0} broke {1} of {2}'s shields.", breakShields.ShieldBreakingCreature.Name, breakShields.MinimumSelection, _duel.GetOpponent(breakShields.Player).Name));
+                        }
+                        else
+                        {
+                            LogMessages.Add(string.Format("{0} broke one of {1}'s shields.", breakShields.ShieldBreakingCreature.Name, _duel.GetOpponent(breakShields.Player).Name));
+                        }
+
+                    }
+                    else if (!(mandatoryMultipleCardSelection is PayCost payCost))
+                    {
+                        throw new ArgumentOutOfRangeException("Unknown mandatory multiple card selection.");
+                    }
+                }
+                else if (cardSelection is MultipleCardSelection multipleCardSelection)
+                {
+                    if (multipleCardSelection is DeclareShieldTriggers declareShieldTriggers)
+                    {
+                        if (declareShieldTriggers.SelectedCards.Count > 0)
+                        {
+                            LogMessages.Add(string.Format("{0} declared to use the following shield triggers: {1}", declareShieldTriggers.Player.Name, string.Join("; ", declareShieldTriggers.SelectedCards.Select(c => c.Name))));
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("multipleCardSelection");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("cardSelection");
                 }
             }
-            else if (playerAction is TapAllYourOpponentsCreaturesInTheBattleZone)
+            else if (playerAction is CreatureSelection creatureSelection)
             {
-                LogMessages.Add(string.Format("{0} tapped all their opponent's creatures in the battle zone.", playerAction.Player.Name));
-            }
-            else if (playerAction is YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
-            {
-                LogMessages.Add(string.Format("{0} added a card from their hand to their shields face down.", playerAction.Player.Name));
-            }
-            else if (playerAction is ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield)
-            {
-                LogMessages.Add(string.Format("{0} chose one of their shields and put it into their hand.", playerAction.Player.Name));
+                if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
+                {
+                    if (optionalCreatureSelection is DeclareAttacker declareAttacker)
+                    {
+                        if (declareAttacker.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} declared {1} as an attacking creature.", declareAttacker.Player.Name, declareAttacker.SelectedCreature.Name));
+                        }
+                    }
+                    else if (optionalCreatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
+                    {
+                        if (declareTargetOfAttack.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} declared {1} as the target of attack.", declareTargetOfAttack.Player.Name, declareTargetOfAttack.SelectedCreature.Name));
+                        }
+                        else
+                        {
+                            LogMessages.Add(string.Format("{0} declared {1} as the target of attack.", declareTargetOfAttack.Player.Name, _duel.GetOpponent(declareTargetOfAttack.Player).Name));
+                        }
+                    }
+                    else if (optionalCreatureSelection is DeclareBlock declareBlock)
+                    {
+                        if (declareBlock.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} blocked the attack with {1}.", declareBlock.Player.Name, declareBlock.SelectedCreature.Name));
+                        }
+                    }
+                    else if (optionalCreatureSelection is YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand)
+                    {
+                        if (youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} returned {1} to its owner's hand.", youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.Player.Name, youMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.SelectedCreature.Name));
+                        }
+                    }
+                    else if (optionalCreatureSelection is SoulSwapSelection soulSwapSelection)
+                    {
+                        if (soulSwapSelection.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} put {1}'s {2} from the battle zone into its owner's mana zone.", optionalCreatureSelection.Player.Name, _duel.GetOwner(soulSwapSelection.SelectedCreature).Name, soulSwapSelection.SelectedCreature.Name));
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("optionalCreatureSelection");
+                    }
+                }
+                else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
+                {
+                    if (mandatoryCreatureSelection is ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone c)
+                    {
+                        if (c.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} put {1} from their mana zone into the battle zone.", _duel.GetOwner(c.SelectedCreature).Name, c.SelectedCreature.Name));
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("mandatoryCreatureSelection");
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("creatureSelection");
+                }
             }
             else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
             {
@@ -1204,9 +1327,9 @@ namespace DuelMastersApplication
             {
                 if (cardSelection.CardIds.Contains(cardCanvas.GameId))
                 {
-                    if (cardSelection is OptionalCardSelection optionalCardSelection)
+                    if (cardSelection is OptionalCardSelection || cardSelection is MandatoryCardSelection mandatoryCardSelection)
                     {
-                        UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new Collection<Card>(optionalCardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
+                        UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new Collection<Card>(cardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
                     }
                     else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
@@ -1222,19 +1345,13 @@ namespace DuelMastersApplication
                     {
                         UpdateSelectedCards(cardCanvas, multipleCardSelection.Cards);
                     }
-                    else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
-                    {
-                        UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new Collection<Card>(mandatoryCardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
-                    }
                 }
             }
             else if (_duel.CurrentPlayerAction is CreatureSelection creatureSelection)
             {
                 if (creatureSelection.CreatureIds.Contains(cardCanvas.GameId))
                 {
-                    IEnumerable<Creature> creatures = creatureSelection.Creatures.Where(c => c.GameId == cardCanvas.GameId);
-                    CreatureSelectionResponse response = new CreatureSelectionResponse(new Collection<Creature>(creatures.ToList()));
-                    UpdateViewToShowPlayerAction(_duel.Progress(response));
+                    UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new Collection<Creature>(creatureSelection.Creatures.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
                 }
             }
             else if (!(_duel.CurrentPlayerAction is OptionalAction) && !(_duel.CurrentPlayerAction is SelectAbilityToResolve))

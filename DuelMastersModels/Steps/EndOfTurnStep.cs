@@ -13,6 +13,7 @@ namespace DuelMastersModels.Steps
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
+            duel.EndContinuousEffects(typeof(Effects.Periods.UntilTheEndOfTheTurn));
             return null;
         }
     }

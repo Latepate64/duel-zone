@@ -16,6 +16,7 @@ namespace DuelMastersModels.Factories
             { "Tap all your opponent's creatures in the battle zone.", typeof(TapAllYourOpponentsCreaturesInTheBattleZoneEffect) },
             #region You may
             { "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.", typeof(YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShieldEffect) },
+            { "You may choose a creature in the battle zone and put it into its owner's mana zone. If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.", typeof(SoulSwapEffect/*YouMayChooseACreatureInTheBattleZoneAndPutItIntoItsOwnersManaZoneIfYouDoChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone*/) },
             { "You may choose a creature in the battle zone and return it to its owner's hand.", typeof(YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect) },
             { "You may draw a card.", typeof(YouMayDrawACardEffect) },
             #endregion You may
@@ -24,6 +25,12 @@ namespace DuelMastersModels.Factories
         private static readonly ReadOnlyDictionary<string, Type[]> _effectsDictionary = new ReadOnlyDictionary<string, Type[]>(new Dictionary<string, Type[]>
         {
             { "Put the top card of your deck into your mana zone. Then add the top card of your deck to your shields face down.", new Type[] { typeof(PutTheTopCardOfYourDeckIntoYourManaZoneEffect), typeof(AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect) } },
+        });
+
+        private static readonly ReadOnlyDictionary<string, Type> _creatureEffectDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
+        {
+            { "This creature gets $plusinteger power until the end of the turn.", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
+            { "This creature gets $plusinteger power until the end of the turn. (Do what the spell says before this creature gets the extra power.)", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
         });
 
         public static Collection<OneShotEffect> ParseOneShotEffect(string text, Player owner)
@@ -45,11 +52,41 @@ namespace DuelMastersModels.Factories
             }
         }
 
+        public static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Creature creature)
+        {
+            if (text == null)
+            {
+                throw new ArgumentNullException("text");
+            }
+            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _creatureEffectDictionary, out Dictionary<string, object> parsedObjects);
+            if (parsedType != null && string.IsNullOrEmpty(parsedType.RemainingText))
+            {
+                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(creature, new Collection<object>(parsedObjects.Values.ToList()))) as OneShotEffectForCreature;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static string GetTextForEffects(Collection<OneShotEffect> oneShotEffects)
         {
             if (oneShotEffects.Count == 1)
             {
-                return _effectDictionary.First(effect => effect.Value == oneShotEffects.First().GetType()).Key;
+                OneShotEffect oneShotEffect = oneShotEffects.First();
+                if (oneShotEffect is OneShotEffectForCreature oneShotEffectForCreature)
+                {
+                    string text = _creatureEffectDictionary.First(effect => effect.Value == oneShotEffectForCreature.GetType()).Key;
+                    if (oneShotEffectForCreature is ThisCreatureGetsXPowerUntilTheEndOfTheTurn thisCreatureGetsXPowerUntilTheEndOfTheTurn)
+                    {
+                        text = text.Replace("$plusinteger", string.Concat('+', thisCreatureGetsXPowerUntilTheEndOfTheTurn.Power));
+                    }
+                    return text;
+                }
+                else
+                {
+                    return _effectDictionary.First(effect => effect.Value == oneShotEffect.GetType()).Key;
+                }
             }
             else if (oneShotEffects.Count > 1)
             {
@@ -70,8 +107,7 @@ namespace DuelMastersModels.Factories
                 Collection<OneShotEffect> oneShotEffects = new Collection<OneShotEffect>();
                 foreach (Type type in parsedType.TypesParsed)
                 {
-                    OneShotEffect oneShotEffect = Activator.CreateInstance(type) as OneShotEffect;
-                    oneShotEffects.Add(oneShotEffect);
+                    oneShotEffects.Add(Activator.CreateInstance(type) as OneShotEffect);
                 }
                 return oneShotEffects;
             }
