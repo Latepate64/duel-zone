@@ -83,7 +83,7 @@ namespace DuelMastersModels
             else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
             {
                 selectAbilityToResolve.SelectedAbility = selectAbilityToResolve.Abilities.First();
-                selectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
+                SelectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
                 duel.CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
                 return null;
             }
@@ -126,11 +126,11 @@ namespace DuelMastersModels
                     Card civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
                     List<Card> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
                     manaCards.Add(civCard);
-                    newAction = payCost.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(manaCards));
+                    newAction = payCost.Perform(duel, new ReadOnlyCardCollection(manaCards));
                 }
                 else
                 {
-                    mandatoryMultipleCardSelection.Perform(duel, new System.Collections.ObjectModel.Collection<Card>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
+                    mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
                 }
             }
             else if (cardSelection is MultipleCardSelection multipleCardSelection)

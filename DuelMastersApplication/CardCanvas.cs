@@ -31,15 +31,15 @@ namespace DuelMastersApplication
         public static readonly DependencyProperty CostProperty = DependencyProperty.Register("Cost", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCostChanged));
         public static readonly DependencyProperty CardTypeProperty = DependencyProperty.Register("CardType", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTypeChanged));
         public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
-        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
+        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(ReadOnlyCivilizationCollection), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
         public static readonly DependencyProperty KnownToPlayerWithPriorityProperty = DependencyProperty.Register("KnownToPlayerWithPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithPriorityChanged));
         public static readonly DependencyProperty KnownToPlayerWithoutPriorityProperty = DependencyProperty.Register("KnownToPlayerWithoutPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithoutPriorityChanged));
         #endregion DependencyProperties
 
         #region Other properties
-        public Collection<Civilization> Civilizations
+        public ReadOnlyCivilizationCollection Civilizations
         {
-            get { return (Collection<Civilization>)GetValue(CivilizationProperty); }
+            get { return (ReadOnlyCivilizationCollection)GetValue(CivilizationProperty); }
             set { SetValue(CivilizationProperty, value); }
         }
 
@@ -259,7 +259,7 @@ namespace DuelMastersApplication
 
         private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as CardCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
+            (d as CardCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as ReadOnlyCivilizationCollection);
         }
 
         private static void OnKnownToPlayerWithPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

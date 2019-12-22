@@ -7,7 +7,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     { 
         public ChargeMana() { }
 
-        public ChargeMana(Player player) : base(player, player.Hand.Cards)
+        public ChargeMana(Player player) : base(player, new ReadOnlyCardCollection(player.Hand.Cards))
         { }
 
         public override PlayerAction Perform(Duel duel, Card card)

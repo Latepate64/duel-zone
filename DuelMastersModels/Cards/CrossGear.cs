@@ -4,31 +4,6 @@ namespace DuelMastersModels.Cards
 {
     public class CrossGear : Card
     {
-        public override Card DeepCopy
-        {
-            get
-            {
-                CrossGear crossGear = new CrossGear()
-                {
-                    Cost = Cost,
-                    Flavor = Flavor,
-                    GameId = GameId,
-                    Id = Id,
-                    Illustrator = Illustrator,
-                    Name = Name,
-                    Rarity = Rarity,
-                    Set = Set,
-                    Tapped = Tapped,
-                    Text = Text
-                };
-                foreach (Civilization civilization in Civilizations)
-                {
-                    crossGear.Civilizations.Add(civilization);
-                }
-                return crossGear;
-            }
-        }
-
         public CrossGear() : base()
         {
         }

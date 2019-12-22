@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     public abstract class CreatureSelection : PlayerAction
     {
         [XmlIgnore]
-        public Collection<Creature> Creatures { get; private set; }
+        public ReadOnlyCreatureCollection Creatures { get; private set; }
 
         [XmlArrayItem(ElementName = "CreatureId")]
         public Collection<int> CreatureIds { get; private set; }
@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         protected CreatureSelection() { }
 
-        protected CreatureSelection(Player player, int minimumSelection, int maximumSelection, Collection<Creature> creatures) : base(player)
+        protected CreatureSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCreatureCollection creatures) : base(player)
         {
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;

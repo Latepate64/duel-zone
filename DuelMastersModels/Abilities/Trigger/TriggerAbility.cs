@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Effects.OneShotEffects;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Abilities.Trigger
 {
@@ -10,7 +9,7 @@ namespace DuelMastersModels.Abilities.Trigger
     {
         public TriggerCondition TriggerCondition { get; private set; }
 
-        public TriggerAbility(TriggerCondition triggerCondition, Collection<OneShotEffect> effects, Player controller, Cards.Card card) : base(effects, controller, card)
+        public TriggerAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card card) : base(effects, controller, card)
         {
             TriggerCondition = triggerCondition;
         }

@@ -2,7 +2,6 @@
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using System;
-using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -11,7 +10,7 @@ namespace DuelMastersModels.Steps
         public Creature AttackingCreature { get; private set; }
         public bool DirectAttack { get; private set; }
         private bool _breakingDone;
-        //public Collection<Card> BrokenShields { get; private set; }
+        //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
         public DirectAttackStep(Player activePlayer, Creature attackingCreature, bool directAttack) : base(activePlayer)
         {
@@ -32,7 +31,7 @@ namespace DuelMastersModels.Steps
                 if (opponent.ShieldZone.Cards.Count > 0)
                 {
                     //TODO: consider multibreaker
-                    return new BreakShields(ActivePlayer, 1, duel.GetOpponent(ActivePlayer).ShieldZone.Cards, AttackingCreature);
+                    return new BreakShields(ActivePlayer, 1, new ReadOnlyCardCollection(duel.GetOpponent(ActivePlayer).ShieldZone.Cards), AttackingCreature);
                 }
                 else
                 {

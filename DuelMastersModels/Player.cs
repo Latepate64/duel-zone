@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Zones;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels
 {
@@ -21,7 +20,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
-        public ObservableCollection<Card> DeckBeforeDuel { get; } = new ObservableCollection<Card>();
+        public ObservableCardCollection DeckBeforeDuel { get; } = new ObservableCardCollection();
 
         #region Zones
         public BattleZone BattleZone { get; set; }
@@ -34,9 +33,9 @@ namespace DuelMastersModels
 
         //public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
 
-        //public Collection<Card> UsableShieldTriggers { get; } = new Collection<Card>();
+        //public ReadOnlyCardCollection UsableShieldTriggers { get; } = new ReadOnlyCardCollection();
 
-        public Collection<Card> ShieldTriggersToUse { get; } = new Collection<Card>();
+        public CardCollection ShieldTriggersToUse { get; } = new CardCollection();
         #endregion Properties
 
         public Player()
@@ -52,7 +51,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Sets the cards the player is going to use in a duel.
         /// </summary>
-        public void SetDeckBeforeDuel(Collection<Card> cards)
+        public void SetDeckBeforeDuel(ReadOnlyCardCollection cards)
         {
             if (cards == null)
             {

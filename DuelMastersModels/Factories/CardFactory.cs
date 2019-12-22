@@ -17,7 +17,7 @@ namespace DuelMastersModels.Factories
         private const string CrossGearText = "Cross Gear";
         #endregion Constants
 
-        public static Collection<Card> GetCardsFromJsonCards(Collection<JsonCard> jsonCards, ref int gameId, Player owner)
+        public static ReadOnlyCardCollection GetCardsFromJsonCards(Collection<JsonCard> jsonCards, ref int gameId, Player owner)
         {
             if (jsonCards == null)
             {
@@ -28,7 +28,7 @@ namespace DuelMastersModels.Factories
             {
                 cards.Add(GetCardFromJsonCard(jsonCard, gameId++, owner));
             }
-            return new Collection<Card>(cards);
+            return new ReadOnlyCardCollection(cards);
         }
 
         /// <summary>

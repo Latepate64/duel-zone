@@ -1,14 +1,13 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class DeclareShieldTriggers : MultipleCardSelection
     {
-        public DeclareShieldTriggers(Player player, Collection<Card> cards) : base(player, cards)
+        public DeclareShieldTriggers(Player player, ReadOnlyCardCollection cards) : base(player, cards)
         { }
 
-        public override PlayerAction Perform(Duel duel, Collection<Card> cards)
+        public override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
         {
             foreach (Card card in cards)
             {

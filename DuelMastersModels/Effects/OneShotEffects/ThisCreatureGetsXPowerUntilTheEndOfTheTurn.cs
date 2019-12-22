@@ -13,7 +13,7 @@ namespace DuelMastersModels.Effects.OneShotEffects
 
         public override PlayerAction Apply(Duel duel, Player player)
         {
-            duel.ContinuousEffects.Add(new ContinuousEffects.PowerEffect(new Periods.UntilTheEndOfTheTurn(), new CardFilters.TargetCreatureFilter(Creature), Power));
+            duel.AddContinuousEffect(new ContinuousEffects.PowerEffect(new Periods.UntilTheEndOfTheTurn(), new CardFilters.TargetCreatureFilter(Creature), Power));
             return null;
         }
     }

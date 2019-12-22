@@ -10,32 +10,7 @@ namespace DuelMastersModels.Cards
 {
     public class Spell : Card
     {
-        public Collection<SpellAbility> SpellAbilities => new Collection<SpellAbility>(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>().ToList());
-
-        public override Card DeepCopy
-        {
-            get
-            {
-                Spell spell = new Spell()
-                {
-                    Cost = Cost,
-                    Flavor = Flavor,
-                    GameId = GameId,
-                    Id = Id,
-                    Illustrator = Illustrator,
-                    Name = Name,
-                    Rarity = Rarity,
-                    Set = Set,
-                    Tapped = Tapped,
-                    Text = Text
-                };
-                foreach (Civilization civilization in Civilizations)
-                {
-                    spell.Civilizations.Add(civilization);
-                }
-                return spell;
-            }
-        }
+        public ReadOnlySpellAbilityCollection SpellAbilities => new ReadOnlySpellAbilityCollection(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>());
 
         public Spell() : base()
         {
@@ -51,14 +26,14 @@ namespace DuelMastersModels.Cards
                 IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, this, owner);
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, this);
                     if (staticAbility != null)
                     {
                         Abilities.Add(staticAbility);
                     }
                     else
                     {
-                        Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(textPart, owner);
+                        ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(textPart, owner);
                         if (effects != null)
                         {
                             Abilities.Add(new SpellAbility(effects, owner, this));

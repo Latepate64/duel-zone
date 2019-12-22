@@ -5,7 +5,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : MandatoryCardSelection
     {
-        public ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, player.ShieldZone.Cards) { }
+        public ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, new ReadOnlyCardCollection(player.ShieldZone.Cards)) { }
 
         public override PlayerAction Perform(Duel duel, Card card)
         {

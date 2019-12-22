@@ -1,14 +1,13 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class MandatoryMultipleCardSelection : CardSelection
     {
-        public Collection<Card> SelectedCards { get; private set; } = new Collection<Card>();
+        public ReadOnlyCardCollection SelectedCards { get; private set; }
 
-        protected MandatoryMultipleCardSelection(Player player, int amount, Collection<Card> cards) : base(player, amount, amount, cards)
+        protected MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection cards) : base(player, amount, amount, cards)
         {
         }
 
@@ -26,9 +25,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public abstract PlayerAction Perform(Duel duel, Collection<Card> cards);
+        public abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
 
-        public bool Validate(Collection<Card> cards)
+        public bool Validate(ReadOnlyCardCollection cards)
         {
             return cards.Count == MinimumSelection && !cards.Except(Cards).Any();
         }

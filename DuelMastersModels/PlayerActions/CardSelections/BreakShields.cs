@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
@@ -8,7 +7,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         public Creature ShieldBreakingCreature { get; private set; }
 
-        public BreakShields(Player player, int amount, Collection<Card> cards, Creature shieldBreakingCreature) : base(player, amount, cards)
+        public BreakShields(Player player, int amount, ReadOnlyCardCollection cards, Creature shieldBreakingCreature) : base(player, amount, cards)
         {
             ShieldBreakingCreature = shieldBreakingCreature;
         }
@@ -30,11 +29,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             else
             {
                 duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
-                return Perform(duel, new Collection<Card>(Cards.ToList().GetRange(0, MinimumSelection)));
+                return Perform(duel, new ReadOnlyCardCollection(Cards.ToList().GetRange(0, MinimumSelection)));
             }
         }
 
-        public override PlayerAction Perform(Duel duel, Collection<Card> cards)
+        public override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
         {
             return duel.PutFromShieldZoneToHand(duel.GetOpponent(Player), cards, true);
         }

@@ -1,15 +1,14 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActionResponses
 {
     public class CardSelectionResponse : PlayerActionResponse
     {
-        public Collection<Card> SelectedCards { get; } = new Collection<Card>();
+        public ReadOnlyCardCollection SelectedCards { get; }
 
         public CardSelectionResponse() { }
 
-        public CardSelectionResponse(Collection<Card> selectedCards)
+        public CardSelectionResponse(ReadOnlyCardCollection selectedCards)
         {
             SelectedCards = selectedCards;
         }

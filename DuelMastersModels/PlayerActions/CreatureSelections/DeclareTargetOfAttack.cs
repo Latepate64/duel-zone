@@ -1,13 +1,12 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     public class DeclareTargetOfAttack : OptionalCreatureSelection
     {
-        public DeclareTargetOfAttack(Player player, Collection<Creature> creatures) : base(player, creatures)
+        public DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
         public override PlayerAction Perform(Duel duel, Creature creature)

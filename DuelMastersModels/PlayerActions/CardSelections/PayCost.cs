@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -9,17 +8,17 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         public int Cost { get; set; }
 
-        public PayCost(Player player, Collection<Card> cards, int cost) : base(player, cost, cards)
+        public PayCost(Player player, ReadOnlyCardCollection cards, int cost) : base(player, cost, cards)
         {
             Cost = cost;
         }
 
-        public bool Validate(Collection<Card> cards, Card cardToBeUsed)
+        public static bool Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
         {
             return Duel.CanBeUsed(cardToBeUsed, cards);
         }
 
-        public override PlayerAction Perform(Duel duel, Collection<Card> cards)
+        public override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
         {
             if (duel == null)
             {

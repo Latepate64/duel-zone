@@ -4,37 +4,6 @@ namespace DuelMastersModels.Cards
 {
     public class EvolutionCreature : Creature
     {
-        public override Card DeepCopy
-        {
-            get
-            {
-                EvolutionCreature creature = new EvolutionCreature()
-                {
-                    Cost = Cost,
-                    Flavor = Flavor,
-                    GameId = GameId,
-                    Id = Id,
-                    Illustrator = Illustrator,
-                    Name = Name,
-                    Power = Power,
-                    Rarity = Rarity,
-                    Set = Set,
-                    SummoningSickness = SummoningSickness,
-                    Tapped = Tapped,
-                    Text = Text
-                };
-                foreach (Civilization civilization in Civilizations)
-                {
-                    creature.Civilizations.Add(civilization);
-                }
-                foreach (string race in Races)
-                {
-                    creature.Races.Add(race);
-                }
-                return creature;
-            }
-        }
-
         public EvolutionCreature() : base()
         {
         }

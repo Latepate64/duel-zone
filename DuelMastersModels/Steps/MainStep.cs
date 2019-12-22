@@ -1,9 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -30,7 +27,7 @@ namespace DuelMastersModels.Steps
 
         public override PlayerAction PlayerActionRequired(Duel duel)
         {
-            Collection<Card> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            ReadOnlyCardCollection usableCards = GetUsableCards(new ReadOnlyCardCollection(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
             if (State == MainStepState.Use && usableCards.Count > 0)
             {
                 return new UseCard(ActivePlayer, usableCards);
@@ -48,17 +45,9 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// Returns the cards that can be used.
         /// </summary>
-        private static Collection<Card> GetUsableCards(Collection<Card> handCards, Collection<Card> manaCards)
+        private static ReadOnlyCardCollection GetUsableCards(ReadOnlyCardCollection handCards, ReadOnlyCardCollection manaCards)
         {
-            Collection<Card> usableCards = new Collection<Card>();
-            foreach (Card handCard in handCards)
-            {
-                if (Duel.CanBeUsed(handCard, manaCards))
-                {
-                    usableCards.Add(handCard);
-                }
-            }
-            return usableCards;
+            return new ReadOnlyCardCollection(handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards)));
         }
     }
 }

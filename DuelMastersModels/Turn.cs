@@ -98,7 +98,7 @@ namespace DuelMastersModels
                 AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
                 Steps.Add(new BattleStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, lastAttackDeclaration.AttackedCreature, blockDeclarationStep.BlockingCreature));
             }
-            else if (CurrentStep is BattleStep battleStep)
+            else if (CurrentStep is BattleStep)
             {
                 AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
                 BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();

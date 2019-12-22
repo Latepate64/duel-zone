@@ -1,12 +1,11 @@
 ﻿using DuelMastersModels.Cards;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     public class SoulSwapSelection : OptionalCreatureSelection
     {
-        public SoulSwapSelection(Player player, Collection<Creature> creatures) : base(player, creatures)
+        public SoulSwapSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
         public override PlayerAction Perform(Duel duel, Creature creature)

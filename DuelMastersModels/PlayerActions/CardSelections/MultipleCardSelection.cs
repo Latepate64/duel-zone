@@ -1,15 +1,14 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class MultipleCardSelection : CardSelection
     {
-        protected MultipleCardSelection(Player player, Collection<Card> cards) : base(player, 0, cards.Count, cards)
+        protected MultipleCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 0, cards.Count, cards)
         { }
 
-        public Collection<Card> SelectedCards { get; } = new Collection<Card>();
+        public CardCollection SelectedCards { get; } = new CardCollection();
 
         public override PlayerAction TryToPerformAutomatically(Duel duel)
         {
@@ -23,11 +22,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public bool Validate(Collection<Card> cards)
+        public bool Validate(ReadOnlyCardCollection cards)
         {
             return !cards.Except(Cards).Any();
         }
 
-        public abstract PlayerAction Perform(Duel duel, Collection<Card> cards);
+        public abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
     }
 }

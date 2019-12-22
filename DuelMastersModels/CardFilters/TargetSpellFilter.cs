@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
@@ -12,7 +11,7 @@ namespace DuelMastersModels.CardFilters
             Spell = spell;
         }
 
-        public override Collection<Spell> FilteredSpells => new Collection<Spell>() { Spell };
+        public override ReadOnlySpellCollection FilteredSpells => new ReadOnlySpellCollection(Spell);
     }
 }
 

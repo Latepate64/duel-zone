@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     public abstract class CardSelection : PlayerAction
     {
         [XmlIgnore]
-        public Collection<Card> Cards { get; private set; }
+        public ReadOnlyCardCollection Cards { get; private set; }
 
         [XmlArrayItem(ElementName = "CardId")]
         public Collection<int> CardIds { get; private set; }
@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         protected CardSelection() { }
 
-        protected CardSelection(Player player, int minimumSelection, int maximumSelection, Collection<Card> cards) : base(player)
+        protected CardSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCardCollection cards) : base(player)
         {
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;

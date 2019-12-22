@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CreatureSelections;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Steps
 {
@@ -27,7 +26,7 @@ namespace DuelMastersModels.Steps
                 throw new System.ArgumentNullException("duel");
             }
             Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
-            Collection<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+            ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
             if (creatures.Count > 0)
             {
                 return new DeclareBlock(nonActivePlayer, creatures);

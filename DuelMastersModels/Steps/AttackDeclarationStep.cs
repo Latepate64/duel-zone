@@ -35,7 +35,7 @@ namespace DuelMastersModels.Steps
             {
                 throw new System.ArgumentNullException("duel");
             }
-            System.Collections.ObjectModel.Collection<Creature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+            ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             if (creatures.Count > 0)
             {
                 return new DeclareAttacker(ActivePlayer, creatures);

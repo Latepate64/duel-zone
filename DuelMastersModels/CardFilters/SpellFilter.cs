@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
@@ -9,6 +8,6 @@ namespace DuelMastersModels.CardFilters
         {
         }
 
-        public abstract Collection<Spell> FilteredSpells { get; }
+        public abstract ReadOnlySpellCollection FilteredSpells { get; }
     }
 }

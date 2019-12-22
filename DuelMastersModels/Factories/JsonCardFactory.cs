@@ -52,6 +52,16 @@ namespace DuelMastersModels.Factories
             {
                 html = reader.ReadToEnd();
             }
+            /*using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        html = reader.ReadToEnd();
+                    }
+                }
+            }*/
             return new Collection<JsonCard>(JsonConvert.DeserializeObject<Collection<JsonCard>>(html).ToList());
         }
 

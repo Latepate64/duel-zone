@@ -1,7 +1,4 @@
-﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using DuelMastersModels.Cards;
 
 namespace DuelMastersModels.Zones
 {
@@ -11,26 +8,25 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
-        public ObservableCollection<Card> Cards { get; } = new ObservableCollection<Card>();
+        public ObservableCardCollection Cards { get; } = new ObservableCardCollection();
 
-        public Collection<Creature> Creatures => new Collection<Creature>(Cards.Where(card => card is Creature).Cast<Creature>().ToList());
+        #region ReadOnlyCardCollection
+        public ReadOnlyCardCollection TappedCards => Cards.TappedCards;
+        public ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
+        #endregion ReadOnlyCardCollection
 
-        public Collection<Card> TappedCards => new Collection<Card>(Cards.Where(card => card.Tapped).ToList());
-
-        public Collection<Creature> TappedCreatures => new Collection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());
+        #region ReadOnlyCreatureCollection
+        public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
+        public ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
+        public ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
+        public ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
+        public ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone;
+        #endregion ReadOnlyCreatureCollection
 
         //public Collection<Creature> UntappedBlockers => new Collection<Creature>(UntappedCreatures.Where(c => c.StaticAbilities.Count(a => a.GetType() == typeof(Blocker)) > 0).ToList());
-
-        public Collection<Card> UntappedCards => new Collection<Card>(Cards.Where(card => !card.Tapped).ToList());
-
-        public Collection<Creature> UntappedCreatures => new Collection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
-
         //public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
-
         //ANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZone
-        public Collection<Creature> NonEvolutionCreatures => new Collection<Creature>(Creatures.Where(c => !(c is EvolutionCreature)).ToList());
 
-        public Collection<Creature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new Collection<Creature>(NonEvolutionCreatures.Where(c => c.Cost <= Cards.Count).ToList());
 
         /// <summary>
         /// True if the zone is public, false if it is private.
@@ -60,23 +56,26 @@ namespace DuelMastersModels.Zones
         ///</summary>
         public abstract void Remove(Card card, Duel duel);
 
-        public Collection<Card> UntappedCardsWithCivilizations(Collection<Civilization> civilizations)
+        public ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
         {
-            return new Collection<Card>(UntappedCards.Where(card => card.Civilizations.Intersect(civilizations).Count() > 0).ToList());
+            return Cards.UntappedCardsWithCivilizations(civilizations);
         }
 
         public void UntapCards()
         {
             foreach (Card card in TappedCards)
+            //foreach (Card card in TappedCards)
             {
                 card.Tapped = false;
             }
         }
 
+        /*
         public Card GetCard(int gameId)
         {
             return Cards.First(card => card.GameId == gameId);
         }
+        */
         #endregion Methods
     }
 }

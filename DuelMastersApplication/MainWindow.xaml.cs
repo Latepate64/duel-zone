@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Cards;
+using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.AutomaticActions;
@@ -90,8 +91,8 @@ namespace DuelMastersApplication
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
-        ObservableCollection<Card> _selectedCards = new ObservableCollection<Card>();
-        public ObservableCollection<Card> SelectedCards
+        ObservableCardCollection _selectedCards = new ObservableCardCollection();
+        public ObservableCardCollection SelectedCards
         {
             get { return _selectedCards; }
             set
@@ -320,6 +321,10 @@ namespace DuelMastersApplication
 
             _duel.Player1.SetupDeck(_duel);
             _duel.Player2.SetupDeck(_duel);
+
+            //TODO: test
+            _duel.ContinuousEffects.CollectionChanged += ObservableContinuousEffects_CollectionChanged;
+
             PlayerAction playerAction = _duel.StartDuel((StartingPlayer)configuration.WhoGoesFirst);
 
             Serialize(configuration, ConfigurationPath);
@@ -429,8 +434,8 @@ namespace DuelMastersApplication
             }
             else
             {
-                ObservableCollection<Card> cardsOwner = _duel.Player1.DeckBeforeDuel;
-                ObservableCollection<Card> cardsOpponent = _duel.Player2.DeckBeforeDuel;
+                ObservableCardCollection cardsOwner = _duel.Player1.DeckBeforeDuel;
+                ObservableCardCollection cardsOpponent = _duel.Player2.DeckBeforeDuel;
                 if (playerAction.Player == _duel.Player2)
                 {
                     cardsOwner = _duel.Player2.DeckBeforeDuel;
@@ -797,28 +802,28 @@ namespace DuelMastersApplication
 
         private static T Deserialize<T>(string path)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
             using (StreamReader reader = new StreamReader(path))
             {
-                return (T)serializer.Deserialize(reader);
+                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
             }
         }
 
         private static void Serialize<T>(T objectToSerialize, string configurationPath)
         {
-            XmlSerializer writer = new XmlSerializer(typeof(T));
             using (FileStream file = File.Create(configurationPath))
             {
-                writer.Serialize(file, objectToSerialize);
-                file.Close();
+                new XmlSerializer(typeof(T)).Serialize(file, objectToSerialize);
             }
         }
 
-        private static FrameworkElementFactory GetStackPanelFactory()
+        private static FrameworkElementFactory StackPanelFactory
         {
-            FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-            stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-            return stackPanelFactory;
+            get
+            {
+                FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
+                stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+                return stackPanelFactory;
+            }
         }
 
         private void BindBattleZoneCreatureCanvasToListView(ListView listView)
@@ -841,13 +846,16 @@ namespace DuelMastersApplication
 
         private void BindAbstractCardCanvas(ListView listView, FrameworkElementFactory cardCanvasFactory, double multiplier, double listViewScale = 0.96)
         {
-            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = GetStackPanelFactory() };
+            listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = StackPanelFactory};
 
             cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale });
             cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale * multiplier });
 
             cardCanvasFactory.SetBinding(RectangleCardCanvas.CardNameProperty, new Binding("Name"));
+
+            //TODO: Think how to fetch power dynamically.
             cardCanvasFactory.SetBinding(RectangleCardCanvas.PowerProperty, new Binding("Power"));
+
             cardCanvasFactory.SetBinding(AbstractCardCanvas.GameIdProperty, new Binding("GameId"));
             cardCanvasFactory.SetBinding(AbstractCardCanvas.TappedProperty, new Binding("Tapped"));
 
@@ -1216,16 +1224,16 @@ namespace DuelMastersApplication
             }
         }
 
-        private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, Collection<Card> cards)
+        private void UpdateSelectedCards(AbstractCardCanvas cardCanvas, ReadOnlyCardCollection cards)
         {
             Card card = cards.First(c => c.GameId == cardCanvas.GameId);
             if (!SelectedCards.Contains(card))
             {
-                SelectedCards = new ObservableCollection<Card>(SelectedCards) { card };
+                SelectedCards = new ObservableCardCollection(SelectedCards) { card };
             }
             else
             {
-                ObservableCollection<Card> newCards = new ObservableCollection<Card>(SelectedCards);
+                ObservableCardCollection newCards = new ObservableCardCollection(SelectedCards);
                 newCards.Remove(card);
                 SelectedCards = newCards;
             }
@@ -1314,6 +1322,49 @@ namespace DuelMastersApplication
             }
         }
 
+        /// <summary>
+        /// TODO: test
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ObservableContinuousEffects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                foreach (object item in e.NewItems)
+                {
+                    ContinuousEffect continuousEffect = item as ContinuousEffect;
+                    LogMessages.Add(string.Format("Added continuous effect: {0} Period: {1}.", continuousEffect.ToString(), continuousEffect.Period.ToString()));
+
+                    if (continuousEffect is PowerEffect powerEffect)
+                    {
+                        /*BattleZoneCreatureCanvas.PowerProperty.
+                        var rect = new BattleZoneCreatureCanvas();
+                        rect.prop*/
+                        //powerEffect.
+                    }
+                    else
+                    {
+                        throw new NotImplementedException(continuousEffect.ToString());
+                    }
+                }
+            }
+            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                foreach (object item in e.OldItems)
+                {
+                    ContinuousEffect continuousEffect = item as ContinuousEffect;
+                    LogMessages.Add(string.Format("Removed continuous effect: {0} Period: {1}.", continuousEffect.ToString(), continuousEffect.Period.ToString()));
+
+                    //TODO: powereffect
+                }
+            }
+            else
+            {
+                throw new NotImplementedException(string.Format("NotifyCollectionChangedAction not supported: {0}", e.Action));
+            }
+        }
+
         public void AbilityCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             AbilityCanvas abilityCanvas = sender as AbilityCanvas;
@@ -1329,16 +1380,16 @@ namespace DuelMastersApplication
                 {
                     if (cardSelection is OptionalCardSelection || cardSelection is MandatoryCardSelection mandatoryCardSelection)
                     {
-                        UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new Collection<Card>(cardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
+                        UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(cardSelection.Cards.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
                     }
                     else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
                     {
                         UpdateSelectedCards(cardCanvas, mandatoryMultipleCardSelection.Cards);
-                        if (mandatoryMultipleCardSelection.Validate(SelectedCards) && !(mandatoryMultipleCardSelection is PayCost payCost && !payCost.Validate(SelectedCards, (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed)))
+                        if (mandatoryMultipleCardSelection.Validate(new ReadOnlyCardCollection(SelectedCards)) && !(mandatoryMultipleCardSelection is PayCost payCost && !PayCost.Validate(new ReadOnlyCardCollection(SelectedCards), (_duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed)))
                         {
-                            CardSelectionResponse response = new CardSelectionResponse(new Collection<Card>(SelectedCards));
+                            CardSelectionResponse response = new CardSelectionResponse(new ReadOnlyCardCollection(SelectedCards));
                             UpdateViewToShowPlayerAction(_duel.Progress(response));
-                            SelectedCards = new ObservableCollection<Card>();
+                            SelectedCards = new ObservableCardCollection();
                         }
                     }
                     else if (cardSelection is MultipleCardSelection multipleCardSelection)
@@ -1351,7 +1402,7 @@ namespace DuelMastersApplication
             {
                 if (creatureSelection.CreatureIds.Contains(cardCanvas.GameId))
                 {
-                    UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new Collection<Creature>(creatureSelection.Creatures.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
+                    UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(creatureSelection.Creatures.Where(c => c.GameId == cardCanvas.GameId).ToList()))));
                 }
             }
             else if (!(_duel.CurrentPlayerAction is OptionalAction) && !(_duel.CurrentPlayerAction is SelectAbilityToResolve))
@@ -1364,13 +1415,13 @@ namespace DuelMastersApplication
         {
             if (_duel.CurrentPlayerAction is CardSelection)
             {
-                UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(SelectedCards)));
-                SelectedCards = new ObservableCollection<Card>();
+                UpdateViewToShowPlayerAction(_duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(SelectedCards))));
+                SelectedCards = new ObservableCardCollection();
             }
             else if (_duel.CurrentPlayerAction is OptionalCreatureSelection)
             {
-                UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new Collection<Creature>(SelectedCards.Cast<Creature>().ToList()))));
-                SelectedCards = new ObservableCollection<Card>();
+                UpdateViewToShowPlayerAction(_duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(SelectedCards.Cast<Creature>().ToList()))));
+                SelectedCards = new ObservableCardCollection();
             }
             else if (_duel.CurrentPlayerAction is OptionalAction optionalAction)
             {
@@ -1528,12 +1579,12 @@ namespace DuelMastersApplication
         }
     }
 
-    [ValueConversion(typeof(Collection<Card>), typeof(Collection<int>))]
+    [ValueConversion(typeof(ObservableCardCollection), typeof(Collection<int>))]
     public class CardCollectionToIntCollectionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            Collection<Card> cards = value as Collection<Card>;
+            ObservableCardCollection cards = value as ObservableCardCollection;
             return new Collection<int>(cards.Select(c => c.GameId).ToList());
         }
 

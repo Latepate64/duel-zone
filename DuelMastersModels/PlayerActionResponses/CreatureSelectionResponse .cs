@@ -1,15 +1,14 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActionResponses
 {
     public class CreatureSelectionResponse : PlayerActionResponse
     {
-        public Collection<Creature> SelectedCreatures { get; } = new Collection<Creature>();
+        public ReadOnlyCreatureCollection SelectedCreatures { get; }
 
         public CreatureSelectionResponse() { }
 
-        public CreatureSelectionResponse(Collection<Creature> selectedCreatures)
+        public CreatureSelectionResponse(ReadOnlyCreatureCollection selectedCreatures)
         {
             SelectedCreatures = selectedCreatures;
         }

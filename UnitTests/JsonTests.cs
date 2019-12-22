@@ -27,10 +27,10 @@ namespace UnitTests
                     Name = "Player2",
                 }
             };
-            Collection<Card> cards = CardFactory.GetCardsFromJsonCards(jsonCards, ref gameId, duel.Player1);
+            ReadOnlyCardCollection cards = CardFactory.GetCardsFromJsonCards(jsonCards, ref gameId, duel.Player1);
             const int Count = 40;
-            Collection<Card> p1Cards = new Collection<Card>();
-            Collection<Card> p2Cards = new Collection<Card>();
+            CardCollection p1Cards = new CardCollection();
+            CardCollection p2Cards = new CardCollection();
             for (int i = 0; i < Count; ++i)
             {
                 Card p1Card = cards.First(c => c.Name == "Immortal Baron, Vorg").DeepCopy;

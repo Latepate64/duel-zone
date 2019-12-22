@@ -1,13 +1,12 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class UseCard : OptionalCardSelection
     {
-        public UseCard(Player player, Collection<Card> cards) : base(player, cards)
+        public UseCard(Player player, ReadOnlyCardCollection cards) : base(player, cards)
         { }
 
         public override PlayerAction Perform(Duel duel, Card card)

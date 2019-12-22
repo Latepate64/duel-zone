@@ -32,38 +32,28 @@ namespace DuelMastersModels.Factories
             { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(SpellShieldTrigger) },
         });
 
-        public static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature, Player owner)
+        public static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForCreatures, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null)
-            {
-                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
-            }
-            else
-            {
-                return null;
-            }
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForCreatures);
+            return parsed?.ParsedType != null
+                ? Activator.CreateInstance(parsed.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsed.Objects.Values.ToList()))) as StaticAbility
+                : null;
         }
 
-        public static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell, Player owner)
+        public static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForSpells, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null)
-            {
-                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */spell, new Collection<object>(parsedObjects.Values.ToList()))) as StaticAbility;
-            }
-            else
-            {
-                return null;
-            }
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForSpells);
+            return parsed?.ParsedType != null
+                ? Activator.CreateInstance(parsed.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */spell, new Collection<object>(parsed.Objects.Values.ToList()))) as StaticAbility
+                : null;
         }
     }
 }

@@ -35,16 +35,16 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Unique identifier during a game.
         /// </summary>
-        public int GameId { get; set; }
-        public string Name { get; set; }
-        public string Set { get; set; }
-        public string Id { get; set; }
-        public Collection<Civilization> Civilizations { get; } = new Collection<Civilization>();
-        public Rarity Rarity { get; set; }
-        public int Cost { get; set; }
-        public string Text { get; set; }
-        public string Flavor { get; set; }
-        public string Illustrator { get; set; }
+        public int GameId { get; private set; }
+        public string Name { get; private set; }
+        public string Set { get; private set; }
+        public string Id { get; private set; }
+        public ReadOnlyCivilizationCollection Civilizations { get; }
+        public Rarity Rarity { get; private set; }
+        public int Cost { get; private set; }
+        public string Text { get; private set; }
+        public string Flavor { get; private set; }
+        public string Illustrator { get; private set; }
         private bool _tapped;
         public bool Tapped
         {
@@ -64,11 +64,9 @@ namespace DuelMastersModels.Cards
             PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
 
-        public abstract Card DeepCopy { get; }
-
-        public Collection<Ability> Abilities { get; } = new Collection<Ability>();
-        public Collection<StaticAbility> StaticAbilities => new Collection<StaticAbility>(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>().ToList());
-        public Collection<TriggerAbility> TriggerAbilities => new Collection<TriggerAbility>(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>().ToList());
+        public AbilityCollection Abilities { get; } = new AbilityCollection();
+        public ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
+        public ReadOnlyTriggerAbilityCollection TriggerAbilities => new ReadOnlyTriggerAbilityCollection(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
 
         public bool KnownToOwner { get; set; }
         public bool KnownToOpponent { get; set; }
@@ -97,7 +95,7 @@ namespace DuelMastersModels.Cards
         #endregion Properties
 
         #region Fields
-        private static Dictionary<string, Rarity> _rarities = new Dictionary<string, Rarity>()
+        private static readonly Dictionary<string, Rarity> _rarities = new Dictionary<string, Rarity>()
         {
             { CommonText, Rarity.Common },
             { UncommonText, Rarity.Uncommon },
@@ -134,7 +132,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Returns a civilization from text.
         /// </summary>
-        private static Collection<Civilization> GetCivilizations(Collection<string> civilizationTexts)
+        private static ReadOnlyCivilizationCollection GetCivilizations(Collection<string> civilizationTexts)
         {
             if (civilizationTexts == null)
             {
@@ -142,7 +140,7 @@ namespace DuelMastersModels.Cards
             }
             else
             {
-                Collection<Civilization> civilizations = new Collection<Civilization>();
+                List<Civilization> civilizations = new List<Civilization>();
                 if (civilizationTexts.Contains(LightText))
                 {
                     civilizations.Add(Civilization.Light);
@@ -167,7 +165,7 @@ namespace DuelMastersModels.Cards
                 {
                     throw new ArgumentException("Failed to identify a civilization: " + civilizationTexts);
                 }
-                return new Collection<Civilization>(civilizations);
+                return new ReadOnlyCivilizationCollection(civilizations);
             }
         }
 

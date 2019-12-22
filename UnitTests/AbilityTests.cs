@@ -43,10 +43,10 @@ namespace UnitTests
         private void DeclareAttack(out Duel duel, out DeclareAttack declareAttack)
         {
             duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new Collection<Card>(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            ChargeMana chargeMana = duel.Progress(new CardSelectionResponse(new Collection<Card>(new List<Card>() { useCard.Cards.First() }))) as ChargeMana;
-            UseCard useCard2 = duel.Progress(new CardSelectionResponse(new Collection<Card>(new List<Card>() { chargeMana.Cards.First() }))) as UseCard;
-            duel.Progress(new CardSelectionResponse(new Collection<Card>(new List<Card>() { useCard2.Cards.First() })));
+            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
+            ChargeMana chargeMana = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() }))) as ChargeMana;
+            UseCard useCard2 = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { chargeMana.Cards.First() }))) as UseCard;
+            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard2.Cards.First() })));
             duel.Progress(new CardSelectionResponse());
             declareAttack = duel.Progress(new CardSelectionResponse()) as DeclareAttack;
         }
@@ -67,15 +67,15 @@ namespace UnitTests
                 }
             };
             const int Count = 40;
-            Collection<Card> p1Cards = new Collection<Card>();
-            Collection<Card> p2Cards = new Collection<Card>();
+            CardCollection p1Cards = new CardCollection();
+            CardCollection p2Cards = new CardCollection();
             for (int i = 0; i < Count; ++i)
             {
                 p1Cards.Add(GetTestCreature(i));
                 p2Cards.Add(GetTestCreature(i + Count));
             }
-            duel.Player1.SetDeckBeforeDuel(p1Cards);
-            duel.Player2.SetDeckBeforeDuel(p2Cards);
+            duel.Player1.SetDeckBeforeDuel(new ReadOnlyCardCollection(p1Cards));
+            duel.Player2.SetDeckBeforeDuel(new ReadOnlyCardCollection(p2Cards));
             duel.Player1.SetupDeck(duel);
             duel.Player2.SetupDeck(duel);
             return duel;

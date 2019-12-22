@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Effects;
-using DuelMastersModels.Effects.OneShotEffects;
+﻿using DuelMastersModels.Effects.OneShotEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,17 +31,17 @@ namespace DuelMastersModels.Factories
             { "This creature gets $plusinteger power until the end of the turn. (Do what the spell says before this creature gets the extra power.)", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
         });
 
-        public static Collection<OneShotEffect> ParseOneShotEffect(string text, Player owner)
+        public static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text, Player owner)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null && string.IsNullOrEmpty(parsedType.RemainingText))
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary);
+            if (parsed?.ParsedType != null && string.IsNullOrEmpty(parsed.ParsedType.RemainingText))
             {
-                OneShotEffect oneShotEffect = Activator.CreateInstance(parsedType.TypesParsed[0]) as OneShotEffect;
-                return new Collection<OneShotEffect>() { oneShotEffect };
+                OneShotEffect oneShotEffect = Activator.CreateInstance(parsed.ParsedType.TypesParsed[0]) as OneShotEffect;
+                return new ReadOnlyOneShotEffectCollection(oneShotEffect);
                 //return Activator.CreateInstance(parsedType.TypeParsed, AbilityTypeFactory.GetInstanceParameters(owner, creature, new Collection<object>(parsedObjects.Values.ToList()))) as PlayerAction;
             }
             else
@@ -52,16 +50,16 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        public static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Creature creature)
+        public static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Cards.Creature creature)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _creatureEffectDictionary, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null && string.IsNullOrEmpty(parsedType.RemainingText))
+            ParsedTypesAndObjects parsedTypesAndObjects = AbilityTypeFactory.GetTypeFromDictionary(text, _creatureEffectDictionary);
+            if (parsedTypesAndObjects?.ParsedType != null && string.IsNullOrEmpty(parsedTypesAndObjects.ParsedType.RemainingText))
             {
-                return Activator.CreateInstance(parsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(creature, new Collection<object>(parsedObjects.Values.ToList()))) as OneShotEffectForCreature;
+                return Activator.CreateInstance(parsedTypesAndObjects.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(creature, new Collection<object>(parsedTypesAndObjects.Objects.Values.ToList()))) as OneShotEffectForCreature;
             }
             else
             {
@@ -69,7 +67,7 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        public static string GetTextForEffects(Collection<OneShotEffect> oneShotEffects)
+        public static string GetTextForEffects(ReadOnlyOneShotEffectCollection oneShotEffects)
         {
             if (oneShotEffects.Count == 1)
             {
@@ -99,17 +97,12 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        private static Collection<OneShotEffect> TryParseMultipleEffects(string text)
+        private static ReadOnlyOneShotEffectCollection TryParseMultipleEffects(string text)
         {
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _effectsDictionary, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null)
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectsDictionary);
+            if (parsed?.ParsedType != null)
             {
-                Collection<OneShotEffect> oneShotEffects = new Collection<OneShotEffect>();
-                foreach (Type type in parsedType.TypesParsed)
-                {
-                    oneShotEffects.Add(Activator.CreateInstance(type) as OneShotEffect);
-                }
-                return oneShotEffects;
+                return new ReadOnlyOneShotEffectCollection(parsed.ParsedType.TypesParsed.Select(type => Activator.CreateInstance(type) as OneShotEffect));
             }
             else
             {

@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Abilities.Trigger;
-using DuelMastersModels.Cards;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +6,18 @@ using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
+    public class TriggerConditionAndRemainingText
+    {
+        public TriggerCondition TriggerCondition { get; private set; }
+        public string RemainingText { get; private set; }
+
+        public TriggerConditionAndRemainingText(TriggerCondition triggerCondition, string remainingText)
+        {
+            TriggerCondition = triggerCondition;
+            RemainingText = remainingText;
+        }
+    }
+
     public static class TriggerConditionFactory
     {
         private static readonly ReadOnlyDictionary<string, Type> _triggerConditionDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
@@ -16,23 +27,16 @@ namespace DuelMastersModels.Factories
             { "Whenever another creature is put into the battle zone,", typeof(WheneverAnotherCreatureIsPutIntoTheBattleZone) },
         });
 
-        public static TriggerCondition ParseTriggerCondition(string text, Creature creature, Player owner, out string remainingText)
+        public static TriggerConditionAndRemainingText ParseTriggerCondition(string text)
         {
             if (text == null)
             {
                 throw new ArgumentNullException("text");
             }
-            ParsedType parsedType = AbilityTypeFactory.GetTypeFromDictionary(text, _triggerConditionDictionary, out Dictionary<string, object> parsedObjects);
-            if (parsedType != null)
-            {
-                remainingText = parsedType.RemainingText;
-                return Activator.CreateInstance(parsedType.TypesParsed[0]/*, new Collection<object>(parsedObjects.Values.ToList())*/) as TriggerCondition;
-            }
-            else
-            {
-                remainingText = null;
-                return null;
-            }
+            ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _triggerConditionDictionary);
+            return parsed?.ParsedType != null
+                ? new TriggerConditionAndRemainingText(Activator.CreateInstance(parsed.ParsedType.TypesParsed[0]/*, new Collection<object>(parsedObjects.Values.ToList())*/) as TriggerCondition, parsed.ParsedType.RemainingText)
+                : new TriggerConditionAndRemainingText(null, null);
         }
 
         public static string GetTextForTriggerCondition(TriggerCondition triggerCondition)

@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
@@ -12,6 +11,6 @@ namespace DuelMastersModels.CardFilters
             Creature = creature;
         }
 
-        public override Collection<Creature> FilteredCreatures => new Collection<Creature>() { Creature };
+        public override ReadOnlyCreatureCollection FilteredCreatures => new ReadOnlyCreatureCollection(Creature);
     }
 }

@@ -71,14 +71,18 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\NonStaticAbility.cs" />
+    <Compile Include="Abilities\ReadOnlyAbilityCollection.cs" />
+    <Compile Include="Abilities\ReadOnlySpellAbilityCollection.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
     <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
+    <Compile Include="Abilities\Static\ReadOnlyStaticAbilityCollection.cs" />
     <Compile Include="Abilities\Static\SpellShieldTrigger.cs" />
     <Compile Include="Abilities\Static\StaticAbility.cs" />
     <Compile Include="Abilities\Static\StaticAbilityForCreature.cs" />
     <Compile Include="Abilities\Static\StaticAbilityForSpell.cs" />
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
+    <Compile Include="Abilities\Trigger\ReadOnlyTriggerAbilityCollection.cs" />
     <Compile Include="Abilities\Trigger\TriggerAbility.cs" />
     <Compile Include="Abilities\Trigger\TriggerCondition.cs" />
     <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
@@ -91,10 +95,12 @@
     <Compile Include="CardFilters\TargetCreatureFilter.cs" />
     <Compile Include="CardFilters\TargetSpellFilter.cs" />
     <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\CardCollection.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
     <Compile Include="Cards\JsonCard.cs" />
+    <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="Effects\ContinuousEffects\BlockerEffect.cs" />
@@ -103,6 +109,7 @@
     <Compile Include="Effects\ContinuousEffects\CreatureContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\CreatureShieldTriggerEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\PowerEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\ReadOnlyContinuousEffectCollection.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellShieldTriggerEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
@@ -110,6 +117,7 @@
     <Compile Include="Effects\OneShotEffects\OneShotEffectForCreature.cs" />
     <Compile Include="Effects\OneShotEffects\PutTheTopCardOfYourDeckIntoYourManaZoneEffect.cs" />
     <Compile Include="Effects\OneShotEffects\AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect.cs" />
+    <Compile Include="Effects\OneShotEffects\ReadOnlyOneShotEffectCollection.cs" />
     <Compile Include="Effects\OneShotEffects\SoulSwapEffect.cs" />
     <Compile Include="Effects\OneShotEffects\TapAllYourOpponentsCreaturesInTheBattleZoneEffect.cs" />
     <Compile Include="Effects\OneShotEffects\ThisCreatureGetsXPowerUntilTheEndOfTheTurn.cs" />

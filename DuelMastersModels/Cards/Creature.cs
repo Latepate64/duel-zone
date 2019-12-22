@@ -13,7 +13,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// The base power of creature. Use Duel's method GetPower(creature) in order to get the actual power of a creature.
         /// </summary>
-        public int Power { get; set; }
+        public int Power { get; private set; }
         public Collection<string> Races { get; } = new Collection<string>();
 
         private bool _summoningSickness = true;
@@ -27,37 +27,6 @@ namespace DuelMastersModels.Cards
                     _summoningSickness = value;
                     NotifyPropertyChanged();
                 }
-            }
-        }
-
-        public override Card DeepCopy
-        {
-            get
-            {
-                Creature creature = new Creature()
-                {
-                    Cost = Cost,
-                    Flavor = Flavor,
-                    GameId = GameId,
-                    Id = Id,
-                    Illustrator = Illustrator,
-                    Name = Name,
-                    Power = Power,
-                    Rarity = Rarity,
-                    Set = Set,
-                    SummoningSickness = SummoningSickness,
-                    Tapped = Tapped,
-                    Text = Text
-                };
-                foreach (Civilization civilization in Civilizations)
-                {
-                    creature.Civilizations.Add(civilization);
-                }
-                foreach (string race in Races)
-                {
-                    creature.Races.Add(race);
-                }
-                return creature;
             }
         }
 
@@ -82,41 +51,56 @@ namespace DuelMastersModels.Cards
                 IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this, owner);
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this);
                     if (staticAbility != null)
                     {
                         Abilities.Add(staticAbility);
                     }
                     else
                     {
-                        TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
-                        if (triggerCondition != null)
+                        Abilities.Ability nonStaticAbility = ParseTriggerAbility(owner, textPart);
+                        if (nonStaticAbility != null)
                         {
-                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, owner);
-                            if (effects != null)
-                            {
-                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner, this));
-                            }
-                            else
-                            {
-                                OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(remainingText, this);
-                                if (oneShotEffectForCreature != null)
-                                {
-                                    Abilities.Add(new TriggerAbility(triggerCondition, new Collection<OneShotEffect>() { oneShotEffectForCreature }, owner, this));
-                                }
-                                else
-                                {
-                                    Duel.NotParsedAbilities.Add(remainingText);
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            Duel.NotParsedAbilities.Add(textPart);
+                            Abilities.Add(nonStaticAbility);
                         }
                     }
                 }
+            }
+        }
+
+        private Abilities.Ability ParseTriggerAbility(Player owner, string textPart)
+        {
+            TriggerConditionAndRemainingText triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart);
+            if (triggerCondition != null)
+            {
+                ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(triggerCondition.RemainingText, owner);
+                if (effects != null)
+                {
+                    return new TriggerAbility(triggerCondition.TriggerCondition, effects, owner, this);
+                }
+                else
+                {
+                    return ParseTriggerAbilityWithOneShotEffectForCreature(owner, triggerCondition);
+                }
+            }
+            else
+            {
+                Duel.NotParsedAbilities.Add(textPart);
+                return null;
+            }
+        }
+
+        private Abilities.Ability ParseTriggerAbilityWithOneShotEffectForCreature(Player owner, TriggerConditionAndRemainingText triggerCondition)
+        {
+            OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(triggerCondition.RemainingText, this);
+            if (oneShotEffectForCreature != null)
+            {
+                return new TriggerAbility(triggerCondition.TriggerCondition, new ReadOnlyOneShotEffectCollection(oneShotEffectForCreature), owner, this);
+            }
+            else
+            {
+                Duel.NotParsedAbilities.Add(triggerCondition.RemainingText);
+                return null;
             }
         }
     }

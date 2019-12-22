@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -7,7 +6,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         protected OptionalCardSelection() { }
 
-        protected OptionalCardSelection(Player player, Collection<Card> cards) : base(player, 0, 1, cards)
+        protected OptionalCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 0, 1, cards)
         { }
 
         public Card SelectedCard { get; set; }

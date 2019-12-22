@@ -1,11 +1,10 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class MandatoryCardSelection : CardSelection
     {
-        protected MandatoryCardSelection(Player player, Collection<Card> cards) : base(player, 1, 1, cards)
+        protected MandatoryCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 1, 1, cards)
         { }
 
         public Card SelectedCard { get; set; }

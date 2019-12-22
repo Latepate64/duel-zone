@@ -1,12 +1,11 @@
 ﻿using DuelMastersModels.Cards;
 using System;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     public class YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand : OptionalCreatureSelection
     {
-        public YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(Player player, Collection<Creature> creatures) : base(player, creatures)
+        public YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
         public override PlayerAction Perform(Duel duel, Creature creature)

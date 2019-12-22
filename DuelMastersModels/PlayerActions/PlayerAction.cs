@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-
+﻿//using System.Xml.Serialization;
 namespace DuelMastersModels.PlayerActions
 {
     /// <summary>
@@ -10,24 +9,19 @@ namespace DuelMastersModels.PlayerActions
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        [XmlIgnore]
+        //[XmlIgnore]
         public Player Player { get; set; }
 
         /// <summary>
         /// Identifier of the player performing the action.
         /// </summary>
-        public int PlayerId
-        {
-            get => Player.Id;
-            set { }
-        }
+        public int PlayerId => Player.Id;
 
         protected PlayerAction() { }
 
         protected PlayerAction(Player player)
         {
             Player = player;
-            PlayerId = player.Id;
         }
 
         /// <summary>

@@ -1,11 +1,10 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     public abstract class MandatoryCreatureSelection : CreatureSelection
     {
-        protected MandatoryCreatureSelection(Player player, Collection<Creature> creatures) : base(player, 1, 1, creatures)
+        protected MandatoryCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 1, 1, creatures)
         { }
 
         public Creature SelectedCreature { get; set; }

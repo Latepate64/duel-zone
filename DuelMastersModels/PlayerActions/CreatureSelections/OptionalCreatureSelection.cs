@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
@@ -7,7 +6,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     {
         protected OptionalCreatureSelection() { }
 
-        protected OptionalCreatureSelection(Player player, Collection<Creature> creatures) : base(player, 0, 1, creatures)
+        protected OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 0, 1, creatures)
         { }
 
         public Creature SelectedCreature { get; set; }
