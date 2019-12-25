@@ -79,7 +79,7 @@ namespace DuelMastersModels
                 if (value != _currentPlayerAction)
                 {
                     _currentPlayerAction = value;
-                    NotifyPropertyChanged();
+                    NotifyPropertyChanged(); //TODO: Remove
                 }
             }
         }
@@ -312,9 +312,8 @@ namespace DuelMastersModels
 
         public bool CanAttackOpponent(Creature creature)
         {
-            IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
-            return !creature.SummoningSickness && !creaturesThatCannotAttackPlayers.Contains(creature);
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            return !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
         public bool HasShieldTrigger(Card card)
@@ -332,6 +331,21 @@ namespace DuelMastersModels
                 throw new InvalidOperationException();
             }
         }
+
+        public bool AttacksIfAble(Creature creature)
+        {
+            return GetContinuousEffects<AttacksIfAbleEffect>().Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
+        }
+
+        public bool HasSpeedAttacker(Creature creature)
+        {
+            return GetContinuousEffects<SpeedAttackerEffect>().Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
+        }
+
+        public bool AffectedBySummoningSickness(Creature creature)
+        {
+            return creature.SummoningSickness && !HasSpeedAttacker(creature);
+        }
         #endregion bool
 
         #region ReadOnlyCreatureCollection
@@ -343,10 +357,9 @@ namespace DuelMastersModels
 
         public ReadOnlyCreatureCollection GetCreaturesThatCanAttack(Player player)
         {
-            IEnumerable<CannotAttackPlayersEffect> cannotAttackPlayersEffects = GetContinuousEffects().Where(e => e is CannotAttackPlayersEffect).Cast<CannotAttackPlayersEffect>();
-            List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList();
+            List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature)).ToList();
 
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = cannotAttackPlayersEffects.SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
             IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player, c).Count == 0);
             /*
             foreach (CreatureContinuousEffect creatureContinuousEffect in cannotAttackPlayersEffects)
@@ -648,7 +661,8 @@ namespace DuelMastersModels
 
         public int GetPower(Creature creature)
         {
-            return creature.Power + GetContinuousEffects().Where(e => e is PowerEffect).Cast<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
+            //return creature.Power + GetContinuousEffects().Where(e => e is PowerEffect).Cast<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
+            return creature.Power + GetContinuousEffects<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
         }
 
         public Card GetCard(int gameId)
@@ -968,6 +982,11 @@ namespace DuelMastersModels
                 continuousEffects.AddRange(GetContinuousEffectsGeneratedByCard(card));
             }
             return new ReadOnlyContinuousEffectCollection(continuousEffects);
+        }
+
+        private IEnumerable<T> GetContinuousEffects<T>()
+        {
+            return GetContinuousEffects().Where(e => e is T).Cast<T>();
         }
 
         private List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card)

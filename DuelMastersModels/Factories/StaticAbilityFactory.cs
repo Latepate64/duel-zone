@@ -23,6 +23,8 @@ namespace DuelMastersModels.Factories
             { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it immediately for no cost.)", typeof(SpellShieldTrigger) },
             { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(SpellShieldTrigger) },
             #endregion Shield trigger
+            { "Speed attacker (This creature doesn't get summoning sickness.)", typeof(SpeedAttacker) },
+            { "This creature attacks each turn if able.", typeof(ThisCreatureAttacksEachTurnIfAble) },
             { "This creature can't attack players.", typeof(ThisCreatureCannotAttackPlayers) },
         });
 

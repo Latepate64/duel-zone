@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -38,7 +39,14 @@ namespace DuelMastersModels.Steps
             ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             if (creatures.Count > 0)
             {
-                return new DeclareAttacker(ActivePlayer, creatures);
+                if (creatures.Any(creature => duel.AttacksIfAble(creature)))
+                {
+                    return new DeclareAttackerMandatory(ActivePlayer, creatures);
+                }
+                else
+                {
+                    return new DeclareAttacker(ActivePlayer, creatures);
+                }
             }
             else
             {

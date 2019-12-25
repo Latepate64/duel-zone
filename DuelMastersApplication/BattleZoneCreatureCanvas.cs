@@ -3,7 +3,6 @@ using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

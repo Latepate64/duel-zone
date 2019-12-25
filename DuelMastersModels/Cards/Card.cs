@@ -14,7 +14,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
-    public abstract class Card : System.ComponentModel.INotifyPropertyChanged
+    public abstract class Card
     {
         #region Constants
         private const string LightText = "Light";
@@ -45,24 +45,7 @@ namespace DuelMastersModels.Cards
         public string Text { get; private set; }
         public string Flavor { get; private set; }
         public string Illustrator { get; private set; }
-        private bool _tapped;
-        public bool Tapped
-        {
-            get => _tapped;
-            set
-            {
-                if (value != _tapped)
-                {
-                    _tapped = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        protected void NotifyPropertyChanged([System.Runtime.CompilerServices.CallerMemberName]string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
+        public bool Tapped { get; set; }
 
         public AbilityCollection Abilities { get; } = new AbilityCollection();
         public ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
@@ -70,28 +53,8 @@ namespace DuelMastersModels.Cards
 
         public bool KnownToOwner { get; set; }
         public bool KnownToOpponent { get; set; }
-
-        private bool _knownToPlayerWithPriority;
-        public bool KnownToPlayerWithPriority
-        {
-            get => _knownToPlayerWithPriority;
-            set
-            {
-                _knownToPlayerWithPriority = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private bool _knownToPlayerWithoutPriority;
-        public bool KnownToPlayerWithoutPriority
-        {
-            get => _knownToPlayerWithoutPriority;
-            set
-            {
-                _knownToPlayerWithoutPriority = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public bool KnownToPlayerWithPriority { get; set; }
+        public bool KnownToPlayerWithoutPriority { get; set; }
         #endregion Properties
 
         #region Fields
@@ -105,8 +68,6 @@ namespace DuelMastersModels.Cards
             { NoRarityText, Rarity.None },
         };
         #endregion Fields
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
         protected Card() { }
 

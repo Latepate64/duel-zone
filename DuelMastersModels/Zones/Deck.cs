@@ -25,16 +25,7 @@ namespace DuelMastersModels.Zones
         /// </summary>
         public void Shuffle()
         {
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            int n = Cards.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = random.Next(n + 1);
-                Card value = Cards[k];
-                Cards[k] = Cards[n];
-                Cards[n] = value;
-            }
+            Cards.Shuffle();
         }
 
         /// <summary>

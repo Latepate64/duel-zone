@@ -15,20 +15,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public int Power { get; private set; }
         public Collection<string> Races { get; } = new Collection<string>();
-
-        private bool _summoningSickness = true;
-        public bool SummoningSickness
-        {
-            get => _summoningSickness;
-            set
-            {
-                if (value != _summoningSickness)
-                {
-                    _summoningSickness = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+        public bool SummoningSickness { get; set; } = true;
 
         public Creature() : base()
         {
@@ -71,7 +58,7 @@ namespace DuelMastersModels.Cards
         private Abilities.Ability ParseTriggerAbility(Player owner, string textPart)
         {
             TriggerConditionAndRemainingText triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart);
-            if (triggerCondition != null)
+            if (triggerCondition.TriggerCondition != null)
             {
                 ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(triggerCondition.RemainingText, owner);
                 if (effects != null)

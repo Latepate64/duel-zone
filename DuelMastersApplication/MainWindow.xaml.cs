@@ -1,4 +1,5 @@
-﻿using DuelMastersModels;
+﻿using DuelMastersApplication.ViewModels;
+using DuelMastersModels;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
@@ -36,7 +37,9 @@ namespace DuelMastersApplication
         const double ZoomCardCanvasMaximumWidth = ZoomCardCanvasMaximumHeight * 222 / 307;
         const double ZoomCardCanvasMaximumHeight = 500;
 
-        const string ConfigurationPath = "./configuration.xml";
+        const string ConfigurationPath = "..\\..\\configuration.xml";
+        const string ActualHeightText = "ActualHeight";
+        const string ActualWidthText = "ActualWidth";
         #endregion Constants
 
         #region Fields
@@ -49,6 +52,7 @@ namespace DuelMastersApplication
 
         Canvas _setupCanvas;
         Canvas _mainCanvas = new Canvas();
+
         ListView _listViewPlayer1Hand = new ListView() { Background = Brushes.Aqua, Name = "ListViewPriorityHand" };
         ListView _listViewPlayer1ManaZone = new ListView() { Background = Brushes.LawnGreen, Name = "ListViewPriorityManaZone" };
         ListView _listViewPlayer1BattleZone = new ListView() { Background = Brushes.PaleVioletRed, Name = "ListViewPriorityBattleZone" };
@@ -111,8 +115,8 @@ namespace DuelMastersApplication
 
         CardCanvas _zoomCardCanvas = new CardCanvas() { Width = ZoomCardCanvasMaximumWidth, Height = ZoomCardCanvasMaximumHeight, Opacity = 0, Visibility = Visibility.Hidden };
 
-        Card _zoomCard;
-        public Card ZoomCard
+        CardViewModel _zoomCard;
+        public CardViewModel ZoomCard
         {
             get { return _zoomCard; }
             set
@@ -131,6 +135,8 @@ namespace DuelMastersApplication
 
         PendingAbilitiesCanvas _activePlayerPendingAbilitiesCanvas;
         PendingAbilitiesCanvas _nonActivePlayerPendingAbilitiesCanvas;
+
+        DuelViewModel _duelViewModel = new DuelViewModel();
         #endregion Fields
 
         public MainWindow()
@@ -180,7 +186,7 @@ namespace DuelMastersApplication
             _gridPlayer2DeckAndGraveyard.RowDefinitions.Add(new RowDefinition());
 
             SetupGraveyardButton(false);
-            _textBlockPlayer2Deck.SetBinding(TextBlock.TextProperty, new Binding("Player2.Deck.Cards.Count") { Source = _duel });
+            _textBlockPlayer2Deck.SetBinding(TextBlock.TextProperty, new Binding("Player2.Deck.Cards.Count") { Source = _duelViewModel });
             _player2DeckImage.ToolTip = _textBlockPlayer2Deck;
             _buttonPlayer2Graveyard.Click += _buttonPlayer2Graveyard_Click;
 
@@ -219,7 +225,7 @@ namespace DuelMastersApplication
             _gridPlayer1DeckAndGraveyard.RowDefinitions.Add(new RowDefinition());
 
             SetupGraveyardButton(true);
-            _textBlockPlayer1Deck.SetBinding(TextBlock.TextProperty, new Binding("Player1.Deck.Cards.Count") { Source = _duel });
+            _textBlockPlayer1Deck.SetBinding(TextBlock.TextProperty, new Binding("Player1.Deck.Cards.Count") { Source = _duelViewModel });
             _player1DeckImage.ToolTip = _textBlockPlayer1Deck;
             _buttonPlayer1Graveyard.Click += _buttonPlayer1Graveyard_Click;
 
@@ -294,6 +300,10 @@ namespace DuelMastersApplication
             _duel.Player2 = configuration.Player2Configuration.ControlledByComputer ? new AIPlayer() : new Player();
             _duel.Player2.Id = 1;
             _duel.Player2.Name = configuration.Player2Configuration.Name;
+
+            _duelViewModel.Player1 = new PlayerViewModel(_duel.Player1.Name);
+            _duelViewModel.Player2 = new PlayerViewModel(_duel.Player2.Name);
+
             int gameId = 0;
 
             Collection<JsonCard> player1JsonCards, player2JsonCards;
@@ -329,22 +339,23 @@ namespace DuelMastersApplication
 
             Serialize(configuration, ConfigurationPath);
 
-            _textBlockPlayer1Name.SetBinding(TextBlock.TextProperty, new Binding("Player1.Name") { Source = _duel });
-            _textBlockPlayer2Name.SetBinding(TextBlock.TextProperty, new Binding("Player2.Name") { Source = _duel });
+            _textBlockPlayer1Name.SetBinding(TextBlock.TextProperty, new Binding("Player1.Name") { Source = _duelViewModel });
+            _textBlockPlayer2Name.SetBinding(TextBlock.TextProperty, new Binding("Player2.Name") { Source = _duelViewModel });
 
-            _listViewPlayer1BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.BattleZone.Cards") { Source = _duel });
-            _listViewPlayer1Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.Hand.Cards") { Source = _duel });
-            _listViewPlayer1ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.ManaZone.Cards") { Source = _duel });
-            _listViewPlayer2BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.BattleZone.Cards") { Source = _duel });
-            _listViewPlayer2Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.Hand.Cards") { Source = _duel });
-            _listViewPlayer2ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.ManaZone.Cards") { Source = _duel });
+            _listViewPlayer1BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.BattleZone.Cards") { Source = _duelViewModel });
+            _listViewPlayer1Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.Hand.Cards") { Source = _duelViewModel });
+            _listViewPlayer1ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player1.ManaZone.Cards") { Source = _duelViewModel });
+            _listViewPlayer2BattleZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.BattleZone.Cards") { Source = _duelViewModel });
+            _listViewPlayer2Hand.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.Hand.Cards") { Source = _duelViewModel });
+            _listViewPlayer2ManaZone.SetBinding(ItemsControl.ItemsSourceProperty, new Binding("Player2.ManaZone.Cards") { Source = _duelViewModel });
 
-            _player1ShieldZoneCanvas.Initialize(string.Format("{0}'s shield zone", _duel.Player1.Name), new Binding("Player1.ShieldZone.Cards") { Source = _duel }, this);
-            _player2ShieldZoneCanvas.Initialize(string.Format("{0}'s shield zone", _duel.Player2.Name), new Binding("Player2.ShieldZone.Cards") { Source = _duel }, this);
-            _player1GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player1.Name), new Binding("Player1.Graveyard.Cards") { Source = _duel }, this);
-            _player2GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player2.Name), new Binding("Player2.Graveyard.Cards") { Source = _duel }, this);
-            _player1HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player1.Name), new Binding("Player1.Hand.Cards") { Source = _duel }, this, showKnownToPlayerWithoutPriority: false);
-            _player2HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player2.Name), new Binding("Player2.Hand.Cards") { Source = _duel }, this, showKnownToPlayerWithoutPriority: false);
+            _player1ShieldZoneCanvas.Initialize(string.Format("{0}'s shield zone", _duel.Player1.Name), new Binding("Player1.ShieldZone.Cards") { Source = _duelViewModel }, this);
+            _player2ShieldZoneCanvas.Initialize(string.Format("{0}'s shield zone", _duel.Player2.Name), new Binding("Player2.ShieldZone.Cards") { Source = _duelViewModel }, this);
+            _player1GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player1.Name), new Binding("Player1.Graveyard.Cards") { Source = _duelViewModel }, this);
+            _player2GraveyardCanvas.Initialize(string.Format("{0}'s graveyard", _duel.Player2.Name), new Binding("Player2.Graveyard.Cards") { Source = _duelViewModel }, this);
+
+            _player1HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player1.Name), new Binding("Player1.Hand.Cards") { Source = _duelViewModel }, this, showKnownToPlayerWithoutPriority: false);
+            _player2HandCanvas.Initialize(string.Format("{0}'s hand", _duel.Player2.Name), new Binding("Player2.Hand.Cards") { Source = _duelViewModel }, this, showKnownToPlayerWithoutPriority: false);
 
             BindCardCanvasToListView(_listViewPlayer1Hand);
             BindCardCanvasToListView(_listViewPlayer2Hand);
@@ -353,6 +364,7 @@ namespace DuelMastersApplication
             BindManaZoneCardCanvasToListView(_listViewPlayer1ManaZone);
             BindManaZoneCardCanvasToListView(_listViewPlayer2ManaZone);
 
+            _duelViewModel.Update(_duel);
             UpdateZoomCard(0);
             BindZoomCardCanvas();
 
@@ -460,96 +472,11 @@ namespace DuelMastersApplication
 
                     if (playerAction.Player == _duel.Player1)
                     {
-                        Grid.SetColumn(_listViewPlayer1Hand, 0);
-                        Grid.SetRow(_listViewPlayer1Hand, 4);
-                        _centerGrid.Children.Add(_listViewPlayer1Hand);
-
-                        Grid.SetColumn(_listViewPlayer1ManaZone, 0);
-                        Grid.SetRow(_listViewPlayer1ManaZone, 3);
-                        _centerGrid.Children.Add(_listViewPlayer1ManaZone);
-
-                        Grid.SetColumn(_listViewPlayer1BattleZone, 0);
-                        Grid.SetRow(_listViewPlayer1BattleZone, 2);
-                        _centerGrid.Children.Add(_listViewPlayer1BattleZone);
-
-                        Grid.SetColumn(_listViewPlayer2BattleZone, 0);
-                        Grid.SetRow(_listViewPlayer2BattleZone, 1);
-                        _centerGrid.Children.Add(_listViewPlayer2BattleZone);
-
-                        Grid.SetColumn(_listViewPlayer2ManaZone, 0);
-                        Grid.SetRow(_listViewPlayer2ManaZone, 0);
-                        _centerGrid.Children.Add(_listViewPlayer2ManaZone);
-
-
-                        Grid.SetColumn(_gridPlayer2ShieldsAndHand, 0);
-                        Grid.SetRow(_gridPlayer2ShieldsAndHand, 1);
-                        _rightGrid.Children.Add(_gridPlayer2ShieldsAndHand);
-
-                        Grid.SetColumn(_gridPlayer2DeckAndGraveyard, 0);
-                        Grid.SetRow(_gridPlayer2DeckAndGraveyard, 2);
-                        _rightGrid.Children.Add(_gridPlayer2DeckAndGraveyard);
-
-                        Grid.SetColumn(_gridPlayer1DeckAndGraveyard, 0);
-                        Grid.SetRow(_gridPlayer1DeckAndGraveyard, 5);
-                        _rightGrid.Children.Add(_gridPlayer1DeckAndGraveyard);
-
-                        Grid.SetColumn(_gridPlayer1ShieldsAndHand, 0);
-                        Grid.SetRow(_gridPlayer1ShieldsAndHand, 6);
-                        _rightGrid.Children.Add(_gridPlayer1ShieldsAndHand);
-
-                        Grid.SetColumn(_textBlockPlayer2Name, 0);
-                        Grid.SetRow(_textBlockPlayer2Name, 0);
-                        _rightGrid.Children.Add(_textBlockPlayer2Name);
-
-                        Grid.SetColumn(_textBlockPlayer1Name, 0);
-                        Grid.SetRow(_textBlockPlayer1Name, 7);
-                        _rightGrid.Children.Add(_textBlockPlayer1Name);
+                        UpdateForPlayer1();
                     }
                     else
                     {
-                        Grid.SetColumn(_listViewPlayer1ManaZone, 0);
-                        Grid.SetRow(_listViewPlayer1ManaZone, 0);
-                        _centerGrid.Children.Add(_listViewPlayer1ManaZone);
-
-                        Grid.SetColumn(_listViewPlayer1BattleZone, 0);
-                        Grid.SetRow(_listViewPlayer1BattleZone, 1);
-                        _centerGrid.Children.Add(_listViewPlayer1BattleZone);
-
-                        Grid.SetColumn(_listViewPlayer2BattleZone, 0);
-                        Grid.SetRow(_listViewPlayer2BattleZone, 2);
-                        _centerGrid.Children.Add(_listViewPlayer2BattleZone);
-
-                        Grid.SetColumn(_listViewPlayer2ManaZone, 0);
-                        Grid.SetRow(_listViewPlayer2ManaZone, 3);
-                        _centerGrid.Children.Add(_listViewPlayer2ManaZone);
-
-                        Grid.SetColumn(_listViewPlayer2Hand, 0);
-                        Grid.SetRow(_listViewPlayer2Hand, 4);
-                        _centerGrid.Children.Add(_listViewPlayer2Hand);
-
-                        Grid.SetColumn(_gridPlayer2ShieldsAndHand, 0);
-                        Grid.SetRow(_gridPlayer2ShieldsAndHand, 6);
-                        _rightGrid.Children.Add(_gridPlayer2ShieldsAndHand);
-
-                        Grid.SetColumn(_gridPlayer2DeckAndGraveyard, 0);
-                        Grid.SetRow(_gridPlayer2DeckAndGraveyard, 5);
-                        _rightGrid.Children.Add(_gridPlayer2DeckAndGraveyard);
-
-                        Grid.SetColumn(_gridPlayer1DeckAndGraveyard, 0);
-                        Grid.SetRow(_gridPlayer1DeckAndGraveyard, 2);
-                        _rightGrid.Children.Add(_gridPlayer1DeckAndGraveyard);
-
-                        Grid.SetColumn(_gridPlayer1ShieldsAndHand, 0);
-                        Grid.SetRow(_gridPlayer1ShieldsAndHand, 1);
-                        _rightGrid.Children.Add(_gridPlayer1ShieldsAndHand);
-
-                        Grid.SetColumn(_textBlockPlayer1Name, 0);
-                        Grid.SetRow(_textBlockPlayer1Name, 0);
-                        _rightGrid.Children.Add(_textBlockPlayer1Name);
-
-                        Grid.SetColumn(_textBlockPlayer2Name, 0);
-                        Grid.SetRow(_textBlockPlayer2Name, 7);
-                        _rightGrid.Children.Add(_textBlockPlayer2Name);
+                        UpdateForPlayer2();
                     }
 
                     Grid.SetColumn(_actionTextBlock, 0);
@@ -563,14 +490,7 @@ namespace DuelMastersApplication
                     _centerGrid.BeginAnimation(OpacityProperty, new DoubleAnimation(0.5, 1.0, new Duration(new TimeSpan(0, 0, 2))));
                 }
 
-                _textBlockPlayer1Shields.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer2Shields.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer1Hand.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer2Hand.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer1Graveyard.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer2Graveyard.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer1Deck.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
-                _textBlockPlayer2Deck.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+                UpdateTargets();
 
                 _actionButton.Content = "";
                 _actionButton.IsEnabled = false;
@@ -580,74 +500,203 @@ namespace DuelMastersApplication
                 HideZoneCanvases();
                 _activePlayerPendingAbilitiesCanvas.Visibility = Visibility.Hidden;
                 _nonActivePlayerPendingAbilitiesCanvas.Visibility = Visibility.Hidden;
+                UpdatePlayerAction(playerAction);
 
-                if (playerAction is CardSelection cardSelection)
+                //TODO: View model
+                _duelViewModel.Update(_duel);
+            }
+        }
+
+        private void UpdateTargets()
+        {
+            _textBlockPlayer1Shields.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer2Shields.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer1Hand.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer2Hand.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer1Graveyard.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer2Graveyard.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer1Deck.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            _textBlockPlayer2Deck.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+        }
+
+        
+
+        private void UpdateForPlayer1()
+        {
+            Grid.SetColumn(_listViewPlayer1Hand, 0);
+            Grid.SetRow(_listViewPlayer1Hand, 4);
+            _centerGrid.Children.Add(_listViewPlayer1Hand);
+
+            Grid.SetColumn(_listViewPlayer1ManaZone, 0);
+            Grid.SetRow(_listViewPlayer1ManaZone, 3);
+            _centerGrid.Children.Add(_listViewPlayer1ManaZone);
+
+            Grid.SetColumn(_listViewPlayer1BattleZone, 0);
+            Grid.SetRow(_listViewPlayer1BattleZone, 2);
+            _centerGrid.Children.Add(_listViewPlayer1BattleZone);
+
+            Grid.SetColumn(_listViewPlayer2BattleZone, 0);
+            Grid.SetRow(_listViewPlayer2BattleZone, 1);
+            _centerGrid.Children.Add(_listViewPlayer2BattleZone);
+
+            Grid.SetColumn(_listViewPlayer2ManaZone, 0);
+            Grid.SetRow(_listViewPlayer2ManaZone, 0);
+            _centerGrid.Children.Add(_listViewPlayer2ManaZone);
+
+
+            Grid.SetColumn(_gridPlayer2ShieldsAndHand, 0);
+            Grid.SetRow(_gridPlayer2ShieldsAndHand, 1);
+            _rightGrid.Children.Add(_gridPlayer2ShieldsAndHand);
+
+            Grid.SetColumn(_gridPlayer2DeckAndGraveyard, 0);
+            Grid.SetRow(_gridPlayer2DeckAndGraveyard, 2);
+            _rightGrid.Children.Add(_gridPlayer2DeckAndGraveyard);
+
+            Grid.SetColumn(_gridPlayer1DeckAndGraveyard, 0);
+            Grid.SetRow(_gridPlayer1DeckAndGraveyard, 5);
+            _rightGrid.Children.Add(_gridPlayer1DeckAndGraveyard);
+
+            Grid.SetColumn(_gridPlayer1ShieldsAndHand, 0);
+            Grid.SetRow(_gridPlayer1ShieldsAndHand, 6);
+            _rightGrid.Children.Add(_gridPlayer1ShieldsAndHand);
+
+            Grid.SetColumn(_textBlockPlayer2Name, 0);
+            Grid.SetRow(_textBlockPlayer2Name, 0);
+            _rightGrid.Children.Add(_textBlockPlayer2Name);
+
+            Grid.SetColumn(_textBlockPlayer1Name, 0);
+            Grid.SetRow(_textBlockPlayer1Name, 7);
+            _rightGrid.Children.Add(_textBlockPlayer1Name);
+        }
+
+        private void UpdateForPlayer2()
+        {
+            Grid.SetColumn(_listViewPlayer1ManaZone, 0);
+            Grid.SetRow(_listViewPlayer1ManaZone, 0);
+            _centerGrid.Children.Add(_listViewPlayer1ManaZone);
+
+            Grid.SetColumn(_listViewPlayer1BattleZone, 0);
+            Grid.SetRow(_listViewPlayer1BattleZone, 1);
+            _centerGrid.Children.Add(_listViewPlayer1BattleZone);
+
+            Grid.SetColumn(_listViewPlayer2BattleZone, 0);
+            Grid.SetRow(_listViewPlayer2BattleZone, 2);
+            _centerGrid.Children.Add(_listViewPlayer2BattleZone);
+
+            Grid.SetColumn(_listViewPlayer2ManaZone, 0);
+            Grid.SetRow(_listViewPlayer2ManaZone, 3);
+            _centerGrid.Children.Add(_listViewPlayer2ManaZone);
+
+            Grid.SetColumn(_listViewPlayer2Hand, 0);
+            Grid.SetRow(_listViewPlayer2Hand, 4);
+            _centerGrid.Children.Add(_listViewPlayer2Hand);
+
+            Grid.SetColumn(_gridPlayer2ShieldsAndHand, 0);
+            Grid.SetRow(_gridPlayer2ShieldsAndHand, 6);
+            _rightGrid.Children.Add(_gridPlayer2ShieldsAndHand);
+
+            Grid.SetColumn(_gridPlayer2DeckAndGraveyard, 0);
+            Grid.SetRow(_gridPlayer2DeckAndGraveyard, 5);
+            _rightGrid.Children.Add(_gridPlayer2DeckAndGraveyard);
+
+            Grid.SetColumn(_gridPlayer1DeckAndGraveyard, 0);
+            Grid.SetRow(_gridPlayer1DeckAndGraveyard, 2);
+            _rightGrid.Children.Add(_gridPlayer1DeckAndGraveyard);
+
+            Grid.SetColumn(_gridPlayer1ShieldsAndHand, 0);
+            Grid.SetRow(_gridPlayer1ShieldsAndHand, 1);
+            _rightGrid.Children.Add(_gridPlayer1ShieldsAndHand);
+
+            Grid.SetColumn(_textBlockPlayer1Name, 0);
+            Grid.SetRow(_textBlockPlayer1Name, 0);
+            _rightGrid.Children.Add(_textBlockPlayer1Name);
+
+            Grid.SetColumn(_textBlockPlayer2Name, 0);
+            Grid.SetRow(_textBlockPlayer2Name, 7);
+            _rightGrid.Children.Add(_textBlockPlayer2Name);
+        }
+        private void UpdatePlayerAction(PlayerAction playerAction)
+        {
+            if (playerAction is CardSelection cardSelection)
+            {
+                UpdateCardSelection(cardSelection);
+            }
+            else if (playerAction is CreatureSelection creatureSelection)
+            {
+                UpdateCreatureSelection(creatureSelection);
+            }
+            else if (playerAction is OptionalAction optionalAction)
+            {
+                _actionButton.IsEnabled = true;
+                _actionButton.Content = "Take action";
+                _actionButtonGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+                if (optionalAction is YouMayDrawACard youMayDrawACard)
                 {
-                    if (cardSelection is OptionalCardSelection optionalCardSelection)
-                    {
-                        UpdateOptionalCardSelection(optionalCardSelection);
-                    }
-                    else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
-                    {
-                        UpdateMandatoryMultipleCardSelection(mandatoryMultipleCardSelection);
-                    }
-                    else if (cardSelection is MultipleCardSelection multipleCardSelection)
-                    {
-                        UpdateMultipleCardSelection(multipleCardSelection);
-                    }
-                    else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
-                    {
-                        UpdateMandatoryCardSelection(mandatoryCardSelection);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Unknown card selection.");
-                    }
-                }
-                else if (playerAction is CreatureSelection creatureSelection)
-                {
-                    if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
-                    {
-                        UpdateOptionalCreatureSelection(optionalCreatureSelection);
-                    }
-                    else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
-                    {
-                        if (mandatoryCreatureSelection is ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone)
-                        {
-                            _actionTextBlock.Text = "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.";
-                        }
-                        else
-                        {
-                            throw new ArgumentException("Unknown mandatory creature selection.");
-                        }
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Unknown creature selection.");
-                    }
-                }
-                else if (playerAction is OptionalAction optionalAction)
-                {
-                    _actionButton.IsEnabled = true;
-                    _actionButton.Content = "Take action";
-                    _actionButtonGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
-                    if (optionalAction is YouMayDrawACard youMayDrawACard)
-                    {
-                        _actionTextBlock.Text = "You may draw a card.";
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Unknown optional action.");
-                    }
-                }
-                else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
-                {
-                    UpdateSelectAbilityToResolve(selectAbilityToResolve);
+                    _actionTextBlock.Text = "You may draw a card.";
                 }
                 else
                 {
-                    throw new ArgumentException("Unknown player action.");
+                    throw new ArgumentException("Unknown optional action.");
                 }
+            }
+            else if (playerAction is SelectAbilityToResolve selectAbilityToResolve)
+            {
+                UpdateSelectAbilityToResolve(selectAbilityToResolve);
+            }
+            else
+            {
+                throw new ArgumentException("Unknown player action.");
+            }
+        }
+
+        private void UpdateCreatureSelection(CreatureSelection creatureSelection)
+        {
+            if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
+            {
+                UpdateOptionalCreatureSelection(optionalCreatureSelection);
+            }
+            else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
+            {
+                if (mandatoryCreatureSelection is ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone)
+                {
+                    _actionTextBlock.Text = "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.";
+                }
+                else if (mandatoryCreatureSelection is DeclareAttackerMandatory)
+                {
+                    _actionTextBlock.Text = "Declare a creature to attack with.";
+                }
+                else
+                {
+                    throw new ArgumentException("Unknown mandatory creature selection.");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Unknown creature selection.");
+            }
+        }
+
+        private void UpdateCardSelection(CardSelection cardSelection)
+        {
+            if (cardSelection is OptionalCardSelection optionalCardSelection)
+            {
+                UpdateOptionalCardSelection(optionalCardSelection);
+            }
+            else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+            {
+                UpdateMandatoryMultipleCardSelection(mandatoryMultipleCardSelection);
+            }
+            else if (cardSelection is MultipleCardSelection multipleCardSelection)
+            {
+                UpdateMultipleCardSelection(multipleCardSelection);
+            }
+            else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
+            {
+                UpdateMandatoryCardSelection(mandatoryCardSelection);
+            }
+            else
+            {
+                throw new ArgumentException("Unknown card selection.");
             }
         }
 
@@ -848,12 +897,10 @@ namespace DuelMastersApplication
         {
             listView.ItemsPanel = new ItemsPanelTemplate() { VisualTree = StackPanelFactory};
 
-            cardCanvasFactory.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale });
-            cardCanvasFactory.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale * multiplier });
+            cardCanvasFactory.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale });
+            cardCanvasFactory.SetBinding(WidthProperty, new Binding(ActualHeightText) { Source = listView, Converter = new ListViewSizeToCardCanvasSizeConverter(), ConverterParameter = listViewScale * multiplier });
 
             cardCanvasFactory.SetBinding(RectangleCardCanvas.CardNameProperty, new Binding("Name"));
-
-            //TODO: Think how to fetch power dynamically.
             cardCanvasFactory.SetBinding(RectangleCardCanvas.PowerProperty, new Binding("Power"));
 
             cardCanvasFactory.SetBinding(AbstractCardCanvas.GameIdProperty, new Binding("GameId"));
@@ -863,7 +910,10 @@ namespace DuelMastersApplication
             multiBinding.Bindings.Add(new Binding("Set"));
             multiBinding.Bindings.Add(new Binding("Id"));
             cardCanvasFactory.SetBinding(AbstractCardCanvas.SetAndIdProperty, multiBinding);
+
+            //TDO: Source to _duelViewModel
             cardCanvasFactory.SetBinding(AbstractCardCanvas.CandidateGameIdsProperty, new Binding("CurrentPlayerAction") { Converter = new PlayerActionToIntCollectionConverter(), Source = _duel });
+
             cardCanvasFactory.SetBinding(AbstractCardCanvas.SelectedGameIdsProperty, new Binding("SelectedCards") { Converter = new CardCollectionToIntCollectionConverter(), Source = this });
             cardCanvasFactory.SetBinding(AbstractCardCanvas.MainWindowProperty, new Binding() { Source = this });
 
@@ -1058,6 +1108,13 @@ namespace DuelMastersApplication
                             LogMessages.Add(string.Format("{0} put {1} from their mana zone into the battle zone.", _duel.GetOwner(c.SelectedCreature).Name, c.SelectedCreature.Name));
                         }
                     }
+                    else if (mandatoryCreatureSelection is DeclareAttackerMandatory declareAttackerMandatory)
+                    {
+                        if (declareAttackerMandatory.SelectedCreature != null)
+                        {
+                            LogMessages.Add(string.Format("{0} declared {1} as an attacking creature.", declareAttackerMandatory.Player.Name, declareAttackerMandatory.SelectedCreature.Name));
+                        }
+                    }
                     else
                     {
                         throw new InvalidOperationException("mandatoryCreatureSelection");
@@ -1097,17 +1154,17 @@ namespace DuelMastersApplication
                     Stretch = Stretch.Fill,
                 },
             };
-            canvasPlayerShields.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = buttonShields });
-            canvasPlayerShields.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = buttonShields });
+            canvasPlayerShields.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = buttonShields });
+            canvasPlayerShields.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = buttonShields });
 
             Grid gridPlayerShields = new Grid();
             gridPlayerShields.ColumnDefinitions.Add(new ColumnDefinition());
             gridPlayerShields.RowDefinitions.Add(new RowDefinition());
 
-            gridPlayerShields.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = canvasPlayerShields });
-            gridPlayerShields.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = canvasPlayerShields });
+            gridPlayerShields.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = canvasPlayerShields });
+            gridPlayerShields.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = canvasPlayerShields });
 
-            textBlockShields.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.ShieldZone.Cards.Count", playerName)) { Source = _duel });
+            textBlockShields.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.ShieldZone.Cards.Count", playerName)) { Source = _duelViewModel });
             gridPlayerShields.Children.Add(textBlockShields);
             canvasPlayerShields.Children.Add(gridPlayerShields);
 
@@ -1133,17 +1190,17 @@ namespace DuelMastersApplication
                     Stretch = Stretch.Fill,
                 },
             };
-            canvasPlayerHand.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = buttonHand });
-            canvasPlayerHand.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = buttonHand });
+            canvasPlayerHand.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = buttonHand });
+            canvasPlayerHand.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = buttonHand });
 
             Grid gridPlayerHand = new Grid();
             gridPlayerHand.ColumnDefinitions.Add(new ColumnDefinition());
             gridPlayerHand.RowDefinitions.Add(new RowDefinition());
 
-            gridPlayerHand.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = canvasPlayerHand });
-            gridPlayerHand.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = canvasPlayerHand });
+            gridPlayerHand.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = canvasPlayerHand });
+            gridPlayerHand.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = canvasPlayerHand });
 
-            textBlockHand.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.Hand.Cards.Count", playerName)) { Source = _duel });
+            textBlockHand.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.Hand.Cards.Count", playerName)) { Source = _duelViewModel });
             gridPlayerHand.Children.Add(textBlockHand);
             canvasPlayerHand.Children.Add(gridPlayerHand);
 
@@ -1169,17 +1226,17 @@ namespace DuelMastersApplication
                     Stretch = Stretch.Fill,
                 },
             };
-            canvasPlayerGraveyard.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = buttonGraveyard });
-            canvasPlayerGraveyard.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = buttonGraveyard });
+            canvasPlayerGraveyard.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = buttonGraveyard });
+            canvasPlayerGraveyard.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = buttonGraveyard });
 
             Grid gridPlayerGraveyard = new Grid();
             gridPlayerGraveyard.ColumnDefinitions.Add(new ColumnDefinition());
             gridPlayerGraveyard.RowDefinitions.Add(new RowDefinition());
 
-            gridPlayerGraveyard.SetBinding(HeightProperty, new Binding("ActualHeight") { Source = canvasPlayerGraveyard });
-            gridPlayerGraveyard.SetBinding(WidthProperty, new Binding("ActualWidth") { Source = canvasPlayerGraveyard });
+            gridPlayerGraveyard.SetBinding(HeightProperty, new Binding(ActualHeightText) { Source = canvasPlayerGraveyard });
+            gridPlayerGraveyard.SetBinding(WidthProperty, new Binding(ActualWidthText) { Source = canvasPlayerGraveyard });
 
-            textBlockGraveyard.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.Graveyard.Cards.Count", playerName)) { Source = _duel });
+            textBlockGraveyard.SetBinding(TextBlock.TextProperty, new Binding(string.Format("{0}.Graveyard.Cards.Count", playerName)) { Source = _duelViewModel });
             gridPlayerGraveyard.Children.Add(textBlockGraveyard);
             canvasPlayerGraveyard.Children.Add(gridPlayerGraveyard);
 
@@ -1201,7 +1258,7 @@ namespace DuelMastersApplication
 
         private void UpdateZoomCard(int gameId)
         {
-            ZoomCard = _duel.GetCard(gameId);
+            ZoomCard = _duelViewModel.GetCard(gameId);
         }
 
         private void ToggleVisibility(UIElement uiElement)
@@ -1250,8 +1307,7 @@ namespace DuelMastersApplication
             Canvas.SetTop(_setupCanvas, (e.NewSize.Height - _setupCanvas.Height) / 2);
 
             Canvas.SetTop(_zoomCardCanvas, (e.NewSize.Height - _zoomCardCanvas.Height) / 2);
-            List<Canvas> canvases = new List<Canvas>() { _player1ShieldZoneCanvas, _player2ShieldZoneCanvas, _player1GraveyardCanvas, _player2GraveyardCanvas, _player1HandCanvas, _player2HandCanvas, _activePlayerPendingAbilitiesCanvas, _nonActivePlayerPendingAbilitiesCanvas };
-            foreach (Canvas canvas in canvases)
+            foreach (Canvas canvas in new List<Canvas>() { _player1ShieldZoneCanvas, _player2ShieldZoneCanvas, _player1GraveyardCanvas, _player2GraveyardCanvas, _player1HandCanvas, _player2HandCanvas, _activePlayerPendingAbilitiesCanvas, _nonActivePlayerPendingAbilitiesCanvas })
             {
                 canvas.Width = 0.6 * e.NewSize.Width;
                 canvas.Height = 0.35 * e.NewSize.Height;
@@ -1516,11 +1572,11 @@ namespace DuelMastersApplication
             {
                 return "Evolution Creature";
             }
-            else if (type == typeof(Creature))
+            else if (type == typeof(CreatureViewModel))
             {
                 return "Creature";
             }
-            else if (type == typeof(Spell))
+            else if (type == typeof(SpellViewModel))
             {
                 return "Spell";
             }

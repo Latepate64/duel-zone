@@ -8,7 +8,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
-        public ObservableCardCollection Cards { get; } = new ObservableCardCollection();
+        public CardCollection Cards { get; } = new CardCollection();
 
         #region ReadOnlyCardCollection
         public ReadOnlyCardCollection TappedCards => Cards.TappedCards;

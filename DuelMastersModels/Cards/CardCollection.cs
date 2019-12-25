@@ -4,12 +4,46 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
+    /// <summary>
+    /// TODO: To be removed
+    /// </summary>
     public class ObservableCardCollection : ObservableCollection<Card>
     {
         public ObservableCardCollection() { }
 
         public ObservableCardCollection(ObservableCardCollection list) : base(list)
         {
+        }
+    }
+
+    public class CardCollection : ReadOnlyCardCollection
+    {
+        public CardCollection() : base(new List<Card>())
+        {
+        }
+
+        public void Add(Card card)
+        {
+            Items.Add(card);
+        }
+
+        public void Remove(Card card)
+        {
+            Items.Remove(card);
+        }
+
+        public void Shuffle()
+        {
+            System.Random random = new System.Random(System.Guid.NewGuid().GetHashCode());
+            int n = Items.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Card value = Items[k];
+                Items[k] = Items[n];
+                Items[n] = value;
+            }
         }
 
         #region ReadOnlyCardCollection
@@ -29,23 +63,6 @@ namespace DuelMastersModels.Cards
         public ReadOnlyCreatureCollection NonEvolutionCreatures => new ReadOnlyCreatureCollection(Creatures.Where(c => !(c is EvolutionCreature)));
         public ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection(NonEvolutionCreatures.Where(c => c.Cost <= Items.Count));
         #endregion ReadOnlyCreatureCollection
-    }
-
-    public class CardCollection : ReadOnlyCardCollection
-    {
-        public CardCollection() : base(new List<Card>())
-        {
-        }
-
-        public void Add(Card card)
-        {
-            Items.Add(card);
-        }
-
-        public void Remove(Card card)
-        {
-            Items.Remove(card);
-        }
     }
 
     public class ReadOnlyCardCollection : ReadOnlyCollection<Card>

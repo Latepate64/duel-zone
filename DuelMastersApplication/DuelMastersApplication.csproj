@@ -65,6 +65,12 @@
     <Compile Include="PendingAbilitiesCanvas.cs" />
     <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />
+    <Compile Include="ViewModels\CardViewModel.cs" />
+    <Compile Include="ViewModels\CreatureViewModel.cs" />
+    <Compile Include="ViewModels\DuelViewModel.cs" />
+    <Compile Include="ViewModels\PlayerViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewModel.cs" />
+    <Compile Include="ViewModels\ZoneViewModel.cs" />
     <Compile Include="ZoneCanvas.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
