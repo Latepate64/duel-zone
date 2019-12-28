@@ -67,6 +67,9 @@ namespace DuelMastersModels.Cards
 
     public class ReadOnlyCardCollection : ReadOnlyCollection<Card>
     {
+        public ReadOnlyCardCollection() : base(new List<Card>())
+        { }
+
         public ReadOnlyCardCollection(IEnumerable<Card> cards) : base(cards.ToList()) { }
 
         public ReadOnlyCardCollection(Card card) : base(new List<Card>() { card }) { }

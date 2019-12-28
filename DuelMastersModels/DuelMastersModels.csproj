@@ -26,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>DuelMasters.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>bin\Debug\DuelMastersModels.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,15 +38,15 @@
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.4.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,7 +102,6 @@
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
-    <Compile Include="Cards\JsonCard.cs" />
     <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
@@ -132,9 +132,7 @@
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Factories\AbilityTypeFactory.cs" />
-    <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="Factories\EffectFactory.cs" />
-    <Compile Include="Factories\JsonCardFactory.cs" />
     <Compile Include="Factories\StaticAbilityFactory.cs" />
     <Compile Include="Factories\TriggerConditionFactory.cs" />
     <Compile Include="GameActions\GameAction.cs" />
@@ -154,7 +152,6 @@
     <Compile Include="PlayerActions\CardSelections\BreakShields.cs" />
     <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
     <Compile Include="PlayerActionResponses\CardSelectionResponse.cs" />
-    <Compile Include="PlayerActionResponses\DeclareAttackResponse.cs" />
     <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
@@ -195,7 +192,6 @@
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />
     <Compile Include="Turn.cs" />
-    <Compile Include="XmlDeck.cs" />
     <Compile Include="Zones\BattleZone.cs" />
     <Compile Include="Zones\Deck.cs" />
     <Compile Include="Zones\Graveyard.cs" />

@@ -6,8 +6,6 @@ namespace DuelMastersModels.PlayerActionResponses
     {
         public ReadOnlyCardCollection SelectedCards { get; }
 
-        public CardSelectionResponse() { }
-
         public CardSelectionResponse(ReadOnlyCardCollection selectedCards)
         {
             SelectedCards = selectedCards;

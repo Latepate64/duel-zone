@@ -50,7 +50,7 @@ namespace UnitTests
             duel.Progress(new CardSelectionResponse());
             declareAttack = duel.Progress(new CardSelectionResponse()) as DeclareAttack;
         }
-        */
+        
         private Duel GetDuel()
         {
             Duel duel = new Duel()
@@ -83,17 +83,9 @@ namespace UnitTests
 
         private Creature GetTestCreature(int gameId)
         {
-            Creature creature = new Creature()
-            {
-                Cost = 1,
-                GameId = gameId,
-                Name = "TestCreature",
-                Power = 1000,
-            };
-            creature.Civilizations.Add(Civilization.Light);
-            creature.Races.Add("Initiate");
+            Creature creature = new Creature(name: "TestCreature", null, null, civilizations: new Collection<string>() { "Light" }, null, cost: 1, null, null, null, gameId: gameId, power: "1000", races: new Collection<string>() { "Initiate" }, null);
             //creature.StaticAbilities.Add(new Blocker());
             return creature;
-        }
+        }*/
     }
 }

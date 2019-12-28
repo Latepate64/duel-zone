@@ -18,10 +18,24 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
+    /// <summary>
+    /// Specifies the player who goes first in the duel.
+    /// </summary>
     public enum StartingPlayer
     {
+        /// <summary>
+        /// Player 1 goes first.
+        /// </summary>
         Player1 = 0,
+        
+        /// <summary>
+        /// Player 2 goes first.
+        /// </summary>
         Player2 = 1,
+
+        /// <summary>
+        /// Player who goes first is randomized.
+        /// </summary>
         Random = 2,
     }
 
@@ -31,7 +45,14 @@ namespace DuelMastersModels
     public class Duel : System.ComponentModel.INotifyPropertyChanged
     {
         #region Properties
+        /// <summary>
+        /// A player that participates in duel against player 2.
+        /// </summary>
         public Player Player1 { get; set; }
+
+        /// <summary>
+        /// A player that participates in duel against player 1.
+        /// </summary>
         public Player Player2 { get; set; }
 
         /// <summary>
@@ -45,7 +66,7 @@ namespace DuelMastersModels
         public Collection<Player> Losers { get; } = new Collection<Player>();
 
         /// <summary>
-        /// True if the duel has ended, false otherwise.
+        /// Determines whether duel has ended or not.
         /// </summary>
         public bool Ended { get; private set; }
 
@@ -69,8 +90,14 @@ namespace DuelMastersModels
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
 
+        /// <summary>
+        /// An event that occurs if a property of duel changes.
+        /// </summary>
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// An action a player is currently performing.
+        /// </summary>
         public PlayerAction CurrentPlayerAction
         {
             get => _currentPlayerAction;
@@ -85,10 +112,21 @@ namespace DuelMastersModels
         }
         private PlayerAction _currentPlayerAction;
 
+        /// <summary>
+        /// Spells that are being resolved.
+        /// </summary>
         public SpellCollection SpellsBeingResolved { get; } = new SpellCollection();
 
+
+        /// <summary>
+        /// Abilities that could not be parsed.
+        /// </summary>
+        //todo: Not parsed abilities should be thrown as an exception, not to be saved to any collection like this.
         public static Collection<string> NotParsedAbilities { get; } = new Collection<string>();
 
+        /// <summary>
+        /// All creatures that are in the battle zone.
+        /// </summary>
         public ReadOnlyCreatureCollection CreaturesInTheBattleZone
         {
             get
@@ -99,12 +137,24 @@ namespace DuelMastersModels
             }
         }
 
+        /// <summary>
+        /// A non-static ability that is currently being resolved.
+        /// </summary>
         public NonStaticAbility AbilityBeingResolved { get; set; }
 
+        /// <summary>
+        /// Non-static abilities that are waiting to be resolved.
+        /// </summary>
         public Collection<NonStaticAbility> PendingAbilities { get; } = new Collection<NonStaticAbility>();
 
+        /// <summary>
+        /// Non-static abilities controlled by active player that are waiting to be resolved.
+        /// </summary>
         public ObservableCollection<NonStaticAbility> PendingAbilitiesForActivePlayer => new ObservableCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
 
+        /// <summary>
+        /// Non-static abilities controlled by non-active player that are waiting to be resolved.
+        /// </summary>
         public ObservableCollection<NonStaticAbility> PendingAbilitiesForNonActivePlayer => new ObservableCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
 
         /// <summary>
@@ -112,6 +162,9 @@ namespace DuelMastersModels
         /// </summary>
         public ObservableContinuousEffectCollection ContinuousEffects { get; } = new ObservableContinuousEffectCollection();
 
+        /// <summary>
+        /// Cards the player drew at the start of duel.
+        /// </summary>
         public ObservableCollection<Card> CardsDrawnAtTheStartOfDuel { get; } = new ObservableCollection<Card>();
         #endregion Properties
 
@@ -140,6 +193,11 @@ namespace DuelMastersModels
             }
         }
 
+        /// <summary>
+        /// Returns player with target identifier.
+        /// </summary>
+        /// <param name="id">Identifier the player should have.</param>
+        /// <returns>Player with target identifier.</returns>
         public Player GetPlayer(int id)
         {
             if (Player1.Id == id)

@@ -3,12 +3,18 @@ using DuelMastersModels.PlayerActions;
 
 namespace DuelMastersModels.Abilities
 {
+    /// <summary>
+    /// Abstract class for spell, activated and trigger abilities. Non-static abilities are resolvable abilities.
+    /// </summary>
     public abstract class NonStaticAbility : Ability
     {
+        /// <summary>
+        /// Abilities can generate one-shot effects or continuous effects.
+        /// </summary>
         public ReadOnlyOneShotEffectCollection Effects { get; private set; }
 
         /// <summary>
-        /// 113.8. The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered. To determine the controller of a delayed triggered ability, see rules 603.7d–f.
+        /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
         public Player Controller { get; set; }
 
@@ -19,6 +25,12 @@ namespace DuelMastersModels.Abilities
 
         private int _effectIndex = 0;
 
+        /// <summary>
+        /// Used in creating non-static abilities.
+        /// </summary>
+        /// <param name="effects">Effects the ability generates.</param>
+        /// <param name="controller">Player who controls the ability.</param>
+        /// <param name="source">Object that generated the ability.</param>
         protected NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card source)
         {
             Effects = effects;
@@ -30,7 +42,6 @@ namespace DuelMastersModels.Abilities
         /// Applies the next effect generated due to the resolution of the ability. Returns null after all effects of the ability have been applied.
         /// </summary>
         /// <param name="duel"></param>
-        /// <param name="player"></param>
         /// <returns></returns>
         public PlayerActionWithEndInformation ContinueResolution(Duel duel)
         {
