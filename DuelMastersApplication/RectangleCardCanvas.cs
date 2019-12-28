@@ -113,13 +113,6 @@ namespace DuelMastersApplication
             {
                 return null;
             }
-
-            return !double.IsNaN(size)
-                ? new DoubleAnimation(2 * size, size, new Duration(new TimeSpan(0, 0, 1)))
-                {
-                    RepeatBehavior = new RepeatBehavior(1),
-                }
-                : null;
         }
 
         private static void OnCandidateGameIdsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

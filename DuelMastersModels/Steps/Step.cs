@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions;
 using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Steps
@@ -15,6 +16,7 @@ namespace DuelMastersModels.Steps
         /// All the player actions performed during the step.
         /// </summary>
         public ObservableCollection<PlayerAction> PlayerActions { get; } = new ObservableCollection<PlayerAction>();
+        public ObservableCollection<Card> DrawnCards { get; } = new ObservableCollection<Card>();
         #endregion Properties
 
         protected Step(Player activePlayer)

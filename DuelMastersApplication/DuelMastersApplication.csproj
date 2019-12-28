@@ -58,10 +58,15 @@
     <Compile Include="AbilityCanvas.cs" />
     <Compile Include="AbilityIconCanvas.cs" />
     <Compile Include="AbstractCardCanvas.cs" />
+    <Compile Include="Animations\DuelAnimation.cs" />
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ManaZoneCardCanvas.cs" />
+    <Compile Include="NewAbstractCardCanvas.cs" />
+    <Compile Include="NewCardCanvas.cs" />
+    <Compile Include="NewRectangleCardCanvas.cs" />
+    <Compile Include="NewZoneCanvas.cs" />
     <Compile Include="PendingAbilitiesCanvas.cs" />
     <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />

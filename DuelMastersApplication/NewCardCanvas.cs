@@ -8,54 +8,117 @@ using System.Windows.Media.Animation;
 
 namespace DuelMastersApplication
 {
-    public struct SetAndId
-    {
-        public string Set { get; set; }
-        public string Id { get; set; }
-    }
-
-    public class CardCanvas : RectangleCardCanvas
+    public class NewCardCanvas : NewRectangleCardCanvas
     {
         #region Constants
         const double TextOpacity = 0.7;
         const double TypeRowHeightScale = 0.93;
         #endregion Constants
 
-        #region DependencyProperties
-        public static readonly DependencyProperty CardTextProperty = DependencyProperty.Register("CardText", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTextChanged));
-        public static readonly DependencyProperty CostProperty = DependencyProperty.Register("Cost", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCostChanged));
-        public static readonly DependencyProperty CardTypeProperty = DependencyProperty.Register("CardType", typeof(string), typeof(CardCanvas), new PropertyMetadata(OnCardTypeChanged));
-        public static readonly DependencyProperty RaceProperty = DependencyProperty.Register("Races", typeof(Collection<string>), typeof(CardCanvas), new PropertyMetadata(OnRaceChanged));
-        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(ReadOnlyCivilizationCollection), typeof(CardCanvas), new PropertyMetadata(OnCivilizationsChanged));
-        public static readonly DependencyProperty KnownToPlayerWithPriorityProperty = DependencyProperty.Register("KnownToPlayerWithPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithPriorityChanged));
-        public static readonly DependencyProperty KnownToPlayerWithoutPriorityProperty = DependencyProperty.Register("KnownToPlayerWithoutPriority", typeof(bool), typeof(CardCanvas), new PropertyMetadata(OnKnownToPlayerWithoutPriorityChanged));
-        #endregion DependencyProperties
-
-        #region Other properties
-        public ReadOnlyCivilizationCollection Civilizations
-        {
-            get { return (ReadOnlyCivilizationCollection)GetValue(CivilizationProperty); }
-            set { SetValue(CivilizationProperty, value); }
+        #region Properties
+        private string _cardText;
+        public string CardText 
+        { 
+            get { return _cardText; }
+            private set
+            {
+                _cardText = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    string newCardText = System.Text.RegularExpressions.Regex.Replace(value, "\\(.*?\\)", string.Empty);
+                    if (newCardText.StartsWith("\n"))
+                    {
+                        newCardText.Remove(0, 2);
+                    }
+                    if (!string.IsNullOrEmpty(newCardText))
+                    {
+                        newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
+                        newCardText = newCardText.Replace("■ \n", string.Empty);
+                    }
+                    _textBoxCardText.Text = newCardText;
+                }
+            }
         }
 
-        public string CardText
-        {
-            get { return (string)GetValue(CardTextProperty); }
-            set { SetValue(CardTextProperty, value); }
+        private string _cost;
+        public string Cost 
+        { 
+            get { return _cost; }
+            private set
+            {
+                _cost = value;
+                _textBoxCost.Text = value;
+            }
         }
 
-        public bool Tapped
-        {
-            get { return (bool)GetValue(TappedProperty); }
-            set { SetValue(TappedProperty, value); }
+        private string _cardType;
+        public string CardType 
+        { 
+            get { return _cardType; }
+            private set
+            {
+                _cardType = value;
+                _textBoxCardType.Text = value;
+                if (value.Contains("Creature"))
+                {
+                    Artwork.HorizontalAlignment = HorizontalAlignment.Right;
+                }
+                else if (value == "Spell")
+                {
+                    Artwork.HorizontalAlignment = HorizontalAlignment.Center;
+                }
+            }
         }
 
-        public bool KnownToPlayerWithPriority
-        {
-            get { return (bool)GetValue(KnownToPlayerWithPriorityProperty); }
-            set { SetValue(KnownToPlayerWithPriorityProperty, value); }
+        public Collection<string> Races { get; private set; }
+        public ReadOnlyCivilizationCollection Civilizations { get; private set; }
+
+        private bool _knownToPlayerWithPriority;
+        public bool KnownToPlayerWithPriority 
+        { 
+            get { return _knownToPlayerWithPriority; }
+            private set
+            {
+                _knownToPlayerWithPriority = value;
+                if (value)
+                {
+                    _imageCardBack.Visibility = Visibility.Hidden;
+                    MouseEnter += AbstractCardCanvas_MouseEnter;
+                    MouseLeave += AbstractCardCanvas_MouseLeave;
+                }
+                else
+                {
+                    _imageCardBack.Visibility = Visibility.Visible;
+                    MouseEnter -= AbstractCardCanvas_MouseEnter;
+                    MouseLeave -= AbstractCardCanvas_MouseLeave;
+                }
+            }
         }
-        #endregion Other properties
+
+        private bool _knownToPlayerWithoutPriority;
+        public bool KnownToPlayerWithoutPriority
+        {
+            get { return _knownToPlayerWithoutPriority; }
+            private set
+            {
+                _knownToPlayerWithoutPriority = value;
+                if (value)
+                {
+
+                    DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, 0.0, new Duration(new TimeSpan(0, 0, 1)))
+                    {
+                        AutoReverse = true,
+                        RepeatBehavior = RepeatBehavior.Forever,
+                    };
+                    _imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, doubleAnimation);
+                }
+                else
+                {
+                    _imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, null);
+                }
+            }
+        }
+        #endregion Properties
 
         #region Fields
         private TextBox _textBoxCardText = new TextBox() { TextWrapping = TextWrapping.Wrap, VerticalScrollBarVisibility = ScrollBarVisibility.Hidden, Opacity = TextOpacity, FontFamily = new FontFamily("Microsoft Sans Serif"), Cursor = System.Windows.Input.Cursors.Arrow, Focusable = false };
@@ -75,10 +138,37 @@ namespace DuelMastersApplication
         };
         #endregion Fields
 
-        public CardCanvas()
+        public NewCardCanvas(MainWindow mainWindow, Card card, double width, double height) : base(mainWindow, card)
         {
-            SizeChanged += CardCanvas_SizeChanged;
+            Width = width;
+            Height = height;
+            
 
+            CardText = card.Text;
+            Cost = card.Cost.ToString();
+
+            string cardType;
+            if (card is Creature)
+            {
+                cardType = "Creature";
+            }
+            else if (card is Spell)
+            {
+                cardType = "Spell";
+            }
+            else
+            {
+                throw new InvalidOperationException("cardType");
+            }
+            CardType = cardType;
+
+            UpdateRace(card);
+            Civilizations = card.Civilizations;
+            UpdateCivilizations(card.Civilizations);
+
+            card.PropertyChanged += Card_PropertyChanged;
+
+            SizeChanged += CardCanvas_SizeChanged;
             CanvasFrame.Children.Add(RectangleColorFrame);
             CanvasFrame.Children.Add(_textBoxCost);
             CanvasFrame.Children.Add(Artwork);
@@ -96,7 +186,31 @@ namespace DuelMastersApplication
             MouseLeave -= AbstractCardCanvas_MouseLeave;
         }
 
-        #region Events
+        private void Card_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Card card = sender as Card;
+            if (e.PropertyName == "KnownToPlayerWithPriority")
+            {
+                KnownToPlayerWithPriority = card.KnownToPlayerWithPriority;
+            }
+            else if (e.PropertyName == "KnownToPlayerWithoutPriority")
+            {
+                KnownToPlayerWithoutPriority = card.KnownToPlayerWithoutPriority;
+            }
+            else if (e.PropertyName == "KnownToOwner")
+            {
+                //TODO
+            }
+            else if (e.PropertyName == "KnownToOpponent")
+            {
+                //TODO
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private void CardCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             double frameWidth = e.NewSize.Width;
@@ -140,7 +254,7 @@ namespace DuelMastersApplication
             SetLeft(_textBoxCardText, 0.07 * frameWidth);
             SetTop(_textBoxCardText, 0.63 * frameHeight);
 
-            double typeRowHeight = TypeRowHeightScale * frameHeight; 
+            double typeRowHeight = TypeRowHeightScale * frameHeight;
 
             const double FontScalePower = 0.06;
             double fontSizePower = Math.Max(MinimumFontSize, Height * FontScalePower);
@@ -192,108 +306,27 @@ namespace DuelMastersApplication
             SetTop(_textBoxRace, typeRowHeight - _textBoxRace.Height / 2);
         }
 
-        private static void OnCardTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void UpdateRace(Card card)
         {
-            if (e.NewValue != null)
+            if (card is Creature creature)
             {
-                string cardText = e.NewValue.ToString();
-                if (!string.IsNullOrEmpty(cardText))
-                {
-                    string newCardText = System.Text.RegularExpressions.Regex.Replace(cardText, "\\(.*?\\)", string.Empty);
-                    if (newCardText.StartsWith("\n"))
-                    {
-                        newCardText.Remove(0, 2);
-                    }
-                    if (!string.IsNullOrEmpty(newCardText))
-                    {
-                        newCardText = "■ " + newCardText.Replace("\n", "\n■ ");
-                        newCardText = newCardText.Replace("■ \n", string.Empty);
-                    }
-                    (d as CardCanvas)._textBoxCardText.Text = newCardText;
-                }
-            }
-        }
-
-        private static void OnCostChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as CardCanvas)._textBoxCost.Text = e.NewValue.ToString();
-        }
-
-        private static void OnCardTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CardCanvas canvas = d as CardCanvas;
-            string cardType = e.NewValue.ToString();
-            canvas._textBoxCardType.Text = cardType;
-            if (cardType.Contains("Creature"))
-            {
-                canvas.Artwork.HorizontalAlignment = HorizontalAlignment.Right;
-            }
-            else if (cardType == "Spell")
-            {
-                canvas.Artwork.HorizontalAlignment = HorizontalAlignment.Center;
-            }
-        }
-
-        private static void OnRaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CardCanvas canvas = d as CardCanvas;
-            if (e.NewValue != null)
-            {
-                string raceText = string.Join("/", (Collection<string>)e.NewValue);
+                Races = creature.Races;
+                string raceText = string.Join("/", creature.Races);
                 if (!string.IsNullOrEmpty(raceText))
                 {
-                    canvas._textBoxRace.Visibility = Visibility.Visible;
-                    canvas._textBoxRace.Text = raceText;
+                    _textBoxRace.Visibility = Visibility.Visible;
+                    _textBoxRace.Text = raceText;
                 }
             }
             else
             {
-                canvas._textBoxRace.Visibility = Visibility.Hidden;
+                _textBoxRace.Visibility = Visibility.Hidden;
             }
         }
 
-        private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void UpdateCivilizations(ReadOnlyCivilizationCollection civilizations)
         {
-            (d as CardCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as ReadOnlyCivilizationCollection);
+            RectangleColorFrame.Fill = GetBrushForCivilizations(civilizations);
         }
-
-        private static void OnKnownToPlayerWithPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CardCanvas canvas = d as CardCanvas;
-            bool known = (bool)e.NewValue;
-            if (known)
-            {
-                canvas._imageCardBack.Visibility = Visibility.Hidden;
-                canvas.MouseEnter += canvas.AbstractCardCanvas_MouseEnter;
-                canvas.MouseLeave += canvas.AbstractCardCanvas_MouseLeave;
-            }
-            else
-            {
-                canvas._imageCardBack.Visibility = Visibility.Visible;
-                canvas.MouseEnter -= canvas.AbstractCardCanvas_MouseEnter;
-                canvas.MouseLeave -= canvas.AbstractCardCanvas_MouseLeave;
-            }
-        }
-
-        private static void OnKnownToPlayerWithoutPriorityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CardCanvas canvas = d as CardCanvas;
-            bool known = (bool)e.NewValue;
-            if (known)
-            {
-
-                DoubleAnimation doubleAnimation = new DoubleAnimation(1.0, 0.0, new Duration(new TimeSpan(0, 0, 1)))
-                {
-                    AutoReverse = true,
-                    RepeatBehavior = RepeatBehavior.Forever,
-                };
-                canvas._imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, doubleAnimation);
-            }
-            else
-            {
-                canvas._imageKnownToPlayerWithoutPriority.BeginAnimation(OpacityProperty, null);
-            }
-        }
-        #endregion Events
     }
 }
