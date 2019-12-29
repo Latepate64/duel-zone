@@ -2,9 +2,9 @@
 
 namespace DuelMastersModels.Effects.OneShotEffects
 {
-    public class TapAllYourOpponentsCreaturesInTheBattleZoneEffect : OneShotEffect
+    internal class TapAllYourOpponentsCreaturesInTheBattleZoneEffect : OneShotEffect
     {
-        public override PlayerAction Apply(Duel duel, Player player)
+        internal override PlayerAction Apply(Duel duel, Player player)
         {
             return new PlayerActions.AutomaticActions.TapAllYourOpponentsCreaturesInTheBattleZone(player);
         }

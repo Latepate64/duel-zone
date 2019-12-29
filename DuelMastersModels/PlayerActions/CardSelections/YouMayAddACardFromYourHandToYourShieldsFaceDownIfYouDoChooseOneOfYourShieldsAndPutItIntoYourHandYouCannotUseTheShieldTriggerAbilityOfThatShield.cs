@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
             else if (card != null)
             {
-                Duel.AddFromYourHandToYourShieldsFaceDown(Player, card);
+                duel.AddFromYourHandToYourShieldsFaceDown(card);
                 return new ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player);
             }
             else

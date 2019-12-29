@@ -4,7 +4,7 @@
     {
         protected OptionalAction(Player player) : base(player) { }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             return this;
         }

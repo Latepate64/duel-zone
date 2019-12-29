@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
-    public class BreakShields : MandatoryMultipleCardSelection
+    internal class BreakShields : MandatoryMultipleCardSelection
     {
-        public Creature ShieldBreakingCreature { get; private set; }
+        internal Creature ShieldBreakingCreature { get; private set; }
 
-        public BreakShields(Player player, int amount, ReadOnlyCardCollection cards, Creature shieldBreakingCreature) : base(player, amount, cards)
+        internal BreakShields(Player player, int amount, ReadOnlyCardCollection cards, Creature shieldBreakingCreature) : base(player, amount, cards)
         {
             ShieldBreakingCreature = shieldBreakingCreature;
         }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner))
             {
@@ -33,7 +33,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
+        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
         {
             return duel.PutFromShieldZoneToHand(duel.GetOpponent(Player), cards, true);
         }

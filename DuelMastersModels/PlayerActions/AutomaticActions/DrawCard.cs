@@ -1,12 +1,12 @@
 ﻿namespace DuelMastersModels.PlayerActions.AutomaticActions
 {
-    public class DrawCard : AutomaticAction
+    internal class DrawCard : AutomaticAction
     {
-        public DrawCard(Player player) : base(player)
+        internal DrawCard(Player player) : base(player)
         {
         }
 
-        public override PlayerAction Perform(Duel duel)
+        internal override PlayerAction Perform(Duel duel)
         {
             return duel.DrawCard(Player);
         }

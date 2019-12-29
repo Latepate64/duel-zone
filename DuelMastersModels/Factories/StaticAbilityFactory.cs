@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
-    public static class StaticAbilityFactory
+    internal static class StaticAbilityFactory
     {
         private static readonly ReadOnlyDictionary<string, Type> _staticAbilityDictionaryForCreatures = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
@@ -34,7 +34,7 @@ namespace DuelMastersModels.Factories
             { "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)", typeof(SpellShieldTrigger) },
         });
 
-        public static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature)
+        internal static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature)
         {
             if (text == null)
             {
@@ -46,7 +46,7 @@ namespace DuelMastersModels.Factories
                 : null;
         }
 
-        public static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell)
+        internal static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell)
         {
             if (text == null)
             {

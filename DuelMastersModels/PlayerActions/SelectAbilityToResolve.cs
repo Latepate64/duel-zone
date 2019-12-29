@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace DuelMastersModels.PlayerActions
 {
-    public class SelectAbilityToResolve : PlayerAction
+    internal class SelectAbilityToResolve : PlayerAction
     {
-        public Collection<NonStaticAbility> Abilities { get; private set; }
-        public NonStaticAbility SelectedAbility { get; set; }
+        internal Collection<NonStaticAbility> Abilities { get; private set; }
+        internal NonStaticAbility SelectedAbility { get; set; }
 
-        public SelectAbilityToResolve(Player player, Collection<NonStaticAbility> abilities) : base(player)
+        internal SelectAbilityToResolve(Player player, Collection<NonStaticAbility> abilities) : base(player)
         {
             Abilities = abilities;
         }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (Abilities.Count == 1)
             {

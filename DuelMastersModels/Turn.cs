@@ -21,12 +21,12 @@ namespace DuelMastersModels
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        public ObservableCollection<Step> Steps { get; } = new ObservableCollection<Step>();
+        internal ObservableCollection<Step> Steps { get; } = new ObservableCollection<Step>();
 
         /// <summary>
         /// The step that is currently being processed.
         /// </summary>
-        public Step CurrentStep => Steps.Last();
+        internal Step CurrentStep => Steps.Last();
 
         /// <summary>
         /// The number of the turn.

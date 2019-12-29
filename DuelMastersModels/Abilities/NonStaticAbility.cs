@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Effects.OneShotEffects;
-using DuelMastersModels.PlayerActions;
 
 namespace DuelMastersModels.Abilities
 {
@@ -43,7 +42,7 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        public PlayerActionWithEndInformation ContinueResolution(Duel duel)
+        internal PlayerActionWithEndInformation ContinueResolution(Duel duel)
         {
             return _effectIndex < Effects.Count
                 ? new PlayerActionWithEndInformation(Effects[_effectIndex++].Apply(duel, Controller), false)
@@ -52,17 +51,5 @@ namespace DuelMastersModels.Abilities
             //return PlayerActions[0].Apply(duel, player);
             //return Effects.Apply(duel, player);
         }
-    }
-
-    public class PlayerActionWithEndInformation
-    {
-        public PlayerActionWithEndInformation(PlayerAction playerAction, bool end)
-        {
-            PlayerAction = playerAction;
-            End = end;
-        }
-
-        public PlayerAction PlayerAction { get; private set; }
-        public bool End { get; private set; }
     }
 }

@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         public Creature SelectedCreature { get; set; }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (Creatures.Count == 0)
             {

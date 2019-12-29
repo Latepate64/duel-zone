@@ -214,6 +214,11 @@ namespace DuelMastersModels
             }
         }
 
+        /// <summary>
+        /// Returns the player who owns target card.
+        /// </summary>
+        /// <param name="card">Card whose owner is queried.</param>
+        /// <returns>Player who owns the card.</returns>
         public Player GetOwner(Card card)
         {
             if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
@@ -252,6 +257,11 @@ namespace DuelMastersModels
             Ended = true;
         }
 
+        /// <summary>
+        /// Target player puts target card from their hand into their mana zone.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="card"></param>
         public void PutFromHandIntoManaZone(Player player, Card card)
         {
             if (player == null)
@@ -267,8 +277,12 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// TODO: Handle destruction as a state-based action. 703.4d
+        /// Manages a battle between two creatures.
         /// </summary>
+        /// <param name="attackingCreature">Creature which initiated the attack.</param>
+        /// <param name="defendingCreature">Creature which the attack was directed at.</param>
+        /// <param name="attackingPlayer"></param>
+        /// <param name="defendingPlayer"></param>
         public void Battle(Creature attackingCreature, Creature defendingCreature, Player attackingPlayer, Player defendingPlayer)
         {
             if (attackingCreature == null)
@@ -289,6 +303,7 @@ namespace DuelMastersModels
             }
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
+            //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
                 PutFromBattleZoneIntoGraveyard(defendingPlayer, defendingCreature);
@@ -304,11 +319,15 @@ namespace DuelMastersModels
             }
         }
 
-        public void PlayCard(Card card, Player player)
+        /// <summary>
+        /// Card is used based on its type: A creature is put into the battle zone; A spell is put into your graveyard.
+        /// </summary>
+        /// <param name="card"></param>
+        public void UseCard(Card card)
         {
             if (card is Creature creature)
             {
-                player.BattleZone.Add(creature, this);
+                GetOwner(creature).BattleZone.Add(creature, this);
             }
             else if (card is Spell spell)
             {
@@ -329,33 +348,24 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// 603.3. Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
+        /// Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
         /// </summary>
         /// <param name="ability"></param>
+        /// <param name="controller"></param>
         public void TriggerTriggerAbility(TriggerAbility ability, Player controller)
         {
             PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
 
-        public static void AddFromYourHandToYourShieldsFaceDown(Player player, Card card)
+        /// <summary>
+        /// Player adds a card from their hand to their shields face down.
+        /// </summary>
+        /// <param name="card"></param>
+        public void AddFromYourHandToYourShieldsFaceDown(Card card)
         {
-            player.Hand.Cards.Remove(card);
-            player.ShieldZone.Cards.Add(card);
-        }
-
-        public void EndContinuousEffects(Type type)
-        {
-            List<ContinuousEffect> suitableContinuousEffects = ContinuousEffects.Where(c => c.Period.GetType() == type).ToList();
-            while (suitableContinuousEffects.Count() > 0)
-            {
-                ContinuousEffects.Remove(suitableContinuousEffects.First());
-                suitableContinuousEffects.Remove(suitableContinuousEffects.First());
-            }
-        }
-
-        public void AddContinuousEffect(ContinuousEffect continuousEffect)
-        {
-            ContinuousEffects.Add(continuousEffect);
+            Player owner = GetOwner(card);
+            owner.Hand.Cards.Remove(card);
+            owner.ShieldZone.Cards.Add(card);
         }
         #endregion void
 
@@ -702,12 +712,6 @@ namespace DuelMastersModels
             return new AddTheTopCardOfYourDeckToYourShieldsFaceDown(player);
         }
 
-        public PlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
-        {
-            PutFromTheTopOfDeckIntoShieldZone(player, 1);
-            return null;
-        }
-
         public PlayerAction ReturnFromBattleZoneToHand(Creature creature)
         {
             Player owner = GetOwner(creature);
@@ -744,6 +748,29 @@ namespace DuelMastersModels
             return GetAllCards().First(c => c.GameId == gameId);
         }
         #endregion Public methods
+
+        #region Internal methods
+        internal void EndContinuousEffects(Type type)
+        {
+            List<ContinuousEffect> suitableContinuousEffects = ContinuousEffects.Where(c => c.Period.GetType() == type).ToList();
+            while (suitableContinuousEffects.Count() > 0)
+            {
+                ContinuousEffects.Remove(suitableContinuousEffects.First());
+                suitableContinuousEffects.Remove(suitableContinuousEffects.First());
+            }
+        }
+
+        internal void AddContinuousEffect(ContinuousEffect continuousEffect)
+        {
+            ContinuousEffects.Add(continuousEffect);
+        }
+
+        internal PlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
+        {
+            PutFromTheTopOfDeckIntoShieldZone(player, 1);
+            return null;
+        }
+        #endregion Internal methods
 
         #region Private methods
         #region void
@@ -1087,9 +1114,9 @@ namespace DuelMastersModels
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
-                if (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.Anywhere ||
-                    (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card)) ||
-                    (staticAbilityForCreature.ActivityCondition == StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card)))
+                if (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card)) ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card)))
                 {
                     return staticAbilityForCreature.ContinuousEffects;
                 }
@@ -1100,7 +1127,7 @@ namespace DuelMastersModels
             }
             else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
             {
-                if (staticAbilityForSpell.ActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
+                if (staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
                 {
                     return staticAbilityForSpell.ContinuousEffects;
                 }

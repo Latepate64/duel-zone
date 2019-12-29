@@ -6,19 +6,19 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public class PayCost : MandatoryMultipleCardSelection
     {
-        public int Cost { get; set; }
+        internal int Cost { get; set; }
 
-        public PayCost(Player player, ReadOnlyCardCollection cards, int cost) : base(player, cost, cards)
+        internal PayCost(Player player, ReadOnlyCardCollection cards, int cost) : base(player, cost, cards)
         {
             Cost = cost;
         }
 
-        public static bool Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
+        internal static bool Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
         {
             return Duel.CanBeUsed(cardToBeUsed, cards);
         }
 
-        public override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
+        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
         {
             if (duel == null)
             {
@@ -34,7 +34,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
                 {
                     card.Tapped = true;
                 }
-                duel.PlayCard(mainStep.CardToBeUsed, Player);
+                duel.UseCard(mainStep.CardToBeUsed);
                 mainStep.CardToBeUsed = null;
                 mainStep.State = MainStepState.Use;
                 return null;

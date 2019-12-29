@@ -71,7 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\AbilityCollection.cs" />
     <Compile Include="Abilities\NonStaticAbility.cs" />
+    <Compile Include="Abilities\PlayerActionWithEndInformation.cs" />
     <Compile Include="Abilities\ReadOnlyAbilityCollection.cs" />
     <Compile Include="Abilities\ReadOnlySpellAbilityCollection.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
@@ -99,9 +101,11 @@
     <Compile Include="CardFilters\TargetSpellFilter.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\CardCollection.cs" />
+    <Compile Include="Cards\Civilization.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
+    <Compile Include="Cards\Rarity.cs" />
     <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Factories\AbilityTypeFactory.cs" />
     <Compile Include="Factories\EffectFactory.cs" />
+    <Compile Include="Factories\ParsedTypesAndObjects.cs" />
     <Compile Include="Factories\StaticAbilityFactory.cs" />
     <Compile Include="Factories\TriggerConditionFactory.cs" />
     <Compile Include="GameActions\GameAction.cs" />

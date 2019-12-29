@@ -6,6 +6,6 @@ namespace DuelMastersModels.Abilities
 {
     public class ReadOnlySpellAbilityCollection : ReadOnlyCollection<SpellAbility>
     {
-        public ReadOnlySpellAbilityCollection(IEnumerable<SpellAbility> abilities) : base(abilities.ToList()) { }
+        internal ReadOnlySpellAbilityCollection(IEnumerable<SpellAbility> abilities) : base(abilities.ToList()) { }
     }
 }

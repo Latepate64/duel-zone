@@ -2,18 +2,35 @@
 
 namespace DuelMastersModels.Abilities.Static
 {
+    /// <summary>
+    /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the spell with the ability remains in the appropriate zone.
+    /// </summary>
     public enum StaticAbilityForSpellActivityCondition
     {
+        /// <summary>
+        /// Effects are active while the spell with the ability is in its owner's hand.
+        /// </summary>
         WhileThisSpellIsInYourHand,
     }
 
+    /// <summary>
+    /// Static ability only spells can have.
+    /// </summary>
     public abstract class StaticAbilityForSpell : StaticAbility
     {
-        public StaticAbilityForSpellActivityCondition ActivityCondition { get; private set; }
+        /// <summary>
+        /// Activity condition for the effects created by the ability.
+        /// </summary>
+        public StaticAbilityForSpellActivityCondition EffectActivityCondition { get; private set; }
 
-        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition activityCondition) : base(continuousEffect)
+        /// <summary>
+        /// Creates a static ability only spells can have.
+        /// </summary>
+        /// <param name="continuousEffect">Continuous effect created by the ability.</param>
+        /// <param name="effectActivityCondition">Activity condition for the effects created by the ability.</param>
+        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition effectActivityCondition) : base(continuousEffect)
         {
-            ActivityCondition = activityCondition;
+            EffectActivityCondition = effectActivityCondition;
         }
     }
 }

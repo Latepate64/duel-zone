@@ -7,20 +7,20 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 508.1. If the attacking creature was declared to attack another creature or if the attack was redirected to target a creature, that creature and the attacking creature battle.
     /// </summary>
-    public class BattleStep : Step
+    internal class BattleStep : Step
     {
-        public Creature AttackingCreature { get; private set; }
-        public Creature AttackedCreature { get; private set; }
-        public Creature BlockingCreature { get; private set; }
+        internal Creature AttackingCreature { get; private set; }
+        internal Creature AttackedCreature { get; private set; }
+        internal Creature BlockingCreature { get; private set; }
 
-        public BattleStep(Player activePlayer, Creature attackingCreature, Creature attackedCreature, Creature blockingCreature) : base(activePlayer)
+        internal BattleStep(Player activePlayer, Creature attackingCreature, Creature attackedCreature, Creature blockingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             AttackedCreature = attackedCreature;
             BlockingCreature = blockingCreature;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             if (duel == null)
             {

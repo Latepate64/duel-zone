@@ -9,9 +9,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
-    public enum Rarity { Common, Uncommon, Rare, VeryRare, SuperRare, None };
-    public enum Civilization { Light, Water, Darkness, Fire, Nature };
-
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
@@ -37,18 +34,61 @@ namespace DuelMastersModels.Cards
         /// Unique identifier during a game.
         /// </summary>
         public int GameId { get; private set; }
+
+        /// <summary>
+        /// Name of the card.
+        /// </summary>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Set in which the card appears.
+        /// </summary>
         public string Set { get; private set; }
+
+        /// <summary>
+        /// Collector's number of the card.
+        /// </summary>
         public string Id { get; private set; }
+
+        /// <summary>
+        /// Civilizations of the card.
+        /// </summary>
         public ReadOnlyCivilizationCollection Civilizations { get; }
+
+        /// <summary>
+        /// Rarity of the card.
+        /// </summary>
         public Rarity Rarity { get; private set; }
+
+        /// <summary>
+        /// Mana cost of the card.
+        /// </summary>
         public int Cost { get; private set; }
+
+        /// <summary>
+        /// Text that defines the abilities of the card.
+        /// </summary>
         public string Text { get; private set; }
+
+        /// <summary>
+        /// Flavor text of the card.
+        /// </summary>
         public string Flavor { get; private set; }
+
+        /// <summary>
+        /// Illustrator of the card.
+        /// </summary>
         public string Illustrator { get; private set; }
+
+        /// <summary>
+        /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
+        /// </summary>
         public bool Tapped { get; set; }
 
-        public AbilityCollection Abilities { get; } = new AbilityCollection();
+        /// <summary>
+        /// An ability can be a characteristic an card has that lets it affect the game. A card's abilities are defined by its rules text or by the effect that created it.
+        /// </summary>
+        internal AbilityCollection Abilities { get; } = new AbilityCollection();
         public ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
         public ReadOnlyTriggerAbilityCollection TriggerAbilities => new ReadOnlyTriggerAbilityCollection(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
 

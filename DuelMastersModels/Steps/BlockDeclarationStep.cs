@@ -4,22 +4,22 @@ using DuelMastersModels.PlayerActions.CreatureSelections;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : Step
+    internal class BlockDeclarationStep : Step
     {
-        public Creature AttackingCreature { get; private set; }
-        public Creature BlockingCreature { get; set; }
+        internal Creature AttackingCreature { get; private set; }
+        internal Creature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(Player activePlayer, Creature attackingCreature) : base(activePlayer)
+        internal BlockDeclarationStep(Player activePlayer, Creature attackingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             return null;
         }
 
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        internal override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
             if (duel == null)
             {

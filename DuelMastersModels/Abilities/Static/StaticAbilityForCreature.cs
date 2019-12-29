@@ -2,20 +2,45 @@
 
 namespace DuelMastersModels.Abilities.Static
 {
-    public enum StaticAbilityForCreatureActivityCondition
+    /// <summary>
+    /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the creature with the ability remains on the battle zone and has the ability, or as long as the creature with the ability remains in the appropriate zone.
+    /// </summary>
+    public enum EffectActivityConditionForCreature
     {
+        /// <summary>
+        /// Effects are active regardless where the creature with the ability is located in.
+        /// </summary>
         Anywhere,
+
+        /// <summary>
+        /// Effects are active while the creature with the ability is in the battle zone.
+        /// </summary>
         WhileThisCreatureIsInTheBattleZone,
+
+        /// <summary>
+        /// Effects are active while the creature with the ability is in its owner's hand.
+        /// </summary>
         WhileThisCreatureIsInYourHand,
     }
 
+    /// <summary>
+    /// Static ability only creatures can have.
+    /// </summary>
     public abstract class StaticAbilityForCreature : StaticAbility
     {
-        public StaticAbilityForCreatureActivityCondition ActivityCondition { get; private set; }
+        /// <summary>
+        /// Activity condition for the effects created by the ability.
+        /// </summary>
+        public EffectActivityConditionForCreature EffectActivityCondition { get; private set; }
 
-        protected StaticAbilityForCreature(ContinuousEffect continuousEffect, StaticAbilityForCreatureActivityCondition activityCondition) : base(continuousEffect)
+        /// <summary>
+        /// Creates a static ability only creatures can have.
+        /// </summary>
+        /// <param name="continuousEffect">Continuous effect created by the ability.</param>
+        /// <param name="effectActivityCondition">Activity condition for the effects created by the ability.</param>
+        protected StaticAbilityForCreature(ContinuousEffect continuousEffect, EffectActivityConditionForCreature effectActivityCondition) : base(continuousEffect)
         {
-            ActivityCondition = activityCondition;
+            EffectActivityCondition = effectActivityCondition;
         }
     }
 }

@@ -6,13 +6,13 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
     /// </summary>
-    public class StartOfTurnStep : Step
+    internal class StartOfTurnStep : Step
     {
-        public StartOfTurnStep(Player player) : base(player)
+        internal StartOfTurnStep(Player player) : base(player)
         {
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             return null;
         }
@@ -20,10 +20,9 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3a The active player untaps their cards in the battle zone and mana zone simultaneously. 
         /// </summary>
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        internal override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
-            var action = new UntapCards();
-            action.Perform(duel);
+            new UntapCards().Perform(duel);
             return null;
         }
     }

@@ -5,19 +5,19 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class AttackDeclarationStep : Step
+    internal class AttackDeclarationStep : Step
     {
-        public Creature AttackingCreature { get; set; }
-        public Creature AttackedCreature { get; set; }
-        public Player NonactivePlayer { get; private set; }
-        public bool TargetOfAttackDeclared { get; set; }
+        internal Creature AttackingCreature { get; set; }
+        internal Creature AttackedCreature { get; set; }
+        internal Player NonactivePlayer { get; private set; }
+        internal bool TargetOfAttackDeclared { get; set; }
 
-        public AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer)
+        internal AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer)
         {
             NonactivePlayer = nonactivePlayer;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             if (AttackingCreature != null && !TargetOfAttackDeclared)
             {
@@ -30,7 +30,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        internal override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
             if (duel == null)
             {

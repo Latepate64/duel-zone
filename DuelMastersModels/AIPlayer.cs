@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class AIPlayer : Player
+    internal class AIPlayer : Player
     {
-        public PlayerAction PerformPlayerAction(Duel duel, PlayerAction playerAction)
+        internal PlayerAction PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
             if (duel == null)
             {

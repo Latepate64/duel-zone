@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public enum MainStepState
+    internal enum MainStepState
     {
         Use,
         Pay,
@@ -15,17 +15,17 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
-    public class MainStep : Step
+    internal class MainStep : Step
     {
-        public MainStepState State { get; set; } = MainStepState.Use;
+        internal MainStepState State { get; set; } = MainStepState.Use;
 
-        public Card CardToBeUsed { get; set; }
+        internal Card CardToBeUsed { get; set; }
 
-        public MainStep(Player player) : base(player)
+        internal MainStep(Player player) : base(player)
         {
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             ReadOnlyCardCollection usableCards = GetUsableCards(new ReadOnlyCardCollection(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
             if (State == MainStepState.Use && usableCards.Count > 0)

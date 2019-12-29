@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Abilities.Trigger
 {
-    public class WheneverAnotherCreatureIsPutIntoTheBattleZone : TriggerCondition
+    internal class WheneverAnotherCreatureIsPutIntoTheBattleZone : TriggerCondition
     {
     }
 }

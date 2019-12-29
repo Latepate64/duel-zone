@@ -6,6 +6,6 @@ namespace DuelMastersModels.Abilities.Static
 {
     public class ReadOnlyStaticAbilityCollection : ReadOnlyCollection<StaticAbility>
     {
-        public ReadOnlyStaticAbilityCollection(IEnumerable<StaticAbility> abilities) : base(abilities.ToList()) { }
+        internal ReadOnlyStaticAbilityCollection(IEnumerable<StaticAbility> abilities) : base(abilities.ToList()) { }
     }
 }

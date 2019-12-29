@@ -1,10 +1,10 @@
 ﻿namespace DuelMastersModels.PlayerActions.AutomaticActions
 {
-    public class TapAllYourOpponentsCreaturesInTheBattleZone : AutomaticAction
+    internal class TapAllYourOpponentsCreaturesInTheBattleZone : AutomaticAction
     {
-        public TapAllYourOpponentsCreaturesInTheBattleZone(Player player) : base(player) { }
+        internal TapAllYourOpponentsCreaturesInTheBattleZone(Player player) : base(player) { }
 
-        public override PlayerAction Perform(Duel duel)
+        internal override PlayerAction Perform(Duel duel)
         {
             foreach (Cards.Creature creature in duel.GetOpponent(Player).BattleZone.UntappedCreatures)
             {

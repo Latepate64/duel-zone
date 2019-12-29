@@ -5,13 +5,13 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 {
     public abstract class MandatoryMultipleCardSelection : CardSelection
     {
-        public ReadOnlyCardCollection SelectedCards { get; private set; }
+        internal ReadOnlyCardCollection SelectedCards { get; private set; }
 
         protected MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection cards) : base(player, amount, amount, cards)
         {
         }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (Cards.Count <= MaximumSelection)
             {
@@ -25,9 +25,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
+        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
 
-        public bool Validate(ReadOnlyCardCollection cards)
+        internal bool Validate(ReadOnlyCardCollection cards)
         {
             return cards.Count == MinimumSelection && !cards.Except(Cards).Any();
         }

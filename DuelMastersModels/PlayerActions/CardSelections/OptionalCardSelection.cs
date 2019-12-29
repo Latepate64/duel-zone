@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public Card SelectedCard { get; set; }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (Cards.Count == 0)
             {

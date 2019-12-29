@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             return null;
         }
 
-        public override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             if (!duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1)
             {

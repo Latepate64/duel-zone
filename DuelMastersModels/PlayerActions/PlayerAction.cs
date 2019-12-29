@@ -9,7 +9,6 @@ namespace DuelMastersModels.PlayerActions
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        //[XmlIgnore]
         public Player Player { get; set; }
 
         /// <summary>
@@ -29,6 +28,6 @@ namespace DuelMastersModels.PlayerActions
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        public abstract PlayerAction TryToPerformAutomatically(Duel duel);
+        internal abstract PlayerAction TryToPerformAutomatically(Duel duel);
     }
 }

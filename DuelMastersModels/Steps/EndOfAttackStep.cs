@@ -2,13 +2,13 @@
 
 namespace DuelMastersModels.Steps
 {
-    public class EndOfAttackStep : Step
+    internal class EndOfAttackStep : Step
     {
-        public EndOfAttackStep(Player activePlayer) : base(activePlayer)
+        internal EndOfAttackStep(Player activePlayer) : base(activePlayer)
         {
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             return null;
         }

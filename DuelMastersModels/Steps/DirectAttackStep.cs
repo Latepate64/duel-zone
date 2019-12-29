@@ -5,20 +5,20 @@ using System;
 
 namespace DuelMastersModels.Steps
 {
-    public class DirectAttackStep : Step
+    internal class DirectAttackStep : Step
     {
-        public Creature AttackingCreature { get; private set; }
-        public bool DirectAttack { get; private set; }
+        internal Creature AttackingCreature { get; private set; }
+        internal bool DirectAttack { get; private set; }
         private bool _breakingDone;
         //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
-        public DirectAttackStep(Player activePlayer, Creature attackingCreature, bool directAttack) : base(activePlayer)
+        internal DirectAttackStep(Player activePlayer, Creature attackingCreature, bool directAttack) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             DirectAttack = directAttack;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             if (DirectAttack && !_breakingDone)
             {
