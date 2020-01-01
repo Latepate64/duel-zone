@@ -4,12 +4,15 @@ using System;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player may declare to block an attacking creature with a blocker.
+    /// </summary>
     public class DeclareBlock : OptionalCreatureSelection
     {
-        public DeclareBlock(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
+        internal DeclareBlock(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
-        public override PlayerAction Perform(Duel duel, Creature creature)
+        internal override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {

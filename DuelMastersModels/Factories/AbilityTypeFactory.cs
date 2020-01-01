@@ -8,18 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace DuelMastersModels.Factories
 {
-    public class ParsedType
+    internal class ParsedType
     {
-        public Collection<Type> TypesParsed { get; private set; }
-        public string RemainingText { get; private set; }
+        internal Collection<Type> TypesParsed { get; private set; }
+        internal string RemainingText { get; private set; }
 
-        public ParsedType(Type type, string remainingText)
+        internal ParsedType(Type type, string remainingText)
         {
             TypesParsed = new Collection<Type>() { type };
             RemainingText = remainingText;
         }
 
-        public ParsedType(Type[] types, string remainingText)
+        internal ParsedType(Type[] types, string remainingText)
         {
             TypesParsed = new Collection<Type>(types);
             RemainingText = remainingText;

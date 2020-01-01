@@ -16,12 +16,12 @@ namespace DuelMastersModels.Abilities.Static
     /// <summary>
     /// Static ability only spells can have.
     /// </summary>
-    public abstract class StaticAbilityForSpell : StaticAbility
+    internal abstract class StaticAbilityForSpell : StaticAbility
     {
         /// <summary>
         /// Activity condition for the effects created by the ability.
         /// </summary>
-        public StaticAbilityForSpellActivityCondition EffectActivityCondition { get; private set; }
+        internal StaticAbilityForSpellActivityCondition EffectActivityCondition { get; private set; }
 
         /// <summary>
         /// Creates a static ability only spells can have.

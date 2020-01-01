@@ -2,14 +2,15 @@
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player may select up to one creature.
+    /// </summary>
     public abstract class OptionalCreatureSelection : CreatureSelection
     {
-        protected OptionalCreatureSelection() { }
-
-        protected OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 0, 1, creatures)
+        internal OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 0, 1, creatures)
         { }
 
-        public Creature SelectedCreature { get; set; }
+        internal Creature SelectedCreature { get; set; }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
@@ -24,11 +25,11 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             //return Creatures.Count == 0;
         }
 
-        public bool Validate(Creature creature)
+        internal bool Validate(Creature creature)
         {
             return creature == null || Creatures.Contains(creature);
         }
 
-        public abstract PlayerAction Perform(Duel duel, Creature creature);
+        internal abstract PlayerAction Perform(Duel duel, Creature creature);
     }
 }

@@ -2,12 +2,8 @@
 
 namespace DuelMastersModels.CardFilters
 {
-    public abstract class CreatureFilter : CardFilter
+    internal abstract class CreatureFilter : CardFilter
     {
-        protected CreatureFilter()
-        {
-        }
-
-        public abstract ReadOnlyCreatureCollection FilteredCreatures { get; }
+        internal abstract ReadOnlyCreatureCollection FilteredCreatures { get; }
     }
 }

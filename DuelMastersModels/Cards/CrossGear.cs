@@ -2,12 +2,11 @@
 
 namespace DuelMastersModels.Cards
 {
+    /// <summary>
+    /// Creature is a card type.
+    /// </summary>
     public class CrossGear : Card
     {
-        public CrossGear() : base()
-        {
-        }
-
         /// <summary>
         /// Creates a cross gear.
         /// </summary>

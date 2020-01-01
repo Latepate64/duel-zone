@@ -1,10 +1,13 @@
 ﻿namespace DuelMastersModels.PlayerActions.OptionalActions
 {
+    /// <summary>
+    /// Player may draw a card.
+    /// </summary>
     public class YouMayDrawACard : OptionalAction
     {
-        public YouMayDrawACard(Player player) : base(player) { }
+        internal YouMayDrawACard(Player player) : base(player) { }
 
-        public override PlayerAction Perform(Duel duel, bool takeAction)
+        internal override PlayerAction Perform(Duel duel, bool takeAction)
         {
             if (takeAction)
             {

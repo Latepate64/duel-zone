@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn
+    internal class Turn
     {
         #region Properties
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public Player ActivePlayer { get; }
+        internal Player ActivePlayer { get; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        public Player NonActivePlayer { get; }
+        internal Player NonActivePlayer { get; }
 
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
@@ -31,10 +31,10 @@ namespace DuelMastersModels
         /// <summary>
         /// The number of the turn.
         /// </summary>
-        public int Number { get; private set; }
+        internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(Player activePlayer, Player nonActivePlayer, int number)
+        internal Turn(Player activePlayer, Player nonActivePlayer, int number)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = nonActivePlayer;
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        public PlayerAction Start(Duel duel)
+        internal PlayerAction Start(Duel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
             return CurrentStep.ProcessTurnBasedActions(duel);
@@ -55,7 +55,7 @@ namespace DuelMastersModels
         /// Adds a new step in order which becomes the current step.
         /// </summary>
         /// <returns>true if steps are no longer added to the turn as it ends, false otherwise</returns>
-        public bool ChangeStep()
+        internal bool ChangeStep()
         {
             if (CurrentStep is StartOfTurnStep)
             {

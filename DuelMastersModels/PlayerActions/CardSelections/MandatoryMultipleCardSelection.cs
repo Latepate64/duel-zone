@@ -3,11 +3,14 @@ using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
+    /// <summary>
+    /// Player must select a number of cards.
+    /// </summary>
     public abstract class MandatoryMultipleCardSelection : CardSelection
     {
         internal ReadOnlyCardCollection SelectedCards { get; private set; }
 
-        protected MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection cards) : base(player, amount, amount, cards)
+        internal MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection cards) : base(player, amount, amount, cards)
         {
         }
 

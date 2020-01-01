@@ -26,12 +26,12 @@ namespace DuelMastersModels.Abilities.Static
     /// <summary>
     /// Static ability only creatures can have.
     /// </summary>
-    public abstract class StaticAbilityForCreature : StaticAbility
+    internal abstract class StaticAbilityForCreature : StaticAbility
     {
         /// <summary>
         /// Activity condition for the effects created by the ability.
         /// </summary>
-        public EffectActivityConditionForCreature EffectActivityCondition { get; private set; }
+        internal EffectActivityConditionForCreature EffectActivityCondition { get; private set; }
 
         /// <summary>
         /// Creates a static ability only creatures can have.

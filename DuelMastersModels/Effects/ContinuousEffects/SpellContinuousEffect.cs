@@ -3,9 +3,9 @@ using DuelMastersModels.Effects.Periods;
 
 namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    public abstract class SpellContinuousEffect : ContinuousEffect
+    internal abstract class SpellContinuousEffect : ContinuousEffect
     {
-        public SpellFilter SpellFilter { get; private set; }
+        internal SpellFilter SpellFilter { get; private set; }
 
         protected SpellContinuousEffect(Period period, SpellFilter spellFilter) : base(period)
         {

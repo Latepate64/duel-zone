@@ -2,12 +2,15 @@
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player must select one creature.
+    /// </summary>
     public abstract class MandatoryCreatureSelection : CreatureSelection
     {
-        protected MandatoryCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 1, 1, creatures)
+        internal MandatoryCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 1, 1, creatures)
         { }
 
-        public Creature SelectedCreature { get; set; }
+        internal Creature SelectedCreature { get; set; }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
@@ -23,11 +26,11 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
         }
 
-        public bool Validate(Creature creature)
+        internal bool Validate(Creature creature)
         {
             return Creatures.Contains(creature);
         }
 
-        public abstract PlayerAction Perform(Duel duel, Creature creature);
+        internal abstract PlayerAction Perform(Duel duel, Creature creature);
     }
 }

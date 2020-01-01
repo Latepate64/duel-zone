@@ -1,8 +1,8 @@
 ﻿namespace DuelMastersModels.GameActions.TurnBasedActions
 {
-    public class DrawCardAtDrawStep : TurnBasedAction
+    internal class DrawCardAtDrawStep : TurnBasedAction
     {
-        public override void Perform(Duel duel)
+        internal override void Perform(Duel duel)
         {
             if (duel == null)
             {

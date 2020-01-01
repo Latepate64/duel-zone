@@ -2,12 +2,12 @@
 
 namespace DuelMastersModels.Factories
 {
-    public class ParsedTypesAndObjects
+    internal class ParsedTypesAndObjects
     {
-        public ParsedType ParsedType { get; private set; }
-        public Dictionary<string, object> Objects { get; private set; }
+        internal ParsedType ParsedType { get; private set; }
+        internal Dictionary<string, object> Objects { get; private set; }
 
-        public ParsedTypesAndObjects(ParsedType parsedType, Dictionary<string, object> parsedObjects)
+        internal ParsedTypesAndObjects(ParsedType parsedType, Dictionary<string, object> parsedObjects)
         {
             ParsedType = parsedType;
             Objects = parsedObjects;

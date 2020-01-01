@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace DuelMastersModels.Effects.OneShotEffects
 {
-    public class ReadOnlyOneShotEffectCollection : ReadOnlyCollection<OneShotEffect>
+    internal class ReadOnlyOneShotEffectCollection : ReadOnlyCollection<OneShotEffect>
     {
-        public ReadOnlyOneShotEffectCollection(IEnumerable<OneShotEffect> oneShotEffects) : base(oneShotEffects.ToList()) { }
+        internal ReadOnlyOneShotEffectCollection(IEnumerable<OneShotEffect> oneShotEffects) : base(oneShotEffects.ToList()) { }
 
-        public ReadOnlyOneShotEffectCollection(OneShotEffect oneShotEffect) : base(new List<OneShotEffect>() { oneShotEffect }) { }
+        internal ReadOnlyOneShotEffectCollection(OneShotEffect oneShotEffect) : base(new List<OneShotEffect>() { oneShotEffect }) { }
     }
 }

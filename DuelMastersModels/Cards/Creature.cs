@@ -8,18 +8,29 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
+    /// <summary>
+    /// Creature is a card type.
+    /// </summary>
     public class Creature : Card
     {
+        #region Properties
         /// <summary>
         /// The base power of creature. Use Duel's method GetPower(creature) in order to get the actual power of a creature.
         /// </summary>
         public int Power { get; private set; }
-        public Collection<string> Races { get; } = new Collection<string>();
-        public bool SummoningSickness { get; set; } = true;
 
-        public Creature() : base()
-        {
-        }
+        /// <summary>
+        /// Race is a characteristic of a creature.
+        /// </summary>
+        public ReadOnlyCollection<string> Races => new ReadOnlyCollection<string>(_races);
+
+        /// <summary>
+        /// Summoning sickness limits when a creature is able to attack.
+        /// </summary>
+        public bool SummoningSickness { get; set; } = true;
+        #endregion Properties
+
+        private readonly ReadOnlyCollection<string> _races;
 
         /// <summary>
         /// Creates a creature.
@@ -31,7 +42,7 @@ namespace DuelMastersModels.Cards
                 throw new System.ArgumentNullException("power");
             }
             Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-            Races = races;
+            _races = new ReadOnlyCollection<string>(races);
 
             if (!string.IsNullOrEmpty(text))
             {

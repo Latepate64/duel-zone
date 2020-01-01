@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Abilities
 {
-    public class ReadOnlySpellAbilityCollection : ReadOnlyCollection<SpellAbility>
+    internal class ReadOnlySpellAbilityCollection : ReadOnlyCollection<SpellAbility>
     {
         internal ReadOnlySpellAbilityCollection(IEnumerable<SpellAbility> abilities) : base(abilities.ToList()) { }
     }

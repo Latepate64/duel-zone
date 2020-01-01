@@ -2,15 +2,18 @@
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
+    /// <summary>
+    /// Player must use a shield trigger.
+    /// </summary>
     public class UseShieldTrigger : MandatoryCardSelection
     {
-        public UseShieldTrigger(Player player, ReadOnlyCardCollection cards) : base(player, cards) { }
+        internal UseShieldTrigger(Player player, ReadOnlyCardCollection cards) : base(player, cards) { }
 
-        public override PlayerAction Perform(Duel duel, Card card)
+        internal override PlayerAction Perform(Duel duel, Card card)
         {
             Player.Hand.Remove(card, duel);
             duel.UseCard(card);
-            Player.ShieldTriggersToUse.Remove(card);
+            Player.RemoveShieldTriggerToUse(card);
             return null;
         }
     }

@@ -2,15 +2,15 @@
 
 namespace DuelMastersModels.CardFilters
 {
-    public class TargetCreatureFilter : CreatureFilter
+    internal class TargetCreatureFilter : CreatureFilter
     {
-        public Creature Creature { get; private set; }
+        internal Creature Creature { get; private set; }
 
-        public TargetCreatureFilter(Creature creature)
+        internal TargetCreatureFilter(Creature creature)
         {
             Creature = creature;
         }
 
-        public override ReadOnlyCreatureCollection FilteredCreatures => new ReadOnlyCreatureCollection(Creature);
+        internal override ReadOnlyCreatureCollection FilteredCreatures => new ReadOnlyCreatureCollection(Creature);
     }
 }

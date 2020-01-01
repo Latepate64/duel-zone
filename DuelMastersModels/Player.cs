@@ -4,6 +4,9 @@ using System;
 
 namespace DuelMastersModels
 {
+    /// <summary>
+    /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
+    /// </summary>
     public class Player
     {
         #region Properties
@@ -20,24 +23,55 @@ namespace DuelMastersModels
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
-        public ObservableCardCollection DeckBeforeDuel { get; } = new ObservableCardCollection();
+        public ReadOnlyCardCollection DeckBeforeDuel => new ReadOnlyCardCollection(_deckBeforeDuel);
 
         #region Zones
-        public BattleZone BattleZone { get; set; }
-        public Deck Deck { get; set; }
-        public Graveyard Graveyard { get; set; }
-        public Hand Hand { get; set; }
-        public ManaZone ManaZone { get; set; }
-        public ShieldZone ShieldZone { get; set; }
+        /// <summary>
+        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+        /// </summary>
+        public BattleZone BattleZone { get; private set; }
+
+        /// <summary>
+        /// When a game begins, each player’s deck becomes their deck.
+        /// </summary>
+        public Deck Deck { get; private set; }
+
+        /// <summary>
+        /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
+        /// </summary>
+        public Graveyard Graveyard { get; private set; }
+
+        /// <summary>
+        /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
+        /// </summary>
+        public Hand Hand { get; private set; }
+
+        /// <summary>
+        /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
+        /// </summary>
+        public ManaZone ManaZone { get; private set; }
+
+        /// <summary>
+        /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
+        /// </summary>
+        public ShieldZone ShieldZone { get; private set; }
         #endregion Zones
 
         //public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
 
         //public ReadOnlyCardCollection UsableShieldTriggers { get; } = new ReadOnlyCardCollection();
 
-        public CardCollection ShieldTriggersToUse { get; } = new CardCollection();
+        internal ReadOnlyCardCollection ShieldTriggersToUse => new ReadOnlyCardCollection(_shieldTriggersToUse);
         #endregion Properties
 
+        #region Fields
+        private readonly CardCollection _deckBeforeDuel = new CardCollection();
+        private readonly CardCollection _shieldTriggersToUse = new CardCollection();
+        #endregion Fields
+
+        /// <summary>
+        /// Creates a player by initializing their zones.
+        /// </summary>
         public Player()
         {
             BattleZone = new BattleZone(this);
@@ -48,6 +82,8 @@ namespace DuelMastersModels
             ShieldZone = new ShieldZone(this);
         }
 
+        //TODO: Try to use only one public method.
+        #region Public methods
         /// <summary>
         /// Sets the cards the player is going to use in a duel.
         /// </summary>
@@ -59,7 +95,7 @@ namespace DuelMastersModels
             }
             foreach (Card card in cards)
             {
-                DeckBeforeDuel.Add(card);
+                _deckBeforeDuel.Add(card);
             }
         }
 
@@ -73,13 +109,26 @@ namespace DuelMastersModels
                 Deck.Add(card, duel);
             }
         }
+        #endregion Public methods
 
+        #region Internal methods
         /// <summary>
         /// Player shuffles their deck.
         /// </summary>
-        public void ShuffleDeck()
+        internal void ShuffleDeck()
         {
             Deck.Shuffle();
         }
+
+        internal void AddShieldTriggerToUse(Card card)
+        {
+            _shieldTriggersToUse.Add(card);
+        }
+
+        internal void RemoveShieldTriggerToUse(Card card)
+        {
+            _shieldTriggersToUse.Remove(card);
+        }
+        #endregion Internal methods
     }
 }

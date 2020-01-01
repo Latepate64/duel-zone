@@ -4,6 +4,7 @@ using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActionResponses;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,15 +18,15 @@ namespace UnitTests
         public void BasicTest()
         {
             Duel duel = GetDuel();
-            ChargeMana chargeMana = duel.StartDuel() as ChargeMana;
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(chargeMana.Cards.First()))) as UseCard; // Charge mana (player 1)
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(useCard.Cards.First()))); // Use card (player 1)
+            ChargeMana chargeMana = duel.Start() as ChargeMana;
+            UseCard useCard = duel.Progress(new CardSelectionResponse(chargeMana.Cards.First())) as UseCard; // Charge mana (player 1)
+            duel.Progress(new CardSelectionResponse(useCard.Cards.First())); // Use card (player 1)
             for (int i = 0; i < 6; ++i)
             {
-                duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())); // Do not charge mana (player 2)
-                duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())); // Do not charge mana (player 1)
-                DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())) as DeclareAttacker; // Do not use card (player 1)
-                duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(declareAttacker.Creatures.First()))); // Declare attacker (player 1)
+                duel.Progress(new CardSelectionResponse()); // Do not charge mana (player 2)
+                duel.Progress(new CardSelectionResponse()); // Do not charge mana (player 1)
+                DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker; // Do not use card (player 1)
+                duel.Progress(new CreatureSelectionResponse(declareAttacker.Creatures.First())); // Declare attacker (player 1)
             }
             Assert.True(duel.Ended);
         }
@@ -34,11 +35,11 @@ namespace UnitTests
         public void InvalidCardSelectionResponsePayCost()
         {
             Duel duel = GetDuel();
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() })));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            PayCost payCost = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() }))) as PayCost;
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { duel.Player1.Hand.Cards.First() })));
+            duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First()));
+            duel.Progress(new CardSelectionResponse());
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            PayCost payCost = duel.Progress(new CardSelectionResponse(useCard.Cards.First())) as PayCost;
+            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.Hand.Cards.First()));
             Assert.Equal(payCost, newAction);
         }
 
@@ -46,12 +47,12 @@ namespace UnitTests
         public void InvalidCardSelectionResponseDeclareAttack()
         {
             Duel duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() })));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())) as DeclareAttacker;
-            PlayerAction newAction = duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(duel.Player1.ManaZone.Creatures.First())));
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First() )) as UseCard;
+            duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
+            duel.Progress(new CardSelectionResponse());
+            duel.Progress(new CardSelectionResponse());
+            DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker;
+            PlayerAction newAction = duel.Progress(new CreatureSelectionResponse(duel.Player1.ManaZone.Creatures.First()));
             Assert.Equal(declareAttacker, newAction);
         }
 
@@ -59,8 +60,8 @@ namespace UnitTests
         public void InvalidCardSelectionResponseUseCard()
         {
             Duel duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { duel.Player1.ManaZone.Cards.First() })));
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.ManaZone.Cards.First()));
             Assert.Equal(useCard, newAction);
         }
 
@@ -68,8 +69,8 @@ namespace UnitTests
         public void InvalidCardSelectionResponseChargeMana()
         {
             Duel duel = GetDuel();
-            ChargeMana chargeMana = (duel.StartDuel() as ChargeMana);
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { duel.Player1.ShieldZone.Cards.First() })));
+            ChargeMana chargeMana = (duel.Start() as ChargeMana);
+            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.ShieldZone.Cards.First()));
             Assert.Equal(chargeMana, newAction);
         }
 
@@ -77,14 +78,14 @@ namespace UnitTests
         public void Player1ShouldWin()
         {
             Duel duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() })));
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
             for (int i = 0; i < 6; ++i)
             {
-                duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-                duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-                DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())) as DeclareAttacker;
-                duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(declareAttacker.Creatures.First())));
+                duel.Progress(new CardSelectionResponse());
+                duel.Progress(new CardSelectionResponse());
+                DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker;
+                duel.Progress(new CreatureSelectionResponse(declareAttacker.Creatures.First()));
             }
             Assert.Equal(duel.Player1, duel.Winner);
         }
@@ -93,12 +94,12 @@ namespace UnitTests
         public void Player2ShouldHave4Shields()
         {
             Duel duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() })));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())) as DeclareAttacker;
-            duel.Progress(new CreatureSelectionResponse(new ReadOnlyCreatureCollection(declareAttacker.Creatures.First())));
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
+            duel.Progress(new CardSelectionResponse());
+            duel.Progress(new CardSelectionResponse());
+            DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker;
+            duel.Progress(new CreatureSelectionResponse(declareAttacker.Creatures.First()));
             Assert.Equal(4, duel.Player2.ShieldZone.Cards.Count);
         }
 
@@ -106,10 +107,10 @@ namespace UnitTests
         public void ShouldReturnPayCost()
         {
             Duel duel = GetDuel();
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() })));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() })));
+            duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First()));
+            duel.Progress(new CardSelectionResponse());
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            PlayerAction newAction = duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
             Assert.IsType<PayCost>(newAction);
         }
 
@@ -117,24 +118,56 @@ namespace UnitTests
         public void ShouldReturnDeclareAttacker()
         {
             Duel duel = GetDuel();
-            UseCard useCard = duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))) as UseCard;
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { useCard.Cards.First() })));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection()));
-            Assert.IsType<DeclareAttacker>(duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection())));
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
+            duel.Progress(new CardSelectionResponse());
+            duel.Progress(new CardSelectionResponse());
+            Assert.IsType<DeclareAttacker>(duel.Progress(new CardSelectionResponse()));
         }
 
         [Fact]
         public void ShouldReturnUseCard()
         {
             Duel duel = GetDuel();
-            Assert.IsType<UseCard>(duel.Progress(new CardSelectionResponse(new ReadOnlyCardCollection(new List<Card>() { (duel.StartDuel() as ChargeMana).Cards.First() }))));
+            Assert.IsType<UseCard>(duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())));
         }
 
         [Fact]
         public void ShouldReturnChargeMana()
         {
-            Assert.IsType<ChargeMana>(GetDuel().StartDuel());
+            Assert.IsType<ChargeMana>(GetDuel().Start());
+        }
+
+        [Fact]
+        public void TestDrawCardEvent()
+        {
+            Duel duel = GetDuel();
+            duel.DuelEventOccurred += DuelEventOccurred;
+            ChargeMana chargeMana = duel.Start() as ChargeMana;
+            Assert.True(_duelEvents.Count(e => e is DrawCardEvent draw) == 10);
+        }
+
+        [Fact]
+        public void TestCreatureAccessMofifiers()
+        {
+            Creature creature = GetTestCreature(0);
+            CreatureSelectionResponse jotain = new CreatureSelectionResponse(creature);
+        }
+
+        [Fact]
+        public void TestAccessMofifiers()
+        {
+            Duel duel = GetDuel();
+            duel.DuelEventOccurred += DuelEventOccurred;
+            ChargeMana chargeMana = duel.Start() as ChargeMana;
+            Assert.Equal(10, _duelEvents.Count(e => e is DrawCardEvent draw));
+        }
+
+        private static List<DuelEvent> _duelEvents = new List<DuelEvent>();
+
+        private void DuelEventOccurred(object sender, DuelEventArgs e)
+        {
+            _duelEvents.Add(e.DuelEvent);
         }
 
         private Duel GetDuel()

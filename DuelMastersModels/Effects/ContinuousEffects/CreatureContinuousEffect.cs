@@ -3,9 +3,9 @@ using DuelMastersModels.Effects.Periods;
 
 namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    public abstract class CreatureContinuousEffect : ContinuousEffect
+    internal abstract class CreatureContinuousEffect : ContinuousEffect
     {
-        public CreatureFilter CreatureFilter { get; private set; }
+        internal CreatureFilter CreatureFilter { get; private set; }
 
         protected CreatureContinuousEffect(Period period, CreatureFilter creatureFilter) : base(period)
         {

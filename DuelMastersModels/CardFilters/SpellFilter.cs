@@ -2,12 +2,8 @@
 
 namespace DuelMastersModels.CardFilters
 {
-    public abstract class SpellFilter : CardFilter
+    internal abstract class SpellFilter : CardFilter
     {
-        protected SpellFilter()
-        {
-        }
-
-        public abstract ReadOnlySpellCollection FilteredSpells { get; }
+        internal abstract ReadOnlySpellCollection FilteredSpells { get; }
     }
 }

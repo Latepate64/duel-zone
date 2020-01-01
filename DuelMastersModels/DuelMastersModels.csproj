@@ -109,6 +109,7 @@
     <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
+    <Compile Include="DuelEventArgs.cs" />
     <Compile Include="Effects\ContinuousEffects\SpeedAttackerEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\AttacksIfAbleEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\BlockerEffect.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="GameActions\GameAction.cs" />
     <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
-    <Compile Include="GameActions\TurnBasedActions\DrawCardAtDrawStep.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Player.cs" />

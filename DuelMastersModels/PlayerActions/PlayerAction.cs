@@ -1,5 +1,4 @@
-﻿//using System.Xml.Serialization;
-namespace DuelMastersModels.PlayerActions
+﻿namespace DuelMastersModels.PlayerActions
 {
     /// <summary>
     /// Represents an action a player must perform.
@@ -16,8 +15,10 @@ namespace DuelMastersModels.PlayerActions
         /// </summary>
         public int PlayerId => Player.Id;
 
-        protected PlayerAction() { }
-
+        /// <summary>
+        /// Creates a player action.
+        /// </summary>
+        /// <param name="player">Player who will perform the action.</param>
         protected PlayerAction(Player player)
         {
             Player = player;

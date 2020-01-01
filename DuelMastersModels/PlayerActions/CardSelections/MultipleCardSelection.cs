@@ -3,12 +3,15 @@ using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
+    /// <summary>
+    /// Player selects up to a number of cards.
+    /// </summary>
     public abstract class MultipleCardSelection : CardSelection
     {
-        protected MultipleCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 0, cards.Count, cards)
+        internal MultipleCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 0, cards.Count, cards)
         { }
 
-        public CardCollection SelectedCards { get; } = new CardCollection();
+        internal CardCollection SelectedCards { get; } = new CardCollection();
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
@@ -22,11 +25,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public bool Validate(ReadOnlyCardCollection cards)
+        internal bool Validate(ReadOnlyCardCollection cards)
         {
             return !cards.Except(Cards).Any();
         }
 
-        public abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
+        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);
     }
 }

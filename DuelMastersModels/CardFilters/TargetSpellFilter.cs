@@ -2,16 +2,16 @@
 
 namespace DuelMastersModels.CardFilters
 {
-    public class TargetSpellFilter : SpellFilter
+    internal class TargetSpellFilter : SpellFilter
     {
-        public Spell Spell { get; private set; }
+        internal Spell Spell { get; private set; }
 
-        public TargetSpellFilter(Spell spell)
+        internal TargetSpellFilter(Spell spell)
         {
             Spell = spell;
         }
 
-        public override ReadOnlySpellCollection FilteredSpells => new ReadOnlySpellCollection(Spell);
+        internal override ReadOnlySpellCollection FilteredSpells => new ReadOnlySpellCollection(Spell);
     }
 }
 

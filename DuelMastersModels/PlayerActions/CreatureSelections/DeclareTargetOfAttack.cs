@@ -4,12 +4,15 @@ using System;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player may select a creature as the target of the attacking creature. If they do not, their opponent will be attacked.
+    /// </summary>
     public class DeclareTargetOfAttack : OptionalCreatureSelection
     {
-        public DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
+        internal DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
-        public override PlayerAction Perform(Duel duel, Creature creature)
+        internal override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {

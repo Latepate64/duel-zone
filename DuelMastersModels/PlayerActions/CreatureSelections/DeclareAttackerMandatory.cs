@@ -4,12 +4,15 @@ using System;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player must declare an attacking creature.
+    /// </summary>
     public class DeclareAttackerMandatory : MandatoryCreatureSelection
     {
-        public DeclareAttackerMandatory(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
+        internal DeclareAttackerMandatory(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
 
-        public override PlayerAction Perform(Duel duel, Creature creature)
+        internal override PlayerAction Perform(Duel duel, Creature creature)
         {
             if (duel == null)
             {

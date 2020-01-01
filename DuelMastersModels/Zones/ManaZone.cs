@@ -2,14 +2,17 @@
 
 namespace DuelMastersModels.Zones
 {
+    /// <summary>
+    /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
+    /// </summary>
     public class ManaZone : Zone
     {
-        public override bool Public { get; } = true;
-        public override bool Ordered { get; } = false;
+        internal override bool Public { get; } = true;
+        internal override bool Ordered { get; } = false;
 
-        public ManaZone(Player owner) : base(owner) { }
+        internal ManaZone(Player owner) : base(owner) { }
 
-        public override void Add(Card card, Duel duel)
+        internal override void Add(Card card, Duel duel)
         {
             if (card.Civilizations.Count > 1)
             {
@@ -20,7 +23,7 @@ namespace DuelMastersModels.Zones
             card.KnownToOpponent = true;
         }
 
-        public override void Remove(Card card, Duel duel)
+        internal override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
             card.Tapped = false;

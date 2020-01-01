@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.GameActions.TurnBasedActions
 {
-    public abstract class TurnBasedAction : GameAction
+    internal abstract class TurnBasedAction : GameAction
     {
     }
 }

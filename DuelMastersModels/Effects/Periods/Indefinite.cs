@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Effects.Periods
 {
-    public class Indefinite : Period
+    internal class Indefinite : Period
     {
     }
 }

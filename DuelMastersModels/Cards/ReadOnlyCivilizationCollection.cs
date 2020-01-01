@@ -4,8 +4,11 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
+    /// <summary>
+    /// Read-only collection that contains civilizations.
+    /// </summary>
     public class ReadOnlyCivilizationCollection : ReadOnlyCollection<Civilization>
     {
-        public ReadOnlyCivilizationCollection(IEnumerable<Civilization> civilizations) : base(civilizations.ToList()) { }
+        internal ReadOnlyCivilizationCollection(IEnumerable<Civilization> civilizations) : base(civilizations.ToList()) { }
     }
 }

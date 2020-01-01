@@ -2,6 +2,9 @@
 
 namespace DuelMastersModels.Zones
 {
+    /// <summary>
+    /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone, graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own zones except for the battle zone which is shared by each player.
+    /// </summary>
     public abstract class Zone
     {
         #region Properties
@@ -11,60 +14,59 @@ namespace DuelMastersModels.Zones
         public CardCollection Cards { get; } = new CardCollection();
 
         #region ReadOnlyCardCollection
-        public ReadOnlyCardCollection TappedCards => Cards.TappedCards;
-        public ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
+        internal ReadOnlyCardCollection TappedCards => Cards.TappedCards;
+        internal ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
         #endregion ReadOnlyCardCollection
 
         #region ReadOnlyCreatureCollection
+        /// <summary>
+        /// Creatures that are in the zone.
+        /// </summary>
         public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
-        public ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
-        public ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
-        public ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
-        public ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone;
+        internal ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
+        internal ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
+        internal ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
+        internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone;
         #endregion ReadOnlyCreatureCollection
-
-        //public Collection<Creature> UntappedBlockers => new Collection<Creature>(UntappedCreatures.Where(c => c.StaticAbilities.Count(a => a.GetType() == typeof(Blocker)) > 0).ToList());
-        //public Collection<Creature> CreaturesThatCanAttack => new Collection<Creature>(UntappedCreatures.Where(creature => !creature.SummoningSickness).ToList());
-        //ANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZone
-
 
         /// <summary>
         /// True if the zone is public, false if it is private.
         /// 400.2a Public zone is a zone where all players can see cards that are not facing downside It is.
         /// 400.2b Private zone is not all players can see the table of cards It is a zone.
         /// </summary>
-        public abstract bool Public { get; }
+        internal abstract bool Public { get; }
 
         /// <summary>
         /// 400.4. The order of the cards in the shield zone or deck will be aligned unless it is effect or rule It can not be changed. Other cards in other zones, as the player wishes You can sort them. However, whether or not you tap it, the card attached to it Something must remain obvious to all players.
         /// </summary>
-        public abstract bool Ordered { get; }
+        internal abstract bool Ordered { get; }
 
-        public Player Owner { get; private set; }
+        internal Player Owner { get; private set; }
         #endregion Properties
 
-        protected Zone(Player owner) { Owner = owner; }
+        internal Zone(Player owner) { Owner = owner; }
 
         #region Methods
         ///<summary>
         /// Adds a card to the zone.
         ///</summary>
-        public abstract void Add(Card card, Duel duel);
+        internal abstract void Add(Card card, Duel duel);
 
         ///<summary>
         /// Removes a card from the zone.
         ///</summary>
-        public abstract void Remove(Card card, Duel duel);
+        internal abstract void Remove(Card card, Duel duel);
 
+        /*
         public ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
         {
             return Cards.UntappedCardsWithCivilizations(civilizations);
         }
+        */
 
-        public void UntapCards()
+        internal void UntapCards()
         {
             foreach (Card card in TappedCards)
-            //foreach (Card card in TappedCards)
             {
                 card.Tapped = false;
             }

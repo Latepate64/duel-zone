@@ -3,9 +3,9 @@
     /// <summary>
     /// 703.4b If a player has no cards left in their deck, that player loses the game.
     /// </summary>
-    public class CheckDeckHasCards : StateBasedAction
+    internal class CheckDeckHasCards : StateBasedAction
     {
-        public override void Perform(Duel duel)
+        internal override void Perform(Duel duel)
         {
             if (duel == null)
             {

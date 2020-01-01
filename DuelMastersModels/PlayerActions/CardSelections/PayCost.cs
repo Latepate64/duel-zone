@@ -4,6 +4,9 @@ using System;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
+    /// <summary>
+    /// Player must pay the mana cost of a card.
+    /// </summary>
     public class PayCost : MandatoryMultipleCardSelection
     {
         internal int Cost { get; set; }

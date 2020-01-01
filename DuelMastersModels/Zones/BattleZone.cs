@@ -5,14 +5,17 @@ using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
+    /// <summary>
+    /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+    /// </summary>
     public class BattleZone : Zone
     {
-        public override bool Public { get; } = true;
-        public override bool Ordered { get; } = false;
-        
-        public BattleZone(Player owner) : base(owner) { }
+        internal override bool Public { get; } = true;
+        internal override bool Ordered { get; } = false;
 
-        public override void Add(Card card, Duel duel)
+        internal BattleZone(Player owner) : base(owner) { }
+
+        internal override void Add(Card card, Duel duel)
         {
             if (card is Creature creature)
             {
@@ -34,7 +37,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Remove(Card card, Duel duel)
+        internal override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
             card.Tapped = false;

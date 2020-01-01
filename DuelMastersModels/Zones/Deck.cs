@@ -3,19 +3,22 @@ using System;
 
 namespace DuelMastersModels.Zones
 {
+    /// <summary>
+    /// When a game begins, each player’s deck becomes their deck.
+    /// </summary>
     public class Deck : Zone
     {
-        public override bool Public { get; } = false;
-        public override bool Ordered { get; } = true;
+        internal override bool Public { get; } = false;
+        internal override bool Ordered { get; } = true;
 
-        public Deck(Player owner) : base(owner) { }
+        internal Deck(Player owner) : base(owner) { }
 
-        public override void Add(Card card, Duel duel)
+        internal override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        internal override void Remove(Card card, Duel duel)
         {
             Cards.Remove(card);
         }
@@ -23,7 +26,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Shuffles the deck.
         /// </summary>
-        public void Shuffle()
+        internal void Shuffle()
         {
             Cards.Shuffle();
         }
@@ -31,7 +34,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public Card RemoveAndGetTopCard(Duel duel)
+        internal Card RemoveAndGetTopCard(Duel duel)
         {
             return GetTopCard(true, duel);
         }

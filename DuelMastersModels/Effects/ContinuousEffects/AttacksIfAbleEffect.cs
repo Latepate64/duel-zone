@@ -3,8 +3,8 @@ using DuelMastersModels.Effects.Periods;
 
 namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    public class AttacksIfAbleEffect : CreatureContinuousEffect
+    internal class AttacksIfAbleEffect : CreatureContinuousEffect
     {
-        public AttacksIfAbleEffect(Period period, CreatureFilter creatureFilter) : base(period, creatureFilter) { }
+        internal AttacksIfAbleEffect(Period period, CreatureFilter creatureFilter) : base(period, creatureFilter) { }
     }
 }

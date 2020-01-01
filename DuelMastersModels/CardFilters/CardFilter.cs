@@ -1,9 +1,6 @@
 ﻿namespace DuelMastersModels.CardFilters
 {
-    public abstract class CardFilter
+    internal abstract class CardFilter
     {
-        protected CardFilter()
-        {
-        }
     }
 }

@@ -6,19 +6,19 @@ using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
-    public class TriggerConditionAndRemainingText
+    internal class TriggerConditionAndRemainingText
     {
-        public TriggerCondition TriggerCondition { get; private set; }
-        public string RemainingText { get; private set; }
+        internal TriggerCondition TriggerCondition { get; private set; }
+        internal string RemainingText { get; private set; }
 
-        public TriggerConditionAndRemainingText(TriggerCondition triggerCondition, string remainingText)
+        internal TriggerConditionAndRemainingText(TriggerCondition triggerCondition, string remainingText)
         {
             TriggerCondition = triggerCondition;
             RemainingText = remainingText;
         }
     }
 
-    public static class TriggerConditionFactory
+    internal static class TriggerConditionFactory
     {
         private static readonly ReadOnlyDictionary<string, Type> _triggerConditionDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Factories
             { "Whenever another creature is put into the battle zone,", typeof(WheneverAnotherCreatureIsPutIntoTheBattleZone) },
         });
 
-        public static TriggerConditionAndRemainingText ParseTriggerCondition(string text)
+        internal static TriggerConditionAndRemainingText ParseTriggerCondition(string text)
         {
             if (text == null)
             {
@@ -39,7 +39,7 @@ namespace DuelMastersModels.Factories
                 : new TriggerConditionAndRemainingText(null, null);
         }
 
-        public static string GetTextForTriggerCondition(TriggerCondition triggerCondition)
+        internal static string GetTextForTriggerCondition(TriggerCondition triggerCondition)
         {
             return _triggerConditionDictionary.First(condition => condition.Value == triggerCondition.GetType()).Key;
         }

@@ -1,14 +1,17 @@
 ﻿namespace DuelMastersModels.PlayerActions.OptionalActions
 {
+    /// <summary>
+    /// An action player is allowed to take.
+    /// </summary>
     public abstract class OptionalAction : PlayerAction
     {
-        protected OptionalAction(Player player) : base(player) { }
+        internal OptionalAction(Player player) : base(player) { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             return this;
         }
 
-        public abstract PlayerAction Perform(Duel duel, bool takeAction);
+        internal abstract PlayerAction Perform(Duel duel, bool takeAction);
     }
 }

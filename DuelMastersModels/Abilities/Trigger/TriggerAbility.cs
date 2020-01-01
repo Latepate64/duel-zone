@@ -5,11 +5,11 @@ namespace DuelMastersModels.Abilities.Trigger
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
-    public class TriggerAbility : NonStaticAbility
+    internal class TriggerAbility : NonStaticAbility
     {
-        public TriggerCondition TriggerCondition { get; private set; }
+        internal TriggerCondition TriggerCondition { get; private set; }
 
-        public TriggerAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card card) : base(effects, controller, card)
+        internal TriggerAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card card) : base(effects, controller, card)
         {
             TriggerCondition = triggerCondition;
         }
@@ -19,7 +19,7 @@ namespace DuelMastersModels.Abilities.Trigger
         /// </summary>
         /// <param name="controller"></param>
         /// <returns></returns>
-        public TriggerAbility CreatePendingTriggerAbility(Player controller)
+        internal TriggerAbility CreatePendingTriggerAbility(Player controller)
         {
             return new TriggerAbility(TriggerCondition, Effects, controller, Source);
             /*

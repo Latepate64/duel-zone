@@ -10,17 +10,17 @@ namespace DuelMastersModels.Abilities
         /// <summary>
         /// Abilities can generate one-shot effects or continuous effects.
         /// </summary>
-        public ReadOnlyOneShotEffectCollection Effects { get; private set; }
+        internal ReadOnlyOneShotEffectCollection Effects { get; private set; }
 
         /// <summary>
         /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
-        public Player Controller { get; set; }
+        internal Player Controller { get; set; }
 
         /// <summary>
         /// The source of an ability is the object that generated it. The source of an activated ability on the stack is the object whose ability was activated. The source of a triggered ability (other than a delayed triggered ability) on the stack, or one that has triggered and is waiting to be put on the stack, is the object whose ability triggered.
         /// </summary>
-        public Cards.Card Source { get; private set; }
+        internal Cards.Card Source { get; private set; }
 
         private int _effectIndex = 0;
 
@@ -30,7 +30,7 @@ namespace DuelMastersModels.Abilities
         /// <param name="effects">Effects the ability generates.</param>
         /// <param name="controller">Player who controls the ability.</param>
         /// <param name="source">Object that generated the ability.</param>
-        protected NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card source)
+        internal NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card source)
         {
             Effects = effects;
             Controller = controller;

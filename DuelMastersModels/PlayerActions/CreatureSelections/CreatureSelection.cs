@@ -1,32 +1,26 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Xml.Serialization;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
+    /// <summary>
+    /// Player selects creatures.
+    /// </summary>
     public abstract class CreatureSelection : PlayerAction
     {
-        [XmlIgnore]
+        /// <summary>
+        /// Creatures player can select from.
+        /// </summary>
         public ReadOnlyCreatureCollection Creatures { get; private set; }
 
-        [XmlArrayItem(ElementName = "CreatureId")]
-        public Collection<int> CreatureIds { get; private set; }
+        internal int MinimumSelection { get; private set; }
 
-        [XmlIgnore]
-        public int MinimumSelection { get; set; }
+        internal int MaximumSelection { get; private set; }
 
-        [XmlIgnore]
-        public int MaximumSelection { get; set; }
-
-        protected CreatureSelection() { }
-
-        protected CreatureSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCreatureCollection creatures) : base(player)
+        internal CreatureSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCreatureCollection creatures) : base(player)
         {
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
             Creatures = creatures;
-            CreatureIds = new Collection<int>(creatures.Select(card => card.GameId).ToList());
         }
     }
 }

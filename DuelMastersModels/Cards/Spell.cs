@@ -8,13 +8,12 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
+    /// <summary>
+    /// Spell is a card type.
+    /// </summary>
     public class Spell : Card
     {
-        public ReadOnlySpellAbilityCollection SpellAbilities => new ReadOnlySpellAbilityCollection(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>());
-
-        public Spell() : base()
-        {
-        }
+        internal ReadOnlySpellAbilityCollection SpellAbilities => new ReadOnlySpellAbilityCollection(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>());
 
         /// <summary>
         /// Creates a spell.

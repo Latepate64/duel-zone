@@ -1,10 +1,10 @@
 ﻿namespace DuelMastersModels.GameActions
 {
-    public abstract class GameAction
+    internal abstract class GameAction
     {
         /// <summary>
         /// Performs the game action.
         /// </summary>
-        public abstract void Perform(Duel duel);
+        internal abstract void Perform(Duel duel);
     }
 }

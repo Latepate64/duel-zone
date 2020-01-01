@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
-    public static class EffectFactory
+    internal static class EffectFactory
     {
         private static readonly ReadOnlyDictionary<string, Type> _effectDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
         {
@@ -31,7 +31,7 @@ namespace DuelMastersModels.Factories
             { "This creature gets $plusinteger power until the end of the turn. (Do what the spell says before this creature gets the extra power.)", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
         });
 
-        public static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text, Player owner)
+        internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text, Player owner)
         {
             if (text == null)
             {
@@ -50,7 +50,7 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        public static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Cards.Creature creature)
+        internal static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Cards.Creature creature)
         {
             if (text == null)
             {
@@ -67,7 +67,7 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        public static string GetTextForEffects(ReadOnlyOneShotEffectCollection oneShotEffects)
+        internal static string GetTextForEffects(ReadOnlyOneShotEffectCollection oneShotEffects)
         {
             if (oneShotEffects.Count == 1)
             {

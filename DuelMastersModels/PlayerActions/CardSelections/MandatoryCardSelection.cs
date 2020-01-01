@@ -2,12 +2,15 @@
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
+    /// <summary>
+    /// Player must select a card.
+    /// </summary>
     public abstract class MandatoryCardSelection : CardSelection
     {
-        protected MandatoryCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 1, 1, cards)
+        internal MandatoryCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 1, 1, cards)
         { }
 
-        public Card SelectedCard { get; set; }
+        internal Card SelectedCard { get; set; }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
@@ -23,11 +26,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        public bool Validate(Card card)
+        internal bool Validate(Card card)
         {
             return Cards.Contains(card);
         }
 
-        public abstract PlayerAction Perform(Duel duel, Card card);
+        internal abstract PlayerAction Perform(Duel duel, Card card);
     }
 }
