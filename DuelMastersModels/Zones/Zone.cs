@@ -11,8 +11,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
-        public CardCollection Cards { get; } = new CardCollection();
-
+        public ReadOnlyCardCollection Cards => new ReadOnlyCardCollection(_cards);
         #region ReadOnlyCardCollection
         internal ReadOnlyCardCollection TappedCards => Cards.TappedCards;
         internal ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
@@ -44,6 +43,8 @@ namespace DuelMastersModels.Zones
         internal Player Owner { get; private set; }
         #endregion Properties
 
+        private protected System.Collections.ObjectModel.Collection<Card> _cards = new System.Collections.ObjectModel.Collection<Card>();
+
         internal Zone(Player owner) { Owner = owner; }
 
         #region Methods
@@ -57,13 +58,6 @@ namespace DuelMastersModels.Zones
         ///</summary>
         internal abstract void Remove(Card card, Duel duel);
 
-        /*
-        public ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
-        {
-            return Cards.UntappedCardsWithCivilizations(civilizations);
-        }
-        */
-
         internal void UntapCards()
         {
             foreach (Card card in TappedCards)
@@ -71,13 +65,6 @@ namespace DuelMastersModels.Zones
                 card.Tapped = false;
             }
         }
-
-        /*
-        public Card GetCard(int gameId)
-        {
-            return Cards.First(card => card.GameId == gameId);
-        }
-        */
         #endregion Methods
     }
 }

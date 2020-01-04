@@ -14,14 +14,14 @@ namespace DuelMastersModels.Zones
 
         internal override void Add(Card card, Duel duel)
         {
-            Cards.Add(card);
+            _cards.Add(card);
             card.KnownToOwner = true;
             card.KnownToOpponent = true;
         }
 
         internal override void Remove(Card card, Duel duel)
         {
-            Cards.Remove(card);
+            _cards.Remove(card);
         }
     }
 }

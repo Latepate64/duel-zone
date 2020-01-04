@@ -25,7 +25,8 @@ namespace UnitTests
             {
                 duel.Progress(new CardSelectionResponse()); // Do not charge mana (player 2)
                 duel.Progress(new CardSelectionResponse()); // Do not charge mana (player 1)
-                DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker; // Do not use card (player 1)
+                var jotain = duel.Progress(new CardSelectionResponse());
+                DeclareAttacker declareAttacker = jotain as DeclareAttacker; // Do not use card (player 1)
                 duel.Progress(new CreatureSelectionResponse(declareAttacker.Creatures.First())); // Declare attacker (player 1)
             }
             Assert.True(duel.Ended);
@@ -171,38 +172,22 @@ namespace UnitTests
         }
 
         private Duel GetDuel()
-        {
-            Duel duel = new Duel()
-            {
-                Player1 = new Player()
-                {
-                    Id = 0,
-                    Name = "Player1",
-                },
-                Player2 = new Player()
-                {
-                    Id = 1,
-                    Name = "Player2",
-                }
-            };
+        { 
             const int DeckSize = 40;
-            CardCollection p1Cards = new CardCollection();
-            CardCollection p2Cards = new CardCollection();
+            List<Card> p1Cards = new List<Card>();
+            List<Card> p2Cards = new List<Card>();
             for (int i = 0; i < DeckSize; ++i)
             {
                 p1Cards.Add(GetTestCreature(i));
                 p2Cards.Add(GetTestCreature(i+DeckSize));
             }
-            duel.Player1.SetDeckBeforeDuel(p1Cards);
-            duel.Player2.SetDeckBeforeDuel(p2Cards);
-            duel.Player1.SetupDeck(duel);
-            duel.Player2.SetupDeck(duel);
-            return duel;
+            return new Duel(new Player("Player1", new ReadOnlyCardCollection(p1Cards)), new Player("Player2", new ReadOnlyCardCollection(p2Cards))) { StartingPlayer = StartingPlayer.Player1 };
         }
 
         private Creature GetTestCreature(int gameId)
         {
-            return new Creature(name: "TestCreature", null, null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, null, null, null, gameId: gameId, power: "1000", races: new Collection<string>() { "Initiate" }, null);
+            string text = "When you put this creature into the battle zone, tap all your opponent's creatures in the battle zone.";
+            return new Creature(name: "TestCreature", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: text, flavor: null, illustrator: null, power: "1000", races: new Collection<string>() { "Initiate" });
         }
     }
 }

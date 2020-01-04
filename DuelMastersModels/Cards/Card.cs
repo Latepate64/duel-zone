@@ -1,10 +1,6 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Trigger;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
@@ -57,7 +53,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Rarity of the card.
         /// </summary>
-        public Rarity Rarity { get; private set; }
+        public Rarity Rarity { get; private set; } = Rarity.None;
 
         /// <summary>
         /// Mana cost of the card.
@@ -82,14 +78,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
         /// </summary>
-        public bool Tapped { get; set; }
-
-        /// <summary>
-        /// An ability can be a characteristic an card has that lets it affect the game. A card's abilities are defined by its rules text or by the effect that created it.
-        /// </summary>
-        internal AbilityCollection Abilities { get; } = new AbilityCollection();
-        internal ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
-        internal ReadOnlyTriggerAbilityCollection TriggerAbilities => new ReadOnlyTriggerAbilityCollection(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
+        public bool Tapped { get; internal set; } = false;
 
         internal bool KnownToOwner { get; set; }
         internal bool KnownToOpponent { get; set; }
@@ -110,9 +99,8 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a card.
         /// </summary>
-        protected Card(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator, int gameId)
+        protected Card(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator)
         {
-            Tapped = false;
             Name = name;
             Set = set;
             Id = id;
@@ -122,7 +110,6 @@ namespace DuelMastersModels.Cards
             Flavor = flavor;
             Illustrator = illustrator;
             Text = text;
-            GameId = gameId;
         }
 
         #region Private methods

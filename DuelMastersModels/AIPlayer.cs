@@ -9,8 +9,18 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    internal class AIPlayer : Player
+    /// <summary>
+    /// Player that is controlled by computer.
+    /// </summary>
+    public class AIPlayer : Player
     {
+        /// <summary>
+        /// Creates a player that is controlled by computer.
+        /// </summary>
+        /// <param name="name">Name of the player.</param>
+        /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
+        public AIPlayer(string name, ReadOnlyCardCollection deckBeforeDuel) : base(name, deckBeforeDuel) { }
+
         internal PlayerAction PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
             if (duel == null)

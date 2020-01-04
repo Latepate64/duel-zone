@@ -11,11 +11,6 @@
         public Player Player { get; set; }
 
         /// <summary>
-        /// Identifier of the player performing the action.
-        /// </summary>
-        public int PlayerId => Player.Id;
-
-        /// <summary>
         /// Creates a player action.
         /// </summary>
         /// <param name="player">Player who will perform the action.</param>

@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Zones;
-using System;
 
 namespace DuelMastersModels
 {
@@ -11,14 +10,9 @@ namespace DuelMastersModels
     {
         #region Properties
         /// <summary>
-        /// The identifier of the player.
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
         /// The name of the player.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
@@ -65,17 +59,20 @@ namespace DuelMastersModels
         #endregion Properties
 
         #region Fields
-        private readonly CardCollection _deckBeforeDuel = new CardCollection();
+        //private readonly CardCollection _deckBeforeDuel = new CardCollection();
+        private ReadOnlyCardCollection _deckBeforeDuel;
         private readonly CardCollection _shieldTriggersToUse = new CardCollection();
         #endregion Fields
 
         /// <summary>
         /// Creates a player by initializing their zones.
         /// </summary>
-        public Player()
+        public Player(string name, ReadOnlyCardCollection deckBeforeDuel)
         {
+            Name = name;
+            _deckBeforeDuel = deckBeforeDuel;
+            Deck = new Deck(this, deckBeforeDuel);
             BattleZone = new BattleZone(this);
-            Deck = new Deck(this);
             Graveyard = new Graveyard(this);
             Hand = new Hand(this);
             ManaZone = new ManaZone(this);
@@ -84,6 +81,7 @@ namespace DuelMastersModels
 
         //TODO: Try to use only one public method.
         #region Public methods
+            /*
         /// <summary>
         /// Sets the cards the player is going to use in a duel.
         /// </summary>
@@ -97,8 +95,9 @@ namespace DuelMastersModels
             {
                 _deckBeforeDuel.Add(card);
             }
-        }
+        }*/
 
+        /*
         /// <summary>
         /// Setups the player's deck from the cards they are going to use in a duel.
         /// </summary>
@@ -108,7 +107,7 @@ namespace DuelMastersModels
             {
                 Deck.Add(card, duel);
             }
-        }
+        }*/
         #endregion Public methods
 
         #region Internal methods

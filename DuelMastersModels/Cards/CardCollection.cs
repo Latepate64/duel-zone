@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
-    public class CardCollection : ReadOnlyCardCollection
+    internal class CardCollection : ReadOnlyCardCollection
     {
-        public CardCollection() : base(new List<Card>())
+        internal CardCollection() : base(new List<Card>())
         {
         }
 
-        public void Add(Card card)
+        internal void Add(Card card)
         {
             Items.Add(card);
         }
@@ -18,40 +18,6 @@ namespace DuelMastersModels.Cards
         internal void Remove(Card card)
         {
             Items.Remove(card);
-        }
-
-        internal void Shuffle()
-        {
-            System.Random random = new System.Random(System.Guid.NewGuid().GetHashCode());
-            int n = Items.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = random.Next(n + 1);
-                Card value = Items[k];
-                Items[k] = Items[n];
-                Items[n] = value;
-            }
-        }
-
-        #region ReadOnlyCardCollection
-        internal ReadOnlyCardCollection TappedCards => new ReadOnlyCardCollection(Items.Where(card => card.Tapped));
-        internal ReadOnlyCardCollection UntappedCards => new ReadOnlyCardCollection(Items.Where(card => !card.Tapped));
-
-        
-        #endregion ReadOnlyCardCollection
-
-        #region ReadOnlyCreatureCollection
-        internal ReadOnlyCreatureCollection Creatures => new ReadOnlyCreatureCollection(Items.Where(card => card is Creature).Cast<Creature>());
-        internal ReadOnlyCreatureCollection TappedCreatures => new ReadOnlyCreatureCollection(Creatures.TappedCreatures);
-        internal ReadOnlyCreatureCollection UntappedCreatures => new ReadOnlyCreatureCollection(Creatures.Where(creature => !creature.Tapped));
-        internal ReadOnlyCreatureCollection NonEvolutionCreatures => new ReadOnlyCreatureCollection(Creatures.Where(c => !(c is EvolutionCreature)));
-        internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection(NonEvolutionCreatures.Where(c => c.Cost <= Items.Count));
-        #endregion ReadOnlyCreatureCollection
-
-        private ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
-        {
-            return new ReadOnlyCardCollection(UntappedCards.Where(card => card.Civilizations.Intersect(civilizations).Count() > 0));
         }
     }
 
@@ -70,6 +36,26 @@ namespace DuelMastersModels.Cards
         { }
 
         internal ReadOnlyCardCollection(Card card) : base(new List<Card>() { card }) { }
+
+        #region ReadOnlyCardCollection
+        internal ReadOnlyCardCollection TappedCards => new ReadOnlyCardCollection(Items.Where(card => card.Tapped));
+        internal ReadOnlyCardCollection UntappedCards => new ReadOnlyCardCollection(Items.Where(card => !card.Tapped));
+
+
+        #endregion ReadOnlyCardCollection
+
+        #region ReadOnlyCreatureCollection
+        internal ReadOnlyCreatureCollection Creatures => new ReadOnlyCreatureCollection(Items.Where(card => card is Creature).Cast<Creature>());
+        internal ReadOnlyCreatureCollection TappedCreatures => new ReadOnlyCreatureCollection(Creatures.TappedCreatures);
+        internal ReadOnlyCreatureCollection UntappedCreatures => new ReadOnlyCreatureCollection(Creatures.Where(creature => !creature.Tapped));
+        internal ReadOnlyCreatureCollection NonEvolutionCreatures => new ReadOnlyCreatureCollection(Creatures.Where(c => !(c is EvolutionCreature)));
+        internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection(NonEvolutionCreatures.Where(c => c.Cost <= Items.Count));
+        #endregion ReadOnlyCreatureCollection
+
+        private ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
+        {
+            return new ReadOnlyCardCollection(UntappedCards.Where(card => card.Civilizations.Intersect(civilizations).Count() > 0));
+        }
     }
 
     /// <summary>

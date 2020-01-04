@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
             if (AttackingCreature != null && !TargetOfAttackDeclared)
             {
                 //TODO: If attacked creature is not null, check that it can be attacked.
-                return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer, AttackingCreature));
+                return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer));
             }
             else
             {

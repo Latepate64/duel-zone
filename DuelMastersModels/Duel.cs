@@ -3,6 +3,8 @@ using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.Effects.OneShotEffects;
+using DuelMastersModels.Factories;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.AutomaticActions;
@@ -24,19 +26,19 @@ namespace DuelMastersModels
     public enum StartingPlayer
     {
         /// <summary>
+        /// Player who goes first is randomized.
+        /// </summary>
+        Random = 0,
+
+        /// <summary>
         /// Player 1 goes first.
         /// </summary>
-        Player1 = 0,
+        Player1 = 1,
         
         /// <summary>
         /// Player 2 goes first.
         /// </summary>
-        Player2 = 1,
-
-        /// <summary>
-        /// Player who goes first is randomized.
-        /// </summary>
-        Random = 2,
+        Player2 = 2,
     }
 
     /// <summary>
@@ -60,12 +62,12 @@ namespace DuelMastersModels
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
-        public Player Player1 { get; set; }
+        public Player Player1 { get; private set; }
 
         /// <summary>
         /// A player that participates in duel against player 1.
         /// </summary>
-        public Player Player2 { get; set; }
+        public Player Player2 { get; private set; }
 
         /// <summary>
         /// Player who won the duel.
@@ -106,6 +108,11 @@ namespace DuelMastersModels
         /// Cards the player drew at the start of duel.
         /// </summary>
         public ObservableCollection<Card> CardsDrawnAtTheStartOfDuel { get; } = new ObservableCollection<Card>();
+
+        /// <summary>
+        /// Determines which player goes first in the duel.
+        /// </summary>
+        public StartingPlayer StartingPlayer { get; set; } = StartingPlayer.Random;
         #endregion Public
 
         #region Internal
@@ -136,6 +143,17 @@ namespace DuelMastersModels
         /// The turn that is currently being processed.
         /// </summary>
         internal Turn CurrentTurn => _turns.Last();
+
+        /// <summary>
+        /// An ability can be a characteristic an card has that lets it affect the game. A card's abilities are defined by its rules text or by the effect that created it.
+        /// </summary>
+        internal AbilityCollection Abilities { get; } = new AbilityCollection();
+
+        internal ReadOnlyTriggerAbilityCollection TriggerAbilities => new ReadOnlyTriggerAbilityCollection(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
+
+        internal ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
+
+        internal ReadOnlySpellAbilityCollection SpellAbilities => new ReadOnlySpellAbilityCollection(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>());
         #endregion Internal
         #endregion Properties
 
@@ -163,28 +181,41 @@ namespace DuelMastersModels
         private PlayerAction _currentPlayerAction;
         #endregion Fields
 
+        /// <summary>
+        /// Creates a duel.
+        /// </summary>
+        /// <param name="player1">One of the two playes.</param>
+        /// <param name="player2">Another one of the two players.</param>
+        public Duel(Player player1, Player player2)
+        {
+            Player1 = player1;
+            Player2 = player2;
+            InstantiateAbilities(Player1);
+            InstantiateAbilities(Player2);
+        }
+
         #region Public methods
         /// <summary>
         /// Starts a duel.
         /// </summary>
-        public PlayerAction Start(StartingPlayer startingPlayer = StartingPlayer.Player1)
+        public PlayerAction Start()
         {
             Player activePlayer = Player1;
             Player nonActivePlayer = Player2;
 
-            if (startingPlayer == StartingPlayer.Random)
+            if (StartingPlayer == StartingPlayer.Random)
             {
                 const int RandomMax = 100;
                 int randomNumber = new Random().Next(0, RandomMax);
-                startingPlayer = (randomNumber % 2 == 0) ? StartingPlayer.Player1 : StartingPlayer.Player2;
+                StartingPlayer = (randomNumber % 2 == 0) ? StartingPlayer.Player1 : StartingPlayer.Player2;
             }
 
-            if (startingPlayer == StartingPlayer.Player2)
+            if (StartingPlayer == StartingPlayer.Player2)
             {
                 activePlayer = Player2;
                 nonActivePlayer = Player1;
             }
-            else if (startingPlayer != StartingPlayer.Player1)
+            else if (StartingPlayer != StartingPlayer.Player1)
             {
                 throw new InvalidOperationException();
             }
@@ -281,12 +312,12 @@ namespace DuelMastersModels
                         }
                         else
                         {
-                            throw new InvalidOperationException("mandatoryCardSelection");
+                            throw new InvalidOperationException();
                         }
                     }
                     else
                     {
-                        throw new InvalidOperationException("mandatoryCardSelection");
+                        throw new InvalidOperationException();
                     }
                 }
                 else
@@ -327,12 +358,12 @@ namespace DuelMastersModels
                         }
                         else
                         {
-                            throw new InvalidOperationException("mandatoryCreatureSelection");
+                            throw new InvalidOperationException();
                         }
                     }
                     else
                     {
-                        throw new InvalidOperationException("mandatoryCreatureSelection");
+                        throw new InvalidOperationException();
                     }
                 }
                 else
@@ -349,7 +380,7 @@ namespace DuelMastersModels
                 }
                 else
                 {
-                    throw new InvalidOperationException("optionalActionResponse");
+                    throw new InvalidOperationException();
                 }
             }
             else if (response is SelectAbilityToResolveResponse selectAbilityToResolveResponse)
@@ -362,7 +393,7 @@ namespace DuelMastersModels
                 }
                 else
                 {
-                    throw new InvalidOperationException("optionalActionResponse");
+                    throw new InvalidOperationException();
                 }
             }
             //TODO SelectAbilityToResolveResponse
@@ -518,10 +549,9 @@ namespace DuelMastersModels
             else if (card is Spell spell)
             {
                 _spellsBeingResolved.Add(spell);
-
                 foreach (Creature battleZoneCreature in CreaturesInTheBattleZone)
                 {
-                    foreach (TriggerAbility ability in battleZoneCreature.TriggerAbilities.Where(ability => ability.TriggerCondition is WheneverAPlayerCastsASpell))
+                    foreach (TriggerAbility ability in TriggerAbilities.Where(ability => ability.Source == battleZoneCreature && ability.TriggerCondition is WheneverAPlayerCastsASpell))
                     {
                         TriggerTriggerAbility(ability, ability.Controller);
                     }
@@ -529,7 +559,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new InvalidOperationException("mainStep.CardToBeUsed");
+                throw new InvalidOperationException();
             }
         }
 
@@ -550,8 +580,8 @@ namespace DuelMastersModels
         internal void AddFromYourHandToYourShieldsFaceDown(Card card)
         {
             Player owner = GetOwner(card);
-            owner.Hand.Cards.Remove(card);
-            owner.ShieldZone.Cards.Add(card);
+            owner.Hand.Remove(card, this);
+            owner.ShieldZone.Add(card, this);
         }
 
         internal void EndContinuousEffects(Type type)
@@ -605,22 +635,16 @@ namespace DuelMastersModels
             List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature)).ToList();
 
             IEnumerable<Creature> creaturesThatCannotAttackPlayers = GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
-            IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player, c).Count == 0);
-            /*
-            foreach (CreatureContinuousEffect creatureContinuousEffect in cannotAttackPlayersEffects)
-            {
-                ReadOnlyCreatureCollection creaturesThatCannotAttackPlayers = creatureContinuousEffect.CreatureFilter.FilteredCreatures;
-                creatures.RemoveAll(c => creaturesThatCannotAttackPlayers.Contains(c));
-            }*/
+            IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player).Count == 0);
             creatures.RemoveAll(c => creaturesThatCannotAttack.Contains(c));
             return new ReadOnlyCreatureCollection(creatures);
         }
 
-        internal ReadOnlyCreatureCollection GetCreaturesThatCanBeAttacked(Player player, Creature attackingCreature)
+        internal ReadOnlyCreatureCollection GetCreaturesThatCanBeAttacked(Player player)
         {
             Player opponent = GetOpponent(player);
             return opponent.BattleZone.TappedCreatures;
-            //TODO: improve
+            //TODO: Consider attacking creature
         }
         #endregion ReadOnlyCreatureCollection
 
@@ -706,6 +730,11 @@ namespace DuelMastersModels
         {
             //return creature.Power + GetContinuousEffects().Where(e => e is PowerEffect).Cast<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
             return creature.Power + GetContinuousEffects<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
+        }
+
+        internal ReadOnlyCollection<TriggerAbility> GetTriggerAbilities<T>(Card card)
+        {
+            return new ReadOnlyCollection<TriggerAbility>(TriggerAbilities.Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
         }
         #endregion Internal methods
 
@@ -844,10 +873,10 @@ namespace DuelMastersModels
                     if (_spellsBeingResolved.Count > 0)
                     {
                         Spell spell = _spellsBeingResolved.Last();
-                        if (spell.SpellAbilities.Count > 0)
+                        if (SpellAbilities.Count(a => a.Source == spell) > 0)
                         {
                             //TODO: spell may have more than one spell ability.
-                            SpellAbility spellAbility = spell.SpellAbilities.First();
+                            SpellAbility spellAbility = SpellAbilities.First(a => a.Source == spell);
                             AbilityBeingResolved = spellAbility;
                             return Progress();
                         }
@@ -1016,7 +1045,6 @@ namespace DuelMastersModels
         /// <summary>
         /// Removes the top card from a player's deck and returns it.
         /// </summary>
-        //TODO: To private
         private Card RemoveTheTopCardOfDeck(Player player)
         {
             return player.Deck.RemoveAndGetTopCard(this);
@@ -1073,7 +1101,7 @@ namespace DuelMastersModels
         private List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card)
         {
             List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
-            foreach (StaticAbility staticAbility in card.StaticAbilities)
+            foreach (StaticAbility staticAbility in StaticAbilities.Where(a => a.Source == card))
             {
                 continuousEffects.AddRange(GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
             }
@@ -1108,7 +1136,8 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new InvalidOperationException("staticAbility");
+                //throw new InvalidOperationException("staticAbility");
+                throw new InvalidOperationException();
             }
         }
 
@@ -1148,6 +1177,127 @@ namespace DuelMastersModels
         private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForNonActivePlayer()
         {
             return new ReadOnlyCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
+        }
+
+        private void InstantiateAbilities(Player player)
+        {
+            foreach (Card card in player.DeckBeforeDuel)
+            {
+                if (card is Creature creature)
+                {
+                    foreach (Ability ability in TryParseCreatureAbilities(player, creature))
+                    {
+                        Abilities.Add(ability);
+                    }
+                }
+                else if (card is Spell spell)
+                {
+                    foreach (Ability ability in TryParseSpellAbilities(player, spell))
+                    {
+                        Abilities.Add(ability);
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
+
+        [Obsolete("Move to creature.")]
+        private static ReadOnlyCollection<Ability> TryParseCreatureAbilities(Player owner, Creature creature)
+        {
+            AbilityCollection abilities = new AbilityCollection();
+            if (!string.IsNullOrEmpty(creature.Text))
+            {
+                IEnumerable<string> textParts = creature.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
+                foreach (string textPart in textParts)
+                {
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, creature);
+                    if (staticAbility != null)
+                    {
+                        abilities.Add(staticAbility);
+                    }
+                    else
+                    {
+                        NonStaticAbility nonStaticAbility = ParseTriggerAbility(owner, textPart, creature);
+                        if (nonStaticAbility != null)
+                        {
+                            abilities.Add(nonStaticAbility);
+                        }
+                    }
+                }
+            }
+            return abilities;
+        }
+
+        [Obsolete("Move to creature.")]
+        private static NonStaticAbility ParseTriggerAbility(Player owner, string textPart, Creature creature)
+        {
+            TriggerConditionAndRemainingText triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart);
+            if (triggerCondition.TriggerCondition != null)
+            {
+                ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(triggerCondition.RemainingText);
+                if (effects != null)
+                {
+                    return new TriggerAbility(triggerCondition.TriggerCondition, effects, owner, creature);
+                }
+                else
+                {
+                    return ParseTriggerAbilityWithOneShotEffectForCreature(owner, triggerCondition, creature);
+                }
+            }
+            else
+            {
+                NotParsedAbilities.Add(textPart);
+                return null;
+            }
+        }
+
+        [Obsolete("Move to creature.")]
+        private static NonStaticAbility ParseTriggerAbilityWithOneShotEffectForCreature(Player owner, TriggerConditionAndRemainingText triggerCondition, Creature creature)
+        {
+            OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(triggerCondition.RemainingText, creature);
+            if (oneShotEffectForCreature != null)
+            {
+                return new TriggerAbility(triggerCondition.TriggerCondition, new ReadOnlyOneShotEffectCollection(oneShotEffectForCreature), owner, creature);
+            }
+            else
+            {
+                NotParsedAbilities.Add(triggerCondition.RemainingText);
+                return null;
+            }
+        }
+
+        [Obsolete("Move to spell.")]
+        private static ReadOnlyCollection<Ability> TryParseSpellAbilities(Player owner, Spell spell)
+        {
+            AbilityCollection abilities = new AbilityCollection();
+            if (!string.IsNullOrEmpty(spell.Text))
+            {
+                IEnumerable<string> textParts = spell.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
+                foreach (string textPart in textParts)
+                {
+                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, spell);
+                    if (staticAbility != null)
+                    {
+                        abilities.Add(staticAbility);
+                    }
+                    else
+                    {
+                        ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(textPart);
+                        if (effects != null)
+                        {
+                            abilities.Add(new SpellAbility(effects, owner, spell));
+                        }
+                        else
+                        {
+                            NotParsedAbilities.Add(textPart);
+                        }
+                    }
+                }
+            }
+            return abilities;
         }
         #endregion Private methods
     }

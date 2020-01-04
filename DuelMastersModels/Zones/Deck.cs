@@ -11,16 +11,22 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(Player owner) : base(owner) { }
+        internal Deck(Player owner, ReadOnlyCardCollection cards) : base(owner) 
+        {
+            foreach (Card card in cards)
+            {
+                _cards.Add(card);
+            }
+        }
 
         internal override void Add(Card card, Duel duel)
         {
-            Cards.Add(card);
+            _cards.Add(card);
         }
 
         internal override void Remove(Card card, Duel duel)
         {
-            Cards.Remove(card);
+            _cards.Remove(card);
         }
 
         /// <summary>
@@ -28,7 +34,16 @@ namespace DuelMastersModels.Zones
         /// </summary>
         internal void Shuffle()
         {
-            Cards.Shuffle();
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int n = _cards.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Card value = _cards[k];
+                _cards[k] = _cards[n];
+                _cards[n] = value;
+            }
         }
 
         /// <summary>

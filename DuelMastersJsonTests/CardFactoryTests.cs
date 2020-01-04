@@ -29,8 +29,7 @@ namespace DuelMastersJsonTests
             {
                 jsonCards.Add(new JsonCard("Test Cross Gear", "Test Set", "1/55", "Light", null, "Cross Gear", "Common", 1, null, null, null, null, null, null));
             }
-            int gameId = 0;
-            DuelMastersModels.Cards.ReadOnlyCardCollection cards = CardFactory.GetCardsFromJsonCards(new Collection<JsonCard>(jsonCards), ref gameId, new DuelMastersModels.Player());
+            DuelMastersModels.Cards.ReadOnlyCardCollection cards = CardFactory.GetCardsFromJsonCards(new Collection<JsonCard>(jsonCards));
             Assert.Equal(DeckSize, cards.Count);
         }
     }

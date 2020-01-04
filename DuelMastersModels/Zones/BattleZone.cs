@@ -21,16 +21,16 @@ namespace DuelMastersModels.Zones
             {
                 creature.SummoningSickness = true;
             }
-            Cards.Add(card);
+            _cards.Add(card);
             card.KnownToOwner = true;
             card.KnownToOpponent = true;
-            foreach (TriggerAbility ability in card.TriggerAbilities.Where(ability => ability.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone))
+            foreach (TriggerAbility ability in duel.GetTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(card))
             {
                 duel.TriggerTriggerAbility(ability, Owner);
             }
             foreach (Creature battleZoneCreature in duel.CreaturesInTheBattleZone.Except(new List<Card>() { card }))
             {
-                foreach (TriggerAbility ability in battleZoneCreature.TriggerAbilities.Where(ability => ability.TriggerCondition is WheneverAnotherCreatureIsPutIntoTheBattleZone))
+                foreach (TriggerAbility ability in duel.GetTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(battleZoneCreature))
                 {
                     duel.TriggerTriggerAbility(ability, ability.Controller);
                 }
@@ -39,7 +39,7 @@ namespace DuelMastersModels.Zones
 
         internal override void Remove(Card card, Duel duel)
         {
-            Cards.Remove(card);
+            _cards.Remove(card);
             card.Tapped = false;
             if (card is Creature creature)
             {

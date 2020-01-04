@@ -31,7 +31,7 @@ namespace DuelMastersModels.Factories
             { "This creature gets $plusinteger power until the end of the turn. (Do what the spell says before this creature gets the extra power.)", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
         });
 
-        internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text, Player owner)
+        internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text)
         {
             if (text == null)
             {
@@ -42,7 +42,6 @@ namespace DuelMastersModels.Factories
             {
                 OneShotEffect oneShotEffect = Activator.CreateInstance(parsed.ParsedType.TypesParsed[0]) as OneShotEffect;
                 return new ReadOnlyOneShotEffectCollection(oneShotEffect);
-                //return Activator.CreateInstance(parsedType.TypeParsed, AbilityTypeFactory.GetInstanceParameters(owner, creature, new Collection<object>(parsedObjects.Values.ToList()))) as PlayerAction;
             }
             else
             {

@@ -15,8 +15,9 @@ namespace DuelMastersModels.Abilities.Static
         /// <summary>
         /// Creates a static ability.
         /// </summary>
+        /// <param name="source">Source of the ability.</param>
         /// <param name="continuousEffect">Continuous effect created by the ability.</param>
-        protected StaticAbility(ContinuousEffect continuousEffect)
+        protected StaticAbility(Cards.Card source, ContinuousEffect continuousEffect) : base(source)
         {
             ContinuousEffects = new ReadOnlyContinuousEffectCollection(continuousEffect);
         }

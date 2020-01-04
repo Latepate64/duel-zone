@@ -7,10 +7,6 @@
     {
         internal override void Perform(Duel duel)
         {
-            if (duel == null)
-            {
-                throw new System.ArgumentNullException("duel");
-            }
             if (duel.Player1.Deck.Cards.Count == 0 && duel.Player2.Deck.Cards.Count == 0)
             {
                 duel.EndDuelInDraw();
