@@ -11,7 +11,7 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(Player owner, ReadOnlyCardCollection cards) : base(owner) 
+        internal Deck(ReadOnlyCardCollection cards)
         {
             foreach (Card card in cards)
             {

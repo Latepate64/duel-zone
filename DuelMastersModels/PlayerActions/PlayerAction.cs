@@ -26,13 +26,15 @@
         /// <returns></returns>
         internal abstract PlayerAction TryToPerformAutomatically(Duel duel);
 
+        /*
         /// <summary>
         /// Text representation of the player action.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return $"Action for player {Player.Name}";
+            return $"Action for player {Player.Name}.";
         }
+        */
     }
 }

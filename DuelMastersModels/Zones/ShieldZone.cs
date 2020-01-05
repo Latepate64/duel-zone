@@ -10,8 +10,6 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal ShieldZone(Player owner) : base(owner) { }
-
         internal override void Add(Card card, Duel duel)
         {
             _cards.Add(card);

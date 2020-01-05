@@ -29,7 +29,7 @@ namespace UnitTests
                 DeclareAttacker declareAttacker = jotain as DeclareAttacker; // Do not use card (player 1)
                 duel.Progress(new CreatureSelectionResponse(declareAttacker.Creatures.First())); // Declare attacker (player 1)
             }
-            Assert.True(duel.Ended);
+            Assert.Equal(DuelState.Over, duel.State);
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace UnitTests
             Duel duel = GetDuel();
             duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First()));
             duel.Progress(new CardSelectionResponse());
-            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Progress(new CardSelectionResponse()) as ChargeMana).Cards.First())) as UseCard;
             PayCost payCost = duel.Progress(new CardSelectionResponse(useCard.Cards.First())) as PayCost;
             Assert.Throws<MandatoryMultipleCardSelectionException>(() => duel.Progress(new CardSelectionResponse(duel.Player1.Hand.Cards.First())));
         }
@@ -52,8 +52,7 @@ namespace UnitTests
             duel.Progress(new CardSelectionResponse());
             duel.Progress(new CardSelectionResponse());
             DeclareAttacker declareAttacker = duel.Progress(new CardSelectionResponse()) as DeclareAttacker;
-            PlayerAction newAction = duel.Progress(new CreatureSelectionResponse(duel.Player1.ManaZone.Creatures.First()));
-            Assert.Equal(declareAttacker, newAction);
+            Assert.Throws<OptionalCreatureSelectionException>(() => duel.Progress(new CreatureSelectionResponse(duel.Player1.ManaZone.Creatures.First())));
         }
 
         [Fact]
@@ -107,7 +106,7 @@ namespace UnitTests
             Duel duel = GetDuel();
             duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First()));
             duel.Progress(new CardSelectionResponse());
-            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
+            UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Progress(new CardSelectionResponse()) as ChargeMana).Cards.First())) as UseCard;
             PlayerAction newAction = duel.Progress(new CardSelectionResponse(useCard.Cards.First()));
             Assert.IsType<PayCost>(newAction);
         }

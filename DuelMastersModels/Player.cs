@@ -73,12 +73,12 @@ namespace DuelMastersModels
         {
             Name = name;
             _deckBeforeDuel = deckBeforeDuel;
-            Deck = new Deck(this, deckBeforeDuel);
-            BattleZone = new BattleZone(this);
-            Graveyard = new Graveyard(this);
-            Hand = new Hand(this);
-            ManaZone = new ManaZone(this);
-            ShieldZone = new ShieldZone(this);
+            Deck = new Deck(deckBeforeDuel);
+            BattleZone = new BattleZone();
+            Graveyard = new Graveyard();
+            Hand = new Hand();
+            ManaZone = new ManaZone();
+            ShieldZone = new ShieldZone();
         }
 
         //TODO: Try to use only one public method.

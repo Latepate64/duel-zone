@@ -13,27 +13,16 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal BattleZone(Player owner) : base(owner) { }
-
         internal override void Add(Card card, Duel duel)
         {
-            if (card is Creature creature)
-            {
-                creature.SummoningSickness = true;
-            }
             _cards.Add(card);
             card.KnownToOwner = true;
             card.KnownToOpponent = true;
-            foreach (TriggerAbility ability in duel.GetTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(card))
+            if (card is Creature creature)
             {
-                duel.TriggerTriggerAbility(ability, Owner);
-            }
-            foreach (Creature battleZoneCreature in duel.CreaturesInTheBattleZone.Except(new List<Card>() { card }))
-            {
-                foreach (TriggerAbility ability in duel.GetTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(battleZoneCreature))
-                {
-                    duel.TriggerTriggerAbility(ability, ability.Controller);
-                }
+                creature.SummoningSickness = true;
+                duel.TriggerTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(creature);
+                duel.TriggerTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(new System.Collections.ObjectModel.ReadOnlyCollection<Creature>(duel.CreaturesInTheBattleZone.Except(new List<Creature>() { creature }).ToList()));
             }
         }
 

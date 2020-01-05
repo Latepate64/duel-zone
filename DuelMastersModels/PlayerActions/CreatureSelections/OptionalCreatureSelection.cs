@@ -13,12 +13,14 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             return Creatures.Count == 0 ? Perform(duel, null) : (this);
-            //return Creatures.Count == 0;
         }
 
-        internal bool Validate(Creature creature)
+        internal void Validate(Creature creature)
         {
-            return creature == null || Creatures.Contains(creature);
+            if (!(creature == null || Creatures.Contains(creature)))
+            {
+                throw new Exceptions.OptionalCreatureSelectionException(ToString());
+            }
         }
 
         internal abstract PlayerAction Perform(Duel duel, Creature creature);

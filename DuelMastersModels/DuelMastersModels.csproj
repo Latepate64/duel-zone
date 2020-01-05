@@ -107,9 +107,11 @@
     <Compile Include="Cards\EvolutionCreature.cs" />
     <Compile Include="Exceptions\DuelMastersException.cs" />
     <Compile Include="Exceptions\MandatoryCardSelectionException.cs" />
+    <Compile Include="Exceptions\MandatoryCreatureSelectionException.cs" />
     <Compile Include="Exceptions\MandatoryMultipleCardSelectionException.cs" />
     <Compile Include="Exceptions\MultipleCardSelectionException.cs" />
     <Compile Include="Exceptions\OptionalCardSelectionException.cs" />
+    <Compile Include="Exceptions\OptionalCreatureSelectionException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Exceptions\ParseOneShotEffectException.cs" />
     <Compile Include="Exceptions\ParseOneShotEffectForCreatureException.cs" />

@@ -10,8 +10,6 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal ManaZone(Player owner) : base(owner) { }
-
         internal override void Add(Card card, Duel duel)
         {
             if (card.Civilizations.Count > 1)

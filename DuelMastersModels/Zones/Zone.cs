@@ -39,13 +39,9 @@ namespace DuelMastersModels.Zones
         /// 400.4. The order of the cards in the shield zone or deck will be aligned unless it is effect or rule It can not be changed. Other cards in other zones, as the player wishes You can sort them. However, whether or not you tap it, the card attached to it Something must remain obvious to all players.
         /// </summary>
         internal abstract bool Ordered { get; }
-
-        internal Player Owner { get; private set; }
         #endregion Properties
 
         private protected System.Collections.ObjectModel.Collection<Card> _cards = new System.Collections.ObjectModel.Collection<Card>();
-
-        internal Zone(Player owner) { Owner = owner; }
 
         #region Methods
         ///<summary>

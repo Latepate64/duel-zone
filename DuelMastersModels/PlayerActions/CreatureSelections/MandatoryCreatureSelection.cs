@@ -15,9 +15,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             return Creatures.Count == 1 ? Perform(duel, Creatures[0]) : (this);
         }
 
-        internal bool Validate(Creature creature)
+        internal void Validate(Creature creature)
         {
-            return Creatures.Contains(creature);
+            if (!Creatures.Contains(creature))
+            {
+                throw new Exceptions.MandatoryCreatureSelectionException(ToString());
+            }
         }
 
         internal abstract PlayerAction Perform(Duel duel, Creature creature);

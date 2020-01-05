@@ -39,6 +39,27 @@ namespace DuelMastersModels
     }
 
     /// <summary>
+    /// Represents the state of a duel.
+    /// </summary>
+    public enum DuelState
+    {
+        /// <summary>
+        /// Duel has not started yet.
+        /// </summary>
+        Setup,
+
+        /// <summary>
+        /// Duel is in progress.
+        /// </summary>
+        InProgress,
+
+        /// <summary>
+        /// Duel is over.
+        /// </summary>
+        Over,
+    }
+
+    /// <summary>
     /// Represents a duel that is played between two players.
     /// </summary>
     public class Duel
@@ -66,9 +87,9 @@ namespace DuelMastersModels
         public Player Winner { get; private set; }
 
         /// <summary>
-        /// Determines whether duel has ended or not.
+        /// Determines the state of the duel.
         /// </summary>
-        public bool Ended { get; private set; }
+        public DuelState State { get; private set; } = DuelState.Setup;
 
         /// <summary>
         /// The number of shields each player has at the start of a duel. 
@@ -186,6 +207,11 @@ namespace DuelMastersModels
         /// </summary>
         public PlayerAction Start()
         {
+            if (State != DuelState.Setup)
+            {
+                throw new InvalidOperationException($"Could not start duel as state was {State.ToString()} instead of setup.");
+            }
+            State = DuelState.InProgress;
             Player activePlayer = Player1;
             Player nonActivePlayer = Player2;
 
@@ -225,79 +251,27 @@ namespace DuelMastersModels
         /// <returns></returns>
         public PlayerAction Progress(PlayerActionResponse response)
         {
+            if (State != DuelState.InProgress)
+            {
+                throw new InvalidOperationException($"Could not progress in duel duel as state was {State.ToString()} instead of in progress.");
+            }
             PlayerAction playerAction = null;
             if (response is CardSelectionResponse cardSelectionResponse)
             {
                 playerAction = PerformCardSelection(cardSelectionResponse);
-
             }
             else if (response is CreatureSelectionResponse creatureSelectionResponse)
             {
-                if (CurrentPlayerAction is OptionalCreatureSelection optionalCreatureSelection)
-                {
-                    Creature creature = null;
-                    if (creatureSelectionResponse.SelectedCreatures.Count == 1)
-                    {
-                        creature = creatureSelectionResponse.SelectedCreatures.First();
-                    }
-                    if (optionalCreatureSelection.Validate(creature))
-                    {
-                        playerAction = optionalCreatureSelection.Perform(this, creature);
-                    }
-                    else
-                    {
-                        return CurrentPlayerAction;
-                    }
-                }
-                else if (CurrentPlayerAction is MandatoryCreatureSelection mandatoryCreatureSelection)
-                {
-                    if (creatureSelectionResponse.SelectedCreatures.Count == 1)
-                    {
-                        Creature creature = creatureSelectionResponse.SelectedCreatures.First();
-                        if (mandatoryCreatureSelection.Validate(creature))
-                        {
-                            playerAction = mandatoryCreatureSelection.Perform(this, creature);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException();
-                        }
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException("Could not identify current player action.");
-                }
+                playerAction = PerformCreatureSelection(creatureSelectionResponse);
             }
             else if (response is OptionalActionResponse optionalActionResponse)
             {
-                if (CurrentPlayerAction is OptionalAction optionalAction)
-                {
-                    playerAction = optionalAction.Perform(this, optionalActionResponse.TakeAction);
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
+                playerAction = PerformOptionalActionResponse(optionalActionResponse);
             }
             else if (response is SelectAbilityToResolveResponse selectAbilityToResolveResponse)
             {
-                if (CurrentPlayerAction is SelectAbilityToResolve selectAbilityToResolve)
-                {
-                    selectAbilityToResolve.SelectedAbility = selectAbilityToResolveResponse.Ability;
-                    SelectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
+                PerformSelectAbilityToResolveResponse(selectAbilityToResolveResponse);
             }
-            //TODO SelectAbilityToResolveResponse
-            //else if (response if )
             else
             {
                 throw new ArgumentOutOfRangeException("response");
@@ -305,58 +279,31 @@ namespace DuelMastersModels
             return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
 
-        private PlayerAction PerformCardSelection(CardSelectionResponse cardSelectionResponse)
+        private void PerformSelectAbilityToResolveResponse(SelectAbilityToResolveResponse selectAbilityToResolveResponse)
         {
-            PlayerAction playerAction;
-            if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
+            if (CurrentPlayerAction is SelectAbilityToResolve selectAbilityToResolve)
             {
-                Card card = null;
-                if (cardSelectionResponse.SelectedCards.Count == 1)
-                {
-                    card = cardSelectionResponse.SelectedCards.First();
-                }
-                optionalCardSelection.Validate(card);
-                playerAction = optionalCardSelection.Perform(this, card);
-            }
-            else if (CurrentPlayerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
-            {
-                if (CurrentPlayerAction is PayCost payCost)
-                {
-                    payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed);
-                    playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
-                }
-                else
-                {
-                    mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
-                    playerAction = mandatoryMultipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
-                }
-            }
-            else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
-            {
-                multipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
-                foreach (Card card in cardSelectionResponse.SelectedCards)
-                {
-                    multipleCardSelection.SelectedCards.Add(card);
-                }
-                playerAction = multipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
-            }
-            else if (CurrentPlayerAction is MandatoryCardSelection mandatoryCardSelection)
-            {
-                if (cardSelectionResponse.SelectedCards.Count == 1)
-                {
-                    Card card = cardSelectionResponse.SelectedCards.First();
-                    mandatoryCardSelection.Validate(card);
-                    playerAction = mandatoryCardSelection.Perform(this, card);
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
+                selectAbilityToResolve.SelectedAbility = selectAbilityToResolveResponse.Ability;
+                SelectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
             }
             else
             {
-                throw new InvalidOperationException("Could not identify current player action.");
+                throw new InvalidOperationException();
             }
+        }
+
+        private PlayerAction PerformOptionalActionResponse(OptionalActionResponse optionalActionResponse)
+        {
+            PlayerAction playerAction;
+            if (CurrentPlayerAction is OptionalAction optionalAction)
+            {
+                playerAction = optionalAction.Perform(this, optionalActionResponse.TakeAction);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
             return playerAction;
         }
         #endregion Public methods
@@ -419,7 +366,7 @@ namespace DuelMastersModels
         {
             Winner = winner;
             _losers.Add(GetOpponent(winner));
-            Ended = true;
+            State = DuelState.Over;
         }
 
         /// <summary>
@@ -429,7 +376,7 @@ namespace DuelMastersModels
         {
             _losers.Add(Player1);
             _losers.Add(Player2);
-            Ended = true;
+            State = DuelState.Over;
         }
 
         /// <summary>
@@ -506,29 +453,12 @@ namespace DuelMastersModels
             }
             else if (card is Spell spell)
             {
-                _spellsBeingResolved.Add(spell);
-                foreach (Creature battleZoneCreature in CreaturesInTheBattleZone)
-                {
-                    foreach (TriggerAbility ability in TriggerAbilities.Where(ability => ability.Source == battleZoneCreature && ability.TriggerCondition is WheneverAPlayerCastsASpell))
-                    {
-                        TriggerTriggerAbility(ability, ability.Controller);
-                    }
-                }
+                CastSpell(spell);
             }
             else
             {
                 throw new InvalidOperationException();
             }
-        }
-
-        /// <summary>
-        /// Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
-        /// </summary>
-        /// <param name="ability"></param>
-        /// <param name="controller"></param>
-        internal void TriggerTriggerAbility(TriggerAbility ability, Player controller)
-        {
-            PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
 
         /// <summary>
@@ -559,6 +489,22 @@ namespace DuelMastersModels
         internal void AddContinuousEffect(ContinuousEffect continuousEffect)
         {
             _continuousEffects.Add(continuousEffect);
+        }
+
+        internal void TriggerTriggerAbilities<T>(ReadOnlyCollection<Creature> creatures)
+        {
+            foreach (Creature creature in creatures)
+            {
+                TriggerTriggerAbilities<T>(creature);
+            }
+        }
+
+        internal void TriggerTriggerAbilities<T>(Card card)
+        {
+            foreach (TriggerAbility ability in GetTriggerAbilities<T>(card))
+            {
+                TriggerTriggerAbility(ability, ability.Controller);
+            }
         }
         #endregion void
 
@@ -595,12 +541,7 @@ namespace DuelMastersModels
 
         internal ReadOnlyCreatureCollection GetCreaturesThatCanAttack(Player player)
         {
-            List<Creature> creatures = player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature)).ToList();
-
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct();
-            IEnumerable<Creature> creaturesThatCannotAttack = creaturesThatCannotAttackPlayers.Where(c => GetCreaturesThatCanBeAttacked(player).Count == 0);
-            creatures.RemoveAll(c => creaturesThatCannotAttack.Contains(c));
-            return new ReadOnlyCreatureCollection(creatures);
+            return new ReadOnlyCreatureCollection(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => GetCreaturesThatCanBeAttacked(player).Count == 0).Contains(creature)).ToList());
         }
 
         internal ReadOnlyCreatureCollection GetCreaturesThatCanBeAttacked(Player player)
@@ -786,95 +727,139 @@ namespace DuelMastersModels
         /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
         private PlayerAction Progress()
         {
-            if (!Ended)
+            if (State == DuelState.InProgress)
             {
                 CheckStateBasedActions();
-                if (!Ended)
-                {
-                    foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer })
-                    {
-                        if (player.ShieldTriggersToUse.Count > 0)
-                        {
-                            return TryToPerformAutomatically(new UseShieldTrigger(player, new ReadOnlyCardCollection(player.ShieldTriggersToUse)));
-                        }
-                    }
+                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
+            }
+            else if (State == DuelState.Over)
+            {
+                return null;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Duel is in invalid state for progression. State: {State.ToString()}");
+            }
+        }
 
-                    if (AbilityBeingResolved != null)
-                    {
-                        //PlayerAction playerActionFromNonStaticAbility = AbilityBeingResolved.ContinueResolution(this);
-                        PlayerActionWithEndInformation action = AbilityBeingResolved.ContinueResolution(this);
-                        if (!action.End)
-                        {
-                            //TODO: test
-                            return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : Progress();
-                        }
-                        else
-                        {
-                            if (AbilityBeingResolved is SpellAbility)
-                            {
-                                Spell spell = _spellsBeingResolved.Last();
-                                _spellsBeingResolved.Remove(spell);
-                                GetOwner(spell).Graveyard.Add(spell, this);
-                            }
+        private PlayerAction ContinueResolvingAbility()
+        {
+            PlayerActionWithEndInformation action = AbilityBeingResolved.ContinueResolution(this);
+            if (!action.ResolutionOver)
+            {
+                //TODO: test
+                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : Progress();
+            }
+            else
+            {
+                FinishResolvingAbility();
+                return null;
+            }
+        }
 
-                            AbilityBeingResolved = null;
-                        }
-                    }
-
-                    if (_spellsBeingResolved.Count > 0)
-                    {
-                        Spell spell = _spellsBeingResolved.Last();
-                        if (SpellAbilities.Count(a => a.Source == spell) > 0)
-                        {
-                            //TODO: spell may have more than one spell ability.
-                            SpellAbility spellAbility = SpellAbilities.First(a => a.Source == spell);
-                            AbilityBeingResolved = spellAbility;
-                            return Progress();
-                        }
-                        else
-                        {
-                            _spellsBeingResolved.Remove(spell);
-                            GetOwner(spell).Graveyard.Add(spell, this);
-                        }
-                    }
-
-                    ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForActivePlayer = GetPendingAbilitiesForActivePlayer();
-                    if (pendingAbilitiesForActivePlayer.Count > 0)
-                    {
-                        return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.ActivePlayer, pendingAbilitiesForActivePlayer));
-                    }
-                    ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForNonActivePlayer = GetPendingAbilitiesForNonActivePlayer();
-                    if (pendingAbilitiesForNonActivePlayer.Count > 0)
-                    {
-                        return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.NonActivePlayer, pendingAbilitiesForNonActivePlayer));
-                    }
-
-                    /*foreach (Collection<NonStaticAbility> pendingAbilities in new List<Collection<NonStaticAbility>>() { PendingAbilitiesForActivePlayer, PendingAbilitiesForNonActivePlayer })
-                    {
-                        SelectAbilityToResolve selectAbilityToResolve = new SelectAbilityToResolve(pendingAbilities.First().Controller, pendingAbilities);
-                        return TryToPerformAutomatically(selectAbilityToResolve);
-                    }*/
-
-                    PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
-                    if (playerAction != null)
-                    {
-                        return TryToPerformAutomatically(playerAction);
-                    }
-                    else
-                    {
-                        if (CurrentTurn.ChangeStep())
-                        {
-                            return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
-                        }
-                        else
-                        {
-                            PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                            return action != null ? TryToPerformAutomatically(action) : Progress();
-                        }
-                    }
-                }
+        private PlayerAction TryToUseShieldTrigger()
+        {
+            foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Count > 0))
+            {
+                return TryToPerformAutomatically(new UseShieldTrigger(player, new ReadOnlyCardCollection(player.ShieldTriggersToUse)));
             }
             return null;
+        }
+
+        private PlayerAction ProgressAfterStateBasedActions()
+        {
+            PlayerAction tryToUseShieldTrigger = TryToUseShieldTrigger();
+            if (tryToUseShieldTrigger != null)
+            {
+                return tryToUseShieldTrigger;
+            }
+
+            if (AbilityBeingResolved != null)
+            {
+                PlayerAction action = ContinueResolvingAbility();
+                if (action != null)
+                {
+                    return action;
+                }
+            }
+
+            if (_spellsBeingResolved.Count > 0)
+            {
+                PlayerAction resolveSpellAbility = TryToResolveSpellAbility();
+                if (resolveSpellAbility != null)
+                {
+                    return resolveSpellAbility;
+                }
+            }
+
+            PlayerAction selectAbilityToResolve = TryToSelectAbilityToResolve();
+            return selectAbilityToResolve ?? TryToPerformStepAction();
+        }
+
+        private PlayerAction TryToPerformStepAction()
+        {
+            PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
+            return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
+        }
+
+        private PlayerAction TryToResolveSpellAbility()
+        {
+            Spell spell = _spellsBeingResolved.Last();
+            if (SpellAbilities.Count(a => a.Source == spell) > 0)
+            {
+                return StartResolvingSpellAbility(spell);
+            }
+            else
+            {
+                _spellsBeingResolved.Remove(spell);
+                GetOwner(spell).Graveyard.Add(spell, this);
+                return null;
+            }
+        }
+
+        private PlayerAction StartResolvingSpellAbility(Spell spell)
+        {
+            //TODO: spell may have more than one spell ability.
+            SpellAbility spellAbility = SpellAbilities.First(a => a.Source == spell);
+            AbilityBeingResolved = spellAbility;
+            return Progress();
+        }
+
+        private PlayerAction TryToSelectAbilityToResolve()
+        {
+            ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForActivePlayer = GetPendingAbilitiesForActivePlayer();
+            if (pendingAbilitiesForActivePlayer.Count > 0)
+            {
+                return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.ActivePlayer, pendingAbilitiesForActivePlayer));
+            }
+            ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForNonActivePlayer = GetPendingAbilitiesForNonActivePlayer();
+            return pendingAbilitiesForNonActivePlayer.Count > 0
+                ? TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.NonActivePlayer, pendingAbilitiesForNonActivePlayer))
+                : null;
+        }
+
+        private PlayerAction ChangeStep()
+        {
+            if (CurrentTurn.ChangeStep())
+            {
+                return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
+            }
+            else
+            {
+                PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                return action != null ? TryToPerformAutomatically(action) : Progress();
+            }
+        }
+
+        private void FinishResolvingAbility()
+        {
+            if (AbilityBeingResolved is SpellAbility)
+            {
+                Spell spell = _spellsBeingResolved.Last();
+                _spellsBeingResolved.Remove(spell);
+                GetOwner(spell).Graveyard.Add(spell, this);
+            }
+            AbilityBeingResolved = null;
         }
 
         private PlayerAction SetCurrentPlayerAction(PlayerAction playerAction)
@@ -924,9 +909,7 @@ namespace DuelMastersModels
                 {
                     civilizationGroups.Add(card.Civilizations.ToList());
                 }
-                List<List<Civilization>> testi = GetCivilizationCombinations(civilizationGroups, new List<Civilization>());
-                IEnumerable<IEnumerable<Civilization>> combinations = testi.Select(combination => combination.Distinct());
-                foreach (IEnumerable<Civilization> combination in combinations)
+                foreach (IEnumerable<Civilization> combination in GetCivilizationCombinations(civilizationGroups, new List<Civilization>()).Select(combination => combination.Distinct()))
                 {
                     for (int i = 0; i < requiredCivilizations.Count; ++i)
                     {
@@ -1064,21 +1047,10 @@ namespace DuelMastersModels
         private ReadOnlyCreatureCollection GetAllBlockersPlayerHasInTheBattleZone(Player player)
         {
             List<Creature> blockers = new List<Creature>();
-            IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects().Where(e => e is BlockerEffect).Cast<BlockerEffect>();
-            /*foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
-            {
-
-                blockers.AddRange(player.BattleZone.Creatures.Where( creatureContinuousEffect.CreatureFilter.FilteredCreatures);
-            }*/
+            IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
             foreach (Creature creature in player.BattleZone.Creatures)
             {
-                foreach (CreatureContinuousEffect creatureContinuousEffect in blockerEffects)
-                {
-                    if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
-                    {
-                        blockers.Add(creature);
-                    }
-                }
+                blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
             return new ReadOnlyCreatureCollection(blockers);
         }
@@ -1122,6 +1094,138 @@ namespace DuelMastersModels
                     throw new InvalidOperationException();
                 }
             }
+        }
+
+        private PlayerAction PerformCardSelection(CardSelectionResponse cardSelectionResponse)
+        {
+            if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
+            {
+                return PerformOptionalCardSelection(cardSelectionResponse, optionalCardSelection);
+            }
+            else if (CurrentPlayerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+            {
+                return PerformMandatoryMultipleCardSelection(cardSelectionResponse, mandatoryMultipleCardSelection);
+            }
+            else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
+            {
+                return PerformMultipleCardSelection(cardSelectionResponse, multipleCardSelection);
+            }
+            else if (CurrentPlayerAction is MandatoryCardSelection mandatoryCardSelection)
+            {
+                return PerformMandatoryCardSelection(cardSelectionResponse, mandatoryCardSelection);
+            }
+            else
+            {
+                throw new InvalidOperationException("Could not identify current player action.");
+            }
+        }
+
+        private PlayerAction PerformMandatoryCardSelection(CardSelectionResponse cardSelectionResponse, MandatoryCardSelection mandatoryCardSelection)
+        {
+            PlayerAction playerAction;
+            if (cardSelectionResponse.SelectedCards.Count == 1)
+            {
+                Card card = cardSelectionResponse.SelectedCards.First();
+                mandatoryCardSelection.Validate(card);
+                playerAction = mandatoryCardSelection.Perform(this, card);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+            return playerAction;
+        }
+
+        private PlayerAction PerformMultipleCardSelection(CardSelectionResponse cardSelectionResponse, MultipleCardSelection multipleCardSelection)
+        {
+            PlayerAction playerAction;
+            multipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
+            foreach (Card card in cardSelectionResponse.SelectedCards)
+            {
+                multipleCardSelection.SelectedCards.Add(card);
+            }
+            playerAction = multipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+            return playerAction;
+        }
+
+        private PlayerAction PerformMandatoryMultipleCardSelection(CardSelectionResponse cardSelectionResponse, MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+        {
+            PlayerAction playerAction;
+            if (CurrentPlayerAction is PayCost payCost)
+            {
+                payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed);
+                playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
+            }
+            else
+            {
+                mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
+                playerAction = mandatoryMultipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+            }
+
+            return playerAction;
+        }
+
+        private PlayerAction PerformOptionalCardSelection(CardSelectionResponse cardSelectionResponse, OptionalCardSelection optionalCardSelection)
+        {
+            PlayerAction playerAction;
+            Card card = null;
+            if (cardSelectionResponse.SelectedCards.Count == 1)
+            {
+                card = cardSelectionResponse.SelectedCards.First();
+            }
+            optionalCardSelection.Validate(card);
+            playerAction = optionalCardSelection.Perform(this, card);
+            return playerAction;
+        }
+
+        private PlayerAction PerformCreatureSelection(CreatureSelectionResponse creatureSelectionResponse)
+        {
+            PlayerAction playerAction;
+            if (CurrentPlayerAction is OptionalCreatureSelection optionalCreatureSelection)
+            {
+                Creature creature = null;
+                if (creatureSelectionResponse.SelectedCreatures.Count == 1)
+                {
+                    creature = creatureSelectionResponse.SelectedCreatures.First();
+                }
+                optionalCreatureSelection.Validate(creature);
+                playerAction = optionalCreatureSelection.Perform(this, creature);
+            }
+            else if (CurrentPlayerAction is MandatoryCreatureSelection mandatoryCreatureSelection)
+            {
+                if (creatureSelectionResponse.SelectedCreatures.Count == 1)
+                {
+                    Creature creature = creatureSelectionResponse.SelectedCreatures.First();
+                    mandatoryCreatureSelection.Validate(creature);
+                    playerAction = mandatoryCreatureSelection.Perform(this, creature);
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Could not identify current player action.");
+            }
+            return playerAction;
+        }
+
+        private void CastSpell(Spell spell)
+        {
+            _spellsBeingResolved.Add(spell);
+            TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(CreaturesInTheBattleZone);
+        }
+
+        /// <summary>
+        /// Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
+        /// </summary>
+        /// <param name="ability"></param>
+        /// <param name="controller"></param>
+        private void TriggerTriggerAbility(TriggerAbility ability, Player controller)
+        {
+            PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
         }
         #endregion Private methods
     }
