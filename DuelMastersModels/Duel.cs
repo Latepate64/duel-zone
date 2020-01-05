@@ -1,6 +1,4 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.StaticAbilities;
-using DuelMastersModels.Abilities.TriggerAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.GameActions.StateBasedActions;
@@ -137,30 +135,9 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// Non-static abilities that are waiting to be resolved.
-        /// </summary>
-        internal Collection<NonStaticAbility> PendingAbilities { get; } = new Collection<NonStaticAbility>();
-
-        /// <summary>
-        /// A non-static ability that is currently being resolved.
-        /// </summary>
-        internal NonStaticAbility AbilityBeingResolved { get; set; }
-
-        /// <summary>
         /// The turn that is currently being processed.
         /// </summary>
         internal Turn CurrentTurn => _turns.Last();
-
-        /// <summary>
-        /// An ability can be a characteristic an card has that lets it affect the game. A card's abilities are defined by its rules text or by the effect that created it.
-        /// </summary>
-        internal AbilityCollection Abilities { get; } = new AbilityCollection();
-
-        internal ReadOnlyTriggerAbilityCollection TriggerAbilities => new ReadOnlyTriggerAbilityCollection(Abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
-
-        internal ReadOnlyStaticAbilityCollection StaticAbilities => new ReadOnlyStaticAbilityCollection(Abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
-
-        internal ReadOnlySpellAbilityCollection SpellAbilities => new ReadOnlySpellAbilityCollection(Abilities.Where(a => a is SpellAbility).Cast<SpellAbility>());
         #endregion Internal
         #endregion Properties
 
@@ -186,6 +163,8 @@ namespace DuelMastersModels
         private readonly SpellCollection _spellsBeingResolved = new SpellCollection();
 
         private PlayerAction _currentPlayerAction;
+
+        private readonly AbilityManager _abilityManager = new AbilityManager();
         #endregion Fields
 
         /// <summary>
@@ -197,8 +176,8 @@ namespace DuelMastersModels
         {
             Player1 = player1;
             Player2 = player2;
-            InstantiateAbilities(Player1);
-            InstantiateAbilities(Player2);
+            _abilityManager.InstantiateAbilities(Player1);
+            _abilityManager.InstantiateAbilities(Player2);
         }
 
         #region Public methods
@@ -491,20 +470,20 @@ namespace DuelMastersModels
             _continuousEffects.Add(continuousEffect);
         }
 
-        internal void TriggerTriggerAbilities<T>(ReadOnlyCollection<Creature> creatures)
+        internal void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(Creature creature)
         {
-            foreach (Creature creature in creatures)
-            {
-                TriggerTriggerAbilities<T>(creature);
-            }
+            _abilityManager.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
         }
 
-        internal void TriggerTriggerAbilities<T>(Card card)
+        internal void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(Creature excludedCreature)
         {
-            foreach (TriggerAbility ability in GetTriggerAbilities<T>(card))
-            {
-                TriggerTriggerAbility(ability, ability.Controller);
-            }
+            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<Creature>(CreaturesInTheBattleZone.Except(new List<Creature>() { excludedCreature }).ToList()));
+        }
+
+        internal void SetPendingAbilityToBeResolved(NonStaticAbility ability)
+        {
+            _abilityManager.RemovePendingAbility(ability);
+            _abilityManager.SetAbilityBeingResolved(ability);
         }
         #endregion void
 
@@ -635,11 +614,6 @@ namespace DuelMastersModels
             //return creature.Power + GetContinuousEffects().Where(e => e is PowerEffect).Cast<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
             return creature.Power + GetContinuousEffects<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
         }
-
-        internal ReadOnlyCollection<TriggerAbility> GetTriggerAbilities<T>(Card card)
-        {
-            return new ReadOnlyCollection<TriggerAbility>(TriggerAbilities.Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
-        }
         #endregion Internal methods
 
         #region Private methods
@@ -744,7 +718,7 @@ namespace DuelMastersModels
 
         private PlayerAction ContinueResolvingAbility()
         {
-            PlayerActionWithEndInformation action = AbilityBeingResolved.ContinueResolution(this);
+            PlayerActionWithEndInformation action = _abilityManager.ContinueResolution(this);
             if (!action.ResolutionOver)
             {
                 //TODO: test
@@ -774,7 +748,7 @@ namespace DuelMastersModels
                 return tryToUseShieldTrigger;
             }
 
-            if (AbilityBeingResolved != null)
+            if (_abilityManager.IsAbilityBeingResolved)
             {
                 PlayerAction action = ContinueResolvingAbility();
                 if (action != null)
@@ -796,6 +770,19 @@ namespace DuelMastersModels
             return selectAbilityToResolve ?? TryToPerformStepAction();
         }
 
+        private PlayerAction TryToSelectAbilityToResolve()
+        {
+            foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer })
+            {
+                SelectAbilityToResolve selectAbilityToResolve = _abilityManager.TryGetSelectAbilityToResolve(player);
+                if (selectAbilityToResolve != null)
+                {
+                    return TryToPerformAutomatically(selectAbilityToResolve);
+                }
+            }
+            return null;
+        }
+
         private PlayerAction TryToPerformStepAction()
         {
             PlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
@@ -805,7 +792,7 @@ namespace DuelMastersModels
         private PlayerAction TryToResolveSpellAbility()
         {
             Spell spell = _spellsBeingResolved.Last();
-            if (SpellAbilities.Count(a => a.Source == spell) > 0)
+            if (_abilityManager.GetSpellAbilityCount(spell) > 0)
             {
                 return StartResolvingSpellAbility(spell);
             }
@@ -819,23 +806,8 @@ namespace DuelMastersModels
 
         private PlayerAction StartResolvingSpellAbility(Spell spell)
         {
-            //TODO: spell may have more than one spell ability.
-            SpellAbility spellAbility = SpellAbilities.First(a => a.Source == spell);
-            AbilityBeingResolved = spellAbility;
+            _abilityManager.StartResolvingSpellAbility(spell);
             return Progress();
-        }
-
-        private PlayerAction TryToSelectAbilityToResolve()
-        {
-            ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForActivePlayer = GetPendingAbilitiesForActivePlayer();
-            if (pendingAbilitiesForActivePlayer.Count > 0)
-            {
-                return TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.ActivePlayer, pendingAbilitiesForActivePlayer));
-            }
-            ReadOnlyCollection<NonStaticAbility> pendingAbilitiesForNonActivePlayer = GetPendingAbilitiesForNonActivePlayer();
-            return pendingAbilitiesForNonActivePlayer.Count > 0
-                ? TryToPerformAutomatically(new SelectAbilityToResolve(CurrentTurn.NonActivePlayer, pendingAbilitiesForNonActivePlayer))
-                : null;
         }
 
         private PlayerAction ChangeStep()
@@ -853,13 +825,13 @@ namespace DuelMastersModels
 
         private void FinishResolvingAbility()
         {
-            if (AbilityBeingResolved is SpellAbility)
+            if (_abilityManager.IsAbilityBeingResolvedSpellAbility)
             {
                 Spell spell = _spellsBeingResolved.Last();
                 _spellsBeingResolved.Remove(spell);
                 GetOwner(spell).Graveyard.Add(spell, this);
             }
-            AbilityBeingResolved = null;
+            SetPendingAbilityToBeResolved(null);
         }
 
         private PlayerAction SetCurrentPlayerAction(PlayerAction playerAction)
@@ -1024,7 +996,7 @@ namespace DuelMastersModels
             List<ContinuousEffect> continuousEffects = _continuousEffects.ToList();
             foreach (Card card in GetAllCards())
             {
-                continuousEffects.AddRange(GetContinuousEffectsGeneratedByCard(card));
+                continuousEffects.AddRange(_abilityManager.GetContinuousEffectsGeneratedByCard(card, GetOwner(card)));
             }
             return new ReadOnlyContinuousEffectCollection(continuousEffects);
         }
@@ -1032,16 +1004,6 @@ namespace DuelMastersModels
         private IEnumerable<T> GetContinuousEffects<T>()
         {
             return GetContinuousEffects().Where(e => e is T).Cast<T>();
-        }
-
-        private List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card)
-        {
-            List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
-            foreach (StaticAbility staticAbility in StaticAbilities.Where(a => a.Source == card))
-            {
-                continuousEffects.AddRange(GetOwner(card).GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
-            }
-            return continuousEffects;
         }
 
         private ReadOnlyCreatureCollection GetAllBlockersPlayerHasInTheBattleZone(Player player)
@@ -1053,47 +1015,6 @@ namespace DuelMastersModels
                 blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
             return new ReadOnlyCreatureCollection(blockers);
-        }
-
-        /// <summary>
-        /// Non-static abilities controlled by active player that are waiting to be resolved.
-        /// </summary>
-        private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForActivePlayer()
-        {
-            return new ReadOnlyCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.ActivePlayer).ToList());
-        }
-
-        /// <summary>
-        /// Non-static abilities controlled by non-active player that are waiting to be resolved.
-        /// </summary>
-        private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForNonActivePlayer()
-        {
-            return new ReadOnlyCollection<NonStaticAbility>(PendingAbilities.Where(a => a.Controller == CurrentTurn.NonActivePlayer).ToList());
-        }
-
-        private void InstantiateAbilities(Player player)
-        {
-            foreach (Card card in player.DeckBeforeDuel)
-            {
-                if (card is Creature creature)
-                {
-                    foreach (Ability ability in creature.TryParseCreatureAbilities(player))
-                    {
-                        Abilities.Add(ability);
-                    }
-                }
-                else if (card is Spell spell)
-                {
-                    foreach (Ability ability in spell.TryParseSpellAbilities(player))
-                    {
-                        Abilities.Add(ability);
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
         }
 
         private PlayerAction PerformCardSelection(CardSelectionResponse cardSelectionResponse)
@@ -1215,17 +1136,7 @@ namespace DuelMastersModels
         private void CastSpell(Spell spell)
         {
             _spellsBeingResolved.Add(spell);
-            TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(CreaturesInTheBattleZone);
-        }
-
-        /// <summary>
-        /// Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
-        /// </summary>
-        /// <param name="ability"></param>
-        /// <param name="controller"></param>
-        private void TriggerTriggerAbility(TriggerAbility ability, Player controller)
-        {
-            PendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
+            _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(CreaturesInTheBattleZone);
         }
         #endregion Private methods
     }

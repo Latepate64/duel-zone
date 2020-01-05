@@ -93,6 +93,7 @@
     <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
     <Compile Include="Abilities\Trigger\WheneverAPlayerCastsASpell.cs" />
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
+    <Compile Include="AbilityManager.cs" />
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />

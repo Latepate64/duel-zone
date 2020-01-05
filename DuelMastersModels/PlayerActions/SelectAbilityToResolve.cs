@@ -37,8 +37,7 @@ namespace DuelMastersModels.PlayerActions
 
         internal static void Perform(Duel duel, NonStaticAbility ability)
         {
-            duel.PendingAbilities.Remove(ability);
-            duel.AbilityBeingResolved = ability;
+            duel.SetPendingAbilityToBeResolved(ability);
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
-using DuelMastersModels.Cards;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DuelMastersModels.Cards;
 
 namespace DuelMastersModels.Zones
 {
@@ -21,8 +18,8 @@ namespace DuelMastersModels.Zones
             if (card is Creature creature)
             {
                 creature.SummoningSickness = true;
-                duel.TriggerTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(creature);
-                duel.TriggerTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(new System.Collections.ObjectModel.ReadOnlyCollection<Creature>(duel.CreaturesInTheBattleZone.Except(new List<Creature>() { creature }).ToList()));
+                duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
+                duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
             }
         }
 

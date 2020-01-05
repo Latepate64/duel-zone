@@ -43,7 +43,15 @@ namespace DuelMastersModels.Abilities
                 : new PlayerActionWithEndInformation(null, true);
             //TODO: consider all effects.
             //return PlayerActions[0].Apply(duel, player);
-            //return Effects.Apply(duel, player);
         }
+
+        /*
+        internal PlayerActions.PlayerAction ContinueResolution(Duel duel)
+        {
+            return _effectIndex < Effects.Count
+                ? Effects[_effectIndex++].Apply(duel, Controller)
+                : null;
+        }
+        */
     }
 }
