@@ -79,7 +79,7 @@ namespace DuelMastersModels
             }
             else if (CurrentStep is MainStep)
             {
-                Steps.Add(new AttackDeclarationStep(ActivePlayer, NonActivePlayer));
+                Steps.Add(new AttackDeclarationStep(ActivePlayer));
             }
             else if (CurrentStep is AttackDeclarationStep attackDeclarationStep)
             {
@@ -113,7 +113,7 @@ namespace DuelMastersModels
             }
             else if (CurrentStep is EndOfAttackStep)
             {
-                Steps.Add(new AttackDeclarationStep(ActivePlayer, NonActivePlayer));
+                Steps.Add(new AttackDeclarationStep(ActivePlayer));
             }
             else if (CurrentStep is EndOfTurnStep)
             {

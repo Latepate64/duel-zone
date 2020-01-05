@@ -3,9 +3,15 @@ using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
-    internal class BreakShields : MandatoryMultipleCardSelection
+    /// <summary>
+    /// Player must choose which shields to break.
+    /// </summary>
+    public class BreakShields : MandatoryMultipleCardSelection
     {
-        internal Creature ShieldBreakingCreature { get; private set; }
+        /// <summary>
+        /// Creature which is breaking shields.
+        /// </summary>
+        public Creature ShieldBreakingCreature { get; private set; }
 
         internal BreakShields(Player player, int amount, ReadOnlyCardCollection cards, Creature shieldBreakingCreature) : base(player, amount, cards)
         {
@@ -14,23 +20,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner))
-            {
-                if (Cards.Count <= MaximumSelection)
-                {
-                    duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
-                    return Perform(duel, Cards);
-                }
-                else
-                {
-                    return this;
-                }
-            }
-            else
-            {
-                duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
-                return Perform(duel, new ReadOnlyCardCollection(Cards.ToList().GetRange(0, MinimumSelection)));
-            }
+            return duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
+                ? Cards.Count <= MaximumSelection ? Perform(duel, Cards) : (this)
+                : Perform(duel, new ReadOnlyCardCollection(Cards.ToList().GetRange(0, MinimumSelection)));
         }
 
         internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)

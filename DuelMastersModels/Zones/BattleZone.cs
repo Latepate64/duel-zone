@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.Trigger;
+﻿using DuelMastersModels.Abilities.TriggerAbilities;
 using DuelMastersModels.Cards;
 using System.Collections.Generic;
 using System.Linq;

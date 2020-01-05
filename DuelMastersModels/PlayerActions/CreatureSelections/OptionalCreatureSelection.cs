@@ -7,21 +7,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public abstract class OptionalCreatureSelection : CreatureSelection
     {
-        internal OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, 0, 1, creatures)
+        internal OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
         { }
-
-        internal Creature SelectedCreature { get; set; }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (Creatures.Count == 0)
-            {
-                return Perform(duel, null);
-            }
-            else
-            {
-                return this;
-            }
+            return Creatures.Count == 0 ? Perform(duel, null) : (this);
             //return Creatures.Count == 0;
         }
 

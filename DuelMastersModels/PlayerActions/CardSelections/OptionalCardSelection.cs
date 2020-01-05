@@ -10,23 +10,17 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal OptionalCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 0, 1, cards)
         { }
 
-        internal Card SelectedCard { get; set; }
-
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (Cards.Count == 0)
-            {
-                return Perform(duel, null);
-            }
-            else
-            {
-                return this;
-            }
+            return Cards.Count == 0 ? Perform(duel, null) : (this);
         }
 
-        internal bool Validate(Card card)
+        internal void Validate(Card card)
         {
-            return card == null || Cards.Contains(card);
+            if (!(card == null || Cards.Contains(card)))
+            {
+                throw new Exceptions.OptionalCardSelectionException(ToString());
+            }
         }
 
         internal abstract PlayerAction Perform(Duel duel, Card card);

@@ -28,18 +28,9 @@ namespace DuelMastersModels.Steps
         internal override PlayerAction PlayerActionRequired(Duel duel)
         {
             ReadOnlyCardCollection usableCards = GetUsableCards(new ReadOnlyCardCollection(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
-            if (State == MainStepState.Use && usableCards.Count > 0)
-            {
-                return new UseCard(ActivePlayer, usableCards);
-            }
-            else if (State == MainStepState.Pay)
-            {
-                return new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost);
-            }
-            else
-            {
-                return null;
-            }
+            return State == MainStepState.Use && usableCards.Count > 0
+                ? new UseCard(ActivePlayer, usableCards)
+                : (PlayerAction)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
         }
 
         /// <summary>

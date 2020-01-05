@@ -1,23 +1,13 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using System.Collections.ObjectModel;
+﻿using DuelMastersModels.PlayerActions;
 
 namespace DuelMastersModels.Steps
 {
     internal abstract class Step
     {
-        #region Properties
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
         public Player ActivePlayer { get; }
-
-        /// <summary>
-        /// All the player actions performed during the step.
-        /// </summary>
-        public ObservableCollection<PlayerAction> PlayerActions { get; } = new ObservableCollection<PlayerAction>();
-        public ObservableCollection<Card> DrawnCards { get; } = new ObservableCollection<Card>();
-        #endregion Properties
 
         protected Step(Player activePlayer)
         {

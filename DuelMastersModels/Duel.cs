@@ -1,13 +1,10 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Trigger;
+using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Abilities.TriggerAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Effects.OneShotEffects;
-using DuelMastersModels.Factories;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.AutomaticActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActions.OptionalActions;
@@ -34,7 +31,7 @@ namespace DuelMastersModels
         /// Player 1 goes first.
         /// </summary>
         Player1 = 1,
-        
+
         /// <summary>
         /// Player 2 goes first.
         /// </summary>
@@ -46,12 +43,6 @@ namespace DuelMastersModels
     /// </summary>
     public class Duel
     {
-        /// <summary>
-        /// Abilities that could not be parsed.
-        /// </summary>
-        [Obsolete("Not parsed abilities should be thrown as an exception, not to be saved to any collection like this.")]
-        public static Collection<string> NotParsedAbilities { get; } = new Collection<string>();
-
         /// <summary>
         /// Event which is raised whenever an important event during the duel occurs.
         /// </summary>
@@ -103,11 +94,6 @@ namespace DuelMastersModels
                 }
             }
         }
-
-        /// <summary>
-        /// Cards the player drew at the start of duel.
-        /// </summary>
-        public ObservableCollection<Card> CardsDrawnAtTheStartOfDuel { get; } = new ObservableCollection<Card>();
 
         /// <summary>
         /// Determines which player goes first in the duel.
@@ -242,88 +228,8 @@ namespace DuelMastersModels
             PlayerAction playerAction = null;
             if (response is CardSelectionResponse cardSelectionResponse)
             {
-                if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
-                {
-                    Card card = null;
-                    if (cardSelectionResponse.SelectedCards.Count == 1)
-                    {
-                        card = cardSelectionResponse.SelectedCards.First();
-                    }
-                    if (optionalCardSelection.Validate(card))
-                    {
-                        optionalCardSelection.SelectedCard = card;
-                        playerAction = optionalCardSelection.Perform(this, card);
-                        CurrentTurn.CurrentStep.PlayerActions.Add(optionalCardSelection);
-                    }
-                    else
-                    {
-                        return CurrentPlayerAction;
-                    }
-                }
-                else if (CurrentPlayerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
-                {
-                    if (CurrentPlayerAction is PayCost payCost)
-                    {
-                        if (payCost.Validate(cardSelectionResponse.SelectedCards) && PayCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed))
-                        {
-                            playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
-                            CurrentTurn.CurrentStep.PlayerActions.Add(payCost);
-                        }
-                        else
-                        {
-                            return CurrentPlayerAction;
-                        }
-                    }
-                    else
-                    {
-                        if (mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards))
-                        {
-                            playerAction = mandatoryMultipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
-                            CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryMultipleCardSelection);
-                        }
-                        else
-                        {
-                            return CurrentPlayerAction;
-                        }
-                    }
-                }
-                else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
-                {
-                    if (multipleCardSelection.Validate(cardSelectionResponse.SelectedCards))
-                    {
-                        foreach (Card card in cardSelectionResponse.SelectedCards)
-                        {
-                            multipleCardSelection.SelectedCards.Add(card);
-                        }
-                        playerAction = multipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
-                        CurrentTurn.CurrentStep.PlayerActions.Add(multipleCardSelection);
-                    }
-                }
-                else if (CurrentPlayerAction is MandatoryCardSelection mandatoryCardSelection)
-                {
-                    if (cardSelectionResponse.SelectedCards.Count == 1)
-                    {
-                        Card card = cardSelectionResponse.SelectedCards.First();
-                        if (mandatoryCardSelection.Validate(card))
-                        {
-                            mandatoryCardSelection.SelectedCard = card;
-                            playerAction = mandatoryCardSelection.Perform(this, card);
-                            CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryCardSelection);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException();
-                        }
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException("Could not identify current player action.");
-                }
+                playerAction = PerformCardSelection(cardSelectionResponse);
+
             }
             else if (response is CreatureSelectionResponse creatureSelectionResponse)
             {
@@ -336,9 +242,7 @@ namespace DuelMastersModels
                     }
                     if (optionalCreatureSelection.Validate(creature))
                     {
-                        optionalCreatureSelection.SelectedCreature = creature;
                         playerAction = optionalCreatureSelection.Perform(this, creature);
-                        CurrentTurn.CurrentStep.PlayerActions.Add(optionalCreatureSelection);
                     }
                     else
                     {
@@ -352,9 +256,7 @@ namespace DuelMastersModels
                         Creature creature = creatureSelectionResponse.SelectedCreatures.First();
                         if (mandatoryCreatureSelection.Validate(creature))
                         {
-                            mandatoryCreatureSelection.SelectedCreature = creature;
                             playerAction = mandatoryCreatureSelection.Perform(this, creature);
-                            CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryCreatureSelection);
                         }
                         else
                         {
@@ -376,7 +278,6 @@ namespace DuelMastersModels
                 if (CurrentPlayerAction is OptionalAction optionalAction)
                 {
                     playerAction = optionalAction.Perform(this, optionalActionResponse.TakeAction);
-                    CurrentTurn.CurrentStep.PlayerActions.Add(optionalAction);
                 }
                 else
                 {
@@ -389,7 +290,6 @@ namespace DuelMastersModels
                 {
                     selectAbilityToResolve.SelectedAbility = selectAbilityToResolveResponse.Ability;
                     SelectAbilityToResolve.Perform(this, selectAbilityToResolveResponse.Ability);
-                    CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
                 }
                 else
                 {
@@ -403,6 +303,61 @@ namespace DuelMastersModels
                 throw new ArgumentOutOfRangeException("response");
             }
             return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+        }
+
+        private PlayerAction PerformCardSelection(CardSelectionResponse cardSelectionResponse)
+        {
+            PlayerAction playerAction;
+            if (CurrentPlayerAction is OptionalCardSelection optionalCardSelection)
+            {
+                Card card = null;
+                if (cardSelectionResponse.SelectedCards.Count == 1)
+                {
+                    card = cardSelectionResponse.SelectedCards.First();
+                }
+                optionalCardSelection.Validate(card);
+                playerAction = optionalCardSelection.Perform(this, card);
+            }
+            else if (CurrentPlayerAction is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+            {
+                if (CurrentPlayerAction is PayCost payCost)
+                {
+                    payCost.Validate(cardSelectionResponse.SelectedCards, (CurrentTurn.CurrentStep as MainStep).CardToBeUsed);
+                    playerAction = payCost.Perform(this, cardSelectionResponse.SelectedCards);
+                }
+                else
+                {
+                    mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
+                    playerAction = mandatoryMultipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+                }
+            }
+            else if (CurrentPlayerAction is MultipleCardSelection multipleCardSelection)
+            {
+                multipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
+                foreach (Card card in cardSelectionResponse.SelectedCards)
+                {
+                    multipleCardSelection.SelectedCards.Add(card);
+                }
+                playerAction = multipleCardSelection.Perform(this, cardSelectionResponse.SelectedCards);
+            }
+            else if (CurrentPlayerAction is MandatoryCardSelection mandatoryCardSelection)
+            {
+                if (cardSelectionResponse.SelectedCards.Count == 1)
+                {
+                    Card card = cardSelectionResponse.SelectedCards.First();
+                    mandatoryCardSelection.Validate(card);
+                    playerAction = mandatoryCardSelection.Perform(this, card);
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Could not identify current player action.");
+            }
+            return playerAction;
         }
         #endregion Public methods
 
@@ -438,11 +393,14 @@ namespace DuelMastersModels
         /// <returns>Player who owns the card.</returns>
         internal Player GetOwner(Card card)
         {
-            if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            //TODO: test if works
+            if (Player1.DeckBeforeDuel.Contains(card))
+            //if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
             {
                 return Player1;
             }
-            else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            else if (Player2.DeckBeforeDuel.Contains(card))
+            //else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
             {
                 return Player2;
             }
@@ -586,12 +544,16 @@ namespace DuelMastersModels
 
         internal void EndContinuousEffects(Type type)
         {
+            //TODO: Test
+            _continuousEffects.ToList().RemoveAll(c => c.Period.GetType() == type);
+            /*
             List<ContinuousEffect> suitableContinuousEffects = _continuousEffects.Where(c => c.Period.GetType() == type).ToList();
             while (suitableContinuousEffects.Count() > 0)
             {
                 _continuousEffects.Remove(suitableContinuousEffects.First());
                 suitableContinuousEffects.Remove(suitableContinuousEffects.First());
             }
+            */
         }
 
         internal void AddContinuousEffect(ContinuousEffect continuousEffect)
@@ -606,6 +568,7 @@ namespace DuelMastersModels
         /// </summary>
         internal static bool CanBeUsed(Card card, ReadOnlyCardCollection manaCards)
         {
+            //TODO: Remove static keyword after usability is checked with continuous effects considered.
             //System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
             //return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
             return card.Cost <= manaCards.Count && HasCivilizations(manaCards, card.Civilizations);
@@ -760,19 +723,7 @@ namespace DuelMastersModels
             {
                 Card drawnCard = RemoveTheTopCardOfDeck(player);
                 player.Hand.Add(drawnCard, this);
-
-                //TODO: Test
                 DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(player, drawnCard)));
-
-                if (_turns.Count > 0)
-                {
-                    CurrentTurn.CurrentStep.DrawnCards.Add(drawnCard);
-                }
-                else
-                {
-                    CardsDrawnAtTheStartOfDuel.Add(drawnCard);
-                }
-                //TODO: think how to animate draw at start of game
             }
         }
 
@@ -943,11 +894,13 @@ namespace DuelMastersModels
             return playerAction != null ? TryToPerformAutomatically(playerAction) : Progress();
         }
 
+        /*
         private PlayerAction PutTheTopCardOfYourDeckIntoYourManaZoneThenAddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
         {
             player.ManaZone.Add(RemoveTheTopCardOfDeck(player), this);
             return new AddTheTopCardOfYourDeckToYourShieldsFaceDown(player);
         }
+        */
         #endregion PlayerAction
 
         #region bool
@@ -1103,42 +1056,9 @@ namespace DuelMastersModels
             List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
             foreach (StaticAbility staticAbility in StaticAbilities.Where(a => a.Source == card))
             {
-                continuousEffects.AddRange(GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
+                continuousEffects.AddRange(GetOwner(card).GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
             }
             return continuousEffects;
-        }
-
-        private ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility)
-        {
-            if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
-            {
-                if (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && GetOwner(card).BattleZone.Cards.Contains(card)) ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && GetOwner(card).Hand.Cards.Contains(card)))
-                {
-                    return staticAbilityForCreature.ContinuousEffects;
-                }
-                else
-                {
-                    return new ReadOnlyContinuousEffectCollection();
-                }
-            }
-            else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
-            {
-                if (staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && GetOwner(card).Hand.Cards.Contains(card))
-                {
-                    return staticAbilityForSpell.ContinuousEffects;
-                }
-                else
-                {
-                    return new ReadOnlyContinuousEffectCollection();
-                }
-            }
-            else
-            {
-                //throw new InvalidOperationException("staticAbility");
-                throw new InvalidOperationException();
-            }
         }
 
         private ReadOnlyCreatureCollection GetAllBlockersPlayerHasInTheBattleZone(Player player)
@@ -1185,14 +1105,14 @@ namespace DuelMastersModels
             {
                 if (card is Creature creature)
                 {
-                    foreach (Ability ability in TryParseCreatureAbilities(player, creature))
+                    foreach (Ability ability in creature.TryParseCreatureAbilities(player))
                     {
                         Abilities.Add(ability);
                     }
                 }
                 else if (card is Spell spell)
                 {
-                    foreach (Ability ability in TryParseSpellAbilities(player, spell))
+                    foreach (Ability ability in spell.TryParseSpellAbilities(player))
                     {
                         Abilities.Add(ability);
                     }
@@ -1202,102 +1122,6 @@ namespace DuelMastersModels
                     throw new InvalidOperationException();
                 }
             }
-        }
-
-        [Obsolete("Move to creature.")]
-        private static ReadOnlyCollection<Ability> TryParseCreatureAbilities(Player owner, Creature creature)
-        {
-            AbilityCollection abilities = new AbilityCollection();
-            if (!string.IsNullOrEmpty(creature.Text))
-            {
-                IEnumerable<string> textParts = creature.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
-                foreach (string textPart in textParts)
-                {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, creature);
-                    if (staticAbility != null)
-                    {
-                        abilities.Add(staticAbility);
-                    }
-                    else
-                    {
-                        NonStaticAbility nonStaticAbility = ParseTriggerAbility(owner, textPart, creature);
-                        if (nonStaticAbility != null)
-                        {
-                            abilities.Add(nonStaticAbility);
-                        }
-                    }
-                }
-            }
-            return abilities;
-        }
-
-        [Obsolete("Move to creature.")]
-        private static NonStaticAbility ParseTriggerAbility(Player owner, string textPart, Creature creature)
-        {
-            TriggerConditionAndRemainingText triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart);
-            if (triggerCondition.TriggerCondition != null)
-            {
-                ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(triggerCondition.RemainingText);
-                if (effects != null)
-                {
-                    return new TriggerAbility(triggerCondition.TriggerCondition, effects, owner, creature);
-                }
-                else
-                {
-                    return ParseTriggerAbilityWithOneShotEffectForCreature(owner, triggerCondition, creature);
-                }
-            }
-            else
-            {
-                NotParsedAbilities.Add(textPart);
-                return null;
-            }
-        }
-
-        [Obsolete("Move to creature.")]
-        private static NonStaticAbility ParseTriggerAbilityWithOneShotEffectForCreature(Player owner, TriggerConditionAndRemainingText triggerCondition, Creature creature)
-        {
-            OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(triggerCondition.RemainingText, creature);
-            if (oneShotEffectForCreature != null)
-            {
-                return new TriggerAbility(triggerCondition.TriggerCondition, new ReadOnlyOneShotEffectCollection(oneShotEffectForCreature), owner, creature);
-            }
-            else
-            {
-                NotParsedAbilities.Add(triggerCondition.RemainingText);
-                return null;
-            }
-        }
-
-        [Obsolete("Move to spell.")]
-        private static ReadOnlyCollection<Ability> TryParseSpellAbilities(Player owner, Spell spell)
-        {
-            AbilityCollection abilities = new AbilityCollection();
-            if (!string.IsNullOrEmpty(spell.Text))
-            {
-                IEnumerable<string> textParts = spell.Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
-                foreach (string textPart in textParts)
-                {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, spell);
-                    if (staticAbility != null)
-                    {
-                        abilities.Add(staticAbility);
-                    }
-                    else
-                    {
-                        ReadOnlyOneShotEffectCollection effects = EffectFactory.ParseOneShotEffect(textPart);
-                        if (effects != null)
-                        {
-                            abilities.Add(new SpellAbility(effects, owner, spell));
-                        }
-                        else
-                        {
-                            NotParsedAbilities.Add(textPart);
-                        }
-                    }
-                }
-            }
-            return abilities;
         }
         #endregion Private methods
     }

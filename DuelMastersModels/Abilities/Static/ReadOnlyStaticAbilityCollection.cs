@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class ReadOnlyStaticAbilityCollection : ReadOnlyCollection<StaticAbility>
     {

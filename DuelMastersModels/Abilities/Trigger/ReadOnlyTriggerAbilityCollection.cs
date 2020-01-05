@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.Abilities.Trigger
+namespace DuelMastersModels.Abilities.TriggerAbilities
 {
     internal class ReadOnlyTriggerAbilityCollection : ReadOnlyCollection<TriggerAbility>
     {

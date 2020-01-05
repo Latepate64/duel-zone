@@ -26,7 +26,6 @@ namespace DuelMastersModels.PlayerActions
             if (Abilities.Count == 1)
             {
                 SelectedAbility = Abilities.First();
-                duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
                 Perform(duel, Abilities.First());
                 return null;
             }

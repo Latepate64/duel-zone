@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Effects.OneShotEffects;
+using DuelMastersModels.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,15 +26,9 @@ namespace DuelMastersModels.Factories
             { "Put the top card of your deck into your mana zone. Then add the top card of your deck to your shields face down.", new Type[] { typeof(PutTheTopCardOfYourDeckIntoYourManaZoneEffect), typeof(AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect) } },
         });
 
-        private static readonly ReadOnlyDictionary<string, Type> _creatureEffectDictionary = new ReadOnlyDictionary<string, Type>(new Dictionary<string, Type>
-        {
-            { "This creature gets $plusinteger power until the end of the turn.", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
-            { "This creature gets $plusinteger power until the end of the turn. (Do what the spell says before this creature gets the extra power.)", typeof(ThisCreatureGetsXPowerUntilTheEndOfTheTurn) },
-        });
-
         internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text)
         {
-            if (text == null)
+            if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentNullException("text");
             }
@@ -49,23 +44,7 @@ namespace DuelMastersModels.Factories
             }
         }
 
-        internal static OneShotEffectForCreature ParseOneShotEffectForCreature(string text, Cards.Creature creature)
-        {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
-            ParsedTypesAndObjects parsedTypesAndObjects = AbilityTypeFactory.GetTypeFromDictionary(text, _creatureEffectDictionary);
-            if (parsedTypesAndObjects?.ParsedType != null && string.IsNullOrEmpty(parsedTypesAndObjects.ParsedType.RemainingText))
-            {
-                return Activator.CreateInstance(parsedTypesAndObjects.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(creature, new Collection<object>(parsedTypesAndObjects.Objects.Values.ToList()))) as OneShotEffectForCreature;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
+        /*
         internal static string GetTextForEffects(ReadOnlyOneShotEffectCollection oneShotEffects)
         {
             if (oneShotEffects.Count == 1)
@@ -95,6 +74,7 @@ namespace DuelMastersModels.Factories
                 throw new InvalidOperationException();
             }
         }
+        */
 
         private static ReadOnlyOneShotEffectCollection TryParseMultipleEffects(string text)
         {
@@ -105,7 +85,7 @@ namespace DuelMastersModels.Factories
             }
             else
             {
-                return null;
+                throw new ParseOneShotEffectException(text);
             }
         }
     }

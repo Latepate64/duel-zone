@@ -52,10 +52,12 @@ namespace DuelMastersModels.Cards
         internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection(NonEvolutionCreatures.Where(c => c.Cost <= Items.Count));
         #endregion ReadOnlyCreatureCollection
 
+        /*
         private ReadOnlyCardCollection UntappedCardsWithCivilizations(ReadOnlyCivilizationCollection civilizations)
         {
             return new ReadOnlyCardCollection(UntappedCards.Where(card => card.Civilizations.Intersect(civilizations).Count() > 0));
         }
+        */
     }
 
     /// <summary>

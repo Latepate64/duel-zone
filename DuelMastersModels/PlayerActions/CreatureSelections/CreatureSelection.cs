@@ -12,14 +12,8 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         /// </summary>
         public ReadOnlyCreatureCollection Creatures { get; private set; }
 
-        internal int MinimumSelection { get; private set; }
-
-        internal int MaximumSelection { get; private set; }
-
-        internal CreatureSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCreatureCollection creatures) : base(player)
+        internal CreatureSelection(Player player, ReadOnlyCreatureCollection creatures) : base(player)
         {
-            MinimumSelection = minimumSelection;
-            MaximumSelection = maximumSelection;
             Creatures = creatures;
         }
     }

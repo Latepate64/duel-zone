@@ -18,7 +18,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             {
                 throw new ArgumentNullException("duel");
             }
-            AttackDeclarationStep step = (duel.CurrentTurn.CurrentStep as AttackDeclarationStep);
+            AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
             step.AttackedCreature = creature;
             step.TargetOfAttackDeclared = true;
             return null;
@@ -26,18 +26,9 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (!duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1)
-            {
-                return Perform(duel, Creatures[0]);
-            }
-            else if (Creatures.Count == 0)
-            {
-                return Perform(duel, null);
-            }
-            else
-            {
-                return this;
-            }
+            return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1
+                ? Perform(duel, Creatures[0])
+                : Creatures.Count == 0 ? Perform(duel, null) : (this);
         }
     }
 }

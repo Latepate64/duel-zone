@@ -24,7 +24,7 @@ namespace DuelMastersModels.Zones
         public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
         internal ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
         internal ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
-        internal ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
+        //internal ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
         internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone;
         #endregion ReadOnlyCreatureCollection
 

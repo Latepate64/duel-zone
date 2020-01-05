@@ -27,14 +27,7 @@ namespace DuelMastersModels.Steps
             }
             Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
             ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-            if (creatures.Count > 0)
-            {
-                return new DeclareBlock(nonActivePlayer, creatures);
-            }
-            else
-            {
-                return null;
-            }
+            return creatures.Count > 0 ? new DeclareBlock(nonActivePlayer, creatures) : null;
         }
     }
 }

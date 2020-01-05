@@ -7,7 +7,6 @@
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             PlayerAction newAction = Perform(duel);
-            duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
             return newAction;
         }
 

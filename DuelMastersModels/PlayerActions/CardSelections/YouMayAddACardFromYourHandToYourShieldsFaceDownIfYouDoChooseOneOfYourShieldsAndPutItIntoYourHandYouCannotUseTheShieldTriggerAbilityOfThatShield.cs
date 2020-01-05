@@ -25,7 +25,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             else
             {
                 return null;
-            } 
+            }
         }
     }
 }

@@ -10,25 +10,17 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal MandatoryCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 1, 1, cards)
         { }
 
-        internal Card SelectedCard { get; set; }
-
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (Cards.Count == 1)
-            {
-                SelectedCard = Cards[0];
-                duel.CurrentTurn.CurrentStep.PlayerActions.Add(this);
-                return Perform(duel, Cards[0]);
-            }
-            else
-            {
-                return this;
-            }
+            return Cards.Count == 1 ? Perform(duel, Cards[0]) : (this);
         }
 
-        internal bool Validate(Card card)
+        internal void Validate(Card card)
         {
-            return Cards.Contains(card);
+            if (!Cards.Contains(card))
+            {
+                throw new Exceptions.MandatoryCardSelectionException(ToString());
+            }
         }
 
         internal abstract PlayerAction Perform(Duel duel, Card card);

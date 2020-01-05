@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
@@ -60,7 +62,7 @@ namespace DuelMastersModels
 
         #region Fields
         //private readonly CardCollection _deckBeforeDuel = new CardCollection();
-        private ReadOnlyCardCollection _deckBeforeDuel;
+        private readonly ReadOnlyCardCollection _deckBeforeDuel;
         private readonly CardCollection _shieldTriggersToUse = new CardCollection();
         #endregion Fields
 
@@ -81,7 +83,7 @@ namespace DuelMastersModels
 
         //TODO: Try to use only one public method.
         #region Public methods
-            /*
+        /*
         /// <summary>
         /// Sets the cards the player is going to use in a duel.
         /// </summary>
@@ -127,6 +129,28 @@ namespace DuelMastersModels
         internal void RemoveShieldTriggerToUse(Card card)
         {
             _shieldTriggersToUse.Remove(card);
+        }
+
+        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility)
+        {
+            if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
+            {
+                return staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && BattleZone.Cards.Contains(card)) ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && Hand.Cards.Contains(card))
+                    ? staticAbilityForCreature.ContinuousEffects
+                    : new ReadOnlyContinuousEffectCollection();
+            }
+            else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
+            {
+                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && Hand.Cards.Contains(card)
+                    ? staticAbilityForSpell.ContinuousEffects
+                    : new ReadOnlyContinuousEffectCollection();
+            }
+            else
+            {
+                throw new System.InvalidOperationException();
+            }
         }
         #endregion Internal methods
     }

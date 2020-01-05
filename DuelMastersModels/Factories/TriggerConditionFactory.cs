@@ -1,8 +1,7 @@
-﻿using DuelMastersModels.Abilities.Trigger;
+﻿using DuelMastersModels.Abilities.TriggerAbilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DuelMastersModels.Factories
 {
@@ -39,9 +38,12 @@ namespace DuelMastersModels.Factories
                 : new TriggerConditionAndRemainingText(null, null);
         }
 
+        //TODO: Remove?
+        /*
         internal static string GetTextForTriggerCondition(TriggerCondition triggerCondition)
         {
             return _triggerConditionDictionary.First(condition => condition.Value == triggerCondition.GetType()).Key;
         }
+        */
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Effects.OneShotEffects;
 
-namespace DuelMastersModels.Abilities.Trigger
+namespace DuelMastersModels.Abilities.TriggerAbilities
 {
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”

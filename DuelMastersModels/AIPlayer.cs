@@ -69,16 +69,12 @@ namespace DuelMastersModels
                             creature = optionalCreatureSelection.Creatures.First();
                         }
                     }
-                    optionalCreatureSelection.SelectedCreature = creature;
                     newAction = optionalCreatureSelection.Perform(duel, creature);
-                    duel.CurrentTurn.CurrentStep.PlayerActions.Add(optionalCreatureSelection);
                 }
                 else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
                 {
                     Creature creature = mandatoryCreatureSelection.Creatures.First();
-                    mandatoryCreatureSelection.SelectedCreature = creature;
                     newAction = mandatoryCreatureSelection.Perform(duel, creature);
-                    duel.CurrentTurn.CurrentStep.PlayerActions.Add(mandatoryCreatureSelection);
                 }
                 else
                 {
@@ -94,7 +90,6 @@ namespace DuelMastersModels
             {
                 selectAbilityToResolve.SelectedAbility = selectAbilityToResolve.Abilities.First();
                 SelectAbilityToResolve.Perform(duel, selectAbilityToResolve.SelectedAbility);
-                duel.CurrentTurn.CurrentStep.PlayerActions.Add(selectAbilityToResolve);
                 return null;
             }
             else
@@ -115,7 +110,6 @@ namespace DuelMastersModels
                     {
                         card = chargeMana.Cards.First();
                     }
-                    chargeMana.SelectedCard = card;
                     newAction = chargeMana.Perform(duel, card);
                 }
                 else
@@ -125,7 +119,6 @@ namespace DuelMastersModels
                     {
                         card = optionalCardSelection.Cards.First();
                     }
-                    optionalCardSelection.SelectedCard = card;
                     newAction = optionalCardSelection.Perform(duel, card);
                 }
             }
@@ -154,14 +147,12 @@ namespace DuelMastersModels
             else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
             {
                 Card card = mandatoryCardSelection.Cards.First();
-                mandatoryCardSelection.SelectedCard = card;
                 newAction = mandatoryCardSelection.Perform(duel, card);
             }
             else
             {
                 throw new ArgumentOutOfRangeException("cardSelection");
             }
-            duel.CurrentTurn.CurrentStep.PlayerActions.Add(cardSelection);
             return newAction;
         }
     }

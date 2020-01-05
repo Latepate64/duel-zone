@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Effects.ContinuousEffects;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     /// <summary>
     /// Static abilities do something all the time rather than being activated or triggered. They are written as statements, and they’re simply true.

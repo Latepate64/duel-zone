@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class CreatureShieldTrigger : StaticAbilityForCreature
     {

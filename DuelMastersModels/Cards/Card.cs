@@ -25,11 +25,7 @@ namespace DuelMastersModels.Cards
         #endregion Constants
 
         #region Properties
-        /// <summary>
-        /// Unique identifier during a game.
-        /// </summary>
-        public int GameId { get; private set; }
-
+        #region Public
         /// <summary>
         /// Name of the card.
         /// </summary>
@@ -79,9 +75,20 @@ namespace DuelMastersModels.Cards
         /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
         /// </summary>
         public bool Tapped { get; internal set; } = false;
+        #endregion Public
 
+        #region Internal
         internal bool KnownToOwner { get; set; }
         internal bool KnownToOpponent { get; set; }
+
+        //TODO: remove?
+        /*
+        /// <summary>
+        /// Unique identifier during a game.
+        /// </summary>
+        internal int GameId { get; private set; }
+        */
+        #endregion Internal
         #endregion Properties
 
         #region Fields

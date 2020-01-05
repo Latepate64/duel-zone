@@ -314,7 +314,7 @@ namespace DuelMastersModels.Factories
             string keyWord, string inputWord, Dictionary<string, object> parsedObjects/*,
             int inputWordIndex, string[] inputWords, ref int addIndex, int updatedAddIndex*/)
         {
-            return 
+            return
                 keyWord == inputWord ||
                 (IsKeyWordVariable(keyWord, "$integer") && IsInteger(GetProperInputText(inputWord), parsedObjects, "$integer")) ||
                 (IsKeyWordVariable(keyWord, "$integer2") && IsInteger(GetProperInputText(inputWord), parsedObjects, "$integer2")) ||
@@ -330,11 +330,11 @@ namespace DuelMastersModels.Factories
                 (IsKeyWordVariable(keyWord, "$racegroup") && IsRaceGroup(GetProperInputText(inputWord), parsedObjects)*/);
         }
 
-        private static bool UpdateParsedObjects(Dictionary<string, object> parsedObjects, string text, object parsedObject)
+        private static bool UpdateParsedObjects(Dictionary<string, object> parsedObjects, string variableIdentifier, object parsedObject)
         {
-            if (!parsedObjects.ContainsKey(text))
+            if (!parsedObjects.ContainsKey(variableIdentifier))
             {
-                parsedObjects.Add(text, parsedObject);
+                parsedObjects.Add(variableIdentifier, parsedObject);
                 return true;
             }
             else
@@ -350,6 +350,7 @@ namespace DuelMastersModels.Factories
             return text.Replace("\"", "").Replace(".", "");
         }
 
+        /*
         /// <summary>
         /// Returns a civilization as a string lowercased.
         /// </summary>
@@ -376,6 +377,7 @@ namespace DuelMastersModels.Factories
         {
             return GetRacesAsString(races, null, separator);
         }
+        */
 
         private static void ManageParsedObjects(string text, ref Dictionary<string, object> parsedObjects)
         {
@@ -403,6 +405,7 @@ namespace DuelMastersModels.Factories
             }
         }
 
+        /*
         private static string GetRacesAsString(ReadOnlyCollection<string> races, string race, string separator)
         {
             if (races == null)
@@ -416,6 +419,7 @@ namespace DuelMastersModels.Factories
             }
             return string.Join(separator, stringRaces.ToArray());
         }
+        */
         #endregion string
 
         private static ParsedType GetParsedTypes<T>(string inputText, ReadOnlyDictionary<string, T> dictionary, string matchingKey)

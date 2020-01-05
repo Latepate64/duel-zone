@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Effects.ContinuousEffects;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     /// <summary>
     /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the spell with the ability remains in the appropriate zone.

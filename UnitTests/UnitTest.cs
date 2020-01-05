@@ -1,10 +1,10 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Cards;
+using DuelMastersModels.Exceptions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActionResponses;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -40,8 +40,7 @@ namespace UnitTests
             duel.Progress(new CardSelectionResponse());
             UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
             PayCost payCost = duel.Progress(new CardSelectionResponse(useCard.Cards.First())) as PayCost;
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.Hand.Cards.First()));
-            Assert.Equal(payCost, newAction);
+            Assert.Throws<MandatoryMultipleCardSelectionException>(() => duel.Progress(new CardSelectionResponse(duel.Player1.Hand.Cards.First())));
         }
 
         [Fact]
@@ -62,8 +61,7 @@ namespace UnitTests
         {
             Duel duel = GetDuel();
             UseCard useCard = duel.Progress(new CardSelectionResponse((duel.Start() as ChargeMana).Cards.First())) as UseCard;
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.ManaZone.Cards.First()));
-            Assert.Equal(useCard, newAction);
+            Assert.Throws<OptionalCardSelectionException>(() => duel.Progress(new CardSelectionResponse(duel.Player1.ManaZone.Cards.First())));
         }
 
         [Fact]
@@ -71,8 +69,7 @@ namespace UnitTests
         {
             Duel duel = GetDuel();
             ChargeMana chargeMana = (duel.Start() as ChargeMana);
-            PlayerAction newAction = duel.Progress(new CardSelectionResponse(duel.Player1.ShieldZone.Cards.First()));
-            Assert.Equal(chargeMana, newAction);
+            Assert.Throws<OptionalCardSelectionException>(() => duel.Progress(new CardSelectionResponse(duel.Player1.ShieldZone.Cards.First())));
         }
 
         [Fact]

@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Abilities.Static;
+using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;

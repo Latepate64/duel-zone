@@ -9,12 +9,10 @@ namespace DuelMastersModels.Steps
     {
         internal Creature AttackingCreature { get; set; }
         internal Creature AttackedCreature { get; set; }
-        internal Player NonactivePlayer { get; private set; }
         internal bool TargetOfAttackDeclared { get; set; }
 
-        internal AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer)
+        internal AttackDeclarationStep(Player activePlayer) : base(activePlayer)
         {
-            NonactivePlayer = nonactivePlayer;
         }
 
         internal override PlayerAction PlayerActionRequired(Duel duel)
@@ -37,21 +35,11 @@ namespace DuelMastersModels.Steps
                 throw new System.ArgumentNullException("duel");
             }
             ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
-            if (creatures.Count > 0)
-            {
-                if (creatures.Any(creature => duel.AttacksIfAble(creature)))
-                {
-                    return new DeclareAttackerMandatory(ActivePlayer, creatures);
-                }
-                else
-                {
-                    return new DeclareAttacker(ActivePlayer, creatures);
-                }
-            }
-            else
-            {
-                return null;
-            }
+            return creatures.Count > 0
+                ? creatures.Any(creature => duel.AttacksIfAble(creature))
+                    ? new DeclareAttackerMandatory(ActivePlayer, creatures)
+                    : (PlayerAction)new DeclareAttacker(ActivePlayer, creatures)
+                : null;
         }
     }
 }

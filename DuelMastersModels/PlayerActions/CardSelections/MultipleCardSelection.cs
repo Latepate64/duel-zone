@@ -15,19 +15,15 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            if (Cards.Count == 0)
-            {
-                return Perform(duel, Cards);
-            }
-            else
-            {
-                return this;
-            }
+            return Cards.Count == 0 ? Perform(duel, Cards) : (this);
         }
 
-        internal bool Validate(ReadOnlyCardCollection cards)
+        internal void Validate(ReadOnlyCardCollection cards)
         {
-            return !cards.Except(Cards).Any();
+            if (cards.Except(Cards).Any())
+            {
+                throw new Exceptions.MultipleCardSelectionException(ToString());
+            }
         }
 
         internal abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards);

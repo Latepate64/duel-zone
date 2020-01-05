@@ -16,9 +16,13 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             Cost = cost;
         }
 
-        internal static bool Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
+        internal void Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
         {
-            return Duel.CanBeUsed(cardToBeUsed, cards);
+            Validate(cards);
+            if (!Duel.CanBeUsed(cardToBeUsed, cards))
+            {
+                throw new Exceptions.PayCostException(ToString());
+            }
         }
 
         internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)

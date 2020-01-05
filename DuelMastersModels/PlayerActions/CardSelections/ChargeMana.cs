@@ -7,7 +7,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// To charge is to put a card from your hand into your mana zone, rotated 180 degrees from the normal position.
     /// </summary>
     public class ChargeMana : OptionalCardSelection
-    { 
+    {
         internal ChargeMana(Player player) : base(player, new ReadOnlyCardCollection(player.Hand.Cards))
         { }
 

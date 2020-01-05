@@ -105,6 +105,15 @@
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
+    <Compile Include="Exceptions\DuelMastersException.cs" />
+    <Compile Include="Exceptions\MandatoryCardSelectionException.cs" />
+    <Compile Include="Exceptions\MandatoryMultipleCardSelectionException.cs" />
+    <Compile Include="Exceptions\MultipleCardSelectionException.cs" />
+    <Compile Include="Exceptions\OptionalCardSelectionException.cs" />
+    <Compile Include="Exceptions\ParseException.cs" />
+    <Compile Include="Exceptions\ParseOneShotEffectException.cs" />
+    <Compile Include="Exceptions\ParseOneShotEffectForCreatureException.cs" />
+    <Compile Include="Exceptions\ParseTriggerAbilityConditionException.cs" />
     <Compile Include="Cards\Rarity.cs" />
     <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
@@ -136,6 +145,7 @@
     <Compile Include="Effects\Periods\Indefinite.cs" />
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
+    <Compile Include="Exceptions\PayCostException.cs" />
     <Compile Include="Factories\AbilityTypeFactory.cs" />
     <Compile Include="Factories\EffectFactory.cs" />
     <Compile Include="Factories\ParsedTypesAndObjects.cs" />
