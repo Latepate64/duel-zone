@@ -16,10 +16,10 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             Cost = cost;
         }
 
-        internal void Validate(ReadOnlyCardCollection cards, Card cardToBeUsed)
+        internal void Validate(ReadOnlyCardCollection cards, Duel duel)
         {
             Validate(cards);
-            if (!Duel.CanBeUsed(cardToBeUsed, cards))
+            if (!Duel.CanBeUsed((duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed, cards))
             {
                 throw new Exceptions.PayCostException(ToString());
             }

@@ -106,6 +106,7 @@
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
+    <Compile Include="ContinuousEffectManager.cs" />
     <Compile Include="Exceptions\DuelMastersException.cs" />
     <Compile Include="Exceptions\MandatoryCardSelectionException.cs" />
     <Compile Include="Exceptions\MandatoryCreatureSelectionException.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayerActionManager.cs" />
     <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
     <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
     <Compile Include="PlayerActionResponses\SelectAbilityToResolveResponse.cs" />
