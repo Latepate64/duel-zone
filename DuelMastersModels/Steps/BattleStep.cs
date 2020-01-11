@@ -24,11 +24,7 @@ namespace DuelMastersModels.Steps
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
-            }
-            if (AttackingCreature == null)
-            {
-                throw new InvalidOperationException("There should be an attacking creature.");
+                throw new ArgumentNullException(nameof(duel));
             }
             if (BlockingCreature != null)
             {

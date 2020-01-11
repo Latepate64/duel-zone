@@ -72,7 +72,7 @@ namespace DuelMastersModels
         public Player(string name, ReadOnlyCardCollection deckBeforeDuel)
         {
             Name = name;
-            _deckBeforeDuel = deckBeforeDuel;
+            _deckBeforeDuel = deckBeforeDuel ?? throw new System.ArgumentNullException(nameof(deckBeforeDuel));
             Deck = new Deck(deckBeforeDuel);
             BattleZone = new BattleZone();
             Graveyard = new Graveyard();

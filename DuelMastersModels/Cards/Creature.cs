@@ -49,7 +49,7 @@ namespace DuelMastersModels.Cards
         {
             if (power == null)
             {
-                throw new ArgumentNullException("power");
+                throw new ArgumentNullException(nameof(power));
             }
             Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
             _races = new ReadOnlyCollection<string>(races);
@@ -109,10 +109,6 @@ namespace DuelMastersModels.Cards
 
         private OneShotEffectForCreature ParseOneShotEffectForCreature(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentNullException("text");
-            }
             ParsedTypesAndObjects parsedTypesAndObjects = AbilityTypeFactory.GetTypeFromDictionary(text, _creatureEffectDictionary);
             return parsedTypesAndObjects?.ParsedType != null && string.IsNullOrEmpty(parsedTypesAndObjects.ParsedType.RemainingText)
                 ? Activator.CreateInstance(parsedTypesAndObjects.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(this, new Collection<object>(parsedTypesAndObjects.Objects.Values.ToList()))) as OneShotEffectForCreature

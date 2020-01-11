@@ -15,15 +15,11 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
-            }
-            else if (creature == null)
-            {
-                return null;
+                throw new ArgumentNullException(nameof(duel));
             }
             else
             {
-                return duel.ReturnFromBattleZoneToHand(creature);
+                return creature == null ? null : duel.ReturnFromBattleZoneToHand(creature);
             }
         }
     }

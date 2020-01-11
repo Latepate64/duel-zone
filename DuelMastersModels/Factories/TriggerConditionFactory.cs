@@ -28,10 +28,6 @@ namespace DuelMastersModels.Factories
 
         internal static TriggerConditionAndRemainingText ParseTriggerCondition(string text)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
             ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _triggerConditionDictionary);
             return parsed?.ParsedType != null
                 ? new TriggerConditionAndRemainingText(Activator.CreateInstance(parsed.ParsedType.TypesParsed[0]/*, new Collection<object>(parsedObjects.Values.ToList())*/) as TriggerCondition, parsed.ParsedType.RemainingText)

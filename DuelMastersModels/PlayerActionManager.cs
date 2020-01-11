@@ -50,7 +50,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new ArgumentOutOfRangeException("response");
+                throw new ArgumentOutOfRangeException(nameof(response));
             }
             return playerAction;
         }
@@ -124,7 +124,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new InvalidOperationException("Could not identify current player action.");
+                throw new InvalidOperationException(CurrentPlayerAction.ToString());
             }
         }
 
@@ -173,7 +173,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new InvalidOperationException("Could not identify current player action.");
+                throw new InvalidOperationException(CurrentPlayerAction.ToString());
             }
             return playerAction;
         }

@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CA1507: Use nameof to express symbol names
+dotnet_diagnostic.CA1507.severity = error

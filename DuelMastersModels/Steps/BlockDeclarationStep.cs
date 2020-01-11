@@ -23,7 +23,7 @@ namespace DuelMastersModels.Steps
         {
             if (duel == null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new System.ArgumentNullException(nameof(duel));
             }
             Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
             ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);

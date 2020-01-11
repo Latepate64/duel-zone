@@ -32,7 +32,7 @@ namespace DuelMastersModels.Steps
         {
             if (duel == null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new System.ArgumentNullException(nameof(duel));
             }
             ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             return creatures.Count > 0

@@ -36,10 +36,6 @@ namespace DuelMastersModels.Factories
 
         internal static StaticAbility ParseStaticAbilityForCreature(string text, Creature creature)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
             ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForCreatures);
             return parsed?.ParsedType != null
                 ? Activator.CreateInstance(parsed.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */creature, new Collection<object>(parsed.Objects.Values.ToList()))) as StaticAbility
@@ -48,10 +44,6 @@ namespace DuelMastersModels.Factories
 
         internal static StaticAbility ParseStaticAbilityForSpell(string text, Spell spell)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
             ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _staticAbilityDictionaryForSpells);
             return parsed?.ParsedType != null
                 ? Activator.CreateInstance(parsed.ParsedType.TypesParsed[0], AbilityTypeFactory.GetInstanceParameters(/*owner, */spell, new Collection<object>(parsed.Objects.Values.ToList()))) as StaticAbility

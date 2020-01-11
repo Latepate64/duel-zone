@@ -70,7 +70,7 @@ namespace DuelMastersModels.Zones
             }
             else
             {
-                throw new ArgumentException("Deck is out of cards.");
+                throw new InvalidOperationException(nameof(Cards.Count));
             }
         }
     }

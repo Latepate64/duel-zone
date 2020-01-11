@@ -4,7 +4,7 @@
     /// Rarity of a card.
     /// </summary>
     public enum Rarity
-    { 
+    {
         /// <summary>
         /// Common rarity.
         /// </summary>
@@ -33,6 +33,6 @@
         /// <summary>
         /// No rarity.
         /// </summary>
-        None 
+        None
     };
 }

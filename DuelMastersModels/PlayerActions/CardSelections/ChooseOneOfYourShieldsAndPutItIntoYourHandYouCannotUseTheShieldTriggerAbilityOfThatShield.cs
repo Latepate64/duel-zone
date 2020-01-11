@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             else if (card != null)
             {

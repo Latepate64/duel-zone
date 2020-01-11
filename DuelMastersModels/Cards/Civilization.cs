@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the civilizations cards can have.
     /// </summary>
-    public enum Civilization 
+    public enum Civilization
     {
         /// <summary>
         /// Light civilization. (white/yellow)

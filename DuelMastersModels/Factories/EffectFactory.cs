@@ -28,10 +28,6 @@ namespace DuelMastersModels.Factories
 
         internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentNullException("text");
-            }
             ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary);
             if (parsed?.ParsedType != null && string.IsNullOrEmpty(parsed.ParsedType.RemainingText))
             {

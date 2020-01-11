@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             if (creature != null)
             {

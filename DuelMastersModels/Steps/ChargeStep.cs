@@ -18,7 +18,7 @@ namespace DuelMastersModels.Steps
         {
             if (duel == null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new System.ArgumentNullException(nameof(duel));
             }
             if (MustBeEnded || ActivePlayer.Hand.Cards.Count == 0)
             {

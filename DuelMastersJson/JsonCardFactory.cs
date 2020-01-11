@@ -30,6 +30,10 @@ namespace DuelMastersJson
         /// <returns>The parsed specific JsonCards.</returns>
         public static Collection<JsonCard> GetJsonCards(string path, XmlDeck deck)
         {
+            if (deck == null)
+            {
+                throw new System.ArgumentNullException(nameof(deck));
+            }
             return GetCardsForXmlDeck(deck, GetJsonCards(path));
         }
 

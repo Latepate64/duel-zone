@@ -28,7 +28,7 @@ namespace DuelMastersJson
         {
             if (jsonCards == null)
             {
-                throw new ArgumentNullException("jsonCards");
+                throw new ArgumentNullException(nameof(jsonCards));
             }
             List<Card> cards = new List<Card>();
             foreach (JsonCard jsonCard in jsonCards)

@@ -9,14 +9,7 @@
 
         internal override PlayerAction Perform(Duel duel, bool takeAction)
         {
-            if (takeAction)
-            {
-                return new AutomaticActions.DrawCard(Player);
-            }
-            else
-            {
-                return null;
-            }
+            return takeAction ? new AutomaticActions.DrawCard(Player) : null;
         }
     }
 }

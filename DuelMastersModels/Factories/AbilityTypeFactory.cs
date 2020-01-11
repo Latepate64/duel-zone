@@ -55,95 +55,84 @@ namespace DuelMastersModels.Factories
         /// </summary>
         internal static ParsedTypesAndObjects GetTypeFromDictionary<T>(string inputText, ReadOnlyDictionary<string, T> dictionary)
         {
-            if (dictionary == null)
+            Dictionary<string, object> parsedObjects = new Dictionary<string, object>();
+            List<string> possibleKeys = dictionary.Keys.ToList();
+            string[] inputWords = inputText.Split(' ');
+            int inputWordIndex = 0;
+            int addIndex = 0;
+            int updatedAddIndex = 0;
+            bool keyFound = false;
+            while (!keyFound && possibleKeys.Count > 0 && inputWordIndex < inputWords.Count())
             {
-                throw new ArgumentNullException("dictionary");
-            }
-            if (inputText == null)
-            {
-                throw new ArgumentNullException("inputText");
-            }
-            else
-            {
-                Dictionary<string, object> parsedObjects = new Dictionary<string, object>();
-                List<string> possibleKeys = dictionary.Keys.ToList();
-                string[] inputWords = inputText.Split(' ');
-                int inputWordIndex = 0;
-                int addIndex = 0;
-                int updatedAddIndex = 0;
-                bool keyFound = false;
-                while (!keyFound && possibleKeys.Count > 0 && inputWordIndex < inputWords.Count())
+                if (updatedAddIndex != addIndex)
                 {
-                    if (updatedAddIndex != addIndex)
+                    updatedAddIndex = addIndex;
+                }
+                if (inputWordIndex < inputWords.Count())
+                {
+                    int keyIndex = 0;
+                    while (keyIndex < possibleKeys.Count)
                     {
-                        updatedAddIndex = addIndex;
-                    }
-                    if (inputWordIndex < inputWords.Count())
-                    {
-                        int keyIndex = 0;
-                        while (keyIndex < possibleKeys.Count)
+                        string[] keyWordSplits = possibleKeys[keyIndex].Split(' ');
+                        if (inputWordIndex < keyWordSplits.Count())
                         {
-                            string[] keyWordSplits = possibleKeys[keyIndex].Split(' ');
-                            if (inputWordIndex < keyWordSplits.Count())
+                            string keyWord = keyWordSplits[inputWordIndex];
+                            string inputWord = inputWords[inputWordIndex + addIndex];
+                            if (KeyWordMatchesInputWord(keyWord, inputWord, parsedObjects/*, inputWordIndex, inputWords, ref addIndex, updatedAddIndex*/))
                             {
-                                string keyWord = keyWordSplits[inputWordIndex];
-                                string inputWord = inputWords[inputWordIndex + addIndex];
-                                if (KeyWordMatchesInputWord(keyWord, inputWord, parsedObjects/*, inputWordIndex, inputWords, ref addIndex, updatedAddIndex*/))
-                                {
-                                    ++keyIndex;
-                                }
-                                else
-                                {
-                                    possibleKeys.RemoveAt(keyIndex);
-                                }
-                            }
-                            else if (possibleKeys.Count == 1)
-                            {
-                                keyFound = true;
-                                break;
+                                ++keyIndex;
                             }
                             else
                             {
                                 possibleKeys.RemoveAt(keyIndex);
                             }
                         }
-                        ++inputWordIndex;
+                        else if (possibleKeys.Count == 1)
+                        {
+                            keyFound = true;
+                            break;
+                        }
+                        else
+                        {
+                            possibleKeys.RemoveAt(keyIndex);
+                        }
                     }
-                    else
-                    {
-                        possibleKeys = new List<string>() { };
-                    }
-                }
-                if (possibleKeys.Count == 0)
-                {
-                    return null;
-                }
-                else if (possibleKeys.Count == 1)
-                {
-                    string matchingKey = possibleKeys[0];
-                    ManageParsedObjects(matchingKey, ref parsedObjects);
-                    List<string> wordList = inputWords.ToList();
-                    wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
-                    inputText = string.Join(" ", wordList);
-                    if (inputText.Length > 0)
-                    {
-                        inputText = UppercaseFirstLetter(inputText);
-                    }
-                    return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
+                    ++inputWordIndex;
                 }
                 else
                 {
-                    string matchingKey = possibleKeys.OrderBy(key => key.Length).First();
-                    ManageParsedObjects(matchingKey, ref parsedObjects);
-                    List<string> wordList = inputWords.ToList();
-                    wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
-                    inputText = string.Join(" ", wordList);
-                    if (inputText.Length > 0)
-                    {
-                        inputText = UppercaseFirstLetter(inputText);
-                    }
-                    return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
+                    possibleKeys = new List<string>() { };
                 }
+            }
+            if (possibleKeys.Count == 0)
+            {
+                return null;
+            }
+            else if (possibleKeys.Count == 1)
+            {
+                string matchingKey = possibleKeys[0];
+                ManageParsedObjects(matchingKey, ref parsedObjects);
+                List<string> wordList = inputWords.ToList();
+                wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                inputText = string.Join(" ", wordList);
+                if (inputText.Length > 0)
+                {
+                    inputText = UppercaseFirstLetter(inputText);
+                }
+                return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
+            }
+            else
+            {
+                string matchingKey = possibleKeys.OrderBy(key => key.Length).First();
+                ManageParsedObjects(matchingKey, ref parsedObjects);
+                List<string> wordList = inputWords.ToList();
+                wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                inputText = string.Join(" ", wordList);
+                if (inputText.Length > 0)
+                {
+                    inputText = UppercaseFirstLetter(inputText);
+                }
+                return new ParsedTypesAndObjects(GetParsedTypes(inputText, dictionary, matchingKey), parsedObjects);
             }
         }
         #endregion Internal methods
@@ -393,16 +382,9 @@ namespace DuelMastersModels.Factories
         /// <returns></returns>
         private static string UppercaseFirstLetter(string text)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
-            else
-            {
-                char firstLetter = text[0];
-                firstLetter = char.ToUpper(firstLetter, CultureInfo.InvariantCulture);
-                return firstLetter + text.Substring(1);
-            }
+            char firstLetter = text[0];
+            firstLetter = char.ToUpper(firstLetter, CultureInfo.InvariantCulture);
+            return firstLetter + text.Substring(1);
         }
 
         /*

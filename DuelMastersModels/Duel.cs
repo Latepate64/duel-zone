@@ -153,8 +153,8 @@ namespace DuelMastersModels
         /// <param name="player2">Another one of the two players.</param>
         public Duel(Player player1, Player player2)
         {
-            Player1 = player1;
-            Player2 = player2;
+            Player1 = player1 ?? throw new ArgumentNullException(nameof(player1));
+            Player2 = player2 ?? throw new ArgumentNullException(nameof(player2));
             _abilityManager.InstantiateAbilities(Player1);
             _abilityManager.InstantiateAbilities(Player2);
         }
@@ -225,11 +225,7 @@ namespace DuelMastersModels
         /// </summary>
         internal Player GetOpponent(Player player)
         {
-            if (player == null)
-            {
-                throw new ArgumentNullException("player");
-            }
-            else if (player == Player1)
+            if (player == Player1)
             {
                 return Player2;
             }
@@ -239,7 +235,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new ArgumentOutOfRangeException("player");
+                throw new ArgumentOutOfRangeException(nameof(player));
             }
         }
 
@@ -263,7 +259,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new ArgumentOutOfRangeException("card");
+                throw new ArgumentOutOfRangeException(nameof(card));
             }
         }
         #endregion Player
@@ -296,14 +292,6 @@ namespace DuelMastersModels
         /// <param name="card"></param>
         internal void PutFromHandIntoManaZone(Player player, Card card)
         {
-            if (player == null)
-            {
-                throw new ArgumentNullException("player");
-            }
-            if (card == null)
-            {
-                throw new ArgumentNullException("card");
-            }
             player.Hand.Remove(card, this);
             player.ManaZone.Add(card, this);
         }
@@ -317,22 +305,6 @@ namespace DuelMastersModels
         /// <param name="defendingPlayer"></param>
         internal void Battle(Creature attackingCreature, Creature defendingCreature, Player attackingPlayer, Player defendingPlayer)
         {
-            if (attackingCreature == null)
-            {
-                throw new ArgumentNullException("attackingCreature");
-            }
-            else if (defendingCreature == null)
-            {
-                throw new ArgumentNullException("defendingCreature");
-            }
-            else if (attackingPlayer == null)
-            {
-                throw new ArgumentNullException("attackingPlayer");
-            }
-            else if (defendingPlayer == null)
-            {
-                throw new ArgumentNullException("defendingPlayer");
-            }
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
             //TODO: Handle destruction as a state-based action. 703.4d
@@ -582,14 +554,6 @@ namespace DuelMastersModels
 
         private void PutFromBattleZoneIntoGraveyard(Player player, Creature creature)
         {
-            if (player == null)
-            {
-                throw new ArgumentNullException("player");
-            }
-            if (creature == null)
-            {
-                throw new ArgumentNullException("creature");
-            }
             player.BattleZone.Remove(creature, this);
             player.Graveyard.Add(creature, this);
         }
@@ -795,37 +759,26 @@ namespace DuelMastersModels
         /// </summary>
         private static bool HasCivilizations(ReadOnlyCardCollection paymentCards, ReadOnlyCivilizationCollection requiredCivilizations)
         {
-            if (paymentCards == null)
+            List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
+            foreach (Card card in paymentCards)
             {
-                throw new ArgumentNullException("paymentCards");
+                civilizationGroups.Add(card.Civilizations.ToList());
             }
-            else if (requiredCivilizations == null)
+            foreach (IEnumerable<Civilization> combination in GetCivilizationCombinations(civilizationGroups, new List<Civilization>()).Select(combination => combination.Distinct()))
             {
-                throw new ArgumentNullException("requiredCivilizations");
-            }
-            else
-            {
-                List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
-                foreach (Card card in paymentCards)
+                for (int i = 0; i < requiredCivilizations.Count; ++i)
                 {
-                    civilizationGroups.Add(card.Civilizations.ToList());
-                }
-                foreach (IEnumerable<Civilization> combination in GetCivilizationCombinations(civilizationGroups, new List<Civilization>()).Select(combination => combination.Distinct()))
-                {
-                    for (int i = 0; i < requiredCivilizations.Count; ++i)
+                    if (!combination.Contains(requiredCivilizations[i]))
                     {
-                        if (!combination.Contains(requiredCivilizations[i]))
-                        {
-                            break;
-                        }
-                        else if (requiredCivilizations.Count - 1 == i)
-                        {
-                            return true;
-                        }
+                        break;
+                    }
+                    else if (requiredCivilizations.Count - 1 == i)
+                    {
+                        return true;
                     }
                 }
-                return false;
             }
+            return false;
         }
 
         private bool HasShieldTrigger(Creature creature)

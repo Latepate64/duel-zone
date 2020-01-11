@@ -25,7 +25,7 @@ namespace DuelMastersModels
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             else if (playerAction is CardSelection cardSelection)
             {
@@ -94,7 +94,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new ArgumentOutOfRangeException("playerAction");
+                throw new ArgumentOutOfRangeException(nameof(playerAction));
             }
         }
 
@@ -151,7 +151,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new ArgumentOutOfRangeException("cardSelection");
+                throw new ArgumentOutOfRangeException(nameof(cardSelection));
             }
             return newAction;
         }

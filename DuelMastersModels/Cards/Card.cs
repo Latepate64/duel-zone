@@ -108,6 +108,10 @@ namespace DuelMastersModels.Cards
         /// </summary>
         protected Card(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator)
         {
+            if (civilizations is null)
+            {
+                throw new ArgumentNullException(nameof(civilizations));
+            }
             Name = name;
             Set = set;
             Id = id;
@@ -125,39 +129,32 @@ namespace DuelMastersModels.Cards
         /// </summary>
         private static ReadOnlyCivilizationCollection GetCivilizations(Collection<string> civilizationTexts)
         {
-            if (civilizationTexts == null)
+            List<Civilization> civilizations = new List<Civilization>();
+            if (civilizationTexts.Contains(LightText))
             {
-                throw new ArgumentNullException("civilizationTexts");
+                civilizations.Add(Civilization.Light);
             }
-            else
+            if (civilizationTexts.Contains(WaterText))
             {
-                List<Civilization> civilizations = new List<Civilization>();
-                if (civilizationTexts.Contains(LightText))
-                {
-                    civilizations.Add(Civilization.Light);
-                }
-                if (civilizationTexts.Contains(WaterText))
-                {
-                    civilizations.Add(Civilization.Water);
-                }
-                if (civilizationTexts.Contains(DarknessText))
-                {
-                    civilizations.Add(Civilization.Darkness);
-                }
-                if (civilizationTexts.Contains(FireText))
-                {
-                    civilizations.Add(Civilization.Fire);
-                }
-                if (civilizationTexts.Contains(NatureText))
-                {
-                    civilizations.Add(Civilization.Nature);
-                }
-                if (civilizations.Count == 0)
-                {
-                    throw new ArgumentException("Failed to identify a civilization: " + civilizationTexts);
-                }
-                return new ReadOnlyCivilizationCollection(civilizations);
+                civilizations.Add(Civilization.Water);
             }
+            if (civilizationTexts.Contains(DarknessText))
+            {
+                civilizations.Add(Civilization.Darkness);
+            }
+            if (civilizationTexts.Contains(FireText))
+            {
+                civilizations.Add(Civilization.Fire);
+            }
+            if (civilizationTexts.Contains(NatureText))
+            {
+                civilizations.Add(Civilization.Nature);
+            }
+            if (civilizations.Count == 0)
+            {
+                throw new ArgumentException("Failed to identify a civilization: " + civilizationTexts);
+            }
+            return new ReadOnlyCivilizationCollection(civilizations);
         }
 
         /// <summary>

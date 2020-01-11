@@ -6,7 +6,7 @@
         {
             if (duel == null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new System.ArgumentNullException(nameof(duel));
             }
             foreach (Cards.Creature creature in duel.CurrentTurn.ActivePlayer.BattleZone.Creatures)
             {

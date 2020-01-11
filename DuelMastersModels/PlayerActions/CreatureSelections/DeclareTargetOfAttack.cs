@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
             step.AttackedCreature = creature;

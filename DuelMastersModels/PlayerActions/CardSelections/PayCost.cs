@@ -29,11 +29,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             if (cards == null)
             {
-                throw new ArgumentNullException("cards");
+                throw new ArgumentNullException(nameof(cards));
             }
             else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
             {

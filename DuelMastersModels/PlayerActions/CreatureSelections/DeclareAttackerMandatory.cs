@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         {
             if (duel == null)
             {
-                throw new ArgumentNullException("duel");
+                throw new ArgumentNullException(nameof(duel));
             }
             else if (creature != null)
             {
@@ -27,7 +27,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
             else
             {
-                throw new NotSupportedException("Expected attacker.");
+                throw new ArgumentNullException(nameof(creature));
             }
         }
     }
