@@ -7,35 +7,31 @@ namespace DuelMastersModels.Exceptions
     /// Class for parsing exceptions.
     /// </summary>
     [Serializable]
-    internal abstract class ParseException : DuelMastersException
+    public class ParseException : DuelMastersException
     {
-        /*
         /// <summary>
         /// Creates a parse exception.
         /// </summary>
-        internal ParseException()
+        public ParseException()
         {
         }
-        */
 
         /// <summary>
         /// Creates a parse exception.
         /// </summary>
         /// <param name="message"></param>
-        internal ParseException(string message) : base(message)
+        public ParseException(string message) : base(message)
         {
         }
 
-        /*
         /// <summary>
         /// Creates a parse exception. 
         /// </summary>
         /// <param name="message"></param>
         /// <param name="innerException"></param>
-        internal ParseException(string message, Exception innerException) : base(message, innerException)
+        public ParseException(string message, Exception innerException) : base(message, innerException)
         {
         }
-        */
 
         /// <summary>
         /// Creates a parse exception.

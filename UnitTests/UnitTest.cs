@@ -160,6 +160,15 @@ namespace UnitTests
             Assert.Equal(10, _duelEvents.Count(e => e is DrawCardEvent draw));
         }
 
+        [Fact]
+        public void TestSelectAbilityToResolve()
+        {
+            Duel duel = GetDuel();
+            ChargeMana chargeMana = duel.Start() as ChargeMana;
+            throw new System.NotImplementedException();
+            //DuelMastersModels.Abilities.NonStaticAbility
+        }
+
         private static List<DuelEvent> _duelEvents = new List<DuelEvent>();
 
         private void DuelEventOccurred(object sender, DuelEventArgs e)

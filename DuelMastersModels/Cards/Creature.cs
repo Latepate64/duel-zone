@@ -90,7 +90,7 @@ namespace DuelMastersModels.Cards
             }
             else
             {
-                throw new ParseTriggerAbilityConditionException(textPart);
+                throw new ParseException(textPart);
             }
         }
 
@@ -103,7 +103,7 @@ namespace DuelMastersModels.Cards
             }
             else
             {
-                throw new ParseOneShotEffectForCreatureException(triggerCondition.RemainingText);
+                throw new ParseException(triggerCondition.RemainingText);
             }
         }
 

@@ -70,7 +70,7 @@ namespace DuelMastersModels.Zones
             }
             else
             {
-                throw new InvalidOperationException(nameof(Cards.Count));
+                throw new InvalidOperationException();
             }
         }
     }

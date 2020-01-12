@@ -81,7 +81,7 @@ namespace DuelMastersModels.Factories
             }
             else
             {
-                throw new ParseOneShotEffectException(text);
+                throw new ParseException(text);
             }
         }
     }

@@ -120,9 +120,6 @@
     <Compile Include="Exceptions\OptionalCardSelectionException.cs" />
     <Compile Include="Exceptions\OptionalCreatureSelectionException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
-    <Compile Include="Exceptions\ParseOneShotEffectException.cs" />
-    <Compile Include="Exceptions\ParseOneShotEffectForCreatureException.cs" />
-    <Compile Include="Exceptions\ParseTriggerAbilityConditionException.cs" />
     <Compile Include="Cards\Rarity.cs" />
     <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />

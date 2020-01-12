@@ -10,31 +10,31 @@ namespace DuelMastersModels.Exceptions
     public abstract class DuelMastersException : Exception
     {
         /// <summary>
-        /// Creates a parse exception.
+        /// Creates a Duel Masters exception.
         /// </summary>
         protected DuelMastersException()
         {
         }
 
         /// <summary>
-        /// Creates a parse exception.
+        /// Creates a Duel Masters exception.
         /// </summary>
         /// <param name="message"></param>
-        protected DuelMastersException(string message) : base(message)
+        private protected DuelMastersException(string message) : base(message)
         {
         }
 
         /// <summary>
-        /// Creates a parse exception. 
+        /// Creates a Duel Masters exception. 
         /// </summary>
         /// <param name="message"></param>
         /// <param name="innerException"></param>
-        protected DuelMastersException(string message, Exception innerException) : base(message, innerException)
+        private protected DuelMastersException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
         /// <summary>
-        /// Creates a parse exception.
+        /// Creates a Duel Masters exception.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>

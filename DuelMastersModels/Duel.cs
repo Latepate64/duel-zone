@@ -161,8 +161,9 @@ namespace DuelMastersModels
 
         #region Public methods
         /// <summary>
-        /// Starts a duel.
+        /// Starts the duel.
         /// </summary>
+        /// <returns>Action a player is expected to perform.</returns>
         public PlayerAction Start()
         {
             if (State != DuelState.Setup)
