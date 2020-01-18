@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Zones
 {
@@ -41,7 +42,7 @@ namespace DuelMastersModels.Zones
         internal abstract bool Ordered { get; }
         #endregion Properties
 
-        private protected System.Collections.ObjectModel.Collection<Card> _cards = new System.Collections.ObjectModel.Collection<Card>();
+        private protected Collection<Card> _cards = new Collection<Card>();
 
         #region Methods
         ///<summary>

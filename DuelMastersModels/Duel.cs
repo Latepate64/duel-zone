@@ -2,6 +2,7 @@
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.GameActions.StateBasedActions;
+using DuelMastersModels.Managers;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActionResponses;
@@ -69,12 +70,12 @@ namespace DuelMastersModels
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
-        public Player Player1 { get; private set; }
+        public Player Player1 => _playerManager.Player1;
 
         /// <summary>
         /// A player that participates in duel against player 1.
         /// </summary>
-        public Player Player2 { get; private set; }
+        public Player Player2 => _playerManager.Player2;
 
         /// <summary>
         /// Player who won the duel.
@@ -119,7 +120,7 @@ namespace DuelMastersModels
         /// <summary>
         /// The turn that is currently being processed.
         /// </summary>
-        internal Turn CurrentTurn => _turns.Last();
+        internal Turn CurrentTurn => _turnManager.CurrentTurn;
         #endregion Internal
         #endregion Properties
 
@@ -128,11 +129,6 @@ namespace DuelMastersModels
         /// Players who lost the duel.
         /// </summary>
         private readonly Collection<Player> _losers = new Collection<Player>();
-
-        /// <summary>
-        /// All the turns of the duel that have been or are processed, in order.
-        /// </summary>
-        private readonly Collection<Turn> _turns = new Collection<Turn>();
 
         /// <summary>
         /// Spells that are being resolved.
@@ -144,6 +140,10 @@ namespace DuelMastersModels
         private readonly ContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
 
         private readonly PlayerActionManager _playerActionManager = new PlayerActionManager();
+
+        private readonly PlayerManager _playerManager;
+
+        private readonly TurnManager _turnManager = new TurnManager();
         #endregion Fields
 
         /// <summary>
@@ -153,8 +153,7 @@ namespace DuelMastersModels
         /// <param name="player2">Another one of the two players.</param>
         public Duel(Player player1, Player player2)
         {
-            Player1 = player1 ?? throw new ArgumentNullException(nameof(player1));
-            Player2 = player2 ?? throw new ArgumentNullException(nameof(player2));
+            _playerManager = new PlayerManager(player1 ?? throw new ArgumentNullException(nameof(player1)), player2 ?? throw new ArgumentNullException(nameof(player2)));
             _abilityManager.InstantiateAbilities(Player1);
             _abilityManager.InstantiateAbilities(Player2);
         }
@@ -226,18 +225,7 @@ namespace DuelMastersModels
         /// </summary>
         internal Player GetOpponent(Player player)
         {
-            if (player == Player1)
-            {
-                return Player2;
-            }
-            else if (player == Player2)
-            {
-                return Player1;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(nameof(player));
-            }
+            return _playerManager.GetOpponent(player);
         }
 
         /// <summary>
@@ -247,21 +235,7 @@ namespace DuelMastersModels
         /// <returns>Player who owns the card.</returns>
         internal Player GetOwner(Card card)
         {
-            //TODO: test if works
-            if (Player1.DeckBeforeDuel.Contains(card))
-            //if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
-            {
-                return Player1;
-            }
-            else if (Player2.DeckBeforeDuel.Contains(card))
-            //else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
-            {
-                return Player2;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(nameof(card));
-            }
+            return _playerManager.GetOwner(card);
         }
         #endregion Player
 
@@ -328,7 +302,7 @@ namespace DuelMastersModels
         /// Card is used based on its type: A creature is put into the battle zone; A spell is put into your graveyard.
         /// </summary>
         /// <param name="card"></param>
-        internal void UseCard(Card card)
+        internal void UseCard(ICard card)
         {
             if (card is Creature creature)
             {
@@ -739,9 +713,7 @@ namespace DuelMastersModels
         /// </summary>
         private PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
-            Turn turn = new Turn(activePlayer, nonActivePlayer, _turns.Count + 1);
-            _turns.Add(turn);
-            PlayerAction playerAction = turn.Start(this);
+            PlayerAction playerAction = _turnManager.StartNewTurn(activePlayer, nonActivePlayer, this);
             return playerAction != null ? TryToPerformAutomatically(playerAction) : Progress();
         }
 
@@ -792,7 +764,7 @@ namespace DuelMastersModels
             return _continuousEffectManager.HasShieldTrigger(this, _abilityManager, spell);
         }
 
-        private bool HasShieldTrigger(Card card)
+        private bool HasShieldTrigger(ICard card)
         {
             if (card is Creature creature)
             {

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
-    public abstract class Card
+    public abstract class Card : ICard
     {
         #region Constants
         private const string LightText = "Light";
@@ -24,8 +24,7 @@ namespace DuelMastersModels.Cards
         private const string NoRarityText = "No Rarity";
         #endregion Constants
 
-        #region Properties
-        #region Public
+        #region Public properties
         /// <summary>
         /// Name of the card.
         /// </summary>
@@ -34,7 +33,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Set in which the card appears.
         /// </summary>
-        public string Set { get; private set; }
+        public string CardSet { get; private set; }
 
         /// <summary>
         /// Collector's number of the card.
@@ -74,22 +73,18 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
         /// </summary>
-        public bool Tapped { get; internal set; } = false;
-        #endregion Public
+        public bool Tapped { get; internal set; }
 
-        #region Internal
-        internal bool KnownToOwner { get; set; }
-        internal bool KnownToOpponent { get; set; }
-
-        //TODO: remove?
-        /*
         /// <summary>
-        /// Unique identifier during a game.
+        /// Determines whether the owner of the card knows what the card is.
         /// </summary>
-        internal int GameId { get; private set; }
-        */
-        #endregion Internal
-        #endregion Properties
+        public bool KnownToOwner { get; internal set; }
+
+        /// <summary>
+        /// Determines whether the opponent of the owner of the card knows what the card is.
+        /// </summary>
+        public bool KnownToOpponent { get; internal set; }
+        #endregion Public properties
 
         #region Fields
         private static readonly Dictionary<string, Rarity> _rarities = new Dictionary<string, Rarity>()
@@ -113,7 +108,7 @@ namespace DuelMastersModels.Cards
                 throw new ArgumentNullException(nameof(civilizations));
             }
             Name = name;
-            Set = set;
+            CardSet = set;
             Id = id;
             Civilizations = GetCivilizations(civilizations);
             Rarity = GetRarity(rarity);

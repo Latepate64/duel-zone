@@ -147,7 +147,7 @@ namespace UnitTests
         [Fact]
         public void TestCreatureAccessMofifiers()
         {
-            Creature creature = GetTestCreature(0);
+            Creature creature = GetTestCreature("");
             CreatureSelectionResponse jotain = new CreatureSelectionResponse(creature);
         }
 
@@ -163,9 +163,19 @@ namespace UnitTests
         [Fact]
         public void TestSelectAbilityToResolve()
         {
-            Duel duel = GetDuel();
-            ChargeMana chargeMana = duel.Start() as ChargeMana;
-            throw new System.NotImplementedException();
+            Duel duel = GetDuel("Whenever another creature is put into the battle zone, you may draw a card.");
+            ChargeMana chargeMana1 = duel.Start() as ChargeMana;
+
+            UseCard useCard1 = duel.Progress(new CardSelectionResponse(chargeMana1.Cards.First())) as UseCard; // Charge mana (player 1)
+            ChargeMana chargeMana2 = duel.Progress(new CardSelectionResponse(useCard1.Cards.First())) as ChargeMana; // Use card (player 1)
+
+            ChargeMana chargeMana3 = duel.Progress(new CardSelectionResponse()) as ChargeMana; // Do not charge mana (player 2)
+            UseCard useCard2 = duel.Progress(new CardSelectionResponse()) as UseCard; // Do not charge mana (player 1)
+
+            PlayerAction jotain = duel.Progress(new CardSelectionResponse(useCard2.Cards.First())); // Use card (player 2)
+
+            //var jotain = duel.Progress()
+            //hrow new System.NotImplementedException();
             //DuelMastersModels.Abilities.NonStaticAbility
         }
 
@@ -177,22 +187,26 @@ namespace UnitTests
         }
 
         private Duel GetDuel()
+        {
+            return GetDuel("");
+        }
+
+        private Duel GetDuel(string creatureText)
         { 
             const int DeckSize = 40;
             List<Card> p1Cards = new List<Card>();
             List<Card> p2Cards = new List<Card>();
             for (int i = 0; i < DeckSize; ++i)
             {
-                p1Cards.Add(GetTestCreature(i));
-                p2Cards.Add(GetTestCreature(i+DeckSize));
+                p1Cards.Add(GetTestCreature(creatureText));
+                p2Cards.Add(GetTestCreature(creatureText));
             }
             return new Duel(new Player("Player1", new ReadOnlyCardCollection(p1Cards)), new Player("Player2", new ReadOnlyCardCollection(p2Cards))) { StartingPlayer = StartingPlayer.Player1 };
         }
 
-        private Creature GetTestCreature(int gameId)
+        private Creature GetTestCreature(string creatureText)
         {
-            string text = "When you put this creature into the battle zone, tap all your opponent's creatures in the battle zone.";
-            return new Creature(name: "TestCreature", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: text, flavor: null, illustrator: null, power: "1000", races: new Collection<string>() { "Initiate" });
+            return new Creature(name: "TestCreature", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: creatureText, flavor: null, illustrator: null, power: "1000", races: new Collection<string>() { "Initiate" });
         }
     }
 }

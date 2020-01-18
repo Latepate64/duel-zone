@@ -98,7 +98,9 @@
     <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
     <Compile Include="Abilities\Trigger\WheneverAPlayerCastsASpell.cs" />
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
-    <Compile Include="AbilityManager.cs" />
+    <Compile Include="Cards\ICard.cs" />
+    <Compile Include="Cards\ICreature.cs" />
+    <Compile Include="Managers\AbilityManager.cs" />
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
-    <Compile Include="ContinuousEffectManager.cs" />
+    <Compile Include="Managers\ContinuousEffectManager.cs" />
     <Compile Include="Exceptions\DuelMastersException.cs" />
     <Compile Include="Exceptions\MandatoryCardSelectionException.cs" />
     <Compile Include="Exceptions\MandatoryCreatureSelectionException.cs" />
@@ -162,8 +164,10 @@
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
+    <Compile Include="Managers\PlayerManager.cs" />
+    <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayerActionManager.cs" />
+    <Compile Include="Managers\PlayerActionManager.cs" />
     <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
     <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
     <Compile Include="PlayerActionResponses\SelectAbilityToResolveResponse.cs" />

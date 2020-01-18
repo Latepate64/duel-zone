@@ -9,7 +9,7 @@ namespace DuelMastersModels.Abilities.TriggerAbilities
     {
         internal TriggerCondition TriggerCondition { get; private set; }
 
-        internal TriggerAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects, Player controller, Cards.Card card) : base(effects, controller, card)
+        internal TriggerAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects, Player controller, Cards.ICard card) : base(effects, controller, card)
         {
             TriggerCondition = triggerCondition;
         }

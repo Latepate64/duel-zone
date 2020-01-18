@@ -7,7 +7,7 @@ using DuelMastersModels.PlayerActions.OptionalActions;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels
+namespace DuelMastersModels.Managers
 {
     internal class PlayerActionManager
     {

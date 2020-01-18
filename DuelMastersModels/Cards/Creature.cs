@@ -13,7 +13,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Creature is a card type.
     /// </summary>
-    public class Creature : Card
+    public class Creature : Card, ICreature
     {
         #region Properties
         /// <summary>
