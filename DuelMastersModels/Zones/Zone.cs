@@ -8,21 +8,26 @@ namespace DuelMastersModels.Zones
     /// </summary>
     public abstract class Zone
     {
-        #region Properties
+        #region Public
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
         public ReadOnlyCardCollection Cards => new ReadOnlyCardCollection(_cards);
+
+        /// <summary>
+        /// Creatures that are in the zone.
+        /// </summary>
+        public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
+        #endregion Public
+
+        #region Internal
+        #region Properties
         #region ReadOnlyCardCollection
         internal ReadOnlyCardCollection TappedCards => Cards.TappedCards;
         internal ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
         #endregion ReadOnlyCardCollection
 
         #region ReadOnlyCreatureCollection
-        /// <summary>
-        /// Creatures that are in the zone.
-        /// </summary>
-        public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
         internal ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
         internal ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
         //internal ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
@@ -41,8 +46,6 @@ namespace DuelMastersModels.Zones
         /// </summary>
         internal abstract bool Ordered { get; }
         #endregion Properties
-
-        private protected Collection<Card> _cards = new Collection<Card>();
 
         #region Methods
         ///<summary>
@@ -63,5 +66,8 @@ namespace DuelMastersModels.Zones
             }
         }
         #endregion Methods
+        #endregion Internal
+
+        private protected Collection<Card> _cards = new Collection<Card>();
     }
 }

@@ -98,8 +98,12 @@
     <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
     <Compile Include="Abilities\Trigger\WheneverAPlayerCastsASpell.cs" />
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
+    <Compile Include="Cards\IBattleZoneCreature.cs" />
     <Compile Include="Cards\ICard.cs" />
     <Compile Include="Cards\ICreature.cs" />
+    <Compile Include="Cards\IManaZoneCard.cs" />
+    <Compile Include="Cards\ITappable.cs" />
+    <Compile Include="Cards\IZoneCard.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
@@ -222,6 +226,7 @@
     <Compile Include="Zones\Deck.cs" />
     <Compile Include="Zones\Graveyard.cs" />
     <Compile Include="Zones\Hand.cs" />
+    <Compile Include="Cards\IBattleZoneCard.cs" />
     <Compile Include="Zones\ManaZone.cs" />
     <Compile Include="Zones\ShieldZone.cs" />
     <Compile Include="Zones\Zone.cs" />
