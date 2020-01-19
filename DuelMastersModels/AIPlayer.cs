@@ -19,7 +19,7 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="name">Name of the player.</param>
         /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
-        public AIPlayer(string name, ReadOnlyCardCollection deckBeforeDuel) : base(name, deckBeforeDuel) { }
+        public AIPlayer(string name, ReadOnlyCardCollection<IZoneCard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
 
         internal PlayerAction PerformPlayerAction(Duel duel, PlayerAction playerAction)
         {
@@ -27,21 +27,29 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException(nameof(duel));
             }
-            else if (playerAction is CardSelection cardSelection)
+            else if (playerAction is CardSelection<IHandCard> handCardSelection)
+            {
+                return SelectHandCard(duel, handCardSelection);
+            }
+            else if (playerAction is CardSelection<IManaZoneCard> manaZoneCardSelection)
+            {
+                return SelectManaZoneCard(duel, manaZoneCardSelection);
+            }
+            else if (playerAction is CardSelection<IZoneCard> cardSelection)
             {
                 return SelectCard(duel, cardSelection);
             }
-            else if (playerAction is CreatureSelection creatureSelection)
+            else if (playerAction is CreatureSelection<IBattleZoneCreature> creatureSelection)
             {
                 PlayerAction newAction;
-                if (creatureSelection is OptionalCreatureSelection optionalCreatureSelection)
+                if (creatureSelection is OptionalCreatureSelection<IBattleZoneCreature> optionalCreatureSelection)
                 {
-                    Creature creature = null;
+                    IBattleZoneCreature creature = null;
                     if (optionalCreatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
                     {
                         List<int> listOfPoints = new List<int>();
-                        Creature attacker = (duel.CurrentTurn.CurrentStep as Steps.AttackDeclarationStep).AttackingCreature;
-                        foreach (Creature targetOfAttack in declareTargetOfAttack.Creatures)
+                        IBattleZoneCreature attacker = (duel.CurrentTurn.CurrentStep as Steps.AttackDeclarationStep).AttackingCreature;
+                        foreach (IBattleZoneCreature targetOfAttack in declareTargetOfAttack.Creatures)
                         {
                             int points = 0;
                             int attackerPower = duel.GetPower(attacker);
@@ -71,9 +79,9 @@ namespace DuelMastersModels
                     }
                     newAction = optionalCreatureSelection.Perform(duel, creature);
                 }
-                else if (creatureSelection is MandatoryCreatureSelection mandatoryCreatureSelection)
+                else if (creatureSelection is MandatoryCreatureSelection<IBattleZoneCreature> mandatoryCreatureSelection)
                 {
-                    Creature creature = mandatoryCreatureSelection.Creatures.First();
+                    IBattleZoneCreature creature = mandatoryCreatureSelection.Creatures.First();
                     newAction = mandatoryCreatureSelection.Perform(duel, creature);
                 }
                 else
@@ -81,6 +89,18 @@ namespace DuelMastersModels
                     throw new InvalidOperationException();
                 }
                 return newAction;
+            }
+            else if (playerAction is CreatureSelection<IZoneCreature> zoneCreatureSelection)
+            {
+                if (zoneCreatureSelection is MandatoryCreatureSelection<IZoneCreature> mandatoryCreatureSelection)
+                {
+                    IZoneCreature creature = mandatoryCreatureSelection.Creatures.First();
+                    return mandatoryCreatureSelection.Perform(duel, creature);
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
             }
             else if (playerAction is OptionalAction optionalAction)
             {
@@ -98,55 +118,72 @@ namespace DuelMastersModels
             }
         }
 
-        private PlayerAction SelectCard(Duel duel, CardSelection cardSelection)
+        private static PlayerAction SelectManaZoneCard(Duel duel, CardSelection<IManaZoneCard> manaZoneCardSelection)
         {
-            PlayerAction newAction = null;
-            if (cardSelection is OptionalCardSelection optionalCardSelection)
+            if (manaZoneCardSelection is PayCost payCost)
             {
-                if (optionalCardSelection is ChargeMana chargeMana)
+                IManaZoneCard civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
+                List<IManaZoneCard> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
+                manaCards.Add(civCard);
+                return payCost.Perform(duel, new ReadOnlyCardCollection<IManaZoneCard>(manaCards));
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private PlayerAction SelectHandCard(Duel duel, CardSelection<IHandCard> handCardSelection)
+        {
+            if (handCardSelection is OptionalCardSelection<IHandCard> optionalHandCardSelection)
+            {
+                if (optionalHandCardSelection is ChargeMana chargeMana)
                 {
-                    Card card = null;
+                    IHandCard card = null;
                     if (Hand.Cards.Sum(c => c.Cost) > ManaZone.UntappedCards.Count)
                     {
                         card = chargeMana.Cards.First();
                     }
-                    newAction = chargeMana.Perform(duel, card);
+                    return chargeMana.Perform(duel, card);
                 }
                 else
                 {
-                    Card card = null;
-                    if (optionalCardSelection.Cards.Count > 0)
-                    {
-                        card = optionalCardSelection.Cards.First();
-                    }
-                    newAction = optionalCardSelection.Perform(duel, card);
+                    throw new InvalidOperationException();
                 }
             }
-            else if (cardSelection is MandatoryMultipleCardSelection mandatoryMultipleCardSelection)
+            else
             {
-                if (cardSelection is PayCost payCost)
-                {
-                    Card civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
-                    List<Card> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
-                    manaCards.Add(civCard);
-                    newAction = payCost.Perform(duel, new ReadOnlyCardCollection(manaCards));
-                }
-                else
-                {
-                    mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
-                }
+                throw new InvalidOperationException();
             }
-            else if (cardSelection is MultipleCardSelection multipleCardSelection)
+        }
+
+        private static PlayerAction SelectCard(Duel duel, CardSelection<IZoneCard> cardSelection)
+        {
+            PlayerAction newAction;
+            if (cardSelection is OptionalCardSelection<IZoneCard> optionalCardSelection)
             {
-                foreach (Card card in multipleCardSelection.Cards)
+                IZoneCard card = null;
+                if (optionalCardSelection.Cards.Count > 0)
+                {
+                    card = optionalCardSelection.Cards.First();
+                }
+                newAction = optionalCardSelection.Perform(duel, card);
+            }
+            else if (cardSelection is MandatoryMultipleCardSelection<IZoneCard> mandatoryMultipleCardSelection)
+            {
+                newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection<IZoneCard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
+            }
+            else if (cardSelection is MultipleCardSelection<IZoneCard> multipleCardSelection)
+            {
+                foreach (IZoneCard card in multipleCardSelection.Cards)
                 {
                     multipleCardSelection.SelectedCards.Add(card);
                 }
                 newAction = multipleCardSelection.Perform(duel, multipleCardSelection.Cards);
             }
-            else if (cardSelection is MandatoryCardSelection mandatoryCardSelection)
+            else if (cardSelection is MandatoryCardSelection<IZoneCard> mandatoryCardSelection)
             {
-                Card card = mandatoryCardSelection.Cards.First();
+                IZoneCard card = mandatoryCardSelection.Cards.First();
                 newAction = mandatoryCardSelection.Perform(duel, card);
             }
             else

@@ -1,22 +1,23 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     /// <summary>
     /// Player must pay the mana cost of a card.
     /// </summary>
-    public class PayCost : MandatoryMultipleCardSelection
+    public class PayCost : MandatoryMultipleCardSelection<IManaZoneCard>
     {
         internal int Cost { get; set; }
 
-        internal PayCost(Player player, ReadOnlyCardCollection cards, int cost) : base(player, cost, cards)
+        internal PayCost(Player player, ReadOnlyCardCollection<IManaZoneCard> cards, int cost) : base(player, cost, cards)
         {
             Cost = cost;
         }
 
-        internal void Validate(ReadOnlyCardCollection cards, Duel duel)
+        internal void Validate(ReadOnlyCardCollection<IManaZoneCard> cards, Duel duel)
         {
             Validate(cards);
             if (!Duel.CanBeUsed((duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed, cards))
@@ -25,7 +26,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
+        internal override PlayerAction Perform(Duel duel, ReadOnlyCollection<IManaZoneCard> cards)
         {
             if (duel == null)
             {
@@ -37,7 +38,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
             else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
             {
-                foreach (Card card in cards)
+                foreach (ManaZoneCard card in cards)
                 {
                     card.Tapped = true;
                 }

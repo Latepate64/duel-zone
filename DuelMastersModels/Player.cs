@@ -25,39 +25,39 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; }
+        internal BattleZone BattleZone { get; private set; }
 
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; private set; }
+        internal Deck Deck { get; private set; }
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; }
+        internal Graveyard Graveyard { get; private set; }
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; }
+        internal Hand Hand { get; private set; }
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; }
+        internal ManaZone ManaZone { get; private set; }
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; }
+        internal ShieldZone ShieldZone { get; private set; }
         #endregion Zones
 
         //public Collection<Abilities.Trigger.TriggerAbility> TriggerAbilities { get; } = new Collection<Abilities.Trigger.TriggerAbility>();
 
         //public ReadOnlyCardCollection UsableShieldTriggers { get; } = new ReadOnlyCardCollection();
 
-        internal ReadOnlyCardCollection ShieldTriggersToUse => new ReadOnlyCardCollection(_shieldTriggersToUse);
+        internal ReadOnlyCardCollection<IHandCard> ShieldTriggersToUse => new ReadOnlyCardCollection<IHandCard>(_shieldTriggersToUse);
         #endregion Properties
 
         #region Fields
@@ -69,7 +69,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Creates a player by initializing their zones.
         /// </summary>
-        public Player(string name, ReadOnlyCardCollection deckBeforeDuel)
+        public Player(string name, ReadOnlyCardCollection<IZoneCard> deckBeforeDuel)
         {
             Name = name;
             _deckBeforeDuel = deckBeforeDuel ?? throw new System.ArgumentNullException(nameof(deckBeforeDuel));
@@ -121,17 +121,17 @@ namespace DuelMastersModels
             Deck.Shuffle();
         }
 
-        internal void AddShieldTriggerToUse(Card card)
+        internal void AddShieldTriggerToUse(IZoneCard card)
         {
             _shieldTriggersToUse.Add(card);
         }
 
-        internal void RemoveShieldTriggerToUse(Card card)
+        internal void RemoveShieldTriggerToUse(IZoneCard card)
         {
             _shieldTriggersToUse.Remove(card);
         }
 
-        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility)
+        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(IZoneCard card, StaticAbility staticAbility)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {

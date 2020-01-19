@@ -6,10 +6,10 @@ namespace DuelMastersModels.Steps
 {
     internal class BlockDeclarationStep : Step
     {
-        internal Creature AttackingCreature { get; private set; }
-        internal Creature BlockingCreature { get; set; }
+        internal IBattleZoneCreature AttackingCreature { get; private set; }
+        internal IBattleZoneCreature BlockingCreature { get; set; }
 
-        internal BlockDeclarationStep(Player activePlayer, Creature attackingCreature) : base(activePlayer)
+        internal BlockDeclarationStep(Player activePlayer, IBattleZoneCreature attackingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
         }

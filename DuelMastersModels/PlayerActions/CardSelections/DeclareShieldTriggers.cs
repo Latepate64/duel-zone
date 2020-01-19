@@ -5,12 +5,12 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player may declare shield trigger to be used.
     /// </summary>
-    public class DeclareShieldTriggers : MultipleCardSelection
+    public class DeclareShieldTriggers : MultipleCardSelection<IHandCard>
     {
-        internal DeclareShieldTriggers(Player player, ReadOnlyCardCollection cards) : base(player, cards)
+        internal DeclareShieldTriggers(Player player, ReadOnlyCardCollection<IHandCard> cards) : base(player, cards)
         { }
 
-        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection cards)
+        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection<IHandCard> cards)
         {
             foreach (Card card in cards)
             {

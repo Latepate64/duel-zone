@@ -1,9 +1,11 @@
-﻿namespace DuelMastersModels.Effects.ContinuousEffects
+﻿using DuelMastersModels.Cards;
+
+namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    internal class PowerEffect : CreatureContinuousEffect
+    internal class PowerEffect : CreatureContinuousEffect<IBattleZoneCreature>
     {
         internal int Power { get; private set; }
 
-        internal PowerEffect(Periods.Period period, CardFilters.CreatureFilter creatureFilter, int power) : base(period, creatureFilter) { Power = power; }
+        internal PowerEffect(Periods.Period period, CardFilters.CreatureFilter<IBattleZoneCreature> creatureFilter, int power) : base(period, creatureFilter) { Power = power; }
     }
 }

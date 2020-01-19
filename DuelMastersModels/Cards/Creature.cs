@@ -13,7 +13,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Creature is a card type.
     /// </summary>
-    public class Creature : Card, ICreature
+    public class Creature : Card, IZoneCreature
     {
         #region Properties
         /// <summary>
@@ -45,13 +45,22 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a creature.
         /// </summary>
-        public Creature(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator, string power, Collection<string> races) : base(name, set, id, civilizations, rarity, cost, text, flavor, illustrator)
+        public Creature(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator, string power, Collection<string> races) : base(name, set, id, cost, text, flavor, illustrator, civilizations, rarity)
         {
             if (power == null)
             {
                 throw new ArgumentNullException(nameof(power));
             }
             Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
+            _races = new ReadOnlyCollection<string>(races);
+        }
+
+        /// <summary>
+        /// Creates a creature.
+        /// </summary>
+        internal Creature(string name, string set, string id, ReadOnlyCivilizationCollection civilizations, Rarity rarity, int cost, string text, string flavor, string illustrator, int power, ReadOnlyCollection<string> races) : base(name, set, id, cost, text, flavor, illustrator, civilizations, rarity)
+        {
+            Power = power;
             _races = new ReadOnlyCollection<string>(races);
         }
 

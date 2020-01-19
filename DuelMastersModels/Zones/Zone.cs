@@ -1,37 +1,31 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
     /// <summary>
     /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone, graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own zones except for the battle zone which is shared by each player.
     /// </summary>
-    public abstract class Zone
+    internal abstract class Zone<TZoneCard> where TZoneCard : IZoneCard
     {
         #region Public
         /// <summary>
         /// The cards that are in the zone.
         /// </summary>
-        public ReadOnlyCardCollection Cards => new ReadOnlyCardCollection(_cards);
+        public ReadOnlyCardCollection<TZoneCard> Cards => new ReadOnlyCardCollection<TZoneCard>(_cards);
 
         /// <summary>
         /// Creatures that are in the zone.
         /// </summary>
-        public ReadOnlyCreatureCollection Creatures => Cards.Creatures;
+        //public ReadOnlyCreatureCollection<IZoneCreature> Creatures => Cards.Creatures;
         #endregion Public
 
         #region Internal
         #region Properties
-        #region ReadOnlyCardCollection
-        internal ReadOnlyCardCollection TappedCards => Cards.TappedCards;
-        internal ReadOnlyCardCollection UntappedCards => Cards.UntappedCards;
-        #endregion ReadOnlyCardCollection
-
         #region ReadOnlyCreatureCollection
-        internal ReadOnlyCreatureCollection TappedCreatures => Cards.TappedCreatures;
-        internal ReadOnlyCreatureCollection UntappedCreatures => Cards.UntappedCreatures;
         //internal ReadOnlyCreatureCollection NonEvolutionCreatures => Cards.NonEvolutionCreatures;
-        internal ReadOnlyCreatureCollection NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone;
+        internal ReadOnlyCreatureCollection<IZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection<IZoneCreature>(Cards.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone.Where(c => c is TZoneCard));
         #endregion ReadOnlyCreatureCollection
 
         /// <summary>
@@ -51,23 +45,15 @@ namespace DuelMastersModels.Zones
         ///<summary>
         /// Adds a card to the zone.
         ///</summary>
-        internal abstract void Add(Card card, Duel duel);
+        internal abstract void Add(IZoneCard card, Duel duel);
 
         ///<summary>
         /// Removes a card from the zone.
         ///</summary>
-        internal abstract void Remove(Card card, Duel duel);
-
-        internal void UntapCards()
-        {
-            foreach (Card card in TappedCards)
-            {
-                card.Tapped = false;
-            }
-        }
+        internal abstract void Remove(TZoneCard card, Duel duel);
         #endregion Methods
         #endregion Internal
 
-        private protected Collection<Card> _cards = new Collection<Card>();
+        private protected Collection<TZoneCard> _cards = new Collection<TZoneCard>();
     }
 }

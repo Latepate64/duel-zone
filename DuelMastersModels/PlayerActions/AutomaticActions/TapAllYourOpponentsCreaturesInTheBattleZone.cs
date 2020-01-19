@@ -6,7 +6,7 @@
 
         internal override PlayerAction Perform(Duel duel)
         {
-            foreach (Cards.Creature creature in duel.GetOpponent(Player).BattleZone.UntappedCreatures)
+            foreach (Cards.BattleZoneCreature creature in duel.GetOpponent(Player).BattleZone.UntappedCreatures)
             {
                 creature.Tapped = true;
             }

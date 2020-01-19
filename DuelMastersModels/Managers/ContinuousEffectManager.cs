@@ -33,18 +33,18 @@ namespace DuelMastersModels.Managers
             */
         }
 
-        internal ReadOnlyCreatureCollection GetAllBlockersPlayerHasInTheBattleZone(Player player, Duel duel, AbilityManager abilityManager)
+        internal ReadOnlyCreatureCollection<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(Player player, Duel duel, AbilityManager abilityManager)
         {
-            List<Creature> blockers = new List<Creature>();
+            List<IBattleZoneCreature> blockers = new List<IBattleZoneCreature>();
             IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>(duel, abilityManager);
-            foreach (Creature creature in player.BattleZone.Creatures)
+            foreach (IBattleZoneCreature creature in player.BattleZone.Creatures)
             {
                 blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
-            return new ReadOnlyCreatureCollection(blockers);
+            return new ReadOnlyCreatureCollection<IBattleZoneCreature>(blockers);
         }
 
-        internal bool HasSpeedAttacker(Duel duel, AbilityManager abilityManager, Creature creature)
+        internal bool HasSpeedAttacker(Duel duel, AbilityManager abilityManager, IBattleZoneCreature creature)
         {
             return GetContinuousEffects<SpeedAttackerEffect>(duel, abilityManager).Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
         }
@@ -73,24 +73,24 @@ namespace DuelMastersModels.Managers
             return false;
         }
 
-        internal int GetPower(Duel duel, AbilityManager abilityManager, Creature creature)
+        internal int GetPower(Duel duel, AbilityManager abilityManager, IBattleZoneCreature creature)
         {
             return creature.Power + GetContinuousEffects<PowerEffect>(duel, abilityManager).Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
         }
 
-        internal ReadOnlyCreatureCollection GetCreaturesThatCannotAttack(Duel duel, AbilityManager abilityManager, Player player)
+        internal ReadOnlyCreatureCollection<IBattleZoneCreature> GetCreaturesThatCannotAttack(Duel duel, AbilityManager abilityManager, Player player)
         {
-            return new ReadOnlyCreatureCollection(GetContinuousEffects<CannotAttackPlayersEffect>(duel, abilityManager).SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => duel.GetCreaturesThatCanBeAttacked(player).Count == 0));
+            return new ReadOnlyCreatureCollection<IBattleZoneCreature>(GetContinuousEffects<CannotAttackPlayersEffect>(duel, abilityManager).SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => duel.GetCreaturesThatCanBeAttacked(player).Count == 0));
         }
 
-        internal bool AttacksIfAble(Duel duel, AbilityManager abilityManager, Creature creature)
+        internal bool AttacksIfAble(Duel duel, AbilityManager abilityManager, IBattleZoneCreature creature)
         {
             return GetContinuousEffects<AttacksIfAbleEffect>(duel, abilityManager).Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
         }
 
-        internal ReadOnlyCreatureCollection GetCreaturesThatCannotAttackPlayers(Duel duel, AbilityManager abilityManager)
+        internal ReadOnlyCreatureCollection<IBattleZoneCreature> GetCreaturesThatCannotAttackPlayers(Duel duel, AbilityManager abilityManager)
         {
-            return new ReadOnlyCreatureCollection(GetContinuousEffects<CannotAttackPlayersEffect>(duel, abilityManager).SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct());
+            return new ReadOnlyCreatureCollection<IBattleZoneCreature>(GetContinuousEffects<CannotAttackPlayersEffect>(duel, abilityManager).SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct());
         }
         #endregion Internal methods
 

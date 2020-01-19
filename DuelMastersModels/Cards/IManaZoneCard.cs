@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    internal interface IManaZoneCard : IZoneCard, ITappable
+    public interface IManaZoneCard : IZoneCard, ITappable
     {
     }
 }

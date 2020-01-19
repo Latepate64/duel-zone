@@ -6,11 +6,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player chooses one of their shields and puts it into their hand. They can't use the "shield trigger" ability of that shield.
     /// </summary>
-    public class ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : MandatoryCardSelection
+    public class ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : MandatoryCardSelection<IShieldZoneCard>
     {
-        internal ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, new ReadOnlyCardCollection(player.ShieldZone.Cards)) { }
+        internal ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, new ReadOnlyCardCollection<IShieldZoneCard>(player.ShieldZone.Cards)) { }
 
-        internal override PlayerAction Perform(Duel duel, Card card)
+        internal override PlayerAction Perform(Duel duel, IShieldZoneCard card)
         {
             if (duel == null)
             {

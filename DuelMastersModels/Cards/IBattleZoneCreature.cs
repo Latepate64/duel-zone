@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    internal interface IBattleZoneCreature : IBattleZoneCard, ITappable
+    public interface IBattleZoneCreature : IBattleZoneCard, IZoneCreature, ITappable, ISummoningSickness
     {
     }
 }

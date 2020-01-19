@@ -10,7 +10,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a cross gear.
         /// </summary>
-        public CrossGear(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator) : base(name, set, id, civilizations, rarity, cost, text, flavor, illustrator)
+        public CrossGear(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator) : base(name, set, id, cost, text, flavor, illustrator, civilizations, rarity)
         {
         }
     }

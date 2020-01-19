@@ -1,13 +1,14 @@
 ﻿using DuelMastersModels.Cards;
 
+
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     /// <summary>
     /// Player must select a card.
     /// </summary>
-    public abstract class MandatoryCardSelection : CardSelection
+    public abstract class MandatoryCardSelection<TZoneCard> : CardSelection<TZoneCard> where TZoneCard : IZoneCard
     {
-        internal MandatoryCardSelection(Player player, ReadOnlyCardCollection cards) : base(player, 1, 1, cards)
+        internal MandatoryCardSelection(Player player, ReadOnlyCardCollection<TZoneCard> cards) : base(player, 1, 1, cards)
         { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
@@ -15,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             return Cards.Count == 1 ? Perform(duel, Cards[0]) : (this);
         }
 
-        internal void Validate(Card card)
+        internal void Validate(TZoneCard card)
         {
             if (!Cards.Contains(card))
             {
@@ -23,6 +24,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal abstract PlayerAction Perform(Duel duel, Card card);
+        internal abstract PlayerAction Perform(Duel duel, TZoneCard card);
     }
 }

@@ -6,25 +6,25 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone
+    internal class Deck : Zone<IDeckCard>
     {
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(ReadOnlyCardCollection cards)
+        internal Deck(ReadOnlyCardCollection<IZoneCard> cards)
         {
-            foreach (Card card in cards)
+            foreach (IDeckCard card in cards)
             {
                 _cards.Add(card);
             }
         }
 
-        internal override void Add(Card card, Duel duel)
+        internal override void Add(IZoneCard card, Duel duel)
         {
-            _cards.Add(card);
+            _cards.Add(new DeckCard(card));
         }
 
-        internal override void Remove(Card card, Duel duel)
+        internal override void Remove(IDeckCard card, Duel duel)
         {
             _cards.Remove(card);
         }
@@ -40,7 +40,7 @@ namespace DuelMastersModels.Zones
             {
                 n--;
                 int k = random.Next(n + 1);
-                Card value = _cards[k];
+                IDeckCard value = _cards[k];
                 _cards[k] = _cards[n];
                 _cards[n] = value;
             }
@@ -49,7 +49,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        internal Card RemoveAndGetTopCard(Duel duel)
+        internal IZoneCard RemoveAndGetTopCard(Duel duel)
         {
             return GetTopCard(true, duel);
         }
@@ -57,11 +57,11 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private Card GetTopCard(bool remove, Duel duel)
+        private IZoneCard GetTopCard(bool remove, Duel duel)
         {
             if (Cards.Count > 0)
             {
-                Card topCard = Cards[Cards.Count - 1];
+                IDeckCard topCard = Cards[Cards.Count - 1];
                 if (remove)
                 {
                     Remove(topCard, duel);

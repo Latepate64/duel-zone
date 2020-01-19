@@ -7,12 +7,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// <summary>
     /// Player may select a creature as the target of the attacking creature. If they do not, their opponent will be attacked.
     /// </summary>
-    public class DeclareTargetOfAttack : OptionalCreatureSelection
+    public class DeclareTargetOfAttack : OptionalCreatureSelection<IBattleZoneCreature>
     {
-        internal DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection creatures) : base(player, creatures)
+        internal DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(Duel duel, Creature creature)
+        internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)
         {
             if (duel == null)
             {

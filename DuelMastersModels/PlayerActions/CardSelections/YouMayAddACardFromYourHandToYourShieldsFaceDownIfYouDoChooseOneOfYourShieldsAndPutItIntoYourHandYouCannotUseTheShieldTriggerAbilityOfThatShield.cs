@@ -6,12 +6,12 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player may add a card from their hand to their shields face down. If they do, they choose one of their shields and put it into their hand. They can't use the "shield trigger" ability of that shield.
     /// </summary>
-    public class YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : OptionalCardSelection
+    public class YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : OptionalCardSelection<IHandCard>
     {
-        internal YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, new ReadOnlyCardCollection(player.Hand.Cards))
+        internal YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, new ReadOnlyCardCollection<IHandCard>(player.Hand.Cards))
         { }
 
-        internal override PlayerAction Perform(Duel duel, Card card)
+        internal override PlayerAction Perform(Duel duel, IHandCard card)
         {
             if (duel == null)
             {

@@ -7,12 +7,12 @@ namespace DuelMastersModels.Steps
 {
     internal class DirectAttackStep : Step
     {
-        internal Creature AttackingCreature { get; private set; }
+        internal IBattleZoneCreature AttackingCreature { get; private set; }
         internal bool DirectAttack { get; private set; }
         private bool _breakingDone;
         //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
-        internal DirectAttackStep(Player activePlayer, Creature attackingCreature, bool directAttack) : base(activePlayer)
+        internal DirectAttackStep(Player activePlayer, IBattleZoneCreature attackingCreature, bool directAttack) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             DirectAttack = directAttack;
@@ -31,7 +31,7 @@ namespace DuelMastersModels.Steps
                 if (opponent.ShieldZone.Cards.Count > 0)
                 {
                     //TODO: consider multibreaker
-                    return new BreakShields(ActivePlayer, 1, new ReadOnlyCardCollection(duel.GetOpponent(ActivePlayer).ShieldZone.Cards), AttackingCreature);
+                    return new BreakShields(ActivePlayer, 1, new ReadOnlyCardCollection<IShieldZoneCard>(duel.GetOpponent(ActivePlayer).ShieldZone.Cards), AttackingCreature);
                 }
                 else
                 {

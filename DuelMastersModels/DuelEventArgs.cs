@@ -43,9 +43,9 @@ namespace DuelMastersModels
 		/// <summary>
 		/// Card that the player drew.
 		/// </summary>
-		public Card Card { get; private set; }
+		public IZoneCard Card { get; private set; }
 
-		internal DrawCardEvent(Player player, Card card)
+		internal DrawCardEvent(Player player, IZoneCard card)
 		{
 			Player = player;
 			Card = card;

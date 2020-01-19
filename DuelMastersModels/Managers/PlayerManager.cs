@@ -15,7 +15,7 @@ namespace DuelMastersModels.Managers
             Player2 = player2;
         }
 
-        internal Player GetOwner(Card card)
+        internal Player GetOwner(IZoneCard card)
         {
             //TODO: test if works
             if (Player1.DeckBeforeDuel.Contains(card))

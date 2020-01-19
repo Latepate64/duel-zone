@@ -7,8 +7,8 @@ namespace DuelMastersModels.Steps
 {
     internal class AttackDeclarationStep : Step
     {
-        internal Creature AttackingCreature { get; set; }
-        internal Creature AttackedCreature { get; set; }
+        internal IBattleZoneCreature AttackingCreature { get; set; }
+        internal IBattleZoneCreature AttackedCreature { get; set; }
         internal bool TargetOfAttackDeclared { get; set; }
 
         internal AttackDeclarationStep(Player activePlayer) : base(activePlayer)
@@ -30,11 +30,7 @@ namespace DuelMastersModels.Steps
 
         internal override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
-            if (duel == null)
-            {
-                throw new System.ArgumentNullException(nameof(duel));
-            }
-            ReadOnlyCreatureCollection creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+            ReadOnlyCreatureCollection<BattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             return creatures.Count > 0
                 ? creatures.Any(creature => duel.AttacksIfAble(creature))
                     ? new DeclareAttackerMandatory(ActivePlayer, creatures)

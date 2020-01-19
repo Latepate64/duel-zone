@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    internal interface IBattleZoneCard : IZoneCard
+    public interface IBattleZoneCard : IZoneCard
     {
     }
 }

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
-    public abstract class Card : ICard
+    public abstract class Card : IZoneCard
     {
         #region Constants
         private const string LightText = "Light";
@@ -70,6 +70,8 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public string Illustrator { get; private set; }
 
+        //TODO: remove
+        /*
         /// <summary>
         /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
         /// </summary>
@@ -84,6 +86,7 @@ namespace DuelMastersModels.Cards
         /// Determines whether the opponent of the owner of the card knows what the card is.
         /// </summary>
         public bool KnownToOpponent { get; internal set; }
+        */
         #endregion Public properties
 
         #region Fields
@@ -101,7 +104,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a card.
         /// </summary>
-        protected Card(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator)
+        protected Card(string name, string set, string id, int cost, string text, string flavor, string illustrator, Collection<string> civilizations, string rarity)
         {
             if (civilizations is null)
             {
@@ -112,6 +115,26 @@ namespace DuelMastersModels.Cards
             Id = id;
             Civilizations = GetCivilizations(civilizations);
             Rarity = GetRarity(rarity);
+            Cost = cost;
+            Flavor = flavor;
+            Illustrator = illustrator;
+            Text = text;
+        }
+
+        /// <summary>
+        /// Creates a card.
+        /// </summary>
+        protected Card(string name, string set, string id, int cost, string text, string flavor, string illustrator, ReadOnlyCivilizationCollection civilizations, Rarity rarity)
+        {
+            if (civilizations is null)
+            {
+                throw new ArgumentNullException(nameof(civilizations));
+            }
+            Name = name;
+            CardSet = set;
+            Id = id;
+            Civilizations = civilizations;
+            Rarity = rarity;
             Cost = cost;
             Flavor = flavor;
             Illustrator = illustrator;

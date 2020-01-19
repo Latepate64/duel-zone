@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
     {
         internal MainStepState State { get; set; } = MainStepState.Use;
 
-        internal Card CardToBeUsed { get; set; }
+        internal IZoneCard CardToBeUsed { get; set; }
 
         internal MainStep(Player player) : base(player)
         {
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Steps
 
         internal override PlayerAction PlayerActionRequired(Duel duel)
         {
-            ReadOnlyCardCollection usableCards = GetUsableCards(new ReadOnlyCardCollection(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
+            ReadOnlyCardCollection<IHandCard> usableCards = GetUsableCards(new ReadOnlyCardCollection<IHandCard>(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
             return State == MainStepState.Use && usableCards.Count > 0
                 ? new UseCard(ActivePlayer, usableCards)
                 : (PlayerAction)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
@@ -36,9 +36,9 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// Returns the cards that can be used.
         /// </summary>
-        private static ReadOnlyCardCollection GetUsableCards(ReadOnlyCardCollection handCards, ReadOnlyCardCollection manaCards)
+        private static ReadOnlyCardCollection<IHandCard> GetUsableCards(ReadOnlyCardCollection<IHandCard> handCards, ReadOnlyCardCollection<IManaZoneCard> manaCards)
         {
-            return new ReadOnlyCardCollection(handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards)));
+            return new ReadOnlyCardCollection<IHandCard>(handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards)));
         }
     }
 }
