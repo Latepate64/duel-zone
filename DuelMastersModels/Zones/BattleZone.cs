@@ -11,9 +11,9 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> Creatures => new ReadOnlyCreatureCollection<IBattleZoneCreature>(Cards.OfType<IBattleZoneCreature>());
+        internal ReadOnlyCreatureCollection<BattleZoneCreature> Creatures => new ReadOnlyCreatureCollection<BattleZoneCreature>(Cards.OfType<BattleZoneCreature>());
         internal ReadOnlyCreatureCollection<IBattleZoneCreature> TappedCreatures => new ReadOnlyCreatureCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped));
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> UntappedCreatures => new ReadOnlyCreatureCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped));
+        internal ReadOnlyCreatureCollection<BattleZoneCreature> UntappedCreatures => new ReadOnlyCreatureCollection<BattleZoneCreature>(Creatures.Where(creature => !creature.Tapped));
 
         public void UntapCards()
         {
@@ -23,11 +23,10 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Add(IZoneCard card, Duel duel)
+        internal override void Add(IBattleZoneCard card, Duel duel)
         {
-            BattleZoneCard battleZoneCard = new BattleZoneCard(card);
-            _cards.Add(battleZoneCard);
-            if (battleZoneCard is IBattleZoneCreature creature)
+            _cards.Add(card);
+            if (card is IBattleZoneCreature creature)
             {
                 duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
                 duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);

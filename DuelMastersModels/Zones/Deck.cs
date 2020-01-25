@@ -11,17 +11,17 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(ReadOnlyCardCollection<IZoneCard> cards)
+        internal Deck(ReadOnlyCardCollection<ICard> cards)
         {
-            foreach (IDeckCard card in cards)
+            foreach (ICard card in cards)
             {
-                _cards.Add(card);
+                _cards.Add(new DeckCard(card));
             }
         }
 
-        internal override void Add(IZoneCard card, Duel duel)
+        internal override void Add(IDeckCard card, Duel duel)
         {
-            _cards.Add(new DeckCard(card));
+            _cards.Add(card);
         }
 
         internal override void Remove(IDeckCard card, Duel duel)
@@ -49,7 +49,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        internal IZoneCard RemoveAndGetTopCard(Duel duel)
+        internal ICard RemoveAndGetTopCard(Duel duel)
         {
             return GetTopCard(true, duel);
         }
@@ -57,7 +57,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private IZoneCard GetTopCard(bool remove, Duel duel)
+        private ICard GetTopCard(bool remove, Duel duel)
         {
             if (Cards.Count > 0)
             {

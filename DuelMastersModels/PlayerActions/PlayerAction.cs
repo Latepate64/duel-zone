@@ -3,12 +3,12 @@
     /// <summary>
     /// Represents an action a player must perform.
     /// </summary>
-    public abstract class PlayerAction
+    public abstract class PlayerAction : IPlayerAction
     {
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        public Player Player { get; set; }
+        public Player Player { get; private set; }
 
         /// <summary>
         /// Creates a player action.

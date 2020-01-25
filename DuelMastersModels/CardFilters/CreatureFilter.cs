@@ -2,8 +2,8 @@
 
 namespace DuelMastersModels.CardFilters
 {
-    internal abstract class CreatureFilter<TZoneCreature> : CardFilter where TZoneCreature : IZoneCreature
+    internal abstract class CreatureFilter<TCreature> : CardFilter where TCreature : ICreature
     {
-        internal abstract ReadOnlyCreatureCollection<TZoneCreature> FilteredCreatures { get; }
+        internal abstract ReadOnlyCreatureCollection<TCreature> FilteredCreatures { get; }
     }
 }

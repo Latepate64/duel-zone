@@ -6,19 +6,19 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player selects up to a number of cards.
     /// </summary>
-    public abstract class MultipleCardSelection<TZoneCard> : CardSelection<TZoneCard> where TZoneCard : IZoneCard
+    public abstract class MultipleCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
     {
-        internal MultipleCardSelection(Player player, ReadOnlyCardCollection<TZoneCard> cards) : base(player, 0, cards.Count, cards)
+        internal MultipleCardSelection(Player player, ReadOnlyCardCollection<TCard> cards) : base(player, 0, cards.Count, cards)
         { }
 
-        internal CardCollection<TZoneCard> SelectedCards { get; } = new CardCollection<TZoneCard>();
+        internal CardCollection<TCard> SelectedCards { get; } = new CardCollection<TCard>();
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             return Cards.Count == 0 ? Perform(duel, Cards) : (this);
         }
 
-        internal void Validate(ReadOnlyCardCollection<TZoneCard> cards)
+        internal void Validate(ReadOnlyCardCollection<TCard> cards)
         {
             if (cards.Except(Cards).Any())
             {
@@ -26,6 +26,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection<TZoneCard> cards);
+        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCardCollection<TCard> cards);
     }
 }

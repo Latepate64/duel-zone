@@ -7,9 +7,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player must select a number of cards.
     /// </summary>
-    public abstract class MandatoryMultipleCardSelection<TZoneCard> : CardSelection<TZoneCard> where TZoneCard : IZoneCard
+    public abstract class MandatoryMultipleCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
     {
-        internal MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection<TZoneCard> cards) : base(player, amount, amount, cards)
+        internal MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection<TCard> cards) : base(player, amount, amount, cards)
         {
         }
 
@@ -18,9 +18,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             return Cards.Count <= MaximumSelection ? Perform(duel, Cards) : (this);
         }
 
-        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCollection<TZoneCard> cards);
+        internal abstract PlayerAction Perform(Duel duel, ReadOnlyCollection<TCard> cards);
 
-        internal void Validate(ReadOnlyCollection<TZoneCard> cards)
+        internal void Validate(ReadOnlyCollection<TCard> cards)
         {
             if (!(cards.Count == MinimumSelection && !cards.Except(Cards).Any()))
             {

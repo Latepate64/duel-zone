@@ -33,15 +33,15 @@ namespace DuelMastersModels.Managers
             */
         }
 
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(Player player, Duel duel, AbilityManager abilityManager)
+        internal ReadOnlyCreatureCollection<BattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(Player player, Duel duel, AbilityManager abilityManager)
         {
-            List<IBattleZoneCreature> blockers = new List<IBattleZoneCreature>();
+            List<BattleZoneCreature> blockers = new List<BattleZoneCreature>();
             IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>(duel, abilityManager);
-            foreach (IBattleZoneCreature creature in player.BattleZone.Creatures)
+            foreach (BattleZoneCreature creature in player.BattleZone.Creatures)
             {
                 blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
-            return new ReadOnlyCreatureCollection<IBattleZoneCreature>(blockers);
+            return new ReadOnlyCreatureCollection<BattleZoneCreature>(blockers);
         }
 
         internal bool HasSpeedAttacker(Duel duel, AbilityManager abilityManager, IBattleZoneCreature creature)
@@ -61,9 +61,9 @@ namespace DuelMastersModels.Managers
             return false;
         }
 
-        internal bool HasShieldTrigger(Duel duel, AbilityManager abilityManager, Creature creature)
+        internal bool HasShieldTrigger(Duel duel, AbilityManager abilityManager, IHandCreature creature)
         {
-            foreach (CreatureContinuousEffect creatureContinuousEffect in GetContinuousEffects(duel, abilityManager).Where(e => e is CreatureShieldTriggerEffect).Cast<CreatureShieldTriggerEffect>())
+            foreach (CreatureShieldTriggerEffect creatureContinuousEffect in GetContinuousEffects(duel, abilityManager).OfType<CreatureShieldTriggerEffect>())
             {
                 if (creatureContinuousEffect.CreatureFilter.FilteredCreatures.Contains(creature))
                 {

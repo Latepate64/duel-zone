@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    internal interface IGraveyardCard : IZoneCard
+    internal interface IGraveyardCard : ICard
     {
     }
 }

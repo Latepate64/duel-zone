@@ -19,9 +19,9 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="name">Name of the player.</param>
         /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
-        public AIPlayer(string name, ReadOnlyCardCollection<IZoneCard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
+        public AIPlayer(string name, ReadOnlyCardCollection<ICard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
 
-        internal PlayerAction PerformPlayerAction(Duel duel, PlayerAction playerAction)
+        internal PlayerAction PerformPlayerAction(Duel duel, IPlayerAction playerAction)
         {
             if (duel == null)
             {
@@ -35,7 +35,7 @@ namespace DuelMastersModels
             {
                 return SelectManaZoneCard(duel, manaZoneCardSelection);
             }
-            else if (playerAction is CardSelection<IZoneCard> cardSelection)
+            else if (playerAction is CardSelection<ICard> cardSelection)
             {
                 return SelectCard(duel, cardSelection);
             }
@@ -90,11 +90,11 @@ namespace DuelMastersModels
                 }
                 return newAction;
             }
-            else if (playerAction is CreatureSelection<IZoneCreature> zoneCreatureSelection)
+            else if (playerAction is CreatureSelection<ICreature> zoneCreatureSelection)
             {
-                if (zoneCreatureSelection is MandatoryCreatureSelection<IZoneCreature> mandatoryCreatureSelection)
+                if (zoneCreatureSelection is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
                 {
-                    IZoneCreature creature = mandatoryCreatureSelection.Creatures.First();
+                    ICreature creature = mandatoryCreatureSelection.Creatures.First();
                     return mandatoryCreatureSelection.Perform(duel, creature);
                 }
                 else
@@ -157,33 +157,33 @@ namespace DuelMastersModels
             }
         }
 
-        private static PlayerAction SelectCard(Duel duel, CardSelection<IZoneCard> cardSelection)
+        private static PlayerAction SelectCard(Duel duel, CardSelection<ICard> cardSelection)
         {
             PlayerAction newAction;
-            if (cardSelection is OptionalCardSelection<IZoneCard> optionalCardSelection)
+            if (cardSelection is OptionalCardSelection<ICard> optionalCardSelection)
             {
-                IZoneCard card = null;
+                ICard card = null;
                 if (optionalCardSelection.Cards.Count > 0)
                 {
                     card = optionalCardSelection.Cards.First();
                 }
                 newAction = optionalCardSelection.Perform(duel, card);
             }
-            else if (cardSelection is MandatoryMultipleCardSelection<IZoneCard> mandatoryMultipleCardSelection)
+            else if (cardSelection is MandatoryMultipleCardSelection<ICard> mandatoryMultipleCardSelection)
             {
-                newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection<IZoneCard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
+                newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection<ICard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
             }
-            else if (cardSelection is MultipleCardSelection<IZoneCard> multipleCardSelection)
+            else if (cardSelection is MultipleCardSelection<ICard> multipleCardSelection)
             {
-                foreach (IZoneCard card in multipleCardSelection.Cards)
+                foreach (ICard card in multipleCardSelection.Cards)
                 {
                     multipleCardSelection.SelectedCards.Add(card);
                 }
                 newAction = multipleCardSelection.Perform(duel, multipleCardSelection.Cards);
             }
-            else if (cardSelection is MandatoryCardSelection<IZoneCard> mandatoryCardSelection)
+            else if (cardSelection is MandatoryCardSelection<ICard> mandatoryCardSelection)
             {
-                IZoneCard card = mandatoryCardSelection.Cards.First();
+                ICard card = mandatoryCardSelection.Cards.First();
                 newAction = mandatoryCardSelection.Perform(duel, card);
             }
             else

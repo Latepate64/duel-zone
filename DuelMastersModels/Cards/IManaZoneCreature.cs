@@ -1,6 +1,9 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    public interface IManaZoneCreature : IManaZoneCard, IZoneCreature
+    /// <summary>
+    /// Interface for creatures that exist in mana zone.
+    /// </summary>
+    public interface IManaZoneCreature : IManaZoneCard, ICreature
     {
     }
 }

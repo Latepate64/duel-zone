@@ -6,14 +6,14 @@ namespace DuelMastersModels.Effects.OneShotEffects
     {
         internal int Power { get; private set; }
 
-        internal ThisCreatureGetsXPowerUntilTheEndOfTheTurn(Cards.Creature creature, int power) : base(creature)
+        internal ThisCreatureGetsXPowerUntilTheEndOfTheTurn(Cards.IBattleZoneCreature creature, int power) : base(creature)
         {
             Power = power;
         }
 
         internal override PlayerAction Apply(Duel duel, Player player)
         {
-            duel.AddContinuousEffect(new ContinuousEffects.PowerEffect(new Periods.UntilTheEndOfTheTurn(), new CardFilters.TargetCreatureFilter(Creature), Power));
+            duel.AddContinuousEffect(new ContinuousEffects.PowerEffect(new Periods.UntilTheEndOfTheTurn(), new CardFilters.TargetCreatureFilter<Cards.IBattleZoneCreature>(Creature), Power));
             return null;
         }
     }

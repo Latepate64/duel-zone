@@ -4,9 +4,9 @@ namespace DuelMastersModels.Effects.OneShotEffects
 {
     internal abstract class OneShotEffectForCreature : OneShotEffect
     {
-        internal Creature Creature { get; private set; }
+        internal IBattleZoneCreature Creature { get; private set; }
 
-        protected OneShotEffectForCreature(Creature creature)
+        protected OneShotEffectForCreature(IBattleZoneCreature creature)
         {
             Creature = creature;
         }

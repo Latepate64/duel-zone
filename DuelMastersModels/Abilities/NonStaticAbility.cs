@@ -25,7 +25,7 @@ namespace DuelMastersModels.Abilities
         /// <param name="effects">Effects the ability generates.</param>
         /// <param name="controller">Player who controls the ability.</param>
         /// <param name="source">Object that generated the ability.</param>
-        internal NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.IZoneCard source) : base(source)
+        internal NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.ICard source) : base(source)
         {
             Effects = effects;
             Controller = controller;

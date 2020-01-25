@@ -1,6 +1,9 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    public interface IShieldZoneCard : IZoneCard, IRevealable
+    /// <summary>
+    /// Interface for cards that exist in shield zone.
+    /// </summary>
+    public interface IShieldZoneCard : ICard, IRevealable
     {
     }
 }

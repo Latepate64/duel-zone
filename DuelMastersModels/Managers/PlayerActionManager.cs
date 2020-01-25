@@ -14,7 +14,7 @@ namespace DuelMastersModels.Managers
         /// <summary>
         /// An action a player is currently performing.
         /// </summary>
-        internal PlayerAction CurrentPlayerAction
+        internal IPlayerAction CurrentPlayerAction
         {
             get => _currentPlayerAction;
             set
@@ -26,17 +26,21 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        private PlayerAction _currentPlayerAction;
+        private IPlayerAction _currentPlayerAction;
 
         #region Internal methods
-        internal PlayerAction Progress(PlayerActionResponse response, Duel duel)
+        internal PlayerAction Progress<T>(PlayerActionResponse response, Duel duel) where T : class, ICard
         {
             PlayerAction playerAction = null;
-            if (response is CardSelectionResponse cardSelectionResponse)
+            if (response is CardSelectionResponse<IManaZoneCard> manaZoneCardSelectionResponse)
+            {
+                playerAction = PerformManaZoneCardSelection(manaZoneCardSelectionResponse, duel);
+            }
+            else if (response is CardSelectionResponse<T> cardSelectionResponse)
             {
                 playerAction = PerformCardSelection(cardSelectionResponse, duel);
             }
-            else if (response is CreatureSelectionResponse creatureSelectionResponse)
+            else if (response is CreatureSelectionResponse<ICreature> creatureSelectionResponse)
             {
                 playerAction = PerformCreatureSelection(creatureSelectionResponse, duel);
             }
@@ -55,19 +59,31 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        internal void SetCurrentPlayerAction(PlayerAction playerAction)
+        private PlayerAction PerformManaZoneCardSelection(CardSelectionResponse<IManaZoneCard> manaZoneCardSelectionResponse, Duel duel)
+        {
+            if (CurrentPlayerAction is MandatoryMultipleCardSelection<IManaZoneCard> mandatoryMultipleManaZoneCardSelection)
+            {
+                return PerformMandatoryMultipleManaZoneCardSelection(manaZoneCardSelectionResponse, mandatoryMultipleManaZoneCardSelection, duel);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        internal void SetCurrentPlayerAction(IPlayerAction playerAction)
         {
             CurrentPlayerAction = playerAction;
         }
         #endregion Internal methods
 
         #region Private methods
-        private static PlayerAction PerformMandatoryCardSelection(CardSelectionResponse cardSelectionResponse, MandatoryCardSelection<IZoneCard> mandatoryCardSelection, Duel duel)
+        private static PlayerAction PerformMandatoryCardSelection<T>(CardSelectionResponse<T> cardSelectionResponse, MandatoryCardSelection<T> mandatoryCardSelection, Duel duel) where T : class, ICard
         {
             PlayerAction playerAction;
             if (cardSelectionResponse.SelectedCards.Count == 1)
             {
-                IZoneCard card = cardSelectionResponse.SelectedCards.First();
+                T card = cardSelectionResponse.SelectedCards.First();
                 mandatoryCardSelection.Validate(card);
                 playerAction = mandatoryCardSelection.Perform(duel, card);
             }
@@ -79,11 +95,11 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private static PlayerAction PerformMultipleCardSelection(CardSelectionResponse cardSelectionResponse, MultipleCardSelection<IZoneCard> multipleCardSelection, Duel duel)
+        private static PlayerAction PerformMultipleCardSelection<T>(CardSelectionResponse<T> cardSelectionResponse, MultipleCardSelection<T> multipleCardSelection, Duel duel) where T : class, ICard
         {
             PlayerAction playerAction;
             multipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
-            foreach (Card card in cardSelectionResponse.SelectedCards)
+            foreach (T card in cardSelectionResponse.SelectedCards)
             {
                 multipleCardSelection.SelectedCards.Add(card);
             }
@@ -91,10 +107,10 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private static PlayerAction PerformOptionalCardSelection(CardSelectionResponse cardSelectionResponse, OptionalCardSelection<IZoneCard> optionalCardSelection, Duel duel)
+        private static PlayerAction PerformOptionalCardSelection<T>(CardSelectionResponse<T> cardSelectionResponse, OptionalCardSelection<T> optionalCardSelection, Duel duel) where T : class, ICard
         {
             PlayerAction playerAction;
-            IZoneCard card = null;
+            T card = null;
             if (cardSelectionResponse.SelectedCards.Count == 1)
             {
                 card = cardSelectionResponse.SelectedCards.First();
@@ -104,25 +120,21 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private PlayerAction PerformCardSelection(CardSelectionResponse cardSelectionResponse, Duel duel)
+        private PlayerAction PerformCardSelection<T>(CardSelectionResponse<T> cardSelectionResponse, Duel duel) where T : class, ICard
         {
-            if (CurrentPlayerAction is OptionalCardSelection<IZoneCard> optionalCardSelection)
+            if (CurrentPlayerAction is OptionalCardSelection<T> optionalCardSelection)
             {
                 return PerformOptionalCardSelection(cardSelectionResponse, optionalCardSelection, duel);
             }
-            else if (CurrentPlayerAction is MandatoryMultipleCardSelection<IManaZoneCard> mandatoryMultipleManaZoneCardSelection)
-            {
-                return PerformMandatoryMultipleManaZoneCardSelection(cardSelectionResponse, mandatoryMultipleManaZoneCardSelection, duel);
-            }
-            else if (CurrentPlayerAction is MandatoryMultipleCardSelection<IZoneCard> mandatoryMultipleCardSelection)
+            else if (CurrentPlayerAction is MandatoryMultipleCardSelection<T> mandatoryMultipleCardSelection)
             {
                 return PerformMandatoryMultipleCardSelection(cardSelectionResponse, mandatoryMultipleCardSelection, duel);
             }
-            else if (CurrentPlayerAction is MultipleCardSelection<IZoneCard> multipleCardSelection)
+            else if (CurrentPlayerAction is MultipleCardSelection<T> multipleCardSelection)
             {
                 return PerformMultipleCardSelection(cardSelectionResponse, multipleCardSelection, duel);
             }
-            else if (CurrentPlayerAction is MandatoryCardSelection<IZoneCard> mandatoryCardSelection)
+            else if (CurrentPlayerAction is MandatoryCardSelection<T> mandatoryCardSelection)
             {
                 return PerformMandatoryCardSelection(cardSelectionResponse, mandatoryCardSelection, duel);
             }
@@ -145,18 +157,18 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        private static PlayerAction PerformMandatoryMultipleCardSelection(CardSelectionResponse<IZoneCard> cardSelectionResponse, MandatoryMultipleCardSelection<IZoneCard> mandatoryMultipleCardSelection, Duel duel)
+        private static PlayerAction PerformMandatoryMultipleCardSelection<T>(CardSelectionResponse<T> cardSelectionResponse, MandatoryMultipleCardSelection<T> mandatoryMultipleCardSelection, Duel duel) where T : class, ICard
         {
             mandatoryMultipleCardSelection.Validate(cardSelectionResponse.SelectedCards);
             return mandatoryMultipleCardSelection.Perform(duel, cardSelectionResponse.SelectedCards);
         }
 
-        private PlayerAction PerformCreatureSelection(CreatureSelectionResponse<IZoneCreature> creatureSelectionResponse, Duel duel)
+        private PlayerAction PerformCreatureSelection(CreatureSelectionResponse<ICreature> creatureSelectionResponse, Duel duel)
         {
             PlayerAction playerAction;
-            if (CurrentPlayerAction is OptionalCreatureSelection<IZoneCreature> optionalCreatureSelection)
+            if (CurrentPlayerAction is OptionalCreatureSelection<ICreature> optionalCreatureSelection)
             {
-                IZoneCreature creature = null;
+                ICreature creature = null;
                 if (creatureSelectionResponse.SelectedCreatures.Count == 1)
                 {
                     creature = creatureSelectionResponse.SelectedCreatures.First();
@@ -164,11 +176,11 @@ namespace DuelMastersModels.Managers
                 optionalCreatureSelection.Validate(creature);
                 playerAction = optionalCreatureSelection.Perform(duel, creature);
             }
-            else if (CurrentPlayerAction is MandatoryCreatureSelection<IZoneCreature> mandatoryCreatureSelection)
+            else if (CurrentPlayerAction is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
             {
                 if (creatureSelectionResponse.SelectedCreatures.Count == 1)
                 {
-                    IZoneCreature creature = creatureSelectionResponse.SelectedCreatures.First();
+                    ICreature creature = creatureSelectionResponse.SelectedCreatures.First();
                     mandatoryCreatureSelection.Validate(creature);
                     playerAction = mandatoryCreatureSelection.Perform(duel, creature);
                 }

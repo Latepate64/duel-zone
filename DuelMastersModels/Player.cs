@@ -8,7 +8,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player
+    public class Player : IPlayer
     {
         #region Properties
         /// <summary>
@@ -19,7 +19,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
-        public ReadOnlyCardCollection DeckBeforeDuel => new ReadOnlyCardCollection(_deckBeforeDuel);
+        public ReadOnlyCardCollection<ICard> DeckBeforeDuel => new ReadOnlyCardCollection<ICard>(_deckBeforeDuel);
 
         #region Zones
         /// <summary>
@@ -62,14 +62,14 @@ namespace DuelMastersModels
 
         #region Fields
         //private readonly CardCollection _deckBeforeDuel = new CardCollection();
-        private readonly ReadOnlyCardCollection _deckBeforeDuel;
-        private readonly CardCollection _shieldTriggersToUse = new CardCollection();
+        private readonly ReadOnlyCardCollection<ICard> _deckBeforeDuel;
+        private readonly CardCollection<IHandCard> _shieldTriggersToUse = new CardCollection<IHandCard>();
         #endregion Fields
 
         /// <summary>
         /// Creates a player by initializing their zones.
         /// </summary>
-        public Player(string name, ReadOnlyCardCollection<IZoneCard> deckBeforeDuel)
+        public Player(string name, ReadOnlyCardCollection<ICard> deckBeforeDuel)
         {
             Name = name;
             _deckBeforeDuel = deckBeforeDuel ?? throw new System.ArgumentNullException(nameof(deckBeforeDuel));
@@ -81,37 +81,6 @@ namespace DuelMastersModels
             ShieldZone = new ShieldZone();
         }
 
-        //TODO: Try to use only one public method.
-        #region Public methods
-        /*
-        /// <summary>
-        /// Sets the cards the player is going to use in a duel.
-        /// </summary>
-        public void SetDeckBeforeDuel(ReadOnlyCardCollection cards)
-        {
-            if (cards == null)
-            {
-                throw new ArgumentNullException("cards");
-            }
-            foreach (Card card in cards)
-            {
-                _deckBeforeDuel.Add(card);
-            }
-        }*/
-
-        /*
-        /// <summary>
-        /// Setups the player's deck from the cards they are going to use in a duel.
-        /// </summary>
-        public void SetupDeck(Duel duel)
-        {
-            foreach (Card card in DeckBeforeDuel)
-            {
-                Deck.Add(card, duel);
-            }
-        }*/
-        #endregion Public methods
-
         #region Internal methods
         /// <summary>
         /// Player shuffles their deck.
@@ -121,29 +90,29 @@ namespace DuelMastersModels
             Deck.Shuffle();
         }
 
-        internal void AddShieldTriggerToUse(IZoneCard card)
+        internal void AddShieldTriggerToUse(IHandCard card)
         {
             _shieldTriggersToUse.Add(card);
         }
 
-        internal void RemoveShieldTriggerToUse(IZoneCard card)
+        internal void RemoveShieldTriggerToUse(IHandCard card)
         {
             _shieldTriggersToUse.Remove(card);
         }
 
-        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(IZoneCard card, StaticAbility staticAbility)
+        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
                 return staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && BattleZone.Cards.Contains(card)) ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && Hand.Cards.Contains(card))
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is IBattleZoneCard battleZoneCard && BattleZone.Cards.Contains(battleZoneCard)) ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is IHandCreature handCreature && Hand.Cards.Contains(handCreature))
                     ? staticAbilityForCreature.ContinuousEffects
                     : new ReadOnlyContinuousEffectCollection();
             }
             else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
             {
-                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && Hand.Cards.Contains(card)
+                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && card is IHandSpell handSpell && Hand.Cards.Contains(handSpell)
                     ? staticAbilityForSpell.ContinuousEffects
                     : new ReadOnlyContinuousEffectCollection();
             }

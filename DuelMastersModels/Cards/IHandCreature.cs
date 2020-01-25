@@ -1,6 +1,9 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    public interface IHandCreature : IHandCard, IZoneCreature
+    /// <summary>
+    /// Interface for creatures that exist in battle zone.
+    /// </summary>
+    public interface IHandCreature : IHandCard, ICreature
     {
     }
 }

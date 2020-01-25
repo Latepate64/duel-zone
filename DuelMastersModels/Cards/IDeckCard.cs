@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Cards
 {
-    internal interface IDeckCard : IZoneCard, IRevealable
+    internal interface IDeckCard : ICard, IRevealable
     {
     }
 }

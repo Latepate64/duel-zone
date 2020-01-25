@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
     {
         internal MainStepState State { get; set; } = MainStepState.Use;
 
-        internal IZoneCard CardToBeUsed { get; set; }
+        internal ICard CardToBeUsed { get; set; }
 
         internal MainStep(Player player) : base(player)
         {

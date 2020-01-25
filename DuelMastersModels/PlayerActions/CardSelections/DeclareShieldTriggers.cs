@@ -12,7 +12,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection<IHandCard> cards)
         {
-            foreach (Card card in cards)
+            foreach (IHandCard card in cards)
             {
                 Player.AddShieldTriggerToUse(card);
             }

@@ -7,12 +7,12 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Read-only collection that contains creatures.
     /// </summary>
-    public class ReadOnlyCreatureCollection<TZoneCreature> : ReadOnlyCollection<TZoneCreature> where TZoneCreature : IZoneCreature
+    public class ReadOnlyCreatureCollection<TCreature> : ReadOnlyCollection<TCreature> where TCreature : ICreature
     {
-        internal ReadOnlyCreatureCollection(TZoneCreature creature) : base(new List<TZoneCreature>() { creature }) { }
+        internal ReadOnlyCreatureCollection(TCreature creature) : base(new List<TCreature>() { creature }) { }
 
-        internal ReadOnlyCreatureCollection(IEnumerable<TZoneCreature> creatures) : base(creatures.ToList()) { }
+        internal ReadOnlyCreatureCollection(IEnumerable<TCreature> creatures) : base(creatures.ToList()) { }
 
-        internal ReadOnlyCreatureCollection<TZoneCreature> TappedCreatures => new ReadOnlyCreatureCollection<TZoneCreature>(Items.Where(creature => creature is ITappable tappable && tappable.Tapped));
+        internal ReadOnlyCreatureCollection<TCreature> TappedCreatures => new ReadOnlyCreatureCollection<TCreature>(Items.Where(creature => creature is ITappable tappable && tappable.Tapped));
     }
 }

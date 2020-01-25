@@ -6,9 +6,9 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// <summary>
     /// Player must select a card.
     /// </summary>
-    public abstract class MandatoryCardSelection<TZoneCard> : CardSelection<TZoneCard> where TZoneCard : IZoneCard
+    public abstract class MandatoryCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
     {
-        internal MandatoryCardSelection(Player player, ReadOnlyCardCollection<TZoneCard> cards) : base(player, 1, 1, cards)
+        internal MandatoryCardSelection(Player player, ReadOnlyCardCollection<TCard> cards) : base(player, 1, 1, cards)
         { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             return Cards.Count == 1 ? Perform(duel, Cards[0]) : (this);
         }
 
-        internal void Validate(TZoneCard card)
+        internal void Validate(TCard card)
         {
             if (!Cards.Contains(card))
             {
@@ -24,6 +24,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal abstract PlayerAction Perform(Duel duel, TZoneCard card);
+        internal abstract PlayerAction Perform(Duel duel, TCard card);
     }
 }

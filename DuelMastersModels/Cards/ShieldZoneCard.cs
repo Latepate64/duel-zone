@@ -2,7 +2,7 @@
 {
     internal class ShieldZoneCard : Card, IShieldZoneCard
     {
-        internal ShieldZoneCard(IZoneCard card) : base(card.Name, card.CardSet, card.Id, card.Cost, card.Text, card.Flavor, card.Illustrator, card.Civilizations, card.Rarity)
+        internal ShieldZoneCard(ICard card) : base(card.Name, card.CardSet, card.Id, card.Cost, card.Text, card.Flavor, card.Illustrator, card.Civilizations, card.Rarity)
         {
         }
 

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Represent a Duel Masters card.
     /// </summary>
-    public abstract class Card : IZoneCard
+    public abstract class Card : ICard
     {
         #region Constants
         private const string LightText = "Light";

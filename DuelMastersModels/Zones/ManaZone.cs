@@ -14,6 +14,8 @@ namespace DuelMastersModels.Zones
         internal ReadOnlyCardCollection<IManaZoneCard> TappedCards => new ReadOnlyCardCollection<IManaZoneCard>(Cards.Where(card => card.Tapped));
         internal ReadOnlyCardCollection<IManaZoneCard> UntappedCards => new ReadOnlyCardCollection<IManaZoneCard>(Cards.Where(card => !card.Tapped));
 
+        internal ReadOnlyCreatureCollection<IManaZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection<IManaZoneCreature>(Cards.NonEvolutionCreatures.OfType<IManaZoneCreature>().Where(c => c.Cost <= Cards.Count));
+
         public void UntapCards()
         {
             foreach (ManaZoneCard card in TappedCards)
@@ -22,14 +24,9 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Add(IZoneCard card, Duel duel)
+        internal override void Add(IManaZoneCard card, Duel duel)
         {
-            ManaZoneCard manaZoneCard = new ManaZoneCard(card);
-            if (manaZoneCard.Civilizations.Count > 1)
-            {
-                manaZoneCard.Tapped = true;
-            }
-            _cards.Add(manaZoneCard);
+            _cards.Add(card);
         }
 
         internal override void Remove(IManaZoneCard card, Duel duel)

@@ -10,9 +10,9 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal override void Add(IZoneCard card, Duel duel)
+        internal override void Add(IGraveyardCard card, Duel duel)
         {
-            _cards.Add(new GraveyardCard(card));
+            _cards.Add(card);
         }
 
         internal override void Remove(IGraveyardCard card, Duel duel)

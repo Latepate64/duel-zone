@@ -1,7 +1,7 @@
 ﻿namespace DuelMastersModels.Cards
 {
     /// <summary>
-    /// Interface for a Duel Masters card.
+    /// Interface for Duel Masters cards.
     /// </summary>
     public interface ICard
     {
@@ -49,20 +49,5 @@
         /// Illustrator of the card.
         /// </summary>
         string Illustrator { get; }
-
-        /// <summary>
-        /// Determines whether card is tapped (rotated 90 degrees) or untapped (no rotation).
-        /// </summary>
-        bool Tapped { get; }
-
-        /// <summary>
-        /// Determines whether the owner of the card knows what the card is.
-        /// </summary>
-        bool KnownToOwner { get; }
-
-        /// <summary>
-        /// Determines whether the opponent of the owner of the card knows what the card is.
-        /// </summary>
-        bool KnownToOpponent { get; }
     }
 }

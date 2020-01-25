@@ -5,15 +5,15 @@ namespace DuelMastersModels.PlayerActionResponses
     /// <summary>
     /// Contains information of creatures player has selected.
     /// </summary>
-    public class CreatureSelectionResponse<TZoneCreature> : PlayerActionResponse where TZoneCreature : IZoneCreature
+    public class CreatureSelectionResponse<TCreature> : PlayerActionResponse where TCreature : ICreature
     {
-        internal ReadOnlyCreatureCollection<TZoneCreature> SelectedCreatures { get; }
+        internal ReadOnlyCreatureCollection<TCreature> SelectedCreatures { get; }
 
         /// <summary>
         /// Creates a creature selection response from creature collection.
         /// </summary>
         /// <param name="selectedCreatures">Creatures player has selected.</param>
-        public CreatureSelectionResponse(ReadOnlyCreatureCollection<TZoneCreature> selectedCreatures)
+        public CreatureSelectionResponse(ReadOnlyCreatureCollection<TCreature> selectedCreatures)
         {
             SelectedCreatures = selectedCreatures;
         }
@@ -22,9 +22,9 @@ namespace DuelMastersModels.PlayerActionResponses
         /// Creates a creature selection response from creature.
         /// </summary>
         /// <param name="selectedCreature">Creature player has selected.</param>
-        public CreatureSelectionResponse(TZoneCreature selectedCreature)
+        public CreatureSelectionResponse(TCreature selectedCreature)
         {
-            SelectedCreatures = new ReadOnlyCreatureCollection<TZoneCreature>(selectedCreature);
+            SelectedCreatures = new ReadOnlyCreatureCollection<TCreature>(selectedCreature);
         }
     }
 }

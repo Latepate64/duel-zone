@@ -7,30 +7,29 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Read-only collection that contains cards.
     /// </summary>
-    public class ReadOnlyCardCollection<TZoneCard> : ReadOnlyCollection<TZoneCard> where TZoneCard : IZoneCard
+    public class ReadOnlyCardCollection<TCard> : ReadOnlyCollection<TCard> where TCard : ICard
     {
         /// <summary>
         /// Creates a read-only card collection.
         /// </summary>
         /// <param name="cards">Cards that will be added to the collection.</param>
-        public ReadOnlyCardCollection(IEnumerable<TZoneCard> cards) : base(cards.ToList()) { }
+        public ReadOnlyCardCollection(IEnumerable<TCard> cards) : base(cards.ToList()) { }
 
-        internal ReadOnlyCardCollection() : base(new List<TZoneCard>())
+        internal ReadOnlyCardCollection() : base(new List<TCard>())
         { }
 
-        internal ReadOnlyCardCollection(TZoneCard card) : base(new List<TZoneCard>() { card }) { }
+        internal ReadOnlyCardCollection(TCard card) : base(new List<TCard>() { card }) { }
 
         #region ReadOnlyCardCollection
-        internal ReadOnlyCardCollection<TZoneCard> TappedCards => new ReadOnlyCardCollection<TZoneCard>(Items.Where(card => card is ITappable tappable && tappable.Tapped));
-        internal ReadOnlyCardCollection<TZoneCard> UntappedCards => new ReadOnlyCardCollection<TZoneCard>(Items.Where(card => card is ITappable tappable && !tappable.Tapped));
+        internal ReadOnlyCardCollection<TCard> TappedCards => new ReadOnlyCardCollection<TCard>(Items.Where(card => card is ITappable tappable && tappable.Tapped));
+        internal ReadOnlyCardCollection<TCard> UntappedCards => new ReadOnlyCardCollection<TCard>(Items.Where(card => card is ITappable tappable && !tappable.Tapped));
         #endregion ReadOnlyCardCollection
 
         #region ReadOnlyCreatureCollection
-        internal ReadOnlyCreatureCollection<IZoneCreature> Creatures => new ReadOnlyCreatureCollection<IZoneCreature>(Items.Where(card => card is IZoneCreature).Cast<IZoneCreature>());
+        internal ReadOnlyCreatureCollection<ICreature> Creatures => new ReadOnlyCreatureCollection<ICreature>(Items.OfType<ICreature>());
         //internal ReadOnlyCreatureCollection<IZoneCreature> TappedCreatures => new ReadOnlyCreatureCollection<IZoneCreature>(Creatures.TappedCreatures);
         //internal ReadOnlyCreatureCollection<IZoneCreature> UntappedCreatures => new ReadOnlyCreatureCollection<IZoneCreature>(Creatures.Where(creature => !creature.Tapped));
-        internal ReadOnlyCreatureCollection<IZoneCreature> NonEvolutionCreatures => new ReadOnlyCreatureCollection<IZoneCreature>(Creatures.Where(c => !(c is EvolutionCreature)));
-        internal ReadOnlyCreatureCollection<IZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection<IZoneCreature>(NonEvolutionCreatures.Where(c => c.Cost <= Items.Count));
+        internal ReadOnlyCreatureCollection<ICreature> NonEvolutionCreatures => new ReadOnlyCreatureCollection<ICreature>(Creatures.Where(c => !(c is EvolutionCreature)));
         #endregion ReadOnlyCreatureCollection
     }
 }

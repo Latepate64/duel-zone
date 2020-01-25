@@ -2,18 +2,18 @@
 
 namespace DuelMastersModels.Cards
 {
-    internal class CardCollection<TZoneCard> : ReadOnlyCardCollection<TZoneCard> where TZoneCard : IZoneCard
+    internal class CardCollection<TCard> : ReadOnlyCardCollection<TCard> where TCard : ICard
     {
-        internal CardCollection() : base(new List<TZoneCard>())
+        internal CardCollection() : base(new List<TCard>())
         {
         }
 
-        internal void Add(TZoneCard card)
+        internal void Add(TCard card)
         {
             Items.Add(card);
         }
 
-        internal void Remove(TZoneCard card)
+        internal void Remove(TCard card)
         {
             Items.Remove(card);
         }

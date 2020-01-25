@@ -127,7 +127,7 @@ namespace DuelMastersModels.Managers
             return new ReadOnlyTriggerAbilityCollection(_abilities.Where(a => a is TriggerAbility).Cast<TriggerAbility>());
         }
 
-        private ReadOnlyCollection<TriggerAbility> GetTriggerAbilities<T>(IZoneCard card)
+        private ReadOnlyCollection<TriggerAbility> GetTriggerAbilities<T>(ICard card)
         {
             return new ReadOnlyCollection<TriggerAbility>(GetTriggerAbilities().Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
         }
