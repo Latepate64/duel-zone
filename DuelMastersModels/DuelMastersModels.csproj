@@ -98,32 +98,44 @@
     <Compile Include="Abilities\Trigger\WheneverAnotherCreatureIsPutIntoTheBattleZone.cs" />
     <Compile Include="Abilities\Trigger\WheneverAPlayerCastsASpell.cs" />
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
-    <Compile Include="Cards\BattleZoneCard.cs" />
-    <Compile Include="Cards\BattleZoneCreature.cs" />
-    <Compile Include="Cards\DeckCard.cs" />
-    <Compile Include="Cards\GraveyardCard.cs" />
-    <Compile Include="Cards\HandCard.cs" />
-    <Compile Include="Cards\IBattleZoneCreature.cs" />
-    <Compile Include="Cards\IDeckCard.cs" />
-    <Compile Include="Cards\IGraveyardCard.cs" />
-    <Compile Include="Cards\IHandCard.cs" />
-    <Compile Include="Cards\IHandCreature.cs" />
-    <Compile Include="Cards\IHandSpell.cs" />
-    <Compile Include="Cards\IManaZoneCard.cs" />
-    <Compile Include="Cards\IManaZoneCreature.cs" />
+    <Compile Include="Cards\BattleZone\BattleZoneCard.cs" />
+    <Compile Include="Cards\BattleZone\BattleZoneCreature.cs" />
+    <Compile Include="Cards\Deck\DeckCard.cs" />
+    <Compile Include="Cards\Deck\DeckCreature.cs" />
+    <Compile Include="Cards\Deck\DeckSpell.cs" />
+    <Compile Include="Cards\Graveyard\GraveyardCard.cs" />
+    <Compile Include="Cards\Graveyard\GraveyardCreature.cs" />
+    <Compile Include="Cards\Graveyard\GraveyardSpell.cs" />
+    <Compile Include="Cards\Hand\HandCard.cs" />
+    <Compile Include="Cards\Hand\HandCreature.cs" />
+    <Compile Include="Cards\Hand\HandSpell.cs" />
+    <Compile Include="Cards\BattleZone\IBattleZoneCreature.cs" />
+    <Compile Include="Cards\Deck\IDeckCard.cs" />
+    <Compile Include="Cards\Graveyard\IGraveyardCard.cs" />
+    <Compile Include="Cards\Hand\IHandCard.cs" />
+    <Compile Include="Cards\Hand\IHandCreature.cs" />
+    <Compile Include="Cards\Hand\IHandSpell.cs" />
+    <Compile Include="Cards\ManaZone\IManaZoneCard.cs" />
+    <Compile Include="Cards\ManaZone\IManaZoneCreature.cs" />
     <Compile Include="Cards\IRevealable.cs" />
-    <Compile Include="Cards\IShieldZoneCard.cs" />
+    <Compile Include="Cards\ManaZone\ManaZoneCreature.cs" />
+    <Compile Include="Cards\ManaZone\ManaZoneSpell.cs" />
+    <Compile Include="Cards\ShieldZone\IShieldZoneCard.cs" />
     <Compile Include="Cards\ISpell.cs" />
     <Compile Include="Cards\ISummoningSickness.cs" />
     <Compile Include="Cards\ITappable.cs" />
     <Compile Include="Cards\ICard.cs" />
     <Compile Include="Cards\ICreature.cs" />
-    <Compile Include="Cards\ManaZoneCard.cs" />
-    <Compile Include="Cards\ReadOnlyCardCollection.cs" />
-    <Compile Include="Cards\ReadOnlyCreatureCollection.cs" />
-    <Compile Include="Cards\ReadOnlySpellCollection.cs" />
-    <Compile Include="Cards\ShieldZoneCard.cs" />
-    <Compile Include="Cards\SpellCollection.cs" />
+    <Compile Include="Cards\ManaZone\ManaZoneCard.cs" />
+    <Compile Include="Cards\Collections\ReadOnlyCardCollection.cs" />
+    <Compile Include="Cards\Collections\ReadOnlyCreatureCollection.cs" />
+    <Compile Include="Cards\Collections\ReadOnlySpellCollection.cs" />
+    <Compile Include="Cards\ShieldZone\ShieldZoneCard.cs" />
+    <Compile Include="Cards\ShieldZone\ShieldZoneCreature.cs" />
+    <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
+    <Compile Include="Cards\Collections\SpellCollection.cs" />
+    <Compile Include="DuelState.cs" />
+    <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="IDuel.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
@@ -134,7 +146,7 @@
     <Compile Include="CardFilters\TargetCreatureFilter.cs" />
     <Compile Include="CardFilters\TargetSpellFilter.cs" />
     <Compile Include="Cards\Card.cs" />
-    <Compile Include="Cards\CardCollection.cs" />
+    <Compile Include="Cards\Collections\CardCollection.cs" />
     <Compile Include="Cards\Civilization.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
@@ -149,7 +161,7 @@
     <Compile Include="Exceptions\OptionalCreatureSelectionException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Cards\Rarity.cs" />
-    <Compile Include="Cards\ReadOnlyCivilizationCollection.cs" />
+    <Compile Include="Cards\Collections\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="DuelEventArgs.cs" />
@@ -190,7 +202,9 @@
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
+    <Compile Include="Managers\IPlayerManager.cs" />
     <Compile Include="Managers\PlayerManager.cs" />
+    <Compile Include="Managers\ShieldTriggerManager.cs" />
     <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Managers\PlayerActionManager.cs" />
@@ -234,6 +248,7 @@
     <Compile Include="PlayerActions\PlayerAction.cs" />
     <Compile Include="PlayerActions\SelectAbilityToResolve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartingPlayer.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
     <Compile Include="Steps\BattleStep.cs" />
     <Compile Include="Steps\BlockDeclarationStep.cs" />
@@ -250,7 +265,7 @@
     <Compile Include="Zones\Deck.cs" />
     <Compile Include="Zones\Graveyard.cs" />
     <Compile Include="Zones\Hand.cs" />
-    <Compile Include="Cards\IBattleZoneCard.cs" />
+    <Compile Include="Cards\BattleZone\IBattleZoneCard.cs" />
     <Compile Include="Zones\ITappableZone.cs" />
     <Compile Include="Zones\ManaZone.cs" />
     <Compile Include="Zones\ShieldZone.cs" />
@@ -278,6 +293,7 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

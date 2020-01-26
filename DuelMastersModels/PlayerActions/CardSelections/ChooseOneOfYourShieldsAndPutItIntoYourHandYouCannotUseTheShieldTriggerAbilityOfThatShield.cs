@@ -18,7 +18,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
             else if (card != null)
             {
-                duel.PutFromShieldZoneToHand(Player, card, false);
+                _ = duel.PutFromShieldZoneToHand(Player, card, false);
             }
             return null;
         }

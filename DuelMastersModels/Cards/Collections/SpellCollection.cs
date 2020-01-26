@@ -15,7 +15,7 @@ namespace DuelMastersModels.Cards
 
         internal void Remove(Spell spell)
         {
-            Items.Remove(spell);
+            _ = Items.Remove(spell);
         }
     }
 }

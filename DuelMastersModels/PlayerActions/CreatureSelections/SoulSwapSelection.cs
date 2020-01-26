@@ -23,7 +23,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
             else
             {
-                duel.PutFromBattleZoneIntoOwnersManazone(creature);
+                _ = duel.PutFromBattleZoneIntoOwnersManazone(creature);
                 Player owner = duel.GetOwner(creature);
                 return new ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(Player, owner.ManaZone.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone);
             }

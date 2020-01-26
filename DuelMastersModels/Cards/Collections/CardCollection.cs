@@ -15,7 +15,7 @@ namespace DuelMastersModels.Cards
 
         internal void Remove(TCard card)
         {
-            Items.Remove(card);
+            _ = Items.Remove(card);
         }
     }
 }

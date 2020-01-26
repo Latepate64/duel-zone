@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace DuelMastersJson
         /// </summary>
         /// <param name="uri">Uri of the json-file.</param>
         /// <returns>The parsed JsonCards.</returns>
-        public static Collection<JsonCard> GetJsonCardsFromUrl(System.Uri uri)
+        public static Collection<JsonCard> GetJsonCardsFromUrl(Uri uri)
         {
             string html = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -64,6 +65,11 @@ namespace DuelMastersJson
         /// <returns>The parsed JsonCards.</returns>
         public static Collection<JsonCard> GetJsonCardsFromUrl(System.Uri uri, XmlDeck deck)
         {
+            if (deck is null)
+            {
+                throw new System.ArgumentNullException(nameof(deck));
+            }
+
             return GetCardsForXmlDeck(deck, GetJsonCardsFromUrl(uri));
         }
         #endregion Public methods

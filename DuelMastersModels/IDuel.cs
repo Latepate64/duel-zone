@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.PlayerActionResponses;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActionResponses;
 using DuelMastersModels.PlayerActions;
 using System;
 
@@ -55,9 +56,27 @@ namespace DuelMastersModels
         /// <returns></returns>
         IPlayerAction Start();
 
+        /*
         /// <summary>
         /// Tries to progress in the duel based on the latest player action, and returns new player action for a player to take.
         /// </summary>
         IPlayerAction Progress<T>(PlayerActionResponse response) where T : class, Cards.ICard;
+        */
+
+        /// <summary>
+        /// Tries to progress in the duel.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cardSelectionResponse"></param>
+        /// <returns></returns>
+        IPlayerAction Progress<T>(CardSelectionResponse<T> cardSelectionResponse) where T : class, ICard;
+
+        /// <summary>
+        /// Tries to progress in the duel.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="creatureSelectionResponse"></param>
+        /// <returns></returns>
+        IPlayerAction Progress<T>(CreatureSelectionResponse<T> creatureSelectionResponse) where T : class, ICreature;
     }
 }

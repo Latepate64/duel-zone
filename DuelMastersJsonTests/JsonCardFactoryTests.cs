@@ -13,7 +13,7 @@ namespace DuelMastersJsonTests
         [Fact]
         public void TestGetJsonCardsFromEmptyPath()
         {
-            Assert.Throws<ArgumentException>(() => JsonCardFactory.GetJsonCards(""));
+            _ = Assert.Throws<ArgumentException>(() => JsonCardFactory.GetJsonCards(""));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace DuelMastersJsonTests
         [Fact]
         public void TestGetJsonCardsFromInvalidUrl()
         {
-            Assert.Throws<Newtonsoft.Json.JsonReaderException>(() => JsonCardFactory.GetJsonCardsFromUrl(new Uri("http://www.google.com")));
+            _ = Assert.Throws<Newtonsoft.Json.JsonReaderException>(() => JsonCardFactory.GetJsonCardsFromUrl(new Uri("http://www.google.com")));
         }
 
         [Fact]

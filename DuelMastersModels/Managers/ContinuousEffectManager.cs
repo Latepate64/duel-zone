@@ -22,7 +22,7 @@ namespace DuelMastersModels.Managers
         internal void EndContinuousEffects<T>()
         {
             //TODO: Test
-            _continuousEffects.ToList().RemoveAll(c => c.Period is T);
+            _ = _continuousEffects.ToList().RemoveAll(c => c.Period is T);
             /*
             List<ContinuousEffect> suitableContinuousEffects = _continuousEffects.Where(c => c.Period.GetType() == type).ToList();
             while (suitableContinuousEffects.Count() > 0)

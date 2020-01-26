@@ -6,7 +6,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
     /// </summary>
-    internal class ManaZone : Zone<IManaZoneCard>, ITappableZone// TappableZone<IManaZoneCard>
+    public class ManaZone : Zone<IManaZoneCard>//, ITappableZone// TappableZone<IManaZoneCard>
     {
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
@@ -16,7 +16,7 @@ namespace DuelMastersModels.Zones
 
         internal ReadOnlyCreatureCollection<IManaZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection<IManaZoneCreature>(Cards.NonEvolutionCreatures.OfType<IManaZoneCreature>().Where(c => c.Cost <= Cards.Count));
 
-        public void UntapCards()
+        internal void UntapCards()
         {
             foreach (ManaZoneCard card in TappedCards)
             {
@@ -31,7 +31,7 @@ namespace DuelMastersModels.Zones
 
         internal override void Remove(IManaZoneCard card, Duel duel)
         {
-            _cards.Remove(card);
+            _ = _cards.Remove(card);
         }
     }
 }

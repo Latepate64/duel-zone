@@ -12,7 +12,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal override PlayerAction Perform(Duel duel, IHandCard card)
         {
             Player.Hand.Remove(card, duel);
-            duel.UseCard(card);
+            duel.UseCard(Player, card);
             Player.RemoveShieldTriggerToUse(card);
             return null;
         }

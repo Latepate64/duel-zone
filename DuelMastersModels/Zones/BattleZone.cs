@@ -6,7 +6,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    internal class BattleZone : Zone<IBattleZoneCard>, ITappableZone//TappableZone<IBattleZoneCard>
+    public class BattleZone : Zone<IBattleZoneCard>//, ITappableZone//TappableZone<IBattleZoneCard>
     {
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
@@ -15,7 +15,7 @@ namespace DuelMastersModels.Zones
         internal ReadOnlyCreatureCollection<IBattleZoneCreature> TappedCreatures => new ReadOnlyCreatureCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped));
         internal ReadOnlyCreatureCollection<BattleZoneCreature> UntappedCreatures => new ReadOnlyCreatureCollection<BattleZoneCreature>(Creatures.Where(creature => !creature.Tapped));
 
-        public void UntapCards()
+        internal void UntapCards()
         {
             foreach (BattleZoneCreature creature in TappedCreatures)
             {
@@ -35,11 +35,7 @@ namespace DuelMastersModels.Zones
 
         internal override void Remove(IBattleZoneCard card, Duel duel)
         {
-            _cards.Remove(card);
-            if (card is BattleZoneCreature creature)
-            {
-                creature.SummoningSickness = true;
-            }
+            _ = _cards.Remove(card);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace DuelMastersModels.Managers
 
         internal void RemovePendingAbility(NonStaticAbility ability)
         {
-            _pendingAbilities.Remove(ability);
+            _ = _pendingAbilities.Remove(ability);
         }
 
         internal SelectAbilityToResolve TryGetSelectAbilityToResolve(Player player)

@@ -62,19 +62,19 @@ namespace DuelMastersModels.Factories
             int addIndex = 0;
             int updatedAddIndex = 0;
             bool keyFound = false;
-            while (!keyFound && possibleKeys.Count > 0 && inputWordIndex < inputWords.Count())
+            while (!keyFound && possibleKeys.Count > 0 && inputWordIndex < inputWords.Length)
             {
                 if (updatedAddIndex != addIndex)
                 {
                     updatedAddIndex = addIndex;
                 }
-                if (inputWordIndex < inputWords.Count())
+                if (inputWordIndex < inputWords.Length)
                 {
                     int keyIndex = 0;
                     while (keyIndex < possibleKeys.Count)
                     {
                         string[] keyWordSplits = possibleKeys[keyIndex].Split(' ');
-                        if (inputWordIndex < keyWordSplits.Count())
+                        if (inputWordIndex < keyWordSplits.Length)
                         {
                             string keyWord = keyWordSplits[inputWordIndex];
                             string inputWord = inputWords[inputWordIndex + addIndex];
@@ -113,7 +113,7 @@ namespace DuelMastersModels.Factories
                 string matchingKey = possibleKeys[0];
                 ManageParsedObjects(matchingKey, ref parsedObjects);
                 List<string> wordList = inputWords.ToList();
-                wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                wordList.RemoveRange(0, matchingKey.Split(' ').Length + updatedAddIndex);
                 inputText = string.Join(" ", wordList);
                 if (inputText.Length > 0)
                 {
@@ -126,7 +126,7 @@ namespace DuelMastersModels.Factories
                 string matchingKey = possibleKeys.OrderBy(key => key.Length).First();
                 ManageParsedObjects(matchingKey, ref parsedObjects);
                 List<string> wordList = inputWords.ToList();
-                wordList.RemoveRange(0, matchingKey.Split(' ').Count() + updatedAddIndex);
+                wordList.RemoveRange(0, matchingKey.Split(' ').Length + updatedAddIndex);
                 inputText = string.Join(" ", wordList);
                 if (inputText.Length > 0)
                 {
@@ -145,7 +145,7 @@ namespace DuelMastersModels.Factories
             {
                 if (string.Compare(text, civilization.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    UpdateParsedObjects(parsedObjects, variableWord, civilization);
+                    _ = UpdateParsedObjects(parsedObjects, variableWord, civilization);
                     return true;
                 }
             }
@@ -174,7 +174,7 @@ namespace DuelMastersModels.Factories
         {
             if (Regex.IsMatch(text, @"^\d+$"))
             {
-                UpdateParsedObjects(parsedObjects, variableWord, int.Parse(text, CultureInfo.InvariantCulture));
+                _ = UpdateParsedObjects(parsedObjects, variableWord, int.Parse(text, CultureInfo.InvariantCulture));
                 return true;
             }
             else
@@ -190,7 +190,7 @@ namespace DuelMastersModels.Factories
             {
                 if (string.Compare(text, $"non-{civilization.ToString()}", StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    UpdateParsedObjects(parsedObjects, NonCivilizationText, civilization);
+                    _ = UpdateParsedObjects(parsedObjects, NonCivilizationText, civilization);
                     return true;
                 }
             }
@@ -202,7 +202,7 @@ namespace DuelMastersModels.Factories
         {
             if (Regex.IsMatch(text, @"\+\d+"))
             {
-                UpdateParsedObjects(parsedObjects, PlusIntegerText, int.Parse(text.Substring(1), CultureInfo.InvariantCulture));
+                _ = UpdateParsedObjects(parsedObjects, PlusIntegerText, int.Parse(text.Substring(1), CultureInfo.InvariantCulture));
                 return true;
             }
             else

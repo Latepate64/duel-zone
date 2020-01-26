@@ -3,28 +3,25 @@ using System;
 
 namespace DuelMastersModels.Managers
 {
-    internal class PlayerManager
+    internal class PlayerManager : IPlayerManager
     {
-        internal Player Player1 { get; private set; }
+        public Player Player1 { get; private set; }
 
-        internal Player Player2 { get; private set; }
+        public Player Player2 { get; private set; }
 
-        internal PlayerManager(Player player1, Player player2)
+        public PlayerManager(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
         }
 
-        internal Player GetOwner(ICard card)
+        public Player GetOwner(ICard card)
         {
-            //TODO: test if works
-            if (Player1.DeckBeforeDuel.Contains(card))
-            //if (Player1.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            if (Player1.AnyZoneContains(card))
             {
                 return Player1;
             }
-            else if (Player2.DeckBeforeDuel.Contains(card))
-            //else if (Player2.DeckBeforeDuel.Select(c => c.GameId).Contains(card.GameId))
+            else if (Player2.AnyZoneContains(card))
             {
                 return Player2;
             }
@@ -34,7 +31,7 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        internal Player GetOpponent(Player player)
+        public Player GetOpponent(IPlayer player)
         {
             if (player == Player1)
             {
@@ -49,5 +46,7 @@ namespace DuelMastersModels.Managers
                 throw new ArgumentOutOfRangeException(nameof(player));
             }
         }
+
+        
     }
 }

@@ -3,7 +3,7 @@ using DuelMastersModels.PlayerActionResponses;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
-using DuelMastersModels.PlayerActions.OptionalActions;
+//using DuelMastersModels.PlayerActions.OptionalActions;
 using System;
 using System.Linq;
 
@@ -29,17 +29,9 @@ namespace DuelMastersModels.Managers
         private IPlayerAction _currentPlayerAction;
 
         #region Internal methods
-        internal PlayerAction Progress<T>(PlayerActionResponse response, Duel duel) where T : class, ICard
+        /*internal PlayerAction Progress<T>(PlayerActionResponse response, Duel duel) where T : class, ICard
         {
             PlayerAction playerAction = null;
-            if (response is CardSelectionResponse<IManaZoneCard> manaZoneCardSelectionResponse)
-            {
-                playerAction = PerformManaZoneCardSelection(manaZoneCardSelectionResponse, duel);
-            }
-            else if (response is CardSelectionResponse<T> cardSelectionResponse)
-            {
-                playerAction = PerformCardSelection(cardSelectionResponse, duel);
-            }
             else if (response is CreatureSelectionResponse<ICreature> creatureSelectionResponse)
             {
                 playerAction = PerformCreatureSelection(creatureSelectionResponse, duel);
@@ -57,7 +49,28 @@ namespace DuelMastersModels.Managers
                 throw new ArgumentOutOfRangeException(nameof(response));
             }
             return playerAction;
+        }*/
+
+        internal PlayerAction Progress<T>(CardSelectionResponse<T> response, Duel duel) where T : class, ICard
+        {
+            if (response is CardSelectionResponse<IManaZoneCard> manaZoneCardSelectionResponse)
+            {
+                return PerformManaZoneCardSelection(manaZoneCardSelectionResponse, duel);
+            }
+            else if (response is CardSelectionResponse<T> cardSelectionResponse)
+            {
+                return PerformCardSelection(cardSelectionResponse, duel);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(response));
+            }
         }
+
+        /*internal PlayerAction Progress<T>(CreatureSelectionResponse<T> response, Duel duel) where T : class, ICreature
+        {
+            return PerformCreatureSelection(response, duel);
+        }*/
 
         private PlayerAction PerformManaZoneCardSelection(CardSelectionResponse<IManaZoneCard> manaZoneCardSelectionResponse, Duel duel)
         {
@@ -163,12 +176,12 @@ namespace DuelMastersModels.Managers
             return mandatoryMultipleCardSelection.Perform(duel, cardSelectionResponse.SelectedCards);
         }
 
-        private PlayerAction PerformCreatureSelection(CreatureSelectionResponse<ICreature> creatureSelectionResponse, Duel duel)
+        internal PlayerAction PerformCreatureSelection<T>(CreatureSelectionResponse<T> creatureSelectionResponse, Duel duel) where T : class, ICreature
         {
             PlayerAction playerAction;
-            if (CurrentPlayerAction is OptionalCreatureSelection<ICreature> optionalCreatureSelection)
+            if (CurrentPlayerAction is OptionalCreatureSelection<T> optionalCreatureSelection)
             {
-                ICreature creature = null;
+                T creature = null;
                 if (creatureSelectionResponse.SelectedCreatures.Count == 1)
                 {
                     creature = creatureSelectionResponse.SelectedCreatures.First();
@@ -176,11 +189,11 @@ namespace DuelMastersModels.Managers
                 optionalCreatureSelection.Validate(creature);
                 playerAction = optionalCreatureSelection.Perform(duel, creature);
             }
-            else if (CurrentPlayerAction is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
+            else if (CurrentPlayerAction is MandatoryCreatureSelection<T> mandatoryCreatureSelection)
             {
                 if (creatureSelectionResponse.SelectedCreatures.Count == 1)
                 {
-                    ICreature creature = creatureSelectionResponse.SelectedCreatures.First();
+                    T creature = creatureSelectionResponse.SelectedCreatures.First();
                     mandatoryCreatureSelection.Validate(creature);
                     playerAction = mandatoryCreatureSelection.Perform(duel, creature);
                 }
@@ -196,6 +209,7 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
+        /*
         private void PerformSelectAbilityToResolveResponse(SelectAbilityToResolveResponse selectAbilityToResolveResponse, Duel duel)
         {
             if (CurrentPlayerAction is SelectAbilityToResolve selectAbilityToResolve)
@@ -223,6 +237,7 @@ namespace DuelMastersModels.Managers
 
             return playerAction;
         }
+        */
         #endregion Private methods
     }
 }

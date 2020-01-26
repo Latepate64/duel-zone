@@ -42,7 +42,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
                 {
                     card.Tapped = true;
                 }
-                duel.UseCard(mainStep.CardToBeUsed);
+                duel.UseCard(Player, mainStep.CardToBeUsed);
                 mainStep.CardToBeUsed = null;
                 mainStep.State = MainStepState.Use;
                 return null;

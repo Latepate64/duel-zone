@@ -548,7 +548,7 @@
     <Rule Id="IDE0056WithoutSuggestion" Action="Error" />
     <Rule Id="IDE0057" Action="Error" />
     <Rule Id="IDE0057WithoutSuggestion" Action="Error" />
-    <Rule Id="IDE0058" Action="Warning" />
+    <Rule Id="IDE0058" Action="Error" />
     <Rule Id="IDE0059" Action="Error" />
     <Rule Id="IDE0060" Action="Error" />
     <Rule Id="IDE0061" Action="Error" />
@@ -579,6 +579,16 @@
     <Rule Id="IDE0067" Action="Error" />
     <Rule Id="IDE0068" Action="Error" />
     <Rule Id="IDE0069" Action="Error" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
+    <Rule Id="CA1309" Action="Error" />
+    <Rule Id="CA1810" Action="Error" />
+    <Rule Id="CA1824" Action="Error" />
+    <Rule Id="CA1825" Action="Error" />
+    <Rule Id="CA1829" Action="Error" />
+    <Rule Id="CA2010" Action="Error" />
+    <Rule Id="CA2201" Action="Error" />
+    <Rule Id="CA2207" Action="Error" />
   </Rules>
   <Rules AnalyzerId="xunit.analyzers" RuleNamespace="xunit.analyzers">
     <Rule Id="xUnit1004" Action="Error" />
