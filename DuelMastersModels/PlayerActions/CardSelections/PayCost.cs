@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -17,7 +17,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             Cost = cost;
         }
 
-        internal void Validate(ReadOnlyCardCollection<IManaZoneCard> cards, Duel duel)
+        internal void Validate(IEnumerable<IManaZoneCard> cards, Duel duel)
         {
             Validate(cards);
             if (!Duel.CanBeUsed((duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed, cards))
@@ -26,7 +26,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal override PlayerAction Perform(Duel duel, ReadOnlyCollection<IManaZoneCard> cards)
+        internal override PlayerAction Perform(Duel duel, IEnumerable<IManaZoneCard> cards)
         {
             if (duel == null)
             {

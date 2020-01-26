@@ -1,18 +1,19 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions.CardSelections;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     /// <summary>
     /// Player may select up to one creature.
     /// </summary>
-    public abstract class OptionalCreatureSelection<TCreature> : CreatureSelection<TCreature> where TCreature : class, ICreature
+    public abstract class OptionalCreatureSelection<TCreature> : OptionalCardSelection<TCreature> where TCreature : class, ICreature//CreatureSelection<TCreature> where TCreature : class, ICreature
     {
         internal OptionalCreatureSelection(Player player, ReadOnlyCreatureCollection<TCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        /*internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return Creatures.Count == 0 ? Perform(duel, null) : (this);
+            return Cards.Count == 0 ? Perform(duel, null) : (this);
         }
 
         internal void Validate(TCreature creature)
@@ -23,6 +24,6 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
         }
 
-        internal abstract PlayerAction Perform(Duel duel, TCreature creature);
+        internal abstract PlayerAction Perform(Duel duel, TCreature creature);*/
     }
 }

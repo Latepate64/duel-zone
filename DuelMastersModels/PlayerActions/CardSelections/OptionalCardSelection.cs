@@ -1,28 +1,28 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     /// <summary>
     /// Player may select up to one card.
     /// </summary>
-    public abstract class OptionalCardSelection<TCard> : CardSelection<TCard> where TCard : class, ICard
+    public abstract class OptionalCardSelection<TCard> : SingleCardSelection<TCard>/*, ISingleCardSelection<TCard>*/ where TCard : class, ICard
     {
-        internal OptionalCardSelection(Player player, ReadOnlyCardCollection<TCard> cards) : base(player, 0, 1, cards)
+        internal OptionalCardSelection(Player player, IEnumerable<TCard> cards) : base(player, cards, true)
         { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return Cards.Count == 0 ? Perform(duel, null) : (this);
+            return Cards.Any() ? (this) : Perform(duel, null);
         }
 
-        internal void Validate(TCard card)
+        internal override void Validate(TCard card)
         {
             if (!(card == null || Cards.Contains(card)))
             {
                 throw new Exceptions.OptionalCardSelectionException(ToString());
             }
         }
-
-        internal abstract PlayerAction Perform(Duel duel, TCard card);
     }
 }

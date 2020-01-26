@@ -1,20 +1,24 @@
-﻿using DuelMastersModels.Cards;
+﻿/*
+using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions.CardSelections;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     /// <summary>
     /// Player selects creatures.
     /// </summary>
-    public abstract class CreatureSelection<TCreature> : PlayerAction where TCreature : ICreature
+    public abstract class CreatureSelection<TCreature> : CardSelection<TCreature> where TCreature : ICreature //PlayerAction
     {
         /// <summary>
         /// Creatures player can select from.
         /// </summary>
-        public ReadOnlyCreatureCollection<TCreature> Creatures { get; private set; }
+        public IEnumerable<TCreature> Creatures { get; private set; }
 
-        internal CreatureSelection(Player player, ReadOnlyCreatureCollection<TCreature> creatures) : base(player)
+        internal CreatureSelection(Player player, IEnumerable<TCreature> creatures) : base(player,)
         {
             Creatures = creatures;
         }
     }
 }
+*/

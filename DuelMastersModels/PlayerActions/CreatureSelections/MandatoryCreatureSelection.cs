@@ -1,18 +1,20 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions.CardSelections;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     /// <summary>
     /// Player must select one creature.
     /// </summary>
-    public abstract class MandatoryCreatureSelection<TCreature> : CreatureSelection<TCreature> where TCreature : ICreature
+    public abstract class MandatoryCreatureSelection<TCreature> : MandatoryCardSelection<TCreature> where TCreature : ICreature
     {
-        internal MandatoryCreatureSelection(Player player, ReadOnlyCreatureCollection<TCreature> creatures) : base(player, creatures)
+        internal MandatoryCreatureSelection(Player player, IEnumerable<TCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        /*internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return Creatures.Count == 1 ? Perform(duel, Creatures[0]) : (this);
+            return Cards.Count() == 1 ? Perform(duel, Creatures[0]) : (this);
         }
 
         internal void Validate(TCreature creature)
@@ -23,6 +25,6 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
         }
 
-        internal abstract PlayerAction Perform(Duel duel, TCreature creature);
+        internal abstract PlayerAction Perform(Duel duel, TCreature creature);*/
     }
 }

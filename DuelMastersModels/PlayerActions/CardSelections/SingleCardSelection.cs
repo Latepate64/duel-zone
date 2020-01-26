@@ -1,0 +1,17 @@
+﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+
+namespace DuelMastersModels.PlayerActions.CardSelections
+{
+    /// <summary>
+    /// Player may/must select a card.
+    /// </summary>
+    public abstract class SingleCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
+    {
+        internal SingleCardSelection(Player player, IEnumerable<TCard> cards, bool optional) : base(player, optional ? 0 : 1, 1, cards)
+        { }
+
+        internal abstract void Validate(TCard card);
+        internal abstract PlayerAction Perform(Duel duel, TCard card);
+    }
+}

@@ -46,7 +46,5 @@ namespace DuelMastersModels.Managers
                 throw new ArgumentOutOfRangeException(nameof(player));
             }
         }
-
-        
     }
 }

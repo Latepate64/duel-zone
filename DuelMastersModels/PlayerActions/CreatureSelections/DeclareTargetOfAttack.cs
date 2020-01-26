@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
+using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
@@ -26,9 +27,9 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
-            return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Creatures.Count == 1
-                ? Perform(duel, Creatures[0])
-                : Creatures.Count == 0 ? Perform(duel, null) : (this);
+            return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
+                ? Perform(duel, Cards.First())
+                : Cards.Any() ? (this) : Perform(duel, null);
         }
     }
 }

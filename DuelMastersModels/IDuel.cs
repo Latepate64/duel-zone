@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActionResponses;
 using DuelMastersModels.PlayerActions;
 using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels
 {
@@ -56,27 +56,27 @@ namespace DuelMastersModels
         /// <returns></returns>
         IPlayerAction Start();
 
-        /*
         /// <summary>
-        /// Tries to progress in the duel based on the latest player action, and returns new player action for a player to take.
+        /// Tries to progress in the duel.
         /// </summary>
-        IPlayerAction Progress<T>(PlayerActionResponse response) where T : class, Cards.ICard;
-        */
+        /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
+        IPlayerAction Progress<T>() where T : class, ICard;
 
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="cardSelectionResponse"></param>
+        /// <param name="card"></param>
         /// <returns></returns>
-        IPlayerAction Progress<T>(CardSelectionResponse<T> cardSelectionResponse) where T : class, ICard;
+        IPlayerAction Progress<T>(T card) where T : class, ICard;
 
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="creatureSelectionResponse"></param>
+        /// <param name="cards"></param>
         /// <returns></returns>
-        IPlayerAction Progress<T>(CreatureSelectionResponse<T> creatureSelectionResponse) where T : class, ICreature;
+        IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard;
     }
 }

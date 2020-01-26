@@ -1,16 +1,17 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
     /// <summary>
     /// Player may declare shield trigger to be used.
     /// </summary>
-    public class DeclareShieldTriggers : MultipleCardSelection<IHandCard>
+    public class DeclareShieldTriggers : OptionalMultipleCardSelection<IHandCard>
     {
         internal DeclareShieldTriggers(Player player, ReadOnlyCardCollection<IHandCard> cards) : base(player, cards)
         { }
 
-        internal override PlayerAction Perform(Duel duel, ReadOnlyCardCollection<IHandCard> cards)
+        internal override PlayerAction Perform(Duel duel, IEnumerable<IHandCard> cards)
         {
             foreach (IHandCard card in cards)
             {

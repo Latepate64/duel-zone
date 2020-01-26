@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
@@ -22,11 +22,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
             return duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
-                ? Cards.Count <= MaximumSelection ? Perform(duel, Cards) : (this)
+                ? Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : (this)
                 : Perform(duel, new ReadOnlyCardCollection<IShieldZoneCard>(Cards.ToList().GetRange(0, MinimumSelection)));
         }
 
-        internal override PlayerAction Perform(Duel duel, ReadOnlyCollection<IShieldZoneCard> cards)
+        internal override PlayerAction Perform(Duel duel, IEnumerable<IShieldZoneCard> cards)
         {
             return duel.PutFromShieldZoneToHand(duel.GetOpponent(Player), cards, true);
         }

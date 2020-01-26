@@ -6,7 +6,6 @@ using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.Managers;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
-using DuelMastersModels.PlayerActionResponses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -98,7 +97,7 @@ namespace DuelMastersModels
 
         private readonly ContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
 
-        private readonly PlayerActionManager _playerActionManager = new PlayerActionManager();
+        private readonly PlayerActionManager _playerActionManager;
 
         private readonly IPlayerManager _playerManager;
 
@@ -112,6 +111,7 @@ namespace DuelMastersModels
         /// <param name="player2">Another one of the two players.</param>
         public Duel(Player player1, Player player2)
         {
+            _playerActionManager = new PlayerActionManager(this);
             _playerManager = new PlayerManager(player1 ?? throw new ArgumentNullException(nameof(player1)), player2 ?? throw new ArgumentNullException(nameof(player2)));
             _abilityManager.InstantiateAbilities(Player1);
             _abilityManager.InstantiateAbilities(Player2);
@@ -161,6 +161,7 @@ namespace DuelMastersModels
             return SetCurrentPlayerAction(StartNewTurn(activePlayer, nonActivePlayer));
         }
 
+        /*
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
@@ -170,10 +171,12 @@ namespace DuelMastersModels
         public IPlayerAction Progress<T>(CardSelectionResponse<T> cardSelectionResponse) where T : class, ICard
         {
             ValidateStateForProgressing();
-            PlayerAction playerAction = _playerActionManager.Progress(cardSelectionResponse, this);
-            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+            PlayerAction playerAction = _playerActionManager.Progress(cardSelectionResponse.SelectedCards, this);
+            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
+        */
 
+        /*
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
@@ -187,8 +190,43 @@ namespace DuelMastersModels
                 throw new ArgumentNullException(nameof(creatureSelectionResponse));
             }
             ValidateStateForProgressing();
-            PlayerAction playerAction = _playerActionManager.PerformCreatureSelection(creatureSelectionResponse, this);
-            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+            PlayerAction playerAction = _playerActionManager.PerformCreatureSelection(creatureSelectionResponse);
+            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+        }
+        */
+
+        /// <summary>
+        /// Tries to progress in the duel.
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerAction Progress<T>() where T : class, ICard
+        {
+            //return _playerActionManager.Progress<T>();
+            return Progress(new List<T>());
+        }
+
+        /// <summary>
+        /// Tries to progress in the duel.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public IPlayerAction Progress<T>(T card) where T : class, ICard
+        {
+            return Progress(new List<T>() { card });
+        }
+
+        /// <summary>
+        /// Tries to progress in the duel.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cards"></param>
+        /// <returns></returns>
+        public IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
+        {
+            ValidateStateForProgressing();
+            PlayerAction playerAction = _playerActionManager.Progress(cards);
+            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
 
         /*
@@ -348,12 +386,12 @@ namespace DuelMastersModels
         /// <summary>
         /// Checks if a card can be used.
         /// </summary>
-        internal static bool CanBeUsed(ICard card, ReadOnlyCardCollection<IManaZoneCard> manaCards)
+        internal static bool CanBeUsed(ICard card, IEnumerable<IManaZoneCard> manaCards)
         {
             //TODO: Remove static keyword after usability is checked with continuous effects considered.
             //System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
             //return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
-            return card.Cost <= manaCards.Count && HasCivilizations(manaCards, card.Civilizations);
+            return card.Cost <= manaCards.Count() && HasCivilizations(manaCards, card.Civilizations);
         }
 
         internal bool CanAttackOpponent(IBattleZoneCreature creature)
@@ -415,12 +453,12 @@ namespace DuelMastersModels
             return PutFromShieldZoneToHand(player, new ReadOnlyCardCollection<IShieldZoneCard>(card), canUseShieldTrigger);
         }
 
-        internal PlayerAction PutFromShieldZoneToHand(Player player, ReadOnlyCollection<IShieldZoneCard> cards, bool canUseShieldTrigger)
+        internal PlayerAction PutFromShieldZoneToHand(Player player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger)
         {
             CardCollection<IHandCard> shieldTriggerCards = new CardCollection<IHandCard>();
-            for (int i = 0; i < cards.Count; ++i)
+            for (int i = 0; i < cards.Count(); ++i)
             {
-                IHandCard handCard = PutFromShieldZoneToHand(player, cards[i]);
+                IHandCard handCard = PutFromShieldZoneToHand(player, cards.ElementAt(i));
                 if (canUseShieldTrigger && HasShieldTrigger(handCard))
                 {
                     shieldTriggerCards.Add(handCard);
@@ -531,6 +569,7 @@ namespace DuelMastersModels
 
         private void ValidateStateForProgressing()
         {
+            //TODO: Implement as attribute?
             if (State != DuelState.InProgress)
             {
                 throw new InvalidOperationException($"Could not progress in duel duel as state was {State.ToString()} instead of in progress.");
@@ -548,7 +587,7 @@ namespace DuelMastersModels
                 if (playerAction.Player is AIPlayer aiPlayer)
                 {
                     PlayerAction aiAction = aiPlayer.PerformPlayerAction(this, newPlayerAction);
-                    return aiAction != null ? TryToPerformAutomatically(aiAction) : Progress();
+                    return aiAction != null ? TryToPerformAutomatically(aiAction) : ProgressPrivate();
                 }
                 else
                 {
@@ -557,7 +596,7 @@ namespace DuelMastersModels
             }
             else
             {
-                return newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
+                return newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : ProgressPrivate();
             }
         }
 
@@ -565,12 +604,12 @@ namespace DuelMastersModels
         /// Progresses in the duel.
         /// </summary>
         /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        private IPlayerAction Progress()
+        private IPlayerAction ProgressPrivate()
         {
             if (State == DuelState.InProgress)
             {
                 CheckStateBasedActions();
-                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
+                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : ProgressPrivate();
             }
             else if (State == DuelState.Over)
             {
@@ -588,7 +627,7 @@ namespace DuelMastersModels
             if (!action.ResolutionOver)
             {
                 //TODO: test
-                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : Progress();
+                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : ProgressPrivate();
             }
             else
             {
@@ -673,7 +712,7 @@ namespace DuelMastersModels
         private IPlayerAction StartResolvingSpellAbility(Spell spell)
         {
             _abilityManager.StartResolvingSpellAbility(spell);
-            return Progress();
+            return ProgressPrivate();
         }
 
         private IPlayerAction ChangeStep()
@@ -685,7 +724,7 @@ namespace DuelMastersModels
             else
             {
                 PlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                return action != null ? TryToPerformAutomatically(action) : Progress();
+                return action != null ? TryToPerformAutomatically(action) : ProgressPrivate();
             }
         }
 
@@ -712,7 +751,7 @@ namespace DuelMastersModels
         private IPlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
             PlayerAction playerAction = _turnManager.StartNewTurn(activePlayer, nonActivePlayer, this);
-            return playerAction != null ? TryToPerformAutomatically(playerAction) : Progress();
+            return playerAction != null ? TryToPerformAutomatically(playerAction) : ProgressPrivate();
         }
 
         /*
@@ -728,7 +767,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Checks if selected mana cards have the required civilizations.
         /// </summary>
-        private static bool HasCivilizations(ReadOnlyCardCollection<IManaZoneCard> paymentCards, ReadOnlyCivilizationCollection requiredCivilizations)
+        private static bool HasCivilizations(IEnumerable<IManaZoneCard> paymentCards, ReadOnlyCivilizationCollection requiredCivilizations)
         {
             List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
             foreach (Card card in paymentCards)

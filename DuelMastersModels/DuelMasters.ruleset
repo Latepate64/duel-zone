@@ -90,7 +90,7 @@
     <Rule Id="CA1414" Action="Error" />
     <Rule Id="CA1415" Action="Error" />
     <Rule Id="CA1500" Action="Error" />
-    <Rule Id="CA1501" Action="Error" />
+    <Rule Id="CA1501" Action="Warning" />
     <Rule Id="CA1502" Action="Error" />
     <Rule Id="CA1504" Action="Error" />
     <Rule Id="CA1505" Action="Error" />
@@ -579,6 +579,9 @@
     <Rule Id="IDE0067" Action="Error" />
     <Rule Id="IDE0068" Action="Error" />
     <Rule Id="IDE0069" Action="Error" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1827" Action="Error" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
     <Rule Id="CA1309" Action="Error" />

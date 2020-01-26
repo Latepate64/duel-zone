@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -10,13 +11,13 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         /// <summary>
         /// Cards player can select from.
         /// </summary>
-        public ReadOnlyCardCollection<TCard> Cards { get; private set; }
+        public IEnumerable<TCard> Cards { get; private set; }
 
         internal int MinimumSelection { get; set; }
 
         internal int MaximumSelection { get; set; }
 
-        internal CardSelection(Player player, int minimumSelection, int maximumSelection, ReadOnlyCardCollection<TCard> cards) : base(player)
+        internal CardSelection(Player player, int minimumSelection, int maximumSelection, IEnumerable<TCard> cards) : base(player)
         {
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;

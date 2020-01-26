@@ -39,17 +39,17 @@ namespace DuelMastersModels
             {
                 return SelectCard(duel, cardSelection);
             }
-            else if (playerAction is CreatureSelection<IBattleZoneCreature> creatureSelection)
+            else if (playerAction is CardSelection<IBattleZoneCreature> battleZoneCreatureSelection)
             {
                 PlayerAction newAction;
-                if (creatureSelection is OptionalCreatureSelection<IBattleZoneCreature> optionalCreatureSelection)
+                if (battleZoneCreatureSelection is OptionalCreatureSelection<IBattleZoneCreature> optionalCreatureSelection)
                 {
                     IBattleZoneCreature creature = null;
                     if (optionalCreatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
                     {
                         List<int> listOfPoints = new List<int>();
                         IBattleZoneCreature attacker = (duel.CurrentTurn.CurrentStep as Steps.AttackDeclarationStep).AttackingCreature;
-                        foreach (IBattleZoneCreature targetOfAttack in declareTargetOfAttack.Creatures)
+                        foreach (IBattleZoneCreature targetOfAttack in declareTargetOfAttack.Cards)
                         {
                             int points = 0;
                             int attackerPower = duel.GetPower(attacker);
@@ -67,21 +67,21 @@ namespace DuelMastersModels
                         int maxPoints = listOfPoints.Max();
                         if (maxPoints > 0)
                         {
-                            creature = declareTargetOfAttack.Creatures[listOfPoints.IndexOf(maxPoints)];
+                            creature = declareTargetOfAttack.Cards.ElementAt(listOfPoints.IndexOf(maxPoints));
                         }
                     }
                     else
                     {
-                        if (optionalCreatureSelection.Creatures.Count > 0)
+                        if (optionalCreatureSelection.Cards.Any())
                         {
-                            creature = optionalCreatureSelection.Creatures.First();
+                            creature = optionalCreatureSelection.Cards.First();
                         }
                     }
                     newAction = optionalCreatureSelection.Perform(duel, creature);
                 }
-                else if (creatureSelection is MandatoryCreatureSelection<IBattleZoneCreature> mandatoryCreatureSelection)
+                else if (battleZoneCreatureSelection is MandatoryCreatureSelection<IBattleZoneCreature> mandatoryCreatureSelection)
                 {
-                    IBattleZoneCreature creature = mandatoryCreatureSelection.Creatures.First();
+                    IBattleZoneCreature creature = mandatoryCreatureSelection.Cards.First();
                     newAction = mandatoryCreatureSelection.Perform(duel, creature);
                 }
                 else
@@ -90,11 +90,11 @@ namespace DuelMastersModels
                 }
                 return newAction;
             }
-            else if (playerAction is CreatureSelection<ICreature> zoneCreatureSelection)
+            else if (playerAction is CardSelection<ICreature> creatureSelection)
             {
-                if (zoneCreatureSelection is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
+                if (creatureSelection is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
                 {
-                    ICreature creature = mandatoryCreatureSelection.Creatures.First();
+                    ICreature creature = mandatoryCreatureSelection.Cards.First();
                     return mandatoryCreatureSelection.Perform(duel, creature);
                 }
                 else
@@ -163,7 +163,7 @@ namespace DuelMastersModels
             if (cardSelection is OptionalCardSelection<ICard> optionalCardSelection)
             {
                 ICard card = null;
-                if (optionalCardSelection.Cards.Count > 0)
+                if (optionalCardSelection.Cards.Any())
                 {
                     card = optionalCardSelection.Cards.First();
                 }
@@ -173,7 +173,7 @@ namespace DuelMastersModels
             {
                 newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection<ICard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
             }
-            else if (cardSelection is MultipleCardSelection<ICard> multipleCardSelection)
+            else if (cardSelection is OptionalMultipleCardSelection<ICard> multipleCardSelection)
             {
                 foreach (ICard card in multipleCardSelection.Cards)
                 {

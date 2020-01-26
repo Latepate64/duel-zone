@@ -16,10 +16,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DuelMastersModels</RootNamespace>
     <AssemblyName>DuelMastersModels</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -208,24 +209,20 @@
     <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Managers\PlayerActionManager.cs" />
-    <Compile Include="PlayerActionResponses\CreatureSelectionResponse .cs" />
-    <Compile Include="PlayerActionResponses\HandCardSelectionResponse.cs" />
-    <Compile Include="PlayerActionResponses\OptionalActionResponse.cs" />
-    <Compile Include="PlayerActionResponses\SelectAbilityToResolveResponse.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AddTheTopCardOfYourDeckToYourShieldsFaceDown.cs" />
     <Compile Include="PlayerActions\AutomaticActions\AutomaticAction.cs" />
     <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
     <Compile Include="PlayerActions\AutomaticActions\TapAllYourOpponentsCreaturesInTheBattleZone.cs" />
     <Compile Include="PlayerActions\CardSelections\BreakShields.cs" />
     <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
-    <Compile Include="PlayerActionResponses\CardSelectionResponse.cs" />
-    <Compile Include="PlayerActionResponses\PlayerActionResponse.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
     <Compile Include="PlayerActions\CardSelections\DeclareShieldTriggers.cs" />
     <Compile Include="PlayerActions\CardSelections\MandatoryCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\MandatoryMultipleCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\MultipleCardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\OptionalMultipleCardSelection.cs" />
+    <Compile Include="PlayerActions\CardSelections\SingleCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\UseShieldTrigger.cs" />
     <Compile Include="PlayerActions\CardSelections\YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
     <Compile Include="PlayerActions\CreatureSelections\ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone.cs" />
@@ -235,7 +232,6 @@
     <Compile Include="PlayerActions\CardSelections\OptionalCardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\PayCost.cs" />
     <Compile Include="PlayerActions\CardSelections\UseCard.cs" />
-    <Compile Include="PlayerActions\CreatureSelections\CreatureSelection.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareTargetOfAttack.cs" />
     <Compile Include="PlayerActions\CreatureSelections\MandatoryCreatureSelection.cs" />
     <Compile Include="PlayerActions\CreatureSelections\OptionalCreatureSelection.cs" />
