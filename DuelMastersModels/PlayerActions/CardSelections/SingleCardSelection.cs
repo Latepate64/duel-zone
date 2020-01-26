@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public abstract class SingleCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
     {
-        internal SingleCardSelection(Player player, IEnumerable<TCard> cards, bool optional) : base(player, optional ? 0 : 1, 1, cards)
+        internal SingleCardSelection(Player player, IEnumerable<TCard> cards, bool optional) : base(player, cards, optional ? 0 : 1, 1)
         { }
 
         internal abstract void Validate(TCard card);

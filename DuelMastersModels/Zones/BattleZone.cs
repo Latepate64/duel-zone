@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -11,9 +13,9 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal ReadOnlyCreatureCollection<BattleZoneCreature> Creatures => new ReadOnlyCreatureCollection<BattleZoneCreature>(Cards.OfType<BattleZoneCreature>());
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> TappedCreatures => new ReadOnlyCreatureCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped));
-        internal ReadOnlyCreatureCollection<BattleZoneCreature> UntappedCreatures => new ReadOnlyCreatureCollection<BattleZoneCreature>(Creatures.Where(creature => !creature.Tapped));
+        internal IEnumerable<BattleZoneCreature> Creatures => new ReadOnlyCollection<BattleZoneCreature>(Cards.OfType<BattleZoneCreature>().ToList());
+        internal IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<BattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
+        internal IEnumerable<BattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<BattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
 
         internal void UntapCards()
         {

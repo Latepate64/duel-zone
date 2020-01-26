@@ -2,6 +2,7 @@
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using System;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -28,10 +29,10 @@ namespace DuelMastersModels.Steps
                     throw new InvalidOperationException();
                 }
                 Player opponent = duel.GetOpponent(ActivePlayer);
-                if (opponent.ShieldZone.Cards.Count > 0)
+                if (opponent.ShieldZone.Cards.Any())
                 {
                     //TODO: consider multibreaker
-                    return new BreakShields(ActivePlayer, 1, new ReadOnlyCardCollection<IShieldZoneCard>(duel.GetOpponent(ActivePlayer).ShieldZone.Cards), AttackingCreature);
+                    return new BreakShields(ActivePlayer, 1, duel.GetOpponent(ActivePlayer).ShieldZone.Cards, AttackingCreature);
                 }
                 else
                 {

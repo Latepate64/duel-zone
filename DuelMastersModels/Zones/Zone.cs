@@ -1,5 +1,7 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
@@ -9,9 +11,9 @@ namespace DuelMastersModels.Zones
     public abstract class Zone<TCard> where TCard : ICard
     {
         /// <summary>
-        /// The cards that are in the zone.
+        /// Cards that are in the zone.
         /// </summary>
-        public ReadOnlyCardCollection<TCard> Cards => new ReadOnlyCardCollection<TCard>(_cards);
+        public IEnumerable<TCard> Cards => new ReadOnlyCollection<TCard>(_cards.ToList());
 
         #region Internal
         #region Properties

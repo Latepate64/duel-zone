@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -9,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class UseCard : OptionalCardSelection<IHandCard>
     {
-        internal UseCard(Player player, ReadOnlyCardCollection<IHandCard> cards) : base(player, cards)
+        internal UseCard(Player player, IEnumerable<IHandCard> cards) : base(player, cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)

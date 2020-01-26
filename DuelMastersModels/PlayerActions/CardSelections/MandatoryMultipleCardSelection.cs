@@ -9,7 +9,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public abstract class MandatoryMultipleCardSelection<TCard> : MultipleCardSelection<TCard> where TCard : ICard
     {
-        internal MandatoryMultipleCardSelection(Player player, int amount, ReadOnlyCardCollection<TCard> cards) : base(player, cards, false, amount)
+        internal MandatoryMultipleCardSelection(Player player, int amount, IEnumerable<TCard> cards) : base(player, cards, false, amount)
         {
         }
 

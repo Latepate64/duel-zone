@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using System;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
 {
@@ -8,15 +7,11 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class ChargeMana : OptionalCardSelection<IHandCard>
     {
-        internal ChargeMana(Player player) : base(player, new ReadOnlyCardCollection<IHandCard>(player.Hand.Cards))
+        internal ChargeMana(Player player) : base(player, player.Hand.Cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)
         {
-            if (duel == null)
-            {
-                throw new ArgumentNullException(nameof(duel));
-            }
             if (card != null)
             {
                 duel.PutFromHandIntoManaZone(Player, card);

@@ -5,7 +5,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Evolution creature is a creature type.
     /// </summary>
-    public class EvolutionCreature : Creature
+    public class EvolutionCreature : Creature, IEvolutionCreature
     {
         /// <summary>
         /// Creates an evolution creature.

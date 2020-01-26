@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -30,8 +31,8 @@ namespace DuelMastersModels.Steps
 
         internal override PlayerAction ProcessTurnBasedActions(Duel duel)
         {
-            ReadOnlyCreatureCollection<BattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
-            return creatures.Count > 0
+            IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+            return creatures.Any()
                 ? creatures.Any(creature => duel.AttacksIfAble(creature))
                     ? new DeclareAttackerMandatory(ActivePlayer, creatures)
                     : (PlayerAction)new DeclareAttacker(ActivePlayer, creatures)

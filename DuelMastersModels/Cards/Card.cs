@@ -43,7 +43,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Civilizations of the card.
         /// </summary>
-        public ReadOnlyCivilizationCollection Civilizations { get; }
+        public IEnumerable<Civilization> Civilizations { get; }
 
         /// <summary>
         /// Rarity of the card.
@@ -124,7 +124,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a card.
         /// </summary>
-        protected Card(string name, string set, string id, int cost, string text, string flavor, string illustrator, ReadOnlyCivilizationCollection civilizations, Rarity rarity)
+        protected Card(string name, string set, string id, int cost, string text, string flavor, string illustrator, IEnumerable<Civilization> civilizations, Rarity rarity)
         {
             if (civilizations is null)
             {
@@ -145,7 +145,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Returns a civilization from text.
         /// </summary>
-        private static ReadOnlyCivilizationCollection GetCivilizations(Collection<string> civilizationTexts)
+        private static IEnumerable<Civilization> GetCivilizations(Collection<string> civilizationTexts)
         {
             List<Civilization> civilizations = new List<Civilization>();
             if (civilizationTexts.Contains(LightText))
@@ -172,7 +172,7 @@ namespace DuelMastersModels.Cards
             {
                 throw new ArgumentException("Failed to identify a civilization: " + civilizationTexts);
             }
-            return new ReadOnlyCivilizationCollection(civilizations);
+            return civilizations;
         }
 
         /// <summary>

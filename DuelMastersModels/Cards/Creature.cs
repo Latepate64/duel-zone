@@ -58,7 +58,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a creature.
         /// </summary>
-        internal Creature(string name, string set, string id, ReadOnlyCivilizationCollection civilizations, Rarity rarity, int cost, string text, string flavor, string illustrator, int power, ReadOnlyCollection<string> races) : base(name, set, id, cost, text, flavor, illustrator, civilizations, rarity)
+        internal Creature(string name, string set, string id, IEnumerable<Civilization> civilizations, Rarity rarity, int cost, string text, string flavor, string illustrator, int power, ReadOnlyCollection<string> races) : base(name, set, id, cost, text, flavor, illustrator, civilizations, rarity)
         {
             Power = power;
             _races = new ReadOnlyCollection<string>(races);

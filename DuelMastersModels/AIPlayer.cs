@@ -5,6 +5,7 @@ using DuelMastersModels.PlayerActions.CreatureSelections;
 using DuelMastersModels.PlayerActions.OptionalActions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels
@@ -19,7 +20,7 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="name">Name of the player.</param>
         /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
-        public AIPlayer(string name, ReadOnlyCardCollection<ICard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
+        public AIPlayer(string name, IEnumerable<ICard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
 
         internal PlayerAction PerformPlayerAction(Duel duel, IPlayerAction playerAction)
         {
@@ -42,7 +43,7 @@ namespace DuelMastersModels
             else if (playerAction is CardSelection<IBattleZoneCreature> battleZoneCreatureSelection)
             {
                 PlayerAction newAction;
-                if (battleZoneCreatureSelection is OptionalCreatureSelection<IBattleZoneCreature> optionalCreatureSelection)
+                if (battleZoneCreatureSelection is OptionalCardSelection<IBattleZoneCreature> optionalCreatureSelection)
                 {
                     IBattleZoneCreature creature = null;
                     if (optionalCreatureSelection is DeclareTargetOfAttack declareTargetOfAttack)
@@ -79,10 +80,10 @@ namespace DuelMastersModels
                     }
                     newAction = optionalCreatureSelection.Perform(duel, creature);
                 }
-                else if (battleZoneCreatureSelection is MandatoryCreatureSelection<IBattleZoneCreature> mandatoryCreatureSelection)
+                else if (battleZoneCreatureSelection is MandatoryCardSelection<IBattleZoneCreature> mandatoryBattleCreatureSelection)
                 {
-                    IBattleZoneCreature creature = mandatoryCreatureSelection.Cards.First();
-                    newAction = mandatoryCreatureSelection.Perform(duel, creature);
+                    IBattleZoneCreature creature = mandatoryBattleCreatureSelection.Cards.First();
+                    newAction = mandatoryBattleCreatureSelection.Perform(duel, creature);
                 }
                 else
                 {
@@ -92,7 +93,7 @@ namespace DuelMastersModels
             }
             else if (playerAction is CardSelection<ICreature> creatureSelection)
             {
-                if (creatureSelection is MandatoryCreatureSelection<ICreature> mandatoryCreatureSelection)
+                if (creatureSelection is MandatoryCardSelection<ICreature> mandatoryCreatureSelection)
                 {
                     ICreature creature = mandatoryCreatureSelection.Cards.First();
                     return mandatoryCreatureSelection.Perform(duel, creature);
@@ -125,7 +126,7 @@ namespace DuelMastersModels
                 IManaZoneCard civCard = payCost.Player.ManaZone.Cards.First(c => !c.Tapped && c.Civilizations.Intersect((duel.CurrentTurn.CurrentStep as Steps.MainStep).CardToBeUsed.Civilizations).Any());
                 List<IManaZoneCard> manaCards = payCost.Player.ManaZone.Cards.Where(c => !c.Tapped && c != civCard).Take(payCost.Cost - 1).ToList();
                 manaCards.Add(civCard);
-                return payCost.Perform(duel, new ReadOnlyCardCollection<IManaZoneCard>(manaCards));
+                return payCost.Perform(duel, new ReadOnlyCollection<IManaZoneCard>(manaCards));
             }
             else
             {
@@ -140,7 +141,7 @@ namespace DuelMastersModels
                 if (optionalHandCardSelection is ChargeMana chargeMana)
                 {
                     IHandCard card = null;
-                    if (Hand.Cards.Sum(c => c.Cost) > ManaZone.UntappedCards.Count)
+                    if (Hand.Cards.Sum(c => c.Cost) > ManaZone.UntappedCards.Count())
                     {
                         card = chargeMana.Cards.First();
                     }
@@ -171,7 +172,7 @@ namespace DuelMastersModels
             }
             else if (cardSelection is MandatoryMultipleCardSelection<ICard> mandatoryMultipleCardSelection)
             {
-                newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCardCollection<ICard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
+                newAction = mandatoryMultipleCardSelection.Perform(duel, new ReadOnlyCollection<ICard>(mandatoryMultipleCardSelection.Cards.ToList().GetRange(0, mandatoryMultipleCardSelection.MinimumSelection)));
             }
             else if (cardSelection is OptionalMultipleCardSelection<ICard> multipleCardSelection)
             {

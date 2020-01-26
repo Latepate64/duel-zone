@@ -1,6 +1,8 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -26,8 +28,8 @@ namespace DuelMastersModels.Steps
                 throw new System.ArgumentNullException(nameof(duel));
             }
             Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
-            ReadOnlyCreatureCollection<BattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-            return creatures.Count > 0 ? new DeclareBlock(nonActivePlayer, creatures) : null;
+            IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+            return creatures.Any() ? new DeclareBlock(nonActivePlayer, creatures) : null;
         }
     }
 }

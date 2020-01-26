@@ -4,6 +4,8 @@ using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels
 {
@@ -21,7 +23,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
-        public ReadOnlyCardCollection<ICard> DeckBeforeDuel => new ReadOnlyCardCollection<ICard>(_deckBeforeDuel);
+        public IEnumerable<ICard> DeckBeforeDuel => new ReadOnlyCollection<ICard>(_deckBeforeDuel.ToList());
 
         #region Zones
         /// <summary>
@@ -57,7 +59,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Creates a player by initializing their zones.
         /// </summary>
-        public Player(string name, ReadOnlyCardCollection<ICard> deckBeforeDuel)
+        public Player(string name, IEnumerable<ICard> deckBeforeDuel)
         {
             Name = name;
             _deckBeforeDuel = deckBeforeDuel ?? throw new System.ArgumentNullException(nameof(deckBeforeDuel));
@@ -74,9 +76,9 @@ namespace DuelMastersModels
         #endregion Public
 
         #region Internal
-        internal ReadOnlyCardCollection<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
+        internal IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
-        internal ReadOnlyCardCollection<ICard> CardsInAllZones
+        internal IEnumerable<ICard> CardsInAllZones
         {
             get
             {
@@ -87,7 +89,7 @@ namespace DuelMastersModels
                 cards.AddRange(Hand.Cards);
                 cards.AddRange(ManaZone.Cards);
                 cards.AddRange(ShieldZone.Cards);
-                return new ReadOnlyCardCollection<ICard>(cards);
+                return cards;
             }
         }
 
@@ -138,7 +140,7 @@ namespace DuelMastersModels
         #endregion Internal
 
         #region Private
-        private readonly ReadOnlyCardCollection<ICard> _deckBeforeDuel;
+        private readonly IEnumerable<ICard> _deckBeforeDuel;
         private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
         #endregion Private
     }

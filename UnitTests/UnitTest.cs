@@ -99,7 +99,7 @@ namespace UnitTests
             _ = duel.Progress<IHandCard>();
             DeclareAttacker declareAttacker = duel.Progress<IHandCard>() as DeclareAttacker;
             _ = duel.Progress(declareAttacker.Cards.First());
-            Assert.Equal(4, duel.Player2.ShieldZone.Cards.Count);
+            Assert.Equal(4, duel.Player2.ShieldZone.Cards.Count());
         }
 
         [Fact]
@@ -224,14 +224,14 @@ namespace UnitTests
         private Duel GetDuel(string creatureText)
         {
             const int DeckSize = 40;
-            List<Card> p1Cards = new List<Card>();
-            List<Card> p2Cards = new List<Card>();
+            List<ICard> p1Cards = new List<ICard>();
+            List<ICard> p2Cards = new List<ICard>();
             for (int i = 0; i < DeckSize; ++i)
             {
                 p1Cards.Add(GetTestCreature(creatureText));
                 p2Cards.Add(GetTestCreature(creatureText));
             }
-            return new Duel(new Player("Player1", new ReadOnlyCardCollection<ICard>(p1Cards)), new Player("Player2", new ReadOnlyCardCollection<ICard>(p2Cards))) { StartingPlayer = StartingPlayer.Player1 };
+            return new Duel(new Player("Player1", p1Cards), new Player("Player2", p2Cards)) { StartingPlayer = StartingPlayer.Player1 };
         }
 
         private Creature GetTestCreature(string creatureText)

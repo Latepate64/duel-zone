@@ -65,13 +65,13 @@ namespace DuelMastersModels
         /// <summary>
         /// All creatures that are in the battle zone.
         /// </summary>
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> CreaturesInTheBattleZone
+        internal IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone
         {
             get
             {
                 List<IBattleZoneCreature> creatures = Player1.BattleZone.Creatures.OfType<IBattleZoneCreature>().ToList();
                 creatures.AddRange(Player2.BattleZone.Creatures);
-                return new ReadOnlyCreatureCollection<IBattleZoneCreature>(creatures);
+                return new ReadOnlyCollection<IBattleZoneCreature>(creatures);
             }
         }
 
@@ -91,7 +91,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Spells that are being resolved.
         /// </summary>
-        private readonly SpellCollection _spellsBeingResolved = new SpellCollection();
+        private readonly Collection<ISpell> _spellsBeingResolved = new Collection<ISpell>();
 
         private readonly AbilityManager _abilityManager = new AbilityManager();
 
@@ -161,40 +161,6 @@ namespace DuelMastersModels
             return SetCurrentPlayerAction(StartNewTurn(activePlayer, nonActivePlayer));
         }
 
-        /*
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cardSelectionResponse"></param>
-        /// <returns></returns>
-        public IPlayerAction Progress<T>(CardSelectionResponse<T> cardSelectionResponse) where T : class, ICard
-        {
-            ValidateStateForProgressing();
-            PlayerAction playerAction = _playerActionManager.Progress(cardSelectionResponse.SelectedCards, this);
-            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
-        }
-        */
-
-        /*
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="creatureSelectionResponse"></param>
-        /// <returns></returns>
-        public IPlayerAction Progress<T>(CreatureSelectionResponse<T> creatureSelectionResponse) where T : class, ICreature
-        {
-            if (creatureSelectionResponse is null)
-            {
-                throw new ArgumentNullException(nameof(creatureSelectionResponse));
-            }
-            ValidateStateForProgressing();
-            PlayerAction playerAction = _playerActionManager.PerformCreatureSelection(creatureSelectionResponse);
-            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
-        }
-        */
-
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
@@ -228,19 +194,6 @@ namespace DuelMastersModels
             PlayerAction playerAction = _playerActionManager.Progress(cards);
             return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
-
-        /*
-        /// <summary>
-        /// Tries to progress in the duel based on the latest player action, and returns new player action for a player to take.
-        /// </summary>
-        /// <param name="response"></param>
-        /// <returns></returns>
-        public IPlayerAction Progress<T>(PlayerActionResponse response) where T : class, ICard
-        {
-            ValidateStateForProgressing();
-            PlayerAction playerAction = _playerActionManager.Progress<T>(response, this);
-            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
-        }*/
         #endregion Public methods
 
         #region Internal methods
@@ -334,7 +287,7 @@ namespace DuelMastersModels
             {
                 player.BattleZone.Add(new BattleZoneCreature(creature), this);
             }
-            else if (card is Spell spell)
+            else if (card is ISpell spell)
             {
                 CastSpell(spell);
             }
@@ -396,7 +349,7 @@ namespace DuelMastersModels
 
         internal bool CanAttackOpponent(IBattleZoneCreature creature)
         {
-            ReadOnlyCreatureCollection<IBattleZoneCreature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers(this, _abilityManager);
+            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers(this, _abilityManager);
             return !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
@@ -407,19 +360,19 @@ namespace DuelMastersModels
         #endregion bool
 
         #region ReadOnlyCreatureCollection
-        internal ReadOnlyCreatureCollection<BattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
+        internal IEnumerable<BattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
         {
-            return new ReadOnlyCreatureCollection<BattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(GetOpponent(GetOwner(attackingCreature))).Where(c => !c.Tapped).ToList());
+            return new ReadOnlyCollection<BattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(GetOpponent(GetOwner(attackingCreature))).Where(c => !c.Tapped).ToList());
             //TODO: consider situations where abilities of attacking creature matter etc.
         }
 
-        internal ReadOnlyCreatureCollection<BattleZoneCreature> GetCreaturesThatCanAttack(Player player)
+        internal IEnumerable<BattleZoneCreature> GetCreaturesThatCanAttack(Player player)
         {
-            ReadOnlyCreatureCollection<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(this, _abilityManager, player);
-            return new ReadOnlyCreatureCollection<BattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
+            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(this, _abilityManager, player);
+            return new ReadOnlyCollection<BattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
-        internal ReadOnlyCreatureCollection<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(Player player)
+        internal IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(Player player)
         {
             Player opponent = GetOpponent(player);
             return opponent.BattleZone.TappedCreatures;
@@ -450,12 +403,12 @@ namespace DuelMastersModels
 
         internal PlayerAction PutFromShieldZoneToHand(Player player, IShieldZoneCard card, bool canUseShieldTrigger)
         {
-            return PutFromShieldZoneToHand(player, new ReadOnlyCardCollection<IShieldZoneCard>(card), canUseShieldTrigger);
+            return PutFromShieldZoneToHand(player, new List<IShieldZoneCard>() { card }, canUseShieldTrigger);
         }
 
         internal PlayerAction PutFromShieldZoneToHand(Player player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger)
         {
-            CardCollection<IHandCard> shieldTriggerCards = new CardCollection<IHandCard>();
+            Collection<IHandCard> shieldTriggerCards = new Collection<IHandCard>();
             for (int i = 0; i < cards.Count(); ++i)
             {
                 IHandCard handCard = PutFromShieldZoneToHand(player, cards.ElementAt(i));
@@ -464,7 +417,7 @@ namespace DuelMastersModels
                     shieldTriggerCards.Add(handCard);
                 }
             }
-            return shieldTriggerCards.Count > 0 ? new DeclareShieldTriggers(player, new ReadOnlyCardCollection<IHandCard>(shieldTriggerCards)) : null;
+            return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<IHandCard>(shieldTriggerCards)) : null;
         }
 
         internal PlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(Player player)
@@ -509,11 +462,11 @@ namespace DuelMastersModels
             return _continuousEffectManager.GetPower(this, _abilityManager, creature);
         }
 
-        internal ReadOnlyCardCollection<ICard> GetAllCards()
+        internal IEnumerable<ICard> GetAllCards()
         {
             List<ICard> cards = Player1.CardsInAllZones.ToList();
             cards.AddRange(Player2.CardsInAllZones);
-            return new ReadOnlyCardCollection<ICard>(cards);
+            return cards;
         }
         #endregion Internal methods
 
@@ -638,9 +591,9 @@ namespace DuelMastersModels
 
         private IPlayerAction TryToUseShieldTrigger()
         {
-            foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Count > 0))
+            foreach (Player player in new List<Player>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
             {
-                return TryToPerformAutomatically(new UseShieldTrigger(player, new ReadOnlyCardCollection<IHandCard>(player.ShieldTriggersToUse)));
+                return TryToPerformAutomatically(new UseShieldTrigger(player, new List<IHandCard>(player.ShieldTriggersToUse)));
             }
             return null;
         }
@@ -696,20 +649,20 @@ namespace DuelMastersModels
 
         private IPlayerAction TryToResolveSpellAbility()
         {
-            Spell spell = _spellsBeingResolved.Last();
+            ISpell spell = _spellsBeingResolved.Last();
             if (_abilityManager.GetSpellAbilityCount(spell) > 0)
             {
                 return StartResolvingSpellAbility(spell);
             }
             else
             {
-                _spellsBeingResolved.Remove(spell);
+                _ = _spellsBeingResolved.Remove(spell);
                 GetOwner(spell).Graveyard.Add(new GraveyardSpell(spell), this);
                 return null;
             }
         }
 
-        private IPlayerAction StartResolvingSpellAbility(Spell spell)
+        private IPlayerAction StartResolvingSpellAbility(ISpell spell)
         {
             _abilityManager.StartResolvingSpellAbility(spell);
             return ProgressPrivate();
@@ -732,8 +685,8 @@ namespace DuelMastersModels
         {
             if (_abilityManager.IsAbilityBeingResolvedSpellAbility)
             {
-                Spell spell = _spellsBeingResolved.Last();
-                _spellsBeingResolved.Remove(spell);
+                ISpell spell = _spellsBeingResolved.Last();
+                _ = _spellsBeingResolved.Remove(spell);
                 GetOwner(spell).Graveyard.Add(new GraveyardSpell(spell), this);
             }
             SetPendingAbilityToBeResolved(null);
@@ -767,7 +720,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Checks if selected mana cards have the required civilizations.
         /// </summary>
-        private static bool HasCivilizations(IEnumerable<IManaZoneCard> paymentCards, ReadOnlyCivilizationCollection requiredCivilizations)
+        private static bool HasCivilizations(IEnumerable<IManaZoneCard> paymentCards, IEnumerable<Civilization> requiredCivilizations)
         {
             List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
             foreach (Card card in paymentCards)
@@ -776,13 +729,13 @@ namespace DuelMastersModels
             }
             foreach (IEnumerable<Civilization> combination in GetCivilizationCombinations(civilizationGroups, new List<Civilization>()).Select(combination => combination.Distinct()))
             {
-                for (int i = 0; i < requiredCivilizations.Count; ++i)
+                for (int i = 0; i < requiredCivilizations.Count(); ++i)
                 {
-                    if (!combination.Contains(requiredCivilizations[i]))
+                    if (!combination.Contains(requiredCivilizations.ElementAt(i)))
                     {
                         break;
                     }
-                    else if (requiredCivilizations.Count - 1 == i)
+                    else if (requiredCivilizations.Count() - 1 == i)
                     {
                         return true;
                     }
@@ -796,7 +749,7 @@ namespace DuelMastersModels
             return _continuousEffectManager.HasShieldTrigger(this, _abilityManager, creature);
         }
 
-        private bool HasShieldTrigger(Spell spell)
+        private bool HasShieldTrigger(IHandSpell spell)
         {
             return _continuousEffectManager.HasShieldTrigger(this, _abilityManager, spell);
         }
@@ -807,7 +760,7 @@ namespace DuelMastersModels
             {
                 return HasShieldTrigger(creature);
             }
-            else if (card is Spell spell)
+            else if (card is IHandSpell spell)
             {
                 return HasShieldTrigger(spell);
             }
@@ -862,12 +815,12 @@ namespace DuelMastersModels
             }
         }
 
-        private ReadOnlyCreatureCollection<BattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
+        private IEnumerable<BattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
         {
             return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player, this, _abilityManager);
         }
 
-        private void CastSpell(Spell spell)
+        private void CastSpell(ISpell spell)
         {
             _spellsBeingResolved.Add(spell);
             _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(CreaturesInTheBattleZone);

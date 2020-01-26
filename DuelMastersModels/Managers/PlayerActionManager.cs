@@ -35,10 +35,14 @@ namespace DuelMastersModels.Managers
 
         internal PlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
         {
-            return PerformCardSelection(cards);
-            /*return cards is IEnumerable<IManaZoneCard> manaZoneCards
-                ? PerformManaZoneCardSelection(manaZoneCards)
-                : PerformCardSelection(cards);*/
+            if (CurrentPlayerAction is CardSelection<T>)
+            {
+                return PerformCardSelection(cards);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         internal PlayerAction Progress<T>() where T : class, ICard

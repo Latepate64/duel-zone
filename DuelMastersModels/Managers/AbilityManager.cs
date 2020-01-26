@@ -72,7 +72,7 @@ namespace DuelMastersModels.Managers
             TriggerTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(creatures);
         }
 
-        internal void TriggerWheneverAPlayerCastsASpellAbilities(ReadOnlyCollection<IBattleZoneCreature> creatures)
+        internal void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<IBattleZoneCreature> creatures)
         {
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
@@ -97,14 +97,14 @@ namespace DuelMastersModels.Managers
             _abilityBeingResolved = ability;
         }
 
-        internal void StartResolvingSpellAbility(Spell spell)
+        internal void StartResolvingSpellAbility(ISpell spell)
         {
             //TODO: spell may have more than one spell ability.
             SpellAbility spellAbility = GetSpellAbilities().First(a => a.Source == spell);
             SetAbilityBeingResolved(spellAbility);
         }
 
-        internal int GetSpellAbilityCount(Spell spell)
+        internal int GetSpellAbilityCount(ISpell spell)
         {
             return GetSpellAbilities().Count(a => a.Source == spell);
         }
@@ -150,7 +150,7 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        private void TriggerTriggerAbilities<T>(ReadOnlyCollection<IBattleZoneCreature> creatures)
+        private void TriggerTriggerAbilities<T>(IEnumerable<IBattleZoneCreature> creatures)
         {
             foreach (IBattleZoneCreature creature in creatures)
             {

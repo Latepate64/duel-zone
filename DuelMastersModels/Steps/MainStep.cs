@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -27,8 +28,8 @@ namespace DuelMastersModels.Steps
 
         internal override PlayerAction PlayerActionRequired(Duel duel)
         {
-            ReadOnlyCardCollection<IHandCard> usableCards = GetUsableCards(new ReadOnlyCardCollection<IHandCard>(ActivePlayer.Hand.Cards), ActivePlayer.ManaZone.UntappedCards);
-            return State == MainStepState.Use && usableCards.Count > 0
+            IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            return State == MainStepState.Use && usableCards.Any()
                 ? new UseCard(ActivePlayer, usableCards)
                 : (PlayerAction)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
         }
@@ -36,9 +37,9 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// Returns the cards that can be used.
         /// </summary>
-        private static ReadOnlyCardCollection<IHandCard> GetUsableCards(ReadOnlyCardCollection<IHandCard> handCards, ReadOnlyCardCollection<IManaZoneCard> manaCards)
+        private static IEnumerable<IHandCard> GetUsableCards(IEnumerable<IHandCard> handCards, IEnumerable<IManaZoneCard> manaCards)
         {
-            return new ReadOnlyCardCollection<IHandCard>(handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards)));
+            return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
@@ -8,9 +10,9 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// <summary>
     /// Player may select a creature as the target of the attacking creature. If they do not, their opponent will be attacked.
     /// </summary>
-    public class DeclareTargetOfAttack : OptionalCreatureSelection<IBattleZoneCreature>
+    public class DeclareTargetOfAttack : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal DeclareTargetOfAttack(Player player, ReadOnlyCreatureCollection<IBattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareTargetOfAttack(Player player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)

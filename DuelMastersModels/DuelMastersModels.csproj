@@ -116,6 +116,7 @@
     <Compile Include="Cards\Hand\IHandCard.cs" />
     <Compile Include="Cards\Hand\IHandCreature.cs" />
     <Compile Include="Cards\Hand\IHandSpell.cs" />
+    <Compile Include="Cards\IEvolutionCreature.cs" />
     <Compile Include="Cards\ManaZone\IManaZoneCard.cs" />
     <Compile Include="Cards\ManaZone\IManaZoneCreature.cs" />
     <Compile Include="Cards\IRevealable.cs" />
@@ -128,13 +129,9 @@
     <Compile Include="Cards\ICard.cs" />
     <Compile Include="Cards\ICreature.cs" />
     <Compile Include="Cards\ManaZone\ManaZoneCard.cs" />
-    <Compile Include="Cards\Collections\ReadOnlyCardCollection.cs" />
-    <Compile Include="Cards\Collections\ReadOnlyCreatureCollection.cs" />
-    <Compile Include="Cards\Collections\ReadOnlySpellCollection.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneCard.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneCreature.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
-    <Compile Include="Cards\Collections\SpellCollection.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="IDuel.cs" />
@@ -147,7 +144,6 @@
     <Compile Include="CardFilters\TargetCreatureFilter.cs" />
     <Compile Include="CardFilters\TargetSpellFilter.cs" />
     <Compile Include="Cards\Card.cs" />
-    <Compile Include="Cards\Collections\CardCollection.cs" />
     <Compile Include="Cards\Civilization.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Cards\CrossGear.cs" />
@@ -162,7 +158,6 @@
     <Compile Include="Exceptions\OptionalCreatureSelectionException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Cards\Rarity.cs" />
-    <Compile Include="Cards\Collections\ReadOnlyCivilizationCollection.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="DuelEventArgs.cs" />
@@ -233,8 +228,6 @@
     <Compile Include="PlayerActions\CardSelections\PayCost.cs" />
     <Compile Include="PlayerActions\CardSelections\UseCard.cs" />
     <Compile Include="PlayerActions\CreatureSelections\DeclareTargetOfAttack.cs" />
-    <Compile Include="PlayerActions\CreatureSelections\MandatoryCreatureSelection.cs" />
-    <Compile Include="PlayerActions\CreatureSelections\OptionalCreatureSelection.cs" />
     <Compile Include="PlayerActions\AutomaticActions\DrawCard.cs" />
     <Compile Include="PlayerActions\CreatureSelections\SoulSwapSelection.cs" />
     <Compile Include="PlayerActions\CreatureSelections\YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.cs" />

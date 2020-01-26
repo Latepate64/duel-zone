@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.GameActions.StateBasedActions
+﻿using System.Linq;
+
+namespace DuelMastersModels.GameActions.StateBasedActions
 {
     /// <summary>
     /// 703.4b If a player has no cards left in their deck, that player loses the game.
@@ -7,15 +9,15 @@
     {
         internal override void Perform(Duel duel)
         {
-            if (duel.Player1.Deck.Cards.Count == 0 && duel.Player2.Deck.Cards.Count == 0)
+            if (!duel.Player1.Deck.Cards.Any() && !duel.Player2.Deck.Cards.Any())
             {
                 duel.EndDuelInDraw();
             }
-            else if (duel.Player1.Deck.Cards.Count == 0)
+            else if (!duel.Player1.Deck.Cards.Any())
             {
                 duel.End(duel.Player2);
             }
-            else if (duel.Player2.Deck.Cards.Count == 0)
+            else if (!duel.Player2.Deck.Cards.Any())
             {
                 duel.End(duel.Player1);
             }

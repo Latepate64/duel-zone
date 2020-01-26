@@ -2,6 +2,7 @@
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
@@ -10,20 +11,15 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class DeclareAttackerMandatory : MandatoryCardSelection<BattleZoneCreature>
     {
-        internal DeclareAttackerMandatory(Player player, ReadOnlyCreatureCollection<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareAttackerMandatory(Player player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)
         {
-            if (duel == null)
-            {
-                throw new ArgumentNullException(nameof(duel));
-            }
-            else if (creature != null)
+            if (creature != null)
             {
                 creature.Tapped = true;
-                AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
-                step.AttackingCreature = creature;
+                (duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature = creature;
                 return null;
             }
             else

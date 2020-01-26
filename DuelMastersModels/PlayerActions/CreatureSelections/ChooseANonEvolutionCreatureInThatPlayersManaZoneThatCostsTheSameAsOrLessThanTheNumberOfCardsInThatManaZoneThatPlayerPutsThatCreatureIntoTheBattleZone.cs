@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.PlayerActions.CardSelections;
 using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
@@ -9,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone : MandatoryCardSelection<IManaZoneCreature>
     {
-        internal ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(Player player, ReadOnlyCreatureCollection<IManaZoneCreature> creatures) : base(player, creatures)
+        internal ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(Player player, IEnumerable<IManaZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, IManaZoneCreature creature)

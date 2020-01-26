@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class DeclareShieldTriggers : OptionalMultipleCardSelection<IHandCard>
     {
-        internal DeclareShieldTriggers(Player player, ReadOnlyCardCollection<IHandCard> cards) : base(player, cards)
+        internal DeclareShieldTriggers(Player player, IEnumerable<IHandCard> cards) : base(player, cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IEnumerable<IHandCard> cards)

@@ -1,15 +1,17 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.Steps;
 using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.PlayerActions.CreatureSelections
 {
     /// <summary>
     /// Player may declare to block an attacking creature with a blocker.
     /// </summary>
-    public class DeclareBlock : OptionalCreatureSelection<BattleZoneCreature>
+    public class DeclareBlock : OptionalCardSelection<BattleZoneCreature>
     {
-        internal DeclareBlock(Player player, ReadOnlyCreatureCollection<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareBlock(Player player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)

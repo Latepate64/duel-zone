@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -11,10 +13,10 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal ReadOnlyCardCollection<IManaZoneCard> TappedCards => new ReadOnlyCardCollection<IManaZoneCard>(Cards.Where(card => card.Tapped));
-        internal ReadOnlyCardCollection<IManaZoneCard> UntappedCards => new ReadOnlyCardCollection<IManaZoneCard>(Cards.Where(card => !card.Tapped));
+        internal IEnumerable<IManaZoneCard> TappedCards => new ReadOnlyCollection<IManaZoneCard>(Cards.Where(card => card.Tapped).ToList());
+        internal IEnumerable<IManaZoneCard> UntappedCards => new ReadOnlyCollection<IManaZoneCard>(Cards.Where(card => !card.Tapped).ToList());
 
-        internal ReadOnlyCreatureCollection<IManaZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCreatureCollection<IManaZoneCreature>(Cards.NonEvolutionCreatures.OfType<IManaZoneCreature>().Where(c => c.Cost <= Cards.Count));
+        internal IEnumerable<IManaZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCollection<IManaZoneCreature>(Cards.OfType<IManaZoneCreature>().Where(c => c.Cost <= Cards.Count() && !(c is IEvolutionCreature)).ToList());
 
         internal void UntapCards()
         {

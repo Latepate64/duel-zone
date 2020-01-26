@@ -1,9 +1,10 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
     internal abstract class SpellFilter : CardFilter
     {
-        internal abstract ReadOnlySpellCollection FilteredSpells { get; }
+        internal abstract ReadOnlyCollection<ISpell> FilteredSpells { get; }
     }
 }

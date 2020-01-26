@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.Cards
+﻿using System.Collections.Generic;
+
+namespace DuelMastersModels.Cards
 {
     /// <summary>
     /// Interface for Duel Masters cards.
@@ -23,7 +25,7 @@
         /// <summary>
         /// Civilizations of the card.
         /// </summary>
-        ReadOnlyCivilizationCollection Civilizations { get; }
+        IEnumerable<Civilization> Civilizations { get; }
 
         /// <summary>
         /// Rarity of the card.

@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -20,7 +21,7 @@ namespace DuelMastersModels.Steps
             {
                 throw new System.ArgumentNullException(nameof(duel));
             }
-            if (MustBeEnded || ActivePlayer.Hand.Cards.Count == 0)
+            if (MustBeEnded || !ActivePlayer.Hand.Cards.Any())
             {
                 return null;
             }

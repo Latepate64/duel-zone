@@ -1,6 +1,8 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Factories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
@@ -12,7 +14,7 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(ReadOnlyCardCollection<ICard> cards)
+        internal Deck(IEnumerable<ICard> cards)
         {
             foreach (ICard card in cards)
             {
@@ -60,9 +62,9 @@ namespace DuelMastersModels.Zones
         /// </summary>
         private ICard GetTopCard(bool remove, Duel duel)
         {
-            if (Cards.Count > 0)
+            if (Cards.Any())
             {
-                IDeckCard topCard = Cards[Cards.Count - 1];
+                IDeckCard topCard = Cards.Last();
                 if (remove)
                 {
                     Remove(topCard, duel);

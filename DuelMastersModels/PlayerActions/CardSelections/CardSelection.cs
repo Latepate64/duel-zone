@@ -17,7 +17,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         internal int MaximumSelection { get; set; }
 
-        internal CardSelection(Player player, int minimumSelection, int maximumSelection, IEnumerable<TCard> cards) : base(player)
+        internal CardSelection(Player player, IEnumerable<TCard> cards, int minimumSelection, int maximumSelection) : base(player)
         {
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;

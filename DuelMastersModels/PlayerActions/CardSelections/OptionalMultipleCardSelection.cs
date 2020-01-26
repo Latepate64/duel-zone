@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.PlayerActions.CardSelections
@@ -9,10 +10,10 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public abstract class OptionalMultipleCardSelection<TCard> : MultipleCardSelection<TCard> where TCard : ICard
     {
-        internal OptionalMultipleCardSelection(Player player, ReadOnlyCardCollection<TCard> cards) : base(player, cards, false, cards.Count)
+        internal OptionalMultipleCardSelection(Player player, IEnumerable<TCard> cards) : base(player, cards, false, cards.Count())
         { }
 
-        internal CardCollection<TCard> SelectedCards { get; } = new CardCollection<TCard>();
+        internal Collection<TCard> SelectedCards { get; } = new Collection<TCard>();
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {
