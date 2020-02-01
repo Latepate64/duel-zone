@@ -3,7 +3,9 @@ using DuelMastersModels.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DuelMastersModels.Factories
 {
@@ -28,6 +30,9 @@ namespace DuelMastersModels.Factories
 
         internal static ReadOnlyOneShotEffectCollection ParseOneShotEffect(string text)
         {
+            //TOOO: Parse effect differently
+            ParseEffectTodo(text);
+
             ParsedTypesAndObjects parsed = AbilityTypeFactory.GetTypeFromDictionary(text, _effectDictionary);
             if (parsed?.ParsedType != null && string.IsNullOrEmpty(parsed.ParsedType.RemainingText))
             {
@@ -39,6 +44,34 @@ namespace DuelMastersModels.Factories
                 return TryParseMultipleEffects(text);
             }
         }
+
+        //TODO: remove suppress
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "jotain")]
+        private static void ParseEffectTodo(string text)
+        {
+            string effectsText = Properties.Resources.Effects;
+            string[] effects = effectsText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            string foundText = effects.FirstOrDefault(effect => effect == text);
+            if (!string.IsNullOrEmpty(foundText))
+            {
+                TextInfo textInfo = new CultureInfo("en-US").TextInfo;
+                string titleCased = textInfo.ToTitleCase(foundText);
+                string typeNameStart = Regex.Replace(titleCased, @"[\s\.'\,""-]+", "");
+                typeNameStart = Regex.Replace(typeNameStart, "Cant", "Cannot");
+                string typeName = $"{typeNameStart}Effect";
+                string typeNameWithNamespace = $"DuelMastersModels.Effects.OneShotEffects.{typeName}";
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                Type type = assembly.GetType(typeNameWithNamespace);
+                OneShotEffect jotain = Activator.CreateInstance(type) as OneShotEffect;
+                //OneShotEffect jotain = Activator.CreateInstance(null, typeNameWithNamespace).Unwrap() as OneShotEffect;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
 
         /*
         internal static string GetTextForEffects(ReadOnlyOneShotEffectCollection oneShotEffects)

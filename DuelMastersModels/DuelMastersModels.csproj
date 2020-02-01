@@ -134,6 +134,7 @@
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="Factories\CardFactory.cs" />
+    <Compile Include="Factories\ParsedType.cs" />
     <Compile Include="IDuel.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
@@ -237,6 +238,11 @@
     <Compile Include="PlayerActions\PlayerAction.cs" />
     <Compile Include="PlayerActions\SelectAbilityToResolve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="StartingPlayer.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
     <Compile Include="Steps\BattleStep.cs" />
@@ -283,6 +289,15 @@
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Effects.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

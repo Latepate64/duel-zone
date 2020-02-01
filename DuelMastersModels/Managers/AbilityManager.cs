@@ -39,7 +39,7 @@ namespace DuelMastersModels.Managers
         #region Internal methods
         internal void InstantiateAbilities(Player player)
         {
-            foreach (Card card in player.DeckBeforeDuel)
+            foreach (ICard card in player.DeckBeforeDuel)
             {
                 if (card is Creature creature)
                 {

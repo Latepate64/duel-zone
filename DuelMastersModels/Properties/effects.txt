@@ -1,0 +1,6 @@
+Put the top card of your deck into your mana zone.
+Tap all your opponent's creatures in the battle zone.
+You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
+You may choose a creature in the battle zone and put it into its owner's mana zone. If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.$SoulSwapEffect
+You may choose a creature in the battle zone and return it to its owner's hand.
+You may draw a card.

@@ -11,7 +11,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Spell is a card type.
     /// </summary>
-    public class Spell : Card
+    public class Spell : Card, ISpell
     {
         /// <summary>
         /// Creates a spell.
@@ -25,7 +25,7 @@ namespace DuelMastersModels.Cards
             AbilityCollection abilities = new AbilityCollection();
             if (!string.IsNullOrEmpty(Text))
             {
-                IEnumerable<string> textParts = Text.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
+                IEnumerable<string> textParts = Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", StringComparison.CurrentCulture) && t.EndsWith(")", StringComparison.CurrentCulture)));
                 foreach (string textPart in textParts)
                 {
                     StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForSpell(textPart, this);

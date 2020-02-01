@@ -206,6 +206,18 @@ namespace UnitTests
             */
             Assert.Equal(DuelState.Over, duel.State);
         }
+
+        [Fact]
+        public void TestEffectInstantiations()
+        {
+            string effectsText = DuelMastersModels.Properties.Resources.Effects;
+            //string[] effects = effectsText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            List<ICard> p1Cards = new List<ICard>() { GetTestSpell(effectsText) };
+            List<ICard> p2Cards = new List<ICard>();
+            _ = new Duel(new Player("Player1", p1Cards), new Player("Player2", p2Cards)) { StartingPlayer = StartingPlayer.Player1 };
+
+            //_ = GetDuel("When you put this creature into the battle zone, put the top card of your deck into your mana zone.");
+        }
         #endregion Facts
 
         #region Private methods
@@ -237,6 +249,11 @@ namespace UnitTests
         private Creature GetTestCreature(string creatureText)
         {
             return new Creature(name: "TestCreature", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: creatureText, flavor: null, illustrator: null, power: "1000", races: new Collection<string>() { "Initiate" });
+        }
+
+        private Spell GetTestSpell(string text)
+        {
+            return new Spell(name: "TestSpell", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: text, flavor: null, illustrator: null);
         }
 
         private static void SkipChargingMana(IDuel duel)
