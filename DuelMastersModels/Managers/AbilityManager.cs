@@ -4,7 +4,6 @@ using DuelMastersModels.Abilities.TriggerAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.PlayerActions;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -37,31 +36,6 @@ namespace DuelMastersModels.Managers
         #endregion Fields
 
         #region Internal methods
-        internal void InstantiateAbilities(Player player)
-        {
-            foreach (ICard card in player.DeckBeforeDuel)
-            {
-                if (card is Creature creature)
-                {
-                    foreach (Ability ability in creature.TryParseCreatureAbilities(player))
-                    {
-                        _abilities.Add(ability);
-                    }
-                }
-                else if (card is Spell spell)
-                {
-                    foreach (Ability ability in spell.TryParseSpellAbilities(player))
-                    {
-                        _abilities.Add(ability);
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-        }
-
         internal void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature)
         {
             TriggerTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(creature);

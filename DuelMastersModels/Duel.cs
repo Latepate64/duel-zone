@@ -113,8 +113,6 @@ namespace DuelMastersModels
         {
             _playerActionManager = new PlayerActionManager(this);
             _playerManager = new PlayerManager(player1 ?? throw new ArgumentNullException(nameof(player1)), player2 ?? throw new ArgumentNullException(nameof(player2)));
-            _abilityManager.InstantiateAbilities(Player1);
-            _abilityManager.InstantiateAbilities(Player2);
         }
 
         #region Public methods

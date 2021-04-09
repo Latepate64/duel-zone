@@ -134,7 +134,6 @@
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="Factories\CardFactory.cs" />
-    <Compile Include="Factories\ParsedType.cs" />
     <Compile Include="IDuel.cs" />
     <Compile Include="IPlayer.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
@@ -189,11 +188,6 @@
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Exceptions\PayCostException.cs" />
-    <Compile Include="Factories\AbilityTypeFactory.cs" />
-    <Compile Include="Factories\EffectFactory.cs" />
-    <Compile Include="Factories\ParsedTypesAndObjects.cs" />
-    <Compile Include="Factories\StaticAbilityFactory.cs" />
-    <Compile Include="Factories\TriggerConditionFactory.cs" />
     <Compile Include="GameActions\GameAction.cs" />
     <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
