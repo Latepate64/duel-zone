@@ -4,8 +4,8 @@ using DuelMastersModels.Exceptions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Xunit;
 
@@ -168,7 +168,7 @@ namespace UnitTests
         [Fact]
         public void TestSelectAbilityToResolve()
         {
-            Duel duel = GetDuel("Whenever another creature is put into the battle zone, you may draw a card.");
+            Duel duel = GetDuel();
             ChargeMana chargeMana1 = duel.Start() as ChargeMana;
 
             UseCard useCard1 = duel.Progress(chargeMana1.Cards.First()) as UseCard; // Charge mana (player 1)
@@ -210,13 +210,9 @@ namespace UnitTests
         [Fact]
         public void TestEffectInstantiations()
         {
-            string effectsText = DuelMastersModels.Properties.Resources.Effects;
-            //string[] effects = effectsText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            List<ICard> p1Cards = new List<ICard>() { GetTestSpell(effectsText) };
+            List<ICard> p1Cards = new List<ICard>() { GetTestSpell() };
             List<ICard> p2Cards = new List<ICard>();
             _ = new Duel(new Player("Player1", p1Cards), new Player("Player2", p2Cards)) { StartingPlayer = StartingPlayer.Player1 };
-
-            //_ = GetDuel("When you put this creature into the battle zone, put the top card of your deck into your mana zone.");
         }
         #endregion Facts
 
@@ -228,32 +224,27 @@ namespace UnitTests
             _duelEvents.Add(e.DuelEvent);
         }
 
-        private IDuel GetDuel()
-        {
-            return GetDuel("");
-        }
-
-        private Duel GetDuel(string creatureText)
+        private Duel GetDuel()
         {
             const int DeckSize = 40;
             List<ICard> p1Cards = new List<ICard>();
             List<ICard> p2Cards = new List<ICard>();
             for (int i = 0; i < DeckSize; ++i)
             {
-                p1Cards.Add(GetTestCreature(creatureText));
-                p2Cards.Add(GetTestCreature(creatureText));
+                p1Cards.Add(GetTestCreature());
+                p2Cards.Add(GetTestCreature());
             }
             return new Duel(new Player("Player1", p1Cards), new Player("Player2", p2Cards)) { StartingPlayer = StartingPlayer.Player1 };
         }
 
-        private Creature GetTestCreature(string creatureText)
+        private ICreature GetTestCreature()
         {
-            return new Creature(name: "TestCreature", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: creatureText, flavor: null, illustrator: null, power: "1000", races: new Collection<string>() { "Initiate" });
+            throw new NotImplementedException();
         }
 
-        private Spell GetTestSpell(string text)
+        private ISpell GetTestSpell()
         {
-            return new Spell(name: "TestSpell", set: null, id: null, civilizations: new Collection<string>() { "Light" }, rarity: "Common", cost: 1, text: text, flavor: null, illustrator: null);
+            throw new NotImplementedException();
         }
 
         private static void SkipChargingMana(IDuel duel)

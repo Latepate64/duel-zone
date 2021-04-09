@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
     internal class ShieldZoneCreature : ShieldZoneCard, ICreature
     {
         public int Power { get; }
-        public ReadOnlyCollection<string> Races { get; }
+        public ICollection<Race> Races { get; }
 
         internal ShieldZoneCreature(ICard card) : base(card)
         {

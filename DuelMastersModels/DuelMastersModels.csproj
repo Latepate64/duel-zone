@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\AbilityCollection.cs" />
+    <Compile Include="Abilities\IAbility.cs" />
     <Compile Include="Abilities\NonStaticAbility.cs" />
     <Compile Include="Abilities\PlayerActionWithEndInformation.cs" />
     <Compile Include="Abilities\ReadOnlyAbilityCollection.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Abilities\Trigger\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="Cards\BattleZone\BattleZoneCard.cs" />
     <Compile Include="Cards\BattleZone\BattleZoneCreature.cs" />
+    <Compile Include="Cards\Creatures\AquaHulcus.cs" />
     <Compile Include="Cards\Deck\DeckCard.cs" />
     <Compile Include="Cards\Deck\DeckCreature.cs" />
     <Compile Include="Cards\Deck\DeckSpell.cs" />
@@ -146,7 +148,6 @@
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Civilization.cs" />
     <Compile Include="Cards\Creature.cs" />
-    <Compile Include="Cards\CrossGear.cs" />
     <Compile Include="Cards\EvolutionCreature.cs" />
     <Compile Include="Managers\ContinuousEffectManager.cs" />
     <Compile Include="Exceptions\DuelMastersException.cs" />
@@ -157,7 +158,6 @@
     <Compile Include="Exceptions\OptionalCardSelectionException.cs" />
     <Compile Include="Exceptions\OptionalCreatureSelectionException.cs" />
     <Compile Include="Exceptions\ParseException.cs" />
-    <Compile Include="Cards\Rarity.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="DuelEventArgs.cs" />

@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
@@ -20,7 +20,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Races the creature has.
         /// </summary>
-        public ReadOnlyCollection<string> Races { get; }
+        public ICollection<Race> Races { get; }
 
         /// <summary>
         /// Determines whether the creature has summoning sickess.

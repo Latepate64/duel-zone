@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
     internal class HandCreature : HandCard, IHandCreature
     {
         public int Power { get; }
-        public ReadOnlyCollection<string> Races { get; }
+        public ICollection<Race> Races { get; }
 
         internal HandCreature(ICard card) : base(card)
         {

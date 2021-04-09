@@ -2,7 +2,7 @@
 {
     internal abstract class DeckCard : Card, IDeckCard
     {
-        protected internal DeckCard(ICard card) : base(card.Name, card.CardSet, card.Id, card.Cost, card.Text, card.Flavor, card.Illustrator, card.Civilizations, card.Rarity)
+        protected internal DeckCard(ICard card) : base(card.Cost, card.Civilizations)
         {
         }
 

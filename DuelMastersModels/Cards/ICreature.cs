@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
@@ -15,6 +15,6 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Race is a characteristic of a creature.
         /// </summary>
-        ReadOnlyCollection<string> Races { get; }
+        ICollection<Race> Races { get; }
     }
 }
