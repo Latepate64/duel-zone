@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
     {
         internal bool MustBeEnded { get; set; } = false;
 
-        internal ChargeStep(Player player) : base(player)
+        internal ChargeStep(IPlayer player) : base(player)
         {
         }
 

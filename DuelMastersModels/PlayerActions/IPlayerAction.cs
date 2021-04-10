@@ -8,6 +8,6 @@
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        Player Player { get; }
+        IPlayer Player { get; }
     }
 }

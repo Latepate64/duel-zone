@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield : OptionalCardSelection<IHandCard>
     {
-        internal YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(Player player) : base(player, player.Hand.Cards)
+        internal YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(IPlayer player) : base(player, player.Hand.Cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)

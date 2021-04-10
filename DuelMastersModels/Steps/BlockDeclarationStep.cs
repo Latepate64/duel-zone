@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
         internal IBattleZoneCreature AttackingCreature { get; private set; }
         internal IBattleZoneCreature BlockingCreature { get; set; }
 
-        internal BlockDeclarationStep(Player activePlayer, IBattleZoneCreature attackingCreature) : base(activePlayer)
+        internal BlockDeclarationStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
         }
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Steps
             {
                 throw new System.ArgumentNullException(nameof(duel));
             }
-            Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
+            IPlayer nonActivePlayer = duel.GetOpponent(ActivePlayer);
             IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
             return creatures.Any() ? new DeclareBlock(nonActivePlayer, creatures) : null;
         }

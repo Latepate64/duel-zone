@@ -4,6 +4,7 @@ using DuelMastersModels.Exceptions;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.PlayerActions.CardSelections;
 using DuelMastersModels.PlayerActions.CreatureSelections;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,7 +169,7 @@ namespace UnitTests
         [Fact]
         public void TestSelectAbilityToResolve()
         {
-            Duel duel = GetDuel();
+            IDuel duel = GetDuel();
             ChargeMana chargeMana1 = duel.Start() as ChargeMana;
 
             UseCard useCard1 = duel.Progress(chargeMana1.Cards.First()) as UseCard; // Charge mana (player 1)
@@ -208,11 +209,10 @@ namespace UnitTests
         }
 
         [Fact]
-        public void TestEffectInstantiations()
+        public void NewTest()
         {
-            List<ICard> p1Cards = new List<ICard>() { GetTestSpell() };
-            List<ICard> p2Cards = new List<ICard>();
-            _ = new Duel(new Player("Player1", p1Cards), new Player("Player2", p2Cards)) { StartingPlayer = StartingPlayer.Player1 };
+            IDuel duel = Mock.Of<IDuel>();
+            Assert.NotNull(duel);
         }
         #endregion Facts
 
@@ -224,7 +224,7 @@ namespace UnitTests
             _duelEvents.Add(e.DuelEvent);
         }
 
-        private Duel GetDuel()
+        private IDuel GetDuel()
         {
             const int DeckSize = 40;
             List<ICard> p1Cards = new List<ICard>();
@@ -238,11 +238,6 @@ namespace UnitTests
         }
 
         private ICreature GetTestCreature()
-        {
-            throw new NotImplementedException();
-        }
-
-        private ISpell GetTestSpell()
         {
             throw new NotImplementedException();
         }

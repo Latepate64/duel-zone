@@ -13,7 +13,7 @@ namespace DuelMastersModels.Steps
         private bool _breakingDone;
         //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
-        internal DirectAttackStep(Player activePlayer, IBattleZoneCreature attackingCreature, bool directAttack) : base(activePlayer)
+        internal DirectAttackStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, bool directAttack) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             DirectAttack = directAttack;
@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
                 {
                     throw new InvalidOperationException();
                 }
-                Player opponent = duel.GetOpponent(ActivePlayer);
+                IPlayer opponent = duel.GetOpponent(ActivePlayer);
                 if (opponent.ShieldZone.Cards.Any())
                 {
                     //TODO: consider multibreaker

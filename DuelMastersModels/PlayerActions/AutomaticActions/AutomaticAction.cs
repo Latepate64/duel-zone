@@ -2,7 +2,7 @@
 {
     internal abstract class AutomaticAction : PlayerAction
     {
-        protected AutomaticAction(Player player) : base(player) { }
+        protected AutomaticAction(IPlayer player) : base(player) { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {

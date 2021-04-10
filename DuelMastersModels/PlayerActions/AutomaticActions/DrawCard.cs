@@ -2,7 +2,7 @@
 {
     internal class DrawCard : AutomaticAction
     {
-        internal DrawCard(Player player) : base(player)
+        internal DrawCard(IPlayer player) : base(player)
         {
         }
 

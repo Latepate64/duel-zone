@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class DeclareBlock : OptionalCardSelection<BattleZoneCreature>
     {
-        internal DeclareBlock(Player player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareBlock(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)

@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         internal IBattleZoneCreature AttackedCreature { get; set; }
         internal bool TargetOfAttackDeclared { get; set; }
 
-        internal AttackDeclarationStep(Player activePlayer) : base(activePlayer)
+        internal AttackDeclarationStep(IPlayer activePlayer) : base(activePlayer)
         {
         }
 

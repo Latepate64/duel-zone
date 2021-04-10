@@ -4,7 +4,7 @@ namespace DuelMastersModels.Steps
 {
     internal class EndOfAttackStep : Step
     {
-        internal EndOfAttackStep(Player activePlayer) : base(activePlayer)
+        internal EndOfAttackStep(IPlayer activePlayer) : base(activePlayer)
         {
         }
 

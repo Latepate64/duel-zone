@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(Player player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
+        internal YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)

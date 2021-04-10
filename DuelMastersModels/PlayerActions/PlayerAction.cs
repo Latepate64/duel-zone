@@ -8,13 +8,13 @@
         /// <summary>
         /// Player performing the action.
         /// </summary>
-        public Player Player { get; private set; }
+        public IPlayer Player { get; private set; }
 
         /// <summary>
         /// Creates a player action.
         /// </summary>
         /// <param name="player">Player who will perform the action.</param>
-        protected PlayerAction(Player player)
+        protected PlayerAction(IPlayer player)
         {
             Player = player;
         }

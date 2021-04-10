@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     internal class DrawStep : Step
     {
-        internal DrawStep(Player player) : base(player)
+        internal DrawStep(IPlayer player) : base(player)
         {
         }
 

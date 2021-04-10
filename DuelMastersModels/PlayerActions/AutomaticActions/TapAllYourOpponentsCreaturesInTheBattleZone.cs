@@ -2,7 +2,7 @@
 {
     internal class TapAllYourOpponentsCreaturesInTheBattleZone : AutomaticAction
     {
-        internal TapAllYourOpponentsCreaturesInTheBattleZone(Player player) : base(player) { }
+        internal TapAllYourOpponentsCreaturesInTheBattleZone(IPlayer player) : base(player) { }
 
         internal override PlayerAction Perform(Duel duel)
         {

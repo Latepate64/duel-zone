@@ -5,7 +5,7 @@
     /// </summary>
     public abstract class OptionalAction : PlayerAction
     {
-        internal OptionalAction(Player player) : base(player) { }
+        internal OptionalAction(IPlayer player) : base(player) { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)
         {

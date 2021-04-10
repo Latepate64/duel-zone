@@ -8,7 +8,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class UseShieldTrigger : MandatoryCardSelection<IHandCard>
     {
-        internal UseShieldTrigger(Player player, IEnumerable<IHandCard> cards) : base(player, cards) { }
+        internal UseShieldTrigger(IPlayer player, IEnumerable<IHandCard> cards) : base(player, cards) { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)
         {

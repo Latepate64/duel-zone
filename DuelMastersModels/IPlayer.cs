@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
 
@@ -48,5 +50,15 @@ namespace DuelMastersModels
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
         ShieldZone ShieldZone { get; }
+
+        IEnumerable<ICard> CardsInAllZones { get; }
+
+        IEnumerable<IHandCard> ShieldTriggersToUse { get; }
+
+        void ShuffleDeck();
+        void RemoveShieldTriggerToUse(IHandCard card);
+        bool AnyZoneContains(ICard card);
+        void AddShieldTriggerToUse(IHandCard card);
+        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility);
     }
 }

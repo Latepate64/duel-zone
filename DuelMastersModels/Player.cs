@@ -76,9 +76,9 @@ namespace DuelMastersModels
         #endregion Public
 
         #region Internal
-        internal IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
+        public IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
-        internal IEnumerable<ICard> CardsInAllZones
+        public IEnumerable<ICard> CardsInAllZones
         {
             get
             {
@@ -96,22 +96,22 @@ namespace DuelMastersModels
         /// <summary>
         /// Player shuffles their deck.
         /// </summary>
-        internal void ShuffleDeck()
+        public void ShuffleDeck()
         {
             Deck.Shuffle();
         }
 
-        internal void AddShieldTriggerToUse(IHandCard card)
+        public void AddShieldTriggerToUse(IHandCard card)
         {
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        internal void RemoveShieldTriggerToUse(IHandCard card)
+        public void RemoveShieldTriggerToUse(IHandCard card)
         {
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        internal ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility)
+        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
@@ -133,7 +133,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal bool AnyZoneContains(ICard card)
+        public bool AnyZoneContains(ICard card)
         {
             return CardsInAllZones.Contains(card);
         }

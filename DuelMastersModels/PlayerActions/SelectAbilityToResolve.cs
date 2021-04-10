@@ -16,7 +16,7 @@ namespace DuelMastersModels.PlayerActions
 
         internal NonStaticAbility SelectedAbility { get; set; }
 
-        internal SelectAbilityToResolve(Player player, ReadOnlyCollection<NonStaticAbility> abilities) : base(player)
+        internal SelectAbilityToResolve(IPlayer player, ReadOnlyCollection<NonStaticAbility> abilities) : base(player)
         {
             Abilities = abilities;
         }

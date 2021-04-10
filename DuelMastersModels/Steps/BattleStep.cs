@@ -13,7 +13,7 @@ namespace DuelMastersModels.Steps
         internal IBattleZoneCreature AttackedCreature { get; private set; }
         internal IBattleZoneCreature BlockingCreature { get; private set; }
 
-        internal BattleStep(Player activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature, IBattleZoneCreature blockingCreature) : base(activePlayer)
+        internal BattleStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature, IBattleZoneCreature blockingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             AttackedCreature = attackedCreature;

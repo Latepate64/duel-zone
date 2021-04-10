@@ -2,7 +2,7 @@
 {
     internal class PutTheTopCardOfYourDeckIntoYourManaZone : AutomaticAction
     {
-        public PutTheTopCardOfYourDeckIntoYourManaZone(Player player) : base(player) { }
+        public PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player) : base(player) { }
 
         internal override PlayerAction Perform(Duel duel)
         {

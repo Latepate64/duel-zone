@@ -7,7 +7,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     internal class EndOfTurnStep : Step
     {
-        internal EndOfTurnStep(Player player) : base(player)
+        internal EndOfTurnStep(IPlayer player) : base(player)
         {
         }
 

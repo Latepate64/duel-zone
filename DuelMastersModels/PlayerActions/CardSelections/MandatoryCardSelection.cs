@@ -9,7 +9,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public abstract class MandatoryCardSelection<TCard> : SingleCardSelection<TCard> where TCard : ICard
     {
-        internal MandatoryCardSelection(Player player, IEnumerable<TCard> cards) : base(player, cards, false)
+        internal MandatoryCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, false)
         { }
 
         internal override PlayerAction TryToPerformAutomatically(Duel duel)

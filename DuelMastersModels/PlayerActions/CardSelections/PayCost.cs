@@ -12,7 +12,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal int Cost { get; set; }
 
-        internal PayCost(Player player, IEnumerable<IManaZoneCard> cards, int cost) : base(player, cost, cards)
+        internal PayCost(IPlayer player, IEnumerable<IManaZoneCard> cards, int cost) : base(player, cost, cards)
         {
             Cost = cost;
         }

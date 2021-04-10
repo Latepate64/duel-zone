@@ -5,17 +5,17 @@ namespace DuelMastersModels.Managers
 {
     internal class PlayerManager : IPlayerManager
     {
-        public Player Player1 { get; private set; }
+        public IPlayer Player1 { get; private set; }
 
-        public Player Player2 { get; private set; }
+        public IPlayer Player2 { get; private set; }
 
-        public PlayerManager(Player player1, Player player2)
+        public PlayerManager(IPlayer player1, IPlayer player2)
         {
             Player1 = player1;
             Player2 = player2;
         }
 
-        public Player GetOwner(ICard card)
+        public IPlayer GetOwner(ICard card)
         {
             if (Player1.AnyZoneContains(card))
             {
@@ -31,7 +31,7 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        public Player GetOpponent(IPlayer player)
+        public IPlayer GetOpponent(IPlayer player)
         {
             if (player == Player1)
             {

@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class DeclareAttackerMandatory : MandatoryCardSelection<BattleZoneCreature>
     {
-        internal DeclareAttackerMandatory(Player player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareAttackerMandatory(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)

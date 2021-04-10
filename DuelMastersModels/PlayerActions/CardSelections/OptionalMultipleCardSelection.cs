@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public abstract class OptionalMultipleCardSelection<TCard> : MultipleCardSelection<TCard> where TCard : ICard
     {
-        internal OptionalMultipleCardSelection(Player player, IEnumerable<TCard> cards) : base(player, cards, false, cards.Count())
+        internal OptionalMultipleCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, false, cards.Count())
         { }
 
         internal Collection<TCard> SelectedCards { get; } = new Collection<TCard>();

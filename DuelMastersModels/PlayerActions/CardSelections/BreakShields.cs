@@ -15,7 +15,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         /// </summary>
         public IBattleZoneCreature ShieldBreakingCreature { get; private set; }
 
-        internal BreakShields(Player player, int amount, IEnumerable<IShieldZoneCard> cards, IBattleZoneCreature shieldBreakingCreature) : base(player, amount, cards)
+        internal BreakShields(IPlayer player, int amount, IEnumerable<IShieldZoneCard> cards, IBattleZoneCreature shieldBreakingCreature) : base(player, amount, cards)
         {
             ShieldBreakingCreature = shieldBreakingCreature;
         }

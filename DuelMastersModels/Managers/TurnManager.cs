@@ -13,7 +13,7 @@ namespace DuelMastersModels.Managers
         /// </summary>
         private readonly Collection<Turn> _turns = new Collection<Turn>();
 
-        internal PlayerAction StartNewTurn(Player activePlayer, Player nonActivePlayer, Duel duel)
+        internal PlayerAction StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer, Duel duel)
         {
             Turn turn = new Turn(activePlayer, nonActivePlayer, _turns.Count + 1);
             _turns.Add(turn);

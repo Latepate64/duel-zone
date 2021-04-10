@@ -5,7 +5,7 @@
     /// </summary>
     public class YouMayDrawACard : OptionalAction
     {
-        internal YouMayDrawACard(Player player) : base(player) { }
+        internal YouMayDrawACard(IPlayer player) : base(player) { }
 
         internal override PlayerAction Perform(Duel duel, bool takeAction)
         {

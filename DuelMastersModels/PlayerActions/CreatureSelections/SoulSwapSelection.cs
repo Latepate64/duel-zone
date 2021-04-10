@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class SoulSwapSelection : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal SoulSwapSelection(Player player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
+        internal SoulSwapSelection(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)
@@ -26,7 +26,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             else
             {
                 _ = duel.PutFromBattleZoneIntoOwnersManazone(creature);
-                Player owner = duel.GetOwner(creature);
+                IPlayer owner = duel.GetOwner(creature);
                 return new ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(Player, owner.ManaZone.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone);
             }
         }

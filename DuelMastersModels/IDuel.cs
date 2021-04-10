@@ -18,12 +18,12 @@ namespace DuelMastersModels
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
-        Player Player1 { get; }
+        IPlayer Player1 { get; }
 
         /// <summary>
         /// A player that participates in duel against player 1.
         /// </summary>
-        Player Player2 { get; }
+        IPlayer Player2 { get; }
 
         /// <summary>
         /// Player who won the duel.

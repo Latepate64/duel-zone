@@ -7,9 +7,9 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public Player ActivePlayer { get; }
+        public IPlayer ActivePlayer { get; }
 
-        protected Step(Player activePlayer)
+        protected Step(IPlayer activePlayer)
         {
             ActivePlayer = activePlayer;
         }

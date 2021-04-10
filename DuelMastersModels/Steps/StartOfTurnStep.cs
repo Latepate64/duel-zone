@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
     /// </summary>
     internal class StartOfTurnStep : Step
     {
-        internal StartOfTurnStep(Player player) : base(player)
+        internal StartOfTurnStep(IPlayer player) : base(player)
         {
         }
 

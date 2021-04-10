@@ -51,7 +51,7 @@ namespace DuelMastersModels.Managers
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
 
-        internal List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, Player player)
+        internal List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player)
         {
             List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
             foreach (StaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
@@ -88,7 +88,7 @@ namespace DuelMastersModels.Managers
             _ = _pendingAbilities.Remove(ability);
         }
 
-        internal SelectAbilityToResolve TryGetSelectAbilityToResolve(Player player)
+        internal SelectAbilityToResolve TryGetSelectAbilityToResolve(IPlayer player)
         {
             ReadOnlyCollection<NonStaticAbility> pendingAbilities = GetPendingAbilitiesForPlayer(player);
             return pendingAbilities.Count > 0 ? new SelectAbilityToResolve(player, pendingAbilities) : null;
@@ -112,7 +112,7 @@ namespace DuelMastersModels.Managers
         /// <param name="ability"></param>
         /// <param name="controller"></param>
         /// <param name="source"></param>
-        private void TriggerTriggerAbility(TriggerAbility ability, Player controller, ICard source)
+        private void TriggerTriggerAbility(TriggerAbility ability, IPlayer controller, ICard source)
         {
             _pendingAbilities.Add(ability.CreatePendingTriggerAbility(controller, source));
         }
@@ -146,7 +146,7 @@ namespace DuelMastersModels.Managers
         /// <summary>
         /// Non-static abilities controlled by a player that are waiting to be resolved.
         /// </summary>
-        private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForPlayer(Player player)
+        private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForPlayer(IPlayer player)
         {
             return new ReadOnlyCollection<NonStaticAbility>(_pendingAbilities.Where(a => a.Controller == player).ToList());
         }

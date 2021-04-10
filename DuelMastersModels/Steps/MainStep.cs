@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
 
         internal ICard CardToBeUsed { get; set; }
 
-        internal MainStep(Player player) : base(player)
+        internal MainStep(IPlayer player) : base(player)
         {
         }
 

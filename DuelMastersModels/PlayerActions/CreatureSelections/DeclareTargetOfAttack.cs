@@ -12,7 +12,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// </summary>
     public class DeclareTargetOfAttack : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal DeclareTargetOfAttack(Player player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareTargetOfAttack(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
         internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)

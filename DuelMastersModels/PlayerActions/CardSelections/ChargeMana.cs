@@ -7,7 +7,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class ChargeMana : OptionalCardSelection<IHandCard>
     {
-        internal ChargeMana(Player player) : base(player, player.Hand.Cards)
+        internal ChargeMana(IPlayer player) : base(player, player.Hand.Cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)

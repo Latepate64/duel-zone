@@ -11,12 +11,12 @@ namespace DuelMastersModels
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        internal Player ActivePlayer { get; }
+        internal IPlayer ActivePlayer { get; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        internal Player NonActivePlayer { get; }
+        internal IPlayer NonActivePlayer { get; }
 
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
@@ -34,7 +34,7 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        internal Turn(Player activePlayer, Player nonActivePlayer, int number)
+        internal Turn(IPlayer activePlayer, IPlayer nonActivePlayer, int number)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = nonActivePlayer;

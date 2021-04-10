@@ -2,7 +2,7 @@
 {
     internal class AddTheTopCardOfYourDeckToYourShieldsFaceDown : AutomaticAction
     {
-        internal AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player) : base(player) { }
+        internal AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player) : base(player) { }
 
         internal override PlayerAction Perform(Duel duel)
         {

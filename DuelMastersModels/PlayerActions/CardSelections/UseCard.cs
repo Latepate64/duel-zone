@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     /// </summary>
     public class UseCard : OptionalCardSelection<IHandCard>
     {
-        internal UseCard(Player player, IEnumerable<IHandCard> cards) : base(player, cards)
+        internal UseCard(IPlayer player, IEnumerable<IHandCard> cards) : base(player, cards)
         { }
 
         internal override PlayerAction Perform(Duel duel, IHandCard card)
