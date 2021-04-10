@@ -28,11 +28,11 @@ namespace DuelMastersModels.Steps
                 {
                     throw new InvalidOperationException();
                 }
-                IPlayer opponent = duel.GetOpponent(ActivePlayer);
+                IPlayer opponent = ActivePlayer.Opponent;
                 if (opponent.ShieldZone.Cards.Any())
                 {
                     //TODO: consider multibreaker
-                    return new BreakShields(ActivePlayer, 1, duel.GetOpponent(ActivePlayer).ShieldZone.Cards, AttackingCreature);
+                    return new BreakShields(ActivePlayer, 1, ActivePlayer.Opponent.ShieldZone.Cards, AttackingCreature);
                 }
                 else
                 {

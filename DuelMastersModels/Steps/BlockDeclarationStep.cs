@@ -27,9 +27,8 @@ namespace DuelMastersModels.Steps
             {
                 throw new System.ArgumentNullException(nameof(duel));
             }
-            IPlayer nonActivePlayer = duel.GetOpponent(ActivePlayer);
             IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-            return creatures.Any() ? new DeclareBlock(nonActivePlayer, creatures) : null;
+            return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
         }
     }
 }

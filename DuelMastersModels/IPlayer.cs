@@ -50,9 +50,10 @@ namespace DuelMastersModels
 
         IEnumerable<IHandCard> ShieldTriggersToUse { get; }
 
+        IPlayer Opponent { get; set; }
+
         void ShuffleDeck();
         void RemoveShieldTriggerToUse(IHandCard card);
-        bool AnyZoneContains(ICard card);
         void AddShieldTriggerToUse(IHandCard card);
         ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
     }

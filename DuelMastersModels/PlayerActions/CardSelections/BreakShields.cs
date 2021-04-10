@@ -22,14 +22,14 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
-            return duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
+            return Player.Opponent.ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
                 ? Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : (this)
                 : Perform(duel, new ReadOnlyCollection<IShieldZoneCard>(Cards.ToList().GetRange(0, MinimumSelection)));
         }
 
         internal override IPlayerAction Perform(IDuel duel, IEnumerable<IShieldZoneCard> cards)
         {
-            return duel.PutFromShieldZoneToHand(duel.GetOpponent(Player), cards, true);
+            return duel.PutFromShieldZoneToHand(Player.Opponent, cards, true);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace DuelMastersModels.Cards
     /// </summary>
     public abstract class Card : ICard
     {
+        public IPlayer Owner { get; set; }
+
         /// <summary>
         /// Civilizations of the card.
         /// </summary>

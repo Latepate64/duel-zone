@@ -20,12 +20,12 @@ namespace DuelMastersModels
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
-        IPlayer Player1 { get; }
+        IPlayer Player1 { get; set; }
 
         /// <summary>
         /// A player that participates in duel against player 1.
         /// </summary>
-        IPlayer Player2 { get; }
+        IPlayer Player2 { get; set; }
 
         /// <summary>
         /// Player who won the duel.
@@ -108,8 +108,6 @@ namespace DuelMastersModels
         bool CanAttackOpponent(IBattleZoneCreature creature);
         bool AttacksIfAble(IBattleZoneCreature creature);
         IEnumerable<ICard> GetAllCards();
-        IPlayer GetOwner(ICard card);
-        IPlayer GetOpponent(IPlayer player);
         void SetPendingAbilityToBeResolved(INonStaticAbility ability);
         void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);

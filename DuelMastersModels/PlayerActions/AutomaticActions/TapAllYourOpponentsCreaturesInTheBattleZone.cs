@@ -6,7 +6,7 @@
 
         internal override IPlayerAction Perform(IDuel duel)
         {
-            foreach (Cards.BattleZoneCreature creature in duel.GetOpponent(Player).BattleZone.UntappedCreatures)
+            foreach (Cards.BattleZoneCreature creature in Player.Opponent.BattleZone.UntappedCreatures)
             {
                 creature.Tapped = true;
             }

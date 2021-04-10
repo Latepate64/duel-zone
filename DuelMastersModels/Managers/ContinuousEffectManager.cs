@@ -105,7 +105,7 @@ namespace DuelMastersModels.Managers
             List<IContinuousEffect> continuousEffects = _continuousEffects.ToList();
             foreach (Card card in duel.GetAllCards())
             {
-                continuousEffects.AddRange(abilityManager.GetContinuousEffectsGeneratedByCard(card, duel.GetOwner(card)));
+                continuousEffects.AddRange(abilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner));
             }
             return new ReadOnlyContinuousEffectCollection(continuousEffects);
         }

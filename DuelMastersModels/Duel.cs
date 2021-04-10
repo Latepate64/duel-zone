@@ -28,12 +28,12 @@ namespace DuelMastersModels
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
-        public IPlayer Player1 => _playerManager.Player1;
+        public IPlayer Player1 { get; set; }
 
         /// <summary>
         /// A player that participates in duel against player 1.
         /// </summary>
-        public IPlayer Player2 => _playerManager.Player2;
+        public IPlayer Player2 { get; set; }
 
         /// <summary>
         /// Player who won the duel.
@@ -97,21 +97,8 @@ namespace DuelMastersModels
 
         private readonly PlayerActionManager _playerActionManager;
 
-        private readonly IPlayerManager _playerManager;
-
         private readonly TurnManager _turnManager = new TurnManager();
         #endregion Fields
-
-        /// <summary>
-        /// Creates a duel.
-        /// </summary>
-        /// <param name="player1">One of the two playes.</param>
-        /// <param name="player2">Another one of the two players.</param>
-        public Duel(IPlayer player1, Player player2)
-        {
-            _playerActionManager = new PlayerActionManager(this);
-            _playerManager = new PlayerManager(player1 ?? throw new ArgumentNullException(nameof(player1)), player2 ?? throw new ArgumentNullException(nameof(player2)));
-        }
 
         #region Public methods
         /// <summary>
@@ -193,26 +180,6 @@ namespace DuelMastersModels
         #endregion Public methods
 
         #region Internal methods
-        #region Player
-        /// <summary>
-        /// Returns the opponent of a player.
-        /// </summary>
-        public IPlayer GetOpponent(IPlayer player)
-        {
-            return _playerManager.GetOpponent(player);
-        }
-
-        /// <summary>
-        /// Returns the player who owns target card.
-        /// </summary>
-        /// <param name="card">Card whose owner is queried.</param>
-        /// <returns>Player who owns the card.</returns>
-        public IPlayer GetOwner(ICard card)
-        {
-            return _playerManager.GetOwner(card);
-        }
-        #endregion Player
-
         #region void
         /// <summary>
         /// Ends the duel.
@@ -220,7 +187,7 @@ namespace DuelMastersModels
         public void End(IPlayer winner)
         {
             Winner = winner;
-            _losers.Add(GetOpponent(winner));
+            _losers.Add(winner.Opponent);
             State = DuelState.Over;
         }
 
@@ -299,9 +266,8 @@ namespace DuelMastersModels
         /// <param name="card"></param>
         public void AddFromYourHandToYourShieldsFaceDown(IHandCard card)
         {
-            IPlayer owner = GetOwner(card);
-            owner.Hand.Remove(card, this);
-            owner.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(card, true), this);
+            card.Owner.Hand.Remove(card, this);
+            card.Owner.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(card, true), this);
         }
 
         public void EndContinuousEffects<T>()
@@ -358,7 +324,7 @@ namespace DuelMastersModels
         #region ReadOnlyCreatureCollection
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
         {
-            return new ReadOnlyCollection<BattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(GetOpponent(GetOwner(attackingCreature))).Where(c => !c.Tapped).ToList());
+            return new ReadOnlyCollection<IBattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
             //TODO: consider situations where abilities of attacking creature matter etc.
         }
 
@@ -370,8 +336,7 @@ namespace DuelMastersModels
 
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(IPlayer player)
         {
-            IPlayer opponent = GetOpponent(player);
-            return opponent.BattleZone.TappedCreatures;
+            return player.Opponent.BattleZone.TappedCreatures;
             //TODO: Consider attacking creature
         }
         #endregion ReadOnlyCreatureCollection
@@ -424,25 +389,22 @@ namespace DuelMastersModels
 
         public IPlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
         {
-            IPlayer owner = GetOwner(creature);
-            owner.BattleZone.Remove(creature, this);
-            owner.Hand.Add(new HandCreature(creature), this);
+            creature.Owner.BattleZone.Remove(creature, this);
+            creature.Owner.Hand.Add(new HandCreature(creature), this);
             return null;
         }
 
         public IPlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
         {
-            IPlayer owner = GetOwner(creature);
-            owner.BattleZone.Remove(creature, this);
-            owner.ManaZone.Add(new ManaZoneCreature(creature), this);
+            creature.Owner.BattleZone.Remove(creature, this);
+            creature.Owner.ManaZone.Add(new ManaZoneCreature(creature), this);
             return null;
         }
 
         public IPlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
         {
-            IPlayer owner = GetOwner(creature);
-            owner.ManaZone.Remove(creature, this);
-            owner.BattleZone.Add(new BattleZoneCreature(creature), this);
+            creature.Owner.ManaZone.Remove(creature, this);
+            creature.Owner.BattleZone.Add(new BattleZoneCreature(creature), this);
             return null;
         }
 
@@ -639,7 +601,7 @@ namespace DuelMastersModels
             else
             {
                 _ = _spellsBeingResolved.Remove(spell);
-                GetOwner(spell).Graveyard.Add(new GraveyardSpell(spell), this);
+                spell.Owner.Graveyard.Add(new GraveyardSpell(spell), this);
                 return null;
             }
         }
@@ -669,7 +631,7 @@ namespace DuelMastersModels
             {
                 ISpell spell = _spellsBeingResolved.Last();
                 _ = _spellsBeingResolved.Remove(spell);
-                GetOwner(spell).Graveyard.Add(new GraveyardSpell(spell), this);
+                spell.Owner.Graveyard.Add(new GraveyardSpell(spell), this);
             }
             SetPendingAbilityToBeResolved(null);
         }
@@ -797,7 +759,7 @@ namespace DuelMastersModels
             }
         }
 
-        private IEnumerable<BattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
+        private IEnumerable<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
         {
             return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player, this, _abilityManager);
         }

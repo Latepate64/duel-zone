@@ -197,8 +197,6 @@
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
-    <Compile Include="Managers\IPlayerManager.cs" />
-    <Compile Include="Managers\PlayerManager.cs" />
     <Compile Include="Managers\ShieldTriggerManager.cs" />
     <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />

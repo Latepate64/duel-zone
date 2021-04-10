@@ -7,6 +7,8 @@ namespace DuelMastersModels.Cards
     /// </summary>
     public interface ICard
     {
+        IPlayer Owner { get; set; }
+
         /// <summary>
         /// Civilizations of the card.
         /// </summary>

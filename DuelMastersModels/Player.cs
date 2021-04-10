@@ -65,6 +65,8 @@ namespace DuelMastersModels
             }
         }
 
+        public IPlayer Opponent { get; set; }
+
         public Player() { }
 
         /// <summary>
@@ -105,11 +107,6 @@ namespace DuelMastersModels
             {
                 throw new System.InvalidOperationException();
             }
-        }
-
-        public bool AnyZoneContains(ICard card)
-        {
-            return CardsInAllZones.Contains(card);
         }
 
         private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
