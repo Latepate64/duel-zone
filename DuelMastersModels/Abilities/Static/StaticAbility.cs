@@ -17,7 +17,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// </summary>
         /// <param name="continuousEffect">Continuous effect created by the ability.</param>
         /// 
-        protected StaticAbility(ContinuousEffect continuousEffect)
+        protected StaticAbility(IContinuousEffect continuousEffect)
         {
             ContinuousEffects = new ReadOnlyContinuousEffectCollection(continuousEffect);
         }

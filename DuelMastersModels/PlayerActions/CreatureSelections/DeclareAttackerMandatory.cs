@@ -9,12 +9,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// <summary>
     /// Player must declare an attacking creature.
     /// </summary>
-    public class DeclareAttackerMandatory : MandatoryCardSelection<BattleZoneCreature>
+    public class DeclareAttackerMandatory : MandatoryCardSelection<IBattleZoneCreature>
     {
-        internal DeclareAttackerMandatory(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareAttackerMandatory(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        public override IPlayerAction Perform(IDuel duel, BattleZoneCreature card)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (card != null)
             {

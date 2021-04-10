@@ -27,12 +27,12 @@ namespace DuelMastersModels.Managers
         /// <summary>
         /// Non-static abilities that are waiting to be resolved.
         /// </summary>
-        private readonly Collection<NonStaticAbility> _pendingAbilities = new Collection<NonStaticAbility>();
+        private readonly Collection<INonStaticAbility> _pendingAbilities = new Collection<INonStaticAbility>();
 
         /// <summary>
         /// A non-static ability that is currently being resolved.
         /// </summary>
-        private NonStaticAbility _abilityBeingResolved;
+        private INonStaticAbility _abilityBeingResolved;
         #endregion Fields
 
         #region Internal methods
@@ -51,9 +51,9 @@ namespace DuelMastersModels.Managers
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
 
-        internal List<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player)
+        internal List<IContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player)
         {
-            List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
+            List<IContinuousEffect> continuousEffects = new List<IContinuousEffect>();
             foreach (StaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
             {
                 continuousEffects.AddRange(player.GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
@@ -66,7 +66,7 @@ namespace DuelMastersModels.Managers
             return _abilityBeingResolved.ContinueResolution(duel);
         }
 
-        internal void SetAbilityBeingResolved(NonStaticAbility ability)
+        internal void SetAbilityBeingResolved(INonStaticAbility ability)
         {
             _abilityBeingResolved = ability;
         }
@@ -83,14 +83,14 @@ namespace DuelMastersModels.Managers
             return GetSpellAbilities().Count(a => a.Source == spell);
         }
 
-        internal void RemovePendingAbility(NonStaticAbility ability)
+        internal void RemovePendingAbility(INonStaticAbility ability)
         {
             _ = _pendingAbilities.Remove(ability);
         }
 
         internal SelectAbilityToResolve TryGetSelectAbilityToResolve(IPlayer player)
         {
-            ReadOnlyCollection<NonStaticAbility> pendingAbilities = GetPendingAbilitiesForPlayer(player);
+            ReadOnlyCollection<INonStaticAbility> pendingAbilities = GetPendingAbilitiesForPlayer(player);
             return pendingAbilities.Count > 0 ? new SelectAbilityToResolve(player, pendingAbilities) : null;
         }
         #endregion Internal methods
@@ -146,9 +146,9 @@ namespace DuelMastersModels.Managers
         /// <summary>
         /// Non-static abilities controlled by a player that are waiting to be resolved.
         /// </summary>
-        private ReadOnlyCollection<NonStaticAbility> GetPendingAbilitiesForPlayer(IPlayer player)
+        private ReadOnlyCollection<INonStaticAbility> GetPendingAbilitiesForPlayer(IPlayer player)
         {
-            return new ReadOnlyCollection<NonStaticAbility>(_pendingAbilities.Where(a => a.Controller == player).ToList());
+            return new ReadOnlyCollection<INonStaticAbility>(_pendingAbilities.Where(a => a.Controller == player).ToList());
         }
         #endregion Private methods
     }

@@ -5,28 +5,28 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn
+    public class Turn : ITurn
     {
         #region Properties
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        internal IPlayer ActivePlayer { get; }
+        public IPlayer ActivePlayer { get; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        internal IPlayer NonActivePlayer { get; }
+        public IPlayer NonActivePlayer { get; }
 
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        internal ObservableCollection<Step> Steps { get; } = new ObservableCollection<Step>();
+        internal ObservableCollection<IStep> Steps { get; } = new ObservableCollection<IStep>();
 
         /// <summary>
         /// The step that is currently being processed.
         /// </summary>
-        internal Step CurrentStep => Steps.Last();
+        public IStep CurrentStep => Steps.Last();
 
         /// <summary>
         /// The number of the turn.
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        internal IPlayerAction Start(IDuel duel)
+        public IPlayerAction Start(IDuel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
             return CurrentStep.ProcessTurnBasedActions(duel);
@@ -55,7 +55,7 @@ namespace DuelMastersModels
         /// Adds a new step in order which becomes the current step.
         /// </summary>
         /// <returns>true if steps are no longer added to the turn as it ends, false otherwise</returns>
-        internal bool ChangeStep()
+        public bool ChangeStep()
         {
             if (CurrentStep is StartOfTurnStep)
             {

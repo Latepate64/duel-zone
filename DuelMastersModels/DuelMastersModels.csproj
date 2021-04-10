@@ -79,6 +79,7 @@
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\AbilityCollection.cs" />
     <Compile Include="Abilities\IAbility.cs" />
+    <Compile Include="Abilities\INonStaticAbility.cs" />
     <Compile Include="Abilities\NonStaticAbility.cs" />
     <Compile Include="Abilities\PlayerActionWithEndInformation.cs" />
     <Compile Include="Abilities\ReadOnlyAbilityCollection.cs" />
@@ -137,9 +138,11 @@
     <Compile Include="Cards\ShieldZone\ShieldZoneCreature.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
     <Compile Include="DuelState.cs" />
+    <Compile Include="Effects\ContinuousEffects\IContinuousEffect.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="IDuel.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="ITurn.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
     <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
@@ -248,6 +251,7 @@
     <Compile Include="Steps\DrawStep.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
     <Compile Include="Steps\EndOfTurnStep.cs" />
+    <Compile Include="Steps\IStep.cs" />
     <Compile Include="Steps\MainStep.cs" />
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />

@@ -63,7 +63,7 @@ namespace DuelMastersModels
         /// <summary>
         /// The turn that is currently being processed.
         /// </summary>
-        public Turn CurrentTurn => _turnManager.CurrentTurn;
+        public ITurn CurrentTurn => _turnManager.CurrentTurn;
         #endregion Public
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace DuelMastersModels
             _continuousEffectManager.EndContinuousEffects<T>();
         }
 
-        public void AddContinuousEffect(ContinuousEffect continuousEffect)
+        public void AddContinuousEffect(IContinuousEffect continuousEffect)
         {
             _continuousEffectManager.AddContinuousEffect(continuousEffect);
         }
@@ -324,7 +324,7 @@ namespace DuelMastersModels
             _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<IBattleZoneCreature>(CreaturesInTheBattleZone.Except(new List<IBattleZoneCreature>() { excludedCreature }).ToList()));
         }
 
-        public void SetPendingAbilityToBeResolved(NonStaticAbility ability)
+        public void SetPendingAbilityToBeResolved(INonStaticAbility ability)
         {
             _abilityManager.RemovePendingAbility(ability);
             _abilityManager.SetAbilityBeingResolved(ability);
@@ -356,13 +356,13 @@ namespace DuelMastersModels
         #endregion bool
 
         #region ReadOnlyCreatureCollection
-        public IEnumerable<BattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
+        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
         {
             return new ReadOnlyCollection<BattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(GetOpponent(GetOwner(attackingCreature))).Where(c => !c.Tapped).ToList());
             //TODO: consider situations where abilities of attacking creature matter etc.
         }
 
-        public IEnumerable<BattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
+        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
         {
             IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(this, _abilityManager, player);
             return new ReadOnlyCollection<BattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());

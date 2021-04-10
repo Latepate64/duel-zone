@@ -9,12 +9,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// <summary>
     /// Player may declare to block an attacking creature with a blocker.
     /// </summary>
-    public class DeclareBlock : OptionalCardSelection<BattleZoneCreature>
+    public class DeclareBlock : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal DeclareBlock(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareBlock(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        public override IPlayerAction Perform(IDuel duel, BattleZoneCreature card)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (duel == null)
             {

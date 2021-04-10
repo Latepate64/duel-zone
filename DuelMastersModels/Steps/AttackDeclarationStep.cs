@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             if (AttackingCreature != null && !TargetOfAttackDeclared)
             {
@@ -29,9 +29,9 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        internal override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
         {
-            IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+            IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             return creatures.Any()
                 ? creatures.Any(creature => duel.AttacksIfAble(creature))
                     ? new DeclareAttackerMandatory(ActivePlayer, creatures)

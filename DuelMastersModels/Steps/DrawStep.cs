@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             return null;
         }
@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
-        internal override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
         {
             return new DrawCard(duel.CurrentTurn.ActivePlayer);
             /*

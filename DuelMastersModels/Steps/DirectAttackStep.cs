@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
             DirectAttack = directAttack;
         }
 
-        internal override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             if (DirectAttack && !_breakingDone)
             {

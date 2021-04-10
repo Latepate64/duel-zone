@@ -2,9 +2,9 @@
 
 namespace DuelMastersModels.Abilities
 {
-    internal class PlayerActionWithEndInformation
+    public class PlayerActionWithEndInformation
     {
-        internal PlayerActionWithEndInformation(IPlayerAction playerAction, bool resolutionOver)
+        public PlayerActionWithEndInformation(IPlayerAction playerAction, bool resolutionOver)
         {
             PlayerAction = playerAction;
             ResolutionOver = resolutionOver;

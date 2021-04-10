@@ -5,17 +5,17 @@ namespace DuelMastersModels.Abilities
     /// <summary>
     /// Abstract class for spell, activated and trigger abilities. Non-static abilities are resolvable abilities.
     /// </summary>
-    public abstract class NonStaticAbility : Ability
+    public abstract class NonStaticAbility : Ability, INonStaticAbility
     {
         /// <summary>
         /// Abilities can generate one-shot effects or continuous effects.
         /// </summary>
-        internal ReadOnlyOneShotEffectCollection Effects { get; private set; }
+        public ReadOnlyOneShotEffectCollection Effects { get; private set; }
 
         /// <summary>
         /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
-        internal IPlayer Controller { get; set; }
+        public IPlayer Controller { get; set; }
 
         private int _effectIndex = 0;
 
@@ -33,7 +33,7 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        internal PlayerActionWithEndInformation ContinueResolution(IDuel duel)
+        public PlayerActionWithEndInformation ContinueResolution(IDuel duel)
         {
             return _effectIndex < Effects.Count
                 ? new PlayerActionWithEndInformation(Effects[_effectIndex++].Apply(duel, Controller), false)

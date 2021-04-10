@@ -12,11 +12,11 @@ namespace DuelMastersModels.PlayerActions
         /// <summary>
         /// If there are pending abilities, the active player chooses which one to resolve first among their pending abilities in any order. It does not matter in which order the abilities became pending abilities.
         /// </summary>
-        public ReadOnlyCollection<NonStaticAbility> Abilities { get; private set; }
+        public ReadOnlyCollection<INonStaticAbility> Abilities { get; private set; }
 
-        internal NonStaticAbility SelectedAbility { get; set; }
+        internal INonStaticAbility SelectedAbility { get; set; }
 
-        internal SelectAbilityToResolve(IPlayer player, ReadOnlyCollection<NonStaticAbility> abilities) : base(player)
+        internal SelectAbilityToResolve(IPlayer player, ReadOnlyCollection<INonStaticAbility> abilities) : base(player)
         {
             Abilities = abilities;
         }
@@ -35,7 +35,7 @@ namespace DuelMastersModels.PlayerActions
             }
         }
 
-        internal static void Perform(IDuel duel, NonStaticAbility ability)
+        internal static void Perform(IDuel duel, INonStaticAbility ability)
         {
             duel.SetPendingAbilityToBeResolved(ability);
         }

@@ -8,6 +8,6 @@
         /// <summary>
         /// Determines whether the card is tapped or untapped.
         /// </summary>
-        bool Tapped { get; }
+        bool Tapped { get; set; }
     }
 }

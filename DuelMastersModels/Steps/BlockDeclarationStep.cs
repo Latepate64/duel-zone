@@ -16,19 +16,19 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        internal override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             return null;
         }
 
-        internal override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
         {
             if (duel == null)
             {
                 throw new System.ArgumentNullException(nameof(duel));
             }
             IPlayer nonActivePlayer = duel.GetOpponent(ActivePlayer);
-            IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+            IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
             return creatures.Any() ? new DeclareBlock(nonActivePlayer, creatures) : null;
         }
     }

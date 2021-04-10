@@ -11,7 +11,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Determines whether the creature is tapped or untapped.
         /// </summary>
-        public bool Tapped { get; internal set; }
+        public bool Tapped { get; set; }
 
         /// <summary>
         /// Power of the creature.

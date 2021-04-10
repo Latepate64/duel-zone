@@ -9,12 +9,12 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
     /// <summary>
     /// Player may declare an attacking creature to attack either their opponent or one of their creatures.
     /// </summary>
-    public class DeclareAttacker : OptionalCardSelection<BattleZoneCreature>
+    public class DeclareAttacker : OptionalCardSelection<IBattleZoneCreature>
     {
-        internal DeclareAttacker(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
+        internal DeclareAttacker(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        public override IPlayerAction Perform(IDuel duel, BattleZoneCreature card)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (duel == null)
             {

@@ -52,7 +52,7 @@ namespace DuelMastersModels
         /// </summary>
         StartingPlayer StartingPlayer { get; }
 
-        Turn CurrentTurn { get; }
+        ITurn CurrentTurn { get; }
 
         IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone { get; }
 
@@ -101,16 +101,16 @@ namespace DuelMastersModels
         void UseCard(IPlayer player, ICard card);
         void AddFromYourHandToYourShieldsFaceDown(IHandCard card);
         void EndContinuousEffects<T>();
-        void AddContinuousEffect(ContinuousEffect continuousEffect);
-        IEnumerable<BattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature);
-        IEnumerable<BattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player);
+        void AddContinuousEffect(IContinuousEffect continuousEffect);
+        IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature);
+        IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player);
         IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(IPlayer player);
         bool CanAttackOpponent(IBattleZoneCreature creature);
         bool AttacksIfAble(IBattleZoneCreature creature);
         IEnumerable<ICard> GetAllCards();
         IPlayer GetOwner(ICard card);
         IPlayer GetOpponent(IPlayer player);
-        void SetPendingAbilityToBeResolved(NonStaticAbility ability);
+        void SetPendingAbilityToBeResolved(INonStaticAbility ability);
         void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);
     }
