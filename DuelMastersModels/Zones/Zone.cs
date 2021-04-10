@@ -39,12 +39,12 @@ namespace DuelMastersModels.Zones
         ///<summary>
         /// Adds a card to the zone.
         ///</summary>
-        internal abstract void Add(TCard card, IDuel duel);
+        public abstract void Add(TCard card, IDuel duel);
 
         ///<summary>
         /// Removes a card from the zone.
         ///</summary>
-        internal abstract void Remove(TCard card, IDuel duel);
+        public abstract void Remove(TCard card, IDuel duel);
         #endregion Methods
         #endregion Internal
 

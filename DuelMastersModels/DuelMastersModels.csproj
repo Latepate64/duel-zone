@@ -144,7 +144,6 @@
     <Compile Include="IPlayer.cs" />
     <Compile Include="ITurn.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
-    <Compile Include="AIPlayer.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />
     <Compile Include="CardFilters\SpellFilter.cs" />
@@ -261,7 +260,12 @@
     <Compile Include="Zones\Graveyard.cs" />
     <Compile Include="Zones\Hand.cs" />
     <Compile Include="Cards\BattleZone\IBattleZoneCard.cs" />
+    <Compile Include="Zones\IBattleZone.cs" />
     <Compile Include="Zones\IDeck.cs" />
+    <Compile Include="Zones\IGraveyard.cs" />
+    <Compile Include="Zones\IHand.cs" />
+    <Compile Include="Zones\IManaZone.cs" />
+    <Compile Include="Zones\IShieldZone.cs" />
     <Compile Include="Zones\ITappableZone.cs" />
     <Compile Include="Zones\IZone.cs" />
     <Compile Include="Zones\ManaZone.cs" />

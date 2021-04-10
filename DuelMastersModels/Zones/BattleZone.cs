@@ -8,16 +8,16 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone<IBattleZoneCard>//, ITappableZone//TappableZone<IBattleZoneCard>
+    public class BattleZone : Zone<IBattleZoneCard>, IBattleZone
     {
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        internal IEnumerable<BattleZoneCreature> Creatures => new ReadOnlyCollection<BattleZoneCreature>(Cards.OfType<BattleZoneCreature>().ToList());
-        internal IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<BattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
-        internal IEnumerable<BattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<BattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
+        public IEnumerable<IBattleZoneCreature> Creatures => new ReadOnlyCollection<IBattleZoneCreature>(Cards.OfType<IBattleZoneCreature>().ToList());
+        public IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
+        public IEnumerable<IBattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
 
-        internal void UntapCards()
+        public void UntapCards()
         {
             foreach (BattleZoneCreature creature in TappedCreatures)
             {
@@ -25,7 +25,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Add(IBattleZoneCard card, IDuel duel)
+        public override void Add(IBattleZoneCard card, IDuel duel)
         {
             _cards.Add(card);
             if (card is IBattleZoneCreature creature)
@@ -35,7 +35,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Remove(IBattleZoneCard card, IDuel duel)
+        public override void Remove(IBattleZoneCard card, IDuel duel)
         {
             _ = _cards.Remove(card);
         }

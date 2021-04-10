@@ -4,7 +4,6 @@ using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels
@@ -14,20 +13,15 @@ namespace DuelMastersModels
     /// </summary>
     public class Player : IPlayer
     {
-        #region Public
         /// <summary>
         /// The name of the player.
         /// </summary>
         public string Name { get; private set; }
 
         /// <summary>
-        /// Represents the cards the player is going to use in a duel.
-        /// </summary>
-        public IEnumerable<ICard> DeckBeforeDuel => new ReadOnlyCollection<ICard>(_deckBeforeDuel.ToList());
-        /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; }
+        public IBattleZone BattleZone { get; private set; }
 
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
@@ -37,42 +31,23 @@ namespace DuelMastersModels
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; }
+        public IGraveyard Graveyard { get; private set; }
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; }
+        public IHand Hand { get; private set; }
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; }
+        public IManaZone ManaZone { get; private set; }
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; }
+        public IShieldZone ShieldZone { get; private set; }
 
-        public Player() { }
-
-        /// <summary>
-        /// Creates a player by initializing their zones.
-        /// </summary>
-        public Player(string name, IEnumerable<ICard> deckBeforeDuel)
-        {
-            Name = name;
-            _deckBeforeDuel = deckBeforeDuel ?? throw new System.ArgumentNullException(nameof(deckBeforeDuel));
-            Deck = new Deck(deckBeforeDuel);
-            BattleZone = new BattleZone();
-            Graveyard = new Graveyard();
-            Hand = new Hand();
-            ManaZone = new ManaZone();
-            ShieldZone = new ShieldZone();
-        }
-        #endregion Public
-
-        #region Internal
         public IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
         public IEnumerable<ICard> CardsInAllZones
@@ -89,6 +64,8 @@ namespace DuelMastersModels
                 return cards;
             }
         }
+
+        public Player() { }
 
         /// <summary>
         /// Player shuffles their deck.
@@ -134,11 +111,7 @@ namespace DuelMastersModels
         {
             return CardsInAllZones.Contains(card);
         }
-        #endregion Internal
 
-        #region Private
-        private readonly IEnumerable<ICard> _deckBeforeDuel;
         private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
-        #endregion Private
     }
 }

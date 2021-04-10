@@ -365,7 +365,7 @@ namespace DuelMastersModels
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
         {
             IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(this, _abilityManager, player);
-            return new ReadOnlyCollection<BattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
+            return new ReadOnlyCollection<IBattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(IPlayer player)
@@ -530,23 +530,9 @@ namespace DuelMastersModels
         private IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction)
         {
             IPlayerAction newPlayerAction = playerAction.TryToPerformAutomatically(this);
-            if (playerAction == newPlayerAction)
-            {
-                //Player action was not performed automatically.
-                if (playerAction.Player is AIPlayer aiPlayer)
-                {
-                    IPlayerAction aiAction = aiPlayer.PerformPlayerAction(this, newPlayerAction);
-                    return aiAction != null ? TryToPerformAutomatically(aiAction) : ProgressPrivate();
-                }
-                else
-                {
-                    return playerAction;
-                }
-            }
-            else
-            {
-                return newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : ProgressPrivate();
-            }
+            return playerAction == newPlayerAction
+                ? playerAction
+                : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : ProgressPrivate();
         }
 
         /// <summary>

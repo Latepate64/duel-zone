@@ -22,12 +22,12 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Add(IDeckCard card, IDuel duel)
+        public override void Add(IDeckCard card, IDuel duel)
         {
             _cards.Add(card);
         }
 
-        internal override void Remove(IDeckCard card, IDuel duel)
+        public override void Remove(IDeckCard card, IDuel duel)
         {
             _ = _cards.Remove(card);
         }
