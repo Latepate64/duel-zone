@@ -13,7 +13,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)
+        internal override PlayerAction Perform(IDuel duel, IBattleZoneCreature creature)
         {
             if (duel == null)
             {

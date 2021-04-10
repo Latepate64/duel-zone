@@ -2,7 +2,7 @@
 {
     internal class UntapCards : TurnBasedAction
     {
-        internal override void Perform(Duel duel)
+        internal override void Perform(IDuel duel)
         {
             if (duel == null)
             {

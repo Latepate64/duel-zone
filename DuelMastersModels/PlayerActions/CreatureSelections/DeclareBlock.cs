@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal DeclareBlock(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)
+        internal override PlayerAction Perform(IDuel duel, BattleZoneCreature creature)
         {
             if (duel == null)
             {

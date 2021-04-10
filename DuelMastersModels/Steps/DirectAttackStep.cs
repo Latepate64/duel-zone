@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
             DirectAttack = directAttack;
         }
 
-        internal override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(IDuel duel)
         {
             if (DirectAttack && !_breakingDone)
             {

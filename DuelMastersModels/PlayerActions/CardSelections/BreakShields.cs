@@ -20,14 +20,14 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             ShieldBreakingCreature = shieldBreakingCreature;
         }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return duel.GetOpponent(Player).ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
                 ? Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : (this)
                 : Perform(duel, new ReadOnlyCollection<IShieldZoneCard>(Cards.ToList().GetRange(0, MinimumSelection)));
         }
 
-        internal override PlayerAction Perform(Duel duel, IEnumerable<IShieldZoneCard> cards)
+        internal override PlayerAction Perform(IDuel duel, IEnumerable<IShieldZoneCard> cards)
         {
             return duel.PutFromShieldZoneToHand(duel.GetOpponent(Player), cards, true);
         }

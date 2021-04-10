@@ -13,7 +13,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal UseCard(IPlayer player, IEnumerable<IHandCard> cards) : base(player, cards)
         { }
 
-        internal override PlayerAction Perform(Duel duel, IHandCard card)
+        internal override PlayerAction Perform(IDuel duel, IHandCard card)
         {
             if (duel == null)
             {

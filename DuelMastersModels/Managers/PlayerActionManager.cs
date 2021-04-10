@@ -25,10 +25,10 @@ namespace DuelMastersModels.Managers
         }
 
         private IPlayerAction _currentPlayerAction;
-        private readonly Duel _duel;
+        private readonly IDuel _duel;
 
         #region Internal methods
-        internal PlayerActionManager(Duel duel)
+        internal PlayerActionManager(IDuel duel)
         {
             _duel = duel;
         }

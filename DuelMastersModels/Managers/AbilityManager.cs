@@ -61,7 +61,7 @@ namespace DuelMastersModels.Managers
             return continuousEffects;
         }
 
-        internal PlayerActionWithEndInformation ContinueResolution(Duel duel)
+        internal PlayerActionWithEndInformation ContinueResolution(IDuel duel)
         {
             return _abilityBeingResolved.ContinueResolution(duel);
         }

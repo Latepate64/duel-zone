@@ -11,7 +11,7 @@ namespace DuelMastersModels.Effects.OneShotEffects
             Power = power;
         }
 
-        internal override PlayerAction Apply(Duel duel, IPlayer player)
+        internal override PlayerAction Apply(IDuel duel, IPlayer player)
         {
             duel.AddContinuousEffect(new ContinuousEffects.PowerEffect(new Periods.UntilTheEndOfTheTurn(), new CardFilters.TargetCreatureFilter<Cards.IBattleZoneCreature>(Creature), Power));
             return null;

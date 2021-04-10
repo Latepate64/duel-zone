@@ -33,7 +33,7 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        internal PlayerActionWithEndInformation ContinueResolution(Duel duel)
+        internal PlayerActionWithEndInformation ContinueResolution(IDuel duel)
         {
             return _effectIndex < Effects.Count
                 ? new PlayerActionWithEndInformation(Effects[_effectIndex++].Apply(duel, Controller), false)
@@ -43,7 +43,7 @@ namespace DuelMastersModels.Abilities
         }
 
         /*
-        internal PlayerActions.PlayerAction ContinueResolution(Duel duel)
+        internal PlayerActions.PlayerAction ContinueResolution(IDuel duel)
         {
             return _effectIndex < Effects.Count
                 ? Effects[_effectIndex++].Apply(duel, Controller)

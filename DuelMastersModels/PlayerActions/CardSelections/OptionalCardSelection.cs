@@ -12,7 +12,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal OptionalCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, true)
         { }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return Cards.Any() ? (this) : Perform(duel, null);
         }

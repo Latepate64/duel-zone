@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    internal class Turn
+    public class Turn
     {
         #region Properties
         /// <summary>
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        internal PlayerAction Start(Duel duel)
+        internal PlayerAction Start(IDuel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
             return CurrentStep.ProcessTurnBasedActions(duel);

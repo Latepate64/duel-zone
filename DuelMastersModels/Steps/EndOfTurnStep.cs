@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(IDuel duel)
         {
             duel.EndContinuousEffects<Effects.Periods.UntilTheEndOfTheTurn>();
             return null;

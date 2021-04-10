@@ -15,7 +15,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         internal Collection<TCard> SelectedCards { get; } = new Collection<TCard>();
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return Cards.Any() ? (this) : Perform(duel, Cards);
         }

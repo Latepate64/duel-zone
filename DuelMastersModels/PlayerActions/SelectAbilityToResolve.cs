@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions
             Abilities = abilities;
         }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             if (Abilities.Count == 1)
             {
@@ -35,7 +35,7 @@ namespace DuelMastersModels.PlayerActions
             }
         }
 
-        internal static void Perform(Duel duel, NonStaticAbility ability)
+        internal static void Perform(IDuel duel, NonStaticAbility ability)
         {
             duel.SetPendingAbilityToBeResolved(ability);
         }

@@ -5,6 +5,6 @@
         /// <summary>
         /// Performs the game action.
         /// </summary>
-        internal abstract void Perform(Duel duel);
+        internal abstract void Perform(IDuel duel);
     }
 }

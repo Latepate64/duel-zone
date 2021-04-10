@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal DeclareAttackerMandatory(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(Duel duel, BattleZoneCreature creature)
+        internal override PlayerAction Perform(IDuel duel, BattleZoneCreature creature)
         {
             if (creature != null)
             {

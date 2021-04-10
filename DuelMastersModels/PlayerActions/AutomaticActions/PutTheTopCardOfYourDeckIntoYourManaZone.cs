@@ -4,7 +4,7 @@
     {
         public PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player) : base(player) { }
 
-        internal override PlayerAction Perform(Duel duel)
+        internal override PlayerAction Perform(IDuel duel)
         {
             return duel.PutTheTopCardOfYourDeckIntoYourManaZone(Player);
         }

@@ -15,7 +15,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal DeclareTargetOfAttack(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(Duel duel, IBattleZoneCreature creature)
+        internal override PlayerAction Perform(IDuel duel, IBattleZoneCreature creature)
         {
             if (duel == null)
             {
@@ -27,7 +27,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             return null;
         }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
                 ? Perform(duel, Cards.First())

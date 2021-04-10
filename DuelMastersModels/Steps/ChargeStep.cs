@@ -15,7 +15,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(IDuel duel)
         {
             if (duel == null)
             {

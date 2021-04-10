@@ -7,11 +7,11 @@
     {
         internal OptionalAction(IPlayer player) : base(player) { }
 
-        internal override PlayerAction TryToPerformAutomatically(Duel duel)
+        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return this;
         }
 
-        internal abstract PlayerAction Perform(Duel duel, bool takeAction);
+        internal abstract PlayerAction Perform(IDuel duel, bool takeAction);
     }
 }

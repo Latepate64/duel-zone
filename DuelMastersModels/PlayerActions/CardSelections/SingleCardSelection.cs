@@ -12,6 +12,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         { }
 
         internal abstract void Validate(TCard card);
-        internal abstract PlayerAction Perform(Duel duel, TCard card);
+        internal abstract PlayerAction Perform(IDuel duel, TCard card);
     }
 }

@@ -26,7 +26,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             }
         }
 
-        internal override PlayerAction Perform(Duel duel, IEnumerable<IManaZoneCard> cards)
+        internal override PlayerAction Perform(IDuel duel, IEnumerable<IManaZoneCard> cards)
         {
             if (duel == null)
             {

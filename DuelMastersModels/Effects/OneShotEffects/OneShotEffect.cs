@@ -5,6 +5,6 @@
     /// </summary>
     public abstract class OneShotEffect : Effect
     {
-        internal abstract PlayerActions.PlayerAction Apply(Duel duel, IPlayer player);
+        internal abstract PlayerActions.PlayerAction Apply(IDuel duel, IPlayer player);
     }
 }

@@ -25,7 +25,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Add(IBattleZoneCard card, Duel duel)
+        internal override void Add(IBattleZoneCard card, IDuel duel)
         {
             _cards.Add(card);
             if (card is IBattleZoneCreature creature)
@@ -35,7 +35,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        internal override void Remove(IBattleZoneCard card, Duel duel)
+        internal override void Remove(IBattleZoneCard card, IDuel duel)
         {
             _ = _cards.Remove(card);
         }

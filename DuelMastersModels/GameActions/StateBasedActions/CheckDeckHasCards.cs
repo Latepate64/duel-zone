@@ -7,7 +7,7 @@ namespace DuelMastersModels.GameActions.StateBasedActions
     /// </summary>
     internal class CheckDeckHasCards : StateBasedAction
     {
-        internal override void Perform(Duel duel)
+        internal override void Perform(IDuel duel)
         {
             if (!duel.Player1.Deck.Cards.Any() && !duel.Player2.Deck.Cards.Any())
             {

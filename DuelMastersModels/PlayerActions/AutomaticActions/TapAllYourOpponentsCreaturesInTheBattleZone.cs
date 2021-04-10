@@ -4,7 +4,7 @@
     {
         internal TapAllYourOpponentsCreaturesInTheBattleZone(IPlayer player) : base(player) { }
 
-        internal override PlayerAction Perform(Duel duel)
+        internal override PlayerAction Perform(IDuel duel)
         {
             foreach (Cards.BattleZoneCreature creature in duel.GetOpponent(Player).BattleZone.UntappedCreatures)
             {

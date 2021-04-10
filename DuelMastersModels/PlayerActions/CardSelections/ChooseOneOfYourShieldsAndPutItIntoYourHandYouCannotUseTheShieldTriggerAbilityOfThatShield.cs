@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(IPlayer player) : base(player, player.ShieldZone.Cards) { }
 
-        internal override PlayerAction Perform(Duel duel, IShieldZoneCard card)
+        internal override PlayerAction Perform(IDuel duel, IShieldZoneCard card)
         {
             if (duel == null)
             {

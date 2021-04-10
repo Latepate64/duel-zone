@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(IDuel duel)
         {
             return null;
         }
@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3a The active player untaps their cards in the battle zone and mana zone simultaneously. 
         /// </summary>
-        internal override PlayerAction ProcessTurnBasedActions(Duel duel)
+        internal override PlayerAction ProcessTurnBasedActions(IDuel duel)
         {
             new UntapCards().Perform(duel);
             return null;

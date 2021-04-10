@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(Duel duel)
+        internal override PlayerAction PlayerActionRequired(IDuel duel)
         {
             if (AttackingCreature != null && !TargetOfAttackDeclared)
             {
@@ -29,7 +29,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        internal override PlayerAction ProcessTurnBasedActions(Duel duel)
+        internal override PlayerAction ProcessTurnBasedActions(IDuel duel)
         {
             IEnumerable<BattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             return creatures.Any()

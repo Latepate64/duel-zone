@@ -22,7 +22,7 @@ namespace DuelMastersModels
         /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
         public AIPlayer(string name, IEnumerable<ICard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
 
-        internal PlayerAction PerformPlayerAction(Duel duel, IPlayerAction playerAction)
+        internal PlayerAction PerformPlayerAction(IDuel duel, IPlayerAction playerAction)
         {
             if (duel == null)
             {
@@ -119,7 +119,7 @@ namespace DuelMastersModels
             }
         }
 
-        private static PlayerAction SelectManaZoneCard(Duel duel, CardSelection<IManaZoneCard> manaZoneCardSelection)
+        private static PlayerAction SelectManaZoneCard(IDuel duel, CardSelection<IManaZoneCard> manaZoneCardSelection)
         {
             if (manaZoneCardSelection is PayCost payCost)
             {
@@ -134,7 +134,7 @@ namespace DuelMastersModels
             }
         }
 
-        private PlayerAction SelectHandCard(Duel duel, CardSelection<IHandCard> handCardSelection)
+        private PlayerAction SelectHandCard(IDuel duel, CardSelection<IHandCard> handCardSelection)
         {
             if (handCardSelection is OptionalCardSelection<IHandCard> optionalHandCardSelection)
             {
@@ -158,7 +158,7 @@ namespace DuelMastersModels
             }
         }
 
-        private static PlayerAction SelectCard(Duel duel, CardSelection<ICard> cardSelection)
+        private static PlayerAction SelectCard(IDuel duel, CardSelection<ICard> cardSelection)
         {
             PlayerAction newAction;
             if (cardSelection is OptionalCardSelection<ICard> optionalCardSelection)
