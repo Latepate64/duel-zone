@@ -23,7 +23,7 @@ namespace DuelMastersModels.Abilities.TriggerAbilities
         /// <param name="controller"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        internal TriggerAbility CreatePendingTriggerAbility(IPlayer controller, ICard source)
+        public TriggerAbility CreatePendingTriggerAbility(IPlayer controller, ICard source)
         {
             return new TriggerAbility(TriggerCondition, Effects) { Controller = controller, Source = source };
             /*

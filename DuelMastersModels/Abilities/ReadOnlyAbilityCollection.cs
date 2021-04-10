@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Abilities
 {
-    internal class ReadOnlyAbilityCollection : ReadOnlyCollection<Ability>
+    internal class ReadOnlyAbilityCollection : ReadOnlyCollection<IAbility>
     {
-        internal ReadOnlyAbilityCollection(IEnumerable<Ability> abilities) : base(abilities.ToList()) { }
+        internal ReadOnlyAbilityCollection(IEnumerable<IAbility> abilities) : base(abilities.ToList()) { }
     }
 }

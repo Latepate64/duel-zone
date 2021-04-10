@@ -91,9 +91,9 @@ namespace DuelMastersModels
         /// </summary>
         private readonly Collection<ISpell> _spellsBeingResolved = new Collection<ISpell>();
 
-        private readonly AbilityManager _abilityManager = new AbilityManager();
+        private readonly IAbilityManager _abilityManager = new AbilityManager();
 
-        private readonly ContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
+        private readonly IContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
 
         private readonly PlayerActionManager _playerActionManager;
 

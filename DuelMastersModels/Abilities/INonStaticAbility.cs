@@ -2,7 +2,7 @@
 
 namespace DuelMastersModels.Abilities
 {
-    public interface INonStaticAbility
+    public interface INonStaticAbility : IAbility
     {
         IPlayer Controller { get; set; }
         ReadOnlyOneShotEffectCollection Effects { get; }
