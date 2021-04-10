@@ -22,12 +22,12 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(IDeckCard card, IDuel duel)
+        public override void Add(IDeckCard card)
         {
             _cards.Add(card);
         }
 
-        public override void Remove(IDeckCard card, IDuel duel)
+        public override void Remove(IDeckCard card)
         {
             _ = _cards.Remove(card);
         }
@@ -52,22 +52,22 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public ICard RemoveAndGetTopCard(IDuel duel)
+        public ICard RemoveAndGetTopCard()
         {
-            return GetTopCard(true, duel);
+            return GetTopCard(true);
         }
 
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private ICard GetTopCard(bool remove, IDuel duel)
+        private ICard GetTopCard(bool remove)
         {
             if (Cards.Any())
             {
                 IDeckCard topCard = Cards.Last();
                 if (remove)
                 {
-                    Remove(topCard, duel);
+                    Remove(topCard);
                 }
                 return topCard;
             }

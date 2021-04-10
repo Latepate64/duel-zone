@@ -10,12 +10,12 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = false;
 
-        public override void Add(IHandCard card, IDuel duel)
+        public override void Add(IHandCard card)
         {
             _cards.Add(card);
         }
 
-        public override void Remove(IHandCard card, IDuel duel)
+        public override void Remove(IHandCard card)
         {
             _ = _cards.Remove(card);
         }

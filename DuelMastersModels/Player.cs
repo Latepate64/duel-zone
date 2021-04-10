@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
@@ -106,6 +107,41 @@ namespace DuelMastersModels
             else
             {
                 throw new System.InvalidOperationException();
+            }
+        }
+
+        ///<summary>
+        /// Removes the top cards from a player's deck and puts them into their shield zone.
+        ///</summary>
+        public void PutFromTopOfDeckIntoShieldZone(int amount)
+        {
+            for (int i = 0; i < amount; ++i)
+            {
+                ShieldZone.Add(CardFactory.GenerateShieldZoneCard(RemoveTopCardOfDeck(), false));
+            }
+        }
+
+        /// <summary>
+        /// Removes the top card from a player's deck and returns it.
+        /// </summary>
+        public ICard RemoveTopCardOfDeck()
+        {
+            return Deck.RemoveAndGetTopCard();
+        }
+
+        /// <summary>
+        /// Player draws a number of cards.
+        /// </summary>
+        public void DrawCards(int amount)
+        {
+            for (int i = 0; i < amount; ++i)
+            {
+                ICard drawnCard = RemoveTopCardOfDeck();
+                IHandCard handCard = CardFactory.GenerateHandCard(drawnCard);
+                Hand.Add(handCard);
+
+                //TODO: Uncomment
+                //DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(this, handCard)));
             }
         }
 

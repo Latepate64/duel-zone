@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies the player who goes first in the duel.
     /// </summary>
-    public enum StartingPlayer
+    public enum StartingPlayerMethod
     {
         /// <summary>
         /// Player who goes first is randomized.

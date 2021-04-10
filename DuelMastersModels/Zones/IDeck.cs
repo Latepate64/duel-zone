@@ -5,6 +5,6 @@ namespace DuelMastersModels.Zones
     public interface IDeck : IZone<IDeckCard>
     {
         void Shuffle();
-        ICard RemoveAndGetTopCard(IDuel duel);
+        ICard RemoveAndGetTopCard();
     }
 }

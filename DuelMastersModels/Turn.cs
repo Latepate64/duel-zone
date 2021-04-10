@@ -34,10 +34,10 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        internal Turn(IPlayer activePlayer, IPlayer nonActivePlayer, int number)
+        internal Turn(IPlayer activePlayer, int number)
         {
             ActivePlayer = activePlayer;
-            NonActivePlayer = nonActivePlayer;
+            NonActivePlayer = activePlayer.Opponent;
             Number = number;
         }
 

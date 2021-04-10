@@ -17,6 +17,8 @@ namespace DuelMastersModels.Zones
         public IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
         public IEnumerable<IBattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
 
+        public IDuel Duel { get; set; }
+
         public void UntapCards()
         {
             foreach (BattleZoneCreature creature in TappedCreatures)
@@ -25,17 +27,17 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(IBattleZoneCard card, IDuel duel)
+        public override void Add(IBattleZoneCard card)
         {
             _cards.Add(card);
             if (card is IBattleZoneCreature creature)
             {
-                duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
-                duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
+                Duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
+                Duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
             }
         }
 
-        public override void Remove(IBattleZoneCard card, IDuel duel)
+        public override void Remove(IBattleZoneCard card)
         {
             _ = _cards.Remove(card);
         }

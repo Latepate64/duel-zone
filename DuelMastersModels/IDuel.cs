@@ -28,6 +28,11 @@ namespace DuelMastersModels
         IPlayer Player2 { get; set; }
 
         /// <summary>
+        /// 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single-game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so. In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
+        /// </summary>
+        IPlayer StartingPlayer { get; set; }
+
+        /// <summary>
         /// Player who won the duel.
         /// </summary>
         IPlayer Winner { get; }
@@ -50,7 +55,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Determines which player goes first in the duel.
         /// </summary>
-        StartingPlayer StartingPlayer { get; }
+        StartingPlayerMethod StartingPlayerMethod { get; }
 
         ITurn CurrentTurn { get; }
 

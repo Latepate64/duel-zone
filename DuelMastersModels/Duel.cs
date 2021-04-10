@@ -35,6 +35,8 @@ namespace DuelMastersModels
         /// </summary>
         public IPlayer Player2 { get; set; }
 
+        public IPlayer StartingPlayer { get; set; }
+
         /// <summary>
         /// Player who won the duel.
         /// </summary>
@@ -58,7 +60,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Determines which player goes first in the duel.
         /// </summary>
-        public StartingPlayer StartingPlayer { get; set; } = StartingPlayer.Random;
+        public StartingPlayerMethod StartingPlayerMethod { get; set; } = StartingPlayerMethod.Random;
 
         /// <summary>
         /// The turn that is currently being processed.
@@ -109,39 +111,21 @@ namespace DuelMastersModels
         {
             if (State != DuelState.Setup)
             {
-                throw new InvalidOperationException($"Could not start duel as state was {State.ToString()} instead of setup.");
+                throw new InvalidOperationException($"Could not start the duel as state was {State} instead of {DuelState.Setup}.");
             }
             State = DuelState.InProgress;
-            IPlayer activePlayer = Player1;
-            IPlayer nonActivePlayer = Player2;
 
-            if (StartingPlayer == StartingPlayer.Random)
-            {
-                const int RandomMax = 100;
-                int randomNumber = new Random().Next(0, RandomMax);
-                StartingPlayer = (randomNumber % 2 == 0) ? StartingPlayer.Player1 : StartingPlayer.Player2;
-            }
+            // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
+            Player1.ShuffleDeck();
+            Player2.ShuffleDeck();
 
-            if (StartingPlayer == StartingPlayer.Player2)
-            {
-                activePlayer = Player2;
-                nonActivePlayer = Player1;
-            }
-            else if (StartingPlayer != StartingPlayer.Player1)
-            {
-                throw new InvalidOperationException();
-            }
+            Player1.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            Player2.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
 
-            activePlayer.ShuffleDeck();
-            nonActivePlayer.ShuffleDeck();
-            PutFromTheTopOfDeckIntoShieldZone(activePlayer, InitialNumberOfShields);
-            PutFromTheTopOfDeckIntoShieldZone(nonActivePlayer, InitialNumberOfShields);
+            Player1.DrawCards(InitialNumberOfHandCards);
+            Player2.DrawCards(InitialNumberOfHandCards);
 
-            //TODO: Animation
-            DrawCards(activePlayer, InitialNumberOfHandCards);
-            DrawCards(nonActivePlayer, InitialNumberOfHandCards);
-
-            return SetCurrentPlayerAction(StartNewTurn(activePlayer, nonActivePlayer));
+            return SetCurrentPlayerAction(StartNewTurn(StartingPlayer));
         }
 
         /// <summary>
@@ -208,8 +192,8 @@ namespace DuelMastersModels
         /// <param name="card"></param>
         public void PutFromHandIntoManaZone(IPlayer player, IHandCard card)
         {
-            player.Hand.Remove(card, this);
-            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(card), this);
+            player.Hand.Remove(card);
+            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(card));
         }
 
         /// <summary>
@@ -248,7 +232,7 @@ namespace DuelMastersModels
         {
             if (card is ICreature creature)
             {
-                player.BattleZone.Add(new BattleZoneCreature(creature), this);
+                player.BattleZone.Add(new BattleZoneCreature(creature));
             }
             else if (card is ISpell spell)
             {
@@ -266,8 +250,8 @@ namespace DuelMastersModels
         /// <param name="card"></param>
         public void AddFromYourHandToYourShieldsFaceDown(IHandCard card)
         {
-            card.Owner.Hand.Remove(card, this);
-            card.Owner.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(card, true), this);
+            card.Owner.Hand.Remove(card);
+            card.Owner.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(card, true));
         }
 
         public void EndContinuousEffects<T>()
@@ -347,7 +331,7 @@ namespace DuelMastersModels
         /// </summary>
         public IPlayerAction DrawCard(IPlayer player)
         {
-            DrawCards(player, 1);
+            player.DrawCards(1);
             return null;
             //TODO: remove
             /*
@@ -383,34 +367,34 @@ namespace DuelMastersModels
 
         public IPlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
         {
-            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(RemoveTheTopCardOfDeck(player)), this);
+            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(player.RemoveTopCardOfDeck()));
             return null;
         }
 
         public IPlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
         {
-            creature.Owner.BattleZone.Remove(creature, this);
-            creature.Owner.Hand.Add(new HandCreature(creature), this);
+            creature.Owner.BattleZone.Remove(creature);
+            creature.Owner.Hand.Add(new HandCreature(creature));
             return null;
         }
 
         public IPlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
         {
-            creature.Owner.BattleZone.Remove(creature, this);
-            creature.Owner.ManaZone.Add(new ManaZoneCreature(creature), this);
+            creature.Owner.BattleZone.Remove(creature);
+            creature.Owner.ManaZone.Add(new ManaZoneCreature(creature));
             return null;
         }
 
         public IPlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
         {
-            creature.Owner.ManaZone.Remove(creature, this);
-            creature.Owner.BattleZone.Add(new BattleZoneCreature(creature), this);
+            creature.Owner.ManaZone.Remove(creature);
+            creature.Owner.BattleZone.Add(new BattleZoneCreature(creature));
             return null;
         }
 
         public IPlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
         {
-            PutFromTheTopOfDeckIntoShieldZone(player, 1);
+            player.PutFromTopOfDeckIntoShieldZone(1);
             return null;
         }
         #endregion PlayerAction
@@ -430,31 +414,6 @@ namespace DuelMastersModels
 
         #region Private methods
         #region void
-        ///<summary>
-        /// Removes the top cards from a player's deck and puts them into their shield zone.
-        ///</summary>
-        private void PutFromTheTopOfDeckIntoShieldZone(IPlayer player, int amount)
-        {
-            for (int i = 0; i < amount; ++i)
-            {
-                player.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(RemoveTheTopCardOfDeck(player), false), this);
-            }
-        }
-
-        /// <summary>
-        /// A player draws a number of cards.
-        /// </summary>
-        private void DrawCards(IPlayer player, int amount)
-        {
-            for (int i = 0; i < amount; ++i)
-            {
-                ICard drawnCard = RemoveTheTopCardOfDeck(player);
-                IHandCard handCard = CardFactory.GenerateHandCard(drawnCard);
-                player.Hand.Add(handCard, this);
-                DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(player, handCard)));
-            }
-        }
-
         /// <summary>
         /// 703.3. The game always checks for any of the listed conditions for state-based actions, then performs all applicable state-based actions simultaneously as a single event. If any state-based actions are performed as a result of a check, the check is repeated.
         /// </summary>
@@ -466,15 +425,15 @@ namespace DuelMastersModels
 
         private void PutFromBattleZoneIntoGraveyard(IPlayer player, IBattleZoneCard card)
         {
-            player.BattleZone.Remove(card, this);
-            player.Graveyard.Add(CardFactory.GenerateGraveyardCard(card), this);
+            player.BattleZone.Remove(card);
+            player.Graveyard.Add(CardFactory.GenerateGraveyardCard(card));
         }
 
         private IHandCard PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card)
         {
-            player.ShieldZone.Remove(card, this);
+            player.ShieldZone.Remove(card);
             IHandCard handCard = CardFactory.GenerateHandCard(card);
-            player.Hand.Add(handCard, this);
+            player.Hand.Add(handCard);
             return handCard;
         }
 
@@ -601,7 +560,7 @@ namespace DuelMastersModels
             else
             {
                 _ = _spellsBeingResolved.Remove(spell);
-                spell.Owner.Graveyard.Add(new GraveyardSpell(spell), this);
+                spell.Owner.Graveyard.Add(new GraveyardSpell(spell));
                 return null;
             }
         }
@@ -616,7 +575,7 @@ namespace DuelMastersModels
         {
             if (CurrentTurn.ChangeStep())
             {
-                return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
+                return StartNewTurn(CurrentTurn.NonActivePlayer);
             }
             else
             {
@@ -631,7 +590,7 @@ namespace DuelMastersModels
             {
                 ISpell spell = _spellsBeingResolved.Last();
                 _ = _spellsBeingResolved.Remove(spell);
-                spell.Owner.Graveyard.Add(new GraveyardSpell(spell), this);
+                spell.Owner.Graveyard.Add(new GraveyardSpell(spell));
             }
             SetPendingAbilityToBeResolved(null);
         }
@@ -645,9 +604,9 @@ namespace DuelMastersModels
         /// <summary>
         /// Creates a new turn and starts it.
         /// </summary>
-        private IPlayerAction StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer)
+        private IPlayerAction StartNewTurn(IPlayer activePlayer)
         {
-            IPlayerAction playerAction = _turnManager.StartNewTurn(activePlayer, nonActivePlayer, this);
+            IPlayerAction playerAction = _turnManager.StartNewTurn(activePlayer, this);
             return playerAction != null ? TryToPerformAutomatically(playerAction) : ProgressPrivate();
         }
 
@@ -725,14 +684,6 @@ namespace DuelMastersModels
         }
         #endregion bool
 
-        /// <summary>
-        /// Removes the top card from a player's deck and returns it.
-        /// </summary>
-        private ICard RemoveTheTopCardOfDeck(IPlayer player)
-        {
-            return player.Deck.RemoveAndGetTopCard(this);
-        }
-
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
         {
             if (civilizationGroups.Count > 0)
@@ -769,6 +720,28 @@ namespace DuelMastersModels
             _spellsBeingResolved.Add(spell);
             _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(CreaturesInTheBattleZone);
         }
+
+        //private void RandomizeStartingPlayer(out IPlayer activePlayer, out IPlayer nonActivePlayer)
+        //{
+        //    activePlayer = Player1;
+        //    nonActivePlayer = Player2;
+        //    if (StartingPlayerMethod == StartingPlayerMethod.Random)
+        //    {
+        //        const int RandomMax = 100;
+        //        int randomNumber = new Random().Next(0, RandomMax);
+        //        StartingPlayerMethod = (randomNumber % 2 == 0) ? StartingPlayerMethod.Player1 : StartingPlayerMethod.Player2;
+        //    }
+
+        //    if (StartingPlayerMethod == StartingPlayerMethod.Player2)
+        //    {
+        //        activePlayer = Player2;
+        //        nonActivePlayer = Player1;
+        //    }
+        //    else if (StartingPlayerMethod != StartingPlayerMethod.Player1)
+        //    {
+        //        throw new InvalidOperationException();
+        //    }
+        //}
         #endregion Private methods
     }
 }

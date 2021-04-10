@@ -13,9 +13,9 @@ namespace DuelMastersModels.Managers
         /// </summary>
         private readonly Collection<ITurn> _turns = new Collection<ITurn>();
 
-        internal IPlayerAction StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer, Duel duel)
+        internal IPlayerAction StartNewTurn(IPlayer activePlayer, Duel duel)
         {
-            ITurn turn = new Turn(activePlayer, nonActivePlayer, _turns.Count + 1);
+            ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
             return turn.Start(duel);
         }

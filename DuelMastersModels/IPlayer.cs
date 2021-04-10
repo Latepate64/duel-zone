@@ -52,9 +52,12 @@ namespace DuelMastersModels
 
         IPlayer Opponent { get; set; }
 
-        void ShuffleDeck();
-        void RemoveShieldTriggerToUse(IHandCard card);
         void AddShieldTriggerToUse(IHandCard card);
+        void DrawCards(int amount);
         ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
+        void PutFromTopOfDeckIntoShieldZone(int amount);
+        void RemoveShieldTriggerToUse(IHandCard card);
+        ICard RemoveTopCardOfDeck();
+        void ShuffleDeck();
     }
 }

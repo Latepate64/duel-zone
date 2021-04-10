@@ -10,11 +10,11 @@ namespace DuelMastersModels.Zones
         ///<summary>
         /// Adds a card to the zone.
         ///</summary>
-        void Add(TCard card, IDuel duel);
+        void Add(TCard card);
 
         ///<summary>
         /// Removes a card from the zone.
         ///</summary>
-        void Remove(TCard card, IDuel duel);
+        void Remove(TCard card);
     }
 }
