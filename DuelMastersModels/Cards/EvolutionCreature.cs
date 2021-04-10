@@ -10,7 +10,6 @@
         /// </summary>
         protected EvolutionCreature(int cost, Civilization civilization, int power, Race race) : base(cost, civilization, power, race)
         {
-            SummoningSickness = false;
         }
     }
 }

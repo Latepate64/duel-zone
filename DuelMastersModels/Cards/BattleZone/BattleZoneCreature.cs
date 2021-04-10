@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DuelMastersModels.Abilities.TriggerAbilities;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
@@ -25,7 +26,9 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Determines whether the creature has summoning sickess.
         /// </summary>
-        public bool SummoningSickness { get; internal set; } = true;
+        public bool SummoningSickness { get; set; }
+
+        public ICollection<ITriggerAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a battle zone creature.

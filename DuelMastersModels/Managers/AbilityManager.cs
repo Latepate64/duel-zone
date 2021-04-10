@@ -111,16 +111,17 @@ namespace DuelMastersModels.Managers
         /// </summary>
         /// <param name="ability"></param>
         /// <param name="controller"></param>
-        private void TriggerTriggerAbility(TriggerAbility ability, Player controller)
+        /// <param name="source"></param>
+        private void TriggerTriggerAbility(TriggerAbility ability, Player controller, ICard source)
         {
-            _pendingAbilities.Add(ability.CreatePendingTriggerAbility(controller));
+            _pendingAbilities.Add(ability.CreatePendingTriggerAbility(controller, source));
         }
 
         private void TriggerTriggerAbilities<T>(IBattleZoneCreature card)
         {
             foreach (TriggerAbility ability in GetTriggerAbilities<T>(card))
             {
-                TriggerTriggerAbility(ability, ability.Controller);
+                TriggerTriggerAbility(ability, ability.Controller, card);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DuelMastersModels.Abilities.TriggerAbilities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Cards
@@ -23,10 +24,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public ICollection<Race> Races { get; }
 
-        /// <summary>
-        /// Summoning sickness limits when a creature is able to attack.
-        /// </summary>
-        public bool SummoningSickness { get; internal set; } = true;
+        public ICollection<ITriggerAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a creature.

@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    internal class ReadOnlyStaticAbilityCollection : ReadOnlyCollection<StaticAbility>
+    internal class ReadOnlyStaticAbilityCollection : ReadOnlyCollection<IStaticAbility>
     {
-        internal ReadOnlyStaticAbilityCollection(IEnumerable<StaticAbility> abilities) : base(abilities.ToList()) { }
+        internal ReadOnlyStaticAbilityCollection(IEnumerable<IStaticAbility> abilities) : base(abilities.ToList()) { }
     }
 }

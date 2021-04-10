@@ -86,6 +86,7 @@
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
     <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
+    <Compile Include="Abilities\Static\IStaticAbility.cs" />
     <Compile Include="Abilities\Static\ReadOnlyStaticAbilityCollection.cs" />
     <Compile Include="Abilities\Static\SpeedAttacker.cs" />
     <Compile Include="Abilities\Static\SpellShieldTrigger.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Abilities\Static\StaticAbilityForSpell.cs" />
     <Compile Include="Abilities\Static\ThisCreatureAttacksEachTurnIfAble.cs" />
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
+    <Compile Include="Abilities\Trigger\ITriggerAbility.cs" />
     <Compile Include="Abilities\Trigger\ReadOnlyTriggerAbilityCollection.cs" />
     <Compile Include="Abilities\Trigger\TriggerAbility.cs" />
     <Compile Include="Abilities\Trigger\TriggerCondition.cs" />

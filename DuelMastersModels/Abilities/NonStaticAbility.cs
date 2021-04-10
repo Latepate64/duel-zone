@@ -23,12 +23,9 @@ namespace DuelMastersModels.Abilities
         /// Used in creating non-static abilities.
         /// </summary>
         /// <param name="effects">Effects the ability generates.</param>
-        /// <param name="controller">Player who controls the ability.</param>
-        /// <param name="source">Object that generated the ability.</param>
-        internal NonStaticAbility(ReadOnlyOneShotEffectCollection effects, Player controller, Cards.ICard source) : base(source)
+        protected NonStaticAbility(ReadOnlyOneShotEffectCollection effects)
         {
             Effects = effects;
-            Controller = controller;
         }
 
         /// <summary>

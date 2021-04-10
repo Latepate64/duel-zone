@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Effects.OneShotEffects
 {
-    internal class ReadOnlyOneShotEffectCollection : ReadOnlyCollection<OneShotEffect>
+    public class ReadOnlyOneShotEffectCollection : ReadOnlyCollection<OneShotEffect>
     {
         internal ReadOnlyOneShotEffectCollection(IEnumerable<OneShotEffect> oneShotEffects) : base(oneShotEffects.ToList()) { }
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    internal class ReadOnlyContinuousEffectCollection : ReadOnlyCollection<ContinuousEffect>
+    public class ReadOnlyContinuousEffectCollection : ReadOnlyCollection<ContinuousEffect>
     {
         internal ReadOnlyContinuousEffectCollection() : base(new List<ContinuousEffect>())
         {

@@ -36,10 +36,10 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// <summary>
         /// Creates a static ability only creatures can have.
         /// </summary>
-        /// <param name="source">Source of the ability.</param>
         /// <param name="continuousEffect">Continuous effect created by the ability.</param>
         /// <param name="effectActivityCondition">Activity condition for the effects created by the ability.</param>
-        protected StaticAbilityForCreature(Cards.ICreature source, ContinuousEffect continuousEffect, EffectActivityConditionForCreature effectActivityCondition) : base(source, continuousEffect)
+        /// 
+        protected StaticAbilityForCreature(ContinuousEffect continuousEffect, EffectActivityConditionForCreature effectActivityCondition) : base(continuousEffect)
         {
             EffectActivityCondition = effectActivityCondition;
         }

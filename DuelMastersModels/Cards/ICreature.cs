@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DuelMastersModels.Abilities.TriggerAbilities;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
 {
@@ -16,5 +17,7 @@ namespace DuelMastersModels.Cards
         /// Race is a characteristic of a creature.
         /// </summary>
         ICollection<Race> Races { get; }
+
+        ICollection<ITriggerAbility> TriggerAbilities { get; }
     }
 }
