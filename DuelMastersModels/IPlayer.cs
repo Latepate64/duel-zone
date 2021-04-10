@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.PlayerActions;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
 
@@ -55,9 +56,12 @@ namespace DuelMastersModels
         void AddShieldTriggerToUse(IHandCard card);
         void DrawCards(int amount);
         ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
+        void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card);
+        void PutFromHandIntoManaZone(IHandCard card);
         void PutFromTopOfDeckIntoShieldZone(int amount);
         void RemoveShieldTriggerToUse(IHandCard card);
         ICard RemoveTopCardOfDeck();
         void ShuffleDeck();
+        IPlayerAction TakeTurn(IDuel duel);
     }
 }

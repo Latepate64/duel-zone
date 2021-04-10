@@ -199,6 +199,8 @@
     <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Managers\IAbilityManager.cs" />
     <Compile Include="Managers\IContinuousEffectManager.cs" />
+    <Compile Include="Managers\IPlayerActionManager.cs" />
+    <Compile Include="Managers\ITurnManager.cs" />
     <Compile Include="Managers\ShieldTriggerManager.cs" />
     <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />

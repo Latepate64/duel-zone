@@ -7,8 +7,26 @@ using System.Linq;
 
 namespace DuelMastersModels.Managers
 {
-    internal class PlayerActionManager
+    public class PlayerActionManager : IPlayerActionManager
     {
+        public IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
+        {
+            if (CurrentPlayerAction is CardSelection<T>)
+            {
+                return PerformCardSelection(cards);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void SetCurrentPlayerAction(IPlayerAction playerAction)
+        {
+            CurrentPlayerAction = playerAction;
+        }
+
+        #region Internal
         /// <summary>
         /// An action a player is currently performing.
         /// </summary>
@@ -24,25 +42,9 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        private IPlayerAction _currentPlayerAction;
-        private readonly IDuel _duel;
-
-        #region Internal methods
         internal PlayerActionManager(IDuel duel)
         {
             _duel = duel;
-        }
-
-        internal IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
-        {
-            if (CurrentPlayerAction is CardSelection<T>)
-            {
-                return PerformCardSelection(cards);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
         }
 
         internal IPlayerAction Progress<T>() where T : class, ICard
@@ -75,14 +77,12 @@ namespace DuelMastersModels.Managers
             }
         }
         */
+        #endregion Internal
 
-        internal void SetCurrentPlayerAction(IPlayerAction playerAction)
-        {
-            CurrentPlayerAction = playerAction;
-        }
-        #endregion Internal methods
+        #region Private
+        private IPlayerAction _currentPlayerAction;
+        private readonly IDuel _duel;
 
-        #region Private methods
         private IPlayerAction PerformMandatoryCardSelection<T>(IEnumerable<T> cards, MandatoryCardSelection<T> mandatoryCardSelection) where T : class, ICard
         {
             IPlayerAction playerAction;
@@ -234,6 +234,6 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
         */
-        #endregion Private methods
+        #endregion Private
     }
 }

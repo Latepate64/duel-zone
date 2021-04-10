@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace DuelMastersModels.Managers
 {
-    internal class TurnManager
+    public class TurnManager : ITurnManager
     {
-        internal ITurn CurrentTurn => _turns.Last();
+        public ITurn CurrentTurn => _turns.Last();
 
-        /// <summary>
-        /// All the turns of the duel that have been or are processed, in order.
-        /// </summary>
-        private readonly Collection<ITurn> _turns = new Collection<ITurn>();
-
-        internal IPlayerAction StartNewTurn(IPlayer activePlayer, Duel duel)
+        public IPlayerAction StartTurn(IPlayer activePlayer, IDuel duel)
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
             return turn.Start(duel);
         }
+
+        /// <summary>
+        /// All the turns of the duel that have been or are processed, in order.
+        /// </summary>
+        private readonly Collection<ITurn> _turns = new Collection<ITurn>();
     }
 }

@@ -19,7 +19,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             if (card != null)
             {
                 card.Tapped = true;
-                (duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature = card;
+                (duel.TurnManager.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature = card;
                 return null;
             }
             else

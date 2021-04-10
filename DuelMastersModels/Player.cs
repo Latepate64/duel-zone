@@ -3,6 +3,7 @@ using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
+using DuelMastersModels.PlayerActions;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +111,22 @@ namespace DuelMastersModels
             }
         }
 
+        public void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card)
+        {
+            BattleZone.Remove(card);
+            Graveyard.Add(CardFactory.GenerateGraveyardCard(card));
+        }
+
+        /// <summary>
+        /// Player puts target card from their hand into their mana zone.
+        /// </summary>
+        /// <param name="card"></param>
+        public void PutFromHandIntoManaZone(IHandCard card)
+        {
+            Hand.Remove(card);
+            ManaZone.Add(CardFactory.GenerateManaZoneCard(card));
+        }
+
         ///<summary>
         /// Removes the top cards from a player's deck and puts them into their shield zone.
         ///</summary>
@@ -127,6 +144,15 @@ namespace DuelMastersModels
         public ICard RemoveTopCardOfDeck()
         {
             return Deck.RemoveAndGetTopCard();
+        }
+
+        /// <summary>
+        /// Creates a new turn and starts it.
+        /// </summary>
+        public IPlayerAction TakeTurn(IDuel duel)
+        {
+            IPlayerAction playerAction = duel.TurnManager.StartTurn(this, duel);
+            return playerAction != null ? duel.TryToPerformAutomatically(playerAction) : duel.Progress();
         }
 
         /// <summary>

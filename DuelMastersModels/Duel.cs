@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Determines the state of the duel.
         /// </summary>
-        public DuelState State { get; private set; } = DuelState.Setup;
+        public DuelState State { get; set; } = DuelState.Setup;
 
         /// <summary>
         /// The number of shields each player has at the start of a duel. 
@@ -61,11 +61,6 @@ namespace DuelMastersModels
         /// Determines which player goes first in the duel.
         /// </summary>
         public StartingPlayerMethod StartingPlayerMethod { get; set; } = StartingPlayerMethod.Random;
-
-        /// <summary>
-        /// The turn that is currently being processed.
-        /// </summary>
-        public ITurn CurrentTurn => _turnManager.CurrentTurn;
         #endregion Public
 
         /// <summary>
@@ -80,6 +75,10 @@ namespace DuelMastersModels
                 return new ReadOnlyCollection<IBattleZoneCreature>(creatures);
             }
         }
+
+        public ITurnManager TurnManager { get; set; } = new TurnManager();
+
+        public IPlayerActionManager PlayerActionManager { get; set; }
         #endregion Properties
 
         #region Fields
@@ -96,10 +95,6 @@ namespace DuelMastersModels
         private readonly IAbilityManager _abilityManager = new AbilityManager();
 
         private readonly IContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
-
-        private readonly PlayerActionManager _playerActionManager;
-
-        private readonly TurnManager _turnManager = new TurnManager();
         #endregion Fields
 
         #region Public methods
@@ -116,16 +111,16 @@ namespace DuelMastersModels
             State = DuelState.InProgress;
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            Player1.ShuffleDeck();
-            Player2.ShuffleDeck();
+            StartingPlayer.ShuffleDeck();
+            StartingPlayer.Opponent.ShuffleDeck();
 
-            Player1.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
-            Player2.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            StartingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            StartingPlayer.Opponent.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
 
-            Player1.DrawCards(InitialNumberOfHandCards);
-            Player2.DrawCards(InitialNumberOfHandCards);
+            StartingPlayer.DrawCards(InitialNumberOfHandCards);
+            StartingPlayer.Opponent.DrawCards(InitialNumberOfHandCards);
 
-            return SetCurrentPlayerAction(StartNewTurn(StartingPlayer));
+            return SetCurrentPlayerAction(StartingPlayer.TakeTurn(this));
         }
 
         /// <summary>
@@ -158,8 +153,16 @@ namespace DuelMastersModels
         public IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
         {
             ValidateStateForProgressing();
-            IPlayerAction playerAction = _playerActionManager.Progress(cards);
-            return playerAction == null ? SetCurrentPlayerAction(ProgressPrivate()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+            IPlayerAction playerAction = PlayerActionManager.Progress(cards);
+            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+        }
+
+        public IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction)
+        {
+            IPlayerAction newPlayerAction = playerAction.TryToPerformAutomatically(this);
+            return playerAction == newPlayerAction
+                ? playerAction
+                : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
         }
         #endregion Public methods
 
@@ -186,40 +189,27 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// Target player puts target card from their hand into their mana zone.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="card"></param>
-        public void PutFromHandIntoManaZone(IPlayer player, IHandCard card)
-        {
-            player.Hand.Remove(card);
-            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(card));
-        }
-
-        /// <summary>
         /// Manages a battle between two creatures.
         /// </summary>
         /// <param name="attackingCreature">Creature which initiated the attack.</param>
         /// <param name="defendingCreature">Creature which the attack was directed at.</param>
-        /// <param name="attackingPlayer"></param>
-        /// <param name="defendingPlayer"></param>
-        public void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature, IPlayer attackingPlayer, IPlayer defendingPlayer)
+        public void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature)
         {
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                PutFromBattleZoneIntoGraveyard(defendingPlayer, defendingCreature);
+                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                PutFromBattleZoneIntoGraveyard(attackingPlayer, attackingCreature);
+                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature);
             }
             else
             {
-                PutFromBattleZoneIntoGraveyard(attackingPlayer, attackingCreature);
-                PutFromBattleZoneIntoGraveyard(defendingPlayer, defendingCreature);
+                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature);
+                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature);
             }
         }
 
@@ -423,12 +413,6 @@ namespace DuelMastersModels
             checkDeckHasCards.Perform(this);
         }
 
-        private void PutFromBattleZoneIntoGraveyard(IPlayer player, IBattleZoneCard card)
-        {
-            player.BattleZone.Remove(card);
-            player.Graveyard.Add(CardFactory.GenerateGraveyardCard(card));
-        }
-
         private IHandCard PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card)
         {
             player.ShieldZone.Remove(card);
@@ -448,24 +432,16 @@ namespace DuelMastersModels
         #endregion void
 
         #region PlayerAction
-        private IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction)
-        {
-            IPlayerAction newPlayerAction = playerAction.TryToPerformAutomatically(this);
-            return playerAction == newPlayerAction
-                ? playerAction
-                : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : ProgressPrivate();
-        }
-
         /// <summary>
         /// Progresses in the duel.
         /// </summary>
         /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        private IPlayerAction ProgressPrivate()
+        public IPlayerAction Progress()
         {
             if (State == DuelState.InProgress)
             {
                 CheckStateBasedActions();
-                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : ProgressPrivate();
+                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
             }
             else if (State == DuelState.Over)
             {
@@ -483,7 +459,7 @@ namespace DuelMastersModels
             if (!action.ResolutionOver)
             {
                 //TODO: test
-                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : ProgressPrivate();
+                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : Progress();
             }
             else
             {
@@ -494,7 +470,7 @@ namespace DuelMastersModels
 
         private IPlayerAction TryToUseShieldTrigger()
         {
-            foreach (IPlayer player in new List<IPlayer>() { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
+            foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
             {
                 return TryToPerformAutomatically(new UseShieldTrigger(player, new List<IHandCard>(player.ShieldTriggersToUse)));
             }
@@ -533,7 +509,7 @@ namespace DuelMastersModels
 
         private IPlayerAction TryToSelectAbilityToResolve()
         {
-            foreach (IPlayer player in new List<IPlayer> { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer })
+            foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer })
             {
                 SelectAbilityToResolve selectAbilityToResolve = _abilityManager.TryGetSelectAbilityToResolve(player);
                 if (selectAbilityToResolve != null)
@@ -546,7 +522,7 @@ namespace DuelMastersModels
 
         private IPlayerAction TryToPerformStepAction()
         {
-            IPlayerAction playerAction = CurrentTurn.CurrentStep.PlayerActionRequired(this);
+            IPlayerAction playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
             return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
         }
 
@@ -568,19 +544,19 @@ namespace DuelMastersModels
         private IPlayerAction StartResolvingSpellAbility(ISpell spell)
         {
             _abilityManager.StartResolvingSpellAbility(spell);
-            return ProgressPrivate();
+            return Progress();
         }
 
         private IPlayerAction ChangeStep()
         {
-            if (CurrentTurn.ChangeStep())
+            if (TurnManager.CurrentTurn.ChangeStep())
             {
-                return StartNewTurn(CurrentTurn.NonActivePlayer);
+                return TurnManager.CurrentTurn.NonActivePlayer.TakeTurn(this);
             }
             else
             {
-                IPlayerAction action = CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                return action != null ? TryToPerformAutomatically(action) : ProgressPrivate();
+                IPlayerAction action = TurnManager.CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                return action != null ? TryToPerformAutomatically(action) : Progress();
             }
         }
 
@@ -597,26 +573,9 @@ namespace DuelMastersModels
 
         private IPlayerAction SetCurrentPlayerAction(IPlayerAction playerAction)
         {
-            _playerActionManager.SetCurrentPlayerAction(playerAction);
+            PlayerActionManager.SetCurrentPlayerAction(playerAction);
             return playerAction;
         }
-
-        /// <summary>
-        /// Creates a new turn and starts it.
-        /// </summary>
-        private IPlayerAction StartNewTurn(IPlayer activePlayer)
-        {
-            IPlayerAction playerAction = _turnManager.StartNewTurn(activePlayer, this);
-            return playerAction != null ? TryToPerformAutomatically(playerAction) : ProgressPrivate();
-        }
-
-        /*
-        private PlayerAction PutTheTopCardOfYourDeckIntoYourManaZoneThenAddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
-        {
-            player.ManaZone.Add(RemoveTheTopCardOfDeck(player), this);
-            return new AddTheTopCardOfYourDeckToYourShieldsFaceDown(player);
-        }
-        */
         #endregion PlayerAction
 
         #region bool

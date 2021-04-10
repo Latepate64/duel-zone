@@ -4,16 +4,12 @@
     {
         internal override void Perform(IDuel duel)
         {
-            if (duel == null)
-            {
-                throw new System.ArgumentNullException(nameof(duel));
-            }
-            foreach (Cards.BattleZoneCreature creature in duel.CurrentTurn.ActivePlayer.BattleZone.Creatures)
+            foreach (Cards.BattleZoneCreature creature in duel.TurnManager.CurrentTurn.ActivePlayer.BattleZone.Creatures)
             {
                 creature.SummoningSickness = false;
             }
-            duel.CurrentTurn.ActivePlayer.BattleZone.UntapCards();
-            duel.CurrentTurn.ActivePlayer.ManaZone.UntapCards();
+            duel.TurnManager.CurrentTurn.ActivePlayer.BattleZone.UntapCards();
+            duel.TurnManager.CurrentTurn.ActivePlayer.ManaZone.UntapCards();
         }
     }
 }

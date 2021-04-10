@@ -19,7 +19,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             {
                 throw new ArgumentNullException(nameof(duel));
             }
-            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
+            else if (duel.TurnManager.CurrentTurn.CurrentStep is MainStep mainStep)
             {
                 if (card != null)
                 {

@@ -23,7 +23,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             if (card != null)
             {
                 // 507.1b The chosen creature becomes a blocking creature. It remains a blocking creature until it's removed from the attack or until the end of attack step, whichever comes first.
-                BlockDeclarationStep blockDeclarationStep = duel.CurrentTurn.CurrentStep as BlockDeclarationStep;
+                BlockDeclarationStep blockDeclarationStep = duel.TurnManager.CurrentTurn.CurrentStep as BlockDeclarationStep;
                 blockDeclarationStep.BlockingCreature = card;
                 // 507.1c The nonactive player taps the chosen creature.
                 card.Tapped = true;

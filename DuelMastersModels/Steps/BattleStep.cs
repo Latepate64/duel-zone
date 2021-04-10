@@ -28,11 +28,11 @@ namespace DuelMastersModels.Steps
             }
             if (BlockingCreature != null)
             {
-                duel.Battle(AttackingCreature, BlockingCreature, ActivePlayer, duel.CurrentTurn.NonActivePlayer);
+                duel.Battle(AttackingCreature, BlockingCreature);
             }
             else if (AttackedCreature != null)
             {
-                duel.Battle(AttackingCreature, AttackedCreature, ActivePlayer, duel.CurrentTurn.NonActivePlayer);
+                duel.Battle(AttackingCreature, AttackedCreature);
             }
             return null;
         }

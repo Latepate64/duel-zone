@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.Managers;
 using DuelMastersModels.PlayerActions;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Determines the state of the duel.
         /// </summary>
-        DuelState State { get; }
+        DuelState State { get; set; }
 
         /// <summary>
         /// The number of shields each player has at the start of a duel. 
@@ -57,9 +58,11 @@ namespace DuelMastersModels
         /// </summary>
         StartingPlayerMethod StartingPlayerMethod { get; }
 
-        ITurn CurrentTurn { get; }
-
         IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone { get; }
+
+        ITurnManager TurnManager { get; set; }
+
+        IPlayerActionManager PlayerActionManager { get; set; }
 
         /// <summary>
         /// Starts the duel.
@@ -101,8 +104,7 @@ namespace DuelMastersModels
         IPlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player);
         void End(IPlayer winner);
         void EndDuelInDraw();
-        void PutFromHandIntoManaZone(IPlayer player, IHandCard card);
-        void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature, IPlayer attackingPlayer, IPlayer defendingPlayer);
+        void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature);
         void UseCard(IPlayer player, ICard card);
         void AddFromYourHandToYourShieldsFaceDown(IHandCard card);
         void EndContinuousEffects<T>();
@@ -116,5 +118,7 @@ namespace DuelMastersModels
         void SetPendingAbilityToBeResolved(INonStaticAbility ability);
         void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);
+        IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction);
+        IPlayerAction Progress();
     }
 }

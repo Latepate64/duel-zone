@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             {
                 throw new ArgumentNullException(nameof(duel));
             }
-            AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
+            AttackDeclarationStep step = duel.TurnManager.CurrentTurn.CurrentStep as AttackDeclarationStep;
             step.AttackedCreature = card;
             step.TargetOfAttackDeclared = true;
             return null;
@@ -29,7 +29,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
 
         public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
-            return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
+            return !duel.CanAttackOpponent((duel.TurnManager.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
                 ? Perform(duel, Cards.First())
                 : Cards.Any() ? (this) : Perform(duel, null);
         }

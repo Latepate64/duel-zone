@@ -23,7 +23,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             if (card != null)
             {
                 card.Tapped = true;
-                AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
+                AttackDeclarationStep step = duel.TurnManager.CurrentTurn.CurrentStep as AttackDeclarationStep;
                 step.AttackingCreature = card;
             }
             return null;

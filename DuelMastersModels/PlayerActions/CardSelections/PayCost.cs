@@ -20,7 +20,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal void Validate(IEnumerable<IManaZoneCard> cards, Duel duel)
         {
             Validate(cards);
-            if (!Duel.CanBeUsed((duel.CurrentTurn.CurrentStep as MainStep).CardToBeUsed, cards))
+            if (!Duel.CanBeUsed((duel.TurnManager.CurrentTurn.CurrentStep as MainStep).CardToBeUsed, cards))
             {
                 throw new Exceptions.PayCostException(ToString());
             }
@@ -36,7 +36,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
             {
                 throw new ArgumentNullException(nameof(cards));
             }
-            else if (duel.CurrentTurn.CurrentStep is MainStep mainStep)
+            else if (duel.TurnManager.CurrentTurn.CurrentStep is MainStep mainStep)
             {
                 foreach (ManaZoneCard card in cards)
                 {

@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         {
             if (card != null)
             {
-                duel.PutFromHandIntoManaZone(Player, card);
+                Player.PutFromHandIntoManaZone(card);
             }
             return null;
         }

@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
         /// </summary>
         public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
         {
-            return new DrawCard(duel.CurrentTurn.ActivePlayer);
+            return new DrawCard(duel.TurnManager.CurrentTurn.ActivePlayer);
             /*
             var action = new DrawCardAtDrawStep();
             action.Perform(duel);
