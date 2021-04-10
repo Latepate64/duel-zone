@@ -4,7 +4,7 @@
     {
         internal AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player) : base(player) { }
 
-        internal override PlayerAction Perform(IDuel duel)
+        internal override IPlayerAction Perform(IDuel duel)
         {
             return duel.AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player);
         }

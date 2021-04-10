@@ -13,20 +13,20 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal SoulSwapSelection(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IBattleZoneCreature creature)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (duel == null)
             {
                 throw new ArgumentNullException(nameof(duel));
             }
-            else if (creature == null)
+            else if (card == null)
             {
                 return null;
             }
             else
             {
-                _ = duel.PutFromBattleZoneIntoOwnersManazone(creature);
-                IPlayer owner = duel.GetOwner(creature);
+                _ = duel.PutFromBattleZoneIntoOwnersManazone(card);
+                IPlayer owner = duel.GetOwner(card);
                 return new ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(Player, owner.ManaZone.NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone);
             }
         }

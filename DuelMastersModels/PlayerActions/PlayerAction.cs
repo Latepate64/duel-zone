@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        internal abstract PlayerAction TryToPerformAutomatically(IDuel duel);
+        public abstract IPlayerAction TryToPerformAutomatically(IDuel duel);
 
         /*
         /// <summary>

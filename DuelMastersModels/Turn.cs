@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        internal PlayerAction Start(IDuel duel)
+        internal IPlayerAction Start(IDuel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
             return CurrentStep.ProcessTurnBasedActions(duel);

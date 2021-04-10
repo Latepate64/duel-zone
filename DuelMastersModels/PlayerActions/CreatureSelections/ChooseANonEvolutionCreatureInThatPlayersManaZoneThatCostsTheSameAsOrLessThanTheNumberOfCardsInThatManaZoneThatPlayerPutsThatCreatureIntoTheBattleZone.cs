@@ -13,7 +13,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal ChooseANonEvolutionCreatureInThatPlayersManaZoneThatCostsTheSameAsOrLessThanTheNumberOfCardsInThatManaZoneThatPlayerPutsThatCreatureIntoTheBattleZone(IPlayer player, IEnumerable<IManaZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IManaZoneCreature creature)
+        public override IPlayerAction Perform(IDuel duel, IManaZoneCreature card)
         {
             if (duel == null)
             {
@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
             else
             {
-                return duel.PutFromManaZoneIntoTheBattleZone(creature);
+                return duel.PutFromManaZoneIntoTheBattleZone(card);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal UseShieldTrigger(IPlayer player, IEnumerable<IHandCard> cards) : base(player, cards) { }
 
-        internal override PlayerAction Perform(IDuel duel, IHandCard card)
+        public override IPlayerAction Perform(IDuel duel, IHandCard card)
         {
             Player.Hand.Remove(card, duel);
             duel.UseCard(Player, card);

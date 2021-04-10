@@ -4,12 +4,12 @@
     {
         protected AutomaticAction(IPlayer player) : base(player) { }
 
-        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
+        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
-            PlayerAction newAction = Perform(duel);
+            IPlayerAction newAction = Perform(duel);
             return newAction;
         }
 
-        internal abstract PlayerAction Perform(IDuel duel);
+        internal abstract IPlayerAction Perform(IDuel duel);
     }
 }

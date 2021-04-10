@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(IDuel duel)
+        internal override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
             return State == MainStepState.Use && usableCards.Any()

@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
             BlockingCreature = blockingCreature;
         }
 
-        internal override PlayerAction PlayerActionRequired(IDuel duel)
+        internal override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             if (duel == null)
             {

@@ -9,5 +9,7 @@
         /// Player performing the action.
         /// </summary>
         IPlayer Player { get; }
+
+        IPlayerAction TryToPerformAutomatically(IDuel duel);
     }
 }

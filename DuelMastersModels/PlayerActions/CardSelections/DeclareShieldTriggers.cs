@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal DeclareShieldTriggers(IPlayer player, IEnumerable<IHandCard> cards) : base(player, cards)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IEnumerable<IHandCard> cards)
+        internal override IPlayerAction Perform(IDuel duel, IEnumerable<IHandCard> cards)
         {
             foreach (IHandCard card in cards)
             {

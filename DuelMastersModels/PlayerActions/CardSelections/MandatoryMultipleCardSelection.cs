@@ -13,7 +13,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         {
         }
 
-        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
+        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : (this);
         }

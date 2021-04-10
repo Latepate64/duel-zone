@@ -22,7 +22,7 @@ namespace DuelMastersModels
         /// <param name="deckBeforeDuel">Cards the player uses in duel.</param>
         public AIPlayer(string name, IEnumerable<ICard> deckBeforeDuel) : base(name, deckBeforeDuel) { }
 
-        internal PlayerAction PerformPlayerAction(IDuel duel, IPlayerAction playerAction)
+        internal IPlayerAction PerformPlayerAction(IDuel duel, IPlayerAction playerAction)
         {
             if (duel == null)
             {
@@ -42,7 +42,7 @@ namespace DuelMastersModels
             }
             else if (playerAction is CardSelection<IBattleZoneCreature> battleZoneCreatureSelection)
             {
-                PlayerAction newAction;
+                IPlayerAction newAction;
                 if (battleZoneCreatureSelection is OptionalCardSelection<IBattleZoneCreature> optionalCreatureSelection)
                 {
                     IBattleZoneCreature creature = null;
@@ -119,7 +119,7 @@ namespace DuelMastersModels
             }
         }
 
-        private static PlayerAction SelectManaZoneCard(IDuel duel, CardSelection<IManaZoneCard> manaZoneCardSelection)
+        private static IPlayerAction SelectManaZoneCard(IDuel duel, CardSelection<IManaZoneCard> manaZoneCardSelection)
         {
             if (manaZoneCardSelection is PayCost payCost)
             {
@@ -134,7 +134,7 @@ namespace DuelMastersModels
             }
         }
 
-        private PlayerAction SelectHandCard(IDuel duel, CardSelection<IHandCard> handCardSelection)
+        private IPlayerAction SelectHandCard(IDuel duel, CardSelection<IHandCard> handCardSelection)
         {
             if (handCardSelection is OptionalCardSelection<IHandCard> optionalHandCardSelection)
             {
@@ -158,9 +158,9 @@ namespace DuelMastersModels
             }
         }
 
-        private static PlayerAction SelectCard(IDuel duel, CardSelection<ICard> cardSelection)
+        private static IPlayerAction SelectCard(IDuel duel, CardSelection<ICard> cardSelection)
         {
-            PlayerAction newAction;
+            IPlayerAction newAction;
             if (cardSelection is OptionalCardSelection<ICard> optionalCardSelection)
             {
                 ICard card = null;

@@ -15,19 +15,19 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal DeclareTargetOfAttack(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IBattleZoneCreature creature)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (duel == null)
             {
                 throw new ArgumentNullException(nameof(duel));
             }
             AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
-            step.AttackedCreature = creature;
+            step.AttackedCreature = card;
             step.TargetOfAttackDeclared = true;
             return null;
         }
 
-        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
+        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return !duel.CanAttackOpponent((duel.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
                 ? Perform(duel, Cards.First())

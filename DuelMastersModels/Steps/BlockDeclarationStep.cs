@@ -16,12 +16,12 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        internal override PlayerAction PlayerActionRequired(IDuel duel)
+        internal override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             return null;
         }
 
-        internal override PlayerAction ProcessTurnBasedActions(IDuel duel)
+        internal override IPlayerAction ProcessTurnBasedActions(IDuel duel)
         {
             if (duel == null)
             {

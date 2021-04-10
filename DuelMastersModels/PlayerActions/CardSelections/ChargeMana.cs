@@ -10,7 +10,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal ChargeMana(IPlayer player) : base(player, player.Hand.Cards)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IHandCard card)
+        public override IPlayerAction Perform(IDuel duel, IHandCard card)
         {
             if (card != null)
             {

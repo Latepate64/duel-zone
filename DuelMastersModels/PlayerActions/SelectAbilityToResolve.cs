@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions
             Abilities = abilities;
         }
 
-        internal override PlayerAction TryToPerformAutomatically(IDuel duel)
+        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
             if (Abilities.Count == 1)
             {

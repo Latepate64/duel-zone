@@ -7,7 +7,7 @@
     {
         internal YouMayDrawACard(IPlayer player) : base(player) { }
 
-        internal override PlayerAction Perform(IDuel duel, bool takeAction)
+        internal override IPlayerAction Perform(IDuel duel, bool takeAction)
         {
             return takeAction ? new AutomaticActions.DrawCard(Player) : null;
         }

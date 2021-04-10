@@ -11,7 +11,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         internal YouMayAddACardFromYourHandToYourShieldsFaceDownIfYouDoChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield(IPlayer player) : base(player, player.Hand.Cards)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IHandCard card)
+        public override IPlayerAction Perform(IDuel duel, IHandCard card)
         {
             if (duel == null)
             {

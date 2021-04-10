@@ -86,14 +86,14 @@ namespace DuelMastersModels
         IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard;
 
         int GetPower(IBattleZoneCreature creature);
-        PlayerAction DrawCard(IPlayer player);
-        PlayerAction PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger);
-        PlayerAction PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger);
-        PlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player);
-        PlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature);
-        PlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature);
-        PlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature);
-        PlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player);
+        IPlayerAction DrawCard(IPlayer player);
+        IPlayerAction PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger);
+        IPlayerAction PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger);
+        IPlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player);
+        IPlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature);
+        IPlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature);
+        IPlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature);
+        IPlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player);
         void End(IPlayer winner);
         void EndDuelInDraw();
         void PutFromHandIntoManaZone(IPlayer player, IHandCard card);

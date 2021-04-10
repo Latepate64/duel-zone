@@ -14,17 +14,17 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal DeclareAttacker(IPlayer player, IEnumerable<BattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, BattleZoneCreature creature)
+        public override IPlayerAction Perform(IDuel duel, BattleZoneCreature card)
         {
             if (duel == null)
             {
                 throw new ArgumentNullException(nameof(duel));
             }
-            if (creature != null)
+            if (card != null)
             {
-                creature.Tapped = true;
+                card.Tapped = true;
                 AttackDeclarationStep step = duel.CurrentTurn.CurrentStep as AttackDeclarationStep;
-                step.AttackingCreature = creature;
+                step.AttackingCreature = card;
             }
             return null;
         }

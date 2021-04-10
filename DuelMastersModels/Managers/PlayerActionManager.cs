@@ -33,7 +33,7 @@ namespace DuelMastersModels.Managers
             _duel = duel;
         }
 
-        internal PlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
+        internal IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
         {
             if (CurrentPlayerAction is CardSelection<T>)
             {
@@ -45,7 +45,7 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        internal PlayerAction Progress<T>() where T : class, ICard
+        internal IPlayerAction Progress<T>() where T : class, ICard
         {
             //throw new NotImplementedException();
             if (CurrentPlayerAction is SingleCardSelection<T> singleCardSelection)
@@ -83,9 +83,9 @@ namespace DuelMastersModels.Managers
         #endregion Internal methods
 
         #region Private methods
-        private PlayerAction PerformMandatoryCardSelection<T>(IEnumerable<T> cards, MandatoryCardSelection<T> mandatoryCardSelection) where T : class, ICard
+        private IPlayerAction PerformMandatoryCardSelection<T>(IEnumerable<T> cards, MandatoryCardSelection<T> mandatoryCardSelection) where T : class, ICard
         {
-            PlayerAction playerAction;
+            IPlayerAction playerAction;
             if (cards.Count() == 1)
             {
                 T card = cards.First();
@@ -100,9 +100,9 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private PlayerAction PerformMultipleCardSelection<T>(IEnumerable<T> cards, OptionalMultipleCardSelection<T> multipleCardSelection) where T : class, ICard
+        private IPlayerAction PerformMultipleCardSelection<T>(IEnumerable<T> cards, OptionalMultipleCardSelection<T> multipleCardSelection) where T : class, ICard
         {
-            PlayerAction playerAction;
+            IPlayerAction playerAction;
             multipleCardSelection.Validate(cards);
             foreach (T card in cards)
             {
@@ -112,9 +112,9 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private PlayerAction PerformOptionalCardSelection<T>(IEnumerable<T> cards, OptionalCardSelection<T> optionalCardSelection) where T : class, ICard
+        private IPlayerAction PerformOptionalCardSelection<T>(IEnumerable<T> cards, OptionalCardSelection<T> optionalCardSelection) where T : class, ICard
         {
-            PlayerAction playerAction;
+            IPlayerAction playerAction;
             T card = null;
             if (cards.Count() == 1)
             {
@@ -125,7 +125,7 @@ namespace DuelMastersModels.Managers
             return playerAction;
         }
 
-        private PlayerAction PerformCardSelection<T>(IEnumerable<T> cards) where T : class, ICard
+        private IPlayerAction PerformCardSelection<T>(IEnumerable<T> cards) where T : class, ICard
         {
             if (CurrentPlayerAction is OptionalCardSelection<T> optionalCardSelection)
             {
@@ -164,7 +164,7 @@ namespace DuelMastersModels.Managers
         }
         */
 
-        private PlayerAction PerformMandatoryMultipleCardSelection<T>(IEnumerable<T> cardSelectionResponse, MandatoryMultipleCardSelection<T> mandatoryMultipleCardSelection) where T : class, ICard
+        private IPlayerAction PerformMandatoryMultipleCardSelection<T>(IEnumerable<T> cardSelectionResponse, MandatoryMultipleCardSelection<T> mandatoryMultipleCardSelection) where T : class, ICard
         {
             mandatoryMultipleCardSelection.Validate(cardSelectionResponse);
             return mandatoryMultipleCardSelection.Perform(_duel, cardSelectionResponse);

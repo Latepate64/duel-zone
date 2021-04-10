@@ -6,7 +6,7 @@
         {
         }
 
-        internal override PlayerAction Perform(IDuel duel)
+        internal override IPlayerAction Perform(IDuel duel)
         {
             return duel.DrawCard(Player);
         }

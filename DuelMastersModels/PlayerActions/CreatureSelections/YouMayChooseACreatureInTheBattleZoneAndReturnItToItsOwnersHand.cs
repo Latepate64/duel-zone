@@ -13,7 +13,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         internal YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand(IPlayer player, IEnumerable<IBattleZoneCreature> creatures) : base(player, creatures)
         { }
 
-        internal override PlayerAction Perform(IDuel duel, IBattleZoneCreature creature)
+        public override IPlayerAction Perform(IDuel duel, IBattleZoneCreature card)
         {
             if (duel == null)
             {
@@ -21,7 +21,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
             }
             else
             {
-                return creature == null ? null : duel.ReturnFromBattleZoneToHand(creature);
+                return card == null ? null : duel.ReturnFromBattleZoneToHand(card);
             }
         }
     }

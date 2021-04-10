@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        internal override PlayerAction PlayerActionRequired(IDuel duel)
+        internal override IPlayerAction PlayerActionRequired(IDuel duel)
         {
             return null;
         }
