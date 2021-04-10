@@ -29,7 +29,7 @@ namespace DuelMastersModels
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        Deck Deck { get; }
+        IDeck Deck { get; set; }
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -59,6 +59,6 @@ namespace DuelMastersModels
         void RemoveShieldTriggerToUse(IHandCard card);
         bool AnyZoneContains(ICard card);
         void AddShieldTriggerToUse(IHandCard card);
-        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility);
+        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
     }
 }

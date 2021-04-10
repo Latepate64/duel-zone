@@ -54,7 +54,7 @@ namespace DuelMastersModels.Managers
         internal List<IContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player)
         {
             List<IContinuousEffect> continuousEffects = new List<IContinuousEffect>();
-            foreach (StaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
+            foreach (IStaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
             {
                 continuousEffects.AddRange(player.GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
             }
@@ -135,7 +135,7 @@ namespace DuelMastersModels.Managers
 
         private ReadOnlyStaticAbilityCollection GetStaticAbilities()
         {
-            return new ReadOnlyStaticAbilityCollection(_abilities.Where(a => a is StaticAbility).Cast<StaticAbility>());
+            return new ReadOnlyStaticAbilityCollection(_abilities.Where(a => a is IStaticAbility).Cast<IStaticAbility>());
         }
 
         private ReadOnlySpellAbilityCollection GetSpellAbilities()

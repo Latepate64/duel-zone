@@ -261,7 +261,9 @@
     <Compile Include="Zones\Graveyard.cs" />
     <Compile Include="Zones\Hand.cs" />
     <Compile Include="Cards\BattleZone\IBattleZoneCard.cs" />
+    <Compile Include="Zones\IDeck.cs" />
     <Compile Include="Zones\ITappableZone.cs" />
+    <Compile Include="Zones\IZone.cs" />
     <Compile Include="Zones\ManaZone.cs" />
     <Compile Include="Zones\ShieldZone.cs" />
     <Compile Include="Zones\Zone.cs" />

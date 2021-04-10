@@ -24,8 +24,6 @@ namespace DuelMastersModels
         /// Represents the cards the player is going to use in a duel.
         /// </summary>
         public IEnumerable<ICard> DeckBeforeDuel => new ReadOnlyCollection<ICard>(_deckBeforeDuel.ToList());
-
-        #region Zones
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
@@ -34,7 +32,7 @@ namespace DuelMastersModels
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; private set; }
+        public IDeck Deck { get; set; }
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -56,6 +54,8 @@ namespace DuelMastersModels
         /// </summary>
         public ShieldZone ShieldZone { get; private set; }
 
+        public Player() { }
+
         /// <summary>
         /// Creates a player by initializing their zones.
         /// </summary>
@@ -70,9 +70,6 @@ namespace DuelMastersModels
             ManaZone = new ManaZone();
             ShieldZone = new ShieldZone();
         }
-        #endregion Zones
-
-
         #endregion Public
 
         #region Internal
@@ -111,7 +108,7 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility)
+        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {

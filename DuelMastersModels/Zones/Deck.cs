@@ -9,7 +9,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone<IDeckCard>
+    public class Deck : Zone<IDeckCard>, IDeck
     {
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
@@ -35,7 +35,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Shuffles the deck.
         /// </summary>
-        internal void Shuffle()
+        public void Shuffle()
         {
             Random random = new Random(Guid.NewGuid().GetHashCode());
             int n = _cards.Count;
@@ -52,7 +52,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        internal ICard RemoveAndGetTopCard(IDuel duel)
+        public ICard RemoveAndGetTopCard(IDuel duel)
         {
             return GetTopCard(true, duel);
         }
