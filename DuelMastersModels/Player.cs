@@ -5,6 +5,7 @@ using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
 using DuelMastersModels.PlayerActions;
 using DuelMastersModels.Zones;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -69,6 +70,10 @@ namespace DuelMastersModels
 
         public IPlayer Opponent { get; set; }
 
+        public ITurnManager TurnManager { get; set; }
+
+        public IDuel Duel { get; set; }
+
         public Player() { }
 
         /// <summary>
@@ -82,6 +87,58 @@ namespace DuelMastersModels
         public void AddShieldTriggerToUse(IHandCard card)
         {
             _shieldTriggerManager.AddShieldTriggerToUse(card);
+        }
+
+        public IPlayerAction ChargeMana(IHandCard card)
+        {
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+            else if (TurnManager.CurrentTurn.CurrentStep is Steps.ChargeStep chargeStep)
+            {
+                if (this == chargeStep.ActivePlayer)
+                {
+                    PutFromHandIntoManaZone(card);
+                    return Duel.Progress();
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public IPlayerAction Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards)
+        {
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+            else if (manaCards == null)
+            {
+                throw new ArgumentNullException(nameof(manaCards));
+            }
+            else if (TurnManager.CurrentTurn.CurrentStep is Steps.MainStep mainStep)
+            {
+                if (this == mainStep.ActivePlayer)
+                {
+                    return Duel.Progress();
+                    throw new NotImplementedException("Consider mana payment");
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public void RemoveShieldTriggerToUse(IHandCard card)
@@ -107,7 +164,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
         }
 

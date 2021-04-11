@@ -31,7 +31,7 @@ namespace DuelMastersModels.PlayerActions.CreatureSelections
         {
             return !duel.CanAttackOpponent((duel.TurnManager.CurrentTurn.CurrentStep as AttackDeclarationStep).AttackingCreature) && Cards.Count() == 1
                 ? Perform(duel, Cards.First())
-                : Cards.Any() ? (this) : Perform(duel, null);
+                : Cards.Any() ? this : Perform(duel, null);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// Returns the cards that can be used.
         /// </summary>
-        private static IEnumerable<IHandCard> GetUsableCards(IEnumerable<IHandCard> handCards, IEnumerable<IManaZoneCard> manaCards)
+        public static IEnumerable<IHandCard> GetUsableCards(IEnumerable<IHandCard> handCards, IEnumerable<IManaZoneCard> manaCards)
         {
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
         }

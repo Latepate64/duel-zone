@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
-            return Cards.Count() == 1 ? Perform(duel, Cards.First()) : (this);
+            return Cards.Count() == 1 ? Perform(duel, Cards.First()) : this;
         }
 
         internal override void Validate(TCard card)

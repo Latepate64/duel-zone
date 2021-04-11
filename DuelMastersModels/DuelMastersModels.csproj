@@ -210,7 +210,6 @@
     <Compile Include="PlayerActions\AutomaticActions\PutTheTopCardOfYourDeckIntoYourManaZone.cs" />
     <Compile Include="PlayerActions\AutomaticActions\TapAllYourOpponentsCreaturesInTheBattleZone.cs" />
     <Compile Include="PlayerActions\CardSelections\BreakShields.cs" />
-    <Compile Include="PlayerActions\CardSelections\ChargeMana.cs" />
     <Compile Include="PlayerActions\CardSelections\CardSelection.cs" />
     <Compile Include="PlayerActions\CardSelections\ChooseOneOfYourShieldsAndPutItIntoYourHandYouCannotUseTheShieldTriggerAbilityOfThatShield.cs" />
     <Compile Include="PlayerActions\CardSelections\DeclareShieldTriggers.cs" />
@@ -233,6 +232,7 @@
     <Compile Include="PlayerActions\CreatureSelections\SoulSwapSelection.cs" />
     <Compile Include="PlayerActions\CreatureSelections\YouMayChooseACreatureInTheBattleZoneAndReturnItToItsOwnersHand.cs" />
     <Compile Include="PlayerActions\IPlayerAction.cs" />
+    <Compile Include="PlayerActions\MainAction.cs" />
     <Compile Include="PlayerActions\OptionalActions\OptionalAction.cs" />
     <Compile Include="PlayerActions\OptionalActions\YouMayDrawACard.cs" />
     <Compile Include="PlayerActions\PlayerAction.cs" />

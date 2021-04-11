@@ -23,7 +23,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
         public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
             return Player.Opponent.ShieldZone.Cards.Any(c => c.KnownToOpponent || c.KnownToOwner)
-                ? Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : (this)
+                ? Cards.Count() <= MaximumSelection ? Perform(duel, Cards) : this
                 : Perform(duel, new ReadOnlyCollection<IShieldZoneCard>(Cards.ToList().GetRange(0, MinimumSelection)));
         }
 

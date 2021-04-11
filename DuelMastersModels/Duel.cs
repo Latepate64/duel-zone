@@ -141,7 +141,7 @@ namespace DuelMastersModels
         /// <returns></returns>
         public IPlayerAction Progress<T>(T card) where T : class, ICard
         {
-            return Progress(new List<T>() { card });
+            return Progress(new List<T> { card });
         }
 
         /// <summary>
@@ -441,7 +441,8 @@ namespace DuelMastersModels
             if (State == DuelState.InProgress)
             {
                 CheckStateBasedActions();
-                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
+                IPlayerAction action = State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
+                return SetCurrentPlayerAction(action);
             }
             else if (State == DuelState.Over)
             {
@@ -449,7 +450,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new InvalidOperationException($"Duel is in invalid state for progression. State: {State.ToString()}");
+                throw new InvalidOperationException($"Duel is in invalid state for progression. State: {State}");
             }
         }
 

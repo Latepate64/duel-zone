@@ -1,5 +1,6 @@
-﻿using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CardSelections;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.PlayerActions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -17,10 +18,6 @@ namespace DuelMastersModels.Steps
 
         public override IPlayerAction PlayerActionRequired(IDuel duel)
         {
-            if (duel == null)
-            {
-                throw new System.ArgumentNullException(nameof(duel));
-            }
             if (MustBeEnded || !ActivePlayer.Hand.Cards.Any())
             {
                 return null;
@@ -28,7 +25,8 @@ namespace DuelMastersModels.Steps
             else
             {
                 MustBeEnded = true;
-                return new ChargeMana(ActivePlayer);
+                IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+                return new MainAction(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
             }
         }
     }

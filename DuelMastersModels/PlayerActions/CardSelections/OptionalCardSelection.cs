@@ -14,7 +14,7 @@ namespace DuelMastersModels.PlayerActions.CardSelections
 
         public override IPlayerAction TryToPerformAutomatically(IDuel duel)
         {
-            return Cards.Any() ? (this) : Perform(duel, null);
+            return Cards.Any() ? this : Perform(duel, null);
         }
 
         internal override void Validate(TCard card)

@@ -42,11 +42,6 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        internal PlayerActionManager(IDuel duel)
-        {
-            _duel = duel;
-        }
-
         internal IPlayerAction Progress<T>() where T : class, ICard
         {
             //throw new NotImplementedException();
