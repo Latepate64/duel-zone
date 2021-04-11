@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.PlayerActions.CardSelections
+namespace DuelMastersModels.Choices.CardSelections
 {
     /// <summary>
     /// Player must select a card.
@@ -11,11 +11,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal MandatoryCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, false)
         { }
-
-        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
-        {
-            return Cards.Count() == 1 ? Perform(duel, Cards.First()) : this;
-        }
 
         internal override void Validate(TCard card)
         {

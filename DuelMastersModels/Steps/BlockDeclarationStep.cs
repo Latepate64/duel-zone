@@ -1,8 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CreatureSelections;
-using System.Collections.Generic;
-using System.Linq;
+using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
@@ -16,19 +13,16 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             return null;
         }
 
-        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IChoice ProcessTurnBasedActions(IDuel duel)
         {
-            if (duel == null)
-            {
-                throw new System.ArgumentNullException(nameof(duel));
-            }
-            IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-            return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
+            //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+            throw new System.NotImplementedException();
+            //return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
         }
     }
 }

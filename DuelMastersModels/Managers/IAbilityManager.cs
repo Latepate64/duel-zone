@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using System.Collections.Generic;
 
 namespace DuelMastersModels.Managers

@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
@@ -6,7 +6,7 @@ namespace DuelMastersModels.Steps
     {
         IPlayer ActivePlayer { get; }
 
-        IPlayerAction ProcessTurnBasedActions(IDuel duel);
-        IPlayerAction PlayerActionRequired(IDuel duel);
+        IChoice ProcessTurnBasedActions(IDuel duel);
+        IChoice PlayerActionRequired(IDuel duel);
     }
 }

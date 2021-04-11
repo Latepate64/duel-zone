@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             if (MustBeEnded || !ActivePlayer.Hand.Cards.Any())
             {
@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
             {
                 MustBeEnded = true;
                 IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-                return new MainAction(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
+                return new PriorityActionRequest(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
             }
         }
     }

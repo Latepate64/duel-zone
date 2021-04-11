@@ -3,7 +3,7 @@ using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
@@ -89,7 +89,7 @@ namespace DuelMastersModels
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        public IPlayerAction ChargeMana(IHandCard card)
+        public IChoice ChargeMana(IHandCard card)
         {
             if (card == null)
             {
@@ -113,7 +113,7 @@ namespace DuelMastersModels
             }
         }
 
-        public IPlayerAction Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards)
+        public IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards)
         {
             if (card == null)
             {
@@ -206,10 +206,10 @@ namespace DuelMastersModels
         /// <summary>
         /// Creates a new turn and starts it.
         /// </summary>
-        public IPlayerAction TakeTurn(IDuel duel)
+        public IChoice TakeTurn(IDuel duel)
         {
-            IPlayerAction playerAction = duel.TurnManager.StartTurn(this, duel);
-            return playerAction != null ? duel.TryToPerformAutomatically(playerAction) : duel.Progress();
+            IChoice choice = duel.TurnManager.StartTurn(this, duel);
+            return choice != null ? duel.TryToPerformAutomatically(choice) : duel.Progress();
         }
 
         /// <summary>

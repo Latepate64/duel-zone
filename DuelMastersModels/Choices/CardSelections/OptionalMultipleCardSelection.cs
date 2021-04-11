@@ -1,9 +1,8 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.PlayerActions.CardSelections
+namespace DuelMastersModels.Choices.CardSelections
 {
     /// <summary>
     /// Player selects up to a number of cards.
@@ -12,13 +11,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal OptionalMultipleCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, false, cards.Count())
         { }
-
-        internal Collection<TCard> SelectedCards { get; } = new Collection<TCard>();
-
-        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
-        {
-            return Cards.Any() ? (this) : Perform(duel, Cards);
-        }
 
         internal override void Validate(IEnumerable<TCard> cards)
         {

@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Starts the turn.
         /// </summary>
-        public IPlayerAction Start(IDuel duel)
+        public IChoice Start(IDuel duel)
         {
             Steps.Add(new StartOfTurnStep(ActivePlayer));
             return CurrentStep.ProcessTurnBasedActions(duel);

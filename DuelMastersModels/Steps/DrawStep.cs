@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.AutomaticActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
@@ -12,7 +11,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             return null;
         }
@@ -20,13 +19,10 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
-        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IChoice ProcessTurnBasedActions(IDuel duel)
         {
-            return new DrawCard(duel.TurnManager.CurrentTurn.ActivePlayer);
-            /*
-            var action = new DrawCardAtDrawStep();
-            action.Perform(duel);
-            return null;*/
+            ActivePlayer.DrawCards(1);
+            return null;
         }
     }
 }

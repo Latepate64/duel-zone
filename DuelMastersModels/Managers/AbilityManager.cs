@@ -3,7 +3,7 @@ using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Abilities.TriggerAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

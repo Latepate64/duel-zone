@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             return null;
         }

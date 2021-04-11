@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Managers
 {
@@ -9,6 +9,6 @@ namespace DuelMastersModels.Managers
         /// </summary>
         ITurn CurrentTurn { get; }
 
-        IPlayerAction StartTurn(IPlayer activePlayer, IDuel duel);
+        IChoice StartTurn(IPlayer activePlayer, IDuel duel);
     }
 }

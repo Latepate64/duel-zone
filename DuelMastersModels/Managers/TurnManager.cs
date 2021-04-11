@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace DuelMastersModels.Managers
     {
         public ITurn CurrentTurn => _turns.Last();
 
-        public IPlayerAction StartTurn(IPlayer activePlayer, IDuel duel)
+        public IChoice StartTurn(IPlayer activePlayer, IDuel duel)
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);

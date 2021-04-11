@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
 
 namespace DuelMastersModels
@@ -20,7 +20,7 @@ namespace DuelMastersModels
         /// </summary>
         IStep CurrentStep { get; }
 
-        IPlayerAction Start(IDuel duel);
+        IChoice Start(IDuel duel);
         bool ChangeStep();
     }
 }

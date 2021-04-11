@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
@@ -19,7 +18,7 @@ namespace DuelMastersModels.Steps
             DirectAttack = directAttack;
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             if (DirectAttack && !_breakingDone)
             {
@@ -32,7 +31,8 @@ namespace DuelMastersModels.Steps
                 if (opponent.ShieldZone.Cards.Any())
                 {
                     //TODO: consider multibreaker
-                    return new BreakShields(ActivePlayer, 1, ActivePlayer.Opponent.ShieldZone.Cards, AttackingCreature);
+                    throw new NotImplementedException();
+                    //return new BreakShields(ActivePlayer, 1, ActivePlayer.Opponent.ShieldZone.Cards, AttackingCreature);
                 }
                 else
                 {

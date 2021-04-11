@@ -4,8 +4,7 @@ using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
 using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.Managers;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,8 +76,6 @@ namespace DuelMastersModels
         }
 
         public ITurnManager TurnManager { get; set; } = new TurnManager();
-
-        public IPlayerActionManager PlayerActionManager { get; set; }
         #endregion Properties
 
         #region Fields
@@ -102,7 +99,7 @@ namespace DuelMastersModels
         /// Starts the duel.
         /// </summary>
         /// <returns>Action a player is expected to perform.</returns>
-        public IPlayerAction Start()
+        public IChoice Start()
         {
             if (State != DuelState.Setup)
             {
@@ -120,14 +117,14 @@ namespace DuelMastersModels
             StartingPlayer.DrawCards(InitialNumberOfHandCards);
             StartingPlayer.Opponent.DrawCards(InitialNumberOfHandCards);
 
-            return SetCurrentPlayerAction(StartingPlayer.TakeTurn(this));
+            return StartingPlayer.TakeTurn(this);
         }
 
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
         /// <returns></returns>
-        public IPlayerAction Progress<T>() where T : class, ICard
+        public IChoice Progress<T>() where T : class, ICard
         {
             //return _playerActionManager.Progress<T>();
             return Progress(new List<T>());
@@ -139,7 +136,7 @@ namespace DuelMastersModels
         /// <typeparam name="T"></typeparam>
         /// <param name="card"></param>
         /// <returns></returns>
-        public IPlayerAction Progress<T>(T card) where T : class, ICard
+        public IChoice Progress<T>(T card) where T : class, ICard
         {
             return Progress(new List<T> { card });
         }
@@ -150,19 +147,21 @@ namespace DuelMastersModels
         /// <typeparam name="T"></typeparam>
         /// <param name="cards"></param>
         /// <returns></returns>
-        public IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard
+        public IChoice Progress<T>(IEnumerable<T> cards) where T : class, ICard
         {
             ValidateStateForProgressing();
-            IPlayerAction playerAction = PlayerActionManager.Progress(cards);
-            return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
+            throw new NotImplementedException();
+            //IChoice playerAction = PlayerActionManager.Progress(cards);
+            //return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
         }
 
-        public IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction)
+        public IChoice TryToPerformAutomatically(IChoice playerAction)
         {
-            IPlayerAction newPlayerAction = playerAction.TryToPerformAutomatically(this);
-            return playerAction == newPlayerAction
-                ? playerAction
-                : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
+            throw new NotImplementedException();
+            //IChoice newPlayerAction = playerAction.TryToChooseAutomatically(this);
+            //return playerAction == newPlayerAction
+            //    ? playerAction
+            //    : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
         }
         #endregion Public methods
 
@@ -319,7 +318,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Player draws a card.
         /// </summary>
-        public IPlayerAction DrawCard(IPlayer player)
+        public IChoice DrawCard(IPlayer player)
         {
             player.DrawCards(1);
             return null;
@@ -336,12 +335,12 @@ namespace DuelMastersModels
             }*/
         }
 
-        public IPlayerAction PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger)
+        public IChoice PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger)
         {
             return PutFromShieldZoneToHand(player, new List<IShieldZoneCard>() { card }, canUseShieldTrigger);
         }
 
-        public IPlayerAction PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger)
+        public IChoice PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger)
         {
             Collection<IHandCard> shieldTriggerCards = new Collection<IHandCard>();
             for (int i = 0; i < cards.Count(); ++i)
@@ -352,37 +351,38 @@ namespace DuelMastersModels
                     shieldTriggerCards.Add(handCard);
                 }
             }
-            return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<IHandCard>(shieldTriggerCards)) : null;
+            throw new NotImplementedException();
+            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<IHandCard>(shieldTriggerCards)) : null;
         }
 
-        public IPlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
+        public IChoice PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
         {
             player.ManaZone.Add(CardFactory.GenerateManaZoneCard(player.RemoveTopCardOfDeck()));
             return null;
         }
 
-        public IPlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
+        public IChoice ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
         {
             creature.Owner.BattleZone.Remove(creature);
             creature.Owner.Hand.Add(new HandCreature(creature));
             return null;
         }
 
-        public IPlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
+        public IChoice PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
         {
             creature.Owner.BattleZone.Remove(creature);
             creature.Owner.ManaZone.Add(new ManaZoneCreature(creature));
             return null;
         }
 
-        public IPlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
+        public IChoice PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
         {
             creature.Owner.ManaZone.Remove(creature);
             creature.Owner.BattleZone.Add(new BattleZoneCreature(creature));
             return null;
         }
 
-        public IPlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
+        public IChoice AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
         {
             player.PutFromTopOfDeckIntoShieldZone(1);
             return null;
@@ -436,13 +436,12 @@ namespace DuelMastersModels
         /// Progresses in the duel.
         /// </summary>
         /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        public IPlayerAction Progress()
+        public IChoice Progress()
         {
             if (State == DuelState.InProgress)
             {
                 CheckStateBasedActions();
-                IPlayerAction action = State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
-                return SetCurrentPlayerAction(action);
+                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
             }
             else if (State == DuelState.Over)
             {
@@ -454,7 +453,7 @@ namespace DuelMastersModels
             }
         }
 
-        private IPlayerAction ContinueResolvingAbility()
+        private IChoice ContinueResolvingAbility()
         {
             PlayerActionWithEndInformation action = _abilityManager.ContinueResolution(this);
             if (!action.ResolutionOver)
@@ -469,18 +468,19 @@ namespace DuelMastersModels
             }
         }
 
-        private IPlayerAction TryToUseShieldTrigger()
+        private IChoice TryToUseShieldTrigger()
         {
-            foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
-            {
-                return TryToPerformAutomatically(new UseShieldTrigger(player, new List<IHandCard>(player.ShieldTriggersToUse)));
-            }
-            return null;
+            throw new NotImplementedException();
+            //foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
+            //{
+            //    //return TryToPerformAutomatically(new UseShieldTrigger(player, new List<IHandCard>(player.ShieldTriggersToUse)));
+            //}
+            //return null;
         }
 
-        private IPlayerAction ProgressAfterStateBasedActions()
+        private IChoice ProgressAfterStateBasedActions()
         {
-            IPlayerAction tryToUseShieldTrigger = TryToUseShieldTrigger();
+            IChoice tryToUseShieldTrigger = TryToUseShieldTrigger();
             if (tryToUseShieldTrigger != null)
             {
                 return tryToUseShieldTrigger;
@@ -488,7 +488,7 @@ namespace DuelMastersModels
 
             if (_abilityManager.IsAbilityBeingResolved)
             {
-                IPlayerAction action = ContinueResolvingAbility();
+                IChoice action = ContinueResolvingAbility();
                 if (action != null)
                 {
                     return action;
@@ -497,18 +497,18 @@ namespace DuelMastersModels
 
             if (_spellsBeingResolved.Count > 0)
             {
-                IPlayerAction resolveSpellAbility = TryToResolveSpellAbility();
+                IChoice resolveSpellAbility = TryToResolveSpellAbility();
                 if (resolveSpellAbility != null)
                 {
                     return resolveSpellAbility;
                 }
             }
 
-            IPlayerAction selectAbilityToResolve = TryToSelectAbilityToResolve();
+            IChoice selectAbilityToResolve = TryToSelectAbilityToResolve();
             return selectAbilityToResolve ?? TryToPerformStepAction();
         }
 
-        private IPlayerAction TryToSelectAbilityToResolve()
+        private IChoice TryToSelectAbilityToResolve()
         {
             foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer })
             {
@@ -521,13 +521,13 @@ namespace DuelMastersModels
             return null;
         }
 
-        private IPlayerAction TryToPerformStepAction()
+        private IChoice TryToPerformStepAction()
         {
-            IPlayerAction playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
+            IChoice playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
             return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
         }
 
-        private IPlayerAction TryToResolveSpellAbility()
+        private IChoice TryToResolveSpellAbility()
         {
             ISpell spell = _spellsBeingResolved.Last();
             if (_abilityManager.GetSpellAbilityCount(spell) > 0)
@@ -542,13 +542,13 @@ namespace DuelMastersModels
             }
         }
 
-        private IPlayerAction StartResolvingSpellAbility(ISpell spell)
+        private IChoice StartResolvingSpellAbility(ISpell spell)
         {
             _abilityManager.StartResolvingSpellAbility(spell);
             return Progress();
         }
 
-        private IPlayerAction ChangeStep()
+        private IChoice ChangeStep()
         {
             if (TurnManager.CurrentTurn.ChangeStep())
             {
@@ -556,7 +556,7 @@ namespace DuelMastersModels
             }
             else
             {
-                IPlayerAction action = TurnManager.CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
+                IChoice action = TurnManager.CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
                 return action != null ? TryToPerformAutomatically(action) : Progress();
             }
         }
@@ -570,12 +570,6 @@ namespace DuelMastersModels
                 spell.Owner.Graveyard.Add(new GraveyardSpell(spell));
             }
             SetPendingAbilityToBeResolved(null);
-        }
-
-        private IPlayerAction SetCurrentPlayerAction(IPlayerAction playerAction)
-        {
-            PlayerActionManager.SetCurrentPlayerAction(playerAction);
-            return playerAction;
         }
         #endregion PlayerAction
 

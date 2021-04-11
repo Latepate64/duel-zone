@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.PlayerActions.CardSelections
+namespace DuelMastersModels.Choices.CardSelections
 {
     /// <summary>
     /// Player may select up to one card.
@@ -11,11 +11,6 @@ namespace DuelMastersModels.PlayerActions.CardSelections
     {
         internal OptionalCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, true)
         { }
-
-        public override IPlayerAction TryToPerformAutomatically(IDuel duel)
-        {
-            return Cards.Any() ? this : Perform(duel, null);
-        }
 
         internal override void Validate(TCard card)
         {

@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.GameActions.TurnBasedActions;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             return null;
         }
@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
         /// <summary>
         /// 702.3a The active player untaps their cards in the battle zone and mana zone simultaneously. 
         /// </summary>
-        public override IPlayerAction ProcessTurnBasedActions(IDuel duel)
+        public override IChoice ProcessTurnBasedActions(IDuel duel)
         {
             new UntapCards().Perform(duel);
             return null;

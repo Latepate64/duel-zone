@@ -1,12 +1,12 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
 
-namespace DuelMastersModels.PlayerActions.CardSelections
+namespace DuelMastersModels.Choices.CardSelections
 {
     /// <summary>
     /// Player selects cards.
     /// </summary>
-    public abstract class CardSelection<TCard> : PlayerAction where TCard : ICard
+    public abstract class CardSelection<TCard> : Choice where TCard : ICard
     {
         /// <summary>
         /// Cards player can select from.

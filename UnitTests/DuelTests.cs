@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Managers;
 using Moq;
 using System;
 using Xunit;
@@ -29,21 +28,12 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Start_PlayerActionManagerNull_ThrowNullReferenceException()
+        public void Start_StartingPlayerAndOpponentGiven_ReturnNull()
         {
             Mock<IPlayer> player = new Mock<IPlayer>();
             _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
 
-            _ = Assert.Throws<NullReferenceException>(() => new Duel { StartingPlayer = player.Object }.Start());
-        }
-
-        [Fact]
-        public void Start_PlayerActionManagerNull_ReturnNull()
-        {
-            Mock<IPlayer> player = new Mock<IPlayer>();
-            _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
-
-            Assert.Null(new Duel { PlayerActionManager = Mock.Of<IPlayerActionManager>(), StartingPlayer = player.Object }.Start());
+            Assert.Null(new Duel { StartingPlayer = player.Object }.Start());
         }
     }
 }

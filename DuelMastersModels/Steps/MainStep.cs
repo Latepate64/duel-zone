@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CardSelections;
+using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,12 +25,13 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
-            IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-            return State == MainStepState.Use && usableCards.Any()
-                ? new UseCard(ActivePlayer, usableCards)
-                : (PlayerAction)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
+            //IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            throw new System.NotImplementedException();
+            //return State == MainStepState.Use && usableCards.Any()
+            //    ? new UseCard(ActivePlayer, usableCards)
+            //    : (Choice)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
         }
 
         /// <summary>

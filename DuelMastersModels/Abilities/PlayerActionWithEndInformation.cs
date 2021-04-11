@@ -1,16 +1,16 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Abilities
 {
     public class PlayerActionWithEndInformation
     {
-        public PlayerActionWithEndInformation(IPlayerAction playerAction, bool resolutionOver)
+        public PlayerActionWithEndInformation(IChoice playerAction, bool resolutionOver)
         {
             PlayerAction = playerAction;
             ResolutionOver = resolutionOver;
         }
 
-        internal IPlayerAction PlayerAction { get; private set; }
+        internal IChoice PlayerAction { get; private set; }
         internal bool ResolutionOver { get; private set; }
     }
 }

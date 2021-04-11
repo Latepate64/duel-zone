@@ -2,7 +2,7 @@
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
 
@@ -62,20 +62,18 @@ namespace DuelMastersModels
 
         ITurnManager TurnManager { get; set; }
 
-        IPlayerActionManager PlayerActionManager { get; set; }
-
         /// <summary>
         /// Starts the duel.
         /// </summary>
         /// <returns></returns>
-        IPlayerAction Start();
+        IChoice Start();
 
         /// <summary>
         /// Tries to progress in the duel.
         /// </summary>
         /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        IPlayerAction Progress<T>() where T : class, ICard;
+        IChoice Progress<T>() where T : class, ICard;
 
         /// <summary>
         /// Tries to progress in the duel.
@@ -83,7 +81,7 @@ namespace DuelMastersModels
         /// <typeparam name="T"></typeparam>
         /// <param name="card"></param>
         /// <returns></returns>
-        IPlayerAction Progress<T>(T card) where T : class, ICard;
+        IChoice Progress<T>(T card) where T : class, ICard;
 
         /// <summary>
         /// Tries to progress in the duel.
@@ -91,17 +89,17 @@ namespace DuelMastersModels
         /// <typeparam name="T"></typeparam>
         /// <param name="cards"></param>
         /// <returns></returns>
-        IPlayerAction Progress<T>(IEnumerable<T> cards) where T : class, ICard;
+        IChoice Progress<T>(IEnumerable<T> cards) where T : class, ICard;
 
         int GetPower(IBattleZoneCreature creature);
-        IPlayerAction DrawCard(IPlayer player);
-        IPlayerAction PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger);
-        IPlayerAction PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger);
-        IPlayerAction PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player);
-        IPlayerAction ReturnFromBattleZoneToHand(IBattleZoneCreature creature);
-        IPlayerAction PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature);
-        IPlayerAction PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature);
-        IPlayerAction AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player);
+        IChoice DrawCard(IPlayer player);
+        IChoice PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger);
+        IChoice PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger);
+        IChoice PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player);
+        IChoice ReturnFromBattleZoneToHand(IBattleZoneCreature creature);
+        IChoice PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature);
+        IChoice PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature);
+        IChoice AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player);
         void End(IPlayer winner);
         void EndDuelInDraw();
         void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature);
@@ -118,7 +116,7 @@ namespace DuelMastersModels
         void SetPendingAbilityToBeResolved(INonStaticAbility ability);
         void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);
-        IPlayerAction TryToPerformAutomatically(IPlayerAction playerAction);
-        IPlayerAction Progress();
+        IChoice TryToPerformAutomatically(IChoice playerAction);
+        IChoice Progress();
     }
 }

@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
+using DuelMastersModels.Choices;
 using System;
 
 namespace DuelMastersModels.Steps
@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
             BlockingCreature = blockingCreature;
         }
 
-        public override IPlayerAction PlayerActionRequired(IDuel duel)
+        public override IChoice PlayerActionRequired(IDuel duel)
         {
             if (duel == null)
             {
