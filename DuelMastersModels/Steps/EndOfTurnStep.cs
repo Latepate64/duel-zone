@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Choices;
-
-namespace DuelMastersModels.Steps
+﻿namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 511.1. The ability to trigger at every "turn's end" triggers. The induced effect is a turn We declare solutions to be resolved from the layer and process them in order.
@@ -9,12 +7,6 @@ namespace DuelMastersModels.Steps
     {
         internal EndOfTurnStep(IPlayer player) : base(player)
         {
-        }
-
-        public override IChoice PlayerActionRequired(IDuel duel)
-        {
-            duel.EndContinuousEffects<Effects.Periods.UntilTheEndOfTheTurn>();
-            return null;
         }
     }
 }

@@ -74,8 +74,6 @@ namespace DuelMastersModels
 
         public IDuel Duel { get; set; }
 
-        public Player() { }
-
         /// <summary>
         /// Player shuffles their deck.
         /// </summary>
@@ -208,8 +206,8 @@ namespace DuelMastersModels
         /// </summary>
         public IChoice TakeTurn(IDuel duel)
         {
-            IChoice choice = duel.TurnManager.StartTurn(this, duel);
-            return choice != null ? duel.TryToPerformAutomatically(choice) : duel.Progress();
+            return duel.TurnManager.StartTurn(this, duel);
+            //return duel.Progress();
         }
 
         /// <summary>
@@ -226,6 +224,13 @@ namespace DuelMastersModels
                 //TODO: Uncomment
                 //DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(this, handCard)));
             }
+        }
+
+        public IChoice UntapCardsInBattleZoneAndManaZone()
+        {
+            BattleZone.UntapCards();
+            ManaZone.UntapCards();
+            return null; //TODO: Could require choice (eg. Silent Skill)
         }
 
         private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();

@@ -12,5 +12,7 @@
         protected BattleZoneCard(ICard card) : base(card.Cost, card.Civilizations)
         {
         }
+
+        public bool Tapped { get; set; }
     }
 }

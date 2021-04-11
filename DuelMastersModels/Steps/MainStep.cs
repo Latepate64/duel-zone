@@ -15,7 +15,7 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
-    internal class MainStep : Step
+    internal class MainStep : Step, IPriorityActionable
     {
         internal MainStepState State { get; set; } = MainStepState.Use;
 
@@ -25,14 +25,15 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IChoice PlayerActionRequired(IDuel duel)
-        {
-            //IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-            throw new System.NotImplementedException();
-            //return State == MainStepState.Use && usableCards.Any()
-            //    ? new UseCard(ActivePlayer, usableCards)
-            //    : (Choice)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
-        }
+        //TODO
+        //public override IChoice PlayerActionRequired(IDuel duel)
+        //{
+        //    //IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+        //    throw new System.NotImplementedException();
+        //    //return State == MainStepState.Use && usableCards.Any()
+        //    //    ? new UseCard(ActivePlayer, usableCards)
+        //    //    : (Choice)(State == MainStepState.Pay ? new PayCost(ActivePlayer, ActivePlayer.ManaZone.UntappedCards, CardToBeUsed.Cost) : null);
+        //}
 
         /// <summary>
         /// Returns the cards that can be used.
@@ -40,6 +41,11 @@ namespace DuelMastersModels.Steps
         public static IEnumerable<IHandCard> GetUsableCards(IEnumerable<IHandCard> handCards, IEnumerable<IManaZoneCard> manaCards)
         {
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
+        }
+
+        public PriorityActionChoice GivePriorityToActivePlayer(IDuel duel)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

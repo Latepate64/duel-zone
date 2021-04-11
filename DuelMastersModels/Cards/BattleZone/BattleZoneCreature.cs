@@ -9,11 +9,6 @@ namespace DuelMastersModels.Cards
     public class BattleZoneCreature : BattleZoneCard, IBattleZoneCreature
     {
         /// <summary>
-        /// Determines whether the creature is tapped or untapped.
-        /// </summary>
-        public bool Tapped { get; set; }
-
-        /// <summary>
         /// Power of the creature.
         /// </summary>
         public int Power { get; }

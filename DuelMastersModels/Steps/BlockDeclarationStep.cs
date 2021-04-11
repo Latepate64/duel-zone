@@ -3,7 +3,7 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    internal class BlockDeclarationStep : Step
+    internal class BlockDeclarationStep : Step, ITurnBasedActionable
     {
         internal IBattleZoneCreature AttackingCreature { get; private set; }
         internal IBattleZoneCreature BlockingCreature { get; set; }
@@ -13,12 +13,7 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        public override IChoice PlayerActionRequired(IDuel duel)
-        {
-            return null;
-        }
-
-        public override IChoice ProcessTurnBasedActions(IDuel duel)
+        public IChoice PerformTurnBasedActions(IDuel duel)
         {
             //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
             throw new System.NotImplementedException();

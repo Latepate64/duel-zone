@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        internal ObservableCollection<IStep> Steps { get; } = new ObservableCollection<IStep>();
+        internal ICollection<IStep> Steps { get; } = new Collection<IStep>();
 
         /// <summary>
         /// The step that is currently being processed.
@@ -34,30 +35,24 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        internal Turn(IPlayer activePlayer, int number)
+        public Turn(IPlayer activePlayer, int number)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = activePlayer.Opponent;
             Number = number;
         }
 
-        #region Methods
-        /// <summary>
-        /// Starts the turn.
-        /// </summary>
-        public IChoice Start(IDuel duel)
-        {
-            Steps.Add(new StartOfTurnStep(ActivePlayer));
-            return CurrentStep.ProcessTurnBasedActions(duel);
-        }
-
         /// <summary>
         /// Adds a new step in order which becomes the current step.
         /// </summary>
-        /// <returns>true if steps are no longer added to the turn as it ends, false otherwise</returns>
-        public bool ChangeStep()
+        /// <returns>null if turn is over, choice otherwise</returns>
+        public IChoice ChangeStep(IDuel duel)
         {
-            if (CurrentStep is StartOfTurnStep)
+            if (!Steps.Any())
+            {
+                Steps.Add(new StartOfTurnStep(ActivePlayer));
+            }
+            else if (CurrentStep is StartOfTurnStep)
             {
                 // 500.6. The player who plays first skips the draw step of their first turn.
                 if (Number == 1)
@@ -117,10 +112,46 @@ namespace DuelMastersModels
             }
             else if (CurrentStep is EndOfTurnStep)
             {
-                return true;
+                return null;
             }
-            return false;
+            return StartStep(duel);
         }
-        #endregion Methods
+
+        /// <summary>
+        /// Starts a step. Should be called only once per step.
+        /// </summary>
+        /// <param name="duel"></param>
+        /// <returns></returns>
+        public IChoice StartStep(IDuel duel)
+        {
+            // 703.3. Whenever a step or phase begins, if it’s a step or phase that has any turn-based action associated with it, those turn-based actions are automatically dealt with first. This happens before state-based actions are checked, before triggered abilities are put on the stack, and before players receive priority.
+            if (CurrentStep is ITurnBasedActionable actionable)
+            {
+                IChoice choice = actionable.PerformTurnBasedActions(duel);
+                if (choice != null)
+                {
+                    return choice;
+                }
+            }
+            return ProcessStep(duel);
+        }
+
+        /// <summary>
+        /// Performs state-based actions, checks pending abilities and gives priority to the active player.
+        /// </summary>
+        /// <returns></returns>
+        public IChoice ProcessStep(IDuel duel)
+        {
+            // TODO: Check state-based actions
+            // TODO: Check pending abilities
+            if (CurrentStep is IPriorityActionable actionable)
+            {
+                return actionable.GivePriorityToActivePlayer(duel);
+            }
+            else
+            {
+                return ChangeStep(duel);
+            }
+        }
     }
 }

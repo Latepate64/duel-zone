@@ -3,7 +3,7 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    internal class AttackDeclarationStep : Step
+    internal class AttackDeclarationStep : Step, ITurnBasedActionable
     {
         internal IBattleZoneCreature AttackingCreature { get; set; }
         internal IBattleZoneCreature AttackedCreature { get; set; }
@@ -13,21 +13,22 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IChoice PlayerActionRequired(IDuel duel)
-        {
-            if (AttackingCreature != null && !TargetOfAttackDeclared)
-            {
-                //TODO: If attacked creature is not null, check that it can be attacked.
-                throw new System.NotImplementedException();
-                //return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer));
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //TODO
+        //public override IChoice PlayerActionRequired(IDuel duel)
+        //{
+        //    if (AttackingCreature != null && !TargetOfAttackDeclared)
+        //    {
+        //        //TODO: If attacked creature is not null, check that it can be attacked.
+        //        throw new System.NotImplementedException();
+        //        //return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer));
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
-        public override IChoice ProcessTurnBasedActions(IDuel duel)
+        public IChoice PerformTurnBasedActions(IDuel duel)
         {
             //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
             throw new System.NotImplementedException();

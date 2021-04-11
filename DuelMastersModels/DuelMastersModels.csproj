@@ -189,7 +189,6 @@
     <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
     <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
     <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
-    <Compile Include="GameActions\TurnBasedActions\UntapCards.cs" />
     <Compile Include="Managers\IAbilityManager.cs" />
     <Compile Include="Managers\IContinuousEffectManager.cs" />
     <Compile Include="Managers\ITurnManager.cs" />
@@ -222,7 +221,9 @@
     <Compile Include="Steps\DrawStep.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
     <Compile Include="Steps\EndOfTurnStep.cs" />
+    <Compile Include="Steps\IPriorityActionable.cs" />
     <Compile Include="Steps\IStep.cs" />
+    <Compile Include="Steps\ITurnBasedActionable.cs" />
     <Compile Include="Steps\MainStep.cs" />
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />

@@ -64,6 +64,7 @@ namespace DuelMastersModels
         ICard RemoveTopCardOfDeck();
         void ShuffleDeck();
         IChoice TakeTurn(IDuel duel);
+        IChoice UntapCardsInBattleZoneAndManaZone();
         IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards);
     }
 }

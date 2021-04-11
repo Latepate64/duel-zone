@@ -12,7 +12,7 @@ namespace DuelMastersModels.Managers
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
-            return turn.Start(duel);
+            return turn.ChangeStep(duel);
         }
 
         /// <summary>

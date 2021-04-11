@@ -8,6 +8,7 @@ namespace DuelMastersModels.Zones
         IEnumerable<IBattleZoneCreature> Creatures { get; }
         IEnumerable<IBattleZoneCreature> TappedCreatures { get; }
         IEnumerable<IBattleZoneCreature> UntappedCreatures { get; }
+        IEnumerable<ITappable> TappedCards { get; }
 
         void UntapCards();
     }

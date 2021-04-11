@@ -1,6 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Choices;
-using System;
 
 namespace DuelMastersModels.Steps
 {
@@ -20,21 +18,22 @@ namespace DuelMastersModels.Steps
             BlockingCreature = blockingCreature;
         }
 
-        public override IChoice PlayerActionRequired(IDuel duel)
-        {
-            if (duel == null)
-            {
-                throw new ArgumentNullException(nameof(duel));
-            }
-            if (BlockingCreature != null)
-            {
-                duel.Battle(AttackingCreature, BlockingCreature);
-            }
-            else if (AttackedCreature != null)
-            {
-                duel.Battle(AttackingCreature, AttackedCreature);
-            }
-            return null;
-        }
+        //TODO
+        //public override IChoice PlayerActionRequired(IDuel duel)
+        //{
+        //    if (duel == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(duel));
+        //    }
+        //    if (BlockingCreature != null)
+        //    {
+        //        duel.Battle(AttackingCreature, BlockingCreature);
+        //    }
+        //    else if (AttackedCreature != null)
+        //    {
+        //        duel.Battle(AttackingCreature, AttackedCreature);
+        //    }
+        //    return null;
+        //}
     }
 }

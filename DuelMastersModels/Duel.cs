@@ -523,8 +523,9 @@ namespace DuelMastersModels
 
         private IChoice TryToPerformStepAction()
         {
-            IChoice playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
-            return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
+            throw new NotImplementedException();
+            //IChoice playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
+            //return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
         }
 
         private IChoice TryToResolveSpellAbility()
@@ -548,18 +549,21 @@ namespace DuelMastersModels
             return Progress();
         }
 
-        private IChoice ChangeStep()
-        {
-            if (TurnManager.CurrentTurn.ChangeStep())
-            {
-                return TurnManager.CurrentTurn.NonActivePlayer.TakeTurn(this);
-            }
-            else
-            {
-                IChoice action = TurnManager.CurrentTurn.CurrentStep.ProcessTurnBasedActions(this);
-                return action != null ? TryToPerformAutomatically(action) : Progress();
-            }
-        }
+        //private IChoice ChangeStep()
+        //{
+        //    if (TurnManager.CurrentTurn.ChangeStep())
+        //    {
+        //        return TurnManager.CurrentTurn.NonActivePlayer.TakeTurn(this);
+        //    }
+        //    else
+        //    {
+        //        if (TurnManager.CurrentTurn.CurrentStep is ITurnBasedActionable actionAble)
+        //        {
+        //            actionAble.ProcessTurnBasedActions(this);
+        //        }
+        //        return Progress();
+        //    }
+        //}
 
         private void FinishResolvingAbility()
         {

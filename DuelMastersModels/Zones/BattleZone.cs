@@ -17,6 +17,8 @@ namespace DuelMastersModels.Zones
         public IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
         public IEnumerable<IBattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
 
+        public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<ITappable>(Cards.OfType<ITappable>().Where(c => c.Tapped).ToList());
+
         public IDuel Duel { get; set; }
 
         public void UntapCards()

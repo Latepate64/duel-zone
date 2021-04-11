@@ -20,7 +20,10 @@ namespace DuelMastersModels
         /// </summary>
         IStep CurrentStep { get; }
 
-        IChoice Start(IDuel duel);
-        bool ChangeStep();
+        /// <summary>
+        /// Changes step to the next one and starts it, or starts the first step if no steps exist.
+        /// </summary>
+        /// <returns></returns>
+        IChoice ChangeStep(IDuel duel);
     }
 }
