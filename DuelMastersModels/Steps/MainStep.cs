@@ -48,5 +48,10 @@ namespace DuelMastersModels.Steps
         {
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
         }
+
+        public override IStep GetNextStep()
+        {
+            return new AttackDeclarationStep(ActivePlayer);
+        }
     }
 }

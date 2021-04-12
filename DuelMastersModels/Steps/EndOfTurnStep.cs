@@ -8,5 +8,10 @@
         public EndOfTurnStep(IPlayer player) : base(player)
         {
         }
+
+        public override IStep GetNextStep()
+        {
+            return null;
+        }
     }
 }

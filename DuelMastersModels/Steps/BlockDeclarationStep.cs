@@ -19,6 +19,13 @@ namespace DuelMastersModels.Steps
             throw new System.NotImplementedException();
         }
 
+        public override IStep GetNextStep()
+        {
+            throw new System.NotImplementedException();
+            //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
+            //return new BattleStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, lastAttackDeclaration.AttackedCreature, blockDeclarationStep.BlockingCreature);
+        }
+
         //public IChoice PerformTurnBasedActions(IDuel duel)
         //{
         //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);

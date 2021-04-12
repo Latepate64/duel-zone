@@ -13,6 +13,11 @@ namespace DuelMastersModels.Steps
         {
         }
 
+        public override IStep GetNextStep()
+        {
+            return new MainStep(ActivePlayer);
+        }
+
         public override (IChoice, bool) PerformPriorityAction()
         {
             State = StepState.PriorityAction;

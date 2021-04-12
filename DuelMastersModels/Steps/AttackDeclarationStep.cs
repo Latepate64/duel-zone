@@ -19,6 +19,20 @@ namespace DuelMastersModels.Steps
             throw new System.NotImplementedException();
         }
 
+        public override IStep GetNextStep()
+        {
+            throw new System.NotImplementedException();
+            //if (attackDeclarationStep.AttackingCreature != null)
+            //{
+            //    return new BlockDeclarationStep(ActivePlayer, attackDeclarationStep.AttackingCreature);
+            //}
+            //// 506.2. If an attacking creature is not specified, the other substeps are skipped.
+            //else
+            //{
+            //    return new EndOfTurnStep(ActivePlayer);
+            //}
+        }
+
         //TODO
         //public override IChoice PlayerActionRequired(IDuel duel)
         //{

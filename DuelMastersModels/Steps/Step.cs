@@ -95,5 +95,7 @@ namespace DuelMastersModels.Steps
                 return null;
             }
         }
+
+        public abstract IStep GetNextStep();
     }
 }

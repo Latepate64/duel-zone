@@ -18,6 +18,17 @@ namespace DuelMastersModels.Steps
             BlockingCreature = blockingCreature;
         }
 
+        public override IStep GetNextStep()
+        {
+            throw new System.NotImplementedException();
+            //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
+            //BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
+
+            //// 509.1. If the attacking creature was declared to attack the nonactive player and the attack was not redirected, the attack is considered a direct attack.
+            //bool directAttack = lastAttackDeclaration.AttackedCreature == null && lastBlockDeclaration.BlockingCreature == null;
+            //return new DirectAttackStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, directAttack);
+        }
+
         //TODO
         //public override IChoice PlayerActionRequired(IDuel duel)
         //{

@@ -11,6 +11,11 @@ namespace DuelMastersModels.Steps
         {
         }
 
+        public override IStep GetNextStep()
+        {
+            return new ChargeStep(ActivePlayer);
+        }
+
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>

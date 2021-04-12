@@ -17,8 +17,9 @@ namespace DuelMastersModels.Steps
         IPlayer ActivePlayer { get; }
         StepState State { get; set; }
 
-        (IChoice, bool) PerformPriorityAction();
         (IChoice, bool) CheckStateBasedActions();
+        IStep GetNextStep();
+        (IChoice, bool) PerformPriorityAction();
         IChoice PerformTurnBasedAction();
         IChoice Proceed();
         (IChoice, bool) ResolveAbility();

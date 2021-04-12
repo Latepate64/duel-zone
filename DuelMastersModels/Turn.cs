@@ -49,65 +49,11 @@ namespace DuelMastersModels
         {
             if (!Steps.Any())
             {
-                Steps.Add(new StartOfTurnStep(ActivePlayer));
+                Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1));
             }
-            else if (CurrentStep is StartOfTurnStep)
+            else
             {
-                // 500.6. The player who plays first skips the draw step of their first turn.
-                if (Number == 1)
-                {
-                    Steps.Add(new ChargeStep(ActivePlayer));
-                }
-                else
-                {
-                    Steps.Add(new DrawStep(ActivePlayer));
-                }
-            }
-            else if (CurrentStep is DrawStep)
-            {
-                Steps.Add(new ChargeStep(ActivePlayer));
-            }
-            else if (CurrentStep is ChargeStep)
-            {
-                Steps.Add(new MainStep(ActivePlayer));
-            }
-            else if (CurrentStep is MainStep)
-            {
-                Steps.Add(new AttackDeclarationStep(ActivePlayer));
-            }
-            else if (CurrentStep is AttackDeclarationStep attackDeclarationStep)
-            {
-                if (attackDeclarationStep.AttackingCreature != null)
-                {
-                    Steps.Add(new BlockDeclarationStep(ActivePlayer, attackDeclarationStep.AttackingCreature));
-                }
-                // 506.2. If an attacking creature is not specified, the other substeps are skipped.
-                else
-                {
-                    Steps.Add(new EndOfTurnStep(ActivePlayer));
-                }
-            }
-            else if (CurrentStep is BlockDeclarationStep blockDeclarationStep)
-            {
-                AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
-                Steps.Add(new BattleStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, lastAttackDeclaration.AttackedCreature, blockDeclarationStep.BlockingCreature));
-            }
-            else if (CurrentStep is BattleStep)
-            {
-                AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
-                BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
-
-                // 509.1. If the attacking creature was declared to attack the nonactive player and the attack was not redirected, the attack is considered a direct attack.
-                bool directAttack = lastAttackDeclaration.AttackedCreature == null && lastBlockDeclaration.BlockingCreature == null;
-                Steps.Add(new DirectAttackStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, directAttack));
-            }
-            else if (CurrentStep is DirectAttackStep)
-            {
-                Steps.Add(new EndOfAttackStep(ActivePlayer));
-            }
-            else if (CurrentStep is EndOfAttackStep)
-            {
-                Steps.Add(new AttackDeclarationStep(ActivePlayer));
+                Steps.Add(CurrentStep.GetNextStep());
             }
         }
     }

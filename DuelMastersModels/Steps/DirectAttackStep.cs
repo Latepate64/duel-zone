@@ -15,6 +15,11 @@ namespace DuelMastersModels.Steps
             DirectAttack = directAttack;
         }
 
+        public override IStep GetNextStep()
+        {
+            return new EndOfAttackStep(ActivePlayer);
+        }
+
         //TODO
         //public IChoice PlayerActionRequired(IDuel duel)
         //{
