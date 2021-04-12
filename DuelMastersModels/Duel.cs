@@ -2,7 +2,6 @@
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Factories;
-using DuelMastersModels.GameActions.StateBasedActions;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using System;
@@ -17,11 +16,6 @@ namespace DuelMastersModels
     /// </summary>
     public class Duel : IDuel
     {
-        /// <summary>
-        /// Event which is raised whenever an important event during the duel occurs.
-        /// </summary>
-        public event EventHandler<DuelEventArgs> DuelEventOccurred;
-
         #region Properties
         #region Public
         /// <summary>
@@ -404,15 +398,6 @@ namespace DuelMastersModels
 
         #region Private methods
         #region void
-        /// <summary>
-        /// 703.3. The game always checks for any of the listed conditions for state-based actions, then performs all applicable state-based actions simultaneously as a single event. If any state-based actions are performed as a result of a check, the check is repeated.
-        /// </summary>
-        private void CheckStateBasedActions()
-        {
-            CheckDeckHasCards checkDeckHasCards = new CheckDeckHasCards();
-            checkDeckHasCards.Perform(this);
-        }
-
         private IHandCard PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card)
         {
             player.ShieldZone.Remove(card);
@@ -440,7 +425,7 @@ namespace DuelMastersModels
         {
             if (State == DuelState.InProgress)
             {
-                CheckStateBasedActions();
+                //CheckStateBasedActions();
                 return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
             }
             else if (State == DuelState.Over)

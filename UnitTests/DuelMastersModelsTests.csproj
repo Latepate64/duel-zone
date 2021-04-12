@@ -75,7 +75,6 @@
     <Compile Include="DuelTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TurnTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DuelMastersModels\DuelMastersModels.csproj">

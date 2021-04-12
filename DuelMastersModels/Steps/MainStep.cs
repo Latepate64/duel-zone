@@ -15,14 +15,20 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
-    internal class MainStep : Step, IPriorityActionable
+    public class MainStep : Step
     {
-        internal MainStepState State { get; set; } = MainStepState.Use;
-
         internal ICard CardToBeUsed { get; set; }
 
-        internal MainStep(IPlayer player) : base(player)
+        public MainStep(IPlayer player) : base(player)
         {
+        }
+
+        public override (IChoice, bool) PerformPriorityAction()
+        {
+            State = StepState.PriorityAction;
+            throw new System.NotImplementedException();
+            //IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
         }
 
         //TODO
@@ -41,11 +47,6 @@ namespace DuelMastersModels.Steps
         public static IEnumerable<IHandCard> GetUsableCards(IEnumerable<IHandCard> handCards, IEnumerable<IManaZoneCard> manaCards)
         {
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
-        }
-
-        public PriorityActionChoice GivePriorityToActivePlayer(IDuel duel)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

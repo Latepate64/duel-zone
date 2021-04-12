@@ -12,7 +12,8 @@ namespace DuelMastersModels.Managers
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
-            return turn.ChangeStep(duel);
+            turn.ChangeStep();
+            throw new System.NotImplementedException();
         }
 
         /// <summary>

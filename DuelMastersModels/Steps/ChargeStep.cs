@@ -1,22 +1,24 @@
-﻿using DuelMastersModels.Cards;
+﻿//using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 
 namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.
     /// </summary>
-    internal class ChargeStep : Step, IPriorityActionable
+    public class ChargeStep : Step
     {
-        internal ChargeStep(IPlayer player) : base(player)
+        public ChargeStep(IPlayer player) : base(player)
         {
         }
 
-        public PriorityActionChoice GivePriorityToActivePlayer(IDuel duel)
+        public override (IChoice, bool) PerformPriorityAction()
         {
-            IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-            return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
+            State = StepState.PriorityAction;
+            throw new System.NotImplementedException();
+            //IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+            //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
         }
 
         //TODO

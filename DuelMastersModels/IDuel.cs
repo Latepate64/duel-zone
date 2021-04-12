@@ -3,7 +3,6 @@ using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
-using System;
 using System.Collections.Generic;
 
 namespace DuelMastersModels
@@ -13,11 +12,6 @@ namespace DuelMastersModels
     /// </summary>
     public interface IDuel
     {
-        /// <summary>
-        /// Event which is raised whenever an important event during the duel occurs.
-        /// </summary>
-        event EventHandler<DuelEventArgs> DuelEventOccurred;
-
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>

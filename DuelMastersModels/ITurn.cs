@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Steps;
+﻿using DuelMastersModels.Steps;
 
 namespace DuelMastersModels
 {
@@ -24,6 +23,6 @@ namespace DuelMastersModels
         /// Changes step to the next one and starts it, or starts the first step if no steps exist.
         /// </summary>
         /// <returns></returns>
-        IChoice ChangeStep(IDuel duel);
+        void ChangeStep();
     }
 }

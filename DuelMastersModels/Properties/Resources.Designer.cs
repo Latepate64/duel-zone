@@ -59,15 +59,5 @@ namespace DuelMastersModels.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Put the top card of your deck into your mana zone.
-        ///Tap all your opponent&apos;s creatures in the battle zone..
-        /// </summary>
-        public static string Effects {
-            get {
-                return ResourceManager.GetString("Effects", resourceCulture);
-            }
-        }
     }
 }

@@ -164,7 +164,6 @@
     <Compile Include="Exceptions\ParseException.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Duel.cs" />
-    <Compile Include="DuelEventArgs.cs" />
     <Compile Include="Effects\ContinuousEffects\SpeedAttackerEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\AttacksIfAbleEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\BlockerEffect.cs" />
@@ -185,10 +184,6 @@
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Exceptions\PayCostException.cs" />
-    <Compile Include="GameActions\GameAction.cs" />
-    <Compile Include="GameActions\StateBasedActions\CheckDeckHasCards.cs" />
-    <Compile Include="GameActions\StateBasedActions\StateBasedAction.cs" />
-    <Compile Include="GameActions\TurnBasedActions\TurnBasedAction.cs" />
     <Compile Include="Managers\IAbilityManager.cs" />
     <Compile Include="Managers\IContinuousEffectManager.cs" />
     <Compile Include="Managers\ITurnManager.cs" />
@@ -221,9 +216,7 @@
     <Compile Include="Steps\DrawStep.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
     <Compile Include="Steps\EndOfTurnStep.cs" />
-    <Compile Include="Steps\IPriorityActionable.cs" />
     <Compile Include="Steps\IStep.cs" />
-    <Compile Include="Steps\ITurnBasedActionable.cs" />
     <Compile Include="Steps\MainStep.cs" />
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />
@@ -273,9 +266,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Effects.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
