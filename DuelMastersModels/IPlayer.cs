@@ -54,7 +54,6 @@ namespace DuelMastersModels
         IPlayer Opponent { get; set; }
 
         void AddShieldTriggerToUse(IHandCard card);
-        IChoice ChargeMana(IHandCard card);
         void DrawCards(int amount);
         ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
         void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card);
@@ -63,7 +62,6 @@ namespace DuelMastersModels
         void RemoveShieldTriggerToUse(IHandCard card);
         ICard RemoveTopCardOfDeck();
         void ShuffleDeck();
-        IChoice TakeTurn(IDuel duel);
         IChoice UntapCardsInBattleZoneAndManaZone();
         IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards);
     }

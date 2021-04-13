@@ -8,12 +8,11 @@ namespace DuelMastersModels.Managers
     {
         public ITurn CurrentTurn => _turns.Last();
 
-        public IChoice StartTurn(IPlayer activePlayer, IDuel duel)
+        public IChoice StartNewTurn(IPlayer activePlayer, IDuel duel)
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
-            turn.ChangeStep();
-            throw new System.NotImplementedException();
+            return turn.Start();
         }
 
         /// <summary>

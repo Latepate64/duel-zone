@@ -87,30 +87,6 @@ namespace DuelMastersModels
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        public IChoice ChargeMana(IHandCard card)
-        {
-            if (card == null)
-            {
-                throw new ArgumentNullException(nameof(card));
-            }
-            else if (TurnManager.CurrentTurn.CurrentStep is Steps.ChargeStep chargeStep)
-            {
-                if (this == chargeStep.ActivePlayer)
-                {
-                    PutFromHandIntoManaZone(card);
-                    return Duel.Progress();
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
         public IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards)
         {
             if (card == null)
@@ -199,15 +175,6 @@ namespace DuelMastersModels
         public ICard RemoveTopCardOfDeck()
         {
             return Deck.RemoveAndGetTopCard();
-        }
-
-        /// <summary>
-        /// Creates a new turn and starts it.
-        /// </summary>
-        public IChoice TakeTurn(IDuel duel)
-        {
-            return duel.TurnManager.StartTurn(this, duel);
-            //return duel.Progress();
         }
 
         /// <summary>

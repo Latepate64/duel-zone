@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Steps;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.Steps;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -41,19 +42,38 @@ namespace DuelMastersModels
             Number = number;
         }
 
-        /// <summary>
-        /// Adds a new step in order which becomes the current step.
-        /// </summary>
-        /// <returns>null if turn is over, choice otherwise</returns>
-        public void ChangeStep()
+        public IChoice Start()
         {
             if (!Steps.Any())
             {
                 Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1));
+                return StartCurrentStep();
             }
             else
             {
-                Steps.Add(CurrentStep.GetNextStep());
+                throw new System.InvalidOperationException();
+            }
+        }
+
+        private IChoice StartCurrentStep()
+        {
+            IChoice choice = CurrentStep.Start();
+            if (choice != null)
+            {
+                return choice;
+            }
+            else
+            {
+                IStep nextStep = CurrentStep.GetNextStep();
+                if (nextStep != null)
+                {
+                    Steps.Add(nextStep);
+                    return StartCurrentStep();
+                }
+                else
+                {
+                    return null; // Turn is over
+                }
             }
         }
     }

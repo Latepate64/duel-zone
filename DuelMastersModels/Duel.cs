@@ -111,7 +111,8 @@ namespace DuelMastersModels
             StartingPlayer.DrawCards(InitialNumberOfHandCards);
             StartingPlayer.Opponent.DrawCards(InitialNumberOfHandCards);
 
-            return StartingPlayer.TakeTurn(this);
+            return TurnManager.StartNewTurn(StartingPlayer, this);
+            //return StartingPlayer.TakeTurn(this);
         }
 
         /// <summary>

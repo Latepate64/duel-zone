@@ -9,6 +9,6 @@ namespace DuelMastersModels.Managers
         /// </summary>
         ITurn CurrentTurn { get; }
 
-        IChoice StartTurn(IPlayer activePlayer, IDuel duel);
+        IChoice StartNewTurn(IPlayer activePlayer, IDuel duel);
     }
 }
