@@ -5,14 +5,12 @@ namespace DuelMastersModels.Steps
     public class DirectAttackStep : Step
     {
         internal IBattleZoneCreature AttackingCreature { get; private set; }
-        internal bool DirectAttack { get; private set; }
         //private bool _breakingDone;
         //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
-        public DirectAttackStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, bool directAttack) : base(activePlayer)
+        public DirectAttackStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
-            DirectAttack = directAttack;
         }
 
         public override IStep GetNextStep()

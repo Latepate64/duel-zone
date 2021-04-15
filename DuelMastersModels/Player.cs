@@ -99,7 +99,7 @@ namespace DuelMastersModels
             {
                 if (this == mainStep.ActivePlayer)
                 {
-                    return Duel.Progress();
+                    //return Duel.Progress();
                     throw new NotImplementedException("Consider mana payment");
                 }
                 else

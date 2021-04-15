@@ -35,7 +35,7 @@ namespace UnitTests.Steps
 
             IChoice choice = step.PerformPriorityAction();
 
-            _ = Assert.IsType<PriorityActionChoice>(choice);
+            _ = Assert.IsType<ChargeChoice>(choice);
         }
 
         [Fact]

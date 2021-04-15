@@ -44,7 +44,7 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                return new PriorityActionChoice(ActivePlayer);
+                return new ChargeChoice(ActivePlayer);
             }
         }
     }

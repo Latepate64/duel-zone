@@ -26,7 +26,16 @@ namespace DuelMastersModels.Steps
         public override IChoice PerformPriorityAction()
         {
             State = StepState.PriorityAction;
-            throw new System.NotImplementedException();
+            //TODO: Check if cards can be used
+            bool cardsCanBeUsed = true;
+            if (cardsCanBeUsed)
+            {
+                return new CardUsageChoice(ActivePlayer);
+            }
+            else
+            {
+                return null;
+            }
             //IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
             //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
         }

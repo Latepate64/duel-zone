@@ -6,24 +6,44 @@ namespace DuelMastersModels.Steps
     public class BlockDeclarationStep : TurnBasedActionStep
     {
         internal IBattleZoneCreature AttackingCreature { get; private set; }
+        internal IBattleZoneCreature AttackedCreature { get; private set; }
         internal IBattleZoneCreature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature) : base(activePlayer)
+        public BlockDeclarationStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
+            AttackedCreature = attackedCreature;
         }
 
         public override IChoice PerformTurnBasedAction()
         {
             State = StepState.TurnBasedAction;
-            throw new System.NotImplementedException();
+            // TODO: Check if blocking is possible
+            bool possibleToBlock = false;
+            if (possibleToBlock)
+            {
+                throw new System.NotImplementedException();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public override IStep GetNextStep()
         {
-            throw new System.NotImplementedException();
-            //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
-            //return new BattleStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, lastAttackDeclaration.AttackedCreature, blockDeclarationStep.BlockingCreature);
+            if (BlockingCreature != null)
+            {
+                return new BattleStep(ActivePlayer, AttackingCreature, BlockingCreature);
+            }
+            else if (AttackedCreature != null)
+            {
+                throw new System.NotImplementedException();
+            }
+            else
+            {
+                return new DirectAttackStep(ActivePlayer, AttackingCreature);
+            }
         }
 
         //public IChoice PerformTurnBasedActions(IDuel duel)

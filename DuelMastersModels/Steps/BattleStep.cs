@@ -8,19 +8,17 @@ namespace DuelMastersModels.Steps
     public class BattleStep : Step
     {
         internal IBattleZoneCreature AttackingCreature { get; private set; }
-        internal IBattleZoneCreature AttackedCreature { get; private set; }
-        internal IBattleZoneCreature BlockingCreature { get; private set; }
+        internal IBattleZoneCreature TargetCreature { get; private set; }
 
-        public BattleStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature, IBattleZoneCreature blockingCreature) : base(activePlayer)
+        public BattleStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature targetCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
-            AttackedCreature = attackedCreature;
-            BlockingCreature = blockingCreature;
+            TargetCreature = targetCreature;
         }
 
         public override IStep GetNextStep()
         {
-            throw new System.NotImplementedException();
+            return new EndOfAttackStep(ActivePlayer);
             //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
             //BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
 

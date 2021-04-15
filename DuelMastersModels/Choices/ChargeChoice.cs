@@ -11,14 +11,14 @@ namespace DuelMastersModels.Choices
         Attack,
     }
 
-    public class PriorityActionChoice : Choice
+    public class ChargeChoice : Choice, ICardUsageChoice, IAttackerChoice, IEndTurnChoice
     {
         public IEnumerable<IHandCard> ChargeCards { get; }
         public IEnumerable<IHandCard> UseCards { get; }
         public IEnumerable<IBattleZoneCreature> AttackCreatures { get; }
         public bool TurnEndable { get; }
 
-        public PriorityActionChoice(IPlayer player) : base(player)
+        public ChargeChoice(IPlayer player) : base(player)
         {
             //, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer)
 

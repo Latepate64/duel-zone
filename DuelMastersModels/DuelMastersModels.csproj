@@ -137,6 +137,11 @@
     <Compile Include="Cards\ShieldZone\ShieldZoneCard.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneCreature.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
+    <Compile Include="Choices\AttackerChoice.cs" />
+    <Compile Include="Choices\CardUsageChoice.cs" />
+    <Compile Include="Choices\IAttackerChoice.cs" />
+    <Compile Include="Choices\ICardUsageChoice.cs" />
+    <Compile Include="Choices\IEndTurnChoice.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="Effects\ContinuousEffects\IContinuousEffect.cs" />
     <Compile Include="Factories\CardFactory.cs" />
@@ -196,7 +201,7 @@
     <Compile Include="Choices\CardSelections\SingleCardSelection.cs" />
     <Compile Include="Choices\CardSelections\OptionalCardSelection.cs" />
     <Compile Include="Choices\IChoice.cs" />
-    <Compile Include="Choices\PriorityActionChoice.cs" />
+    <Compile Include="Choices\ChargeChoice.cs" />
     <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\SelectAbilityToResolve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,6 @@ namespace DuelMastersModels.Steps
     {
         internal IBattleZoneCreature AttackingCreature { get; set; }
         internal IBattleZoneCreature AttackedCreature { get; set; }
-        internal bool TargetOfAttackDeclared { get; set; }
 
         public AttackDeclarationStep(IPlayer activePlayer) : base(activePlayer)
         {
@@ -16,21 +15,42 @@ namespace DuelMastersModels.Steps
         public override IChoice PerformTurnBasedAction()
         {
             State = StepState.TurnBasedAction;
-            throw new System.NotImplementedException();
+            // TODO: Check if there are creatures that can attack
+            bool possibleToAttack = true;
+            if (possibleToAttack)
+            {
+                return new AttackerChoice(ActivePlayer);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public override IStep GetNextStep()
         {
-            throw new System.NotImplementedException();
-            //if (attackDeclarationStep.AttackingCreature != null)
-            //{
-            //    return new BlockDeclarationStep(ActivePlayer, attackDeclarationStep.AttackingCreature);
-            //}
-            //// 506.2. If an attacking creature is not specified, the other substeps are skipped.
-            //else
-            //{
-            //    return new EndOfTurnStep(ActivePlayer);
-            //}
+            if (AttackingCreature != null)
+            {
+                return new BlockDeclarationStep(ActivePlayer, AttackingCreature, AttackedCreature);
+            }
+            // 506.2. If an attacking creature is not specified, the other substeps are skipped.
+            else
+            {
+                return new EndOfTurnStep(ActivePlayer);
+            }
+        }
+
+        public IChoice DeclareAttackOnCreature(IBattleZoneCreature attacker, IBattleZoneCreature target)
+        {
+            AttackingCreature = attacker;
+            AttackedCreature = target;
+            return Proceed();
+        }
+
+        public IChoice DeclareAttackOnOpponent(IBattleZoneCreature attacker)
+        {
+            AttackingCreature = attacker;
+            return Proceed();
         }
 
         //TODO

@@ -64,29 +64,6 @@ namespace DuelMastersModels
         /// <returns></returns>
         IChoice Start();
 
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        IChoice Progress<T>() where T : class, ICard;
-
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        IChoice Progress<T>(T card) where T : class, ICard;
-
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cards"></param>
-        /// <returns></returns>
-        IChoice Progress<T>(IEnumerable<T> cards) where T : class, ICard;
-
         int GetPower(IBattleZoneCreature creature);
         IChoice DrawCard(IPlayer player);
         IChoice PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger);
@@ -112,8 +89,6 @@ namespace DuelMastersModels
         void SetPendingAbilityToBeResolved(INonStaticAbility ability);
         void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);
-        IChoice TryToPerformAutomatically(IChoice playerAction);
-        IChoice Progress();
         IChoice StartNewTurn(IPlayer activePlayer);
     }
 }

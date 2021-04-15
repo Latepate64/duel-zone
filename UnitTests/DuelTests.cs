@@ -47,7 +47,7 @@ namespace UnitTests
 
             IChoice choice = new Duel { StartingPlayer = player.Object }.Start();
 
-            _ = Assert.IsType<PriorityActionChoice>(choice);
+            _ = Assert.IsType<ChargeChoice>(choice);
         }
     }
 }

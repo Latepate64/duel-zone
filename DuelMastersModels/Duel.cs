@@ -120,50 +120,6 @@ namespace DuelMastersModels
             //return StartingPlayer.TakeTurn(this);
         }
 
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <returns></returns>
-        public IChoice Progress<T>() where T : class, ICard
-        {
-            //return _playerActionManager.Progress<T>();
-            return Progress(new List<T>());
-        }
-
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        public IChoice Progress<T>(T card) where T : class, ICard
-        {
-            return Progress(new List<T> { card });
-        }
-
-        /// <summary>
-        /// Tries to progress in the duel.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cards"></param>
-        /// <returns></returns>
-        public IChoice Progress<T>(IEnumerable<T> cards) where T : class, ICard
-        {
-            ValidateStateForProgressing();
-            throw new NotImplementedException();
-            //IChoice playerAction = PlayerActionManager.Progress(cards);
-            //return playerAction == null ? SetCurrentPlayerAction(Progress()) : SetCurrentPlayerAction(TryToPerformAutomatically(playerAction));
-        }
-
-        public IChoice TryToPerformAutomatically(IChoice playerAction)
-        {
-            throw new NotImplementedException();
-            //IChoice newPlayerAction = playerAction.TryToChooseAutomatically(this);
-            //return playerAction == newPlayerAction
-            //    ? playerAction
-            //    : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
-        }
-
         public IChoice StartNewTurn(IPlayer activePlayer)
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
@@ -410,44 +366,12 @@ namespace DuelMastersModels
         #endregion Internal methods
 
         #region Private methods
-        #region void
         private IHandCard PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card)
         {
             player.ShieldZone.Remove(card);
             IHandCard handCard = CardFactory.GenerateHandCard(card);
             player.Hand.Add(handCard);
             return handCard;
-        }
-
-        private void ValidateStateForProgressing()
-        {
-            //TODO: Implement as attribute?
-            if (State != DuelState.InProgress)
-            {
-                throw new InvalidOperationException($"Could not progress in duel duel as state was {State.ToString()} instead of in progress.");
-            }
-        }
-        #endregion void
-
-        /// <summary>
-        /// Progresses in the duel.
-        /// </summary>
-        /// <returns>A player request for a player to perform an action. Returns null if there is nothing left to do in the duel.</returns>
-        public IChoice Progress()
-        {
-            if (State == DuelState.InProgress)
-            {
-                //CheckStateBasedActions();
-                return State == DuelState.InProgress ? null/*ProgressAfterStateBasedActions()*/ : Progress();
-            }
-            else if (State == DuelState.Over)
-            {
-                return null;
-            }
-            else
-            {
-                throw new InvalidOperationException($"Duel is in invalid state for progression. State: {State}");
-            }
         }
 
         #region bool
