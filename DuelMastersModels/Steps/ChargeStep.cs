@@ -1,15 +1,13 @@
-﻿//using DuelMastersModels.Cards;
-using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using System;
-//using System.Collections.Generic;
 
 namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.
     /// </summary>
-    public class ChargeStep : Step
+    public class ChargeStep : PriorityStep
     {
         public IHandCard ChargedCard { get; set; }
 
@@ -37,34 +35,17 @@ namespace DuelMastersModels.Steps
             return new MainStep(ActivePlayer);
         }
 
-        public override (IChoice, bool) PerformPriorityAction()
+        public override IChoice PerformPriorityAction()
         {
             State = StepState.PriorityAction;
             if (ChargedCard != null)
             {
-                return (null, false);
+                return null;
             }
             else
             {
-                throw new NotImplementedException();
-                //IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-                //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
+                return new PriorityActionChoice(ActivePlayer);
             }
         }
-
-        //TODO
-        //public override IChoice PlayerActionRequired(IDuel duel)
-        //{
-        //    if (MustBeEnded || !ActivePlayer.Hand.Cards.Any())
-        //    {
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        MustBeEnded = true;
-        //        IEnumerable<IHandCard> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-        //        return new PriorityActionRequest(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
-        //    }
-        //}
     }
 }

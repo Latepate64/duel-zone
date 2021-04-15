@@ -69,7 +69,7 @@ namespace DuelMastersModels
             }
         }
 
-        public ITurnManager TurnManager { get; set; } = new TurnManager();
+        public ITurn CurrentTurn => _turns.Last();
         #endregion Properties
 
         #region Fields
@@ -86,6 +86,11 @@ namespace DuelMastersModels
         private readonly IAbilityManager _abilityManager = new AbilityManager();
 
         private readonly IContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
+
+        /// <summary>
+        /// All the turns of the duel that have been or are processed, in order.
+        /// </summary>
+        private readonly Collection<ITurn> _turns = new Collection<ITurn>();
         #endregion Fields
 
         #region Public methods
@@ -111,7 +116,7 @@ namespace DuelMastersModels
             StartingPlayer.DrawCards(InitialNumberOfHandCards);
             StartingPlayer.Opponent.DrawCards(InitialNumberOfHandCards);
 
-            return TurnManager.StartNewTurn(StartingPlayer, this);
+            return StartNewTurn(StartingPlayer);
             //return StartingPlayer.TakeTurn(this);
         }
 
@@ -157,6 +162,13 @@ namespace DuelMastersModels
             //return playerAction == newPlayerAction
             //    ? playerAction
             //    : newPlayerAction != null ? TryToPerformAutomatically(newPlayerAction) : Progress();
+        }
+
+        public IChoice StartNewTurn(IPlayer activePlayer)
+        {
+            ITurn turn = new Turn(activePlayer, _turns.Count + 1);
+            _turns.Add(turn);
+            return turn.Start();
         }
         #endregion Public methods
 
@@ -417,7 +429,6 @@ namespace DuelMastersModels
         }
         #endregion void
 
-        #region PlayerAction
         /// <summary>
         /// Progresses in the duel.
         /// </summary>
@@ -427,7 +438,7 @@ namespace DuelMastersModels
             if (State == DuelState.InProgress)
             {
                 //CheckStateBasedActions();
-                return State == DuelState.InProgress ? ProgressAfterStateBasedActions() : Progress();
+                return State == DuelState.InProgress ? null/*ProgressAfterStateBasedActions()*/ : Progress();
             }
             else if (State == DuelState.Over)
             {
@@ -438,130 +449,6 @@ namespace DuelMastersModels
                 throw new InvalidOperationException($"Duel is in invalid state for progression. State: {State}");
             }
         }
-
-        private IChoice ContinueResolvingAbility()
-        {
-            PlayerActionWithEndInformation action = _abilityManager.ContinueResolution(this);
-            if (!action.ResolutionOver)
-            {
-                //TODO: test
-                return action.PlayerAction != null ? TryToPerformAutomatically(action.PlayerAction) : Progress();
-            }
-            else
-            {
-                FinishResolvingAbility();
-                return null;
-            }
-        }
-
-        private IChoice TryToUseShieldTrigger()
-        {
-            throw new NotImplementedException();
-            //foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer }.Where(player => player.ShieldTriggersToUse.Any()))
-            //{
-            //    //return TryToPerformAutomatically(new UseShieldTrigger(player, new List<IHandCard>(player.ShieldTriggersToUse)));
-            //}
-            //return null;
-        }
-
-        private IChoice ProgressAfterStateBasedActions()
-        {
-            IChoice tryToUseShieldTrigger = TryToUseShieldTrigger();
-            if (tryToUseShieldTrigger != null)
-            {
-                return tryToUseShieldTrigger;
-            }
-
-            if (_abilityManager.IsAbilityBeingResolved)
-            {
-                IChoice action = ContinueResolvingAbility();
-                if (action != null)
-                {
-                    return action;
-                }
-            }
-
-            if (_spellsBeingResolved.Count > 0)
-            {
-                IChoice resolveSpellAbility = TryToResolveSpellAbility();
-                if (resolveSpellAbility != null)
-                {
-                    return resolveSpellAbility;
-                }
-            }
-
-            IChoice selectAbilityToResolve = TryToSelectAbilityToResolve();
-            return selectAbilityToResolve ?? TryToPerformStepAction();
-        }
-
-        private IChoice TryToSelectAbilityToResolve()
-        {
-            foreach (IPlayer player in new List<IPlayer> { TurnManager.CurrentTurn.ActivePlayer, TurnManager.CurrentTurn.NonActivePlayer })
-            {
-                SelectAbilityToResolve selectAbilityToResolve = _abilityManager.TryGetSelectAbilityToResolve(player);
-                if (selectAbilityToResolve != null)
-                {
-                    return TryToPerformAutomatically(selectAbilityToResolve);
-                }
-            }
-            return null;
-        }
-
-        private IChoice TryToPerformStepAction()
-        {
-            throw new NotImplementedException();
-            //IChoice playerAction = TurnManager.CurrentTurn.CurrentStep.PlayerActionRequired(this);
-            //return playerAction != null ? TryToPerformAutomatically(playerAction) : ChangeStep();
-        }
-
-        private IChoice TryToResolveSpellAbility()
-        {
-            ISpell spell = _spellsBeingResolved.Last();
-            if (_abilityManager.GetSpellAbilityCount(spell) > 0)
-            {
-                return StartResolvingSpellAbility(spell);
-            }
-            else
-            {
-                _ = _spellsBeingResolved.Remove(spell);
-                spell.Owner.Graveyard.Add(new GraveyardSpell(spell));
-                return null;
-            }
-        }
-
-        private IChoice StartResolvingSpellAbility(ISpell spell)
-        {
-            _abilityManager.StartResolvingSpellAbility(spell);
-            return Progress();
-        }
-
-        //private IChoice ChangeStep()
-        //{
-        //    if (TurnManager.CurrentTurn.ChangeStep())
-        //    {
-        //        return TurnManager.CurrentTurn.NonActivePlayer.TakeTurn(this);
-        //    }
-        //    else
-        //    {
-        //        if (TurnManager.CurrentTurn.CurrentStep is ITurnBasedActionable actionAble)
-        //        {
-        //            actionAble.ProcessTurnBasedActions(this);
-        //        }
-        //        return Progress();
-        //    }
-        //}
-
-        private void FinishResolvingAbility()
-        {
-            if (_abilityManager.IsAbilityBeingResolvedSpellAbility)
-            {
-                ISpell spell = _spellsBeingResolved.Last();
-                _ = _spellsBeingResolved.Remove(spell);
-                spell.Owner.Graveyard.Add(new GraveyardSpell(spell));
-            }
-            SetPendingAbilityToBeResolved(null);
-        }
-        #endregion PlayerAction
 
         #region bool
         /// <summary>

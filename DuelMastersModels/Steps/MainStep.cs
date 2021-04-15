@@ -15,7 +15,7 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
-    public class MainStep : Step
+    public class MainStep : PriorityStep
     {
         internal ICard CardToBeUsed { get; set; }
 
@@ -23,7 +23,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override (IChoice, bool) PerformPriorityAction()
+        public override IChoice PerformPriorityAction()
         {
             State = StepState.PriorityAction;
             throw new System.NotImplementedException();

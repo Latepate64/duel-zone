@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels;
+using DuelMastersModels.Choices;
+using DuelMastersModels.Zones;
 using Moq;
 using System;
 using Xunit;
@@ -28,12 +30,24 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Start_StartingPlayerAndOpponentGiven_ReturnNull()
+        public void Start_StartingPlayerWithoutHandAndOpponentGiven_ThrowNullReferenceException()
         {
             Mock<IPlayer> player = new Mock<IPlayer>();
             _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
 
-            Assert.Null(new Duel { StartingPlayer = player.Object }.Start());
+            _ = Assert.Throws<NullReferenceException>(() => new Duel { StartingPlayer = player.Object }.Start());
+        }
+
+        [Fact]
+        public void Start_StartingPlayerWithHandAndOpponentGiven_ReturnPriorityActionChoice()
+        {
+            Mock<IPlayer> player = new Mock<IPlayer>();
+            _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
+            _ = player.SetupGet(x => x.Hand).Returns(Mock.Of<IHand>());
+
+            IChoice choice = new Duel { StartingPlayer = player.Object }.Start();
+
+            _ = Assert.IsType<PriorityActionChoice>(choice);
         }
     }
 }

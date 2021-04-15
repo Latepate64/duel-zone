@@ -20,6 +20,7 @@ namespace DuelMastersModels
         /// </summary>
         IStep CurrentStep { get; }
 
+        IChoice ChangeAndStartStep();
         IChoice Start();
     }
 }

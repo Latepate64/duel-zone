@@ -9,7 +9,7 @@ namespace DuelMastersModels.Steps
         StateBasedAction,
         ResolveAbilities,
         PriorityAction,
-        Ended,
+        Over,
     }
 
     public interface IStep
@@ -19,8 +19,6 @@ namespace DuelMastersModels.Steps
 
         (IChoice, bool) CheckStateBasedActions();
         IStep GetNextStep();
-        (IChoice, bool) PerformPriorityAction();
-        IChoice PerformTurnBasedAction();
         IChoice Proceed();
         (IChoice, bool) ResolveAbility();
         IChoice Start();

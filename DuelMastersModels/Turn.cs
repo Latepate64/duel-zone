@@ -20,14 +20,14 @@ namespace DuelMastersModels
         public IPlayer NonActivePlayer { get; }
 
         /// <summary>
-        /// All the steps in the turn that have been or are processed, in order.
-        /// </summary>
-        internal ICollection<IStep> Steps { get; } = new Collection<IStep>();
-
-        /// <summary>
         /// The step that is currently being processed.
         /// </summary>
         public IStep CurrentStep => Steps.Last();
+
+        /// <summary>
+        /// All the steps in the turn that have been or are processed, in order.
+        /// </summary>
+        internal ICollection<IStep> Steps { get; } = new Collection<IStep>();
 
         /// <summary>
         /// The number of the turn.
@@ -55,6 +55,20 @@ namespace DuelMastersModels
             }
         }
 
+        public IChoice ChangeAndStartStep()
+        {
+            IStep nextStep = CurrentStep.GetNextStep();
+            if (nextStep != null)
+            {
+                Steps.Add(nextStep);
+                return StartCurrentStep();
+            }
+            else
+            {
+                return null; // Turn is over
+            }
+        }
+
         private IChoice StartCurrentStep()
         {
             IChoice choice = CurrentStep.Start();
@@ -64,16 +78,7 @@ namespace DuelMastersModels
             }
             else
             {
-                IStep nextStep = CurrentStep.GetNextStep();
-                if (nextStep != null)
-                {
-                    Steps.Add(nextStep);
-                    return StartCurrentStep();
-                }
-                else
-                {
-                    return null; // Turn is over
-                }
+                return ChangeAndStartStep();
             }
         }
     }

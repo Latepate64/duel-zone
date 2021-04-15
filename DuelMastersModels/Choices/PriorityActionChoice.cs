@@ -18,11 +18,13 @@ namespace DuelMastersModels.Choices
         public IEnumerable<IBattleZoneCreature> AttackCreatures { get; }
         public bool TurnEndable { get; }
 
-        public PriorityActionChoice(IPlayer player, IEnumerable<IHandCard> chargeCards, IEnumerable<IHandCard> useCards, IEnumerable<IBattleZoneCreature> attackCreatures/*, bool turnEndable*/) : base(player)
+        public PriorityActionChoice(IPlayer player) : base(player)
         {
-            ChargeCards = chargeCards;
-            UseCards = useCards;
-            AttackCreatures = attackCreatures;
+            //, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer)
+
+            ChargeCards = player.Hand.Cards;
+            //UseCards //TODO: Check which cards can be used
+            //AttackCreatures //TODO: Check which creatures are able to attack
             TurnEndable = true; //TODO: Consider situations where it is not possible to end turn. (eg. creature must attack if able)
         }
     }

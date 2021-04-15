@@ -5,7 +5,7 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.
     /// </summary>
-    public class DrawStep : Step
+    public class DrawStep : TurnBasedActionStep
     {
         public DrawStep(IPlayer player) : base(player)
         {

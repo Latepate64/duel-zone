@@ -70,8 +70,6 @@ namespace DuelMastersModels
 
         public IPlayer Opponent { get; set; }
 
-        public ITurnManager TurnManager { get; set; }
-
         public IDuel Duel { get; set; }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException(nameof(manaCards));
             }
-            else if (TurnManager.CurrentTurn.CurrentStep is Steps.MainStep mainStep)
+            else if (Duel.CurrentTurn.CurrentStep is Steps.MainStep mainStep)
             {
                 if (this == mainStep.ActivePlayer)
                 {

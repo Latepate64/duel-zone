@@ -3,7 +3,7 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : Step
+    public class BlockDeclarationStep : TurnBasedActionStep
     {
         internal IBattleZoneCreature AttackingCreature { get; private set; }
         internal IBattleZoneCreature BlockingCreature { get; set; }

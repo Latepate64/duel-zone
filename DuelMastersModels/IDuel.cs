@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using System.Collections.Generic;
 
@@ -54,7 +53,10 @@ namespace DuelMastersModels
 
         IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone { get; }
 
-        ITurnManager TurnManager { get; set; }
+        /// <summary>
+        /// The turn that is currently being processed.
+        /// </summary>
+        ITurn CurrentTurn { get; }
 
         /// <summary>
         /// Starts the duel.
@@ -112,5 +114,6 @@ namespace DuelMastersModels
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature);
         IChoice TryToPerformAutomatically(IChoice playerAction);
         IChoice Progress();
+        IChoice StartNewTurn(IPlayer activePlayer);
     }
 }

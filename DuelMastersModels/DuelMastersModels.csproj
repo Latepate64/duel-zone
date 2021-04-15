@@ -186,9 +186,7 @@
     <Compile Include="Exceptions\PayCostException.cs" />
     <Compile Include="Managers\IAbilityManager.cs" />
     <Compile Include="Managers\IContinuousEffectManager.cs" />
-    <Compile Include="Managers\ITurnManager.cs" />
     <Compile Include="Managers\ShieldTriggerManager.cs" />
-    <Compile Include="Managers\TurnManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Choices\CardSelections\CardSelection.cs" />
     <Compile Include="Choices\CardSelections\MandatoryCardSelection.cs" />
@@ -216,10 +214,14 @@
     <Compile Include="Steps\DrawStep.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
     <Compile Include="Steps\EndOfTurnStep.cs" />
+    <Compile Include="Steps\IPriorityStep.cs" />
     <Compile Include="Steps\IStep.cs" />
+    <Compile Include="Steps\ITurnBasedActionStep.cs" />
     <Compile Include="Steps\MainStep.cs" />
+    <Compile Include="Steps\PriorityStep.cs" />
     <Compile Include="Steps\StartOfTurnStep.cs" />
     <Compile Include="Steps\Step.cs" />
+    <Compile Include="Steps\TurnBasedActionStep.cs" />
     <Compile Include="Turn.cs" />
     <Compile Include="Zones\BattleZone.cs" />
     <Compile Include="Zones\Deck.cs" />

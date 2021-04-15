@@ -16,11 +16,6 @@ namespace DuelMastersModels.Steps
             ActivePlayer = activePlayer;
         }
 
-        public virtual (IChoice, bool) PerformPriorityAction()
-        {
-            State = StepState.PriorityAction;
-            return (null, false); // Priority action not taken by default
-        }
 
         public (IChoice, bool) CheckStateBasedActions()
         {
@@ -34,11 +29,6 @@ namespace DuelMastersModels.Steps
             return (null, anyStateBasedActionPerformed);
         }
 
-        public virtual IChoice PerformTurnBasedAction()
-        {
-            return null;
-        }
-
         public (IChoice, bool) ResolveAbility()
         {
             State = StepState.ResolveAbilities;
@@ -48,15 +38,47 @@ namespace DuelMastersModels.Steps
 
         public IChoice Start()
         {
-            IChoice choice = PerformTurnBasedAction();
-            if (choice != null)
+            if (this is ITurnBasedActionStep turnBasedActionStep)
             {
-                return choice;
+                IChoice choice = turnBasedActionStep.PerformTurnBasedAction();
+                if (choice != null)
+                {
+                    return choice;
+                }
             }
             return Proceed();
         }
 
         public IChoice Proceed()
+        {
+            IChoice choice = TryToCheckStateBasedActions();
+            if (choice != null)
+            {
+                return choice;
+            }
+            else
+            {
+                choice = TryToResolveAbility();
+                if (choice != null)
+                {
+                    return choice;
+                }
+                else if (this is IPriorityStep priorityStep)
+                {
+                    choice = priorityStep.PerformPriorityAction();
+                    if (choice != null)
+                    {
+                        return choice;
+                    }
+                }
+                State = StepState.Over;
+                return null;
+            }
+        }
+
+        public abstract IStep GetNextStep();
+
+        private IChoice TryToCheckStateBasedActions()
         {
             IChoice choice;
             bool anyStateBasedActionPerformed;
@@ -69,6 +91,15 @@ namespace DuelMastersModels.Steps
             {
                 return Proceed();
             }
+            else
+            {
+                return null;
+            }
+        }
+
+        private IChoice TryToResolveAbility()
+        {
+            IChoice choice;
             bool anyAbilityResolved;
             (choice, anyAbilityResolved) = ResolveAbility();
             if (choice != null)
@@ -79,23 +110,10 @@ namespace DuelMastersModels.Steps
             {
                 return Proceed();
             }
-            bool anyPriorityActionTaken;
-            (choice, anyPriorityActionTaken) = PerformPriorityAction();
-            if (choice != null)
-            {
-                return choice;
-            }
-            else if (anyPriorityActionTaken)
-            {
-                return Proceed();
-            }
             else
             {
-                State = StepState.Ended;
                 return null;
             }
         }
-
-        public abstract IStep GetNextStep();
     }
 }
