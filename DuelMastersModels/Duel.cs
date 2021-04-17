@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
 {
@@ -17,7 +18,6 @@ namespace DuelMastersModels
     public class Duel : IDuel
     {
         #region Properties
-        #region Public
         /// <summary>
         /// A player that participates in duel against player 2.
         /// </summary>
@@ -54,22 +54,13 @@ namespace DuelMastersModels
         /// Determines which player goes first in the duel.
         /// </summary>
         public StartingPlayerMethod StartingPlayerMethod { get; set; } = StartingPlayerMethod.Random;
-        #endregion Public
-
-        /// <summary>
-        /// All creatures that are in the battle zone.
-        /// </summary>
-        public IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone
-        {
-            get
-            {
-                List<IBattleZoneCreature> creatures = Player1.BattleZone.Creatures.OfType<IBattleZoneCreature>().ToList();
-                creatures.AddRange(Player2.BattleZone.Creatures);
-                return new ReadOnlyCollection<IBattleZoneCreature>(creatures);
-            }
-        }
 
         public ITurn CurrentTurn => _turns.Last();
+
+        /// <summary>
+        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+        /// </summary>
+        public IBattleZone BattleZone { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -129,7 +120,7 @@ namespace DuelMastersModels
         {
             ITurn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
-            return turn.Start();
+            return turn.Start(BattleZone);
         }
         #endregion Public methods
 
@@ -167,16 +158,16 @@ namespace DuelMastersModels
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature);
+                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature, BattleZone);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature);
+                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature, BattleZone);
             }
             else
             {
-                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature);
-                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature);
+                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature, BattleZone);
+                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature, BattleZone);
             }
         }
 
@@ -189,7 +180,7 @@ namespace DuelMastersModels
         {
             if (card is ICreature creature)
             {
-                player.BattleZone.Add(new BattleZoneCreature(creature));
+                BattleZone.Add(new BattleZoneCreature(creature));
             }
             else if (card is ISpell spell)
             {
@@ -228,7 +219,7 @@ namespace DuelMastersModels
 
         public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature)
         {
-            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<IBattleZoneCreature>(CreaturesInTheBattleZone.Except(new List<IBattleZoneCreature>() { excludedCreature }).ToList()));
+            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<IBattleZoneCreature>(BattleZone.Creatures.Except(new List<IBattleZoneCreature> { excludedCreature }).ToList()));
         }
 
         public void SetPendingAbilityToBeResolved(INonStaticAbility ability)
@@ -272,12 +263,12 @@ namespace DuelMastersModels
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
         {
             IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
-            return new ReadOnlyCollection<IBattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
+            return new ReadOnlyCollection<IBattleZoneCreature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(IPlayer player)
         {
-            return player.Opponent.BattleZone.TappedCreatures;
+            return BattleZone.GetTappedCreatures(player.Opponent);
             //TODO: Consider attacking creature
         }
         #endregion ReadOnlyCreatureCollection
@@ -331,14 +322,14 @@ namespace DuelMastersModels
 
         public IChoice ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
         {
-            creature.Owner.BattleZone.Remove(creature);
+            BattleZone.Remove(creature);
             creature.Owner.Hand.Add(new HandCreature(creature));
             return null;
         }
 
         public IChoice PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
         {
-            creature.Owner.BattleZone.Remove(creature);
+            BattleZone.Remove(creature);
             creature.Owner.ManaZone.Add(new ManaZoneCreature(creature));
             return null;
         }
@@ -346,7 +337,7 @@ namespace DuelMastersModels
         public IChoice PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
         {
             creature.Owner.ManaZone.Remove(creature);
-            creature.Owner.BattleZone.Add(new BattleZoneCreature(creature));
+            BattleZone.Add(new BattleZoneCreature(creature));
             return null;
         }
 
@@ -364,8 +355,9 @@ namespace DuelMastersModels
 
         public IEnumerable<ICard> GetAllCards()
         {
-            List<ICard> cards = Player1.CardsInAllZones.ToList();
-            cards.AddRange(Player2.CardsInAllZones);
+            List<ICard> cards = Player1.CardsInNonsharedZones.ToList();
+            cards.AddRange(Player2.CardsInNonsharedZones);
+            cards.AddRange(BattleZone.Cards);
             return cards;
         }
         #endregion Internal methods
@@ -478,7 +470,7 @@ namespace DuelMastersModels
         private void CastSpell(ISpell spell)
         {
             _spellsBeingResolved.Add(spell);
-            _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(CreaturesInTheBattleZone);
+            _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(BattleZone.Creatures);
         }
 
         //private void RandomizeStartingPlayer(out IPlayer activePlayer, out IPlayer nonActivePlayer)

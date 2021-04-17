@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
+using DuelMastersModels.Zones;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -42,11 +43,11 @@ namespace DuelMastersModels
             Number = number;
         }
 
-        public IChoice Start()
+        public IChoice Start(IBattleZone battleZone)
         {
             if (!Steps.Any())
             {
-                Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1));
+                Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1, battleZone));
                 return StartCurrentStep();
             }
             else

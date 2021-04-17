@@ -7,6 +7,7 @@ using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersModels.Managers
 {
@@ -32,12 +33,12 @@ namespace DuelMastersModels.Managers
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
 
-        public ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player)
+        public ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, IBattleZone battleZone)
         {
             List<IContinuousEffect> continuousEffects = new List<IContinuousEffect>();
             foreach (IStaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
             {
-                continuousEffects.AddRange(player.GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility));
+                continuousEffects.AddRange(player.GetContinuousEffectsGeneratedByStaticAbility(card, staticAbility, battleZone));
             }
             return continuousEffects;
         }

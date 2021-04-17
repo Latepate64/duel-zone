@@ -40,7 +40,7 @@ namespace DuelMastersModels.Managers
         {
             List<IBattleZoneCreature> blockers = new List<IBattleZoneCreature>();
             IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
-            foreach (IBattleZoneCreature creature in player.BattleZone.Creatures)
+            foreach (IBattleZoneCreature creature in Duel.BattleZone.Creatures)
             {
                 blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
@@ -111,7 +111,7 @@ namespace DuelMastersModels.Managers
             List<IContinuousEffect> continuousEffects = _continuousEffects.ToList();
             foreach (ICard card in Duel.GetAllCards())
             {
-                continuousEffects.AddRange(AbilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner));
+                continuousEffects.AddRange(AbilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner, Duel.BattleZone));
             }
             return new ReadOnlyContinuousEffectCollection(continuousEffects);
         }

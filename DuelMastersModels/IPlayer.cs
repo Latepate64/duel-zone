@@ -18,11 +18,6 @@ namespace DuelMastersModels
         string Name { get; }
 
         /// <summary>
-        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
-        /// </summary>
-        IBattleZone BattleZone { get; }
-
-        /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         IDeck Deck { get; set; }
@@ -47,7 +42,7 @@ namespace DuelMastersModels
         /// </summary>
         IShieldZone ShieldZone { get; }
 
-        IEnumerable<ICard> CardsInAllZones { get; }
+        IEnumerable<ICard> CardsInNonsharedZones { get; }
 
         IEnumerable<IHandCard> ShieldTriggersToUse { get; }
 
@@ -55,14 +50,14 @@ namespace DuelMastersModels
 
         void AddShieldTriggerToUse(IHandCard card);
         void DrawCards(int amount);
-        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility);
-        void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card);
+        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility, IBattleZone battleZone);
+        void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card, IBattleZone battleZone);
         void PutFromHandIntoManaZone(IHandCard card);
         void PutFromTopOfDeckIntoShieldZone(int amount);
         void RemoveShieldTriggerToUse(IHandCard card);
         ICard RemoveTopCardOfDeck();
         void ShuffleDeck();
-        IChoice UntapCardsInBattleZoneAndManaZone();
+        IChoice UntapCardsInBattleZoneAndManaZone(IBattleZone battleZone);
         IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards);
     }
 }

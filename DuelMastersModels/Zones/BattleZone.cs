@@ -14,8 +14,16 @@ namespace DuelMastersModels.Zones
         internal override bool Ordered { get; } = false;
 
         public IEnumerable<IBattleZoneCreature> Creatures => new ReadOnlyCollection<IBattleZoneCreature>(Cards.OfType<IBattleZoneCreature>().ToList());
-        public IEnumerable<IBattleZoneCreature> TappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
-        public IEnumerable<IBattleZoneCreature> UntappedCreatures => new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
+
+        public IEnumerable<IBattleZoneCreature> GetTappedCreatures()
+        {
+            return new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetUntappedCreatures()
+        {
+            return new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
+        }
 
         public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<ITappable>(Cards.OfType<ITappable>().Where(c => c.Tapped).ToList());
 
@@ -23,7 +31,7 @@ namespace DuelMastersModels.Zones
 
         public void UntapCards()
         {
-            foreach (BattleZoneCreature creature in TappedCreatures)
+            foreach (BattleZoneCreature creature in GetTappedCreatures())
             {
                 creature.Tapped = false;
             }
@@ -42,6 +50,16 @@ namespace DuelMastersModels.Zones
         public override void Remove(IBattleZoneCard card)
         {
             _ = _cards.Remove(card);
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetUntappedCreatures(IPlayer player)
+        {
+            return GetUntappedCreatures().Where(c => c.Owner == player);
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetTappedCreatures(IPlayer player)
+        {
+            return GetTappedCreatures().Where(c => c.Owner == player);
         }
     }
 }

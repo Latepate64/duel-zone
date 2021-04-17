@@ -22,11 +22,6 @@ namespace DuelMastersModels
         public string Name { get; private set; }
 
         /// <summary>
-        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
-        /// </summary>
-        public IBattleZone BattleZone { get; private set; }
-
-        /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         public IDeck Deck { get; set; }
@@ -53,12 +48,11 @@ namespace DuelMastersModels
 
         public IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
-        public IEnumerable<ICard> CardsInAllZones
+        public IEnumerable<ICard> CardsInNonsharedZones
         {
             get
             {
                 List<ICard> cards = new List<ICard>();
-                cards.AddRange(BattleZone.Cards);
                 cards.AddRange(Deck.Cards);
                 cards.AddRange(Graveyard.Cards);
                 cards.AddRange(Hand.Cards);
@@ -69,8 +63,6 @@ namespace DuelMastersModels
         }
 
         public IPlayer Opponent { get; set; }
-
-        public IDuel Duel { get; set; }
 
         /// <summary>
         /// Player shuffles their deck.
@@ -95,22 +87,8 @@ namespace DuelMastersModels
             {
                 throw new ArgumentNullException(nameof(manaCards));
             }
-            else if (Duel.CurrentTurn.CurrentStep is Steps.MainStep mainStep)
-            {
-                if (this == mainStep.ActivePlayer)
-                {
-                    //return Duel.Progress();
-                    throw new NotImplementedException("Consider mana payment");
-                }
-                else
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
+            //return Duel.Progress();
+            throw new NotImplementedException("Consider mana payment");
         }
 
         public void RemoveShieldTriggerToUse(IHandCard card)
@@ -118,12 +96,12 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility)
+        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, IStaticAbility staticAbility, IBattleZone battleZone)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
                 return staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is IBattleZoneCard battleZoneCard && BattleZone.Cards.Contains(battleZoneCard)) ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is IBattleZoneCard battleZoneCard && battleZone.Cards.Contains(battleZoneCard)) ||
                     (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is IHandCreature handCreature && Hand.Cards.Contains(handCreature))
                     ? staticAbilityForCreature.ContinuousEffects
                     : new ReadOnlyContinuousEffectCollection();
@@ -140,9 +118,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card)
+        public void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card, IBattleZone battleZone)
         {
-            BattleZone.Remove(card);
+            battleZone.Remove(card);
             Graveyard.Add(CardFactory.GenerateGraveyardCard(card));
         }
 
@@ -191,9 +169,9 @@ namespace DuelMastersModels
             }
         }
 
-        public IChoice UntapCardsInBattleZoneAndManaZone()
+        public IChoice UntapCardsInBattleZoneAndManaZone(IBattleZone battleZone)
         {
-            BattleZone.UntapCards();
+            battleZone.UntapCards();
             ManaZone.UntapCards();
             return null; //TODO: Could require choice (eg. Silent Skill)
         }

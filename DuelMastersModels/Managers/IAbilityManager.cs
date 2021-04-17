@@ -3,6 +3,7 @@ using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Choices;
 using System.Collections.Generic;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersModels.Managers
 {
@@ -12,7 +13,7 @@ namespace DuelMastersModels.Managers
         bool IsAbilityBeingResolvedSpellAbility { get; }
 
         PlayerActionWithEndInformation ContinueResolution(IDuel duel);
-        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player);
+        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, IBattleZone battleZone);
         int GetSpellAbilityCount(ISpell spell);
         void RemovePendingAbility(INonStaticAbility ability);
         void SetAbilityBeingResolved(INonStaticAbility ability);

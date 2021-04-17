@@ -3,6 +3,7 @@ using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Choices;
 using System.Collections.Generic;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
 {
@@ -51,12 +52,15 @@ namespace DuelMastersModels
         /// </summary>
         StartingPlayerMethod StartingPlayerMethod { get; }
 
-        IEnumerable<IBattleZoneCreature> CreaturesInTheBattleZone { get; }
-
         /// <summary>
         /// The turn that is currently being processed.
         /// </summary>
         ITurn CurrentTurn { get; }
+
+        /// <summary>
+        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+        /// </summary>
+        IBattleZone BattleZone { get; }
 
         /// <summary>
         /// Starts the duel.
