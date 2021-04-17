@@ -3,14 +3,6 @@ using System.Collections.Generic;
 
 namespace DuelMastersModels.Choices
 {
-    public enum MainActionMode
-    {
-        EndTurn,
-        Charge,
-        Use,
-        Attack,
-    }
-
     public class ChargeChoice : Choice, ICardUsageChoice, IAttackerChoice, IEndTurnChoice
     {
         public IEnumerable<IHandCard> ChargeCards { get; }

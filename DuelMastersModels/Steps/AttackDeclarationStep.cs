@@ -14,7 +14,6 @@ namespace DuelMastersModels.Steps
 
         public override IChoice PerformTurnBasedAction()
         {
-            State = StepState.TurnBasedAction;
             // TODO: Check if there are creatures that can attack
             bool possibleToAttack = true;
             if (possibleToAttack)

@@ -6,7 +6,6 @@ namespace DuelMastersModels.Steps
     {
         NotStarted,
         TurnBasedAction,
-        StateBasedAction,
         ResolveAbilities,
         PriorityAction,
         Over,
@@ -17,7 +16,6 @@ namespace DuelMastersModels.Steps
         IPlayer ActivePlayer { get; }
         StepState State { get; set; }
 
-        (IChoice, bool) CheckStateBasedActions();
         IStep GetNextStep();
         IChoice Proceed();
         (IChoice, bool) ResolveAbility();

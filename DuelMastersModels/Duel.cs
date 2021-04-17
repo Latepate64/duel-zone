@@ -85,7 +85,7 @@ namespace DuelMastersModels
 
         private readonly IAbilityManager _abilityManager = new AbilityManager();
 
-        private readonly IContinuousEffectManager _continuousEffectManager = new ContinuousEffectManager();
+        private readonly IContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
@@ -94,6 +94,11 @@ namespace DuelMastersModels
         #endregion Fields
 
         #region Public methods
+        public Duel()
+        {
+            _continuousEffectManager = new ContinuousEffectManager(this, _abilityManager);
+        }
+
         /// <summary>
         /// Starts the duel.
         /// </summary>
@@ -247,13 +252,13 @@ namespace DuelMastersModels
 
         public bool CanAttackOpponent(IBattleZoneCreature creature)
         {
-            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers(this, _abilityManager);
+            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers();
             return !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
         public bool AttacksIfAble(IBattleZoneCreature creature)
         {
-            return _continuousEffectManager.AttacksIfAble(this, _abilityManager, creature);
+            return _continuousEffectManager.AttacksIfAble(creature);
         }
         #endregion bool
 
@@ -266,7 +271,7 @@ namespace DuelMastersModels
 
         public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
         {
-            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(this, _abilityManager, player);
+            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
             return new ReadOnlyCollection<IBattleZoneCreature>(player.BattleZone.UntappedCreatures.Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
@@ -354,7 +359,7 @@ namespace DuelMastersModels
 
         public int GetPower(IBattleZoneCreature creature)
         {
-            return _continuousEffectManager.GetPower(this, _abilityManager, creature);
+            return _continuousEffectManager.GetPower(creature);
         }
 
         public IEnumerable<ICard> GetAllCards()
@@ -404,12 +409,12 @@ namespace DuelMastersModels
 
         private bool HasShieldTrigger(IHandCreature creature)
         {
-            return _continuousEffectManager.HasShieldTrigger(this, _abilityManager, creature);
+            return _continuousEffectManager.HasShieldTrigger(creature);
         }
 
         private bool HasShieldTrigger(IHandSpell spell)
         {
-            return _continuousEffectManager.HasShieldTrigger(this, _abilityManager, spell);
+            return _continuousEffectManager.HasShieldTrigger(spell);
         }
 
         private bool HasShieldTrigger(IHandCard card)
@@ -430,7 +435,7 @@ namespace DuelMastersModels
 
         private bool HasSpeedAttacker(IBattleZoneCreature creature)
         {
-            return _continuousEffectManager.HasSpeedAttacker(this, _abilityManager, creature);
+            return _continuousEffectManager.HasSpeedAttacker(creature);
         }
 
         private bool AffectedBySummoningSickness(IBattleZoneCreature creature)
@@ -467,7 +472,7 @@ namespace DuelMastersModels
 
         private IEnumerable<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
         {
-            return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player, this, _abilityManager);
+            return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
         }
 
         private void CastSpell(ISpell spell)

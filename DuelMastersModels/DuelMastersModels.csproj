@@ -138,6 +138,7 @@
     <Compile Include="Cards\ShieldZone\ShieldZoneCreature.cs" />
     <Compile Include="Cards\ShieldZone\ShieldZoneSpell.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
+    <Compile Include="Choices\BlockerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="Choices\IAttackerChoice.cs" />
     <Compile Include="Choices\ICardUsageChoice.cs" />

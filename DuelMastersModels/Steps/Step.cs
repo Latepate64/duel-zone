@@ -16,19 +16,6 @@ namespace DuelMastersModels.Steps
             ActivePlayer = activePlayer;
         }
 
-
-        public (IChoice, bool) CheckStateBasedActions()
-        {
-            State = StepState.StateBasedAction;
-            bool anyStateBasedActionPerformed = false;
-            //703.4a If a player was directly attacked while they had no shields and the attack wasn't redirected, that player loses the game.
-            //703.4b If a player has no cards left in their deck, that player loses the game.
-            //703.4c A creature that has power 0 or less is destroyed.
-            //703.4d A creature that lost in a battle is destroyed as a result of the battle.
-            //703.4i When the top card of an Evolution Creature leaves the battle zone, the cards underneath it are reconstructed.
-            return (null, anyStateBasedActionPerformed);
-        }
-
         public (IChoice, bool) ResolveAbility()
         {
             State = StepState.ResolveAbilities;
@@ -40,6 +27,7 @@ namespace DuelMastersModels.Steps
         {
             if (this is ITurnBasedActionStep turnBasedActionStep)
             {
+                State = StepState.TurnBasedAction;
                 IChoice choice = turnBasedActionStep.PerformTurnBasedAction();
                 if (choice != null)
                 {
@@ -51,51 +39,24 @@ namespace DuelMastersModels.Steps
 
         public IChoice Proceed()
         {
-            IChoice choice = TryToCheckStateBasedActions();
+            IChoice choice = TryToResolveAbility();
             if (choice != null)
             {
                 return choice;
             }
-            else
+            else if (this is IPriorityStep priorityStep)
             {
-                choice = TryToResolveAbility();
+                choice = priorityStep.PerformPriorityAction();
                 if (choice != null)
                 {
                     return choice;
                 }
-                else if (this is IPriorityStep priorityStep)
-                {
-                    choice = priorityStep.PerformPriorityAction();
-                    if (choice != null)
-                    {
-                        return choice;
-                    }
-                }
-                State = StepState.Over;
-                return null;
             }
+            State = StepState.Over;
+            return null;
         }
 
         public abstract IStep GetNextStep();
-
-        private IChoice TryToCheckStateBasedActions()
-        {
-            IChoice choice;
-            bool anyStateBasedActionPerformed;
-            (choice, anyStateBasedActionPerformed) = CheckStateBasedActions();
-            if (choice != null)
-            {
-                return choice;
-            }
-            else if (anyStateBasedActionPerformed)
-            {
-                return Proceed();
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         private IChoice TryToResolveAbility()
         {
@@ -108,11 +69,11 @@ namespace DuelMastersModels.Steps
             }
             else if (anyAbilityResolved)
             {
-                return Proceed();
+                return TryToResolveAbility();
             }
             else
             {
-                return null;
+                return null; // There were no abilities to be resolved.
             }
         }
     }

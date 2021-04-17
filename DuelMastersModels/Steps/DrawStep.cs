@@ -22,7 +22,6 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override IChoice PerformTurnBasedAction()
         {
-            State = StepState.TurnBasedAction;
             ActivePlayer.DrawCards(1);
             return null;
         }

@@ -17,12 +17,11 @@ namespace DuelMastersModels.Steps
 
         public override IChoice PerformTurnBasedAction()
         {
-            State = StepState.TurnBasedAction;
             // TODO: Check if blocking is possible
             bool possibleToBlock = false;
             if (possibleToBlock)
             {
-                throw new System.NotImplementedException();
+                return new BlockerChoice(ActivePlayer);
             }
             else
             {
@@ -38,7 +37,7 @@ namespace DuelMastersModels.Steps
             }
             else if (AttackedCreature != null)
             {
-                throw new System.NotImplementedException();
+                return new BattleStep(ActivePlayer, AttackingCreature, AttackedCreature);
             }
             else
             {

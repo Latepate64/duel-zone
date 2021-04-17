@@ -9,15 +9,13 @@ namespace DuelMastersModels.Steps
     {
         public StartOfTurnStep(IPlayer player, bool skipDrawStep) : base(player)
         {
-            SkipDrawStep = skipDrawStep;
+            _skipDrawStep = skipDrawStep;
         }
-
-        public bool SkipDrawStep { get; private set; }
 
         public override IStep GetNextStep()
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
-            if (SkipDrawStep)
+            if (_skipDrawStep)
             {
                 return new ChargeStep(ActivePlayer);
             }
@@ -33,8 +31,9 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override IChoice PerformTurnBasedAction()
         {
-            State = StepState.TurnBasedAction;
             return ActivePlayer.UntapCardsInBattleZoneAndManaZone();
         }
+
+        private readonly bool _skipDrawStep;
     }
 }
