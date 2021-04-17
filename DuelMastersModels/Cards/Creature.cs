@@ -1,123 +1,38 @@
-﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Trigger;
-using DuelMastersModels.Effects.OneShotEffects;
-using DuelMastersModels.Factories;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
-    public class Creature : Card
+    public enum Race
+    {
+        LiquidPeople,
+    }
+
+    /// <summary>
+    /// Creature is a card type.
+    /// </summary>
+    public abstract class Creature : Card, ICreature
     {
         /// <summary>
         /// The base power of creature. Use Duel's method GetPower(creature) in order to get the actual power of a creature.
         /// </summary>
-        public int Power { get; set; }
-        public Collection<string> Races { get; } = new Collection<string>();
+        public int Power { get; private set; }
 
-        private bool _summoningSickness = true;
-        public bool SummoningSickness
-        {
-            get => _summoningSickness;
-            set
-            {
-                if (value != _summoningSickness)
-                {
-                    _summoningSickness = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+        /// <summary>
+        /// Race is a characteristic of a creature.
+        /// </summary>
+        public ICollection<Race> Races { get; }
 
-        public override Card DeepCopy
-        {
-            get
-            {
-                Creature creature = new Creature()
-                {
-                    Cost = Cost,
-                    Flavor = Flavor,
-                    GameId = GameId,
-                    Id = Id,
-                    Illustrator = Illustrator,
-                    Name = Name,
-                    Power = Power,
-                    Rarity = Rarity,
-                    Set = Set,
-                    SummoningSickness = SummoningSickness,
-                    Tapped = Tapped,
-                    Text = Text
-                };
-                foreach (Civilization civilization in Civilizations)
-                {
-                    creature.Civilizations.Add(civilization);
-                }
-                foreach (string race in Races)
-                {
-                    creature.Races.Add(race);
-                }
-                return creature;
-            }
-        }
-
-        public Creature() : base()
-        {
-        }
+        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a creature.
         /// </summary>
-        public Creature(string name, string set, string id, Collection<string> civilizations, string rarity, int cost, string text, string flavor, string illustrator, int gameId, string power, Collection<string> races, Player owner) : base(name, set, id, civilizations, rarity, cost, text, flavor, illustrator, gameId)
+        protected Creature(int cost, Civilization civilization, int power, Race race) : base(cost, civilization)
         {
-            if (power == null)
-            {
-                throw new System.ArgumentNullException("power");
-            }
-            Power = int.Parse(power.Replace("+", "").Replace("-", ""), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture);
-            Races = races;
-
-            if (!string.IsNullOrEmpty(text))
-            {
-                IEnumerable<string> textParts = text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries).Where(t => !(t.StartsWith("(", System.StringComparison.CurrentCulture) && t.EndsWith(")", System.StringComparison.CurrentCulture)));
-                foreach (string textPart in textParts)
-                {
-                    StaticAbility staticAbility = StaticAbilityFactory.ParseStaticAbilityForCreature(textPart, this, owner);
-                    if (staticAbility != null)
-                    {
-                        Abilities.Add(staticAbility);
-                    }
-                    else
-                    {
-                        TriggerCondition triggerCondition = TriggerConditionFactory.ParseTriggerCondition(textPart, this, owner, out string remainingText);
-                        if (triggerCondition != null)
-                        {
-                            Collection<OneShotEffect> effects = EffectFactory.ParseOneShotEffect(remainingText, owner);
-                            if (effects != null)
-                            {
-                                Abilities.Add(new TriggerAbility(triggerCondition, effects, owner, this));
-                            }
-                            else
-                            {
-                                OneShotEffectForCreature oneShotEffectForCreature = EffectFactory.ParseOneShotEffectForCreature(remainingText, this);
-                                if (oneShotEffectForCreature != null)
-                                {
-                                    Abilities.Add(new TriggerAbility(triggerCondition, new Collection<OneShotEffect>() { oneShotEffectForCreature }, owner, this));
-                                }
-                                else
-                                {
-                                    Duel.NotParsedAbilities.Add(remainingText);
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            Duel.NotParsedAbilities.Add(textPart);
-                        }
-                    }
-                }
-            }
+            Power = power;
+            Races = new Collection<Race> { race };
         }
     }
 }

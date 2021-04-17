@@ -1,14 +1,10 @@
 ﻿using DuelMastersModels.Cards;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.CardFilters
 {
-    public abstract class CreatureFilter : CardFilter
+    internal abstract class CreatureFilter<TCreature> : CardFilter where TCreature : ICreature
     {
-        protected CreatureFilter()
-        {
-        }
-
-        public abstract Collection<Creature> FilteredCreatures { get; }
+        internal abstract IEnumerable<TCreature> FilteredCreatures { get; }
     }
 }

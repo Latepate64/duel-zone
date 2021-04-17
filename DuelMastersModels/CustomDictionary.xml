@@ -1,0 +1,13 @@
+﻿<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>Mana</Word>
+      <Word>Revealable</Word>
+      <Word>Tappable</Word>
+    </Recognized>
+    <DiscreteExceptions>
+      <Term>ANon</Term>
+      <Term>FaceDown</Term>
+    </DiscreteExceptions>
+  </Words>
+</Dictionary>

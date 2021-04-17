@@ -1,29 +1,39 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
-    public class ManaZone : Zone
+    /// <summary>
+    /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
+    /// </summary>
+    public class ManaZone : Zone<IManaZoneCard>, IManaZone
     {
-        public override bool Public { get; } = true;
-        public override bool Ordered { get; } = false;
+        internal override bool Public { get; } = true;
+        internal override bool Ordered { get; } = false;
 
-        public ManaZone(Player owner) : base(owner) { }
+        public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<IManaZoneCard>(Cards.Where(card => card.Tapped).ToList());
+        public IEnumerable<IManaZoneCard> UntappedCards => new ReadOnlyCollection<IManaZoneCard>(Cards.Where(card => !card.Tapped).ToList());
 
-        public override void Add(Card card, Duel duel)
+        public IEnumerable<IManaZoneCreature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCollection<IManaZoneCreature>(Cards.OfType<IManaZoneCreature>().Where(c => c.Cost <= Cards.Count() && !(c is IEvolutionCreature)).ToList());
+
+        public void UntapCards()
         {
-            if (card.Civilizations.Count > 1)
+            foreach (ManaZoneCard card in TappedCards)
             {
-                card.Tapped = true;
+                card.Tapped = false;
             }
-            Cards.Add(card);
-            card.KnownToOwner = true;
-            card.KnownToOpponent = true;
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Add(IManaZoneCard card)
         {
-            Cards.Remove(card);
-            card.Tapped = false;
+            _cards.Add(card);
+        }
+
+        public override void Remove(IManaZoneCard card)
+        {
+            _ = _cards.Remove(card);
         }
     }
 }

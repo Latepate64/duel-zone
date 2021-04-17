@@ -10,7 +10,7 @@ namespace DuelMastersApplication
 {
     public class ManaZoneCardCanvas : AbstractCardCanvas
     {
-        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(ManaZoneCardCanvas), new PropertyMetadata(OnCivilizationsChanged));
+        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(ReadOnlyCivilizationCollection), typeof(ManaZoneCardCanvas), new PropertyMetadata(OnCivilizationsChanged));
 
         private Ellipse _ellipseCardFrame = new Ellipse() { Fill = new SolidColorBrush(Colors.Black) };
         private Ellipse _ellipseColorFrame = new Ellipse();
@@ -105,7 +105,7 @@ namespace DuelMastersApplication
 
         private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Brush brush = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
+            Brush brush = GetBrushForCivilizations(e.NewValue as ReadOnlyCivilizationCollection);
             ManaZoneCardCanvas manaZoneCardCanvas = d as ManaZoneCardCanvas;
             manaZoneCardCanvas._ellipseColorFrame.Fill = brush;
             manaZoneCardCanvas._ellipseManaNumberInnerFrame.Fill = brush;

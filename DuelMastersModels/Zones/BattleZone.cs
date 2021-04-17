@@ -1,47 +1,65 @@
-﻿using DuelMastersModels.Abilities.Trigger;
-using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
-    public class BattleZone : Zone
+    /// <summary>
+    /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+    /// </summary>
+    public class BattleZone : Zone<IBattleZoneCard>, IBattleZone
     {
-        public override bool Public { get; } = true;
-        public override bool Ordered { get; } = false;
-        
-        public BattleZone(Player owner) : base(owner) { }
+        internal override bool Public { get; } = true;
+        internal override bool Ordered { get; } = false;
 
-        public override void Add(Card card, Duel duel)
+        public IEnumerable<IBattleZoneCreature> Creatures => new ReadOnlyCollection<IBattleZoneCreature>(Cards.OfType<IBattleZoneCreature>().ToList());
+
+        public IEnumerable<IBattleZoneCreature> GetTappedCreatures()
         {
-            if (card is Creature creature)
+            return new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => creature.Tapped).ToList());
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetUntappedCreatures()
+        {
+            return new ReadOnlyCollection<IBattleZoneCreature>(Creatures.Where(creature => !creature.Tapped).ToList());
+        }
+
+        public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<ITappable>(Cards.OfType<ITappable>().Where(c => c.Tapped).ToList());
+
+        public IDuel Duel { get; set; }
+
+        public void UntapCards()
+        {
+            foreach (BattleZoneCreature creature in GetTappedCreatures())
             {
-                creature.SummoningSickness = true;
-            }
-            Cards.Add(card);
-            card.KnownToOwner = true;
-            card.KnownToOpponent = true;
-            foreach (TriggerAbility ability in card.TriggerAbilities.Where(ability => ability.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone))
-            {
-                duel.TriggerTriggerAbility(ability, Owner);
-            }
-            foreach (Creature battleZoneCreature in duel.CreaturesInTheBattleZone.Except(new List<Card>() { card }))
-            {
-                foreach (TriggerAbility ability in battleZoneCreature.TriggerAbilities.Where(ability => ability.TriggerCondition is WheneverAnotherCreatureIsPutIntoTheBattleZone))
-                {
-                    duel.TriggerTriggerAbility(ability, ability.Controller);
-                }
+                creature.Tapped = false;
             }
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Add(IBattleZoneCard card)
         {
-            Cards.Remove(card);
-            card.Tapped = false;
-            if (card is Creature creature)
+            _cards.Add(card);
+            if (card is IBattleZoneCreature creature)
             {
-                creature.SummoningSickness = true;
+                Duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
+                Duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
             }
+        }
+
+        public override void Remove(IBattleZoneCard card)
+        {
+            _ = _cards.Remove(card);
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetUntappedCreatures(IPlayer player)
+        {
+            return GetUntappedCreatures().Where(c => c.Owner == player);
+        }
+
+        public IEnumerable<IBattleZoneCreature> GetTappedCreatures(IPlayer player)
+        {
+            return GetTappedCreatures().Where(c => c.Owner == player);
         }
     }
 }

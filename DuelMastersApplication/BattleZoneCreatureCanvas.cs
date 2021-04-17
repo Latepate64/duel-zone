@@ -3,7 +3,6 @@ using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Trigger;
 using DuelMastersModels.Cards;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,8 +16,8 @@ namespace DuelMastersApplication
     public class BattleZoneCreatureCanvas : RectangleCardCanvas
     {
         public static readonly DependencyProperty SummoningSicknessProperty = DependencyProperty.Register("SummoningSickness", typeof(bool), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnSummoningSicknessChanged));
-        public static readonly DependencyProperty AbilitiesProperty = DependencyProperty.Register("Abilities", typeof(Collection<Ability>), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnAbilitiesChanged));
-        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(Collection<Civilization>), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnCivilizationsChanged));
+        public static readonly DependencyProperty AbilitiesProperty = DependencyProperty.Register("Abilities", typeof(ReadOnlyAbilityCollection), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnAbilitiesChanged));
+        public static readonly DependencyProperty CivilizationProperty = DependencyProperty.Register("Civilizations", typeof(ReadOnlyCivilizationCollection), typeof(BattleZoneCreatureCanvas), new PropertyMetadata(OnCivilizationsChanged));
 
         private Image _imageSummoningSickness = new Image() { Stretch = Stretch.Fill, Opacity = 0, Source = new BitmapImage(new Uri("../../Images/summoning_sickness.png", UriKind.Relative)) };
         private Rectangle _rectanglePowerFrame = new Rectangle() { Fill = new SolidColorBrush(Colors.Black) };
@@ -129,7 +128,7 @@ namespace DuelMastersApplication
         private static void OnAbilitiesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             BattleZoneCreatureCanvas canvas = d as BattleZoneCreatureCanvas;
-            Collection<Ability> abilities = e.NewValue as Collection<Ability>;
+            ReadOnlyAbilityCollection abilities = e.NewValue as ReadOnlyAbilityCollection;
             foreach (Ability ability in abilities)
             {
                 if (ability is Blocker)
@@ -157,7 +156,7 @@ namespace DuelMastersApplication
 
         private static void OnCivilizationsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as BattleZoneCreatureCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as Collection<Civilization>);
+            (d as BattleZoneCreatureCanvas).RectangleColorFrame.Fill = GetBrushForCivilizations(e.NewValue as ReadOnlyCivilizationCollection);
         }
 
         private static void AddAbilityIcon(BattleZoneCreatureCanvas canvas, string fileName)

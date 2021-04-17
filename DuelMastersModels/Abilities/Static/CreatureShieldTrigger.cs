@@ -1,10 +1,10 @@
 ﻿using DuelMastersModels.Cards;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    public class CreatureShieldTrigger : StaticAbilityForCreature
+    internal class CreatureShieldTrigger : StaticAbilityForCreature
     {
-        public CreatureShieldTrigger(Creature creature) : base(new Effects.ContinuousEffects.CreatureShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), StaticAbilityForCreatureActivityCondition.WhileThisCreatureIsInYourHand)
+        internal CreatureShieldTrigger(IHandCreature creature) : base(new Effects.ContinuousEffects.CreatureShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter<IHandCreature>(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand)
         { }
     }
 }

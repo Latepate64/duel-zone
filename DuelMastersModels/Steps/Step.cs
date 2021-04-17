@@ -1,35 +1,80 @@
-﻿using DuelMastersModels.PlayerActions;
-using System.Collections.ObjectModel;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    public abstract class Step
+    public abstract class Step : IStep
     {
-        #region Properties
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public Player ActivePlayer { get; }
+        public IPlayer ActivePlayer { get; }
 
-        /// <summary>
-        /// All the player actions performed during the step.
-        /// </summary>
-        public ObservableCollection<PlayerAction> PlayerActions { get; } = new ObservableCollection<PlayerAction>();
-        #endregion Properties
+        public StepState State { get; set; } = StepState.NotStarted;
 
-        protected Step(Player activePlayer)
+        protected Step(IPlayer activePlayer)
         {
             ActivePlayer = activePlayer;
         }
 
-        /// <summary>
-        /// 702.2. Whenever a step begins, if it’s a step that has any turn-based action associated with it, those turn-based actions are automatically dealt with first. This happens before state-based actions are checked, and before trigger abilities are resolved.
-        /// </summary>
-        public virtual PlayerAction ProcessTurnBasedActions(Duel duel) { return null; }
+        public (IChoice, bool) ResolveAbility()
+        {
+            State = StepState.ResolveAbilities;
+            // TODO: Add functionality for resolving abilities.
+            return (null, false); //TODO: Consider if any ability was resolved
+        }
 
-        /// <summary>
-        /// Checks if the step needs a player action to be performed. Returns null if no action needs to be performed.
-        /// </summary>
-        public abstract PlayerAction PlayerActionRequired(Duel duel);
+        public IChoice Start()
+        {
+            if (this is ITurnBasedActionStep turnBasedActionStep)
+            {
+                State = StepState.TurnBasedAction;
+                IChoice choice = turnBasedActionStep.PerformTurnBasedAction();
+                if (choice != null)
+                {
+                    return choice;
+                }
+            }
+            return Proceed();
+        }
+
+        public IChoice Proceed()
+        {
+            IChoice choice = TryToResolveAbility();
+            if (choice != null)
+            {
+                return choice;
+            }
+            else if (this is IPriorityStep priorityStep)
+            {
+                choice = priorityStep.PerformPriorityAction();
+                if (choice != null)
+                {
+                    return choice;
+                }
+            }
+            State = StepState.Over;
+            return null;
+        }
+
+        public abstract IStep GetNextStep();
+
+        private IChoice TryToResolveAbility()
+        {
+            IChoice choice;
+            bool anyAbilityResolved;
+            (choice, anyAbilityResolved) = ResolveAbility();
+            if (choice != null)
+            {
+                return choice;
+            }
+            else if (anyAbilityResolved)
+            {
+                return TryToResolveAbility();
+            }
+            else
+            {
+                return null; // There were no abilities to be resolved.
+            }
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using System;
 
 namespace DuelMastersModels.Steps
 {
@@ -9,36 +7,42 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class BattleStep : Step
     {
-        public Creature AttackingCreature { get; private set; }
-        public Creature AttackedCreature { get; private set; }
-        public Creature BlockingCreature { get; private set; }
+        internal IBattleZoneCreature AttackingCreature { get; private set; }
+        internal IBattleZoneCreature TargetCreature { get; private set; }
 
-        public BattleStep(Player activePlayer, Creature attackingCreature, Creature attackedCreature, Creature blockingCreature) : base(activePlayer)
+        public BattleStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature targetCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
-            AttackedCreature = attackedCreature;
-            BlockingCreature = blockingCreature;
+            TargetCreature = targetCreature;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public override IStep GetNextStep()
         {
-            if (duel == null)
-            {
-                throw new ArgumentNullException("duel");
-            }
-            if (AttackingCreature == null)
-            {
-                throw new InvalidOperationException("There should be an attacking creature.");
-            }
-            if (BlockingCreature != null)
-            {
-                duel.Battle(AttackingCreature, BlockingCreature, ActivePlayer, duel.CurrentTurn.NonActivePlayer);
-            }
-            else if (AttackedCreature != null)
-            {
-                duel.Battle(AttackingCreature, AttackedCreature, ActivePlayer, duel.CurrentTurn.NonActivePlayer);
-            }
-            return null;
+            return new EndOfAttackStep(ActivePlayer);
+            //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
+            //BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
+
+            //// 509.1. If the attacking creature was declared to attack the nonactive player and the attack was not redirected, the attack is considered a direct attack.
+            //bool directAttack = lastAttackDeclaration.AttackedCreature == null && lastBlockDeclaration.BlockingCreature == null;
+            //return new DirectAttackStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, directAttack);
         }
+
+        //TODO
+        //public override IChoice PlayerActionRequired(IDuel duel)
+        //{
+        //    if (duel == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(duel));
+        //    }
+        //    if (BlockingCreature != null)
+        //    {
+        //        duel.Battle(AttackingCreature, BlockingCreature);
+        //    }
+        //    else if (AttackedCreature != null)
+        //    {
+        //        duel.Battle(AttackingCreature, AttackedCreature);
+        //    }
+        //    return null;
+        //}
     }
 }

@@ -2,23 +2,22 @@
 
 namespace DuelMastersModels.Zones
 {
-    public class Hand : Zone
+    /// <summary>
+    /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
+    /// </summary>
+    public class Hand : Zone<IHandCard>, IHand
     {
-        public override bool Public { get; } = false;
-        public override bool Ordered { get; } = false;
+        internal override bool Public { get; } = false;
+        internal override bool Ordered { get; } = false;
 
-        public Hand(Player owner) : base(owner) { }
-
-        public override void Add(Card card, Duel duel)
+        public override void Add(IHandCard card)
         {
-            Cards.Add(card);
-            card.KnownToOwner = true;
-            card.KnownToOpponent = false;
+            _cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(IHandCard card)
         {
-            Cards.Remove(card);
+            _ = _cards.Remove(card);
         }
     }
 }

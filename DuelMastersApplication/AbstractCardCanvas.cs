@@ -79,7 +79,7 @@ namespace DuelMastersApplication
             MouseLeave += AbstractCardCanvas_MouseLeave;
         }
 
-        protected static Brush GetBrushForCivilizations(Collection<Civilization> civilizations)
+        protected static Brush GetBrushForCivilizations(ReadOnlyCivilizationCollection civilizations)
         {
             if (civilizations.Count == 1)
             {

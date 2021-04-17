@@ -1,18 +1,19 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
-    public class TargetSpellFilter : SpellFilter
+    internal class TargetSpellFilter : SpellFilter
     {
-        public Spell Spell { get; private set; }
+        internal ISpell Spell { get; private set; }
 
-        public TargetSpellFilter(Spell spell)
+        internal TargetSpellFilter(ISpell spell)
         {
             Spell = spell;
         }
 
-        public override Collection<Spell> FilteredSpells => new Collection<Spell>() { Spell };
+        internal override ReadOnlyCollection<ISpell> FilteredSpells => new ReadOnlyCollection<ISpell>(new List<ISpell>() { Spell });
     }
 }
 

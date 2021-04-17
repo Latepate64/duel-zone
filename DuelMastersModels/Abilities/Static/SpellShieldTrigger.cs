@@ -1,10 +1,10 @@
 ﻿using DuelMastersModels.Cards;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    public class SpellShieldTrigger : StaticAbilityForSpell
+    internal class SpellShieldTrigger : StaticAbilityForSpell
     {
-        public SpellShieldTrigger(Spell spell) : base(new Effects.ContinuousEffects.SpellShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetSpellFilter(spell)), StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand)
+        internal SpellShieldTrigger(ISpell spell) : base(new Effects.ContinuousEffects.SpellShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetSpellFilter(spell)), StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand)
         { }
     }
 }

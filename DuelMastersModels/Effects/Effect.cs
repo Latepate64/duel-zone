@@ -5,6 +5,5 @@
     /// </summary>
     public abstract class Effect
     {
-        protected Effect() { }
     }
 }

@@ -2,23 +2,22 @@
 
 namespace DuelMastersModels.Zones
 {
-    public class Graveyard : Zone
+    /// <summary>
+    /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
+    /// </summary>
+    public class Graveyard : Zone<IGraveyardCard>, IGraveyard
     {
-        public override bool Public { get; } = true;
-        public override bool Ordered { get; } = false;
+        internal override bool Public { get; } = true;
+        internal override bool Ordered { get; } = false;
 
-        public Graveyard(Player owner) : base(owner) { }
-
-        public override void Add(Card card, Duel duel)
+        public override void Add(IGraveyardCard card)
         {
-            Cards.Add(card);
-            card.KnownToOwner = true;
-            card.KnownToOpponent = true;
+            _cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(IGraveyardCard card)
         {
-            Cards.Remove(card);
+            _ = _cards.Remove(card);
         }
     }
 }

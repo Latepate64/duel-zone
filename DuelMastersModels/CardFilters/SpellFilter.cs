@@ -3,12 +3,8 @@ using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
-    public abstract class SpellFilter : CardFilter
+    internal abstract class SpellFilter : CardFilter
     {
-        protected SpellFilter()
-        {
-        }
-
-        public abstract Collection<Spell> FilteredSpells { get; }
+        internal abstract ReadOnlyCollection<ISpell> FilteredSpells { get; }
     }
 }

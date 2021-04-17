@@ -1,23 +1,35 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.Factories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
-    public class Deck : Zone
+    /// <summary>
+    /// When a game begins, each player’s deck becomes their deck.
+    /// </summary>
+    public class Deck : Zone<IDeckCard>, IDeck
     {
-        public override bool Public { get; } = false;
-        public override bool Ordered { get; } = true;
+        internal override bool Public { get; } = false;
+        internal override bool Ordered { get; } = true;
 
-        public Deck(Player owner) : base(owner) { }
-
-        public override void Add(Card card, Duel duel)
+        internal Deck(IEnumerable<ICard> cards)
         {
-            Cards.Add(card);
+            foreach (ICard card in cards)
+            {
+                _cards.Add(CardFactory.GenerateDeckCard(card));
+            }
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Add(IDeckCard card)
         {
-            Cards.Remove(card);
+            _cards.Add(card);
+        }
+
+        public override void Remove(IDeckCard card)
+        {
+            _ = _cards.Remove(card);
         }
 
         /// <summary>
@@ -26,42 +38,42 @@ namespace DuelMastersModels.Zones
         public void Shuffle()
         {
             Random random = new Random(Guid.NewGuid().GetHashCode());
-            int n = Cards.Count;
+            int n = _cards.Count;
             while (n > 1)
             {
                 n--;
                 int k = random.Next(n + 1);
-                Card value = Cards[k];
-                Cards[k] = Cards[n];
-                Cards[n] = value;
+                IDeckCard value = _cards[k];
+                _cards[k] = _cards[n];
+                _cards[n] = value;
             }
         }
 
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public Card RemoveAndGetTopCard(Duel duel)
+        public ICard RemoveAndGetTopCard()
         {
-            return GetTopCard(true, duel);
+            return GetTopCard(true);
         }
 
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private Card GetTopCard(bool remove, Duel duel)
+        private ICard GetTopCard(bool remove)
         {
-            if (Cards.Count > 0)
+            if (Cards.Any())
             {
-                Card topCard = Cards[Cards.Count - 1];
+                IDeckCard topCard = Cards.Last();
                 if (remove)
                 {
-                    Remove(topCard, duel);
+                    Remove(topCard);
                 }
                 return topCard;
             }
             else
             {
-                throw new ArgumentException("Deck is out of cards.");
+                throw new InvalidOperationException();
             }
         }
     }

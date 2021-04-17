@@ -1,33 +1,50 @@
-﻿using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CardSelections;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.Choices;
+using System;
 
 namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.
     /// </summary>
-    public class ChargeStep : Step
+    public class ChargeStep : PriorityStep
     {
-        public bool MustBeEnded { get; set; } = false;
+        public IHandCard ChargedCard { get; set; }
 
-        public ChargeStep(Player player) : base(player)
+        public ChargeStep(IPlayer player) : base(player)
         {
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public IChoice ChargeMana(IHandCard card)
         {
-            if (duel == null)
+            if (ChargedCard != null)
             {
-                throw new System.ArgumentNullException("duel");
+                throw new InvalidOperationException("Mana has already been charged during this step.");
             }
-            if (MustBeEnded || ActivePlayer.Hand.Cards.Count == 0)
+            else if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+            ActivePlayer.PutFromHandIntoManaZone(card);
+            ChargedCard = card;
+            return Proceed();
+        }
+
+        public override IStep GetNextStep()
+        {
+            return new MainStep(ActivePlayer);
+        }
+
+        public override IChoice PerformPriorityAction()
+        {
+            State = StepState.PriorityAction;
+            if (ChargedCard != null)
             {
                 return null;
             }
             else
             {
-                MustBeEnded = true;
-                return new ChargeMana(ActivePlayer);
+                return new ChargeChoice(ActivePlayer);
             }
         }
     }

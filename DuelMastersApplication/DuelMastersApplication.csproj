@@ -58,13 +58,24 @@
     <Compile Include="AbilityCanvas.cs" />
     <Compile Include="AbilityIconCanvas.cs" />
     <Compile Include="AbstractCardCanvas.cs" />
+    <Compile Include="Animations\DuelAnimation.cs" />
     <Compile Include="BattleZoneCreatureCanvas.cs" />
     <Compile Include="CardCanvas.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ManaZoneCardCanvas.cs" />
+    <Compile Include="NewAbstractCardCanvas.cs" />
+    <Compile Include="NewCardCanvas.cs" />
+    <Compile Include="NewRectangleCardCanvas.cs" />
+    <Compile Include="NewZoneCanvas.cs" />
     <Compile Include="PendingAbilitiesCanvas.cs" />
     <Compile Include="RectangleCardCanvas.cs" />
     <Compile Include="SetupCanvas.cs" />
+    <Compile Include="ViewModels\CardViewModel.cs" />
+    <Compile Include="ViewModels\CreatureViewModel.cs" />
+    <Compile Include="ViewModels\DuelViewModel.cs" />
+    <Compile Include="ViewModels\PlayerViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewModel.cs" />
+    <Compile Include="ViewModels\ZoneViewModel.cs" />
     <Compile Include="ZoneCanvas.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,12 +1,12 @@
-﻿using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Effects.OneShotEffects
 {
-    public class YouMayDrawACardEffect : OneShotEffect
+    internal class YouMayDrawACardEffect : OneShotEffect
     {
-        public override PlayerAction Apply(Duel duel, Player player)
+        internal override IChoice Apply(IDuel duel, IPlayer player)
         {
-            return new PlayerActions.OptionalActions.YouMayDrawACard(player);
+            throw new System.NotImplementedException();
         }
     }
 }

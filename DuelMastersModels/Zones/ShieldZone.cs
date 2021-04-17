@@ -2,21 +2,22 @@
 
 namespace DuelMastersModels.Zones
 {
-    public class ShieldZone : Zone
+    /// <summary>
+    /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
+    /// </summary>
+    public class ShieldZone : Zone<IShieldZoneCard>, IShieldZone
     {
-        public override bool Public { get; } = false;
-        public override bool Ordered { get; } = true;
+        internal override bool Public { get; } = false;
+        internal override bool Ordered { get; } = true;
 
-        public ShieldZone(Player owner) : base(owner) { }
-
-        public override void Add(Card card, Duel duel)
+        public override void Add(IShieldZoneCard card)
         {
-            Cards.Add(card);
+            _cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(IShieldZoneCard card)
         {
-            Cards.Remove(card);
+            _ = _cards.Remove(card);
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿using DuelMastersModels.PlayerActions;
-
-namespace DuelMastersModels.Steps
+﻿namespace DuelMastersModels.Steps
 {
     public class EndOfAttackStep : Step
     {
-        public EndOfAttackStep(Player activePlayer) : base(activePlayer)
+        public EndOfAttackStep(IPlayer activePlayer) : base(activePlayer)
         {
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public override IStep GetNextStep()
         {
-            return null;
+            return new AttackDeclarationStep(ActivePlayer);
         }
     }
 }

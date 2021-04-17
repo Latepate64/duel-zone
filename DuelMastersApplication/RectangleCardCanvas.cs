@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace DuelMastersApplication
@@ -90,10 +91,27 @@ namespace DuelMastersApplication
                     canvas.TextBoxPower.Visibility = Visibility.Visible;
                     canvas.TextBoxPower.Text = power;
                 }
+                canvas.TextBoxPower.BeginAnimation(OpacityProperty, GetPowerAnimation(canvas.TextBoxPower.ActualWidth));
+                canvas.TextBoxPower.BeginAnimation(OpacityProperty, GetPowerAnimation(canvas.TextBoxPower.ActualHeight));
             }
             else
             {
                 canvas.TextBoxPower.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private static DoubleAnimation GetPowerAnimation(double size)
+        {
+            if (!double.IsNaN(size))
+            {
+                return new DoubleAnimation(/*2 * size, size*/0, 1, new Duration(new TimeSpan(0, 0, 3)))
+                {
+                    RepeatBehavior = new RepeatBehavior(1),
+                };
+            }
+            else
+            {
+                return null;
             }
         }
 

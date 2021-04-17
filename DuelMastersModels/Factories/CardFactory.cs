@@ -1,53 +1,87 @@
 ﻿using DuelMastersModels.Cards;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Factories
 {
-    /// <summary>
-    /// Manages the instantiation of cards.
-    /// </summary>
-    public static class CardFactory
+    internal static class CardFactory
     {
-        #region Constants
-        private const string CreatureText = "Creature";
-        private const string SpellText = "Spell";
-        private const string EvolutionCreatureText = "Evolution Creature";
-        private const string CrossGearText = "Cross Gear";
-        #endregion Constants
-
-        public static Collection<Card> GetCardsFromJsonCards(Collection<JsonCard> jsonCards, ref int gameId, Player owner)
+        internal static IDeckCard GenerateDeckCard(ICard card)
         {
-            if (jsonCards == null)
+            if (card is ICreature creature)
             {
-                throw new ArgumentNullException("jsonCards");
+                return new DeckCreature(creature);
             }
-            List<Card> cards = new List<Card>();
-            foreach (JsonCard jsonCard in jsonCards)
+            else if (card is ISpell spell)
             {
-                cards.Add(GetCardFromJsonCard(jsonCard, gameId++, owner));
+                return new DeckSpell(spell);
             }
-            return new Collection<Card>(cards);
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(card));
+            }
         }
 
-        /// <summary>
-        /// Returns a card for card template.
-        /// </summary>
-        private static Card GetCardFromJsonCard(JsonCard jsonCard, int gameId, Player owner)
+        internal static IGraveyardCard GenerateGraveyardCard(ICard card)
         {
-            switch (jsonCard.CardType)
+            if (card is ICreature creature)
             {
-                case CreatureText:
-                    return new Creature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races, owner);
-                case SpellText:
-                    return new Spell(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, owner);
-                case EvolutionCreatureText:
-                    return new EvolutionCreature(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId, jsonCard.Power, jsonCard.Races, owner);
-                case CrossGearText:
-                    return new CrossGear(jsonCard.Name, jsonCard.Set, jsonCard.Id, jsonCard.Civilizations, jsonCard.Rarity, jsonCard.Cost, jsonCard.Text, jsonCard.Flavor, jsonCard.Illustrator, gameId);
-                default:
-                    throw new ArgumentException("Unknown card type: " + jsonCard.CardType);
+                return new GraveyardCreature(creature);
+            }
+            else if (card is ISpell spell)
+            {
+                return new GraveyardSpell(spell);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(card));
+            }
+        }
+
+        internal static IHandCard GenerateHandCard(ICard card)
+        {
+            if (card is ICreature creature)
+            {
+                return new HandCreature(creature);
+            }
+            else if (card is ISpell spell)
+            {
+                return new HandSpell(spell);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(card));
+            }
+        }
+
+        internal static IManaZoneCard GenerateManaZoneCard(ICard card)
+        {
+            if (card is ICreature creature)
+            {
+                return new ManaZoneCreature(creature);
+            }
+            else if (card is ISpell spell)
+            {
+                return new ManaZoneSpell(spell);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(card));
+            }
+        }
+
+        internal static IShieldZoneCard GenerateShieldZoneCard(ICard card, bool knownToOwner)
+        {
+            if (card is ICreature creature)
+            {
+                return new ShieldZoneCreature(creature) { KnownToOwner = knownToOwner };
+            }
+            else if (card is ISpell spell)
+            {
+                return new ShieldZoneSpell(spell) { KnownToOwner = knownToOwner };
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(card));
             }
         }
     }

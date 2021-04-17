@@ -1,27 +1,24 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CreatureSelections;
+using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    public class AttackDeclarationStep : Step
+    public class AttackDeclarationStep : TurnBasedActionStep
     {
-        public Creature AttackingCreature { get; set; }
-        public Creature AttackedCreature { get; set; }
-        public Player NonactivePlayer { get; private set; }
-        public bool TargetOfAttackDeclared { get; set; }
+        internal IBattleZoneCreature AttackingCreature { get; set; }
+        internal IBattleZoneCreature AttackedCreature { get; set; }
 
-        public AttackDeclarationStep(Player activePlayer, Player nonactivePlayer) : base(activePlayer)
+        public AttackDeclarationStep(IPlayer activePlayer) : base(activePlayer)
         {
-            NonactivePlayer = nonactivePlayer;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public override IChoice PerformTurnBasedAction()
         {
-            if (AttackingCreature != null && !TargetOfAttackDeclared)
+            // TODO: Check if there are creatures that can attack
+            bool possibleToAttack = true;
+            if (possibleToAttack)
             {
-                //TODO: If attacked creature is not null, check that it can be attacked.
-                return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer, AttackingCreature));
+                return new AttackerChoice(ActivePlayer);
             }
             else
             {
@@ -29,21 +26,56 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        public override IStep GetNextStep()
         {
-            if (duel == null)
+            if (AttackingCreature != null)
             {
-                throw new System.ArgumentNullException("duel");
+                return new BlockDeclarationStep(ActivePlayer, AttackingCreature, AttackedCreature);
             }
-            System.Collections.ObjectModel.Collection<Creature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
-            if (creatures.Count > 0)
-            {
-                return new DeclareAttacker(ActivePlayer, creatures);
-            }
+            // 506.2. If an attacking creature is not specified, the other substeps are skipped.
             else
             {
-                return null;
+                return new EndOfTurnStep(ActivePlayer);
             }
         }
+
+        public IChoice DeclareAttackOnCreature(IBattleZoneCreature attacker, IBattleZoneCreature target)
+        {
+            AttackingCreature = attacker;
+            AttackedCreature = target;
+            return Proceed();
+        }
+
+        public IChoice DeclareAttackOnOpponent(IBattleZoneCreature attacker)
+        {
+            AttackingCreature = attacker;
+            return Proceed();
+        }
+
+        //TODO
+        //public override IChoice PlayerActionRequired(IDuel duel)
+        //{
+        //    if (AttackingCreature != null && !TargetOfAttackDeclared)
+        //    {
+        //        //TODO: If attacked creature is not null, check that it can be attacked.
+        //        throw new System.NotImplementedException();
+        //        //return new DeclareTargetOfAttack(ActivePlayer, duel.GetCreaturesThatCanBeAttacked(ActivePlayer));
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        //public IChoice PerformTurnBasedActions(IDuel duel)
+        //{
+        //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+        //    throw new System.NotImplementedException();
+        //    //return creatures.Any()
+        //    //    ? creatures.Any(creature => duel.AttacksIfAble(creature))
+        //    //        ? new DeclareAttackerMandatory(ActivePlayer, creatures)
+        //    //        : (Choice)new DeclareAttacker(ActivePlayer, creatures)
+        //    //    : null;
+        //}
     }
 }

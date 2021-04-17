@@ -1,41 +1,55 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.PlayerActions;
-using DuelMastersModels.PlayerActions.CreatureSelections;
-using System.Collections.ObjectModel;
+using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : Step
+    public class BlockDeclarationStep : TurnBasedActionStep
     {
-        public Creature AttackingCreature { get; private set; }
-        public Creature BlockingCreature { get; set; }
+        internal IBattleZoneCreature AttackingCreature { get; private set; }
+        internal IBattleZoneCreature AttackedCreature { get; private set; }
+        internal IBattleZoneCreature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(Player activePlayer, Creature attackingCreature) : base(activePlayer)
+        public BlockDeclarationStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
+            AttackedCreature = attackedCreature;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public override IChoice PerformTurnBasedAction()
         {
-            return null;
-        }
-
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
-        {
-            if (duel == null)
+            // TODO: Check if blocking is possible
+            bool possibleToBlock = false;
+            if (possibleToBlock)
             {
-                throw new System.ArgumentNullException("duel");
-            }
-            Player nonActivePlayer = duel.GetOpponent(ActivePlayer);
-            Collection<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-            if (creatures.Count > 0)
-            {
-                return new DeclareBlock(nonActivePlayer, creatures);
+                return new BlockerChoice(ActivePlayer);
             }
             else
             {
                 return null;
             }
         }
+
+        public override IStep GetNextStep()
+        {
+            if (BlockingCreature != null)
+            {
+                return new BattleStep(ActivePlayer, AttackingCreature, BlockingCreature);
+            }
+            else if (AttackedCreature != null)
+            {
+                return new BattleStep(ActivePlayer, AttackingCreature, AttackedCreature);
+            }
+            else
+            {
+                return new DirectAttackStep(ActivePlayer, AttackingCreature);
+            }
+        }
+
+        //public IChoice PerformTurnBasedActions(IDuel duel)
+        //{
+        //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+        //    throw new System.NotImplementedException();
+        //    //return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
+        //}
     }
 }

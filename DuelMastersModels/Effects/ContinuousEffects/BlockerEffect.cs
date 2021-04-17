@@ -1,7 +1,9 @@
-﻿namespace DuelMastersModels.Effects.ContinuousEffects
+﻿using DuelMastersModels.Cards;
+
+namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    public class BlockerEffect : CreatureContinuousEffect
+    internal class BlockerEffect : CreatureContinuousEffect<IBattleZoneCreature>
     {
-        public BlockerEffect(Periods.Period period, CardFilters.CreatureFilter creatureFilter) : base(period, creatureFilter) { }
+        internal BlockerEffect(Periods.Period period, CardFilters.CreatureFilter<IBattleZoneCreature> creatureFilter) : base(period, creatureFilter) { }
     }
 }

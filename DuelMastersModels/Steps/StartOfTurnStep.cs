@@ -1,30 +1,42 @@
-﻿using DuelMastersModels.GameActions.TurnBasedActions;
-using DuelMastersModels.PlayerActions;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
     /// </summary>
-    public class StartOfTurnStep : Step
+    public class StartOfTurnStep : TurnBasedActionStep
     {
-        public StartOfTurnStep(Player player) : base(player)
+        public StartOfTurnStep(IPlayer player, bool skipDrawStep, IBattleZone battleZone) : base(player)
         {
+            _skipDrawStep = skipDrawStep;
+            _battleZone = battleZone;
         }
 
-        public override PlayerAction PlayerActionRequired(Duel duel)
+        public override IStep GetNextStep()
         {
-            return null;
+            // 500.6. The player who plays first skips the draw step of their first turn.
+            if (_skipDrawStep)
+            {
+                return new ChargeStep(ActivePlayer);
+            }
+            else
+            {
+                return new DrawStep(ActivePlayer);
+            }
         }
 
         /// <summary>
-        /// 702.3a The active player untaps their cards in the battle zone and mana zone simultaneously. 
+        /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
         /// </summary>
-        public override PlayerAction ProcessTurnBasedActions(Duel duel)
+        /// <returns></returns>
+        public override IChoice PerformTurnBasedAction()
         {
-            var action = new UntapCards();
-            action.Perform(duel);
-            return null;
+            return ActivePlayer.UntapCardsInBattleZoneAndManaZone(_battleZone);
         }
+
+        private readonly bool _skipDrawStep;
+        private readonly IBattleZone _battleZone;
     }
 }

@@ -1,20 +1,25 @@
 ﻿using DuelMastersModels.Effects.ContinuousEffects;
-using System.Collections.ObjectModel;
 
-namespace DuelMastersModels.Abilities.Static
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    public abstract class StaticAbility : Ability
+    /// <summary>
+    /// Static abilities do something all the time rather than being activated or triggered. They are written as statements, and they’re simply true.
+    /// </summary>
+    public abstract class StaticAbility : Ability, IStaticAbility
     {
-        public Collection<ContinuousEffect> ContinuousEffects { get; private set; }
+        /// <summary>
+        /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the card with the ability remains on the battle zone and has the ability, or as long as the card with the ability remains in the appropriate zone.
+        /// </summary>
+        public ReadOnlyContinuousEffectCollection ContinuousEffects { get; private set; }
 
-        protected StaticAbility(ContinuousEffect continuousEffect)
+        /// <summary>
+        /// Creates a static ability.
+        /// </summary>
+        /// <param name="continuousEffect">Continuous effect created by the ability.</param>
+        /// 
+        protected StaticAbility(IContinuousEffect continuousEffect)
         {
-            ContinuousEffects = new Collection<ContinuousEffect>() { continuousEffect };
-        }
-
-        protected StaticAbility(Collection<ContinuousEffect> continuousEffects)
-        {
-            ContinuousEffects = continuousEffects;
+            ContinuousEffects = new ReadOnlyContinuousEffectCollection(continuousEffect);
         }
     }
 }

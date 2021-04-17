@@ -1,7 +1,9 @@
-﻿namespace DuelMastersModels.Effects.ContinuousEffects
+﻿using DuelMastersModels.Cards;
+
+namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    public class CreatureShieldTriggerEffect : CreatureContinuousEffect
+    internal class CreatureShieldTriggerEffect : CreatureContinuousEffect<IHandCreature>
     {
-        public CreatureShieldTriggerEffect(Periods.Period period, CardFilters.CreatureFilter creatureFilter) : base(period, creatureFilter) { }
+        internal CreatureShieldTriggerEffect(Periods.Period period, CardFilters.CreatureFilter<IHandCreature> creatureFilter) : base(period, creatureFilter) { }
     }
 }
