@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
@@ -18,6 +18,6 @@ namespace DuelMastersModels.Cards
         /// </summary>
         ICollection<Race> Races { get; }
 
-        ICollection<ITriggerAbility> TriggerAbilities { get; }
+        ICollection<ITriggeredAbility> TriggerAbilities { get; }
     }
 }

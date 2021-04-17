@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -24,7 +24,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public ICollection<Race> Races { get; }
 
-        public ICollection<ITriggerAbility> TriggerAbilities { get; }
+        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a creature.

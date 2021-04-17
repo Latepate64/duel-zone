@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
@@ -23,7 +23,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public bool SummoningSickness { get; set; }
 
-        public ICollection<ITriggerAbility> TriggerAbilities { get; }
+        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a battle zone creature.

@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.StaticAbilities;
-using DuelMastersModels.Abilities.TriggerAbilities;
+using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Choices;
@@ -93,14 +93,14 @@ namespace DuelMastersModels.Managers
         /// </summary>
         private INonStaticAbility _abilityBeingResolved;
 
-        private ReadOnlyCollection<ITriggerAbility> GetTriggerAbilities()
+        private ReadOnlyCollection<ITriggeredAbility> GetTriggerAbilities()
         {
-            return new ReadOnlyTriggerAbilityCollection(_abilities.Where(a => a is ITriggerAbility).Cast<ITriggerAbility>());
+            return new ReadOnlyTriggeredAbilityCollection(_abilities.Where(a => a is ITriggeredAbility).Cast<ITriggeredAbility>());
         }
 
-        private ReadOnlyCollection<ITriggerAbility> GetTriggerAbilities<T>(ICard card)
+        private ReadOnlyCollection<ITriggeredAbility> GetTriggerAbilities<T>(ICard card)
         {
-            return new ReadOnlyCollection<ITriggerAbility>(GetTriggerAbilities().Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
+            return new ReadOnlyCollection<ITriggeredAbility>(GetTriggerAbilities().Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
         }
 
         /// <summary>
@@ -109,16 +109,16 @@ namespace DuelMastersModels.Managers
         /// <param name="ability"></param>
         /// <param name="controller"></param>
         /// <param name="source"></param>
-        private void TriggerTriggerAbility(ITriggerAbility ability, IPlayer controller, ICard source)
+        private void TriggerTriggeredAbility(ITriggeredAbility ability, IPlayer controller, ICard source)
         {
-            _pendingAbilities.Add(ability.CreatePendingTriggerAbility(controller, source));
+            _pendingAbilities.Add(ability.CreatePendingTriggeredAbility(controller, source));
         }
 
         private void TriggerTriggerAbilities<T>(IBattleZoneCreature card)
         {
-            foreach (TriggerAbility ability in GetTriggerAbilities<T>(card))
+            foreach (TriggeredAbility ability in GetTriggerAbilities<T>(card))
             {
-                TriggerTriggerAbility(ability, ability.Controller, card);
+                TriggerTriggeredAbility(ability, ability.Controller, card);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Effects.OneShotEffects;
 
 namespace DuelMastersModels.Cards.Creatures
@@ -7,7 +7,7 @@ namespace DuelMastersModels.Cards.Creatures
     {
         public AquaHulcus() : base(3, Civilization.Water, 2000, Race.LiquidPeople)
         {
-            TriggerAbilities.Add(new TriggerAbility(new WhenYouPutThisCreatureIntoTheBattleZone(), new YouMayDrawACardEffect()));
+            TriggerAbilities.Add(new TriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZone(), new YouMayDrawACardEffect()));
         }
     }
 }

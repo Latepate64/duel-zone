@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggerAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards
@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards
         public int Power { get; }
         public ICollection<Race> Races { get; }
         public bool SummoningSickness { get; set; }
-        public ICollection<ITriggerAbility> TriggerAbilities { get; }
+        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
 
         internal DeckCreature(ICard card) : base(card)
         {

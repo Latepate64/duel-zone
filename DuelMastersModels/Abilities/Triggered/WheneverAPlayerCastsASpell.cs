@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Abilities.TriggerAbilities
+﻿namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
     internal class WheneverAPlayerCastsASpell : TriggerCondition
     {
