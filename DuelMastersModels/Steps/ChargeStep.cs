@@ -9,13 +9,13 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class ChargeStep : PriorityStep
     {
-        public IHandCard ChargedCard { get; set; }
+        public Card ChargedCard { get; set; }
 
         public ChargeStep(IPlayer player) : base(player)
         {
         }
 
-        public IChoice ChargeMana(IHandCard card)
+        public IChoice ChargeMana(Card card)
         {
             if (ChargedCard != null)
             {

@@ -3,7 +3,7 @@
     /// <summary>
     /// Evolution creature is a creature type.
     /// </summary>
-    public abstract class EvolutionCreature : Creature, IEvolutionCreature
+    public abstract class EvolutionCreature : Creature
     {
         /// <summary>
         /// Creates an evolution creature.

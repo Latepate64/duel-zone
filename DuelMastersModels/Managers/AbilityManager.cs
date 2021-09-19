@@ -18,22 +18,22 @@ namespace DuelMastersModels.Managers
 
         public bool IsAbilityBeingResolvedSpellAbility => _abilityBeingResolved is SpellAbility;
 
-        public void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature)
+        public void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(Creature creature)
         {
             TriggerTriggerAbilities<WhenYouPutThisCreatureIntoTheBattleZone>(creature);
         }
 
-        public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IEnumerable<IBattleZoneCreature> creatures)
+        public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IEnumerable<Creature> creatures)
         {
             TriggerTriggerAbilities<WheneverAnotherCreatureIsPutIntoTheBattleZone>(creatures);
         }
 
-        public void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<IBattleZoneCreature> creatures)
+        public void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<Creature> creatures)
         {
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
 
-        public ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, BattleZone battleZone)
+        public ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player, BattleZone battleZone)
         {
             List<IContinuousEffect> continuousEffects = new List<IContinuousEffect>();
             foreach (StaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
@@ -53,14 +53,14 @@ namespace DuelMastersModels.Managers
             _abilityBeingResolved = ability;
         }
 
-        public void StartResolvingSpellAbility(ISpell spell)
+        public void StartResolvingSpellAbility(Spell spell)
         {
             //TODO: spell may have more than one spell ability.
             SpellAbility spellAbility = GetSpellAbilities().First(a => a.Source == spell);
             SetAbilityBeingResolved(spellAbility);
         }
 
-        public int GetSpellAbilityCount(ISpell spell)
+        public int GetSpellAbilityCount(Spell spell)
         {
             return GetSpellAbilities().Count(a => a.Source == spell);
         }
@@ -98,7 +98,7 @@ namespace DuelMastersModels.Managers
             return new ReadOnlyTriggeredAbilityCollection(_abilities.Where(a => a is TriggeredAbility).Cast<TriggeredAbility>());
         }
 
-        private ReadOnlyCollection<TriggeredAbility> GetTriggerAbilities<T>(ICard card)
+        private ReadOnlyCollection<TriggeredAbility> GetTriggerAbilities<T>(Card card)
         {
             return new ReadOnlyCollection<TriggeredAbility>(GetTriggerAbilities().Where(ability => ability.Source == card && ability.TriggerCondition is T).ToList());
         }
@@ -109,12 +109,12 @@ namespace DuelMastersModels.Managers
         /// <param name="ability"></param>
         /// <param name="controller"></param>
         /// <param name="source"></param>
-        private void TriggerTriggeredAbility(TriggeredAbility ability, IPlayer controller, ICard source)
+        private void TriggerTriggeredAbility(TriggeredAbility ability, IPlayer controller, Card source)
         {
             _pendingAbilities.Add(ability.CreatePendingTriggeredAbility(controller, source));
         }
 
-        private void TriggerTriggerAbilities<T>(IBattleZoneCreature card)
+        private void TriggerTriggerAbilities<T>(Creature card)
         {
             foreach (TriggeredAbility ability in GetTriggerAbilities<T>(card))
             {
@@ -122,9 +122,9 @@ namespace DuelMastersModels.Managers
             }
         }
 
-        private void TriggerTriggerAbilities<T>(IEnumerable<IBattleZoneCreature> creatures)
+        private void TriggerTriggerAbilities<T>(IEnumerable<Creature> creatures)
         {
-            foreach (IBattleZoneCreature creature in creatures)
+            foreach (Creature creature in creatures)
             {
                 TriggerTriggerAbilities<T>(creature);
             }

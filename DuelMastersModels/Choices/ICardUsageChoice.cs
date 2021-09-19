@@ -5,6 +5,6 @@ namespace DuelMastersModels.Choices
 {
     public interface ICardUsageChoice
     {
-        IEnumerable<IHandCard> UseCards { get; }
+        IEnumerable<Card> UseCards { get; }
     }
 }

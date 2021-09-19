@@ -3,16 +3,10 @@ using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.Cards
 {
-    /// <summary>
-    /// Represent a Duel Masters card.
-    /// </summary>
-    public abstract class Card : ICard
+    public abstract class Card
     {
         public IPlayer Owner { get; set; }
 
-        /// <summary>
-        /// Civilizations of the card.
-        /// </summary>
         public IEnumerable<Civilization> Civilizations { get; }
 
         /// <summary>
@@ -20,9 +14,8 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public int Cost { get; private set; }
 
-        /// <summary>
-        /// Creates a card.
-        /// </summary>
+        public bool Tapped { get; set; }
+
         protected Card(int cost, IEnumerable<Civilization> civilizations)
         {
             Civilizations = civilizations;

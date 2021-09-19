@@ -36,23 +36,23 @@ namespace DuelMastersModels.Managers
             */
         }
 
-        public IEnumerable<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
+        public IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
         {
-            List<IBattleZoneCreature> blockers = new List<IBattleZoneCreature>();
+            List<Creature> blockers = new List<Creature>();
             IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
-            foreach (IBattleZoneCreature creature in Duel.BattleZone.Creatures)
+            foreach (Creature creature in Duel.BattleZone.Creatures)
             {
                 blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
             }
-            return new ReadOnlyCollection<IBattleZoneCreature>(blockers);
+            return new ReadOnlyCollection<Creature>(blockers);
         }
 
-        public bool HasSpeedAttacker(IBattleZoneCreature creature)
+        public bool HasSpeedAttacker(Creature creature)
         {
             return GetContinuousEffects<SpeedAttackerEffect>().Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
         }
 
-        public bool HasShieldTrigger(ISpell spell)
+        public bool HasShieldTrigger(Spell spell)
         {
             foreach (SpellContinuousEffect spellContinuousEffect in GetContinuousEffects().Where(e => e is SpellShieldTriggerEffect).Cast<SpellShieldTriggerEffect>())
             {
@@ -64,7 +64,7 @@ namespace DuelMastersModels.Managers
             return false;
         }
 
-        public bool HasShieldTrigger(IHandCreature creature)
+        public bool HasShieldTrigger(Creature creature)
         {
             foreach (CreatureShieldTriggerEffect creatureContinuousEffect in GetContinuousEffects().OfType<CreatureShieldTriggerEffect>())
             {
@@ -76,24 +76,24 @@ namespace DuelMastersModels.Managers
             return false;
         }
 
-        public int GetPower(IBattleZoneCreature creature)
+        public int GetPower(Creature creature)
         {
             return creature.Power + GetContinuousEffects<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
         }
 
-        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCannotAttack(IPlayer player)
+        public IEnumerable<Creature> GetCreaturesThatCannotAttack(IPlayer player)
         {
-            return new ReadOnlyCollection<IBattleZoneCreature>(GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => !Duel.GetCreaturesThatCanBeAttacked(player).Any()).ToList());
+            return new ReadOnlyCollection<Creature>(GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => !Duel.GetCreaturesThatCanBeAttacked(player).Any()).ToList());
         }
 
-        public bool AttacksIfAble(IBattleZoneCreature creature)
+        public bool AttacksIfAble(Creature creature)
         {
             return GetContinuousEffects<AttacksIfAbleEffect>().Any(e => e.CreatureFilter.FilteredCreatures.Contains(creature));
         }
 
-        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCannotAttackPlayers()
+        public IEnumerable<Creature> GetCreaturesThatCannotAttackPlayers()
         {
-            return new ReadOnlyCollection<IBattleZoneCreature>(GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().ToList());
+            return new ReadOnlyCollection<Creature>(GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().ToList());
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace DuelMastersModels.Managers
         private ReadOnlyContinuousEffectCollection GetContinuousEffects()
         {
             List<IContinuousEffect> continuousEffects = _continuousEffects.ToList();
-            foreach (ICard card in Duel.GetAllCards())
+            foreach (Card card in Duel.GetAllCards())
             {
                 continuousEffects.AddRange(AbilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner, Duel.BattleZone));
             }

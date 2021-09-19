@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using System;
@@ -72,7 +71,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Spells that are being resolved.
         /// </summary>
-        private readonly Collection<ISpell> _spellsBeingResolved = new Collection<ISpell>();
+        private readonly Collection<Spell> _spellsBeingResolved = new Collection<Spell>();
 
         private readonly IAbilityManager _abilityManager = new AbilityManager();
 
@@ -151,7 +150,7 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="attackingCreature">Creature which initiated the attack.</param>
         /// <param name="defendingCreature">Creature which the attack was directed at.</param>
-        public void Battle(IBattleZoneCreature attackingCreature, IBattleZoneCreature defendingCreature)
+        public void Battle(Creature attackingCreature, Creature defendingCreature)
         {
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
@@ -176,13 +175,13 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="player"></param>
         /// <param name="card"></param>
-        public void UseCard(IPlayer player, ICard card)
+        public void UseCard(IPlayer player, Card card)
         {
-            if (card is ICreature creature)
+            if (card is Creature creature)
             {
-                BattleZone.Add(new BattleZoneCreature(creature));
+                BattleZone.Add(creature);
             }
-            else if (card is ISpell spell)
+            else if (card is Spell spell)
             {
                 CastSpell(spell);
             }
@@ -196,10 +195,10 @@ namespace DuelMastersModels
         /// Player adds a card from their hand to their shields face down.
         /// </summary>
         /// <param name="card"></param>
-        public void AddFromYourHandToYourShieldsFaceDown(IHandCard card)
+        public void AddFromYourHandToYourShieldsFaceDown(Card card)
         {
             card.Owner.Hand.Remove(card);
-            card.Owner.ShieldZone.Add(CardFactory.GenerateShieldZoneCard(card, true));
+            card.Owner.ShieldZone.Add(card);
         }
 
         public void EndContinuousEffects<T>()
@@ -212,14 +211,14 @@ namespace DuelMastersModels
             _continuousEffectManager.AddContinuousEffect(continuousEffect);
         }
 
-        public void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature)
+        public void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(Creature creature)
         {
             _abilityManager.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
         }
 
-        public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IBattleZoneCreature excludedCreature)
+        public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(Creature excludedCreature)
         {
-            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<IBattleZoneCreature>(BattleZone.Creatures.Except(new List<IBattleZoneCreature> { excludedCreature }).ToList()));
+            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<Creature>(BattleZone.Creatures.Except(new List<Creature> { excludedCreature }).ToList()));
         }
 
         public void SetPendingAbilityToBeResolved(NonStaticAbility ability)
@@ -233,7 +232,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Checks if a card can be used.
         /// </summary>
-        internal static bool CanBeUsed(ICard card, IEnumerable<IManaZoneCard> manaCards)
+        internal static bool CanBeUsed(Card card, IEnumerable<Card> manaCards)
         {
             //TODO: Remove static keyword after usability is checked with continuous effects considered.
             //System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
@@ -241,32 +240,32 @@ namespace DuelMastersModels
             return card.Cost <= manaCards.Count() && HasCivilizations(manaCards, card.Civilizations);
         }
 
-        public bool CanAttackOpponent(IBattleZoneCreature creature)
+        public bool CanAttackOpponent(Creature creature)
         {
-            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers();
+            IEnumerable<Creature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers();
             return !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
-        public bool AttacksIfAble(IBattleZoneCreature creature)
+        public bool AttacksIfAble(Creature creature)
         {
             return _continuousEffectManager.AttacksIfAble(creature);
         }
         #endregion bool
 
         #region ReadOnlyCreatureCollection
-        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBlock(IBattleZoneCreature attackingCreature)
+        public IEnumerable<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
         {
-            return new ReadOnlyCollection<IBattleZoneCreature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
+            return new ReadOnlyCollection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
             //TODO: consider situations where abilities of attacking creature matter etc.
         }
 
-        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanAttack(IPlayer player)
+        public IEnumerable<Creature> GetCreaturesThatCanAttack(IPlayer player)
         {
-            IEnumerable<IBattleZoneCreature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
-            return new ReadOnlyCollection<IBattleZoneCreature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
+            IEnumerable<Creature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
+            return new ReadOnlyCollection<Creature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
-        public IEnumerable<IBattleZoneCreature> GetCreaturesThatCanBeAttacked(IPlayer player)
+        public IEnumerable<Creature> GetCreaturesThatCanBeAttacked(IPlayer player)
         {
             return BattleZone.GetTappedCreatures(player.Opponent);
             //TODO: Consider attacking creature
@@ -294,50 +293,50 @@ namespace DuelMastersModels
             }*/
         }
 
-        public IChoice PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card, bool canUseShieldTrigger)
+        public IChoice PutFromShieldZoneToHand(IPlayer player, Card card, bool canUseShieldTrigger)
         {
-            return PutFromShieldZoneToHand(player, new List<IShieldZoneCard>() { card }, canUseShieldTrigger);
+            return PutFromShieldZoneToHand(player, new List<Card>() { card }, canUseShieldTrigger);
         }
 
-        public IChoice PutFromShieldZoneToHand(IPlayer player, IEnumerable<IShieldZoneCard> cards, bool canUseShieldTrigger)
+        public IChoice PutFromShieldZoneToHand(IPlayer player, IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            Collection<IHandCard> shieldTriggerCards = new Collection<IHandCard>();
+            Collection<Card> shieldTriggerCards = new Collection<Card>();
             for (int i = 0; i < cards.Count(); ++i)
             {
-                IHandCard handCard = PutFromShieldZoneToHand(player, cards.ElementAt(i));
+                Card handCard = PutFromShieldZoneToHand(player, cards.ElementAt(i));
                 if (canUseShieldTrigger && HasShieldTrigger(handCard))
                 {
                     shieldTriggerCards.Add(handCard);
                 }
             }
             throw new NotImplementedException();
-            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<IHandCard>(shieldTriggerCards)) : null;
+            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
         }
 
         public IChoice PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
         {
-            player.ManaZone.Add(CardFactory.GenerateManaZoneCard(player.RemoveTopCardOfDeck()));
+            player.ManaZone.Add(player.RemoveTopCardOfDeck());
             return null;
         }
 
-        public IChoice ReturnFromBattleZoneToHand(IBattleZoneCreature creature)
+        public IChoice ReturnFromBattleZoneToHand(Creature creature)
         {
             BattleZone.Remove(creature);
-            creature.Owner.Hand.Add(new HandCreature(creature));
+            creature.Owner.Hand.Add(creature);
             return null;
         }
 
-        public IChoice PutFromBattleZoneIntoOwnersManazone(IBattleZoneCreature creature)
+        public IChoice PutFromBattleZoneIntoOwnersManazone(Creature creature)
         {
             BattleZone.Remove(creature);
-            creature.Owner.ManaZone.Add(new ManaZoneCreature(creature));
+            creature.Owner.ManaZone.Add(creature);
             return null;
         }
 
-        public IChoice PutFromManaZoneIntoTheBattleZone(IManaZoneCreature creature)
+        public IChoice PutFromManaZoneIntoTheBattleZone(Creature creature)
         {
             creature.Owner.ManaZone.Remove(creature);
-            BattleZone.Add(new BattleZoneCreature(creature));
+            BattleZone.Add(creature);
             return null;
         }
 
@@ -348,14 +347,14 @@ namespace DuelMastersModels
         }
         #endregion PlayerAction
 
-        public int GetPower(IBattleZoneCreature creature)
+        public int GetPower(Creature creature)
         {
             return _continuousEffectManager.GetPower(creature);
         }
 
-        public IEnumerable<ICard> GetAllCards()
+        public IEnumerable<Card> GetAllCards()
         {
-            List<ICard> cards = Player1.CardsInNonsharedZones.ToList();
+            List<Card> cards = Player1.CardsInNonsharedZones.ToList();
             cards.AddRange(Player2.CardsInNonsharedZones);
             cards.AddRange(BattleZone.Cards);
             return cards;
@@ -363,19 +362,18 @@ namespace DuelMastersModels
         #endregion Internal methods
 
         #region Private methods
-        private IHandCard PutFromShieldZoneToHand(IPlayer player, IShieldZoneCard card)
+        private Card PutFromShieldZoneToHand(IPlayer player, Card card)
         {
             player.ShieldZone.Remove(card);
-            IHandCard handCard = CardFactory.GenerateHandCard(card);
-            player.Hand.Add(handCard);
-            return handCard;
+            player.Hand.Add(card);
+            return card;
         }
 
         #region bool
         /// <summary>
         /// Checks if selected mana cards have the required civilizations.
         /// </summary>
-        private static bool HasCivilizations(IEnumerable<IManaZoneCard> paymentCards, IEnumerable<Civilization> requiredCivilizations)
+        private static bool HasCivilizations(IEnumerable<Card> paymentCards, IEnumerable<Civilization> requiredCivilizations)
         {
             List<List<Civilization>> civilizationGroups = new List<List<Civilization>>();
             foreach (Card card in paymentCards)
@@ -399,23 +397,23 @@ namespace DuelMastersModels
             return false;
         }
 
-        private bool HasShieldTrigger(IHandCreature creature)
+        private bool HasShieldTrigger(Creature creature)
         {
             return _continuousEffectManager.HasShieldTrigger(creature);
         }
 
-        private bool HasShieldTrigger(IHandSpell spell)
+        private bool HasShieldTrigger(Spell spell)
         {
             return _continuousEffectManager.HasShieldTrigger(spell);
         }
 
-        private bool HasShieldTrigger(IHandCard card)
+        private bool HasShieldTrigger(Card card)
         {
-            if (card is IHandCreature creature)
+            if (card is Creature creature)
             {
                 return HasShieldTrigger(creature);
             }
-            else if (card is IHandSpell spell)
+            else if (card is Spell spell)
             {
                 return HasShieldTrigger(spell);
             }
@@ -425,12 +423,12 @@ namespace DuelMastersModels
             }
         }
 
-        private bool HasSpeedAttacker(IBattleZoneCreature creature)
+        private bool HasSpeedAttacker(Creature creature)
         {
             return _continuousEffectManager.HasSpeedAttacker(creature);
         }
 
-        private bool AffectedBySummoningSickness(IBattleZoneCreature creature)
+        private bool AffectedBySummoningSickness(Creature creature)
         {
             return creature.SummoningSickness && !HasSpeedAttacker(creature);
         }
@@ -462,12 +460,12 @@ namespace DuelMastersModels
             }
         }
 
-        private IEnumerable<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
+        private IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
         {
             return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
         }
 
-        private void CastSpell(ISpell spell)
+        private void CastSpell(Spell spell)
         {
             _spellsBeingResolved.Add(spell);
             _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(BattleZone.Creatures);

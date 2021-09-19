@@ -13,14 +13,14 @@ namespace DuelMastersModels.Managers
         bool IsAbilityBeingResolvedSpellAbility { get; }
 
         PlayerActionWithEndInformation ContinueResolution(Duel duel);
-        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, BattleZone battleZone);
-        int GetSpellAbilityCount(ISpell spell);
+        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player, BattleZone battleZone);
+        int GetSpellAbilityCount(Spell spell);
         void RemovePendingAbility(NonStaticAbility ability);
         void SetAbilityBeingResolved(NonStaticAbility ability);
-        void StartResolvingSpellAbility(ISpell spell);
-        void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IEnumerable<IBattleZoneCreature> creatures);
-        void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<IBattleZoneCreature> creatures);
-        void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(IBattleZoneCreature creature);
+        void StartResolvingSpellAbility(Spell spell);
+        void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IEnumerable<Creature> creatures);
+        void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<Creature> creatures);
+        void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(Creature creature);
         SelectAbilityToResolve TryGetSelectAbilityToResolve(IPlayer player);
     }
 }

@@ -5,6 +5,6 @@ namespace DuelMastersModels.Choices
 {
     public interface IAttackerChoice
     {
-        IEnumerable<IBattleZoneCreature> AttackCreatures { get; }
+        IEnumerable<Creature> AttackCreatures { get; }
     }
 }

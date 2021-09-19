@@ -5,11 +5,11 @@ namespace DuelMastersModels.Steps
 {
     public class BlockDeclarationStep : TurnBasedActionStep
     {
-        internal IBattleZoneCreature AttackingCreature { get; private set; }
-        internal IBattleZoneCreature AttackedCreature { get; private set; }
-        internal IBattleZoneCreature BlockingCreature { get; set; }
+        internal Creature AttackingCreature { get; private set; }
+        internal Creature AttackedCreature { get; private set; }
+        internal Creature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(IPlayer activePlayer, IBattleZoneCreature attackingCreature, IBattleZoneCreature attackedCreature) : base(activePlayer)
+        public BlockDeclarationStep(IPlayer activePlayer, Creature attackingCreature, Creature attackedCreature) : base(activePlayer)
         {
             AttackingCreature = attackingCreature;
             AttackedCreature = attackedCreature;
@@ -47,7 +47,7 @@ namespace DuelMastersModels.Steps
 
         //public IChoice PerformTurnBasedActions(Duel duel)
         //{
-        //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
+        //    //IEnumerable<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
         //    throw new System.NotImplementedException();
         //    //return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
         //}

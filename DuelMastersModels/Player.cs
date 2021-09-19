@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Factories;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
@@ -46,13 +45,13 @@ namespace DuelMastersModels
         /// </summary>
         public ShieldZone ShieldZone { get; private set; }
 
-        public IEnumerable<IHandCard> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
+        public IEnumerable<Card> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
-        public IEnumerable<ICard> CardsInNonsharedZones
+        public IEnumerable<Card> CardsInNonsharedZones
         {
             get
             {
-                List<ICard> cards = new List<ICard>();
+                List<Card> cards = new List<Card>();
                 cards.AddRange(Deck.Cards);
                 cards.AddRange(Graveyard.Cards);
                 cards.AddRange(Hand.Cards);
@@ -72,12 +71,12 @@ namespace DuelMastersModels
             Deck.Shuffle();
         }
 
-        public void AddShieldTriggerToUse(IHandCard card)
+        public void AddShieldTriggerToUse(Card card)
         {
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        public IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards)
+        public IChoice Use(Card card, IEnumerable<Card> manaCards)
         {
             if (card == null)
             {
@@ -91,24 +90,24 @@ namespace DuelMastersModels
             throw new NotImplementedException("Consider mana payment");
         }
 
-        public void RemoveShieldTriggerToUse(IHandCard card)
+        public void RemoveShieldTriggerToUse(Card card)
         {
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility, BattleZone battleZone)
+        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
                 return staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is IBattleZoneCard battleZoneCard && battleZone.Cards.Contains(battleZoneCard)) ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is IHandCreature handCreature && Hand.Cards.Contains(handCreature))
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is Creature battleZoneCard && battleZone.Cards.Contains(battleZoneCard)) ||
+                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is Creature handCreature && Hand.Cards.Contains(handCreature))
                     ? staticAbilityForCreature.ContinuousEffects
                     : new ReadOnlyContinuousEffectCollection();
             }
             else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
             {
-                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && card is IHandSpell handSpell && Hand.Cards.Contains(handSpell)
+                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && card is Spell handSpell && Hand.Cards.Contains(handSpell)
                     ? staticAbilityForSpell.ContinuousEffects
                     : new ReadOnlyContinuousEffectCollection();
             }
@@ -118,20 +117,20 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card, BattleZone battleZone)
+        public void PutFromBattleZoneIntoGraveyard(Creature creature, BattleZone battleZone)
         {
-            battleZone.Remove(card);
-            Graveyard.Add(CardFactory.GenerateGraveyardCard(card));
+            battleZone.Remove(creature);
+            Graveyard.Add(creature);
         }
 
         /// <summary>
         /// Player puts target card from their hand into their mana zone.
         /// </summary>
         /// <param name="card"></param>
-        public void PutFromHandIntoManaZone(IHandCard card)
+        public void PutFromHandIntoManaZone(Card card)
         {
             Hand.Remove(card);
-            ManaZone.Add(CardFactory.GenerateManaZoneCard(card));
+            ManaZone.Add(card);
         }
 
         ///<summary>
@@ -141,14 +140,14 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                ShieldZone.Add(CardFactory.GenerateShieldZoneCard(RemoveTopCardOfDeck(), false));
+                ShieldZone.Add(RemoveTopCardOfDeck());
             }
         }
 
         /// <summary>
         /// Removes the top card from a player's deck and returns it.
         /// </summary>
-        public ICard RemoveTopCardOfDeck()
+        public Card RemoveTopCardOfDeck()
         {
             return Deck.RemoveAndGetTopCard();
         }
@@ -160,9 +159,8 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                ICard drawnCard = RemoveTopCardOfDeck();
-                IHandCard handCard = CardFactory.GenerateHandCard(drawnCard);
-                Hand.Add(handCard);
+                Card drawnCard = RemoveTopCardOfDeck();
+                Hand.Add(drawnCard);
 
                 //TODO: Uncomment
                 //DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(this, handCard)));

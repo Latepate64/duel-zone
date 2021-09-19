@@ -24,24 +24,24 @@ namespace DuelMastersJson
         /// 
         /// 
         /// <returns></returns>
-        public static ReadOnlyCollection<ICard> GetCardsFromJsonCards(Collection<JsonCard> jsonCards)
+        public static ReadOnlyCollection<Card> GetCardsFromJsonCards(Collection<JsonCard> jsonCards)
         {
             if (jsonCards == null)
             {
                 throw new ArgumentNullException(nameof(jsonCards));
             }
-            List<ICard> cards = new List<ICard>();
+            List<Card> cards = new List<Card>();
             foreach (JsonCard jsonCard in jsonCards)
             {
                 cards.Add(GetCardFromJsonCard(jsonCard));
             }
-            return new ReadOnlyCollection<ICard>(cards);
+            return new ReadOnlyCollection<Card>(cards);
         }
 
         /// <summary>
         /// Returns a card for card template.
         /// </summary>
-        private static ICard GetCardFromJsonCard(JsonCard jsonCard)
+        private static Card GetCardFromJsonCard(JsonCard jsonCard)
         {
             switch (jsonCard.CardType)
             {

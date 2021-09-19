@@ -5,7 +5,7 @@ namespace DuelMastersModels.Choices
 {
     public class BlockerChoice : Choice
     {
-        public IEnumerable<IBattleZoneCreature> PossibleBlockers { get; }
+        public IEnumerable<Creature> PossibleBlockers { get; }
 
         public BlockerChoice(IPlayer player) : base(player)
         {

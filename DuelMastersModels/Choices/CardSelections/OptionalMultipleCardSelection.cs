@@ -7,12 +7,12 @@ namespace DuelMastersModels.Choices.CardSelections
     /// <summary>
     /// Player selects up to a number of cards.
     /// </summary>
-    public abstract class OptionalMultipleCardSelection<TCard> : MultipleCardSelection<TCard> where TCard : ICard
+    public abstract class OptionalMultipleCardSelection : MultipleCardSelection
     {
-        internal OptionalMultipleCardSelection(IPlayer player, IEnumerable<TCard> cards) : base(player, cards, false, cards.Count())
+        internal OptionalMultipleCardSelection(IPlayer player, IEnumerable<Card> cards) : base(player, cards, false, cards.Count())
         { }
 
-        internal override void Validate(IEnumerable<TCard> cards)
+        internal override void Validate(IEnumerable<Card> cards)
         {
             if (cards.Except(Cards).Any())
             {

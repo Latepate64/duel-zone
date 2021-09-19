@@ -6,11 +6,11 @@ namespace DuelMastersModels.Choices.CardSelections
     /// <summary>
     /// Player may/must select a card.
     /// </summary>
-    public abstract class SingleCardSelection<TCard> : CardSelection<TCard> where TCard : ICard
+    public abstract class SingleCardSelection : CardSelection
     {
-        internal SingleCardSelection(IPlayer player, IEnumerable<TCard> cards, bool optional) : base(player, cards, optional ? 0 : 1, 1)
+        internal SingleCardSelection(IPlayer player, IEnumerable<Card> cards, bool optional) : base(player, cards, optional ? 0 : 1, 1)
         { }
 
-        internal abstract void Validate(TCard card);
+        internal abstract void Validate(Card card);
     }
 }

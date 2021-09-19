@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
-    internal class TargetCreatureFilter<TCreature> : CreatureFilter<TCreature> where TCreature : ICreature
+    internal class TargetCreatureFilter<TCreature> : CreatureFilter<TCreature> where TCreature : Creature
     {
         internal TCreature Creature { get; private set; }
 

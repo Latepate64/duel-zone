@@ -42,22 +42,22 @@ namespace DuelMastersModels
         /// </summary>
         ShieldZone ShieldZone { get; }
 
-        IEnumerable<ICard> CardsInNonsharedZones { get; }
+        IEnumerable<Card> CardsInNonsharedZones { get; }
 
-        IEnumerable<IHandCard> ShieldTriggersToUse { get; }
+        IEnumerable<Card> ShieldTriggersToUse { get; }
 
         IPlayer Opponent { get; set; }
 
-        void AddShieldTriggerToUse(IHandCard card);
+        void AddShieldTriggerToUse(Card card);
         void DrawCards(int amount);
-        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(ICard card, StaticAbility staticAbility, BattleZone battleZone);
-        void PutFromBattleZoneIntoGraveyard(IBattleZoneCard card, BattleZone battleZone);
-        void PutFromHandIntoManaZone(IHandCard card);
+        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone);
+        void PutFromBattleZoneIntoGraveyard(Creature card, BattleZone battleZone);
+        void PutFromHandIntoManaZone(Card card);
         void PutFromTopOfDeckIntoShieldZone(int amount);
-        void RemoveShieldTriggerToUse(IHandCard card);
-        ICard RemoveTopCardOfDeck();
+        void RemoveShieldTriggerToUse(Card card);
+        Card RemoveTopCardOfDeck();
         void ShuffleDeck();
         IChoice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone);
-        IChoice Use(IHandCard card, IEnumerable<IManaZoneCard> manaCards);
+        IChoice Use(Card card, IEnumerable<Card> manaCards);
     }
 }

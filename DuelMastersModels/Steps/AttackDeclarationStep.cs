@@ -5,8 +5,8 @@ namespace DuelMastersModels.Steps
 {
     public class AttackDeclarationStep : TurnBasedActionStep
     {
-        internal IBattleZoneCreature AttackingCreature { get; set; }
-        internal IBattleZoneCreature AttackedCreature { get; set; }
+        internal Creature AttackingCreature { get; set; }
+        internal Creature AttackedCreature { get; set; }
 
         public AttackDeclarationStep(IPlayer activePlayer) : base(activePlayer)
         {
@@ -39,14 +39,14 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public IChoice DeclareAttackOnCreature(IBattleZoneCreature attacker, IBattleZoneCreature target)
+        public IChoice DeclareAttackOnCreature(Creature attacker, Creature target)
         {
             AttackingCreature = attacker;
             AttackedCreature = target;
             return Proceed();
         }
 
-        public IChoice DeclareAttackOnOpponent(IBattleZoneCreature attacker)
+        public IChoice DeclareAttackOnOpponent(Creature attacker)
         {
             AttackingCreature = attacker;
             return Proceed();
@@ -69,7 +69,7 @@ namespace DuelMastersModels.Steps
 
         //public IChoice PerformTurnBasedActions(Duel duel)
         //{
-        //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
+        //    //IEnumerable<Creature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
         //    throw new System.NotImplementedException();
         //    //return creatures.Any()
         //    //    ? creatures.Any(creature => duel.AttacksIfAble(creature))

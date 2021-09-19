@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class CreatureShieldTrigger : StaticAbilityForCreature
     {
-        internal CreatureShieldTrigger(IHandCreature creature) : base(new Effects.ContinuousEffects.CreatureShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter<IHandCreature>(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand)
+        internal CreatureShieldTrigger(Creature creature) : base(new Effects.ContinuousEffects.CreatureShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter<Creature>(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand)
         { }
     }
 }

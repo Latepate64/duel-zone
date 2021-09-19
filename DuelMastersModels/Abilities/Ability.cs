@@ -8,6 +8,6 @@
         /// <summary>
         /// The source of an ability is the object that generated it. The source of an activated ability on the stack is the object whose ability was activated. The source of a triggered ability (other than a delayed triggered ability) on the stack, or one that has triggered and is waiting to be put on the stack, is the object whose ability triggered.
         /// </summary>
-        public Cards.ICard Source { get; set; }
+        public Cards.Card Source { get; set; }
     }
 }

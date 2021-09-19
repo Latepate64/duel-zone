@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +8,25 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone<IDeckCard>
+    public class Deck : Zone
     {
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(IEnumerable<ICard> cards)
+        internal Deck(IEnumerable<Card> cards)
         {
-            foreach (ICard card in cards)
+            foreach (Card card in cards)
             {
-                _cards.Add(CardFactory.GenerateDeckCard(card));
+                _cards.Add(card);
             }
         }
 
-        public override void Add(IDeckCard card)
+        public override void Add(Card card)
         {
             _cards.Add(card);
         }
 
-        public override void Remove(IDeckCard card)
+        public override void Remove(Card card)
         {
             _ = _cards.Remove(card);
         }
@@ -43,7 +42,7 @@ namespace DuelMastersModels.Zones
             {
                 n--;
                 int k = random.Next(n + 1);
-                IDeckCard value = _cards[k];
+                Card value = _cards[k];
                 _cards[k] = _cards[n];
                 _cards[n] = value;
             }
@@ -52,7 +51,7 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public ICard RemoveAndGetTopCard()
+        public Card RemoveAndGetTopCard()
         {
             return GetTopCard(true);
         }
@@ -60,11 +59,11 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private ICard GetTopCard(bool remove)
+        private Card GetTopCard(bool remove)
         {
             if (Cards.Any())
             {
-                IDeckCard topCard = Cards.Last();
+                Card topCard = Cards.Last();
                 if (remove)
                 {
                     Remove(topCard);

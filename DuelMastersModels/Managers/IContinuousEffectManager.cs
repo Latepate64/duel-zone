@@ -10,14 +10,14 @@ namespace DuelMastersModels.Managers
         IAbilityManager AbilityManager { get; set; }
 
         void AddContinuousEffect(IContinuousEffect continuousEffect);
-        bool AttacksIfAble(IBattleZoneCreature creature);
+        bool AttacksIfAble(Creature creature);
         void EndContinuousEffects<T>();
-        IEnumerable<IBattleZoneCreature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player);
-        IEnumerable<IBattleZoneCreature> GetCreaturesThatCannotAttack(IPlayer player);
-        IEnumerable<IBattleZoneCreature> GetCreaturesThatCannotAttackPlayers();
-        int GetPower(IBattleZoneCreature creature);
-        bool HasShieldTrigger(IHandCreature creature);
-        bool HasShieldTrigger(ISpell spell);
-        bool HasSpeedAttacker(IBattleZoneCreature creature);
+        IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player);
+        IEnumerable<Creature> GetCreaturesThatCannotAttack(IPlayer player);
+        IEnumerable<Creature> GetCreaturesThatCannotAttackPlayers();
+        int GetPower(Creature creature);
+        bool HasShieldTrigger(Creature creature);
+        bool HasShieldTrigger(Spell spell);
+        bool HasSpeedAttacker(Creature creature);
     }
 }

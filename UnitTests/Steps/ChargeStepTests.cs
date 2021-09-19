@@ -14,7 +14,7 @@ namespace UnitTests.Steps
         public void ChargeMana_ManaNotChargedBefore_ReturnNull()
         {
             ChargeStep step = new ChargeStep(Mock.Of<IPlayer>());
-            IChoice choice = step.ChargeMana(Mock.Of<IHandCard>());
+            IChoice choice = step.ChargeMana(Mock.Of<Card>());
             Assert.Null(choice);
         }
 
@@ -41,7 +41,7 @@ namespace UnitTests.Steps
         [Fact]
         public void PerformPriorityAction_ChargedCardNotNull_ReturnNull()
         {
-            ChargeStep step = new ChargeStep(Mock.Of<IPlayer>()) { ChargedCard = Mock.Of<IHandCard>() };
+            ChargeStep step = new ChargeStep(Mock.Of<IPlayer>()) { ChargedCard = Mock.Of<Card>() };
             Assert.Null(step.PerformPriorityAction());
         }
     }

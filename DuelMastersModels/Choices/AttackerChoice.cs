@@ -5,7 +5,7 @@ namespace DuelMastersModels.Choices
 {
     public class AttackerChoice : Choice, IAttackerChoice, IEndTurnChoice
     {
-        public IEnumerable<IBattleZoneCreature> AttackCreatures { get; }
+        public IEnumerable<Creature> AttackCreatures { get; }
         public bool TurnEndable { get; }
 
         public AttackerChoice(IPlayer player) : base(player)
