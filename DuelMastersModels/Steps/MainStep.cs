@@ -41,7 +41,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(IDuel duel)
+        //public override IChoice PlayerActionRequired(Duel duel)
         //{
         //    //IEnumerable<IHandCard> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
         //    throw new System.NotImplementedException();
@@ -58,7 +58,7 @@ namespace DuelMastersModels.Steps
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             return new AttackDeclarationStep(ActivePlayer);
         }

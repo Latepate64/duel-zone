@@ -22,7 +22,7 @@ namespace UnitTests.Steps
         public void GetNextStep_ReturnMainStep()
         {
             ChargeStep step = new ChargeStep(Mock.Of<IPlayer>());
-            IStep nextStep = step.GetNextStep();
+            Step nextStep = step.GetNextStep();
             _ = Assert.IsType<MainStep>(nextStep);
         }
 
@@ -30,7 +30,7 @@ namespace UnitTests.Steps
         public void PerformPriorityAction_ChargedCardNull_ReturnPriorityActionChoice()
         {
             Mock<IPlayer> player = new Mock<IPlayer>();
-            _ = player.SetupGet(x => x.Hand).Returns(Mock.Of<IHand>());
+            _ = player.SetupGet(x => x.Hand).Returns(Mock.Of<Hand>());
             ChargeStep step = new ChargeStep(player.Object);
 
             IChoice choice = step.PerformPriorityAction();

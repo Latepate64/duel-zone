@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             if (AttackingCreature != null)
             {
@@ -53,7 +53,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(IDuel duel)
+        //public override IChoice PlayerActionRequired(Duel duel)
         //{
         //    if (AttackingCreature != null && !TargetOfAttackDeclared)
         //    {
@@ -67,7 +67,7 @@ namespace DuelMastersModels.Steps
         //    }
         //}
 
-        //public IChoice PerformTurnBasedActions(IDuel duel)
+        //public IChoice PerformTurnBasedActions(Duel duel)
         //{
         //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
         //    throw new System.NotImplementedException();

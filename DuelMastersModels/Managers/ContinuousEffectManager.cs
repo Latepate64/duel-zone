@@ -9,9 +9,9 @@ namespace DuelMastersModels.Managers
     public class ContinuousEffectManager : IContinuousEffectManager
     {
         public IAbilityManager AbilityManager { get; set; }
-        public IDuel Duel { get; set; }
+        public Duel Duel { get; set; }
 
-        public ContinuousEffectManager(IDuel duel, IAbilityManager abilityManager)
+        public ContinuousEffectManager(Duel duel, IAbilityManager abilityManager)
         {
             Duel = duel;
             AbilityManager = abilityManager;

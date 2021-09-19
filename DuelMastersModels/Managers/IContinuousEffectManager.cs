@@ -6,7 +6,7 @@ namespace DuelMastersModels.Managers
 {
     public interface IContinuousEffectManager
     {
-        IDuel Duel { get; set; }
+        Duel Duel { get; set; }
         IAbilityManager AbilityManager { get; set; }
 
         void AddContinuousEffect(IContinuousEffect continuousEffect);

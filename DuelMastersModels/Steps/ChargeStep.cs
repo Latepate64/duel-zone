@@ -30,7 +30,7 @@ namespace DuelMastersModels.Steps
             return Proceed();
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             return new MainStep(ActivePlayer);
         }

@@ -18,6 +18,6 @@ namespace DuelMastersModels.Cards
         /// </summary>
         ICollection<Race> Races { get; }
 
-        ICollection<ITriggeredAbility> TriggerAbilities { get; }
+        ICollection<TriggeredAbility> TriggerAbilities { get; }
     }
 }

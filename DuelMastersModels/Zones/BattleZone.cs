@@ -8,7 +8,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone<IBattleZoneCard>, IBattleZone
+    public class BattleZone : Zone<IBattleZoneCard>
     {
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Zones
 
         public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<ITappable>(Cards.OfType<ITappable>().Where(c => c.Tapped).ToList());
 
-        public IDuel Duel { get; set; }
+        public Duel Duel { get; set; }
 
         public void UntapCards()
         {

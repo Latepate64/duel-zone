@@ -12,11 +12,11 @@ namespace DuelMastersModels.Managers
         bool IsAbilityBeingResolved { get; }
         bool IsAbilityBeingResolvedSpellAbility { get; }
 
-        PlayerActionWithEndInformation ContinueResolution(IDuel duel);
-        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, IBattleZone battleZone);
+        PlayerActionWithEndInformation ContinueResolution(Duel duel);
+        ICollection<IContinuousEffect> GetContinuousEffectsGeneratedByCard(ICard card, IPlayer player, BattleZone battleZone);
         int GetSpellAbilityCount(ISpell spell);
-        void RemovePendingAbility(INonStaticAbility ability);
-        void SetAbilityBeingResolved(INonStaticAbility ability);
+        void RemovePendingAbility(NonStaticAbility ability);
+        void SetAbilityBeingResolved(NonStaticAbility ability);
         void StartResolvingSpellAbility(ISpell spell);
         void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(IEnumerable<IBattleZoneCreature> creatures);
         void TriggerWheneverAPlayerCastsASpellAbilities(IEnumerable<IBattleZoneCreature> creatures);

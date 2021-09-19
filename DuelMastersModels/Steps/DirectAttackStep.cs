@@ -13,13 +13,13 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             return new EndOfAttackStep(ActivePlayer);
         }
 
         //TODO
-        //public IChoice PlayerActionRequired(IDuel duel)
+        //public IChoice PlayerActionRequired(Duel duel)
         //{
         //    if (DirectAttack && !_breakingDone)
         //    {

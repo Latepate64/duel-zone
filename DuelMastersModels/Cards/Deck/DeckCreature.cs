@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards
         public int Power { get; }
         public ICollection<Race> Races { get; }
         public bool SummoningSickness { get; set; }
-        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
+        public ICollection<TriggeredAbility> TriggerAbilities { get; }
 
         internal DeckCreature(ICard card) : base(card)
         {

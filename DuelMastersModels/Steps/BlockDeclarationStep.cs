@@ -29,7 +29,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             if (BlockingCreature != null)
             {
@@ -45,7 +45,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        //public IChoice PerformTurnBasedActions(IDuel duel)
+        //public IChoice PerformTurnBasedActions(Duel duel)
         //{
         //    //IEnumerable<IBattleZoneCreature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
         //    throw new System.NotImplementedException();

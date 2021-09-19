@@ -6,7 +6,7 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
-    public class TriggeredAbility : NonStaticAbility, ITriggeredAbility
+    public class TriggeredAbility : NonStaticAbility
     {
         public TriggerCondition TriggerCondition { get; set; }
 

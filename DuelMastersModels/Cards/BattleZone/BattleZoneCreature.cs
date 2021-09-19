@@ -23,7 +23,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public bool SummoningSickness { get; set; }
 
-        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
+        public ICollection<TriggeredAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a battle zone creature.

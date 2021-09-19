@@ -5,7 +5,7 @@ namespace DuelMastersModels.Abilities
     /// <summary>
     /// Abstract class for spell, activated and trigger abilities. Non-static abilities are resolvable abilities.
     /// </summary>
-    public abstract class NonStaticAbility : Ability, INonStaticAbility
+    public abstract class NonStaticAbility : Ability
     {
         /// <summary>
         /// Abilities can generate one-shot effects or continuous effects.
@@ -33,7 +33,7 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         /// <param name="duel"></param>
         /// <returns></returns>
-        public PlayerActionWithEndInformation ContinueResolution(IDuel duel)
+        public PlayerActionWithEndInformation ContinueResolution(Duel duel)
         {
             return _effectIndex < Effects.Count
                 ? new PlayerActionWithEndInformation(Effects[_effectIndex++].Apply(duel, Controller), false)
@@ -43,7 +43,7 @@ namespace DuelMastersModels.Abilities
         }
 
         /*
-        internal PlayerActions.PlayerAction ContinueResolution(IDuel duel)
+        internal PlayerActions.PlayerAction ContinueResolution(Duel duel)
         {
             return _effectIndex < Effects.Count
                 ? Effects[_effectIndex++].Apply(duel, Controller)

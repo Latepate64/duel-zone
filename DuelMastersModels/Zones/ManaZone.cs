@@ -8,7 +8,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
     /// </summary>
-    public class ManaZone : Zone<IManaZoneCard>, IManaZone
+    public class ManaZone : Zone<IManaZoneCard>
     {
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;

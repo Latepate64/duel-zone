@@ -4,7 +4,7 @@ namespace DuelMastersModels.Effects.OneShotEffects
 {
     internal class YouMayDrawACardEffect : OneShotEffect
     {
-        internal override IChoice Apply(IDuel duel, IPlayer player)
+        internal override IChoice Apply(Duel duel, IPlayer player)
         {
             throw new System.NotImplementedException();
         }

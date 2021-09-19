@@ -24,7 +24,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public ICollection<Race> Races { get; }
 
-        public ICollection<ITriggeredAbility> TriggerAbilities { get; }
+        public ICollection<TriggeredAbility> TriggerAbilities { get; }
 
         /// <summary>
         /// Creates a creature.

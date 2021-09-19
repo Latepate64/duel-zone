@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn : ITurn
+    public class Turn
     {
         #region Properties
         /// <summary>
@@ -23,12 +23,12 @@ namespace DuelMastersModels
         /// <summary>
         /// The step that is currently being processed.
         /// </summary>
-        public IStep CurrentStep => Steps.Last();
+        public Step CurrentStep => Steps.Last();
 
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        internal ICollection<IStep> Steps { get; } = new Collection<IStep>();
+        internal ICollection<Step> Steps { get; } = new Collection<Step>();
 
         /// <summary>
         /// The number of the turn.
@@ -43,7 +43,7 @@ namespace DuelMastersModels
             Number = number;
         }
 
-        public IChoice Start(IBattleZone battleZone)
+        public IChoice Start(BattleZone battleZone)
         {
             if (!Steps.Any())
             {
@@ -58,7 +58,7 @@ namespace DuelMastersModels
 
         public IChoice ChangeAndStartStep()
         {
-            IStep nextStep = CurrentStep.GetNextStep();
+            Step nextStep = CurrentStep.GetNextStep();
             if (nextStep != null)
             {
                 Steps.Add(nextStep);

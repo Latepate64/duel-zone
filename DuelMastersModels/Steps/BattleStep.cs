@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
             TargetCreature = targetCreature;
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             return new EndOfAttackStep(ActivePlayer);
             //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(IDuel duel)
+        //public override IChoice PlayerActionRequired(Duel duel)
         //{
         //    if (duel == null)
         //    {

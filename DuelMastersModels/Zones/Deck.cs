@@ -9,7 +9,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone<IDeckCard>, IDeck
+    public class Deck : Zone<IDeckCard>
     {
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;

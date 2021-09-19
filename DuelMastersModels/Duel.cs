@@ -15,7 +15,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Represents a duel that is played between two players.
     /// </summary>
-    public class Duel : IDuel
+    public class Duel
     {
         #region Properties
         /// <summary>
@@ -55,12 +55,12 @@ namespace DuelMastersModels
         /// </summary>
         public StartingPlayerMethod StartingPlayerMethod { get; set; } = StartingPlayerMethod.Random;
 
-        public ITurn CurrentTurn => _turns.Last();
+        public Turn CurrentTurn => _turns.Last();
 
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public IBattleZone BattleZone { get; private set; }
+        public BattleZone BattleZone { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -81,7 +81,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        private readonly Collection<ITurn> _turns = new Collection<ITurn>();
+        private readonly Collection<Turn> _turns = new Collection<Turn>();
         #endregion Fields
 
         #region Public methods
@@ -118,7 +118,7 @@ namespace DuelMastersModels
 
         public IChoice StartNewTurn(IPlayer activePlayer)
         {
-            ITurn turn = new Turn(activePlayer, _turns.Count + 1);
+            Turn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
             return turn.Start(BattleZone);
         }
@@ -222,7 +222,7 @@ namespace DuelMastersModels
             _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<IBattleZoneCreature>(BattleZone.Creatures.Except(new List<IBattleZoneCreature> { excludedCreature }).ToList()));
         }
 
-        public void SetPendingAbilityToBeResolved(INonStaticAbility ability)
+        public void SetPendingAbilityToBeResolved(NonStaticAbility ability)
         {
             _abilityManager.RemovePendingAbility(ability);
             _abilityManager.SetAbilityBeingResolved(ability);

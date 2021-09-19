@@ -17,7 +17,7 @@ namespace UnitTests
         [Fact]
         public void ShuffleDeck_DeckNotNull_ShuffleCalledOnce()
         {
-            Mock<IDeck> deck = new Mock<IDeck>();
+            Mock<Deck> deck = new Mock<Deck>();
             new Player { Deck = deck.Object }.ShuffleDeck();
             deck.Verify(x => x.Shuffle(), Times.Once);
         }

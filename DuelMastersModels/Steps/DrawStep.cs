@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IStep GetNextStep()
+        public override Step GetNextStep()
         {
             return new ChargeStep(ActivePlayer);
         }
