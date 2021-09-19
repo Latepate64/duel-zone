@@ -25,7 +25,7 @@ namespace DuelMastersModels.Zones
             return new ReadOnlyCollection<Creature>(Creatures.Where(creature => !creature.Tapped).ToList());
         }
 
-        public IEnumerable<ITappable> TappedCards => new ReadOnlyCollection<ITappable>(Cards.OfType<ITappable>().Where(c => c.Tapped).ToList());
+        public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>(Cards.Where(c => c.Tapped).ToList());
 
         public Duel Duel { get; set; }
 

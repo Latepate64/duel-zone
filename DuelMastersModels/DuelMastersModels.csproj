@@ -144,7 +144,7 @@
     <Compile Include="Choices\ICardUsageChoice.cs" />
     <Compile Include="Choices\IEndTurnChoice.cs" />
     <Compile Include="DuelState.cs" />
-    <Compile Include="Effects\ContinuousEffects\IContinuousEffect.cs" />
+    <Compile Include="Effects\ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="IDuel.cs" />
     <Compile Include="IPlayer.cs" />
@@ -178,7 +178,7 @@
     <Compile Include="Effects\ContinuousEffects\CreatureContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\CreatureShieldTriggerEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\PowerEffect.cs" />
-    <Compile Include="Effects\ContinuousEffects\ReadOnlyContinuousEffectCollection.cs" />
+    <Compile Include="Effects\ContinuousEffects\List<ContinuousEffect>.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellShieldTriggerEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
@@ -190,8 +190,8 @@
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Exceptions\PayCostException.cs" />
-    <Compile Include="Managers\IAbilityManager.cs" />
-    <Compile Include="Managers\IContinuousEffectManager.cs" />
+    <Compile Include="Managers\AbilityManager.cs" />
+    <Compile Include="Managers\ContinuousEffectManager.cs" />
     <Compile Include="Managers\ShieldTriggerManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Choices\CardSelections\CardSelection.cs" />

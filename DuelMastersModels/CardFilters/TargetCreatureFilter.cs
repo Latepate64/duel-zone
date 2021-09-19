@@ -4,15 +4,15 @@ using System.Collections.ObjectModel;
 
 namespace DuelMastersModels.CardFilters
 {
-    internal class TargetCreatureFilter<TCreature> : CreatureFilter<TCreature> where TCreature : Creature
+    internal class TargetCreatureFilter : CreatureFilter
     {
-        internal TCreature Creature { get; private set; }
+        internal Creature Creature { get; private set; }
 
-        internal TargetCreatureFilter(TCreature creature)
+        internal TargetCreatureFilter(Creature creature)
         {
             Creature = creature;
         }
 
-        internal override IEnumerable<TCreature> FilteredCreatures => new ReadOnlyCollection<TCreature>(new List<TCreature>() { Creature });
+        internal override IEnumerable<Creature> FilteredCreatures => new ReadOnlyCollection<Creature>(new List<Creature>() { Creature });
     }
 }

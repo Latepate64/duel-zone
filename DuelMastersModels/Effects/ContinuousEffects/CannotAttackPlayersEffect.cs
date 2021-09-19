@@ -1,9 +1,7 @@
-﻿using DuelMastersModels.Cards;
-
-namespace DuelMastersModels.Effects.ContinuousEffects
+﻿namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    internal class CannotAttackPlayersEffect : CreatureContinuousEffect<Creature>
+    internal class CannotAttackPlayersEffect : CreatureContinuousEffect
     {
-        internal CannotAttackPlayersEffect(Periods.Period period, CardFilters.CreatureFilter<Creature> creatureFilter) : base(period, creatureFilter) { }
+        internal CannotAttackPlayersEffect(Periods.Period period, CardFilters.CreatureFilter creatureFilter) : base(period, creatureFilter) { }
     }
 }

@@ -50,7 +50,7 @@ namespace DuelMastersModels
 
         void AddShieldTriggerToUse(Card card);
         void DrawCards(int amount);
-        ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone);
+        List<ContinuousEffect> GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone);
         void PutFromBattleZoneIntoGraveyard(Creature card, BattleZone battleZone);
         void PutFromHandIntoManaZone(Card card);
         void PutFromTopOfDeckIntoShieldZone(int amount);

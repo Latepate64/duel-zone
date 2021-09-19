@@ -95,7 +95,7 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public ReadOnlyContinuousEffectCollection GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone)
+        public List<ContinuousEffect> GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone)
         {
             if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
             {
@@ -103,13 +103,13 @@ namespace DuelMastersModels
                     (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is Creature battleZoneCard && battleZone.Cards.Contains(battleZoneCard)) ||
                     (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is Creature handCreature && Hand.Cards.Contains(handCreature))
                     ? staticAbilityForCreature.ContinuousEffects
-                    : new ReadOnlyContinuousEffectCollection();
+                    : new List<ContinuousEffect>();
             }
             else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
             {
                 return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && card is Spell handSpell && Hand.Cards.Contains(handSpell)
                     ? staticAbilityForSpell.ContinuousEffects
-                    : new ReadOnlyContinuousEffectCollection();
+                    : new List<ContinuousEffect>();
             }
             else
             {

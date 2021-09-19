@@ -16,7 +16,7 @@ namespace DuelMastersModels.Choices.CardSelections
         {
             if (!(card == null || Cards.Contains(card)))
             {
-                throw new Exceptions.OptionalCardSelectionException(ToString());
+                throw new System.Exception(ToString());
             }
         }
     }

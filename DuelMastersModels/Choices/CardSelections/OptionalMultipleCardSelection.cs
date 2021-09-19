@@ -16,7 +16,7 @@ namespace DuelMastersModels.Choices.CardSelections
         {
             if (cards.Except(Cards).Any())
             {
-                throw new Exceptions.MultipleCardSelectionException(ToString());
+                throw new System.Exception(ToString());
             }
         }
     }

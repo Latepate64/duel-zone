@@ -17,7 +17,7 @@ namespace DuelMastersModels.Choices.CardSelections
         {
             if (!(cards.Count() == MinimumSelection && !cards.Except(Cards).Any()))
             {
-                throw new Exceptions.MandatoryMultipleCardSelectionException(ToString());
+                throw new System.Exception(ToString());
             }
         }
     }

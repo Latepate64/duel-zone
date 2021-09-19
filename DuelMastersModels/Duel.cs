@@ -73,9 +73,9 @@ namespace DuelMastersModels
         /// </summary>
         private readonly Collection<Spell> _spellsBeingResolved = new Collection<Spell>();
 
-        private readonly IAbilityManager _abilityManager = new AbilityManager();
+        private readonly AbilityManager _abilityManager = new AbilityManager();
 
-        private readonly IContinuousEffectManager _continuousEffectManager;
+        private readonly ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
@@ -206,7 +206,7 @@ namespace DuelMastersModels
             _continuousEffectManager.EndContinuousEffects<T>();
         }
 
-        public void AddContinuousEffect(IContinuousEffect continuousEffect)
+        public void AddContinuousEffect(ContinuousEffect continuousEffect)
         {
             _continuousEffectManager.AddContinuousEffect(continuousEffect);
         }

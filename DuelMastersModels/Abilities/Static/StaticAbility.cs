@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Effects.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.Abilities.StaticAbilities
 {
@@ -10,16 +11,11 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// <summary>
         /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the card with the ability remains on the battle zone and has the ability, or as long as the card with the ability remains in the appropriate zone.
         /// </summary>
-        public ReadOnlyContinuousEffectCollection ContinuousEffects { get; private set; }
+        public List<ContinuousEffect> ContinuousEffects { get; private set; }
 
-        /// <summary>
-        /// Creates a static ability.
-        /// </summary>
-        /// <param name="continuousEffect">Continuous effect created by the ability.</param>
-        /// 
-        protected StaticAbility(IContinuousEffect continuousEffect)
+        protected StaticAbility(ContinuousEffect continuousEffect)
         {
-            ContinuousEffects = new ReadOnlyContinuousEffectCollection(continuousEffect);
+            ContinuousEffects = new List<ContinuousEffect> {continuousEffect};
         }
     }
 }

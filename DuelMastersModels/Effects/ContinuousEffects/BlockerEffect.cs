@@ -1,9 +1,7 @@
-﻿using DuelMastersModels.Cards;
-
-namespace DuelMastersModels.Effects.ContinuousEffects
+﻿namespace DuelMastersModels.Effects.ContinuousEffects
 {
-    internal class BlockerEffect : CreatureContinuousEffect<Creature>
+    internal class BlockerEffect : CreatureContinuousEffect
     {
-        internal BlockerEffect(Periods.Period period, CardFilters.CreatureFilter<Creature> creatureFilter) : base(period, creatureFilter) { }
+        internal BlockerEffect(Periods.Period period, CardFilters.CreatureFilter creatureFilter) : base(period, creatureFilter) { }
     }
 }
