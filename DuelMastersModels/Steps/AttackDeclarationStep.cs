@@ -8,17 +8,17 @@ namespace DuelMastersModels.Steps
         internal Creature AttackingCreature { get; set; }
         internal Creature AttackedCreature { get; set; }
 
-        public AttackDeclarationStep(IPlayer activePlayer) : base(activePlayer)
+        public AttackDeclarationStep()
         {
         }
 
-        public override Choice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction(Duel duel)
         {
             // TODO: Check if there are creatures that can attack
             bool possibleToAttack = true;
             if (possibleToAttack)
             {
-                return new AttackerChoice(ActivePlayer);
+                return new AttackerChoice(duel.CurrentTurn.ActivePlayer);
             }
             else
             {
@@ -30,12 +30,12 @@ namespace DuelMastersModels.Steps
         {
             if (AttackingCreature != null)
             {
-                return new BlockDeclarationStep(ActivePlayer, AttackingCreature, AttackedCreature);
+                return new BlockDeclarationStep(AttackingCreature, AttackedCreature);
             }
             // 506.2. If an attacking creature is not specified, the other substeps are skipped.
             else
             {
-                return new EndOfTurnStep(ActivePlayer);
+                return new EndOfTurnStep();
             }
         }
 

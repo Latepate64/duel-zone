@@ -47,7 +47,7 @@ namespace DuelMastersModels
         {
             if (!Steps.Any())
             {
-                Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1, battleZone));
+                Steps.Add(new StartOfTurnStep(Number == 1, battleZone));
                 return StartCurrentStep(duel);
             }
             else

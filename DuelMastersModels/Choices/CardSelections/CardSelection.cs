@@ -13,6 +13,8 @@ namespace DuelMastersModels.Choices.CardSelections
         /// </summary>
         public IEnumerable<Card> Cards { get; private set; }
 
+        public IEnumerable<Card> SelectedCards { get; set; }
+
         internal int MinimumSelection { get; set; }
 
         internal int MaximumSelection { get; set; }

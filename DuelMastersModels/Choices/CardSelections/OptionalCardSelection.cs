@@ -7,7 +7,7 @@ namespace DuelMastersModels.Choices.CardSelections
     /// <summary>
     /// Player may select up to one card.
     /// </summary>
-    public abstract class OptionalCardSelection : SingleCardSelection
+    public class OptionalCardSelection : SingleCardSelection
     {
         internal OptionalCardSelection(IPlayer player, IEnumerable<Card> cards) : base(player, cards, true)
         { }

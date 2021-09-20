@@ -10,7 +10,7 @@ namespace DuelMastersModels.Steps
         internal Creature AttackingCreature { get; private set; }
         internal Creature TargetCreature { get; private set; }
 
-        public BattleStep(IPlayer activePlayer, Creature attackingCreature, Creature targetCreature) : base(activePlayer)
+        public BattleStep(Creature attackingCreature, Creature targetCreature)
         {
             AttackingCreature = attackingCreature;
             TargetCreature = targetCreature;
@@ -18,7 +18,7 @@ namespace DuelMastersModels.Steps
 
         public override Step GetNextStep()
         {
-            return new EndOfAttackStep(ActivePlayer);
+            return new EndOfAttackStep();
             //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
             //BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
 

@@ -5,7 +5,7 @@
     /// </summary>
     public class EndOfTurnStep : Step
     {
-        public EndOfTurnStep(IPlayer player) : base(player)
+        public EndOfTurnStep()
         {
         }
 

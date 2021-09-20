@@ -18,31 +18,27 @@ namespace DuelMastersModels.Steps
     {
         public abstract Step GetNextStep();
 
-        public IPlayer ActivePlayer { get; }
-
-        internal StepState State { get; set; } = StepState.TurnBasedAction;
-
         internal Choice Proceed(Choice choiceArg, Duel duel)
         {
-            if (State == StepState.TurnBasedAction) {
+            if (_state == StepState.TurnBasedAction) {
                 if (this is TurnBasedActionStep turnBasedActionStep) {
                     if (choiceArg == null) {
-                        Choice choice = turnBasedActionStep.PerformTurnBasedAction();
+                        Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel);
                         if (choice != null) { return choice; }
                     } else {
                         // Do something with turn-based action
                     }
                 }
-                State = StepState.SelectAbility;
+                _state = StepState.SelectAbility;
                 return Proceed(null, duel);
             }
-            else if (State == StepState.SelectAbility) {
+            else if (_state == StepState.SelectAbility) {
                 if (choiceArg != null) {
                     // TODO: Set _resolvingAbility based on choice
-                    State = StepState.ResolveAbility;
+                    _state = StepState.ResolveAbility;
                     return Proceed(null, duel);
                 }
-                CheckStateBasedActions(); // TODO: State-based actions should have its own StepState once they require choices. 
+                CheckStateBasedActions(); // TODO: _state-based actions should have its own StepState once they require choices. 
                 var activeAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
                 if (activeAbilities.Count() == 1) { _resolvingAbility = activeAbilities.Single(); }
                 else if (activeAbilities.Count() > 0) { return null; } // TODO: return choice for ability to resolve
@@ -51,39 +47,37 @@ namespace DuelMastersModels.Steps
                     if (nonActiveAbilities.Count() == 1) { _resolvingAbility = nonActiveAbilities.Single(); }
                     else if (nonActiveAbilities.Count() > 0) { return null; } // TODO: return choice for ability to resolve
                 }
-                State = (_resolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
+                _state = (_resolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
                 return Proceed(null, duel);
             }
-            else if (State == StepState.ResolveAbility) {
+            else if (_state == StepState.ResolveAbility) {
                 Choice choice = _resolvingAbility.Resolve(duel, choiceArg);
                 if (choice != null) { return choice; } // Ability still has not resolved completely.
                 else { 
                     _resolvingAbility = null;
-                    State = StepState.SelectAbility;
+                    _state = StepState.SelectAbility;
                     return Proceed(null, duel);
                 }
             }
-            else if (State == StepState.PriorityAction) {
+            else if (_state == StepState.PriorityAction) {
                 if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
                 {
-                    Choice choice = priorityStep.PerformPriorityAction(choiceArg);
+                    Choice choice = priorityStep.PerformPriorityAction(choiceArg, duel);
                     if (choice != null) { return choice; }
                     else {
-                        State = StepState.SelectAbility;
+                        _state = StepState.SelectAbility;
                         return Proceed(null, duel);
                     }
                 }
-                State = StepState.Over;
+                _state = StepState.Over;
                 return null;
             }
             else { throw new System.Exception(); }
         }
 
-        private protected Step(IPlayer activePlayer)
-        {
-            ActivePlayer = activePlayer;
-        }
+        private protected Step() {}
 
+        private StepState _state = StepState.TurnBasedAction;
         private NonStaticAbility _resolvingAbility;
         private Collection<NonStaticAbility> _pendingAbilities;
 

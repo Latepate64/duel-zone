@@ -7,22 +7,22 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class DrawStep : TurnBasedActionStep
     {
-        public DrawStep(IPlayer player) : base(player)
+        public DrawStep()
         {
         }
 
         public override Step GetNextStep()
         {
-            return new ChargeStep(ActivePlayer);
+            return new ChargeStep();
         }
 
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
         /// <returns></returns>
-        public override Choice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction(Duel duel)
         {
-            ActivePlayer.DrawCards(1);
+            duel.CurrentTurn.ActivePlayer.DrawCards(1);
             return null;
         }
     }

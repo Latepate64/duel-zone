@@ -1,6 +1,5 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Choices;
-using System;
+﻿using DuelMastersModels.Choices;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -9,42 +8,25 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class ChargeStep : PriorityStep
     {
-        public Card ChargedCard { get; set; }
-
-        public ChargeStep(IPlayer player) : base(player)
+        public ChargeStep()
         {
-        }
-
-        public Choice ChargeMana(Card card, Duel duel)
-        {
-            if (ChargedCard != null)
-            {
-                throw new InvalidOperationException("Mana has already been charged during this step.");
-            }
-            else if (card == null)
-            {
-                throw new ArgumentNullException(nameof(card));
-            }
-            ActivePlayer.PutFromHandIntoManaZone(card);
-            ChargedCard = card;
-            return Proceed(null, duel);
         }
 
         public override Step GetNextStep()
         {
-            return new MainStep(ActivePlayer);
+            return new MainStep();
         }
 
-        protected internal override Choice PerformPriorityAction(Choice choice)
+        protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
         {
-            State = StepState.PriorityAction;
-            if (ChargedCard != null)
-            {
-                return null;
+            if (choice == null) {
+                return new Choices.CardSelections.OptionalCardSelection(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
             }
-            else
-            {
-                return new ChargeChoice(ActivePlayer);
+            else {
+                var cards = (choice as Choices.CardSelections.OptionalCardSelection).SelectedCards;
+                if (cards.Any()) { duel.CurrentTurn.ActivePlayer.PutFromHandIntoManaZone(cards.Single()); }
+                PassPriority = true;
+                return null;
             }
         }
     }

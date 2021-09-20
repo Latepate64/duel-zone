@@ -9,19 +9,19 @@ namespace DuelMastersModels.Steps
         internal Creature AttackedCreature { get; private set; }
         internal Creature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(IPlayer activePlayer, Creature attackingCreature, Creature attackedCreature) : base(activePlayer)
+        public BlockDeclarationStep(Creature attackingCreature, Creature attackedCreature)
         {
             AttackingCreature = attackingCreature;
             AttackedCreature = attackedCreature;
         }
 
-        public override Choice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction(Duel duel)
         {
             // TODO: Check if blocking is possible
             bool possibleToBlock = false;
             if (possibleToBlock)
             {
-                return new BlockerChoice(ActivePlayer);
+                return new BlockerChoice(duel.CurrentTurn.ActivePlayer);
             }
             else
             {
@@ -33,15 +33,15 @@ namespace DuelMastersModels.Steps
         {
             if (BlockingCreature != null)
             {
-                return new BattleStep(ActivePlayer, AttackingCreature, BlockingCreature);
+                return new BattleStep(AttackingCreature, BlockingCreature);
             }
             else if (AttackedCreature != null)
             {
-                return new BattleStep(ActivePlayer, AttackingCreature, AttackedCreature);
+                return new BattleStep(AttackingCreature, AttackedCreature);
             }
             else
             {
-                return new DirectAttackStep(ActivePlayer, AttackingCreature);
+                return new DirectAttackStep(AttackingCreature);
             }
         }
 

@@ -5,13 +5,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    internal enum MainStepState
-    {
-        Use,
-        Pay,
-        MustBeEnded,
-    }
-
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main step.
     /// </summary>
@@ -19,18 +12,17 @@ namespace DuelMastersModels.Steps
     {
         internal Card CardToBeUsed { get; set; }
 
-        public MainStep(IPlayer player) : base(player)
+        public MainStep()
         {
         }
 
-        protected internal override Choice PerformPriorityAction(Choice choice)
+        protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
         {
-            State = StepState.PriorityAction;
             //TODO: Check if cards can be used
             bool cardsCanBeUsed = true;
             if (cardsCanBeUsed)
             {
-                return new CardUsageChoice(ActivePlayer);
+                return new CardUsageChoice(duel.CurrentTurn.ActivePlayer);
             }
             else
             {
@@ -60,7 +52,7 @@ namespace DuelMastersModels.Steps
 
         public override Step GetNextStep()
         {
-            return new AttackDeclarationStep(ActivePlayer);
+            return new AttackDeclarationStep();
         }
     }
 }
