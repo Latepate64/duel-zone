@@ -13,17 +13,6 @@ namespace DuelMastersModels
 {
     public class Duel
     {
-        #region Properties
-        /// <summary>
-        /// A player that participates in duel against player 2.
-        /// </summary>
-        public IPlayer Player1 { get; set; }
-
-        /// <summary>
-        /// A player that participates in duel against player 1.
-        /// </summary>
-        public IPlayer Player2 { get; set; }
-
         public IPlayer StartingPlayer { get; set; }
 
         /// <summary>
@@ -46,20 +35,13 @@ namespace DuelMastersModels
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
 
-        /// <summary>
-        /// Determines which player goes first in the duel.
-        /// </summary>
-        public StartingPlayerMethod StartingPlayerMethod { get; set; } = StartingPlayerMethod.Random;
-
         public Turn CurrentTurn => _turns.Last();
 
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public BattleZone BattleZone { get; private set; }
-        #endregion Properties
 
-        #region Fields
         /// <summary>
         /// Players who lost the duel.
         /// </summary>
@@ -78,9 +60,7 @@ namespace DuelMastersModels
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
         private readonly Collection<Turn> _turns = new Collection<Turn>();
-        #endregion Fields
 
-        #region Public methods
         public Duel()
         {
             _continuousEffectManager = new ContinuousEffectManager(this, _abilityManager);
@@ -122,10 +102,7 @@ namespace DuelMastersModels
         public Choice Continue(Choice choice) {
             return CurrentTurn.CurrentStep.Proceed(choice, this);
         }
-        #endregion Public methods
 
-        #region Internal methods
-        #region void
         /// <summary>
         /// Ends the duel.
         /// </summary>
@@ -133,16 +110,6 @@ namespace DuelMastersModels
         {
             Winner = winner;
             _losers.Add(winner.Opponent);
-            State = DuelState.Over;
-        }
-
-        /// <summary>
-        /// Ends duel in a draw.
-        /// </summary>
-        public void EndDuelInDraw()
-        {
-            _losers.Add(Player1);
-            _losers.Add(Player2);
             State = DuelState.Over;
         }
 
@@ -227,9 +194,7 @@ namespace DuelMastersModels
             _abilityManager.RemovePendingAbility(ability);
             _abilityManager.SetAbilityBeingResolved(ability);
         }
-        #endregion void
 
-        #region bool
         /// <summary>
         /// Checks if a card can be used.
         /// </summary>
@@ -251,9 +216,7 @@ namespace DuelMastersModels
         {
             return _continuousEffectManager.AttacksIfAble(creature);
         }
-        #endregion bool
 
-        #region ReadOnlyCreatureCollection
         public IEnumerable<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
         {
             return new ReadOnlyCollection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
@@ -271,9 +234,7 @@ namespace DuelMastersModels
             return BattleZone.GetTappedCreatures(player.Opponent);
             //TODO: Consider attacking creature
         }
-        #endregion ReadOnlyCreatureCollection
 
-        #region Choice
         /// <summary>
         /// Player draws a card.
         /// </summary>
@@ -346,7 +307,6 @@ namespace DuelMastersModels
             player.PutFromTopOfDeckIntoShieldZone(1);
             return null;
         }
-        #endregion Choice
 
         public int GetPower(Creature creature)
         {
@@ -355,14 +315,12 @@ namespace DuelMastersModels
 
         public IEnumerable<Card> GetAllCards()
         {
-            List<Card> cards = Player1.CardsInNonsharedZones.ToList();
-            cards.AddRange(Player2.CardsInNonsharedZones);
+            List<Card> cards = CurrentTurn.ActivePlayer.CardsInNonsharedZones.ToList();
+            cards.AddRange(CurrentTurn.NonActivePlayer.CardsInNonsharedZones);
             cards.AddRange(BattleZone.Cards);
             return cards;
         }
-        #endregion Internal methods
 
-        #region Private methods
         private Card PutFromShieldZoneToHand(IPlayer player, Card card)
         {
             player.ShieldZone.Remove(card);
@@ -370,7 +328,6 @@ namespace DuelMastersModels
             return card;
         }
 
-        #region bool
         /// <summary>
         /// Checks if selected mana cards have the required civilizations.
         /// </summary>
@@ -433,7 +390,6 @@ namespace DuelMastersModels
         {
             return creature.SummoningSickness && !HasSpeedAttacker(creature);
         }
-        #endregion bool
 
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
         {
@@ -493,6 +449,5 @@ namespace DuelMastersModels
         //        throw new InvalidOperationException();
         //    }
         //}
-        #endregion Private methods
     }
 }

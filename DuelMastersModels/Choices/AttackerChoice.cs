@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DuelMastersModels.Choices
 {
-    public class AttackerChoice : Choice, IAttackerChoice, IEndTurnChoice
+    public class AttackerChoice : Choice
     {
         public IEnumerable<Creature> AttackCreatures { get; }
         public bool TurnEndable { get; }

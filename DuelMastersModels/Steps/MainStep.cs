@@ -10,26 +10,32 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class MainStep : PriorityStep
     {
-        internal Card CardToBeUsed { get; set; }
-
         public MainStep()
         {
         }
 
         protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
         {
-            //TODO: Check if cards can be used
-            bool cardsCanBeUsed = true;
-            if (cardsCanBeUsed)
+            if (choice == null)
             {
-                return new CardUsageChoice(duel.CurrentTurn.ActivePlayer);
+                //TODO: Check if cards can be used
+                bool cardsCanBeUsed = true;
+                if (cardsCanBeUsed)
+                {
+                    return new CardUsageChoice(duel.CurrentTurn.ActivePlayer);
+                }
+                else
+                {
+                    PassPriority = true;
+                    return null;
+                }
+                //IEnumerable<Card> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
+                //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
             }
             else
             {
-                return null;
+                throw new System.NotImplementedException();
             }
-            //IEnumerable<Card> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-            //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
         }
 
         //TODO
