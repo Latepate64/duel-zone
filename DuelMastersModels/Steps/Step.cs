@@ -7,7 +7,6 @@ namespace DuelMastersModels.Steps
 {
     internal enum StepState
     {
-        NotStarted,
         TurnBasedAction,
         SelectAbility,
         ResolveAbility,
@@ -21,14 +20,7 @@ namespace DuelMastersModels.Steps
 
         public IPlayer ActivePlayer { get; }
 
-        internal StepState State { get; set; } = StepState.NotStarted; 
-
-        // Starts the step by performing possible turn-based actions first. This method should be called only once, after that Proceed should be called as long as the step has not ended.
-        internal Choice Start(Duel duel)
-        {
-            State = StepState.TurnBasedAction;
-            return Proceed(null, duel);
-        }
+        internal StepState State { get; set; } = StepState.TurnBasedAction;
 
         internal Choice Proceed(Choice choiceArg, Duel duel)
         {
@@ -75,7 +67,11 @@ namespace DuelMastersModels.Steps
                 if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
                 {
                     Choice choice = priorityStep.PerformPriorityAction(choiceArg);
-                    if (choice != null) { return choice; }              
+                    if (choice != null) { return choice; }
+                    else {
+                        State = StepState.SelectAbility;
+                        return Proceed(null, duel);
+                    }
                 }
                 State = StepState.Over;
                 return null;

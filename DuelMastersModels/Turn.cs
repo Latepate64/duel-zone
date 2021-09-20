@@ -72,7 +72,7 @@ namespace DuelMastersModels
 
         private Choice StartCurrentStep(Duel duel)
         {
-            Choice choice = CurrentStep.Start(duel);
+            Choice choice = CurrentStep.Proceed(null, duel);
             if (choice != null)
             {
                 return choice;

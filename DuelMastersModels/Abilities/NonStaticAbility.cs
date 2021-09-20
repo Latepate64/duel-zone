@@ -32,7 +32,7 @@ namespace DuelMastersModels.Abilities
         public Choice Resolve(Duel duel, Choice choiceArg) {
             while (Effects.Any()) {
                 OneShotEffect effect = Effects.Peek();
-                Choice choice = effect.Apply(duel, Controller);//, choiceArg);
+                Choice choice = effect.Apply(duel, Controller, choiceArg);
                 if (choice != null) {return choice;}
                 else {Effects.Dequeue();}
             }
