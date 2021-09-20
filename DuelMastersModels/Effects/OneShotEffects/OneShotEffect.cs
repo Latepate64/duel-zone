@@ -7,6 +7,6 @@ namespace DuelMastersModels.Effects.OneShotEffects
     /// </summary>
     public abstract class OneShotEffect : Effect
     {
-        internal abstract Choice Apply(Duel duel, IPlayer player, Choice choice);
+        internal abstract Choice Apply(Duel duel, Player player, Choice choice);
     }
 }

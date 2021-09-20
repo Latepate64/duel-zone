@@ -147,7 +147,7 @@
     <Compile Include="Effects\ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Factories\CardFactory.cs" />
     <Compile Include="IDuel.cs" />
-    <Compile Include="IPlayer.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="ITurn.cs" />
     <Compile Include="Managers\AbilityManager.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />

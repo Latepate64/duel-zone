@@ -9,7 +9,7 @@ namespace DuelMastersModels.Choices.CardSelections
     /// </summary>
     public abstract class MandatoryCardSelection : SingleCardSelection
     {
-        internal MandatoryCardSelection(IPlayer player, IEnumerable<Card> cards) : base(player, cards, false)
+        internal MandatoryCardSelection(Player player, IEnumerable<Card> cards) : base(player, cards, false)
         { }
 
         internal override void Validate(Card card)

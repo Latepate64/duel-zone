@@ -33,7 +33,7 @@ namespace DuelMastersModels.Managers
             TriggerTriggerAbilities<WheneverAPlayerCastsASpell>(creatures);
         }
 
-        public ICollection<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, IPlayer player, BattleZone battleZone)
+        public ICollection<ContinuousEffect> GetContinuousEffectsGeneratedByCard(Card card, Player player, BattleZone battleZone)
         {
             List<ContinuousEffect> continuousEffects = new List<ContinuousEffect>();
             foreach (StaticAbility staticAbility in GetStaticAbilities().Where(a => a.Source == card))
@@ -65,7 +65,7 @@ namespace DuelMastersModels.Managers
             _ = _pendingAbilities.Remove(ability);
         }
 
-        public SelectAbilityToResolve TryGetSelectAbilityToResolve(IPlayer player)
+        public SelectAbilityToResolve TryGetSelectAbilityToResolve(Player player)
         {
             List<NonStaticAbility> pendingAbilities = GetPendingAbilitiesForPlayer(player);
             return pendingAbilities.Count > 0 ? new SelectAbilityToResolve(player, pendingAbilities) : null;
@@ -104,7 +104,7 @@ namespace DuelMastersModels.Managers
         /// <param name="ability"></param>
         /// <param name="controller"></param>
         /// <param name="source"></param>
-        private void TriggerTriggeredAbility(TriggeredAbility ability, IPlayer controller, Card source)
+        private void TriggerTriggeredAbility(TriggeredAbility ability, Player controller, Card source)
         {
             _pendingAbilities.Add(ability.CreatePendingTriggeredAbility(controller, source));
         }
@@ -138,7 +138,7 @@ namespace DuelMastersModels.Managers
         /// <summary>
         /// Non-static abilities controlled by a player that are waiting to be resolved.
         /// </summary>
-        private List<NonStaticAbility> GetPendingAbilitiesForPlayer(IPlayer player)
+        private List<NonStaticAbility> GetPendingAbilitiesForPlayer(Player player)
         {
             return new List<NonStaticAbility>(_pendingAbilities.Where(a => a.Controller == player));
         }

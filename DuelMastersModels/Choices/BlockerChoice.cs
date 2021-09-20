@@ -7,7 +7,7 @@ namespace DuelMastersModels.Choices
     {
         public IEnumerable<Creature> PossibleBlockers { get; }
 
-        public BlockerChoice(IPlayer player) : base(player)
+        public BlockerChoice(Player player) : base(player)
         {
         }
     }

@@ -8,9 +8,9 @@
         /// <summary>
         /// Player who makes the choice.
         /// </summary>
-        public IPlayer Player { get; private set; }
+        public Player Player { get; private set; }
 
-        protected Choice(IPlayer player)
+        protected Choice(Player player)
         {
             Player = player;
         }

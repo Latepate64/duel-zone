@@ -4,7 +4,7 @@ namespace DuelMastersModels.Choices
     {
         public bool Decision { get; set; }
 
-        public YesNoChoice(IPlayer player) : base(player)
+        public YesNoChoice(Player player) : base(player)
         {
         }
     }

@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
         //        {
         //            throw new InvalidOperationException();
         //        }
-        //        IPlayer opponent = ActivePlayer.Opponent;
+        //        Player opponent = ActivePlayer.Opponent;
         //        if (opponent.ShieldZone.Cards.Any())
         //        {
         //            //TODO: consider multibreaker

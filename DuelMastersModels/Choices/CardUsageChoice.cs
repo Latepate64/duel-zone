@@ -9,7 +9,7 @@ namespace DuelMastersModels.Choices
         public IEnumerable<Creature> AttackCreatures { get; }
         public bool TurnEndable { get; }
 
-        public CardUsageChoice(IPlayer player) : base(player)
+        public CardUsageChoice(Player player) : base(player)
         {
         }
     }

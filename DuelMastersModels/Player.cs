@@ -13,7 +13,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : IPlayer
+    public class Player
     {
         /// <summary>
         /// The name of the player.
@@ -61,7 +61,7 @@ namespace DuelMastersModels
             }
         }
 
-        public IPlayer Opponent { get; set; }
+        public Player Opponent { get; set; }
 
         /// <summary>
         /// Player shuffles their deck.

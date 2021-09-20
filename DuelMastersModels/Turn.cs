@@ -13,12 +13,12 @@ namespace DuelMastersModels
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public IPlayer ActivePlayer { get; }
+        public Player ActivePlayer { get; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        public IPlayer NonActivePlayer { get; }
+        public Player NonActivePlayer { get; }
 
         /// <summary>
         /// The step that is currently being processed.
@@ -36,7 +36,7 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(IPlayer activePlayer, int number)
+        public Turn(Player activePlayer, int number)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = activePlayer.Opponent;

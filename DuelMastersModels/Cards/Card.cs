@@ -5,7 +5,7 @@ namespace DuelMastersModels.Cards
 {
     public abstract class Card
     {
-        public IPlayer Owner { get; set; }
+        public Player Owner { get; set; }
 
         public IEnumerable<Civilization> Civilizations { get; }
 

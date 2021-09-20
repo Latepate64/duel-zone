@@ -36,7 +36,7 @@ namespace DuelMastersModels.Managers
             */
         }
 
-        public IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(IPlayer player)
+        public IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
         {
             List<Creature> blockers = new List<Creature>();
             IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
@@ -81,7 +81,7 @@ namespace DuelMastersModels.Managers
             return creature.Power + GetContinuousEffects<PowerEffect>().Where(e => e.CreatureFilter.FilteredCreatures.Contains(creature)).Sum(e => e.Power);
         }
 
-        public IEnumerable<Creature> GetCreaturesThatCannotAttack(IPlayer player)
+        public IEnumerable<Creature> GetCreaturesThatCannotAttack(Player player)
         {
             return new ReadOnlyCollection<Creature>(GetContinuousEffects<CannotAttackPlayersEffect>().SelectMany(e => e.CreatureFilter.FilteredCreatures).Distinct().Where(c => !Duel.GetCreaturesThatCanBeAttacked(player).Any()).ToList());
         }
