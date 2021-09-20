@@ -43,12 +43,12 @@ namespace DuelMastersModels
             Number = number;
         }
 
-        public IChoice Start(BattleZone battleZone)
+        public Choice Start(BattleZone battleZone, Duel duel)
         {
             if (!Steps.Any())
             {
                 Steps.Add(new StartOfTurnStep(ActivePlayer, Number == 1, battleZone));
-                return StartCurrentStep();
+                return StartCurrentStep(duel);
             }
             else
             {
@@ -56,13 +56,13 @@ namespace DuelMastersModels
             }
         }
 
-        public IChoice ChangeAndStartStep()
+        public Choice ChangeAndStartStep(Duel duel)
         {
             Step nextStep = CurrentStep.GetNextStep();
             if (nextStep != null)
             {
                 Steps.Add(nextStep);
-                return StartCurrentStep();
+                return StartCurrentStep(duel);
             }
             else
             {
@@ -70,16 +70,16 @@ namespace DuelMastersModels
             }
         }
 
-        private IChoice StartCurrentStep()
+        private Choice StartCurrentStep(Duel duel)
         {
-            IChoice choice = CurrentStep.Start();
+            Choice choice = CurrentStep.Start(duel);
             if (choice != null)
             {
                 return choice;
             }
             else
             {
-                return ChangeAndStartStep();
+                return ChangeAndStartStep(duel);
             }
         }
     }

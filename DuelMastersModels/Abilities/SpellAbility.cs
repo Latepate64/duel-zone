@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities
 {
     internal class SpellAbility : NonStaticAbility
     {
-        internal SpellAbility(ReadOnlyOneShotEffectCollection effects) : base(effects)
+        internal SpellAbility(System.Collections.Generic.Queue<OneShotEffect> effects) : base(effects)
         { }
     }
 }

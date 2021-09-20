@@ -11,9 +11,6 @@ using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
 {
-    /// <summary>
-    /// Represents a duel that is played between two players.
-    /// </summary>
     public class Duel
     {
         #region Properties
@@ -93,7 +90,7 @@ namespace DuelMastersModels
         /// Starts the duel.
         /// </summary>
         /// <returns>Action a player is expected to perform.</returns>
-        public IChoice Start()
+        public Choice Start()
         {
             if (State != DuelState.Setup)
             {
@@ -115,11 +112,15 @@ namespace DuelMastersModels
             //return StartingPlayer.TakeTurn(this);
         }
 
-        public IChoice StartNewTurn(IPlayer activePlayer)
+        public Choice StartNewTurn(IPlayer activePlayer)
         {
             Turn turn = new Turn(activePlayer, _turns.Count + 1);
             _turns.Add(turn);
-            return turn.Start(BattleZone);
+            return turn.Start(BattleZone, this);
+        }
+        
+        public Choice Continue(Choice choice) {
+            return CurrentTurn.CurrentStep.Proceed(choice, this);
         }
         #endregion Public methods
 
@@ -272,11 +273,11 @@ namespace DuelMastersModels
         }
         #endregion ReadOnlyCreatureCollection
 
-        #region PlayerAction
+        #region Choice
         /// <summary>
         /// Player draws a card.
         /// </summary>
-        public IChoice DrawCard(IPlayer player)
+        public Choice DrawCard(IPlayer player)
         {
             player.DrawCards(1);
             return null;
@@ -293,12 +294,12 @@ namespace DuelMastersModels
             }*/
         }
 
-        public IChoice PutFromShieldZoneToHand(IPlayer player, Card card, bool canUseShieldTrigger)
+        public Choice PutFromShieldZoneToHand(IPlayer player, Card card, bool canUseShieldTrigger)
         {
             return PutFromShieldZoneToHand(player, new List<Card>() { card }, canUseShieldTrigger);
         }
 
-        public IChoice PutFromShieldZoneToHand(IPlayer player, IEnumerable<Card> cards, bool canUseShieldTrigger)
+        public Choice PutFromShieldZoneToHand(IPlayer player, IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
             Collection<Card> shieldTriggerCards = new Collection<Card>();
             for (int i = 0; i < cards.Count(); ++i)
@@ -313,39 +314,39 @@ namespace DuelMastersModels
             //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
         }
 
-        public IChoice PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
+        public Choice PutTheTopCardOfYourDeckIntoYourManaZone(IPlayer player)
         {
             player.ManaZone.Add(player.RemoveTopCardOfDeck());
             return null;
         }
 
-        public IChoice ReturnFromBattleZoneToHand(Creature creature)
+        public Choice ReturnFromBattleZoneToHand(Creature creature)
         {
             BattleZone.Remove(creature);
             creature.Owner.Hand.Add(creature);
             return null;
         }
 
-        public IChoice PutFromBattleZoneIntoOwnersManazone(Creature creature)
+        public Choice PutFromBattleZoneIntoOwnersManazone(Creature creature)
         {
             BattleZone.Remove(creature);
             creature.Owner.ManaZone.Add(creature);
             return null;
         }
 
-        public IChoice PutFromManaZoneIntoTheBattleZone(Creature creature)
+        public Choice PutFromManaZoneIntoTheBattleZone(Creature creature)
         {
             creature.Owner.ManaZone.Remove(creature);
             BattleZone.Add(creature);
             return null;
         }
 
-        public IChoice AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
+        public Choice AddTheTopCardOfYourDeckToYourShieldsFaceDown(IPlayer player)
         {
             player.PutFromTopOfDeckIntoShieldZone(1);
             return null;
         }
-        #endregion PlayerAction
+        #endregion Choice
 
         public int GetPower(Creature creature)
         {

@@ -15,7 +15,7 @@ namespace DuelMastersModels.Steps
             AttackedCreature = attackedCreature;
         }
 
-        public override IChoice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction()
         {
             // TODO: Check if blocking is possible
             bool possibleToBlock = false;
@@ -45,7 +45,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        //public IChoice PerformTurnBasedActions(Duel duel)
+        //public Choice PerformTurnBasedActions(Duel duel)
         //{
         //    //IEnumerable<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
         //    throw new System.NotImplementedException();

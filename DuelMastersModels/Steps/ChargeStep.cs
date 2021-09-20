@@ -15,7 +15,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public IChoice ChargeMana(Card card)
+        public Choice ChargeMana(Card card, Duel duel)
         {
             if (ChargedCard != null)
             {
@@ -27,7 +27,7 @@ namespace DuelMastersModels.Steps
             }
             ActivePlayer.PutFromHandIntoManaZone(card);
             ChargedCard = card;
-            return Proceed();
+            return Proceed(null, duel);
         }
 
         public override Step GetNextStep()
@@ -35,7 +35,7 @@ namespace DuelMastersModels.Steps
             return new MainStep(ActivePlayer);
         }
 
-        public override IChoice PerformPriorityAction()
+        protected internal override Choice PerformPriorityAction(Choice choice)
         {
             State = StepState.PriorityAction;
             if (ChargedCard != null)

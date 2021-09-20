@@ -45,7 +45,7 @@ namespace UnitTests
             _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
             _ = player.SetupGet(x => x.Hand).Returns(Mock.Of<Hand>());
 
-            IChoice choice = new Duel { StartingPlayer = player.Object }.Start();
+            Choice choice = new Duel { StartingPlayer = player.Object }.Start();
 
             _ = Assert.IsType<ChargeChoice>(choice);
         }

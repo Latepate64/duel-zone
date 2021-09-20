@@ -1,89 +1,96 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public enum StepState
+    internal enum StepState
     {
         NotStarted,
         TurnBasedAction,
-        ResolveAbilities,
+        SelectAbility,
+        ResolveAbility,
         PriorityAction,
         Over,
     }
     
     public abstract class Step
     {
-        /// <summary>
-        /// The player whose turn it is.
-        /// </summary>
+        public abstract Step GetNextStep();
+
         public IPlayer ActivePlayer { get; }
 
-        public StepState State { get; set; } = StepState.NotStarted;
+        internal StepState State { get; set; } = StepState.NotStarted; 
 
-        protected Step(IPlayer activePlayer)
+        // Starts the step by performing possible turn-based actions first. This method should be called only once, after that Proceed should be called as long as the step has not ended.
+        internal Choice Start(Duel duel)
+        {
+            State = StepState.TurnBasedAction;
+            return Proceed(null, duel);
+        }
+
+        internal Choice Proceed(Choice choiceArg, Duel duel)
+        {
+            if (State == StepState.TurnBasedAction) {
+                if (this is TurnBasedActionStep turnBasedActionStep) {
+                    if (choiceArg == null) {
+                        Choice choice = turnBasedActionStep.PerformTurnBasedAction();
+                        if (choice != null) { return choice; }
+                    } else {
+                        // Do something with turn-based action
+                    }
+                }
+                State = StepState.SelectAbility;
+                return Proceed(null, duel);
+            }
+            else if (State == StepState.SelectAbility) {
+                if (choiceArg != null) {
+                    // TODO: Set _resolvingAbility based on choice
+                    State = StepState.ResolveAbility;
+                    return Proceed(null, duel);
+                }
+                CheckStateBasedActions(); // TODO: State-based actions should have its own StepState once they require choices. 
+                var activeAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
+                if (activeAbilities.Count() == 1) { _resolvingAbility = activeAbilities.Single(); }
+                else if (activeAbilities.Count() > 0) { return null; } // TODO: return choice for ability to resolve
+                else {
+                    var nonActiveAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
+                    if (nonActiveAbilities.Count() == 1) { _resolvingAbility = nonActiveAbilities.Single(); }
+                    else if (nonActiveAbilities.Count() > 0) { return null; } // TODO: return choice for ability to resolve
+                }
+                State = (_resolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
+                return Proceed(null, duel);
+            }
+            else if (State == StepState.ResolveAbility) {
+                Choice choice = _resolvingAbility.Resolve(duel, choiceArg);
+                if (choice != null) { return choice; } // Ability still has not resolved completely.
+                else { 
+                    _resolvingAbility = null;
+                    State = StepState.SelectAbility;
+                    return Proceed(null, duel);
+                }
+            }
+            else if (State == StepState.PriorityAction) {
+                if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
+                {
+                    Choice choice = priorityStep.PerformPriorityAction(choiceArg);
+                    if (choice != null) { return choice; }              
+                }
+                State = StepState.Over;
+                return null;
+            }
+            else { throw new System.Exception(); }
+        }
+
+        private protected Step(IPlayer activePlayer)
         {
             ActivePlayer = activePlayer;
         }
 
-        public (IChoice, bool) ResolveAbility()
-        {
-            State = StepState.ResolveAbilities;
-            // TODO: Add functionality for resolving abilities.
-            return (null, false); //TODO: Consider if any ability was resolved
-        }
+        private NonStaticAbility _resolvingAbility;
+        private Collection<NonStaticAbility> _pendingAbilities;
 
-        public IChoice Start()
-        {
-            if (this is ITurnBasedActionStep turnBasedActionStep)
-            {
-                State = StepState.TurnBasedAction;
-                IChoice choice = turnBasedActionStep.PerformTurnBasedAction();
-                if (choice != null)
-                {
-                    return choice;
-                }
-            }
-            return Proceed();
-        }
-
-        public IChoice Proceed()
-        {
-            IChoice choice = TryToResolveAbility();
-            if (choice != null)
-            {
-                return choice;
-            }
-            else if (this is IPriorityStep priorityStep)
-            {
-                choice = priorityStep.PerformPriorityAction();
-                if (choice != null)
-                {
-                    return choice;
-                }
-            }
-            State = StepState.Over;
-            return null;
-        }
-
-        public abstract Step GetNextStep();
-
-        private IChoice TryToResolveAbility()
-        {
-            IChoice choice;
-            bool anyAbilityResolved;
-            (choice, anyAbilityResolved) = ResolveAbility();
-            if (choice != null)
-            {
-                return choice;
-            }
-            else if (anyAbilityResolved)
-            {
-                return TryToResolveAbility();
-            }
-            else
-            {
-                return null; // There were no abilities to be resolved.
-            }
-        }
+        private void CheckStateBasedActions() {} //TODO: Implement
     }
 }

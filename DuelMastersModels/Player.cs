@@ -76,7 +76,7 @@ namespace DuelMastersModels
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        public IChoice Use(Card card, IEnumerable<Card> manaCards)
+        public Choice Use(Card card, IEnumerable<Card> manaCards)
         {
             if (card == null)
             {
@@ -167,7 +167,7 @@ namespace DuelMastersModels
             }
         }
 
-        public IChoice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone)
+        public Choice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone)
         {
             battleZone.UntapCards();
             ManaZone.UntapCards();

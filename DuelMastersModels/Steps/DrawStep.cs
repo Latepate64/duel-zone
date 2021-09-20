@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
         /// <returns></returns>
-        public override IChoice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction()
         {
             ActivePlayer.DrawCards(1);
             return null;

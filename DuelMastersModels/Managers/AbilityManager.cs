@@ -43,11 +43,6 @@ namespace DuelMastersModels.Managers
             return continuousEffects;
         }
 
-        public PlayerActionWithEndInformation ContinueResolution(Duel duel)
-        {
-            return _abilityBeingResolved.ContinueResolution(duel);
-        }
-
         public void SetAbilityBeingResolved(NonStaticAbility ability)
         {
             _abilityBeingResolved = ability;

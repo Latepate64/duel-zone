@@ -2,12 +2,13 @@
 
 namespace DuelMastersModels.Steps
 {
-    public abstract class PriorityStep : Step, IPriorityStep
+    public abstract class PriorityStep : Step
     {
         protected PriorityStep(IPlayer activePlayer) : base(activePlayer)
         {
         }
 
-        public abstract IChoice PerformPriorityAction();
+        protected internal bool PassPriority { get; set; }
+        protected internal abstract Choice PerformPriorityAction(Choice choice);
     }
 }

@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IChoice PerformTurnBasedAction()
+        public override Choice PerformTurnBasedAction()
         {
             // TODO: Check if there are creatures that can attack
             bool possibleToAttack = true;
@@ -39,21 +39,21 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public IChoice DeclareAttackOnCreature(Creature attacker, Creature target)
+        public Choice DeclareAttackOnCreature(Creature attacker, Creature target, Duel duel)
         {
             AttackingCreature = attacker;
             AttackedCreature = target;
-            return Proceed();
+            return Proceed(null, duel);
         }
 
-        public IChoice DeclareAttackOnOpponent(Creature attacker)
+        public Choice DeclareAttackOnOpponent(Creature attacker, Duel duel)
         {
             AttackingCreature = attacker;
-            return Proceed();
+            return Proceed(null, duel);
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(Duel duel)
+        //public override Choice PlayerActionRequired(Duel duel)
         //{
         //    if (AttackingCreature != null && !TargetOfAttackDeclared)
         //    {
@@ -67,7 +67,7 @@ namespace DuelMastersModels.Steps
         //    }
         //}
 
-        //public IChoice PerformTurnBasedActions(Duel duel)
+        //public Choice PerformTurnBasedActions(Duel duel)
         //{
         //    //IEnumerable<Creature> creatures = duel.GetCreaturesThatCanAttack(ActivePlayer);
         //    throw new System.NotImplementedException();

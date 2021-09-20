@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public IChoice PlayerActionRequired(Duel duel)
+        //public Choice PlayerActionRequired(Duel duel)
         //{
         //    if (DirectAttack && !_breakingDone)
         //    {

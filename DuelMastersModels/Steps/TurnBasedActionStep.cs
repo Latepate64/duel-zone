@@ -2,12 +2,12 @@
 
 namespace DuelMastersModels.Steps
 {
-    public abstract class TurnBasedActionStep : Step, ITurnBasedActionStep
+    public abstract class TurnBasedActionStep : Step
     {
         protected TurnBasedActionStep(IPlayer activePlayer) : base(activePlayer)
         {
         }
 
-        public abstract IChoice PerformTurnBasedAction();
+        public abstract Choice PerformTurnBasedAction();
     }
 }

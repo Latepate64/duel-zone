@@ -1,4 +1,7 @@
-﻿using DuelMastersModels.Effects.OneShotEffects;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.Effects.OneShotEffects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Abilities
 {
@@ -10,45 +13,30 @@ namespace DuelMastersModels.Abilities
         /// <summary>
         /// Abilities can generate one-shot effects or continuous effects.
         /// </summary>
-        public ReadOnlyOneShotEffectCollection Effects { get; private set; }
+        public Queue<OneShotEffect> Effects { get; private set; }
 
         /// <summary>
         /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
         public IPlayer Controller { get; set; }
 
-        private int _effectIndex = 0;
-
         /// <summary>
         /// Used in creating non-static abilities.
         /// </summary>
         /// <param name="effects">Effects the ability generates.</param>
-        protected NonStaticAbility(ReadOnlyOneShotEffectCollection effects)
+        protected NonStaticAbility(Queue<OneShotEffect> effects)
         {
             Effects = effects;
         }
 
-        /// <summary>
-        /// Applies the next effect generated due to the resolution of the ability. Returns null after all effects of the ability have been applied.
-        /// </summary>
-        /// <param name="duel"></param>
-        /// <returns></returns>
-        public PlayerActionWithEndInformation ContinueResolution(Duel duel)
-        {
-            return _effectIndex < Effects.Count
-                ? new PlayerActionWithEndInformation(Effects[_effectIndex++].Apply(duel, Controller), false)
-                : new PlayerActionWithEndInformation(null, true);
-            //TODO: consider all effects.
-            //return PlayerActions[0].Apply(duel, player);
+        public Choice Resolve(Duel duel, Choice choiceArg) {
+            while (Effects.Any()) {
+                OneShotEffect effect = Effects.Peek();
+                Choice choice = effect.Apply(duel, Controller);//, choiceArg);
+                if (choice != null) {return choice;}
+                else {Effects.Dequeue();}
+            }
+            return null;
         }
-
-        /*
-        internal PlayerActions.PlayerAction ContinueResolution(Duel duel)
-        {
-            return _effectIndex < Effects.Count
-                ? Effects[_effectIndex++].Apply(duel, Controller)
-                : null;
-        }
-        */
     }
 }

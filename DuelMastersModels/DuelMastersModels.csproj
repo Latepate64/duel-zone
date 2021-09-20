@@ -178,13 +178,11 @@
     <Compile Include="Effects\ContinuousEffects\CreatureContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\CreatureShieldTriggerEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\PowerEffect.cs" />
-    <Compile Include="Effects\ContinuousEffects\List<ContinuousEffect>.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellContinuousEffect.cs" />
     <Compile Include="Effects\ContinuousEffects\SpellShieldTriggerEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\OneShotEffects\OneShotEffect.cs" />
     <Compile Include="Effects\OneShotEffects\OneShotEffectForCreature.cs" />
-    <Compile Include="Effects\OneShotEffects\ReadOnlyOneShotEffectCollection.cs" />
     <Compile Include="Effects\OneShotEffects\YouMayDrawACardEffect.cs" />
     <Compile Include="Effects\Periods\Indefinite.cs" />
     <Compile Include="Effects\Periods\Period.cs" />
@@ -201,7 +199,7 @@
     <Compile Include="Choices\CardSelections\OptionalMultipleCardSelection.cs" />
     <Compile Include="Choices\CardSelections\SingleCardSelection.cs" />
     <Compile Include="Choices\CardSelections\OptionalCardSelection.cs" />
-    <Compile Include="Choices\IChoice.cs" />
+    <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\ChargeChoice.cs" />
     <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\SelectAbilityToResolve.cs" />

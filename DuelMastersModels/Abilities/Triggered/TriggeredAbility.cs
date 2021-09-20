@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.OneShotEffects;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
@@ -10,12 +11,14 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
     {
         public TriggerCondition TriggerCondition { get; set; }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, ReadOnlyOneShotEffectCollection effects) : base(effects)
+        public TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects) : base(effects)
         {
             TriggerCondition = triggerCondition;
         }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect) : this(triggerCondition, new ReadOnlyOneShotEffectCollection(effect)) { }
+        public TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect) : this(triggerCondition, new Queue<OneShotEffect>()) {
+            Effects.Enqueue(effect);
+        }
 
         /// <summary>
         /// 603.3. Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.

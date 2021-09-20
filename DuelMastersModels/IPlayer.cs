@@ -57,7 +57,7 @@ namespace DuelMastersModels
         void RemoveShieldTriggerToUse(Card card);
         Card RemoveTopCardOfDeck();
         void ShuffleDeck();
-        IChoice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone);
-        IChoice Use(Card card, IEnumerable<Card> manaCards);
+        Choice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone);
+        Choice Use(Card card, IEnumerable<Card> manaCards);
     }
 }

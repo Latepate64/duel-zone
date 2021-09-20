@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(Duel duel)
+        //public override Choice PlayerActionRequired(Duel duel)
         //{
         //    if (duel == null)
         //    {

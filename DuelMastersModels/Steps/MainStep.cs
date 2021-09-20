@@ -23,7 +23,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override IChoice PerformPriorityAction()
+        protected internal override Choice PerformPriorityAction(Choice choice)
         {
             State = StepState.PriorityAction;
             //TODO: Check if cards can be used
@@ -41,7 +41,7 @@ namespace DuelMastersModels.Steps
         }
 
         //TODO
-        //public override IChoice PlayerActionRequired(Duel duel)
+        //public override Choice PlayerActionRequired(Duel duel)
         //{
         //    //IEnumerable<Card> usableCards = GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
         //    throw new System.NotImplementedException();
