@@ -45,4 +45,16 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
             return new TriggeredAbility(TriggerCondition, effects);*/
         }
     }
+
+    internal class DelayedTriggeredAbility
+    {
+        internal TriggeredAbility TriggeredAbility { get; }
+        internal Effects.Periods.Period Period { get; }
+
+        internal DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Effects.Periods.Period period)
+        {
+            TriggeredAbility = triggeredAbility;
+            Period = period;
+        }
+    }
 }

@@ -428,6 +428,18 @@ namespace DuelMastersModels
             _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(BattleZone.Creatures);
         }
 
+        internal void Destroy(IEnumerable<Creature> creatures)
+        {
+            foreach (var creature in creatures)
+            {
+                creature.Owner.PutFromBattleZoneIntoGraveyard(creature, BattleZone);
+            }
+        }
+
+        internal Queue<Turn> ExtraTurns { get; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
+
+        internal ICollection<Abilities.TriggeredAbilities.DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<Abilities.TriggeredAbilities.DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
+
         //private void RandomizeStartingPlayer(out Player activePlayer, out Player nonActivePlayer)
         //{
         //    activePlayer = Player1;

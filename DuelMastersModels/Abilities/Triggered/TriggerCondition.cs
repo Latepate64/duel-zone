@@ -3,4 +3,14 @@
     public abstract class TriggerCondition
     {
     }
+
+    internal class AtTheEndOfTurn : TriggerCondition
+    {
+        internal Turn Turn { get; }
+
+        internal AtTheEndOfTurn(Turn turn)
+        {
+            Turn = turn;
+        }
+    }
 }

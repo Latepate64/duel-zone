@@ -6,4 +6,6 @@
     public abstract class Period
     {
     }
+
+    internal class Once : Period {}
 }

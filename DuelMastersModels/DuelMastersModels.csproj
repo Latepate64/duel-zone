@@ -106,6 +106,7 @@
     <Compile Include="Cards\BattleZone\BattleZoneCard.cs" />
     <Compile Include="Cards\BattleZone\Creature.cs" />
     <Compile Include="Cards\Creatures\AquaHulcus.cs" />
+    <Compile Include="Cards\Creatures\BombazarDragonOfDestiny.cs" />
     <Compile Include="Cards\Deck\DeckCard.cs" />
     <Compile Include="Cards\Deck\DeckCreature.cs" />
     <Compile Include="Cards\Deck\DeckSpell.cs" />

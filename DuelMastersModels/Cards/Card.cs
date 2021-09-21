@@ -16,6 +16,8 @@ namespace DuelMastersModels.Cards
 
         public bool Tapped { get; set; }
 
+        protected ICollection<Abilities.StaticAbilities.StaticAbility> StaticAbilities { get; } = new List<Abilities.StaticAbilities.StaticAbility>();
+
         protected Card(int cost, IEnumerable<Civilization> civilizations)
         {
             Civilizations = civilizations;
