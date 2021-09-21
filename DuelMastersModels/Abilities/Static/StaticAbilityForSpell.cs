@@ -23,13 +23,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// </summary>
         internal StaticAbilityForSpellActivityCondition EffectActivityCondition { get; private set; }
 
-        /// <summary>
-        /// Creates a static ability only spells can have.
-        /// </summary>
-        /// <param name="continuousEffect">Continuous effect created by the ability.</param>
-        /// <param name="effectActivityCondition">Activity condition for the effects created by the ability.</param>
-        /// 
-        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition effectActivityCondition) : base(continuousEffect)
+        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition effectActivityCondition, Cards.Card source) : base(continuousEffect, source)
         {
             EffectActivityCondition = effectActivityCondition;
         }

@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Effects.OneShotEffects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DuelMastersModels.Abilities
 {
@@ -20,23 +19,22 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         public Player Controller { get; set; }
 
-        /// <summary>
-        /// Used in creating non-static abilities.
-        /// </summary>
-        /// <param name="effects">Effects the ability generates.</param>
-        protected NonStaticAbility(Queue<OneShotEffect> effects)
+        protected NonStaticAbility(Queue<OneShotEffect> effects, Cards.Card source) : base(source)
         {
             Effects = effects;
         }
 
-        public Choice Resolve(Duel duel, Choice choiceArg) {
-            while (Effects.Any()) {
-                OneShotEffect effect = Effects.Peek();
-                Choice choice = effect.Apply(duel, Controller, choiceArg);
-                if (choice != null) {return choice;}
-                else {Effects.Dequeue();}
-            }
-            return null;
-        }
+        public abstract Choice Resolve(Duel duel, Choice choice);
+        public abstract NonStaticAbility Copy();
+
+        // public Choice Resolve(Duel duel, Choice choiceArg) {
+        //     while (Effects.Any()) {
+        //         OneShotEffect effect = Effects.Peek();
+        //         Choice choice = effect.Apply(duel, Controller, choiceArg);
+        //         if (choice != null) {return choice;}
+        //         else {Effects.Dequeue();}
+        //     }
+        //     return null;
+        // }
     }
 }

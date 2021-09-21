@@ -7,16 +7,21 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
-    public class TriggeredAbility : NonStaticAbility
+    public abstract class TriggeredAbility : NonStaticAbility
     {
         public TriggerCondition TriggerCondition { get; set; }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects) : base(effects)
+        public TriggeredAbility(TriggerCondition triggerCondition, Card source) : base(null, source)
         {
             TriggerCondition = triggerCondition;
         }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect) : this(triggerCondition, new Queue<OneShotEffect>()) {
+        public TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects, Card source) : base(effects, source)
+        {
+            TriggerCondition = triggerCondition;
+        }
+
+        public TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect, Card source) : this(triggerCondition, new Queue<OneShotEffect>(), source) {
             Effects.Enqueue(effect);
         }
 
@@ -28,7 +33,9 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
         /// <returns></returns>
         public TriggeredAbility CreatePendingTriggeredAbility(Player controller, Card source)
         {
-            return new TriggeredAbility(TriggerCondition, Effects) { Controller = controller, Source = source };
+            // TODO: Rework
+            return null;
+            //return new TriggeredAbility(TriggerCondition, Effects) { Controller = controller, Source = source };
             /*
             var effects = new List<Effect>();
             foreach (var effect in Effects)

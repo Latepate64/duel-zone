@@ -13,7 +13,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// </summary>
         public List<ContinuousEffect> ContinuousEffects { get; private set; }
 
-        protected StaticAbility(ContinuousEffect continuousEffect)
+        protected StaticAbility(ContinuousEffect continuousEffect, Cards.Card source) : base(source)
         {
             ContinuousEffects = new List<ContinuousEffect> {continuousEffect};
         }

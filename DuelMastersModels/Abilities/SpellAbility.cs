@@ -2,9 +2,9 @@
 
 namespace DuelMastersModels.Abilities
 {
-    internal class SpellAbility : NonStaticAbility
+    internal abstract class SpellAbility : NonStaticAbility
     {
-        internal SpellAbility(System.Collections.Generic.Queue<OneShotEffect> effects) : base(effects)
+        internal SpellAbility(System.Collections.Generic.Queue<OneShotEffect> effects, Cards.Card source) : base(effects, source)
         { }
     }
 }
