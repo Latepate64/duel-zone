@@ -18,23 +18,34 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                //TODO: Check if cards can be used
-                bool cardsCanBeUsed = true;
-                if (cardsCanBeUsed)
+                var usableCards = duel.CurrentTurn.ActivePlayer.GetUsableCardsWithPaymentInformation();
+                if (usableCards.Any())
                 {
-                    return new CardUsageChoice(duel.CurrentTurn.ActivePlayer);
+                    return new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards);
                 }
                 else
                 {
                     PassPriority = true;
                     return null;
                 }
-                //IEnumerable<Card> usableCards = MainStep.GetUsableCards(ActivePlayer.Hand.Cards, ActivePlayer.ManaZone.UntappedCards);
-                //return new PriorityActionChoice(ActivePlayer, ActivePlayer.Hand.Cards, usableCards, duel.GetCreaturesThatCanAttack(ActivePlayer));
             }
             else
             {
-                throw new System.NotImplementedException();
+                var usage = choice as CardUsageChoice;
+                if (usage.Selected == null)
+                {
+                    PassPriority = true;
+                    return null;
+                }
+                else
+                {
+                    foreach (Card mana in usage.Selected)
+                    {
+                        mana.Tapped = true;
+                    }
+                    duel.UseCard(duel.CurrentTurn.ActivePlayer, usage.Selected.Key);
+                    return null;
+                }
             }
         }
 

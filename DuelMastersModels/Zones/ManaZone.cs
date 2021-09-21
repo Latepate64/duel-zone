@@ -35,5 +35,17 @@ namespace DuelMastersModels.Zones
         {
             _ = _cards.Remove(card);
         }
+
+        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
+        {
+            if (cards.Any())
+            {
+                return new List<IEnumerable<Civilization>>{civs.Distinct()};
+            }
+            else
+            {
+                return cards.First().Civilizations.Select(x => civs.Append(x)).SelectMany(x => GetCivilizationSubsequences(cards.Skip(1), x)).Distinct();
+            }
+        }
     }
 }

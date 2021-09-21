@@ -175,5 +175,55 @@ namespace DuelMastersModels
         }
 
         private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
+
+        //TODO: This probably will not be needed
+        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
+        {
+            if (!cards.Any())
+            {
+                return new List<IEnumerable<Civilization>>{civs.Distinct()};
+            }
+            else
+            {
+                return cards.First().Civilizations.Select(x => civs.Append(x)).SelectMany(x => GetCivilizationSubsequences(cards.Skip(1), x)).Distinct();
+            }
+        }
+
+        internal IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> GetUsableCardsWithPaymentInformation()
+        {
+            return Hand.Cards.
+                Where(card => card.Cost <= ManaZone.UntappedCards.Count()).
+                GroupBy(card => card, card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards));
+        }
+
+        private static IEnumerable<IEnumerable<Card>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
+        {
+            if (remainingCost == 0)
+            {
+                if (!remainingCivs.Any())
+                {
+                    return new List<IEnumerable<Card>>{locked};
+                }
+                else
+                {
+                    return new List<IEnumerable<Card>>();
+                }
+            }
+            else
+            {
+                return unlocked.SelectMany(u => 
+                    u.Civilizations.SelectMany(civ => 
+                        GetCardsThatCanBeUsedInPayment(remainingCost-1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)))).Distinct();
+                // var result = new List<IEnumerable<Card>>(); 
+                // foreach (Card u in unlocked)
+                // {
+                //     foreach (Civilization civ in u.Civilizations)
+                //     {
+                //         result.Concat(GetCardsThatCanBeUsedInPayment(--remainingCost, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)));
+                //     }
+                // }
+                // return result;
+            }
+        }
     }
 }

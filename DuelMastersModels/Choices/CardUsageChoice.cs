@@ -1,16 +1,18 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Choices
 {
     public class CardUsageChoice : Choice
     {
-        public IEnumerable<Card> UseCards { get; }
-        public IEnumerable<Creature> AttackCreatures { get; }
-        public bool TurnEndable { get; }
+        public IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> UseableCards { get; }
 
-        public CardUsageChoice(Player player) : base(player)
+        public IGrouping<Card, IEnumerable<Card>> Selected { get; set; }
+
+        public CardUsageChoice(Player player, IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> useableCards) : base(player)
         {
+            UseableCards = useableCards;
         }
     }
 }
