@@ -39,6 +39,6 @@ namespace DuelMastersModels.Cards
             Races = new Collection<Race>(races.ToList());
         }
 
-        protected Creature(int cost, Civilization civilization, int power, Race races) : this(cost, new List<Civilization> {civilization}, power, new List<Race> {races}) {}
+        protected Creature(int cost, Civilization civilization, int power, Race races) : this(cost, new List<Civilization> { civilization }, power, new List<Race> { races }) { }
     }
 }

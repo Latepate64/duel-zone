@@ -7,5 +7,5 @@
     {
     }
 
-    internal class Once : Period {}
+    internal class Once : Period { }
 }

@@ -10,7 +10,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
 
     internal class DoubleBreaker : StaticAbility
     {
-        internal DoubleBreaker(Creature creature) : base(null, creature) {} //TODO: Provide effect
+        internal DoubleBreaker(Creature creature) : base(null, creature) { } //TODO: Provide effect
     }
 }
 

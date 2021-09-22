@@ -40,11 +40,11 @@ namespace DuelMastersModels.Zones
         public override void Add(Card card)
         {
             _cards.Add(card);
-            if (card is Creature creature)
-            {
-                Duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
-                Duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
-            }
+            //if (card is Creature creature)
+            //{
+            //    Duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
+            //    Duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
+            //}
         }
 
         public override void Remove(Card card)

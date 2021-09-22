@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
@@ -52,8 +51,6 @@ namespace DuelMastersModels
         /// </summary>
         private readonly Collection<Spell> _spellsBeingResolved = new Collection<Spell>();
 
-        private readonly AbilityManager _abilityManager = new AbilityManager();
-
         private readonly ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
@@ -63,7 +60,7 @@ namespace DuelMastersModels
 
         public Duel()
         {
-            _continuousEffectManager = new ContinuousEffectManager(this, _abilityManager);
+            _continuousEffectManager = new ContinuousEffectManager(this);
         }
 
         /// <summary>
@@ -98,8 +95,9 @@ namespace DuelMastersModels
             _turns.Add(turn);
             return turn.Start(BattleZone, this, _turns.Count + 1);
         }
-        
-        public Choice Continue(Choice choice) {
+
+        public Choice Continue(Choice choice)
+        {
             return CurrentTurn.CurrentStep.Proceed(choice, this);
         }
 
@@ -125,25 +123,25 @@ namespace DuelMastersModels
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature, BattleZone);
+                defendingCreature.Owner.PutFromZoneIntoGraveyard(defendingCreature, BattleZone);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature, BattleZone);
+                attackingCreature.Owner.PutFromZoneIntoGraveyard(attackingCreature, BattleZone);
             }
             else
             {
-                attackingCreature.Owner.PutFromBattleZoneIntoGraveyard(attackingCreature, BattleZone);
-                defendingCreature.Owner.PutFromBattleZoneIntoGraveyard(defendingCreature, BattleZone);
+                attackingCreature.Owner.PutFromZoneIntoGraveyard(attackingCreature, BattleZone);
+                defendingCreature.Owner.PutFromZoneIntoGraveyard(defendingCreature, BattleZone);
             }
         }
 
         /// <summary>
         /// Card is used based on its type: A creature is put into the battle zone; A spell is put into your graveyard.
         /// </summary>
-        /// <param name="player"></param>
         /// <param name="card"></param>
-        public void UseCard(Player player, Card card)
+        /// 
+        public void UseCard(Card card)
         {
             if (card is Creature creature)
             {
@@ -159,16 +157,6 @@ namespace DuelMastersModels
             }
         }
 
-        /// <summary>
-        /// Player adds a card from their hand to their shields face down.
-        /// </summary>
-        /// <param name="card"></param>
-        public void AddFromYourHandToYourShieldsFaceDown(Card card)
-        {
-            card.Owner.Hand.Remove(card);
-            card.Owner.ShieldZone.Add(card);
-        }
-
         public void EndContinuousEffects<T>()
         {
             _continuousEffectManager.EndContinuousEffects<T>();
@@ -177,22 +165,6 @@ namespace DuelMastersModels
         public void AddContinuousEffect(ContinuousEffect continuousEffect)
         {
             _continuousEffectManager.AddContinuousEffect(continuousEffect);
-        }
-
-        public void TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(Creature creature)
-        {
-            _abilityManager.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
-        }
-
-        public void TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(Creature excludedCreature)
-        {
-            _abilityManager.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(new ReadOnlyCollection<Creature>(BattleZone.Creatures.Except(new List<Creature> { excludedCreature }).ToList()));
-        }
-
-        public void SetPendingAbilityToBeResolved(NonStaticAbility ability)
-        {
-            _abilityManager.RemovePendingAbility(ability);
-            _abilityManager.SetAbilityBeingResolved(ability);
         }
 
         /// <summary>
@@ -217,11 +189,11 @@ namespace DuelMastersModels
             return _continuousEffectManager.AttacksIfAble(creature);
         }
 
-        public IEnumerable<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
-        {
-            return new ReadOnlyCollection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
-            //TODO: consider situations where abilities of attacking creature matter etc.
-        }
+        //public IEnumerable<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
+        //{
+        //    return new ReadOnlyCollection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
+        //    //TODO: consider situations where abilities of attacking creature matter etc.
+        //}
 
         public IEnumerable<Creature> GetCreaturesThatCanAttack(Player player)
         {
@@ -233,26 +205,6 @@ namespace DuelMastersModels
         {
             return BattleZone.GetTappedCreatures(player.Opponent);
             //TODO: Consider attacking creature
-        }
-
-        /// <summary>
-        /// Player draws a card.
-        /// </summary>
-        public Choice DrawCard(Player player)
-        {
-            player.DrawCards(1);
-            return null;
-            //TODO: remove
-            /*
-            if (cards.Count == 1)
-            {
-                drawnCard = cards.First();
-                return null;
-            }
-            else
-            {
-                throw new InvalidOperationException("drawnCard");
-            }*/
         }
 
         public Choice PutFromShieldZoneToHand(Player player, Card card, bool canUseShieldTrigger)
@@ -275,36 +227,24 @@ namespace DuelMastersModels
             //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
         }
 
-        public Choice PutTheTopCardOfYourDeckIntoYourManaZone(Player player)
+        public Choice ReturnFromBattleZoneToHand(Card card)
         {
-            player.ManaZone.Add(player.RemoveTopCardOfDeck());
+            BattleZone.Remove(card);
+            card.Owner.Hand.Add(card);
             return null;
         }
 
-        public Choice ReturnFromBattleZoneToHand(Creature creature)
+        public Choice PutFromBattleZoneIntoOwnersManazone(Card card)
         {
-            BattleZone.Remove(creature);
-            creature.Owner.Hand.Add(creature);
+            BattleZone.Remove(card);
+            card.Owner.ManaZone.Add(card);
             return null;
         }
 
-        public Choice PutFromBattleZoneIntoOwnersManazone(Creature creature)
+        public Choice PutFromManaZoneIntoTheBattleZone(Card card)
         {
-            BattleZone.Remove(creature);
-            creature.Owner.ManaZone.Add(creature);
-            return null;
-        }
-
-        public Choice PutFromManaZoneIntoTheBattleZone(Creature creature)
-        {
-            creature.Owner.ManaZone.Remove(creature);
-            BattleZone.Add(creature);
-            return null;
-        }
-
-        public Choice AddTheTopCardOfYourDeckToYourShieldsFaceDown(Player player)
-        {
-            player.PutFromTopOfDeckIntoShieldZone(1);
+            card.Owner.ManaZone.Remove(card);
+            BattleZone.Add(card);
             return null;
         }
 
@@ -321,7 +261,7 @@ namespace DuelMastersModels
             return cards;
         }
 
-        private Card PutFromShieldZoneToHand(Player player, Card card)
+        private static Card PutFromShieldZoneToHand(Player player, Card card)
         {
             player.ShieldZone.Remove(card);
             player.Hand.Add(card);
@@ -417,22 +357,21 @@ namespace DuelMastersModels
             }
         }
 
-        private IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
-        {
-            return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
-        }
+        //private IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
+        //{
+        //    return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
+        //}
 
         private void CastSpell(Spell spell)
         {
             _spellsBeingResolved.Add(spell);
-            _abilityManager.TriggerWheneverAPlayerCastsASpellAbilities(BattleZone.Creatures);
         }
 
         internal void Destroy(IEnumerable<Creature> creatures)
         {
             foreach (var creature in creatures)
             {
-                creature.Owner.PutFromBattleZoneIntoGraveyard(creature, BattleZone);
+                creature.Owner.PutFromZoneIntoGraveyard(creature, BattleZone);
             }
         }
 

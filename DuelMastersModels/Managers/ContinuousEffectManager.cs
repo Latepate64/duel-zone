@@ -8,13 +8,11 @@ namespace DuelMastersModels.Managers
 {
     public class ContinuousEffectManager
     {
-        public AbilityManager AbilityManager { get; set; }
         public Duel Duel { get; set; }
 
-        public ContinuousEffectManager(Duel duel, AbilityManager abilityManager)
+        public ContinuousEffectManager(Duel duel)
         {
             Duel = duel;
-            AbilityManager = abilityManager;
         }
 
         public void AddContinuousEffect(ContinuousEffect continuousEffect)
@@ -38,13 +36,14 @@ namespace DuelMastersModels.Managers
 
         public IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
         {
-            List<Creature> blockers = new List<Creature>();
-            IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
-            foreach (Creature creature in Duel.BattleZone.Creatures)
-            {
-                blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
-            }
-            return new ReadOnlyCollection<Creature>(blockers);
+            throw new System.NotImplementedException();
+            //List<Creature> blockers = new List<Creature>();
+            //IEnumerable<BlockerEffect> blockerEffects = GetContinuousEffects<BlockerEffect>();
+            //foreach (Creature creature in Duel.BattleZone.Creatures)
+            //{
+            //    blockers.AddRange(blockerEffects.Where(blockerEffect => blockerEffect.CreatureFilter.FilteredCreatures.Contains(creature)).Select(blockerEffect => creature));
+            //}
+            //return new ReadOnlyCollection<Creature>(blockers);
         }
 
         public bool HasSpeedAttacker(Creature creature)
@@ -108,12 +107,13 @@ namespace DuelMastersModels.Managers
 
         private List<ContinuousEffect> GetContinuousEffects()
         {
-            List<ContinuousEffect> continuousEffects = _continuousEffects.ToList();
-            foreach (Card card in Duel.GetAllCards())
-            {
-                continuousEffects.AddRange(AbilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner, Duel.BattleZone));
-            }
-            return new List<ContinuousEffect>(continuousEffects);
+            throw new System.NotImplementedException();
+            //List<ContinuousEffect> continuousEffects = _continuousEffects.ToList();
+            //foreach (Card card in Duel.GetAllCards())
+            //{
+            //    continuousEffects.AddRange(AbilityManager.GetContinuousEffectsGeneratedByCard(card, card.Owner, Duel.BattleZone));
+            //}
+            //return new List<ContinuousEffect>(continuousEffects);
         }
     }
 }

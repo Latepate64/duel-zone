@@ -1,6 +1,5 @@
-﻿using DuelMastersModels.Abilities.StaticAbilities;
+﻿
 using DuelMastersModels.Cards;
-using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
@@ -76,7 +75,7 @@ namespace DuelMastersModels
             _shieldTriggerManager.AddShieldTriggerToUse(card);
         }
 
-        public Choice Use(Card card, IEnumerable<Card> manaCards)
+        public static Choice Use(Card card, IEnumerable<Card> manaCards)
         {
             if (card == null)
             {
@@ -87,7 +86,7 @@ namespace DuelMastersModels
                 throw new ArgumentNullException(nameof(manaCards));
             }
             //return Duel.Progress();
-            throw new NotImplementedException("Consider mana payment");
+            throw new NotImplementedException(); // Mana payment
         }
 
         public void RemoveShieldTriggerToUse(Card card)
@@ -95,32 +94,10 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public List<ContinuousEffect> GetContinuousEffectsGeneratedByStaticAbility(Card card, StaticAbility staticAbility, BattleZone battleZone)
+        public void PutFromZoneIntoGraveyard(Card card, Zone zone)
         {
-            if (staticAbility is StaticAbilityForCreature staticAbilityForCreature)
-            {
-                return staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.Anywhere ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone && card is Creature battleZoneCard && battleZone.Cards.Contains(battleZoneCard)) ||
-                    (staticAbilityForCreature.EffectActivityCondition == EffectActivityConditionForCreature.WhileThisCreatureIsInYourHand && card is Creature handCreature && Hand.Cards.Contains(handCreature))
-                    ? staticAbilityForCreature.ContinuousEffects
-                    : new List<ContinuousEffect>();
-            }
-            else if (staticAbility is StaticAbilityForSpell staticAbilityForSpell)
-            {
-                return staticAbilityForSpell.EffectActivityCondition == StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand && card is Spell handSpell && Hand.Cards.Contains(handSpell)
-                    ? staticAbilityForSpell.ContinuousEffects
-                    : new List<ContinuousEffect>();
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
-        public void PutFromBattleZoneIntoGraveyard(Creature creature, BattleZone battleZone)
-        {
-            battleZone.Remove(creature);
-            Graveyard.Add(creature);
+            zone.Remove(card);
+            Graveyard.Add(card);
         }
 
         /// <summary>
@@ -181,7 +158,7 @@ namespace DuelMastersModels
         {
             if (!cards.Any())
             {
-                return new List<IEnumerable<Civilization>>{civs.Distinct()};
+                return new List<IEnumerable<Civilization>> { civs.Distinct() };
             }
             else
             {
@@ -202,7 +179,7 @@ namespace DuelMastersModels
             {
                 if (!remainingCivs.Any())
                 {
-                    return new List<IEnumerable<Card>>{locked};
+                    return new List<IEnumerable<Card>> { locked };
                 }
                 else
                 {
@@ -211,9 +188,9 @@ namespace DuelMastersModels
             }
             else
             {
-                return unlocked.SelectMany(u => 
-                    u.Civilizations.SelectMany(civ => 
-                        GetCardsThatCanBeUsedInPayment(remainingCost-1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)))).Distinct();
+                return unlocked.SelectMany(u =>
+                    u.Civilizations.SelectMany(civ =>
+                        GetCardsThatCanBeUsedInPayment(remainingCost - 1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)))).Distinct();
                 // var result = new List<IEnumerable<Card>>(); 
                 // foreach (Card u in unlocked)
                 // {

@@ -40,7 +40,7 @@ namespace DuelMastersModels.Zones
         {
             if (cards.Any())
             {
-                return new List<IEnumerable<Civilization>>{civs.Distinct()};
+                return new List<IEnumerable<Civilization>> { civs.Distinct() };
             }
             else
             {

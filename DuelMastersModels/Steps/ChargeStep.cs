@@ -19,11 +19,13 @@ namespace DuelMastersModels.Steps
 
         protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
         {
-            if (choice == null) {
-                return new Choices.CardSelections.OptionalCardSelection(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
+            if (choice == null)
+            {
+                return new Choices.CardSelections.CardSelection<Cards.Card>(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
             }
-            else {
-                var cards = (choice as Choices.CardSelections.OptionalCardSelection).SelectedCards;
+            else
+            {
+                var cards = (choice as Choices.CardSelections.CardSelection<Cards.Card>).SelectedCards;
                 if (cards.Any()) { duel.CurrentTurn.ActivePlayer.PutFromHandIntoManaZone(cards.Single()); }
                 PassPriority = true;
                 return null;

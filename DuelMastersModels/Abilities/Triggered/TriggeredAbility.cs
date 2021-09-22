@@ -11,38 +11,19 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
     {
         public TriggerCondition TriggerCondition { get; set; }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, Card source) : base(null, source)
+        protected TriggeredAbility(TriggerCondition triggerCondition, Card source) : base(null, source)
         {
             TriggerCondition = triggerCondition;
         }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects, Card source) : base(effects, source)
+        protected TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects, Card source) : base(effects, source)
         {
             TriggerCondition = triggerCondition;
         }
 
-        public TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect, Card source) : this(triggerCondition, new Queue<OneShotEffect>(), source) {
+        protected TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect, Card source) : this(triggerCondition, new Queue<OneShotEffect>(), source)
+        {
             Effects.Enqueue(effect);
-        }
-
-        /// <summary>
-        /// 603.3. Once an ability has triggered, its controller puts it on the stack as an object that’s not a card the next time a player would receive priority.
-        /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public TriggeredAbility CreatePendingTriggeredAbility(Player controller, Card source)
-        {
-            // TODO: Rework
-            return null;
-            //return new TriggeredAbility(TriggerCondition, Effects) { Controller = controller, Source = source };
-            /*
-            var effects = new List<Effect>();
-            foreach (var effect in Effects)
-            {
-                effects.Add(effect.DeepCopy());
-            }
-            return new TriggeredAbility(TriggerCondition, effects);*/
         }
     }
 

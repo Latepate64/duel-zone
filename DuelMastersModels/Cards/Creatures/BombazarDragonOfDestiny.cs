@@ -87,16 +87,17 @@ namespace DuelMastersModels.Cards.Creatures
 
         public override Choice Resolve(Duel duel, Choice choice)
         {
-            // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
-            if (choice == null)
-            {
+            throw new System.NotImplementedException();
+            //// When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
+            //if (choice == null)
+            //{
 
-            }
-            Creature creature;// = choice as Choice
-            duel.Destroy(creature);
-            // Then put the top card of your deck into your mana zone.
-            Controller.PutFromTopOfDeckIntoManaZone();
-            return null;
+            //}
+            //Creature creature;// = choice as Choice
+            //duel.Destroy(creature);
+            //// Then put the top card of your deck into your mana zone.
+            //Controller.PutFromTopOfDeckIntoManaZone();
+            //return null;
         }
     }
 }
