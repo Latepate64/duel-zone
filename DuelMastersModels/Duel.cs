@@ -94,9 +94,9 @@ namespace DuelMastersModels
 
         public Choice StartNewTurn(Player activePlayer)
         {
-            Turn turn = new Turn(activePlayer, _turns.Count + 1);
+            Turn turn = new Turn(activePlayer);
             _turns.Add(turn);
-            return turn.Start(BattleZone, this);
+            return turn.Start(BattleZone, this, _turns.Count + 1);
         }
         
         public Choice Continue(Choice choice) {

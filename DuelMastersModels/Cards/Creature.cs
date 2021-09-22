@@ -8,7 +8,9 @@ namespace DuelMastersModels.Cards
     public enum Race
     {
         ArmoredDragon,
+        BeastFolk,
         EarthDragon,
+        Human,
         LiquidPeople,
     }
 

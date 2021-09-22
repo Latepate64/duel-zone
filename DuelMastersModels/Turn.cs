@@ -36,15 +36,15 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(Player activePlayer, int number)
+        public Turn(Player activePlayer)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = activePlayer.Opponent;
-            Number = number;
         }
 
-        public Choice Start(BattleZone battleZone, Duel duel)
+        public Choice Start(BattleZone battleZone, Duel duel, int number)
         {
+            Number = number;
             if (!Steps.Any())
             {
                 Steps.Add(new StartOfTurnStep(Number == 1, battleZone));
