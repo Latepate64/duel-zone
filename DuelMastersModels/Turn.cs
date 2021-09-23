@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn
+    public class Turn : ICopyable<Turn>
     {
         #region Properties
         /// <summary>
@@ -18,7 +18,7 @@ namespace DuelMastersModels
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        public Player NonActivePlayer { get; }
+        public Player NonActivePlayer { get; private set; }
 
         /// <summary>
         /// The step that is currently being processed.
@@ -28,7 +28,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        internal ICollection<Step> Steps { get; } = new Collection<Step>();
+        internal IList<Step> Steps { get; private set; } = new Collection<Step>();
 
         /// <summary>
         /// The number of the turn.
@@ -94,6 +94,16 @@ namespace DuelMastersModels
             {
                 return choice;
             }
+        }
+
+        public Turn Copy()
+        {
+            return new Turn(ActivePlayer.Copy())
+            {
+                NonActivePlayer = NonActivePlayer.Copy(),
+                Number = Number,
+                Steps = Steps.Select(x => x.Copy()).ToList(),
+            };
         }
     }
 }

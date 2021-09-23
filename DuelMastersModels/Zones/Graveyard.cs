@@ -1,12 +1,16 @@
 ﻿using DuelMastersModels.Cards;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
     /// <summary>
     /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
     /// </summary>
-    public class Graveyard : Zone
+    public class Graveyard : Zone, ICopyable<Graveyard>
     {
+        public Graveyard(IEnumerable<Card> cards) : base(cards) { }
+
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
@@ -18,6 +22,11 @@ namespace DuelMastersModels.Zones
         public override void Remove(Card card)
         {
             _ = _cards.Remove(card);
+        }
+
+        public Graveyard Copy()
+        {
+            return new Graveyard(Cards.Select(x => x.Copy()));
         }
     }
 }

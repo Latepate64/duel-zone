@@ -6,5 +6,10 @@ namespace DuelMastersModels.Abilities.StaticAbilities
     {
         internal SpellShieldTrigger(Spell spell, Card source) : base(new Effects.ContinuousEffects.SpellShieldTriggerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetSpellFilter(spell)), StaticAbilityForSpellActivityCondition.WhileThisSpellIsInYourHand, source)
         { }
+
+        public override Ability Copy()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

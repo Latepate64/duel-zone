@@ -27,11 +27,11 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Race is a characteristic of a creature.
         /// </summary>
-        public ICollection<Race> Races { get; }
+        public ICollection<Race> Races { get; private set; }
 
-        public ICollection<TriggeredAbility> TriggerAbilities { get; }
+        public ICollection<TriggeredAbility> TriggerAbilities { get; private set; }
 
-        public bool SummoningSickness { get; }
+        public bool SummoningSickness { get; private set; }
 
         protected Creature(int cost, IEnumerable<Civilization> civilizations, int power, IEnumerable<Race> races) : base(cost, civilizations)
         {
@@ -40,5 +40,20 @@ namespace DuelMastersModels.Cards
         }
 
         protected Creature(int cost, Civilization civilization, int power, Race races) : this(cost, new List<Civilization> { civilization }, power, new List<Race> { races }) { }
+
+        protected Creature Copy(Creature creature)
+        {
+            creature = base.Copy(creature) as Creature;
+            creature.Power = Power;
+            creature.Races = new Collection<Race>(Races.ToList());
+            creature.TriggerAbilities = TriggerAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
+            creature.SummoningSickness = SummoningSickness;
+            return creature;
+        }
+
+        IAttackable ICopyable<IAttackable>.Copy()
+        {
+            return Copy() as IAttackable;
+        }
     }
 }

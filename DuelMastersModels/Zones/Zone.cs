@@ -10,9 +10,11 @@ namespace DuelMastersModels.Zones
     /// </summary>
     public abstract class Zone
     {
-        /// <summary>
-        /// Cards that are in the zone.
-        /// </summary>
+        protected Zone(IEnumerable<Card> cards)
+        {
+            _cards = new Collection<Card>(cards.ToList());
+        }
+
         public IEnumerable<Card> Cards => new ReadOnlyCollection<Card>(_cards.ToList());
 
         #region Internal
@@ -48,6 +50,6 @@ namespace DuelMastersModels.Zones
         #endregion Methods
         #endregion Internal
 
-        private protected Collection<Card> _cards = new Collection<Card>();
+        private protected Collection<Card> _cards;
     }
 }

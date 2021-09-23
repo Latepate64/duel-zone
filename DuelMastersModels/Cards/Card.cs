@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using DuelMastersModels.Abilities.StaticAbilities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
-    public abstract class Card
+    public abstract class Card : ICopyable<Card>
     {
         public Player Owner { get; set; }
 
-        public IEnumerable<Civilization> Civilizations { get; }
+        public IEnumerable<Civilization> Civilizations { get; private set; }
 
         /// <summary>
         /// Mana cost of the card.
@@ -16,7 +18,7 @@ namespace DuelMastersModels.Cards
 
         public bool Tapped { get; set; }
 
-        protected ICollection<Abilities.StaticAbilities.StaticAbility> StaticAbilities { get; } = new List<Abilities.StaticAbilities.StaticAbility>();
+        protected IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
 
         protected Card(int cost, IEnumerable<Civilization> civilizations)
         {
@@ -28,5 +30,17 @@ namespace DuelMastersModels.Cards
         /// Creates a card.
         /// </summary>
         protected Card(int cost, Civilization civilization) : this(cost, new Collection<Civilization> { civilization }) { }
+
+        public abstract Card Copy();
+
+        protected Card Copy(Card card)
+        {
+            card.Civilizations = new Collection<Civilization>(Civilizations.ToList());
+            card.Cost = Cost;
+            card.Owner = Owner.Copy();
+            card.StaticAbilities = StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();
+            card.Tapped = Tapped;
+            return card;
+        }
     }
 }

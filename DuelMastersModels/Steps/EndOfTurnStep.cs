@@ -13,5 +13,10 @@
         {
             return null;
         }
+
+        public override Step Copy()
+        {
+            return Copy(new EndOfTurnStep());
+        }
     }
 }

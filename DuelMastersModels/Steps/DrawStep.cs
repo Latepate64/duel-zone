@@ -25,5 +25,10 @@ namespace DuelMastersModels.Steps
             duel.CurrentTurn.ActivePlayer.DrawCards(1);
             return null;
         }
+
+        public override Step Copy()
+        {
+            return Copy(new DrawStep());
+        }
     }
 }

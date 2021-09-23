@@ -8,8 +8,10 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
     /// </summary>
-    public class ManaZone : Zone
+    public class ManaZone : Zone, ICopyable<ManaZone>
     {
+        public ManaZone(IEnumerable<Card> cards) : base(cards) { }
+
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
@@ -50,6 +52,11 @@ namespace DuelMastersModels.Zones
             {
                 return cards.First().Civilizations.Select(x => civs.Append(x)).SelectMany(x => GetCivilizationSubsequences(cards.Skip(1), x)).Distinct();
             }
+        }
+
+        public ManaZone Copy()
+        {
+            return new ManaZone(Cards.Select(x => x.Copy()));
         }
     }
 }

@@ -10,5 +10,10 @@
         {
             return new AttackDeclarationStep();
         }
+
+        public override Step Copy()
+        {
+            return Copy(new EndOfAttackStep());
+        }
     }
 }

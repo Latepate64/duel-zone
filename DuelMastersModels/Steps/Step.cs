@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -15,13 +16,13 @@ namespace DuelMastersModels.Steps
         Over,
     }
 
-    public abstract class Step
+    public abstract class Step : ICopyable<Step>
     {
         public abstract Step GetNextStep();
 
         internal Choice Proceed(Choice choiceArg, Duel duel)
         {
-            if (_state == StepState.TurnBasedAction)
+            if (State == StepState.TurnBasedAction)
             {
                 if (this is TurnBasedActionStep turnBasedActionStep)
                 {
@@ -35,10 +36,10 @@ namespace DuelMastersModels.Steps
                         // Do something with turn-based action
                     }
                 }
-                _state = StepState.StateBasedAction;
+                State = StepState.StateBasedAction;
                 return Proceed(null, duel);
             }
-            else if (_state == StepState.StateBasedAction)
+            else if (State == StepState.StateBasedAction)
             {
                 var losers = new Collection<Player>();
                 if (!duel.CurrentTurn.ActivePlayer.Deck.Cards.Any())
@@ -60,42 +61,42 @@ namespace DuelMastersModels.Steps
 
                 else
                 {
-                    _state = StepState.SelectAbility;
+                    State = StepState.SelectAbility;
                     return Proceed(null, duel);
                 }
             }
-            else if (_state == StepState.SelectAbility)
+            else if (State == StepState.SelectAbility)
             {
                 if (choiceArg != null)
                 {
                     // TODO: Set _resolvingAbility based on choice
-                    _state = StepState.ResolveAbility;
+                    State = StepState.ResolveAbility;
                     return Proceed(null, duel);
                 }
-                var activeAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
-                if (activeAbilities.Count() == 1) { _resolvingAbility = activeAbilities.Single(); }
+                var activeAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
+                if (activeAbilities.Count() == 1) { ResolvingAbility = activeAbilities.Single(); }
                 else if (activeAbilities.Any()) { return null; } // TODO: return choice for ability to resolve
                 else
                 {
-                    var nonActiveAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
-                    if (nonActiveAbilities.Count() == 1) { _resolvingAbility = nonActiveAbilities.Single(); }
+                    var nonActiveAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
+                    if (nonActiveAbilities.Count() == 1) { ResolvingAbility = nonActiveAbilities.Single(); }
                     else if (nonActiveAbilities.Any()) { return null; } // TODO: return choice for ability to resolve
                 }
-                _state = (_resolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
+                State = (ResolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
                 return Proceed(null, duel);
             }
-            else if (_state == StepState.ResolveAbility)
+            else if (State == StepState.ResolveAbility)
             {
-                Choice choice = _resolvingAbility.Resolve(duel, choiceArg);
+                Choice choice = ResolvingAbility.Resolve(duel, choiceArg);
                 if (choice != null) { return choice; } // Ability still has not resolved completely.
                 else
                 {
-                    _resolvingAbility = null;
-                    _state = StepState.StateBasedAction;
+                    ResolvingAbility = null;
+                    State = StepState.StateBasedAction;
                     return Proceed(null, duel);
                 }
             }
-            else if (_state == StepState.PriorityAction)
+            else if (State == StepState.PriorityAction)
             {
                 if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
                 {
@@ -103,20 +104,30 @@ namespace DuelMastersModels.Steps
                     if (choice != null) { return choice; }
                     else
                     {
-                        _state = StepState.StateBasedAction;
+                        State = StepState.StateBasedAction;
                         return Proceed(null, duel);
                     }
                 }
-                _state = StepState.Over;
+                State = StepState.Over;
                 return null;
             }
-            else { throw new System.ArgumentOutOfRangeException(_state.ToString()); }
+            else { throw new System.ArgumentOutOfRangeException(State.ToString()); }
+        }
+
+        public abstract Step Copy();
+
+        protected Step Copy(Step step)
+        {
+            step.PendingAbilities = PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            step.ResolvingAbility = ResolvingAbility.Copy() as NonStaticAbility;
+            step.State = State;
+            return step;
         }
 
         private protected Step() { }
 
-        private StepState _state = StepState.TurnBasedAction;
-        private NonStaticAbility _resolvingAbility;
-        private readonly Collection<NonStaticAbility> _pendingAbilities = new Collection<NonStaticAbility>();
+        internal StepState State { get; set; } = StepState.TurnBasedAction;
+        internal NonStaticAbility ResolvingAbility { get; set; }
+        internal List<NonStaticAbility> PendingAbilities { get; set; } = new List<NonStaticAbility>();
     }
 }

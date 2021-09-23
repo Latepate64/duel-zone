@@ -2,5 +2,9 @@
 {
     internal class UntilTheEndOfTheTurn : Period
     {
+        public override Period Copy()
+        {
+            return new UntilTheEndOfTheTurn();
+        }
     }
 }

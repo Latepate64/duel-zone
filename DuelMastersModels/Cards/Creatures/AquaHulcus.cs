@@ -10,6 +10,11 @@ namespace DuelMastersModels.Cards.Creatures
         {
             TriggerAbilities.Add(new AquaHulcusAbility(this));
         }
+
+        public override Card Copy()
+        {
+            return Copy(new AquaHulcus());
+        }
     }
 
     public class AquaHulcusAbility : TriggeredAbility
@@ -23,9 +28,9 @@ namespace DuelMastersModels.Cards.Creatures
             return null;
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
-            return new AquaHulcusAbility(Source);
+            return Copy(new AquaHulcusAbility(Source));
         }
     }
 }

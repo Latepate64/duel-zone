@@ -18,6 +18,11 @@ namespace DuelMastersModels.Steps
             return new EndOfAttackStep();
         }
 
+        public override Step Copy()
+        {
+            return Copy(new DirectAttackStep(AttackingCreature.Copy() as Creature));
+        }
+
         //TODO
         //public Choice PlayerActionRequired(Duel duel)
         //{

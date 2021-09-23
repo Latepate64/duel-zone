@@ -10,14 +10,14 @@ namespace DuelMastersModels.Steps
     {
         public StartOfTurnStep(bool skipDrawStep, BattleZone battleZone)
         {
-            _skipDrawStep = skipDrawStep;
+            SkipDrawStep = skipDrawStep;
             _battleZone = battleZone;
         }
 
         public override Step GetNextStep()
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
-            if (_skipDrawStep)
+            if (SkipDrawStep)
             {
                 return new ChargeStep();
             }
@@ -36,7 +36,12 @@ namespace DuelMastersModels.Steps
             return duel.CurrentTurn.ActivePlayer.UntapCardsInBattleZoneAndManaZone(_battleZone);
         }
 
-        private readonly bool _skipDrawStep;
+        internal bool SkipDrawStep { get; set; }
         private readonly BattleZone _battleZone;
+
+        public override Step Copy()
+        {
+            return Copy(new StartOfTurnStep(SkipDrawStep, _battleZone));
+        }
     }
 }

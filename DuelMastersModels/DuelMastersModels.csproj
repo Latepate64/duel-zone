@@ -103,6 +103,7 @@
     <Compile Include="Choices\GameOver.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="IAttackable.cs" />
+    <Compile Include="ICopyable.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />

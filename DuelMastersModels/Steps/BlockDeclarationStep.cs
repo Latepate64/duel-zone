@@ -52,5 +52,13 @@ namespace DuelMastersModels.Steps
         //    throw new System.NotImplementedException();
         //    //return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
         //}
+
+        public override Step Copy()
+        {
+            return Copy(new BlockDeclarationStep(AttackingCreature.Copy() as Creature, AttackTarget.Copy())
+            {
+                BlockingCreature = BlockingCreature.Copy() as Creature
+            });
+        }
     }
 }

@@ -71,5 +71,10 @@ namespace DuelMastersModels.Steps
         {
             return new AttackDeclarationStep();
         }
+
+        public override Step Copy()
+        {
+            return Copy(new MainStep { PassPriority = PassPriority });
+        }
     }
 }

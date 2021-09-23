@@ -14,6 +14,11 @@ namespace DuelMastersModels.Cards.Creatures
             StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(this));
             StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(this));
         }
+
+        public override Card Copy()
+        {
+            return Copy(new BombazarDragonOfDestiny());
+        }
     }
 
     internal class BombazarDragonOfDestinyAbility : TriggeredAbility
@@ -32,7 +37,7 @@ namespace DuelMastersModels.Cards.Creatures
             return null;
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new BombazarDragonOfDestinyAbility(Source);
         }
@@ -47,11 +52,6 @@ namespace DuelMastersModels.Cards.Creatures
             Turn = turn;
         }
 
-        public override NonStaticAbility Copy()
-        {
-            return new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, Turn);
-        }
-
         public override Choice Resolve(Duel duel, Choice choice)
         {
             var gameOver = new GameOver(WinReason.Bombazar, duel.Players.Where(p => p != Controller), duel.Players.Where(p => p == Controller));
@@ -59,12 +59,22 @@ namespace DuelMastersModels.Cards.Creatures
             duel.State = DuelState.Over;
             return gameOver;
         }
+
+        public override Ability Copy()
+        {
+            return Copy(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, Turn));
+        }
     }
 
     public class GontaTheWarriorSavage : Creature
     {
         public GontaTheWarriorSavage() : base(2, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 4000, new List<Race> { Race.Human, Race.BeastFolk })
         {
+        }
+
+        public override Card Copy()
+        {
+            return Copy(new GontaTheWarriorSavage());
         }
     }
 
@@ -74,6 +84,11 @@ namespace DuelMastersModels.Cards.Creatures
         {
             TriggerAbilities.Add(new WindAxeTheWarriorSavageAbility(this));
         }
+
+        public override Card Copy()
+        {
+            return Copy(new WindAxeTheWarriorSavage());
+        }
     }
 
     internal class WindAxeTheWarriorSavageAbility : TriggeredAbility
@@ -82,9 +97,9 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
-            return new WindAxeTheWarriorSavageAbility(Source);
+            return Copy(new WindAxeTheWarriorSavageAbility(Source));
         }
 
         public override Choice Resolve(Duel duel, Choice choice)

@@ -62,5 +62,14 @@ namespace DuelMastersModels.Steps
                 return new EndOfTurnStep();
             }
         }
+
+        public override Step Copy()
+        {
+            return Copy(new AttackDeclarationStep
+            {
+                AttackingCreature = AttackingCreature.Copy() as Creature,
+                AttackTarget = AttackTarget.Copy(),
+            });
+        }
     }
 }

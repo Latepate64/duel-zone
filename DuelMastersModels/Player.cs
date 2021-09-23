@@ -12,7 +12,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : IAttackable
+    public class Player : IAttackable, ICopyable<Player>
     {
         /// <summary>
         /// The name of the player.
@@ -27,24 +27,22 @@ namespace DuelMastersModels
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; } = new Graveyard();
+        public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; } = new Hand();
+        public Hand Hand { get; private set; } = new Hand(new List<Card>());
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; } = new ManaZone();
+        public ManaZone ManaZone { get; private set; } = new ManaZone(new List<Card>());
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
-
-        public IEnumerable<Card> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
+        public ShieldZone ShieldZone { get; private set; } = new ShieldZone(new List<Card>());
 
         public IEnumerable<Card> CardsInNonsharedZones
         {
@@ -208,6 +206,25 @@ namespace DuelMastersModels
                 // }
                 // return result;
             }
+        }
+
+        public Player Copy()
+        {
+            return new Player
+            {
+                Deck = Deck.Copy(),
+                Graveyard = Graveyard.Copy(),
+                Hand = Hand.Copy(),
+                ManaZone = ManaZone.Copy(),
+                Name = Name,
+                Opponent = Opponent.Copy(),
+                ShieldZone = ShieldZone.Copy()
+            };
+        }
+
+        IAttackable ICopyable<IAttackable>.Copy()
+        {
+            return Copy();
         }
     }
 }

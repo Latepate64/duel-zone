@@ -10,7 +10,7 @@ using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
 {
-    public class Duel
+    public class Duel : ICopyable<Duel>
     {
         public Player StartingPlayer { get; set; }
 
@@ -38,19 +38,19 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; } = new BattleZone();
+        public BattleZone BattleZone { get; private set; } = new BattleZone(new Collection<Card>());
 
         /// <summary>
         /// Spells that are being resolved.
         /// </summary>
-        private readonly Collection<Spell> _spellsBeingResolved = new Collection<Spell>();
+        private List<Spell> _spellsBeingResolved = new List<Spell>();
 
         private readonly ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        private readonly Collection<Turn> _turns = new Collection<Turn>();
+        private IList<Turn> _turns = new List<Turn>();
 
         public Duel()
         {
@@ -367,7 +367,24 @@ namespace DuelMastersModels
             }
         }
 
-        internal Queue<Turn> ExtraTurns { get; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
+        public Duel Copy()
+        {
+            return new Duel
+            {
+                BattleZone = BattleZone.Copy(),
+                DelayedTriggeredAbilities = DelayedTriggeredAbilities.Select(x => x.Copy()).ToList(),
+                ExtraTurns = new Queue<Turn>(ExtraTurns.Select(x => x.Copy())),
+                GameOverInformation = GameOverInformation.Copy(),
+                InitialNumberOfHandCards = InitialNumberOfHandCards,
+                InitialNumberOfShields = InitialNumberOfShields,
+                StartingPlayer = StartingPlayer,
+                State = State,
+                _spellsBeingResolved = _spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList(),
+                _turns = _turns.Select(x => x.Copy()).ToList()
+            };
+        }
+
+        internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
 
         internal ICollection<Abilities.TriggeredAbilities.DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<Abilities.TriggeredAbilities.DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
 

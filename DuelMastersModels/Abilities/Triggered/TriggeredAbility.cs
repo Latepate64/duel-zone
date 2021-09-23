@@ -1,6 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Effects.OneShotEffects;
-using System.Collections.Generic;
 
 namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
@@ -16,18 +14,16 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
             TriggerCondition = triggerCondition;
         }
 
-        protected TriggeredAbility(TriggerCondition triggerCondition, Queue<OneShotEffect> effects, Card source) : base(effects, source)
+        protected TriggeredAbility Copy(TriggeredAbility ability)
         {
-            TriggerCondition = triggerCondition;
-        }
-
-        protected TriggeredAbility(TriggerCondition triggerCondition, OneShotEffect effect, Card source) : this(triggerCondition, new Queue<OneShotEffect>(), source)
-        {
-            Effects.Enqueue(effect);
+            ability.Controller = Controller.Copy();
+            //ability.Effects
+            ability.TriggerCondition = TriggerCondition.Copy();
+            return ability;
         }
     }
 
-    internal class DelayedTriggeredAbility
+    internal class DelayedTriggeredAbility : ICopyable<DelayedTriggeredAbility>
     {
         internal TriggeredAbility TriggeredAbility { get; }
         internal Effects.Periods.Period Period { get; }
@@ -36,6 +32,11 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
         {
             TriggeredAbility = triggeredAbility;
             Period = period;
+        }
+
+        public DelayedTriggeredAbility Copy()
+        {
+            return new DelayedTriggeredAbility(TriggeredAbility.Copy() as TriggeredAbility, Period.Copy());
         }
     }
 }

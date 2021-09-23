@@ -2,5 +2,9 @@
 {
     internal class WheneverAnotherCreatureIsPutIntoTheBattleZone : TriggerCondition
     {
+        public override TriggerCondition Copy()
+        {
+            return new WheneverAnotherCreatureIsPutIntoTheBattleZone();
+        }
     }
 }

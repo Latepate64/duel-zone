@@ -25,16 +25,5 @@ namespace DuelMastersModels.Abilities
         }
 
         public abstract Choice Resolve(Duel duel, Choice choice);
-        public abstract NonStaticAbility Copy();
-
-        // public Choice Resolve(Duel duel, Choice choiceArg) {
-        //     while (Effects.Any()) {
-        //         OneShotEffect effect = Effects.Peek();
-        //         Choice choice = effect.Apply(duel, Controller, choiceArg);
-        //         if (choice != null) {return choice;}
-        //         else {Effects.Dequeue();}
-        //     }
-        //     return null;
-        // }
     }
 }
