@@ -14,10 +14,9 @@ namespace DuelMastersModels
     {
         public Player StartingPlayer { get; set; }
 
-        /// <summary>
-        /// Player who won the duel.
-        /// </summary>
-        public Player Winner { get; private set; }
+        public GameOver GameOverInformation { get; internal set; }
+
+        internal IEnumerable<Player> Players => new Collection<Player> { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer };
 
         /// <summary>
         /// Determines the state of the duel.
@@ -39,12 +38,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; }
-
-        /// <summary>
-        /// Players who lost the duel.
-        /// </summary>
-        private readonly Collection<Player> _losers = new Collection<Player>();
+        public BattleZone BattleZone { get; private set; } = new BattleZone();
 
         /// <summary>
         /// Spells that are being resolved.
@@ -89,26 +83,24 @@ namespace DuelMastersModels
             //return StartingPlayer.TakeTurn(this);
         }
 
-        public Choice StartNewTurn(Player activePlayer)
+        private Choice StartNewTurn(Player activePlayer)
         {
             Turn turn = new Turn(activePlayer);
             _turns.Add(turn);
-            return turn.Start(BattleZone, this, _turns.Count + 1);
+            return turn.Start(BattleZone, this, _turns.Count);
         }
 
         public Choice Continue(Choice choice)
         {
-            return CurrentTurn.CurrentStep.Proceed(choice, this);
-        }
-
-        /// <summary>
-        /// Ends the duel.
-        /// </summary>
-        public void End(Player winner)
-        {
-            Winner = winner;
-            _losers.Add(winner.Opponent);
-            State = DuelState.Over;
+            var choiceVar = CurrentTurn.Continue(choice, this);
+            if (choiceVar == null)
+            {
+                return StartNewTurn(CurrentTurn.NonActivePlayer);
+            }
+            else
+            {
+                return choiceVar;
+            }
         }
 
         /// <summary>

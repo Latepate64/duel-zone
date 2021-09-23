@@ -8,6 +8,7 @@ namespace DuelMastersModels.Steps
     internal enum StepState
     {
         TurnBasedAction,
+        StateBasedAction,
         SelectAbility,
         ResolveAbility,
         PriorityAction,
@@ -34,8 +35,34 @@ namespace DuelMastersModels.Steps
                         // Do something with turn-based action
                     }
                 }
-                _state = StepState.SelectAbility;
+                _state = StepState.StateBasedAction;
                 return Proceed(null, duel);
+            }
+            else if (_state == StepState.StateBasedAction)
+            {
+                var losers = new Collection<Player>();
+                if (!duel.CurrentTurn.ActivePlayer.Deck.Cards.Any())
+                {
+                    losers.Add(duel.CurrentTurn.ActivePlayer);
+                }
+                if (!duel.CurrentTurn.NonActivePlayer.Deck.Cards.Any())
+                {
+                    losers.Add(duel.CurrentTurn.NonActivePlayer);
+                }
+                if (losers.Any())
+                {
+                    var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers), losers);
+                    duel.GameOverInformation = gameOver;
+                    duel.State = DuelState.Over;
+                    return gameOver;
+                }
+                // TODO: Check direct attack
+
+                else
+                {
+                    _state = StepState.SelectAbility;
+                    return Proceed(null, duel);
+                }
             }
             else if (_state == StepState.SelectAbility)
             {
@@ -45,7 +72,6 @@ namespace DuelMastersModels.Steps
                     _state = StepState.ResolveAbility;
                     return Proceed(null, duel);
                 }
-                CheckStateBasedActions(); // TODO: _state-based actions should have its own StepState once they require choices. 
                 var activeAbilities = _pendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
                 if (activeAbilities.Count() == 1) { _resolvingAbility = activeAbilities.Single(); }
                 else if (activeAbilities.Any()) { return null; } // TODO: return choice for ability to resolve
@@ -65,7 +91,7 @@ namespace DuelMastersModels.Steps
                 else
                 {
                     _resolvingAbility = null;
-                    _state = StepState.SelectAbility;
+                    _state = StepState.StateBasedAction;
                     return Proceed(null, duel);
                 }
             }
@@ -77,7 +103,7 @@ namespace DuelMastersModels.Steps
                     if (choice != null) { return choice; }
                     else
                     {
-                        _state = StepState.SelectAbility;
+                        _state = StepState.StateBasedAction;
                         return Proceed(null, duel);
                     }
                 }
@@ -91,8 +117,6 @@ namespace DuelMastersModels.Steps
 
         private StepState _state = StepState.TurnBasedAction;
         private NonStaticAbility _resolvingAbility;
-        private readonly Collection<NonStaticAbility> _pendingAbilities;
-
-        private static void CheckStateBasedActions() { } //TODO: Implement
+        private readonly Collection<NonStaticAbility> _pendingAbilities = new Collection<NonStaticAbility>();
     }
 }

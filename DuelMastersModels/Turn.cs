@@ -82,5 +82,18 @@ namespace DuelMastersModels
                 return ChangeAndStartStep(duel);
             }
         }
+
+        internal Choice Continue(Choice choiceArg, Duel duel)
+        {
+            var choice = CurrentStep.Proceed(choiceArg, duel);
+            if (choice == null)
+            {
+                return ChangeAndStartStep(duel);
+            }
+            else
+            {
+                return choice;
+            }
+        }
     }
 }

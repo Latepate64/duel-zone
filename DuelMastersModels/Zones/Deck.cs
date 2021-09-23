@@ -13,7 +13,7 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
 
-        internal Deck(IEnumerable<Card> cards)
+        public Deck(IEnumerable<Card> cards)
         {
             foreach (Card card in cards)
             {
@@ -72,7 +72,7 @@ namespace DuelMastersModels.Zones
             }
             else
             {
-                throw new InvalidOperationException();
+                return null;
             }
         }
     }

@@ -17,7 +17,7 @@ namespace DuelMastersModels
         /// <summary>
         /// The name of the player.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
@@ -27,22 +27,22 @@ namespace DuelMastersModels
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; }
+        public Graveyard Graveyard { get; private set; } = new Graveyard();
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; }
+        public Hand Hand { get; private set; } = new Hand();
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; }
+        public ManaZone ManaZone { get; private set; } = new ManaZone();
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; }
+        public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
         public IEnumerable<Card> ShieldTriggersToUse => _shieldTriggerManager.ShieldTriggersToUse;
 
@@ -122,7 +122,7 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// Removes the top card from a player's deck and returns it.
+        /// Removes the top card from a player's deck and returns it. Returns null if no cards are left in deck.
         /// </summary>
         public Card RemoveTopCardOfDeck()
         {
@@ -137,7 +137,14 @@ namespace DuelMastersModels
             for (int i = 0; i < amount; ++i)
             {
                 Card drawnCard = RemoveTopCardOfDeck();
-                Hand.Add(drawnCard);
+                if (drawnCard != null)
+                {
+                    Hand.Add(drawnCard);
+                }
+                else
+                {
+                    break;
+                }
 
                 //TODO: Uncomment
                 //DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(this, handCard)));

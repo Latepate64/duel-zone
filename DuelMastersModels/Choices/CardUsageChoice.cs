@@ -8,7 +8,7 @@ namespace DuelMastersModels.Choices
     {
         public IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> UseableCards { get; }
 
-        public IGrouping<Card, IEnumerable<Card>> Selected { get; set; }
+        public System.Tuple<Card, IEnumerable<Card>> Selected { get; set; }
 
         public CardUsageChoice(Player player, IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> useableCards) : base(player)
         {

@@ -28,6 +28,10 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card)
         {
+            if (card.Civilizations.Count() > 1)
+            {
+                card.Tapped = true;
+            }
             _cards.Add(card);
         }
 

@@ -100,6 +100,7 @@
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
+    <Compile Include="Choices\GameOver.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="IAttackable.cs" />
     <Compile Include="Player.cs" />

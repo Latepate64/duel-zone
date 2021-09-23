@@ -20,15 +20,22 @@ namespace DuelMastersModels.Steps
             {
                 var attackers = duel.BattleZone.Creatures.Where(c => c.Owner == duel.CurrentTurn.ActivePlayer && !c.Tapped && !c.SummoningSickness);
                 IEnumerable<IGrouping<Creature, IEnumerable<IAttackable>>> options = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
-                return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options);
+                if (options.Any())
+                {
+                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options);
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
                 var attackerChoice = choice as AttackerChoice;
                 if (attackerChoice.Selected != null)
                 {
-                    AttackingCreature = attackerChoice.Selected.Key;
-                    AttackTarget = attackerChoice.Selected.Single();
+                    AttackingCreature = attackerChoice.Selected.Item1;
+                    AttackTarget = attackerChoice.Selected.Item2;
                 }
                 return null;
             }
