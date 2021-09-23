@@ -4,6 +4,6 @@ namespace DuelMastersModels.Steps
 {
     public abstract class TurnBasedActionStep : Step
     {
-        public abstract Choice PerformTurnBasedAction(Duel duel);
+        public abstract Choice PerformTurnBasedAction(Duel duel, Choice choice);
     }
 }

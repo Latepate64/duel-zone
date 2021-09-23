@@ -101,6 +101,7 @@
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="DuelState.cs" />
+    <Compile Include="IAttackable.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="CardFilters\CardFilter.cs" />
     <Compile Include="CardFilters\CreatureFilter.cs" />

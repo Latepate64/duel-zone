@@ -17,7 +17,7 @@ namespace DuelMastersModels.Cards
     /// <summary>
     /// Creature is a card type.
     /// </summary>
-    public abstract class Creature : Card
+    public abstract class Creature : Card, IAttackable
     {
         /// <summary>
         /// The base power of creature. Use Duel's method GetPower(creature) in order to get the actual power of a creature.

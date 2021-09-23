@@ -6,16 +6,16 @@ namespace DuelMastersModels.Steps
     public class BlockDeclarationStep : TurnBasedActionStep
     {
         internal Creature AttackingCreature { get; private set; }
-        internal Creature AttackedCreature { get; private set; }
+        internal IAttackable AttackTarget { get; private set; }
         internal Creature BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(Creature attackingCreature, Creature attackedCreature)
+        public BlockDeclarationStep(Creature attackingCreature, IAttackable attackTarget)
         {
             AttackingCreature = attackingCreature;
-            AttackedCreature = attackedCreature;
+            AttackTarget = attackTarget;
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel)
+        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
         {
             // TODO: Check if blocking is possible
             bool possibleToBlock = false;
@@ -36,9 +36,9 @@ namespace DuelMastersModels.Steps
             {
                 return new BattleStep(AttackingCreature, BlockingCreature);
             }
-            else if (AttackedCreature != null)
+            else if (AttackTarget is Creature creature)
             {
-                return new BattleStep(AttackingCreature, AttackedCreature);
+                return new BattleStep(AttackingCreature, creature);
             }
             else
             {

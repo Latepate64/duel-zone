@@ -12,7 +12,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player
+    public class Player : IAttackable
     {
         /// <summary>
         /// The name of the player.

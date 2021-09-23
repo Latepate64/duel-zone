@@ -1,15 +1,18 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Choices
 {
     public class AttackerChoice : Choice
     {
-        public IEnumerable<Creature> AttackCreatures { get; }
-        public bool TurnEndable { get; }
+        public IEnumerable<IGrouping<Creature, IEnumerable<IAttackable>>> Options { get; }
 
-        public AttackerChoice(Player player) : base(player)
+        public IGrouping<Creature, IAttackable> Selected { get; set; }
+
+        public AttackerChoice(Player player, IEnumerable<IGrouping<Creature, IEnumerable<IAttackable>>> options) : base(player)
         {
+            Options = options;
         }
     }
 }

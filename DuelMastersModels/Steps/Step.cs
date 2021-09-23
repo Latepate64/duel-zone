@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
                 {
                     if (choiceArg == null)
                     {
-                        Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel);
+                        Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, choiceArg);
                         if (choice != null) { return choice; }
                     }
                     else

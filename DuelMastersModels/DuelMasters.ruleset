@@ -38,7 +38,7 @@
     <Rule Id="CA1036" Action="Error" />
     <Rule Id="CA1038" Action="Error" />
     <Rule Id="CA1039" Action="Error" />
-    <Rule Id="CA1040" Action="Error" />
+    <Rule Id="CA1040" Action="Hidden" />
     <Rule Id="CA1041" Action="Error" />
     <Rule Id="CA1043" Action="Error" />
     <Rule Id="CA1044" Action="Error" />
