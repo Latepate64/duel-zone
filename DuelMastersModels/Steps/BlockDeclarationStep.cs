@@ -21,7 +21,8 @@ namespace DuelMastersModels.Steps
             bool possibleToBlock = false;
             if (possibleToBlock)
             {
-                return new BlockerChoice(duel.CurrentTurn.ActivePlayer);
+                throw new System.NotImplementedException();
+                //return new BlockerChoice(duel.CurrentTurn.ActivePlayer);
             }
             else
             {

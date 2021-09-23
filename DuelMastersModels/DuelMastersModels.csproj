@@ -99,7 +99,6 @@
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
-    <Compile Include="Choices\BlockerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="Player.cs" />
@@ -130,7 +129,7 @@
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Managers\ContinuousEffectManager.cs" />
     <Compile Include="Managers\ShieldTriggerManager.cs" />
-    <Compile Include="Choices\CardSelections\CardSelection.cs" />
+    <Compile Include="Choices\Selection.cs" />
     <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\YesNoChoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

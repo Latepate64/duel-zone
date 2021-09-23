@@ -21,11 +21,11 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                return new Choices.CardSelections.CardSelection<Cards.Card>(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
+                return new Selection<Cards.Card>(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
             }
             else
             {
-                var cards = (choice as Choices.CardSelections.CardSelection<Cards.Card>).SelectedCards;
+                var cards = (choice as Selection<Cards.Card>).Selected;
                 if (cards.Any()) { duel.CurrentTurn.ActivePlayer.PutFromHandIntoManaZone(cards.Single()); }
                 PassPriority = true;
                 return null;
