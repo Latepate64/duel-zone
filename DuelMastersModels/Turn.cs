@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
-using DuelMastersModels.Zones;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,18 +35,18 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(Player activePlayer)
+        public Turn(Player activePlayer, Player nonActivePlayer)
         {
             ActivePlayer = activePlayer;
-            NonActivePlayer = activePlayer.Opponent;
+            NonActivePlayer = nonActivePlayer;
         }
 
-        public Choice Start(BattleZone battleZone, Duel duel, int number)
+        public Choice Start(Duel duel, int number)
         {
             Number = number;
             if (!Steps.Any())
             {
-                Steps.Add(new StartOfTurnStep(Number == 1, battleZone));
+                Steps.Add(new StartOfTurnStep(Number == 1));
                 return StartCurrentStep(duel);
             }
             else
@@ -98,9 +97,8 @@ namespace DuelMastersModels
 
         public Turn Copy()
         {
-            return new Turn(ActivePlayer.Copy())
+            return new Turn(ActivePlayer.Copy(), NonActivePlayer.Copy())
             {
-                NonActivePlayer = NonActivePlayer.Copy(),
                 Number = Number,
                 Steps = Steps.Select(x => x.Copy()).ToList(),
             };

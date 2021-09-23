@@ -44,6 +44,11 @@ namespace DuelMastersModels
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new ShieldZone(new List<Card>());
 
+        /// <summary>
+        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+        /// </summary>
+        public BattleZone BattleZone { get; private set; } = new BattleZone(new List<Card>());
+
         public IEnumerable<Card> CardsInNonsharedZones
         {
             get
@@ -58,7 +63,15 @@ namespace DuelMastersModels
             }
         }
 
-        public Player Opponent { get; set; }
+        public IEnumerable<Card> AllCards
+        {
+            get
+            {
+                List<Card> cards = CardsInNonsharedZones.ToList();
+                cards.AddRange(BattleZone.Cards);
+                return cards;
+            }
+        }
 
         /// <summary>
         /// Player shuffles their deck.
@@ -92,9 +105,9 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public void PutFromZoneIntoGraveyard(Card card, Zone zone)
+        public void PutFromBattleZoneIntoGraveyard(Card card)
         {
-            zone.Remove(card);
+            BattleZone.Remove(card);
             Graveyard.Add(card);
         }
 
@@ -149,9 +162,9 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice UntapCardsInBattleZoneAndManaZone(BattleZone battleZone)
+        public Choice UntapCardsInBattleZoneAndManaZone()
         {
-            battleZone.UntapCards();
+            BattleZone.UntapCards();
             ManaZone.UntapCards();
             return null; //TODO: Could require choice (eg. Silent Skill)
         }
@@ -217,8 +230,8 @@ namespace DuelMastersModels
                 Hand = Hand.Copy(),
                 ManaZone = ManaZone.Copy(),
                 Name = Name,
-                Opponent = Opponent.Copy(),
-                ShieldZone = ShieldZone.Copy()
+                ShieldZone = ShieldZone.Copy(),
+                BattleZone = BattleZone.Copy(),
             };
         }
 

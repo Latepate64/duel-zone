@@ -11,86 +11,107 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 20;
+        const int ChoicesMax = 1;
 
         static void Main(string[] args)
         {
-            var deck1 = Enumerable.Repeat(new GontaTheWarriorSavage(), 40);
-            var deck2 = Enumerable.Repeat(new GontaTheWarriorSavage(), 40);
+            List<Card> deck1 = new();
+            List<Card> deck2 = new();
+            const int Count = 40;
+            for (int i = 0; i < Count; ++i)
+            {
+                deck1.Add(new GontaTheWarriorSavage() { Id = Guid.NewGuid() });
+                deck2.Add(new GontaTheWarriorSavage() { Id = Guid.NewGuid() });
+            }
             Player player1 = new() { Name = "Shobu", Deck = new Deck(deck1) };
             Player player2 = new() { Name = "Kokujo", Deck = new Deck(deck2) };
-            foreach (var card in player1.Deck.Cards)
-            {
-                card.Owner = player1;
-            }
-            foreach (var card in player2.Deck.Cards)
-            {
-                card.Owner = player2;
-            }
-            player1.Opponent = player2;
-            player2.Opponent = player1;
-            Duel duel = new() { StartingPlayer = player1 };
-            Choice choice = duel.Start();
+            Duel duel = new();
+            Choice choice = duel.Start(player1, player2);
             while (choice is not GameOver)
             {
-                var simulation = Choose(new Simulation(choice, duel.Copy(), ChoicesMax, choice.Player.Copy()));
-                choice = duel.Continue(simulation.Choice);
+                var simulation = Choose(new Simulation(choice, duel, ChoicesMax, choice.Player.Name, null));
+                choice = duel.Continue(simulation.PreviousChoice);
             }
         }
 
         static Simulation Choose(Simulation simulation)
         {
-            if (simulation.Choice is Selection<Card> selection)
+            if (simulation.ChoicesRemaining <= 0)
+            {
+                return simulation;
+            }
+            else if (simulation.Choice is Selection<Card> selection)
             {
                 var numberOfOptions = selection.Options.Count();
                 if (selection.MinimumSelection == 0)
                 {
                     numberOfOptions += 1;
                 }
-                //simulation.ChoicesRemaining -= numberOfOptions; //TODO: Improve numberOfOptions calculation
-               
-                //var selections = selection.Options.Select(x => )
-                //var jotain = selection.Options.Select(x => Choose(x, simulation));
-                //foreach (var option in selection.Options)
-                //{
-                //    simulation.
-                //}
+                var sims = new List<Simulation>();
+                foreach (var option in selection.Options)
+                {
+                    selection.Selected = new List<Card> { option };
+                    //var previousChoice = new Selection<Card>(new List<Card> { option });
+                    var request = simulation.Duel.Continue(selection);
+                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - numberOfOptions, simulation.SimulatorName, selection));
+                    sims.Add(sim);
+                }
 
-                throw new NotImplementedException();
-
-                //selection.Selected = selection.Options.Take(selection.MaximumSelection);
+                //var sims = selection.Options.Select(x =>
+                //    Choose(new Simulation(
+                //        new Selection<Card>(new List<Card> { x }),
+                //        simulation.Duel,
+                //        simulation.ChoicesRemaining - numberOfOptions,
+                //        simulation.SimulatorName)));
+                return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Name == simulation.SimulatorName), selection.Player);
             }
             else if (simulation.Choice is CardUsageChoice usage)
             {
-                //simulation.ChoicesRemaining -= usage.UseableCards.Sum(o => o.Count());
-
-                //IGrouping<Card, IEnumerable<IEnumerable<Card>>> first = usage.UseableCards.First();
-                //usage.Selected = new Tuple<Card, IEnumerable<Card>>(first.Key, first.First().First());
-
-                throw new NotImplementedException();
+                IEnumerable<Tuple<Card, IEnumerable<Card>>> options = usage.UseableCards.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new Tuple<Card, IEnumerable<Card>>(toUse.Key, x))));
+                var sims = new List<Simulation>();
+                foreach (var option in options)
+                {
+                    var previousChoice = new CardUsageChoice(option);
+                    var request = simulation.Duel.Continue(previousChoice);
+                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - options.Count(), simulation.SimulatorName, previousChoice));
+                    sims.Add(sim);
+                }
+                //var sims = options.Select(x =>
+                //    Choose(new Simulation(
+                //        new CardUsageChoice(x),
+                //        simulation.Duel,
+                //        simulation.ChoicesRemaining - options.Count(),
+                //        simulation.SimulatorName,
+                //        null)));
+                return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Name == simulation.SimulatorName), usage.Player);
             }
-            else if (simulation.Choice is AttackerChoice attacker)
+            else if (simulation.Choice is AttackerChoice attackerChoice)
             {
-                //simulation.ChoicesRemaining -= attacker.Options.Sum(o => o.Count());
-
-                //IGrouping<Creature, IEnumerable<IAttackable>> first = attacker.Options.First();
-                //attacker.Selected = new Tuple<Creature, IAttackable>(first.Key, first.First().First());
-
-                throw new NotImplementedException();
+                //var numberOfOptions = attackerChoice.Options.Sum(o => o.Count());
+                IEnumerable<Tuple<Creature, IAttackable>> options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Creature, IAttackable>(attacker.Key, x))));
+                var sims = new List<Simulation>();
+                foreach (var option in options)
+                {
+                    var previousChoice = new AttackerChoice(option);
+                    var request = simulation.Duel.Continue(previousChoice);
+                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - options.Count(), simulation.SimulatorName, previousChoice));
+                    sims.Add(sim);
+                }
+                //var sims = options.Select(x =>
+                //    Choose(new Simulation(
+                //        new AttackerChoice(x),
+                //        simulation.Duel,
+                //        simulation.ChoicesRemaining - options.Count(),
+                //        simulation.SimulatorName,
+                //        null)));
+                return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Name == simulation.SimulatorName), attackerChoice.Player);
             }
             else if (simulation.Choice is YesNoChoice yesNo)
             {
                 var remaining = simulation.ChoicesRemaining - 2;
-
-                yesNo.Decision = true;
-                var choiceYes = simulation.Duel.Continue(yesNo);
-                var simYes = Choose(new Simulation(choiceYes, simulation.Duel.Copy(), remaining, simulation.Simulator.Copy()));
-
-                yesNo.Decision = false;
-                var choiceNo = simulation.Duel.Continue(yesNo);
-                var simNo = Choose(new Simulation(choiceNo, simulation.Duel.Copy(), remaining, simulation.Simulator.Copy()));
-
-                return GetOptimalSimulation(new List<Simulation> { simYes, simNo }, simulation.Simulator, yesNo.Player);
+                var simYes = Choose(new Simulation(new YesNoChoice(yesNo.Player) { Decision = true }, simulation.Duel, remaining, simulation.SimulatorName, null));
+                var simNo = Choose(new Simulation(new YesNoChoice(yesNo.Player) { Decision = false }, simulation.Duel, remaining, simulation.SimulatorName, null));
+                return GetOptimalSimulation(new List<Simulation> { simYes, simNo }, simulation.Duel.Players.Single(x => x.Name == simulation.SimulatorName), yesNo.Player);
             }
             else
             {
@@ -117,33 +138,42 @@ namespace Simulator
         internal Duel Duel { get; private set; }
         internal Choice Choice { get; private set; }
         internal int ChoicesRemaining { get; private set; }
-        internal Player Simulator { get; private set; }
+        internal string SimulatorName { get; private set; }
+        internal Choice PreviousChoice { get; private set; }
         internal int Points 
         { 
             get
             {
                 const int GameOverPoints = 9999999;
                 var points = 0;
-                var player = Simulator;
-                if (Duel.GameOverInformation.Losers.Contains(player.Opponent))
+                var playerName = SimulatorName;
+                var player = Duel.Players.Single(x => x.Name == playerName);
+                var opponent = Duel.GetOpponent(player);
+                if (Duel.GameOverInformation != null)
                 {
-                    points += GameOverPoints;
+                    if (Duel.GameOverInformation.Losers.Contains(opponent))
+                    {
+                        points += GameOverPoints;
+                    }
+                    if (Duel.GameOverInformation.Losers.Contains(player))
+                    {
+                        points -= GameOverPoints;
+                    }
                 }
-                if (Duel.GameOverInformation.Losers.Contains(player))
-                {
-                    points -= GameOverPoints;
-                }
-                points += Duel.BattleZone.Creatures.Count(x => x.Owner == player) - Duel.BattleZone.Creatures.Count(x => x.Owner == player.Opponent);
+                points += player.BattleZone.Creatures.Count() - opponent.BattleZone.Creatures.Count();
                 return points;
             }
         }
 
-        internal Simulation(Choice choice, Duel duel, int choicesRemaining, Player simulator) : this()
+        internal Simulation(Choice choice, Duel duel, int choicesRemaining, string simulator, Choice previousChoice) : this()
         {
-            Duel = duel;
             Choice = choice;
             ChoicesRemaining = choicesRemaining;
-            Simulator = simulator;
+            SimulatorName = simulator;
+
+            //TODO not sure if works
+            Duel = duel.Copy();
+            PreviousChoice = previousChoice;
         }
     }
 }

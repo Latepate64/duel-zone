@@ -43,7 +43,7 @@ namespace DuelMastersModels.Steps
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(usage.Selected.Item1);
+                    duel.UseCard(usage.Selected.Item1, duel.CurrentTurn.ActivePlayer);
                     return null;
                 }
             }

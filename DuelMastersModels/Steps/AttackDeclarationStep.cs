@@ -18,7 +18,7 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                var attackers = duel.BattleZone.Creatures.Where(c => c.Owner == duel.CurrentTurn.ActivePlayer && !c.Tapped && !c.SummoningSickness);
+                var attackers = duel.CurrentTurn.ActivePlayer.BattleZone.Creatures.Where(c => !c.Tapped && !c.SummoningSickness);
                 IEnumerable<IGrouping<Creature, IEnumerable<IAttackable>>> options = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
                 if (options.Any())
                 {
@@ -44,9 +44,9 @@ namespace DuelMastersModels.Steps
         private static IEnumerable<IAttackable> GetPossibleAttackTargets(Creature attacker, Duel duel)
         {
             List<IAttackable> attackables = new List<IAttackable>();
-            var opponent = attacker.Owner.Opponent;
+            var opponent = duel.GetOpponent(duel.GetOwner(attacker));
             attackables.Add(opponent);
-            attackables.AddRange(duel.BattleZone.Creatures.Where(c => c.Owner == opponent && c.Tapped));
+            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped));
             return attackables;
         }
 
@@ -67,8 +67,8 @@ namespace DuelMastersModels.Steps
         {
             return Copy(new AttackDeclarationStep
             {
-                AttackingCreature = AttackingCreature.Copy() as Creature,
-                AttackTarget = AttackTarget.Copy(),
+                AttackingCreature = AttackingCreature?.Copy() as Creature,
+                AttackTarget = AttackTarget?.Copy(),
             });
         }
     }

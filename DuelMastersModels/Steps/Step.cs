@@ -119,7 +119,7 @@ namespace DuelMastersModels.Steps
         protected Step Copy(Step step)
         {
             step.PendingAbilities = PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
-            step.ResolvingAbility = ResolvingAbility.Copy() as NonStaticAbility;
+            step.ResolvingAbility = ResolvingAbility?.Copy() as NonStaticAbility;
             step.State = State;
             return step;
         }

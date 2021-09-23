@@ -50,16 +50,6 @@ namespace DuelMastersModels.Zones
             _ = _cards.Remove(card);
         }
 
-        public IEnumerable<Creature> GetUntappedCreatures(Player player)
-        {
-            return GetUntappedCreatures().Where(c => c.Owner == player);
-        }
-
-        public IEnumerable<Creature> GetTappedCreatures(Player player)
-        {
-            return GetTappedCreatures().Where(c => c.Owner == player);
-        }
-
         public BattleZone Copy()
         {
             return new BattleZone(Cards.Select(x => x.Copy()));

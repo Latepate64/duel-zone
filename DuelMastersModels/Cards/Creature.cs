@@ -29,7 +29,7 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public ICollection<Race> Races { get; private set; }
 
-        public ICollection<TriggeredAbility> TriggerAbilities { get; private set; }
+        public ICollection<TriggeredAbility> TriggerAbilities { get; private set; } = new Collection<TriggeredAbility>();
 
         public bool SummoningSickness { get; private set; }
 

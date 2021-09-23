@@ -7,8 +7,6 @@ namespace DuelMastersModels.Cards
 {
     public abstract class Card : ICopyable<Card>
     {
-        public Player Owner { get; set; }
-
         public IEnumerable<Civilization> Civilizations { get; private set; }
 
         /// <summary>
@@ -17,6 +15,8 @@ namespace DuelMastersModels.Cards
         public int Cost { get; private set; }
 
         public bool Tapped { get; set; }
+
+        public System.Guid Id { get; set; }
 
         protected IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
 
@@ -37,9 +37,9 @@ namespace DuelMastersModels.Cards
         {
             card.Civilizations = new Collection<Civilization>(Civilizations.ToList());
             card.Cost = Cost;
-            card.Owner = Owner.Copy();
             card.StaticAbilities = StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();
             card.Tapped = Tapped;
+            card.Id = Id;
             return card;
         }
     }

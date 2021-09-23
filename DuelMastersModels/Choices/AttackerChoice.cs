@@ -15,5 +15,10 @@ namespace DuelMastersModels.Choices
         {
             Options = options;
         }
+
+        public AttackerChoice(Tuple<Creature, IAttackable> selected) : base(null)
+        {
+            Selected = selected;
+        }
     }
 }

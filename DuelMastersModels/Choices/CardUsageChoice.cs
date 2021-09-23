@@ -14,5 +14,10 @@ namespace DuelMastersModels.Choices
         {
             UseableCards = useableCards;
         }
+
+        public CardUsageChoice(System.Tuple<Card, IEnumerable<Card>> selected) : base(null)
+        {
+            Selected = selected;
+        }
     }
 }

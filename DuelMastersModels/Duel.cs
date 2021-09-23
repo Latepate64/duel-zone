@@ -6,17 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersModels
 {
     public class Duel : ICopyable<Duel>
     {
-        public Player StartingPlayer { get; set; }
-
         public GameOver GameOverInformation { get; internal set; }
 
-        internal IEnumerable<Player> Players => new Collection<Player> { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer };
+        public IEnumerable<Player> Players => new Collection<Player> { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer };
 
         /// <summary>
         /// Determines the state of the duel.
@@ -35,10 +32,15 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => _turns.Last();
 
-        /// <summary>
-        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
-        /// </summary>
-        public BattleZone BattleZone { get; private set; } = new BattleZone(new Collection<Card>());
+        public IEnumerable<Creature> BattleZoneCreatures
+        {
+            get
+            {
+                var creatures = new List<Creature>(CurrentTurn.ActivePlayer.BattleZone.Creatures);
+                creatures.AddRange(CurrentTurn.NonActivePlayer.BattleZone.Creatures);
+                return creatures;
+            }
+        }
 
         /// <summary>
         /// Spells that are being resolved.
@@ -61,7 +63,7 @@ namespace DuelMastersModels
         /// Starts the duel.
         /// </summary>
         /// <returns>Action a player is expected to perform.</returns>
-        public Choice Start()
+        public Choice Start(Player startingPlayer, Player otherPlayer)
         {
             if (State != DuelState.Setup)
             {
@@ -70,24 +72,23 @@ namespace DuelMastersModels
             State = DuelState.InProgress;
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            StartingPlayer.ShuffleDeck();
-            StartingPlayer.Opponent.ShuffleDeck();
+            startingPlayer.ShuffleDeck();
+            otherPlayer.ShuffleDeck();
 
-            StartingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
-            StartingPlayer.Opponent.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
 
-            StartingPlayer.DrawCards(InitialNumberOfHandCards);
-            StartingPlayer.Opponent.DrawCards(InitialNumberOfHandCards);
+            startingPlayer.DrawCards(InitialNumberOfHandCards);
+            otherPlayer.DrawCards(InitialNumberOfHandCards);
 
-            return StartNewTurn(StartingPlayer);
-            //return StartingPlayer.TakeTurn(this);
+            return StartNewTurn(startingPlayer, otherPlayer);
         }
 
-        private Choice StartNewTurn(Player activePlayer)
+        private Choice StartNewTurn(Player activePlayer, Player nonActivePlayer)
         {
-            Turn turn = new Turn(activePlayer);
+            Turn turn = new Turn(activePlayer, nonActivePlayer);
             _turns.Add(turn);
-            return turn.Start(BattleZone, this, _turns.Count);
+            return turn.Start(this, _turns.Count);
         }
 
         public Choice Continue(Choice choice)
@@ -95,7 +96,7 @@ namespace DuelMastersModels
             var choiceVar = CurrentTurn.Continue(choice, this);
             if (choiceVar == null)
             {
-                return StartNewTurn(CurrentTurn.NonActivePlayer);
+                return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
             }
             else
             {
@@ -115,29 +116,24 @@ namespace DuelMastersModels
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                defendingCreature.Owner.PutFromZoneIntoGraveyard(defendingCreature, BattleZone);
+                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                attackingCreature.Owner.PutFromZoneIntoGraveyard(attackingCreature, BattleZone);
+                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature);
             }
             else
             {
-                attackingCreature.Owner.PutFromZoneIntoGraveyard(attackingCreature, BattleZone);
-                defendingCreature.Owner.PutFromZoneIntoGraveyard(defendingCreature, BattleZone);
+                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature);
+                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature);
             }
         }
 
-        /// <summary>
-        /// Card is used based on its type: A creature is put into the battle zone; A spell is put into your graveyard.
-        /// </summary>
-        /// <param name="card"></param>
-        /// 
-        public void UseCard(Card card)
+        public void UseCard(Card card, Player player)
         {
             if (card is Creature creature)
             {
-                BattleZone.Add(creature);
+                player.BattleZone.Add(creature);
             }
             else if (card is Spell spell)
             {
@@ -189,13 +185,15 @@ namespace DuelMastersModels
 
         public IEnumerable<Creature> GetCreaturesThatCanAttack(Player player)
         {
-            IEnumerable<Creature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
-            return new ReadOnlyCollection<Creature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
+            throw new NotImplementedException();
+            //IEnumerable<Creature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
+            //return new ReadOnlyCollection<Creature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
         }
 
         public IEnumerable<Creature> GetCreaturesThatCanBeAttacked(Player player)
         {
-            return BattleZone.GetTappedCreatures(player.Opponent);
+            throw new NotImplementedException();
+            //return BattleZone.GetTappedCreatures(GetOpponent(player));
             //TODO: Consider attacking creature
         }
 
@@ -221,23 +219,26 @@ namespace DuelMastersModels
 
         public Choice ReturnFromBattleZoneToHand(Card card)
         {
-            BattleZone.Remove(card);
-            card.Owner.Hand.Add(card);
-            return null;
+            throw new NotImplementedException();
+            //BattleZone.Remove(card);
+            //card.Owner.Hand.Add(card);
+            //return null;
         }
 
         public Choice PutFromBattleZoneIntoOwnersManazone(Card card)
         {
-            BattleZone.Remove(card);
-            card.Owner.ManaZone.Add(card);
-            return null;
+            throw new NotImplementedException();
+            //BattleZone.Remove(card);
+            //card.Owner.ManaZone.Add(card);
+            //return null;
         }
 
         public Choice PutFromManaZoneIntoTheBattleZone(Card card)
         {
-            card.Owner.ManaZone.Remove(card);
-            BattleZone.Add(card);
-            return null;
+            throw new NotImplementedException();
+            //card.Owner.ManaZone.Remove(card);
+            //BattleZone.Add(card);
+            //return null;
         }
 
         public int GetPower(Creature creature)
@@ -249,7 +250,7 @@ namespace DuelMastersModels
         {
             List<Card> cards = CurrentTurn.ActivePlayer.CardsInNonsharedZones.ToList();
             cards.AddRange(CurrentTurn.NonActivePlayer.CardsInNonsharedZones);
-            cards.AddRange(BattleZone.Cards);
+            cards.AddRange(BattleZoneCreatures);
             return cards;
         }
 
@@ -363,7 +364,7 @@ namespace DuelMastersModels
         {
             foreach (var creature in creatures)
             {
-                creature.Owner.PutFromZoneIntoGraveyard(creature, BattleZone);
+                GetOwner(creature).PutFromBattleZoneIntoGraveyard(creature);
             }
         }
 
@@ -371,13 +372,11 @@ namespace DuelMastersModels
         {
             return new Duel
             {
-                BattleZone = BattleZone.Copy(),
                 DelayedTriggeredAbilities = DelayedTriggeredAbilities.Select(x => x.Copy()).ToList(),
                 ExtraTurns = new Queue<Turn>(ExtraTurns.Select(x => x.Copy())),
                 GameOverInformation = GameOverInformation?.Copy(),
                 InitialNumberOfHandCards = InitialNumberOfHandCards,
                 InitialNumberOfShields = InitialNumberOfShields,
-                StartingPlayer = StartingPlayer,
                 State = State,
                 _spellsBeingResolved = _spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList(),
                 _turns = _turns.Select(x => x.Copy()).ToList()
@@ -387,6 +386,43 @@ namespace DuelMastersModels
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
 
         internal ICollection<Abilities.TriggeredAbilities.DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<Abilities.TriggeredAbilities.DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
+
+        public Player GetOpponent(Player player)
+        {
+            if (player == CurrentTurn.ActivePlayer)
+            {
+                return CurrentTurn.NonActivePlayer;
+            }
+            else if (player == CurrentTurn.NonActivePlayer)
+            {
+                return CurrentTurn.ActivePlayer;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(player.ToString());
+            }
+        }
+
+        public Player GetOwner(Card card)
+        {
+            if (CurrentTurn.ActivePlayer.AllCards.Contains(card))
+            {
+                return CurrentTurn.ActivePlayer;
+            }
+            else if (CurrentTurn.NonActivePlayer.AllCards.Contains(card))
+            {
+                return CurrentTurn.NonActivePlayer;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(card.ToString());
+            }
+        }
+
+        public Card GetCard(Guid id)
+        {
+            return GetAllCards().Single(c => c.Id == id);
+        }
 
         //private void RandomizeStartingPlayer(out Player activePlayer, out Player nonActivePlayer)
         //{

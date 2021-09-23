@@ -19,6 +19,11 @@ namespace DuelMastersModels.Choices
         /// </summary>
         public IEnumerable<T> Selected { get; set; }
 
+        public Selection(IEnumerable<T> selected) : base(null)
+        {
+            Selected = selected;
+        }
+
         /// <summary>
         /// Creates a selection. Note that selection (property Selected) may be already set here if there is only one legal option to choose from.
         /// </summary>

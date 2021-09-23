@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersModels.Steps
 {
@@ -8,10 +7,9 @@ namespace DuelMastersModels.Steps
     /// </summary>
     public class StartOfTurnStep : TurnBasedActionStep
     {
-        public StartOfTurnStep(bool skipDrawStep, BattleZone battleZone)
+        public StartOfTurnStep(bool skipDrawStep)
         {
             SkipDrawStep = skipDrawStep;
-            _battleZone = battleZone;
         }
 
         public override Step GetNextStep()
@@ -33,15 +31,14 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
         {
-            return duel.CurrentTurn.ActivePlayer.UntapCardsInBattleZoneAndManaZone(_battleZone);
+            return duel.CurrentTurn.ActivePlayer.UntapCardsInBattleZoneAndManaZone();
         }
 
         internal bool SkipDrawStep { get; set; }
-        private readonly BattleZone _battleZone;
 
         public override Step Copy()
         {
-            return Copy(new StartOfTurnStep(SkipDrawStep, _battleZone));
+            return Copy(new StartOfTurnStep(SkipDrawStep));
         }
     }
 }
