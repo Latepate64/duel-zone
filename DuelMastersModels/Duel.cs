@@ -374,7 +374,7 @@ namespace DuelMastersModels
                 BattleZone = BattleZone.Copy(),
                 DelayedTriggeredAbilities = DelayedTriggeredAbilities.Select(x => x.Copy()).ToList(),
                 ExtraTurns = new Queue<Turn>(ExtraTurns.Select(x => x.Copy())),
-                GameOverInformation = GameOverInformation.Copy(),
+                GameOverInformation = GameOverInformation?.Copy(),
                 InitialNumberOfHandCards = InitialNumberOfHandCards,
                 InitialNumberOfShields = InitialNumberOfShields,
                 StartingPlayer = StartingPlayer,
