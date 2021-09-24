@@ -15,6 +15,12 @@ namespace DuelMastersModels.Choices
             Options = options;
         }
 
+        public AttackerChoice(AttackerChoice choice, Tuple<Guid, Guid> selected) : base(choice.Player)
+        {
+            Options = new List<IGrouping<Guid, IEnumerable<Guid>>>(choice.Options);
+            Selected = selected;
+        }
+
         public AttackerChoice(Tuple<Guid, Guid> selected, Guid player) : base(player)
         {
             Selected = selected;

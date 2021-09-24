@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DuelMastersModels.Choices;
+using System;
 
 namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 508.1. If the attacking creature was declared to attack another creature or if the attack was redirected to target a creature, that creature and the attacking creature battle.
     /// </summary>
-    public class BattleStep : Step
+    public class BattleStep : TurnBasedActionStep
     {
         internal Guid AttackingCreature { get; private set; }
         internal Guid TargetCreature { get; private set; }
@@ -32,22 +33,10 @@ namespace DuelMastersModels.Steps
             return Copy(new BattleStep(AttackingCreature, TargetCreature));
         }
 
-        //TODO
-        //public override Choice PlayerActionRequired(Duel duel)
-        //{
-        //    if (duel == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(duel));
-        //    }
-        //    if (BlockingCreature != null)
-        //    {
-        //        duel.Battle(AttackingCreature, BlockingCreature);
-        //    }
-        //    else if (AttackedCreature != null)
-        //    {
-        //        duel.Battle(AttackingCreature, AttackedCreature);
-        //    }
-        //    return null;
-        //}
+        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        {
+            duel.Battle(AttackingCreature, TargetCreature);
+            return null;
+        }
     }
 }

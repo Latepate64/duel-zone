@@ -15,8 +15,9 @@ namespace DuelMastersModels.Choices
             Options = useableCards;
         }
 
-        public CardUsageChoice(Tuple<Guid, IEnumerable<Guid>> selected, Guid player) : base(player)
+        public CardUsageChoice(CardUsageChoice choice, Tuple<Guid, IEnumerable<Guid>> selected) : base(choice.Player)
         {
+            Options = new List<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>>(choice.Options);
             Selected = selected;
         }
     }

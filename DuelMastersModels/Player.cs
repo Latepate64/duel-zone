@@ -12,7 +12,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : IAttackable, ICopyable<Player>
+    public class Player : DuelObject, IAttackable, ICopyable<Player>
     {
         /// <summary>
         /// The name of the player.
@@ -73,7 +73,12 @@ namespace DuelMastersModels
             }
         }
 
-        public Guid Id { get; set; }
+        public Player(string name, Deck deck)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Deck = deck;
+        }
 
         /// <summary>
         /// Player shuffles their deck.
@@ -225,17 +230,43 @@ namespace DuelMastersModels
 
         public Player Copy()
         {
-            return new Player
+            return new Player(Name, Deck.Copy())
             {
                 Id = Id,
-                Name = Name,
-                Deck = Deck.Copy(),
                 Graveyard = Graveyard.Copy(),
                 Hand = Hand.Copy(),
                 ManaZone = ManaZone.Copy(),
                 ShieldZone = ShieldZone.Copy(),
                 BattleZone = BattleZone.Copy(),
             };
+        }
+
+        public Choice PutFromShieldZoneToHand(Card card)//, bool canUseShieldTrigger)
+        {
+            return PutFromShieldZoneToHand(new List<Card> { card });//, canUseShieldTrigger);
+        }
+
+        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards)//, bool canUseShieldTrigger)
+        {
+            //List<Card> shieldTriggerCards = new List<Card>();
+            for (int i = 0; i < cards.Count(); ++i)
+            {
+                var card = cards.ElementAt(i);
+                ShieldZone.Remove(card);
+                Hand.Add(card);
+                //if (canUseShieldTrigger && HasShieldTrigger(handCard))
+                //{
+                //    shieldTriggerCards.Add(handCard);
+                //}
+            }
+            return null;
+            //throw new NotImplementedException();
+            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

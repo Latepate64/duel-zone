@@ -106,12 +106,14 @@ namespace DuelMastersModels
         /// <summary>
         /// Manages a battle between two creatures.
         /// </summary>
-        /// <param name="attackingCreature">Creature which initiated the attack.</param>
-        /// <param name="defendingCreature">Creature which the attack was directed at.</param>
-        public void Battle(Creature attackingCreature, Creature defendingCreature)
+        /// <param name="attackingCreatureId">Creature which initiated the attack.</param>
+        /// <param name="defendingCreatureId">Creature which the attack was directed at.</param>
+        public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            int attackingCreaturePower = GetPower(attackingCreature);
-            int defendingCreaturePower = GetPower(defendingCreature);
+            Creature attackingCreature = GetCard(attackingCreatureId) as Creature;
+            Creature defendingCreature = GetCard(defendingCreatureId) as Creature;
+            int attackingCreaturePower = attackingCreature.Power;
+            int defendingCreaturePower = defendingCreature.Power;
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
@@ -132,6 +134,7 @@ namespace DuelMastersModels
         {
             if (card is Creature creature)
             {
+                player.Hand.Remove(creature);
                 player.BattleZone.Add(creature);
             }
             else if (card is Spell spell)
@@ -196,26 +199,6 @@ namespace DuelMastersModels
             //TODO: Consider attacking creature
         }
 
-        public Choice PutFromShieldZoneToHand(Player player, Card card, bool canUseShieldTrigger)
-        {
-            return PutFromShieldZoneToHand(player, new List<Card>() { card }, canUseShieldTrigger);
-        }
-
-        public Choice PutFromShieldZoneToHand(Player player, IEnumerable<Card> cards, bool canUseShieldTrigger)
-        {
-            Collection<Card> shieldTriggerCards = new Collection<Card>();
-            for (int i = 0; i < cards.Count(); ++i)
-            {
-                Card handCard = PutFromShieldZoneToHand(player, cards.ElementAt(i));
-                if (canUseShieldTrigger && HasShieldTrigger(handCard))
-                {
-                    shieldTriggerCards.Add(handCard);
-                }
-            }
-            throw new NotImplementedException();
-            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
-        }
-
         public Choice ReturnFromBattleZoneToHand(Card card)
         {
             throw new NotImplementedException();
@@ -249,12 +232,6 @@ namespace DuelMastersModels
         {
             return Players.SelectMany(x => x.AllCards);
         }
-        private static Card PutFromShieldZoneToHand(Player player, Card card)
-        {
-            player.ShieldZone.Remove(card);
-            player.Hand.Add(card);
-            return card;
-        }
 
         /// <summary>
         /// Checks if selected mana cards have the required civilizations.
@@ -283,31 +260,31 @@ namespace DuelMastersModels
             return false;
         }
 
-        private bool HasShieldTrigger(Creature creature)
-        {
-            return _continuousEffectManager.HasShieldTrigger(creature);
-        }
+        //private bool HasShieldTrigger(Creature creature)
+        //{
+        //    return _continuousEffectManager.HasShieldTrigger(creature);
+        //}
 
-        private bool HasShieldTrigger(Spell spell)
-        {
-            return _continuousEffectManager.HasShieldTrigger(spell);
-        }
+        //private bool HasShieldTrigger(Spell spell)
+        //{
+        //    return _continuousEffectManager.HasShieldTrigger(spell);
+        //}
 
-        private bool HasShieldTrigger(Card card)
-        {
-            if (card is Creature creature)
-            {
-                return HasShieldTrigger(creature);
-            }
-            else if (card is Spell spell)
-            {
-                return HasShieldTrigger(spell);
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-        }
+        //private bool HasShieldTrigger(Card card)
+        //{
+        //    if (card is Creature creature)
+        //    {
+        //        return HasShieldTrigger(creature);
+        //    }
+        //    else if (card is Spell spell)
+        //    {
+        //        return HasShieldTrigger(spell);
+        //    }
+        //    else
+        //    {
+        //        throw new InvalidOperationException();
+        //    }
+        //}
 
         private bool HasSpeedAttacker(Creature creature)
         {
@@ -440,6 +417,23 @@ namespace DuelMastersModels
         public Player GetPlayer(Guid id)
         {
             return Players.Single(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// Use this method only if the type of the DuelObject is not certain.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public DuelObject GetDuelObject(Guid id)
+        {
+            if (Players.Any(x => x.Id == id))
+            {
+                return GetPlayer(id);
+            }
+            else
+            {
+                return GetCard(id);
+            }
         }
 
         //private void RandomizeStartingPlayer(out Player activePlayer, out Player nonActivePlayer)

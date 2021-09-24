@@ -37,7 +37,7 @@ namespace DuelMastersModels.Steps
             {
                 return new BattleStep(AttackingCreature, BlockingCreature);
             }
-            else if (duel.GetCard(AttackTarget) is Creature)
+            else if (duel.GetDuelObject(AttackTarget) is Creature)
             {
                 return new BattleStep(AttackingCreature, AttackTarget);
             }

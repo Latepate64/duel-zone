@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DuelMastersModels.Choices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class DirectAttackStep : Step
+    public class DirectAttackStep : TurnBasedActionStep
     {
         internal Guid AttackingCreature { get; private set; }
-        //private bool _breakingDone;
-        //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
         public DirectAttackStep(Guid attackingCreature)
         {
@@ -23,30 +24,24 @@ namespace DuelMastersModels.Steps
             return Copy(new DirectAttackStep(AttackingCreature));
         }
 
-        //TODO
-        //public Choice PlayerActionRequired(Duel duel)
-        //{
-        //    if (DirectAttack && !_breakingDone)
-        //    {
-        //        _breakingDone = true;
-        //        if (AttackingCreature == null)
-        //        {
-        //            throw new InvalidOperationException();
-        //        }
-        //        Player opponent = ActivePlayer.Opponent;
-        //        if (opponent.ShieldZone.Cards.Any())
-        //        {
-        //            //TODO: consider multibreaker
-        //            throw new NotImplementedException();
-        //            //return new BreakShields(ActivePlayer, 1, ActivePlayer.Opponent.ShieldZone.Cards, AttackingCreature);
-        //        }
-        //        else
-        //        {
-        //            // 509.1. If the nonactive player has no shields left, that player loses the game. This is a state-based action.
-        //            duel.End(ActivePlayer);
-        //        }
-        //    }
-        //    return null;
-        //}
+        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        {
+            var creature = duel.GetCard(AttackingCreature);
+            var owner = duel.GetOwner(creature);
+            var opponent = duel.GetOpponent(owner);
+            if (opponent.ShieldZone.Cards.Any())
+            {
+                // TODO: Consider breaker abilities
+                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(1));//, true);
+            }
+            else
+            {
+                //TODO: Direct attack victory should be checked as a state-based action instead.
+                var gameOver = new GameOver(WinReason.DirectAttack, new List<Guid> { owner.Id }, new List<Guid> { opponent.Id });
+                duel.GameOverInformation = gameOver;
+                duel.State = DuelState.Over;
+                return gameOver;
+            }
+        }
     }
 }

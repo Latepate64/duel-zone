@@ -20,8 +20,11 @@ namespace DuelMastersModels.Choices
         /// </summary>
         public IEnumerable<T> Selected { get; set; }
 
-        public Selection(IEnumerable<T> selected, Guid player) : base(player)
+        public Selection(Selection<T> selection, IEnumerable<T> selected) : base(selection.Player)
         {
+            Options = new List<T>(selection.Options);
+            MinimumSelection = selection.MinimumSelection;
+            MaximumSelection = selection.MaximumSelection;
             Selected = selected;
         }
 
