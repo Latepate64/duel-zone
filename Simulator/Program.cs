@@ -11,7 +11,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 6;
+        const int ChoicesMax = 20;
 
         static List<Simulation> _debugSimulations = new List<Simulation>();
         static Guid _simulator;
@@ -32,11 +32,10 @@ namespace Simulator
             Choice choice = duel.Start(player1, player2);
             while (choice is not GameOver)
             {
-                //var simulation = Choose(new Simulation(choice, duel, ChoicesMax, choice.Player, null));
-                //choice = duel.Continue(simulation.PreviousChoice);
                 _simulator = choice.Player;
-                var simulation = Choose(choice, duel, ChoicesMax, null);
-                choice = duel.Continue(simulation.Item1);
+                var decisionWithPoints = Choose(choice, duel, ChoicesMax, null);
+                var decision = decisionWithPoints.Item1;
+                choice = duel.Continue(decision);
             }
         }
 
@@ -63,7 +62,7 @@ namespace Simulator
 
         static Tuple<Decision, int> Choose(Choice choice, Duel duel, int choicesRemaining, Decision decision)
         {
-            if (choicesRemaining <= 0)
+            if (choicesRemaining <= 0 || choice is GameOver)
             {
                 return new Tuple<Decision, int>(decision, GetPoints(duel));
             }
@@ -74,47 +73,44 @@ namespace Simulator
                 {
                     numberOfOptions += 1;
                 }
-                var choices = new List<Tuple<Decision, int>>();
+                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in selection.Options)
                 {
-                    var currentChoice = new GuidDecision(new List<Guid> { option });
+                    var newDecision = new GuidDecision(new List<Guid> { option });
                     var duelCopy = new Duel(duel);
-                    var newChoice = duelCopy.Continue(currentChoice);
-                    var newerChoice = Choose(newChoice, duelCopy, choicesRemaining - numberOfOptions, currentChoice);
-                    choices.Add(newerChoice);
+                    var newChoice = duelCopy.Continue(newDecision);
+                    decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, choicesRemaining - numberOfOptions, newDecision).Item2));
                 }
-                if (_simulator == choice.Player) { return choices.OrderBy(x => x.Item2).Last(); }
-                else { return choices.OrderBy(x => x.Item2).First(); }
+                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
+                else { return decisions.OrderBy(x => x.Item2).First(); }
             }
             else if (choice is CardUsageChoice usage)
             {
                 var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new Tuple<Guid, IEnumerable<Guid>>(toUse.Key, x))));
-                var choices = new List<Tuple<Decision, int>>();
+                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in options)
                 {
                     var currentChoice = new CardUsageDecision(option);
                     var duelCopy = new Duel(duel);
                     var newChoice = duelCopy.Continue(currentChoice);
-                    var newerChoice = Choose(newChoice, duelCopy, choicesRemaining - options.Count(), currentChoice);
-                    choices.Add(newerChoice);
+                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, choicesRemaining - options.Count(), currentChoice).Item2));
                 }
-                if (_simulator == choice.Player) { return choices.OrderBy(x => x.Item2).Last(); }
-                else { return choices.OrderBy(x => x.Item2).First(); }
+                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
+                else { return decisions.OrderBy(x => x.Item2).First(); }
             }
             else if (choice is AttackerChoice attackerChoice)
             {
                 IEnumerable<Tuple<Guid, Guid>> options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x))));
-                var choices = new List<Tuple<Decision, int>>();
+                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in options)
                 {
                     var currentChoice = new AttackerDecision(option);
                     var duelCopy = new Duel(duel);
                     var newChoice = duelCopy.Continue(currentChoice);
-                    var newerChoice = Choose(newChoice, duelCopy, choicesRemaining - options.Count(), currentChoice);
-                    choices.Add(newerChoice);
+                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, choicesRemaining - options.Count(), currentChoice).Item2));
                 }
-                if (_simulator == choice.Player) { return choices.OrderBy(x => x.Item2).Last(); }
-                else { return choices.OrderBy(x => x.Item2).First(); }
+                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
+                else { return decisions.OrderBy(x => x.Item2).First(); }
             }
             else
             {
