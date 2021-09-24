@@ -1,13 +1,7 @@
-﻿using System;
-
-namespace DuelMastersModels
+﻿namespace DuelMastersModels
 {
-    public interface IAttackable : IIdentifiable
+    public interface IAttackable
     {
-    }
-
-    public interface IIdentifiable
-    {
-        Guid Id { get; set; }
+        System.Guid Id { get; }
     }
 }

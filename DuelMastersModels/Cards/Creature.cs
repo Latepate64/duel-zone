@@ -41,14 +41,12 @@ namespace DuelMastersModels.Cards
 
         protected Creature(int cost, Civilization civilization, int power, Race races) : this(cost, new List<Civilization> { civilization }, power, new List<Race> { races }) { }
 
-        protected Creature Copy(Creature creature)
+        protected Creature(Creature creature) : base(creature)
         {
-            creature = base.Copy(creature) as Creature;
-            creature.Power = Power;
-            creature.Races = new Collection<Race>(Races.ToList());
-            creature.TriggerAbilities = TriggerAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
-            creature.SummoningSickness = SummoningSickness;
-            return creature;
+            Power = creature.Power;
+            Races = new Collection<Race>(creature.Races.ToList());
+            TriggerAbilities = creature.TriggerAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
+            SummoningSickness = creature.SummoningSickness;
         }
     }
 }

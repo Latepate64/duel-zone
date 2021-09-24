@@ -11,9 +11,11 @@ namespace DuelMastersModels.Cards.Creatures
             TriggerAbilities.Add(new AquaHulcusAbility(this));
         }
 
+        public AquaHulcus(AquaHulcus x) : base(x) { }
+
         public override Card Copy()
         {
-            return Copy(new AquaHulcus());
+            return new AquaHulcus(this);
         }
     }
 

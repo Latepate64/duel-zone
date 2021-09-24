@@ -10,10 +10,6 @@
         /// </summary>
         protected Spell(int cost, Civilization civilization) : base(cost, civilization) { }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
-        protected Spell Copy(Spell spell)
-        {
-            return base.Copy(spell) as Spell;
-        }
+        protected Spell(Spell spell) : base(spell) { }
     }
 }

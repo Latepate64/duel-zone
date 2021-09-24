@@ -15,9 +15,11 @@ namespace DuelMastersModels.Cards.Creatures
             StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(this));
         }
 
+        public BombazarDragonOfDestiny(BombazarDragonOfDestiny x) : base(x) { }
+
         public override Card Copy()
         {
-            return Copy(new BombazarDragonOfDestiny());
+            return new BombazarDragonOfDestiny(this);
         }
     }
 
@@ -72,9 +74,11 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
+        public GontaTheWarriorSavage(GontaTheWarriorSavage x) : base(x) { }
+
         public override Card Copy()
         {
-            return Copy(new GontaTheWarriorSavage());
+            return new GontaTheWarriorSavage(this);
         }
     }
 
@@ -85,9 +89,11 @@ namespace DuelMastersModels.Cards.Creatures
             TriggerAbilities.Add(new WindAxeTheWarriorSavageAbility(this));
         }
 
+        public WindAxeTheWarriorSavage(WindAxeTheWarriorSavage x) : base(x) { }
+
         public override Card Copy()
         {
-            return Copy(new WindAxeTheWarriorSavage());
+            return new WindAxeTheWarriorSavage(this);
         }
     }
 

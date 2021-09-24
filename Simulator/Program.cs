@@ -20,8 +20,8 @@ namespace Simulator
             const int Count = 40;
             for (int i = 0; i < Count; ++i)
             {
-                deck1.Add(new GontaTheWarriorSavage { Id = Guid.NewGuid() });
-                deck2.Add(new GontaTheWarriorSavage { Id = Guid.NewGuid() });
+                deck1.Add(new GontaTheWarriorSavage());
+                deck2.Add(new GontaTheWarriorSavage());
             }
             Player player1 = new() { Name = "Shobu", Deck = new Deck(deck1), Id = Guid.NewGuid() };
             Player player2 = new() { Name = "Kokujo", Deck = new Deck(deck2), Id = Guid.NewGuid() };
