@@ -50,64 +50,45 @@ namespace Simulator
                 var sims = new List<Simulation>();
                 foreach (var option in selection.Options)
                 {
-                    selection.Selected = new List<Guid> { option };
-                    //var previousChoice = new Selection<Card>(new List<Card> { option });
-                    var request = simulation.Duel.Continue(selection);
-                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - numberOfOptions, simulation.Simulator, selection));
-                    sims.Add(sim);
+                    var previousChoice = new Selection<Guid>(new List<Guid> { option }, selection.Player);
+                    var duelCopy = simulation.Duel.Copy();
+                    var newChoice = duelCopy.Continue(previousChoice);
+                    var newSimulation = new Simulation(newChoice, duelCopy, simulation.ChoicesRemaining - numberOfOptions, simulation.Simulator, previousChoice);
+                    sims.Add(Choose(newSimulation));
                 }
-
-                //var sims = selection.Options.Select(x =>
-                //    Choose(new Simulation(
-                //        new Selection<Card>(new List<Card> { x }),
-                //        simulation.Duel,
-                //        simulation.ChoicesRemaining - numberOfOptions,
-                //        simulation.SimulatorName)));
                 return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Id == simulation.Simulator), simulation.Duel.GetPlayer(selection.Player));
             }
             else if (simulation.Choice is CardUsageChoice usage)
             {
-                IEnumerable<Tuple<Card, IEnumerable<Card>>> options = usage.UseableCards.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new Tuple<Card, IEnumerable<Card>>(toUse.Key, x))));
+                var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new Tuple<Guid, IEnumerable<Guid>>(toUse.Key, x))));
                 var sims = new List<Simulation>();
                 foreach (var option in options)
                 {
                     var previousChoice = new CardUsageChoice(option, usage.Player);
-                    var request = simulation.Duel.Continue(previousChoice);
-                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - options.Count(), simulation.Simulator, previousChoice));
-                    sims.Add(sim);
+                    var duelCopy = simulation.Duel.Copy();
+                    var newChoice = duelCopy.Continue(previousChoice);
+                    var newSimulation = new Simulation(newChoice, duelCopy, simulation.ChoicesRemaining - options.Count(), simulation.Simulator, previousChoice);
+                    sims.Add(Choose(newSimulation));
                 }
-                //var sims = options.Select(x =>
-                //    Choose(new Simulation(
-                //        new CardUsageChoice(x),
-                //        simulation.Duel,
-                //        simulation.ChoicesRemaining - options.Count(),
-                //        simulation.SimulatorName,
-                //        null)));
                 return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Id == simulation.Simulator), simulation.Duel.GetPlayer(usage.Player));
             }
             else if (simulation.Choice is AttackerChoice attackerChoice)
             {
-                //var numberOfOptions = attackerChoice.Options.Sum(o => o.Count());
                 IEnumerable<Tuple<Guid, Guid>> options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x))));
                 var sims = new List<Simulation>();
                 foreach (var option in options)
                 {
                     var previousChoice = new AttackerChoice(option, attackerChoice.Player);
-                    var request = simulation.Duel.Continue(previousChoice);
-                    var sim = Choose(new Simulation(request, simulation.Duel, simulation.ChoicesRemaining - options.Count(), simulation.Simulator, previousChoice));
-                    sims.Add(sim);
+                    var duelCopy = simulation.Duel.Copy();
+                    var newChoice = duelCopy.Continue(previousChoice);
+                    var newSimulation = new Simulation(newChoice, duelCopy, simulation.ChoicesRemaining - options.Count(), simulation.Simulator, previousChoice);
+                    sims.Add(Choose(newSimulation));
                 }
-                //var sims = options.Select(x =>
-                //    Choose(new Simulation(
-                //        new AttackerChoice(x),
-                //        simulation.Duel,
-                //        simulation.ChoicesRemaining - options.Count(),
-                //        simulation.SimulatorName,
-                //        null)));
                 return GetOptimalSimulation(sims, simulation.Duel.Players.Single(x => x.Id == simulation.Simulator), simulation.Duel.GetPlayer(attackerChoice.Player));
             }
             else if (simulation.Choice is YesNoChoice yesNo)
             {
+                throw new NotImplementedException();
                 var remaining = simulation.ChoicesRemaining - 2;
                 var simYes = Choose(new Simulation(new YesNoChoice(yesNo.Player) { Decision = true }, simulation.Duel, remaining, simulation.Simulator, null));
                 var simNo = Choose(new Simulation(new YesNoChoice(yesNo.Player) { Decision = false }, simulation.Duel, remaining, simulation.Simulator, null));
@@ -172,7 +153,7 @@ namespace Simulator
             Simulator = simulator;
 
             //TODO not sure if works
-            Duel = duel.Copy();
+            Duel = duel;
             PreviousChoice = previousChoice;
         }
     }

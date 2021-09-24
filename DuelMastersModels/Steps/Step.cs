@@ -26,15 +26,18 @@ namespace DuelMastersModels.Steps
             {
                 if (this is TurnBasedActionStep turnBasedActionStep)
                 {
-                    if (choiceArg == null)
-                    {
-                        Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, choiceArg);
-                        if (choice != null) { return choice; }
-                    }
-                    else
-                    {
-                        // Do something with turn-based action
-                    }
+                    //if (choiceArg == null)
+                    //{
+                    //    Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, choiceArg);
+                    //    if (choice != null) { return choice; }
+                    //}
+                    //else
+                    //{
+                    //    // Do something with turn-based action
+                    //}
+
+                    Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, choiceArg);
+                    if (choice != null) { return choice; }
                 }
                 State = StepState.StateBasedAction;
                 return Proceed(null, duel);

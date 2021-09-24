@@ -42,5 +42,10 @@ namespace DuelMastersModels.Cards
             card.Id = Id;
             return card;
         }
+
+        public override string ToString()
+        {
+            return Id.ToString();
+        }
     }
 }

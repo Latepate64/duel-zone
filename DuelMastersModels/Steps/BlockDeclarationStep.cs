@@ -33,7 +33,7 @@ namespace DuelMastersModels.Steps
 
         public override Step GetNextStep(Duel duel)
         {
-            if (BlockingCreature != null)
+            if (BlockingCreature != Guid.Empty)
             {
                 return new BattleStep(AttackingCreature, BlockingCreature);
             }

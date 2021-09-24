@@ -186,24 +186,24 @@ namespace DuelMastersModels
             }
         }
 
-        internal IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> GetUsableCardsWithPaymentInformation()
+        internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
             return Hand.Cards.
                 Where(card => card.Cost <= ManaZone.UntappedCards.Count()).
-                GroupBy(card => card, card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards));
+                GroupBy(card => card.Id, card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards));
         }
 
-        private static IEnumerable<IEnumerable<Card>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
+        private static IEnumerable<IEnumerable<Guid>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
         {
             if (remainingCost == 0)
             {
                 if (!remainingCivs.Any())
                 {
-                    return new List<IEnumerable<Card>> { locked };
+                    return new List<IEnumerable<Guid>> { locked.Select(x => x.Id) };
                 }
                 else
                 {
-                    return new List<IEnumerable<Card>>();
+                    return new List<IEnumerable<Guid>>();
                 }
             }
             else
