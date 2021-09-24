@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
             AttackTarget = attackTarget;
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             // TODO: Check if blocking is possible
             bool possibleToBlock = false;
@@ -47,19 +47,16 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        //public Choice PerformTurnBasedActions(Duel duel)
-        //{
-        //    //IEnumerable<Creature> creatures = duel.GetCreaturesThatCanBlock(AttackingCreature);
-        //    throw new System.NotImplementedException();
-        //    //return creatures.Any() ? new DeclareBlock(ActivePlayer.Opponent, creatures) : null;
-        //}
-
         public override Step Copy()
         {
-            return Copy(new BlockDeclarationStep(AttackingCreature, AttackTarget)
-            {
-                BlockingCreature = BlockingCreature
-            });
+            return new BlockDeclarationStep(this);
+        }
+
+        public BlockDeclarationStep(BlockDeclarationStep step) : base(step)
+        {
+            AttackingCreature = step.AttackingCreature;
+            AttackTarget = step.AttackTarget;
+            BlockingCreature = step.BlockingCreature;
         }
     }
 }

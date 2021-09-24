@@ -17,4 +17,8 @@ namespace DuelMastersModels.Choices
             Player = player;
         }
     }
+
+    public abstract class Decision
+    {
+    }
 }

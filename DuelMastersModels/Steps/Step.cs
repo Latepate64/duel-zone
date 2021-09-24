@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
     {
         public abstract Step GetNextStep(Duel duel);
 
-        internal Choice Proceed(Choice choiceArg, Duel duel)
+        internal Choice Proceed(Decision decision, Duel duel)
         {
             if (State == StepState.TurnBasedAction)
             {
@@ -36,7 +36,7 @@ namespace DuelMastersModels.Steps
                     //    // Do something with turn-based action
                     //}
 
-                    Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, choiceArg);
+                    Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, decision);
                     if (choice != null) { return choice; }
                 }
                 State = StepState.StateBasedAction;
@@ -72,7 +72,7 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.SelectAbility)
             {
-                if (choiceArg != null)
+                if (decision != null)
                 {
                     // TODO: Set _resolvingAbility based on choice
                     State = StepState.ResolveAbility;
@@ -92,7 +92,7 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.ResolveAbility)
             {
-                Choice choice = ResolvingAbility.Resolve(duel, choiceArg);
+                Choice choice = ResolvingAbility.Resolve(duel, decision);
                 if (choice != null) { return choice; } // Ability still has not resolved completely.
                 else
                 {
@@ -105,7 +105,7 @@ namespace DuelMastersModels.Steps
             {
                 if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
                 {
-                    Choice choice = priorityStep.PerformPriorityAction(choiceArg, duel);
+                    Choice choice = priorityStep.PerformPriorityAction(decision, duel);
                     if (choice != null) { return choice; }
                     else
                     {
@@ -119,14 +119,11 @@ namespace DuelMastersModels.Steps
             else { throw new System.ArgumentOutOfRangeException(State.ToString()); }
         }
 
-        public abstract Step Copy();
-
-        protected Step Copy(Step step)
+        protected Step(Step step)
         {
-            step.PendingAbilities = PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
-            step.ResolvingAbility = ResolvingAbility?.Copy() as NonStaticAbility;
-            step.State = State;
-            return step;
+            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            ResolvingAbility = step.ResolvingAbility?.Copy() as NonStaticAbility;
+            State = step.State;
         }
 
         private protected Step() { }
@@ -134,5 +131,7 @@ namespace DuelMastersModels.Steps
         internal StepState State { get; set; } = StepState.TurnBasedAction;
         internal NonStaticAbility ResolvingAbility { get; set; }
         internal List<NonStaticAbility> PendingAbilities { get; set; } = new List<NonStaticAbility>();
+
+        public abstract Step Copy();
     }
 }

@@ -23,11 +23,12 @@ namespace DuelMastersModels.Cards.Creatures
     {
         public AquaHulcusAbility(Card source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
 
-        public override Choice Resolve(Duel duel, Choice choice)
+        public override Choice Resolve(Duel duel, Decision choice)
         {
-            if (choice == null) { return new YesNoChoice(Controller); }
-            if ((choice as YesNoChoice).Decision) { duel.GetPlayer(Controller).DrawCards(1); }
-            return null;
+            throw new System.NotImplementedException();
+            //if (choice == null) { return new YesNoChoice(Controller); }
+            //if ((choice as YesNoChoice).Decision) { duel.GetPlayer(Controller).DrawCards(1); }
+            //return null;
         }
 
         public override Ability Copy()

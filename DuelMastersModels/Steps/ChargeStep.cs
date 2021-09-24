@@ -17,7 +17,7 @@ namespace DuelMastersModels.Steps
             return new MainStep();
         }
 
-        protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
+        protected internal override Choice PerformPriorityAction(Decision choice, Duel duel)
         {
             if (choice == null)
             {
@@ -25,7 +25,7 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                var cards = (choice as Selection<System.Guid>).Selected;
+                var cards = (choice as GuidDecision).Decision;
                 if (cards.Any()) { duel.GetPlayer(duel.CurrentTurn.ActivePlayer).PutFromHandIntoManaZone(duel.GetCard(cards.Single())); }
                 PassPriority = true;
                 return null;
@@ -34,10 +34,9 @@ namespace DuelMastersModels.Steps
 
         public override Step Copy()
         {
-            return Copy(new ChargeStep
-            {
-                PassPriority = PassPriority
-            });
+            return new ChargeStep(this);
         }
+
+        public ChargeStep(ChargeStep step) : base(step) { }
     }
 }

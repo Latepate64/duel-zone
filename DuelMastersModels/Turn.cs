@@ -83,9 +83,9 @@ namespace DuelMastersModels
             }
         }
 
-        internal Choice Continue(Choice choiceArg, Duel duel)
+        internal Choice Continue(Decision decision, Duel duel)
         {
-            var choice = CurrentStep.Proceed(choiceArg, duel);
+            var choice = CurrentStep.Proceed(decision, duel);
             if (choice == null)
             {
                 return ChangeAndStartStep(duel);

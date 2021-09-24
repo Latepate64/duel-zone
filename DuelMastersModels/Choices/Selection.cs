@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DuelMastersModels.Choices
 {
@@ -16,19 +15,6 @@ namespace DuelMastersModels.Choices
         public int MaximumSelection { get; private set; }
 
         /// <summary>
-        /// Option/s player chose. Should be null until selection has actually been made.
-        /// </summary>
-        public IEnumerable<T> Selected { get; set; }
-
-        public Selection(Selection<T> selection, IEnumerable<T> selected) : base(selection.Player)
-        {
-            Options = new List<T>(selection.Options);
-            MinimumSelection = selection.MinimumSelection;
-            MaximumSelection = selection.MaximumSelection;
-            Selected = selected;
-        }
-
-        /// <summary>
         /// Creates a selection. Note that selection (property Selected) may be already set here if there is only one legal option to choose from.
         /// </summary>
         /// <param name="player"></param>
@@ -40,10 +26,16 @@ namespace DuelMastersModels.Choices
             Options = options;
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
-            if (options.Count() <= minimumSelection)
-            {
-                Selected = options;
-            }
+        }
+    }
+
+    public class GuidDecision : Decision
+    {
+        public IEnumerable<Guid> Decision { get; private set; }
+
+        public GuidDecision(IEnumerable<Guid> decision)
+        {
+            Decision = decision;
         }
     }
 }

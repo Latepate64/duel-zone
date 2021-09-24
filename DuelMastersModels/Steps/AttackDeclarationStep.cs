@@ -15,9 +15,9 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            if (choice == null)
+            if (decision == null)
             {
                 var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.SummoningSickness);
                 IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id));
@@ -32,11 +32,11 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                var attackerChoice = choice as AttackerChoice;
-                if (attackerChoice.Selected != null)
+                var attackerChoice = decision as AttackerDecision;
+                if (attackerChoice.Decision != null)
                 {
-                    AttackingCreature = attackerChoice.Selected.Item1;
-                    AttackTarget = attackerChoice.Selected.Item2;
+                    AttackingCreature = attackerChoice.Decision.Item1;
+                    AttackTarget = attackerChoice.Decision.Item2;
                 }
                 duel.GetCard(AttackingCreature).Tapped = true;
                 return null;
@@ -67,11 +67,13 @@ namespace DuelMastersModels.Steps
 
         public override Step Copy()
         {
-            return Copy(new AttackDeclarationStep
-            {
-                AttackingCreature = AttackingCreature,
-                AttackTarget = AttackTarget,
-            });
+            return new AttackDeclarationStep(this);
+        }
+
+        public AttackDeclarationStep(AttackDeclarationStep step) : base(step)
+        {
+            AttackingCreature = step.AttackingCreature;
+            AttackTarget = step.AttackTarget;
         }
     }
 }

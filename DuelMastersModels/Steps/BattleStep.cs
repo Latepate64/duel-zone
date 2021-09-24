@@ -28,15 +28,21 @@ namespace DuelMastersModels.Steps
             //return new DirectAttackStep(ActivePlayer, lastAttackDeclaration.AttackingCreature, directAttack);
         }
 
-        public override Step Copy()
+        public BattleStep(BattleStep step) : base(step)
         {
-            return Copy(new BattleStep(AttackingCreature, TargetCreature));
+            AttackingCreature = step.AttackingCreature;
+            TargetCreature = step.TargetCreature;
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             duel.Battle(AttackingCreature, TargetCreature);
             return null;
+        }
+
+        public override Step Copy()
+        {
+            return new BattleStep(this);
         }
     }
 }

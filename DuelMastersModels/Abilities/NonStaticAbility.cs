@@ -25,6 +25,6 @@ namespace DuelMastersModels.Abilities
             Effects = effects;
         }
 
-        public abstract Choice Resolve(Duel duel, Choice choice);
+        public abstract Choice Resolve(Duel duel, Decision choice);
     }
 }

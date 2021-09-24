@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Duel : ICopyable<Duel>
+    public class Duel
     {
         public GameOver GameOverInformation { get; internal set; }
 
@@ -41,14 +41,14 @@ namespace DuelMastersModels
         /// <summary>
         /// Spells that are being resolved.
         /// </summary>
-        private List<Spell> _spellsBeingResolved = new List<Spell>();
+        private readonly List<Spell> _spellsBeingResolved = new List<Spell>();
 
         private readonly ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        private IList<Turn> _turns = new List<Turn>();
+        private readonly IList<Turn> _turns = new List<Turn>();
 
         public Duel()
         {
@@ -90,9 +90,9 @@ namespace DuelMastersModels
             return turn.Start(this, _turns.Count);
         }
 
-        public Choice Continue(Choice choice)
+        public Choice Continue(Decision decision)
         {
-            var choiceVar = CurrentTurn.Continue(choice, this);
+            var choiceVar = CurrentTurn.Continue(decision, this);
             if (choiceVar == null)
             {
                 return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
@@ -340,21 +340,18 @@ namespace DuelMastersModels
             }
         }
 
-        public Duel Copy()
+        public Duel(Duel duel)
         {
-            return new Duel
-            {
-                DelayedTriggeredAbilities = DelayedTriggeredAbilities.Select(x => x.Copy()).ToList(),
-                ExtraTurns = new Queue<Turn>(ExtraTurns.Select(x => x.Copy())),
-                GameOverInformation = GameOverInformation?.Copy(),
-                InitialNumberOfHandCards = InitialNumberOfHandCards,
-                InitialNumberOfShields = InitialNumberOfShields,
-                Player1 = Player1.Copy(),
-                Player2 = Player2.Copy(),
-                State = State,
-                _spellsBeingResolved = _spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList(),
-                _turns = _turns.Select(x => x.Copy()).ToList()
-            };
+            DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => x.Copy()).ToList();
+            ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => x.Copy()));
+            GameOverInformation = duel.GameOverInformation?.Copy();
+            InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
+            InitialNumberOfShields = duel.InitialNumberOfShields;
+            Player1 = duel.Player1.Copy();
+            Player2 = duel.Player2.Copy();
+            State = duel.State;
+            _spellsBeingResolved = duel._spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList();
+            _turns = duel._turns.Select(x => x.Copy()).ToList();
         }
 
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.

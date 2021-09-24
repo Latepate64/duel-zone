@@ -14,9 +14,11 @@
             return null;
         }
 
+        public EndOfTurnStep(EndOfTurnStep step) : base(step) { }
+
         public override Step Copy()
         {
-            return Copy(new EndOfTurnStep());
+            return new EndOfTurnStep(this);
         }
     }
 }

@@ -13,7 +13,9 @@
 
         public override Step Copy()
         {
-            return Copy(new EndOfAttackStep());
+            return new EndOfAttackStep(this);
         }
+
+        public EndOfAttackStep(EndOfAttackStep step) : base(step) { }
     }
 }

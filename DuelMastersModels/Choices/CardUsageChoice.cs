@@ -8,17 +8,19 @@ namespace DuelMastersModels.Choices
     {
         public IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> Options { get; }
 
-        public Tuple<Guid, IEnumerable<Guid>> Selected { get; set; }
-
         public CardUsageChoice(Guid player, IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> useableCards) : base(player)
         {
             Options = useableCards;
         }
+    }
 
-        public CardUsageChoice(CardUsageChoice choice, Tuple<Guid, IEnumerable<Guid>> selected) : base(choice.Player)
+    public class CardUsageDecision : Decision
+    {
+        public Tuple<Guid, IEnumerable<Guid>> Decision { get; private set; }
+
+        public CardUsageDecision(Tuple<Guid, IEnumerable<Guid>> decision)
         {
-            Options = new List<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>>(choice.Options);
-            Selected = selected;
+            Decision = decision;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace DuelMastersModels.Cards.Creatures
     {
         internal BombazarDragonOfDestinyAbility(Card source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
 
-        public override Choice Resolve(Duel duel, Choice choice)
+        public override Choice Resolve(Duel duel, Decision choice)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
             duel.Destroy(duel.BattleZoneCreatures.Where(c => c != Source && c.Power == 6000));
@@ -54,7 +54,7 @@ namespace DuelMastersModels.Cards.Creatures
             Turn = turn;
         }
 
-        public override Choice Resolve(Duel duel, Choice choice)
+        public override Choice Resolve(Duel duel, Decision choice)
         {
             var gameOver = new GameOver(WinReason.Bombazar, duel.Players.Select(x => x.Id).Where(p => p != Controller), duel.Players.Select(x => x.Id).Where(p => p == Controller));
             duel.GameOverInformation = gameOver;
@@ -108,7 +108,7 @@ namespace DuelMastersModels.Cards.Creatures
             return Copy(new WindAxeTheWarriorSavageAbility(Source));
         }
 
-        public override Choice Resolve(Duel duel, Choice choice)
+        public override Choice Resolve(Duel duel, Decision choice)
         {
             throw new System.NotImplementedException();
             //// When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."

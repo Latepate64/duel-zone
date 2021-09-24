@@ -19,12 +19,12 @@ namespace DuelMastersModels.Steps
             return new EndOfAttackStep();
         }
 
-        public override Step Copy()
+        public DirectAttackStep(DirectAttackStep step) : base(step)
         {
-            return Copy(new DirectAttackStep(AttackingCreature));
+            AttackingCreature = step.AttackingCreature;
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
+        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             var creature = duel.GetCard(AttackingCreature);
             var owner = duel.GetOwner(creature);
@@ -42,6 +42,11 @@ namespace DuelMastersModels.Steps
                 duel.State = DuelState.Over;
                 return gameOver;
             }
+        }
+
+        public override Step Copy()
+        {
+            return new DirectAttackStep(this);
         }
     }
 }

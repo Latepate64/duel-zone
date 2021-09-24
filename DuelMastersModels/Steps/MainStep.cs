@@ -14,7 +14,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        protected internal override Choice PerformPriorityAction(Choice choice, Duel duel)
+        protected internal override Choice PerformPriorityAction(Decision choice, Duel duel)
         {
             if (choice == null)
             {
@@ -31,19 +31,19 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                var usage = choice as CardUsageChoice;
-                if (usage.Selected == null)
+                var usage = choice as CardUsageDecision;
+                if (usage.Decision == null)
                 {
                     PassPriority = true;
                     return null;
                 }
                 else
                 {
-                    foreach (Card mana in usage.Selected.Item2.Select(x => duel.GetCard(x)))
+                    foreach (Card mana in usage.Decision.Item2.Select(x => duel.GetCard(x)))
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(duel.GetCard(usage.Selected.Item1), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
+                    duel.UseCard(duel.GetCard(usage.Decision.Item1), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
                     return null;
                 }
             }
@@ -72,9 +72,11 @@ namespace DuelMastersModels.Steps
             return new AttackDeclarationStep();
         }
 
+        public MainStep(MainStep step) : base(step) { }
+
         public override Step Copy()
         {
-            return Copy(new MainStep { PassPriority = PassPriority });
+            return new MainStep(this);
         }
     }
 }
