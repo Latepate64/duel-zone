@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.Choices
+﻿using System;
+
+namespace DuelMastersModels.Choices
 {
     /// <summary>
     /// Represents a choice a player can make.
@@ -8,9 +10,9 @@
         /// <summary>
         /// Player who makes the choice.
         /// </summary>
-        public Player Player { get; private set; }
+        public Guid Player { get; private set; }
 
-        protected Choice(Player player)
+        protected Choice(Guid player)
         {
             Player = player;
         }

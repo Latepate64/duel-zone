@@ -18,7 +18,7 @@ namespace DuelMastersModels.Steps
 
     public abstract class Step : ICopyable<Step>
     {
-        public abstract Step GetNextStep();
+        public abstract Step GetNextStep(Duel duel);
 
         internal Choice Proceed(Choice choiceArg, Duel duel)
         {
@@ -42,17 +42,19 @@ namespace DuelMastersModels.Steps
             else if (State == StepState.StateBasedAction)
             {
                 var losers = new Collection<Player>();
-                if (!duel.CurrentTurn.ActivePlayer.Deck.Cards.Any())
+                var active = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+                var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
+                if (!active.Deck.Cards.Any())
                 {
-                    losers.Add(duel.CurrentTurn.ActivePlayer);
+                    losers.Add(active);
                 }
-                if (!duel.CurrentTurn.NonActivePlayer.Deck.Cards.Any())
+                if (!nonActive.Deck.Cards.Any())
                 {
-                    losers.Add(duel.CurrentTurn.NonActivePlayer);
+                    losers.Add(nonActive);
                 }
                 if (losers.Any())
                 {
-                    var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers), losers);
+                    var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers).Select(x => x.Id), losers.Select(x => x.Id));
                     duel.GameOverInformation = gameOver;
                     duel.State = DuelState.Over;
                     return gameOver;

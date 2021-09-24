@@ -4,7 +4,7 @@ namespace DuelMastersModels.Choices
     {
         public bool Decision { get; set; }
 
-        public YesNoChoice(Player player) : base(player)
+        public YesNoChoice(System.Guid player) : base(player)
         {
         }
     }

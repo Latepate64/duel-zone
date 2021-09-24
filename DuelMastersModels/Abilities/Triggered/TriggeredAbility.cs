@@ -16,7 +16,7 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
 
         protected TriggeredAbility Copy(TriggeredAbility ability)
         {
-            ability.Controller = Controller.Copy();
+            ability.Controller = Controller;
             //ability.Effects
             ability.TriggerCondition = TriggerCondition.Copy();
             return ability;

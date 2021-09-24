@@ -73,6 +73,8 @@ namespace DuelMastersModels
             }
         }
 
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Player shuffles their deck.
         /// </summary>
@@ -225,19 +227,15 @@ namespace DuelMastersModels
         {
             return new Player
             {
+                Id = Id,
+                Name = Name,
                 Deck = Deck.Copy(),
                 Graveyard = Graveyard.Copy(),
                 Hand = Hand.Copy(),
                 ManaZone = ManaZone.Copy(),
-                Name = Name,
                 ShieldZone = ShieldZone.Copy(),
                 BattleZone = BattleZone.Copy(),
             };
-        }
-
-        IAttackable ICopyable<IAttackable>.Copy()
-        {
-            return Copy();
         }
     }
 }

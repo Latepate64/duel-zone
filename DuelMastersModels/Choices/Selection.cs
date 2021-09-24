@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Choices
@@ -19,7 +20,7 @@ namespace DuelMastersModels.Choices
         /// </summary>
         public IEnumerable<T> Selected { get; set; }
 
-        public Selection(IEnumerable<T> selected) : base(null)
+        public Selection(IEnumerable<T> selected, Guid player) : base(player)
         {
             Selected = selected;
         }
@@ -31,7 +32,7 @@ namespace DuelMastersModels.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        internal Selection(Player player, IEnumerable<T> options, int minimumSelection = 0, int maximumSelection = 1) : base(player)
+        internal Selection(Guid player, IEnumerable<T> options, int minimumSelection = 0, int maximumSelection = 1) : base(player)
         {
             Options = options;
             MinimumSelection = minimumSelection;

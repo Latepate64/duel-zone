@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,14 +9,14 @@ namespace DuelMastersModels.Choices
     {
         public IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> UseableCards { get; }
 
-        public System.Tuple<Card, IEnumerable<Card>> Selected { get; set; }
+        public Tuple<Card, IEnumerable<Card>> Selected { get; set; }
 
-        public CardUsageChoice(Player player, IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> useableCards) : base(player)
+        public CardUsageChoice(Guid player, IEnumerable<IGrouping<Card, IEnumerable<IEnumerable<Card>>>> useableCards) : base(player)
         {
             UseableCards = useableCards;
         }
 
-        public CardUsageChoice(System.Tuple<Card, IEnumerable<Card>> selected) : base(null)
+        public CardUsageChoice(Tuple<Card, IEnumerable<Card>> selected, Guid player) : base(player)
         {
             Selected = selected;
         }

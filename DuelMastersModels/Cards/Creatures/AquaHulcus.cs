@@ -24,7 +24,7 @@ namespace DuelMastersModels.Cards.Creatures
         public override Choice Resolve(Duel duel, Choice choice)
         {
             if (choice == null) { return new YesNoChoice(Controller); }
-            if ((choice as YesNoChoice).Decision) { Controller.DrawCards(1); }
+            if ((choice as YesNoChoice).Decision) { duel.GetPlayer(Controller).DrawCards(1); }
             return null;
         }
 

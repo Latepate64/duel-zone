@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +8,8 @@ namespace DuelMastersModels.Steps
 {
     public class AttackDeclarationStep : TurnBasedActionStep
     {
-        internal Creature AttackingCreature { get; set; }
-        internal IAttackable AttackTarget { get; set; }
+        internal Guid AttackingCreature { get; set; }
+        internal Guid AttackTarget { get; set; }
 
         public AttackDeclarationStep()
         {
@@ -18,8 +19,8 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                var attackers = duel.CurrentTurn.ActivePlayer.BattleZone.Creatures.Where(c => !c.Tapped && !c.SummoningSickness);
-                IEnumerable<IGrouping<Creature, IEnumerable<IAttackable>>> options = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.SummoningSickness);
+                IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id));
                 if (options.Any())
                 {
                     return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options);
@@ -50,7 +51,7 @@ namespace DuelMastersModels.Steps
             return attackables;
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             if (AttackingCreature != null)
             {
@@ -67,8 +68,8 @@ namespace DuelMastersModels.Steps
         {
             return Copy(new AttackDeclarationStep
             {
-                AttackingCreature = AttackingCreature?.Copy() as Creature,
-                AttackTarget = AttackTarget?.Copy(),
+                AttackingCreature = AttackingCreature,
+                AttackTarget = AttackTarget,
             });
         }
     }

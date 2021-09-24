@@ -39,7 +39,10 @@ namespace DuelMastersModels.Zones
 
         public override void Remove(Card card)
         {
-            _ = _cards.Remove(card);
+            if (!_cards.Remove(card))
+            {
+                throw new System.NotSupportedException(card.ToString());
+            }
         }
 
         private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)

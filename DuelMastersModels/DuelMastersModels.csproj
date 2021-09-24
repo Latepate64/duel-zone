@@ -126,7 +126,6 @@
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\OneShotEffects\OneShotEffect.cs" />
     <Compile Include="Effects\OneShotEffects\OneShotEffectForCreature.cs" />
-    <Compile Include="Effects\OneShotEffects\YouMayDrawACardEffect.cs" />
     <Compile Include="Effects\Periods\Indefinite.cs" />
     <Compile Include="Effects\Periods\Period.cs" />
     <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />

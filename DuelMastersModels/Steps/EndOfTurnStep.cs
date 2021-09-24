@@ -9,7 +9,7 @@
         {
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             return null;
         }

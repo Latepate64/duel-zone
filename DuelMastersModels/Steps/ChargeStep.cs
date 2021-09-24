@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             return new MainStep();
         }
@@ -21,12 +21,12 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                return new Selection<Cards.Card>(duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.ActivePlayer.Hand.Cards);
+                return new Selection<System.Guid>(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards.Select(x => x.Id));
             }
             else
             {
-                var cards = (choice as Selection<Cards.Card>).Selected;
-                if (cards.Any()) { duel.CurrentTurn.ActivePlayer.PutFromHandIntoManaZone(cards.Single()); }
+                var cards = (choice as Selection<System.Guid>).Selected;
+                if (cards.Any()) { duel.GetPlayer(duel.CurrentTurn.ActivePlayer).PutFromHandIntoManaZone(duel.GetCard(cards.Single())); }
                 PassPriority = true;
                 return null;
             }

@@ -1,26 +1,26 @@
-﻿using DuelMastersModels.Cards;
+﻿using System;
 
 namespace DuelMastersModels.Steps
 {
     public class DirectAttackStep : Step
     {
-        internal Creature AttackingCreature { get; private set; }
+        internal Guid AttackingCreature { get; private set; }
         //private bool _breakingDone;
         //public ReadOnlyCardCollection BrokenShields { get; private set; }
 
-        public DirectAttackStep(Creature attackingCreature)
+        public DirectAttackStep(Guid attackingCreature)
         {
             AttackingCreature = attackingCreature;
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             return new EndOfAttackStep();
         }
 
         public override Step Copy()
         {
-            return Copy(new DirectAttackStep(AttackingCreature.Copy() as Creature));
+            return Copy(new DirectAttackStep(AttackingCreature));
         }
 
         //TODO

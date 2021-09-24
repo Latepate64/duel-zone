@@ -13,7 +13,11 @@ namespace DuelMastersModels
     {
         public GameOver GameOverInformation { get; internal set; }
 
-        public IEnumerable<Player> Players => new Collection<Player> { CurrentTurn.ActivePlayer, CurrentTurn.NonActivePlayer };
+        public IEnumerable<Player> Players => new Collection<Player> { Player1, Player2 };
+
+        public Player Player1 { get; set; }
+
+        public Player Player2 { get; set; }
 
         /// <summary>
         /// Determines the state of the duel.
@@ -32,15 +36,7 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => _turns.Last();
 
-        public IEnumerable<Creature> BattleZoneCreatures
-        {
-            get
-            {
-                var creatures = new List<Creature>(CurrentTurn.ActivePlayer.BattleZone.Creatures);
-                creatures.AddRange(CurrentTurn.NonActivePlayer.BattleZone.Creatures);
-                return creatures;
-            }
-        }
+        public IEnumerable<Creature> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
         /// <summary>
         /// Spells that are being resolved.
@@ -71,6 +67,9 @@ namespace DuelMastersModels
             }
             State = DuelState.InProgress;
 
+            Player1 = startingPlayer;
+            Player2 = otherPlayer;
+
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
             startingPlayer.ShuffleDeck();
             otherPlayer.ShuffleDeck();
@@ -81,10 +80,10 @@ namespace DuelMastersModels
             startingPlayer.DrawCards(InitialNumberOfHandCards);
             otherPlayer.DrawCards(InitialNumberOfHandCards);
 
-            return StartNewTurn(startingPlayer, otherPlayer);
+            return StartNewTurn(startingPlayer.Id, otherPlayer.Id);
         }
 
-        private Choice StartNewTurn(Player activePlayer, Player nonActivePlayer)
+        private Choice StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
         {
             Turn turn = new Turn(activePlayer, nonActivePlayer);
             _turns.Add(turn);
@@ -248,12 +247,8 @@ namespace DuelMastersModels
 
         public IEnumerable<Card> GetAllCards()
         {
-            List<Card> cards = CurrentTurn.ActivePlayer.CardsInNonsharedZones.ToList();
-            cards.AddRange(CurrentTurn.NonActivePlayer.CardsInNonsharedZones);
-            cards.AddRange(BattleZoneCreatures);
-            return cards;
+            return Players.SelectMany(x => x.AllCards);
         }
-
         private static Card PutFromShieldZoneToHand(Player player, Card card)
         {
             player.ShieldZone.Remove(card);
@@ -377,6 +372,8 @@ namespace DuelMastersModels
                 GameOverInformation = GameOverInformation?.Copy(),
                 InitialNumberOfHandCards = InitialNumberOfHandCards,
                 InitialNumberOfShields = InitialNumberOfShields,
+                Player1 = Player1.Copy(),
+                Player2 = Player2.Copy(),
                 State = State,
                 _spellsBeingResolved = _spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList(),
                 _turns = _turns.Select(x => x.Copy()).ToList()
@@ -389,13 +386,29 @@ namespace DuelMastersModels
 
         public Player GetOpponent(Player player)
         {
-            if (player == CurrentTurn.ActivePlayer)
+            if (player == Player1)
             {
-                return CurrentTurn.NonActivePlayer;
+                return Player2;
             }
-            else if (player == CurrentTurn.NonActivePlayer)
+            else if (player == Player2)
             {
-                return CurrentTurn.ActivePlayer;
+                return Player1;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(player.ToString());
+            }
+        }
+
+        public Guid GetOpponent(Guid player)
+        {
+            if (player == Player1.Id)
+            {
+                return Player2.Id;
+            }
+            else if (player == Player2.Id)
+            {
+                return Player1.Id;
             }
             else
             {
@@ -405,13 +418,13 @@ namespace DuelMastersModels
 
         public Player GetOwner(Card card)
         {
-            if (CurrentTurn.ActivePlayer.AllCards.Contains(card))
+            if (Player1.AllCards.Contains(card))
             {
-                return CurrentTurn.ActivePlayer;
+                return Player1;
             }
-            else if (CurrentTurn.NonActivePlayer.AllCards.Contains(card))
+            else if (Player2.AllCards.Contains(card))
             {
-                return CurrentTurn.NonActivePlayer;
+                return Player2;
             }
             else
             {
@@ -422,6 +435,11 @@ namespace DuelMastersModels
         public Card GetCard(Guid id)
         {
             return GetAllCards().Single(c => c.Id == id);
+        }
+
+        public Player GetPlayer(Guid id)
+        {
+            return Players.Single(x => x.Id == id);
         }
 
         //private void RandomizeStartingPlayer(out Player activePlayer, out Player nonActivePlayer)

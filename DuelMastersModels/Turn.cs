@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace DuelMastersModels
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public Player ActivePlayer { get; }
+        public Guid ActivePlayer { get; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        public Player NonActivePlayer { get; private set; }
+        public Guid NonActivePlayer { get; private set; }
 
         /// <summary>
         /// The step that is currently being processed.
@@ -35,7 +36,7 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(Player activePlayer, Player nonActivePlayer)
+        public Turn(Guid activePlayer, Guid nonActivePlayer)
         {
             ActivePlayer = activePlayer;
             NonActivePlayer = nonActivePlayer;
@@ -51,13 +52,13 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
             }
         }
 
         public Choice ChangeAndStartStep(Duel duel)
         {
-            Step nextStep = CurrentStep.GetNextStep();
+            Step nextStep = CurrentStep.GetNextStep(duel);
             if (nextStep != null)
             {
                 Steps.Add(nextStep);
@@ -97,7 +98,7 @@ namespace DuelMastersModels
 
         public Turn Copy()
         {
-            return new Turn(ActivePlayer.Copy(), NonActivePlayer.Copy())
+            return new Turn(ActivePlayer, NonActivePlayer)
             {
                 Number = Number,
                 Steps = Steps.Select(x => x.Copy()).ToList(),

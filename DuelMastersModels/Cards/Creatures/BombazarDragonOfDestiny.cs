@@ -54,7 +54,7 @@ namespace DuelMastersModels.Cards.Creatures
 
         public override Choice Resolve(Duel duel, Choice choice)
         {
-            var gameOver = new GameOver(WinReason.Bombazar, duel.Players.Where(p => p != Controller), duel.Players.Where(p => p == Controller));
+            var gameOver = new GameOver(WinReason.Bombazar, duel.Players.Select(x => x.Id).Where(p => p != Controller), duel.Players.Select(x => x.Id).Where(p => p == Controller));
             duel.GameOverInformation = gameOver;
             duel.State = DuelState.Over;
             return gameOver;

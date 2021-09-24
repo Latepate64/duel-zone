@@ -50,10 +50,5 @@ namespace DuelMastersModels.Cards
             creature.SummoningSickness = SummoningSickness;
             return creature;
         }
-
-        IAttackable ICopyable<IAttackable>.Copy()
-        {
-            return Copy() as IAttackable;
-        }
     }
 }

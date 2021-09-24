@@ -11,7 +11,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             return new ChargeStep();
         }
@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
         {
-            duel.CurrentTurn.ActivePlayer.DrawCards(1);
+            duel.GetPlayer(duel.CurrentTurn.ActivePlayer).DrawCards(1);
             return null;
         }
 

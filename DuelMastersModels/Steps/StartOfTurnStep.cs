@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
             SkipDrawStep = skipDrawStep;
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
             if (SkipDrawStep)
@@ -31,7 +31,7 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Choice choice)
         {
-            return duel.CurrentTurn.ActivePlayer.UntapCardsInBattleZoneAndManaZone();
+            return duel.GetPlayer(duel.CurrentTurn.ActivePlayer).UntapCardsInBattleZoneAndManaZone();
         }
 
         internal bool SkipDrawStep { get; set; }

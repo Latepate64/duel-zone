@@ -1,15 +1,16 @@
 ﻿using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
+using System;
 
 namespace DuelMastersModels.Steps
 {
     public class BlockDeclarationStep : TurnBasedActionStep
     {
-        internal Creature AttackingCreature { get; private set; }
-        internal IAttackable AttackTarget { get; private set; }
-        internal Creature BlockingCreature { get; set; }
+        internal Guid AttackingCreature { get; private set; }
+        internal Guid AttackTarget { get; private set; }
+        internal Guid BlockingCreature { get; set; }
 
-        public BlockDeclarationStep(Creature attackingCreature, IAttackable attackTarget)
+        public BlockDeclarationStep(Guid attackingCreature, Guid attackTarget)
         {
             AttackingCreature = attackingCreature;
             AttackTarget = attackTarget;
@@ -21,7 +22,7 @@ namespace DuelMastersModels.Steps
             bool possibleToBlock = false;
             if (possibleToBlock)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
                 //return new BlockerChoice(duel.CurrentTurn.ActivePlayer);
             }
             else
@@ -30,15 +31,15 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             if (BlockingCreature != null)
             {
                 return new BattleStep(AttackingCreature, BlockingCreature);
             }
-            else if (AttackTarget is Creature creature)
+            else if (duel.GetCard(AttackTarget) is Creature)
             {
-                return new BattleStep(AttackingCreature, creature);
+                return new BattleStep(AttackingCreature, AttackTarget);
             }
             else
             {
@@ -55,9 +56,9 @@ namespace DuelMastersModels.Steps
 
         public override Step Copy()
         {
-            return Copy(new BlockDeclarationStep(AttackingCreature.Copy() as Creature, AttackTarget.Copy())
+            return Copy(new BlockDeclarationStep(AttackingCreature, AttackTarget)
             {
-                BlockingCreature = BlockingCreature.Copy() as Creature
+                BlockingCreature = BlockingCreature
             });
         }
     }

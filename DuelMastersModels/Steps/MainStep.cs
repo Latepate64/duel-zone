@@ -18,7 +18,7 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                var usableCards = duel.CurrentTurn.ActivePlayer.GetUsableCardsWithPaymentInformation();
+                var usableCards = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).GetUsableCardsWithPaymentInformation();
                 if (usableCards.Any())
                 {
                     return new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards);
@@ -43,7 +43,7 @@ namespace DuelMastersModels.Steps
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(usage.Selected.Item1, duel.CurrentTurn.ActivePlayer);
+                    duel.UseCard(usage.Selected.Item1, duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
                     return null;
                 }
             }
@@ -67,7 +67,7 @@ namespace DuelMastersModels.Steps
             return handCards.Where(handCard => Duel.CanBeUsed(handCard, manaCards));
         }
 
-        public override Step GetNextStep()
+        public override Step GetNextStep(Duel duel)
         {
             return new AttackDeclarationStep();
         }
