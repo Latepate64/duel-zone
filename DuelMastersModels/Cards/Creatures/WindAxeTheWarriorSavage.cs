@@ -1,7 +1,9 @@
 ﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
@@ -35,19 +37,33 @@ namespace DuelMastersModels.Cards.Creatures
             return new WindAxeTheWarriorSavageAbility(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision choice)
+        public override Choice Resolve(Duel duel, Decision decision)
         {
-            throw new System.NotImplementedException();
-            //// When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
-            //if (choice == null)
-            //{
+            // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
+            var controller = duel.GetPlayer(Controller);
+            IEnumerable<Creature> blocker = new List<Creature>();
+            if (decision == null)
+            {
+                var opponent = duel.GetOpponent(controller);
+                var blockers = opponent.BattleZone.Creatures.Where(c => c.StaticAbilities.OfType<Blocker>().Any());
+                if (blockers.Count() > 1)
+                {
+                    return new Selection<System.Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
+                }
+                else if (blockers.Any())
+                {
+                    blocker = blockers;
+                }
+            }
+            else
+            {
+                blocker = (decision as GuidDecision).Decision.Select(x => duel.GetCreature(x));
+            }
+            duel.Destroy(blocker);
 
-            //}
-            //Creature creature;// = choice as Choice
-            //duel.Destroy(creature);
-            //// Then put the top card of your deck into your mana zone.
-            //Controller.PutFromTopOfDeckIntoManaZone();
-            //return null;
+            // Then put the top card of your deck into your mana zone.
+            controller.PutFromTopOfDeckIntoManaZone(duel);
+            return null;
         }
     }
 }

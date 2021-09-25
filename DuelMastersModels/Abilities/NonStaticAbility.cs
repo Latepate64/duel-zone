@@ -22,6 +22,6 @@ namespace DuelMastersModels.Abilities
             Controller = ability.Controller;
         }
 
-        public abstract Choice Resolve(Duel duel, Decision choice);
+        public abstract Choice Resolve(Duel duel, Decision decision);
     }
 }

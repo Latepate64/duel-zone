@@ -11,7 +11,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 20;
+        const int ChoicesMax = 15;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -21,23 +21,33 @@ namespace Simulator
             Duel duel = new();
             Choice choice = duel.Start(player1, player2);
             int numberOfChoicesMade = 0;
+            int latestPoints = 0;
             while (choice is not GameOver)
             {
                 _simulator = choice.Player;
-                Console.WriteLine($"{numberOfChoicesMade}: {choice}");
+                Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
                 var decisionWithPoints = Choose(choice, duel, ChoicesMax, null, numberOfChoicesMade++);
-                var decision = decisionWithPoints.Item1;
-                choice = duel.Continue(decision);
+                latestPoints = decisionWithPoints.Item2;
+                Console.WriteLine($"Choice awarded: {latestPoints}");
+                choice = duel.Continue(decisionWithPoints.Item1);
             }
         }
 
         static List<Card> GetBombaBlue()
         {
             List<Card> deck = new();
-            for (int i = 0; i < 40; ++i)
+            for (int i = 0; i < 4; ++i)
             {
-                //deck.Add(new GontaTheWarriorSavage());
+                deck.Add(new AquaHulcus());
+                //Aqua Surfer
+                //Emeral
+                //Pyrofighter
+                deck.Add(new BronzeArmTribe());
+                //Soulswap
+                deck.Add(new TwinCannonSkyterror());
                 deck.Add(new BombazarDragonOfDestiny());
+                deck.Add(new GontaTheWarriorSavage());
+                deck.Add(new WindAxeTheWarriorSavage());
             }
             return deck;
         }
@@ -75,6 +85,7 @@ namespace Simulator
 
         static Tuple<Decision, int> Choose(Choice choice, Duel duel, int optionsRemaining, Decision decision, int numberOfChoicesMade)
         {
+            var decisions = new List<Tuple<Decision, int>>();
             if (optionsRemaining <= 0 || choice is GameOver)
             {
                 return new Tuple<Decision, int>(decision, GetPoints(duel, numberOfChoicesMade));
@@ -90,7 +101,6 @@ namespace Simulator
                 {
                     options.Add(new List<Guid>());
                 }
-                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in options)
                 {
                     var newDecision = new GuidDecision(option);
@@ -98,14 +108,11 @@ namespace Simulator
                     var newChoice = duelCopy.Continue(newDecision);
                     decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), newDecision, ++numberOfChoicesMade).Item2));
                 }
-                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
-                else { return decisions.OrderBy(x => x.Item2).First(); }
             }
             else if (choice is CardUsageChoice usage)
             {
                 var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new Tuple<Guid, IEnumerable<Guid>>(toUse.Key, x)))).ToList();
                 options.Add(null);
-                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in options)
                 {
                     var currentChoice = new CardUsageDecision(option);
@@ -113,14 +120,11 @@ namespace Simulator
                     var newChoice = duelCopy.Continue(currentChoice);
                     decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
                 }
-                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
-                else { return decisions.OrderBy(x => x.Item2).First(); }
             }
             else if (choice is AttackerChoice attackerChoice)
             {
                 var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
                 options.Add(null);
-                var decisions = new List<Tuple<Decision, int>>();
                 foreach (var option in options)
                 {
                     var currentChoice = new AttackerDecision(option);
@@ -128,13 +132,24 @@ namespace Simulator
                     var newChoice = duelCopy.Continue(currentChoice);
                     decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
                 }
-                if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
-                else { return decisions.OrderBy(x => x.Item2).First(); }
+            }
+            else if (choice is YesNoChoice yesNo)
+            {
+                var options = new List<bool> { true, false };
+                foreach (var option in options)
+                {
+                    var currentChoice = new YesNoDecision(option);
+                    var duelCopy = new Duel(duel);
+                    var newChoice = duelCopy.Continue(currentChoice);
+                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
+                }
             }
             else
             {
                 throw new ArgumentOutOfRangeException(choice.ToString());
             }
+            if (_simulator == choice.Player) { return decisions.OrderBy(x => x.Item2).Last(); }
+            else { return decisions.OrderBy(x => x.Item2).First(); }
         }
 
         //static Simulation Choose(Simulation simulation)

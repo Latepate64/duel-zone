@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Abilities.TriggeredAbilities;
+﻿using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Abilities.TriggeredAbilities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace DuelMastersModels.Cards
     public enum Race
     {
         ArmoredDragon,
+        ArmoredWyvern,
         BeastFolk,
         EarthDragon,
         Human,
@@ -31,6 +33,9 @@ namespace DuelMastersModels.Cards
 
         public ICollection<TriggeredAbility> TriggerAbilities { get; private set; } = new Collection<TriggeredAbility>();
 
+        /// <summary>
+        /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
+        /// </summary>
         public bool SummoningSickness { get; private set; }
 
         protected Creature(int cost, IEnumerable<Civilization> civilizations, int power, IEnumerable<Race> races) : base(cost, civilizations)
@@ -57,6 +62,11 @@ namespace DuelMastersModels.Cards
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        internal bool AffectedBySummoningSickness()
+        {
+            return SummoningSickness && !StaticAbilities.OfType<SpeedAttacker>().Any();
         }
     }
 }

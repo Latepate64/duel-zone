@@ -80,12 +80,9 @@
     <Compile Include="Abilities\NonStaticAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />
-    <Compile Include="Abilities\Static\CreatureShieldTrigger.cs" />
+    <Compile Include="Abilities\Static\DoubleBreaker.cs" />
     <Compile Include="Abilities\Static\SpeedAttacker.cs" />
-    <Compile Include="Abilities\Static\SpellShieldTrigger.cs" />
     <Compile Include="Abilities\Static\StaticAbility.cs" />
-    <Compile Include="Abilities\Static\StaticAbilityForCreature.cs" />
-    <Compile Include="Abilities\Static\StaticAbilityForSpell.cs" />
     <Compile Include="Abilities\Static\ThisCreatureAttacksEachTurnIfAble.cs" />
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
     <Compile Include="Abilities\Triggered\TriggeredAbility.cs" />
@@ -95,7 +92,9 @@
     <Compile Include="Abilities\Triggered\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="Cards\Creatures\AquaHulcus.cs" />
     <Compile Include="Cards\Creatures\BombazarDragonOfDestiny.cs" />
+    <Compile Include="Cards\Creatures\BronzeArmTribe.cs" />
     <Compile Include="Cards\Creatures\GontaTheWarriorSavage.cs" />
+    <Compile Include="Cards\Creatures\TwinCannonSkyterror.cs" />
     <Compile Include="Cards\Creatures\WindAxeTheWarriorSavage.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Card.cs" />

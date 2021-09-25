@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +28,17 @@ namespace DuelMastersModels.Steps
 
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            var creature = duel.GetCard(AttackingCreature);
+            var creature = duel.GetCard(AttackingCreature) as Creature;
             var owner = duel.GetOwner(creature);
             var opponent = duel.GetOpponent(owner);
             if (opponent.ShieldZone.Cards.Any())
             {
-                // TODO: Consider breaker abilities
-                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(1), duel);//, true);
+                int breakAmount = 1;
+                if (creature.StaticAbilities.OfType<DoubleBreaker>().Any())
+                {
+                    breakAmount = 2;
+                }
+                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel);//, true);
             }
             else
             {

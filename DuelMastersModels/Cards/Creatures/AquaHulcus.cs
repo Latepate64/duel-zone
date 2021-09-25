@@ -27,12 +27,17 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override Choice Resolve(Duel duel, Decision choice)
+        public override Choice Resolve(Duel duel, Decision decision)
         {
-            throw new System.NotImplementedException();
-            //if (choice == null) { return new YesNoChoice(Controller); }
-            //if ((choice as YesNoChoice).Decision) { duel.GetPlayer(Controller).DrawCards(1); }
-            //return null;
+            if (decision == null)
+            {
+                return new YesNoChoice(Controller);
+            }
+            if ((decision as YesNoDecision).Decision)
+            {
+                duel.GetPlayer(Controller).DrawCards(1, duel);
+            }
+            return null;
         }
 
         public override Ability Copy()

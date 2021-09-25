@@ -8,8 +8,7 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class BombazarDragonOfDestiny : Creature
     {
-        //TODO: COST TO 7!!!
-        public BombazarDragonOfDestiny() : base(2, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
+        public BombazarDragonOfDestiny() : base(7, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
         {
             TriggerAbilities.Add(new BombazarDragonOfDestinyAbility(Id));
             StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(Id));

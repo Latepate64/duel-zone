@@ -2,6 +2,11 @@
 {
     public abstract class TriggerCondition : ICopyable<TriggerCondition>
     {
+        public virtual bool CanTrigger(Duel duel)
+        {
+            return true;
+        }
+
         public abstract TriggerCondition Copy();
     }
 
@@ -17,6 +22,11 @@
         public override TriggerCondition Copy()
         {
             return new AtTheEndOfTurn(Turn);
+        }
+
+        public override bool CanTrigger(Duel duel)
+        {
+            return duel.CurrentTurn.Id == Turn;
         }
     }
 }

@@ -260,5 +260,10 @@ namespace DuelMastersModels
         {
             return Id.ToString();
         }
+
+        internal void PutFromTopOfDeckIntoManaZone(Duel duel)
+        {
+            ManaZone.Add(RemoveTopCardOfDeck(), duel);
+        }
     }
 }

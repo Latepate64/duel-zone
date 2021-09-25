@@ -174,7 +174,7 @@ namespace DuelMastersModels
         public bool CanAttackOpponent(Creature creature)
         {
             IEnumerable<Creature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers();
-            return !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttackPlayers.Contains(creature);
+            return !creature.AffectedBySummoningSickness() && !creaturesThatCannotAttackPlayers.Contains(creature);
         }
 
         public bool AttacksIfAble(Creature creature)
@@ -288,16 +288,6 @@ namespace DuelMastersModels
         //        throw new InvalidOperationException();
         //    }
         //}
-
-        private bool HasSpeedAttacker(Creature creature)
-        {
-            return _continuousEffectManager.HasSpeedAttacker(creature);
-        }
-
-        private bool AffectedBySummoningSickness(Creature creature)
-        {
-            return creature.SummoningSickness && !HasSpeedAttacker(creature);
-        }
 
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
         {
@@ -414,6 +404,11 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
+        public Creature GetCreature(Guid id)
+        {
+            return GetCard(id) as Creature;
+        }
+
         public Player GetPlayer(Guid id)
         {
             return Players.Single(x => x.Id == id);
@@ -438,9 +433,9 @@ namespace DuelMastersModels
 
         public void Trigger<T>() where T : TriggerCondition
         {
-            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggerAbilities).Where(x => x.TriggerCondition is T).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggerAbilities).Where(x => x.TriggerCondition is T && x.TriggerCondition.CanTrigger(this)).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.TriggerCondition is T))
+            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.TriggerCondition is T && x.TriggeredAbility.TriggerCondition.CanTrigger(this)))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as NonStaticAbility);
                 if (ability.Period is Once)

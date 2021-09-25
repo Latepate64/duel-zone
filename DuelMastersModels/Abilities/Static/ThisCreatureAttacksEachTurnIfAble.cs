@@ -1,10 +1,8 @@
-﻿using DuelMastersModels.Cards;
-
-namespace DuelMastersModels.Abilities.StaticAbilities
+﻿namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    internal class ThisCreatureAttacksEachTurnIfAble : StaticAbilityForCreature
+    internal class ThisCreatureAttacksEachTurnIfAble : StaticAbility
     {
-        internal ThisCreatureAttacksEachTurnIfAble(Creature creature, System.Guid source) : base(new Effects.ContinuousEffects.AttacksIfAbleEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone, source)
+        internal ThisCreatureAttacksEachTurnIfAble(System.Guid source) : base(source)
         { }
 
         public override Ability Copy()

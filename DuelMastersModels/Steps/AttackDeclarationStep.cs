@@ -19,7 +19,7 @@ namespace DuelMastersModels.Steps
         {
             if (decision == null)
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.SummoningSickness);
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness());
                 IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id));
                 if (options.Any())
                 {
