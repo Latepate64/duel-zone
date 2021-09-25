@@ -95,6 +95,8 @@
     <Compile Include="Abilities\Triggered\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="Cards\Creatures\AquaHulcus.cs" />
     <Compile Include="Cards\Creatures\BombazarDragonOfDestiny.cs" />
+    <Compile Include="Cards\Creatures\GontaTheWarriorSavage.cs" />
+    <Compile Include="Cards\Creatures\WindAxeTheWarriorSavage.cs" />
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />

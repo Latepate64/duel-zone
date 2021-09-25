@@ -45,5 +45,25 @@ namespace DuelMastersModels.Cards
         {
             return Id.ToString();
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Card card)
+            {
+                return card.Civilizations.SequenceEqual(Civilizations) &&
+                    card.Cost == Cost &&
+                    card.StaticAbilities.SequenceEqual(StaticAbilities) &&
+                    card.Tapped == Tapped;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
+        }
     }
 }

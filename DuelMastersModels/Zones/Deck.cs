@@ -15,7 +15,7 @@ namespace DuelMastersModels.Zones
 
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             _cards.Add(card);
         }

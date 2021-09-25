@@ -28,7 +28,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             if (card.Civilizations.Count() > 1)
             {

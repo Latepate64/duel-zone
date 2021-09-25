@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.TriggeredAbilities;
+using DuelMastersModels.Cards;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,14 +37,13 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(Card card)
+        public override void Add(Card card, Duel duel)
         {
             _cards.Add(card);
-            //if (card is Creature creature)
-            //{
-            //    Duel.TriggerWhenYouPutThisCreatureIntoTheBattleZoneAbilities(creature);
-            //    Duel.TriggerWheneverAnotherCreatureIsPutIntoTheBattleZoneAbilities(creature);
-            //}
+            if (card is Creature creature)
+            {
+                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(creature.TriggerAbilities.Where(x => x.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone).Select(x => x.Copy() as NonStaticAbility));
+            }
         }
 
         public override void Remove(Card card)

@@ -32,7 +32,7 @@ namespace DuelMastersModels.Steps
             if (opponent.ShieldZone.Cards.Any())
             {
                 // TODO: Consider breaker abilities
-                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(1));//, true);
+                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(1), duel);//, true);
             }
             else
             {

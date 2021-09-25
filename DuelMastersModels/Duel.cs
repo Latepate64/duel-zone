@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using DuelMastersModels.Abilities.TriggeredAbilities;
+using DuelMastersModels.Effects.Periods;
+using DuelMastersModels.Abilities;
 
 namespace DuelMastersModels
 {
@@ -74,18 +77,18 @@ namespace DuelMastersModels
             startingPlayer.ShuffleDeck();
             otherPlayer.ShuffleDeck();
 
-            startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
-            otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields);
+            startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
+            otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
 
-            startingPlayer.DrawCards(InitialNumberOfHandCards);
-            otherPlayer.DrawCards(InitialNumberOfHandCards);
+            startingPlayer.DrawCards(InitialNumberOfHandCards, this);
+            otherPlayer.DrawCards(InitialNumberOfHandCards, this);
 
             return StartNewTurn(startingPlayer.Id, otherPlayer.Id);
         }
 
         private Choice StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
         {
-            Turn turn = new Turn(activePlayer, nonActivePlayer);
+            Turn turn = ExtraTurns.Any() ? ExtraTurns.Dequeue() : new Turn(activePlayer, nonActivePlayer);
             _turns.Add(turn);
             return turn.Start(this, _turns.Count);
         }
@@ -117,16 +120,16 @@ namespace DuelMastersModels
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature);
+                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature);
+                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
             }
             else
             {
-                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature);
-                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature);
+                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
+                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
             }
         }
 
@@ -135,7 +138,7 @@ namespace DuelMastersModels
             if (card is Creature creature)
             {
                 player.Hand.Remove(creature);
-                player.BattleZone.Add(creature);
+                player.BattleZone.Add(creature, this);
             }
             else if (card is Spell spell)
             {
@@ -336,7 +339,7 @@ namespace DuelMastersModels
         {
             foreach (var creature in creatures)
             {
-                GetOwner(creature).PutFromBattleZoneIntoGraveyard(creature);
+                GetOwner(creature).PutFromBattleZoneIntoGraveyard(creature, this);
             }
         }
 
@@ -356,7 +359,7 @@ namespace DuelMastersModels
 
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
 
-        internal ICollection<Abilities.TriggeredAbilities.DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<Abilities.TriggeredAbilities.DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
+        internal ICollection<DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
 
         public Player GetOpponent(Player player)
         {
@@ -433,26 +436,18 @@ namespace DuelMastersModels
             }
         }
 
-        //private void RandomizeStartingPlayer(out Player activePlayer, out Player nonActivePlayer)
-        //{
-        //    activePlayer = Player1;
-        //    nonActivePlayer = Player2;
-        //    if (StartingPlayerMethod == StartingPlayerMethod.Random)
-        //    {
-        //        const int RandomMax = 100;
-        //        int randomNumber = new Random().Next(0, RandomMax);
-        //        StartingPlayerMethod = (randomNumber % 2 == 0) ? StartingPlayerMethod.Player1 : StartingPlayerMethod.Player2;
-        //    }
-
-        //    if (StartingPlayerMethod == StartingPlayerMethod.Player2)
-        //    {
-        //        activePlayer = Player2;
-        //        nonActivePlayer = Player1;
-        //    }
-        //    else if (StartingPlayerMethod != StartingPlayerMethod.Player1)
-        //    {
-        //        throw new InvalidOperationException();
-        //    }
-        //}
+        public void Trigger<T>() where T : TriggerCondition
+        {
+            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggerAbilities).Where(x => x.TriggerCondition is T).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.TriggerCondition is T))
+            {
+                abilities.Add(ability.TriggeredAbility.Copy() as NonStaticAbility);
+                if (ability.Period is Once)
+                {
+                    //TODO: Remove from DelayedTriggeredAbilities
+                }
+            }
+            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+        }
     }
 }

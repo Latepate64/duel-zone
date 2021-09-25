@@ -15,6 +15,11 @@
             Source = source;
         }
 
+        protected Ability(Ability ability)
+        {
+            Source = ability.Source;
+        }
+
         public abstract Ability Copy();
     }
 }

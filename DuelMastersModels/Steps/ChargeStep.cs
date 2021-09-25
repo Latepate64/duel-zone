@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
             else
             {
                 var cards = (choice as GuidDecision).Decision;
-                if (cards.Any()) { duel.GetPlayer(duel.CurrentTurn.ActivePlayer).PutFromHandIntoManaZone(duel.GetCard(cards.Single())); }
+                if (cards.Any()) { duel.GetPlayer(duel.CurrentTurn.ActivePlayer).PutFromHandIntoManaZone(duel.GetCard(cards.Single()), duel); }
                 PassPriority = true;
                 return null;
             }

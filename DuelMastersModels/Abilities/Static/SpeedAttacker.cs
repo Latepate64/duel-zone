@@ -2,24 +2,28 @@
 
 namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    internal class SpeedAttacker : StaticAbilityForCreature
+    internal class SpeedAttacker : StaticAbility
     {
-        internal SpeedAttacker(Creature creature) : base(new Effects.ContinuousEffects.SpeedAttackerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone, creature)
+        internal SpeedAttacker(Creature creature) : base(creature)
         { }
+
+        protected SpeedAttacker(SpeedAttacker ability) : base(ability) { }
 
         public override Ability Copy()
         {
-            throw new System.NotImplementedException();
+            return new SpeedAttacker(this);
         }
     }
 
     internal class DoubleBreaker : StaticAbility
     {
-        internal DoubleBreaker(Creature creature) : base(null, creature) { } //TODO: Provide effect
+        internal DoubleBreaker(Creature creature) : base(creature) { }
+
+        protected DoubleBreaker(DoubleBreaker ability) : base(ability) { }
 
         public override Ability Copy()
         {
-            throw new System.NotImplementedException();
+            return new DoubleBreaker(this);
         }
     }
 }

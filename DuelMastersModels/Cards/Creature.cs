@@ -48,5 +48,26 @@ namespace DuelMastersModels.Cards
             TriggerAbilities = creature.TriggerAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
             SummoningSickness = creature.SummoningSickness;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Creature creature)
+            {
+                return base.Equals(creature) &&
+                    creature.Power == Power &&
+                    creature.Races.SequenceEqual(Races) &&
+                    creature.SummoningSickness == SummoningSickness &&
+                    creature.TriggerAbilities.SequenceEqual(TriggerAbilities);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
+        }
     }
 }

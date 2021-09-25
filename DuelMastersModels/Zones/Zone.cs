@@ -41,7 +41,7 @@ namespace DuelMastersModels.Zones
         ///<summary>
         /// Adds a card to the zone.
         ///</summary>
-        public abstract void Add(Card card);
+        public abstract void Add(Card card, Duel duel);
 
         ///<summary>
         /// Removes a card from the zone.

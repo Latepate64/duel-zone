@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            duel.GetPlayer(duel.CurrentTurn.ActivePlayer).DrawCards(1);
+            duel.GetPlayer(duel.CurrentTurn.ActivePlayer).DrawCards(1, duel);
             return null;
         }
 

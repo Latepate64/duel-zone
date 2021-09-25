@@ -112,30 +112,29 @@ namespace DuelMastersModels
             _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
-        public void PutFromBattleZoneIntoGraveyard(Card card)
+        public void PutFromBattleZoneIntoGraveyard(Card card, Duel duel)
         {
             BattleZone.Remove(card);
-            Graveyard.Add(card);
+            Graveyard.Add(card, duel);
         }
 
         /// <summary>
         /// Player puts target card from their hand into their mana zone.
         /// </summary>
-        /// <param name="card"></param>
-        public void PutFromHandIntoManaZone(Card card)
+        public void PutFromHandIntoManaZone(Card card, Duel duel)
         {
             Hand.Remove(card);
-            ManaZone.Add(card);
+            ManaZone.Add(card, duel);
         }
 
         ///<summary>
         /// Removes the top cards from a player's deck and puts them into their shield zone.
         ///</summary>
-        public void PutFromTopOfDeckIntoShieldZone(int amount)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
             {
-                ShieldZone.Add(RemoveTopCardOfDeck());
+                ShieldZone.Add(RemoveTopCardOfDeck(), duel);
             }
         }
 
@@ -150,14 +149,14 @@ namespace DuelMastersModels
         /// <summary>
         /// Player draws a number of cards.
         /// </summary>
-        public void DrawCards(int amount)
+        public void DrawCards(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
             {
                 Card drawnCard = RemoveTopCardOfDeck();
                 if (drawnCard != null)
                 {
-                    Hand.Add(drawnCard);
+                    Hand.Add(drawnCard, duel);
                 }
                 else
                 {
@@ -195,6 +194,7 @@ namespace DuelMastersModels
         {
             return Hand.Cards.
                 Where(card => card.Cost <= ManaZone.UntappedCards.Count()).
+                Distinct().
                 GroupBy(card => card.Id, card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards));
         }
 
@@ -216,15 +216,6 @@ namespace DuelMastersModels
                 return unlocked.SelectMany(u =>
                     u.Civilizations.SelectMany(civ =>
                         GetCardsThatCanBeUsedInPayment(remainingCost - 1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)))).Distinct();
-                // var result = new List<IEnumerable<Card>>(); 
-                // foreach (Card u in unlocked)
-                // {
-                //     foreach (Civilization civ in u.Civilizations)
-                //     {
-                //         result.Concat(GetCardsThatCanBeUsedInPayment(--remainingCost, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)));
-                //     }
-                // }
-                // return result;
             }
         }
 
@@ -241,19 +232,19 @@ namespace DuelMastersModels
             };
         }
 
-        public Choice PutFromShieldZoneToHand(Card card)//, bool canUseShieldTrigger)
+        public Choice PutFromShieldZoneToHand(Card card, Duel duel)//, bool canUseShieldTrigger)
         {
-            return PutFromShieldZoneToHand(new List<Card> { card });//, canUseShieldTrigger);
+            return PutFromShieldZoneToHand(new List<Card> { card }, duel);//, canUseShieldTrigger);
         }
 
-        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards)//, bool canUseShieldTrigger)
+        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel)//, bool canUseShieldTrigger)
         {
             //List<Card> shieldTriggerCards = new List<Card>();
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
                 ShieldZone.Remove(card);
-                Hand.Add(card);
+                Hand.Add(card, duel);
                 //if (canUseShieldTrigger && HasShieldTrigger(handCard))
                 //{
                 //    shieldTriggerCards.Add(handCard);
