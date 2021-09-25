@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace DuelMastersModels.Steps
     {
         TurnBasedAction,
         StateBasedAction,
+        ShieldTrigger,
         SelectAbility,
         ResolveAbility,
         PriorityAction,
@@ -44,28 +46,36 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.StateBasedAction)
             {
-                var losers = new Collection<Player>();
-                var active = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
-                var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
-                if (!active.Deck.Cards.Any())
+                return CheckStateBasedActions(duel);
+            }
+            else if (State == StepState.ShieldTrigger)
+            {
+                if (decision != null)
                 {
-                    losers.Add(active);
+                    var guids = (decision as GuidDecision).Decision;
+                    if (guids.Any())
+                    {
+                        var trigger = duel.GetCard(guids.Single());
+                        trigger.ShieldTriggerPending = false;
+                        duel.UseCard(trigger, duel.GetOwner(trigger));
+                    }
+                    State = StepState.StateBasedAction;
+                    return Proceed(null, duel);
                 }
-                if (!nonActive.Deck.Cards.Any())
-                {
-                    losers.Add(nonActive);
-                }
-                if (losers.Any())
-                {
-                    var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers).Select(x => x.Id), losers.Select(x => x.Id));
-                    duel.GameOverInformation = gameOver;
-                    duel.State = DuelState.Over;
-                    return gameOver;
-                }
-                // TODO: Check direct attack
-
                 else
                 {
+                    var active = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+                    var pendingTriggersActive = active.Hand.Cards.Where(c => c.ShieldTriggerPending);
+                    if (pendingTriggersActive.Any())
+                    {
+                        return new Selection<Guid>(active.Id, pendingTriggersActive.Select(x => x.Id));
+                    }
+                    var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
+                    var pendingTriggersNonActive = nonActive.Hand.Cards.Where(c => c.ShieldTriggerPending);
+                    if (pendingTriggersNonActive.Any())
+                    {
+                        return new Selection<Guid>(nonActive.Id, pendingTriggersNonActive.Select(x => x.Id));
+                    }
                     State = StepState.SelectAbility;
                     return Proceed(null, duel);
                 }
@@ -133,7 +143,36 @@ namespace DuelMastersModels.Steps
                 State = StepState.Over;
                 return null;
             }
-            else { throw new System.ArgumentOutOfRangeException(State.ToString()); }
+            else { throw new ArgumentOutOfRangeException(State.ToString()); }
+        }
+
+        private Choice CheckStateBasedActions(Duel duel)
+        {
+            var losers = new Collection<Player>();
+            var active = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
+            if (!active.Deck.Cards.Any())
+            {
+                losers.Add(active);
+            }
+            if (!nonActive.Deck.Cards.Any())
+            {
+                losers.Add(nonActive);
+            }
+            if (losers.Any())
+            {
+                var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers).Select(x => x.Id), losers.Select(x => x.Id));
+                duel.GameOverInformation = gameOver;
+                duel.State = DuelState.Over;
+                return gameOver;
+            }
+            // TODO: Check direct attack
+
+            else
+            {
+                State = StepState.ShieldTrigger;
+                return Proceed(null, duel);
+            }
         }
 
         protected Step(Step step)

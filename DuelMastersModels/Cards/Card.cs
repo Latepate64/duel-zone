@@ -18,6 +18,10 @@ namespace DuelMastersModels.Cards
 
         public IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
 
+        public bool ShieldTrigger { get; protected set; } = false;
+
+        public bool ShieldTriggerPending { get; internal set; } = false;
+
         protected Card(int cost, IEnumerable<Civilization> civilizations)
         {
             Civilizations = civilizations;
@@ -33,6 +37,8 @@ namespace DuelMastersModels.Cards
         {
             Civilizations = new Collection<Civilization>(card.Civilizations.ToList());
             Cost = card.Cost;
+            ShieldTrigger = card.ShieldTrigger;
+            ShieldTriggerPending = card.ShieldTriggerPending;
             StaticAbilities = card.StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();
             Tapped = card.Tapped;
         }
@@ -59,12 +65,11 @@ namespace DuelMastersModels.Cards
     {
         public bool Equals(Card x, Card y)
         {
-            var foo1 = x.Civilizations.SequenceEqual(y.Civilizations);
-            //TODO: Actually compare abilities
-            var foo2 = x.StaticAbilities.Count == y.StaticAbilities.Count;//x.StaticAbilities.SequenceEqual(y.StaticAbilities);
-            return foo1 &&
+            return x.Civilizations.SequenceEqual(y.Civilizations) &&
                 x.Cost == y.Cost &&
-                foo2 &&
+                x.ShieldTrigger == y.ShieldTrigger &&
+                x.ShieldTriggerPending == y.ShieldTriggerPending &&
+                x.StaticAbilities.Count == y.StaticAbilities.Count &&   //TODO: Actually compare abilities
                 x.Tapped == y.Tapped;
         }
 
@@ -72,7 +77,7 @@ namespace DuelMastersModels.Cards
         {
             var x = 0;//obj.Civilizations.GetHashCode();
             var y = 0;// obj.StaticAbilities.GetHashCode();
-            return obj.Cost + obj.Tapped.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
+            return obj.Cost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + obj.ShieldTriggerPending.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
         }
     }
 

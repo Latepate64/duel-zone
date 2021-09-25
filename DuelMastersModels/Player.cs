@@ -238,22 +238,19 @@ namespace DuelMastersModels
             return PutFromShieldZoneToHand(new List<Card> { card }, duel);//, canUseShieldTrigger);
         }
 
-        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel)//, bool canUseShieldTrigger)
+        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel)
         {
-            //List<Card> shieldTriggerCards = new List<Card>();
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
                 ShieldZone.Remove(card);
                 Hand.Add(card, duel);
-                //if (canUseShieldTrigger && HasShieldTrigger(handCard))
-                //{
-                //    shieldTriggerCards.Add(handCard);
-                //}
+                if (card.ShieldTrigger)
+                {
+                    card.ShieldTriggerPending = true;
+                }
             }
             return null;
-            //throw new NotImplementedException();
-            //return shieldTriggerCards.Any() ? new DeclareShieldTriggers(player, new ReadOnlyCollection<Card>(shieldTriggerCards)) : null;
         }
 
         public override string ToString()
@@ -264,6 +261,12 @@ namespace DuelMastersModels
         internal void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             ManaZone.Add(RemoveTopCardOfDeck(), duel);
+        }
+
+        internal void ReturnFromBattleZoneToHand(Creature creature, Duel duel)
+        {
+            BattleZone.Remove(creature);
+            Hand.Add(creature, duel);
         }
     }
 }

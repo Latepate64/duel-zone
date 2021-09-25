@@ -25,6 +25,7 @@ namespace DuelMastersModels.Zones
             {
                 throw new System.NotSupportedException(card.ToString());
             }
+            card.ShieldTriggerPending = false;
         }
 
         public Hand Copy()

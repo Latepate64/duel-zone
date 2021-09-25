@@ -11,7 +11,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 15;
+        const int ChoicesMax = 28;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -39,7 +39,7 @@ namespace Simulator
             for (int i = 0; i < 4; ++i)
             {
                 deck.Add(new AquaHulcus());
-                //Aqua Surfer
+                deck.Add(new AquaSurfer());
                 //Emeral
                 //Pyrofighter
                 deck.Add(new BronzeArmTribe());

@@ -69,4 +69,21 @@ namespace DuelMastersModels.Cards
             return SummoningSickness && !StaticAbilities.OfType<SpeedAttacker>().Any();
         }
     }
+
+    internal class CreatureComparer : CardComparer, IEqualityComparer<Creature>
+    {
+        public bool Equals(Creature x, Creature y)
+        {
+            return base.Equals(x, y) &&
+                x.Power == y.Power &&
+                x.Races.SequenceEqual(y.Races) &&
+                x.SummoningSickness == y.SummoningSickness &&
+                x.TriggerAbilities.Count == y.TriggerAbilities.Count; //TODO: Actually compare abilitie
+        }
+
+        public int GetHashCode(Creature obj)
+        {
+            return base.GetHashCode(obj) + obj.Power + obj.SummoningSickness.GetHashCode(); //TODO: Races and TriggerAbilities
+        }
+    }
 }
