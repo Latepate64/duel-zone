@@ -103,5 +103,10 @@ namespace DuelMastersModels
             Number = turn.Number;
             Steps = turn.Steps.Select(x => x.Copy()).ToList();
         }
+
+        public override string ToString()
+        {
+            return $"Turn {Number}";
+        }
     }
 }

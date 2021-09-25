@@ -446,5 +446,10 @@ namespace DuelMastersModels
             _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
         }
+
+        public override string ToString()
+        {
+            return $"{CurrentTurn} {GameOverInformation}";
+        }
     }
 }

@@ -11,13 +11,22 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 28;
+        const int ChoicesMax = 1;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
-            Player player1 = new("Shobu", new Deck(GetBombaBlue()));
-            Player player2 = new("Kokujo", new Deck(GetBombaBlue()));
+            List<Duel> duels = new();
+            while (true)
+            {
+                var duel = PlayDuel(new("Shobu", new Deck(GetBombaBlue())), new("Kokujo", new Deck(GetBombaBlue())));
+                Console.WriteLine($"{duel}");
+                duels.Add(duel);
+            }
+        }
+
+        static Duel PlayDuel(Player player1, Player player2)
+        {
             Duel duel = new();
             Choice choice = duel.Start(player1, player2);
             int numberOfChoicesMade = 0;
@@ -25,12 +34,13 @@ namespace Simulator
             while (choice is not GameOver)
             {
                 _simulator = choice.Player;
-                Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
+                //Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
                 var decisionWithPoints = Choose(choice, duel, ChoicesMax, null, numberOfChoicesMade++);
                 latestPoints = decisionWithPoints.Item2;
-                Console.WriteLine($"Choice awarded: {latestPoints}");
+                //Console.WriteLine($"Choice awarded: {latestPoints}");
                 choice = duel.Continue(decisionWithPoints.Item1);
             }
+            return duel;
         }
 
         static List<Card> GetBombaBlue()

@@ -25,5 +25,10 @@ namespace DuelMastersModels.Choices
             Winners = gameOver.Winners.Select(x => x);
             Losers = gameOver.Losers.Select(x => x);
         }
+
+        public override string ToString()
+        {
+            return $"Reason: {WinReason} Winners: {Winners.First()} Losers: {Losers.First()}";
+        }
     }
 }
