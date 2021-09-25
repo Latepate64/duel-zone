@@ -1,7 +1,5 @@
 ﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Effects.OneShotEffects;
 using System;
-using System.Collections.Generic;
 
 namespace DuelMastersModels.Abilities
 {
@@ -11,18 +9,17 @@ namespace DuelMastersModels.Abilities
     public abstract class NonStaticAbility : Ability
     {
         /// <summary>
-        /// Abilities can generate one-shot effects or continuous effects.
-        /// </summary>
-        public Queue<OneShotEffect> Effects { get; private set; }
-
-        /// <summary>
         /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
         public Guid Controller { get; set; }
 
-        protected NonStaticAbility(Queue<OneShotEffect> effects, Cards.Card source) : base(source)
+        protected NonStaticAbility(Guid source) : base(source)
         {
-            Effects = effects;
+        }
+
+        protected NonStaticAbility(NonStaticAbility ability) : base(ability)
+        {
+            Controller = ability.Controller;
         }
 
         public abstract Choice Resolve(Duel duel, Decision choice);

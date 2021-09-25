@@ -7,9 +7,9 @@
 
     internal class AtTheEndOfTurn : TriggerCondition
     {
-        internal Turn Turn { get; }
+        internal System.Guid Turn { get; }
 
-        internal AtTheEndOfTurn(Turn turn)
+        internal AtTheEndOfTurn(System.Guid turn)
         {
             Turn = turn;
         }

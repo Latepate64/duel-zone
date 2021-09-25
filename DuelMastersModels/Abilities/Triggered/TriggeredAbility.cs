@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Cards;
-
-namespace DuelMastersModels.Abilities.TriggeredAbilities
+﻿namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
@@ -9,34 +7,33 @@ namespace DuelMastersModels.Abilities.TriggeredAbilities
     {
         public TriggerCondition TriggerCondition { get; set; }
 
-        protected TriggeredAbility(TriggerCondition triggerCondition, Card source) : base(null, source)
+        protected TriggeredAbility(TriggerCondition triggerCondition, System.Guid source) : base(source)
         {
             TriggerCondition = triggerCondition;
         }
 
-        protected TriggeredAbility Copy(TriggeredAbility ability)
+        protected TriggeredAbility(TriggeredAbility ability) : base(ability)
         {
-            ability.Controller = Controller;
-            //ability.Effects
-            ability.TriggerCondition = TriggerCondition.Copy();
-            return ability;
+            TriggerCondition = ability.TriggerCondition.Copy();
         }
     }
 
-    internal class DelayedTriggeredAbility : ICopyable<DelayedTriggeredAbility>
+    internal class DelayedTriggeredAbility
     {
         internal TriggeredAbility TriggeredAbility { get; }
         internal Effects.Periods.Period Period { get; }
 
-        internal DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Effects.Periods.Period period)
+        internal DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Effects.Periods.Period period, System.Guid controller)
         {
             TriggeredAbility = triggeredAbility;
+            TriggeredAbility.Controller = controller;
             Period = period;
         }
 
-        public DelayedTriggeredAbility Copy()
+        internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
-            return new DelayedTriggeredAbility(TriggeredAbility.Copy() as TriggeredAbility, Period.Copy());
+            TriggeredAbility = ability.TriggeredAbility.Copy() as TriggeredAbility;
+            Period = ability.Period.Copy();
         }
     }
 }

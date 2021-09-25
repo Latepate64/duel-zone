@@ -1,10 +1,8 @@
-﻿using DuelMastersModels.Cards;
-
-namespace DuelMastersModels.Abilities.StaticAbilities
+﻿namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class SpeedAttacker : StaticAbility
     {
-        internal SpeedAttacker(Creature creature) : base(creature)
+        internal SpeedAttacker(System.Guid creature) : base(creature)
         { }
 
         protected SpeedAttacker(SpeedAttacker ability) : base(ability) { }
@@ -17,7 +15,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
 
     internal class DoubleBreaker : StaticAbility
     {
-        internal DoubleBreaker(Creature creature) : base(creature) { }
+        internal DoubleBreaker(System.Guid creature) : base(creature) { }
 
         protected DoubleBreaker(DoubleBreaker ability) : base(ability) { }
 

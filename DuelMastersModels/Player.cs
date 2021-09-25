@@ -12,7 +12,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : DuelObject, IAttackable, ICopyable<Player>
+    public class Player : DuelObject, IAttackable
     {
         /// <summary>
         /// The name of the player.
@@ -75,7 +75,6 @@ namespace DuelMastersModels
 
         public Player(string name, Deck deck)
         {
-            Id = Guid.NewGuid();
             Name = name;
             Deck = deck;
         }
@@ -192,44 +191,46 @@ namespace DuelMastersModels
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
-            return Hand.Cards.
+            return Hand.Cards.Distinct(new CardComparer()).
                 Where(card => card.Cost <= ManaZone.UntappedCards.Count()).
-                Distinct().
-                GroupBy(card => card.Id, card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards));
+                GroupBy(
+                    card => card.Id,
+                    card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards).Select(x => x.Select(y => y.Id))
+            );
         }
 
-        private static IEnumerable<IEnumerable<Guid>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
+        private static IEnumerable<IEnumerable<Card>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
         {
             if (remainingCost == 0)
             {
                 if (!remainingCivs.Any())
                 {
-                    return new List<IEnumerable<Guid>> { locked.Select(x => x.Id) };
+                    return new List<IEnumerable<Card>> { locked.Select(x => x) };
                 }
                 else
                 {
-                    return new List<IEnumerable<Guid>>();
+                    return new List<IEnumerable<Card>>();
                 }
             }
             else
             {
                 return unlocked.SelectMany(u =>
                     u.Civilizations.SelectMany(civ =>
-                        GetCardsThatCanBeUsedInPayment(remainingCost - 1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u)))).Distinct();
+                        GetCardsThatCanBeUsedInPayment(remainingCost - 1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u))
+                    )
+                ).Distinct(new CardsComparer());
             }
         }
 
-        public Player Copy()
+        public Player(Player player) : base(player)
         {
-            return new Player(Name, Deck.Copy())
-            {
-                Id = Id,
-                Graveyard = Graveyard.Copy(),
-                Hand = Hand.Copy(),
-                ManaZone = ManaZone.Copy(),
-                ShieldZone = ShieldZone.Copy(),
-                BattleZone = BattleZone.Copy(),
-            };
+            Name = player.Name;
+            Deck = player.Deck.Copy();
+            Graveyard = player.Graveyard.Copy();
+            Hand = player.Hand.Copy();
+            ManaZone = player.ManaZone.Copy();
+            ShieldZone = player.ShieldZone.Copy();
+            BattleZone = player.BattleZone.Copy();
         }
 
         public Choice PutFromShieldZoneToHand(Card card, Duel duel)//, bool canUseShieldTrigger)

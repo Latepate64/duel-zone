@@ -33,7 +33,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// </summary>
         internal EffectActivityConditionForCreature EffectActivityCondition { get; private set; }
 
-        protected StaticAbilityForCreature(ContinuousEffect continuousEffect, EffectActivityConditionForCreature effectActivityCondition, Cards.Card source) : base(continuousEffect, source)
+        protected StaticAbilityForCreature(ContinuousEffect continuousEffect, EffectActivityConditionForCreature effectActivityCondition, System.Guid source) : base(continuousEffect, source)
         {
             EffectActivityCondition = effectActivityCondition;
         }

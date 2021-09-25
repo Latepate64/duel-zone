@@ -11,9 +11,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 1;
-
-        static List<Simulation> _debugSimulations = new List<Simulation>();
+        const int ChoicesMax = 20;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -36,17 +34,9 @@ namespace Simulator
         static List<Card> GetBombaBlue()
         {
             List<Card> deck = new();
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 40; ++i)
             {
                 //deck.Add(new GontaTheWarriorSavage());
-                //deck.Add(new GontaTheWarriorSavage());
-                //deck.Add(new GontaTheWarriorSavage());
-                //deck.Add(new GontaTheWarriorSavage());
-                //deck.Add(new GontaTheWarriorSavage());
-                deck.Add(new BombazarDragonOfDestiny());
-                deck.Add(new BombazarDragonOfDestiny());
-                deck.Add(new BombazarDragonOfDestiny());
-                deck.Add(new BombazarDragonOfDestiny());
                 deck.Add(new BombazarDragonOfDestiny());
             }
             return deck;
@@ -213,21 +203,6 @@ namespace Simulator
         //        throw new ArgumentOutOfRangeException(simulation.Choice.ToString());
         //    }
         //}
-
-        static Simulation GetOptimalSimulation(IEnumerable<Simulation> sims, Player simulator, Player choiceMaker)
-        {
-            sims = sims.OrderBy(x => x.Points);
-            if (simulator == choiceMaker)
-            {
-                _debugSimulations.Add(sims.Last());
-                return sims.Last(); // Simulation with max points
-            }
-            else
-            {
-                _debugSimulations.Add(sims.First());
-                return sims.First(); // Simulation with min points
-            }
-        }
     }
 
     struct Simulation

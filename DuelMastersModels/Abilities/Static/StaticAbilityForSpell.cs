@@ -23,7 +23,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         /// </summary>
         internal StaticAbilityForSpellActivityCondition EffectActivityCondition { get; private set; }
 
-        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition effectActivityCondition, Cards.Card source) : base(continuousEffect, source)
+        protected StaticAbilityForSpell(ContinuousEffect continuousEffect, StaticAbilityForSpellActivityCondition effectActivityCondition, System.Guid source) : base(continuousEffect, source)
         {
             EffectActivityCondition = effectActivityCondition;
         }

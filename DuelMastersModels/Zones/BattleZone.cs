@@ -42,7 +42,12 @@ namespace DuelMastersModels.Zones
             _cards.Add(card);
             if (card is Creature creature)
             {
-                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(creature.TriggerAbilities.Where(x => x.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone).Select(x => x.Copy() as NonStaticAbility));
+                var foo = creature.TriggerAbilities.Where(x => x.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+                foreach (var f in foo)
+                {
+                    f.Controller = duel.GetOwner(card).Id;
+                }
+                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(foo);
             }
         }
 

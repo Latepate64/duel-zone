@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class Blocker : StaticAbilityForCreature
     {
-        internal Blocker(Creature creature, Card source) : base(new Effects.ContinuousEffects.BlockerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone, source)
+        internal Blocker(Creature creature, System.Guid source) : base(new Effects.ContinuousEffects.BlockerEffect(new Effects.Periods.Indefinite(), new CardFilters.TargetCreatureFilter(creature)), EffectActivityConditionForCreature.WhileThisCreatureIsInTheBattleZone, source)
         { }
 
         public override Ability Copy()

@@ -16,11 +16,10 @@ namespace DuelMastersModels.Cards
 
         public bool Tapped { get; set; }
 
-        protected IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
+        public IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
 
         protected Card(int cost, IEnumerable<Civilization> civilizations)
         {
-            Id = System.Guid.NewGuid();
             Civilizations = civilizations;
             Cost = cost;
         }
@@ -30,13 +29,12 @@ namespace DuelMastersModels.Cards
         /// </summary>
         protected Card(int cost, Civilization civilization) : this(cost, new Collection<Civilization> { civilization }) { }
 
-        protected Card(Card card)
+        protected Card(Card card) : base(card)
         {
             Civilizations = new Collection<Civilization>(card.Civilizations.ToList());
             Cost = card.Cost;
             StaticAbilities = card.StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();
             Tapped = card.Tapped;
-            Id = card.Id;
         }
 
         public abstract Card Copy();
@@ -48,22 +46,47 @@ namespace DuelMastersModels.Cards
 
         public override bool Equals(object obj)
         {
-            if (obj is Card card)
-            {
-                return card.Civilizations.SequenceEqual(Civilizations) &&
-                    card.Cost == Cost &&
-                    card.StaticAbilities.SequenceEqual(StaticAbilities) &&
-                    card.Tapped == Tapped;
-            }
-            else
-            {
-                return false;
-            }
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return 0;
+            return base.GetHashCode();
+        }
+    }
+
+    internal class CardComparer : IEqualityComparer<Card>
+    {
+        public bool Equals(Card x, Card y)
+        {
+            var foo1 = x.Civilizations.SequenceEqual(y.Civilizations);
+            //TODO: Actually compare abilities
+            var foo2 = x.StaticAbilities.Count == y.StaticAbilities.Count;//x.StaticAbilities.SequenceEqual(y.StaticAbilities);
+            return foo1 &&
+                x.Cost == y.Cost &&
+                foo2 &&
+                x.Tapped == y.Tapped;
+        }
+
+        public int GetHashCode(Card obj)
+        {
+            var x = 0;//obj.Civilizations.GetHashCode();
+            var y = 0;// obj.StaticAbilities.GetHashCode();
+            return obj.Cost + obj.Tapped.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
+        }
+    }
+
+    internal class CardsComparer : IEqualityComparer<IEnumerable<Card>>
+    {
+        public bool Equals(IEnumerable<Card> x, IEnumerable<Card> y)
+        {
+            return x.SequenceEqual(y, new CardComparer());
+        }
+
+        public int GetHashCode(IEnumerable<Card> obj)
+        {
+            var cardComparer = new CardComparer();
+            return obj.Sum(x => cardComparer.GetHashCode(x));
         }
     }
 }

@@ -8,11 +8,12 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class BombazarDragonOfDestiny : Creature
     {
-        public BombazarDragonOfDestiny() : base(7, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
+        //TODO: COST TO 7!!!
+        public BombazarDragonOfDestiny() : base(2, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
         {
-            TriggerAbilities.Add(new BombazarDragonOfDestinyAbility(this));
-            StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(this));
-            StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(this));
+            TriggerAbilities.Add(new BombazarDragonOfDestinyAbility(Id));
+            StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(Id));
+            StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(Id));
         }
 
         public BombazarDragonOfDestiny(BombazarDragonOfDestiny x) : base(x) { }
@@ -25,17 +26,17 @@ namespace DuelMastersModels.Cards.Creatures
 
     internal class BombazarDragonOfDestinyAbility : TriggeredAbility
     {
-        internal BombazarDragonOfDestinyAbility(Card source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
+        internal BombazarDragonOfDestinyAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
 
         public override Choice Resolve(Duel duel, Decision choice)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            duel.Destroy(duel.BattleZoneCreatures.Where(c => c != Source && c.Power == 6000));
+            duel.Destroy(duel.BattleZoneCreatures.Where(c => c.Id != Source && c.Power == 6000));
             // then take an extra turn after this one.
             Turn turn = new Turn(Controller, duel.GetOpponent(Controller));
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, turn), new Effects.Periods.Once()));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, turn.Id), new Effects.Periods.Once(), Controller));
             return null;
         }
 
@@ -47,11 +48,15 @@ namespace DuelMastersModels.Cards.Creatures
 
     internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : TriggeredAbility
     {
-        internal Turn Turn { get; }
+        internal System.Guid Turn { get; }
 
-        internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Card source, Turn turn) : base(new AtTheEndOfTurn(turn), source)
+        internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(System.Guid source, System.Guid turn) : base(new AtTheEndOfTurn(turn), source)
         {
             Turn = turn;
+        }
+
+        public YouLoseTheGameAtTheEndOfTheExtraTurnAbility(YouLoseTheGameAtTheEndOfTheExtraTurnAbility ability) : base(ability)
+        {
         }
 
         public override Choice Resolve(Duel duel, Decision choice)
@@ -64,7 +69,7 @@ namespace DuelMastersModels.Cards.Creatures
 
         public override Ability Copy()
         {
-            return Copy(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, Turn));
+            return new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(this);
         }
     }
 }

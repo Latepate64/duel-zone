@@ -51,23 +51,12 @@ namespace DuelMastersModels.Cards
 
         public override bool Equals(object obj)
         {
-            if (obj is Creature creature)
-            {
-                return base.Equals(creature) &&
-                    creature.Power == Power &&
-                    creature.Races.SequenceEqual(Races) &&
-                    creature.SummoningSickness == SummoningSickness &&
-                    creature.TriggerAbilities.SequenceEqual(TriggerAbilities);
-            }
-            else
-            {
-                return false;
-            }
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return 0;
+            return base.GetHashCode();
         }
     }
 }

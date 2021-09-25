@@ -37,8 +37,8 @@ namespace DuelMastersModels.Steps
                 {
                     AttackingCreature = attackerChoice.Decision.Item1;
                     AttackTarget = attackerChoice.Decision.Item2;
+                    duel.GetCard(AttackingCreature).Tapped = true;
                 }
-                duel.GetCard(AttackingCreature).Tapped = true;
                 return null;
             }
         }

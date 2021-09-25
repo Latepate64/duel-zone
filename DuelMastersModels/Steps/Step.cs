@@ -79,13 +79,27 @@ namespace DuelMastersModels.Steps
                     return Proceed(null, duel);
                 }
                 var activeAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
-                if (activeAbilities.Count() == 1) { ResolvingAbility = activeAbilities.Single(); }
-                else if (activeAbilities.Any()) { return null; } // TODO: return choice for ability to resolve
+                if (activeAbilities.Count() == 1)
+                {
+                    ResolvingAbility = activeAbilities.Single();
+                    _ = PendingAbilities.Remove(ResolvingAbility);
+                }
+                else if (activeAbilities.Any())
+                {
+                    return null; // TODO: return choice for ability to resolve
+                }
                 else
                 {
                     var nonActiveAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
-                    if (nonActiveAbilities.Count() == 1) { ResolvingAbility = nonActiveAbilities.Single(); }
-                    else if (nonActiveAbilities.Any()) { return null; } // TODO: return choice for ability to resolve
+                    if (nonActiveAbilities.Count() == 1)
+                    {
+                        ResolvingAbility = nonActiveAbilities.Single();
+                        _ = PendingAbilities.Remove(ResolvingAbility);
+                    }
+                    else if (nonActiveAbilities.Any())
+                    {
+                        return null; // TODO: return choice for ability to resolve
+                    }
                 }
                 State = (ResolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
                 return Proceed(null, duel);
@@ -93,7 +107,10 @@ namespace DuelMastersModels.Steps
             else if (State == StepState.ResolveAbility)
             {
                 Choice choice = ResolvingAbility.Resolve(duel, decision);
-                if (choice != null) { return choice; } // Ability still has not resolved completely.
+                if (choice != null)
+                {
+                    return choice; // Ability still has not resolved completely.
+                }
                 else
                 {
                     ResolvingAbility = null;

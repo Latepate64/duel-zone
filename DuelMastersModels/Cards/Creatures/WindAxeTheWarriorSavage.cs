@@ -9,7 +9,7 @@ namespace DuelMastersModels.Cards.Creatures
     {
         public WindAxeTheWarriorSavage() : base(5, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2000, new List<Race> { Race.Human, Race.BeastFolk })
         {
-            TriggerAbilities.Add(new WindAxeTheWarriorSavageAbility(this));
+            TriggerAbilities.Add(new WindAxeTheWarriorSavageAbility(Id));
         }
 
         public WindAxeTheWarriorSavage(WindAxeTheWarriorSavage x) : base(x) { }
@@ -22,13 +22,17 @@ namespace DuelMastersModels.Cards.Creatures
 
     internal class WindAxeTheWarriorSavageAbility : TriggeredAbility
     {
-        internal WindAxeTheWarriorSavageAbility(Card source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source)
+        internal WindAxeTheWarriorSavageAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source)
+        {
+        }
+
+        public WindAxeTheWarriorSavageAbility(WindAxeTheWarriorSavageAbility ability) : base(ability)
         {
         }
 
         public override Ability Copy()
         {
-            return Copy(new WindAxeTheWarriorSavageAbility(Source));
+            return new WindAxeTheWarriorSavageAbility(this);
         }
 
         public override Choice Resolve(Duel duel, Decision choice)

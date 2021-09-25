@@ -345,21 +345,21 @@ namespace DuelMastersModels
 
         public Duel(Duel duel)
         {
-            DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => x.Copy()).ToList();
-            ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => x.Copy()));
-            GameOverInformation = duel.GameOverInformation?.Copy();
+            DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
+            ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
+            GameOverInformation = duel.GameOverInformation != null ? new GameOver(duel.GameOverInformation) : null;
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
-            Player1 = duel.Player1.Copy();
-            Player2 = duel.Player2.Copy();
+            Player1 = new Player(duel.Player1);
+            Player2 = new Player(duel.Player2);
             State = duel.State;
             _spellsBeingResolved = duel._spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList();
-            _turns = duel._turns.Select(x => x.Copy()).ToList();
+            _turns = duel._turns.Select(x => new Turn(x)).ToList();
         }
 
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
 
-        internal ICollection<DelayedTriggeredAbility> DelayedTriggeredAbilities = new Collection<DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
+        internal List<DelayedTriggeredAbility> DelayedTriggeredAbilities = new List<DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
 
         public Player GetOpponent(Player player)
         {
@@ -439,14 +439,16 @@ namespace DuelMastersModels
         public void Trigger<T>() where T : TriggerCondition
         {
             var abilities = BattleZoneCreatures.SelectMany(x => x.TriggerAbilities).Where(x => x.TriggerCondition is T).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.TriggerCondition is T))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as NonStaticAbility);
                 if (ability.Period is Once)
                 {
-                    //TODO: Remove from DelayedTriggeredAbilities
+                    toBeRemoved.Add(ability);
                 }
             }
+            _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
         }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn : ICopyable<Turn>
+    public class Turn : DuelObject
     {
         #region Properties
         /// <summary>
@@ -96,13 +96,12 @@ namespace DuelMastersModels
             }
         }
 
-        public Turn Copy()
+        public Turn(Turn turn)
         {
-            return new Turn(ActivePlayer, NonActivePlayer)
-            {
-                Number = Number,
-                Steps = Steps.Select(x => x.Copy()).ToList(),
-            };
+            ActivePlayer = turn.ActivePlayer;
+            NonActivePlayer = turn.NonActivePlayer;
+            Number = turn.Number;
+            Steps = turn.Steps.Select(x => x.Copy()).ToList();
         }
     }
 }

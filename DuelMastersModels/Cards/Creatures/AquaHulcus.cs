@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards.Creatures
     {
         public AquaHulcus() : base(3, Civilization.Water, 2000, Race.LiquidPeople)
         {
-            TriggerAbilities.Add(new AquaHulcusAbility(this));
+            TriggerAbilities.Add(new AquaHulcusAbility(Id));
         }
 
         public AquaHulcus(AquaHulcus x) : base(x) { }
@@ -21,7 +21,11 @@ namespace DuelMastersModels.Cards.Creatures
 
     public class AquaHulcusAbility : TriggeredAbility
     {
-        public AquaHulcusAbility(Card source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
+        public AquaHulcusAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
+
+        public AquaHulcusAbility(AquaHulcusAbility ability) : base(ability)
+        {
+        }
 
         public override Choice Resolve(Duel duel, Decision choice)
         {
@@ -33,7 +37,7 @@ namespace DuelMastersModels.Cards.Creatures
 
         public override Ability Copy()
         {
-            return Copy(new AquaHulcusAbility(Source));
+            return new AquaHulcusAbility(this);
         }
     }
 }

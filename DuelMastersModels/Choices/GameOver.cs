@@ -6,7 +6,7 @@ namespace DuelMastersModels.Choices
 {
     public enum WinReason { DirectAttack, Deckout, Bombazar };
 
-    public class GameOver : Choice, ICopyable<GameOver>
+    public class GameOver : Choice
     {
         public WinReason WinReason { get; private set; }
         public IEnumerable<Guid> Winners { get; private set; }
@@ -19,9 +19,11 @@ namespace DuelMastersModels.Choices
             Losers = losers;
         }
 
-        public GameOver Copy()
+        public GameOver(GameOver gameOver) : base(Guid.Empty)
         {
-            return new GameOver(WinReason, Winners.Select(x => x), Losers.Select(x => x));
+            WinReason = gameOver.WinReason;
+            Winners = gameOver.Winners.Select(x => x);
+            Losers = gameOver.Losers.Select(x => x);
         }
     }
 }
