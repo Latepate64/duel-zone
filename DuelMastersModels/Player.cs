@@ -283,6 +283,7 @@ namespace DuelMastersModels
         internal void Cast(Spell spell, Duel duel)
         {
             Hand.Remove(spell);
+            spell.RevealedTo = duel.Players.Select(x => x.Id);
             duel.ResolvingSpells.Push(spell);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,13 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
+            var revealedTo = new List<Guid> { card.Owner };
+            var opponent = duel.GetOpponent(card.Owner);
+            if (card.RevealedTo.Contains(opponent))
+            {
+                revealedTo.Add(opponent);
+            }
+            card.RevealedTo = revealedTo;
             _cards.Add(card);
         }
 
@@ -23,7 +31,7 @@ namespace DuelMastersModels.Zones
         {
             if (!_cards.Remove(card))
             {
-                throw new System.NotSupportedException(card.ToString());
+                throw new NotSupportedException(card.ToString());
             }
             card.ShieldTriggerPending = false;
         }

@@ -36,6 +36,7 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
+            card.RevealedTo = duel.Players.Select(x => x.Id);
             _cards.Add(card);
             if (card is Creature creature)
             {

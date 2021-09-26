@@ -25,6 +25,8 @@ namespace DuelMastersModels.Cards
 
         public bool ShieldTriggerPending { get; internal set; } = false;
 
+        public IEnumerable<Guid> RevealedTo { get; internal set; } = new List<Guid>();
+
         protected Card(Guid owner, int cost, IEnumerable<Civilization> civilizations)
         {
             Owner = owner;
@@ -42,6 +44,7 @@ namespace DuelMastersModels.Cards
             Owner = card.Owner;
             Civilizations = new Collection<Civilization>(card.Civilizations.ToList());
             Cost = card.Cost;
+            RevealedTo = new List<Guid>(card.RevealedTo);
             ShieldTrigger = card.ShieldTrigger;
             ShieldTriggerPending = card.ShieldTriggerPending;
             StaticAbilities = card.StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();

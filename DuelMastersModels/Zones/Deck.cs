@@ -33,6 +33,10 @@ namespace DuelMastersModels.Zones
         /// </summary>
         public void Shuffle()
         {
+            foreach (var card in Cards)
+            {
+                card.RevealedTo = new List<Guid>();
+            }
             Random random = new Random(Guid.NewGuid().GetHashCode());
             int n = _cards.Count;
             while (n > 1)
