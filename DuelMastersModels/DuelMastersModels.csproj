@@ -96,7 +96,10 @@
     <Compile Include="Cards\Creatures\BronzeArmTribe.cs" />
     <Compile Include="Cards\Creatures\Emeral.cs" />
     <Compile Include="Cards\Creatures\GontaTheWarriorSavage.cs" />
+    <Compile Include="Cards\Creatures\KamikazeChainsawWarrior.cs" />
     <Compile Include="Cards\Creatures\PyrofighterMagnus.cs" />
+    <Compile Include="Cards\Creatures\RikabuTheDismantler.cs" />
+    <Compile Include="Cards\Creatures\Torcon.cs" />
     <Compile Include="Cards\Creatures\TwinCannonSkyterror.cs" />
     <Compile Include="Cards\Creatures\WindAxeTheWarriorSavage.cs" />
     <Compile Include="Cards\Spell.cs" />

@@ -12,7 +12,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 10;
+        const int ChoicesMax = 20;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -23,7 +23,7 @@ namespace Simulator
                 Player player1 = new("Shobu");
                 player1.Deck = new Deck(GetBombaBlue(player1.Id));
                 Player player2 = new("Kokujo");
-                player2.Deck = new Deck(GetBombaBlue(player2.Id));
+                player2.Deck = new Deck(GetFNRush(player2.Id));
                 var duel = PlayDuel(player1, player2);
                 Console.WriteLine($"{duel}");
                 duels.Add(duel);
@@ -64,6 +64,20 @@ namespace Simulator
                 deck.Add(new BombazarDragonOfDestiny(player));
                 deck.Add(new GontaTheWarriorSavage(player));
                 deck.Add(new WindAxeTheWarriorSavage(player));
+            }
+            return deck;
+        }
+
+        static List<Card> GetFNRush(Guid player)
+        {
+            List<Card> deck = new();
+            for (int i = 0; i < 8; ++i)
+            {
+                deck.Add(new KamikazeChainsawWarrior(player));
+                deck.Add(new PyrofighterMagnus(player));
+                deck.Add(new RikabuTheDismantler(player));
+                deck.Add(new Torcon(player));
+                deck.Add(new GontaTheWarriorSavage(player));
             }
             return deck;
         }

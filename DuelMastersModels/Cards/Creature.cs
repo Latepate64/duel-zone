@@ -11,12 +11,14 @@ namespace DuelMastersModels.Cards
     {
         ArmoredDragon,
         ArmoredWyvern,
+        Armorloid,
         BeastFolk,
         CyberLord,
         Dragonoid,
         EarthDragon,
         Human,
         LiquidPeople,
+        MachineEater,
     }
 
     /// <summary>
