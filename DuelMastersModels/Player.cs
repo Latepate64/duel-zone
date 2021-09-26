@@ -73,10 +73,9 @@ namespace DuelMastersModels
             }
         }
 
-        public Player(string name, Deck deck)
+        public Player(string name)
         {
             Name = name;
-            Deck = deck;
         }
 
         /// <summary>

@@ -8,13 +8,13 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class AquaSurfer : Creature
     {
-        public AquaSurfer(Creature creature) : base(creature)
+        public AquaSurfer(Guid owner) : base(owner, 6, Civilization.Water, 2000, Race.LiquidPeople)
         {
             ShieldTrigger = true;
-            TriggerAbilities.Add(new AquaSurferAbility(Id));
+            TriggeredAbilities.Add(new AquaSurferAbility(Id, owner));
         }
 
-        public AquaSurfer() : base(6, Civilization.Water, 2000, Race.LiquidPeople)
+        public AquaSurfer(Creature creature) : base(creature)
         {
         }
 
@@ -24,17 +24,17 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    public class AquaSurferAbility : TriggeredAbility
+    public class AquaSurferAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
         public AquaSurferAbility(TriggeredAbility ability) : base(ability)
         {
         }
 
-        public AquaSurferAbility(Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source)
+        public AquaSurferAbility(Guid source, Guid controller) : base(source, controller)
         {
         }
 
-        public override Ability Copy()
+        public override NonStaticAbility Copy()
         {
             return new AquaSurferAbility(this);
         }

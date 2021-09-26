@@ -7,12 +7,12 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class BronzeArmTribe : Creature
     {
-        public BronzeArmTribe(Creature creature) : base(creature)
+        public BronzeArmTribe(Guid owner) : base(owner, 3, Civilization.Nature, 1000, Race.BeastFolk)
         {
-            TriggerAbilities.Add(new BronzeArmTribeAbility(Id));
+            TriggeredAbilities.Add(new BronzeArmTribeAbility(Id, owner));
         }
 
-        public BronzeArmTribe() : base(3, Civilization.Nature, 1000, Race.BeastFolk)
+        public BronzeArmTribe(Creature creature) : base(creature)
         {
         }
 
@@ -22,17 +22,17 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    internal class BronzeArmTribeAbility : TriggeredAbility
+    internal class BronzeArmTribeAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
         public BronzeArmTribeAbility(TriggeredAbility ability) : base(ability)
         {
         }
 
-        public BronzeArmTribeAbility(Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source)
+        public BronzeArmTribeAbility(Guid source, Guid controller) : base(source, controller)
         {
         }
 
-        public override Ability Copy()
+        public override NonStaticAbility Copy()
         {
             return new BronzeArmTribeAbility(this);
         }

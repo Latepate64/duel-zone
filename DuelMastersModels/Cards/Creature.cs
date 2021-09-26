@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace DuelMastersModels.Cards
         ArmoredDragon,
         ArmoredWyvern,
         BeastFolk,
+        Dragonoid,
         EarthDragon,
         Human,
         LiquidPeople,
@@ -31,26 +33,26 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public ICollection<Race> Races { get; private set; }
 
-        public ICollection<TriggeredAbility> TriggerAbilities { get; private set; } = new Collection<TriggeredAbility>();
+        public ICollection<TriggeredAbility> TriggeredAbilities { get; private set; } = new Collection<TriggeredAbility>();
 
         /// <summary>
         /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
         /// </summary>
         public bool SummoningSickness { get; private set; }
 
-        protected Creature(int cost, IEnumerable<Civilization> civilizations, int power, IEnumerable<Race> races) : base(cost, civilizations)
+        protected Creature(Guid owner, int cost, IEnumerable<Civilization> civilizations, int power, IEnumerable<Race> races) : base(owner, cost, civilizations)
         {
             Power = power;
             Races = new Collection<Race>(races.ToList());
         }
 
-        protected Creature(int cost, Civilization civilization, int power, Race races) : this(cost, new List<Civilization> { civilization }, power, new List<Race> { races }) { }
+        protected Creature(Guid owner, int cost, Civilization civilization, int power, Race races) : this(owner, cost, new List<Civilization> { civilization }, power, new List<Race> { races }) { }
 
         protected Creature(Creature creature) : base(creature)
         {
             Power = creature.Power;
             Races = new Collection<Race>(creature.Races.ToList());
-            TriggerAbilities = creature.TriggerAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
+            TriggeredAbilities = creature.TriggeredAbilities.Select(x => x.Copy()).Cast<TriggeredAbility>().ToList();
             SummoningSickness = creature.SummoningSickness;
         }
 
@@ -78,7 +80,7 @@ namespace DuelMastersModels.Cards
                 x.Power == y.Power &&
                 x.Races.SequenceEqual(y.Races) &&
                 x.SummoningSickness == y.SummoningSickness &&
-                x.TriggerAbilities.Count == y.TriggerAbilities.Count; //TODO: Actually compare abilitie
+                x.TriggeredAbilities.Count == y.TriggeredAbilities.Count; //TODO: Actually compare abilitie
         }
 
         public int GetHashCode(Creature obj)

@@ -177,8 +177,8 @@ namespace DuelMastersModels.Steps
 
         protected Step(Step step)
         {
-            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
-            ResolvingAbility = step.ResolvingAbility?.Copy() as NonStaticAbility;
+            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).ToList();
+            ResolvingAbility = step.ResolvingAbility?.Copy();
             State = step.State;
         }
 

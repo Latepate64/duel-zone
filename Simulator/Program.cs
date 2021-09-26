@@ -11,15 +11,19 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 1;
+        const int ChoicesMax = 20;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
             List<Duel> duels = new();
-            while (true)
+            for (int i = 0; i < 1; ++i)
             {
-                var duel = PlayDuel(new("Shobu", new Deck(GetBombaBlue())), new("Kokujo", new Deck(GetBombaBlue())));
+                Player player1 = new("Shobu");
+                player1.Deck = new Deck(GetBombaBlue(player1.Id));
+                Player player2 = new("Kokujo");
+                player2.Deck = new Deck(GetBombaBlue(player2.Id));
+                var duel = PlayDuel(player1, player2);
                 Console.WriteLine($"{duel}");
                 duels.Add(duel);
             }
@@ -34,30 +38,31 @@ namespace Simulator
             while (choice is not GameOver)
             {
                 _simulator = choice.Player;
-                //Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
                 var decisionWithPoints = Choose(choice, duel, ChoicesMax, null, numberOfChoicesMade++);
                 latestPoints = decisionWithPoints.Item2;
-                //Console.WriteLine($"Choice awarded: {latestPoints}");
                 choice = duel.Continue(decisionWithPoints.Item1);
+
+                Console.WriteLine($"Choice awarded: {latestPoints}");
+                Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
             }
             return duel;
         }
 
-        static List<Card> GetBombaBlue()
+        static List<Card> GetBombaBlue(Guid player)
         {
             List<Card> deck = new();
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 3; ++i)
             {
-                deck.Add(new AquaHulcus());
-                deck.Add(new AquaSurfer());
+                deck.Add(new AquaHulcus(player));
+                deck.Add(new AquaSurfer(player));
                 //Emeral
-                //Pyrofighter
-                deck.Add(new BronzeArmTribe());
+                deck.Add(new PyrofighterMagnus(player));
+                deck.Add(new BronzeArmTribe(player));
                 //Soulswap
-                deck.Add(new TwinCannonSkyterror());
-                deck.Add(new BombazarDragonOfDestiny());
-                deck.Add(new GontaTheWarriorSavage());
-                deck.Add(new WindAxeTheWarriorSavage());
+                deck.Add(new TwinCannonSkyterror(player));
+                deck.Add(new BombazarDragonOfDestiny(player));
+                deck.Add(new GontaTheWarriorSavage(player));
+                deck.Add(new WindAxeTheWarriorSavage(player));
             }
             return deck;
         }

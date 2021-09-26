@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Abilities.StaticAbilities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,6 +8,8 @@ namespace DuelMastersModels.Cards
 {
     public abstract class Card : DuelObject, ICopyable<Card>
     {
+        public Guid Owner { get; private set; }
+
         public IEnumerable<Civilization> Civilizations { get; private set; }
 
         /// <summary>
@@ -22,8 +25,9 @@ namespace DuelMastersModels.Cards
 
         public bool ShieldTriggerPending { get; internal set; } = false;
 
-        protected Card(int cost, IEnumerable<Civilization> civilizations)
+        protected Card(Guid owner, int cost, IEnumerable<Civilization> civilizations)
         {
+            Owner = owner;
             Civilizations = civilizations;
             Cost = cost;
         }
@@ -31,10 +35,11 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Creates a card.
         /// </summary>
-        protected Card(int cost, Civilization civilization) : this(cost, new Collection<Civilization> { civilization }) { }
+        protected Card(Guid owner, int cost, Civilization civilization) : this(owner, cost, new Collection<Civilization> { civilization }) { }
 
         protected Card(Card card) : base(card)
         {
+            Owner = card.Owner;
             Civilizations = new Collection<Civilization>(card.Civilizations.ToList());
             Cost = card.Cost;
             ShieldTrigger = card.ShieldTrigger;
@@ -45,10 +50,10 @@ namespace DuelMastersModels.Cards
 
         public abstract Card Copy();
 
-        public override string ToString()
-        {
-            return Id.ToString();
-        }
+        //public override string ToString()
+        //{
+        //    return Id.ToString();
+        //}
 
         public override bool Equals(object obj)
         {

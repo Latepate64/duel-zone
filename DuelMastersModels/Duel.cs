@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Effects.Periods;
-using DuelMastersModels.Abilities;
 
 namespace DuelMastersModels
 {
@@ -431,13 +430,13 @@ namespace DuelMastersModels
             }
         }
 
-        public void Trigger<T>() where T : TriggerCondition
+        public void Trigger<T>() where T : TriggeredAbility
         {
-            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggerAbilities).Where(x => x.TriggerCondition is T && x.TriggerCondition.CanTrigger(this)).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggeredAbilities).OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Copy()).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.TriggerCondition is T && x.TriggeredAbility.TriggerCondition.CanTrigger(this)))
+            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this)))
             {
-                abilities.Add(ability.TriggeredAbility.Copy() as NonStaticAbility);
+                abilities.Add(ability.TriggeredAbility.Copy());
                 if (ability.Period is Once)
                 {
                     toBeRemoved.Add(ability);

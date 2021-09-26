@@ -27,6 +27,7 @@ namespace DuelMastersModels.Steps
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             duel.Trigger<AtTheEndOfTurn>();
+            duel.Trigger<AtTheEndOfYourTurn>();
             return null;
         }
     }

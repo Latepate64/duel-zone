@@ -1,6 +1,7 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +9,11 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class BombazarDragonOfDestiny : Creature
     {
-        public BombazarDragonOfDestiny() : base(7, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
+        public BombazarDragonOfDestiny(Guid owner) : base(owner, 7, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
         {
-            TriggerAbilities.Add(new BombazarDragonOfDestinyAbility(Id));
-            StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(Id));
-            StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(Id));
+            TriggeredAbilities.Add(new BombazarDragonOfDestinyAbility(Id, owner));
+            StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(Id, owner));
+            StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(Id, owner));
         }
 
         public BombazarDragonOfDestiny(BombazarDragonOfDestiny x) : base(x) { }
@@ -23,9 +24,13 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    internal class BombazarDragonOfDestinyAbility : TriggeredAbility
+    internal class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        internal BombazarDragonOfDestinyAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
+        internal BombazarDragonOfDestinyAbility(Guid source, Guid controller) : base(source, controller) { }
+
+        public BombazarDragonOfDestinyAbility(TriggeredAbility ability) : base(ability)
+        {
+        }
 
         public override Choice Resolve(Duel duel, Decision choice)
         {
@@ -35,23 +40,20 @@ namespace DuelMastersModels.Cards.Creatures
             Turn turn = new Turn(Controller, duel.GetOpponent(Controller));
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, turn.Id), new Effects.Periods.Once(), Controller));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Source, Controller, turn.Id), new Effects.Periods.Once(), Controller));
             return null;
         }
 
-        public override Ability Copy()
+        public override NonStaticAbility Copy()
         {
-            return new BombazarDragonOfDestinyAbility(Source);
+            return new BombazarDragonOfDestinyAbility(this);
         }
     }
 
-    internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : TriggeredAbility
+    internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : AtTheEndOfTurn
     {
-        internal System.Guid Turn { get; }
-
-        internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(System.Guid source, System.Guid turn) : base(new AtTheEndOfTurn(turn), source)
+        internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Guid source, Guid controller, Guid turn) : base(source, controller, turn)
         {
-            Turn = turn;
         }
 
         public YouLoseTheGameAtTheEndOfTheExtraTurnAbility(YouLoseTheGameAtTheEndOfTheExtraTurnAbility ability) : base(ability)
@@ -66,7 +68,7 @@ namespace DuelMastersModels.Cards.Creatures
             return gameOver;
         }
 
-        public override Ability Copy()
+        public override NonStaticAbility Copy()
         {
             return new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(this);
         }

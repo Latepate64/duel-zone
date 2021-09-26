@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.Cards
+﻿using System;
+
+namespace DuelMastersModels.Cards
 {
     /// <summary>
     /// Evolution creature is a creature type.
@@ -8,7 +10,7 @@
         /// <summary>
         /// Creates an evolution creature.
         /// </summary>
-        protected EvolutionCreature(int cost, Civilization civilization, int power, Race race) : base(cost, civilization, power, race)
+        protected EvolutionCreature(Guid owner, int cost, Civilization civilization, int power, Race race) : base(owner, cost, civilization, power, race)
         {
         }
     }

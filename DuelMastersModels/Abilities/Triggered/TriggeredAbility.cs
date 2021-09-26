@@ -1,39 +1,23 @@
-﻿namespace DuelMastersModels.Abilities.TriggeredAbilities
+﻿using System;
+
+namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
     public abstract class TriggeredAbility : NonStaticAbility
     {
-        public TriggerCondition TriggerCondition { get; set; }
-
-        protected TriggeredAbility(TriggerCondition triggerCondition, System.Guid source) : base(source)
+        protected TriggeredAbility(Guid source, Guid controller) : base(source, controller)
         {
-            TriggerCondition = triggerCondition;
         }
 
         protected TriggeredAbility(TriggeredAbility ability) : base(ability)
         {
-            TriggerCondition = ability.TriggerCondition.Copy();
-        }
-    }
-
-    internal class DelayedTriggeredAbility
-    {
-        internal TriggeredAbility TriggeredAbility { get; }
-        internal Effects.Periods.Period Period { get; }
-
-        internal DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Effects.Periods.Period period, System.Guid controller)
-        {
-            TriggeredAbility = triggeredAbility;
-            TriggeredAbility.Controller = controller;
-            Period = period;
         }
 
-        internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
+        public virtual bool CanTrigger(Duel duel)
         {
-            TriggeredAbility = ability.TriggeredAbility.Copy() as TriggeredAbility;
-            Period = ability.Period.Copy();
+            return true;
         }
     }
 }

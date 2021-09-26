@@ -2,6 +2,7 @@
 using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +10,9 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class WindAxeTheWarriorSavage : Creature
     {
-        public WindAxeTheWarriorSavage() : base(5, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2000, new List<Race> { Race.Human, Race.BeastFolk })
+        public WindAxeTheWarriorSavage(Guid owner) : base(owner, 5, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2000, new List<Race> { Race.Human, Race.BeastFolk })
         {
-            TriggerAbilities.Add(new WindAxeTheWarriorSavageAbility(Id));
+            TriggeredAbilities.Add(new WindAxeTheWarriorSavageAbility(Id, owner));
         }
 
         public WindAxeTheWarriorSavage(WindAxeTheWarriorSavage x) : base(x) { }
@@ -22,9 +23,9 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    internal class WindAxeTheWarriorSavageAbility : TriggeredAbility
+    internal class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        internal WindAxeTheWarriorSavageAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source)
+        internal WindAxeTheWarriorSavageAbility(Guid source, Guid controller) : base(source, controller)
         {
         }
 
@@ -32,7 +33,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override Ability Copy()
+        public override NonStaticAbility Copy()
         {
             return new WindAxeTheWarriorSavageAbility(this);
         }
@@ -48,7 +49,7 @@ namespace DuelMastersModels.Cards.Creatures
                 var blockers = opponent.BattleZone.Creatures.Where(c => c.StaticAbilities.OfType<Blocker>().Any());
                 if (blockers.Count() > 1)
                 {
-                    return new Selection<System.Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
+                    return new Selection<Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
                 }
                 else if (blockers.Any())
                 {

@@ -1,8 +1,10 @@
-﻿namespace DuelMastersModels.Abilities.StaticAbilities
+﻿using System;
+
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class Blocker : StaticAbility
     {
-        internal Blocker(System.Guid source) : base(source)
+        internal Blocker(Guid source, Guid controller) : base(source, controller)
         {
         }
 
@@ -10,7 +12,7 @@
         {
         }
 
-        public override Ability Copy()
+        public override StaticAbility Copy()
         {
             return new Blocker(this);
         }

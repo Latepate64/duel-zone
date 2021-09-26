@@ -1,10 +1,16 @@
-﻿namespace DuelMastersModels.Abilities.TriggeredAbilities
+﻿using System;
+
+namespace DuelMastersModels.Abilities.TriggeredAbilities
 {
-    internal class WhenYouPutThisCreatureIntoTheBattleZone : TriggerCondition
+    public abstract class WhenYouPutThisCreatureIntoTheBattleZone : TriggeredAbility
     {
-        public override TriggerCondition Copy()
+        protected WhenYouPutThisCreatureIntoTheBattleZone(Guid source, Guid controller) : base(source, controller)
         {
-            return new WhenYouPutThisCreatureIntoTheBattleZone();
+        }
+
+        protected WhenYouPutThisCreatureIntoTheBattleZone(TriggeredAbility ability) : base(ability)
+        {
         }
     }
 }
+

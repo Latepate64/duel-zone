@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DuelMastersModels.Cards.Creatures
 {
     public class GontaTheWarriorSavage : Creature
     {
-        public GontaTheWarriorSavage() : base(2, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 4000, new List<Race> { Race.Human, Race.BeastFolk })
+        public GontaTheWarriorSavage(Guid owner) : base(owner, 2, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 4000, new List<Race> { Race.Human, Race.BeastFolk })
         {
         }
 

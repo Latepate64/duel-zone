@@ -1,13 +1,15 @@
-﻿namespace DuelMastersModels.Abilities.StaticAbilities
+﻿using System;
+
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class ThisCreatureAttacksEachTurnIfAble : StaticAbility
     {
-        internal ThisCreatureAttacksEachTurnIfAble(System.Guid source) : base(source)
+        internal ThisCreatureAttacksEachTurnIfAble(Guid source, Guid controller) : base(source, controller)
         { }
 
-        public override Ability Copy()
+        public override StaticAbility Copy()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

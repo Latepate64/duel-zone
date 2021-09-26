@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.TriggeredAbilities;
+﻿using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Cards;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,11 +41,7 @@ namespace DuelMastersModels.Zones
             _cards.Add(card);
             if (card is Creature creature)
             {
-                var foo = creature.TriggerAbilities.Where(x => x.TriggerCondition is WhenYouPutThisCreatureIntoTheBattleZone).Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
-                foreach (var f in foo)
-                {
-                    f.Controller = duel.GetOwner(card).Id;
-                }
+                var foo = creature.TriggeredAbilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Copy()).ToList();
                 duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(foo);
             }
         }

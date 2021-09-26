@@ -1,14 +1,15 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
+using System;
 
 namespace DuelMastersModels.Cards.Creatures
 {
     public class AquaHulcus : Creature
     {
-        public AquaHulcus() : base(3, Civilization.Water, 2000, Race.LiquidPeople)
+        public AquaHulcus(Guid owner) : base(owner, 3, Civilization.Water, 2000, Race.LiquidPeople)
         {
-            TriggerAbilities.Add(new AquaHulcusAbility(Id));
+            TriggeredAbilities.Add(new AquaHulcusAbility(Id, owner));
         }
 
         public AquaHulcus(AquaHulcus x) : base(x) { }
@@ -19,12 +20,17 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    public class AquaHulcusAbility : TriggeredAbility
+    public class AquaHulcusAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        public AquaHulcusAbility(System.Guid source) : base(new WhenYouPutThisCreatureIntoTheBattleZone(), source) { }
+        public AquaHulcusAbility(Guid source, Guid controller) : base(source, controller) { }
 
         public AquaHulcusAbility(AquaHulcusAbility ability) : base(ability)
         {
+        }
+
+        public override NonStaticAbility Copy()
+        {
+            return new AquaHulcusAbility(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
@@ -38,11 +44,6 @@ namespace DuelMastersModels.Cards.Creatures
                 duel.GetPlayer(Controller).DrawCards(1, duel);
             }
             return null;
-        }
-
-        public override Ability Copy()
-        {
-            return new AquaHulcusAbility(this);
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿namespace DuelMastersModels.Abilities.StaticAbilities
+﻿using System;
+
+namespace DuelMastersModels.Abilities.StaticAbilities
 {
     internal class DoubleBreaker : StaticAbility
     {
-        internal DoubleBreaker(System.Guid creature) : base(creature) { }
+        internal DoubleBreaker(Guid creature, Guid source) : base(creature, source) { }
 
         protected DoubleBreaker(DoubleBreaker ability) : base(ability) { }
 
-        public override Ability Copy()
+        public override StaticAbility Copy()
         {
             return new DoubleBreaker(this);
         }
