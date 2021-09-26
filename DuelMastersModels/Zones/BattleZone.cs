@@ -40,8 +40,7 @@ namespace DuelMastersModels.Zones
             _cards.Add(card);
             if (card is Creature creature)
             {
-                var foo = creature.TriggeredAbilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Copy()).ToList();
-                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(foo);
+                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(creature.TriggeredAbilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Copy()));
             }
         }
 

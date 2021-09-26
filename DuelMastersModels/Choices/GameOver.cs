@@ -30,5 +30,14 @@ namespace DuelMastersModels.Choices
         {
             return $"Reason: {WinReason} Winners: {Winners.First()} Losers: {Losers.First()}";
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Winners = null;
+                Losers = null;
+            }
+        }
     }
 }

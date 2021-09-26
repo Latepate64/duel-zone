@@ -6,11 +6,19 @@ namespace DuelMastersModels.Choices
 {
     public class AttackerChoice : Choice
     {
-        public IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> Options { get; }
+        public IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> Options { get; set; }
 
         public AttackerChoice(Guid player, IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options) : base(player)
         {
             Options = options;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Options = null;
+            }
         }
     }
 
@@ -21,6 +29,14 @@ namespace DuelMastersModels.Choices
         public AttackerDecision(Tuple<Guid, Guid> decision)
         {
             Decision = decision;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Decision = null;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DuelMastersModels
 {
-    public abstract class DuelObject
+    public abstract class DuelObject : IDisposable
     {
         public Guid Id { get; }
 
@@ -25,5 +25,13 @@ namespace DuelMastersModels
         {
             return base.GetHashCode();
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected abstract void Dispose(bool disposing);
     }
 }

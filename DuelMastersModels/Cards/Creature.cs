@@ -16,6 +16,7 @@ namespace DuelMastersModels.Cards
         CyberLord,
         Dragonoid,
         EarthDragon,
+        GiantInsect,
         Human,
         LiquidPeople,
         MachineEater,
@@ -72,6 +73,16 @@ namespace DuelMastersModels.Cards
         internal bool AffectedBySummoningSickness()
         {
             return SummoningSickness && !StaticAbilities.OfType<SpeedAttacker>().Any();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                Races = null;
+                TriggeredAbilities = null;
+            }
         }
     }
 

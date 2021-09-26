@@ -39,11 +39,11 @@ namespace DuelMastersModels.Steps
                 }
                 else
                 {
-                    foreach (Card mana in usage.Decision.Item2.Select(x => duel.GetCard(x)))
+                    foreach (Card mana in usage.Decision.Manas.Select(x => duel.GetCard(x)))
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(duel.GetCard(usage.Decision.Item1), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
+                    duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
                     return null;
                 }
             }

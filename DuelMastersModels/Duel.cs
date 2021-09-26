@@ -86,9 +86,15 @@ namespace DuelMastersModels
 
         private Choice StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
         {
-            Turn turn = ExtraTurns.Any() ? ExtraTurns.Dequeue() : new Turn(activePlayer, nonActivePlayer);
-            _turns.Add(turn);
-            return turn.Start(this, _turns.Count);
+            if (ExtraTurns.Any())
+            {
+                _turns.Add(ExtraTurns.Dequeue());
+            }
+            else
+            {
+                _turns.Add(new Turn(activePlayer, nonActivePlayer));
+            }
+            return _turns.Last().Start(this, _turns.Count);
         }
 
         public Choice Continue(Decision decision)
@@ -455,14 +461,29 @@ namespace DuelMastersModels
         {
             if (disposing)
             {
+                foreach (var x in ExtraTurns)
+                {
+                    x.Dispose();
+                }
                 ExtraTurns = null;
+                GameOverInformation?.Dispose();
                 GameOverInformation = null;
+                Player1.Dispose();
                 Player1 = null;
+                Player2.Dispose();
                 Player2 = null;
                 DelayedTriggeredAbilities = null;
                 ResolvingSpellAbilities = null;
+                foreach (var x in ResolvingSpells)
+                {
+                    x.Dispose();
+                }
                 ResolvingSpells = null;
                 _continuousEffectManager = null;
+                foreach (var x in _turns)
+                {
+                    x.Dispose();
+                }
                 _turns = null;
             }
         }

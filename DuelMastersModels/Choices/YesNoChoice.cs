@@ -1,8 +1,14 @@
+using System;
+
 namespace DuelMastersModels.Choices
 {
     public class YesNoChoice : Choice
     {
-        public YesNoChoice(System.Guid player) : base(player)
+        public YesNoChoice(Guid player) : base(player)
+        {
+        }
+
+        protected override void Dispose(bool disposing)
         {
         }
     }
@@ -14,6 +20,10 @@ namespace DuelMastersModels.Choices
         public YesNoDecision(bool decision)
         {
             Decision = decision;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
         }
     }
 }

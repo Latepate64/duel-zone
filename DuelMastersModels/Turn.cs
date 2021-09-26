@@ -108,5 +108,13 @@ namespace DuelMastersModels
         {
             return $"Turn {Number}";
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Steps = null;
+            }
+        }
     }
 }

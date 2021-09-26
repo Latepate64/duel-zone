@@ -27,6 +27,14 @@ namespace DuelMastersModels.Choices
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Options = null;
+            }
+        }
     }
 
     public class GuidDecision : Decision
@@ -36,6 +44,14 @@ namespace DuelMastersModels.Choices
         public GuidDecision(IEnumerable<Guid> decision)
         {
             Decision = decision;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Decision = null;
+            }
         }
     }
 }

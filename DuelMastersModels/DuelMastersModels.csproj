@@ -89,6 +89,7 @@
     <Compile Include="Abilities\Triggered\AtTheEndOfYourTurn.cs" />
     <Compile Include="Abilities\Triggered\DelayedTriggeredAbility.cs" />
     <Compile Include="Abilities\Triggered\TriggeredAbility.cs" />
+    <Compile Include="Abilities\Triggered\WheneverThisCreatureAttacksAbility.cs" />
     <Compile Include="Abilities\Triggered\WhenYouPutThisCreatureIntoTheBattleZone.cs" />
     <Compile Include="Cards\Creatures\AquaHulcus.cs" />
     <Compile Include="Cards\Creatures\AquaSurfer.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Cards\Creatures\KamikazeChainsawWarrior.cs" />
     <Compile Include="Cards\Creatures\PyrofighterMagnus.cs" />
     <Compile Include="Cards\Creatures\RikabuTheDismantler.cs" />
+    <Compile Include="Cards\Creatures\SniperMosquito.cs" />
     <Compile Include="Cards\Creatures\Torcon.cs" />
     <Compile Include="Cards\Creatures\TwinCannonSkyterror.cs" />
     <Compile Include="Cards\Creatures\WindAxeTheWarriorSavage.cs" />

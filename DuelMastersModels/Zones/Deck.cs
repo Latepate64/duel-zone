@@ -8,7 +8,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone, ICopyable<Deck>, IDisposable
+    public class Deck : Zone, ICopyable<Deck>
     {
         internal override bool Public { get; } = false;
         internal override bool Ordered { get; } = true;
@@ -80,21 +80,6 @@ namespace DuelMastersModels.Zones
         public Deck Copy()
         {
             return new Deck(Cards.Select(x => x.Copy()));
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _cards = null;
-            }
-            // free native resources if there are any.
         }
     }
 }

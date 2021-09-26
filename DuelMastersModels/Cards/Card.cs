@@ -67,6 +67,16 @@ namespace DuelMastersModels.Cards
         {
             return base.GetHashCode();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Civilizations = null;
+                RevealedTo = null;
+                StaticAbilities = null;
+            }
+        }
     }
 
     internal class CardComparer : IEqualityComparer<Card>

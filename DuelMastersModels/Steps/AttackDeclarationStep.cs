@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities.Triggered;
+using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,8 @@ namespace DuelMastersModels.Steps
                     AttackingCreature = attackerChoice.Decision.Item1;
                     AttackTarget = attackerChoice.Decision.Item2;
                     duel.GetCard(AttackingCreature).Tapped = true;
+                    var attacker = duel.GetCreature(AttackingCreature);
+                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.TriggeredAbilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Copy()));
                 }
                 return null;
             }

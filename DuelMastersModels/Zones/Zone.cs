@@ -8,7 +8,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone, graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own zones except for the battle zone which is shared by each player.
     /// </summary>
-    public abstract class Zone
+    public abstract class Zone : System.IDisposable
     {
         protected Zone(IEnumerable<Card> cards)
         {
@@ -53,5 +53,23 @@ namespace DuelMastersModels.Zones
         #endregion Internal
 
         private protected Collection<Card> _cards;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && _cards != null)
+            {
+                foreach (var card in _cards)
+                {
+                    card.Dispose();
+                }
+                _cards = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            System.GC.SuppressFinalize(this);
+        }
     }
 }

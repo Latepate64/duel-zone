@@ -1,6 +1,5 @@
 ﻿
 using DuelMastersModels.Cards;
-using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;
@@ -12,7 +11,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : DuelObject, IAttackable, IDisposable
+    public class Player : DuelObject, IAttackable
     {
         /// <summary>
         /// The name of the player.
@@ -86,11 +85,6 @@ namespace DuelMastersModels
             Deck.Shuffle();
         }
 
-        public void AddShieldTriggerToUse(Card card)
-        {
-            _shieldTriggerManager.AddShieldTriggerToUse(card);
-        }
-
         public static Choice Use(Card card, IEnumerable<Card> manaCards)
         {
             if (card == null)
@@ -103,11 +97,6 @@ namespace DuelMastersModels
             }
             //return Duel.Progress();
             throw new NotImplementedException(); // Mana payment
-        }
-
-        public void RemoveShieldTriggerToUse(Card card)
-        {
-            _shieldTriggerManager.RemoveShieldTriggerToUse(card);
         }
 
         public void PutFromBattleZoneIntoGraveyard(Card card, Duel duel)
@@ -141,6 +130,12 @@ namespace DuelMastersModels
         {
             ManaZone.Remove(card);
             BattleZone.Add(card, duel);
+        }
+
+        internal void PutFromManaZoneToHand(Card card, Duel duel)
+        {
+            ManaZone.Remove(card);
+            Hand.Add(card, duel);
         }
 
         ///<summary>
@@ -190,8 +185,6 @@ namespace DuelMastersModels
             ManaZone.UntapCards();
             return null; //TODO: Could require choice (eg. Silent Skill)
         }
-
-        private ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
 
         //TODO: This probably will not be needed
         private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
@@ -292,25 +285,23 @@ namespace DuelMastersModels
             duel.ResolvingSpells.Push(spell);
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                BattleZone?.Dispose();
                 BattleZone = null;
+                Deck?.Dispose();
                 Deck = null;
+                Graveyard?.Dispose();
                 Graveyard = null;
+                Hand?.Dispose();
                 Hand = null;
+                ManaZone?.Dispose();
                 ManaZone = null;
+                ShieldZone?.Dispose();
                 ShieldZone = null;
-                _shieldTriggerManager = null;
             }
-            // free native resources if there are any.
         }
     }
 }
