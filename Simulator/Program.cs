@@ -12,21 +12,30 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 20;
+        const int ChoicesMax = 10;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
-            List<Duel> duels = new();
-            for (int i = 0; i < 1; ++i)
+            int p1Wins = 0;
+            int p2Wins = 0;
+            for (int i = 0; i < 100; ++i)
             {
-                Player player1 = new("Shobu");
-                player1.Deck = new Deck(GetBombaBlue(player1.Id));
-                Player player2 = new("Kokujo");
-                player2.Deck = new Deck(GetFNRush(player2.Id));
-                var duel = PlayDuel(player1, player2);
+                using Player player1 = new("Shobu"), player2 = new("Kokujo");
+                using Deck deck1 = new(GetBombaBlue(player1.Id)), deck2 = new(GetFNRush(player2.Id));
+                player1.Deck = deck1;
+                player2.Deck = deck2;
+                using var duel = PlayDuel(player1, player2);
                 Console.WriteLine($"{duel}");
-                duels.Add(duel);
+                if (duel.GameOverInformation.Winners.Contains(player1.Id))
+                {
+                    ++p1Wins;
+                }
+                if (duel.GameOverInformation.Winners.Contains(player2.Id))
+                {
+                    ++p2Wins;
+                }
+                Console.WriteLine($"{player1.Name} wins: {p1Wins} - {player2.Name} wins: {p2Wins} - {player1.Name} winrate: {(double)p1Wins / (p1Wins + p2Wins)}");
             }
         }
 
@@ -43,8 +52,8 @@ namespace Simulator
                 latestPoints = decisionWithPoints.Item2;
                 choice = duel.Continue(decisionWithPoints.Item1);
 
-                Console.WriteLine($"Choice awarded: {latestPoints}");
-                Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
+                //Console.WriteLine($"Choice awarded: {latestPoints}");
+                //Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
             }
             return duel;
         }

@@ -12,7 +12,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : DuelObject, IAttackable
+    public class Player : DuelObject, IAttackable, IDisposable
     {
         /// <summary>
         /// The name of the player.
@@ -191,7 +191,7 @@ namespace DuelMastersModels
             return null; //TODO: Could require choice (eg. Silent Skill)
         }
 
-        private readonly ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
+        private ShieldTriggerManager _shieldTriggerManager = new ShieldTriggerManager();
 
         //TODO: This probably will not be needed
         private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
@@ -290,6 +290,27 @@ namespace DuelMastersModels
             Hand.Remove(spell);
             spell.RevealedTo = duel.Players.Select(x => x.Id);
             duel.ResolvingSpells.Push(spell);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                BattleZone = null;
+                Deck = null;
+                Graveyard = null;
+                Hand = null;
+                ManaZone = null;
+                ShieldZone = null;
+                _shieldTriggerManager = null;
+            }
+            // free native resources if there are any.
         }
     }
 }

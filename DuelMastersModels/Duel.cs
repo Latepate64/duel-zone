@@ -12,7 +12,7 @@ using DuelMastersModels.Abilities;
 
 namespace DuelMastersModels
 {
-    public class Duel
+    public class Duel : IDisposable
     {
         public GameOver GameOverInformation { get; internal set; }
 
@@ -41,15 +41,15 @@ namespace DuelMastersModels
 
         public IEnumerable<Creature> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
-        internal readonly Stack<Spell> ResolvingSpells = new Stack<Spell>();
-        internal readonly Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
+        internal Stack<Spell> ResolvingSpells = new Stack<Spell>();
+        internal Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
 
-        private readonly ContinuousEffectManager _continuousEffectManager;
+        private ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        private readonly IList<Turn> _turns = new List<Turn>();
+        private IList<Turn> _turns = new List<Turn>();
 
         public Duel()
         {
@@ -443,6 +443,28 @@ namespace DuelMastersModels
         public override string ToString()
         {
             return $"{CurrentTurn} {GameOverInformation}";
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                ExtraTurns = null;
+                GameOverInformation = null;
+                Player1 = null;
+                Player2 = null;
+                DelayedTriggeredAbilities = null;
+                ResolvingSpellAbilities = null;
+                ResolvingSpells = null;
+                _continuousEffectManager = null;
+                _turns = null;
+            }
         }
     }
 }
