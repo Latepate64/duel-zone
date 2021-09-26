@@ -2,9 +2,12 @@
 
 namespace DuelMastersModels.Abilities
 {
-    internal abstract class SpellAbility : NonStaticAbility
+    public abstract class SpellAbility : NonStaticAbility
     {
-        internal SpellAbility(Guid source, Guid controller) : base(source, controller)
+        protected SpellAbility(Guid source, Guid controller) : base(source, controller)
+        { }
+
+        protected SpellAbility(SpellAbility ability) : base(ability)
         { }
     }
 }

@@ -101,6 +101,7 @@
     <Compile Include="Cards\Spell.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Creature.cs" />
+    <Compile Include="Cards\Spells\Soulswap.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="Choices\GameOver.cs" />

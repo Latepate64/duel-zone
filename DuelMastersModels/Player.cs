@@ -116,6 +116,12 @@ namespace DuelMastersModels
             Graveyard.Add(card, duel);
         }
 
+        internal void PutFromBattleZoneIntoManaZone(Card card, Duel duel)
+        {
+            BattleZone.Remove(card);
+            ManaZone.Add(card, duel);
+        }
+
         /// <summary>
         /// Player puts target card from their hand into their mana zone.
         /// </summary>
@@ -123,6 +129,12 @@ namespace DuelMastersModels
         {
             Hand.Remove(card);
             ManaZone.Add(card, duel);
+        }
+
+        internal void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
+        {
+            ManaZone.Remove(card);
+            BattleZone.Add(card, duel);
         }
 
         ///<summary>
@@ -266,6 +278,12 @@ namespace DuelMastersModels
         {
             BattleZone.Remove(creature);
             Hand.Add(creature, duel);
+        }
+
+        internal void Cast(Spell spell, Duel duel)
+        {
+            Hand.Remove(spell);
+            duel.ResolvingSpells.Push(spell);
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Effects.Periods;
+using DuelMastersModels.Abilities;
 
 namespace DuelMastersModels
 {
@@ -40,10 +41,8 @@ namespace DuelMastersModels
 
         public IEnumerable<Creature> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
-        /// <summary>
-        /// Spells that are being resolved.
-        /// </summary>
-        private readonly List<Spell> _spellsBeingResolved = new List<Spell>();
+        internal readonly Stack<Spell> ResolvingSpells = new Stack<Spell>();
+        internal readonly Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
 
         private readonly ContinuousEffectManager _continuousEffectManager;
 
@@ -141,7 +140,7 @@ namespace DuelMastersModels
             }
             else if (card is Spell spell)
             {
-                CastSpell(spell);
+                player.Cast(spell, this);
             }
             else
             {
@@ -319,11 +318,6 @@ namespace DuelMastersModels
         //    return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
         //}
 
-        private void CastSpell(Spell spell)
-        {
-            _spellsBeingResolved.Add(spell);
-        }
-
         internal void Destroy(IEnumerable<Creature> creatures)
         {
             foreach (var creature in creatures)
@@ -342,7 +336,7 @@ namespace DuelMastersModels
             Player1 = new Player(duel.Player1);
             Player2 = new Player(duel.Player2);
             State = duel.State;
-            _spellsBeingResolved = duel._spellsBeingResolved.Select(x => x.Copy()).Cast<Spell>().ToList();
+            ResolvingSpells = new Stack<Spell>(duel.ResolvingSpells.Select(x => x.Copy()).Cast<Spell>());
             _turns = duel._turns.Select(x => new Turn(x)).ToList();
         }
 

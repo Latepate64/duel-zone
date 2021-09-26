@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Cards.Creatures;
+using DuelMastersModels.Cards.Spells;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;
@@ -11,7 +12,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 20;
+        const int ChoicesMax = 30;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -51,18 +52,24 @@ namespace Simulator
         static List<Card> GetBombaBlue(Guid player)
         {
             List<Card> deck = new();
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < 2; ++i)
             {
                 deck.Add(new AquaHulcus(player));
                 deck.Add(new AquaSurfer(player));
                 //Emeral
                 deck.Add(new PyrofighterMagnus(player));
                 deck.Add(new BronzeArmTribe(player));
-                //Soulswap
+                deck.Add(new Soulswap(player));
                 deck.Add(new TwinCannonSkyterror(player));
                 deck.Add(new BombazarDragonOfDestiny(player));
                 deck.Add(new GontaTheWarriorSavage(player));
                 deck.Add(new WindAxeTheWarriorSavage(player));
+            }
+
+            //TODO: debug
+            for (int i = 0; i < 50; ++i)
+            {
+                deck.Add(new Soulswap(player));
             }
             return deck;
         }

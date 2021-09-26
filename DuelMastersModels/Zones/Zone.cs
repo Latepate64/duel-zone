@@ -17,6 +17,8 @@ namespace DuelMastersModels.Zones
 
         public IEnumerable<Card> Cards => new ReadOnlyCollection<Card>(_cards.ToList());
 
+        public IEnumerable<Creature> Creatures => new ReadOnlyCollection<Creature>(Cards.OfType<Creature>().ToList());
+
         #region Internal
         #region Properties
         #region ReadOnlyCreatureCollection

@@ -16,8 +16,6 @@ namespace DuelMastersModels.Zones
         internal override bool Public { get; } = true;
         internal override bool Ordered { get; } = false;
 
-        public IEnumerable<Creature> Creatures => new ReadOnlyCollection<Creature>(Cards.OfType<Creature>().ToList());
-
         public IEnumerable<Creature> GetTappedCreatures()
         {
             return new ReadOnlyCollection<Creature>(Creatures.Where(creature => creature.Tapped).ToList());

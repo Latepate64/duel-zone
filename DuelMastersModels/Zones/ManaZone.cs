@@ -18,8 +18,6 @@ namespace DuelMastersModels.Zones
         public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => card.Tapped).ToList());
         public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => !card.Tapped).ToList());
 
-        public IEnumerable<Creature> NonEvolutionCreaturesThatCostTheSameAsOrLessThanTheNumberOfCardsInTheZone => new ReadOnlyCollection<Creature>(Cards.OfType<Creature>().Where(c => c.Cost <= Cards.Count() && !(c is EvolutionCreature)).ToList());
-
         public void UntapCards()
         {
             foreach (Card card in TappedCards)
