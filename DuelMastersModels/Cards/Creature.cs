@@ -12,6 +12,7 @@ namespace DuelMastersModels.Cards
         ArmoredDragon,
         ArmoredWyvern,
         BeastFolk,
+        CyberLord,
         Dragonoid,
         EarthDragon,
         Human,

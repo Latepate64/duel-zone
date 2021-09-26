@@ -131,6 +131,12 @@ namespace DuelMastersModels
             ManaZone.Add(card, duel);
         }
 
+        internal void PutFromHandIntoShieldZone(Card card, Duel duel)
+        {
+            Hand.Remove(card);
+            ShieldZone.Add(card, duel);
+        }
+
         internal void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
@@ -244,24 +250,23 @@ namespace DuelMastersModels
             BattleZone = player.BattleZone.Copy();
         }
 
-        public Choice PutFromShieldZoneToHand(Card card, Duel duel)//, bool canUseShieldTrigger)
+        public void PutFromShieldZoneToHand(Card card, Duel duel, bool canUseShieldTrigger)
         {
-            return PutFromShieldZoneToHand(new List<Card> { card }, duel);//, canUseShieldTrigger);
+            PutFromShieldZoneToHand(new List<Card> { card }, duel, canUseShieldTrigger);
         }
 
-        public Choice PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel)
+        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel, bool canUseShieldTrigger)
         {
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
                 ShieldZone.Remove(card);
                 Hand.Add(card, duel);
-                if (card.ShieldTrigger)
+                if (canUseShieldTrigger && card.ShieldTrigger)
                 {
                     card.ShieldTriggerPending = true;
                 }
             }
-            return null;
         }
 
         public override string ToString()

@@ -38,7 +38,8 @@ namespace DuelMastersModels.Steps
                 {
                     breakAmount = 2;
                 }
-                return opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel);//, true);
+                opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel, true);
+                return null;
             }
             else
             {

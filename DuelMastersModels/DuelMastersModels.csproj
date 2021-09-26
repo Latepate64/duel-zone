@@ -94,6 +94,7 @@
     <Compile Include="Cards\Creatures\AquaSurfer.cs" />
     <Compile Include="Cards\Creatures\BombazarDragonOfDestiny.cs" />
     <Compile Include="Cards\Creatures\BronzeArmTribe.cs" />
+    <Compile Include="Cards\Creatures\Emeral.cs" />
     <Compile Include="Cards\Creatures\GontaTheWarriorSavage.cs" />
     <Compile Include="Cards\Creatures\PyrofighterMagnus.cs" />
     <Compile Include="Cards\Creatures\TwinCannonSkyterror.cs" />

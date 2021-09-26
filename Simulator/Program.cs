@@ -12,7 +12,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 30;
+        const int ChoicesMax = 10;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -52,11 +52,11 @@ namespace Simulator
         static List<Card> GetBombaBlue(Guid player)
         {
             List<Card> deck = new();
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < 4; ++i)
             {
                 deck.Add(new AquaHulcus(player));
                 deck.Add(new AquaSurfer(player));
-                //Emeral
+                deck.Add(new Emeral(player));
                 deck.Add(new PyrofighterMagnus(player));
                 deck.Add(new BronzeArmTribe(player));
                 deck.Add(new Soulswap(player));
@@ -64,12 +64,6 @@ namespace Simulator
                 deck.Add(new BombazarDragonOfDestiny(player));
                 deck.Add(new GontaTheWarriorSavage(player));
                 deck.Add(new WindAxeTheWarriorSavage(player));
-            }
-
-            //TODO: debug
-            for (int i = 0; i < 50; ++i)
-            {
-                deck.Add(new Soulswap(player));
             }
             return deck;
         }
