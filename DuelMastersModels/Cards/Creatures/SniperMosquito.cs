@@ -7,23 +7,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class SniperMosquito : Creature
-    {
-        public SniperMosquito(Guid owner) : base(owner, 1, Civilization.Nature, 2000, Race.GiantInsect)
-        {
-            TriggeredAbilities.Add(new SniperMosquitoAbility(Id, owner));
-        }
-
-        public SniperMosquito(Creature creature) : base(creature)
-        {
-        }
-
-        public override Card Copy()
-        {
-            return new SniperMosquito(this);
-        }
-    }
-
     public class SniperMosquitoAbility : WheneverThisCreatureAttacksAbility
     {
         public SniperMosquitoAbility(Guid source, Guid controller) : base(source, controller)
@@ -35,7 +18,7 @@ namespace DuelMastersModels.Cards.Creatures
         }
 
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new SniperMosquitoAbility(this);
         }
@@ -48,7 +31,7 @@ namespace DuelMastersModels.Cards.Creatures
             {
                 if (controller.ManaZone.Cards.Any())
                 {
-                    if (controller.ManaZone.Cards.Count() > 1)
+                    if (controller.ManaZone.Cards.Count > 1)
                     {
                         return new Selection<Guid>(Controller, controller.ManaZone.Cards.Select(x => x.Id), 1, 1);
                     }

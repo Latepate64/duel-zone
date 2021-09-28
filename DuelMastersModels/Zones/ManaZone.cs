@@ -29,16 +29,13 @@ namespace DuelMastersModels.Zones
         public override void Add(Card card, Duel duel)
         {
             card.RevealedTo = duel.Players.Select(x => x.Id);
-            if (card.Civilizations.Count() > 1)
-            {
-                card.Tapped = true;
-            }
-            _cards.Add(card);
+            card.EnterManaZone();
+            Cards.Add(card);
         }
 
         public override void Remove(Card card)
         {
-            if (!_cards.Remove(card))
+            if (!Cards.Remove(card))
             {
                 throw new System.NotSupportedException(card.ToString());
             }

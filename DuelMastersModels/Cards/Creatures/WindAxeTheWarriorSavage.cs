@@ -8,24 +8,9 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class WindAxeTheWarriorSavage : Creature
+    public class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        public WindAxeTheWarriorSavage(Guid owner) : base(owner, 5, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2000, new List<Race> { Race.Human, Race.BeastFolk })
-        {
-            TriggeredAbilities.Add(new WindAxeTheWarriorSavageAbility(Id, owner));
-        }
-
-        public WindAxeTheWarriorSavage(WindAxeTheWarriorSavage x) : base(x) { }
-
-        public override Card Copy()
-        {
-            return new WindAxeTheWarriorSavage(this);
-        }
-    }
-
-    internal class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZone
-    {
-        internal WindAxeTheWarriorSavageAbility(Guid source, Guid controller) : base(source, controller)
+        public WindAxeTheWarriorSavageAbility(Guid source, Guid controller) : base(source, controller)
         {
         }
 
@@ -33,7 +18,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new WindAxeTheWarriorSavageAbility(this);
         }
@@ -42,11 +27,11 @@ namespace DuelMastersModels.Cards.Creatures
         {
             // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);
-            IEnumerable<Creature> blocker = new List<Creature>();
+            IEnumerable<Card> blocker = new List<Card>();
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(controller);
-                var blockers = opponent.BattleZone.Creatures.Where(c => c.StaticAbilities.OfType<Blocker>().Any());
+                var blockers = opponent.BattleZone.Creatures.Where(c => c.Abilities.OfType<Blocker>().Any());
                 if (blockers.Count() > 1)
                 {
                     return new Selection<Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
@@ -58,7 +43,7 @@ namespace DuelMastersModels.Cards.Creatures
             }
             else
             {
-                blocker = (decision as GuidDecision).Decision.Select(x => duel.GetCreature(x));
+                blocker = (decision as GuidDecision).Decision.Select(x => duel.GetCard(x));
             }
             duel.Destroy(blocker);
 

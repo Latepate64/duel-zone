@@ -167,7 +167,7 @@ namespace DuelMastersModels.Steps
                 }
                 else
                 {
-                    foreach (var spellAbility in duel.ResolvingSpells.Peek().SpellAbilities)
+                    foreach (var spellAbility in duel.ResolvingSpells.Peek().Abilities.OfType<SpellAbility>())
                     {
                         duel.ResolvingSpellAbilities.Enqueue(spellAbility.Copy() as SpellAbility);
                     }
@@ -229,8 +229,8 @@ namespace DuelMastersModels.Steps
 
         protected Step(Step step)
         {
-            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).ToList();
-            ResolvingAbility = step.ResolvingAbility?.Copy();
+            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
+            ResolvingAbility = step.ResolvingAbility?.Copy() as NonStaticAbility;
             State = step.State;
             _shieldTriggerUser = step._shieldTriggerUser;
             _spellAbilitiesRetrieved = step._spellAbilitiesRetrieved;

@@ -5,21 +5,6 @@ using System;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class AquaHulcus : Creature
-    {
-        public AquaHulcus(Guid owner) : base(owner, 3, Civilization.Water, 2000, Race.LiquidPeople)
-        {
-            TriggeredAbilities.Add(new AquaHulcusAbility(Id, owner));
-        }
-
-        public AquaHulcus(AquaHulcus x) : base(x) { }
-
-        public override Card Copy()
-        {
-            return new AquaHulcus(this);
-        }
-    }
-
     public class AquaHulcusAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
         public AquaHulcusAbility(Guid source, Guid controller) : base(source, controller) { }
@@ -28,7 +13,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new AquaHulcusAbility(this);
         }

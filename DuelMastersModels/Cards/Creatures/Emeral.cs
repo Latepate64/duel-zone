@@ -6,23 +6,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class Emeral : Creature
-    {
-        public Emeral(Guid owner) : base(owner, 2, Civilization.Water, 1000, Race.CyberLord)
-        {
-            TriggeredAbilities.Add(new EmeralAbility(Id, owner));
-        }
-
-        public Emeral(Creature creature) : base(creature)
-        {
-        }
-
-        public override Card Copy()
-        {
-            return new Emeral(this);
-        }
-    }
-
     public class EmeralAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
         public EmeralAbility(EmeralAbility ability) : base(ability)
@@ -34,7 +17,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new EmeralAbility(this);
         }
@@ -64,7 +47,7 @@ namespace DuelMastersModels.Cards.Creatures
                     // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
                     if (controller.ShieldZone.Cards.Any())
                     {
-                        if (controller.ShieldZone.Cards.Count() == 1)
+                        if (controller.ShieldZone.Cards.Count == 1)
                         {
                             controller.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), duel, false);
                             return null;

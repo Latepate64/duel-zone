@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Abilities.StaticAbilities;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.StaticAbilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,52 +7,100 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards
 {
-    public abstract class Card : DuelObject, ICopyable<Card>
-    {
-        public Guid Owner { get; private set; }
+    public enum CardType { Creature, Spell }
 
-        public IEnumerable<Civilization> Civilizations { get; private set; }
+    public enum Subtype
+    {
+        ArmoredDragon,
+        ArmoredWyvern,
+        Armorloid,
+        BeastFolk,
+        CyberLord,
+        Dragonoid,
+        EarthDragon,
+        GiantInsect,
+        Human,
+        LiquidPeople,
+        MachineEater,
+    }
+
+    public class Card : DuelObject, ICopyable<Card>, IAttackable
+    {
+        // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
+
+        public string Name { get; set; }
+
+        public CardType CardType { get; set; }
 
         /// <summary>
-        /// Mana cost of the card.
+        /// Also known as race for creatures.
         /// </summary>
-        public int Cost { get; private set; }
+        public IEnumerable<Subtype> Subtypes { get; set; }
 
-        public bool Tapped { get; set; }
+        public ICollection<Ability> Abilities { get; } = new Collection<Ability>();
 
-        public IList<StaticAbility> StaticAbilities { get; private set; } = new List<StaticAbility>();
+        public int? Power { get; set; }
 
-        public bool ShieldTrigger { get; protected set; } = false;
+        public Guid Owner { get; set; }
 
-        public bool ShieldTriggerPending { get; internal set; } = false;
+        public IEnumerable<Civilization> Civilizations { get; set; }
+
+        public int ManaCost { get; set; }
+
+        internal bool Tapped { get; set; }
+
+        public bool ShieldTrigger { get; set; } = false;
+
+        internal bool ShieldTriggerPending { get; set; } = false;
 
         public IEnumerable<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
-        protected Card(Guid owner, int cost, IEnumerable<Civilization> civilizations)
+        /// <summary>
+        /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
+        /// </summary>
+        public bool SummoningSickness { get; private set; } = true;
+
+        internal bool AffectedBySummoningSickness()
+        {
+            return SummoningSickness && !Abilities.OfType<SpeedAttacker>().Any();
+        }
+
+        public Card() { }
+
+        protected Card(Guid owner, int cost, IEnumerable<Civilization> civilizations, IEnumerable<Subtype> subtypes)
         {
             Owner = owner;
             Civilizations = civilizations;
-            Cost = cost;
+            ManaCost = cost;
+            Subtypes = subtypes;
         }
 
         /// <summary>
         /// Creates a card.
         /// </summary>
-        protected Card(Guid owner, int cost, Civilization civilization) : this(owner, cost, new Collection<Civilization> { civilization }) { }
+        protected Card(Guid owner, int cost, Civilization civilization, Subtype subtype) : this(owner, cost, new Collection<Civilization> { civilization }, new Collection<Subtype> { subtype }) { }
 
         protected Card(Card card) : base(card)
         {
+            Abilities = card.Abilities.Select(x => x.Copy()).ToList();
+            CardType = card.CardType;
+            Civilizations = card.Civilizations.ToList();
+            ManaCost = card.ManaCost;
+            Name = card.Name;
             Owner = card.Owner;
-            Civilizations = new Collection<Civilization>(card.Civilizations.ToList());
-            Cost = card.Cost;
-            RevealedTo = new List<Guid>(card.RevealedTo);
+            Power = card.Power;
+            RevealedTo = card.RevealedTo.ToList();
             ShieldTrigger = card.ShieldTrigger;
             ShieldTriggerPending = card.ShieldTriggerPending;
-            StaticAbilities = card.StaticAbilities.Select(x => x.Copy()).Cast<StaticAbility>().ToList();
+            Subtypes = card.Subtypes?.ToList();
+            SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
         }
 
-        public abstract Card Copy();
+        public virtual Card Copy()
+        {
+            return new Card(this);
+        }
 
         //public override string ToString()
         //{
@@ -74,7 +123,14 @@ namespace DuelMastersModels.Cards
             {
                 Civilizations = null;
                 RevealedTo = null;
-                StaticAbilities = null;
+            }
+        }
+
+        public virtual void EnterManaZone()
+        {
+            if (Civilizations.Count() > 1)
+            {
+                Tapped = true;
             }
         }
     }
@@ -84,10 +140,9 @@ namespace DuelMastersModels.Cards
         public bool Equals(Card x, Card y)
         {
             return x.Civilizations.SequenceEqual(y.Civilizations) &&
-                x.Cost == y.Cost &&
+                x.ManaCost == y.ManaCost &&
                 x.ShieldTrigger == y.ShieldTrigger &&
                 x.ShieldTriggerPending == y.ShieldTriggerPending &&
-                x.StaticAbilities.Count == y.StaticAbilities.Count &&   //TODO: Actually compare abilities
                 x.Tapped == y.Tapped;
         }
 
@@ -95,7 +150,7 @@ namespace DuelMastersModels.Cards
         {
             var x = 0;//obj.Civilizations.GetHashCode();
             var y = 0;// obj.StaticAbilities.GetHashCode();
-            return obj.Cost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + obj.ShieldTriggerPending.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
+            return obj.ManaCost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + obj.ShieldTriggerPending.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
         }
     }
 

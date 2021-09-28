@@ -2,37 +2,19 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class BombazarDragonOfDestiny : Creature
+    public class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        public BombazarDragonOfDestiny(Guid owner) : base(owner, 7, new List<Civilization> { Civilization.Fire, Civilization.Nature }, 6000, new List<Race> { Race.ArmoredDragon, Race.EarthDragon })
-        {
-            TriggeredAbilities.Add(new BombazarDragonOfDestinyAbility(Id, owner));
-            StaticAbilities.Add(new Abilities.StaticAbilities.SpeedAttacker(Id, owner));
-            StaticAbilities.Add(new Abilities.StaticAbilities.DoubleBreaker(Id, owner));
-        }
-
-        public BombazarDragonOfDestiny(BombazarDragonOfDestiny x) : base(x) { }
-
-        public override Card Copy()
-        {
-            return new BombazarDragonOfDestiny(this);
-        }
-    }
-
-    internal class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZone
-    {
-        internal BombazarDragonOfDestinyAbility(Guid source, Guid controller) : base(source, controller) { }
+        public BombazarDragonOfDestinyAbility(Guid source, Guid controller) : base(source, controller) { }
 
         public BombazarDragonOfDestinyAbility(TriggeredAbility ability) : base(ability)
         {
         }
 
-        public override Choice Resolve(Duel duel, Decision choice)
+        public override Choice Resolve(Duel duel, Decision decision)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
             duel.Destroy(duel.BattleZoneCreatures.Where(c => c.Id != Source && c.Power == 6000));
@@ -44,7 +26,7 @@ namespace DuelMastersModels.Cards.Creatures
             return null;
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new BombazarDragonOfDestinyAbility(this);
         }
@@ -68,7 +50,7 @@ namespace DuelMastersModels.Cards.Creatures
             return gameOver;
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(this);
         }

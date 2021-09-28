@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using System;
@@ -20,7 +21,7 @@ namespace DuelMastersModels.Steps
         {
             if (decision == null)
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness()).Distinct(new CreatureComparer());
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness()).Distinct(new CardComparer());
                 IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id));
                 if (options.Any())
                 {
@@ -39,19 +40,19 @@ namespace DuelMastersModels.Steps
                     AttackingCreature = attackerChoice.Decision.Item1;
                     AttackTarget = attackerChoice.Decision.Item2;
                     duel.GetCard(AttackingCreature).Tapped = true;
-                    var attacker = duel.GetCreature(AttackingCreature);
-                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.TriggeredAbilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Copy()));
+                    var attacker = duel.GetCard(AttackingCreature);
+                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Copy()).Cast<NonStaticAbility>());
                 }
                 return null;
             }
         }
 
-        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Creature attacker, Duel duel)
+        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Duel duel)
         {
             List<IAttackable> attackables = new List<IAttackable>();
             var opponent = duel.GetOpponent(duel.GetOwner(attacker));
             attackables.Add(opponent);
-            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new CreatureComparer()));
+            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new CardComparer()));
             return attackables;
         }
 

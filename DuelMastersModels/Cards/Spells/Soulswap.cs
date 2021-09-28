@@ -5,24 +5,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards.Spells
 {
-    public class Soulswap : Spell
-    {
-        public Soulswap(Guid owner) : base(owner, 3, Civilization.Nature)
-        {
-            ShieldTrigger = true;
-            SpellAbilities.Add(new SoulswapAbility(Id, owner));
-        }
-
-        public Soulswap(Spell spell) : base(spell)
-        {
-        }
-
-        public override Card Copy()
-        {
-            return new Soulswap(this);
-        }
-    }
-
     public class SoulswapAbility : SpellAbility
     {
         public SoulswapAbility(Guid source, Guid controller) : base(source, controller)
@@ -34,7 +16,7 @@ namespace DuelMastersModels.Cards.Spells
             _firstPart = ability._firstPart;
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new SoulswapAbility(this);
         }
@@ -58,13 +40,13 @@ namespace DuelMastersModels.Cards.Spells
                 var creatures = ((GuidDecision)decision).Decision;
                 if (creatures.Any())
                 {
-                    var creature = duel.GetCreature(creatures.Single());
+                    var creature = duel.GetCard(creatures.Single());
                     var owner = duel.GetOwner(creature);
                     owner.PutFromBattleZoneIntoManaZone(creature, duel);
 
                     // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
                     _firstPart = false;
-                    var manas = owner.ManaZone.Creatures.Where(c => !(c is EvolutionCreature) && c.Cost <= owner.ManaZone.Cards.Count());
+                    var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
                     if (manas.Any())
                     {
                         if (manas.Count() > 1)
@@ -90,7 +72,7 @@ namespace DuelMastersModels.Cards.Spells
             }
             else
             {
-                var mana = duel.GetCreature(((GuidDecision)decision).Decision.Single());
+                var mana = duel.GetCard(((GuidDecision)decision).Decision.Single());
                 duel.GetOwner(mana).PutFromManaZoneIntoBattleZone(mana, duel);
                 return null;
             }

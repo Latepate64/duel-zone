@@ -2,14 +2,14 @@
 
 namespace DuelMastersModels.Abilities.StaticAbilities
 {
-    internal class SpeedAttacker : StaticAbility
+    public class SpeedAttacker : StaticAbility
     {
-        internal SpeedAttacker(Guid creature, Guid controller) : base(creature, controller)
+        public SpeedAttacker(Guid creature, Guid controller) : base(creature, controller)
         { }
 
         protected SpeedAttacker(SpeedAttacker ability) : base(ability) { }
 
-        public override StaticAbility Copy()
+        public override Ability Copy()
         {
             return new SpeedAttacker(this);
         }

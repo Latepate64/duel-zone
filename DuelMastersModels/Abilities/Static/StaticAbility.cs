@@ -15,7 +15,5 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         protected StaticAbility(Guid source, Guid controller) : base(source, controller) { }
 
         protected StaticAbility(StaticAbility ability) : base(ability) { }
-
-        public abstract StaticAbility Copy();
     }
 }

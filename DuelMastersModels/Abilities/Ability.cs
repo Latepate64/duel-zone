@@ -28,5 +28,7 @@ namespace DuelMastersModels.Abilities
             Source = ability.Source;
             Controller = ability.Controller;
         }
+
+        public abstract Ability Copy();
     }
 }

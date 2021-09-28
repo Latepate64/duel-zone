@@ -12,7 +12,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         {
         }
 
-        public override StaticAbility Copy()
+        public override Ability Copy()
         {
             return new Blocker(this);
         }

@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Cards;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -12,12 +11,12 @@ namespace DuelMastersModels.Zones
     {
         protected Zone(IEnumerable<Card> cards)
         {
-            _cards = new Collection<Card>(cards.ToList());
+            Cards = new List<Card>(cards.ToList());
         }
 
-        public IEnumerable<Card> Cards => new ReadOnlyCollection<Card>(_cards.ToList());
+        public List<Card> Cards { get; private set; }
 
-        public IEnumerable<Creature> Creatures => new ReadOnlyCollection<Creature>(Cards.OfType<Creature>().ToList());
+        public IEnumerable<Card> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
 
         #region Internal
         #region Properties
@@ -52,17 +51,15 @@ namespace DuelMastersModels.Zones
         #endregion Methods
         #endregion Internal
 
-        private protected Collection<Card> _cards;
-
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _cards != null)
+            if (disposing && Cards != null)
             {
-                foreach (var card in _cards)
+                foreach (var card in Cards)
                 {
                     card.Dispose();
                 }
-                _cards = null;
+                Cards = null;
             }
         }
 

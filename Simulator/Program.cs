@@ -1,4 +1,6 @@
 ﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.StaticAbilities;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Cards.Creatures;
 using DuelMastersModels.Cards.Spells;
@@ -12,11 +14,13 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 5;
+        const int ChoicesMax = 8;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
+            Card card = CreateCreature(Guid.Empty, "Gonta, the Warrior Savage", new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2, 4000, new List<Subtype> { Subtype.Human, Subtype.BeastFolk });
+
             int p1Wins = 0;
             int p2Wins = 0;
             for (int i = 0; i < 99999; ++i)
@@ -39,6 +43,20 @@ namespace Simulator
             }
         }
 
+        static Card CreateCreature(Guid owner, string name, IEnumerable<Civilization> civilizations, int cost, int power, IEnumerable<Subtype> races)
+        {
+            return new Card
+            {
+                CardType = CardType.Creature,
+                Civilizations = civilizations.ToList(),
+                ManaCost = cost,
+                Name = name,
+                Owner = owner,
+                Power = power,
+                Subtypes = races,
+            };
+        }
+
         static Duel PlayDuel(Player player1, Player player2)
         {
             Duel duel = new();
@@ -48,7 +66,8 @@ namespace Simulator
             while (choice is not GameOver)
             {
                 _simulator = choice.Player;
-                var (decision, points) = Choose(choice, duel, ChoicesMax, null, numberOfChoicesMade++);
+                var duelCopy = GetDuelForSimulator(duel); 
+                var (decision, points) = Choose(choice, duelCopy, ChoicesMax, null, numberOfChoicesMade++);
                 using (decision)
                 {
                     latestPoints = points;
@@ -60,36 +79,106 @@ namespace Simulator
             return duel;
         }
 
+        static Duel GetDuelForSimulator(Duel duel)
+        {
+            var duelCopy = new Duel(duel);
+            foreach (var card in duelCopy.Players.SelectMany(p => p.AllCards))
+            {
+                if (!card.RevealedTo.Contains(_simulator))
+                {
+                    card.Abilities.Clear();
+                    card.CardType = CardType.Spell;
+                    //card.Civilizations
+                    card.ManaCost = 999;
+                    card.Name = "Unknown";
+                    card.Power = null;
+                    card.ShieldTrigger = false;
+                    card.Subtypes = new List<Subtype>();
+                }
+            }
+            return duelCopy;
+        }
+
         static List<Card> GetBombaBlue(Guid player)
         {
             List<Card> deck = new();
             for (int i = 0; i < 4; ++i)
             {
-                deck.Add(new AquaHulcus(player));
-                deck.Add(new AquaSurfer(player));
-                deck.Add(new Emeral(player));
-                deck.Add(new PyrofighterMagnus(player));
-                deck.Add(new BronzeArmTribe(player));
-                deck.Add(new Soulswap(player));
-                deck.Add(new TwinCannonSkyterror(player));
-                deck.Add(new BombazarDragonOfDestiny(player));
-                deck.Add(new GontaTheWarriorSavage(player));
-                deck.Add(new WindAxeTheWarriorSavage(player));
+                var aquaHulcus = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = "Aqua Hulcus", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
+                aquaHulcus.Abilities.Add(new AquaHulcusAbility(aquaHulcus.Id, player));
+                deck.Add(aquaHulcus);
+
+                var aquaSurfer = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 6, Name = "Aqua Surfer", Owner = player, Power = 2000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
+                aquaSurfer.Abilities.Add(new AquaSurferAbility(aquaSurfer.Id, player));
+                deck.Add(aquaSurfer);
+
+                var emeral = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 2, Name = "Emeral", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.CyberLord } };
+                emeral.Abilities.Add(new EmeralAbility(emeral.Id, player));
+                deck.Add(emeral);
+
+                deck.Add(CreatePyrofighterMagnus(player));
+
+                var bronzeArmTribe = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = "Bronze-Arm Tribe", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
+                bronzeArmTribe.Abilities.Add(new BronzeArmTribeAbility(bronzeArmTribe.Id, player));
+                deck.Add(bronzeArmTribe);
+
+                var soulswap = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = "Soulswap", Owner = player };
+                soulswap.Abilities.Add(new SoulswapAbility(soulswap.Id, player));
+                deck.Add(soulswap);
+
+                var twinCannonSkyterror = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 7, Name = "Twin-Cannon Skyterror", Owner = player, Power = 7000, Subtypes = new List<Subtype> { Subtype.ArmoredWyvern } };
+                twinCannonSkyterror.Abilities.Add(new SpeedAttacker(twinCannonSkyterror.Id, player));
+                twinCannonSkyterror.Abilities.Add(new DoubleBreaker(twinCannonSkyterror.Id, player));
+                deck.Add(twinCannonSkyterror);
+
+                var bombazarDragonOfDestiny =  new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 7, Name = "Bombazar, Dragon of Destiny", Owner = player, Power = 6000, Subtypes = new List<Subtype> { Subtype.ArmoredDragon, Subtype.EarthDragon } };
+                bombazarDragonOfDestiny.Abilities.Add(new SpeedAttacker(bombazarDragonOfDestiny.Id, player));
+                bombazarDragonOfDestiny.Abilities.Add(new DoubleBreaker(bombazarDragonOfDestiny.Id, player));
+                bombazarDragonOfDestiny.Abilities.Add(new BombazarDragonOfDestinyAbility(bombazarDragonOfDestiny.Id, player));
+                deck.Add(bombazarDragonOfDestiny);
+
+                deck.Add(CreateGontaTheWarriorSavage(player));
+
+                var windAxeTheWarriorSavage = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 5, Name = "Wind Axe, the Warrior Savage", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } };
+                windAxeTheWarriorSavage.Abilities.Add(new WindAxeTheWarriorSavageAbility(windAxeTheWarriorSavage.Id, player));
+                deck.Add(windAxeTheWarriorSavage);
             }
             return deck;
+        }
+
+        static Card CreateGontaTheWarriorSavage(Guid player)
+        {
+            return new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 2, Name = "Gonta, the Warrior Savage", Owner = player, Power = 4000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } };
+        }
+
+        static Card CreatePyrofighterMagnus(Guid player)
+        {
+            var pyrofighterMagnus = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = "Pyrofighter Magnus", Owner = player, Power = 3000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
+            pyrofighterMagnus.Abilities.Add(new SpeedAttacker(pyrofighterMagnus.Id, player));
+            pyrofighterMagnus.Abilities.Add(new PyrofighterMagnusAbility(pyrofighterMagnus.Id, player));
+            return pyrofighterMagnus;
         }
 
         static List<Card> GetFNRush(Guid player)
         {
             List<Card> deck = new();
-            for (int i = 0; i < 7; ++i)
+            while (deck.Count < 40)
             {
-                deck.Add(new KamikazeChainsawWarrior(player));
-                deck.Add(new PyrofighterMagnus(player));
-                deck.Add(new RikabuTheDismantler(player));
-                deck.Add(new SniperMosquito(player));
-                deck.Add(new Torcon(player));
-                deck.Add(new GontaTheWarriorSavage(player));
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = "Kamikaze, Chainsaw Warrior", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } });
+
+                deck.Add(CreatePyrofighterMagnus(player));
+
+                var rikabuTheDismantler = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = "Rikabu, the Dismantler", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.MachineEater } };
+                rikabuTheDismantler.Abilities.Add(new SpeedAttacker(rikabuTheDismantler.Id, player));
+                deck.Add(rikabuTheDismantler);
+
+                var sniperMosquito = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Sniper Mosquito", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.GiantInsect } };
+                sniperMosquito.Abilities.Add(new SniperMosquitoAbility(sniperMosquito.Id, player));
+                deck.Add(sniperMosquito);
+
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Torcon", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
+
+                deck.Add(CreateGontaTheWarriorSavage(player));
             }
             return deck;
         }

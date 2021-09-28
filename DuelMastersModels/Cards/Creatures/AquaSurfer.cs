@@ -6,24 +6,6 @@ using System.Linq;
 
 namespace DuelMastersModels.Cards.Creatures
 {
-    public class AquaSurfer : Creature
-    {
-        public AquaSurfer(Guid owner) : base(owner, 6, Civilization.Water, 2000, Race.LiquidPeople)
-        {
-            ShieldTrigger = true;
-            TriggeredAbilities.Add(new AquaSurferAbility(Id, owner));
-        }
-
-        public AquaSurfer(Creature creature) : base(creature)
-        {
-        }
-
-        public override Card Copy()
-        {
-            return new AquaSurfer(this);
-        }
-    }
-
     public class AquaSurferAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
         public AquaSurferAbility(TriggeredAbility ability) : base(ability)
@@ -34,7 +16,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public override NonStaticAbility Copy()
+        public override Ability Copy()
         {
             return new AquaSurferAbility(this);
         }
@@ -57,7 +39,7 @@ namespace DuelMastersModels.Cards.Creatures
             }
             else
             {
-                foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetCreature(x)))
+                foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
                 {
                     duel.GetOwner(creature).ReturnFromBattleZoneToHand(creature, duel);
                 }

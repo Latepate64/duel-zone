@@ -1,6 +1,4 @@
 ﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Managers;
 using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
@@ -39,22 +37,15 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => _turns.Last();
 
-        public IEnumerable<Creature> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
+        public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
-        internal Stack<Spell> ResolvingSpells = new Stack<Spell>();
+        internal Stack<Card> ResolvingSpells = new Stack<Card>();
         internal Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
-
-        private ContinuousEffectManager _continuousEffectManager;
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
         private IList<Turn> _turns = new List<Turn>();
-
-        public Duel()
-        {
-            _continuousEffectManager = new ContinuousEffectManager(this);
-        }
 
         /// <summary>
         /// Starts the duel.
@@ -117,10 +108,10 @@ namespace DuelMastersModels
         /// <param name="defendingCreatureId">Creature which the attack was directed at.</param>
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            Creature attackingCreature = GetCard(attackingCreatureId) as Creature;
-            Creature defendingCreature = GetCard(defendingCreatureId) as Creature;
-            int attackingCreaturePower = attackingCreature.Power;
-            int defendingCreaturePower = defendingCreature.Power;
+            Card attackingCreature = GetCard(attackingCreatureId);
+            Card defendingCreature = GetCard(defendingCreatureId);
+            int attackingCreaturePower = attackingCreature.Power.Value;
+            int defendingCreaturePower = defendingCreature.Power.Value;
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
@@ -139,29 +130,19 @@ namespace DuelMastersModels
 
         public void UseCard(Card card, Player player)
         {
-            if (card is Creature creature)
+            if (card.CardType == CardType.Creature)
             {
-                player.Hand.Remove(creature);
-                player.BattleZone.Add(creature, this);
+                player.Hand.Remove(card);
+                player.BattleZone.Add(card, this);
             }
-            else if (card is Spell spell)
+            else if (card.CardType == CardType.Spell)
             {
-                player.Cast(spell, this);
+                player.Cast(card, this);
             }
             else
             {
                 throw new InvalidOperationException();
             }
-        }
-
-        public void EndContinuousEffects<T>()
-        {
-            _continuousEffectManager.EndContinuousEffects<T>();
-        }
-
-        public void AddContinuousEffect(ContinuousEffect continuousEffect)
-        {
-            _continuousEffectManager.AddContinuousEffect(continuousEffect);
         }
 
         /// <summary>
@@ -172,67 +153,7 @@ namespace DuelMastersModels
             //TODO: Remove static keyword after usability is checked with continuous effects considered.
             //System.Collections.Generic.IEnumerable<Civilization> manaCivilizations = manaCards.SelectMany(manaCard => manaCard.Civilizations).Distinct();
             //return card.Cost <= manaCards.Count && card.Civilizations.Intersect(manaCivilizations).Count() == 1; //TODO: Add support for multicolored cards.
-            return card.Cost <= manaCards.Count() && HasCivilizations(manaCards, card.Civilizations);
-        }
-
-        public bool CanAttackOpponent(Creature creature)
-        {
-            IEnumerable<Creature> creaturesThatCannotAttackPlayers = _continuousEffectManager.GetCreaturesThatCannotAttackPlayers();
-            return !creature.AffectedBySummoningSickness() && !creaturesThatCannotAttackPlayers.Contains(creature);
-        }
-
-        public bool AttacksIfAble(Creature creature)
-        {
-            return _continuousEffectManager.AttacksIfAble(creature);
-        }
-
-        //public IEnumerable<Creature> GetCreaturesThatCanBlock(Creature attackingCreature)
-        //{
-        //    return new ReadOnlyCollection<Creature>(GetAllBlockersPlayerHasInTheBattleZone(attackingCreature.Owner.Opponent).Where(c => !c.Tapped).ToList());
-        //    //TODO: consider situations where abilities of attacking creature matter etc.
-        //}
-
-        public IEnumerable<Creature> GetCreaturesThatCanAttack(Player player)
-        {
-            throw new NotImplementedException();
-            //IEnumerable<Creature> creaturesThatCannotAttack = _continuousEffectManager.GetCreaturesThatCannotAttack(player);
-            //return new ReadOnlyCollection<Creature>(BattleZone.GetUntappedCreatures(player).Where(creature => !AffectedBySummoningSickness(creature) && !creaturesThatCannotAttack.Contains(creature)).ToList());
-        }
-
-        public IEnumerable<Creature> GetCreaturesThatCanBeAttacked(Player player)
-        {
-            throw new NotImplementedException();
-            //return BattleZone.GetTappedCreatures(GetOpponent(player));
-            //TODO: Consider attacking creature
-        }
-
-        public Choice ReturnFromBattleZoneToHand(Card card)
-        {
-            throw new NotImplementedException();
-            //BattleZone.Remove(card);
-            //card.Owner.Hand.Add(card);
-            //return null;
-        }
-
-        public Choice PutFromBattleZoneIntoOwnersManazone(Card card)
-        {
-            throw new NotImplementedException();
-            //BattleZone.Remove(card);
-            //card.Owner.ManaZone.Add(card);
-            //return null;
-        }
-
-        public Choice PutFromManaZoneIntoTheBattleZone(Card card)
-        {
-            throw new NotImplementedException();
-            //card.Owner.ManaZone.Remove(card);
-            //BattleZone.Add(card);
-            //return null;
-        }
-
-        public int GetPower(Creature creature)
-        {
-            return _continuousEffectManager.GetPower(creature);
+            return card.ManaCost <= manaCards.Count() && HasCivilizations(manaCards, card.Civilizations);
         }
 
         public IEnumerable<Card> GetAllCards()
@@ -319,18 +240,15 @@ namespace DuelMastersModels
             }
         }
 
-        //private IEnumerable<Creature> GetAllBlockersPlayerHasInTheBattleZone(Player player)
-        //{
-        //    return _continuousEffectManager.GetAllBlockersPlayerHasInTheBattleZone(player);
-        //}
-
-        internal void Destroy(IEnumerable<Creature> creatures)
+        internal void Destroy(IEnumerable<Card> creatures)
         {
-            foreach (var creature in creatures)
+            while (creatures.Any())
             {
-                GetOwner(creature).PutFromBattleZoneIntoGraveyard(creature, this);
+                GetOwner(creatures.First()).PutFromBattleZoneIntoGraveyard(creatures.First(), this);
             }
         }
+
+        public Duel() { }
 
         public Duel(Duel duel)
         {
@@ -342,7 +260,7 @@ namespace DuelMastersModels
             Player1 = new Player(duel.Player1);
             Player2 = new Player(duel.Player2);
             State = duel.State;
-            ResolvingSpells = new Stack<Spell>(duel.ResolvingSpells.Select(x => x.Copy()).Cast<Spell>());
+            ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
             _turns = duel._turns.Select(x => new Turn(x)).ToList();
         }
 
@@ -403,11 +321,6 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
-        public Creature GetCreature(Guid id)
-        {
-            return GetCard(id) as Creature;
-        }
-
         public Player GetPlayer(Guid id)
         {
             return Players.Single(x => x.Id == id);
@@ -432,7 +345,7 @@ namespace DuelMastersModels
 
         public void Trigger<T>() where T : TriggeredAbility
         {
-            var abilities = BattleZoneCreatures.SelectMany(x => x.TriggeredAbilities).OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Copy()).ToList();
+            var abilities = BattleZoneCreatures.SelectMany(x => x.Abilities).OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Copy()).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this)))
             {
@@ -443,7 +356,7 @@ namespace DuelMastersModels
                 }
             }
             _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities.Cast<NonStaticAbility>());
         }
 
         public override string ToString()
@@ -479,7 +392,6 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 ResolvingSpells = null;
-                _continuousEffectManager = null;
                 foreach (var x in _turns)
                 {
                     x.Dispose();

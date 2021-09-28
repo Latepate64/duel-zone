@@ -17,7 +17,5 @@ namespace DuelMastersModels.Abilities
         }
 
         public abstract Choice Resolve(Duel duel, Decision decision);
-
-        public abstract NonStaticAbility Copy();
     }
 }

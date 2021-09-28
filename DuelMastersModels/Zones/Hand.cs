@@ -24,12 +24,12 @@ namespace DuelMastersModels.Zones
                 revealedTo.Add(opponent);
             }
             card.RevealedTo = revealedTo;
-            _cards.Add(card);
+            Cards.Add(card);
         }
 
         public override void Remove(Card card)
         {
-            if (!_cards.Remove(card))
+            if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
             }

@@ -202,10 +202,10 @@ namespace DuelMastersModels
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
             return Hand.Cards.Distinct(new CardComparer()).
-                Where(card => card.Cost <= ManaZone.UntappedCards.Count()).
+                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count()).
                 GroupBy(
                     card => card.Id,
-                    card => GetCardsThatCanBeUsedInPayment(card.Cost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards).Select(x => x.Select(y => y.Id))
+                    card => GetCardsThatCanBeUsedInPayment(card.ManaCost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards).Select(x => x.Select(y => y.Id))
             );
         }
 
@@ -272,13 +272,13 @@ namespace DuelMastersModels
             ManaZone.Add(RemoveTopCardOfDeck(), duel);
         }
 
-        internal void ReturnFromBattleZoneToHand(Creature creature, Duel duel)
+        internal void ReturnFromBattleZoneToHand(Card card, Duel duel)
         {
-            BattleZone.Remove(creature);
-            Hand.Add(creature, duel);
+            BattleZone.Remove(card);
+            Hand.Add(card, duel);
         }
 
-        internal void Cast(Spell spell, Duel duel)
+        internal void Cast(Card spell, Duel duel)
         {
             Hand.Remove(spell);
             spell.RevealedTo = duel.Players.Select(x => x.Id);

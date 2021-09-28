@@ -16,12 +16,12 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
-            _cards.Add(card);
+            Cards.Add(card);
         }
 
         public override void Remove(Card card)
         {
-            if (!_cards.Remove(card))
+            if (!Cards.Remove(card))
             {
                 throw new System.NotSupportedException(card.ToString());
             }

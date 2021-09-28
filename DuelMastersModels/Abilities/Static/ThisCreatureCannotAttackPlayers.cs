@@ -7,7 +7,7 @@ namespace DuelMastersModels.Abilities.StaticAbilities
         internal ThisCreatureCannotAttackPlayers(Guid source, Guid controller) : base(source, controller)
         { }
 
-        public override StaticAbility Copy()
+        public override Ability Copy()
         {
             throw new NotImplementedException();
         }

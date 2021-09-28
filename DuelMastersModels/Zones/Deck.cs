@@ -17,12 +17,12 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
-            _cards.Add(card);
+            Cards.Add(card);
         }
 
         public override void Remove(Card card)
         {
-            if (!_cards.Remove(card))
+            if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
             }
@@ -38,14 +38,14 @@ namespace DuelMastersModels.Zones
                 card.RevealedTo = new List<Guid>();
             }
             Random random = new Random(Guid.NewGuid().GetHashCode());
-            int n = _cards.Count;
+            int n = Cards.Count;
             while (n > 1)
             {
                 n--;
                 int k = random.Next(n + 1);
-                Card value = _cards[k];
-                _cards[k] = _cards[n];
-                _cards[n] = value;
+                Card value = Cards[k];
+                Cards[k] = Cards[n];
+                Cards[n] = value;
             }
         }
 
