@@ -35,7 +35,7 @@ namespace DuelMastersModels
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
 
-        public Turn CurrentTurn => _turns.Last();
+        public Turn CurrentTurn => Turns.Last();
 
         public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
-        private IList<Turn> _turns = new List<Turn>();
+        public IList<Turn> Turns { get; } = new List<Turn>();
 
         /// <summary>
         /// Starts the duel.
@@ -79,13 +79,13 @@ namespace DuelMastersModels
         {
             if (ExtraTurns.Any())
             {
-                _turns.Add(ExtraTurns.Dequeue());
+                Turns.Add(ExtraTurns.Dequeue());
             }
             else
             {
-                _turns.Add(new Turn(activePlayer, nonActivePlayer));
+                Turns.Add(new Turn(activePlayer, nonActivePlayer));
             }
-            return _turns.Last().Start(this, _turns.Count);
+            return Turns.Last().Start(this, Turns.Count);
         }
 
         public Choice Continue(Decision decision)
@@ -130,6 +130,7 @@ namespace DuelMastersModels
 
         public void UseCard(Card card, Player player)
         {
+            CurrentTurn.CurrentStep.UsedCards.Add(card.Id);
             if (card.CardType == CardType.Creature)
             {
                 player.Hand.Remove(card);
@@ -260,8 +261,9 @@ namespace DuelMastersModels
             Player1 = new Player(duel.Player1);
             Player2 = new Player(duel.Player2);
             State = duel.State;
+            ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
-            _turns = duel._turns.Select(x => new Turn(x)).ToList();
+            Turns = duel.Turns.Select(x => new Turn(x)).ToList();
         }
 
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
@@ -392,11 +394,11 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 ResolvingSpells = null;
-                foreach (var x in _turns)
+                foreach (var x in Turns)
                 {
                     x.Dispose();
                 }
-                _turns = null;
+                Turns.Clear();
             }
         }
     }

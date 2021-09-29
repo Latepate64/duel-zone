@@ -232,12 +232,14 @@ namespace DuelMastersModels.Steps
             PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
             ResolvingAbility = step.ResolvingAbility?.Copy() as NonStaticAbility;
             State = step.State;
+            UsedCards = step.UsedCards.ToList();
             _shieldTriggerUser = step._shieldTriggerUser;
             _spellAbilitiesRetrieved = step._spellAbilitiesRetrieved;
         }
 
         private protected Step() { }
 
+        public List<Guid> UsedCards { get; } = new List<Guid>();
         internal StepState State { get; set; } = StepState.TurnBasedAction;
         internal NonStaticAbility ResolvingAbility { get; set; }
         internal List<NonStaticAbility> PendingAbilities { get; set; } = new List<NonStaticAbility>();

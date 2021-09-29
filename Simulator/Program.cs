@@ -13,16 +13,17 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 15;
+        const int ChoicesMax = 10;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
-            Card card = CreateCreature(Guid.Empty, "Gonta, the Warrior Savage", new List<Civilization> { Civilization.Fire, Civilization.Nature }, 2, 4000, new List<Subtype> { Subtype.Human, Subtype.BeastFolk });
+            Dictionary<string, Tuple<int, int>> p1usedCards = new();
+            Dictionary<string, Tuple<int, int>> p2usedCards = new();
 
             int p1Wins = 0;
             int p2Wins = 0;
-            for (int i = 0; i < 99999; ++i)
+            for (int i = 0; i < 999999; ++i)
             {
                 using Player player1 = new("Shobu"), player2 = new("Kokujo");
                 using Deck deck1 = new(GetBombaBlue(player1.Id)), deck2 = new(GetFNRush(player2.Id));
@@ -30,30 +31,73 @@ namespace Simulator
                 player2.Deck = deck2;
                 using var duel = PlayDuel(player1, player2);
                 Console.WriteLine($"{duel}");
+                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards).Distinct().Select(x => duel.GetCard(x));
+                var p1used = usedCards.Where(x => duel.GetOwner(x) == player1).Select(x => x.Name).Distinct();
+                var p2used = usedCards.Where(x => duel.GetOwner(x) == player2).Select(x => x.Name).Distinct();
+
                 if (duel.GameOverInformation.Winners.Contains(player1.Id))
                 {
                     ++p1Wins;
+                    foreach (string cardName in p1used)
+                    {
+                        Foo(p1usedCards, cardName, true);
+                    }
+                    foreach (string cardName in p2used)
+                    {
+                        Foo(p2usedCards, cardName, false);
+                    }
+
                 }
                 if (duel.GameOverInformation.Winners.Contains(player2.Id))
                 {
                     ++p2Wins;
+                    foreach (string cardName in p2used)
+                    {
+                        Foo(p2usedCards, cardName, true);
+                    }
+                    foreach (string cardName in p1used)
+                    {
+                        Foo(p1usedCards, cardName, false);
+                    }
                 }
-                Console.WriteLine($"{player1.Name} wins: {p1Wins} - {player2.Name} wins: {p2Wins} - {player1.Name} winrate: {(double)p1Wins / (p1Wins + p2Wins)}");
+                Console.WriteLine($"{player1.Name} wins: {p1Wins} - {player2.Name} wins: {p2Wins} - {player1.Name} winrate: {GetWinrate(p1Wins, p2Wins)}");
+                PrintCardStatistics(p1usedCards);
+                Console.WriteLine("");
+                PrintCardStatistics(p2usedCards);
+                Console.WriteLine("----------------------------------------------");
             }
         }
 
-        static Card CreateCreature(Guid owner, string name, IEnumerable<Civilization> civilizations, int cost, int power, IEnumerable<Subtype> races)
+        static double GetWinrate(int wins, int loses)
         {
-            return new Card
+            return Math.Round((double)wins / (wins + loses), 2);
+        }
+
+        static double GetCardPoints(double wins, double loses)
+        {
+            var rate = wins / (wins + loses);
+            var fo = rate - (rate - 0.5) * Math.Pow(2, -1 * Math.Log10(wins + loses + 1));
+            return Math.Round(fo, 2);
+        }
+
+        static void PrintCardStatistics(Dictionary<string, Tuple<int, int>> cards)
+        {
+            foreach (var c in cards.OrderByDescending(x => GetCardPoints(x.Value.Item1, x.Value.Item2)))
             {
-                CardType = CardType.Creature,
-                Civilizations = civilizations.ToList(),
-                ManaCost = cost,
-                Name = name,
-                Owner = owner,
-                Power = power,
-                Subtypes = races,
-            };
+                Console.WriteLine($"{c.Key} w{c.Value.Item1} l{c.Value.Item2} r{GetWinrate(c.Value.Item1, c.Value.Item2)} p{GetCardPoints(c.Value.Item1, c.Value.Item2)}");
+            }
+        }
+
+        static void Foo(Dictionary<string, Tuple<int, int>> usedCards, string cardName, bool win)
+        {
+            if (usedCards.ContainsKey(cardName))
+            {
+                usedCards[cardName] = new Tuple<int, int>(usedCards[cardName].Item1 + (win ? 1 : 0), usedCards[cardName].Item2 + (win ? 0 : 1));
+            }
+            else
+            {
+                usedCards.Add(cardName, new Tuple<int, int>((win ? 1 : 0), (win ? 0 : 1)));
+            }
         }
 
         static Duel PlayDuel(Player player1, Player player2)

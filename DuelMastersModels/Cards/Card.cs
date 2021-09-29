@@ -103,10 +103,10 @@ namespace DuelMastersModels.Cards
             return new Card(this);
         }
 
-        //public override string ToString()
-        //{
-        //    return Id.ToString();
-        //}
+        public override string ToString()
+        {
+            return Name + " " + Id.ToString();
+        }
 
         public override bool Equals(object obj)
         {

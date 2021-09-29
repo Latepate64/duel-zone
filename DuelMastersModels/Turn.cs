@@ -28,7 +28,7 @@ namespace DuelMastersModels
         /// <summary>
         /// All the steps in the turn that have been or are processed, in order.
         /// </summary>
-        internal IList<Step> Steps { get; private set; } = new Collection<Step>();
+        public IList<Step> Steps { get; private set; } = new Collection<Step>();
 
         /// <summary>
         /// The number of the turn.
