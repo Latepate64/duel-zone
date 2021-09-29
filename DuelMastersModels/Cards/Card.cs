@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Abilities.Static;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +22,7 @@ namespace DuelMastersModels.Cards
         Human,
         LiquidPeople,
         MachineEater,
+        SnowFaerie,
     }
 
     public class Card : DuelObject, ICopyable<Card>, IAttackable
@@ -58,7 +59,7 @@ namespace DuelMastersModels.Cards
         /// <summary>
         /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
         /// </summary>
-        public bool SummoningSickness { get; private set; } = true;
+        public bool SummoningSickness { get; internal set; } = true;
 
         internal bool AffectedBySummoningSickness()
         {

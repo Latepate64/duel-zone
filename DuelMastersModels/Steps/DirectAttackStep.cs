@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.StaticAbilities;
+﻿using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;

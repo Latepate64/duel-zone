@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.Abilities.StaticAbilities
+namespace DuelMastersModels.Abilities.Static
 {
     public class SpeedAttacker : StaticAbility
     {

@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Cards.Creatures;
 using DuelMastersModels.Cards.Spells;
@@ -14,7 +13,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 8;
+        const int ChoicesMax = 15;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -164,6 +163,10 @@ namespace Simulator
             List<Card> deck = new();
             while (deck.Count < 40)
             {
+                var card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = "Deadly Fighter Braid Claw", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
+                card.Abilities.Add(new AttacksIfAbleAbility(card.Id, player));
+                deck.Add(card);
+
                 deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = "Kamikaze, Chainsaw Warrior", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } });
 
                 deck.Add(CreatePyrofighterMagnus(player));
@@ -172,9 +175,17 @@ namespace Simulator
                 rikabuTheDismantler.Abilities.Add(new SpeedAttacker(rikabuTheDismantler.Id, player));
                 deck.Add(rikabuTheDismantler);
 
+                //card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
+                ////TODO: ability
+                //deck.Add(card);
+
                 var sniperMosquito = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Sniper Mosquito", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.GiantInsect } };
                 sniperMosquito.Abilities.Add(new SniperMosquitoAbility(sniperMosquito.Id, player));
                 deck.Add(sniperMosquito);
+
+                card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Quixotic Hero Swine Snout", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
+                //TODO: ability
+                deck.Add(card);
 
                 deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Torcon", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
 
@@ -256,7 +267,10 @@ namespace Simulator
             else if (choice is AttackerChoice attackerChoice)
             {
                 var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
-                options.Add(null);
+                if (!attackerChoice.MustAttack)
+                {
+                    options.Add(null);
+                }
                 foreach (var option in options)
                 {
                     var currentChoice = new AttackerDecision(option);

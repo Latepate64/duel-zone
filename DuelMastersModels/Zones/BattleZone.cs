@@ -40,6 +40,7 @@ namespace DuelMastersModels.Zones
             {
                 throw new System.NotSupportedException(card.ToString());
             }
+            card.SummoningSickness = true;
         }
 
         public BattleZone Copy()

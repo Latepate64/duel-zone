@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.StaticAbilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
 using System;

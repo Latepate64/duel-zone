@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.Abilities.StaticAbilities
+namespace DuelMastersModels.Abilities.Static
 {
     internal class Blocker : StaticAbility
     {

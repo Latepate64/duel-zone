@@ -7,10 +7,12 @@ namespace DuelMastersModels.Choices
     public class AttackerChoice : Choice
     {
         public IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> Options { get; set; }
+        public bool MustAttack { get; } = false;
 
-        public AttackerChoice(Guid player, IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options) : base(player)
+        public AttackerChoice(Guid player, IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options, bool mustAttack) : base(player)
         {
             Options = options;
+            MustAttack = mustAttack;
         }
 
         protected override void Dispose(bool disposing)

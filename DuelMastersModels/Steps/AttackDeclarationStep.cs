@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
@@ -22,10 +23,10 @@ namespace DuelMastersModels.Steps
             if (decision == null)
             {
                 var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness()).Distinct(new CardComparer());
-                IEnumerable<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id));
+                List<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id)).ToList();
                 if (options.Any())
                 {
-                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options);
+                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.SelectMany(x => x.Abilities).OfType<AttacksIfAbleAbility>().Any());
                 }
                 else
                 {

@@ -31,7 +31,12 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            return duel.GetPlayer(duel.CurrentTurn.ActivePlayer).UntapCardsInBattleZoneAndManaZone();
+            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            foreach (var creature in player.BattleZone.Creatures)
+            {
+                creature.SummoningSickness = false;
+            }
+            return player.UntapCardsInBattleZoneAndManaZone();
         }
 
         internal bool SkipDrawStep { get; set; }
