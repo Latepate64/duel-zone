@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Triggered;
-using DuelMastersModels.Abilities.TriggeredAbilities;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;

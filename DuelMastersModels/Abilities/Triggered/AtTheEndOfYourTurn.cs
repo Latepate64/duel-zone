@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.Abilities.TriggeredAbilities
+namespace DuelMastersModels.Abilities.Triggered
 {
     public abstract class AtTheEndOfYourTurn : TriggeredAbility
     {

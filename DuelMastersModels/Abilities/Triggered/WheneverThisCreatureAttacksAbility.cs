@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggeredAbilities;
-using System;
+﻿using System;
 
 namespace DuelMastersModels.Abilities.Triggered
 {

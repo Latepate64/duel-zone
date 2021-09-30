@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DuelMastersModels.Abilities.TriggeredAbilities;
+using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Effects.Periods;
 using DuelMastersModels.Abilities;
 

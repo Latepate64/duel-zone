@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.TriggeredAbilities;
+﻿using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Choices;
 
 namespace DuelMastersModels.Steps

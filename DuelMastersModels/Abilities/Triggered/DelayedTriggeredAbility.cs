@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Abilities.TriggeredAbilities
+﻿namespace DuelMastersModels.Abilities.Triggered
 {
     internal class DelayedTriggeredAbility
     {

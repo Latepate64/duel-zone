@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.TriggeredAbilities;
+using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using System.Collections.Generic;
 using System.Linq;

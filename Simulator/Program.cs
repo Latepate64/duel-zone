@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities.Static;
+using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Cards.Creatures;
 using DuelMastersModels.Cards.Spells;
@@ -13,7 +14,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 10;
+        const int ChoicesMax = 12;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -219,21 +220,27 @@ namespace Simulator
                 rikabuTheDismantler.Abilities.Add(new SpeedAttacker(rikabuTheDismantler.Id, player));
                 deck.Add(rikabuTheDismantler);
 
-                //card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
-                ////TODO: ability
-                //deck.Add(card);
+                card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
+                card.Abilities.Add(new HeartyCapnPolligonAbility(card.Id, player));
+                deck.Add(card);
 
                 var sniperMosquito = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Sniper Mosquito", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.GiantInsect } };
                 sniperMosquito.Abilities.Add(new SniperMosquitoAbility(sniperMosquito.Id, player));
                 deck.Add(sniperMosquito);
 
-                card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Quixotic Hero Swine Snout", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
-                //TODO: ability
-                deck.Add(card);
+                //card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Quixotic Hero Swine Snout", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
+                ////TODO: ability
+                //deck.Add(card);
 
                 deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Torcon", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
 
                 deck.Add(CreateGontaTheWarriorSavage(player));
+
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Burning Mane", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = "Fear Fang", Owner = player, Power = 3000, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 5, Name = "Tri-Horn Shepherd", Owner = player, Power = 5000, Subtypes = new List<Subtype> { Subtype.BeastFolk } });
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = "Immortal Baron, Vorg", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human } });
+                deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = "Explosive Dude Joe", Owner = player, Power = 3000, Subtypes = new List<Subtype> { Subtype.Human } });
             }
             return deck;
         }
