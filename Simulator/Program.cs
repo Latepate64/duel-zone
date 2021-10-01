@@ -14,7 +14,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 12;
+        const int ChoicesMax = 15;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -262,18 +262,24 @@ namespace Simulator
                     points -= GameOverPoints;
                 }
             }
-            points += 10 * (player.BattleZone.Creatures.Count() - opponent.BattleZone.Creatures.Count());
-            points += 5 * (player.ShieldZone.Cards.Count() - opponent.ShieldZone.Cards.Count());
+            points += 10 * (player.BattleZone.Cards.Sum(x => GetValue(x)) - opponent.BattleZone.Cards.Sum(x => GetValue(x)));
+            points += 5 * (player.ShieldZone.Cards.Sum(x => GetValue(x)) - opponent.ShieldZone.Cards.Sum(x => GetValue(x)));
             var manaMultiplier = 2;
             var handMultiplier = 1;
-            if (player.ManaZone.Cards.Count() > player.Hand.Cards.Count())
+            if (player.ManaZone.Cards.Sum(x => GetValue(x)) > player.Hand.Cards.Sum(x => GetValue(x)))
             {
                 manaMultiplier = 1;
                 handMultiplier = 2;
             }
-            points += manaMultiplier * (player.ManaZone.Cards.Count() - opponent.ManaZone.Cards.Count());
-            points += handMultiplier * (player.Hand.Cards.Count() - opponent.Hand.Cards.Count());
+            points += manaMultiplier * (player.ManaZone.Cards.Sum(x => GetValue(x)) - opponent.ManaZone.Cards.Sum(x => GetValue(x)));
+            points += handMultiplier * (player.Hand.Cards.Sum(x => GetValue(x)) - opponent.Hand.Cards.Sum(x => GetValue(x)));
             return points;
+        }
+
+        static int GetValue(Card card)
+        {
+            //TODO: Improve card value calculation.
+            return card.Power.HasValue ? card.Power.Value / 500 : 0;
         }
 
         static Tuple<Decision, int> Choose(Choice choice, Duel duel, int optionsRemaining, Decision decision, int numberOfChoicesMade)
@@ -305,7 +311,8 @@ namespace Simulator
             else if (choice is CardUsageChoice usage)
             {
                 //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
-                var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
+                //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
+                var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, duel, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
                 options.Add(null);
                 foreach (var option in options)
                 {
@@ -361,6 +368,26 @@ namespace Simulator
                 dec.Item1.Dispose();
             }
             return result;
+        }
+
+        static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Duel duel, Guid playerId)
+        {
+            var remainingMana = duel.GetPlayer(playerId).ManaZone.UntappedCards.Except(usedMana.Select(x => duel.GetCard(x)));
+            if (!remainingMana.Any())
+            {
+                return 0;
+            }
+            var civs = remainingMana.SelectMany(x => x.Civilizations);
+            var include = new List<int>();
+            foreach (Civilization civ in Enum.GetValues(typeof(Civilization)))
+            {
+                if (civs.Contains(civ))
+                {
+                    include.Add(civs.Count(c => c == civ));
+                }
+            }
+            var res = civs.Distinct().Count() * 20 + include.Min();
+            return res;
         }
     }
 }

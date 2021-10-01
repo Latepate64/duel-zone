@@ -266,9 +266,9 @@ namespace DuelMastersModels
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
         }
 
-        internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>(); // TODO: Consider extra turns when changing turn.
+        internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
-        internal List<DelayedTriggeredAbility> DelayedTriggeredAbilities = new List<DelayedTriggeredAbility>(); // TODO: Consider delayed triggered abilities when events occur.
+        internal List<DelayedTriggeredAbility> DelayedTriggeredAbilities = new List<DelayedTriggeredAbility>();
 
         public Player GetOpponent(Player player)
         {

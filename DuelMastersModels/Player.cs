@@ -1,4 +1,5 @@
 ﻿
+using Combinatorics.Collections;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
@@ -205,30 +206,22 @@ namespace DuelMastersModels
                 Where(card => card.ManaCost <= ManaZone.UntappedCards.Count()).
                 GroupBy(
                     card => card.Id,
-                    card => GetCardsThatCanBeUsedInPayment(card.ManaCost, card.Civilizations, new List<Card>(), ManaZone.UntappedCards).Select(x => x.Select(y => y.Id))
-            );
+                    card => new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations)).Select(x => x.Select(y => y.Id)));
         }
 
-        private static IEnumerable<IEnumerable<Card>> GetCardsThatCanBeUsedInPayment(int remainingCost, IEnumerable<Civilization> remainingCivs, IEnumerable<Card> locked, IEnumerable<Card> unlocked)
+        private static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
         {
-            if (remainingCost == 0)
+            if (!civs.Any())
             {
-                if (!remainingCivs.Any())
-                {
-                    return new List<IEnumerable<Card>> { locked.Select(x => x) };
-                }
-                else
-                {
-                    return new List<IEnumerable<Card>>();
-                }
+                return true;
+            }
+            else if (!manas.Any())
+            {
+                return false;
             }
             else
             {
-                return unlocked.SelectMany(u =>
-                    u.Civilizations.SelectMany(civ =>
-                        GetCardsThatCanBeUsedInPayment(remainingCost - 1, remainingCivs.Where(c => c != civ), locked.Append(u), unlocked.Where(c => c != u))
-                    )
-                ).Distinct(new CardsComparer());
+                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
             }
         }
 
