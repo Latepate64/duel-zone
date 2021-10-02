@@ -89,10 +89,13 @@
     <Compile Include="Abilities\Static\StaticAbility.cs" />
     <Compile Include="Abilities\Static\ThisCreatureAttacksEachTurnIfAble.cs" />
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
+    <Compile Include="Abilities\Triggered\AnotherCreaturePutIntoBattleZoneAbility.cs" />
     <Compile Include="Abilities\Triggered\AtTheEndOfTurn.cs" />
     <Compile Include="Abilities\Triggered\AtTheEndOfYourTurn.cs" />
+    <Compile Include="Abilities\Triggered\CardChangesZoneAbility.cs" />
     <Compile Include="Abilities\Triggered\DelayedTriggeredAbility.cs" />
     <Compile Include="Abilities\Triggered\HeartyCapnPolligonAbility.cs" />
+    <Compile Include="Abilities\Triggered\QuixoticHeroSwineSnoutAbility.cs" />
     <Compile Include="Abilities\Triggered\TriggeredAbility.cs" />
     <Compile Include="Abilities\Triggered\WheneverThisCreatureAttacksAbility.cs" />
     <Compile Include="Abilities\Triggered\WhenYouPutThisCreatureIntoTheBattleZone.cs" />

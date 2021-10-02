@@ -1,4 +1,7 @@
-﻿namespace DuelMastersModels.Abilities.Triggered
+﻿using System;
+using System.Linq;
+
+namespace DuelMastersModels.Abilities.Triggered
 {
     public abstract class AtTheEndOfYourTurn : TriggeredAbility
     {
@@ -10,9 +13,9 @@
         {
         }
 
-        public override bool CanTrigger(Duel duel, System.Guid controller)
+        public virtual bool CanTrigger(Duel duel, Guid turn, Guid controller)
         {
-            return duel.CurrentTurn.ActivePlayer == controller;
+            return duel.Turns.Single(x => x.Id == turn).ActivePlayer == controller;
         }
     }
 }

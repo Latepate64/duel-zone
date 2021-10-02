@@ -15,9 +15,9 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public override bool CanTrigger(Duel duel, Guid controller)
+        public bool CanTrigger(Guid turn)
         {
-            return duel.CurrentTurn.Id == Turn;
+            return turn == Turn;
         }
     }
 }

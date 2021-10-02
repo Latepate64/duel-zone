@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
+using System;
 using System.Linq;
 
 namespace DuelMastersModels.Abilities.Triggered
@@ -26,10 +27,9 @@ namespace DuelMastersModels.Abilities.Triggered
             return null;
         }
 
-        public override bool CanTrigger(Duel duel, System.Guid controller)
+        public override bool CanTrigger(Duel duel, Guid turn, Guid controller)
         {
-            //TODO: It should be checked that source did not leave battle zone after breaking the shield and before this ability triggers.
-            return base.CanTrigger(duel, controller) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
+            return base.CanTrigger(duel, turn, controller) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
         }
     }
 }

@@ -127,6 +127,7 @@ namespace Simulator
         static Card CreateQuixoticHeroSwineSnout()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
+            x.Abilities.Add(new QuixoticHeroSwineSnoutAbility());
             //TODO: ability
             return x;
         }

@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using System;
 using System.Collections.Generic;
@@ -39,10 +38,7 @@ namespace DuelMastersModels.Zones
         {
             permanent.Card.RevealedTo = duel.Players.Select(x => x.Id);
             Permanents.Add(permanent);
-            if (permanent.Card.CardType == CardType.Creature)
-            {
-                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(permanent.Card.Abilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Trigger(permanent.Id, permanent.Controller)).Cast<NonStaticAbility>());
-            }
+            duel.Trigger<CardChangesZoneAbility>(permanent.Card, ZoneType.BattleZone);
         }
 
         public void Remove(Permanent permanent)

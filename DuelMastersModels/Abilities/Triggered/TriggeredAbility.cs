@@ -15,11 +15,6 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public virtual bool CanTrigger(Duel duel, Guid controller)
-        {
-            return true;
-        }
-
         public TriggeredAbility Trigger(Guid source, Guid controller)
         {
             var copy = Copy() as TriggeredAbility;
