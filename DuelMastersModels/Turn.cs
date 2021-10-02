@@ -13,12 +13,12 @@ namespace DuelMastersModels
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
-        public Guid ActivePlayer { get; }
+        public Guid ActivePlayer { get; set; }
 
         /// <summary>
         /// The opponent of the active player.
         /// </summary>
-        public Guid NonActivePlayer { get; private set; }
+        public Guid NonActivePlayer { get; set; }
 
         /// <summary>
         /// The step that is currently being processed.
@@ -36,11 +36,7 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn(Guid activePlayer, Guid nonActivePlayer)
-        {
-            ActivePlayer = activePlayer;
-            NonActivePlayer = nonActivePlayer;
-        }
+        public Turn() { }
 
         public Choice Start(Duel duel, int number)
         {

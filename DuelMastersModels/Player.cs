@@ -47,7 +47,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; } = new BattleZone();
+        public BattleZone BattleZone { get; set; } = new BattleZone();
 
         public IEnumerable<Card> CardsInNonsharedZones
         {
@@ -73,9 +73,8 @@ namespace DuelMastersModels
             }
         }
 
-        public Player(string name)
+        public Player() : base()
         {
-            Name = name;
         }
 
         /// <summary>

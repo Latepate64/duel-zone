@@ -14,7 +14,7 @@ namespace DuelMastersModels
     {
         public GameOver GameOverInformation { get; internal set; }
 
-        public IEnumerable<Player> Players => new Collection<Player> { Player1, Player2 };
+        public ICollection<Player> Players { get; } = new Collection<Player>();
 
         public Player Player1 { get; set; }
 
@@ -61,6 +61,8 @@ namespace DuelMastersModels
 
             Player1 = startingPlayer;
             Player2 = otherPlayer;
+            Players.Add(Player1);
+            Players.Add(Player2);
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
             startingPlayer.ShuffleDeck();
@@ -83,7 +85,7 @@ namespace DuelMastersModels
             }
             else
             {
-                Turns.Add(new Turn(activePlayer, nonActivePlayer));
+                Turns.Add(new Turn { ActivePlayer = activePlayer, NonActivePlayer = nonActivePlayer });
             }
             return Turns.Last().Start(this, Turns.Count);
         }
@@ -261,6 +263,8 @@ namespace DuelMastersModels
             InitialNumberOfShields = duel.InitialNumberOfShields;
             Player1 = new Player(duel.Player1);
             Player2 = new Player(duel.Player2);
+            Players.Add(Player1);
+            Players.Add(Player2);
             State = duel.State;
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
@@ -289,18 +293,7 @@ namespace DuelMastersModels
 
         public Guid GetOpponent(Guid player)
         {
-            if (player == Player1.Id)
-            {
-                return Player2.Id;
-            }
-            else if (player == Player2.Id)
-            {
-                return Player1.Id;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(player.ToString());
-            }
+            return Players.Single(x => x.Id != player).Id;
         }
 
         public Player GetOwner(Card card)
@@ -326,9 +319,7 @@ namespace DuelMastersModels
 
         public IEnumerable<Permanent> GetAllPermanents()
         {
-            var permanents = Player1.BattleZone.Permanents.ToList();
-            permanents.AddRange(Player2.BattleZone.Permanents.ToList());
-            return permanents;
+            return Players.SelectMany(x => x.BattleZone.Permanents);
         }
 
         public Permanent GetPermanent(Guid id)
@@ -364,15 +355,11 @@ namespace DuelMastersModels
 
         public void Trigger<T>() where T : TriggeredAbility
         {
-            var abilities = new List<TriggeredAbility>();
-            foreach (var permanent in CreaturePermanents)
-            {
-                abilities.AddRange(permanent.Card.Abilities.OfType<T>().Where(x => x.CanTrigger(this, permanent.Controller)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
-            }
+            var abilities = GetAbilitiesThatTriggerFromPermanents<T>().ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this, x.TriggeredAbility.Controller)))
             {
-                abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
+                abilities.Add(ability.TriggeredAbility.Copy() as T);
                 if (ability.Period is Once)
                 {
                     toBeRemoved.Add(ability);
@@ -380,6 +367,16 @@ namespace DuelMastersModels
             }
             _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+        }
+
+        public IEnumerable<T> GetAbilitiesThatTriggerFromPermanents<T>() where T : TriggeredAbility
+        {
+            var abilities = new List<T>();
+            foreach (var permanent in GetAllPermanents())
+            {
+                abilities.AddRange(permanent.Card.Abilities.OfType<T>().Where(x => x.CanTrigger(this, permanent.Controller)).Select(x => x.Trigger(permanent.Id, permanent.Controller) as T));
+            }
+            return abilities;
         }
 
         public override string ToString()

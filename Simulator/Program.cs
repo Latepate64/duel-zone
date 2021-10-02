@@ -26,7 +26,7 @@ namespace Simulator
             int p2Wins = 0;
             for (int i = 0; i < 999999; ++i)
             {
-                using Player player1 = new("Shobu"), player2 = new("Kokujo");
+                using Player player1 = new() { Name = "Shobu" }, player2 = new() { Name = "Kokujo" };
                 using Deck deck1 = new(GetBombaBlue(player1.Id)), deck2 = new(GetFNRush(player2.Id));
                 player1.Deck = deck1;
                 player2.Deck = deck2;

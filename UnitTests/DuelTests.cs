@@ -1,53 +1,30 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Choices;
-using DuelMastersModels.Zones;
+using DuelMastersModels.Abilities.Triggered;
+using DuelMastersModels.Cards;
+using DuelMastersModels.Cards.Creatures;
+using DuelMastersModels.Steps;
 using Moq;
-using System;
+using System.Linq;
 using Xunit;
 
 namespace UnitTests
 {
     public class DuelTests
     {
-        [Theory]
-        [InlineData(DuelState.InProgress)]
-        [InlineData(DuelState.Over)]
-        public void Start_StateNotSetup_ThrowInvalidOperationException(DuelState state)
-        {
-            _ = Assert.Throws<InvalidOperationException>(() => new Duel { State = state }.Start());
-        }
-
         [Fact]
-        public void Start_StartingPlayerNull_ThrowNullReferenceException()
+        public void GetAbilitiesThatTriggerFromPermanents_TriggerPyrofighterMagnusAbility_AbilityTriggers()
         {
-            _ = Assert.Throws<NullReferenceException>(() => new Duel().Start());
-        }
-
-        [Fact]
-        public void Start_StartingPlayerOpponentNull_ThrowNullReferenceException()
-        {
-            _ = Assert.Throws<NullReferenceException>(() => new Duel { StartingPlayer = Mock.Of<IPlayer>() }.Start());
-        }
-
-        [Fact]
-        public void Start_StartingPlayerWithoutHandAndOpponentGiven_ThrowNullReferenceException()
-        {
-            Mock<IPlayer> player = new Mock<IPlayer>();
-            _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
-
-            _ = Assert.Throws<NullReferenceException>(() => new Duel { StartingPlayer = player.Object }.Start());
-        }
-
-        [Fact]
-        public void Start_StartingPlayerWithHandAndOpponentGiven_ReturnPriorityActionChoice()
-        {
-            Mock<IPlayer> player = new Mock<IPlayer>();
-            _ = player.SetupGet(x => x.Opponent).Returns(Mock.Of<IPlayer>());
-            _ = player.SetupGet(x => x.Hand).Returns(Mock.Of<Hand>());
-
-            Choice choice = new Duel { StartingPlayer = player.Object }.Start();
-
-            _ = Assert.IsType<ChargeChoice>(choice);
+            var player1 = new Player();
+            var card = new Card();
+            card.Abilities.Add(new PyrofighterMagnusAbility());
+            player1.BattleZone.Permanents.Add(new Permanent(card) { Controller = player1.Id });
+            var duel = new Duel();
+            duel.Players.Add(player1);
+            var turn = new Turn { ActivePlayer = player1.Id };
+            turn.Steps.Add(Mock.Of<Step>());
+            duel.Turns.Add(turn);
+            var abilities = duel.GetAbilitiesThatTriggerFromPermanents<AtTheEndOfYourTurn>();
+            _ = Assert.IsType<PyrofighterMagnusAbility>(abilities.Single());
         }
     }
 }
