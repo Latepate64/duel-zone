@@ -27,13 +27,7 @@ namespace DuelMastersModels.Steps
         {
             if (State == StepState.TurnBasedAction)
             {
-                if (this is TurnBasedActionStep turnBasedActionStep)
-                {
-                    Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, decision);
-                    if (choice != null) { return choice; }
-                }
-                State = StepState.ResolveSpell;
-                return Proceed(null, duel);
+                return CheckTurnBasedAction(duel, decision);
             }
             else if (State == StepState.ResolveSpell)
             {
@@ -49,68 +43,97 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.SelectAbility)
             {
-                if (decision != null)
-                {
-                    // TODO: Set _resolvingAbility based on choice
-                    State = StepState.ResolveAbility;
-                    return Proceed(null, duel);
-                }
-                var activeAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
-                if (activeAbilities.Count() == 1)
-                {
-                    ResolvingAbility = activeAbilities.Single();
-                    _ = PendingAbilities.Remove(ResolvingAbility);
-                }
-                else if (activeAbilities.Any())
-                {
-                    return null; // TODO: return choice for ability to resolve
-                }
-                else
-                {
-                    var nonActiveAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
-                    if (nonActiveAbilities.Count() == 1)
-                    {
-                        ResolvingAbility = nonActiveAbilities.Single();
-                        _ = PendingAbilities.Remove(ResolvingAbility);
-                    }
-                    else if (nonActiveAbilities.Any())
-                    {
-                        return null; // TODO: return choice for ability to resolve
-                    }
-                }
-                State = (ResolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
-                return Proceed(null, duel);
+                return SelectAbility(duel, decision);
             }
             else if (State == StepState.ResolveAbility)
             {
-                Choice choice = ResolvingAbility.Resolve(duel, decision);
-                if (choice != null)
-                {
-                    return choice; // Ability still has not resolved completely.
-                }
+                return ResolveAbility(duel, decision);
+            }
+            else if (State == StepState.PriorityAction)
+            {
+                return CheckPriority(duel, decision);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(State.ToString());
+            }
+        }
+
+        private Choice CheckTurnBasedAction(Duel duel, Decision decision)
+        {
+            if (this is TurnBasedActionStep turnBasedActionStep)
+            {
+                Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, decision);
+                if (choice != null) { return choice; }
+            }
+            State = StepState.ResolveSpell;
+            return Proceed(null, duel);
+        }
+
+        private Choice CheckPriority(Duel duel, Decision decision)
+        {
+            if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
+            {
+                Choice choice = priorityStep.PerformPriorityAction(decision, duel);
+                if (choice != null) { return choice; }
                 else
                 {
-                    ResolvingAbility = null;
                     State = StepState.ResolveSpell;
                     return Proceed(null, duel);
                 }
             }
-            else if (State == StepState.PriorityAction)
+            State = StepState.Over;
+            return null;
+        }
+
+        private Choice ResolveAbility(Duel duel, Decision decision)
+        {
+            Choice choice = ResolvingAbility.Resolve(duel, decision);
+            if (choice != null)
             {
-                if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
-                {
-                    Choice choice = priorityStep.PerformPriorityAction(decision, duel);
-                    if (choice != null) { return choice; }
-                    else
-                    {
-                        State = StepState.ResolveSpell;
-                        return Proceed(null, duel);
-                    }
-                }
-                State = StepState.Over;
-                return null;
+                return choice; // Ability still has not resolved completely.
             }
-            else { throw new ArgumentOutOfRangeException(State.ToString()); }
+            else
+            {
+                ResolvingAbility = null;
+                State = StepState.ResolveSpell;
+                return Proceed(null, duel);
+            }
+        }
+
+        private Choice SelectAbility(Duel duel, Decision decision)
+        {
+            if (decision != null)
+            {
+                // TODO: Set _resolvingAbility based on choice
+                State = StepState.ResolveAbility;
+                return Proceed(null, duel);
+            }
+            var activeAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
+            if (activeAbilities.Count() == 1)
+            {
+                ResolvingAbility = activeAbilities.Single();
+                _ = PendingAbilities.Remove(ResolvingAbility);
+            }
+            else if (activeAbilities.Any())
+            {
+                return null; // TODO: return choice for ability to resolve
+            }
+            else
+            {
+                var nonActiveAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
+                if (nonActiveAbilities.Count() == 1)
+                {
+                    ResolvingAbility = nonActiveAbilities.Single();
+                    _ = PendingAbilities.Remove(ResolvingAbility);
+                }
+                else if (nonActiveAbilities.Any())
+                {
+                    return null; // TODO: return choice for ability to resolve
+                }
+            }
+            State = (ResolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
+            return Proceed(null, duel);
         }
 
         private Choice CheckStateBasedActions(Duel duel)
