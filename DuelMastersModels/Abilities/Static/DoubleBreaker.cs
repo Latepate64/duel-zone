@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.Static
 {
     public class DoubleBreaker : StaticAbility
     {
-        public DoubleBreaker(Guid creature, Guid source) : base(creature, source) { }
+        public DoubleBreaker(Guid source) : base(source) { }
 
         protected DoubleBreaker(DoubleBreaker ability) : base(ability) { }
 

@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.Static
 {
     internal class ThisCreatureCannotAttackPlayers : StaticAbility
     {
-        internal ThisCreatureCannotAttackPlayers(Guid source, Guid controller) : base(source, controller)
+        internal ThisCreatureCannotAttackPlayers(Guid source) : base(source)
         { }
 
         public override Ability Copy()

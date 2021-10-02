@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.Static
 {
     public class AttacksIfAbleAbility : StaticAbility
     {
-        public AttacksIfAbleAbility(Guid source, Guid controller) : base(source, controller)
+        public AttacksIfAbleAbility(Guid source) : base(source)
         {
         }
 

@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.Static
 {
     public class SpeedAttacker : StaticAbility
     {
-        public SpeedAttacker(Guid creature, Guid controller) : base(creature, controller)
+        public SpeedAttacker(Guid source) : base(source)
         { }
 
         protected SpeedAttacker(SpeedAttacker ability) : base(ability) { }
