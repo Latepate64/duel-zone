@@ -16,10 +16,6 @@ namespace DuelMastersModels
 
         public ICollection<Player> Players { get; } = new Collection<Player>();
 
-        public Player Player1 { get; set; }
-
-        public Player Player2 { get; set; }
-
         /// <summary>
         /// Determines the state of the duel.
         /// </summary>
@@ -59,10 +55,8 @@ namespace DuelMastersModels
             }
             State = DuelState.InProgress;
 
-            Player1 = startingPlayer;
-            Player2 = otherPlayer;
-            Players.Add(Player1);
-            Players.Add(Player2);
+            Players.Add(startingPlayer);
+            Players.Add(otherPlayer);
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
             startingPlayer.ShuffleDeck();
@@ -261,10 +255,7 @@ namespace DuelMastersModels
             GameOverInformation = duel.GameOverInformation != null ? new GameOver(duel.GameOverInformation) : null;
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
-            Player1 = new Player(duel.Player1);
-            Player2 = new Player(duel.Player2);
-            Players.Add(Player1);
-            Players.Add(Player2);
+            Players = duel.Players.Select(x => new Player(x)).ToList();
             State = duel.State;
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
@@ -277,18 +268,7 @@ namespace DuelMastersModels
 
         public Player GetOpponent(Player player)
         {
-            if (player == Player1)
-            {
-                return Player2;
-            }
-            else if (player == Player2)
-            {
-                return Player1;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(player.ToString());
-            }
+            return Players.Single(x => x != player);
         }
 
         public Guid GetOpponent(Guid player)
@@ -298,18 +278,7 @@ namespace DuelMastersModels
 
         public Player GetOwner(Card card)
         {
-            if (Player1.AllCards.Contains(card))
-            {
-                return Player1;
-            }
-            else if (Player2.AllCards.Contains(card))
-            {
-                return Player2;
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(card.ToString());
-            }
+            return Players.Single(x => x.AllCards.Contains(card));
         }
 
         public Card GetCard(Guid id)
@@ -401,10 +370,11 @@ namespace DuelMastersModels
                 ExtraTurns = null;
                 GameOverInformation?.Dispose();
                 GameOverInformation = null;
-                Player1.Dispose();
-                Player1 = null;
-                Player2.Dispose();
-                Player2 = null;
+                foreach (var x in Players)
+                {
+                    x.Dispose();
+                }
+                Players.Clear();
                 DelayedTriggeredAbilities = null;
                 ResolvingSpellAbilities = null;
                 foreach (var x in ResolvingSpells)
