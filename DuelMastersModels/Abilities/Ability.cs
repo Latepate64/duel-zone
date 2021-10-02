@@ -17,10 +17,8 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         public Guid Controller { get; set; }
 
-        protected Ability(Guid source, Guid controller)
+        protected Ability()
         {
-            Source = source;
-            Controller = controller;
         }
 
         protected Ability(Ability ability)

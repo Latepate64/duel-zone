@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Choices;
-using System;
 
 namespace DuelMastersModels.Abilities
 {
@@ -8,7 +7,7 @@ namespace DuelMastersModels.Abilities
     /// </summary>
     public abstract class NonStaticAbility : Ability
     {
-        protected NonStaticAbility(Guid source, Guid controller) : base(source, controller)
+        protected NonStaticAbility() : base()
         {
         }
 

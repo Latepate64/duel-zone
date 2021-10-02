@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Choices;
-using System;
 
 namespace DuelMastersModels.Cards.Creatures
 {
@@ -11,7 +10,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public PyrofighterMagnusAbility(Guid source, Guid controller) : base(source, controller)
+        public PyrofighterMagnusAbility() : base()
         {
         }
 

@@ -14,7 +14,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 15;
+        const int ChoicesMax = 1;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -149,25 +149,25 @@ namespace Simulator
             for (int i = 0; i < 4; ++i)
             {
                 var aquaHulcus = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = "Aqua Hulcus", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
-                aquaHulcus.Abilities.Add(new AquaHulcusAbility(aquaHulcus.Id, player));
+                aquaHulcus.Abilities.Add(new AquaHulcusAbility());
                 deck.Add(aquaHulcus);
 
                 var aquaSurfer = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 6, Name = "Aqua Surfer", Owner = player, Power = 2000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
-                aquaSurfer.Abilities.Add(new AquaSurferAbility(aquaSurfer.Id, player));
+                aquaSurfer.Abilities.Add(new AquaSurferAbility());
                 deck.Add(aquaSurfer);
 
                 var emeral = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 2, Name = "Emeral", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.CyberLord } };
-                emeral.Abilities.Add(new EmeralAbility(emeral.Id, player));
+                emeral.Abilities.Add(new EmeralAbility());
                 deck.Add(emeral);
 
                 deck.Add(CreatePyrofighterMagnus(player));
 
                 var bronzeArmTribe = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = "Bronze-Arm Tribe", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
-                bronzeArmTribe.Abilities.Add(new BronzeArmTribeAbility(bronzeArmTribe.Id, player));
+                bronzeArmTribe.Abilities.Add(new BronzeArmTribeAbility());
                 deck.Add(bronzeArmTribe);
 
                 var soulswap = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = "Soulswap", Owner = player };
-                soulswap.Abilities.Add(new SoulswapAbility(soulswap.Id, player));
+                soulswap.Abilities.Add(new SoulswapAbility());
                 deck.Add(soulswap);
 
                 var twinCannonSkyterror = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 7, Name = "Twin-Cannon Skyterror", Owner = player, Power = 7000, Subtypes = new List<Subtype> { Subtype.ArmoredWyvern } };
@@ -178,13 +178,13 @@ namespace Simulator
                 var bombazarDragonOfDestiny =  new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 7, Name = "Bombazar, Dragon of Destiny", Owner = player, Power = 6000, Subtypes = new List<Subtype> { Subtype.ArmoredDragon, Subtype.EarthDragon } };
                 bombazarDragonOfDestiny.Abilities.Add(new SpeedAttacker(bombazarDragonOfDestiny.Id, player));
                 bombazarDragonOfDestiny.Abilities.Add(new DoubleBreaker(bombazarDragonOfDestiny.Id, player));
-                bombazarDragonOfDestiny.Abilities.Add(new BombazarDragonOfDestinyAbility(bombazarDragonOfDestiny.Id, player));
+                bombazarDragonOfDestiny.Abilities.Add(new BombazarDragonOfDestinyAbility());
                 deck.Add(bombazarDragonOfDestiny);
 
                 deck.Add(CreateGontaTheWarriorSavage(player));
 
                 var windAxeTheWarriorSavage = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 5, Name = "Wind Axe, the Warrior Savage", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } };
-                windAxeTheWarriorSavage.Abilities.Add(new WindAxeTheWarriorSavageAbility(windAxeTheWarriorSavage.Id, player));
+                windAxeTheWarriorSavage.Abilities.Add(new WindAxeTheWarriorSavageAbility());
                 deck.Add(windAxeTheWarriorSavage);
             }
             return deck;
@@ -199,7 +199,7 @@ namespace Simulator
         {
             var pyrofighterMagnus = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = "Pyrofighter Magnus", Owner = player, Power = 3000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
             pyrofighterMagnus.Abilities.Add(new SpeedAttacker(pyrofighterMagnus.Id, player));
-            pyrofighterMagnus.Abilities.Add(new PyrofighterMagnusAbility(pyrofighterMagnus.Id, player));
+            pyrofighterMagnus.Abilities.Add(new PyrofighterMagnusAbility());
             return pyrofighterMagnus;
         }
 
@@ -221,11 +221,11 @@ namespace Simulator
                 deck.Add(rikabuTheDismantler);
 
                 card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
-                card.Abilities.Add(new HeartyCapnPolligonAbility(card.Id, player));
+                card.Abilities.Add(new HeartyCapnPolligonAbility());
                 deck.Add(card);
 
                 var sniperMosquito = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Sniper Mosquito", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.GiantInsect } };
-                sniperMosquito.Abilities.Add(new SniperMosquitoAbility(sniperMosquito.Id, player));
+                sniperMosquito.Abilities.Add(new SniperMosquitoAbility());
                 deck.Add(sniperMosquito);
 
                 //card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = "Quixotic Hero Swine Snout", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };

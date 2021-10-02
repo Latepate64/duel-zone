@@ -10,7 +10,7 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZone
     {
-        public WindAxeTheWarriorSavageAbility(Guid source, Guid controller) : base(source, controller)
+        public WindAxeTheWarriorSavageAbility() : base()
         {
         }
 

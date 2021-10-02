@@ -1,13 +1,12 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.Steps;
-using System;
 using System.Linq;
 
 namespace DuelMastersModels.Abilities.Triggered
 {
     public class HeartyCapnPolligonAbility : AtTheEndOfYourTurn
     {
-        public HeartyCapnPolligonAbility(Guid source, Guid controller) : base(source, controller)
+        public HeartyCapnPolligonAbility() : base()
         {
         }
 

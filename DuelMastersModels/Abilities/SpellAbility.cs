@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities
+﻿namespace DuelMastersModels.Abilities
 {
     public abstract class SpellAbility : NonStaticAbility
     {
-        protected SpellAbility(Guid source, Guid controller) : base(source, controller)
+        protected SpellAbility() : base()
         { }
 
         protected SpellAbility(SpellAbility ability) : base(ability)

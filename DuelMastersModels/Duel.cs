@@ -347,18 +347,22 @@ namespace DuelMastersModels
 
         public void Trigger<T>() where T : TriggeredAbility
         {
-            var abilities = BattleZoneCreatures.SelectMany(x => x.Abilities).OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Copy()).ToList();
+            var abilities = new List<TriggeredAbility>();
+            foreach (var creature in BattleZoneCreatures)
+            {
+                abilities.AddRange(creature.Abilities.OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Trigger(creature.Id, creature.Owner)));
+            }
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this)))
             {
-                abilities.Add(ability.TriggeredAbility.Copy());
+                abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
                 if (ability.Period is Once)
                 {
                     toBeRemoved.Add(ability);
                 }
             }
             _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities.Cast<NonStaticAbility>());
+            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
         }
 
         public override string ToString()

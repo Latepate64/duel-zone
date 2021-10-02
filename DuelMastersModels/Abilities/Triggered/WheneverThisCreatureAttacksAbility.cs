@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Triggered
+﻿namespace DuelMastersModels.Abilities.Triggered
 {
     public abstract class WheneverThisCreatureAttacksAbility : TriggeredAbility
     {
-        protected WheneverThisCreatureAttacksAbility(Guid source, Guid controller) : base(source, controller)
+        protected WheneverThisCreatureAttacksAbility() : base()
         {
         }
 

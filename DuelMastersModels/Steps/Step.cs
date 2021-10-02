@@ -167,9 +167,13 @@ namespace DuelMastersModels.Steps
                 }
                 else
                 {
-                    foreach (var spellAbility in duel.ResolvingSpells.Peek().Abilities.OfType<SpellAbility>())
+                    var resolvingSpell = duel.ResolvingSpells.Peek();
+                    foreach (var spellAbility in resolvingSpell.Abilities.OfType<SpellAbility>())
                     {
-                        duel.ResolvingSpellAbilities.Enqueue(spellAbility.Copy() as SpellAbility);
+                        var ability = spellAbility.Copy() as SpellAbility;
+                        ability.Source = resolvingSpell.Id;
+                        ability.Controller = resolvingSpell.Owner;
+                        duel.ResolvingSpellAbilities.Enqueue(ability);
                     }
                     _spellAbilitiesRetrieved = true;
                 }

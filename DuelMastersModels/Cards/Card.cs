@@ -61,25 +61,24 @@ namespace DuelMastersModels.Cards
         /// </summary>
         public bool SummoningSickness { get; internal set; } = true;
 
+        public new Guid Id => PermanentId != Guid.Empty ? PermanentId : _id;
+
+        private Guid _id;
+
+        /// <summary>
+        /// Use this instead of Id when checking information for a card in the battle zone. (eg. do continuous effects apply to it, what it has done after it entered the battle zone etc.)
+        /// </summary>
+        internal Guid PermanentId { get; set; }
+
         internal bool AffectedBySummoningSickness()
         {
             return SummoningSickness && !Abilities.OfType<SpeedAttacker>().Any();
         }
 
-        public Card() { }
-
-        protected Card(Guid owner, int cost, IEnumerable<Civilization> civilizations, IEnumerable<Subtype> subtypes)
+        public Card()
         {
-            Owner = owner;
-            Civilizations = civilizations;
-            ManaCost = cost;
-            Subtypes = subtypes;
+            _id = Guid.NewGuid();
         }
-
-        /// <summary>
-        /// Creates a card.
-        /// </summary>
-        protected Card(Guid owner, int cost, Civilization civilization, Subtype subtype) : this(owner, cost, new Collection<Civilization> { civilization }, new Collection<Subtype> { subtype }) { }
 
         protected Card(Card card) : base(card)
         {
@@ -96,6 +95,8 @@ namespace DuelMastersModels.Cards
             Subtypes = card.Subtypes?.ToList();
             SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
+            PermanentId = card.PermanentId;
+            _id = card._id;
         }
 
         public virtual Card Copy()

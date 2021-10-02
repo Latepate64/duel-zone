@@ -6,7 +6,7 @@ namespace DuelMastersModels.Abilities.Triggered
     {
         public Guid Turn { get; }
 
-        protected AtTheEndOfTurn(Guid source, Guid controller, Guid turn) : base(source, controller)
+        protected AtTheEndOfTurn(Guid turn) : base()
         {
             Turn = turn;
         }

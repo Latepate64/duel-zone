@@ -13,7 +13,7 @@ namespace DuelMastersModels.Cards.Creatures
             _firstPart = ability._firstPart;
         }
 
-        public EmeralAbility(Guid source, Guid controller) : base(source, controller)
+        public EmeralAbility() : base()
         {
         }
 

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Abilities.Triggered
     /// </summary>
     public abstract class TriggeredAbility : NonStaticAbility
     {
-        protected TriggeredAbility(Guid source, Guid controller) : base(source, controller)
+        protected TriggeredAbility() : base()
         {
         }
 
@@ -18,6 +18,14 @@ namespace DuelMastersModels.Abilities.Triggered
         public virtual bool CanTrigger(Duel duel)
         {
             return true;
+        }
+
+        public TriggeredAbility Trigger(Guid source, Guid controller)
+        {
+            var copy = Copy() as TriggeredAbility;
+            copy.Source = source;
+            copy.Controller = controller;
+            return copy;
         }
     }
 }

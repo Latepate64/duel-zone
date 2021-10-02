@@ -12,7 +12,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public AquaSurferAbility(Guid source, Guid controller) : base(source, controller)
+        public AquaSurferAbility() : base()
         {
         }
 

@@ -7,7 +7,7 @@ namespace DuelMastersModels.Cards.Spells
 {
     public class SoulswapAbility : SpellAbility
     {
-        public SoulswapAbility(Guid source, Guid controller) : base(source, controller)
+        public SoulswapAbility() : base()
         {
         }
 

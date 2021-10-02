@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Triggered
+﻿namespace DuelMastersModels.Abilities.Triggered
 {
     public abstract class AtTheEndOfYourTurn : TriggeredAbility
     {
-        protected AtTheEndOfYourTurn(Guid source, Guid controller) : base(source, controller)
+        protected AtTheEndOfYourTurn() : base()
         {
         }
 

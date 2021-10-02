@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
+﻿using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
@@ -42,7 +41,7 @@ namespace DuelMastersModels.Steps
                     AttackTarget = attackerChoice.Decision.Item2;
                     duel.GetCard(AttackingCreature).Tapped = true;
                     var attacker = duel.GetCard(AttackingCreature);
-                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Copy()).Cast<NonStaticAbility>());
+                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Trigger(AttackingCreature, duel.GetOwner(attacker).Id)));
                 }
                 return null;
             }

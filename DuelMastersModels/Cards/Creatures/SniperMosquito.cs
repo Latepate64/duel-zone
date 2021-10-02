@@ -8,7 +8,7 @@ namespace DuelMastersModels.Cards.Creatures
 {
     public class SniperMosquitoAbility : WheneverThisCreatureAttacksAbility
     {
-        public SniperMosquitoAbility(Guid source, Guid controller) : base(source, controller)
+        public SniperMosquitoAbility() : base()
         {
         }
 

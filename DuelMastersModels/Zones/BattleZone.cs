@@ -26,6 +26,7 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
+            card.PermanentId = System.Guid.NewGuid();
             card.RevealedTo = duel.Players.Select(x => x.Id);
             Cards.Add(card);
             if (card.CardType == CardType.Creature)
@@ -36,6 +37,7 @@ namespace DuelMastersModels.Zones
 
         public override void Remove(Card card)
         {
+            card.PermanentId = System.Guid.Empty;
             if (!Cards.Remove(card))
             {
                 throw new System.NotSupportedException(card.ToString());
