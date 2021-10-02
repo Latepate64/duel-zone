@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuelMastersModels.GameEvents;
+using System;
 
 namespace DuelMastersModels.Abilities.Triggered
 {
@@ -22,5 +23,7 @@ namespace DuelMastersModels.Abilities.Triggered
             copy.Controller = controller;
             return copy;
         }
+
+        public abstract bool CanTrigger(GameEvent gameEvent, Duel duel);
     }
 }

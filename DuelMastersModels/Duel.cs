@@ -7,6 +7,7 @@ using System.Linq;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Effects.Periods;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels
 {
@@ -57,6 +58,18 @@ namespace DuelMastersModels
 
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
+
+            foreach (var player in Players)
+            {
+                foreach (var card in player.AllCards)
+                {
+                    foreach (var ability in card.Abilities)
+                    {
+                        ability.Source = card.Id;
+                        ability.Controller = player.Id;
+                    }
+                }
+            }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
             startingPlayer.ShuffleDeck();
@@ -322,13 +335,13 @@ namespace DuelMastersModels
             }
         }
 
-        public void Trigger<T>() where T : TriggeredAbility
+        public void Trigger(GameEvent gameEvent)
         {
-            var abilities = GetAbilitiesThatTriggerFromPermanents<T>().ToList();
+            var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T))
+            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
             {
-                abilities.Add(ability.TriggeredAbility.Copy() as T);
+                abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
                 if (ability.Period is Once)
                 {
                     toBeRemoved.Add(ability);
@@ -338,38 +351,12 @@ namespace DuelMastersModels
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
         }
 
-        public IEnumerable<T> GetAbilitiesThatTriggerFromPermanents<T>() where T : TriggeredAbility
+        public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromPermanents(GameEvent gameEvent)
         {
-            var abilities = new List<T>();
+            var abilities = new List<TriggeredAbility>();
             foreach (var permanent in GetAllPermanents())
             {
-                abilities.AddRange(permanent.Card.Abilities.OfType<T>().Select(x => x.Trigger(permanent.Id, permanent.Controller) as T));
-            }
-            return abilities;
-        }
-
-        public void Trigger<T>(Card card, Zones.ZoneType destinationZone) where T : CardChangesZoneAbility
-        {
-            var abilities = GetAbilitiesThatTriggerFromPermanents<T>(card, destinationZone).ToList();
-            List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && (x.TriggeredAbility as T).CanTrigger(this, x.TriggeredAbility.Source, card, destinationZone)))
-            {
-                abilities.Add(ability.TriggeredAbility.Copy() as T);
-                if (ability.Period is Once)
-                {
-                    toBeRemoved.Add(ability);
-                }
-            }
-            _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
-        }
-
-        public IEnumerable<T> GetAbilitiesThatTriggerFromPermanents<T>(Card card, Zones.ZoneType destinationZone) where T : CardChangesZoneAbility
-        {
-            var abilities = new List<T>();
-            foreach (var permanent in GetAllPermanents())
-            {
-                abilities.AddRange(permanent.Card.Abilities.OfType<T>().Where(x => x.CanTrigger(this, permanent.Card.Id, card, destinationZone)).Select(x => x.Trigger(permanent.Id, permanent.Controller) as T));
+                abilities.AddRange(permanent.Card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
             }
             return abilities;
         }

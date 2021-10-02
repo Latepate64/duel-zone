@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using DuelMastersModels.Steps;
-using System;
 using System.Linq;
 
 namespace DuelMastersModels.Abilities.Triggered
@@ -27,9 +27,9 @@ namespace DuelMastersModels.Abilities.Triggered
             return null;
         }
 
-        public override bool CanTrigger(Duel duel, Guid turn, Guid controller)
+        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return base.CanTrigger(duel, turn, controller) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
+            return base.CanTrigger(gameEvent, duel) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
         }
     }
 }

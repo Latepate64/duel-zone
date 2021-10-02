@@ -1,5 +1,5 @@
-﻿using DuelMastersModels.Abilities.Triggered;
-using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels.Steps
 {
@@ -26,8 +26,7 @@ namespace DuelMastersModels.Steps
 
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            duel.Trigger<AtTheEndOfTurn>();
-            duel.Trigger<AtTheEndOfYourTurn>();
+            duel.Trigger(new TurnEndsEvent(duel.CurrentTurn.Id));
             return null;
         }
     }

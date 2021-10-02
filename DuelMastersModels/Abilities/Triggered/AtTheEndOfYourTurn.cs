@@ -1,4 +1,4 @@
-﻿using System;
+﻿using DuelMastersModels.GameEvents;
 using System.Linq;
 
 namespace DuelMastersModels.Abilities.Triggered
@@ -13,9 +13,9 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public virtual bool CanTrigger(Duel duel, Guid turn, Guid controller)
+        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return duel.Turns.Single(x => x.Id == turn).ActivePlayer == controller;
+            return gameEvent is TurnEndsEvent e && duel.Turns.Single(x => x.Id == e.Turn).ActivePlayer == Controller;
         }
     }
 }

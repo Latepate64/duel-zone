@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Cards;
+using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
-using System;
 
 namespace DuelMastersModels.Abilities.Triggered
 {
@@ -14,9 +14,16 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public override bool CanTrigger(Duel duel, Guid source, Card card, ZoneType destinationZone)
+        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return card.CardType == CardType.Creature && source == card.Id && destinationZone == ZoneType.BattleZone;
+            if (gameEvent is CardChangedZoneEvent e)
+            {
+                return Source == e.Card && duel.GetCard(e.Card).CardType == CardType.Creature && e.DestinationZone == ZoneType.BattleZone;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

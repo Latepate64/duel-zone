@@ -115,6 +115,7 @@
     <Compile Include="Choices\GameOver.cs" />
     <Compile Include="DuelObject.cs" />
     <Compile Include="DuelState.cs" />
+    <Compile Include="GameEvents\GameEvent.cs" />
     <Compile Include="IAttackable.cs" />
     <Compile Include="ICopyable.cs" />
     <Compile Include="Player.cs" />

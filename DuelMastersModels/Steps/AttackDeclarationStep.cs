@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +41,7 @@ namespace DuelMastersModels.Steps
                     AttackTarget = attackerChoice.Decision.Item2;
                     var attacker = duel.GetPermanent(AttackingCreature);
                     attacker.Card.Tapped = true;
-                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Card.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Trigger(AttackingCreature, attacker.Controller)));
+                    duel.Trigger(new CreatureAttackedEvent(AttackingCreature));
                 }
                 return null;
             }

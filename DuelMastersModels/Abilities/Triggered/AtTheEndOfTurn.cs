@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuelMastersModels.GameEvents;
+using System;
 
 namespace DuelMastersModels.Abilities.Triggered
 {
@@ -15,9 +16,9 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public bool CanTrigger(Guid turn)
+        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return turn == Turn;
+            return gameEvent is TurnEndsEvent e && e.Turn == Turn;
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using DuelMastersModels.Abilities.Triggered;
-using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Cards;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,7 @@ namespace DuelMastersModels.Zones
         {
             permanent.Card.RevealedTo = duel.Players.Select(x => x.Id);
             Permanents.Add(permanent);
-            duel.Trigger<CardChangesZoneAbility>(permanent.Card, ZoneType.BattleZone);
+            duel.Trigger(new CardChangedZoneEvent(permanent.Card.Id, ZoneType.Anywhere, ZoneType.BattleZone));
         }
 
         public void Remove(Permanent permanent)
