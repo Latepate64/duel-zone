@@ -22,8 +22,8 @@ namespace DuelMastersModels.Cards.Creatures
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // Return this creature to your hand.
-            var creature = duel.GetCard(Source);
-            duel.GetOwner(creature).ReturnFromBattleZoneToHand(creature, duel);
+            var creature = duel.GetPermanent(Source);
+            duel.GetPlayer(creature.Controller).ReturnFromBattleZoneToHand(creature, duel);
             return null;
         }
     }

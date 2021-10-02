@@ -21,11 +21,11 @@ namespace DuelMastersModels.Steps
         {
             if (decision == null)
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness()).Distinct(new CardComparer());
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Card.Tapped && !c.AffectedBySummoningSickness()).Distinct(new PermanentComparer());
                 List<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id)).ToList();
                 if (options.Any())
                 {
-                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.SelectMany(x => x.Abilities).OfType<AttacksIfAbleAbility>().Any());
+                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.SelectMany(x => x.Card.Abilities).OfType<AttacksIfAbleAbility>().Any());
                 }
                 else
                 {
@@ -39,20 +39,20 @@ namespace DuelMastersModels.Steps
                 {
                     AttackingCreature = attackerChoice.Decision.Item1;
                     AttackTarget = attackerChoice.Decision.Item2;
-                    duel.GetCard(AttackingCreature).Tapped = true;
-                    var attacker = duel.GetCard(AttackingCreature);
-                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Trigger(AttackingCreature, duel.GetOwner(attacker).Id)));
+                    var attacker = duel.GetPermanent(AttackingCreature);
+                    attacker.Card.Tapped = true;
+                    duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(attacker.Card.Abilities.OfType<WheneverThisCreatureAttacksAbility>().Select(x => x.Trigger(AttackingCreature, attacker.Controller)));
                 }
                 return null;
             }
         }
 
-        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Duel duel)
+        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Permanent attacker, Duel duel)
         {
             List<IAttackable> attackables = new List<IAttackable>();
-            var opponent = duel.GetOpponent(duel.GetOwner(attacker));
+            var opponent = duel.GetOpponent(duel.GetPlayer(attacker.Controller));
             attackables.Add(opponent);
-            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new CardComparer()));
+            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Card.Tapped).Distinct(new PermanentComparer()));
             return attackables;
         }
 

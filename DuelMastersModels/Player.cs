@@ -47,7 +47,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; private set; } = new BattleZone(new List<Card>());
+        public BattleZone BattleZone { get; private set; } = new BattleZone();
 
         public IEnumerable<Card> CardsInNonsharedZones
         {
@@ -100,16 +100,16 @@ namespace DuelMastersModels
             throw new NotImplementedException(); // Mana payment
         }
 
-        public void PutFromBattleZoneIntoGraveyard(Card card, Duel duel)
+        public void PutFromBattleZoneIntoGraveyard(Permanent permanent, Duel duel)
         {
-            BattleZone.Remove(card);
-            Graveyard.Add(card, duel);
+            BattleZone.Remove(permanent);
+            Graveyard.Add(permanent.Card, duel);
         }
 
-        internal void PutFromBattleZoneIntoManaZone(Card card, Duel duel)
+        internal void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
         {
-            BattleZone.Remove(card);
-            ManaZone.Add(card, duel);
+            BattleZone.Remove(permanent);
+            ManaZone.Add(permanent.Card, duel);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace DuelMastersModels
         internal void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
-            BattleZone.Add(card, duel);
+            BattleZone.Add(new Permanent(card), duel);
         }
 
         internal void PutFromManaZoneToHand(Card card, Duel duel)
@@ -265,10 +265,10 @@ namespace DuelMastersModels
             ManaZone.Add(RemoveTopCardOfDeck(), duel);
         }
 
-        internal void ReturnFromBattleZoneToHand(Card card, Duel duel)
+        internal void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
         {
-            BattleZone.Remove(card);
-            Hand.Add(card, duel);
+            BattleZone.Remove(permanent);
+            Hand.Add(permanent.Card, duel);
         }
 
         internal void Cast(Card spell, Duel duel)

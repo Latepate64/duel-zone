@@ -15,7 +15,7 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public virtual bool CanTrigger(Duel duel)
+        public virtual bool CanTrigger(Duel duel, Guid controller)
         {
             return true;
         }

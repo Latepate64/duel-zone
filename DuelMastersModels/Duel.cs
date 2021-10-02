@@ -37,7 +37,7 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
+        public IEnumerable<Permanent> CreaturePermanents => Players.SelectMany(x => x.BattleZone.Creatures);
 
         internal Stack<Card> ResolvingSpells = new Stack<Card>();
         internal Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
@@ -108,23 +108,23 @@ namespace DuelMastersModels
         /// <param name="defendingCreatureId">Creature which the attack was directed at.</param>
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            Card attackingCreature = GetCard(attackingCreatureId);
-            Card defendingCreature = GetCard(defendingCreatureId);
-            int attackingCreaturePower = attackingCreature.Power.Value;
-            int defendingCreaturePower = defendingCreature.Power.Value;
+            var attackingCreature = GetPermanent(attackingCreatureId);
+            var defendingCreature = GetPermanent(defendingCreatureId);
+            int attackingCreaturePower = attackingCreature.Card.Power.Value;
+            int defendingCreaturePower = defendingCreature.Card.Power.Value;
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                GetPlayer(defendingCreature.Controller).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
+                GetPlayer(attackingCreature.Controller).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
             }
             else
             {
-                GetOwner(attackingCreature).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
-                GetOwner(defendingCreature).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                GetPlayer(attackingCreature.Controller).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
+                GetPlayer(defendingCreature.Controller).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
             }
         }
 
@@ -134,7 +134,7 @@ namespace DuelMastersModels
             if (card.CardType == CardType.Creature)
             {
                 player.Hand.Remove(card);
-                player.BattleZone.Add(card, this);
+                player.BattleZone.Add(new Permanent(card), this);
             }
             else if (card.CardType == CardType.Spell)
             {
@@ -241,11 +241,12 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Destroy(IEnumerable<Card> creatures)
+        internal void Destroy(IEnumerable<Permanent> permanents)
         {
-            while (creatures.Any())
+            while (permanents.Any())
             {
-                GetOwner(creatures.First()).PutFromBattleZoneIntoGraveyard(creatures.First(), this);
+                var permanent = permanents.First();
+                GetPlayer(permanent.Controller).PutFromBattleZoneIntoGraveyard(permanent, this);
             }
         }
 
@@ -323,6 +324,18 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
+        public IEnumerable<Permanent> GetAllPermanents()
+        {
+            var permanents = Player1.BattleZone.Permanents.ToList();
+            permanents.AddRange(Player2.BattleZone.Permanents.ToList());
+            return permanents;
+        }
+
+        public Permanent GetPermanent(Guid id)
+        {
+            return GetAllPermanents().Single(x => x.Id == id);
+        }
+
         public Player GetPlayer(Guid id)
         {
             return Players.Single(x => x.Id == id);
@@ -339,6 +352,10 @@ namespace DuelMastersModels
             {
                 return GetPlayer(id);
             }
+            else if (GetAllPermanents().Any(x => x.Id == id))
+            {
+                return GetPermanent(id);
+            }
             else
             {
                 return GetCard(id);
@@ -348,12 +365,12 @@ namespace DuelMastersModels
         public void Trigger<T>() where T : TriggeredAbility
         {
             var abilities = new List<TriggeredAbility>();
-            foreach (var creature in BattleZoneCreatures)
+            foreach (var permanent in CreaturePermanents)
             {
-                abilities.AddRange(creature.Abilities.OfType<T>().Where(x => x.CanTrigger(this)).Select(x => x.Trigger(creature.Id, creature.Owner)));
+                abilities.AddRange(permanent.Card.Abilities.OfType<T>().Where(x => x.CanTrigger(this, permanent.Controller)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
             }
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this)))
+            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility is T && x.TriggeredAbility.CanTrigger(this, x.TriggeredAbility.Controller)))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
                 if (ability.Period is Once)

@@ -27,13 +27,13 @@ namespace DuelMastersModels.Steps
 
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            var creature = duel.GetCard(AttackingCreature);
-            var owner = duel.GetOwner(creature);
-            var opponent = duel.GetOpponent(owner);
+            var attackingCreature = duel.GetPermanent(AttackingCreature);
+            var controller = duel.GetPlayer(attackingCreature.Controller);
+            var opponent = duel.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())
             {
                 int breakAmount = 1;
-                if (creature.Abilities.OfType<DoubleBreaker>().Any())
+                if (attackingCreature.Card.Abilities.OfType<DoubleBreaker>().Any())
                 {
                     breakAmount = 2;
                 }
@@ -43,7 +43,7 @@ namespace DuelMastersModels.Steps
             else
             {
                 //TODO: Direct attack victory should be checked as a state-based action instead.
-                var gameOver = new GameOver(WinReason.DirectAttack, new List<Guid> { owner.Id }, new List<Guid> { opponent.Id });
+                var gameOver = new GameOver(WinReason.DirectAttack, new List<Guid> { controller.Id }, new List<Guid> { opponent.Id });
                 duel.GameOverInformation = gameOver;
                 duel.State = DuelState.Over;
                 return gameOver;

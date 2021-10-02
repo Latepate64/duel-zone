@@ -27,23 +27,23 @@ namespace DuelMastersModels.Cards.Creatures
         {
             // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);
-            IEnumerable<Card> blocker = new List<Card>();
+            var blocker = new List<Permanent>();
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(controller);
-                var blockers = opponent.BattleZone.Creatures.Where(c => c.Abilities.OfType<Blocker>().Any());
+                var blockers = opponent.BattleZone.Creatures.Where(c => c.Card.Abilities.OfType<Blocker>().Any());
                 if (blockers.Count() > 1)
                 {
                     return new Selection<Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
                 }
                 else if (blockers.Any())
                 {
-                    blocker = blockers;
+                    blocker = blockers.ToList();
                 }
             }
             else
             {
-                blocker = (decision as GuidDecision).Decision.Select(x => duel.GetCard(x));
+                blocker = (decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)).ToList();
             }
             duel.Destroy(blocker);
 

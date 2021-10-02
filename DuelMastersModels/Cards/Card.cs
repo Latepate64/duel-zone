@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +24,7 @@ namespace DuelMastersModels.Cards
         SnowFaerie,
     }
 
-    public class Card : DuelObject, ICopyable<Card>, IAttackable
+    public class Card : DuelObject, ICopyable<Card>
     {
         // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
 
@@ -56,28 +55,18 @@ namespace DuelMastersModels.Cards
 
         public IEnumerable<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
-        /// <summary>
-        /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
-        /// </summary>
-        public bool SummoningSickness { get; internal set; } = true;
+        //public new Guid Id => PermanentId != Guid.Empty ? PermanentId : _id;
 
-        public new Guid Id => PermanentId != Guid.Empty ? PermanentId : _id;
+        //private Guid _id;
 
-        private Guid _id;
-
-        /// <summary>
-        /// Use this instead of Id when checking information for a card in the battle zone. (eg. do continuous effects apply to it, what it has done after it entered the battle zone etc.)
-        /// </summary>
-        internal Guid PermanentId { get; set; }
-
-        internal bool AffectedBySummoningSickness()
-        {
-            return SummoningSickness && !Abilities.OfType<SpeedAttacker>().Any();
-        }
+        ///// <summary>
+        ///// Use this instead of Id when checking information for a card in the battle zone. (eg. do continuous effects apply to it, what it has done after it entered the battle zone etc.)
+        ///// </summary>
+        //internal Guid PermanentId { get; set; }
 
         public Card()
         {
-            _id = Guid.NewGuid();
+            //_id = Guid.NewGuid();
         }
 
         protected Card(Card card) : base(card)
@@ -93,10 +82,9 @@ namespace DuelMastersModels.Cards
             ShieldTrigger = card.ShieldTrigger;
             ShieldTriggerPending = card.ShieldTriggerPending;
             Subtypes = card.Subtypes?.ToList();
-            SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
-            PermanentId = card.PermanentId;
-            _id = card._id;
+            //PermanentId = card.PermanentId;
+            //_id = card._id;
         }
 
         public virtual Card Copy()

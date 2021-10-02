@@ -39,9 +39,9 @@ namespace DuelMastersModels.Cards.Creatures
             }
             else
             {
-                foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
+                foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)))
                 {
-                    duel.GetOwner(creature).ReturnFromBattleZoneToHand(creature, duel);
+                    duel.GetPlayer(creature.Controller).ReturnFromBattleZoneToHand(creature, duel);
                 }
                 return null;
             }

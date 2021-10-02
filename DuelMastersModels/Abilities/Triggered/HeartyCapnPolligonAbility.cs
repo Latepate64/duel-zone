@@ -22,14 +22,14 @@ namespace DuelMastersModels.Abilities.Triggered
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
-            duel.GetPlayer(Controller).ReturnFromBattleZoneToHand(duel.GetCard(Source), duel);
+            duel.GetPlayer(Controller).ReturnFromBattleZoneToHand(duel.GetPermanent(Source), duel);
             return null;
         }
 
-        public override bool CanTrigger(Duel duel)
+        public override bool CanTrigger(Duel duel, System.Guid controller)
         {
             //TODO: It should be checked that source did not leave battle zone after breaking the shield and before this ability triggers.
-            return base.CanTrigger(duel) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
+            return base.CanTrigger(duel, controller) && duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
         }
     }
 }

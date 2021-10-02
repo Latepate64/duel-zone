@@ -17,12 +17,12 @@ namespace DuelMastersModels.Cards.Creatures
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            duel.Destroy(duel.BattleZoneCreatures.Where(c => c.Id != Source && c.Power == 6000));
+            duel.Destroy(duel.CreaturePermanents.Where(p => p.Id != Source && p.Card.Power == 6000));
             // then take an extra turn after this one.
             Turn turn = new Turn(Controller, duel.GetOpponent(Controller));
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new Effects.Periods.Once(), Controller));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new Effects.Periods.Once(), Source, Controller));
             return null;
         }
 

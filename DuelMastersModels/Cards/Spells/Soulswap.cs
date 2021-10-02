@@ -26,9 +26,9 @@ namespace DuelMastersModels.Cards.Spells
             // You may choose a creature in the battle zone and put it into its owner's mana zone.
             if (decision == null)
             {
-                if (duel.BattleZoneCreatures.Any())
+                if (duel.CreaturePermanents.Any())
                 {
-                    return new Selection<Guid>(Controller, duel.BattleZoneCreatures.Select(x => x.Id));
+                    return new Selection<Guid>(Controller, duel.CreaturePermanents.Select(x => x.Id));
                 }
                 else
                 {
@@ -40,8 +40,8 @@ namespace DuelMastersModels.Cards.Spells
                 var creatures = ((GuidDecision)decision).Decision;
                 if (creatures.Any())
                 {
-                    var creature = duel.GetCard(creatures.Single());
-                    var owner = duel.GetOwner(creature);
+                    var creature = duel.GetPermanent(creatures.Single());
+                    var owner = duel.GetPlayer(creature.Controller);
                     owner.PutFromBattleZoneIntoManaZone(creature, duel);
 
                     // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.

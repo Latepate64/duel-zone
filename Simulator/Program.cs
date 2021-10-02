@@ -14,7 +14,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 1;
+        const int ChoicesMax = 8;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -208,9 +208,9 @@ namespace Simulator
             List<Card> deck = new();
             while (deck.Count < 40)
             {
-                var card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = "Deadly Fighter Braid Claw", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
-                card.Abilities.Add(new AttacksIfAbleAbility(card.Id, player));
-                deck.Add(card);
+                //var card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = "Deadly Fighter Braid Claw", Owner = player, Power = 1000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
+                //card.Abilities.Add(new AttacksIfAbleAbility(card.Id, player));
+                //deck.Add(card);
 
                 deck.Add(new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = "Kamikaze, Chainsaw Warrior", Owner = player, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } });
 
@@ -220,7 +220,7 @@ namespace Simulator
                 rikabuTheDismantler.Abilities.Add(new SpeedAttacker(rikabuTheDismantler.Id, player));
                 deck.Add(rikabuTheDismantler);
 
-                card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
+                var card = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = "Hearty Cap'n Polligon", Owner = player, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
                 card.Abilities.Add(new HeartyCapnPolligonAbility());
                 deck.Add(card);
 

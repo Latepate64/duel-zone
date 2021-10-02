@@ -10,9 +10,9 @@
         {
         }
 
-        public override bool CanTrigger(Duel duel)
+        public override bool CanTrigger(Duel duel, System.Guid controller)
         {
-            return duel.CurrentTurn.ActivePlayer == Controller;
+            return duel.CurrentTurn.ActivePlayer == controller;
         }
     }
 }

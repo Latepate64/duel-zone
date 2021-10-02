@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,45 +10,70 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone, ICopyable<BattleZone>
+    public class BattleZone : ICopyable<BattleZone>, IDisposable
     {
-        public BattleZone(IEnumerable<Card> cards) : base(cards) { }
+        public List<Permanent> Permanents { get; } = new List<Permanent>();
 
-        internal override bool Public { get; } = true;
-        internal override bool Ordered { get; } = false;
+        public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.Card.CardType == CardType.Creature);
+
+        public IEnumerable<Card> Cards => Permanents.Select(x => x.Card);
+
+        public BattleZone()
+        {
+        }
+
+        public BattleZone(BattleZone zone)
+        {
+            Permanents = zone.Permanents.Select(x => new Permanent(x)).ToList();
+        }
 
         public void UntapCards()
         {
-            foreach (Card card in Cards.Where(x => x.Tapped))
+            foreach (Card card in Permanents.Select(x => x.Card).Where(x => x.Tapped))
             {
                 card.Tapped = false;
             }
         }
 
-        public override void Add(Card card, Duel duel)
+        public void Add(Permanent permanent, Duel duel)
         {
-            card.PermanentId = System.Guid.NewGuid();
-            card.RevealedTo = duel.Players.Select(x => x.Id);
-            Cards.Add(card);
-            if (card.CardType == CardType.Creature)
+            permanent.Card.RevealedTo = duel.Players.Select(x => x.Id);
+            Permanents.Add(permanent);
+            if (permanent.Card.CardType == CardType.Creature)
             {
-                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(card.Abilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Copy()).Cast<NonStaticAbility>());
+                duel.CurrentTurn.CurrentStep.PendingAbilities.AddRange(permanent.Card.Abilities.OfType<WhenYouPutThisCreatureIntoTheBattleZone>().Select(x => x.Trigger(permanent.Id, permanent.Controller)).Cast<NonStaticAbility>());
             }
         }
 
-        public override void Remove(Card card)
+        public void Remove(Permanent permanent)
         {
-            card.PermanentId = System.Guid.Empty;
-            if (!Cards.Remove(card))
+            if (!Permanents.Remove(permanent))
             {
-                throw new System.NotSupportedException(card.ToString());
+                throw new NotSupportedException(permanent.ToString());
             }
-            card.SummoningSickness = true;
         }
 
         public BattleZone Copy()
         {
-            return new BattleZone(Cards.Select(x => x.Copy()));
+            return new BattleZone(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && Permanents != null)
+            {
+                foreach (var permanent in Permanents)
+                {
+                    permanent.Dispose();
+                }
+                Permanents.Clear();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
