@@ -218,7 +218,7 @@ namespace Simulator
             {
                 return new Tuple<Decision, int>(decision, GetPoints(duel, numberOfChoicesMade));
             }
-            else if (choice is Selection<Guid> selection)
+            else if (choice is GuidSelection selection)
             {
                 ChooseGuid(duel, optionsRemaining, numberOfChoicesMade, decisions, selection);
             }
@@ -296,7 +296,7 @@ namespace Simulator
             }
         }
 
-        private static void ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, Selection<Guid> selection)
+        private static void ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
         {
             if (selection.MaximumSelection != 1)
             {

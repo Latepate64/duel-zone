@@ -33,7 +33,7 @@ namespace DuelMastersCards.TriggeredAbilities
                 {
                     if (controller.ManaZone.Cards.Count > 1)
                     {
-                        return new Selection<Guid>(Controller, controller.ManaZone.Cards.Select(x => x.Id), 1, 1);
+                        return new GuidSelection(Controller, controller.ManaZone.Cards.Select(x => x.Id), 1, 1);
                     }
                     else
                     {

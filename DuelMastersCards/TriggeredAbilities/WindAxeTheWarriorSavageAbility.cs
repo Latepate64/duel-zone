@@ -34,7 +34,7 @@ namespace DuelMastersCards.TriggeredAbilities
                 var blockers = opponent.BattleZone.Creatures.Where(c => c.Card.Abilities.OfType<Blocker>().Any());
                 if (blockers.Count() > 1)
                 {
-                    return new Selection<Guid>(controller.Id, blockers.Select(x => x.Id), 1, 1);
+                    return new GuidSelection(controller.Id, blockers.Select(x => x.Id), 1, 1);
                 }
                 else if (blockers.Any())
                 {

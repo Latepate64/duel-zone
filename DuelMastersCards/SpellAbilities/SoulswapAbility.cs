@@ -29,7 +29,7 @@ namespace DuelMastersCards.TriggeredAbilities
             {
                 if (duel.CreaturePermanents.Any())
                 {
-                    return new Selection<Guid>(Controller, duel.CreaturePermanents.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(Controller, duel.CreaturePermanents.Select(x => x.Id), 0, 1);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace DuelMastersCards.TriggeredAbilities
                     {
                         if (manas.Count() > 1)
                         {
-                            return new Selection<Guid>(Controller, manas.Select(x => x.Id), 1, 1);
+                            return new GuidSelection(Controller, manas.Select(x => x.Id), 1, 1);
                         }
                         else
                         {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace DuelMastersModels.Choices
 {
-    public class Selection<T> : Choice
+    public class GuidSelection : Choice
     {
         /// <summary>
         /// Options player can choose from.
         /// </summary>
-        public IEnumerable<T> Options { get; private set; }
+        public IEnumerable<Guid> Options { get; private set; }
 
         public int MinimumSelection { get; private set; }
 
@@ -21,7 +21,7 @@ namespace DuelMastersModels.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        public Selection(Guid player, IEnumerable<T> options, int minimumSelection, int maximumSelection) : base(player)
+        public GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
         {
             Options = options;
             MinimumSelection = minimumSelection;

@@ -108,7 +108,7 @@
     <Compile Include="Effects\Durations\Indefinite.cs" />
     <Compile Include="Effects\Durations\Duration.cs" />
     <Compile Include="Effects\Durations\UntilTheEndOfTheTurn.cs" />
-    <Compile Include="Choices\Selection.cs" />
+    <Compile Include="Choices\GuidSelection.cs" />
     <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\YesNoChoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

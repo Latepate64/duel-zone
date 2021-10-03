@@ -30,7 +30,7 @@ namespace DuelMastersCards.TriggeredAbilities
                 // You may add a card from your hand to your shields face down.
                 if (controller.Hand.Cards.Any())
                 {
-                    return new Selection<Guid>(Controller, controller.Hand.Cards.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(Controller, controller.Hand.Cards.Select(x => x.Id), 0, 1);
                 }
                 else
                 {
@@ -55,7 +55,7 @@ namespace DuelMastersCards.TriggeredAbilities
                         else
                         {
                             _firstPart = false;
-                            return new Selection<Guid>(Controller, controller.ShieldZone.Cards.Select(x => x.Id), 1, 1);
+                            return new GuidSelection(Controller, controller.ShieldZone.Cards.Select(x => x.Id), 1, 1);
                         }
                     }
                     else

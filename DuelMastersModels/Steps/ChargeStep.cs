@@ -21,7 +21,7 @@ namespace DuelMastersModels.Steps
         {
             if (choice == null)
             {
-                return new Selection<System.Guid>(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards.Select(x => x.Id), 0, 1);
+                return new GuidSelection(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards.Select(x => x.Id), 0, 1);
             }
             else
             {
