@@ -256,8 +256,8 @@ namespace DuelMastersModels.Steps
 
         protected Step(Step step)
         {
-            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<NonStaticAbility>().ToList();
-            ResolvingAbility = step.ResolvingAbility?.Copy() as NonStaticAbility;
+            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
+            ResolvingAbility = step.ResolvingAbility?.Copy() as ResolvableAbility;
             State = step.State;
             UsedCards = step.UsedCards.ToList();
             _shieldTriggerUser = step._shieldTriggerUser;
@@ -268,8 +268,8 @@ namespace DuelMastersModels.Steps
 
         public List<Guid> UsedCards { get; } = new List<Guid>();
         internal StepState State { get; set; } = StepState.TurnBasedAction;
-        internal NonStaticAbility ResolvingAbility { get; set; }
-        public List<NonStaticAbility> PendingAbilities { get; internal set; } = new List<NonStaticAbility>();
+        internal ResolvableAbility ResolvingAbility { get; set; }
+        public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
         private Guid _shieldTriggerUser;
         private bool _spellAbilitiesRetrieved = false;
 

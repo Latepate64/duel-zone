@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
-    <Compile Include="Abilities\NonStaticAbility.cs" />
+    <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\AttacksIfAbleAbility.cs" />
     <Compile Include="Abilities\Static\Blocker.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Abilities
 {
-    public abstract class SpellAbility : NonStaticAbility
+    public abstract class SpellAbility : ResolvableAbility
     {
         protected SpellAbility() : base()
         { }
