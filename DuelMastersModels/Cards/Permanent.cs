@@ -26,6 +26,11 @@ namespace DuelMastersModels.Cards
         {
             Card = card;
             Controller = card.Owner;
+
+            foreach (var x in card.Abilities)
+            {
+                x.SourcePermanent = Id;
+            }
         }
 
         public Permanent(Permanent permanent) : base(permanent)

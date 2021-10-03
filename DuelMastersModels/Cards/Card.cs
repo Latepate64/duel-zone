@@ -55,18 +55,8 @@ namespace DuelMastersModels.Cards
 
         public IEnumerable<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
-        //public new Guid Id => PermanentId != Guid.Empty ? PermanentId : _id;
-
-        //private Guid _id;
-
-        ///// <summary>
-        ///// Use this instead of Id when checking information for a card in the battle zone. (eg. do continuous effects apply to it, what it has done after it entered the battle zone etc.)
-        ///// </summary>
-        //internal Guid PermanentId { get; set; }
-
         public Card()
         {
-            //_id = Guid.NewGuid();
         }
 
         protected Card(Card card) : base(card)
@@ -83,8 +73,6 @@ namespace DuelMastersModels.Cards
             ShieldTriggerPending = card.ShieldTriggerPending;
             Subtypes = card.Subtypes?.ToList();
             Tapped = card.Tapped;
-            //PermanentId = card.PermanentId;
-            //_id = card._id;
         }
 
         public virtual Card Copy()

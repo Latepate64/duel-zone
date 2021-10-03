@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Choices;
+using DuelMastersModels.Effects.Periods;
 using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels.Steps
@@ -26,6 +27,7 @@ namespace DuelMastersModels.Steps
 
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
+            _ = duel.ContinuousEffects.RemoveAll(x => x.Period is UntilTheEndOfTheTurn);
             duel.Trigger(new TurnEndsEvent(duel.CurrentTurn.Id));
             return null;
         }

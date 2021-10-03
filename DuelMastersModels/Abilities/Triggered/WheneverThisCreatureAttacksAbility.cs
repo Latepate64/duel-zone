@@ -14,7 +14,7 @@ namespace DuelMastersModels.Abilities.Triggered
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return gameEvent is CreatureAttackedEvent e && e.Attacker == Source;
+            return gameEvent is CreatureAttackedEvent e && e.Attacker == SourcePermanent;
         }
     }
 }

@@ -129,7 +129,7 @@ namespace DuelMastersModels
         internal void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
-            BattleZone.Add(new Permanent(card), duel);
+            BattleZone.Add(card, duel);
         }
 
         internal void PutFromManaZoneToHand(Card card, Duel duel)

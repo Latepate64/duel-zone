@@ -34,8 +34,9 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public void Add(Permanent permanent, Duel duel)
+        public void Add(Card card, Duel duel)
         {
+            var permanent = new Permanent(card);
             permanent.Card.RevealedTo = duel.Players.Select(x => x.Id);
             Permanents.Add(permanent);
             duel.Trigger(new CardChangedZoneEvent(permanent.Card.Id, ZoneType.Anywhere, ZoneType.BattleZone));
@@ -46,6 +47,10 @@ namespace DuelMastersModels.Zones
             if (!Permanents.Remove(permanent))
             {
                 throw new NotSupportedException(permanent.ToString());
+            }
+            foreach (var x in permanent.Card.Abilities)
+            {
+                x.SourcePermanent = Guid.Empty;
             }
         }
 

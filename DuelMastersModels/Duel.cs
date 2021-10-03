@@ -8,6 +8,7 @@ using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Effects.Periods;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
+using DuelMastersModels.Effects.ContinuousEffects;
 
 namespace DuelMastersModels
 {
@@ -43,6 +44,8 @@ namespace DuelMastersModels
         /// All the turns of the duel that have been or are processed, in order.
         /// </summary>
         public IList<Turn> Turns { get; } = new List<Turn>();
+
+        public List<ContinuousEffect> ContinuousEffects { get; } = new List<ContinuousEffect>();
 
         /// <summary>
         /// Starts the duel.
@@ -119,8 +122,8 @@ namespace DuelMastersModels
         {
             var attackingCreature = GetPermanent(attackingCreatureId);
             var defendingCreature = GetPermanent(defendingCreatureId);
-            int attackingCreaturePower = attackingCreature.Card.Power.Value;
-            int defendingCreaturePower = defendingCreature.Card.Power.Value;
+            int attackingCreaturePower = GetPower(attackingCreature);
+            int defendingCreaturePower = GetPower(defendingCreature);
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
@@ -143,7 +146,7 @@ namespace DuelMastersModels
             if (card.CardType == CardType.Creature)
             {
                 player.Hand.Remove(card);
-                player.BattleZone.Add(new Permanent(card), this);
+                player.BattleZone.Add(card, this);
             }
             else if (card.CardType == CardType.Spell)
             {
@@ -198,32 +201,6 @@ namespace DuelMastersModels
             return false;
         }
 
-        //private bool HasShieldTrigger(Creature creature)
-        //{
-        //    return _continuousEffectManager.HasShieldTrigger(creature);
-        //}
-
-        //private bool HasShieldTrigger(Spell spell)
-        //{
-        //    return _continuousEffectManager.HasShieldTrigger(spell);
-        //}
-
-        //private bool HasShieldTrigger(Card card)
-        //{
-        //    if (card is Creature creature)
-        //    {
-        //        return HasShieldTrigger(creature);
-        //    }
-        //    else if (card is Spell spell)
-        //    {
-        //        return HasShieldTrigger(spell);
-        //    }
-        //    else
-        //    {
-        //        throw new InvalidOperationException();
-        //    }
-        //}
-
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
         {
             if (civilizationGroups.Count > 0)
@@ -273,6 +250,7 @@ namespace DuelMastersModels
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
+            ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
         }
 
         internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
@@ -361,6 +339,11 @@ namespace DuelMastersModels
             return abilities;
         }
 
+        public int GetPower(Permanent permanent)
+        {
+            return permanent.Card.Power.Value + ContinuousEffects.OfType<PowerModifyingEffect>().Where(x => x.Target == permanent.Id).Sum(x => x.Power);
+        }
+
         public override string ToString()
         {
             return $"{CurrentTurn} {GameOverInformation}";
@@ -400,6 +383,11 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 Turns.Clear();
+                foreach (var x in ContinuousEffects)
+                {
+                    x.Dispose();
+                }
+                ContinuousEffects.Clear();
             }
         }
     }

@@ -12,6 +12,8 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         public Guid Source { get; set; }
 
+        public Guid SourcePermanent { get; set; }
+
         /// <summary>
         /// The controller of a triggered ability on the stack (other than a delayed triggered ability) is the player who controlled the ability’s source when it triggered, or, if it had no controller, the player who owned the ability’s source when it triggered.
         /// </summary>
@@ -24,6 +26,7 @@ namespace DuelMastersModels.Abilities
         protected Ability(Ability ability)
         {
             Source = ability.Source;
+            SourcePermanent = ability.SourcePermanent;
             Controller = ability.Controller;
         }
 

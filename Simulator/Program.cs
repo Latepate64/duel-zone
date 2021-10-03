@@ -14,7 +14,7 @@ namespace Simulator
 {
     class Program
     {
-        const int ChoicesMax = 16;
+        const int ChoicesMax = 14;
         static Guid _simulator;
 
         static void Main(string[] args)

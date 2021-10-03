@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
-using System;
+using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.Effects.Periods;
 
 namespace DuelMastersModels.Abilities.Triggered
 {
@@ -20,8 +21,8 @@ namespace DuelMastersModels.Abilities.Triggered
 
         public override Choice Resolve(Duel duel, Decision decision)
         {
-            // This creature gets +3000 power until the end of the turn.
-            throw new NotImplementedException();
+            duel.ContinuousEffects.Add(new PowerModifyingEffect(new UntilTheEndOfTheTurn(), 3000, Source));
+            return null;
         }
     }
 }
