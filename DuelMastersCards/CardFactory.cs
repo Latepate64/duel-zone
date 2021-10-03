@@ -8,7 +8,12 @@ namespace DuelMastersCards
 {
     public static class CardFactory
     {
-        static readonly public Dictionary<string, Func<Card>> Cards = new()
+        static public Card Create(string name)
+        {
+            return _cards[name].Invoke();
+        }
+
+        static readonly private Dictionary<string, Func<Card>> _cards = new()
         {
             { AquaHulcus, () => CreateAquaHulcus() },
             { AquaSurfer, () => CreateAquaSurfer() },

@@ -149,7 +149,7 @@ namespace Simulator
 
         static Card CreateCard(string name, Guid player)
         {
-            var card = CardFactory.Cards[name].Invoke();
+            var card = CardFactory.Create(name);
             card.Owner = player;
             return card;
         }
