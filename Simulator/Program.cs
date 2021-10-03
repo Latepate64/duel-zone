@@ -8,72 +8,78 @@ using System.Linq;
 
 namespace Simulator
 {
+    public class PlayerInfo
+    {
+        public Dictionary<string, Tuple<int, int>> UsedCards { get; set; } = new();
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+    }
+
     class Program
     {
-        const int ChoicesMax = 14;
+        const int ChoicesMax = 16;
         static Guid _simulator;
 
         static void Main(string[] args)
         {
-            Dictionary<string, Tuple<int, int>> p1usedCards = new();
-            Dictionary<string, Tuple<int, int>> p2usedCards = new();
-
-            int p1Wins = 0;
-            int p2Wins = 0;
+            Dictionary<string, PlayerInfo> playerInfos = new()
+            {
+                { "Shobu", new PlayerInfo() },
+                { "Kokujo", new PlayerInfo() }
+            };
             for (int i = 0; i < 999999; ++i)
             {
-                using Player player1 = new() { Name = "Shobu" }, player2 = new() { Name = "Kokujo" };
+                using Player player1 = new() { Name = playerInfos.First().Key }, player2 = new() { Name = playerInfos.Last().Key };
                 using Deck deck1 = new(GetBombaBlue(player1.Id)), deck2 = new(GetFNRush(player2.Id));
                 player1.Deck = deck1;
                 player2.Deck = deck2;
                 using var duel = PlayDuel(player1, player2);
-                Console.WriteLine($"{duel}");
-                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards).Distinct().Select(x => duel.GetCard(x));
-                var p1used = usedCards.Where(x => duel.GetOwner(x) == player1).Select(x => x.Name).Distinct();
-                var p2used = usedCards.Where(x => duel.GetOwner(x) == player2).Select(x => x.Name).Distinct();
-
-                if (duel.GameOverInformation.Winners.Contains(player1.Id))
-                {
-                    ++p1Wins;
-                    foreach (string cardName in p1used)
-                    {
-                        Foo(p1usedCards, cardName, true);
-                    }
-                    foreach (string cardName in p2used)
-                    {
-                        Foo(p2usedCards, cardName, false);
-                    }
-
-                }
-                if (duel.GameOverInformation.Winners.Contains(player2.Id))
-                {
-                    ++p2Wins;
-                    foreach (string cardName in p2used)
-                    {
-                        Foo(p2usedCards, cardName, true);
-                    }
-                    foreach (string cardName in p1used)
-                    {
-                        Foo(p1usedCards, cardName, false);
-                    }
-                }
-                Console.WriteLine($"{player1.Name} wins: {p1Wins} - {player2.Name} wins: {p2Wins} - {player1.Name} winrate: {GetWinrate(p1Wins, p2Wins)}");
-                PrintCardStatistics(p1usedCards);
-                Console.WriteLine("");
-                PrintCardStatistics(p2usedCards);
-                Console.WriteLine("----------------------------------------------");
+                PrintStatistics(playerInfos, player1, player2, duel);
             }
         }
 
-        static double GetWinrate(int wins, int loses)
+        private static void UpdateUsedCards(Player player, Player opponent, Duel duel, Dictionary<string, PlayerInfo> playerInfos)
         {
-            return Math.Round((double)wins / (wins + loses), 2);
+            if (duel.GameOverInformation.Winners.Contains(player.Id))
+            {
+                ++playerInfos[player.Name].Wins;
+                ++playerInfos[opponent.Name].Losses;
+                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards).Distinct().Select(x => duel.GetCard(x));
+                foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == player).Select(x => x.Name).Distinct())
+                {
+                    UpdateUsedCards(playerInfos[player.Name].UsedCards, cardName, true);
+                }
+                foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == opponent).Select(x => x.Name).Distinct())
+                {
+                    UpdateUsedCards(playerInfos[opponent.Name].UsedCards, cardName, false);
+                }
+            }
         }
 
-        static double GetCardPoints(double wins, double loses)
+        private static void PrintStatistics(Dictionary<string, PlayerInfo> playerInfos, Player player1, Player player2, Duel duel)
         {
-            var rate = wins / (wins + loses);
-            var fo = rate - (rate - 0.5) * Math.Pow(2, -1 * Math.Log10(wins + loses + 1));
+            Console.WriteLine(duel);
+            Console.WriteLine("");
+            UpdateUsedCards(player1, player2, duel, playerInfos);
+            UpdateUsedCards(player2, player1, duel, playerInfos);
+            foreach (var info in playerInfos)
+            {
+                Console.WriteLine($"{info.Key} wins: {info.Value.Wins} losses: {info.Value.Losses} winrate: {GetWinrate(info.Value.Wins, info.Value.Losses)}");
+                PrintCardStatistics(info.Value.UsedCards);
+                Console.WriteLine("");
+            }
+            Console.WriteLine("----------------------------------------------");
+        }
+
+        static double GetWinrate(int wins, int losses)
+        {
+            return Math.Round((double)wins / (wins + losses), 2);
+        }
+
+        static double GetCardPoints(double wins, double losses)
+        {
+            var rate = wins / (wins + losses);
+            var fo = rate - (rate - 0.5) * Math.Pow(2, -1 * Math.Log10(wins + losses + 1));
             return Math.Round(fo, 2);
         }
 
@@ -85,7 +91,7 @@ namespace Simulator
             }
         }
 
-        static void Foo(Dictionary<string, Tuple<int, int>> usedCards, string cardName, bool win)
+        static void UpdateUsedCards(Dictionary<string, Tuple<int, int>> usedCards, string cardName, bool win)
         {
             if (usedCards.ContainsKey(cardName))
             {
@@ -191,33 +197,39 @@ namespace Simulator
 
         static int GetPoints(Duel duel, int numberOfChoicesMade)
         {
-            const int GameOverPoints = 9999999;
-            var points = 0;
             var player = duel.GetPlayer(_simulator);
             var opponent = duel.GetOpponent(player);
-            if (duel.GameOverInformation != null)
-            {
-                if (duel.GameOverInformation.Losers.Contains(opponent.Id))
-                {
-                    points += GameOverPoints;
-                }
-                if (duel.GameOverInformation.Losers.Contains(player.Id))
-                {
-                    points -= GameOverPoints;
-                }
-            }
-            points += 10 * (player.BattleZone.Cards.Sum(x => GetValue(x)) - opponent.BattleZone.Cards.Sum(x => GetValue(x)));
-            points += 5 * (player.ShieldZone.Cards.Sum(x => GetValue(x)) - opponent.ShieldZone.Cards.Sum(x => GetValue(x)));
+            var points = GetPointsForGameOver(duel, player, opponent, numberOfChoicesMade);
+            points += 10 * (GetPoints(player.BattleZone.Cards) - GetPoints(opponent.BattleZone.Cards));
+            points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
             var manaMultiplier = 2;
             var handMultiplier = 1;
-            if (player.ManaZone.Cards.Sum(x => GetValue(x)) > player.Hand.Cards.Sum(x => GetValue(x)))
+            if (GetPoints(player.ManaZone.Cards) > GetPoints(player.Hand.Cards))
             {
                 manaMultiplier = 1;
                 handMultiplier = 2;
             }
-            points += manaMultiplier * (player.ManaZone.Cards.Sum(x => GetValue(x)) - opponent.ManaZone.Cards.Sum(x => GetValue(x)));
-            points += handMultiplier * (player.Hand.Cards.Sum(x => GetValue(x)) - opponent.Hand.Cards.Sum(x => GetValue(x)));
+            points += manaMultiplier * (GetPoints(player.ManaZone.Cards) - GetPoints(opponent.ManaZone.Cards));
+            points += handMultiplier * (GetPoints(player.Hand.Cards) - GetPoints(opponent.Hand.Cards));
             return points;
+        }
+
+        static int GetPointsForGameOver(Duel duel, Player player, Player opponent, int numberOfChoicesMade)
+        {
+            const int GameOverPoints = 9999999;
+            if (duel.GameOverInformation != null)
+            {
+                return (duel.GameOverInformation.Losers.Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        static int GetPoints(IEnumerable<Card> cards)
+        {
+            return cards.Sum(x => GetValue(x));
         }
 
         static int GetValue(Card card)
@@ -235,83 +247,100 @@ namespace Simulator
             }
             else if (choice is Selection<Guid> selection)
             {
-                if (selection.MaximumSelection != 1)
-                {
-                    throw new NotImplementedException();
-                }
-                var options = selection.Options.Select(x => new List<Guid> { x }).ToList();
-                if (selection.MinimumSelection == 0)
-                {
-                    options.Add(new List<Guid>());
-                }
-                foreach (var option in options)
-                {
-                    var newDecision = new GuidDecision(option);
-                    using var duelCopy = new Duel(duel);
-                    var newChoice = duelCopy.Continue(newDecision);
-                    decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), newDecision, ++numberOfChoicesMade).Item2));
-                }
+                ChooseGuid(duel, optionsRemaining, numberOfChoicesMade, decisions, selection);
             }
             else if (choice is CardUsageChoice usage)
             {
-                //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
-                //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
-                var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, duel, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
-                options.Add(null);
-                foreach (var option in options)
-                {
-                    var currentChoice = new CardUsageDecision(option);
-                    using var duelCopy = new Duel(duel);
-                    var newChoice = duelCopy.Continue(currentChoice);
-                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
-                }
+                ChooseCardToUse(duel, optionsRemaining, numberOfChoicesMade, decisions, usage);
             }
             else if (choice is AttackerChoice attackerChoice)
             {
-                var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
-                if (!attackerChoice.MustAttack)
-                {
-                    options.Add(null);
-                }
-                foreach (var option in options)
-                {
-                    var currentChoice = new AttackerDecision(option);
-                    using var duelCopy = new Duel(duel);
-                    var newChoice = duelCopy.Continue(currentChoice);
-                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
-                }
+                ChooseAttacker(duel, optionsRemaining, numberOfChoicesMade, decisions, attackerChoice);
             }
             else if (choice is YesNoChoice yesNo)
             {
-                var options = new List<bool> { true, false };
-                foreach (var option in options)
-                {
-                    var currentChoice = new YesNoDecision(option);
-                    using var duelCopy = new Duel(duel);
-                    var newChoice = duelCopy.Continue(currentChoice);
-                    decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, ++numberOfChoicesMade).Item2));
-                }
+                ChooseYesOrNo(duel, optionsRemaining, numberOfChoicesMade, decisions);
             }
             else
             {
                 throw new ArgumentOutOfRangeException(choice.ToString());
             }
+            return Choose(choice, decisions);
+        }
+
+        private static Tuple<Decision, int> Choose(Choice choice, List<Tuple<Decision, int>> decisions)
+        {
             var ordered = decisions.OrderBy(x => x.Item2);
-            Tuple<Decision, int> result;
-            if (_simulator == choice.Player)
-            {
-                result = ordered.Last();
-            }
-            else
-            {
-                result = ordered.First();
-            }
-            var other = ordered.Where(x => x != result);
-            foreach (var dec in other)
+            Tuple<Decision, int> result = _simulator == choice.Player ? ordered.Last() : ordered.First();
+            foreach (var dec in ordered.Where(x => x != result))
             {
                 dec.Item1.Dispose();
             }
+
             return result;
+        }
+
+        private static void ChooseYesOrNo(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions)
+        {
+            var options = new List<bool> { true, false };
+            foreach (var option in options)
+            {
+                var currentChoice = new YesNoDecision(option);
+                using var duelCopy = new Duel(duel);
+                var newChoice = duelCopy.Continue(currentChoice);
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
+            }
+        }
+
+        private static void ChooseAttacker(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
+        {
+            var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
+            if (!attackerChoice.MustAttack)
+            {
+                options.Add(null);
+            }
+            foreach (var option in options)
+            {
+                var currentChoice = new AttackerDecision(option);
+                using var duelCopy = new Duel(duel);
+                var newChoice = duelCopy.Continue(currentChoice);
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
+            }
+        }
+
+        private static void ChooseCardToUse(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
+        {
+            //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
+            //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
+            var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, duel, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
+            options.Add(null);
+            foreach (var option in options)
+            {
+                var currentChoice = new CardUsageDecision(option);
+                using var duelCopy = new Duel(duel);
+                var newChoice = duelCopy.Continue(currentChoice);
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
+            }
+        }
+
+        private static void ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, Selection<Guid> selection)
+        {
+            if (selection.MaximumSelection != 1)
+            {
+                throw new NotImplementedException();
+            }
+            var options = selection.Options.Select(x => new List<Guid> { x }).ToList();
+            if (selection.MinimumSelection == 0)
+            {
+                options.Add(new List<Guid>());
+            }
+            foreach (var option in options)
+            {
+                var newDecision = new GuidDecision(option);
+                using var duelCopy = new Duel(duel);
+                var newChoice = duelCopy.Continue(newDecision);
+                decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), newDecision, numberOfChoicesMade + 1).Item2));
+            }
         }
 
         static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Duel duel, Guid playerId)

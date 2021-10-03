@@ -26,11 +26,9 @@ namespace DuelMastersCards.TriggeredAbilities
             // You may choose a creature in the battle zone and return it to its owner's hand.
             if (decision == null)
             {
-                var controller = duel.GetPlayer(Controller);
-                var opponent = duel.GetOpponent(controller);
-                if (opponent.BattleZone.Creatures.Any())
+                if (duel.CreaturePermanents.Any())
                 {
-                    return new Selection<Guid>(Controller, opponent.BattleZone.Creatures.Select(x => x.Id), 0, 1);
+                    return new Selection<Guid>(Controller, duel.CreaturePermanents.Select(x => x.Id), 0, 1);
                 }
                 else
                 {
