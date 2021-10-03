@@ -5,6 +5,8 @@ using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Simulator
 {
@@ -24,13 +26,13 @@ namespace Simulator
         {
             Dictionary<string, PlayerInfo> playerInfos = new()
             {
-                { "Shobu", new PlayerInfo() },
-                { "Kokujo", new PlayerInfo() }
+                { args[0], new PlayerInfo() },
+                { args[2], new PlayerInfo() }
             };
             for (int i = 0; i < 999999; ++i)
             {
                 using Player player1 = new() { Name = playerInfos.First().Key }, player2 = new() { Name = playerInfos.Last().Key };
-                using Deck deck1 = new(GetBombaBlue(player1.Id)), deck2 = new(GetFNRush(player2.Id));
+                using Deck deck1 = new(GetCards(player1.Id, args[1])), deck2 = new(GetCards(player2.Id, args[3]));
                 player1.Deck = deck1;
                 player2.Deck = deck2;
                 using var duel = PlayDuel(player1, player2);
@@ -145,25 +147,6 @@ namespace Simulator
             return duelCopy;
         }
 
-        static List<Card> GetBombaBlue(Guid player) 
-        {
-            List<Card> deck = new();
-            for (int i = 0; i < 4; ++i)
-            {
-                deck.Add(CreateCard(CardFactory.AquaHulcus, player));
-                deck.Add(CreateCard(CardFactory.AquaSurfer, player));
-                deck.Add(CreateCard(CardFactory.BombazarDragonOfDestiny, player));
-                deck.Add(CreateCard(CardFactory.BronzeArmTribe, player));
-                deck.Add(CreateCard(CardFactory.Emeral, player));
-                deck.Add(CreateCard(CardFactory.GontaTheWarriorSavage, player));
-                deck.Add(CreateCard(CardFactory.PyrofighterMagnus, player));
-                deck.Add(CreateCard(CardFactory.Soulswap, player));
-                deck.Add(CreateCard(CardFactory.TwinCannonSkyterror, player));
-                deck.Add(CreateCard(CardFactory.WindAxeTheWarriorSavage, player));
-            }
-            return deck;
-        }
-
         static Card CreateCard(string name, Guid player)
         {
             var card = CardFactory.Cards[name].Invoke();
@@ -171,28 +154,18 @@ namespace Simulator
             return card;
         }
 
-        static List<Card> GetFNRush(Guid player)
+        static List<Card> GetCards(Guid player, string path)
         {
-            List<Card> deck = new();
-            while (deck.Count < 40)
+            List<Card> cards = new();
+            using var reader = XmlReader.Create(path);
+            foreach (var card in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
             {
-                deck.Add(CreateCard(CardFactory.DeadlyFighterBraidClaw, player));
-                deck.Add(CreateCard(CardFactory.KamikazeChainsawWarrior, player));
-                deck.Add(CreateCard(CardFactory.PyrofighterMagnus, player));
-                deck.Add(CreateCard(CardFactory.RikabuTheDismantler, player));
-                deck.Add(CreateCard(CardFactory.HeartyCapnPolligon, player));
-                deck.Add(CreateCard(CardFactory.QuixoticHeroSwineSnout, player));
-                deck.Add(CreateCard(CardFactory.SniperMosquito, player));
-                deck.Add(CreateCard(CardFactory.Torcon, player));
-                deck.Add(CreateCard(CardFactory.GontaTheWarriorSavage, player));
-
-                deck.Add(CreateCard(CardFactory.BurningMane, player));
-                deck.Add(CreateCard(CardFactory.FearFang, player));
-                deck.Add(CreateCard(CardFactory.TriHornShepherd, player));
-                deck.Add(CreateCard(CardFactory.ImmortalBaronVorg, player));
-                deck.Add(CreateCard(CardFactory.ExplosiveDudeJoe, player));
+                for (int i = 0; i < card.Quantity; ++i)
+                {
+                    cards.Add(CreateCard(card.Name, player));
+                }
             }
-            return deck;
+            return cards;
         }
 
         static int GetPoints(Duel duel, int numberOfChoicesMade)
