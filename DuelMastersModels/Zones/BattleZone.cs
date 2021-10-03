@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.GameEvents;
+﻿using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;

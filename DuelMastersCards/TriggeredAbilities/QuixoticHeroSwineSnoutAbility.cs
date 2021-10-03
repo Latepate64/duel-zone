@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Effects.Periods;
+using DuelMastersModels.Effects.Durations;
 
 namespace DuelMastersCards.TriggeredAbilities
 {

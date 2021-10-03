@@ -1,6 +1,7 @@
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using DuelMastersModels.Effects.Durations;
 using System;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace DuelMastersCards.TriggeredAbilities
             Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = duel.GetOpponent(Controller) };
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new DuelMastersModels.Effects.Periods.Once(), Source, Controller));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new Once(), Source, Controller));
             return null;
         }
 

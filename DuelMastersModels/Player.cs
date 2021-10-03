@@ -1,6 +1,5 @@
 ﻿
 using Combinatorics.Collections;
-using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;

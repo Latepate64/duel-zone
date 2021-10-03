@@ -1,13 +1,14 @@
-﻿using System;
+﻿using DuelMastersModels.Effects.Durations;
+using System;
 
 namespace DuelMastersModels.Abilities
 {
     public class DelayedTriggeredAbility : IDisposable
     {
         internal TriggeredAbility TriggeredAbility { get; private set; }
-        internal Effects.Periods.Period Period { get; private set; }
+        internal Duration Period { get; private set; }
 
-        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Effects.Periods.Period period, Guid source, Guid controller)
+        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration period, Guid source, Guid controller)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;

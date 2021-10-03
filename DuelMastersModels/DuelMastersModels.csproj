@@ -91,8 +91,8 @@
     <Compile Include="Abilities\Static\ThisCreatureCannotAttackPlayers.cs" />
     <Compile Include="Abilities\DelayedTriggeredAbility.cs" />
     <Compile Include="Abilities\TriggeredAbility.cs" />
-    <Compile Include="Cards\Card.cs" />
-    <Compile Include="Cards\Permanent.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Permanent.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="Choices\GameOver.cs" />
@@ -105,11 +105,9 @@
     <Compile Include="Duel.cs" />
     <Compile Include="Effects\ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
-    <Compile Include="Effects\OneShotEffects\OneShotEffect.cs" />
-    <Compile Include="Effects\Periods\Indefinite.cs" />
-    <Compile Include="Effects\Periods\Period.cs" />
-    <Compile Include="Effects\Periods\UntilTheEndOfTheTurn.cs" />
-    <Compile Include="Managers\ShieldTriggerManager.cs" />
+    <Compile Include="Effects\Durations\Indefinite.cs" />
+    <Compile Include="Effects\Durations\Duration.cs" />
+    <Compile Include="Effects\Durations\UntilTheEndOfTheTurn.cs" />
     <Compile Include="Choices\Selection.cs" />
     <Compile Include="Choices\Choice.cs" />
     <Compile Include="Choices\YesNoChoice.cs" />

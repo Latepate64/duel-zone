@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Cards;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 

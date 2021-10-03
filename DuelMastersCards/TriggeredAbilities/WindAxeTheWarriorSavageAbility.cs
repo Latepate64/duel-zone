@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;

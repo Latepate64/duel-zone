@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using System;

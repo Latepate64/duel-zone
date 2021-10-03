@@ -1,13 +1,12 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using DuelMastersModels.Effects.ContinuousEffects;
+using DuelMastersModels.Effects.Durations;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DuelMastersModels.Effects.Periods;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.GameEvents;
-using DuelMastersModels.Effects.ContinuousEffects;
 
 namespace DuelMastersModels
 {

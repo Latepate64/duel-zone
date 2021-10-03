@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Cards;
-using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Choices;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
