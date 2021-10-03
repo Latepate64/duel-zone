@@ -105,7 +105,7 @@ namespace DuelMastersModels
             Graveyard.Add(permanent.Card, duel);
         }
 
-        internal void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
+        public void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             ManaZone.Add(permanent.Card, duel);
@@ -120,19 +120,19 @@ namespace DuelMastersModels
             ManaZone.Add(card, duel);
         }
 
-        internal void PutFromHandIntoShieldZone(Card card, Duel duel)
+        public void PutFromHandIntoShieldZone(Card card, Duel duel)
         {
             Hand.Remove(card);
             ShieldZone.Add(card, duel);
         }
 
-        internal void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
+        public void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
             BattleZone.Add(card, duel);
         }
 
-        internal void PutFromManaZoneToHand(Card card, Duel duel)
+        public void PutFromManaZoneToHand(Card card, Duel duel)
         {
             ManaZone.Remove(card);
             Hand.Add(card, duel);
@@ -259,12 +259,12 @@ namespace DuelMastersModels
             return Id.ToString();
         }
 
-        internal void PutFromTopOfDeckIntoManaZone(Duel duel)
+        public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             ManaZone.Add(RemoveTopCardOfDeck(), duel);
         }
 
-        internal void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
+        public void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             Hand.Add(permanent.Card, duel);

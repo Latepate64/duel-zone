@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Effects.Periods;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
@@ -14,7 +13,7 @@ namespace DuelMastersModels
 {
     public class Duel : IDisposable
     {
-        public GameOver GameOverInformation { get; internal set; }
+        public GameOver GameOverInformation { get; set; }
 
         public ICollection<Player> Players { get; } = new Collection<Player>();
 
@@ -227,7 +226,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Destroy(IEnumerable<Permanent> permanents)
+        public void Destroy(IEnumerable<Permanent> permanents)
         {
             while (permanents.Any())
             {
@@ -253,9 +252,9 @@ namespace DuelMastersModels
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
         }
 
-        internal Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
+        public Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
-        internal List<DelayedTriggeredAbility> DelayedTriggeredAbilities = new List<DelayedTriggeredAbility>();
+        public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
 
         public Player GetOpponent(Player player)
         {
@@ -371,7 +370,11 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 Players.Clear();
-                DelayedTriggeredAbilities = null;
+                foreach (var x in DelayedTriggeredAbilities)
+                {
+                    x.Dispose();
+                }
+                DelayedTriggeredAbilities.Clear();
                 ResolvingSpellAbilities = null;
                 foreach (var x in ResolvingSpells)
                 {

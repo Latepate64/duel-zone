@@ -1,14 +1,15 @@
-﻿using DuelMastersModels.Abilities;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Triggered;
+using DuelMastersModels.Cards;
 using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public WindAxeTheWarriorSavageAbility() : base()
         {

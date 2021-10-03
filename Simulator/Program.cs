@@ -1,9 +1,6 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersCards;
+using DuelMastersModels;
 using DuelMastersModels.Cards;
-using DuelMastersModels.Cards.Creatures;
-using DuelMastersModels.Cards.Spells;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;

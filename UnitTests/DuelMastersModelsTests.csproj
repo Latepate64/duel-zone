@@ -78,6 +78,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DuelMastersCards\DuelMastersCards.csproj">
+      <Project>{bef64ff4-4652-44c7-8850-e5f3f1f835a3}</Project>
+      <Name>DuelMastersCards</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DuelMastersModels\DuelMastersModels.csproj">
       <Project>{8959a481-6d73-445e-b137-f1837d674d39}</Project>
       <Name>DuelMastersModels</Name>

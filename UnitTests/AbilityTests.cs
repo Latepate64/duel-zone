@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
+﻿using DuelMastersCards;
+using DuelMastersModels;
 using DuelMastersModels.Cards;
-using DuelMastersModels.Cards.Creatures;
 using DuelMastersModels.Zones;
 using Xunit;
 
@@ -25,6 +25,6 @@ namespace UnitTests
             _ = ability.Resolve(duel, null);
             Assert.Empty(player.BattleZone.Permanents);
             Assert.Contains(card, player.Hand.Cards);
+            //}
         }
-    }
 }

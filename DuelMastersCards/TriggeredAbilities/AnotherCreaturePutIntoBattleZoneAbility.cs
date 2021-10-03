@@ -1,8 +1,9 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels;
+using DuelMastersModels.Cards;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersCards.TriggeredAbilities
 {
     public abstract class AnotherCreaturePutIntoBattleZoneAbility : CardChangesZoneAbility
     {
@@ -10,7 +11,7 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        protected AnotherCreaturePutIntoBattleZoneAbility(TriggeredAbility ability) : base(ability)
+        protected AnotherCreaturePutIntoBattleZoneAbility(AnotherCreaturePutIntoBattleZoneAbility ability) : base(ability)
         {
         }
 

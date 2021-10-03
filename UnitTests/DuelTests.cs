@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
+﻿using DuelMastersCards.TriggeredAbilities;
+using DuelMastersModels;
 using DuelMastersModels.Cards;
-using DuelMastersModels.Cards.Creatures;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Steps;
 using Moq;

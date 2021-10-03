@@ -21,7 +21,7 @@ namespace DuelMastersModels.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        internal Selection(Guid player, IEnumerable<T> options, int minimumSelection = 0, int maximumSelection = 1) : base(player)
+        public Selection(Guid player, IEnumerable<T> options, int minimumSelection, int maximumSelection) : base(player)
         {
             Options = options;
             MinimumSelection = minimumSelection;

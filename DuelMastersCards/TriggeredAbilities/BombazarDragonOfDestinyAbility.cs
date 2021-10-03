@@ -1,16 +1,16 @@
+using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public BombazarDragonOfDestinyAbility() : base() { }
 
-        public BombazarDragonOfDestinyAbility(TriggeredAbility ability) : base(ability)
+        public BombazarDragonOfDestinyAbility(BombazarDragonOfDestinyAbility ability) : base(ability)
         {
         }
 
@@ -22,7 +22,7 @@ namespace DuelMastersModels.Cards.Creatures
             Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = duel.GetOpponent(Controller) };
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new Effects.Periods.Once(), Source, Controller));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new DuelMastersModels.Effects.Periods.Once(), Source, Controller));
             return null;
         }
 
@@ -32,7 +32,7 @@ namespace DuelMastersModels.Cards.Creatures
         }
     }
 
-    internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : AtTheEndOfTurn
+    internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : AtTheEndOfTurnAbility
     {
         internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Guid turn) : base(turn)
         {

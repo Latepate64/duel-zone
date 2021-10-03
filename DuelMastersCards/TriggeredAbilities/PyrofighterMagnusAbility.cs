@@ -1,16 +1,16 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class PyrofighterMagnusAbility : AtTheEndOfYourTurn
+    public class PyrofighterMagnusAbility : AtTheEndOfYourTurnAbility
     {
-        public PyrofighterMagnusAbility(TriggeredAbility ability) : base(ability)
+        public PyrofighterMagnusAbility() : base()
         {
         }
 
-        public PyrofighterMagnusAbility() : base()
+        public PyrofighterMagnusAbility(PyrofighterMagnusAbility ability) : base(ability)
         {
         }
 

@@ -1,16 +1,16 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class BronzeArmTribeAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class BronzeArmTribeAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
-        public BronzeArmTribeAbility(TriggeredAbility ability) : base(ability)
+        public BronzeArmTribeAbility() : base()
         {
         }
 
-        public BronzeArmTribeAbility() : base()
+        public BronzeArmTribeAbility(BronzeArmTribeAbility ability) : base(ability)
         {
         }
 

@@ -1,9 +1,10 @@
-﻿using DuelMastersModels.Abilities;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Spells
+namespace DuelMastersCards.TriggeredAbilities
 {
     public class SoulswapAbility : SpellAbility
     {
@@ -28,7 +29,7 @@ namespace DuelMastersModels.Cards.Spells
             {
                 if (duel.CreaturePermanents.Any())
                 {
-                    return new Selection<Guid>(Controller, duel.CreaturePermanents.Select(x => x.Id));
+                    return new Selection<Guid>(Controller, duel.CreaturePermanents.Select(x => x.Id), 0, 1);
                 }
                 else
                 {

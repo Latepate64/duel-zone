@@ -1,8 +1,10 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Effects.Periods;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersCards.TriggeredAbilities
 {
     public class QuixoticHeroSwineSnoutAbility : AnotherCreaturePutIntoBattleZoneAbility
     {
@@ -10,7 +12,7 @@ namespace DuelMastersModels.Abilities.Triggered
         {
         }
 
-        public QuixoticHeroSwineSnoutAbility(TriggeredAbility ability) : base(ability)
+        public QuixoticHeroSwineSnoutAbility(QuixoticHeroSwineSnoutAbility ability) : base(ability)
         {
         }
 

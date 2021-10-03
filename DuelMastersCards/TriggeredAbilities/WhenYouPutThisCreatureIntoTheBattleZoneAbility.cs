@@ -1,16 +1,17 @@
-﻿using DuelMastersModels.Cards;
+﻿using DuelMastersModels;
+using DuelMastersModels.Cards;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public abstract class WhenYouPutThisCreatureIntoTheBattleZone : CardChangesZoneAbility
+    public abstract class WhenYouPutThisCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
     {
-        protected WhenYouPutThisCreatureIntoTheBattleZone()
+        protected WhenYouPutThisCreatureIntoTheBattleZoneAbility()
         {
         }
 
-        protected WhenYouPutThisCreatureIntoTheBattleZone(TriggeredAbility ability) : base(ability)
+        protected WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
         {
         }
 

@@ -8,7 +8,7 @@ namespace DuelMastersModels.Steps
 {
     public class DirectAttackStep : TurnBasedActionStep
     {
-        internal Guid AttackingCreature { get; private set; }
+        public Guid AttackingCreature { get; private set; }
 
         public DirectAttackStep(Guid attackingCreature)
         {

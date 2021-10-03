@@ -1,10 +1,10 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class AquaHulcusAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class AquaHulcusAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public AquaHulcusAbility() : base() { }
 

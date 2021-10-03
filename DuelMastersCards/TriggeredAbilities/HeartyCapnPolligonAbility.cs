@@ -1,17 +1,19 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Steps;
 using System.Linq;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class HeartyCapnPolligonAbility : AtTheEndOfYourTurn
+    public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
     {
         public HeartyCapnPolligonAbility() : base()
         {
         }
 
-        public HeartyCapnPolligonAbility(TriggeredAbility ability) : base(ability)
+        public HeartyCapnPolligonAbility(HeartyCapnPolligonAbility ability) : base(ability)
         {
         }
 

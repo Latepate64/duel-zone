@@ -1,16 +1,14 @@
-﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersCards.TriggeredAbilities;
+using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Cards;
-using DuelMastersModels.Cards.Creatures;
-using DuelMastersModels.Cards.Spells;
 using System;
 using System.Collections.Generic;
 
-namespace Simulator
+namespace DuelMastersCards
 {
-    internal static class CardFactory
+    public static class CardFactory
     {
-        static internal Dictionary<string, Func<Card>> Cards = new()
+        static readonly public Dictionary<string, Func<Card>> Cards = new()
         {
             { AquaHulcus, () => CreateAquaHulcus() },
             { AquaSurfer, () => CreateAquaSurfer() },
@@ -50,28 +48,28 @@ namespace Simulator
             { WindAxeTheWarriorSavage, () => CreateWindAxeTheWarriorSavage() },
         };
 
-        internal const string AquaHulcus = "Aqua Hulcus";
-        internal const string AquaSurfer = "Aqua Surfer";
-        internal const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
-        internal const string BronzeArmTribe = "Bronze-Arm Tribe";
-        internal const string BurningMane = "Burning Mane";
-        internal const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
-        internal const string Emeral = "Emeral";
-        internal const string ExplosiveDudeJoe = "Explosive Dude Joe";
-        internal const string FearFang = "Fear Fang";
-        internal const string GontaTheWarriorSavage = "Gonta, the Warrior Savage";
-        internal const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
-        internal const string ImmortalBaronVorg = "Immortal Baron, Vorg";
-        internal const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
-        internal const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
-        internal const string PyrofighterMagnus = "Pyrofighter Magnus";
-        internal const string RikabuTheDismantler = "Rikabu, the Dismantler";
-        internal const string SniperMosquito = "Sniper Mosquito";
-        internal const string Soulswap = "Soulswap";
-        internal const string Torcon = "Torcon";
-        internal const string TriHornShepherd = "Tri-Horn Shepherd";
-        internal const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
-        internal const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
+        public const string AquaHulcus = "Aqua Hulcus";
+        public const string AquaSurfer = "Aqua Surfer";
+        public const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
+        public const string BronzeArmTribe = "Bronze-Arm Tribe";
+        public const string BurningMane = "Burning Mane";
+        public const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
+        public const string Emeral = "Emeral";
+        public const string ExplosiveDudeJoe = "Explosive Dude Joe";
+        public const string FearFang = "Fear Fang";
+        public const string GontaTheWarriorSavage = "Gonta, the Warrior Savage";
+        public const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
+        public const string ImmortalBaronVorg = "Immortal Baron, Vorg";
+        public const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
+        public const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
+        public const string PyrofighterMagnus = "Pyrofighter Magnus";
+        public const string RikabuTheDismantler = "Rikabu, the Dismantler";
+        public const string SniperMosquito = "Sniper Mosquito";
+        public const string Soulswap = "Soulswap";
+        public const string Torcon = "Torcon";
+        public const string TriHornShepherd = "Tri-Horn Shepherd";
+        public const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
+        public const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
 
         static Card CreateAquaHulcus()
         {

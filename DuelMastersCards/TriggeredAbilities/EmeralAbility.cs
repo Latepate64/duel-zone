@@ -1,12 +1,12 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class EmeralAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class EmeralAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public EmeralAbility(EmeralAbility ability) : base(ability)
         {
@@ -30,7 +30,7 @@ namespace DuelMastersModels.Cards.Creatures
                 // You may add a card from your hand to your shields face down.
                 if (controller.Hand.Cards.Any())
                 {
-                    return new Selection<Guid>(Controller, controller.Hand.Cards.Select(x => x.Id));
+                    return new Selection<Guid>(Controller, controller.Hand.Cards.Select(x => x.Id), 0, 1);
                 }
                 else
                 {

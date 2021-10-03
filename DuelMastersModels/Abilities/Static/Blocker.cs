@@ -2,7 +2,7 @@
 
 namespace DuelMastersModels.Abilities.Static
 {
-    internal class Blocker : StaticAbility
+    public class Blocker : StaticAbility
     {
         internal Blocker(Guid source) : base(source)
         {

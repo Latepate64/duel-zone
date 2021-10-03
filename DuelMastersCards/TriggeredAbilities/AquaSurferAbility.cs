@@ -1,18 +1,18 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public class AquaSurferAbility : WhenYouPutThisCreatureIntoTheBattleZone
+    public class AquaSurferAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
-        public AquaSurferAbility(TriggeredAbility ability) : base(ability)
+        public AquaSurferAbility() : base()
         {
         }
 
-        public AquaSurferAbility() : base()
+        public AquaSurferAbility(AquaSurferAbility ability) : base(ability)
         {
         }
 
@@ -30,7 +30,7 @@ namespace DuelMastersModels.Cards.Creatures
                 var opponent = duel.GetOpponent(controller);
                 if (opponent.BattleZone.Creatures.Any())
                 {
-                    return new Selection<Guid>(Controller, opponent.BattleZone.Creatures.Select(x => x.Id));
+                    return new Selection<Guid>(Controller, opponent.BattleZone.Creatures.Select(x => x.Id), 0, 1);
                 }
                 else
                 {

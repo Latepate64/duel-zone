@@ -1,10 +1,11 @@
-﻿using DuelMastersModels.Abilities;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Choices;
 using System;
 using System.Linq;
 
-namespace DuelMastersModels.Cards.Creatures
+namespace DuelMastersCards.TriggeredAbilities
 {
     public class SniperMosquitoAbility : WheneverThisCreatureAttacksAbility
     {
@@ -12,7 +13,7 @@ namespace DuelMastersModels.Cards.Creatures
         {
         }
 
-        public SniperMosquitoAbility(TriggeredAbility ability) : base(ability)
+        public SniperMosquitoAbility(SniperMosquitoAbility ability) : base(ability)
         {
         }
 

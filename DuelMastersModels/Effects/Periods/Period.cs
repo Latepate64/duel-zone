@@ -23,7 +23,7 @@ namespace DuelMastersModels.Effects.Periods
         }
     }
 
-    internal class Once : Period
+    public class Once : Period
     {
         public override Period Copy()
         {

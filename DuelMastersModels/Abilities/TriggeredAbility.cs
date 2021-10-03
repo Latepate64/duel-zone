@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.GameEvents;
 using System;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersModels.Abilities
 {
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
