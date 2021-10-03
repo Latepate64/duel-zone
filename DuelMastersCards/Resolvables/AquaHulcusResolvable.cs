@@ -2,19 +2,19 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class AquaHulcusAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class AquaHulcusResolvable : Resolvable
     {
-        public AquaHulcusAbility() : base() { }
+        public AquaHulcusResolvable() : base() { }
 
-        public AquaHulcusAbility(AquaHulcusAbility ability) : base(ability)
+        public AquaHulcusResolvable(AquaHulcusResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new AquaHulcusAbility(this);
+            return new AquaHulcusResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

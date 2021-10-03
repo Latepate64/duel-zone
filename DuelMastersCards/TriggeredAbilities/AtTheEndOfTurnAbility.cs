@@ -5,22 +5,27 @@ using System;
 
 namespace DuelMastersCards.TriggeredAbilities
 {
-    public abstract class AtTheEndOfTurnAbility : TriggeredAbility
+    public class AtTheEndOfTurnAbility : TriggeredAbility
     {
         public Guid Turn { get; }
 
-        protected AtTheEndOfTurnAbility(Guid turn) : base()
+        public AtTheEndOfTurnAbility(Guid turn, Resolvable resolvable) : base(resolvable)
         {
             Turn = turn;
         }
 
-        protected AtTheEndOfTurnAbility(AtTheEndOfTurnAbility ability) : base(ability)
+        public AtTheEndOfTurnAbility(AtTheEndOfTurnAbility ability) : base(ability)
         {
         }
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
             return gameEvent is TurnEndsEvent e && e.Turn == Turn;
+        }
+
+        public override Ability Copy()
+        {
+            return new AtTheEndOfTurnAbility(this);
         }
     }
 }

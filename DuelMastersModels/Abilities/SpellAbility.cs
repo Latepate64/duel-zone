@@ -1,11 +1,16 @@
 ﻿namespace DuelMastersModels.Abilities
 {
-    public abstract class SpellAbility : ResolvableAbility
+    public class SpellAbility : ResolvableAbility
     {
-        protected SpellAbility() : base()
+        public SpellAbility(Resolvable resolvable) : base(resolvable)
         { }
 
-        protected SpellAbility(SpellAbility ability) : base(ability)
+        public SpellAbility(SpellAbility ability) : base(ability)
         { }
+
+        public override Ability Copy()
+        {
+            return new SpellAbility(this);
+        }
     }
 }

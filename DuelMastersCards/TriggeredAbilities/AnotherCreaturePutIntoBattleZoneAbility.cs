@@ -1,12 +1,13 @@
 ﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.TriggeredAbilities
 {
-    public abstract class AnotherCreaturePutIntoBattleZoneAbility : CardChangesZoneAbility
+    public class AnotherCreaturePutIntoBattleZoneAbility : CardChangesZoneAbility
     {
-        protected AnotherCreaturePutIntoBattleZoneAbility()
+        protected AnotherCreaturePutIntoBattleZoneAbility(Resolvable resolvable) : base(resolvable)
         {
         }
 
@@ -25,6 +26,11 @@ namespace DuelMastersCards.TriggeredAbilities
                 return false;
             }
 
+        }
+
+        public override Ability Copy()
+        {
+            return new AnotherCreaturePutIntoBattleZoneAbility(this);
         }
     }
 }

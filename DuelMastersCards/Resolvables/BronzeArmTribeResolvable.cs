@@ -2,21 +2,21 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class BronzeArmTribeAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class BronzeArmTribeResolvable : Resolvable
     {
-        public BronzeArmTribeAbility() : base()
+        public BronzeArmTribeResolvable() : base()
         {
         }
 
-        public BronzeArmTribeAbility(BronzeArmTribeAbility ability) : base(ability)
+        public BronzeArmTribeResolvable(BronzeArmTribeResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new BronzeArmTribeAbility(this);
+            return new BronzeArmTribeResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

@@ -5,19 +5,24 @@ using System.Linq;
 
 namespace DuelMastersCards.TriggeredAbilities
 {
-    public abstract class AtTheEndOfYourTurnAbility : TriggeredAbility
+    public class AtTheEndOfYourTurnAbility : TriggeredAbility
     {
-        protected AtTheEndOfYourTurnAbility() : base()
+        public AtTheEndOfYourTurnAbility(Resolvable resolvable) : base(resolvable)
         {
         }
 
-        protected AtTheEndOfYourTurnAbility(AtTheEndOfYourTurnAbility ability) : base(ability)
+        public AtTheEndOfYourTurnAbility(AtTheEndOfYourTurnAbility ability) : base(ability)
         {
         }
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
             return gameEvent is TurnEndsEvent e && duel.Turns.Single(x => x.Id == e.Turn).ActivePlayer == Controller;
+        }
+
+        public override Ability Copy()
+        {
+            return new AtTheEndOfYourTurnAbility(this);
         }
     }
 }

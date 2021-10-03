@@ -68,6 +68,11 @@ namespace DuelMastersModels
                     {
                         ability.Source = card.Id;
                         ability.Controller = player.Id;
+                        if (ability is ResolvableAbility resolvable)
+                        {
+                            resolvable.Resolvable.Source = card.Id;
+                            resolvable.Resolvable.Controller = player.Id;
+                        }
                     }
                 }
             }

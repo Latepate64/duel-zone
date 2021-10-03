@@ -1,25 +1,24 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class SoulswapAbility : SpellAbility
+    public class SoulswapResolvable : Resolvable
     {
-        public SoulswapAbility() : base()
+        public SoulswapResolvable()
         {
         }
 
-        public SoulswapAbility(SoulswapAbility ability) : base(ability)
+        public SoulswapResolvable(SoulswapResolvable resolvable) : base(resolvable)
         {
-            _firstPart = ability._firstPart;
+            _firstPart = resolvable._firstPart;
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new SoulswapAbility(this);
+            return new SoulswapResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

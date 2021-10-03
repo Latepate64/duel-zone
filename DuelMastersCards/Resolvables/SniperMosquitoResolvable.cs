@@ -1,26 +1,23 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Triggered;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class SniperMosquitoAbility : WheneverThisCreatureAttacksAbility
+    public class SniperMosquitoResolvable : Resolvable
     {
-        public SniperMosquitoAbility() : base()
+        public SniperMosquitoResolvable() : base()
         {
         }
 
-        public SniperMosquitoAbility(SniperMosquitoAbility ability) : base(ability)
+        public SniperMosquitoResolvable(SniperMosquitoResolvable ability) : base(ability)
         {
         }
 
-
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new SniperMosquitoAbility(this);
+            return new SniperMosquitoResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

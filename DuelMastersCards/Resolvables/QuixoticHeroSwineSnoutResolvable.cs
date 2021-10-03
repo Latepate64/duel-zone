@@ -4,21 +4,21 @@ using DuelMastersModels.Choices;
 using DuelMastersModels.Effects.ContinuousEffects;
 using DuelMastersModels.Effects.Durations;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class QuixoticHeroSwineSnoutAbility : AnotherCreaturePutIntoBattleZoneAbility
+    public class QuixoticHeroSwineSnoutResolvable : Resolvable
     {
-        public QuixoticHeroSwineSnoutAbility()
+        public QuixoticHeroSwineSnoutResolvable()
         {
         }
 
-        public QuixoticHeroSwineSnoutAbility(QuixoticHeroSwineSnoutAbility ability) : base(ability)
+        public QuixoticHeroSwineSnoutResolvable(QuixoticHeroSwineSnoutResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new QuixoticHeroSwineSnoutAbility(this);
+            return new QuixoticHeroSwineSnoutResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

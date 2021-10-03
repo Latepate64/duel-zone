@@ -1,25 +1,24 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class EmeralAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class EmeralResolvable : Resolvable
     {
-        public EmeralAbility(EmeralAbility ability) : base(ability)
+        public EmeralResolvable(EmeralResolvable ability) : base(ability)
         {
             _firstPart = ability._firstPart;
         }
 
-        public EmeralAbility() : base()
+        public EmeralResolvable() : base()
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new EmeralAbility(this);
+            return new EmeralResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

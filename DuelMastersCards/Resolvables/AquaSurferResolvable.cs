@@ -1,24 +1,23 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class AquaSurferAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class AquaSurferResolvable : Resolvable
     {
-        public AquaSurferAbility() : base()
+        public AquaSurferResolvable() : base()
         {
         }
 
-        public AquaSurferAbility(AquaSurferAbility ability) : base(ability)
+        public AquaSurferResolvable(AquaSurferResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new AquaSurferAbility(this);
+            return new AquaSurferResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

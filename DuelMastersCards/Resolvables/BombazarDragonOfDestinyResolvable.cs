@@ -1,3 +1,4 @@
+using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -5,13 +6,13 @@ using DuelMastersModels.Effects.Durations;
 using System;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class BombazarDragonOfDestinyAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class BombazarDragonOfDestinyResolvable : Resolvable
     {
-        public BombazarDragonOfDestinyAbility() : base() { }
+        public BombazarDragonOfDestinyResolvable() : base() { }
 
-        public BombazarDragonOfDestinyAbility(BombazarDragonOfDestinyAbility ability) : base(ability)
+        public BombazarDragonOfDestinyResolvable(BombazarDragonOfDestinyResolvable ability) : base(ability)
         {
         }
 
@@ -23,23 +24,23 @@ namespace DuelMastersCards.TriggeredAbilities
             Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = duel.GetOpponent(Controller) };
             duel.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(turn.Id), new Once(), Source, Controller));
+            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnResolvable()), new Once(), Source, Controller));
             return null;
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new BombazarDragonOfDestinyAbility(this);
+            return new BombazarDragonOfDestinyResolvable(this);
         }
     }
 
-    internal class YouLoseTheGameAtTheEndOfTheExtraTurnAbility : AtTheEndOfTurnAbility
+    public class YouLoseTheGameAtTheEndOfTheExtraTurnResolvable : Resolvable
     {
-        internal YouLoseTheGameAtTheEndOfTheExtraTurnAbility(Guid turn) : base(turn)
+        public YouLoseTheGameAtTheEndOfTheExtraTurnResolvable() : base()
         {
         }
 
-        public YouLoseTheGameAtTheEndOfTheExtraTurnAbility(YouLoseTheGameAtTheEndOfTheExtraTurnAbility ability) : base(ability)
+        public YouLoseTheGameAtTheEndOfTheExtraTurnResolvable(YouLoseTheGameAtTheEndOfTheExtraTurnResolvable ability) : base(ability)
         {
         }
 
@@ -51,9 +52,9 @@ namespace DuelMastersCards.TriggeredAbilities
             return gameOver;
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new YouLoseTheGameAtTheEndOfTheExtraTurnAbility(this);
+            return new YouLoseTheGameAtTheEndOfTheExtraTurnResolvable(this);
         }
     }
 }

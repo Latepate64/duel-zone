@@ -8,7 +8,7 @@ namespace DuelMastersModels.Abilities
     /// </summary>
     public abstract class TriggeredAbility : ResolvableAbility
     {
-        protected TriggeredAbility() : base()
+        protected TriggeredAbility(Resolvable resolvable) : base(resolvable)
         {
         }
 
@@ -21,6 +21,8 @@ namespace DuelMastersModels.Abilities
             var copy = Copy() as TriggeredAbility;
             copy.Source = source;
             copy.Controller = controller;
+            copy.Resolvable.Source = source;
+            copy.Resolvable.Controller = controller;
             return copy;
         }
 

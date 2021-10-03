@@ -2,21 +2,21 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class PyrofighterMagnusAbility : AtTheEndOfYourTurnAbility
+    public class PyrofighterMagnusResolvable : Resolvable
     {
-        public PyrofighterMagnusAbility() : base()
+        public PyrofighterMagnusResolvable() : base()
         {
         }
 
-        public PyrofighterMagnusAbility(PyrofighterMagnusAbility ability) : base(ability)
+        public PyrofighterMagnusResolvable(PyrofighterMagnusResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new PyrofighterMagnusAbility(this);
+            return new PyrofighterMagnusResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)

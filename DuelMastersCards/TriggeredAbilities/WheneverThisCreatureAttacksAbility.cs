@@ -1,20 +1,27 @@
-﻿using DuelMastersModels.GameEvents;
+﻿using DuelMastersModels;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.GameEvents;
 
-namespace DuelMastersModels.Abilities.Triggered
+namespace DuelMastersCards.TriggeredAbilities
 {
-    public abstract class WheneverThisCreatureAttacksAbility : TriggeredAbility
+    public class WheneverThisCreatureAttacksAbility : TriggeredAbility
     {
-        protected WheneverThisCreatureAttacksAbility() : base()
+        public WheneverThisCreatureAttacksAbility(Resolvable resolvable) : base(resolvable)
         {
         }
 
-        protected WheneverThisCreatureAttacksAbility(TriggeredAbility ability) : base(ability)
+        public WheneverThisCreatureAttacksAbility(TriggeredAbility ability) : base(ability)
         {
         }
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
             return gameEvent is CreatureAttackedEvent e && e.Attacker == SourcePermanent;
+        }
+
+        public override Ability Copy()
+        {
+            return new WheneverThisCreatureAttacksAbility(this);
         }
     }
 }

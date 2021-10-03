@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\Resolvable.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\Static\AttacksIfAbleAbility.cs" />

@@ -4,14 +4,21 @@ namespace DuelMastersModels.Abilities
 {
     public abstract class ResolvableAbility : Ability
     {
-        protected ResolvableAbility() : base()
+        public Resolvable Resolvable { get; set; }
+
+        protected ResolvableAbility(Resolvable resolvable) : base()
         {
+            Resolvable = resolvable;
         }
 
         protected ResolvableAbility(ResolvableAbility ability) : base(ability)
         {
+            Resolvable = ability.Resolvable.Copy();
         }
 
-        public abstract Choice Resolve(Duel duel, Decision decision);
+        public Choice Resolve(Duel duel, Decision decision)
+        {
+            return Resolvable.Resolve(duel, decision);
+        }
     }
 }

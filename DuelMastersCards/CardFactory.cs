@@ -1,5 +1,7 @@
-﻿using DuelMastersCards.TriggeredAbilities;
+﻿using DuelMastersCards.Resolvables;
+using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Static;
 using System;
 using System.Collections.Generic;
@@ -79,14 +81,14 @@ namespace DuelMastersCards
         static Card CreateAquaHulcus()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = AquaHulcus, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
-            x.Abilities.Add(new AquaHulcusAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaHulcusResolvable()));
             return x;
         }
 
         static Card CreateAquaSurfer()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 6, Name = AquaSurfer, Power = 2000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
-            x.Abilities.Add(new AquaSurferAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaSurferResolvable()));
             return x;
         }
 
@@ -95,14 +97,14 @@ namespace DuelMastersCards
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 7, Name = BombazarDragonOfDestiny, Power = 6000, Subtypes = new List<Subtype> { Subtype.ArmoredDragon, Subtype.EarthDragon } };
             x.Abilities.Add(new SpeedAttacker(x.Id));
             x.Abilities.Add(new DoubleBreaker(x.Id));
-            x.Abilities.Add(new BombazarDragonOfDestinyAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyResolvable()));
             return x;
         }
 
         static Card CreateBronzeArmTribe()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = BronzeArmTribe, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
-            x.Abilities.Add(new BronzeArmTribeAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BronzeArmTribeResolvable()));
             return x;
         }
 
@@ -116,22 +118,21 @@ namespace DuelMastersCards
         static Card CreateEmeral()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 2, Name = Emeral, Power = 1000, Subtypes = new List<Subtype> { Subtype.CyberLord } };
-            x.Abilities.Add(new EmeralAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EmeralResolvable()));
             return x;
         }
 
         static Card CreateHeartyCapnPolligon()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = HeartyCapnPolligon, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
-            x.Abilities.Add(new HeartyCapnPolligonAbility());
+            x.Abilities.Add(new HeartyCapnPolligonAbility(new HeartyCapnPolligonResolvable()));
             return x;
         }
 
         static Card CreateQuixoticHeroSwineSnout()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
-            x.Abilities.Add(new QuixoticHeroSwineSnoutAbility());
-            //TODO: ability
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new QuixoticHeroSwineSnoutResolvable()));
             return x;
         }
 
@@ -139,7 +140,7 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = PyrofighterMagnus, Power = 3000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
             x.Abilities.Add(new SpeedAttacker(x.Id));
-            x.Abilities.Add(new PyrofighterMagnusAbility());
+            x.Abilities.Add(new AtTheEndOfYourTurnAbility(new PyrofighterMagnusResolvable()));
             return x;
         }
 
@@ -153,14 +154,14 @@ namespace DuelMastersCards
         static Card CreateSniperMosquito()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = SniperMosquito, Power = 2000, Subtypes = new List<Subtype> { Subtype.GiantInsect } };
-            x.Abilities.Add(new SniperMosquitoAbility());
+            x.Abilities.Add(new WheneverThisCreatureAttacksAbility(new SniperMosquitoResolvable()));
             return x;
         }
 
         static Card CreateSoulswap()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = Soulswap };
-            x.Abilities.Add(new SoulswapAbility());
+            x.Abilities.Add(new SpellAbility(new SoulswapResolvable()));
             return x;
         }
 
@@ -175,7 +176,7 @@ namespace DuelMastersCards
         static Card CreateWindAxeTheWarriorSavage()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 5, Name = WindAxeTheWarriorSavage, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } };
-            x.Abilities.Add(new WindAxeTheWarriorSavageAbility());
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageResolvable()));
             return x;
         }
     }

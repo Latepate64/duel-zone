@@ -2,25 +2,24 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Choices;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace DuelMastersCards.Resolvables
 {
-    public class WindAxeTheWarriorSavageAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class WindAxeTheWarriorSavageResolvable : Resolvable
     {
-        public WindAxeTheWarriorSavageAbility() : base()
+        public WindAxeTheWarriorSavageResolvable() : base()
         {
         }
 
-        public WindAxeTheWarriorSavageAbility(WindAxeTheWarriorSavageAbility ability) : base(ability)
+        public WindAxeTheWarriorSavageResolvable(WindAxeTheWarriorSavageResolvable ability) : base(ability)
         {
         }
 
-        public override Ability Copy()
+        public override Resolvable Copy()
         {
-            return new WindAxeTheWarriorSavageAbility(this);
+            return new WindAxeTheWarriorSavageResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
