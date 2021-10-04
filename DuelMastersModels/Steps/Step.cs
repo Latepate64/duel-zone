@@ -266,7 +266,7 @@ namespace DuelMastersModels.Steps
 
         protected Step() { }
 
-        public List<Guid> UsedCards { get; } = new List<Guid>();
+        public List<Card> UsedCards { get; } = new List<Card>();
         internal StepState State { get; set; } = StepState.TurnBasedAction;
         internal ResolvableAbility ResolvingAbility { get; set; }
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();

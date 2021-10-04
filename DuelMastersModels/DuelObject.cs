@@ -11,9 +11,9 @@ namespace DuelMastersModels
             Id = Guid.NewGuid();
         }
 
-        protected DuelObject(DuelObject duelObject)
+        protected DuelObject(DuelObject duelObject, bool copyId)
         {
-            Id = duelObject.Id;
+            Id = copyId ? duelObject.Id : Guid.NewGuid();
         }
 
         public override bool Equals(object obj)

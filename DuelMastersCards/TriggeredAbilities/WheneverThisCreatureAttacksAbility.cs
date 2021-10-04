@@ -16,7 +16,7 @@ namespace DuelMastersCards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return gameEvent is CreatureAttackedEvent e && e.Attacker == SourcePermanent;
+            return gameEvent is CreatureAttackedEvent e && e.Attacker == Source;
         }
 
         public override Ability Copy()

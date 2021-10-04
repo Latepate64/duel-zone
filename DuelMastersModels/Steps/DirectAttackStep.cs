@@ -33,7 +33,7 @@ namespace DuelMastersModels.Steps
             if (opponent.ShieldZone.Cards.Any())
             {
                 int breakAmount = 1;
-                if (attackingCreature.Card.Abilities.OfType<DoubleBreaker>().Any())
+                if (attackingCreature.Abilities.OfType<DoubleBreaker>().Any())
                 {
                     breakAmount = 2;
                 }

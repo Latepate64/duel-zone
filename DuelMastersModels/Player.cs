@@ -11,11 +11,10 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : DuelObject, IAttackable
+    public class Player : IAttackable, IDisposable
     {
-        /// <summary>
-        /// The name of the player.
-        /// </summary>
+        public Guid Id { get; }
+
         public string Name { get; set; }
 
         /// <summary>
@@ -67,13 +66,14 @@ namespace DuelMastersModels
             get
             {
                 List<Card> cards = CardsInNonsharedZones.ToList();
-                cards.AddRange(BattleZone.Cards);
+                cards.AddRange(BattleZone.Permanents);
                 return cards;
             }
         }
 
-        public Player() : base()
+        public Player()
         {
+            Id = Guid.NewGuid();
         }
 
         /// <summary>
@@ -101,13 +101,13 @@ namespace DuelMastersModels
         public void PutFromBattleZoneIntoGraveyard(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            Graveyard.Add(permanent.Card, duel);
+            Graveyard.Add(new Card(permanent, false), duel);
         }
 
         public void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            ManaZone.Add(permanent.Card, duel);
+            ManaZone.Add(new Card(permanent, false), duel);
         }
 
         /// <summary>
@@ -223,8 +223,9 @@ namespace DuelMastersModels
             }
         }
 
-        public Player(Player player) : base(player)
+        public Player(Player player)
         {
+            Id = player.Id;
             Name = player.Name;
             Deck = player.Deck.Copy();
             Graveyard = player.Graveyard.Copy();
@@ -266,7 +267,7 @@ namespace DuelMastersModels
         public void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            Hand.Add(permanent.Card, duel);
+            Hand.Add(new Card(permanent, false), duel);
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -276,7 +277,13 @@ namespace DuelMastersModels
             duel.ResolvingSpells.Push(spell);
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {

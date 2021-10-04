@@ -145,7 +145,7 @@ namespace DuelMastersModels
 
         public void UseCard(Card card, Player player)
         {
-            CurrentTurn.CurrentStep.UsedCards.Add(card.Id);
+            CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
                 player.Hand.Remove(card);
@@ -272,7 +272,7 @@ namespace DuelMastersModels
 
         public Player GetOwner(Card card)
         {
-            return Players.Single(x => x.AllCards.Contains(card));
+            return Players.Single(x => x.Id == card.Owner);
         }
 
         public Card GetCard(Guid id)
@@ -300,7 +300,7 @@ namespace DuelMastersModels
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public DuelObject GetDuelObject(Guid id)
+        public IAttackable GetAttackable(Guid id)
         {
             if (Players.Any(x => x.Id == id))
             {
@@ -312,7 +312,7 @@ namespace DuelMastersModels
             }
             else
             {
-                return GetCard(id);
+                throw new NotSupportedException();
             }
         }
 
@@ -337,14 +337,14 @@ namespace DuelMastersModels
             var abilities = new List<TriggeredAbility>();
             foreach (var permanent in GetAllPermanents())
             {
-                abilities.AddRange(permanent.Card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
+                abilities.AddRange(permanent.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
             }
             return abilities;
         }
 
         public int GetPower(Permanent permanent)
         {
-            return permanent.Card.Power.Value + ContinuousEffects.OfType<PowerModifyingEffect>().Where(x => x.Target == permanent.Id).Sum(x => x.Power);
+            return permanent.Power.Value + ContinuousEffects.OfType<PowerModifyingEffect>().Where(x => x.Target == permanent.Id).Sum(x => x.Power);
         }
 
         public override string ToString()

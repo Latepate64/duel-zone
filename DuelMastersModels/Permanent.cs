@@ -8,10 +8,8 @@ namespace DuelMastersModels
     /// <summary>
     /// 110.1. A permanent is a card or token on the battle zone. A permanent remains on the battle zone indefinitely. A card or token becomes a permanent as it enters the battlefield and it stops being a permanent as it’s moved to another zone by an effect or rule.
     /// </summary>
-    public class Permanent : DuelObject, IAttackable
+    public class Permanent : Card, IAttackable
     {
-        public Card Card { get; set; }
-
         /// <summary>
         /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
         /// </summary>
@@ -22,36 +20,25 @@ namespace DuelMastersModels
         /// </summary>
         public Guid Controller { get; set; }
 
-        public Permanent(Card card) : base()
+        public Permanent(Card card) : base(card, false)
         {
-            Card = card;
             Controller = card.Owner;
-
             foreach (var x in card.Abilities)
             {
-                x.SourcePermanent = Id;
+                x.Source = Id;
+                x.Controller = card.Owner;
             }
         }
 
-        public Permanent(Permanent permanent) : base(permanent)
+        public Permanent(Permanent permanent) : base(permanent, true)
         {
-            Card = permanent.Card.Copy();
             Controller = permanent.Controller;
             SummoningSickness = permanent.SummoningSickness;
         }
 
         internal bool AffectedBySummoningSickness()
         {
-            return SummoningSickness && !Card.Abilities.OfType<SpeedAttacker>().Any();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Card.Dispose();
-                Card = null;
-            }
+            return SummoningSickness && !Abilities.OfType<SpeedAttacker>().Any();
         }
     }
 
@@ -59,7 +46,7 @@ namespace DuelMastersModels
     {
         public bool Equals(Permanent x, Permanent y)
         {
-            return new CardComparer().Equals(x.Card, y.Card) &&
+            return new CardComparer().Equals(x, y) &&
                 x.Controller == y.Controller &&
                 x.SummoningSickness == y.SummoningSickness;
         }

@@ -61,9 +61,14 @@ namespace DuelMastersModels
 
         public Card()
         {
+            foreach (var x in Abilities)
+            {
+                x.Source = Id;
+                x.Controller = Owner;
+            }
         }
 
-        protected Card(Card card) : base(card)
+        internal Card(Card card, bool copyId) : base(card, copyId)
         {
             Abilities = card.Abilities.Select(x => x.Copy()).ToList();
             CardType = card.CardType;
@@ -81,7 +86,7 @@ namespace DuelMastersModels
 
         public virtual Card Copy()
         {
-            return new Card(this);
+            return new Card(this, true);
         }
 
         public override string ToString()

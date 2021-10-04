@@ -45,7 +45,7 @@ namespace Simulator
             {
                 ++playerInfos[player.Name].Wins;
                 ++playerInfos[opponent.Name].Losses;
-                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards).Distinct().Select(x => duel.GetCard(x));
+                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
                 foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == player).Select(x => x.Name).Distinct())
                 {
                     UpdateUsedCards(playerInfos[player.Name].UsedCards, cardName, true);
@@ -172,7 +172,7 @@ namespace Simulator
             var player = duel.GetPlayer(_simulator);
             var opponent = duel.GetOpponent(player);
             var points = GetPointsForGameOver(duel, player, opponent, numberOfChoicesMade);
-            points += 10 * (GetPoints(player.BattleZone.Cards) - GetPoints(opponent.BattleZone.Cards));
+            points += 10 * (GetPoints(player.BattleZone.Permanents) - GetPoints(opponent.BattleZone.Permanents));
             points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
             var manaMultiplier = 2;
             var handMultiplier = 1;

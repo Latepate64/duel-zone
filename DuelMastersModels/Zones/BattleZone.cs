@@ -12,9 +12,7 @@ namespace DuelMastersModels.Zones
     {
         public List<Permanent> Permanents { get; } = new List<Permanent>();
 
-        public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.Card.CardType == CardType.Creature);
-
-        public IEnumerable<Card> Cards => Permanents.Select(x => x.Card);
+        public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
 
         public BattleZone()
         {
@@ -27,7 +25,7 @@ namespace DuelMastersModels.Zones
 
         public void UntapCards()
         {
-            foreach (Card card in Permanents.Select(x => x.Card).Where(x => x.Tapped))
+            foreach (Card card in Permanents.Where(x => x.Tapped))
             {
                 card.Tapped = false;
             }
@@ -35,10 +33,12 @@ namespace DuelMastersModels.Zones
 
         public void Add(Card card, Duel duel)
         {
-            var permanent = new Permanent(card);
-            permanent.Card.RevealedTo = duel.Players.Select(x => x.Id);
+            var permanent = new Permanent(card)
+            {
+                RevealedTo = duel.Players.Select(x => x.Id)
+            };
             Permanents.Add(permanent);
-            duel.Trigger(new CardChangedZoneEvent(permanent.Card.Id, ZoneType.Anywhere, ZoneType.BattleZone));
+            duel.Trigger(new CardChangedZoneEvent(permanent.Id, ZoneType.Anywhere, ZoneType.BattleZone));
         }
 
         public void Remove(Permanent permanent)
@@ -46,10 +46,6 @@ namespace DuelMastersModels.Zones
             if (!Permanents.Remove(permanent))
             {
                 throw new NotSupportedException(permanent.ToString());
-            }
-            foreach (var x in permanent.Card.Abilities)
-            {
-                x.SourcePermanent = Guid.Empty;
             }
         }
 
