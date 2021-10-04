@@ -323,7 +323,7 @@ namespace DuelMastersModels
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
-                if (ability.Period is Once)
+                if (ability.Duration is Once)
                 {
                     toBeRemoved.Add(ability);
                 }

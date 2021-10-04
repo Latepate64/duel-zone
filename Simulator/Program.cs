@@ -19,7 +19,6 @@ namespace Simulator
 
     class Program
     {
-        const int ChoicesMax = 16;
         static Guid _simulator;
 
         static void Main(string[] args)
@@ -35,7 +34,7 @@ namespace Simulator
                 using Deck deck1 = new(GetCards(player1.Id, args[1])), deck2 = new(GetCards(player2.Id, args[3]));
                 player1.Deck = deck1;
                 player2.Deck = deck2;
-                using var duel = PlayDuel(player1, player2);
+                using var duel = PlayDuel(player1, player2, int.Parse(args[4]));
                 PrintStatistics(playerInfos, player1, player2, duel);
             }
         }
@@ -105,7 +104,7 @@ namespace Simulator
             }
         }
 
-        static Duel PlayDuel(Player player1, Player player2)
+        static Duel PlayDuel(Player player1, Player player2, int choicesMax)
         {
             Duel duel = new();
             Choice choice = duel.Start(player1, player2);
@@ -115,7 +114,7 @@ namespace Simulator
             {
                 _simulator = choice.Player;
                 var duelCopy = GetDuelForSimulator(duel); 
-                var (decision, points) = Choose(choice, duelCopy, ChoicesMax, null, numberOfChoicesMade++);
+                var (decision, points) = Choose(choice, duelCopy, choicesMax, null, numberOfChoicesMade++);
                 using (decision)
                 {
                     latestPoints = points;
@@ -136,7 +135,7 @@ namespace Simulator
                 {
                     card.Abilities.Clear();
                     card.CardType = CardType.Spell;
-                    //card.Civilizations
+                    card.Civilizations.Clear();
                     card.ManaCost = 999;
                     card.Name = "Unknown";
                     card.Power = null;
@@ -208,7 +207,7 @@ namespace Simulator
         static int GetValue(Card card)
         {
             //TODO: Improve card value calculation.
-            return card.Power.HasValue ? card.Power.Value / 500 : 0;
+            return card.Power.HasValue ? card.Power.Value / 500 : 0 + (card.Tapped ? 1 : 0);
         }
 
         static Tuple<Decision, int> Choose(Choice choice, Duel duel, int optionsRemaining, Decision decision, int numberOfChoicesMade)
@@ -220,25 +219,24 @@ namespace Simulator
             }
             else if (choice is GuidSelection selection)
             {
-                ChooseGuid(duel, optionsRemaining, numberOfChoicesMade, decisions, selection);
+                return ChooseGuid(duel, optionsRemaining, numberOfChoicesMade, decisions, selection);
             }
             else if (choice is CardUsageChoice usage)
             {
-                ChooseCardToUse(duel, optionsRemaining, numberOfChoicesMade, decisions, usage);
+                return ChooseCardToUse(duel, optionsRemaining, numberOfChoicesMade, decisions, usage);
             }
             else if (choice is AttackerChoice attackerChoice)
             {
-                ChooseAttacker(duel, optionsRemaining, numberOfChoicesMade, decisions, attackerChoice);
+                return ChooseAttacker(duel, optionsRemaining, numberOfChoicesMade, decisions, attackerChoice);
             }
             else if (choice is YesNoChoice yesNo)
             {
-                ChooseYesOrNo(duel, optionsRemaining, numberOfChoicesMade, decisions);
+                return ChooseYesOrNo(duel, optionsRemaining, numberOfChoicesMade, decisions, yesNo);
             }
             else
             {
                 throw new ArgumentOutOfRangeException(choice.ToString());
             }
-            return Choose(choice, decisions);
         }
 
         private static Tuple<Decision, int> Choose(Choice choice, List<Tuple<Decision, int>> decisions)
@@ -253,7 +251,7 @@ namespace Simulator
             return result;
         }
 
-        private static void ChooseYesOrNo(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions)
+        private static Tuple<Decision, int> ChooseYesOrNo(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, YesNoChoice yesNo)
         {
             var options = new List<bool> { true, false };
             foreach (var option in options)
@@ -263,9 +261,10 @@ namespace Simulator
                 var newChoice = duelCopy.Continue(currentChoice);
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
             }
+            return Choose(yesNo, decisions);
         }
 
-        private static void ChooseAttacker(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
+        private static Tuple<Decision, int> ChooseAttacker(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
         {
             var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
             if (!attackerChoice.MustAttack)
@@ -279,9 +278,10 @@ namespace Simulator
                 var newChoice = duelCopy.Continue(currentChoice);
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
             }
+            return Choose(attackerChoice, decisions);
         }
 
-        private static void ChooseCardToUse(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
+        private static Tuple<Decision, int> ChooseCardToUse(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
         {
             //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
             //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
@@ -294,15 +294,21 @@ namespace Simulator
                 var newChoice = duelCopy.Continue(currentChoice);
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
             }
+            return Choose(usage, decisions);
         }
 
-        private static void ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
+        private static Tuple<Decision, int> ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
         {
             if (selection.MaximumSelection != 1)
             {
                 throw new NotImplementedException();
             }
+
+            //var options = selection.Options.Select(x => duel.GetCard(x)).Distinct(new CardComparer()).Select(x => new List<Guid> { x.Id }).ToList();
+            //
+
             var options = selection.Options.Select(x => new List<Guid> { x }).ToList();
+
             if (selection.MinimumSelection == 0)
             {
                 options.Add(new List<Guid>());
@@ -314,6 +320,7 @@ namespace Simulator
                 var newChoice = duelCopy.Continue(newDecision);
                 decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), newDecision, numberOfChoicesMade + 1).Item2));
             }
+            return Choose(selection, decisions);
         }
 
         static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Duel duel, Guid playerId)
@@ -332,7 +339,7 @@ namespace Simulator
                     include.Add(civs.Count(c => c == civ));
                 }
             }
-            var res = civs.Distinct().Count() * 20 + include.Min();
+            var res = civs.Distinct().Count() * 20 + (include.Any() ? include.Min() : 0);
             return res;
         }
     }

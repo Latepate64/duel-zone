@@ -45,11 +45,13 @@ namespace DuelMastersModels
 
         public Guid Owner { get; set; }
 
-        public IEnumerable<Civilization> Civilizations { get; set; }
+#pragma warning disable CA2227 // Collection properties should be read only
+        public ICollection<Civilization> Civilizations { get; set; }
+#pragma warning restore CA2227 // Collection properties should be read only
 
         public int ManaCost { get; set; }
 
-        internal bool Tapped { get; set; }
+        public bool Tapped { get; set; }
 
         public bool ShieldTrigger { get; set; } = false;
 
@@ -101,28 +103,37 @@ namespace DuelMastersModels
         {
             if (disposing)
             {
-                Civilizations = null;
+                Civilizations.Clear();
                 RevealedTo = null;
             }
         }
 
         public virtual void EnterManaZone()
         {
-            if (Civilizations.Count() > 1)
+            if (Civilizations.Count > 1)
             {
                 Tapped = true;
             }
         }
     }
 
-    internal class CardComparer : IEqualityComparer<Card>
+    public class CardComparer : IEqualityComparer<Card>
     {
         public bool Equals(Card x, Card y)
         {
-            return x.Civilizations.SequenceEqual(y.Civilizations) &&
+            return
+                //x.Abilities.SequenceEqual(y.Abilities) &&
+                x.Abilities.Count == y.Abilities.Count && //TODO: Abilities should be compared precisely
+                x.CardType == y.CardType &&
+                x.Civilizations.SequenceEqual(y.Civilizations) &&
                 x.ManaCost == y.ManaCost &&
+                x.Name == y.Name &&
+                x.Owner == y.Owner &&
+                x.Power == y.Power &&
+                x.RevealedTo.SequenceEqual(y.RevealedTo) &&
                 x.ShieldTrigger == y.ShieldTrigger &&
                 x.ShieldTriggerPending == y.ShieldTriggerPending &&
+                ((x.Subtypes == null && y.Subtypes == null) || x.Subtypes.SequenceEqual(y.Subtypes)) &&
                 x.Tapped == y.Tapped;
         }
 

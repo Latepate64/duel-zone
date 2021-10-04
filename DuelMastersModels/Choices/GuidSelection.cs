@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels.Choices
 {
@@ -21,12 +22,16 @@ namespace DuelMastersModels.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        public GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
+        private GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
         {
             Options = options;
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
         }
+
+        public GuidSelection(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection) : this(player, options.Distinct(new CardComparer()).Select(x => x.Id), minimumSelection, maximumSelection) { }
+
+        public GuidSelection(Guid player, IEnumerable<Permanent> options, int minimumSelection, int maximumSelection) : this(player, options.Distinct(new PermanentComparer()).Select(x => x.Id), minimumSelection, maximumSelection) { }
 
         protected override void Dispose(bool disposing)
         {

@@ -28,7 +28,7 @@ namespace DuelMastersCards.Resolvables
             {
                 if (duel.CreaturePermanents.Any())
                 {
-                    return new GuidSelection(Controller, duel.CreaturePermanents.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(Controller, duel.CreaturePermanents, 0, 1);
                 }
                 else
                 {
@@ -51,7 +51,7 @@ namespace DuelMastersCards.Resolvables
                     {
                         if (manas.Count() > 1)
                         {
-                            return new GuidSelection(Controller, manas.Select(x => x.Id), 1, 1);
+                            return new GuidSelection(Controller, manas, 1, 1);
                         }
                         else
                         {

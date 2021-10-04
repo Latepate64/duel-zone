@@ -29,7 +29,7 @@ namespace DuelMastersCards.Resolvables
                 // You may add a card from your hand to your shields face down.
                 if (controller.Hand.Cards.Any())
                 {
-                    return new GuidSelection(Controller, controller.Hand.Cards.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(Controller, controller.Hand.Cards, 0, 1);
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace DuelMastersCards.Resolvables
                         else
                         {
                             _firstPart = false;
-                            return new GuidSelection(Controller, controller.ShieldZone.Cards.Select(x => x.Id), 1, 1);
+                            return new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1);
                         }
                     }
                     else

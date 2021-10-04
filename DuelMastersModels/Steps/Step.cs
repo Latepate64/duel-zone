@@ -239,14 +239,14 @@ namespace DuelMastersModels.Steps
                 if (pendingTriggersActive.Any())
                 {
                     _shieldTriggerUser = active.Id;
-                    return new GuidSelection(active.Id, pendingTriggersActive.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(active.Id, pendingTriggersActive, 0, 1);
                 }
                 var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
                 var pendingTriggersNonActive = nonActive.Hand.Cards.Where(c => c.ShieldTriggerPending);
                 if (pendingTriggersNonActive.Any())
                 {
                     _shieldTriggerUser = nonActive.Id;
-                    return new GuidSelection(nonActive.Id, pendingTriggersNonActive.Select(x => x.Id), 0, 1);
+                    return new GuidSelection(nonActive.Id, pendingTriggersNonActive, 0, 1);
                 }
                 _shieldTriggerUser = Guid.Empty;
                 State = StepState.SelectAbility;

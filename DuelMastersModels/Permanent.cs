@@ -55,7 +55,7 @@ namespace DuelMastersModels
         }
     }
 
-    internal class PermanentComparer : IEqualityComparer<Permanent>
+    public class PermanentComparer : IEqualityComparer<Permanent>
     {
         public bool Equals(Permanent x, Permanent y)
         {
@@ -66,7 +66,7 @@ namespace DuelMastersModels
 
         public int GetHashCode(Permanent obj)
         {
-            return obj.Card.GetHashCode() + obj.SummoningSickness.GetHashCode();
+            return obj.Controller.GetHashCode() + obj.SummoningSickness.GetHashCode(); //obj.Card.GetHashCode() + 
         }
     }
 }

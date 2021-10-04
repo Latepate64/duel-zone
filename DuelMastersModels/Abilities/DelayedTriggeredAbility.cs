@@ -6,20 +6,22 @@ namespace DuelMastersModels.Abilities
     public class DelayedTriggeredAbility : IDisposable
     {
         internal TriggeredAbility TriggeredAbility { get; private set; }
-        internal Duration Period { get; private set; }
+        internal Duration Duration { get; private set; }
 
-        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration period, Guid source, Guid controller)
+        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration duration, Guid source, Guid controller)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
             TriggeredAbility.Controller = controller;
-            Period = period;
+            TriggeredAbility.Resolvable.Source = source;
+            TriggeredAbility.Resolvable.Controller = controller;
+            Duration = duration;
         }
 
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
             TriggeredAbility = ability.TriggeredAbility.Copy() as TriggeredAbility;
-            Period = ability.Period.Copy();
+            Duration = ability.Duration.Copy();
         }
 
         public void Dispose()
@@ -35,8 +37,8 @@ namespace DuelMastersModels.Abilities
                 //TODO: Make abilities disposable
                 //TriggeredAbility.Dispose();
                 TriggeredAbility = null;
-                Period.Dispose();
-                Period = null;
+                Duration.Dispose();
+                Duration = null;
             }
         }
     }
