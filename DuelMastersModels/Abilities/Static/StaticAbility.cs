@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Static
+﻿namespace DuelMastersModels.Abilities.Static
 {
     /// <summary>
     /// Static abilities do something all the time rather than being activated or triggered. They are written as statements, and they’re simply true.
@@ -12,11 +10,14 @@ namespace DuelMastersModels.Abilities.Static
         /// </summary>
         //public ICollection<ContinuousEffect> ContinuousEffects { get; private set; }
 
-        protected StaticAbility(Guid source) : base()
+        protected StaticAbility() : base()
         {
-            Source = source;
         }
 
         protected StaticAbility(StaticAbility ability) : base(ability) { }
+
+        protected override void Dispose(bool disposing)
+        {
+        }
     }
 }

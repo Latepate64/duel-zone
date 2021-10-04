@@ -7,9 +7,11 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Turn : DuelObject
+    public class Turn : IDisposable
     {
         #region Properties
+        public Guid Id { get; }
+
         /// <summary>
         /// The player whose turn it is.
         /// </summary>
@@ -36,7 +38,10 @@ namespace DuelMastersModels
         internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn() { }
+        public Turn()
+        {
+            Id = Guid.NewGuid();
+        }
 
         public Choice Start(Duel duel, int number)
         {
@@ -95,6 +100,7 @@ namespace DuelMastersModels
         public Turn(Turn turn)
         {
             ActivePlayer = turn.ActivePlayer;
+            Id = turn.Id;
             NonActivePlayer = turn.NonActivePlayer;
             Number = turn.Number;
             Steps = turn.Steps.Select(x => x.Copy()).ToList();
@@ -105,7 +111,13 @@ namespace DuelMastersModels
             return $"Turn {Number}";
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {

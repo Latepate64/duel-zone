@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Static
+﻿namespace DuelMastersModels.Abilities.Static
 {
     public class SpeedAttacker : StaticAbility
     {
-        public SpeedAttacker(Guid source) : base(source)
+        public SpeedAttacker() : base()
         { }
 
         protected SpeedAttacker(SpeedAttacker ability) : base(ability) { }

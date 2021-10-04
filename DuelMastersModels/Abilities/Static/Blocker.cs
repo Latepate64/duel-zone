@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Static
+﻿namespace DuelMastersModels.Abilities.Static
 {
     public class Blocker : StaticAbility
     {
-        internal Blocker(Guid source) : base(source)
+        internal Blocker() : base()
         {
         }
 

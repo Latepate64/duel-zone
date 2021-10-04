@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Abilities.Static;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,11 +13,6 @@ namespace DuelMastersModels
         /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
         /// </summary>
         public bool SummoningSickness { get; internal set; } = true;
-
-        /// <summary>
-        /// 110.2. A permanent’s owner is the same as the owner of the card that represents it (unless it’s a token; see rule 111.2). A permanent’s controller is, by default, the player under whose control it entered the battle zone. Every permanent has a controller.
-        /// </summary>
-        public Guid Controller { get; set; }
 
         public Permanent(Card card) : base(card, false)
         {

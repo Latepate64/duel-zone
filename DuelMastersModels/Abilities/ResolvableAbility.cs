@@ -20,5 +20,14 @@ namespace DuelMastersModels.Abilities
         {
             return Resolvable.Resolve(duel, decision);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Resolvable.Dispose();
+                Resolvable = null;
+            }
+        }
     }
 }

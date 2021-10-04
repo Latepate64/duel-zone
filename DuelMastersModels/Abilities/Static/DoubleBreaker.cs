@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Static
+﻿namespace DuelMastersModels.Abilities.Static
 {
     public class DoubleBreaker : StaticAbility
     {
-        public DoubleBreaker(Guid source) : base(source) { }
+        public DoubleBreaker() : base() { }
 
         protected DoubleBreaker(DoubleBreaker ability) : base(ability) { }
 

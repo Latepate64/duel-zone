@@ -43,8 +43,6 @@ namespace DuelMastersModels
 
         public int? Power { get; set; }
 
-        public Guid Owner { get; set; }
-
 #pragma warning disable CA2227 // Collection properties should be read only
         public ICollection<Civilization> Civilizations { get; set; }
 #pragma warning restore CA2227 // Collection properties should be read only
@@ -64,7 +62,6 @@ namespace DuelMastersModels
             foreach (var x in Abilities)
             {
                 x.Source = Id;
-                x.Controller = Owner;
             }
         }
 
@@ -75,7 +72,6 @@ namespace DuelMastersModels
             Civilizations = card.Civilizations.ToList();
             ManaCost = card.ManaCost;
             Name = card.Name;
-            Owner = card.Owner;
             Power = card.Power;
             RevealedTo = card.RevealedTo.ToList();
             ShieldTrigger = card.ShieldTrigger;

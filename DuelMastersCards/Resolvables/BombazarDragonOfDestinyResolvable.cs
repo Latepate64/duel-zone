@@ -3,7 +3,6 @@ using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Effects.Durations;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables

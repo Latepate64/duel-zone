@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace DuelMastersModels.Abilities.Static
+﻿namespace DuelMastersModels.Abilities.Static
 {
     public class AttacksIfAbleAbility : StaticAbility
     {
-        public AttacksIfAbleAbility(Guid source) : base(source)
+        public AttacksIfAbleAbility() : base()
         {
         }
 

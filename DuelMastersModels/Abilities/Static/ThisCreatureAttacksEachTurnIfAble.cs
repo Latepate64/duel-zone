@@ -4,7 +4,7 @@ namespace DuelMastersModels.Abilities.Static
 {
     internal class ThisCreatureAttacksEachTurnIfAble : StaticAbility
     {
-        internal ThisCreatureAttacksEachTurnIfAble(Guid source) : base(source)
+        internal ThisCreatureAttacksEachTurnIfAble() : base()
         { }
 
         public override Ability Copy()
