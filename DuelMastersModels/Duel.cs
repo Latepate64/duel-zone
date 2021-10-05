@@ -60,21 +60,9 @@ namespace DuelMastersModels
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
 
-            foreach (var player in Players)
+            foreach (var card in Players.SelectMany(x => x.AllCards))
             {
-                foreach (var card in player.AllCards)
-                {
-                    foreach (var ability in card.Abilities)
-                    {
-                        ability.Source = card.Id;
-                        ability.Controller = player.Id;
-                        if (ability is ResolvableAbility resolvable)
-                        {
-                            resolvable.Resolvable.Source = card.Id;
-                            resolvable.Resolvable.Controller = player.Id;
-                        }
-                    }
-                }
+                card.InitializeAbilities();
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
@@ -346,7 +334,7 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            return Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Targets.Contains(card.Id));
+            return Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filter.Applies(card, this));
         }
 
         public override string ToString()

@@ -59,10 +59,6 @@ namespace DuelMastersModels
 
         public Card()
         {
-            foreach (var x in Abilities)
-            {
-                x.Source = Id;
-            }
         }
 
         internal Card(Card card, bool copyId) : base(card, copyId)
@@ -78,6 +74,12 @@ namespace DuelMastersModels
             ShieldTriggerPending = card.ShieldTriggerPending;
             Subtypes = card.Subtypes?.ToList();
             Tapped = card.Tapped;
+
+            // If card gets new id, ability informations must be updated.
+            if (!copyId)
+            {
+                InitializeAbilities();
+            }
         }
 
         public virtual Card Copy()
@@ -114,6 +116,32 @@ namespace DuelMastersModels
             if (Civilizations.Count > 1)
             {
                 Tapped = true;
+            }
+        }
+
+        /// <summary>
+        /// Initializes the sources and controllers of all abilities and related abstractions of the card.
+        /// </summary>
+        public void InitializeAbilities()
+        {
+            foreach (var ability in Abilities)
+            {
+                ability.Controller = Owner;
+                ability.Owner = Owner;
+                ability.Source = Id;
+                if (ability is StaticAbility staticAbility)
+                {
+                    foreach (var filter in staticAbility.ContinuousEffects.Select(y => y.Filter))
+                    {
+                        filter.Owner = Owner;
+                        filter.Source = Id;
+                    }
+                }
+                else if (ability is ResolvableAbility resolvable)
+                {
+                    resolvable.Resolvable.Controller = Owner;
+                    resolvable.Resolvable.Source = Id;
+                }
             }
         }
     }

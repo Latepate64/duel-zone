@@ -87,6 +87,7 @@
     <Compile Include="Abilities\DelayedTriggeredAbility.cs" />
     <Compile Include="Abilities\TriggeredAbility.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="CardFilter.cs" />
     <Compile Include="Permanent.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
