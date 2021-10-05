@@ -1,5 +1,5 @@
-﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -20,11 +20,11 @@ namespace DuelMastersModels.Steps
         {
             if (decision == null)
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness()).Distinct(new PermanentComparer());
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new PermanentComparer());
                 List<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id)).ToList();
                 if (options.Any())
                 {
-                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.SelectMany(x => x.Abilities).OfType<AttacksIfAbleAbility>().Any());
+                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()));
                 }
                 else
                 {

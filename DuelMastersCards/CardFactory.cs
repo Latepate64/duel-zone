@@ -1,8 +1,8 @@
 ﻿using DuelMastersCards.Resolvables;
+using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
 using System;
 using System.Collections.Generic;
 
@@ -95,8 +95,8 @@ namespace DuelMastersCards
         static Card CreateBombazarDragonOfDestiny()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 7, Name = BombazarDragonOfDestiny, Power = 6000, Subtypes = new List<Subtype> { Subtype.ArmoredDragon, Subtype.EarthDragon } };
-            x.Abilities.Add(new SpeedAttacker());
-            x.Abilities.Add(new DoubleBreaker());
+            x.Abilities.Add(new SpeedAttackerAbility());
+            x.Abilities.Add(new DoubleBreakerAbility());
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyResolvable()));
             return x;
         }
@@ -139,7 +139,7 @@ namespace DuelMastersCards
         static Card CreatePyrofighterMagnus()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = PyrofighterMagnus, Power = 3000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
-            x.Abilities.Add(new SpeedAttacker());
+            x.Abilities.Add(new SpeedAttackerAbility());
             x.Abilities.Add(new AtTheEndOfYourTurnAbility(new PyrofighterMagnusResolvable()));
             return x;
         }
@@ -147,7 +147,7 @@ namespace DuelMastersCards
         static Card CreateRikabuTheDismantler()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = RikabuTheDismantler, Power = 1000, Subtypes = new List<Subtype> { Subtype.MachineEater } };
-            x.Abilities.Add(new SpeedAttacker());
+            x.Abilities.Add(new SpeedAttackerAbility());
             return x;
         }
 
@@ -168,8 +168,8 @@ namespace DuelMastersCards
         static Card CreateTwinCannonSkyterror()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 7, Name = TwinCannonSkyterror, Power = 7000, Subtypes = new List<Subtype> { Subtype.ArmoredWyvern } };
-            x.Abilities.Add(new SpeedAttacker());
-            x.Abilities.Add(new DoubleBreaker());
+            x.Abilities.Add(new SpeedAttackerAbility());
+            x.Abilities.Add(new DoubleBreakerAbility());
             return x;
         }
 

@@ -1,4 +1,6 @@
-﻿namespace DuelMastersModels.Abilities.Static
+﻿using DuelMastersModels.Abilities;
+
+namespace DuelMastersCards.StaticAbilities
 {
     public class AttacksIfAbleAbility : StaticAbility
     {

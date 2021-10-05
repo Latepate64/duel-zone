@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities.Static;
+﻿using DuelMastersModels.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,9 +30,9 @@ namespace DuelMastersModels
             SummoningSickness = permanent.SummoningSickness;
         }
 
-        internal bool AffectedBySummoningSickness()
+        internal bool AffectedBySummoningSickness(Duel duel)
         {
-            return SummoningSickness && !Abilities.OfType<SpeedAttacker>().Any();
+            return SummoningSickness && !duel.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
         }
     }
 

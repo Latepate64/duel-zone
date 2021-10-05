@@ -1,5 +1,5 @@
 ﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Effects.Durations;
+using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels.Steps

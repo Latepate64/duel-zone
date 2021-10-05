@@ -2,7 +2,7 @@ using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using DuelMastersModels.Effects.Durations;
+using DuelMastersModels.Durations;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables

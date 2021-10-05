@@ -1,5 +1,5 @@
-﻿using DuelMastersModels.Abilities.Static;
-using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace DuelMastersModels.Steps
             if (opponent.ShieldZone.Cards.Any())
             {
                 int breakAmount = 1;
-                if (attackingCreature.Abilities.OfType<DoubleBreaker>().Any())
+                if (duel.GetContinuousEffects<DoubleBreakerEffect>(attackingCreature).Any())
                 {
                     breakAmount = 2;
                 }

@@ -1,8 +1,8 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Effects.Durations;
+using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 
 namespace DuelMastersCards.Resolvables
 {

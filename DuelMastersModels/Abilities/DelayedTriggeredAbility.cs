@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Effects.Durations;
+﻿using DuelMastersModels.Durations;
 using System;
 
 namespace DuelMastersModels.Abilities

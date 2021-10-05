@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Effects.Durations
+﻿namespace DuelMastersModels.Durations
 {
     internal class Indefinite : Duration
     {

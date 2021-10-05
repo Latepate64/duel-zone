@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
+﻿using DuelMastersCards.StaticAbilities;
+using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Abilities.Static;
 using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace DuelMastersCards.Resolvables
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(controller);
-                var blockers = opponent.BattleZone.Creatures.Where(c => c.Abilities.OfType<Blocker>().Any());
+                var blockers = opponent.BattleZone.Creatures.Where(c => c.Abilities.OfType<BlockerAbility>().Any());
                 if (blockers.Count() > 1)
                 {
                     return new GuidSelection(controller.Id, blockers, 1, 1);

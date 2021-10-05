@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using DuelMastersModels.Effects.ContinuousEffects;
-using DuelMastersModels.Effects.Durations;
+using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -280,14 +280,11 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
-        public IEnumerable<Permanent> GetAllPermanents()
-        {
-            return Players.SelectMany(x => x.BattleZone.Permanents);
-        }
+        public IEnumerable<Permanent> Permanents => Players.SelectMany(x => x.BattleZone.Permanents);
 
         public Permanent GetPermanent(Guid id)
         {
-            return GetAllPermanents().Single(x => x.Id == id);
+            return Permanents.Single(x => x.Id == id);
         }
 
         public Player GetPlayer(Guid id)
@@ -306,7 +303,7 @@ namespace DuelMastersModels
             {
                 return GetPlayer(id);
             }
-            else if (GetAllPermanents().Any(x => x.Id == id))
+            else if (Permanents.Any(x => x.Id == id))
             {
                 return GetPermanent(id);
             }
@@ -335,16 +332,21 @@ namespace DuelMastersModels
         public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromPermanents(GameEvent gameEvent)
         {
             var abilities = new List<TriggeredAbility>();
-            foreach (var permanent in GetAllPermanents())
+            foreach (var permanent in Permanents)
             {
                 abilities.AddRange(permanent.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
             }
             return abilities;
         }
 
-        public int GetPower(Permanent permanent)
+        public int GetPower(Card card)
         {
-            return permanent.Power.Value + ContinuousEffects.OfType<PowerModifyingEffect>().Where(x => x.Target == permanent.Id).Sum(x => x.Power);
+            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.Power);
+        }
+
+        public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
+        {
+            return Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Targets.Contains(card.Id));
         }
 
         public override string ToString()
