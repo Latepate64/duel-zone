@@ -1,6 +1,7 @@
 ﻿using DuelMastersCards.CardFilters;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -8,7 +9,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public SpeedAttackerAbility() : base()
         {
-            ContinuousEffects.Add(new SpeedAttackerEffect(new SourceFilter()));
+            ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter(), new Indefinite()));
         }
 
         protected SpeedAttackerAbility(SpeedAttackerAbility ability) : base(ability) { }

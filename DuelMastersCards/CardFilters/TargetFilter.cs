@@ -2,24 +2,24 @@
 
 namespace DuelMastersCards.CardFilters
 {
-    public class SourceFilter : CardFilter
+    public class TargetFilter : CardFilter
     {
-        public SourceFilter()
+        public TargetFilter()
         {
         }
 
-        public SourceFilter(SourceFilter filter) : base(filter)
+        public TargetFilter(TargetFilter filter) : base(filter)
         {
         }
 
         public override CardFilter Copy()
         {
-            return new SourceFilter(this);
+            return new TargetFilter(this);
         }
 
         public override bool Applies(Card card, Duel duel)
         {
-            return Source == card.Id;
+            return Target == card.Id;
         }
     }
 }

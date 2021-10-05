@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Durations
 {
-    internal class Indefinite : Duration
+    public class Indefinite : Duration
     {
         public override Duration Copy()
         {

@@ -134,7 +134,7 @@ namespace DuelMastersModels
                     foreach (var filter in staticAbility.ContinuousEffects.Select(y => y.Filter))
                     {
                         filter.Owner = Owner;
-                        filter.Source = Id;
+                        filter.Target = Id;
                     }
                 }
                 else if (ability is ResolvableAbility resolvable)

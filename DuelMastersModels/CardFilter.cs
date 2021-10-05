@@ -4,7 +4,10 @@ namespace DuelMastersModels
 {
     public abstract class CardFilter : IDisposable
     {
-        public Guid Source { get; set; }
+        /// <summary>
+        /// Target and/or source of the filter. Not all filters need to consider this in applying the filter. (eg. for creature with Speed Attacker ability this is the creature, for Super Sonic Jetpack selection this is the target of the effect)
+        /// </summary>
+        public Guid Target { get; set; }
 
         public Guid Owner { get; set; }
 
@@ -12,7 +15,7 @@ namespace DuelMastersModels
 
         protected CardFilter(CardFilter filter)
         {
-            Source = filter.Source;
+            Target = filter.Target;
             Owner = filter.Owner;
         }
 

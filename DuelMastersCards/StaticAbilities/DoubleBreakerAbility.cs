@@ -1,6 +1,7 @@
 ﻿using DuelMastersCards.CardFilters;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -8,7 +9,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public DoubleBreakerAbility() : base()
         {
-            ContinuousEffects.Add(new DoubleBreakerEffect(new SourceFilter()));
+            ContinuousEffects.Add(new DoubleBreakerEffect(new TargetFilter(), new Indefinite()));
         }
 
         protected DoubleBreakerAbility(DoubleBreakerAbility ability) : base(ability) { }

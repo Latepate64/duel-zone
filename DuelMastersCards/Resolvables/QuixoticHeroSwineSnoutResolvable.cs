@@ -24,7 +24,7 @@ namespace DuelMastersCards.Resolvables
 
         public override Choice Resolve(Duel duel, Decision decision)
         {
-            duel.ContinuousEffects.Add(new PowerModifyingEffect(new SourceFilter { Owner = Controller, Source = Source }, 3000) { Duration = new UntilTheEndOfTheTurn() });
+            duel.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Owner = Controller, Target = Source }, 3000, new UntilTheEndOfTheTurn()));
             return null;
         }
     }

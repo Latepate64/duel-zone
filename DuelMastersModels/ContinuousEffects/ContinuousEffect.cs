@@ -15,10 +15,10 @@ namespace DuelMastersModels.ContinuousEffects
 
         public CardFilter Filter { get; set; }
 
-        protected ContinuousEffect(CardFilter filter)
+        protected ContinuousEffect(CardFilter filter, Duration duration)
         {
-            Duration = new Indefinite();
             Filter = filter;
+            Duration = duration;
         }
 
         protected ContinuousEffect(ContinuousEffect effect)
@@ -51,7 +51,7 @@ namespace DuelMastersModels.ContinuousEffects
     {
         public int Power { get; set; }
 
-        public PowerModifyingEffect(CardFilter filter, int power) : base(filter)
+        public PowerModifyingEffect(CardFilter filter, int power, Duration duration) : base(filter, duration)
         {
             Power = power;
         }
@@ -69,7 +69,7 @@ namespace DuelMastersModels.ContinuousEffects
 
     public class SpeedAttackerEffect : ContinuousEffect
     {
-        public SpeedAttackerEffect(CardFilter filter) : base(filter)
+        public SpeedAttackerEffect(CardFilter filter, Duration duration) : base(filter, duration)
         {
         }
 
@@ -85,7 +85,7 @@ namespace DuelMastersModels.ContinuousEffects
 
     public class DoubleBreakerEffect : ContinuousEffect
     {
-        public DoubleBreakerEffect(CardFilter filter) : base(filter)
+        public DoubleBreakerEffect(CardFilter filter, Duration duration) : base(filter, duration)
         {
 
         }
@@ -102,7 +102,7 @@ namespace DuelMastersModels.ContinuousEffects
 
     public class AttacksIfAbleEffect : ContinuousEffect
     {
-        public AttacksIfAbleEffect(CardFilter filter) : base(filter)
+        public AttacksIfAbleEffect(CardFilter filter, Duration duration) : base(filter, duration)
         {
 
         }

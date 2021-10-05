@@ -47,6 +47,7 @@ namespace DuelMastersCards
 
             { SniperMosquito, () => CreateSniperMosquito() },
             { Soulswap, () => CreateSoulswap() },
+            { SupersonicJetPack, () => CreateSupersonicJetPack() },
 
             { Torcon, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = Torcon, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TriHornShepherd, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 5, Name = TriHornShepherd, Power = 5000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
@@ -73,6 +74,7 @@ namespace DuelMastersCards
         public const string RikabuTheDismantler = "Rikabu, the Dismantler";
         public const string SniperMosquito = "Sniper Mosquito";
         public const string Soulswap = "Soulswap";
+        public const string SupersonicJetPack = "Supersonic Jet Pack";
         public const string Torcon = "Torcon";
         public const string TriHornShepherd = "Tri-Horn Shepherd";
         public const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
@@ -162,6 +164,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = Soulswap };
             x.Abilities.Add(new SpellAbility(new SoulswapResolvable()));
+            return x;
+        }
+
+        static Card CreateSupersonicJetPack()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = SupersonicJetPack };
+            x.Abilities.Add(new SpellAbility(new SupersonicJetPackResolvable()));
             return x;
         }
 
