@@ -31,7 +31,8 @@ namespace Simulator
             for (int i = 0; i < 999999; ++i)
             {
                 using Player player1 = new() { Name = playerInfos.First().Key }, player2 = new() { Name = playerInfos.Last().Key };
-                using Deck deck1 = new(GetCards(player1.Id, args[1])), deck2 = new(GetCards(player2.Id, args[3]));
+                //using Deck deck1 = new(GetCards(player1.Id, args[1])), deck2 = new(GetCards(player2.Id, args[3]));
+                using Deck deck1 = new(GetCards(player1.Id)), deck2 = new(GetCards(player2.Id));
                 player1.Deck = deck1;
                 player2.Deck = deck2;
                 using var duel = PlayDuel(player1, player2, int.Parse(args[4]));
