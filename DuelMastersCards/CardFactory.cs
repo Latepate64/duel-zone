@@ -5,6 +5,7 @@ using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersCards
 {
@@ -13,6 +14,11 @@ namespace DuelMastersCards
         static public Card Create(string name)
         {
             return _cards[name].Invoke();
+        }
+
+        static public IEnumerable<Card> CreateAll()
+        {
+            return _cards.Select(x => x.Value.Invoke());
         }
 
         static readonly private Dictionary<string, Func<Card>> _cards = new()

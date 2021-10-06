@@ -153,6 +153,20 @@ namespace Simulator
             return card;
         }
 
+        static List<Card> GetCards(Guid player)
+        {
+            List<Card> cards = new();
+            while (cards.Count < 40)
+            {
+                cards.AddRange(CardFactory.CreateAll());
+            }
+            foreach (var card in cards)
+            {
+                card.Owner = player;
+            }
+            return cards;
+        }
+
         static List<Card> GetCards(Guid player, string path)
         {
             List<Card> cards = new();

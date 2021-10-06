@@ -4,7 +4,6 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -27,9 +26,9 @@ namespace DuelMastersCards.Resolvables
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
-            var controller = duel.GetPlayer(Controller);
-            if (decision != null)
+            if (decision == null)
             {
+                var controller = duel.GetPlayer(Controller);
                 if (controller.BattleZone.Permanents.Count > 1)
                 {
                     return new GuidSelection(Controller, controller.BattleZone.Permanents, 1, 1);
@@ -47,6 +46,7 @@ namespace DuelMastersCards.Resolvables
             else
             {
                 var target = duel.GetPermanent((decision as GuidDecision).Decision.Single()).Id;
+                //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
                 duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = target }, new Indefinite()));
                 return null;
             }
