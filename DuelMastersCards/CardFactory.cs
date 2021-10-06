@@ -21,6 +21,48 @@ namespace DuelMastersCards
             return _cards.Select(x => x.Value.Invoke());
         }
 
+        #region Card names
+        const string AquaHulcus = "Aqua Hulcus";
+        const string AquaSurfer = "Aqua Surfer";
+
+        const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
+        const string BronzeArmTribe = "Bronze-Arm Tribe";
+        const string BurningMane = "Burning Mane";
+
+        const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
+
+        const string Emeral = "Emeral";
+
+        const string ExplosiveDudeJoe = "Explosive Dude Joe";
+
+        const string FearFang = "Fear Fang";
+
+        const string GontaTheWarriorSavage = "Gonta, the Warrior Savage";
+
+        const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
+        const string HolyAwe = "Holy Awe";
+
+        const string ImmortalBaronVorg = "Immortal Baron, Vorg";
+
+        const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
+
+        const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
+
+        const string PyrofighterMagnus = "Pyrofighter Magnus";
+
+        const string RikabuTheDismantler = "Rikabu, the Dismantler";
+
+        const string SniperMosquito = "Sniper Mosquito";
+        const string Soulswap = "Soulswap";
+        const string SupersonicJetPack = "Supersonic Jet Pack";
+
+        const string Torcon = "Torcon";
+        const string TriHornShepherd = "Tri-Horn Shepherd";
+        const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
+
+        const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
+        #endregion Card names
+
         static readonly private Dictionary<string, Func<Card>> _cards = new()
         {
             { AquaHulcus, () => CreateAquaHulcus() },
@@ -40,6 +82,7 @@ namespace DuelMastersCards
             { GontaTheWarriorSavage, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 2, Name = GontaTheWarriorSavage, Power = 4000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } } },
             
             { HeartyCapnPolligon, () => CreateHeartyCapnPolligon() },
+            { HolyAwe, () => CreateHolyAwe() },
 
             { ImmortalBaronVorg, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = ImmortalBaronVorg, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human } } },
             
@@ -61,30 +104,6 @@ namespace DuelMastersCards
 
             { WindAxeTheWarriorSavage, () => CreateWindAxeTheWarriorSavage() },
         };
-
-        public const string AquaHulcus = "Aqua Hulcus";
-        public const string AquaSurfer = "Aqua Surfer";
-        public const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
-        public const string BronzeArmTribe = "Bronze-Arm Tribe";
-        public const string BurningMane = "Burning Mane";
-        public const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
-        public const string Emeral = "Emeral";
-        public const string ExplosiveDudeJoe = "Explosive Dude Joe";
-        public const string FearFang = "Fear Fang";
-        public const string GontaTheWarriorSavage = "Gonta, the Warrior Savage";
-        public const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
-        public const string ImmortalBaronVorg = "Immortal Baron, Vorg";
-        public const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
-        public const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
-        public const string PyrofighterMagnus = "Pyrofighter Magnus";
-        public const string RikabuTheDismantler = "Rikabu, the Dismantler";
-        public const string SniperMosquito = "Sniper Mosquito";
-        public const string Soulswap = "Soulswap";
-        public const string SupersonicJetPack = "Supersonic Jet Pack";
-        public const string Torcon = "Torcon";
-        public const string TriHornShepherd = "Tri-Horn Shepherd";
-        public const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
-        public const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
 
         static Card CreateAquaHulcus()
         {
@@ -137,6 +156,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateHolyAwe()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 6, Name = HolyAwe, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new HolyAweResolvable()));
+            return x;
+        }
+
         static Card CreateQuixoticHeroSwineSnout()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
@@ -168,7 +194,7 @@ namespace DuelMastersCards
 
         static Card CreateSoulswap()
         {
-            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = Soulswap };
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = Soulswap, ShieldTrigger = true };
             x.Abilities.Add(new SpellAbility(new SoulswapResolvable()));
             return x;
         }
