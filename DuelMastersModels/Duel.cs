@@ -218,13 +218,17 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(IEnumerable<Permanent> permanents)
+        public void Destroy(List<Permanent> permanents)
         {
             while (permanents.Any())
             {
-                var permanent = permanents.First();
-                GetPlayer(permanent.Controller).PutFromBattleZoneIntoGraveyard(permanent, this);
+                Destroy(permanents.First());
             }
+        }
+
+        public void Destroy(Permanent permanent)
+        {
+            GetPlayer(permanent.Controller).PutFromBattleZoneIntoGraveyard(permanent, this);
         }
 
         public Duel() { }

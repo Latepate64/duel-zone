@@ -18,7 +18,7 @@ namespace DuelMastersCards.Resolvables
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            duel.Destroy(duel.CreaturePermanents.Where(p => p.Id != Source && duel.GetPower(p) == 6000));
+            duel.Destroy(duel.CreaturePermanents.Where(p => p.Id != Source && duel.GetPower(p) == 6000).ToList());
             // then take an extra turn after this one.
             Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = duel.GetOpponent(Controller) };
             duel.ExtraTurns.Enqueue(turn);

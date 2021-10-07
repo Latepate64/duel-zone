@@ -59,6 +59,7 @@ namespace DuelMastersCards
         const string Soulswap = "Soulswap";
         const string SupersonicJetPack = "Supersonic Jet Pack";
 
+        const string TerrorPit = "Terror Pit";
         const string Torcon = "Torcon";
         const string TriHornShepherd = "Tri-Horn Shepherd";
         const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
@@ -104,6 +105,7 @@ namespace DuelMastersCards
             { Soulswap, () => CreateSoulswap() },
             { SupersonicJetPack, () => CreateSupersonicJetPack() },
 
+            { TerrorPit, () => CreateTerrorPit() },
             { Torcon, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = Torcon, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TriHornShepherd, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 5, Name = TriHornShepherd, Power = 5000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TwinCannonSkyterror, () => CreateTwinCannonSkyterror() },
@@ -223,6 +225,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = SupersonicJetPack };
             x.Abilities.Add(new SpellAbility(new SupersonicJetPackResolvable()));
+            return x;
+        }
+
+        static Card CreateTerrorPit()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 6, Name = TerrorPit, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new TerrorPitResolvable()));
             return x;
         }
 
