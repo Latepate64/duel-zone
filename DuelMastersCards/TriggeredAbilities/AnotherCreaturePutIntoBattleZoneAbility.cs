@@ -7,11 +7,11 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class AnotherCreaturePutIntoBattleZoneAbility : CardChangesZoneAbility
     {
-        protected AnotherCreaturePutIntoBattleZoneAbility(Resolvable resolvable) : base(resolvable)
+        public AnotherCreaturePutIntoBattleZoneAbility(Resolvable resolvable) : base(resolvable)
         {
         }
 
-        protected AnotherCreaturePutIntoBattleZoneAbility(AnotherCreaturePutIntoBattleZoneAbility ability) : base(ability)
+        public AnotherCreaturePutIntoBattleZoneAbility(AnotherCreaturePutIntoBattleZoneAbility ability) : base(ability)
         {
         }
 

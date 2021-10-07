@@ -46,6 +46,9 @@ namespace DuelMastersCards
 
         const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
 
+        const string MagrisVizierOfMagnetism = "Magris, Vizier of Magnetism";
+        const string MistRiasSonicGuardian = "Mist Rias, Sonic Guardian";
+
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
 
         const string PyrofighterMagnus = "Pyrofighter Magnus";
@@ -87,7 +90,10 @@ namespace DuelMastersCards
             { ImmortalBaronVorg, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = ImmortalBaronVorg, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human } } },
             
             { KamikazeChainsawWarrior, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = KamikazeChainsawWarrior, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } } },
-            
+
+            { MagrisVizierOfMagnetism, () => CreateMagrisVizierOfMagnetism() },
+            { MistRiasSonicGuardian, () => CreateMistRiasSonicGuardian() },
+
             { PyrofighterMagnus, () => CreatePyrofighterMagnus() },
 
             { QuixoticHeroSwineSnout, () => CreateQuixoticHeroSwineSnout() },
@@ -108,7 +114,7 @@ namespace DuelMastersCards
         static Card CreateAquaHulcus()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = AquaHulcus, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
-            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaHulcusResolvable()));
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardResolvable()));
             return x;
         }
 
@@ -163,10 +169,24 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateMagrisVizierOfMagnetism()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 4, Name = MagrisVizierOfMagnetism, Power = 3000, Subtypes = new List<Subtype> { Subtype.Initiate } };
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            return x;
+        }
+
+        static Card CreateMistRiasSonicGuardian()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 5, Name = MistRiasSonicGuardian, Power = 2000, Subtypes = new List<Subtype> { Subtype.Guardian } };
+            x.Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            return x;
+        }
+
         static Card CreateQuixoticHeroSwineSnout()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
-            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new QuixoticHeroSwineSnoutResolvable()));
+            x.Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new QuixoticHeroSwineSnoutResolvable()));
             return x;
         }
 

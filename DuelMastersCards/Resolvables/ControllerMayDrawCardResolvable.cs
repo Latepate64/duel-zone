@@ -4,17 +4,17 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersCards.Resolvables
 {
-    public class AquaHulcusResolvable : Resolvable
+    public class ControllerMayDrawCardResolvable : Resolvable
     {
-        public AquaHulcusResolvable() : base() { }
+        public ControllerMayDrawCardResolvable() : base() { }
 
-        public AquaHulcusResolvable(AquaHulcusResolvable ability) : base(ability)
+        public ControllerMayDrawCardResolvable(ControllerMayDrawCardResolvable ability) : base(ability)
         {
         }
 
         public override Resolvable Copy()
         {
-            return new AquaHulcusResolvable(this);
+            return new ControllerMayDrawCardResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
