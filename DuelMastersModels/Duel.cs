@@ -220,9 +220,9 @@ namespace DuelMastersModels
 
         public void Destroy(List<Permanent> permanents)
         {
-            while (permanents.Any())
+            for (int i = 0; i < permanents.Count; ++i)
             {
-                Destroy(permanents.First());
+                Destroy(permanents.ElementAt(i));
             }
         }
 

@@ -1,5 +1,4 @@
-﻿
-using Combinatorics.Collections;
+﻿using Combinatorics.Collections;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System;
@@ -299,6 +298,16 @@ namespace DuelMastersModels
                 ManaZone = null;
                 ShieldZone?.Dispose();
                 ShieldZone = null;
+            }
+        }
+
+        public void Discard(List<Card> cards, Duel duel)
+        {
+            for (int i = 0; i < cards.Count; ++i)
+            {
+                var card = cards.ElementAt(i);
+                Hand.Remove(card);
+                Graveyard.Add(card, duel);
             }
         }
     }

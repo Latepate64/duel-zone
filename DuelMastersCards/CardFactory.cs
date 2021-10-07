@@ -29,6 +29,8 @@ namespace DuelMastersCards
         const string BronzeArmTribe = "Bronze-Arm Tribe";
         const string BurningMane = "Burning Mane";
 
+        const string CraniumClamp = "Cranium Clamp";
+
         const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
 
         const string Emeral = "Emeral";
@@ -75,6 +77,8 @@ namespace DuelMastersCards
             { BombazarDragonOfDestiny, () => CreateBombazarDragonOfDestiny() },
             { BronzeArmTribe, () => CreateBronzeArmTribe() },
             { BurningMane, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = BurningMane, Power = 2000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
+
+            { CraniumClamp, () => CreateCraniumClamp() },
 
             { DeadlyFighterBraidClaw, () => CreateDeadlyFighterBraidClaw() },
 
@@ -140,6 +144,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = BronzeArmTribe, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BronzeArmTribeResolvable()));
+            return x;
+        }
+
+        static Card CreateCraniumClamp()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = CraniumClamp };
+            x.Abilities.Add(new SpellAbility(new CraniumClampResolvable()));
             return x;
         }
 
