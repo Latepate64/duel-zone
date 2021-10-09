@@ -29,9 +29,11 @@ namespace DuelMastersCards
 
         const string BalzaSeekerOfHyperpearls = "Balza, Seeker of Hyperpearls";
         const string BatteryCluster = "Battery Cluster";
+        const string BlizzardOfSpears = "Blizzard of Spears";
         const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
         const string BronzeArmTribe = "Bronze-Arm Tribe";
         const string BurningMane = "Burning Mane";
+        const string BurstShot = "Burst Shot";
 
         const string Corile = "Corile";
         const string CraniumClamp = "Cranium Clamp";
@@ -129,9 +131,11 @@ namespace DuelMastersCards
 
             { BalzaSeekerOfHyperpearls, () => CreateBalzaSeekerOfHyperpearls() },
             { BatteryCluster, () => CreateBatteryCluster() },
+            { BlizzardOfSpears, () => CreateBlizzardOfSpears() },
             { BombazarDragonOfDestiny, () => CreateBombazarDragonOfDestiny() },
             { BronzeArmTribe, () => CreateBronzeArmTribe() },
             { BurningMane, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = BurningMane, Power = 2000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
+            { BurstShot, () => CreateBurstShot() },
 
             { Corile, () => CreateCorile() },
             { CraniumClamp, () => CreateCraniumClamp() },
@@ -266,6 +270,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateBlizzardOfSpears()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 6, Name = BlizzardOfSpears };
+            x.Abilities.Add(new SpellAbility(new DestroyAllCreaturesWithMaxPowerResolvable(4000)));
+            return x;
+        }
+
         static Card CreateBombazarDragonOfDestiny()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 7, Name = BombazarDragonOfDestiny, Power = 6000, Subtypes = new List<Subtype> { Subtype.ArmoredDragon, Subtype.EarthDragon } };
@@ -279,6 +290,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = BronzeArmTribe, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BronzeArmTribeResolvable()));
+            return x;
+        }
+
+        static Card CreateBurstShot()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 6, Name = BurstShot, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyAllCreaturesWithMaxPowerResolvable(2000)));
             return x;
         }
 

@@ -40,7 +40,9 @@ namespace Simulator
                     player1.Deck = new(GetCards(player1.Id));
                     player2.Deck = new(GetCards(player2.Id));
                 }
-                using var duel = PlayDuel(player1, player2, int.Parse(args[0]));
+                var startingPlayer = (i % 2 == 0) ? player1 : player2;
+                var otherPlayer = (i % 2 == 0) ? player2 : player1;
+                using var duel = PlayDuel(startingPlayer, otherPlayer, int.Parse(args[0]));
                 PrintStatistics(playerInfos, player1, player2, duel);
             }
         }
