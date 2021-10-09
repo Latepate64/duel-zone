@@ -10,6 +10,7 @@ namespace DuelMastersModels
 
     public enum Subtype
     {
+        AngelCommand,
         ArmoredDragon,
         ArmoredWyvern,
         Armorloid,
@@ -17,22 +18,32 @@ namespace DuelMastersModels
         Chimera,
         CyberCluster,
         CyberLord,
+        CyberVirus,
+        DeathPuppet,
         Dragonoid,
         EarthDragon,
+        EarthEater,
         Fish,
         GelFish,
         Ghost,
         GiantInsect,
+        Gladiator,
         Guardian,
         Hedrian,
         Human,
         Initiate,
         Leviathan,
+        LightBringer,
         LiquidPeople,
+        LivingDead,
         MachineEater,
+        MechaThunder,
         Merfolk,
         ParasiteWorm,
+        SeaHacker,
         SnowFaerie,
+        Soltrooper,
+        StarlightTree,
     }
 
     public enum Civilization { Light, Water, Darkness, Fire, Nature };
