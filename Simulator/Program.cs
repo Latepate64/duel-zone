@@ -314,19 +314,10 @@ namespace Simulator
 
         private static Tuple<Decision, int> ChooseGuid(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
         {
-            if (selection.MaximumSelection != 1)
+            List<IEnumerable<Guid>> options = new();
+            for (int i = selection.MinimumSelection; i <= selection.MaximumSelection; ++i)
             {
-                throw new NotImplementedException();
-            }
-
-            //var options = selection.Options.Select(x => duel.GetCard(x)).Distinct(new CardComparer()).Select(x => new List<Guid> { x.Id }).ToList();
-            //
-
-            var options = selection.Options.Select(x => new List<Guid> { x }).ToList();
-
-            if (selection.MinimumSelection == 0)
-            {
-                options.Add(new List<Guid>());
+                options.AddRange(GetCombinations(new List<Guid>(), selection.Options, i));
             }
             foreach (var option in options)
             {
@@ -356,6 +347,39 @@ namespace Simulator
             }
             var res = civs.Distinct().Count() * 20 + (include.Any() ? include.Min() : 0);
             return res;
+        }
+
+        static IEnumerable<IEnumerable<T>> GetCombinations<T>(IEnumerable<T> locked, IEnumerable<T> unlocked, int size)
+        {
+            if (locked.Count() == size)
+            {
+                return new List<List<T>>
+                {
+                    locked.ToList()
+                };
+            }
+            else if (unlocked.Any())
+            {
+                var res = new List<IEnumerable<T>>();
+                var unlockedNew = unlocked.ToList();
+                for (int i = 0; i < unlocked.Count(); ++i)
+                {
+                    var element = unlocked.ElementAt(i);
+                    var lockedNew = locked.ToList();
+                    lockedNew.Add(element);
+                    unlockedNew.Remove(element);
+                    var combs = GetCombinations<T>(lockedNew, unlockedNew, size);
+                    if (combs != null)
+                    {
+                        res.AddRange(combs);
+                    }
+                }
+                return res;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
