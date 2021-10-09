@@ -14,15 +14,18 @@ namespace DuelMastersModels
         ArmoredWyvern,
         Armorloid,
         BeastFolk,
+        Chimera,
         CyberLord,
         Dragonoid,
         EarthDragon,
         GiantInsect,
         Guardian,
+        Hedrian,
         Human,
         Initiate,
         LiquidPeople,
         MachineEater,
+        ParasiteWorm,
         SnowFaerie,
     }
 

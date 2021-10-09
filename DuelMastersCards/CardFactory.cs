@@ -39,14 +39,19 @@ namespace DuelMastersCards
 
         const string FearFang = "Fear Fang";
 
+        const string GhostTouch = "Ghost Touch";
+        const string Gigabalza = "Gigabalza";
         const string GontaTheWarriorSavage = "Gonta, the Warrior Savage";
 
         const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
         const string HolyAwe = "Holy Awe";
+        const string HorridWorm = "Horrid Worm";
 
         const string ImmortalBaronVorg = "Immortal Baron, Vorg";
 
         const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
+
+        const string Locomotiver = "Locomotiver";
 
         const string MagrisVizierOfMagnetism = "Magris, Vizier of Magnetism";
         const string MistRiasSonicGuardian = "Mist Rias, Sonic Guardian";
@@ -67,6 +72,7 @@ namespace DuelMastersCards
         const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
 
         const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
+        const string WindmillMutant = "Windmill Mutant";
         #endregion Card names
 
         static readonly private Dictionary<string, Func<Card>> _cards = new()
@@ -86,15 +92,20 @@ namespace DuelMastersCards
             { ExplosiveDudeJoe, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = ExplosiveDudeJoe, Power = 3000, Subtypes = new List<Subtype> { Subtype.Human } } },
 
             { FearFang, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = FearFang, Power = 3000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
-            
+
+            { GhostTouch, () => CreateGhostTouch() },
+            { Gigabalza, () => CreateGigabalza() },
             { GontaTheWarriorSavage, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 2, Name = GontaTheWarriorSavage, Power = 4000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } } },
             
             { HeartyCapnPolligon, () => CreateHeartyCapnPolligon() },
             { HolyAwe, () => CreateHolyAwe() },
+            { HorridWorm, () => CreateHorridWorm() },
 
             { ImmortalBaronVorg, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = ImmortalBaronVorg, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human } } },
             
             { KamikazeChainsawWarrior, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = KamikazeChainsawWarrior, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } } },
+
+            { Locomotiver, () => CreateLocomotiver() },
 
             { MagrisVizierOfMagnetism, () => CreateMagrisVizierOfMagnetism() },
             { MistRiasSonicGuardian, () => CreateMistRiasSonicGuardian() },
@@ -115,6 +126,7 @@ namespace DuelMastersCards
             { TwinCannonSkyterror, () => CreateTwinCannonSkyterror() },
 
             { WindAxeTheWarriorSavage, () => CreateWindAxeTheWarriorSavage() },
+            { WindmillMutant, () => CreateWindmillMutant() },
         };
 
         static Card CreateAquaHulcus()
@@ -168,6 +180,20 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateGhostTouch()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 2, Name = GhostTouch, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new OpponentRandomDiscardResolvable()));
+            return x;
+        }
+
+        static Card CreateGigabalza()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = Gigabalza, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Chimera } };
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardResolvable()));
+            return x;
+        }
+
         static Card CreateHeartyCapnPolligon()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 1, Name = HeartyCapnPolligon, Power = 2000, Subtypes = new List<Subtype> { Subtype.SnowFaerie } };
@@ -179,6 +205,20 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 6, Name = HolyAwe, ShieldTrigger = true };
             x.Abilities.Add(new SpellAbility(new HolyAweResolvable()));
+            return x;
+        }
+
+        static Card CreateHorridWorm()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 3, Name = HorridWorm, Power = 2000, Subtypes = new List<Subtype> { Subtype.ParasiteWorm } };
+            x.Abilities.Add(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardResolvable()));
+            return x;
+        }
+
+        static Card CreateLocomotiver()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = Locomotiver, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Hedrian } };
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardResolvable()));
             return x;
         }
 
@@ -258,6 +298,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire, Civilization.Nature }, ManaCost = 5, Name = WindAxeTheWarriorSavage, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human, Subtype.BeastFolk } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageResolvable()));
+            return x;
+        }
+
+        static Card CreateWindmillMutant()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 3, Name = WindmillMutant, Power = 2000, Subtypes = new List<Subtype> { Subtype.Hedrian } };
+            x.Abilities.Add(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardResolvable()));
             return x;
         }
     }
