@@ -81,6 +81,7 @@ namespace DuelMastersCards
         const string MikayRattlingDoll = "Mikay, Rattling Doll";
         const string MistRiasSonicGuardian = "Mist Rias, Sonic Guardian";
 
+        const string NaturalSnare = "Natural Snare";
         const string NightMasterShadowOfDecay = "Night Master, Shadow of Decay";
 
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
@@ -183,6 +184,7 @@ namespace DuelMastersCards
             { MikayRattlingDoll, () => CreateMikayRattlingDoll() },
             { MistRiasSonicGuardian, () => CreateMistRiasSonicGuardian() },
 
+            { NaturalSnare, () => CreateNaturalSnare() },
             { NightMasterShadowOfDecay, () => CreateNightMasterShadowOfDecay() },
 
             { PhantomDragonsFlame, () => CreatePhantomDragonsFlame() },
@@ -532,6 +534,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 5, Name = MistRiasSonicGuardian, Power = 2000, Subtypes = new List<Subtype> { Subtype.Guardian } };
             x.Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            return x;
+        }
+
+        static Card CreateNaturalSnare()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 6, Name = NaturalSnare, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new NaturalSnareResolvable()));
             return x;
         }
 
