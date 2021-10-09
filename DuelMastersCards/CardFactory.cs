@@ -33,6 +33,7 @@ namespace DuelMastersCards
         const string BronzeArmTribe = "Bronze-Arm Tribe";
         const string BurningMane = "Burning Mane";
 
+        const string Corile = "Corile";
         const string CraniumClamp = "Cranium Clamp";
 
         const string DarkRavenShadowOfGrief = "Dark Raven, Shadow of Grief";
@@ -126,6 +127,7 @@ namespace DuelMastersCards
             { BronzeArmTribe, () => CreateBronzeArmTribe() },
             { BurningMane, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = BurningMane, Power = 2000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
 
+            { Corile, () => CreateCorile() },
             { CraniumClamp, () => CreateCraniumClamp() },
 
             { DarkRavenShadowOfGrief, () => CreateDarkRavenShadowOfGrief() },
@@ -265,6 +267,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = BronzeArmTribe, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BronzeArmTribeResolvable()));
+            return x;
+        }
+
+        static Card CreateCorile()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 5, Name = Corile, Power = 2000, Subtypes = new List<Subtype> { Subtype.CyberLord } };
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileResolvable()));
             return x;
         }
 

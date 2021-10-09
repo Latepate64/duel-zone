@@ -324,5 +324,11 @@ namespace DuelMastersModels
                 Discard(Hand.Cards[_random.Next(Hand.Cards.Count)], duel);
             }
         }
+
+        public void PutFromBattleZoneOnTopOfDeck(Permanent permanent, Duel duel)
+        {
+            BattleZone.Remove(permanent);
+            Deck.Add(new Card(permanent, false), duel);
+        }
     }
 }
