@@ -111,6 +111,7 @@ namespace DuelMastersCards
 
         const string ValkyerStarstormElemental = "Valkyer, Starstorm Elemental";
         const string VessTheOracle = "Vess, the Oracle";
+        const string VolcanoCharger = "Volcano Charger";
 
         const string WanderingBraineater = "Wandering Braineater";
         const string WindAxeTheWarriorSavage = "Wind Axe, the Warrior Savage";
@@ -210,6 +211,7 @@ namespace DuelMastersCards
 
             { ValkyerStarstormElemental, () => CreateValkyerStarstormElemental() },
             { VessTheOracle, () => CreateVessTheOracle() },
+            { VolcanoCharger, () => CreateVolcanoCharger() },
 
             { WanderingBraineater, () => CreateWanderingBraineater() },
             { WindAxeTheWarriorSavage, () => CreateWindAxeTheWarriorSavage() },
@@ -692,6 +694,14 @@ namespace DuelMastersCards
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 1, Name = VessTheOracle, Power = 2000, Subtypes = new List<Subtype> { Subtype.LightBringer } };
             x.Abilities.Add(new BlockerAbility());
             x.Abilities.Add(new CannotAttackPlayersAbility());
+            return x;
+        }
+
+        static Card CreateVolcanoCharger()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = VolcanoCharger };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
+            x.Abilities.Add(new ChargerAbility());
             return x;
         }
 

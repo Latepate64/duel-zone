@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -184,8 +185,17 @@ namespace DuelMastersModels.Steps
             {
                 if (_spellAbilitiesRetrieved)
                 {
-                    var spell = duel.ResolvingSpells.Pop();
-                    duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+                    var spell = duel.ResolvingSpells.Peek();
+                    if (duel.GetContinuousEffects<ChargerEffect>(spell).Any())
+                    {
+                        _ = duel.ResolvingSpells.Pop();
+                        duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+                    }
+                    else
+                    {
+                        _ = duel.ResolvingSpells.Pop();
+                        duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+                    }
                     _spellAbilitiesRetrieved = false;
                 }
                 else
