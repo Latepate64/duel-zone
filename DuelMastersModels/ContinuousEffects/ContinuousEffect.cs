@@ -133,4 +133,38 @@ namespace DuelMastersModels.ContinuousEffects
             return new BlockerEffect(this);
         }
     }
+
+    public class CannotAttackCreaturesEffect : ContinuousEffect
+    {
+        public CannotAttackCreaturesEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        {
+
+        }
+
+        public CannotAttackCreaturesEffect(CannotAttackCreaturesEffect effect) : base(effect)
+        {
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new CannotAttackCreaturesEffect(this);
+        }
+    }
+
+    public class CannotAttackPlayersEffect : ContinuousEffect
+    {
+        public CannotAttackPlayersEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        {
+
+        }
+
+        public CannotAttackPlayersEffect(CannotAttackPlayersEffect effect) : base(effect)
+        {
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new CannotAttackPlayersEffect(this);
+        }
+    }
 }

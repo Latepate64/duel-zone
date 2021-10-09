@@ -50,8 +50,14 @@ namespace DuelMastersModels.Steps
         {
             List<IAttackable> attackables = new List<IAttackable>();
             var opponent = duel.GetOpponent(duel.GetPlayer(attacker.Controller));
-            attackables.Add(opponent);
-            attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
+            if (!duel.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
+            {
+                attackables.Add(opponent);
+            }
+            if (!duel.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
+            {
+                attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
+            }
             return attackables;
         }
 
