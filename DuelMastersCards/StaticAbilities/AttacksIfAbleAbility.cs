@@ -1,4 +1,7 @@
-﻿using DuelMastersModels.Abilities;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -6,6 +9,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public AttacksIfAbleAbility() : base()
         {
+            ContinuousEffects.Add(new AttacksIfAbleEffect(new TargetFilter(), new Indefinite()));
         }
 
         public AttacksIfAbleAbility(StaticAbility ability) : base(ability)

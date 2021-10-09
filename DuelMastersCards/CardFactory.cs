@@ -23,6 +23,7 @@ namespace DuelMastersCards
 
         #region Card names
         const string AquaHulcus = "Aqua Hulcus";
+        const string AquaShooter = "Aqua Shooter";
         const string AquaSurfer = "Aqua Surfer";
 
         const string BombazarDragonOfDestiny = "Bombazar, Dragon of Destiny";
@@ -31,12 +32,14 @@ namespace DuelMastersCards
 
         const string CraniumClamp = "Cranium Clamp";
 
+        const string DarkRavenShadowOfGrief = "Dark Raven, Shadow of Grief";
         const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
 
         const string Emeral = "Emeral";
 
         const string ExplosiveDudeJoe = "Explosive Dude Joe";
 
+        const string FantasyFish = "Fantasy Fish";
         const string FearFang = "Fear Fang";
 
         const string GhostTouch = "Ghost Touch";
@@ -46,27 +49,35 @@ namespace DuelMastersCards
         const string HeartyCapnPolligon = "Hearty Cap'n Polligon";
         const string HolyAwe = "Holy Awe";
         const string HorridWorm = "Horrid Worm";
+        const string HunterCluster = "Hunter Cluster";
 
         const string ImmortalBaronVorg = "Immortal Baron, Vorg";
 
         const string KamikazeChainsawWarrior = "Kamikaze, Chainsaw Warrior";
+        const string KingCoral = "King Coral";
 
         const string Locomotiver = "Locomotiver";
 
         const string MagrisVizierOfMagnetism = "Magris, Vizier of Magnetism";
+        const string MelodicHunter = "Melodic Hunter";
         const string MistRiasSonicGuardian = "Mist Rias, Sonic Guardian";
+
+        const string NightMasterShadowOfDecay = "Night Master, Shadow of Decay";
 
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
 
+        const string ProwlingElephish = "Prowling Elephish";
         const string PyrofighterMagnus = "Pyrofighter Magnus";
 
         const string RikabuTheDismantler = "Rikabu, the Dismantler";
 
+        const string Seamine = "Seamine";
         const string SniperMosquito = "Sniper Mosquito";
         const string Soulswap = "Soulswap";
         const string SupersonicJetPack = "Supersonic Jet Pack";
 
         const string TerrorPit = "Terror Pit";
+        const string TidePatroller = "Tide Patroller";
         const string Torcon = "Torcon";
         const string TriHornShepherd = "Tri-Horn Shepherd";
         const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
@@ -78,6 +89,7 @@ namespace DuelMastersCards
         static readonly private Dictionary<string, Func<Card>> _cards = new()
         {
             { AquaHulcus, () => CreateAquaHulcus() },
+            { AquaShooter, () => CreateAquaShooter() },
             { AquaSurfer, () => CreateAquaSurfer() },
 
             { BombazarDragonOfDestiny, () => CreateBombazarDragonOfDestiny() },
@@ -86,11 +98,13 @@ namespace DuelMastersCards
 
             { CraniumClamp, () => CreateCraniumClamp() },
 
+            { DarkRavenShadowOfGrief, () => CreateDarkRavenShadowOfGrief() },
             { DeadlyFighterBraidClaw, () => CreateDeadlyFighterBraidClaw() },
 
             { Emeral, () => CreateEmeral() },
             { ExplosiveDudeJoe, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = ExplosiveDudeJoe, Power = 3000, Subtypes = new List<Subtype> { Subtype.Human } } },
 
+            { FantasyFish, () => CreateFantasyFish() },
             { FearFang, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 3, Name = FearFang, Power = 3000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
 
             { GhostTouch, () => CreateGhostTouch() },
@@ -100,27 +114,35 @@ namespace DuelMastersCards
             { HeartyCapnPolligon, () => CreateHeartyCapnPolligon() },
             { HolyAwe, () => CreateHolyAwe() },
             { HorridWorm, () => CreateHorridWorm() },
+            { HunterCluster, () => CreateHunterCluster() },
 
             { ImmortalBaronVorg, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = ImmortalBaronVorg, Power = 2000, Subtypes = new List<Subtype> { Subtype.Human } } },
             
             { KamikazeChainsawWarrior, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = KamikazeChainsawWarrior, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Armorloid } } },
+            { KingCoral, () => CreateKingCoral() },
 
             { Locomotiver, () => CreateLocomotiver() },
 
             { MagrisVizierOfMagnetism, () => CreateMagrisVizierOfMagnetism() },
+            { MelodicHunter, () => CreateMelodicHunter() },
             { MistRiasSonicGuardian, () => CreateMistRiasSonicGuardian() },
 
+            { NightMasterShadowOfDecay, () => CreateNightMasterShadowOfDecay() },
+
+            { ProwlingElephish, () => CreateProwlingElephish() },
             { PyrofighterMagnus, () => CreatePyrofighterMagnus() },
 
             { QuixoticHeroSwineSnout, () => CreateQuixoticHeroSwineSnout() },
 
             { RikabuTheDismantler, () => CreateRikabuTheDismantler() },
 
+            { Seamine, () => CreateSeamine() },
             { SniperMosquito, () => CreateSniperMosquito() },
             { Soulswap, () => CreateSoulswap() },
             { SupersonicJetPack, () => CreateSupersonicJetPack() },
 
             { TerrorPit, () => CreateTerrorPit() },
+            { TidePatroller, () => CreateTidePatroller() },
             { Torcon, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = Torcon, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TriHornShepherd, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 5, Name = TriHornShepherd, Power = 5000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TwinCannonSkyterror, () => CreateTwinCannonSkyterror() },
@@ -133,6 +155,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = AquaHulcus, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            return x;
+        }
+
+        static Card CreateAquaShooter()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 4, Name = AquaShooter, Power = 2000, Subtypes = new List<Subtype> { Subtype.LiquidPeople } };
+            x.Abilities.Add(new BlockerAbility());
             return x;
         }
 
@@ -166,6 +195,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateDarkRavenShadowOfGrief()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = DarkRavenShadowOfGrief, Power = 1000, Subtypes = new List<Subtype> { Subtype.Ghost } };
+            x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
         static Card CreateDeadlyFighterBraidClaw()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = DeadlyFighterBraidClaw, Power = 1000, Subtypes = new List<Subtype> { Subtype.Dragonoid } };
@@ -177,6 +213,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 2, Name = Emeral, Power = 1000, Subtypes = new List<Subtype> { Subtype.CyberLord } };
             x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EmeralResolvable()));
+            return x;
+        }
+
+        static Card CreateFantasyFish()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 7, Name = FantasyFish, Power = 2000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.GelFish } };
+            x.Abilities.Add(new BlockerAbility());
             return x;
         }
 
@@ -215,6 +258,20 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateHunterCluster()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 4, Name = HunterCluster, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.CyberCluster } };
+            x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
+        static Card CreateKingCoral()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = KingCoral, Power = 1000, Subtypes = new List<Subtype> { Subtype.Leviathan } };
+            x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
         static Card CreateLocomotiver()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = Locomotiver, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.Hedrian } };
@@ -229,6 +286,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateMelodicHunter()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 5, Name = MelodicHunter, Power = 3000, Subtypes = new List<Subtype> { Subtype.Merfolk } };
+            x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
         static Card CreateMistRiasSonicGuardian()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 5, Name = MistRiasSonicGuardian, Power = 2000, Subtypes = new List<Subtype> { Subtype.Guardian } };
@@ -236,10 +300,24 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateNightMasterShadowOfDecay()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 6, Name = NightMasterShadowOfDecay, Power = 3000, Subtypes = new List<Subtype> { Subtype.Ghost } };
+            x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
         static Card CreateQuixoticHeroSwineSnout()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
             x.Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new QuixoticHeroSwineSnoutResolvable()));
+            return x;
+        }
+
+        static Card CreateProwlingElephish()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 4, Name = ProwlingElephish, Power = 2000, Subtypes = new List<Subtype> { Subtype.GelFish } };
+            x.Abilities.Add(new BlockerAbility());
             return x;
         }
 
@@ -255,6 +333,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = RikabuTheDismantler, Power = 1000, Subtypes = new List<Subtype> { Subtype.MachineEater } };
             x.Abilities.Add(new SpeedAttackerAbility());
+            return x;
+        }
+
+        static Card CreateSeamine()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 6, Name = Seamine, Power = 4000, Subtypes = new List<Subtype> { Subtype.Fish } };
+            x.Abilities.Add(new BlockerAbility());
             return x;
         }
 
@@ -283,6 +368,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 6, Name = TerrorPit, ShieldTrigger = true };
             x.Abilities.Add(new SpellAbility(new TerrorPitResolvable()));
+            return x;
+        }
+
+        static Card CreateTidePatroller()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 4, Name = TidePatroller, Power = 2000, Subtypes = new List<Subtype> { Subtype.Merfolk } };
+            x.Abilities.Add(new BlockerAbility());
             return x;
         }
 

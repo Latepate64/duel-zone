@@ -1,5 +1,7 @@
 ﻿using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using System;
+using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -17,15 +19,27 @@ namespace DuelMastersModels.Steps
 
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
-            // TODO: Check if blocking is possible
-            bool possibleToBlock = false;
-            if (possibleToBlock)
+            if (decision == null)
             {
-                throw new NotImplementedException();
-                //return new BlockerChoice(duel.CurrentTurn.ActivePlayer);
+                var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
+                var possibleBlockers = nonActive.BattleZone.Permanents.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
+                if (possibleBlockers.Any())
+                {
+                    return new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1);
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
+                var blockers = (decision as GuidDecision).Decision;
+                if (blockers.Any())
+                {
+                    BlockingCreature = blockers.Single();
+                    duel.GetPermanent(BlockingCreature).Tapped = true;
+                }
                 return null;
             }
         }
