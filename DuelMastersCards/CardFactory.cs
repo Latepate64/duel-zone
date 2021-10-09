@@ -35,6 +35,7 @@ namespace DuelMastersCards
 
         const string Corile = "Corile";
         const string CraniumClamp = "Cranium Clamp";
+        const string CrimsonHammer = "Crimson Hammer";
 
         const string DarkRavenShadowOfGrief = "Dark Raven, Shadow of Grief";
         const string DeadlyFighterBraidClaw = "Deadly Fighter Braid Claw";
@@ -82,6 +83,7 @@ namespace DuelMastersCards
 
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
 
+        const string PhantomDragonsFlame = "Phantom Dragon's Flame";
         const string PhantomFish = "Phantom Fish";
         const string PoltalesterTheSpydroid = "Poltalester, the Spydroid";
         const string ProwlingElephish = "Prowling Elephish";
@@ -95,12 +97,15 @@ namespace DuelMastersCards
         const string SenatineJadeTree = "Senatine Jade Tree";
         const string SniperMosquito = "Sniper Mosquito";
         const string Soulswap = "Soulswap";
+        const string SpasticMissile = "Spastic Missile";
         const string SupersonicJetPack = "Supersonic Jet Pack";
         const string SzubsKinTwilightGuardian = "Szubs Kin, Twilight Guardian";
 
+        const string TenTonCrunch = "Ten-Ton Crunch";
         const string TerrorPit = "Terror Pit";
         const string TidePatroller = "Tide Patroller";
         const string Torcon = "Torcon";
+        const string TornadoFlame = "Tornado Flame";
         const string TriHornShepherd = "Tri-Horn Shepherd";
         const string TwinCannonSkyterror = "Twin-Cannon Skyterror";
 
@@ -129,6 +134,7 @@ namespace DuelMastersCards
 
             { Corile, () => CreateCorile() },
             { CraniumClamp, () => CreateCraniumClamp() },
+            { CrimsonHammer, () => CreateCrimsonHammer() },
 
             { DarkRavenShadowOfGrief, () => CreateDarkRavenShadowOfGrief() },
             { DeadlyFighterBraidClaw, () => CreateDeadlyFighterBraidClaw() },
@@ -174,6 +180,7 @@ namespace DuelMastersCards
 
             { NightMasterShadowOfDecay, () => CreateNightMasterShadowOfDecay() },
 
+            { PhantomDragonsFlame, () => CreatePhantomDragonsFlame() },
             { PhantomFish, () => CreatePhantomFish() },
             { PoltalesterTheSpydroid, () => CreatePoltalesterTheSpydroid() },
             { ProwlingElephish, () => CreateProwlingElephish() },
@@ -189,12 +196,15 @@ namespace DuelMastersCards
             { SenatineJadeTree, () => CreateSenatineJadeTree() },
             { SniperMosquito, () => CreateSniperMosquito() },
             { Soulswap, () => CreateSoulswap() },
+            { SpasticMissile, () => CreateSpasticMissile() },
             { SupersonicJetPack, () => CreateSupersonicJetPack() },
             { SzubsKinTwilightGuardian, () => CreateSzubsKinTwilightGuardian() },
 
+            { TenTonCrunch, () => CreateTenTonCrunch() },
             { TerrorPit, () => CreateTerrorPit() },
             { TidePatroller, () => CreateTidePatroller() },
             { Torcon, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = Torcon, Power = 1000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
+            { TornadoFlame, () => CreateTornadoFlame() },
             { TriHornShepherd, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 5, Name = TriHornShepherd, Power = 5000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { TwinCannonSkyterror, () => CreateTwinCannonSkyterror() },
 
@@ -281,6 +291,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 4, Name = CraniumClamp };
             x.Abilities.Add(new SpellAbility(new CraniumClampResolvable()));
+            return x;
+        }
+
+        static Card CreateCrimsonHammer()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = CrimsonHammer };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
             return x;
         }
 
@@ -512,6 +529,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreatePhantomDragonsFlame()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = PhantomDragonsFlame, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
+            return x;
+        }
+
         static Card CreatePhantomFish()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 3, Name = PhantomFish, Power = 4000, Subtypes = new List<Subtype> { Subtype.GelFish } };
@@ -597,6 +621,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateSpasticMissile()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = SpasticMissile };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(3000)));
+            return x;
+        }
+
         static Card CreateSupersonicJetPack()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = SupersonicJetPack };
@@ -612,6 +643,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateTenTonCrunch()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 4, Name = TenTonCrunch, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(3000)));
+            return x;
+        }
+
         static Card CreateTerrorPit()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 6, Name = TerrorPit, ShieldTrigger = true };
@@ -623,6 +661,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water }, ManaCost = 4, Name = TidePatroller, Power = 2000, Subtypes = new List<Subtype> { Subtype.Merfolk } };
             x.Abilities.Add(new BlockerAbility());
+            return x;
+        }
+
+        static Card CreateTornadoFlame()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 5, Name = TornadoFlame, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(4000)));
             return x;
         }
 
