@@ -1,7 +1,6 @@
 ﻿using DuelMastersCards;
 using DuelMastersModels;
 using DuelMastersModels.Choices;
-using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +24,23 @@ namespace Simulator
         {
             Dictionary<string, PlayerInfo> playerInfos = new()
             {
-                { args[0], new PlayerInfo() },
+                { args[1], new PlayerInfo() },
                 { args[2], new PlayerInfo() }
             };
             for (int i = 0; i < 999999; ++i)
             {
                 using Player player1 = new() { Name = playerInfos.First().Key }, player2 = new() { Name = playerInfos.Last().Key };
-                //using Deck deck1 = new(GetCards(player1.Id, args[1])), deck2 = new(GetCards(player2.Id, args[3]));
-                using Deck deck1 = new(GetCards(player1.Id)), deck2 = new(GetCards(player2.Id));
-                player1.Deck = deck1;
-                player2.Deck = deck2;
-                using var duel = PlayDuel(player1, player2, int.Parse(args[4]));
+                if (args.Length > 3)
+                {
+                    player1.Deck = new(GetCards(player1.Id, args[3]));
+                    player2.Deck = new(GetCards(player2.Id, args[4]));
+                }
+                else
+                {
+                    player1.Deck = new(GetCards(player1.Id));
+                    player2.Deck = new(GetCards(player2.Id));
+                }
+                using var duel = PlayDuel(player1, player2, int.Parse(args[0]));
                 PrintStatistics(playerInfos, player1, player2, duel);
             }
         }
