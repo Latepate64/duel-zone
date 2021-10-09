@@ -70,6 +70,8 @@ namespace DuelMastersModels
             }
         }
 
+        private static readonly Random _random = new Random();
+
         public Player()
         {
             Id = Guid.NewGuid();
@@ -305,9 +307,21 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < cards.Count; ++i)
             {
-                var card = cards.ElementAt(i);
-                Hand.Remove(card);
-                Graveyard.Add(card, duel);
+                Discard(cards.ElementAt(i), duel);
+            }
+        }
+
+        public void Discard(Card card, Duel duel)
+        {
+            Hand.Remove(card);
+            Graveyard.Add(card, duel);
+        }
+
+        public void DiscardAtRandom(Duel duel)
+        {
+            if (Hand.Cards.Any())
+            {
+                Discard(Hand.Cards[_random.Next(Hand.Cards.Count)], duel);
             }
         }
     }
