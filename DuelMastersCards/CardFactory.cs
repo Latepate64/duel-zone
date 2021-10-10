@@ -89,6 +89,7 @@ namespace DuelMastersCards
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
 
         const string PalaOlesisMorningGuardian = "Pala Olesis, Morning Guardian";
+        const string PetrovaChannelerOfSuns = "Petrova, Channeler of Suns";
         const string PhantomDragonsFlame = "Phantom Dragon's Flame";
         const string PhantomFish = "Phantom Fish";
         const string PoltalesterTheSpydroid = "Poltalester, the Spydroid";
@@ -192,6 +193,7 @@ namespace DuelMastersCards
             { NightMasterShadowOfDecay, () => CreateNightMasterShadowOfDecay() },
 
             { PalaOlesisMorningGuardian, () => CreatePalaOlesisMorningGuardian() },
+            { PetrovaChannelerOfSuns, () => CreatePetrovaChannelerOfSuns() },
             { PhantomDragonsFlame, () => CreatePhantomDragonsFlame() },
             { PhantomFish, () => CreatePhantomFish() },
             { PoltalesterTheSpydroid, () => CreatePoltalesterTheSpydroid() },
@@ -382,7 +384,7 @@ namespace DuelMastersCards
 
         static Card CreateFerrosaturnSpectralKnight()
         {
-            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 1, Name = FerrosaturnSpectralKnight, Power = 2000, Subtypes = new List<Subtype> { Subtype.Guardian } };
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 1, Name = FerrosaturnSpectralKnight, Power = 2000, Subtypes = new List<Subtype> { Subtype.RainbowPhantom } };
             x.Abilities.Add(new BlockerAbility());
             x.Abilities.Add(new CannotAttackPlayersAbility());
             return x;
@@ -576,6 +578,14 @@ namespace DuelMastersCards
             x.Abilities.Add(new BlockerAbility());
             x.Abilities.Add(new PalaOlesisAbility());
             x.Abilities.Add(new CannotAttackPlayersAbility());
+            return x;
+        }
+
+        static Card CreatePetrovaChannelerOfSuns()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 5, Name = PetrovaChannelerOfSuns, Power = 3500, Subtypes = new List<Subtype> { Subtype.MechaDelSol } };
+            x.Abilities.Add(new PetrovaAbility());
+            x.Abilities.Add(new UnchoosableAbility());
             return x;
         }
 

@@ -126,10 +126,10 @@ namespace DuelMastersModels
             ShieldZone.Add(card, duel);
         }
 
-        public void PutFromManaZoneIntoBattleZone(Card card, Duel duel)
+        public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
-            BattleZone.Add(card, duel);
+            return BattleZone.Add(card, duel);
         }
 
         public void PutFromManaZoneToHand(Card card, Duel duel)

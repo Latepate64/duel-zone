@@ -18,6 +18,7 @@ namespace DuelMastersModels.Steps
         ResolveAbility,
         PriorityAction,
         Over,
+        PermanentEnteringBattleZone,
     }
 
     public abstract class Step : ICopyable<Step>
@@ -53,6 +54,10 @@ namespace DuelMastersModels.Steps
             else if (State == StepState.PriorityAction)
             {
                 return CheckPriority(duel, decision);
+            }
+            else if (State == StepState.PermanentEnteringBattleZone)
+            {
+                return PermanentEnteringBattleZone(duel, decision);
             }
             else
             {
@@ -228,7 +233,15 @@ namespace DuelMastersModels.Steps
                 {
                     var trigger = duel.GetCard(guids.Single());
                     trigger.ShieldTriggerPending = false;
-                    duel.UseCard(trigger, duel.GetOwner(trigger));
+                    var dec = duel.UseCard(trigger, duel.GetOwner(trigger));
+                    if (dec == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        throw new NotImplementedException("This should never happen in TCG");
+                    }
                 }
                 else
                 {
@@ -262,6 +275,13 @@ namespace DuelMastersModels.Steps
                 State = StepState.SelectAbility;
                 return Proceed(null, duel);
             }
+        }
+
+        private Choice PermanentEnteringBattleZone(Duel duel, Decision decision)
+        {
+            duel.Players.Select(x => x.BattleZone).Single(x => x.PermanentEnteringBattleZone != null).Add(duel, decision);
+            State = StepState.ResolveSpell;
+            return null;
         }
 
         protected Step(Step step)

@@ -21,7 +21,7 @@ namespace DuelMastersModels.Abilities
 
         protected StaticAbility(StaticAbility ability) : base(ability)
         {
-            ContinuousEffects = ability.ContinuousEffects.ToList();
+            ContinuousEffects = ability.ContinuousEffects.Select(x => x.Copy()).ToList();
         }
 
         protected override void Dispose(bool disposing)

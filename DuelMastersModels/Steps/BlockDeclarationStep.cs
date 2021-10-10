@@ -22,7 +22,7 @@ namespace DuelMastersModels.Steps
             if (decision == null)
             {
                 var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
-                var possibleBlockers = nonActive.BattleZone.Permanents.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
+                var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
                 if (possibleBlockers.Any())
                 {
                     return new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1);

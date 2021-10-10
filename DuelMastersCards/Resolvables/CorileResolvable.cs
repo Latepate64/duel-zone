@@ -27,13 +27,14 @@ namespace DuelMastersCards.Resolvables
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
             if (decision == null)
             {
-                if (opponent.BattleZone.Permanents.Count > 1)
+                var choosable = opponent.BattleZone.GetChoosableCreatures(duel);
+                if (choosable.Count() > 1)
                 {
-                    return new GuidSelection(Controller, opponent.BattleZone.Permanents, 1, 1);
+                    return new GuidSelection(Controller, choosable, 1, 1);
                 }
-                else if (opponent.BattleZone.Permanents.Any())
+                else if (choosable.Any())
                 {
-                    opponent.PutFromBattleZoneOnTopOfDeck(opponent.BattleZone.Permanents.Single(), duel);
+                    opponent.PutFromBattleZoneOnTopOfDeck(choosable.Single(), duel);
                     return null;
                 }
                 else
