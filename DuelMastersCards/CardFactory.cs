@@ -1,4 +1,5 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.Resolvables;
 using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
@@ -75,6 +76,7 @@ namespace DuelMastersCards
         const string LaUraGigaSkyGuardian = "La Ura Giga, Sky Guardian";
 
         const string MadrillonFish = "Madrillon Fish";
+        const string Magmarex = "Magmarex";
         const string MagrisVizierOfMagnetism = "Magris, Vizier of Magnetism";
         const string MarineFlower = "Marine Flower";
         const string MelodicHunter = "Melodic Hunter";
@@ -178,6 +180,7 @@ namespace DuelMastersCards
             { Locomotiver, () => CreateLocomotiver() },
 
             { MadrillonFish, () => CreateMadrillonFish() },
+            { Magmarex, () => CreateMagmarex() },
             { MagrisVizierOfMagnetism, () => CreateMagrisVizierOfMagnetism() },
             { MarineFlower, () => CreateMarineFlower() },
             { MelodicHunter, () => CreateMelodicHunter() },
@@ -275,7 +278,7 @@ namespace DuelMastersCards
         static Card CreateBlizzardOfSpears()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 6, Name = BlizzardOfSpears };
-            x.Abilities.Add(new SpellAbility(new DestroyAllCreaturesWithMaxPowerResolvable(4000)));
+            x.Abilities.Add(new SpellAbility(new DestroyCreaturesResolvable(new CreaturesWithMaxPowerFilter(4000))));
             return x;
         }
 
@@ -298,7 +301,7 @@ namespace DuelMastersCards
         static Card CreateBurstShot()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 6, Name = BurstShot, ShieldTrigger = true };
-            x.Abilities.Add(new SpellAbility(new DestroyAllCreaturesWithMaxPowerResolvable(2000)));
+            x.Abilities.Add(new SpellAbility(new DestroyCreaturesResolvable(new CreaturesWithMaxPowerFilter(2000))));
             return x;
         }
 
@@ -319,7 +322,7 @@ namespace DuelMastersCards
         static Card CreateCrimsonHammer()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = CrimsonHammer };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(2000))));
             return x;
         }
 
@@ -498,6 +501,13 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateMagmarex()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 5, Name = Magmarex, Power = 3000, ShieldTrigger = true, Subtypes = new List<Subtype> { Subtype.RockBeast } };
+            x.Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyCreaturesResolvable(new CreaturesWithPowerFilter(1000))));
+            return x;
+        }
+
         static Card CreateMagrisVizierOfMagnetism()
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 4, Name = MagrisVizierOfMagnetism, Power = 3000, Subtypes = new List<Subtype> { Subtype.Initiate } };
@@ -561,7 +571,7 @@ namespace DuelMastersCards
         static Card CreatePhantomDragonsFlame()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = PhantomDragonsFlame, ShieldTrigger = true };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(2000))));
             return x;
         }
 
@@ -653,7 +663,7 @@ namespace DuelMastersCards
         static Card CreateSpasticMissile()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = SpasticMissile };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(3000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(3000))));
             return x;
         }
 
@@ -675,14 +685,14 @@ namespace DuelMastersCards
         static Card CreateTenTonCrunch()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 4, Name = TenTonCrunch, ShieldTrigger = true };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(3000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(3000))));
             return x;
         }
 
         static Card CreateTerrorPit()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Darkness }, ManaCost = 6, Name = TerrorPit, ShieldTrigger = true };
-            x.Abilities.Add(new SpellAbility(new TerrorPitResolvable()));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new AnyFilter())));
             return x;
         }
 
@@ -696,7 +706,7 @@ namespace DuelMastersCards
         static Card CreateTornadoFlame()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 5, Name = TornadoFlame, ShieldTrigger = true };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(4000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(4000))));
             return x;
         }
 
@@ -727,7 +737,7 @@ namespace DuelMastersCards
         static Card CreateVolcanoCharger()
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = VolcanoCharger };
-            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureWithMaxPowerResolvable(2000)));
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(2000))));
             x.Abilities.Add(new ChargerAbility());
             return x;
         }
