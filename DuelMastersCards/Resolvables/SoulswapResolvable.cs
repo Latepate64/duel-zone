@@ -26,9 +26,10 @@ namespace DuelMastersCards.Resolvables
             // You may choose a creature in the battle zone and put it into its owner's mana zone.
             if (decision == null)
             {
-                if (duel.CreaturePermanents.Any())
+                var creatures = duel.GetChoosableCreaturePermanents(duel.GetPlayer(Controller));
+                if (creatures.Any())
                 {
-                    return new GuidSelection(Controller, duel.CreaturePermanents, 0, 1);
+                    return new GuidSelection(Controller, creatures, 0, 1);
                 }
                 else
                 {

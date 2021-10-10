@@ -29,13 +29,14 @@ namespace DuelMastersCards.Resolvables
             if (decision == null)
             {
                 var controller = duel.GetPlayer(Controller);
-                if (controller.BattleZone.Permanents.Count > 1)
+                var creatures = controller.BattleZone.Creatures;
+                if (creatures.Count() > 1)
                 {
-                    return new GuidSelection(Controller, controller.BattleZone.Permanents, 1, 1);
+                    return new GuidSelection(Controller, creatures, 1, 1);
                 }
-                else if (controller.BattleZone.Permanents.Any())
+                else if (creatures.Any())
                 {
-                    duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = controller.BattleZone.Permanents.Single().Id }, new Indefinite()));
+                    duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = creatures.Single().Id }, new Indefinite()));
                     return null;
                 }
                 else

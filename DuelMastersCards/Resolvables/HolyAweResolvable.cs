@@ -23,7 +23,7 @@ namespace DuelMastersCards.Resolvables
         {
             // Tap all your opponent's creatures in the battle zone.
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
-            foreach (var creature in opponent.BattleZone.Permanents)
+            foreach (var creature in opponent.BattleZone.Creatures)
             {
                 creature.Tapped = true;
             }

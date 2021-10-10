@@ -33,6 +33,9 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => Turns.Last();
 
+        /// <summary>
+        /// Note: Use method GetChoosableCreaturePermanents if you have to select creature/s.
+        /// </summary>
         public IEnumerable<Permanent> CreaturePermanents => Players.SelectMany(x => x.BattleZone.Creatures);
 
         internal Stack<Card> ResolvingSpells = new Stack<Card>();
@@ -393,6 +396,13 @@ namespace DuelMastersModels
                 }
                 ContinuousEffects.Clear();
             }
+        }
+
+        public IEnumerable<Permanent> GetChoosableCreaturePermanents(Player selector)
+        {
+            var creatures = selector.BattleZone.Creatures.ToList();
+            creatures.AddRange(GetOpponent(selector).BattleZone.Creatures.Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
+            return creatures;
         }
     }
 }

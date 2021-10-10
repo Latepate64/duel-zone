@@ -30,7 +30,7 @@ namespace DuelMastersCards.Resolvables
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(controller);
-                var blockers = opponent.BattleZone.Creatures.Where(c => c.Abilities.OfType<BlockerAbility>().Any());
+                var blockers = opponent.BattleZone.GetChoosableCreatures(duel).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
                 if (blockers.Count() > 1)
                 {
                     return new GuidSelection(controller.Id, blockers, 1, 1);

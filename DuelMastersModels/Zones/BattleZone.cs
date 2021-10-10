@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,14 @@ namespace DuelMastersModels.Zones
     /// </summary>
     public class BattleZone : ICopyable<BattleZone>, IDisposable
     {
+        /// <summary>
+        /// Note: Prefer use of property Creatures.
+        /// </summary>
         public List<Permanent> Permanents { get; } = new List<Permanent>();
 
+        /// <summary>
+        /// Note: Use method GetChoosableCreatures when selecting creatures controller by opponent.
+        /// </summary>
         public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
 
         private AsPermanentEntersBattleZoneAbility _pendingAbility = null;
@@ -118,6 +125,11 @@ namespace DuelMastersModels.Zones
         {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        public IEnumerable<Permanent> GetChoosableCreatures(Duel duel)
+        {
+            return Creatures.Where(x => !duel.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }
     }
 }
