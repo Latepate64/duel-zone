@@ -5,23 +5,23 @@ using System.Linq;
 
 namespace DuelMastersCards.Resolvables
 {
-    public class DestroyOpponentsCreatureWithMaxPowerResolvable : Resolvable
+    public class DestroyOpponentsCreatureResolvable : Resolvable
     {
-        public int MaxPower { get; }
+        public CardFilter Filter { get; }
 
-        public DestroyOpponentsCreatureWithMaxPowerResolvable(int maxPower)
+        public DestroyOpponentsCreatureResolvable(CardFilter cardFilter)
         {
-            MaxPower = maxPower;
+            Filter = cardFilter;
         }
 
-        public DestroyOpponentsCreatureWithMaxPowerResolvable(DestroyOpponentsCreatureWithMaxPowerResolvable resolvable) : base(resolvable)
+        public DestroyOpponentsCreatureResolvable(DestroyOpponentsCreatureResolvable resolvable) : base(resolvable)
         {
-            MaxPower = resolvable.MaxPower;
+            Filter = resolvable.Filter;
         }
 
         public override Resolvable Copy()
         {
-            return new DestroyOpponentsCreatureWithMaxPowerResolvable(this);
+            return new DestroyOpponentsCreatureResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
@@ -29,7 +29,7 @@ namespace DuelMastersCards.Resolvables
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
-                var permanents = opponent.BattleZone.Permanents.Where(x => duel.GetPower(x) <= MaxPower);
+                var permanents = opponent.BattleZone.Permanents.Where(x => Filter.Applies(x, duel));
                 if (permanents.Count() > 1)
                 {
                     return new GuidSelection(Controller, permanents, 1, 1);

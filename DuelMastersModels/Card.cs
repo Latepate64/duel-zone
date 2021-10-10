@@ -40,6 +40,7 @@ namespace DuelMastersModels
         MechaThunder,
         Merfolk,
         ParasiteWorm,
+        RockBeast,
         SeaHacker,
         SnowFaerie,
         Soltrooper,
