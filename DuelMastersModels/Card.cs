@@ -37,9 +37,11 @@ namespace DuelMastersModels
         LiquidPeople,
         LivingDead,
         MachineEater,
+        MechaDelSol,
         MechaThunder,
         Merfolk,
         ParasiteWorm,
+        RainbowPhantom,
         RockBeast,
         SeaHacker,
         SnowFaerie,
@@ -60,7 +62,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Also known as race for creatures.
         /// </summary>
-        public IEnumerable<Subtype> Subtypes { get; set; }
+        public IEnumerable<Subtype> Subtypes { get; set; } = new Collection<Subtype>();
 
         public ICollection<Ability> Abilities { get; } = new Collection<Ability>();
 

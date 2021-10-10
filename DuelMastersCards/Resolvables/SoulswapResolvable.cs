@@ -13,7 +13,7 @@ namespace DuelMastersCards.Resolvables
 
         public SoulswapResolvable(SoulswapResolvable resolvable) : base(resolvable)
         {
-            _firstPart = resolvable._firstPart;
+            _soulswapState = resolvable._soulswapState;
         }
 
         public override Resolvable Copy()
@@ -35,7 +35,7 @@ namespace DuelMastersCards.Resolvables
                     return null;
                 }
             }
-            else if (_firstPart)
+            else if (_soulswapState == SoulswapState.FromBattleZoneToMana)
             {
                 var creatures = ((GuidDecision)decision).Decision;
                 if (creatures.Any())
@@ -45,7 +45,7 @@ namespace DuelMastersCards.Resolvables
                     owner.PutFromBattleZoneIntoManaZone(creature, duel);
 
                     // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
-                    _firstPart = false;
+                    _soulswapState = SoulswapState.FromManaToBattleZone;
                     var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
                     if (manas.Any())
                     {
@@ -70,14 +70,33 @@ namespace DuelMastersCards.Resolvables
                     return null;
                 }
             }
-            else
+            else if (_soulswapState == SoulswapState.FromManaToBattleZone)
             {
                 var mana = duel.GetCard(((GuidDecision)decision).Decision.Single());
-                duel.GetOwner(mana).PutFromManaZoneIntoBattleZone(mana, duel);
+                var dec = duel.GetOwner(mana).PutFromManaZoneIntoBattleZone(mana, duel);
+                if (dec == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    _soulswapState = SoulswapState.PermanentEnteringBattleZone;
+                    return dec;
+                }
+            }
+            else if (_soulswapState == SoulswapState.PermanentEnteringBattleZone)
+            {
+                duel.Players.Select(x => x.BattleZone).Single(x => x.PermanentEnteringBattleZone != null).Add(duel, decision);
                 return null;
+            }
+            else
+            {
+                throw new System.ArgumentOutOfRangeException(_soulswapState.ToString());
             }
         }
 
-        private bool _firstPart = true;
+        private SoulswapState _soulswapState = SoulswapState.FromBattleZoneToMana;
+
+        private enum SoulswapState { FromBattleZoneToMana, FromManaToBattleZone, PermanentEnteringBattleZone }
     }
 }

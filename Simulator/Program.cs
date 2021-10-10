@@ -267,6 +267,10 @@ namespace Simulator
             {
                 return ChooseYesOrNo(duel, optionsRemaining, numberOfChoicesMade, decisions, yesNo);
             }
+            else if (choice is EnumChoice enumChoice)
+            {
+                return ChooseEnum(duel, optionsRemaining, numberOfChoicesMade, decisions, enumChoice);
+            }
             else
             {
                 throw new ArgumentOutOfRangeException(choice.ToString());
@@ -296,6 +300,25 @@ namespace Simulator
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(yesNo, decisions);
+        }
+
+        private static Tuple<Decision, int> ChooseEnum(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)
+        {
+            //TODO: Atm only Petrova is supported.
+            var options = duel.GetPlayer(choice.Player).BattleZone.Permanents.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            if (!options.Any())
+            {
+                options = duel.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            }
+            foreach (var option in options)
+            {
+                var currentChoice = new EnumDecision(option);
+                using var duelCopy = new Duel(duel);
+                var newChoice = duelCopy.Continue(currentChoice);
+                var foo = Choose(newChoice, duelCopy, optionsRemaining - options.Count(), currentChoice, numberOfChoicesMade + 1);
+                decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
+            }
+            return Choose(choice, decisions);
         }
 
         private static Tuple<Decision, int> ChooseAttacker(Duel duel, int optionsRemaining, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)

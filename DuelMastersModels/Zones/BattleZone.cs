@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.GameEvents;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,9 @@ namespace DuelMastersModels.Zones
 
         public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
 
+        private AsPermanentEntersBattleZoneAbility _pendingAbility = null;
+        public Permanent PermanentEnteringBattleZone { get; private set; }
+
         public BattleZone()
         {
         }
@@ -21,6 +26,11 @@ namespace DuelMastersModels.Zones
         public BattleZone(BattleZone zone)
         {
             Permanents = zone.Permanents.Select(x => new Permanent(x)).ToList();
+            _pendingAbility = zone._pendingAbility?.Copy() as AsPermanentEntersBattleZoneAbility;
+            if (zone.PermanentEnteringBattleZone != null)
+            {
+                PermanentEnteringBattleZone = new Permanent(zone.PermanentEnteringBattleZone);
+            }
         }
 
         public void UntapCards()
@@ -31,14 +41,44 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public void Add(Card card, Duel duel)
+        public Choice Add(Card card, Duel duel)
         {
-            var permanent = new Permanent(card)
+            PermanentEnteringBattleZone = new Permanent(card)
             {
                 RevealedTo = duel.Players.Select(x => x.Id)
             };
-            Permanents.Add(permanent);
-            duel.Trigger(new CardChangedZoneEvent(permanent.Id, ZoneType.Anywhere, ZoneType.BattleZone));
+            var abilities = PermanentEnteringBattleZone.Abilities.OfType<AsPermanentEntersBattleZoneAbility>();
+            if (abilities.Any())
+            {
+                _pendingAbility = abilities.Single();
+                return _pendingAbility.Apply(duel, null);
+            }
+            else
+            {
+                Add(duel);
+                return null;
+            }
+        }
+
+        public void Add(Duel duel, Decision decision)
+        {
+            var dec = _pendingAbility.Apply(duel, decision);
+            if (dec != null)
+            {
+                throw new NotImplementedException("Should never happen in TCG");
+            }
+            else
+            {
+                Add(duel);
+                _pendingAbility = null;
+            }
+        }
+
+        private void Add(Duel duel)
+        {
+            Permanents.Add(PermanentEnteringBattleZone);
+            duel.Trigger(new CardChangedZoneEvent(PermanentEnteringBattleZone.Id, ZoneType.Anywhere, ZoneType.BattleZone));
+            PermanentEnteringBattleZone = null;
         }
 
         public void Remove(Permanent permanent)
@@ -46,6 +86,10 @@ namespace DuelMastersModels.Zones
             if (!Permanents.Remove(permanent))
             {
                 throw new NotSupportedException(permanent.ToString());
+            }
+            foreach (var ability in permanent.Abilities.OfType<AsPermanentEntersBattleZoneAbility>())
+            {
+                ability.Revoke();
             }
         }
 
@@ -63,6 +107,10 @@ namespace DuelMastersModels.Zones
                     permanent.Dispose();
                 }
                 Permanents.Clear();
+                _pendingAbility?.Dispose();
+                _pendingAbility = null;
+                PermanentEnteringBattleZone?.Dispose();
+                PermanentEnteringBattleZone = null;
             }
         }
 

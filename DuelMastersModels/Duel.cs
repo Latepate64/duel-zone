@@ -131,17 +131,18 @@ namespace DuelMastersModels
             }
         }
 
-        public void UseCard(Card card, Player player)
+        public Choice UseCard(Card card, Player player)
         {
             CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
                 player.Hand.Remove(card);
-                player.BattleZone.Add(card, this);
+                return player.BattleZone.Add(card, this);
             }
             else if (card.CardType == CardType.Spell)
             {
                 player.Cast(card, this);
+                return null;
             }
             else
             {

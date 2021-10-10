@@ -41,8 +41,12 @@ namespace DuelMastersModels.Steps
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
-                    return null;
+                    var dec = duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
+                    if (dec != null)
+                    {
+                        State = StepState.PermanentEnteringBattleZone;
+                    }
+                    return dec;
                 }
             }
         }
