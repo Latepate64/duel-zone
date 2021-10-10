@@ -585,8 +585,7 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 5, Name = PetrovaChannelerOfSuns, Power = 3500, Subtypes = new List<Subtype> { Subtype.MechaDelSol } };
             x.Abilities.Add(new PetrovaAbility());
-            //TODO: Implement
-            //x.Abilities.Add(new UnchoosableAbility());
+            x.Abilities.Add(new UnchoosableAbility());
             return x;
         }
 
