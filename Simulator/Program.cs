@@ -9,78 +9,90 @@ using System.Xml.Serialization;
 
 namespace Simulator
 {
-    public class PlayerInfo
-    {
-        public Dictionary<string, Tuple<int, int>> UsedCards { get; set; } = new();
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-    }
-
-    class Program
+    public class Program
     {
         static Guid _simulator;
 
+        static List<MatchUp> GetMatchUps(IEnumerable<PlayerConfiguration> players)
+        {
+            List<MatchUp> matchUps = new();
+            for (int x = 0; x < players.Count(); ++x)
+            {
+                for (int y = 0; y < players.Count(); ++y)
+                {
+                    if (x != y)
+                    {
+                        matchUps.Add(new MatchUp(players.ElementAt(x), players.ElementAt(y)));
+                    }
+                }
+            }
+            return matchUps;
+        }
+
         static void Main(string[] args)
         {
-            Dictionary<string, PlayerInfo> playerInfos = new()
+            using var reader = XmlReader.Create(args[0]);
+            var conf = new XmlSerializer(typeof(SimulationConfiguration)).Deserialize(reader) as SimulationConfiguration;
+            foreach (var p in conf.Players)
             {
-                { args[1], new PlayerInfo() },
-                { args[2], new PlayerInfo() }
-            };
+                p.Id = Guid.NewGuid();
+            }
+            List<MatchUp> matchUps = GetMatchUps(conf.Players);
             for (int i = 0; i < 999999; ++i)
             {
-                using Player player1 = new() { Name = playerInfos.First().Key }, player2 = new() { Name = playerInfos.Last().Key };
-                if (args.Length > 3)
+                foreach (var matchUp in matchUps)
                 {
-                    player1.Deck = new(GetCards(player1.Id, args[3]));
-                    player2.Deck = new(GetCards(player2.Id, args[4]));
+                    using Player player1 = new() { Name = matchUp.StartingPlayer.Name }, player2 = new() { Name = matchUp.Opponent.Name };
+                    player1.Deck = new(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath));
+                    player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
+                    using var duel = PlayDuel(player1, player2, conf.SimulationDepth);
+
+                    UpdateUsedCards(player1, player2, duel, matchUp);
+                    UpdateUsedCards(player2, player1, duel, matchUp);
                 }
-                else
+
+                foreach (var group in matchUps.SelectMany(x => x.Players).GroupBy(x => x.Id))
                 {
-                    player1.Deck = new(GetCards(player1.Id));
-                    player2.Deck = new(GetCards(player2.Id));
+                    Console.WriteLine(group.First());
                 }
-                var startingPlayer = (i % 2 == 0) ? player1 : player2;
-                var otherPlayer = (i % 2 == 0) ? player2 : player1;
-                using var duel = PlayDuel(startingPlayer, otherPlayer, int.Parse(args[0]));
-                PrintStatistics(playerInfos, player1, player2, duel);
+                Console.WriteLine();
+                Dictionary<string, Tuple<int, int>> cards = new();
+                foreach (var u in matchUps.SelectMany(x => x.Players).SelectMany(x => x.UsedCards))
+                {
+                    if (cards.ContainsKey(u.Key))
+                    {
+                        cards[u.Key] = new Tuple<int, int>(cards[u.Key].Item1 + u.Value.Item1, cards[u.Key].Item2 + u.Value.Item2);
+                    }
+                    else
+                    {
+                        cards.Add(u.Key, u.Value);
+                    }
+                }
+                PrintCardStatistics(cards);
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine();
             }
         }
 
-        private static void UpdateUsedCards(Player player, Player opponent, Duel duel, Dictionary<string, PlayerInfo> playerInfos)
+        private static void UpdateUsedCards(Player player, Player opponent, Duel duel, MatchUp matchUp)
         {
             if (duel.GameOverInformation.Winners.Contains(player.Id))
             {
-                ++playerInfos[player.Name].Wins;
-                ++playerInfos[opponent.Name].Losses;
+                ++matchUp.Players.Distinct().Single(x => x.Name == player.Name).Wins;
+                ++matchUp.Players.Distinct().Single(x => x.Name == opponent.Name).Losses;
                 var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
                 foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == player).Select(x => x.Name).Distinct())
                 {
-                    UpdateUsedCards(playerInfos[player.Name].UsedCards, cardName, true);
+                    UpdateUsedCards(matchUp.Players.Distinct().Single(x => x.Name == player.Name).UsedCards, cardName, true);
                 }
                 foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == opponent).Select(x => x.Name).Distinct())
                 {
-                    UpdateUsedCards(playerInfos[opponent.Name].UsedCards, cardName, false);
+                    UpdateUsedCards(matchUp.Players.Distinct().Single(x => x.Name == opponent.Name).UsedCards, cardName, false);
                 }
             }
         }
 
-        private static void PrintStatistics(Dictionary<string, PlayerInfo> playerInfos, Player player1, Player player2, Duel duel)
-        {
-            Console.WriteLine(duel);
-            Console.WriteLine("");
-            UpdateUsedCards(player1, player2, duel, playerInfos);
-            UpdateUsedCards(player2, player1, duel, playerInfos);
-            foreach (var info in playerInfos)
-            {
-                Console.WriteLine($"{info.Key} wins: {info.Value.Wins} losses: {info.Value.Losses} winrate: {GetWinrate(info.Value.Wins, info.Value.Losses)}");
-                PrintCardStatistics(info.Value.UsedCards);
-                Console.WriteLine("");
-            }
-            Console.WriteLine("----------------------------------------------");
-        }
-
-        static double GetWinrate(int wins, int losses)
+        public static double GetWinrate(int wins, int losses)
         {
             return Math.Round((double)wins / (wins + losses), 2);
         }
