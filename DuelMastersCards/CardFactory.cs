@@ -88,6 +88,7 @@ namespace DuelMastersCards
 
         const string QuixoticHeroSwineSnout = "Quixotic Hero Swine Snout";
 
+        const string PalaOlesisMorningGuardian = "Pala Olesis, Morning Guardian";
         const string PhantomDragonsFlame = "Phantom Dragon's Flame";
         const string PhantomFish = "Phantom Fish";
         const string PoltalesterTheSpydroid = "Poltalester, the Spydroid";
@@ -190,6 +191,7 @@ namespace DuelMastersCards
             { NaturalSnare, () => CreateNaturalSnare() },
             { NightMasterShadowOfDecay, () => CreateNightMasterShadowOfDecay() },
 
+            { PalaOlesisMorningGuardian, () => CreatePalaOlesisMorningGuardian() },
             { PhantomDragonsFlame, () => CreatePhantomDragonsFlame() },
             { PhantomFish, () => CreatePhantomFish() },
             { PoltalesterTheSpydroid, () => CreatePoltalesterTheSpydroid() },
@@ -565,6 +567,15 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = QuixoticHeroSwineSnout, Power = 1000, Subtypes = new List<Subtype> { Subtype.BeastFolk } };
             x.Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new QuixoticHeroSwineSnoutResolvable()));
+            return x;
+        }
+
+        static Card CreatePalaOlesisMorningGuardian()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Light }, ManaCost = 3, Name = PalaOlesisMorningGuardian, Power = 2500, Subtypes = new List<Subtype> { Subtype.Guardian } };
+            x.Abilities.Add(new BlockerAbility());
+            x.Abilities.Add(new PalaOlesisAbility());
+            x.Abilities.Add(new CannotAttackPlayersAbility());
             return x;
         }
 
