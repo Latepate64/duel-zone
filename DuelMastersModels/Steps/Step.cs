@@ -179,7 +179,7 @@ namespace DuelMastersModels.Steps
                 if (newDecision == null)
                 {
                     _ = duel.ResolvingSpellAbilities.Dequeue();
-                    return ResolveSpells(duel, decision);
+                    return ResolveSpells(duel, null);
                 }
                 else
                 {

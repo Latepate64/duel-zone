@@ -344,7 +344,9 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            return GetAllCards().SelectMany(x => x.Abilities).OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filter.Applies(card, this));
+            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.BattleZone).ToList();
+            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.SpellStack));
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filter.Applies(card, this));
         }
 
         public override string ToString()

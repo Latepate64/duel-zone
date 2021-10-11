@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Zones;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace DuelMastersModels.Abilities
         /// </summary>
         public ICollection<ContinuousEffect> ContinuousEffects { get; private set; } = new Collection<ContinuousEffect>();
 
+        public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
+
         protected StaticAbility() : base()
         {
         }
@@ -22,6 +25,7 @@ namespace DuelMastersModels.Abilities
         protected StaticAbility(StaticAbility ability) : base(ability)
         {
             ContinuousEffects = ability.ContinuousEffects.Select(x => x.Copy()).ToList();
+            FunctionZone = ability.FunctionZone;
         }
 
         protected override void Dispose(bool disposing)

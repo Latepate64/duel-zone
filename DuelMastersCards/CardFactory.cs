@@ -36,6 +36,7 @@ namespace DuelMastersCards
         const string BurningMane = "Burning Mane";
         const string BurstShot = "Burst Shot";
 
+        const string CometMissile = "Comet Missile";
         const string Corile = "Corile";
         const string CraniumClamp = "Cranium Clamp";
         const string CrimsonHammer = "Crimson Hammer";
@@ -118,6 +119,7 @@ namespace DuelMastersCards
 
         const string ValkyerStarstormElemental = "Valkyer, Starstorm Elemental";
         const string VessTheOracle = "Vess, the Oracle";
+        const string VolcanicArrows = "Volcanic Arrows";
         const string VolcanoCharger = "Volcano Charger";
 
         const string WanderingBraineater = "Wandering Braineater";
@@ -142,6 +144,7 @@ namespace DuelMastersCards
             { BurningMane, () => new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Nature }, ManaCost = 2, Name = BurningMane, Power = 2000, Subtypes = new List<Subtype> { Subtype.BeastFolk } } },
             { BurstShot, () => CreateBurstShot() },
 
+            { CometMissile, () => CreateCometMissile() },
             { Corile, () => CreateCorile() },
             { CraniumClamp, () => CreateCraniumClamp() },
             { CrimsonHammer, () => CreateCrimsonHammer() },
@@ -224,6 +227,7 @@ namespace DuelMastersCards
 
             { ValkyerStarstormElemental, () => CreateValkyerStarstormElemental() },
             { VessTheOracle, () => CreateVessTheOracle() },
+            { VolcanicArrows, () => CreateVolcanicArrows() },
             { VolcanoCharger, () => CreateVolcanoCharger() },
 
             { WanderingBraineater, () => CreateWanderingBraineater() },
@@ -306,6 +310,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 6, Name = BurstShot, ShieldTrigger = true };
             x.Abilities.Add(new SpellAbility(new DestroyCreaturesResolvable(new CreaturesWithMaxPowerFilter(2000))));
+            return x;
+        }
+
+        static Card CreateCometMissile()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 1, Name = CometMissile, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(6000), new BlockerFilter())));
             return x;
         }
 
@@ -755,9 +766,17 @@ namespace DuelMastersCards
             return x;
         }
 
+        static Card CreateVolcanicArrows()
+        {
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = VolcanicArrows, ShieldTrigger = true };
+            x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(6000))));
+            x.Abilities.Add(new SpellAbility(new PutOwnShieldToGraveyardResolvable()));
+            return x;
+        }
+
         static Card CreateVolcanoCharger()
         {
-            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = VolcanoCharger };
+            var x = new Card { CardType = CardType.Spell, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 4, Name = VolcanoCharger };
             x.Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(2000))));
             x.Abilities.Add(new ChargerAbility());
             return x;
