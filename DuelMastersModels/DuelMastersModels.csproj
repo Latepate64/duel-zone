@@ -80,12 +80,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\ActivatedAbility.cs" />
     <Compile Include="Abilities\AsPermanentEntersBattleZoneAbility.cs" />
     <Compile Include="Abilities\Resolvable.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\StaticAbility.cs" />
     <Compile Include="Abilities\DelayedTriggeredAbility.cs" />
+    <Compile Include="Abilities\TapAbility.cs" />
     <Compile Include="Abilities\TriggeredAbility.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardFilter.cs" />

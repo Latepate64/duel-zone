@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
@@ -21,7 +22,8 @@ namespace DuelMastersModels.Steps
             if (decision == null)
             {
                 var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new PermanentComparer());
-                List<IGrouping<Guid, IEnumerable<Guid>>> options = attackers.GroupBy(a => a.Id, a => GetPossibleAttackTargets(a, duel).Select(x => x.Id)).ToList();
+                var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
+                var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
                 if (options.Any())
                 {
                     return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()));
@@ -40,7 +42,15 @@ namespace DuelMastersModels.Steps
                     AttackTarget = attackerChoice.Decision.Item2;
                     var attacker = duel.GetPermanent(AttackingCreature);
                     attacker.Tapped = true;
-                    duel.Trigger(new CreatureAttackedEvent(AttackingCreature));
+                    var tapAbilities = attacker.Abilities.OfType<TapAbility>();
+                    if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                    {
+                        PendingAbilities.AddRange(tapAbilities);
+                    }
+                    else
+                    {
+                        duel.Trigger(new CreatureAttackedEvent(AttackingCreature));
+                    }
                 }
                 return null;
             }
@@ -58,6 +68,10 @@ namespace DuelMastersModels.Steps
             {
                 attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
             }
+            if (attackables.Any())
+            {
+                attackables.AddRange(attacker.Abilities.OfType<TapAbility>());
+            }
             return attackables;
         }
 
@@ -65,7 +79,15 @@ namespace DuelMastersModels.Steps
         {
             if (AttackingCreature != Guid.Empty)
             {
-                return new BlockDeclarationStep(AttackingCreature, AttackTarget);
+                var tapAbilities = duel.GetPermanent(AttackingCreature).Abilities.OfType<TapAbility>();
+                if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                {
+                    return new AttackDeclarationStep();
+                }
+                else
+                {
+                    return new BlockDeclarationStep(AttackingCreature, AttackTarget);
+                }
             }
             // 506.2. If an attacking creature is not specified, the other substeps are skipped.
             else
