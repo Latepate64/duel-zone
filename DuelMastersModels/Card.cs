@@ -47,6 +47,7 @@ namespace DuelMastersModels
         SnowFaerie,
         Soltrooper,
         StarlightTree,
+        Xenoparts,
     }
 
     public enum Civilization { Light, Water, Darkness, Fire, Nature };

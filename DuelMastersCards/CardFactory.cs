@@ -99,6 +99,7 @@ namespace DuelMastersCards
 
         const string RevolverFish = "Revolver Fish";
         const string RikabuTheDismantler = "Rikabu, the Dismantler";
+        const string RikabusScrewdriver = "Rikabu's Screwdriver";
 
         const string SariusVizierOfSuppression = "Sarius, Vizier of Suppression";
         const string Seamine = "Seamine";
@@ -207,6 +208,7 @@ namespace DuelMastersCards
 
             { RevolverFish, () => CreateRevolverFish() },
             { RikabuTheDismantler, () => CreateRikabuTheDismantler() },
+            { RikabusScrewdriver, () => CreateRikabusScrewdriver() },
 
             { SariusVizierOfSuppression, () => CreateSariusVizierOfSuppression() },
             { Seamine, () => CreateSeamine() },
@@ -652,6 +654,13 @@ namespace DuelMastersCards
         {
             var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 3, Name = RikabuTheDismantler, Power = 1000, Subtypes = new List<Subtype> { Subtype.MachineEater } };
             x.Abilities.Add(new SpeedAttackerAbility());
+            return x;
+        }
+
+        static Card CreateRikabusScrewdriver()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Fire }, ManaCost = 2, Name = RikabusScrewdriver, Power = 1000, Subtypes = new List<Subtype> { Subtype.Xenoparts } };
+            x.Abilities.Add(new TapAbility(new DestroyOpponentsCreatureResolvable(new BlockerFilter())));
             return x;
         }
 
