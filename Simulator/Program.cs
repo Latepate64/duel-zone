@@ -140,6 +140,12 @@ namespace Simulator
                     latestPoints = points;
                     choice = duel.Continue(decision);
                 }
+
+                if (duel.Turns.Count > 200) // Could happen Corile vs Corile
+                {
+                    duel.GameOverInformation = new GameOver(WinReason.Deckout, new List<Guid>(), duel.Players.Select(x => x.Id)); //TODO: Improve
+                    return duel;
+                }
                 //Console.WriteLine($"Choice awarded: {latestPoints}");
                 //Console.WriteLine($"{numberOfChoicesMade}: {choice} simulator: {duel.GetPlayer(_simulator).Name}");
             }

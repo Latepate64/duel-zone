@@ -330,5 +330,11 @@ namespace DuelMastersModels
             BattleZone.Remove(permanent);
             Deck.Add(new Card(permanent, false), duel);
         }
+
+        public void PutFromShieldZoneToGraveyard(Card card, Duel duel)
+        {
+            ShieldZone.Remove(card);
+            Graveyard.Add(card, duel);
+        }
     }
 }

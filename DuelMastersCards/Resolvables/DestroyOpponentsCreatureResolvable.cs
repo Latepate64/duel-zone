@@ -1,22 +1,23 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
 {
     public class DestroyOpponentsCreatureResolvable : Resolvable
     {
-        public CardFilter Filter { get; }
+        public List<CardFilter> Filters { get; }
 
-        public DestroyOpponentsCreatureResolvable(CardFilter cardFilter)
+        public DestroyOpponentsCreatureResolvable(params CardFilter[] cardFilters)
         {
-            Filter = cardFilter;
+            Filters = cardFilters.ToList();
         }
 
         public DestroyOpponentsCreatureResolvable(DestroyOpponentsCreatureResolvable resolvable) : base(resolvable)
         {
-            Filter = resolvable.Filter;
+            Filters = resolvable.Filters;
         }
 
         public override Resolvable Copy()
@@ -29,7 +30,7 @@ namespace DuelMastersCards.Resolvables
             if (decision == null)
             {
                 var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
-                var permanents = opponent.BattleZone.GetChoosableCreatures(duel).Where(x => Filter.Applies(x, duel));
+                var permanents = opponent.BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
                 if (permanents.Count() > 1)
                 {
                     return new GuidSelection(Controller, permanents, 1, 1);
