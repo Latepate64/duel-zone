@@ -200,4 +200,38 @@ namespace DuelMastersModels.ContinuousEffects
             return new UnchoosableEffect(this);
         }
     }
+
+    public class UnblockableEffect : ContinuousEffect
+    {
+        public UnblockableEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        {
+
+        }
+
+        public UnblockableEffect(UnblockableEffect effect) : base(effect)
+        {
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new UnblockableEffect(this);
+        }
+    }
+
+    public class SlayerEffect : ContinuousEffect
+    {
+        public SlayerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        {
+
+        }
+
+        public SlayerEffect(SlayerEffect effect) : base(effect)
+        {
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new SlayerEffect(this);
+        }
+    }
 }
