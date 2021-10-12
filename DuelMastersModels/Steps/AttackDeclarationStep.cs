@@ -24,7 +24,8 @@ namespace DuelMastersModels.Steps
                 var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new PermanentComparer());
                 var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
                 var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
-                if (options.Any())
+                var targets = options.SelectMany(x => x).SelectMany(x => x);
+                if (targets.Any())
                 {
                     return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()));
                 }

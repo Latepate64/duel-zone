@@ -80,6 +80,7 @@ namespace DuelMastersCards
         const string Magmarex = "Magmarex";
         const string MagrisVizierOfMagnetism = "Magris, Vizier of Magnetism";
         const string MarineFlower = "Marine Flower";
+        const string MelniaTheAquaShadow = "Melnia, the Aqua Shadow";
         const string MelodicHunter = "Melodic Hunter";
         const string MikayRattlingDoll = "Mikay, Rattling Doll";
         const string MistRiasSonicGuardian = "Mist Rias, Sonic Guardian";
@@ -189,6 +190,7 @@ namespace DuelMastersCards
             { Magmarex, () => CreateMagmarex() },
             { MagrisVizierOfMagnetism, () => CreateMagrisVizierOfMagnetism() },
             { MarineFlower, () => CreateMarineFlower() },
+            { MelniaTheAquaShadow, () => CreateMelniaTheAquaShadow() },
             { MelodicHunter, () => CreateMelodicHunter() },
             { MikayRattlingDoll, () => CreateMikayRattlingDoll() },
             { MistRiasSonicGuardian, () => CreateMistRiasSonicGuardian() },
@@ -538,6 +540,14 @@ namespace DuelMastersCards
             x.Abilities.Add(new BlockerAbility());
             x.Abilities.Add(new CannotAttackCreaturesAbility());
             x.Abilities.Add(new CannotAttackPlayersAbility());
+            return x;
+        }
+
+        static Card CreateMelniaTheAquaShadow()
+        {
+            var x = new Card { CardType = CardType.Creature, Civilizations = new List<Civilization> { Civilization.Water, Civilization.Darkness }, ManaCost = 2, Name = MelniaTheAquaShadow, Power = 1000, Subtypes = new List<Subtype> { Subtype.LiquidPeople, Subtype.Ghost } };
+            x.Abilities.Add(new UnblockableAbility());
+            x.Abilities.Add(new SlayerAbility());
             return x;
         }
 

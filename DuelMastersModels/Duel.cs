@@ -121,16 +121,25 @@ namespace DuelMastersModels
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
-                GetPlayer(defendingCreature.Controller).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                Outcome(attackingCreature, defendingCreature);
             }
             else if (attackingCreaturePower < defendingCreaturePower)
             {
-                GetPlayer(attackingCreature.Controller).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
+                Outcome(defendingCreature, attackingCreature);
             }
             else
             {
                 GetPlayer(attackingCreature.Controller).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
                 GetPlayer(defendingCreature.Controller).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+            }
+
+            void Outcome(Permanent winner, Permanent loser)
+            {
+                GetPlayer(loser.Controller).PutFromBattleZoneIntoGraveyard(loser, this);
+                if (GetContinuousEffects<SlayerEffect>(loser).Any())
+                {
+                    GetPlayer(winner.Controller).PutFromBattleZoneIntoGraveyard(winner, this);
+                }
             }
         }
 
