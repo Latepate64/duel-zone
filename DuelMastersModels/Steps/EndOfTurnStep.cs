@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             _ = duel.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
-            duel.Trigger(new TurnEndsEvent(duel.CurrentTurn.Id));
+            duel.Trigger(new TurnEndsEvent(duel.CurrentTurn));
             return null;
         }
     }

@@ -46,11 +46,11 @@ namespace DuelMastersModels.Steps
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();
                     if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
                     {
-                        PendingAbilities.AddRange(tapAbilities);
+                        PendingAbilities.AddRange(tapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
                     }
                     else
                     {
-                        duel.Trigger(new CreatureAttackedEvent(AttackingCreature));
+                        duel.Trigger(new CreatureAttackedEvent(new Permanent(attacker), duel.GetAttackable(AttackTarget)));
                     }
                 }
                 return null;

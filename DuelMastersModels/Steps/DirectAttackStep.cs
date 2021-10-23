@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace DuelMastersModels.Steps
                     breakAmount = 2;
                 }
                 opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel, true);
+                GameEvents.Enqueue(new ShieldsBrokenEvent(new Permanent(attackingCreature), new Player(opponent), breakAmount));
                 return null;
             }
             else
@@ -45,7 +47,6 @@ namespace DuelMastersModels.Steps
                 //TODO: Direct attack victory should be checked as a state-based action instead.
                 var gameOver = new GameOver(WinReason.DirectAttack, new List<Guid> { controller.Id }, new List<Guid> { opponent.Id });
                 duel.GameOverInformation = gameOver;
-                duel.State = DuelState.Over;
                 return gameOver;
             }
         }

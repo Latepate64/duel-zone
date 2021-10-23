@@ -84,7 +84,7 @@ namespace DuelMastersModels.Zones
         private void Add(Duel duel)
         {
             Permanents.Add(PermanentEnteringBattleZone);
-            duel.Trigger(new CardChangedZoneEvent(PermanentEnteringBattleZone.Id, ZoneType.Anywhere, ZoneType.BattleZone));
+            duel.Trigger(new PutIntoBattleZoneEvent(new Permanent(PermanentEnteringBattleZone), new Player(duel.GetOwner(PermanentEnteringBattleZone))));
             PermanentEnteringBattleZone = null;
         }
 

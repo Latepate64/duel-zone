@@ -23,7 +23,7 @@ namespace DuelMastersCards.Resolvables
             {
                 return new YesNoChoice(Controller);
             }
-            if ((decision as YesNoDecision).Decision)
+            else if ((decision as YesNoDecision).Decision)
             {
                 duel.GetPlayer(Controller).DrawCards(1, duel);
             }

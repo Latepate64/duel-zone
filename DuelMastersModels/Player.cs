@@ -1,5 +1,6 @@
 ﻿using Combinatorics.Collections;
 using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
@@ -77,53 +78,41 @@ namespace DuelMastersModels
             Id = Guid.NewGuid();
         }
 
-        /// <summary>
-        /// Player shuffles their deck.
-        /// </summary>
-        public void ShuffleDeck()
+        public void ShuffleDeck(Duel duel)
         {
             Deck.Shuffle();
-        }
-
-        public static Choice Use(Card card, IEnumerable<Card> manaCards)
-        {
-            if (card == null)
+            if (duel.Turns.Any())
             {
-                throw new ArgumentNullException(nameof(card));
+                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckShuffledEvent(new Player(this)));
             }
-            else if (manaCards == null)
-            {
-                throw new ArgumentNullException(nameof(manaCards));
-            }
-            //return Duel.Progress();
-            throw new NotImplementedException(); // Mana payment
         }
 
         public void PutFromBattleZoneIntoGraveyard(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             Graveyard.Add(new Card(permanent, false), duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureDestroyedEvent(new Permanent(permanent)));
         }
 
         public void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             ManaZone.Add(new Card(permanent, false), duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoManaZone(new Player(this), new Permanent(permanent)));
         }
 
-        /// <summary>
-        /// Player puts target card from their hand into their mana zone.
-        /// </summary>
         public void PutFromHandIntoManaZone(Card card, Duel duel)
         {
             Hand.Remove(card);
             ManaZone.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromHandIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
         public void PutFromHandIntoShieldZone(Card card, Duel duel)
         {
             Hand.Remove(card);
             ShieldZone.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromHandIntoShieldZoneEvent(new Player(this), new Card(card, true)));
         }
 
         public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
@@ -136,6 +125,7 @@ namespace DuelMastersModels
         {
             ManaZone.Remove(card);
             Hand.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromManaZoneToHandEvent(new Player(this), new Card(card, true)));
         }
 
         ///<summary>
@@ -145,8 +135,20 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                ShieldZone.Add(RemoveTopCardOfDeck(), duel);
+                var card = RemoveTopCardOfDeck();
+                ShieldZone.Add(card, duel);
+                if (duel.Turns.Any())
+                {
+                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true)));
+                }
             }
+        }
+
+        internal Choice Summon(Card card, Duel duel)
+        {
+            Hand.Remove(card);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
+            return BattleZone.Add(card, duel);
         }
 
         /// <summary>
@@ -157,9 +159,6 @@ namespace DuelMastersModels
             return Deck.RemoveAndGetTopCard();
         }
 
-        /// <summary>
-        /// Player draws a number of cards.
-        /// </summary>
         public void DrawCards(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
@@ -168,14 +167,15 @@ namespace DuelMastersModels
                 if (drawnCard != null)
                 {
                     Hand.Add(drawnCard, duel);
+                    if (duel.Turns.Any())
+                    {
+                        duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardDrawnEvent(new Player(this), new Card(drawnCard, true)));
+                    }
                 }
                 else
                 {
                     break;
                 }
-
-                //TODO: Uncomment
-                //DuelEventOccurred?.Invoke(this, new DuelEventArgs(new DrawCardEvent(this, handCard)));
             }
         }
 
@@ -186,18 +186,6 @@ namespace DuelMastersModels
             return null; //TODO: Could require choice (eg. Silent Skill)
         }
 
-        //TODO: This probably will not be needed
-        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
-        {
-            if (!cards.Any())
-            {
-                return new List<IEnumerable<Civilization>> { civs.Distinct() };
-            }
-            else
-            {
-                return cards.First().Civilizations.Select(x => civs.Append(x)).SelectMany(x => GetCivilizationSubsequences(cards.Skip(1), x)).Distinct();
-            }
-        }
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
@@ -248,6 +236,7 @@ namespace DuelMastersModels
                 var card = cards.ElementAt(i);
                 ShieldZone.Remove(card);
                 Hand.Add(card, duel);
+                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoHandEvent(new Player(this), new Card(card, true)));
                 if (canUseShieldTrigger && card.ShieldTrigger)
                 {
                     card.ShieldTriggerPending = true;
@@ -257,18 +246,21 @@ namespace DuelMastersModels
 
         public override string ToString()
         {
-            return Id.ToString();
+            return Name;
         }
 
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
-            ManaZone.Add(RemoveTopCardOfDeck(), duel);
+            var card = RemoveTopCardOfDeck();
+            ManaZone.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
         public void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             Hand.Add(new Card(permanent, false), duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentReturnedToHandEvent(new Player(this), new Permanent(permanent)));
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -276,6 +268,7 @@ namespace DuelMastersModels
             Hand.Remove(spell);
             spell.RevealedTo = duel.Players.Select(x => x.Id);
             duel.ResolvingSpells.Push(spell);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
         }
 
         public void Dispose()
@@ -315,6 +308,7 @@ namespace DuelMastersModels
         {
             Hand.Remove(card);
             Graveyard.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DiscardEvent(new Player(this), new Card(card, true)));
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -329,12 +323,14 @@ namespace DuelMastersModels
         {
             BattleZone.Remove(permanent);
             Deck.Add(new Card(permanent, false), duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Permanent(permanent)));
         }
 
         public void PutFromShieldZoneToGraveyard(Card card, Duel duel)
         {
             ShieldZone.Remove(card);
             Graveyard.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoGraveyardEvent(new Player(this), new Card(card, true)));
         }
     }
 }

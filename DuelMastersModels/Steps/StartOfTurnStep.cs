@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels.Steps
 {
@@ -31,6 +32,7 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
+            GameEvents.Enqueue(new TurnStartsEvent(duel.CurrentTurn));
             var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
             foreach (var creature in player.BattleZone.Creatures)
             {

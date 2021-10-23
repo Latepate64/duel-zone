@@ -17,11 +17,6 @@ namespace DuelMastersModels
         public ICollection<Player> Players { get; } = new Collection<Player>();
 
         /// <summary>
-        /// Determines the state of the duel.
-        /// </summary>
-        public DuelState State { get; set; } = DuelState.Setup;
-
-        /// <summary>
         /// The number of shields each player has at the start of a duel. 
         /// </summary>
         public int InitialNumberOfShields { get; set; } = 5;
@@ -32,6 +27,8 @@ namespace DuelMastersModels
         public int InitialNumberOfHandCards { get; set; } = 5;
 
         public Turn CurrentTurn => Turns.Last();
+
+        public string GameEventsText => string.Join(Environment.NewLine, Turns.SelectMany(x => x.Steps).SelectMany(x => x.GameEvents).Select(x => x.ToString(this)));
 
         /// <summary>
         /// Note: Use method GetChoosableCreaturePermanents if you have to select creature/s.
@@ -54,12 +51,6 @@ namespace DuelMastersModels
         /// <returns>Action a player is expected to perform.</returns>
         public Choice Start(Player startingPlayer, Player otherPlayer)
         {
-            if (State != DuelState.Setup)
-            {
-                throw new InvalidOperationException($"Could not start the duel as state was {State} instead of {DuelState.Setup}.");
-            }
-            State = DuelState.InProgress;
-
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
 
@@ -69,8 +60,8 @@ namespace DuelMastersModels
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            startingPlayer.ShuffleDeck();
-            otherPlayer.ShuffleDeck();
+            startingPlayer.ShuffleDeck(this);
+            otherPlayer.ShuffleDeck(this);
 
             startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
             otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
@@ -118,6 +109,9 @@ namespace DuelMastersModels
             var defendingCreature = GetPermanent(defendingCreatureId);
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
+
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
+
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
@@ -148,8 +142,7 @@ namespace DuelMastersModels
             CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
-                player.Hand.Remove(card);
-                return player.BattleZone.Add(card, this);
+                return player.Summon(card, this);
             }
             else if (card.CardType == CardType.Spell)
             {
@@ -256,7 +249,6 @@ namespace DuelMastersModels
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
             Players = duel.Players.Select(x => new Player(x)).ToList();
-            State = duel.State;
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
@@ -322,6 +314,7 @@ namespace DuelMastersModels
 
         public void Trigger(GameEvent gameEvent)
         {
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
             var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
             foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
@@ -334,6 +327,10 @@ namespace DuelMastersModels
             }
             _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+            foreach (var ability in abilities)
+            {
+                CurrentTurn.CurrentStep.GameEvents.Enqueue(new AbilityTriggeredEvent(ability));
+            }
         }
 
         public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromPermanents(GameEvent gameEvent)
