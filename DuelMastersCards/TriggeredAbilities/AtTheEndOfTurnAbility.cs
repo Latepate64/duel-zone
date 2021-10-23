@@ -20,7 +20,7 @@ namespace DuelMastersCards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Duel duel)
         {
-            return gameEvent is TurnEndsEvent e && e.Turn == Turn;
+            return gameEvent is TurnEndsEvent e && e.Turn.Id == Turn;
         }
 
         public override Ability Copy()

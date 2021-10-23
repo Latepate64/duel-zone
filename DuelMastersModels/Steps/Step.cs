@@ -1,6 +1,7 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -159,7 +160,6 @@ namespace DuelMastersModels.Steps
             {
                 var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers).Select(x => x.Id), losers.Select(x => x.Id));
                 duel.GameOverInformation = gameOver;
-                duel.State = DuelState.Over;
                 return gameOver;
             }
             // TODO: Check direct attack
@@ -233,7 +233,9 @@ namespace DuelMastersModels.Steps
                 {
                     var trigger = duel.GetCard(guids.Single());
                     trigger.ShieldTriggerPending = false;
-                    var dec = duel.UseCard(trigger, duel.GetOwner(trigger));
+                    var player = duel.GetOwner(trigger);
+                    GameEvents.Enqueue(new ShieldTriggerEvent(new Player(player), new Card(trigger, true)));
+                    var dec = duel.UseCard(trigger, player);
                     if (dec == null)
                     {
                         return null;
@@ -288,6 +290,7 @@ namespace DuelMastersModels.Steps
         {
             PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
             ResolvingAbility = step.ResolvingAbility?.Copy() as ResolvableAbility;
+            GameEvents = new Queue<GameEvent>(step.GameEvents);
             State = step.State;
             UsedCards = step.UsedCards.ToList();
             _shieldTriggerUser = step._shieldTriggerUser;
@@ -300,6 +303,7 @@ namespace DuelMastersModels.Steps
         internal StepState State { get; set; } = StepState.TurnBasedAction;
         internal ResolvableAbility ResolvingAbility { get; set; }
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
+        public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
         private Guid _shieldTriggerUser;
         private bool _spellAbilitiesRetrieved = false;
 

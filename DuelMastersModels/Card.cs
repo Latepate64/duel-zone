@@ -115,7 +115,8 @@ namespace DuelMastersModels
 
         public override string ToString()
         {
-            return Name + " " + Id.ToString();
+            return Name;
+            //return Name + " " + Id.ToString();
         }
 
         public override bool Equals(object obj)
