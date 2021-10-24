@@ -102,8 +102,11 @@
     <Compile Include="GameEvents\CreatureAttackedEvent.cs" />
     <Compile Include="GameEvents\CreatureDestroyedEvent.cs" />
     <Compile Include="GameEvents\CreatureSummonedEvent.cs" />
+    <Compile Include="GameEvents\DeckoutEvent.cs" />
     <Compile Include="GameEvents\DeckShuffledEvent.cs" />
+    <Compile Include="GameEvents\DirectAttackEvent.cs" />
     <Compile Include="GameEvents\DiscardEvent.cs" />
+    <Compile Include="GameEvents\LoseEvent.cs" />
     <Compile Include="GameEvents\PermanentPutIntoManaZone.cs" />
     <Compile Include="GameEvents\PermanentReturnedToHandEvent.cs" />
     <Compile Include="GameEvents\PermanentPutIntoTopDeckEvent.cs" />
@@ -117,10 +120,10 @@
     <Compile Include="GameEvents\TopDeckCardPutIntoShieldZoneEvent.cs" />
     <Compile Include="GameEvents\TurnEndsEvent.cs" />
     <Compile Include="GameEvents\TurnStartsEvent.cs" />
+    <Compile Include="GameEvents\WinEvent.cs" />
     <Compile Include="Permanent.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
-    <Compile Include="Choices\GameOver.cs" />
     <Compile Include="DuelObject.cs" />
     <Compile Include="DuelState.cs" />
     <Compile Include="GameEvents\GameEvent.cs" />

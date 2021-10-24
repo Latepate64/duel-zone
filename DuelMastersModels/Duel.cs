@@ -13,9 +13,14 @@ namespace DuelMastersModels
     public class Duel : IDisposable
     {
         #region Properties
-        public GameOver GameOverInformation { get; set; }
-
+        /// <summary>
+        /// Players who are still in the game.
+        /// </summary>
         public ICollection<Player> Players { get; } = new Collection<Player>();
+
+        public Player Winner { get; private set; }
+
+        public ICollection<Player> Losers { get; } = new Collection<Player>();
 
         /// <summary>
         /// The number of shields each player has at the start of a duel. 
@@ -29,7 +34,9 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => Turns.Last();
 
-        public string GameEventsText => string.Join(Environment.NewLine, PreGameEvents.Union(Turns.SelectMany(x => x.Steps).SelectMany(x => x.GameEvents)).Select(x => x.ToString(this)));
+        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Steps).SelectMany(x => x.GameEvents));
+
+        public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
 
         /// <summary>
         /// Note: Use method GetChoosableCreaturePermanents if you have to select creature/s.
@@ -61,19 +68,23 @@ namespace DuelMastersModels
         {
             DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
-            GameOverInformation = duel.GameOverInformation != null ? new GameOver(duel.GameOverInformation) : null;
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
+            Losers = duel.Losers.Select(x => new Player(x)).ToList();
             Players = duel.Players.Select(x => new Player(x)).ToList();
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
+            if (duel.Winner != null)
+            {
+                Winner = new Player(duel.Winner);
+            }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
         }
 
         public override string ToString()
         {
-            return $"{CurrentTurn} {GameOverInformation}";
+            return $"{CurrentTurn}";
         }
 
         public void Dispose()
@@ -91,8 +102,6 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 ExtraTurns = null;
-                GameOverInformation?.Dispose();
-                GameOverInformation = null;
                 foreach (var x in Players)
                 {
                     x.Dispose();
@@ -161,7 +170,7 @@ namespace DuelMastersModels
         public Choice Continue(Decision decision)
         {
             var choiceVar = CurrentTurn.Continue(decision, this);
-            if (choiceVar == null)
+            if (choiceVar == null && Players.Count > 1)
             {
                 return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
             }
@@ -271,7 +280,7 @@ namespace DuelMastersModels
 
         public Player GetOpponent(Player player)
         {
-            return Players.Single(x => x != player);
+            return Players.Union(Losers).Single(x => x != player);
         }
 
         public Guid GetOpponent(Guid player)
@@ -281,7 +290,7 @@ namespace DuelMastersModels
 
         public Player GetOwner(Card card)
         {
-            return Players.Single(x => x.Id == card.Owner);
+            return Players.Union(Losers).Single(x => x.Id == card.Owner);
         }
 
         public Card GetCard(Guid id)
@@ -298,7 +307,7 @@ namespace DuelMastersModels
 
         public Player GetPlayer(Guid id)
         {
-            return Players.Single(x => x.Id == id);
+            return Players.Union(Losers).Single(x => x.Id == id);
         }
 
         /// <summary>
@@ -370,6 +379,19 @@ namespace DuelMastersModels
             var creatures = selector.BattleZone.Creatures.ToList();
             creatures.AddRange(GetOpponent(selector).BattleZone.Creatures.Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
             return creatures;
+        }
+
+        public void Lose(Player player)
+        {
+            Losers.Add(player);
+            _ = Players.Remove(player);
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(new LoseEvent(new Player(player)));
+        }
+
+        public void Win(Player player)
+        {
+            Winner = player;
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(new Player(player)));
         }
         #endregion Methods
     }

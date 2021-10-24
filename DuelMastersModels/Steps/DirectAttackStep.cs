@@ -2,7 +2,6 @@
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -45,9 +44,9 @@ namespace DuelMastersModels.Steps
             else
             {
                 //TODO: Direct attack victory should be checked as a state-based action instead.
-                var gameOver = new GameOver(WinReason.DirectAttack, new List<Guid> { controller.Id }, new List<Guid> { opponent.Id });
-                duel.GameOverInformation = gameOver;
-                return gameOver;
+                GameEvents.Enqueue(new DirectAttackEvent(new Player(opponent)));
+                duel.Lose(opponent);
+                return null;
             }
         }
 

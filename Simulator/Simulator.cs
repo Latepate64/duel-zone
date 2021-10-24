@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Simulator
             Choice choice = duel.Start(player1, player2);
             int numberOfChoicesMade = 0;
             int latestPoints = 0;
-            while (choice is not GameOver)
+            while (choice != null)
             {
                 var duelCopy = GetDuelForSimulator(duel, choice.Player);
                 var simulation = new Simulation(choice.Player, choicesMax);
@@ -27,7 +28,11 @@ namespace Simulator
 
                 if (duel.Turns.Count > 200) // Could happen Corile vs Corile
                 {
-                    duel.GameOverInformation = new GameOver(WinReason.Deckout, new List<Guid>(), duel.Players.Select(x => x.Id)); //TODO: Improve
+                    //TODO: Improve
+                    while (duel.Players.Any())
+                    {
+                        duel.Lose(duel.Players.First());
+                    }
                     return duel;
                 }
             }

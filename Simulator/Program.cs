@@ -1,5 +1,6 @@
 ﻿using DuelMastersCards;
 using DuelMastersModels;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +51,33 @@ namespace Simulator
             player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
             using var duel = simulator.PlayDuel(player1, player2, simulationDepth);
 
-            UpdateUsedCards(player1, player2, duel, matchUp.Players);
-            UpdateUsedCards(player2, player1, duel, matchUp.Players);
+            var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
+            if (duel.Winner != null)
+            {
+                UpdateWinnerUsedCards(duel, usedCards, matchUp.Players.Distinct().Single(x => x.Name == duel.Winner.Name));
+            }
+            foreach (var loser in duel.Losers)
+            {
+                UpdateLoserUsedCards(duel, usedCards, loser, matchUp.Players.Distinct().Single(x => x.Name == loser.Name));
+            }
+        }
+
+        private static void UpdateWinnerUsedCards(Duel duel, IEnumerable<Card> usedCards, PlayerConfiguration winner)
+        {
+            ++winner.Wins;
+            foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == duel.Winner).Select(x => x.Name).Distinct())
+            {
+                UpdateUsedCards(winner.UsedCards, cardName, true);
+            }
+        }
+
+        private static void UpdateLoserUsedCards(Duel duel, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
+        {
+            ++loserConfiguration.Losses;
+            foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == loser).Select(x => x.Name).Distinct())
+            {
+                UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
+            }
         }
 
         private static void PlayRoundOfGames(Simulator simulator, SimulationConfiguration conf, List<MatchUp> matchUps)
@@ -123,24 +149,6 @@ namespace Simulator
             var card = CardFactory.Create(name);
             card.Owner = player;
             return card;
-        }
-
-        private static void UpdateUsedCards(Player player, Player opponent, Duel duel, IEnumerable<PlayerConfiguration> players)
-        {
-            if (duel.GameOverInformation.Winners.Contains(player.Id))
-            {
-                ++players.Distinct().Single(x => x.Name == player.Name).Wins;
-                ++players.Distinct().Single(x => x.Name == opponent.Name).Losses;
-                var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
-                foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == player).Select(x => x.Name).Distinct())
-                {
-                    UpdateUsedCards(players.Distinct().Single(x => x.Name == player.Name).UsedCards, cardName, true);
-                }
-                foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == opponent).Select(x => x.Name).Distinct())
-                {
-                    UpdateUsedCards(players.Distinct().Single(x => x.Name == opponent.Name).UsedCards, cardName, false);
-                }
-            }
         }
 
         static void PrintCardStatistics(Dictionary<string, Tuple<int, int>> cards)

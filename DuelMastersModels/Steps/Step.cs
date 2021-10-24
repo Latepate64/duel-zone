@@ -11,6 +11,7 @@ namespace DuelMastersModels.Steps
 {
     internal enum StepState
     {
+        CheckGameOver,
         TurnBasedAction,
         ResolveSpell,
         StateBasedAction,
@@ -31,6 +32,10 @@ namespace DuelMastersModels.Steps
             if (State == StepState.TurnBasedAction)
             {
                 return CheckTurnBasedAction(duel, decision);
+            }
+            else if (State == StepState.CheckGameOver)
+            {
+                return CheckGameOver(duel);
             }
             else if (State == StepState.ResolveSpell)
             {
@@ -73,7 +78,7 @@ namespace DuelMastersModels.Steps
                 Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, decision);
                 if (choice != null) { return choice; }
             }
-            State = StepState.ResolveSpell;
+            State = StepState.CheckGameOver;
             return Proceed(null, duel);
         }
 
@@ -85,7 +90,7 @@ namespace DuelMastersModels.Steps
                 if (choice != null) { return choice; }
                 else
                 {
-                    State = StepState.ResolveSpell;
+                    State = StepState.CheckGameOver;
                     return Proceed(null, duel);
                 }
             }
@@ -103,7 +108,7 @@ namespace DuelMastersModels.Steps
             else
             {
                 ResolvingAbility = null;
-                State = StepState.ResolveSpell;
+                State = StepState.CheckGameOver;
                 return Proceed(null, duel);
             }
         }
@@ -146,21 +151,22 @@ namespace DuelMastersModels.Steps
         private Choice CheckStateBasedActions(Duel duel)
         {
             var losers = new Collection<Player>();
-            var active = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
-            var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
-            if (!active.Deck.Cards.Any())
+            foreach (var player in duel.Players)
             {
-                losers.Add(active);
-            }
-            if (!nonActive.Deck.Cards.Any())
-            {
-                losers.Add(nonActive);
+                if (!player.Deck.Cards.Any())
+                {
+                    losers.Add(player);
+                }
             }
             if (losers.Any())
             {
-                var gameOver = new GameOver(WinReason.Deckout, duel.Players.Except(losers).Select(x => x.Id), losers.Select(x => x.Id));
-                duel.GameOverInformation = gameOver;
-                return gameOver;
+                foreach (var loser in losers)
+                {
+                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(new Player(loser)));
+                    duel.Lose(loser);
+                }
+                State = StepState.CheckGameOver;
+                return Proceed(null, duel);
             }
             // TODO: Check direct attack
 
@@ -254,7 +260,7 @@ namespace DuelMastersModels.Steps
                     }
                     _shieldTriggerUser = Guid.Empty;
                 }
-                State = StepState.ResolveSpell;
+                State = StepState.CheckGameOver;
                 return Proceed(null, duel);
             }
             else
@@ -282,8 +288,26 @@ namespace DuelMastersModels.Steps
         private Choice PermanentEnteringBattleZone(Duel duel, Decision decision)
         {
             duel.Players.Select(x => x.BattleZone).Single(x => x.PermanentEnteringBattleZone != null).Add(duel, decision);
-            State = StepState.ResolveSpell;
+            State = StepState.CheckGameOver;
             return null;
+        }
+
+        private Choice CheckGameOver(Duel duel)
+        {
+            if (duel.Players.Count == 1)
+            {
+                duel.Win(duel.Players.Single());
+                return null;
+            }
+            else if (!duel.Players.Any())
+            {
+                return null;
+            }
+            else
+            {
+                State = StepState.ResolveSpell;
+                return Proceed(null, duel);
+            }
         }
 
         protected Step(Step step)

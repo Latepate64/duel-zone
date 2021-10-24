@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Choices;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Simulator
         public Tuple<Decision, int> Choose(Choice choice, Duel duel, Decision decision, int numberOfChoicesMade)
         {
             var decisions = new List<Tuple<Decision, int>>();
-            if (_optionsRemaining <= 0 || choice is GameOver)
+            if (_optionsRemaining <= 0 || choice is null)
             {
                 return new Tuple<Decision, int>(decision, GetPoints(duel, numberOfChoicesMade));
             }
@@ -171,9 +172,9 @@ namespace Simulator
         private static int GetPointsForGameOver(Duel duel, Player player, Player opponent, int numberOfChoicesMade)
         {
             const int GameOverPoints = 9999999;
-            if (duel.GameOverInformation != null)
+            if (duel.Players.Count < 2)
             {
-                return (duel.GameOverInformation.Losers.Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
+                return (duel.Losers.Select(x => x.Id).Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
             }
             else
             {
