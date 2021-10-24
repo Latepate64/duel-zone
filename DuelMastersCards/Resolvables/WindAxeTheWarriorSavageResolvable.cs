@@ -1,4 +1,5 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -24,13 +25,12 @@ namespace DuelMastersCards.Resolvables
 
         public override Choice Resolve(Duel duel, Decision decision)
         {
-            // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker."
+            // Destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);
             var blocker = new List<Permanent>();
             if (decision == null)
             {
-                var opponent = duel.GetOpponent(controller);
-                var blockers = opponent.BattleZone.GetChoosableCreatures(duel).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
+                var blockers = duel.GetOpponent(controller).BattleZone.GetChoosableCreatures(duel).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
                 if (blockers.Count() > 1)
                 {
                     return new GuidSelection(controller.Id, blockers, 1, 1);

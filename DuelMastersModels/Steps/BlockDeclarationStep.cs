@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Linq;
 
@@ -38,7 +39,9 @@ namespace DuelMastersModels.Steps
                 if (blockers.Any())
                 {
                     BlockingCreature = blockers.Single();
-                    duel.GetPermanent(BlockingCreature).Tapped = true;
+                    var blocker = duel.GetPermanent(BlockingCreature);
+                    blocker.Tapped = true;
+                    GameEvents.Enqueue(new BlockEvent(new Permanent(duel.GetPermanent(AttackingCreature)), new Permanent(blocker)));
                 }
                 return null;
             }

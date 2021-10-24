@@ -38,39 +38,43 @@ namespace DuelMastersCards.Resolvables
             }
             else if (_firstPart)
             {
-                var cards = (decision as GuidDecision).Decision;
-                if (cards.Any())
-                {
-                    controller.PutFromHandIntoShieldZone(duel.GetCard(cards.Single()), duel);
+                return PutFromHandIntoShieldZone(duel, decision, controller);
+            }
+            else
+            {
+                controller.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), duel, false);
+                return null;
+            }
+        }
 
-                    // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
-                    if (controller.ShieldZone.Cards.Any())
+        private Choice PutFromHandIntoShieldZone(Duel duel, Decision decision, Player controller)
+        {
+            var cards = (decision as GuidDecision).Decision;
+            if (cards.Any())
+            {
+                controller.PutFromHandIntoShieldZone(duel.GetCard(cards.Single()), duel);
+
+                // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
+                if (controller.ShieldZone.Cards.Any())
+                {
+                    if (controller.ShieldZone.Cards.Count == 1)
                     {
-                        if (controller.ShieldZone.Cards.Count == 1)
-                        {
-                            controller.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), duel, false);
-                            return null;
-                        }
-                        else
-                        {
-                            _firstPart = false;
-                            return new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1);
-                        }
+                        controller.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), duel, false);
+                        return null;
                     }
                     else
                     {
-                        return null;
+                        _firstPart = false;
+                        return new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1);
                     }
                 }
                 else
                 {
                     return null;
                 }
-
             }
             else
             {
-                controller.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), duel, false);
                 return null;
             }
         }

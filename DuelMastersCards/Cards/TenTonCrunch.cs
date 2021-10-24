@@ -7,7 +7,7 @@ namespace DuelMastersCards.Cards
 {
     public class TenTonCrunch : Spell
     {
-        public TenTonCrunch() : base("TenTonCrunch", 4, Civilization.Fire)
+        public TenTonCrunch() : base("Ten-Ton Crunch", 4, Civilization.Fire)
         {
             ShieldTrigger = true;
             Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(3000))));

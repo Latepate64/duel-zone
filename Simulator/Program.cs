@@ -195,16 +195,23 @@ namespace Simulator
 
         static List<Card> GetCards(Guid player, string path)
         {
-            List<Card> cards = new();
-            using var reader = XmlReader.Create(path);
-            foreach (var card in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
+            if (path == null)
             {
-                for (int i = 0; i < card.Quantity; ++i)
-                {
-                    cards.Add(CreateCard(card.Name, player));
-                }
+                return GetCards(player);
             }
-            return cards;
+            else
+            {
+                List<Card> cards = new();
+                using var reader = XmlReader.Create(path);
+                foreach (var card in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
+                {
+                    for (int i = 0; i < card.Quantity; ++i)
+                    {
+                        cards.Add(CreateCard(card.Name, player));
+                    }
+                }
+                return cards;
+            }
         }
 
         static int GetPoints(Duel duel, int numberOfChoicesMade)

@@ -28,27 +28,32 @@ namespace DuelMastersCards.Resolvables
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
             if (decision == null)
             {
-                var controller = duel.GetPlayer(Controller);
-                var creatures = controller.BattleZone.Creatures;
-                if (creatures.Count() > 1)
-                {
-                    return new GuidSelection(Controller, creatures, 1, 1);
-                }
-                else if (creatures.Any())
-                {
-                    duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = creatures.Single().Id }, new Indefinite()));
-                    return null;
-                }
-                else
-                {
-                    return null;
-                }
+                return OneOfYourCreaturesGetsSpeedAttacker(duel);
             }
             else
             {
                 var target = duel.GetPermanent((decision as GuidDecision).Decision.Single()).Id;
                 //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
                 duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = target }, new Indefinite()));
+                return null;
+            }
+        }
+
+        private Choice OneOfYourCreaturesGetsSpeedAttacker(Duel duel)
+        {
+            var creatures = duel.GetPlayer(Controller).BattleZone.Creatures;
+            if (creatures.Count() > 1)
+            {
+                return new GuidSelection(Controller, creatures, 1, 1);
+            }
+            else if (creatures.Any())
+            {
+                //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
+                duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = creatures.Single().Id }, new Indefinite()));
+                return null;
+            }
+            else
+            {
                 return null;
             }
         }

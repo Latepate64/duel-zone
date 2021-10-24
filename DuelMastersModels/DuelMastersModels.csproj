@@ -94,6 +94,7 @@
     <Compile Include="Choices\EnumChoice.cs" />
     <Compile Include="GameEvents\AbilityTriggeredEvent.cs" />
     <Compile Include="GameEvents\BattleEvent.cs" />
+    <Compile Include="GameEvents\BlockEvent.cs" />
     <Compile Include="GameEvents\CardDrawnEvent.cs" />
     <Compile Include="GameEvents\CardPutFromHandIntoManaZoneEvent.cs" />
     <Compile Include="GameEvents\CardPutFromHandIntoShieldZoneEvent.cs" />

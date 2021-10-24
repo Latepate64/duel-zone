@@ -29,8 +29,7 @@ namespace DuelMastersCards.Resolvables
         {
             if (decision == null)
             {
-                var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
-                var permanents = opponent.BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
+                var permanents = duel.GetOpponent(duel.GetPlayer(Controller)).BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
                 if (permanents.Count() > 1)
                 {
                     return new GuidSelection(Controller, permanents, 1, 1);
