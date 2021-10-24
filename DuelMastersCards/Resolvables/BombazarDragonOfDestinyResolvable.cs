@@ -3,6 +3,7 @@ using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Durations;
+using DuelMastersModels.GameEvents;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -45,9 +46,8 @@ namespace DuelMastersCards.Resolvables
 
         public override Choice Resolve(Duel duel, Decision choice)
         {
-            var gameOver = new GameOver(WinReason.Bombazar, duel.Players.Select(x => x.Id).Where(p => p != Controller), duel.Players.Select(x => x.Id).Where(p => p == Controller));
-            duel.GameOverInformation = gameOver;
-            return gameOver;
+            duel.Lose(duel.GetPlayer(Controller));
+            return null;
         }
 
         public override Resolvable Copy()

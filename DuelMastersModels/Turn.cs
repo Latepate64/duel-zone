@@ -78,9 +78,13 @@ namespace DuelMastersModels
             {
                 return choice;
             }
-            else
+            else if (duel.Players.Count > 1)
             {
                 return ChangeAndStartStep(duel);
+            }
+            else
+            {
+                return null;
             }
         }
 

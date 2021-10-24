@@ -13,6 +13,7 @@ namespace DuelMastersModels
     /// </summary>
     public class Player : IAttackable, IDisposable
     {
+        #region Properties
         public Guid Id { get; }
 
         public string Name { get; set; }
@@ -70,20 +71,69 @@ namespace DuelMastersModels
                 return cards;
             }
         }
+        #endregion Properties
 
         private static readonly Random _random = new Random();
 
+        #region Methods
         public Player()
         {
             Id = Guid.NewGuid();
         }
 
+        public Player(Player player)
+        {
+            Id = player.Id;
+            Name = player.Name;
+            Deck = player.Deck.Copy();
+            Graveyard = player.Graveyard.Copy();
+            Hand = player.Hand.Copy();
+            ManaZone = player.ManaZone.Copy();
+            ShieldZone = player.ShieldZone.Copy();
+            BattleZone = player.BattleZone.Copy();
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                BattleZone?.Dispose();
+                BattleZone = null;
+                Deck?.Dispose();
+                Deck = null;
+                Graveyard?.Dispose();
+                Graveyard = null;
+                Hand?.Dispose();
+                Hand = null;
+                ManaZone?.Dispose();
+                ManaZone = null;
+                ShieldZone?.Dispose();
+                ShieldZone = null;
+            }
+        }
+
         public void ShuffleDeck(Duel duel)
         {
             Deck.Shuffle();
+            var eve = new DeckShuffledEvent(new Player(this));
             if (duel.Turns.Any())
             {
-                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckShuffledEvent(new Player(this)));
+                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
+            }
+            else
+            {
+                duel.PreGameEvents.Enqueue(eve);
             }
         }
 
@@ -137,9 +187,14 @@ namespace DuelMastersModels
             {
                 var card = RemoveTopCardOfDeck();
                 ShieldZone.Add(card, duel);
+                var eve = new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true));
                 if (duel.Turns.Any())
                 {
-                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true)));
+                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
+                }
+                else
+                {
+                    duel.PreGameEvents.Enqueue(eve);
                 }
             }
         }
@@ -167,9 +222,14 @@ namespace DuelMastersModels
                 if (drawnCard != null)
                 {
                     Hand.Add(drawnCard, duel);
+                    var cardDrawnEvent = new CardDrawnEvent(new Player(this), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
-                        duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardDrawnEvent(new Player(this), new Card(drawnCard, true)));
+                        duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(cardDrawnEvent);
+                    }
+                    else
+                    {
+                        duel.PreGameEvents.Enqueue(cardDrawnEvent);
                     }
                 }
                 else
@@ -185,7 +245,6 @@ namespace DuelMastersModels
             ManaZone.UntapCards();
             return null; //TODO: Could require choice (eg. Silent Skill)
         }
-
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
@@ -212,18 +271,6 @@ namespace DuelMastersModels
             }
         }
 
-        public Player(Player player)
-        {
-            Id = player.Id;
-            Name = player.Name;
-            Deck = player.Deck.Copy();
-            Graveyard = player.Graveyard.Copy();
-            Hand = player.Hand.Copy();
-            ManaZone = player.ManaZone.Copy();
-            ShieldZone = player.ShieldZone.Copy();
-            BattleZone = player.BattleZone.Copy();
-        }
-
         public void PutFromShieldZoneToHand(Card card, Duel duel, bool canUseShieldTrigger)
         {
             PutFromShieldZoneToHand(new List<Card> { card }, duel, canUseShieldTrigger);
@@ -242,11 +289,6 @@ namespace DuelMastersModels
                     card.ShieldTriggerPending = true;
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
 
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
@@ -269,31 +311,6 @@ namespace DuelMastersModels
             spell.RevealedTo = duel.Players.Select(x => x.Id);
             duel.ResolvingSpells.Push(spell);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                BattleZone?.Dispose();
-                BattleZone = null;
-                Deck?.Dispose();
-                Deck = null;
-                Graveyard?.Dispose();
-                Graveyard = null;
-                Hand?.Dispose();
-                Hand = null;
-                ManaZone?.Dispose();
-                ManaZone = null;
-                ShieldZone?.Dispose();
-                ShieldZone = null;
-            }
         }
 
         public void Discard(List<Card> cards, Duel duel)
@@ -332,5 +349,6 @@ namespace DuelMastersModels
             Graveyard.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoGraveyardEvent(new Player(this), new Card(card, true)));
         }
+        #endregion Methods
     }
 }
