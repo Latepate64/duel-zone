@@ -114,7 +114,9 @@
     <Compile Include="GameEvents\CreatureAttackedEvent.cs" />
     <Compile Include="GameEvents\CreatureDestroyedEvent.cs" />
     <Compile Include="GameEvents\CreatureSummonedEvent.cs" />
+    <Compile Include="GameEvents\DeckCardPutIntoHandEvent.cs" />
     <Compile Include="GameEvents\DeckoutEvent.cs" />
+    <Compile Include="GameEvents\CardRevealedEvent.cs" />
     <Compile Include="GameEvents\DeckShuffledEvent.cs" />
     <Compile Include="GameEvents\DirectAttackEvent.cs" />
     <Compile Include="GameEvents\DiscardEvent.cs" />

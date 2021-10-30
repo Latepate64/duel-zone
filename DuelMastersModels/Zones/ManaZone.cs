@@ -11,9 +11,6 @@ namespace DuelMastersModels.Zones
     {
         public ManaZone(IEnumerable<Card> cards) : base(cards) { }
 
-        internal override bool Public { get; } = true;
-        internal override bool Ordered { get; } = false;
-
         public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => card.Tapped).ToList());
         public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => !card.Tapped).ToList());
 
@@ -27,7 +24,7 @@ namespace DuelMastersModels.Zones
 
         public override void Add(Card card, Duel duel)
         {
-            card.RevealedTo = duel.Players.Select(x => x.Id);
+            card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             card.EnterManaZone();
             Cards.Add(card);
         }

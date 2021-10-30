@@ -9,9 +9,6 @@ namespace DuelMastersModels.Zones
     /// </summary>
     public class Deck : Zone, ICopyable<Deck>
     {
-        internal override bool Public { get; } = false;
-        internal override bool Ordered { get; } = true;
-
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
         public override void Add(Card card, Duel duel)
