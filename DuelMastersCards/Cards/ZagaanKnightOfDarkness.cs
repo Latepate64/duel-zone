@@ -3,9 +3,9 @@ using DuelMastersModels;
 
 namespace DuelMastersCards.Cards
 {
-    public class HanusaRadianceElemental : Creature
+    public class ZagaanKnightOfDarkness : Creature
     {
-        public HanusaRadianceElemental() : base("Hanusa, Radiance Elemental", 7, Civilization.Light, 9500, Subtype.AngelCommand)
+        public ZagaanKnightOfDarkness() : base("Zagaan, Knight of Darkness", 6, Civilization.Darkness, 7000, Subtype.DemonCommand)
         {
             Abilities.Add(new DoubleBreakerAbility());
         }

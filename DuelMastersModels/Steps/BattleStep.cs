@@ -6,9 +6,8 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 508.1. If the attacking creature was declared to attack another creature or if the attack was redirected to target a creature, that creature and the attacking creature battle.
     /// </summary>
-    public class BattleStep : TurnBasedActionStep
+    public class BattleStep : AttackingCreatureStep
     {
-        internal Guid AttackingCreature { get; private set; }
         internal Guid TargetCreature { get; private set; }
 
         public BattleStep(Guid attackingCreature, Guid targetCreature)

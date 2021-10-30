@@ -20,6 +20,7 @@ namespace DuelMastersModels
         CyberLord,
         CyberVirus,
         DeathPuppet,
+        DemonCommand,
         Dragonoid,
         EarthDragon,
         EarthEater,

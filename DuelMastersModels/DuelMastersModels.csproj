@@ -92,6 +92,18 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardFilter.cs" />
     <Compile Include="Choices\EnumChoice.cs" />
+    <Compile Include="ContinuousEffects\AttacksIfAbleEffect.cs" />
+    <Compile Include="ContinuousEffects\BlockerEffect.cs" />
+    <Compile Include="ContinuousEffects\CannotAttackCreaturesEffect.cs" />
+    <Compile Include="ContinuousEffects\CannotAttackPlayersEffect.cs" />
+    <Compile Include="ContinuousEffects\ChargerEffect.cs" />
+    <Compile Include="ContinuousEffects\DoubleBreakerEffect.cs" />
+    <Compile Include="ContinuousEffects\PowerAttackerEffect.cs" />
+    <Compile Include="ContinuousEffects\PowerModifyingEffect.cs" />
+    <Compile Include="ContinuousEffects\SlayerEffect.cs" />
+    <Compile Include="ContinuousEffects\SpeedAttackerEffect.cs" />
+    <Compile Include="ContinuousEffects\UnblockableEffect.cs" />
+    <Compile Include="ContinuousEffects\UnchoosableEffect.cs" />
     <Compile Include="GameEvents\AbilityTriggeredEvent.cs" />
     <Compile Include="GameEvents\BattleEvent.cs" />
     <Compile Include="GameEvents\BlockEvent.cs" />
@@ -147,6 +159,7 @@
     </Compile>
     <Compile Include="StartingPlayer.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
+    <Compile Include="Steps\AttackingCreatureStep.cs" />
     <Compile Include="Steps\BattleStep.cs" />
     <Compile Include="Steps\BlockDeclarationStep.cs" />
     <Compile Include="Steps\ChargeStep.cs" />

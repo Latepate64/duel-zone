@@ -6,9 +6,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : TurnBasedActionStep
+    public class BlockDeclarationStep : AttackingCreatureStep
     {
-        internal Guid AttackingCreature { get; private set; }
         internal Guid AttackTarget { get; private set; }
         internal Guid BlockingCreature { get; set; }
 
