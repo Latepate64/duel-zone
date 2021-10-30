@@ -363,6 +363,13 @@ namespace DuelMastersModels
             card.RevealedTo.Add(opponent.Id);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
         }
+
+        public void ReturnFromGraveyardToHand(Duel duel, Card card)
+        {
+            Graveyard.Remove(card);
+            Hand.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardReturnedFromGraveyardToHandEvent(new Player(this), new Card(card, true)));
+        }
         #endregion Methods
     }
 }

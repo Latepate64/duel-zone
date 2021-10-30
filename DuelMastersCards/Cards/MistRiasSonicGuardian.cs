@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, Civilization.Light, 2000, Subtype.Guardian)
         {
-            Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new ControllerMayDrawCardsResolvable(1)));
         }
     }
 }

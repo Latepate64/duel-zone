@@ -4,17 +4,25 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersCards.Resolvables
 {
-    public class ControllerMayDrawCardResolvable : Resolvable
+    public class ControllerMayDrawCardsResolvable : Resolvable
     {
-        public ControllerMayDrawCardResolvable() : base() { }
+        public int Maximum { get; }
 
-        public ControllerMayDrawCardResolvable(ControllerMayDrawCardResolvable ability) : base(ability)
+        private int _drawn;
+
+        public ControllerMayDrawCardsResolvable(int maximum) : base()
         {
+            Maximum = maximum;
+        }
+
+        public ControllerMayDrawCardsResolvable(ControllerMayDrawCardsResolvable ability) : base(ability)
+        {
+            Maximum = ability.Maximum;
         }
 
         public override Resolvable Copy()
         {
-            return new ControllerMayDrawCardResolvable(this);
+            return new ControllerMayDrawCardsResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
@@ -26,6 +34,10 @@ namespace DuelMastersCards.Resolvables
             else if ((decision as YesNoDecision).Decision)
             {
                 duel.GetPlayer(Controller).DrawCards(1, duel);
+                if (++_drawn < Maximum)
+                {
+                    return Resolve(duel, null);
+                }
             }
             return null;
         }

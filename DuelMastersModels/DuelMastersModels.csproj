@@ -108,6 +108,7 @@
     <Compile Include="GameEvents\BattleEvent.cs" />
     <Compile Include="GameEvents\BlockEvent.cs" />
     <Compile Include="GameEvents\CardDrawnEvent.cs" />
+    <Compile Include="GameEvents\CardReturnedFromGraveyardToHandEvent.cs" />
     <Compile Include="GameEvents\CardPutFromHandIntoManaZoneEvent.cs" />
     <Compile Include="GameEvents\CardPutFromHandIntoShieldZoneEvent.cs" />
     <Compile Include="GameEvents\CardPutFromManaZoneToHandEvent.cs" />
