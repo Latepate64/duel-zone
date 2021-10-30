@@ -7,12 +7,16 @@ namespace DuelMastersCards.Resolvables
 {
     public class AquaSurferResolvable : Resolvable
     {
-        public AquaSurferResolvable() : base()
+        public int MaximumAmount { get; }
+
+        public AquaSurferResolvable(int maximumAmount) : base()
         {
+            MaximumAmount = maximumAmount;
         }
 
         public AquaSurferResolvable(AquaSurferResolvable ability) : base(ability)
         {
+            MaximumAmount = ability.MaximumAmount;
         }
 
         public override Resolvable Copy()
@@ -28,7 +32,7 @@ namespace DuelMastersCards.Resolvables
                 var creatures = duel.GetChoosableCreaturePermanents(duel.GetPlayer(Controller));
                 if (creatures.Any())
                 {
-                    return new GuidSelection(Controller, creatures, 0, 1);
+                    return new GuidSelection(Controller, creatures, 0, MaximumAmount);
                 }
                 else
                 {
@@ -39,7 +43,7 @@ namespace DuelMastersCards.Resolvables
             {
                 foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)))
                 {
-                    duel.GetPlayer(creature.Controller).ReturnFromBattleZoneToHand(creature, duel);
+                    duel.GetPlayer(creature.Controller).ReturnFromBattleZoneToHand(duel, creature);
                 }
                 return null;
             }

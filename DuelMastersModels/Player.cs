@@ -298,7 +298,7 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
-        public void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
+        public void ReturnFromBattleZoneToHand(Duel duel, Permanent permanent)
         {
             BattleZone.Remove(permanent);
             Hand.Add(new Card(permanent, false), duel);
