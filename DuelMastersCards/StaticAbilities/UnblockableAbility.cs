@@ -1,4 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
+using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
@@ -7,9 +8,15 @@ namespace DuelMastersCards.StaticAbilities
 {
     public class UnblockableAbility : StaticAbility
     {
-        public UnblockableAbility()
+        public CardFilter BlockerFilter { get; }
+
+        public UnblockableAbility() : this(new AnyFilter())
         {
-            ContinuousEffects.Add(new UnblockableEffect(new TargetFilter(), new Indefinite()));
+        }
+
+        public UnblockableAbility(CardFilter blockerFilter)
+        {
+            ContinuousEffects.Add(new UnblockableEffect(new TargetFilter(), new Indefinite(), blockerFilter));
         }
     }
 }

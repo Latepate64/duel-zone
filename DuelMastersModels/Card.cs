@@ -17,6 +17,7 @@ namespace DuelMastersModels
         BeastFolk,
         Berserker,
         Chimera,
+        ColonyBeetle,
         CyberCluster,
         CyberLord,
         CyberVirus,
