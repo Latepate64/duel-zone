@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, Civilization.Light, 3000, Subtype.Berserker)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchDeckResolvable(new CardTypeFilter(CardType.Spell))));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchDeckResolvable(new CardTypeFilter(CardType.Spell), true)));
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -9,15 +8,18 @@ namespace DuelMastersCards.Resolvables
     public class SearchDeckResolvable : Resolvable
     {
         public CardFilter Filter { get; }
+        public bool Reveal { get; }
 
-        public SearchDeckResolvable(CardFilter filter)
+        public SearchDeckResolvable(CardFilter filter, bool reveal)
         {
             Filter = filter;
+            Reveal = reveal;
         }
 
         public SearchDeckResolvable(SearchDeckResolvable resolvable) : base(resolvable)
         {
             Filter = resolvable.Filter;
+            Reveal = resolvable.Reveal;
         }
 
         public override Resolvable Copy()
@@ -47,7 +49,10 @@ namespace DuelMastersCards.Resolvables
                 foreach (var card in cards)
                 {
                     var p = duel.GetOwner(card);
-                    p.Reveal(duel, card);
+                    if (Reveal)
+                    {
+                        p.Reveal(duel, card);
+                    }
                     p.PutFromDeckIntoHand(duel, card);
                 }
                 player.ShuffleDeck(duel);
