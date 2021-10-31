@@ -11,14 +11,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new UnchoosableEffect(new TargetFilter(), new Indefinite()));
         }
-
-        public UnchoosableAbility(StaticAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new UnchoosableAbility(this);
-        }
     }
 }

@@ -1,5 +1,9 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Durations;
 
 namespace DuelMastersCards.Cards
 {
@@ -8,7 +12,12 @@ namespace DuelMastersCards.Cards
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, Civilization.Light, 2500, Subtype.Guardian)
         {
             Abilities.Add(new BlockerAbility());
-            Abilities.Add(new PalaOlesisAbility());
+
+            // During your opponent's turn, each of your other creatures gets +2000 power.
+            var ability = new StaticAbility();
+            ability.ContinuousEffects.Add(new PowerModifyingEffect(new PalaOlesisFilter(), 2000, new Indefinite()));
+            Abilities.Add(ability);
+
             Abilities.Add(new CannotAttackPlayersAbility());
         }
     }

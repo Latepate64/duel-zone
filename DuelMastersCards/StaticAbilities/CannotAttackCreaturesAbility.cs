@@ -11,14 +11,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new CannotAttackCreaturesEffect(new TargetFilter(), new Indefinite()));
         }
-
-        public CannotAttackCreaturesAbility(StaticAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new CannotAttackCreaturesAbility(this);
-        }
     }
 }

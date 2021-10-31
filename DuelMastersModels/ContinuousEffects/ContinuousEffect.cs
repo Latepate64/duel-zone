@@ -15,7 +15,7 @@ namespace DuelMastersModels.ContinuousEffects
         /// </summary>
         public Duration Duration { get; set; }
 
-        public IEnumerable<CardFilter> Filters { get; set; }
+        public ICollection<CardFilter> Filters { get; }
 
         public Guid Controller { get; set; }
 
@@ -25,7 +25,7 @@ namespace DuelMastersModels.ContinuousEffects
 
         protected ContinuousEffect(IEnumerable<CardFilter> filters, Duration duration)
         {
-            Filters = filters;
+            Filters = filters.ToList();
             Duration = duration;
         }
 
@@ -33,7 +33,7 @@ namespace DuelMastersModels.ContinuousEffects
         {
             Controller = effect.Controller;
             Duration = effect.Duration.Copy();
-            Filters = effect.Filters.Select(x => x.Copy());
+            Filters = effect.Filters.Select(x => x.Copy()).ToList();
         }
 
         public abstract ContinuousEffect Copy();
@@ -55,7 +55,7 @@ namespace DuelMastersModels.ContinuousEffects
                 {
                     filter.Dispose();
                 }
-                Filters = null;
+                Filters.Clear();
             }
         }
     }

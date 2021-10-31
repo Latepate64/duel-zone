@@ -11,14 +11,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new UnblockableEffect(new TargetFilter(), new Indefinite()));
         }
-
-        public UnblockableAbility(StaticAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new UnblockableAbility(this);
-        }
     }
 }

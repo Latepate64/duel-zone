@@ -46,7 +46,7 @@ namespace DuelMastersCards.Resolvables
                 var cards = (decision as GuidDecision).Decision.Select(x => duel.GetCard(x));
                 foreach (var card in cards)
                 {
-                    var p = duel.GetPlayer(card.Controller);
+                    var p = duel.GetOwner(card);
                     p.Reveal(duel, card);
                     p.PutFromDeckIntoHand(duel, card);
                 }

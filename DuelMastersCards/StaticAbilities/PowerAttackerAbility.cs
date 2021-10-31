@@ -13,14 +13,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new PowerModifyingEffect(new List<CardFilter> { new AttackingCreatureFilter(), new TargetFilter() }, power, new Indefinite()));
         }
-
-        public PowerAttackerAbility(PowerAttackerAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new PowerAttackerAbility(this);
-        }
     }
 }

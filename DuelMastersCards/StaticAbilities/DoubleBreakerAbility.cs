@@ -11,12 +11,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new DoubleBreakerEffect(new TargetFilter(), new Indefinite()));
         }
-
-        protected DoubleBreakerAbility(DoubleBreakerAbility ability) : base(ability) { }
-
-        public override Ability Copy()
-        {
-            return new DoubleBreakerAbility(this);
-        }
     }
 }

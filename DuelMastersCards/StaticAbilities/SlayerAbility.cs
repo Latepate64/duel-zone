@@ -11,14 +11,5 @@ namespace DuelMastersCards.StaticAbilities
         {
             ContinuousEffects.Add(new SlayerEffect(new TargetFilter(), new Indefinite()));
         }
-
-        public SlayerAbility(StaticAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new SlayerAbility(this);
-        }
     }
 }
