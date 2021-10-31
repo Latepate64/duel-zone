@@ -206,6 +206,7 @@ namespace DuelMastersModels
 
             void Outcome(Permanent winner, Permanent loser)
             {
+                Trigger(new WinBattleEvent(winner));
                 GetPlayer(loser.Controller).PutFromBattleZoneIntoGraveyard(loser, this);
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {

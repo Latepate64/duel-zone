@@ -111,11 +111,7 @@ namespace Simulator
 
         static List<Card> GetCards(Guid player)
         {
-            List<Card> cards = new();
-            while (cards.Count < 40)
-            {
-                cards.AddRange(CardFactory.CreateAll());
-            }
+            List<Card> cards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
             foreach (var card in cards)
             {
                 card.Owner = player;

@@ -136,6 +136,7 @@
     <Compile Include="GameEvents\TopDeckCardPutIntoShieldZoneEvent.cs" />
     <Compile Include="GameEvents\TurnEndsEvent.cs" />
     <Compile Include="GameEvents\TurnStartsEvent.cs" />
+    <Compile Include="GameEvents\WinBattleEvent.cs" />
     <Compile Include="GameEvents\WinEvent.cs" />
     <Compile Include="Permanent.cs" />
     <Compile Include="Choices\AttackerChoice.cs" />

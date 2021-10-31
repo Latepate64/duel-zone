@@ -16,6 +16,7 @@ namespace DuelMastersModels
         Armorloid,
         BeastFolk,
         Berserker,
+        BrainJacker,
         Chimera,
         ColonyBeetle,
         CyberCluster,
