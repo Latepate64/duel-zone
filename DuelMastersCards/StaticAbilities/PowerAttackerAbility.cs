@@ -1,7 +1,9 @@
 ﻿using DuelMastersCards.CardFilters;
+using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
+using System.Collections.Generic;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -9,7 +11,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public PowerAttackerAbility(int power)
         {
-            ContinuousEffects.Add(new PowerAttackerEffect(new TargetFilter(), new Indefinite(), power));
+            ContinuousEffects.Add(new PowerModifyingEffect(new List<CardFilter> { new AttackingCreatureFilter(), new TargetFilter() }, power, new Indefinite()));
         }
 
         public PowerAttackerAbility(PowerAttackerAbility ability) : base(ability)

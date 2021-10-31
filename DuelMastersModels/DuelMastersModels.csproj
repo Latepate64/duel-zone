@@ -98,7 +98,6 @@
     <Compile Include="ContinuousEffects\CannotAttackPlayersEffect.cs" />
     <Compile Include="ContinuousEffects\ChargerEffect.cs" />
     <Compile Include="ContinuousEffects\DoubleBreakerEffect.cs" />
-    <Compile Include="ContinuousEffects\PowerAttackerEffect.cs" />
     <Compile Include="ContinuousEffects\PowerModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\SlayerEffect.cs" />
     <Compile Include="ContinuousEffects\SpeedAttackerEffect.cs" />
@@ -147,7 +146,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="ContinuousEffects\ContinuousEffect.cs" />
-    <Compile Include="ContinuousEffects\Effect.cs" />
     <Compile Include="Durations\Indefinite.cs" />
     <Compile Include="Durations\Duration.cs" />
     <Compile Include="Durations\UntilTheEndOfTheTurn.cs" />

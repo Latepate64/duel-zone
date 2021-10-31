@@ -3,7 +3,6 @@ using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
-using DuelMastersModels.Steps;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -365,19 +364,14 @@ namespace DuelMastersModels
 
         public int GetPower(Card card)
         {
-            int powerAttacker = 0;
-            if (CurrentTurn.CurrentStep is AttackingCreatureStep step && step.AttackingCreature == card.Id)
-            {
-                powerAttacker = GetContinuousEffects<PowerAttackerEffect>(card).Sum(x => x.Power);
-            }
-            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.Power) + powerAttacker;
+            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.GetPower(this));
         }
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.BattleZone).ToList();
             abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.SpellStack));
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filter.Applies(card, this));
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
         public IEnumerable<Permanent> GetChoosableCreaturePermanents(Player selector)
