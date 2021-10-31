@@ -22,7 +22,7 @@ namespace DuelMastersCards.TriggeredAbilities
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
-            duel.GetPlayer(Controller).ReturnFromBattleZoneToHand(duel.GetPermanent(Source), duel);
+            duel.GetPlayer(Controller).ReturnFromBattleZoneToHand(duel, duel.GetPermanent(Source));
             return null;
         }
     }

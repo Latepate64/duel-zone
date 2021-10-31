@@ -11,9 +11,6 @@ namespace DuelMastersModels.Zones
     {
         public Hand(IEnumerable<Card> cards) : base(cards) { }
 
-        internal override bool Public { get; } = false;
-        internal override bool Ordered { get; } = false;
-
         public override void Add(Card card, Duel duel)
         {
             var revealedTo = new List<Guid> { card.Owner };

@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, Civilization.Light, 3000, Subtype.Initiate)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardResolvable()));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardsResolvable(1)));
         }
     }
 }

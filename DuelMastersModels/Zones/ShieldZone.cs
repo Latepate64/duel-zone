@@ -10,9 +10,6 @@ namespace DuelMastersModels.Zones
     {
         public ShieldZone(IEnumerable<Card> cards) : base(cards) { }
 
-        internal override bool Public { get; } = false;
-        internal override bool Ordered { get; } = true;
-
         public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);

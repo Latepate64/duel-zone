@@ -12,14 +12,5 @@ namespace DuelMastersCards.StaticAbilities
             ContinuousEffects.Add(new ChargerEffect(new TargetFilter(), new Indefinite()));
             FunctionZone = DuelMastersModels.Zones.ZoneType.SpellStack;
         }
-
-        public ChargerAbility(StaticAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new ChargerAbility(this);
-        }
     }
 }

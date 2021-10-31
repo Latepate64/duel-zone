@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables

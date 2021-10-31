@@ -8,9 +8,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class AttackDeclarationStep : TurnBasedActionStep
+    public class AttackDeclarationStep : AttackingCreatureStep
     {
-        internal Guid AttackingCreature { get; set; }
         internal Guid AttackTarget { get; set; }
 
         public AttackDeclarationStep()
@@ -68,6 +67,10 @@ namespace DuelMastersModels.Steps
             if (!duel.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
             {
                 attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
+                if (duel.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                {
+                    attackables.AddRange(opponent.BattleZone.Creatures.Where(c => !c.Tapped).Distinct(new PermanentComparer()));
+                }
             }
             if (attackables.Any())
             {

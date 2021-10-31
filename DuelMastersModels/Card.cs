@@ -15,11 +15,16 @@ namespace DuelMastersModels
         ArmoredWyvern,
         Armorloid,
         BeastFolk,
+        Berserker,
+        BrainJacker,
         Chimera,
+        ColonyBeetle,
         CyberCluster,
         CyberLord,
         CyberVirus,
+        DarkLord,
         DeathPuppet,
+        DemonCommand,
         Dragonoid,
         EarthDragon,
         EarthEater,
@@ -47,6 +52,7 @@ namespace DuelMastersModels
         SnowFaerie,
         Soltrooper,
         StarlightTree,
+        TreeFolk,
         Xenoparts,
     }
 
@@ -81,7 +87,7 @@ namespace DuelMastersModels
 
         internal bool ShieldTriggerPending { get; set; } = false;
 
-        public IEnumerable<Guid> RevealedTo { get; internal set; } = new List<Guid>();
+        public ICollection<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
         public Card()
         {
@@ -158,10 +164,14 @@ namespace DuelMastersModels
                 ability.Source = Id;
                 if (ability is StaticAbility staticAbility)
                 {
-                    foreach (var filter in staticAbility.ContinuousEffects.Select(y => y.Filter))
+                    foreach (var effect in staticAbility.ContinuousEffects)
                     {
-                        filter.Owner = Owner;
-                        filter.Target = Id;
+                        effect.Controller = Owner;
+                        foreach (var filter in effect.Filters)
+                        {
+                            filter.Owner = Owner;
+                            filter.Target = Id;
+                        }
                     }
                 }
                 else if (ability is ResolvableAbility resolvable)

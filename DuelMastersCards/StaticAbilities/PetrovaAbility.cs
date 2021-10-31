@@ -29,7 +29,8 @@ namespace DuelMastersCards.StaticAbilities
             }
             else
             {
-                ContinuousEffects.Single().Filter = new SubtypeFilter((Subtype)(decision as EnumDecision).Decision) { Owner = Owner, Target = Source };
+                ContinuousEffects.Single().Filters.Clear();
+                ContinuousEffects.Single().Filters.Add(new SubtypeFilter((Subtype)(decision as EnumDecision).Decision) { Owner = Owner, Target = Source });
                 return null;
             }
         }
@@ -41,7 +42,8 @@ namespace DuelMastersCards.StaticAbilities
 
         public override void Revoke()
         {
-            ContinuousEffects.Single().Filter = new NoneFilter { Owner = Owner, Target = Source };
+            ContinuousEffects.Single().Filters.Clear();
+            ContinuousEffects.Single().Filters.Add(new NoneFilter { Owner = Owner, Target = Source });
         }
     }
 }

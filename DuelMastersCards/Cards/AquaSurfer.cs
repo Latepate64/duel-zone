@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
         public AquaSurfer() : base("Aqua Surfer", 6, DuelMastersModels.Civilization.Water, 2000, DuelMastersModels.Subtype.LiquidPeople)
         {
             ShieldTrigger = true;
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaSurferResolvable()));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaSurferResolvable(1)));
         }
     }
 }

@@ -4,17 +4,19 @@ using DuelMastersModels.Choices;
 
 namespace DuelMastersCards.Resolvables
 {
-    public class ControllerMayDrawCardResolvable : Resolvable
+    public class ControllerMayUntapCreatureResolvable : Resolvable
     {
-        public ControllerMayDrawCardResolvable() : base() { }
+        public ControllerMayUntapCreatureResolvable()
+        {
+        }
 
-        public ControllerMayDrawCardResolvable(ControllerMayDrawCardResolvable ability) : base(ability)
+        public ControllerMayUntapCreatureResolvable(ControllerMayUntapCreatureResolvable resolvable) : base(resolvable)
         {
         }
 
         public override Resolvable Copy()
         {
-            return new ControllerMayDrawCardResolvable(this);
+            return new ControllerMayUntapCreatureResolvable(this);
         }
 
         public override Choice Resolve(Duel duel, Decision decision)
@@ -25,7 +27,7 @@ namespace DuelMastersCards.Resolvables
             }
             else if ((decision as YesNoDecision).Decision)
             {
-                duel.GetPlayer(Controller).DrawCards(1, duel);
+                duel.GetPermanent(Source).Tapped = false;
             }
             return null;
         }

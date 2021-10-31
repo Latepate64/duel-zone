@@ -13,6 +13,7 @@ namespace DuelMastersModels.Abilities
         protected Resolvable(Resolvable resolvable)
         {
             Controller = resolvable.Controller;
+            Source = resolvable.Source;
         }
 
         public abstract Choice Resolve(Duel duel, Decision decision);

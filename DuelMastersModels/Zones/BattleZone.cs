@@ -52,7 +52,7 @@ namespace DuelMastersModels.Zones
         {
             PermanentEnteringBattleZone = new Permanent(card)
             {
-                RevealedTo = duel.Players.Select(x => x.Id)
+                RevealedTo = duel.Players.Select(x => x.Id).ToList()
             };
             var abilities = PermanentEnteringBattleZone.Abilities.OfType<AsPermanentEntersBattleZoneAbility>();
             if (abilities.Any())

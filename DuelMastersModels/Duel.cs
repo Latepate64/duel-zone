@@ -206,6 +206,7 @@ namespace DuelMastersModels
 
             void Outcome(Permanent winner, Permanent loser)
             {
+                Trigger(new WinBattleEvent(winner));
                 GetPlayer(loser.Controller).PutFromBattleZoneIntoGraveyard(loser, this);
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
@@ -364,14 +365,14 @@ namespace DuelMastersModels
 
         public int GetPower(Card card)
         {
-            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.Power);
+            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.GetPower(this));
         }
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.BattleZone).ToList();
             abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.SpellStack));
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filter.Applies(card, this));
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
         public IEnumerable<Permanent> GetChoosableCreaturePermanents(Player selector)

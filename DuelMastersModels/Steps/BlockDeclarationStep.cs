@@ -6,9 +6,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : TurnBasedActionStep
+    public class BlockDeclarationStep : AttackingCreatureStep
     {
-        internal Guid AttackingCreature { get; private set; }
         internal Guid AttackTarget { get; private set; }
         internal Guid BlockingCreature { get; set; }
 
@@ -24,6 +23,11 @@ namespace DuelMastersModels.Steps
             {
                 var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
                 var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
+                if (possibleBlockers.Any())
+                {
+                    var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature));
+                    possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, duel)));
+                }
                 if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature)).Any())
                 {
                     return new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1);

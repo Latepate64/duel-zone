@@ -6,10 +6,8 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class DirectAttackStep : TurnBasedActionStep
+    public class DirectAttackStep : AttackingCreatureStep
     {
-        public Guid AttackingCreature { get; private set; }
-
         public DirectAttackStep(Guid attackingCreature)
         {
             AttackingCreature = attackingCreature;

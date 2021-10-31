@@ -298,7 +298,7 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
-        public void ReturnFromBattleZoneToHand(Permanent permanent, Duel duel)
+        public void ReturnFromBattleZoneToHand(Duel duel, Permanent permanent)
         {
             BattleZone.Remove(permanent);
             Hand.Add(new Card(permanent, false), duel);
@@ -308,7 +308,7 @@ namespace DuelMastersModels
         internal void Cast(Card spell, Duel duel)
         {
             Hand.Remove(spell);
-            spell.RevealedTo = duel.Players.Select(x => x.Id);
+            spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             duel.ResolvingSpells.Push(spell);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
         }
@@ -348,6 +348,41 @@ namespace DuelMastersModels
             ShieldZone.Remove(card);
             Graveyard.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoGraveyardEvent(new Player(this), new Card(card, true)));
+        }
+
+        public void PutFromDeckIntoHand(Duel duel, Card card)
+        {
+            Deck.Remove(card);
+            Hand.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckCardPutIntoHandEvent(new Player(this), new Card(card, true)));
+        }
+
+        public void Reveal(Duel duel, Card card)
+        {
+            var opponent = duel.GetOpponent(this);
+            card.RevealedTo.Add(opponent.Id);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
+        }
+
+        public void ReturnFromGraveyardToHand(Duel duel, Card card)
+        {
+            Graveyard.Remove(card);
+            Hand.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardReturnedFromGraveyardToHandEvent(new Player(this), new Card(card, true)));
+        }
+
+        public void PutFromGraveyardIntoManaZone(Duel duel, Card card)
+        {
+            Graveyard.Remove(card);
+            ManaZone.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromGraveyardIntoManaZoneEvent(new Player(this), new Card(card, true)));
+        }
+
+        public void PutFromManaZoneIntoGraveyard(Duel duel, Card card)
+        {
+            ManaZone.Remove(card);
+            Graveyard.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromManaZoneIntoGraveyardEvent(new Player(this), new Card(card, true)));
         }
         #endregion Methods
     }
