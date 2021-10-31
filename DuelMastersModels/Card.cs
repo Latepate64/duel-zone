@@ -50,6 +50,7 @@ namespace DuelMastersModels
         SnowFaerie,
         Soltrooper,
         StarlightTree,
+        TreeFolk,
         Xenoparts,
     }
 

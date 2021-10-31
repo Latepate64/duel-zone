@@ -370,6 +370,13 @@ namespace DuelMastersModels
             Hand.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardReturnedFromGraveyardToHandEvent(new Player(this), new Card(card, true)));
         }
+
+        public void PutFromGraveyardIntoManaZone(Duel duel, Card card)
+        {
+            Graveyard.Remove(card);
+            ManaZone.Add(card, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromGraveyardIntoManaZoneEvent(new Player(this), new Card(card, true)));
+        }
         #endregion Methods
     }
 }

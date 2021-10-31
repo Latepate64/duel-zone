@@ -67,6 +67,10 @@ namespace DuelMastersModels.Steps
             if (!duel.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
             {
                 attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
+                if (duel.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                {
+                    attackables.AddRange(opponent.BattleZone.Creatures.Where(c => !c.Tapped).Distinct(new PermanentComparer()));
+                }
             }
             if (attackables.Any())
             {
