@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
     {
         public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, Civilization.Fire, 9000, Subtype.Dragonoid)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromManaZoneIntoGraveyardResolvable(2, 2)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromManaZoneIntoGraveyardResolvable(2, 2, ZoneOwner.Controller)));
             Abilities.Add(new DoubleBreakerAbility());
         }
     }

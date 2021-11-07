@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public OnslaughterTriceps() : base("Onslaughter Triceps", 3, Civilization.Fire, 5000, Subtype.Dragonoid)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromManaZoneIntoGraveyardResolvable(1, 1)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromManaZoneIntoGraveyardResolvable(1, 1, ZoneOwner.Controller)));
         }
     }
 }

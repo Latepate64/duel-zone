@@ -7,22 +7,28 @@ using System.Linq;
 
 namespace DuelMastersCards.Resolvables
 {
+    public enum ZoneOwner { Controller, Opponent }
+
     public class PutCardsFromManaZoneIntoGraveyardResolvable : Resolvable
     {
         public int Minimum { get; }
 
         public int Maximum { get; }
 
-        public PutCardsFromManaZoneIntoGraveyardResolvable(int minimum, int maximum)
+        public ZoneOwner ZoneOwner { get; }
+
+        public PutCardsFromManaZoneIntoGraveyardResolvable(int minimum, int maximum, ZoneOwner zoneOwner)
         {
             Minimum = minimum;
             Maximum = maximum;
+            ZoneOwner = zoneOwner;
         }
 
         public PutCardsFromManaZoneIntoGraveyardResolvable(PutCardsFromManaZoneIntoGraveyardResolvable resolvable) : base(resolvable)
         {
             Minimum = resolvable.Minimum;
             Maximum = resolvable.Maximum;
+            ZoneOwner = resolvable.ZoneOwner;
         }
 
         public override Resolvable Copy()
@@ -34,8 +40,7 @@ namespace DuelMastersCards.Resolvables
         {
             if (decision == null)
             {
-                //TODO: Implement support for mana cards to be owned by either player.
-                var cards = duel.GetPlayer(Controller).ManaZone.Cards;
+                var cards = GetPlayer(duel).ManaZone.Cards;
                 if (Minimum == Maximum)
                 {
                     if (cards.Count <= Minimum)
@@ -65,6 +70,23 @@ namespace DuelMastersCards.Resolvables
                 duel.GetOwner(card).PutFromManaZoneIntoGraveyard(duel, card);
             }
             return null;
+        }
+
+        private Player GetPlayer(Duel duel)
+        {
+            var controller = duel.GetPlayer(Controller);
+            if (ZoneOwner == ZoneOwner.Controller)
+            {
+                return controller;
+            }
+            else if (ZoneOwner == ZoneOwner.Opponent)
+            {
+                return duel.GetOpponent(controller);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace DuelMastersModels
         ArmoredDragon,
         ArmoredWyvern,
         Armorloid,
+        BalloonMushroom,
         BeastFolk,
         Berserker,
         BrainJacker,
