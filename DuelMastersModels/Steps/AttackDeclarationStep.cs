@@ -20,7 +20,7 @@ namespace DuelMastersModels.Steps
         {
             if (decision == null)
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new PermanentComparer());
+                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new CardComparer());
                 var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
                 var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
                 var targets = options.SelectMany(x => x).SelectMany(x => x);
@@ -49,27 +49,27 @@ namespace DuelMastersModels.Steps
                     }
                     else
                     {
-                        duel.Trigger(new CreatureAttackedEvent(new Permanent(attacker), duel.GetAttackable(AttackTarget)));
+                        duel.Trigger(new CreatureAttackedEvent(new Card(attacker, true), duel.GetAttackable(AttackTarget)));
                     }
                 }
                 return null;
             }
         }
 
-        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Permanent attacker, Duel duel)
+        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Duel duel)
         {
             List<IAttackable> attackables = new List<IAttackable>();
-            var opponent = duel.GetOpponent(duel.GetPlayer(attacker.Controller));
+            var opponent = duel.GetOpponent(duel.GetPlayer(attacker.Owner));
             if (!duel.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
             {
                 attackables.Add(opponent);
             }
             if (!duel.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
             {
-                attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new PermanentComparer()));
+                attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new CardComparer()));
                 if (duel.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
                 {
-                    attackables.AddRange(opponent.BattleZone.Creatures.Where(c => !c.Tapped).Distinct(new PermanentComparer()));
+                    attackables.AddRange(opponent.BattleZone.Creatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
                 }
             }
             if (attackables.Any())

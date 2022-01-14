@@ -43,7 +43,7 @@ namespace DuelMastersCards.Resolvables
             {
                 foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)))
                 {
-                    duel.GetPlayer(creature.Controller).ReturnFromBattleZoneToHand(duel, creature);
+                    duel.GetPlayer(creature.Owner).ReturnFromBattleZoneToHand(duel, creature);
                 }
                 return null;
             }

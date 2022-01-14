@@ -42,7 +42,7 @@ namespace DuelMastersCards.Resolvables
             {
                 foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
                 {
-                    duel.GetPlayer(card.Controller).PutFromGraveyardIntoManaZone(duel, card);
+                    duel.GetPlayer(card.Owner).PutFromGraveyardIntoManaZone(duel, card);
                 }
                 return null;
             }

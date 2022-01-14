@@ -2,9 +2,9 @@
 {
     public class CreatureDestroyedEvent : GameEvent
     {
-        public Permanent Creature { get; }
+        public Card Creature { get; }
 
-        public CreatureDestroyedEvent(Permanent creature)
+        public CreatureDestroyedEvent(Card creature)
         {
             Creature = creature;
         }

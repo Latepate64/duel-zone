@@ -2,10 +2,10 @@
 {
     public class BlockEvent : GameEvent
     {
-        public Permanent Attacker { get; }
-        public Permanent Blocker { get; }
+        public Card Attacker { get; }
+        public Card Blocker { get; }
 
-        public BlockEvent(Permanent attacker, Permanent blocker)
+        public BlockEvent(Card attacker, Card blocker)
         {
             Attacker = attacker;
             Blocker = blocker;

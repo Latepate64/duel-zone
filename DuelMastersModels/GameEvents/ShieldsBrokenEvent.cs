@@ -2,14 +2,14 @@
 {
     public class ShieldsBrokenEvent : GameEvent
     {
-        public ShieldsBrokenEvent(Permanent attacker, Player target, int amount)
+        public ShieldsBrokenEvent(Card attacker, Player target, int amount)
         {
             Attacker = attacker;
             Target = target;
             Amount = amount;
         }
 
-        public Permanent Attacker { get; }
+        public Card Attacker { get; }
         public Player Target { get; }
         public int Amount { get; }
 

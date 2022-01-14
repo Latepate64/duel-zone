@@ -3,9 +3,9 @@
     public class PermanentPutIntoManaZone : GameEvent
     {
         public Player Player { get; }
-        public Permanent Permanent { get; }
+        public Card Permanent { get; }
 
-        public PermanentPutIntoManaZone(Player player, Permanent permanent)
+        public PermanentPutIntoManaZone(Player player, Card permanent)
         {
             Player = player;
             Permanent = permanent;

@@ -25,7 +25,7 @@ namespace DuelMastersCards.StaticAbilities
         {
             if (decision == null)
             {
-                return new EnumChoice(Controller, new List<Enum> { Subtype.MechaDelSol });
+                return new EnumChoice(Owner, new List<Enum> { Subtype.MechaDelSol });
             }
             else
             {

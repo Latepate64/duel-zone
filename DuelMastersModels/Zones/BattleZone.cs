@@ -16,15 +16,15 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Note: Prefer use of property Creatures.
         /// </summary>
-        public List<Permanent> Permanents { get; } = new List<Permanent>();
+        public List<Card> Permanents { get; } = new List<Card>();
 
         /// <summary>
         /// Note: Use method GetChoosableCreatures when selecting creatures controller by opponent.
         /// </summary>
-        public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
+        public IEnumerable<Card> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
 
         private AsPermanentEntersBattleZoneAbility _pendingAbility = null;
-        public Permanent PermanentEnteringBattleZone { get; private set; }
+        public Card PermanentEnteringBattleZone { get; private set; }
 
         public BattleZone()
         {
@@ -32,11 +32,11 @@ namespace DuelMastersModels.Zones
 
         public BattleZone(BattleZone zone)
         {
-            Permanents = zone.Permanents.Select(x => new Permanent(x)).ToList();
+            Permanents = zone.Permanents.Select(x => new Card(x, true)).ToList();
             _pendingAbility = zone._pendingAbility?.Copy() as AsPermanentEntersBattleZoneAbility;
             if (zone.PermanentEnteringBattleZone != null)
             {
-                PermanentEnteringBattleZone = new Permanent(zone.PermanentEnteringBattleZone);
+                PermanentEnteringBattleZone = new Card(zone.PermanentEnteringBattleZone, true);
             }
         }
 
@@ -50,7 +50,7 @@ namespace DuelMastersModels.Zones
 
         public Choice Add(Card card, Duel duel)
         {
-            PermanentEnteringBattleZone = new Permanent(card)
+            PermanentEnteringBattleZone = new Card(card, true)
             {
                 RevealedTo = duel.Players.Select(x => x.Id).ToList()
             };
@@ -84,11 +84,11 @@ namespace DuelMastersModels.Zones
         private void Add(Duel duel)
         {
             Permanents.Add(PermanentEnteringBattleZone);
-            duel.Trigger(new PutIntoBattleZoneEvent(new Permanent(PermanentEnteringBattleZone), new Player(duel.GetOwner(PermanentEnteringBattleZone))));
+            duel.Trigger(new PutIntoBattleZoneEvent(new Card(PermanentEnteringBattleZone, true), new Player(duel.GetOwner(PermanentEnteringBattleZone))));
             PermanentEnteringBattleZone = null;
         }
 
-        public void Remove(Permanent permanent)
+        public void Remove(Card permanent)
         {
             if (!Permanents.Remove(permanent))
             {
@@ -127,7 +127,7 @@ namespace DuelMastersModels.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Permanent> GetChoosableCreatures(Duel duel)
+        public IEnumerable<Card> GetChoosableCreatures(Duel duel)
         {
             return Creatures.Where(x => !duel.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }

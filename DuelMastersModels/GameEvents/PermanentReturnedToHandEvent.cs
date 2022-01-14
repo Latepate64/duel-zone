@@ -3,9 +3,9 @@
     public class PermanentReturnedToHandEvent : GameEvent
     {
         public Player Player { get; }
-        public Permanent Permanent { get; }
+        public Card Permanent { get; }
 
-        public PermanentReturnedToHandEvent(Player player, Permanent permanent)
+        public PermanentReturnedToHandEvent(Player player, Card permanent)
         {
             Player = player;
             Permanent = permanent;

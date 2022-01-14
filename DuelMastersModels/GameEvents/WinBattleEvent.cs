@@ -2,9 +2,9 @@
 {
     public class WinBattleEvent : GameEvent
     {
-        public Permanent Creature { get; }
+        public Card Creature { get; }
 
-        public WinBattleEvent(Permanent creature)
+        public WinBattleEvent(Card creature)
         {
             Creature = creature;
         }

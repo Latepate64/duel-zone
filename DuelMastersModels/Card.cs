@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,7 +60,7 @@ namespace DuelMastersModels
 
     public enum Civilization { Light, Water, Darkness, Fire, Nature };
 
-    public class Card : DuelObject, ICopyable<Card>
+    public class Card : DuelObject, ICopyable<Card>, IAttackable
     {
         // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
 
@@ -90,6 +91,11 @@ namespace DuelMastersModels
 
         public ICollection<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
+        /// <summary>
+        /// Note: use AffectedBySummoningSickness to determine if creature is able to attack
+        /// </summary>
+        public bool SummoningSickness { get; internal set; } = true;
+
         public Card()
         {
         }
@@ -106,6 +112,7 @@ namespace DuelMastersModels
             ShieldTrigger = card.ShieldTrigger;
             ShieldTriggerPending = card.ShieldTriggerPending;
             Subtypes = card.Subtypes?.ToList();
+            SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
 
             // If card gets new id, ability informations must be updated.
@@ -160,7 +167,6 @@ namespace DuelMastersModels
         {
             foreach (var ability in Abilities)
             {
-                ability.Controller = Owner;
                 ability.Owner = Owner;
                 ability.Source = Id;
                 if (ability is StaticAbility staticAbility)
@@ -182,6 +188,11 @@ namespace DuelMastersModels
                 }
             }
         }
+
+        internal bool AffectedBySummoningSickness(Duel duel)
+        {
+            return SummoningSickness && !duel.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
+        }
     }
 
     public class CardComparer : IEqualityComparer<Card>
@@ -201,6 +212,7 @@ namespace DuelMastersModels
                 x.ShieldTrigger == y.ShieldTrigger &&
                 x.ShieldTriggerPending == y.ShieldTriggerPending &&
                 ((x.Subtypes == null && y.Subtypes == null) || x.Subtypes.SequenceEqual(y.Subtypes)) &&
+                x.SummoningSickness == y.SummoningSickness &&
                 x.Tapped == y.Tapped;
         }
 

@@ -26,7 +26,7 @@ namespace DuelMastersModels.Steps
         public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
         {
             var attackingCreature = duel.GetPermanent(AttackingCreature);
-            var controller = duel.GetPlayer(attackingCreature.Controller);
+            var controller = duel.GetPlayer(attackingCreature.Owner);
             var opponent = duel.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())
             {
@@ -36,7 +36,7 @@ namespace DuelMastersModels.Steps
                     breakAmount = 2;
                 }
                 opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel, true);
-                GameEvents.Enqueue(new ShieldsBrokenEvent(new Permanent(attackingCreature), new Player(opponent), breakAmount));
+                GameEvents.Enqueue(new ShieldsBrokenEvent(new Card(attackingCreature, true), new Player(opponent), breakAmount));
                 return null;
             }
             else

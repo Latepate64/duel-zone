@@ -137,18 +137,18 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneIntoGraveyard(Permanent permanent, Duel duel)
+        public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             Graveyard.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureDestroyedEvent(new Permanent(permanent)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureDestroyedEvent(new Card(permanent, true)));
         }
 
-        public void PutFromBattleZoneIntoManaZone(Permanent permanent, Duel duel)
+        public void PutFromBattleZoneIntoManaZone(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             ManaZone.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoManaZone(new Player(this), new Permanent(permanent)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoManaZone(new Player(this), new Card(permanent, true)));
         }
 
         public void PutFromHandIntoManaZone(Card card, Duel duel)
@@ -298,11 +298,11 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
-        public void ReturnFromBattleZoneToHand(Duel duel, Permanent permanent)
+        public void ReturnFromBattleZoneToHand(Duel duel, Card permanent)
         {
             BattleZone.Remove(permanent);
             Hand.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentReturnedToHandEvent(new Player(this), new Permanent(permanent)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentReturnedToHandEvent(new Player(this), new Card(permanent, true)));
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -336,11 +336,11 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneOnTopOfDeck(Permanent permanent, Duel duel)
+        public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
             Deck.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Permanent(permanent)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
         }
 
         public void PutFromShieldZoneToGraveyard(Card card, Duel duel)
