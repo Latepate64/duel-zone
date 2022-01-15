@@ -141,12 +141,12 @@ namespace DuelMastersModels
 
         public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
         {
-            _ = Move(duel, permanent, BattleZone, Graveyard);
+            _ = duel.Move(permanent, BattleZone, Graveyard);
         }
 
         public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
-            return Move(duel, card, ManaZone, BattleZone);
+            return duel.Move(card, ManaZone, BattleZone);
         }
 
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
@@ -170,7 +170,7 @@ namespace DuelMastersModels
         internal Choice Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return Move(duel, card, Hand, BattleZone);
+            return duel.Move(card, Hand, BattleZone);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace DuelMastersModels
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
-                _ = Move(duel, card, ShieldZone, Hand);
+                _ = duel.Move(card, ShieldZone, Hand);
                 if (canUseShieldTrigger && card.ShieldTrigger)
                 {
                     card.ShieldTriggerPending = true;
@@ -281,7 +281,7 @@ namespace DuelMastersModels
 
         public void Discard(Card card, Duel duel)
         {
-            _ = Move(duel, card, Hand, Graveyard);
+            _ = duel.Move(card, Hand, Graveyard);
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -304,32 +304,6 @@ namespace DuelMastersModels
             var opponent = duel.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
-        }
-
-        /// <summary>
-        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
-        /// </summary>
-        /// <param name="duel"></param>
-        /// <param name="card"></param>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        /// <returns></returns>
-        public Choice Move(Duel duel, Card card, Zone source, Zone destination)
-        {
-            source.Remove(card);
-
-            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(card, false);
-            var choice = destination.Add(newObject, duel, source);
-            if (choice == null)
-            {
-                duel.Trigger(new CardMovedEvent(this, newObject, source, destination));
-                return null;
-            }
-            else
-            {
-                return choice;
-            }
         }
         #endregion Methods
     }

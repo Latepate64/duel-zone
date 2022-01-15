@@ -3,6 +3,7 @@ using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
+using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -370,8 +371,8 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.BattleZone).ToList();
-            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.SpellStack));
+            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
+            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.SpellStack));
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
@@ -393,6 +394,32 @@ namespace DuelMastersModels
         {
             Winner = player;
             CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(new Player(player)));
+        }
+
+        /// <summary>
+        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// 
+        /// <returns></returns>
+        public Choice Move(Card card, Zone source, Zone destination)
+        {
+            source.Remove(card);
+
+            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+            var newObject = new Card(card, false);
+            var choice = destination.Add(newObject, this, source);
+            if (choice == null)
+            {
+                Trigger(new CardMovedEvent(GetOwner(newObject), newObject, source, destination));
+                return null;
+            }
+            else
+            {
+                return choice;
+            }
         }
         #endregion Methods
     }

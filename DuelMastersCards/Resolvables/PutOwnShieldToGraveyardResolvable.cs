@@ -33,7 +33,7 @@ namespace DuelMastersCards.Resolvables
                 }
                 else if (shields.Any())
                 {
-                    controller.Move(duel, shields.Single(), controller.ShieldZone, controller.Graveyard);
+                    duel.Move(shields.Single(), controller.ShieldZone, controller.Graveyard);
                     return null;
                 }
                 else
@@ -43,7 +43,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                controller.Move(duel, duel.GetCard((decision as GuidDecision).Decision.Single()), controller.ShieldZone, controller.Graveyard);
+                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), controller.ShieldZone, controller.Graveyard);
                 return null;
             }
         }

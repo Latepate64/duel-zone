@@ -24,7 +24,7 @@ namespace DuelMastersCards.Resolvables
             // Return this creature to your hand.
             var creature = duel.GetPermanent(Source);
             var player = duel.GetPlayer(creature.Owner);
-            player.Move(duel, creature, player.BattleZone, player.Hand);
+            duel.Move(creature, player.BattleZone, player.Hand);
             return null;
         }
     }

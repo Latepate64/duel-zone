@@ -43,7 +43,7 @@ namespace DuelMastersCards.Resolvables
                 foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
                 {
                     var player = duel.GetPlayer(card.Owner);
-                    player.Move(duel, card, player.Graveyard, player.ManaZone);
+                    duel.Move(card, player.Graveyard, player.ManaZone);
                 }
                 return null;
             }

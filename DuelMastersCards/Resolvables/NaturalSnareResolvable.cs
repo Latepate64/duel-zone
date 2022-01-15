@@ -32,7 +32,7 @@ namespace DuelMastersCards.Resolvables
                 }
                 else if (choosable.Any())
                 {
-                    opponent.Move(duel, choosable.Single(), opponent.BattleZone, opponent.ManaZone);
+                    duel.Move(choosable.Single(), opponent.BattleZone, opponent.ManaZone);
                     return null;
                 }
                 else
@@ -42,7 +42,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                opponent.Move(duel, duel.GetPermanent((decision as GuidDecision).Decision.Single()), opponent.BattleZone, opponent.ManaZone);
+                duel.Move(duel.GetPermanent((decision as GuidDecision).Decision.Single()), opponent.BattleZone, opponent.ManaZone);
                 return null;
             }
         }

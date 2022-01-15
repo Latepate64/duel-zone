@@ -23,7 +23,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
             var player = duel.GetPlayer(Controller);
-            player.Move(duel, duel.GetPermanent(Source), player.BattleZone, player.Hand);
+            duel.Move(duel.GetPermanent(Source), player.BattleZone, player.Hand);
             return null;
         }
     }

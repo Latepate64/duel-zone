@@ -52,7 +52,7 @@ namespace DuelMastersCards.Resolvables
             var cards = (decision as GuidDecision).Decision;
             if (cards.Any())
             {
-                controller.Move(duel, duel.GetCard(cards.Single()), controller.Hand, controller.ShieldZone);
+                duel.Move(duel.GetCard(cards.Single()), controller.Hand, controller.ShieldZone);
 
                 // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
                 if (controller.ShieldZone.Cards.Any())

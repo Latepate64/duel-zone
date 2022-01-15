@@ -29,7 +29,7 @@ namespace DuelMastersModels.Steps
                 if (cards.Any())
                 {
                     var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
-                    _ = player.Move(duel, duel.GetCard(cards.Single()), player.Hand, player.ManaZone);
+                    _ = duel.Move(duel.GetCard(cards.Single()), player.Hand, player.ManaZone);
                 }
                 PassPriority = true;
                 return null;
