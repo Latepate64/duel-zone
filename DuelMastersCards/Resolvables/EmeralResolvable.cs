@@ -42,7 +42,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                controller.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), duel, false);
+                duel.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), false);
                 return null;
             }
         }
@@ -52,14 +52,14 @@ namespace DuelMastersCards.Resolvables
             var cards = (decision as GuidDecision).Decision;
             if (cards.Any())
             {
-                duel.Move(duel.GetCard(cards.Single()), controller.Hand, controller.ShieldZone);
+                duel.Move(duel.GetCard(cards.Single()), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ShieldZone);
 
                 // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
                 if (controller.ShieldZone.Cards.Any())
                 {
                     if (controller.ShieldZone.Cards.Count == 1)
                     {
-                        controller.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), duel, false);
+                        duel.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), false);
                         return null;
                     }
                     else

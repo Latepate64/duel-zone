@@ -45,8 +45,7 @@ namespace DuelMastersCards.Resolvables
             {
                 foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
                 {
-                    var owner = duel.GetOwner(card);
-                    duel.Move(card, owner.Graveyard, owner.Hand);
+                    duel.Move(card, DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
                 }
                 return null;
             }

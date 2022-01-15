@@ -201,17 +201,17 @@ namespace DuelMastersModels
             }
             else
             {
-                GetPlayer(attackingCreature.Owner).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
-                GetPlayer(defendingCreature.Owner).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                PutFromBattleZoneIntoGraveyard(attackingCreature);
+                PutFromBattleZoneIntoGraveyard(defendingCreature);
             }
 
             void Outcome(Card winner, Card loser)
             {
                 Trigger(new WinBattleEvent(winner));
-                GetPlayer(loser.Owner).PutFromBattleZoneIntoGraveyard(loser, this);
+                PutFromBattleZoneIntoGraveyard(loser);
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
-                    GetPlayer(winner.Owner).PutFromBattleZoneIntoGraveyard(winner, this);
+                    PutFromBattleZoneIntoGraveyard(winner);
                 }
             }
         }
@@ -277,7 +277,7 @@ namespace DuelMastersModels
 
         public void Destroy(Card permanent)
         {
-            GetPlayer(permanent.Owner).PutFromBattleZoneIntoGraveyard(permanent, this);
+            PutFromBattleZoneIntoGraveyard(permanent);
         }
 
         public Player GetOpponent(Player player)
@@ -404,21 +404,66 @@ namespace DuelMastersModels
         /// <param name="destination"></param>
         /// 
         /// <returns></returns>
-        public Choice Move(Card card, Zone source, Zone destination)
+        public Choice Move(Card card, ZoneType source, ZoneType destination)
         {
-            source.Remove(card);
+            var owner = GetOwner(card);
+            var sourceZone = owner.GetZone(source);
+            var destinationZone = owner.GetZone(destination);
+
+            sourceZone.Remove(card);
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);
-            var choice = destination.Add(newObject, this, source);
+            var choice = destinationZone.Add(newObject, this, sourceZone);
             if (choice == null)
             {
-                Trigger(new CardMovedEvent(GetOwner(newObject), newObject, source, destination));
+                Trigger(new CardMovedEvent(owner, newObject, sourceZone, destinationZone));
                 return null;
             }
             else
             {
                 return choice;
+            }
+        }
+
+        public void Discard(List<Card> cards)
+        {
+            for (int i = 0; i < cards.Count; ++i)
+            {
+                Discard(cards.ElementAt(i));
+            }
+        }
+
+        public void Discard(Card card)
+        {
+            _ = Move(card, ZoneType.Hand, ZoneType.Graveyard);
+        }
+
+        public void PutFromBattleZoneIntoGraveyard(Card permanent)
+        {
+            _ = Move(permanent, ZoneType.BattleZone, ZoneType.Graveyard);
+        }
+
+        public Choice PutFromManaZoneIntoBattleZone(Card card)
+        {
+            return Move(card, ZoneType.ManaZone, ZoneType.BattleZone);
+        }
+
+        public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
+        {
+            PutFromShieldZoneToHand(new List<Card> { card }, canUseShieldTrigger);
+        }
+
+        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
+        {
+            for (int i = 0; i < cards.Count(); ++i)
+            {
+                var card = cards.ElementAt(i);
+                _ = Move(card, ZoneType.ShieldZone, ZoneType.Hand);
+                if (canUseShieldTrigger && card.ShieldTrigger)
+                {
+                    card.ShieldTriggerPending = true;
+                }
             }
         }
         #endregion Methods

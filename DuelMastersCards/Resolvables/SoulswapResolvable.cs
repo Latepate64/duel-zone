@@ -52,7 +52,7 @@ namespace DuelMastersCards.Resolvables
         private Choice PutFromManaZoneToBattleZone(Duel duel, Decision decision)
         {
             var mana = duel.GetCard(((GuidDecision)decision).Decision.Single());
-            var dec = duel.GetOwner(mana).PutFromManaZoneIntoBattleZone(mana, duel);
+            var dec = duel.PutFromManaZoneIntoBattleZone(mana);
             if (dec == null)
             {
                 return null;
@@ -94,7 +94,7 @@ namespace DuelMastersCards.Resolvables
         {
             var creature = duel.GetPermanent(creatures.Single());
             var owner = duel.GetPlayer(creature.Owner);
-            duel.Move(creature, owner.BattleZone, owner.ManaZone);
+            duel.Move(creature, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
 
             // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
             _soulswapState = SoulswapState.FromManaToBattleZone;
@@ -117,9 +117,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                var target = manas.Single();
-                duel.GetOwner(target).PutFromManaZoneIntoBattleZone(target, duel);
-                return null;
+                return duel.PutFromManaZoneIntoBattleZone(manas.Single());
             }
         }
 

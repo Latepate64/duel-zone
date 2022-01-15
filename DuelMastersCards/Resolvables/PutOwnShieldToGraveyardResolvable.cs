@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -33,7 +32,7 @@ namespace DuelMastersCards.Resolvables
                 }
                 else if (shields.Any())
                 {
-                    duel.Move(shields.Single(), controller.ShieldZone, controller.Graveyard);
+                    duel.Move(shields.Single(), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
                     return null;
                 }
                 else
@@ -43,7 +42,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), controller.ShieldZone, controller.Graveyard);
+                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
                 return null;
             }
         }

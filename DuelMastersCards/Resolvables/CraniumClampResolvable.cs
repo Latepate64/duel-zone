@@ -30,7 +30,7 @@ namespace DuelMastersCards.Resolvables
             {
                 if (opponent.Hand.Cards.Count <= Amount)
                 {
-                    opponent.Discard(opponent.Hand.Cards.ToList(), duel);
+                    duel.Discard(opponent.Hand.Cards.ToList());
                     return null;
                 }
                 else
@@ -40,7 +40,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                opponent.Discard((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)).ToList(), duel);
+                duel.Discard((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)).ToList());
                 return null;
             }
         }

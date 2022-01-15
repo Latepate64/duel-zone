@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -43,8 +42,7 @@ namespace DuelMastersCards.Resolvables
             {
                 foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
                 {
-                    var player = duel.GetPlayer(card.Owner);
-                    duel.Move(card, player.Hand, player.ManaZone);
+                    duel.Move(card, DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
                 }
                 return null;
             }

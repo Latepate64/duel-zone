@@ -139,16 +139,6 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
-        {
-            _ = duel.Move(permanent, BattleZone, Graveyard);
-        }
-
-        public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
-        {
-            return duel.Move(card, ManaZone, BattleZone);
-        }
-
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
@@ -170,7 +160,7 @@ namespace DuelMastersModels
         internal Choice Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return duel.Move(card, Hand, BattleZone);
+            return duel.Move(card, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         /// <summary>
@@ -238,24 +228,6 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromShieldZoneToHand(Card card, Duel duel, bool canUseShieldTrigger)
-        {
-            PutFromShieldZoneToHand(new List<Card> { card }, duel, canUseShieldTrigger);
-        }
-
-        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel, bool canUseShieldTrigger)
-        {
-            for (int i = 0; i < cards.Count(); ++i)
-            {
-                var card = cards.ElementAt(i);
-                _ = duel.Move(card, ShieldZone, Hand);
-                if (canUseShieldTrigger && card.ShieldTrigger)
-                {
-                    card.ShieldTriggerPending = true;
-                }
-            }
-        }
-
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             var card = RemoveTopCardOfDeck();
@@ -271,24 +243,11 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
         }
 
-        public void Discard(List<Card> cards, Duel duel)
-        {
-            for (int i = 0; i < cards.Count; ++i)
-            {
-                Discard(cards.ElementAt(i), duel);
-            }
-        }
-
-        public void Discard(Card card, Duel duel)
-        {
-            _ = duel.Move(card, Hand, Graveyard);
-        }
-
         public void DiscardAtRandom(Duel duel)
         {
             if (Hand.Cards.Any())
             {
-                Discard(Hand.Cards[_random.Next(Hand.Cards.Count)], duel);
+                duel.Discard(Hand.Cards[_random.Next(Hand.Cards.Count)]);
             }
         }
 
@@ -304,6 +263,29 @@ namespace DuelMastersModels
             var opponent = duel.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
+        }
+
+        public Zone GetZone(ZoneType zone)
+        {
+            switch (zone)
+            {
+                case ZoneType.BattleZone:
+                    return BattleZone;
+                case ZoneType.Deck:
+                    return Deck;
+                case ZoneType.Graveyard:
+                    return Graveyard;
+                case ZoneType.Hand:
+                    return Hand;
+                case ZoneType.ManaZone:
+                    return ManaZone;
+                case ZoneType.ShieldZone:
+                    return ShieldZone;
+                case ZoneType.SpellStack:
+                case ZoneType.Anywhere:
+                default:
+                    throw new InvalidOperationException();
+            }
         }
         #endregion Methods
     }

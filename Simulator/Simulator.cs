@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Choices;
-using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;

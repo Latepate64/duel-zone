@@ -23,8 +23,7 @@ namespace DuelMastersCards.Resolvables
         {
             // Return this creature to your hand.
             var creature = duel.GetPermanent(Source);
-            var player = duel.GetPlayer(creature.Owner);
-            duel.Move(creature, player.BattleZone, player.Hand);
+            duel.Move(creature, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
             return null;
         }
     }

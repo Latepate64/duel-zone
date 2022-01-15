@@ -35,7 +35,7 @@ namespace DuelMastersModels.Steps
                 {
                     breakAmount = 2;
                 }
-                opponent.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), duel, true);
+                duel.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
                 GameEvents.Enqueue(new ShieldsBrokenEvent(new Card(attackingCreature, true), new Player(opponent), breakAmount));
                 return null;
             }

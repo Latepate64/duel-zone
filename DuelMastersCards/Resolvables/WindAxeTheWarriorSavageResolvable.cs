@@ -1,5 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
