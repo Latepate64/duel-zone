@@ -28,7 +28,8 @@ namespace DuelMastersCards.Resolvables
         {
             foreach (var creature in duel.Permanents.Where(x => Filter.Applies(x, duel)))
             {
-                duel.GetPlayer(creature.Owner).ReturnFromBattleZoneToHand(duel, creature);
+                var player = duel.GetPlayer(creature.Owner);
+                player.Move(duel, creature, player.BattleZone, player.Hand);
             }
             return null;
         }

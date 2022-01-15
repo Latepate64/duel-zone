@@ -139,32 +139,13 @@ namespace DuelMastersModels
 
         public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
         {
-            BattleZone.Remove(permanent);
-            _ = Graveyard.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureDestroyedEvent(new Card(permanent, true)));
-        }
-
-        public void PutFromBattleZoneIntoManaZone(Card permanent, Duel duel)
-        {
-            BattleZone.Remove(permanent);
-            _ = ManaZone.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoManaZone(new Player(this), new Card(permanent, true)));
-        }
-
-        public void PutFromHandIntoManaZone(Card card, Duel duel)
-        {
-            Move(duel, card, Hand, ManaZone);
+            Move(duel, permanent, BattleZone, Graveyard);
         }
 
         public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
             ManaZone.Remove(card);
             return BattleZone.Add(card, duel);
-        }
-
-        public void PutFromManaZoneToHand(Card card, Duel duel)
-        {
-            Move(duel, card, ManaZone, Hand);
         }
 
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
@@ -267,9 +248,7 @@ namespace DuelMastersModels
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
-                ShieldZone.Remove(card);
-                _ = Hand.Add(card, duel);
-                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoHandEvent(new Player(this), new Card(card, true)));
+                Move(duel, card, ShieldZone, Hand);
                 if (canUseShieldTrigger && card.ShieldTrigger)
                 {
                     card.ShieldTriggerPending = true;
@@ -282,11 +261,6 @@ namespace DuelMastersModels
             var card = RemoveTopCardOfDeck();
             _ = ManaZone.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
-        }
-
-        public void ReturnFromBattleZoneToHand(Duel duel, Card permanent)
-        {
-            Move(duel, permanent, BattleZone, Hand);
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -307,9 +281,7 @@ namespace DuelMastersModels
 
         public void Discard(Card card, Duel duel)
         {
-            Hand.Remove(card);
-            _ = Graveyard.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DiscardEvent(new Player(this), new Card(card, true)));
+            Move(duel, card, Hand, Graveyard);
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -325,11 +297,6 @@ namespace DuelMastersModels
             BattleZone.Remove(permanent);
             _ = Deck.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
-        }
-
-        public void PutFromShieldZoneToGraveyard(Card card, Duel duel)
-        {
-            Move(duel, card, ShieldZone, Graveyard);
         }
 
         public void Reveal(Duel duel, Card card)

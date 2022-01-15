@@ -34,7 +34,7 @@ namespace DuelMastersCards.Resolvables
                     }
                     else
                     {
-                        controller.PutFromManaZoneToHand(controller.ManaZone.Cards.Single(), duel);
+                        controller.Move(duel, controller.ManaZone.Cards.Single(), controller.ManaZone, controller.Hand);
                         return null;
                     }
                 }
@@ -45,7 +45,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                controller.PutFromManaZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), duel);
+                controller.Move(duel, duel.GetCard((decision as GuidDecision).Decision.Single()), controller.ManaZone, controller.Hand);
                 return null;
             }
         }
