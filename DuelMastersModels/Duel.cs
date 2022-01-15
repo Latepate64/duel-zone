@@ -11,6 +11,21 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
+    public class MovingCard : Card
+    {
+        public ZoneType Source { get; private set; }
+
+        public ZoneType Destination { get; private set; }
+
+        public bool ReplacementChecked { get; set; }
+
+        public MovingCard(Card card, ZoneType source, ZoneType destination) : base(card, true)
+        {
+            Source = source;
+            Destination = destination;
+        }
+    }
+
     public class Duel : IDisposable
     {
         #region Properties
@@ -54,6 +69,8 @@ namespace DuelMastersModels
         public Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
+
+        public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
         #endregion Properties
 
         #region Fields
@@ -67,6 +84,7 @@ namespace DuelMastersModels
 
         public Duel(Duel duel)
         {
+            AwaitingEvents = AwaitingEvents.Select(x => x.Copy()).ToList();
             DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
@@ -410,25 +428,48 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Choice Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            var card = cards.First(); //TODO
-            var owner = GetOwner(card);
-            var sourceZone = owner.GetZone(source);
-            var destinationZone = owner.GetZone(destination);
+            AwaitingEvents.AddRange(cards.Select(card => new CardMovedEvent(card.Owner, card, source, destination)));
 
-            sourceZone.Remove(card);
-
-            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(card, false);
-            var choice = destinationZone.Add(newObject, this, sourceZone);
-            if (choice == null)
+            var possibleReplacementEffects = cards.SelectMany(x => GetContinuousEffects<ReplacementEffect>(x));
+            var replacementEffects = new List<ReplacementEffect>();
+            foreach (var awaiting in AwaitingEvents)
             {
-                Trigger(new CardMovedEvent(owner, newObject, sourceZone, destinationZone));
-                return null;
+                foreach (var replacementEffect in possibleReplacementEffects.Where(x => x.Replaceable(awaiting, this)))
+                {
+                    var effect = replacementEffect.Copy() as ReplacementEffect;
+                    effect.EventToReplace = awaiting;
+                    replacementEffects.Add(effect);
+                }
             }
-            else
+            var grouped = replacementEffects.GroupBy(x => x.Controller);
+            foreach (var group in grouped)
             {
-                return choice;
+                // 616.1. If two or more replacement and/or prevention effects are attempting to modify the way an event affects an object or player, the affected object’s controller (or its owner if it has no controller) or the affected player chooses one to apply, following the steps listed below. If two or more players have to make these choices at the same time, choices are made in APNAP order (see rule 101.4).
+                if (replacementEffects.Count > 1)
+                {
+                    // 616.1d Any of the applicable replacement and/or prevention effects may be chosen.
+                    return new GuidSelection(group.Key, replacementEffects.Select(x => x.Id), 1, 1);
+                }
+                else if (replacementEffects.Any())
+                {
+                    var choice = replacementEffects.Single().Replace(this);
+                    if (choice == null)
+                    {
+                        throw new NotImplementedException();
+                    }
+                    else
+                    {
+                        return choice;
+                    }
+                }
             }
+            foreach (var awaiting in AwaitingEvents)
+            {
+                awaiting.Apply(this);
+                CurrentTurn.CurrentStep.GameEvents.Enqueue(awaiting);
+            }
+            AwaitingEvents.Clear();
+            return null;
         }
 
         public void Discard(IEnumerable<Card> cards)
