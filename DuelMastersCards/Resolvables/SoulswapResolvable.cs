@@ -93,8 +93,8 @@ namespace DuelMastersCards.Resolvables
         private Choice PutFromBattleZoneIntoManaZone(Duel duel, IEnumerable<Guid> creatures)
         {
             var creature = duel.GetPermanent(creatures.Single());
-            var owner = duel.GetPlayer(creature.Controller);
-            owner.PutFromBattleZoneIntoManaZone(creature, duel);
+            var owner = duel.GetPlayer(creature.Owner);
+            owner.Move(duel, creature, owner.BattleZone, owner.ManaZone);
 
             // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
             _soulswapState = SoulswapState.FromManaToBattleZone;

@@ -41,7 +41,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Note: Use method GetChoosableCreaturePermanents if you have to select creature/s.
         /// </summary>
-        public IEnumerable<Permanent> CreaturePermanents => Players.SelectMany(x => x.BattleZone.Creatures);
+        public IEnumerable<Card> CreaturePermanents => Players.SelectMany(x => x.BattleZone.Creatures);
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
@@ -200,17 +200,17 @@ namespace DuelMastersModels
             }
             else
             {
-                GetPlayer(attackingCreature.Controller).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
-                GetPlayer(defendingCreature.Controller).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                GetPlayer(attackingCreature.Owner).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
+                GetPlayer(defendingCreature.Owner).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
             }
 
-            void Outcome(Permanent winner, Permanent loser)
+            void Outcome(Card winner, Card loser)
             {
                 Trigger(new WinBattleEvent(winner));
-                GetPlayer(loser.Controller).PutFromBattleZoneIntoGraveyard(loser, this);
+                GetPlayer(loser.Owner).PutFromBattleZoneIntoGraveyard(loser, this);
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
-                    GetPlayer(winner.Controller).PutFromBattleZoneIntoGraveyard(winner, this);
+                    GetPlayer(winner.Owner).PutFromBattleZoneIntoGraveyard(winner, this);
                 }
             }
         }
@@ -266,7 +266,7 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(List<Permanent> permanents)
+        public void Destroy(List<Card> permanents)
         {
             for (int i = 0; i < permanents.Count; ++i)
             {
@@ -274,9 +274,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(Permanent permanent)
+        public void Destroy(Card permanent)
         {
-            GetPlayer(permanent.Controller).PutFromBattleZoneIntoGraveyard(permanent, this);
+            GetPlayer(permanent.Owner).PutFromBattleZoneIntoGraveyard(permanent, this);
         }
 
         public Player GetOpponent(Player player)
@@ -299,9 +299,9 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
-        public IEnumerable<Permanent> Permanents => Players.SelectMany(x => x.BattleZone.Permanents);
+        public IEnumerable<Card> Permanents => Players.SelectMany(x => x.BattleZone.Cards);
 
-        public Permanent GetPermanent(Guid id)
+        public Card GetPermanent(Guid id)
         {
             return Permanents.Single(x => x.Id == id);
         }
@@ -358,7 +358,7 @@ namespace DuelMastersModels
             var abilities = new List<TriggeredAbility>();
             foreach (var permanent in Permanents)
             {
-                abilities.AddRange(permanent.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Controller)));
+                abilities.AddRange(permanent.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Owner)));
             }
             return abilities;
         }
@@ -375,7 +375,7 @@ namespace DuelMastersModels
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
-        public IEnumerable<Permanent> GetChoosableCreaturePermanents(Player selector)
+        public IEnumerable<Card> GetChoosableCreaturePermanents(Player selector)
         {
             var creatures = selector.BattleZone.Creatures.ToList();
             creatures.AddRange(GetOpponent(selector).BattleZone.Creatures.Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));

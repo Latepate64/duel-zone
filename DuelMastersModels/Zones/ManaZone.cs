@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DuelMastersModels.Choices;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
     /// </summary>
-    public class ManaZone : Zone, ICopyable<ManaZone>
+    public class ManaZone : Zone
     {
         public ManaZone(IEnumerable<Card> cards) : base(cards) { }
 
@@ -22,11 +23,12 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel, Zone source)
         {
             card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             card.EnterManaZone();
             Cards.Add(card);
+            return null;
         }
 
         public override void Remove(Card card)
@@ -49,9 +51,14 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public ManaZone Copy()
+        public override Zone Copy()
         {
             return new ManaZone(Cards.Select(x => x.Copy()));
+        }
+
+        public override string ToString()
+        {
+            return "mana zone";
         }
     }
 }

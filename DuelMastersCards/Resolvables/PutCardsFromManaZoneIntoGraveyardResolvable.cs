@@ -67,7 +67,8 @@ namespace DuelMastersCards.Resolvables
         {
             foreach (var card in cards)
             {
-                duel.GetOwner(card).PutFromManaZoneIntoGraveyard(duel, card);
+                var player = duel.GetOwner(card);
+                player.Move(duel, card, player.ManaZone, player.Graveyard);
             }
             return null;
         }

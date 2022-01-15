@@ -27,7 +27,7 @@ namespace DuelMastersCards.Resolvables
         {
             // Destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);
-            var blocker = new List<Permanent>();
+            var blocker = new List<Card>();
             if (decision == null)
             {
                 var blockers = duel.GetOpponent(controller).BattleZone.GetChoosableCreatures(duel).Where(c => c.Abilities.OfType<BlockerAbility>().Any());

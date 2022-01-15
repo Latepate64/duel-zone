@@ -11,49 +11,42 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : ICopyable<BattleZone>, IDisposable
+    public class BattleZone : Zone
     {
-        /// <summary>
-        /// Note: Prefer use of property Creatures.
-        /// </summary>
-        public List<Permanent> Permanents { get; } = new List<Permanent>();
-
-        /// <summary>
-        /// Note: Use method GetChoosableCreatures when selecting creatures controller by opponent.
-        /// </summary>
-        public IEnumerable<Permanent> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
-
         private AsPermanentEntersBattleZoneAbility _pendingAbility = null;
-        public Permanent PermanentEnteringBattleZone { get; private set; }
+        public Card PermanentEnteringBattleZone { get; private set; }
+        public Zone PermanentSourceZone { get; private set; }
 
-        public BattleZone()
+        public BattleZone(IEnumerable<Card> cards) : base(cards)
         {
         }
 
-        public BattleZone(BattleZone zone)
+        public BattleZone(BattleZone zone) : base(zone.Cards.Select(x => x.Copy()))
         {
-            Permanents = zone.Permanents.Select(x => new Permanent(x)).ToList();
             _pendingAbility = zone._pendingAbility?.Copy() as AsPermanentEntersBattleZoneAbility;
             if (zone.PermanentEnteringBattleZone != null)
             {
-                PermanentEnteringBattleZone = new Permanent(zone.PermanentEnteringBattleZone);
+                PermanentEnteringBattleZone = new Card(zone.PermanentEnteringBattleZone, false);
+            }
+            if (zone.PermanentSourceZone != null)
+            {
+                PermanentSourceZone = zone.PermanentSourceZone.Copy();
             }
         }
 
         public void UntapCards()
         {
-            foreach (Card card in Permanents.Where(x => x.Tapped))
+            foreach (Card card in Cards.Where(x => x.Tapped))
             {
                 card.Tapped = false;
             }
         }
 
-        public Choice Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel, Zone source)
         {
-            PermanentEnteringBattleZone = new Permanent(card)
-            {
-                RevealedTo = duel.Players.Select(x => x.Id).ToList()
-            };
+            card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
+            PermanentEnteringBattleZone = card;
+            PermanentSourceZone = source;
             var abilities = PermanentEnteringBattleZone.Abilities.OfType<AsPermanentEntersBattleZoneAbility>();
             if (abilities.Any())
             {
@@ -62,7 +55,7 @@ namespace DuelMastersModels.Zones
             }
             else
             {
-                Add(duel);
+                Add(duel, false);
                 return null;
             }
         }
@@ -76,60 +69,61 @@ namespace DuelMastersModels.Zones
             }
             else
             {
-                Add(duel);
+                Add(duel, true);
                 _pendingAbility = null;
             }
         }
 
-        private void Add(Duel duel)
+        private void Add(Duel duel, bool trigger)
         {
-            Permanents.Add(PermanentEnteringBattleZone);
-            duel.Trigger(new PutIntoBattleZoneEvent(new Permanent(PermanentEnteringBattleZone), new Player(duel.GetOwner(PermanentEnteringBattleZone))));
+            var player = duel.GetOwner(PermanentEnteringBattleZone);
+            player.BattleZone.Cards.Add(PermanentEnteringBattleZone);
+            if (trigger)
+            {
+                duel.Trigger(new CardMovedEvent(player, PermanentEnteringBattleZone, PermanentSourceZone, this));
+            }
             PermanentEnteringBattleZone = null;
         }
 
-        public void Remove(Permanent permanent)
+        public override void Remove(Card card)
         {
-            if (!Permanents.Remove(permanent))
+            if (!Cards.Remove(card))
             {
-                throw new NotSupportedException(permanent.ToString());
+                throw new NotSupportedException(card.ToString());
             }
-            foreach (var ability in permanent.Abilities.OfType<AsPermanentEntersBattleZoneAbility>())
+            foreach (var ability in card.Abilities.OfType<AsPermanentEntersBattleZoneAbility>())
             {
                 ability.Revoke();
             }
         }
 
-        public BattleZone Copy()
+        public override Zone Copy()
         {
             return new BattleZone(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (disposing && Permanents != null)
+            base.Dispose(disposing);
+            if (disposing)
             {
-                foreach (var permanent in Permanents)
-                {
-                    permanent.Dispose();
-                }
-                Permanents.Clear();
                 _pendingAbility?.Dispose();
                 _pendingAbility = null;
                 PermanentEnteringBattleZone?.Dispose();
                 PermanentEnteringBattleZone = null;
+                PermanentSourceZone?.Dispose();
+                PermanentSourceZone = null;
             }
         }
 
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
-        }
-
-        public IEnumerable<Permanent> GetChoosableCreatures(Duel duel)
+        public IEnumerable<Card> GetChoosableCreatures(Duel duel)
         {
             return Creatures.Where(x => !duel.GetContinuousEffects<UnchoosableEffect>(x).Any());
+        }
+
+        public override string ToString()
+        {
+            return "battle zone";
         }
     }
 }

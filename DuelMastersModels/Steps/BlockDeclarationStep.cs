@@ -45,7 +45,7 @@ namespace DuelMastersModels.Steps
                     BlockingCreature = blockers.Single();
                     var blocker = duel.GetPermanent(BlockingCreature);
                     blocker.Tapped = true;
-                    GameEvents.Enqueue(new BlockEvent(new Permanent(duel.GetPermanent(AttackingCreature)), new Permanent(blocker)));
+                    GameEvents.Enqueue(new BlockEvent(new Card(duel.GetPermanent(AttackingCreature), true), new Card(blocker, true)));
                 }
                 return null;
             }

@@ -121,7 +121,7 @@ namespace DuelMastersModels.Steps
                 State = StepState.ResolveAbility;
                 return Proceed(null, duel);
             }
-            var activeAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.ActivePlayer);
+            var activeAbilities = PendingAbilities.Where(a => a.Owner == duel.CurrentTurn.ActivePlayer);
             if (activeAbilities.Count() == 1)
             {
                 ResolvingAbility = activeAbilities.Single();
@@ -133,7 +133,7 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                var nonActiveAbilities = PendingAbilities.Where(a => a.Controller == duel.CurrentTurn.NonActivePlayer);
+                var nonActiveAbilities = PendingAbilities.Where(a => a.Owner == duel.CurrentTurn.NonActivePlayer);
                 if (nonActiveAbilities.Count() == 1)
                 {
                     ResolvingAbility = nonActiveAbilities.Single();
@@ -200,12 +200,12 @@ namespace DuelMastersModels.Steps
                     if (duel.GetContinuousEffects<ChargerEffect>(spell).Any())
                     {
                         _ = duel.ResolvingSpells.Pop();
-                        duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+                        _ = duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel, null);
                     }
                     else
                     {
                         _ = duel.ResolvingSpells.Pop();
-                        duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+                        _ = duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel, null);
                     }
                     _spellAbilitiesRetrieved = false;
                 }
@@ -216,7 +216,7 @@ namespace DuelMastersModels.Steps
                     {
                         var ability = spellAbility.Copy() as SpellAbility;
                         ability.Source = resolvingSpell.Id;
-                        ability.Controller = resolvingSpell.Owner;
+                        ability.Owner = resolvingSpell.Owner;
                         duel.ResolvingSpellAbilities.Enqueue(ability);
                     }
                     _spellAbilitiesRetrieved = true;

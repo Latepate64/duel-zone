@@ -8,13 +8,13 @@ namespace DuelMastersModels.Abilities
         internal TriggeredAbility TriggeredAbility { get; private set; }
         internal Duration Duration { get; private set; }
 
-        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration duration, Guid source, Guid controller)
+        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration duration, Guid source, Guid owner)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
-            TriggeredAbility.Controller = controller;
+            TriggeredAbility.Owner = owner;
             TriggeredAbility.Resolvable.Source = source;
-            TriggeredAbility.Resolvable.Controller = controller;
+            TriggeredAbility.Resolvable.Controller = owner;
             Duration = duration;
         }
 

@@ -53,7 +53,7 @@ namespace DuelMastersCards.Resolvables
                     {
                         p.Reveal(duel, card);
                     }
-                    p.PutFromDeckIntoHand(duel, card);
+                    p.Move(duel, card, p.Deck, p.Hand);
                 }
                 player.ShuffleDeck(duel);
                 return null;

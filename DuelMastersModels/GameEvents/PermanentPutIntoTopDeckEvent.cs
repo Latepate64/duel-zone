@@ -3,9 +3,9 @@
     public class PermanentPutIntoTopDeckEvent : GameEvent
     {
         public Player Player { get; }
-        public Permanent Permanent { get; }
+        public Card Permanent { get; }
 
-        public PermanentPutIntoTopDeckEvent(Player player, Permanent permanent)
+        public PermanentPutIntoTopDeckEvent(Player player, Card permanent)
         {
             Player = player;
             Permanent = permanent;

@@ -2,12 +2,12 @@
 {
     public class BattleEvent : GameEvent
     {
-        public Permanent Creature1 { get; set; }
+        public Card Creature1 { get; set; }
         public int Creature1Power { get; set; }
-        public Permanent Creature2 { get; set; }
+        public Card Creature2 { get; set; }
         public int Creature2Power { get; set; }
 
-        public BattleEvent(Permanent creature1, int creature1Power, Permanent creature2, int creature2Power)
+        public BattleEvent(Card creature1, int creature1Power, Card creature2, int creature2Power)
         {
             Creature1 = creature1;
             Creature1Power = creature1Power;

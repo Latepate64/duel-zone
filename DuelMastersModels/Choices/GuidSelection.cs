@@ -31,8 +31,6 @@ namespace DuelMastersModels.Choices
 
         public GuidSelection(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection) : this(player, GetGuids(options, new CardComparer(), minimumSelection), minimumSelection, maximumSelection) { }
 
-        public GuidSelection(Guid player, IEnumerable<Permanent> options, int minimumSelection, int maximumSelection) : this(player, GetGuids(options, new PermanentComparer(), minimumSelection), minimumSelection, maximumSelection) { }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -16,13 +16,13 @@ namespace DuelMastersModels.Abilities
         {
         }
 
-        public TriggeredAbility Trigger(Guid source, Guid controller)
+        public TriggeredAbility Trigger(Guid source, Guid owner)
         {
             var copy = Copy() as TriggeredAbility;
             copy.Source = source;
-            copy.Controller = controller;
+            copy.Owner = owner;
             copy.Resolvable.Source = source;
-            copy.Resolvable.Controller = controller;
+            copy.Resolvable.Controller = owner;
             return copy;
         }
 

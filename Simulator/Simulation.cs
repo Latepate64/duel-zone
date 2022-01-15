@@ -80,7 +80,7 @@ namespace Simulator
         private Tuple<Decision, int> ChooseEnum(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)
         {
             //TODO: Atm only Petrova is supported.
-            var options = duel.GetPlayer(choice.Player).BattleZone.Permanents.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            var options = duel.GetPlayer(choice.Player).BattleZone.Cards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
             if (!options.Any())
             {
                 options = duel.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
@@ -155,7 +155,7 @@ namespace Simulator
             var player = duel.GetPlayer(_simulator);
             var opponent = duel.GetOpponent(player);
             var points = GetPointsForGameOver(duel, player, opponent, numberOfChoicesMade);
-            points += 10 * (GetPoints(player.BattleZone.Permanents) - GetPoints(opponent.BattleZone.Permanents));
+            points += 10 * (GetPoints(player.BattleZone.Cards) - GetPoints(opponent.BattleZone.Cards));
             points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
             var manaMultiplier = 2;
             var handMultiplier = 1;
