@@ -117,7 +117,6 @@
     <Compile Include="GameEvents\DirectAttackEvent.cs" />
     <Compile Include="GameEvents\LoseEvent.cs" />
     <Compile Include="GameEvents\PermanentPutIntoTopDeckEvent.cs" />
-    <Compile Include="GameEvents\PutIntoBattleZoneEvent.cs" />
     <Compile Include="GameEvents\ShieldsBrokenEvent.cs" />
     <Compile Include="GameEvents\ShieldTriggerEvent.cs" />
     <Compile Include="GameEvents\SpellCastEvent.cs" />

@@ -8,11 +8,11 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
     /// </summary>
-    public class Hand : Zone, ICopyable<Hand>
+    public class Hand : Zone
     {
         public Hand(IEnumerable<Card> cards) : base(cards) { }
 
-        public override Choice Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel, Zone source)
         {
             var revealedTo = new List<Guid> { card.Owner };
             var opponent = duel.GetOpponent(card.Owner);
@@ -34,7 +34,7 @@ namespace DuelMastersModels.Zones
             card.ShieldTriggerPending = false;
         }
 
-        public Hand Copy()
+        public override Zone Copy()
         {
             return new Hand(Cards.Select(x => x.Copy()));
         }

@@ -71,6 +71,8 @@ namespace DuelMastersModels
                 return cards;
             }
         }
+
+        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone, BattleZone };
         #endregion Properties
 
         private static readonly Random _random = new Random();
@@ -85,12 +87,12 @@ namespace DuelMastersModels
         {
             Id = player.Id;
             Name = player.Name;
-            Deck = player.Deck.Copy();
-            Graveyard = player.Graveyard.Copy();
-            Hand = player.Hand.Copy();
-            ManaZone = player.ManaZone.Copy();
-            ShieldZone = player.ShieldZone.Copy();
-            BattleZone = player.BattleZone.Copy();
+            Deck = player.Deck.Copy() as Deck;
+            Graveyard = player.Graveyard.Copy() as Graveyard;
+            Hand = player.Hand.Copy() as Hand;
+            ManaZone = player.ManaZone.Copy() as ManaZone;
+            ShieldZone = player.ShieldZone.Copy() as ShieldZone;
+            BattleZone = player.BattleZone.Copy() as BattleZone;
         }
 
         public override string ToString()
@@ -139,13 +141,12 @@ namespace DuelMastersModels
 
         public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
         {
-            Move(duel, permanent, BattleZone, Graveyard);
+            _ = Move(duel, permanent, BattleZone, Graveyard);
         }
 
         public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
         {
-            ManaZone.Remove(card);
-            return BattleZone.Add(card, duel);
+            return Move(duel, card, ManaZone, BattleZone);
         }
 
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
@@ -153,7 +154,7 @@ namespace DuelMastersModels
             for (int i = 0; i < amount; ++i)
             {
                 var card = RemoveTopCardOfDeck();
-                _ = ShieldZone.Add(card, duel);
+                _ = ShieldZone.Add(card, duel, null);
                 var eve = new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true));
                 if (duel.Turns.Any())
                 {
@@ -168,9 +169,8 @@ namespace DuelMastersModels
 
         internal Choice Summon(Card card, Duel duel)
         {
-            Hand.Remove(card);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return BattleZone.Add(card, duel);
+            return Move(duel, card, Hand, BattleZone);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace DuelMastersModels
                 Card drawnCard = RemoveTopCardOfDeck();
                 if (drawnCard != null)
                 {
-                    _ = Hand.Add(drawnCard, duel);
+                    _ = Hand.Add(drawnCard, duel, null);
                     var cardDrawnEvent = new CardDrawnEvent(new Player(this), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
@@ -248,7 +248,7 @@ namespace DuelMastersModels
             for (int i = 0; i < cards.Count(); ++i)
             {
                 var card = cards.ElementAt(i);
-                Move(duel, card, ShieldZone, Hand);
+                _ = Move(duel, card, ShieldZone, Hand);
                 if (canUseShieldTrigger && card.ShieldTrigger)
                 {
                     card.ShieldTriggerPending = true;
@@ -259,7 +259,7 @@ namespace DuelMastersModels
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             var card = RemoveTopCardOfDeck();
-            _ = ManaZone.Add(card, duel);
+            _ = ManaZone.Add(card, duel, null);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
@@ -281,7 +281,7 @@ namespace DuelMastersModels
 
         public void Discard(Card card, Duel duel)
         {
-            Move(duel, card, Hand, Graveyard);
+            _ = Move(duel, card, Hand, Graveyard);
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -295,7 +295,7 @@ namespace DuelMastersModels
         public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            _ = Deck.Add(new Card(permanent, false), duel);
+            _ = Deck.Add(new Card(permanent, false), duel, null);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
         }
 
@@ -306,14 +306,30 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
         }
 
-        public void Move(Duel duel, Card card, Zone source, Zone destination)
+        /// <summary>
+        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
+        /// </summary>
+        /// <param name="duel"></param>
+        /// <param name="card"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public Choice Move(Duel duel, Card card, Zone source, Zone destination)
         {
             source.Remove(card);
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);
-            _ = destination.Add(newObject, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardMovedEvent(this, card, source, destination));
+            var choice = destination.Add(newObject, duel, source);
+            if (choice == null)
+            {
+                duel.Trigger(new CardMovedEvent(this, newObject, source, destination));
+                return null;
+            }
+            else
+            {
+                return choice;
+            }
         }
         #endregion Methods
     }

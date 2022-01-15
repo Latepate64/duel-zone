@@ -8,11 +8,11 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone, ICopyable<Deck>
+    public class Deck : Zone
     {
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
-        public override Choice Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel, Zone source)
         {
             Cards.Add(card);
             return null;
@@ -75,7 +75,7 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public Deck Copy()
+        public override Zone Copy()
         {
             return new Deck(Cards.Select(x => x.Copy()));
         }
