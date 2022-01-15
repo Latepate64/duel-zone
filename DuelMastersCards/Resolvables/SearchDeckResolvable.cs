@@ -46,14 +46,14 @@ namespace DuelMastersCards.Resolvables
             else
             {
                 var cards = (decision as GuidDecision).Decision.Select(x => duel.GetCard(x));
-                foreach (var card in cards)
+                _ = duel.Move(cards, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
+
+                if (Reveal)
                 {
-                    var p = duel.GetOwner(card);
-                    if (Reveal)
+                    foreach (var card in cards)
                     {
-                        p.Reveal(duel, card);
+                        duel.GetOwner(card).Reveal(duel, card);
                     }
-                    duel.Move(card, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
                 }
                 player.ShuffleDeck(duel);
                 return null;

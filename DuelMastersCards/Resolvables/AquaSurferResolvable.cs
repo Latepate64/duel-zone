@@ -41,11 +41,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                foreach (var creature in (decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)))
-                {
-                    duel.Move(creature, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
-                }
-                return null;
+                return duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

@@ -40,11 +40,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
-                {
-                    duel.Move(card, DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
-                }
-                return null;
+                return duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

@@ -28,7 +28,7 @@ namespace DuelMastersModels.Steps
                 var cards = (choice as GuidDecision).Decision;
                 if (cards.Any())
                 {
-                    _ = duel.Move(duel.GetCard(cards.Single()), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
+                    _ = duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
                 }
                 PassPriority = true;
                 return null;

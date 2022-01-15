@@ -32,8 +32,7 @@ namespace DuelMastersCards.Resolvables
                 }
                 else if (shields.Any())
                 {
-                    duel.Move(shields.Single(), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
-                    return null;
+                    return duel.Move(shields, DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
                 }
                 else
                 {
@@ -42,8 +41,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
-                return null;
+                return duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
             }
         }
     }

@@ -26,11 +26,7 @@ namespace DuelMastersCards.Resolvables
 
         public override Choice Resolve(Duel duel, Decision decision)
         {
-            foreach (var creature in duel.Permanents.Where(x => Filter.Applies(x, duel)))
-            {
-                duel.Move(creature, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
-            }
-            return null;
+            return duel.Move(duel.Permanents.Where(x => Filter.Applies(x, duel)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

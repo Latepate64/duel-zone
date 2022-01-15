@@ -36,7 +36,7 @@ namespace DuelMastersCards.Resolvables
                 }
                 else if (permanents.Any())
                 {
-                    duel.Destroy(permanents.Single());
+                    duel.Destroy(permanents);
                     return null;
                 }
                 else
@@ -46,7 +46,7 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                duel.Destroy(duel.GetPermanent((decision as GuidDecision).Decision.Single()));
+                duel.Destroy((decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)));
                 return null;
             }
         }

@@ -160,7 +160,7 @@ namespace DuelMastersModels
         internal Choice Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return duel.Move(card, ZoneType.Hand, ZoneType.BattleZone);
+            return duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace DuelMastersModels
         {
             if (Hand.Cards.Any())
             {
-                duel.Discard(Hand.Cards[_random.Next(Hand.Cards.Count)]);
+                duel.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
             }
         }
 

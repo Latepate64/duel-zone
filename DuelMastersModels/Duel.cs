@@ -201,18 +201,18 @@ namespace DuelMastersModels
             }
             else
             {
-                PutFromBattleZoneIntoGraveyard(attackingCreature);
-                PutFromBattleZoneIntoGraveyard(defendingCreature);
+                Destroy(new List<Card> { attackingCreature, defendingCreature });
             }
 
             void Outcome(Card winner, Card loser)
             {
                 Trigger(new WinBattleEvent(winner));
-                PutFromBattleZoneIntoGraveyard(loser);
+                var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
-                    PutFromBattleZoneIntoGraveyard(winner);
+                    destroyed.Add(winner);
                 }
+                Destroy(destroyed);
             }
         }
 
@@ -267,17 +267,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(List<Card> permanents)
+        public void Destroy(IEnumerable<Card> permanents)
         {
-            for (int i = 0; i < permanents.Count; ++i)
-            {
-                Destroy(permanents.ElementAt(i));
-            }
-        }
-
-        public void Destroy(Card permanent)
-        {
-            PutFromBattleZoneIntoGraveyard(permanent);
+            _ = Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
         }
 
         public Player GetOpponent(Player player)
@@ -397,15 +389,28 @@ namespace DuelMastersModels
         }
 
         /// <summary>
-        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
+        /// Only use this method if exactly one card moves between zones, otherwise use the overload that takes multiple cards.
         /// </summary>
         /// <param name="card"></param>
         /// <param name="source"></param>
         /// <param name="destination"></param>
-        /// 
         /// <returns></returns>
         public Choice Move(Card card, ZoneType source, ZoneType destination)
         {
+            return Move(new List<Card> { card }, source, destination);
+        }
+
+        /// <summary>
+        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// 
+        /// <returns></returns>
+        public Choice Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        {
+            var card = cards.First(); //TODO
             var owner = GetOwner(card);
             var sourceZone = owner.GetZone(source);
             var destinationZone = owner.GetZone(destination);
@@ -426,27 +431,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void Discard(List<Card> cards)
+        public void Discard(IEnumerable<Card> cards)
         {
-            for (int i = 0; i < cards.Count; ++i)
-            {
-                Discard(cards.ElementAt(i));
-            }
-        }
-
-        public void Discard(Card card)
-        {
-            _ = Move(card, ZoneType.Hand, ZoneType.Graveyard);
-        }
-
-        public void PutFromBattleZoneIntoGraveyard(Card permanent)
-        {
-            _ = Move(permanent, ZoneType.BattleZone, ZoneType.Graveyard);
-        }
-
-        public Choice PutFromManaZoneIntoBattleZone(Card card)
-        {
-            return Move(card, ZoneType.ManaZone, ZoneType.BattleZone);
+            _ = Move(cards, ZoneType.Hand, ZoneType.Graveyard);
         }
 
         public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
@@ -456,11 +443,10 @@ namespace DuelMastersModels
 
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            for (int i = 0; i < cards.Count(); ++i)
+            _ = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            if (canUseShieldTrigger)
             {
-                var card = cards.ElementAt(i);
-                _ = Move(card, ZoneType.ShieldZone, ZoneType.Hand);
-                if (canUseShieldTrigger && card.ShieldTrigger)
+                foreach (var card in cards.Where(x => x.ShieldTrigger))
                 {
                     card.ShieldTriggerPending = true;
                 }

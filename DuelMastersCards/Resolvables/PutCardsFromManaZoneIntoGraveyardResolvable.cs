@@ -65,11 +65,7 @@ namespace DuelMastersCards.Resolvables
 
         private Choice PutFromManaZoneIntoGraveyard(IEnumerable<Card> cards, Duel duel)
         {
-            foreach (var card in cards)
-            {
-                duel.Move(card, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
-            }
-            return null;
+            return duel.Move(cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
         }
 
         private Player GetPlayer(Duel duel)

@@ -22,9 +22,7 @@ namespace DuelMastersCards.Resolvables
         public override Choice Resolve(Duel duel, Decision decision)
         {
             // Return this creature to your hand.
-            var creature = duel.GetPermanent(Source);
-            duel.Move(creature, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
-            return null;
+            return duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }
