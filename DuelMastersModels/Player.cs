@@ -46,7 +46,7 @@ namespace DuelMastersModels
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; set; } = new BattleZone();
+        public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
 
         public IEnumerable<Card> CardsInNonsharedZones
         {
@@ -67,7 +67,7 @@ namespace DuelMastersModels
             get
             {
                 List<Card> cards = CardsInNonsharedZones.ToList();
-                cards.AddRange(BattleZone.Permanents);
+                cards.AddRange(BattleZone.Cards);
                 return cards;
             }
         }
@@ -140,29 +140,20 @@ namespace DuelMastersModels
         public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            Graveyard.Add(new Card(permanent, false), duel);
+            _ = Graveyard.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureDestroyedEvent(new Card(permanent, true)));
         }
 
         public void PutFromBattleZoneIntoManaZone(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            ManaZone.Add(new Card(permanent, false), duel);
+            _ = ManaZone.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoManaZone(new Player(this), new Card(permanent, true)));
         }
 
         public void PutFromHandIntoManaZone(Card card, Duel duel)
         {
-            Hand.Remove(card);
-            ManaZone.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromHandIntoManaZoneEvent(new Player(this), new Card(card, true)));
-        }
-
-        public void PutFromHandIntoShieldZone(Card card, Duel duel)
-        {
-            Hand.Remove(card);
-            ShieldZone.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromHandIntoShieldZoneEvent(new Player(this), new Card(card, true)));
+            Move(duel, card, Hand, ManaZone);
         }
 
         public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
@@ -173,20 +164,15 @@ namespace DuelMastersModels
 
         public void PutFromManaZoneToHand(Card card, Duel duel)
         {
-            ManaZone.Remove(card);
-            Hand.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromManaZoneToHandEvent(new Player(this), new Card(card, true)));
+            Move(duel, card, ManaZone, Hand);
         }
 
-        ///<summary>
-        /// Removes the top cards from a player's deck and puts them into their shield zone.
-        ///</summary>
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
             {
                 var card = RemoveTopCardOfDeck();
-                ShieldZone.Add(card, duel);
+                _ = ShieldZone.Add(card, duel);
                 var eve = new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true));
                 if (duel.Turns.Any())
                 {
@@ -221,7 +207,7 @@ namespace DuelMastersModels
                 Card drawnCard = RemoveTopCardOfDeck();
                 if (drawnCard != null)
                 {
-                    Hand.Add(drawnCard, duel);
+                    _ = Hand.Add(drawnCard, duel);
                     var cardDrawnEvent = new CardDrawnEvent(new Player(this), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
@@ -282,7 +268,7 @@ namespace DuelMastersModels
             {
                 var card = cards.ElementAt(i);
                 ShieldZone.Remove(card);
-                Hand.Add(card, duel);
+                _ = Hand.Add(card, duel);
                 duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoHandEvent(new Player(this), new Card(card, true)));
                 if (canUseShieldTrigger && card.ShieldTrigger)
                 {
@@ -294,15 +280,13 @@ namespace DuelMastersModels
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             var card = RemoveTopCardOfDeck();
-            ManaZone.Add(card, duel);
+            _ = ManaZone.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
         }
 
         public void ReturnFromBattleZoneToHand(Duel duel, Card permanent)
         {
-            BattleZone.Remove(permanent);
-            Hand.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentReturnedToHandEvent(new Player(this), new Card(permanent, true)));
+            Move(duel, permanent, BattleZone, Hand);
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -324,7 +308,7 @@ namespace DuelMastersModels
         public void Discard(Card card, Duel duel)
         {
             Hand.Remove(card);
-            Graveyard.Add(card, duel);
+            _ = Graveyard.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DiscardEvent(new Player(this), new Card(card, true)));
         }
 
@@ -339,22 +323,13 @@ namespace DuelMastersModels
         public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            Deck.Add(new Card(permanent, false), duel);
+            _ = Deck.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
         }
 
         public void PutFromShieldZoneToGraveyard(Card card, Duel duel)
         {
-            ShieldZone.Remove(card);
-            Graveyard.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldPutIntoGraveyardEvent(new Player(this), new Card(card, true)));
-        }
-
-        public void PutFromDeckIntoHand(Duel duel, Card card)
-        {
-            Deck.Remove(card);
-            Hand.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckCardPutIntoHandEvent(new Player(this), new Card(card, true)));
+            Move(duel, card, ShieldZone, Graveyard);
         }
 
         public void Reveal(Duel duel, Card card)
@@ -364,25 +339,14 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
         }
 
-        public void ReturnFromGraveyardToHand(Duel duel, Card card)
+        public void Move(Duel duel, Card card, Zone source, Zone destination)
         {
-            Graveyard.Remove(card);
-            Hand.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardReturnedFromGraveyardToHandEvent(new Player(this), new Card(card, true)));
-        }
+            source.Remove(card);
 
-        public void PutFromGraveyardIntoManaZone(Duel duel, Card card)
-        {
-            Graveyard.Remove(card);
-            ManaZone.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromGraveyardIntoManaZoneEvent(new Player(this), new Card(card, true)));
-        }
-
-        public void PutFromManaZoneIntoGraveyard(Duel duel, Card card)
-        {
-            ManaZone.Remove(card);
-            Graveyard.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardPutFromManaZoneIntoGraveyardEvent(new Player(this), new Card(card, true)));
+            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+            var newObject = new Card(card, false);
+            _ = destination.Add(newObject, duel);
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardMovedEvent(this, card, source, destination));
         }
         #endregion Methods
     }

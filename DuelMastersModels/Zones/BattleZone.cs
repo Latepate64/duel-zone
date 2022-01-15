@@ -11,44 +11,33 @@ namespace DuelMastersModels.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : ICopyable<BattleZone>, IDisposable
+    public class BattleZone : Zone, ICopyable<BattleZone>
     {
-        /// <summary>
-        /// Note: Prefer use of property Creatures.
-        /// </summary>
-        public List<Card> Permanents { get; } = new List<Card>();
-
-        /// <summary>
-        /// Note: Use method GetChoosableCreatures when selecting creatures controller by opponent.
-        /// </summary>
-        public IEnumerable<Card> Creatures => Permanents.Where(x => x.CardType == CardType.Creature);
-
         private AsPermanentEntersBattleZoneAbility _pendingAbility = null;
         public Card PermanentEnteringBattleZone { get; private set; }
 
-        public BattleZone()
+        public BattleZone(IEnumerable<Card> cards) : base(cards)
         {
         }
 
-        public BattleZone(BattleZone zone)
+        public BattleZone(BattleZone zone) : base(zone.Cards.Select(x => x.Copy()))
         {
-            Permanents = zone.Permanents.Select(x => new Card(x, true)).ToList();
             _pendingAbility = zone._pendingAbility?.Copy() as AsPermanentEntersBattleZoneAbility;
             if (zone.PermanentEnteringBattleZone != null)
             {
-                PermanentEnteringBattleZone = new Card(zone.PermanentEnteringBattleZone, true);
+                PermanentEnteringBattleZone = new Card(zone.PermanentEnteringBattleZone, false);
             }
         }
 
         public void UntapCards()
         {
-            foreach (Card card in Permanents.Where(x => x.Tapped))
+            foreach (Card card in Cards.Where(x => x.Tapped))
             {
                 card.Tapped = false;
             }
         }
 
-        public Choice Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel)
         {
             PermanentEnteringBattleZone = new Card(card, true)
             {
@@ -83,18 +72,18 @@ namespace DuelMastersModels.Zones
 
         private void Add(Duel duel)
         {
-            Permanents.Add(PermanentEnteringBattleZone);
+            Cards.Add(PermanentEnteringBattleZone);
             duel.Trigger(new PutIntoBattleZoneEvent(new Card(PermanentEnteringBattleZone, true), new Player(duel.GetOwner(PermanentEnteringBattleZone))));
             PermanentEnteringBattleZone = null;
         }
 
-        public void Remove(Card permanent)
+        public override void Remove(Card card)
         {
-            if (!Permanents.Remove(permanent))
+            if (!Cards.Remove(card))
             {
-                throw new NotSupportedException(permanent.ToString());
+                throw new NotSupportedException(card.ToString());
             }
-            foreach (var ability in permanent.Abilities.OfType<AsPermanentEntersBattleZoneAbility>())
+            foreach (var ability in card.Abilities.OfType<AsPermanentEntersBattleZoneAbility>())
             {
                 ability.Revoke();
             }
@@ -105,26 +94,16 @@ namespace DuelMastersModels.Zones
             return new BattleZone(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (disposing && Permanents != null)
+            base.Dispose(disposing);
+            if (disposing)
             {
-                foreach (var permanent in Permanents)
-                {
-                    permanent.Dispose();
-                }
-                Permanents.Clear();
                 _pendingAbility?.Dispose();
                 _pendingAbility = null;
                 PermanentEnteringBattleZone?.Dispose();
                 PermanentEnteringBattleZone = null;
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
         }
 
         public IEnumerable<Card> GetChoosableCreatures(Duel duel)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuelMastersModels.Choices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,9 +12,10 @@ namespace DuelMastersModels.Zones
     {
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
-        public override void Add(Card card, Duel duel)
+        public override Choice Add(Card card, Duel duel)
         {
             Cards.Add(card);
+            return null;
         }
 
         public override void Remove(Card card)
@@ -76,6 +78,11 @@ namespace DuelMastersModels.Zones
         public Deck Copy()
         {
             return new Deck(Cards.Select(x => x.Copy()));
+        }
+
+        public override string ToString()
+        {
+            return "deck";
         }
     }
 }

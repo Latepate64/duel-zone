@@ -200,12 +200,12 @@ namespace DuelMastersModels.Steps
                     if (duel.GetContinuousEffects<ChargerEffect>(spell).Any())
                     {
                         _ = duel.ResolvingSpells.Pop();
-                        duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+                        _ = duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
                     }
                     else
                     {
                         _ = duel.ResolvingSpells.Pop();
-                        duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+                        _ = duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
                     }
                     _spellAbilitiesRetrieved = false;
                 }

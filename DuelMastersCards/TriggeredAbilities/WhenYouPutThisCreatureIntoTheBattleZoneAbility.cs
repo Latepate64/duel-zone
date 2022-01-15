@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.TriggeredAbilities
 {

@@ -18,6 +18,7 @@ namespace DuelMastersModels.Abilities
 
         protected Ability(Ability ability) : base(ability, true)
         {
+            Source = ability.Source;
         }
 
         public abstract Ability Copy();

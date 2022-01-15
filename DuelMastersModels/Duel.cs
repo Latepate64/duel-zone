@@ -299,7 +299,7 @@ namespace DuelMastersModels
             return GetAllCards().Single(c => c.Id == id);
         }
 
-        public IEnumerable<Card> Permanents => Players.SelectMany(x => x.BattleZone.Permanents);
+        public IEnumerable<Card> Permanents => Players.SelectMany(x => x.BattleZone.Cards);
 
         public Card GetPermanent(Guid id)
         {
