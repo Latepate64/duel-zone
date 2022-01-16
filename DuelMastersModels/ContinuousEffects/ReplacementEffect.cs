@@ -19,6 +19,7 @@ namespace DuelMastersModels.ContinuousEffects
         protected ReplacementEffect(ReplacementEffect effect) : base(effect)
         {
             Id = effect.Id;
+            EventToReplace = effect.EventToReplace.Copy();
         }
 
         public GameEvent EventToReplace { get; set; }
@@ -27,6 +28,6 @@ namespace DuelMastersModels.ContinuousEffects
 
         public abstract bool Replaceable(GameEvent gameEvent, Duel duel);
 
-        public abstract Choice Replace(Duel duel);
+        public abstract Choice Replace(Duel duel, Decision decision);
     }
 }
