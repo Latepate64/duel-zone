@@ -20,7 +20,7 @@ namespace DuelMastersCards.Resolvables
             return new CorileResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // Choose one of your opponent's creatures in the battle zone and put it on top of his deck.
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
@@ -29,22 +29,16 @@ namespace DuelMastersCards.Resolvables
                 var choosable = opponent.BattleZone.GetChoosableCreatures(duel);
                 if (choosable.Count() > 1)
                 {
-                    return new GuidSelection(Controller, choosable, 1, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, choosable, 1, 1));
                 }
                 else if (choosable.Any())
                 {
                     opponent.PutFromBattleZoneOnTopOfDeck(choosable.Single(), duel);
-                    return null;
-                }
-                else
-                {
-                    return null;
                 }
             }
             else
             {
                 opponent.PutFromBattleZoneOnTopOfDeck(duel.GetPermanent((decision as GuidDecision).Decision.Single()), duel);
-                return null;
             }
         }
     }

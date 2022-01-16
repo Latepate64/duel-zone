@@ -24,7 +24,7 @@ namespace DuelMastersCards.Resolvables
             return new AquaSurferResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // You may choose a creature in the battle zone and return it to its owner's hand.
             if (decision == null)
@@ -32,16 +32,12 @@ namespace DuelMastersCards.Resolvables
                 var creatures = duel.GetChoosableCreaturePermanents(duel.GetPlayer(Controller));
                 if (creatures.Any())
                 {
-                    return new GuidSelection(Controller, creatures, 0, MaximumAmount);
-                }
-                else
-                {
-                    return null;
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, creatures, 0, MaximumAmount));
                 }
             }
             else
             {
-                return duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+                duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

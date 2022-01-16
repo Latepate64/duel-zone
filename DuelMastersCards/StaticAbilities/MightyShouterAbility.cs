@@ -37,13 +37,12 @@ namespace DuelMastersCards.StaticAbilities
             return new MightyShouterAbilityEffect(this);
         }
 
-        public override Choice Replace(Duel duel, Decision decision)
+        public override void Replace(Duel duel, Decision decision)
         {
             duel.AwaitingEvents.RemoveAll(x => x.Id == EventToReplace.Id);
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
             newEvent.Destination = DuelMastersModels.Zones.ZoneType.ManaZone;
             duel.AwaitingEvents.Add(newEvent);
-            return null;
         }
 
         public override bool Replaceable(GameEvent gameEvent, Duel duel)

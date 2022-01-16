@@ -20,7 +20,7 @@ namespace DuelMastersCards.Resolvables
             return new NaturalSnareResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
             if (decision == null)
@@ -28,20 +28,16 @@ namespace DuelMastersCards.Resolvables
                 var choosable = opponent.BattleZone.GetChoosableCreatures(duel);
                 if (choosable.Count() > 1)
                 {
-                    return new GuidSelection(Controller, choosable, 1, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, choosable, 1, 1));
                 }
                 else if (choosable.Any())
                 {
-                    return duel.Move(choosable, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
-                }
-                else
-                {
-                    return null;
+                    duel.Move(choosable, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
                 }
             }
             else
             {
-                return duel.Move(duel.GetPermanent((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
+                duel.Move(duel.GetPermanent((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

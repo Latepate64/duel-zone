@@ -37,11 +37,11 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override Choice Replace(Duel duel, Decision decision)
+        public override void Replace(Duel duel, Decision decision)
         {
             if (decision == null)
             {
-                return new YesNoChoice(Controller);
+                duel.SetAwaitingChoice(new YesNoChoice(Controller));
             }
             else if ((decision as YesNoDecision).Decision)
             {
@@ -50,7 +50,6 @@ namespace DuelMastersCards.StaticAbilities
                 newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;
                 duel.AwaitingEvents.Add(newEvent);
             }
-            return null;
         }
 
         public override bool Replaceable(GameEvent gameEvent, Duel duel)

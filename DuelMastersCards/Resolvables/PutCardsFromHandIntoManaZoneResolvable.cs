@@ -24,23 +24,19 @@ namespace DuelMastersCards.Resolvables
             return new PutCardsFromHandIntoManaZoneResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             if (decision == null)
             {
                 var cards = duel.GetPlayer(Controller).Hand.Cards;
                 if (cards.Any())
                 {
-                    return new GuidSelection(Controller, cards, 0, Amount);
-                }
-                else
-                {
-                    return null;
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, cards, 0, Amount));
                 }
             }
             else
             {
-                return duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
+                duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

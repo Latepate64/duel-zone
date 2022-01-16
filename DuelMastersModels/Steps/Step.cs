@@ -20,133 +20,140 @@ namespace DuelMastersModels.Steps
         ResolveAbility,
         PriorityAction,
         Over,
-        PermanentEnteringBattleZone,
     }
 
     public abstract class Step : ICopyable<Step>
     {
         public abstract Step GetNextStep(Duel duel);
 
-        internal Choice Proceed(Decision decision, Duel duel)
+        internal void Proceed(Decision decision, Duel duel)
         {
-            if (PendingReplacementEffects.Any())
+            if (decision != null)
+            {
+                duel.ClearAwaitingChoice();
+            }
+            if (decision == null && duel.AwaitingChoice != null)
+            {
+                return;
+            }
+            else if (PendingReplacementEffects.Any())
             {
                 PendingReplacementEffect = PendingReplacementEffects.Single(x => x.Id == (decision as GuidDecision).Decision.Single());
                 PendingReplacementEffects.Clear();
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
             else if (PendingReplacementEffect != null)
             {
-                var choice = PendingReplacementEffect.Replace(duel, decision);
-                if (choice == null)
+                PendingReplacementEffect.Replace(duel, decision);
+                if (duel.AwaitingChoice == null)
                 {
                     UsedReplacementEffects.Add(PendingReplacementEffect.Id);
                     PendingReplacementEffect = null;
-                    return Proceed(null, duel);
                 }
-                else
-                {
-                    return choice;
-                }
+                Proceed(null, duel);
             }
             else if (duel.AwaitingEvents.Any())
             {
-                return CheckAwaitingEvents(duel);
+                CheckAwaitingEvents(duel);
             }
             else if (State == StepState.TurnBasedAction)
             {
-                return CheckTurnBasedAction(duel, decision);
+                CheckTurnBasedAction(duel, decision);
             }
             else if (State == StepState.CheckGameOver)
             {
-                return CheckGameOver(duel);
+                CheckGameOver(duel);
             }
             else if (State == StepState.ResolveSpell)
             {
-                return ResolveSpells(duel, decision);
+                ResolveSpells(duel, decision);
             }
             else if (State == StepState.StateBasedAction)
             {
-                return CheckStateBasedActions(duel);
+                CheckStateBasedActions(duel);
             }
             else if (State == StepState.ShieldTrigger)
             {
-                return CheckShieldTriggers(duel, decision);
+                CheckShieldTriggers(duel, decision);
             }
             else if (State == StepState.SelectAbility)
             {
-                return SelectAbility(duel, decision);
+                SelectAbility(duel, decision);
             }
             else if (State == StepState.ResolveAbility)
             {
-                return ResolveAbility(duel, decision);
+                ResolveAbility(duel, decision);
             }
             else if (State == StepState.PriorityAction)
             {
-                return CheckPriority(duel, decision);
+                CheckPriority(duel, decision);
             }
-            else if (State == StepState.PermanentEnteringBattleZone)
-            {
-                return PermanentEnteringBattleZone(duel, decision);
-            }
-            else
+            else if (State != StepState.Over)
             {
                 throw new ArgumentOutOfRangeException(State.ToString());
             }
         }
 
-        private Choice CheckTurnBasedAction(Duel duel, Decision decision)
+        private void CheckTurnBasedAction(Duel duel, Decision decision)
         {
             if (this is TurnBasedActionStep turnBasedActionStep)
             {
-                Choice choice = turnBasedActionStep.PerformTurnBasedAction(duel, decision);
-                if (choice != null) { return choice; }
+                turnBasedActionStep.PerformTurnBasedAction(duel, decision);
+                if (duel.AwaitingChoice == null)
+                {
+                    State = StepState.Over;
+                }
+                Proceed(null, duel);
             }
-            State = StepState.CheckGameOver;
-            return Proceed(null, duel);
+            else
+            {
+                State = StepState.CheckGameOver;
+                Proceed(null, duel);
+            }
         }
 
-        private Choice CheckPriority(Duel duel, Decision decision)
+        private void CheckPriority(Duel duel, Decision decision)
         {
             if (this is PriorityStep priorityStep && !priorityStep.PassPriority)
             {
-                Choice choice = priorityStep.PerformPriorityAction(decision, duel);
-                if (choice != null)
-                {
-                    return choice;
-                }
-                else
+                priorityStep.PerformPriorityAction(decision, duel);
+                if (duel.AwaitingChoice == null)
                 {
                     State = StepState.CheckGameOver;
-                    return Proceed(null, duel);
                 }
+                Proceed(null, duel);
             }
-            State = StepState.Over;
-            return null;
+            else
+            {
+                State = StepState.Over;
+                Proceed(null, duel);
+            }
         }
 
-        private Choice ResolveAbility(Duel duel, Decision decision)
+        private void ResolveAbility(Duel duel, Decision decision)
         {
-            Choice choice = ResolvingAbility.Resolve(duel, decision);
-            if (choice != null)
+            if (!ResolvingAbility.FinishResolution)
             {
-                return choice; // Ability still has not resolved completely.
+                ResolvingAbility.Resolve(duel, decision);
+                if (duel.AwaitingChoice == null)
+                {
+                    ResolvingAbility.FinishResolution = true;
+                }
+                Proceed(null, duel);
             }
             else
             {
                 ResolvingAbility = null;
-                State = StepState.CheckGameOver;
-                return Proceed(null, duel);
             }
         }
 
-        private Choice SelectAbility(Duel duel, Decision decision)
+        private void SelectAbility(Duel duel, Decision decision)
         {
             if (decision != null)
             {
                 // TODO: Set _resolvingAbility based on choice
                 State = StepState.ResolveAbility;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
             var activeAbilities = PendingAbilities.Where(a => a.Owner == duel.CurrentTurn.ActivePlayer);
             if (activeAbilities.Count() == 1)
@@ -156,7 +163,7 @@ namespace DuelMastersModels.Steps
             }
             else if (activeAbilities.Any())
             {
-                return null; // TODO: return choice for ability to resolve
+                // TODO: return choice for ability to resolve
             }
             else
             {
@@ -168,14 +175,14 @@ namespace DuelMastersModels.Steps
                 }
                 else if (nonActiveAbilities.Any())
                 {
-                    return null; // TODO: return choice for ability to resolve
+                    // TODO: return choice for ability to resolve
                 }
             }
             State = (ResolvingAbility != null) ? StepState.ResolveAbility : StepState.PriorityAction;
-            return Proceed(null, duel);
+            Proceed(null, duel);
         }
 
-        private Choice CheckStateBasedActions(Duel duel)
+        private void CheckStateBasedActions(Duel duel)
         {
             var losers = new Collection<Player>();
             foreach (var player in duel.Players)
@@ -193,30 +200,35 @@ namespace DuelMastersModels.Steps
                     duel.Lose(loser);
                 }
                 State = StepState.CheckGameOver;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
             // TODO: Check direct attack
 
             else
             {
                 State = StepState.ShieldTrigger;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
         }
 
-        private Choice ResolveSpells(Duel duel, Decision decision)
+        private void ResolveSpells(Duel duel, Decision decision)
         {
             if (duel.ResolvingSpellAbilities.Any())
             {
-                var newDecision = duel.ResolvingSpellAbilities.Peek().Resolve(duel, decision);
-                if (newDecision == null)
+                var resolvingAbility = duel.ResolvingSpellAbilities.Peek();
+                if (!resolvingAbility.FinishResolution)
                 {
-                    _ = duel.ResolvingSpellAbilities.Dequeue();
-                    return ResolveSpells(duel, null);
+                    resolvingAbility.Resolve(duel, decision);
+                    if (duel.AwaitingChoice == null)
+                    {
+                        resolvingAbility.FinishResolution = true;
+                    }
+                    Proceed(null, duel);
                 }
                 else
                 {
-                    return newDecision;
+                    _ = duel.ResolvingSpellAbilities.Dequeue();
+                    Proceed(null, duel);
                 }
             }
             else if (duel.ResolvingSpells.Any())
@@ -248,16 +260,16 @@ namespace DuelMastersModels.Steps
                     }
                     _spellAbilitiesRetrieved = true;
                 }
-                return ResolveSpells(duel, decision);
+                Proceed(null, duel);
             }
             else
             {
                 State = StepState.StateBasedAction;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
         }
 
-        private Choice CheckShieldTriggers(Duel duel, Decision decision)
+        private void CheckShieldTriggers(Duel duel, Decision decision)
         {
             if (decision != null)
             {
@@ -268,15 +280,7 @@ namespace DuelMastersModels.Steps
                     trigger.ShieldTriggerPending = false;
                     var player = duel.GetOwner(trigger);
                     GameEvents.Enqueue(new ShieldTriggerEvent(new Player(player), new Card(trigger, true)));
-                    var dec = duel.UseCard(trigger, player);
-                    if (dec == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        throw new NotImplementedException("This should never happen in TCG");
-                    }
+                    duel.UseCard(trigger, player);
                 }
                 else
                 {
@@ -288,7 +292,7 @@ namespace DuelMastersModels.Steps
                     _shieldTriggerUser = Guid.Empty;
                 }
                 State = StepState.CheckGameOver;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
             else
             {
@@ -297,47 +301,35 @@ namespace DuelMastersModels.Steps
                 if (pendingTriggersActive.Any())
                 {
                     _shieldTriggerUser = active.Id;
-                    return new GuidSelection(active.Id, pendingTriggersActive, 0, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(active.Id, pendingTriggersActive, 0, 1));
                 }
                 var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
                 var pendingTriggersNonActive = nonActive.Hand.Cards.Where(c => c.ShieldTriggerPending);
                 if (pendingTriggersNonActive.Any())
                 {
                     _shieldTriggerUser = nonActive.Id;
-                    return new GuidSelection(nonActive.Id, pendingTriggersNonActive, 0, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(nonActive.Id, pendingTriggersNonActive, 0, 1));
                 }
                 _shieldTriggerUser = Guid.Empty;
-                State = StepState.SelectAbility;
-                return Proceed(null, duel);
+                State = duel.AwaitingChoice != null ? StepState.SelectAbility : StepState.PriorityAction;
+                Proceed(null, duel);
             }
         }
 
-        private Choice PermanentEnteringBattleZone(Duel duel, Decision decision)
-        {
-            duel.Players.Select(x => x.BattleZone).Single(x => x.PermanentEnteringBattleZone != null).Add(duel, decision);
-            State = StepState.CheckGameOver;
-            return null;
-        }
-
-        private Choice CheckGameOver(Duel duel)
+        private void CheckGameOver(Duel duel)
         {
             if (duel.Players.Count == 1)
             {
                 duel.Win(duel.Players.Single());
-                return null;
             }
-            else if (!duel.Players.Any())
-            {
-                return null;
-            }
-            else
+            else if (duel.Players.Any())
             {
                 State = StepState.ResolveSpell;
-                return Proceed(null, duel);
+                Proceed(null, duel);
             }
         }
 
-        private Choice CheckAwaitingEvents(Duel duel)
+        private void CheckAwaitingEvents(Duel duel)
         {
             var possibleReplacementEffects = duel.GetAllCards().SelectMany(x => duel.GetContinuousEffects<ReplacementEffect>(x)).Where(x => !UsedReplacementEffects.Contains(x.Id));
             var replacementEffects = new List<ReplacementEffect>();
@@ -360,12 +352,14 @@ namespace DuelMastersModels.Steps
                     //return new GuidSelection(effects.Key, effects.Select(x => x.Id), 1, 1);
 
                     PendingReplacementEffect = effects.First();
-                    return Proceed(null, duel);
+                    Proceed(null, duel);
+                    return;
                 }
                 else if (effects.Any())
                 {
                     PendingReplacementEffect = effects.Single();
-                    return Proceed(null, duel);
+                    Proceed(null, duel);
+                    return;
                 }
             }
             foreach (var awaiting in duel.AwaitingEvents)
@@ -375,7 +369,7 @@ namespace DuelMastersModels.Steps
             }
             duel.AwaitingEvents.Clear();
             UsedReplacementEffects.Clear();
-            return Proceed(null, duel);
+            Proceed(null, duel);
         }
 
         protected Step(Step step)

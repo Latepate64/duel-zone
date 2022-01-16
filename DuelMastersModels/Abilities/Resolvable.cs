@@ -16,7 +16,7 @@ namespace DuelMastersModels.Abilities
             Source = resolvable.Source;
         }
 
-        public abstract Choice Resolve(Duel duel, Decision decision);
+        public abstract void Resolve(Duel duel, Decision decision);
 
         public abstract Resolvable Copy();
 

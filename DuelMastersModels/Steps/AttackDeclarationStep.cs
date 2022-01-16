@@ -16,7 +16,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel, Decision decision)
         {
             if (decision == null)
             {
@@ -26,15 +26,12 @@ namespace DuelMastersModels.Steps
                 var targets = options.SelectMany(x => x).SelectMany(x => x);
                 if (targets.Any())
                 {
-                    return new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()));
-                }
-                else
-                {
-                    return null;
+                    duel.SetAwaitingChoice(new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
                 }
             }
             else
             {
+                //duel.ClearAwaitingChoice();
                 var attackerChoice = decision as AttackerDecision;
                 if (attackerChoice.Decision != null)
                 {
@@ -52,7 +49,6 @@ namespace DuelMastersModels.Steps
                         duel.Trigger(new CreatureAttackedEvent(new Card(attacker, true), duel.GetAttackable(AttackTarget)));
                     }
                 }
-                return null;
             }
         }
 

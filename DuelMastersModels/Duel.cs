@@ -56,6 +56,8 @@ namespace DuelMastersModels
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
 
         public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
+
+        public Choice AwaitingChoice { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -84,6 +86,7 @@ namespace DuelMastersModels
             }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
+            AwaitingChoice = duel.AwaitingChoice;
         }
 
         public override string ToString()
@@ -219,17 +222,16 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice UseCard(Card card, Player player)
+        public void UseCard(Card card, Player player)
         {
             CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
-                return player.Summon(card, this);
+                player.Summon(card, this);
             }
             else if (card.CardType == CardType.Spell)
             {
                 player.Cast(card, this);
-                return null;
             }
             else
             {
@@ -272,7 +274,7 @@ namespace DuelMastersModels
 
         public void Destroy(IEnumerable<Card> permanents)
         {
-            _ = Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
+            Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
         }
 
         public Player GetOpponent(Player player)
@@ -398,9 +400,9 @@ namespace DuelMastersModels
         /// <param name="source"></param>
         /// <param name="destination"></param>
         /// <returns></returns>
-        public Choice Move(Card card, ZoneType source, ZoneType destination)
+        public void Move(Card card, ZoneType source, ZoneType destination)
         {
-            return Move(new List<Card> { card }, source, destination);
+            Move(new List<Card> { card }, source, destination);
         }
 
         /// <summary>
@@ -411,15 +413,14 @@ namespace DuelMastersModels
         /// <param name="destination"></param>
         /// 
         /// <returns></returns>
-        public Choice Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        public void Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
             AwaitingEvents.AddRange(cards.Select(card => new CardMovedEvent(card.Owner, card.Id, source, destination)));
-            return null;
         }
 
         public void Discard(IEnumerable<Card> cards)
         {
-            _ = Move(cards, ZoneType.Hand, ZoneType.Graveyard);
+            Move(cards, ZoneType.Hand, ZoneType.Graveyard);
         }
 
         public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
@@ -429,7 +430,7 @@ namespace DuelMastersModels
 
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            _ = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
                 foreach (var card in cards.Where(x => x.ShieldTrigger))
@@ -437,6 +438,16 @@ namespace DuelMastersModels
                     card.ShieldTriggerPending = true;
                 }
             }
+        }
+
+        public void SetAwaitingChoice(Choice choice)
+        {
+            AwaitingChoice = AwaitingChoice == null ? choice : throw new InvalidOperationException();
+        }
+
+        public void ClearAwaitingChoice()
+        {
+            AwaitingChoice = AwaitingChoice != null ? (Choice)null : throw new InvalidOperationException();
         }
         #endregion Methods
     }

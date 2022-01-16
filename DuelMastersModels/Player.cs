@@ -1,5 +1,4 @@
 ﻿using Combinatorics.Collections;
-using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
@@ -157,10 +156,10 @@ namespace DuelMastersModels
             }
         }
 
-        internal Choice Summon(Card card, Duel duel)
+        internal void Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
+            duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         /// <summary>
@@ -196,11 +195,10 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice UntapCardsInBattleZoneAndManaZone()
+        public void UntapCardsInBattleZoneAndManaZone()
         {
             BattleZone.UntapCards();
             ManaZone.UntapCards();
-            return null; //TODO: Could require choice (eg. Silent Skill)
         }
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()

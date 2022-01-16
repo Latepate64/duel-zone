@@ -73,10 +73,10 @@ namespace DuelMastersModels
 
         private Choice StartCurrentStep(Duel duel)
         {
-            Choice choice = CurrentStep.Proceed(null, duel);
-            if (choice != null)
+            CurrentStep.Proceed(null, duel);
+            if (duel.AwaitingChoice != null)
             {
-                return choice;
+                return duel.AwaitingChoice;
             }
             else if (duel.Players.Count > 1)
             {
@@ -90,14 +90,14 @@ namespace DuelMastersModels
 
         internal Choice Continue(Decision decision, Duel duel)
         {
-            var choice = CurrentStep.Proceed(decision, duel);
-            if (choice == null)
+            CurrentStep.Proceed(decision, duel);
+            if (duel.AwaitingChoice == null)
             {
                 return ChangeAndStartStep(duel);
             }
             else
             {
-                return choice;
+                return duel.AwaitingChoice;
             }
         }
 

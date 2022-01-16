@@ -6,6 +6,8 @@ namespace DuelMastersModels.Abilities
     {
         public Resolvable Resolvable { get; set; }
 
+        public bool FinishResolution { get; set; }
+
         protected ResolvableAbility(Resolvable resolvable) : base()
         {
             Resolvable = resolvable;
@@ -14,11 +16,12 @@ namespace DuelMastersModels.Abilities
         protected ResolvableAbility(ResolvableAbility ability) : base(ability)
         {
             Resolvable = ability.Resolvable.Copy();
+            FinishResolution = ability.FinishResolution;
         }
 
-        public Choice Resolve(Duel duel, Decision decision)
+        public void Resolve(Duel duel, Decision decision)
         {
-            return Resolvable.Resolve(duel, decision);
+            Resolvable.Resolve(duel, decision);
         }
 
         protected override void Dispose(bool disposing)

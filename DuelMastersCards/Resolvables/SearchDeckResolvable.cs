@@ -27,7 +27,7 @@ namespace DuelMastersCards.Resolvables
             return new SearchDeckResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             var player = duel.GetPlayer(Controller);
             if (decision == null)
@@ -35,18 +35,17 @@ namespace DuelMastersCards.Resolvables
                 var cards = player.Deck.Cards.Where(x => Filter.Applies(x, duel));
                 if (cards.Any())
                 {
-                    return new GuidSelection(player.Id, cards, 0, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(player.Id, cards, 0, 1));
                 }
                 else
                 {
                     player.ShuffleDeck(duel);
-                    return null;
                 }
             }
             else
             {
                 var cards = (decision as GuidDecision).Decision.Select(x => duel.GetCard(x));
-                _ = duel.Move(cards, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
+                duel.Move(cards, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
 
                 if (Reveal)
                 {
@@ -56,7 +55,6 @@ namespace DuelMastersCards.Resolvables
                     }
                 }
                 player.ShuffleDeck(duel);
-                return null;
             }
         }
     }

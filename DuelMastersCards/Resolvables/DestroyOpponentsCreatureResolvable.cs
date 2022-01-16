@@ -25,29 +25,23 @@ namespace DuelMastersCards.Resolvables
             return new DestroyOpponentsCreatureResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             if (decision == null)
             {
                 var permanents = duel.GetOpponent(duel.GetPlayer(Controller)).BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
                 if (permanents.Count() > 1)
                 {
-                    return new GuidSelection(Controller, permanents, 1, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, permanents, 1, 1));
                 }
                 else if (permanents.Any())
                 {
                     duel.Destroy(permanents);
-                    return null;
-                }
-                else
-                {
-                    return null;
                 }
             }
             else
             {
                 duel.Destroy((decision as GuidDecision).Decision.Select(x => duel.GetPermanent(x)));
-                return null;
             }
         }
     }

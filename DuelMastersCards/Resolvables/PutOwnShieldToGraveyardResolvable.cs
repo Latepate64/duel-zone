@@ -20,7 +20,7 @@ namespace DuelMastersCards.Resolvables
             return new PutOwnShieldToGraveyardResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             var controller = duel.GetPlayer(Controller);
             if (decision == null)
@@ -28,20 +28,16 @@ namespace DuelMastersCards.Resolvables
                 var shields = controller.ShieldZone.Cards;
                 if (shields.Count > 1)
                 {
-                    return new GuidSelection(Controller, shields, 1, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, shields, 1, 1));
                 }
                 else if (shields.Any())
                 {
-                    return duel.Move(shields, DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
-                }
-                else
-                {
-                    return null;
+                    duel.Move(shields, DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
                 }
             }
             else
             {
-                return duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
+                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
             }
         }
     }

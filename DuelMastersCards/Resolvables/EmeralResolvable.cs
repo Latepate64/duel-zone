@@ -21,7 +21,7 @@ namespace DuelMastersCards.Resolvables
             return new EmeralResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             var controller = duel.GetPlayer(Controller);
             if (decision == null)
@@ -29,25 +29,21 @@ namespace DuelMastersCards.Resolvables
                 // You may add a card from your hand to your shields face down.
                 if (controller.Hand.Cards.Any())
                 {
-                    return new GuidSelection(Controller, controller.Hand.Cards, 0, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, controller.Hand.Cards, 0, 1));
                 }
-                else
-                {
-                    return null;
-                }
+  
             }
             else if (_firstPart)
             {
-                return PutFromHandIntoShieldZone(duel, decision, controller);
+                PutFromHandIntoShieldZone(duel, decision, controller);
             }
             else
             {
                 duel.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), false);
-                return null;
             }
         }
 
-        private Choice PutFromHandIntoShieldZone(Duel duel, Decision decision, Player controller)
+        private void PutFromHandIntoShieldZone(Duel duel, Decision decision, Player controller)
         {
             var cards = (decision as GuidDecision).Decision;
             if (cards.Any())
@@ -60,22 +56,13 @@ namespace DuelMastersCards.Resolvables
                     if (controller.ShieldZone.Cards.Count == 1)
                     {
                         duel.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), false);
-                        return null;
                     }
                     else
                     {
                         _firstPart = false;
-                        return new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1);
+                        duel.SetAwaitingChoice(new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1));
                     }
                 }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
             }
         }
 
