@@ -17,7 +17,7 @@ namespace DuelMastersModels.Steps
             AttackTarget = attackTarget;
         }
 
-        public override Choice PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel, Decision decision)
         {
             if (decision == null)
             {
@@ -30,15 +30,12 @@ namespace DuelMastersModels.Steps
                 }
                 if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature)).Any())
                 {
-                    return new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1);
-                }
-                else
-                {
-                    return null;
+                    duel.SetAwaitingChoice(new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
                 }
             }
             else
             {
+                //duel.ClearAwaitingChoice();
                 var blockers = (decision as GuidDecision).Decision;
                 if (blockers.Any())
                 {
@@ -47,7 +44,6 @@ namespace DuelMastersModels.Steps
                     blocker.Tapped = true;
                     GameEvents.Enqueue(new BlockEvent(new Card(duel.GetPermanent(AttackingCreature), true), new Card(blocker, true)));
                 }
-                return null;
             }
         }
 

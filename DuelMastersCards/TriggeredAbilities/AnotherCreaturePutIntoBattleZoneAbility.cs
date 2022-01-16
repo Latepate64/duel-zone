@@ -19,7 +19,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination.GetType() == typeof(BattleZone) && Source != e.Card.Id && e.Card.CardType == CardType.Creature;
+                return e.Destination.GetType() == typeof(BattleZone) && Source != e.Card && duel.GetCard(e.Card).CardType == CardType.Creature;
             }
             else
             {

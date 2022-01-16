@@ -36,7 +36,7 @@ namespace DuelMastersCards.Resolvables
             return new PutCardsFromManaZoneIntoGraveyardResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             if (decision == null)
             {
@@ -45,11 +45,11 @@ namespace DuelMastersCards.Resolvables
                 {
                     if (cards.Count <= Minimum)
                     {
-                        return PutFromManaZoneIntoGraveyard(cards, duel);
+                        PutFromManaZoneIntoGraveyard(cards, duel);
                     }
                     else
                     {
-                        return new GuidSelection(Controller, cards, Minimum, Maximum);
+                        duel.SetAwaitingChoice(new GuidSelection(Controller, cards, Minimum, Maximum));
                     }
                 }
                 else
@@ -59,18 +59,13 @@ namespace DuelMastersCards.Resolvables
             }
             else
             {
-                return PutFromManaZoneIntoGraveyard((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), duel);
+                PutFromManaZoneIntoGraveyard((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), duel);
             }
         }
 
-        private Choice PutFromManaZoneIntoGraveyard(IEnumerable<Card> cards, Duel duel)
+        private void PutFromManaZoneIntoGraveyard(IEnumerable<Card> cards, Duel duel)
         {
-            foreach (var card in cards)
-            {
-                var player = duel.GetOwner(card);
-                player.Move(duel, card, player.ManaZone, player.Graveyard);
-            }
-            return null;
+            duel.Move(cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
         }
 
         private Player GetPlayer(Duel duel)

@@ -1,5 +1,4 @@
 ﻿using Combinatorics.Collections;
-using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
@@ -139,16 +138,6 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneIntoGraveyard(Card permanent, Duel duel)
-        {
-            _ = Move(duel, permanent, BattleZone, Graveyard);
-        }
-
-        public Choice PutFromManaZoneIntoBattleZone(Card card, Duel duel)
-        {
-            return Move(duel, card, ManaZone, BattleZone);
-        }
-
         public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
@@ -167,10 +156,10 @@ namespace DuelMastersModels
             }
         }
 
-        internal Choice Summon(Card card, Duel duel)
+        internal void Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            return Move(duel, card, Hand, BattleZone);
+            duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         /// <summary>
@@ -206,11 +195,10 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice UntapCardsInBattleZoneAndManaZone()
+        public void UntapCardsInBattleZoneAndManaZone()
         {
             BattleZone.UntapCards();
             ManaZone.UntapCards();
-            return null; //TODO: Could require choice (eg. Silent Skill)
         }
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
@@ -238,24 +226,6 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromShieldZoneToHand(Card card, Duel duel, bool canUseShieldTrigger)
-        {
-            PutFromShieldZoneToHand(new List<Card> { card }, duel, canUseShieldTrigger);
-        }
-
-        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, Duel duel, bool canUseShieldTrigger)
-        {
-            for (int i = 0; i < cards.Count(); ++i)
-            {
-                var card = cards.ElementAt(i);
-                _ = Move(duel, card, ShieldZone, Hand);
-                if (canUseShieldTrigger && card.ShieldTrigger)
-                {
-                    card.ShieldTriggerPending = true;
-                }
-            }
-        }
-
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             var card = RemoveTopCardOfDeck();
@@ -271,24 +241,11 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
         }
 
-        public void Discard(List<Card> cards, Duel duel)
-        {
-            for (int i = 0; i < cards.Count; ++i)
-            {
-                Discard(cards.ElementAt(i), duel);
-            }
-        }
-
-        public void Discard(Card card, Duel duel)
-        {
-            _ = Move(duel, card, Hand, Graveyard);
-        }
-
         public void DiscardAtRandom(Duel duel)
         {
             if (Hand.Cards.Any())
             {
-                Discard(Hand.Cards[_random.Next(Hand.Cards.Count)], duel);
+                duel.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
             }
         }
 
@@ -306,29 +263,26 @@ namespace DuelMastersModels
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
         }
 
-        /// <summary>
-        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
-        /// </summary>
-        /// <param name="duel"></param>
-        /// <param name="card"></param>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        /// <returns></returns>
-        public Choice Move(Duel duel, Card card, Zone source, Zone destination)
+        public Zone GetZone(ZoneType zone)
         {
-            source.Remove(card);
-
-            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(card, false);
-            var choice = destination.Add(newObject, duel, source);
-            if (choice == null)
+            switch (zone)
             {
-                duel.Trigger(new CardMovedEvent(this, newObject, source, destination));
-                return null;
-            }
-            else
-            {
-                return choice;
+                case ZoneType.BattleZone:
+                    return BattleZone;
+                case ZoneType.Deck:
+                    return Deck;
+                case ZoneType.Graveyard:
+                    return Graveyard;
+                case ZoneType.Hand:
+                    return Hand;
+                case ZoneType.ManaZone:
+                    return ManaZone;
+                case ZoneType.ShieldZone:
+                    return ShieldZone;
+                case ZoneType.SpellStack:
+                case ZoneType.Anywhere:
+                default:
+                    throw new InvalidOperationException();
             }
         }
         #endregion Methods

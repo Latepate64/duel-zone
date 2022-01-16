@@ -19,13 +19,10 @@ namespace DuelMastersCards.Resolvables
             return new PyrofighterMagnusResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // Return this creature to your hand.
-            var creature = duel.GetPermanent(Source);
-            var player = duel.GetPlayer(creature.Owner);
-            player.Move(duel, creature, player.BattleZone, player.Hand);
-            return null;
+            duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

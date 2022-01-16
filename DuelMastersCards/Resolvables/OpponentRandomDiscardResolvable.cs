@@ -19,10 +19,9 @@ namespace DuelMastersCards.Resolvables
             return new OpponentRandomDiscardResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             duel.GetOpponent(duel.GetPlayer(Controller)).DiscardAtRandom(duel);
-            return null;
         }
     }
 }

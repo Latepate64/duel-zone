@@ -19,7 +19,7 @@ namespace DuelMastersCards.Resolvables
             return new HolyAweResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // Tap all your opponent's creatures in the battle zone.
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
@@ -27,7 +27,6 @@ namespace DuelMastersCards.Resolvables
             {
                 creature.Tapped = true;
             }
-            return null;
         }
     }
 }

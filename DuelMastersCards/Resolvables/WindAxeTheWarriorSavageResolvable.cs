@@ -1,5 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -23,7 +22,7 @@ namespace DuelMastersCards.Resolvables
             return new WindAxeTheWarriorSavageResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // Destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);
@@ -33,7 +32,7 @@ namespace DuelMastersCards.Resolvables
                 var blockers = duel.GetOpponent(controller).BattleZone.GetChoosableCreatures(duel).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
                 if (blockers.Count() > 1)
                 {
-                    return new GuidSelection(controller.Id, blockers, 1, 1);
+                    duel.SetAwaitingChoice(new GuidSelection(controller.Id, blockers, 1, 1));
                 }
                 else if (blockers.Any())
                 {
@@ -48,7 +47,6 @@ namespace DuelMastersCards.Resolvables
 
             // Then put the top card of your deck into your mana zone.
             controller.PutFromTopOfDeckIntoManaZone(duel);
-            return null;
         }
     }
 }

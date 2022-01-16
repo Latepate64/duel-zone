@@ -1,25 +1,52 @@
 ﻿using DuelMastersModels.Zones;
+using System;
 
 namespace DuelMastersModels.GameEvents
 {
     public class CardMovedEvent : GameEvent
     {
-        public Player Player { get; }
-        public Card Card { get; }
-        public Zone Source { get; }
-        public Zone Destination { get; }
+        public Guid Player { get; }
+        public Guid Card { get; }
+        public ZoneType Source { get; }
+        public ZoneType Destination { get; set; }
 
-        public CardMovedEvent(Player player, Card card, Zone source, Zone destination)
+        public CardMovedEvent(Guid player, Guid card, ZoneType source, ZoneType destination) : base()
         {
-            Player = new Player(player);
-            Card = new Card(card, true);
+            Player = player;
+            Card = card;
             Source = source;
             Destination = destination;
+        }
+
+        public CardMovedEvent(CardMovedEvent e) : base(e)
+        {
+            Player = e.Player;
+            Card = e.Card;
+            Source = e.Source;
+            Destination = e.Destination;
         }
 
         public override string ToString(Duel duel)
         {
             return $"{Player} put {Card} from their {Source} into their {Destination}.";
+        }
+
+        public override void Apply(Duel duel)
+        {
+            var player = duel.GetPlayer(Player);
+            var sourceZone = player.GetZone(Source);
+            var destinationZone = player.GetZone(Destination);
+            var card = duel.GetCard(Card);
+            sourceZone.Remove(card);
+
+            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+            var newObject = new Card(card, false);
+            _ = destinationZone.Add(newObject, duel, sourceZone);
+        }
+
+        public override GameEvent Copy()
+        {
+            return new CardMovedEvent(this);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DuelMastersCards.Resolvables
             return new SniperMosquitoResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             // Return a card from your mana zone to your hand.
             var controller = duel.GetPlayer(Controller);
@@ -30,23 +30,17 @@ namespace DuelMastersCards.Resolvables
                 {
                     if (controller.ManaZone.Cards.Count > 1)
                     {
-                        return new GuidSelection(Controller, controller.ManaZone.Cards, 1, 1);
+                        duel.SetAwaitingChoice(new GuidSelection(Controller, controller.ManaZone.Cards, 1, 1));
                     }
                     else
                     {
-                        controller.Move(duel, controller.ManaZone.Cards.Single(), controller.ManaZone, controller.Hand);
-                        return null;
+                        duel.Move(controller.ManaZone.Cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Hand);
                     }
-                }
-                else
-                {
-                    return null;
                 }
             }
             else
             {
-                controller.Move(duel, duel.GetCard((decision as GuidDecision).Decision.Single()), controller.ManaZone, controller.Hand);
-                return null;
+                duel.Move(duel.GetCard((decision as GuidDecision).Decision.Single()), DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.Resolvables
@@ -25,28 +24,19 @@ namespace DuelMastersCards.Resolvables
             return new PutCardsFromHandIntoManaZoneResolvable(this);
         }
 
-        public override Choice Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel, Decision decision)
         {
             if (decision == null)
             {
                 var cards = duel.GetPlayer(Controller).Hand.Cards;
                 if (cards.Any())
                 {
-                    return new GuidSelection(Controller, cards, 0, Amount);
-                }
-                else
-                {
-                    return null;
+                    duel.SetAwaitingChoice(new GuidSelection(Controller, cards, 0, Amount));
                 }
             }
             else
             {
-                foreach (var card in (decision as GuidDecision).Decision.Select(x => duel.GetCard(x)))
-                {
-                    var player = duel.GetPlayer(card.Owner);
-                    player.Move(duel, card, player.Hand, player.ManaZone);
-                }
-                return null;
+                duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

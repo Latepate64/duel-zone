@@ -12,28 +12,27 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        protected internal override Choice PerformPriorityAction(Decision choice, Duel duel)
+        protected internal override void PerformPriorityAction(Decision decision, Duel duel)
         {
-            if (choice == null)
+            if (decision == null)
             {
                 var usableCards = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).GetUsableCardsWithPaymentInformation();
                 if (usableCards.Any())
                 {
-                    return new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards);
+                    duel.SetAwaitingChoice(new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards));
                 }
                 else
                 {
                     PassPriority = true;
-                    return null;
                 }
             }
             else
             {
-                var usage = choice as CardUsageDecision;
+                //duel.ClearAwaitingChoice();
+                var usage = decision as CardUsageDecision;
                 if (usage.Decision == null)
                 {
                     PassPriority = true;
-                    return null;
                 }
                 else
                 {
@@ -41,12 +40,7 @@ namespace DuelMastersModels.Steps
                     {
                         mana.Tapped = true;
                     }
-                    var dec = duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
-                    if (dec != null)
-                    {
-                        State = StepState.PermanentEnteringBattleZone;
-                    }
-                    return dec;
+                    duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
                 }
             }
         }

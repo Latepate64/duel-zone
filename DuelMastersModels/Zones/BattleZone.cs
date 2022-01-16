@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +79,7 @@ namespace DuelMastersModels.Zones
             player.BattleZone.Cards.Add(PermanentEnteringBattleZone);
             if (trigger)
             {
-                duel.Trigger(new CardMovedEvent(player, PermanentEnteringBattleZone, PermanentSourceZone, this));
+                //duel.Trigger(new CardMovedEvent(player, PermanentEnteringBattleZone, PermanentSourceZone, this)); //TODO
             }
             PermanentEnteringBattleZone = null;
         }

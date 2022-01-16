@@ -3,6 +3,7 @@ using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
+using DuelMastersModels.Zones;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -53,6 +54,10 @@ namespace DuelMastersModels
         public Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
+
+        public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
+
+        public Choice AwaitingChoice { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -66,6 +71,7 @@ namespace DuelMastersModels
 
         public Duel(Duel duel)
         {
+            AwaitingEvents = duel.AwaitingEvents.Select(x => x.Copy()).ToList();
             DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
@@ -80,6 +86,7 @@ namespace DuelMastersModels
             }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
+            AwaitingChoice = duel.AwaitingChoice;
         }
 
         public override string ToString()
@@ -200,32 +207,31 @@ namespace DuelMastersModels
             }
             else
             {
-                GetPlayer(attackingCreature.Owner).PutFromBattleZoneIntoGraveyard(attackingCreature, this);
-                GetPlayer(defendingCreature.Owner).PutFromBattleZoneIntoGraveyard(defendingCreature, this);
+                Destroy(new List<Card> { attackingCreature, defendingCreature });
             }
 
             void Outcome(Card winner, Card loser)
             {
                 Trigger(new WinBattleEvent(winner));
-                GetPlayer(loser.Owner).PutFromBattleZoneIntoGraveyard(loser, this);
+                var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
-                    GetPlayer(winner.Owner).PutFromBattleZoneIntoGraveyard(winner, this);
+                    destroyed.Add(winner);
                 }
+                Destroy(destroyed);
             }
         }
 
-        public Choice UseCard(Card card, Player player)
+        public void UseCard(Card card, Player player)
         {
             CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
-                return player.Summon(card, this);
+                player.Summon(card, this);
             }
             else if (card.CardType == CardType.Spell)
             {
                 player.Cast(card, this);
-                return null;
             }
             else
             {
@@ -266,17 +272,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(List<Card> permanents)
+        public void Destroy(IEnumerable<Card> permanents)
         {
-            for (int i = 0; i < permanents.Count; ++i)
-            {
-                Destroy(permanents.ElementAt(i));
-            }
-        }
-
-        public void Destroy(Card permanent)
-        {
-            GetPlayer(permanent.Owner).PutFromBattleZoneIntoGraveyard(permanent, this);
+            Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
         }
 
         public Player GetOpponent(Player player)
@@ -370,8 +368,8 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.BattleZone).ToList();
-            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == Zones.ZoneType.SpellStack));
+            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
+            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.SpellStack));
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
@@ -393,6 +391,63 @@ namespace DuelMastersModels
         {
             Winner = player;
             CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(new Player(player)));
+        }
+
+        /// <summary>
+        /// Only use this method if exactly one card moves between zones, otherwise use the overload that takes multiple cards.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// <returns></returns>
+        public void Move(Card card, ZoneType source, ZoneType destination)
+        {
+            Move(new List<Card> { card }, source, destination);
+        }
+
+        /// <summary>
+        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
+        /// 
+        /// <returns></returns>
+        public void Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        {
+            AwaitingEvents.AddRange(cards.Select(card => new CardMovedEvent(card.Owner, card.Id, source, destination)));
+        }
+
+        public void Discard(IEnumerable<Card> cards)
+        {
+            Move(cards, ZoneType.Hand, ZoneType.Graveyard);
+        }
+
+        public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
+        {
+            PutFromShieldZoneToHand(new List<Card> { card }, canUseShieldTrigger);
+        }
+
+        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
+        {
+            Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            if (canUseShieldTrigger)
+            {
+                foreach (var card in cards.Where(x => x.ShieldTrigger))
+                {
+                    card.ShieldTriggerPending = true;
+                }
+            }
+        }
+
+        public void SetAwaitingChoice(Choice choice)
+        {
+            AwaitingChoice = AwaitingChoice == null ? choice : throw new InvalidOperationException();
+        }
+
+        public void ClearAwaitingChoice()
+        {
+            AwaitingChoice = AwaitingChoice != null ? (Choice)null : throw new InvalidOperationException();
         }
         #endregion Methods
     }
