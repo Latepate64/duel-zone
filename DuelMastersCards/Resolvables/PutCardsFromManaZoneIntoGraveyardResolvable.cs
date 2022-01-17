@@ -36,30 +36,25 @@ namespace DuelMastersCards.Resolvables
             return new PutCardsFromManaZoneIntoGraveyardResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
-            if (decision == null)
+            var player = GetPlayer(duel);
+            var cards = player.ManaZone.Cards;
+            if (Minimum == Maximum)
             {
-                var cards = GetPlayer(duel).ManaZone.Cards;
-                if (Minimum == Maximum)
+                if (cards.Count <= Minimum)
                 {
-                    if (cards.Count <= Minimum)
-                    {
-                        PutFromManaZoneIntoGraveyard(cards, duel);
-                    }
-                    else
-                    {
-                        duel.SetAwaitingChoice(new GuidSelection(Controller, cards, Minimum, Maximum));
-                    }
+                    PutFromManaZoneIntoGraveyard(cards, duel);
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    var decision = player.Choose(new GuidSelection(Controller, cards, Minimum, Maximum));
+                    PutFromManaZoneIntoGraveyard(decision.Decision.Select(x => duel.GetCard(x)), duel);
                 }
             }
             else
             {
-                PutFromManaZoneIntoGraveyard((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), duel);
+                throw new NotImplementedException();
             }
         }
 

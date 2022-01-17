@@ -1,4 +1,5 @@
 ﻿using Combinatorics.Collections;
+using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
@@ -10,7 +11,7 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : IAttackable, IDisposable
+    public abstract class Player : IAttackable, IDisposable, ICopyable<Player>
     {
         #region Properties
         public Guid Id { get; }
@@ -22,10 +23,14 @@ namespace DuelMastersModels
         /// </summary>
         public Deck Deck { get; set; }
 
+        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
+
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
         public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
+
+        public abstract GuidDecision Choose(GuidSelection guidSelection);
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
@@ -77,12 +82,12 @@ namespace DuelMastersModels
         private static readonly Random _random = new Random();
 
         #region Methods
-        public Player()
+        protected Player()
         {
             Id = Guid.NewGuid();
         }
 
-        public Player(Player player)
+        protected Player(Player player)
         {
             Id = player.Id;
             Name = player.Name;
@@ -127,7 +132,7 @@ namespace DuelMastersModels
         public void ShuffleDeck(Duel duel)
         {
             Deck.Shuffle();
-            var eve = new DeckShuffledEvent(new Player(this));
+            var eve = new DeckShuffledEvent(Copy());
             if (duel.Turns.Any())
             {
                 duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
@@ -144,7 +149,7 @@ namespace DuelMastersModels
             {
                 var card = RemoveTopCardOfDeck();
                 _ = ShieldZone.Add(card, duel, null);
-                var eve = new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true));
+                var eve = new TopDeckCardPutIntoShieldZoneEvent(Copy(), new Card(card, true));
                 if (duel.Turns.Any())
                 {
                     duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
@@ -158,7 +163,7 @@ namespace DuelMastersModels
 
         internal void Summon(Card card, Duel duel)
         {
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(Copy(), new Card(card, true)));
             duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
@@ -178,7 +183,7 @@ namespace DuelMastersModels
                 if (drawnCard != null)
                 {
                     _ = Hand.Add(drawnCard, duel, null);
-                    var cardDrawnEvent = new CardDrawnEvent(new Player(this), new Card(drawnCard, true));
+                    var cardDrawnEvent = new CardDrawnEvent(Copy(), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
                         duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(cardDrawnEvent);
@@ -230,7 +235,7 @@ namespace DuelMastersModels
         {
             var card = RemoveTopCardOfDeck();
             _ = ManaZone.Add(card, duel, null);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -238,7 +243,7 @@ namespace DuelMastersModels
             Hand.Remove(spell);
             spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             duel.ResolvingSpells.Push(spell);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(Copy(), new Card(spell, true)));
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -253,14 +258,14 @@ namespace DuelMastersModels
         {
             BattleZone.Remove(permanent);
             _ = Deck.Add(new Card(permanent, false), duel, null);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
         }
 
         public void Reveal(Duel duel, Card card)
         {
             var opponent = duel.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
+            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
         public Zone GetZone(ZoneType zone)
@@ -285,6 +290,8 @@ namespace DuelMastersModels
                     throw new InvalidOperationException();
             }
         }
+
+        public abstract Player Copy();
         #endregion Methods
     }
 }

@@ -19,13 +19,11 @@ namespace DuelMastersCards.Resolvables
             return new ControllerMayUntapCreatureResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
-            if (decision == null)
-            {
-                duel.SetAwaitingChoice(new YesNoChoice(Controller));
-            }
-            else if ((decision as YesNoDecision).Decision)
+            var player = duel.GetPlayer(Controller);
+            var decision = player.Choose(new YesNoChoice(Controller));
+            if (decision.Decision)
             {
                 duel.GetPermanent(Source).Tapped = false;
             }

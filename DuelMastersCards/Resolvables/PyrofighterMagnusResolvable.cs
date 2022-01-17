@@ -19,7 +19,7 @@ namespace DuelMastersCards.Resolvables
             return new PyrofighterMagnusResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             // Return this creature to your hand.
             duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);

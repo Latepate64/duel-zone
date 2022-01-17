@@ -66,7 +66,7 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.ResolveSpell)
             {
-                ResolveSpells(duel, decision);
+                ResolveSpells(duel);
             }
             else if (State == StepState.StateBasedAction)
             {
@@ -82,7 +82,7 @@ namespace DuelMastersModels.Steps
             }
             else if (State == StepState.ResolveAbility)
             {
-                ResolveAbility(duel, decision);
+                ResolveAbility(duel);
             }
             else if (State == StepState.PriorityAction)
             {
@@ -130,11 +130,11 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        private void ResolveAbility(Duel duel, Decision decision)
+        private void ResolveAbility(Duel duel)
         {
-            if (!ResolvingAbility.FinishResolution)
+            if (ResolvingAbility != null && !ResolvingAbility.FinishResolution)
             {
-                ResolvingAbility.Resolve(duel, decision);
+                ResolvingAbility.Resolve(duel);
                 if (duel.AwaitingChoice == null)
                 {
                     ResolvingAbility.FinishResolution = true;
@@ -196,7 +196,7 @@ namespace DuelMastersModels.Steps
             {
                 foreach (var loser in losers)
                 {
-                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(new Player(loser)));
+                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(loser.Copy()));
                     duel.Lose(loser);
                 }
                 State = StepState.CheckGameOver;
@@ -211,14 +211,14 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        private void ResolveSpells(Duel duel, Decision decision)
+        private void ResolveSpells(Duel duel)
         {
             if (duel.ResolvingSpellAbilities.Any())
             {
                 var resolvingAbility = duel.ResolvingSpellAbilities.Peek();
                 if (!resolvingAbility.FinishResolution)
                 {
-                    resolvingAbility.Resolve(duel, decision);
+                    resolvingAbility.Resolve(duel);
                     if (duel.AwaitingChoice == null)
                     {
                         resolvingAbility.FinishResolution = true;
@@ -279,7 +279,7 @@ namespace DuelMastersModels.Steps
                     var trigger = duel.GetCard(guids.Single());
                     trigger.ShieldTriggerPending = false;
                     var player = duel.GetOwner(trigger);
-                    GameEvents.Enqueue(new ShieldTriggerEvent(new Player(player), new Card(trigger, true)));
+                    GameEvents.Enqueue(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
                     duel.UseCard(trigger, player);
                 }
                 else

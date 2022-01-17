@@ -16,7 +16,7 @@ namespace DuelMastersCards.Resolvables
         {
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
             duel.Destroy(duel.CreaturePermanents.Where(p => p.Id != Source && duel.GetPower(p) == 6000).ToList());
@@ -43,7 +43,7 @@ namespace DuelMastersCards.Resolvables
         {
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             duel.Lose(duel.GetPlayer(Controller));
         }

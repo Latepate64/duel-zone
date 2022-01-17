@@ -25,18 +25,16 @@ namespace DuelMastersCards.Resolvables
             return new ControllerMayDrawCardsResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
-            if (decision == null)
+            var player = duel.GetPlayer(Controller);
+            var decision = player.Choose(new YesNoChoice(Controller));
+            if (decision.Decision)
             {
-                duel.SetAwaitingChoice(new YesNoChoice(Controller));
-            }
-            else if ((decision as YesNoDecision).Decision)
-            {
-                duel.GetPlayer(Controller).DrawCards(1, duel);
+                player.DrawCards(1, duel);
                 if (++_drawn < Maximum)
                 {
-                    Resolve(duel, null);
+                    Resolve(duel);
                 }
             }
         }

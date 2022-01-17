@@ -22,7 +22,7 @@ namespace DuelMastersCards.Resolvables
             return new QuixoticHeroSwineSnoutResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             duel.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Owner = Controller, Target = Source }, 3000, new UntilTheEndOfTheTurn()));
         }

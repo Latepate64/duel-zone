@@ -76,13 +76,13 @@ namespace DuelMastersModels
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
-            Losers = duel.Losers.Select(x => new Player(x)).ToList();
-            Players = duel.Players.Select(x => new Player(x)).ToList();
+            Losers = duel.Losers.Select(x => x.Copy()).ToList();
+            Players = duel.Players.Select(x => x.Copy()).ToList();
             ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
             ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
             if (duel.Winner != null)
             {
-                Winner = new Player(duel.Winner);
+                Winner = duel.Winner.Copy();
             }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
@@ -384,13 +384,13 @@ namespace DuelMastersModels
         {
             Losers.Add(player);
             _ = Players.Remove(player);
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new LoseEvent(new Player(player)));
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(new LoseEvent(player.Copy()));
         }
 
         public void Win(Player player)
         {
             Winner = player;
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(new Player(player)));
+            CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(player.Copy()));
         }
 
         /// <summary>

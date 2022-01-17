@@ -27,19 +27,14 @@ namespace DuelMastersCards.Resolvables
             return new ReturnCardsFromGraveyardToHandResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
-            if (decision == null)
+            var player = duel.GetPlayer(Controller);
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));
+            if (cards.Any())
             {
-                var cards = duel.GetPlayer(Controller).Graveyard.Cards.Where(x => Filter.Applies(x, duel));
-                if (cards.Any())
-                {
-                    duel.SetAwaitingChoice(new GuidSelection(Controller, cards, 0, Maximum));
-                }
-            }
-            else
-            {
-                duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
+                var decision = player.Choose(new GuidSelection(Controller, cards, 0, Maximum));
+                duel.Move(decision.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

@@ -46,7 +46,7 @@ namespace Simulator
 
         private static void PlayGame(MatchUp matchUp, Simulator simulator, int simulationDepth)
         {
-            using Player player1 = new() { Name = matchUp.StartingPlayer.Name }, player2 = new() { Name = matchUp.Opponent.Name };
+            using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
             player1.Deck = new(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath));
             player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
             using var duel = simulator.PlayDuel(player1, player2, simulationDepth);

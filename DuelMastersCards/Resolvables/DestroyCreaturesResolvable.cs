@@ -24,7 +24,7 @@ namespace DuelMastersCards.Resolvables
             return new DestroyCreaturesResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             duel.Destroy(duel.CreaturePermanents.Where(x => Filter.Applies(x, duel)).ToList());
         }

@@ -36,12 +36,12 @@ namespace DuelMastersModels.Steps
                     breakAmount = 2;
                 }
                 duel.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                GameEvents.Enqueue(new ShieldsBrokenEvent(new Card(attackingCreature, true), new Player(opponent), breakAmount));
+                GameEvents.Enqueue(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
             }
             else
             {
                 //TODO: Direct attack victory should be checked as a state-based action instead.
-                GameEvents.Enqueue(new DirectAttackEvent(new Player(opponent)));
+                GameEvents.Enqueue(new DirectAttackEvent(opponent.Copy()));
                 duel.Lose(opponent);
             }
         }

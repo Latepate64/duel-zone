@@ -9,7 +9,6 @@ namespace DuelMastersCards.Resolvables
     {
         public EmeralResolvable(EmeralResolvable ability) : base(ability)
         {
-            _firstPart = ability._firstPart;
         }
 
         public EmeralResolvable() : base()
@@ -21,51 +20,26 @@ namespace DuelMastersCards.Resolvables
             return new EmeralResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
+            // You may add a card from your hand to your shields face down.
             var controller = duel.GetPlayer(Controller);
-            if (decision == null)
+            if (controller.Hand.Cards.Any())
             {
-                // You may add a card from your hand to your shields face down.
-                if (controller.Hand.Cards.Any())
+                var decision = controller.Choose(new GuidSelection(Controller, controller.Hand.Cards, 0, 1));
+                var cards = (decision as GuidDecision).Decision;
+                if (cards.Any())
                 {
-                    duel.SetAwaitingChoice(new GuidSelection(Controller, controller.Hand.Cards, 0, 1));
-                }
-  
-            }
-            else if (_firstPart)
-            {
-                PutFromHandIntoShieldZone(duel, decision, controller);
-            }
-            else
-            {
-                duel.PutFromShieldZoneToHand(duel.GetCard((decision as GuidDecision).Decision.Single()), false);
-            }
-        }
+                    duel.Move(cards.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ShieldZone);
 
-        private void PutFromHandIntoShieldZone(Duel duel, Decision decision, Player controller)
-        {
-            var cards = (decision as GuidDecision).Decision;
-            if (cards.Any())
-            {
-                duel.Move(cards.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ShieldZone);
-
-                // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
-                if (controller.ShieldZone.Cards.Any())
-                {
-                    if (controller.ShieldZone.Cards.Count == 1)
+                    // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
+                    if (controller.ShieldZone.Cards.Any())
                     {
-                        duel.PutFromShieldZoneToHand(controller.ShieldZone.Cards.Single(), false);
-                    }
-                    else
-                    {
-                        _firstPart = false;
-                        duel.SetAwaitingChoice(new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1));
+                        var decision2 = controller.Choose(new GuidSelection(Controller, controller.ShieldZone.Cards, 1, 1));
+                        duel.PutFromShieldZoneToHand(duel.GetCard(decision2.Decision.Single()), false);
                     }
                 }
             }
         }
-
-        private bool _firstPart = true;
     }
 }
