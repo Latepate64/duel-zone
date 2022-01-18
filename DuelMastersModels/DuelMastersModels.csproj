@@ -81,7 +81,6 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\ActivatedAbility.cs" />
-    <Compile Include="Abilities\AsPermanentEntersBattleZoneAbility.cs" />
     <Compile Include="Abilities\Resolvable.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />

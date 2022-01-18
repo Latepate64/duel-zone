@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -23,12 +22,11 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override Choice Add(Card card, Duel duel, Zone source)
+        public override void Add(Card card, Duel duel)
         {
             card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             card.EnterManaZone();
             Cards.Add(card);
-            return null;
         }
 
         public override void Remove(Card card)

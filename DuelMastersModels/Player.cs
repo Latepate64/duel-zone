@@ -153,7 +153,7 @@ namespace DuelMastersModels
             for (int i = 0; i < amount; ++i)
             {
                 var card = RemoveTopCardOfDeck();
-                _ = ShieldZone.Add(card, duel, null);
+                ShieldZone.Add(card, duel);
                 var eve = new TopDeckCardPutIntoShieldZoneEvent(Copy(), new Card(card, true));
                 if (duel.Turns.Any())
                 {
@@ -187,7 +187,7 @@ namespace DuelMastersModels
                 Card drawnCard = RemoveTopCardOfDeck();
                 if (drawnCard != null)
                 {
-                    _ = Hand.Add(drawnCard, duel, null);
+                    Hand.Add(drawnCard, duel);
                     var cardDrawnEvent = new CardDrawnEvent(Copy(), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
@@ -239,7 +239,7 @@ namespace DuelMastersModels
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
             var card = RemoveTopCardOfDeck();
-            _ = ManaZone.Add(card, duel, null);
+            ManaZone.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
         }
 
@@ -255,9 +255,15 @@ namespace DuelMastersModels
                 ability.Resolve(duel);
             }
             var effects = duel.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
-            _ = effects.Any()
-                ? duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel, null)
-                : duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel, null);
+            if (effects.Any())
+            {
+                duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+            }
+            else
+            {
+                duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+
+            }
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -271,7 +277,7 @@ namespace DuelMastersModels
         public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
         {
             BattleZone.Remove(permanent);
-            _ = Deck.Add(new Card(permanent, false), duel, null);
+            Deck.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
         }
 

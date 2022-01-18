@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -21,7 +20,7 @@ namespace DuelMastersModels.Zones
             Cards = new List<Card>(cards.ToList());
         }
 
-        public abstract Choice Add(Card card, Duel duel, Zone source);
+        public abstract void Add(Card card, Duel duel);
 
         public abstract void Remove(Card card);
 
