@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -30,7 +29,6 @@ namespace DuelMastersModels.Steps
             }
             else if (duel.Players.Any())
             {
-                ResolveSpells(duel);
                 CheckStateBasedActions(duel);
                 CheckShieldTriggers(duel);
                 ResolveAbilities(duel);
@@ -77,56 +75,6 @@ namespace DuelMastersModels.Steps
             // TODO: Check direct attack
         }
 
-        private void ResolveSpells(Duel duel)
-        {
-            if (duel.ResolvingSpellAbilities.Any())
-            {
-                var resolvingAbility = duel.ResolvingSpellAbilities.Peek();
-                if (!resolvingAbility.FinishResolution)
-                {
-                    resolvingAbility.Resolve(duel);
-                    resolvingAbility.FinishResolution = true;
-                    Progress(duel);
-                }
-                else
-                {
-                    _ = duel.ResolvingSpellAbilities.Dequeue();
-                    Progress(duel);
-                }
-            }
-            else if (duel.ResolvingSpells.Any())
-            {
-                if (_spellAbilitiesRetrieved)
-                {
-                    var spell = duel.ResolvingSpells.Peek();
-                    if (duel.GetContinuousEffects<ChargerEffect>(spell).Any())
-                    {
-                        _ = duel.ResolvingSpells.Pop();
-                        _ = duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel, null);
-                    }
-                    else
-                    {
-                        _ = duel.ResolvingSpells.Pop();
-                        _ = duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel, null);
-                    }
-                    _spellAbilitiesRetrieved = false;
-                }
-                else
-                {
-                    var resolvingSpell = duel.ResolvingSpells.Peek();
-                    foreach (var spellAbility in resolvingSpell.Abilities.OfType<SpellAbility>())
-                    {
-                        var ability = spellAbility.Copy() as SpellAbility;
-                        ability.Source = resolvingSpell.Id;
-                        ability.Owner = resolvingSpell.Owner;
-                        duel.ResolvingSpellAbilities.Enqueue(ability);
-                    }
-                    _spellAbilitiesRetrieved = true;
-                }
-                Progress(duel);
-            }
-        }
-
         private void CheckShieldTriggers(Duel duel)
         {
             foreach (var playerId in new List<Guid> { duel.CurrentTurn.ActivePlayer, duel.CurrentTurn.NonActivePlayer })
@@ -161,7 +109,6 @@ namespace DuelMastersModels.Steps
             PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
             GameEvents = new Queue<GameEvent>(step.GameEvents);
             UsedCards = step.UsedCards.ToList();
-            _spellAbilitiesRetrieved = step._spellAbilitiesRetrieved;
         }
 
         protected Step() { }
@@ -169,7 +116,6 @@ namespace DuelMastersModels.Steps
         public List<Card> UsedCards { get; } = new List<Card>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
-        private bool _spellAbilitiesRetrieved = false;
 
         public abstract Step Copy();
     }

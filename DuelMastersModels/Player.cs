@@ -1,5 +1,7 @@
 ﻿using Combinatorics.Collections;
+using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
@@ -245,8 +247,17 @@ namespace DuelMastersModels
         {
             Hand.Remove(spell);
             spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
-            duel.ResolvingSpells.Push(spell);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(Copy(), new Card(spell, true)));
+            foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
+            {
+                ability.Source = spell.Id;
+                ability.Owner = spell.Owner;
+                ability.Resolve(duel);
+            }
+            var effects = duel.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+            _ = effects.Any()
+                ? duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel, null)
+                : duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel, null);
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -287,7 +298,6 @@ namespace DuelMastersModels
                     return ManaZone;
                 case ZoneType.ShieldZone:
                     return ShieldZone;
-                case ZoneType.SpellStack:
                 case ZoneType.Anywhere:
                 default:
                     throw new InvalidOperationException();

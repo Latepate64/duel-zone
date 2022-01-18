@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DuelMastersModels.Zones
 {
-    public enum ZoneType { Anywhere, BattleZone, Deck, Graveyard, Hand, ManaZone, ShieldZone, SpellStack };
+    public enum ZoneType { Anywhere, BattleZone, Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
     /// <summary>
     /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone, graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own zones except for the battle zone which is shared by each player.

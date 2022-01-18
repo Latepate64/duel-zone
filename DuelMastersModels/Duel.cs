@@ -56,11 +56,7 @@ namespace DuelMastersModels
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
         #endregion Properties
 
-        #region Fields
-        internal Stack<Card> ResolvingSpells = new Stack<Card>();
-        internal Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
         internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
-        #endregion Fields
 
         #region Methods
         public Duel() { }
@@ -73,8 +69,6 @@ namespace DuelMastersModels
             InitialNumberOfShields = duel.InitialNumberOfShields;
             Losers = duel.Losers.Select(x => x.Copy()).ToList();
             Players = duel.Players.Select(x => x.Copy()).ToList();
-            ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
-            ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
             if (duel.Winner != null)
             {
                 Winner = duel.Winner.Copy();
@@ -113,12 +107,6 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 DelayedTriggeredAbilities.Clear();
-                ResolvingSpellAbilities = null;
-                foreach (var x in ResolvingSpells)
-                {
-                    x.Dispose();
-                }
-                ResolvingSpells = null;
                 foreach (var x in Turns)
                 {
                     x.Dispose();
@@ -231,9 +219,7 @@ namespace DuelMastersModels
 
         public IEnumerable<Card> GetAllCards()
         {
-            var cards = Players.SelectMany(x => x.AllCards).ToList();
-            cards.AddRange(ResolvingSpells);
-            return cards;
+            return Players.SelectMany(x => x.AllCards).ToList();
         }
 
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
@@ -359,7 +345,6 @@ namespace DuelMastersModels
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.SpellStack));
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
