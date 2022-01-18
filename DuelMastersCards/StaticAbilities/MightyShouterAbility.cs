@@ -37,12 +37,11 @@ namespace DuelMastersCards.StaticAbilities
             return new MightyShouterAbilityEffect(this);
         }
 
-        public override void Replace(Duel duel)
+        public override GameEvent Apply(Duel duel)
         {
-            duel.AwaitingEvents.RemoveAll(x => x.Id == EventToReplace.Id);
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
             newEvent.Destination = DuelMastersModels.Zones.ZoneType.ManaZone;
-            duel.AwaitingEvents.Add(newEvent);
+            return newEvent;
         }
 
         public override bool Replaceable(GameEvent gameEvent, Duel duel)

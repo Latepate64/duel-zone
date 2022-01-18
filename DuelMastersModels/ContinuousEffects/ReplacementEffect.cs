@@ -27,6 +27,6 @@ namespace DuelMastersModels.ContinuousEffects
 
         public abstract bool Replaceable(GameEvent gameEvent, Duel duel);
 
-        public abstract void Replace(Duel duel);
+        public abstract GameEvent Apply(Duel duel);
     }
 }

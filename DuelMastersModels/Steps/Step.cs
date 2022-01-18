@@ -30,23 +30,6 @@ namespace DuelMastersModels.Steps
             }
             else if (duel.Players.Any())
             {
-                //if (PendingReplacementEffects.Any())
-                //{
-                //    PendingReplacementEffect = PendingReplacementEffects.Single(x => x.Id == (decision as GuidDecision).Decision.Single());
-                //    PendingReplacementEffects.Clear();
-                //    Progress(duel);
-                //}
-                //else if (PendingReplacementEffect != null)
-                //{
-                //    PendingReplacementEffect.Replace(duel);
-                //    UsedReplacementEffects.Add(PendingReplacementEffect.Id);
-                //    PendingReplacementEffect = null;
-                //    Progress(duel);
-                //}
-                //else if (duel.AwaitingEvents.Any())
-                //{
-                //    CheckAwaitingEvents(duel);
-                //}
                 ResolveSpells(duel);
                 CheckStateBasedActions(duel);
                 CheckShieldTriggers(duel);
@@ -201,49 +184,6 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        private void CheckAwaitingEvents(Duel duel)
-        {
-            var possibleReplacementEffects = duel.GetAllCards().SelectMany(x => duel.GetContinuousEffects<ReplacementEffect>(x)).Where(x => !UsedReplacementEffects.Contains(x.Id));
-            var replacementEffects = new List<ReplacementEffect>();
-            foreach (var awaiting in duel.AwaitingEvents)
-            {
-                foreach (var replacementEffect in possibleReplacementEffects.Where(x => x.Replaceable(awaiting, duel)))
-                {
-                    var effect = replacementEffect.Copy() as ReplacementEffect;
-                    effect.EventToReplace = awaiting.Copy();
-                    replacementEffects.Add(effect);
-                }
-            }
-            foreach (var effects in replacementEffects.GroupBy(x => x.Controller))
-            {
-                // 616.1. If two or more replacement and/or prevention effects are attempting to modify the way an event affects an object or player, the affected object’s controller (or its owner if it has no controller) or the affected player chooses one to apply, following the steps listed below. If two or more players have to make these choices at the same time, choices are made in APNAP order (see rule 101.4).
-                if (effects.Count() > 1)
-                {
-                    // 616.1d Any of the applicable replacement and/or prevention effects may be chosen.
-                    //PendingReplacementEffects = effects.ToList();
-                    //return new GuidSelection(effects.Key, effects.Select(x => x.Id), 1, 1);
-
-                    PendingReplacementEffect = effects.First();
-                    Progress(duel);
-                    return;
-                }
-                else if (effects.Any())
-                {
-                    PendingReplacementEffect = effects.Single();
-                    Progress(duel);
-                    return;
-                }
-            }
-            foreach (var awaiting in duel.AwaitingEvents)
-            {
-                awaiting.Apply(duel);
-                duel.Trigger(awaiting);
-            }
-            duel.AwaitingEvents.Clear();
-            UsedReplacementEffects.Clear();
-            Progress(duel);
-        }
-
         protected Step(Step step)
         {
             PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
@@ -251,9 +191,6 @@ namespace DuelMastersModels.Steps
             GameEvents = new Queue<GameEvent>(step.GameEvents);
             UsedCards = step.UsedCards.ToList();
             _spellAbilitiesRetrieved = step._spellAbilitiesRetrieved;
-            PendingReplacementEffect = step.PendingReplacementEffect?.Copy() as ReplacementEffect;
-            PendingReplacementEffects = step.PendingReplacementEffects.Select(x => x.Copy()).Cast<ReplacementEffect>().ToList();
-            UsedReplacementEffects = step.UsedReplacementEffects;
         }
 
         protected Step() { }
@@ -261,9 +198,6 @@ namespace DuelMastersModels.Steps
         public List<Card> UsedCards { get; } = new List<Card>();
         internal ResolvableAbility ResolvingAbility { get; set; }
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
-        public ReplacementEffect PendingReplacementEffect { get; set; }
-        public List<ReplacementEffect> PendingReplacementEffects { get; internal set; } = new List<ReplacementEffect>();
-        public List<Guid> UsedReplacementEffects { get; internal set; } = new List<Guid>();
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
         private bool _spellAbilitiesRetrieved = false;
 

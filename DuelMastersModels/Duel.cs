@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
@@ -53,8 +54,6 @@ namespace DuelMastersModels
         public Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
-
-        public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
         #endregion Properties
 
         #region Fields
@@ -68,7 +67,6 @@ namespace DuelMastersModels
 
         public Duel(Duel duel)
         {
-            AwaitingEvents = duel.AwaitingEvents.Select(x => x.Copy()).ToList();
             DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
@@ -407,7 +405,49 @@ namespace DuelMastersModels
         /// <returns></returns>
         public void Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            AwaitingEvents.AddRange(cards.Select(card => new CardMovedEvent(card.Owner, card.Id, source, destination)));
+            Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
+        }
+
+        private void Move(List<CardMovedEvent> events)
+        {
+            // TODO: Sort players by turn order
+            var effects = GetReplacementEffects(events);
+            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.Card).GroupBy(x => GetCard(x).Owner);
+            foreach (var cardGroup in affectedCardGroups)
+            {
+                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).Card));
+                var player = GetPlayer(cardGroup.Key);
+                var effectGuid = effectGroups.Count() > 1
+                    ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
+                    : effectGroups.Select(x => x.Id).Single();
+                var effect = effectGroups.Single(x => x.Id == effectGuid);
+                var newEvent = effect.Apply(this);
+                if (newEvent != null)
+                {
+                    events = events.Where(x => x.Id != effect.EventToReplace.Id).ToList();
+                    events.Add(newEvent as CardMovedEvent);
+                }
+            }
+            foreach (var e in events)
+            {
+                e.Apply(this);
+                Trigger(e);
+            }
+        }
+
+        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<CardMovedEvent> events)
+        {
+            var replacementEffects = new List<ReplacementEffect>();
+            foreach (var moveEvent in events)
+            {
+                foreach (var replacementEffect in GetAllCards().SelectMany(x => GetContinuousEffects<ReplacementEffect>(x)).Where(x => x.Replaceable(moveEvent, this)))
+                {
+                    var effect = replacementEffect.Copy() as ReplacementEffect;
+                    effect.EventToReplace = moveEvent.Copy();
+                    replacementEffects.Add(effect);
+                }
+            }
+            return replacementEffects;
         }
 
         public void Discard(IEnumerable<Card> cards)

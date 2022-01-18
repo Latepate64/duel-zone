@@ -37,14 +37,17 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override void Replace(Duel duel)
+        public override GameEvent Apply(Duel duel)
         {
             if (duel.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
             {
-                duel.AwaitingEvents.RemoveAll(x => x.Id == EventToReplace.Id);
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;
                 newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;
-                duel.AwaitingEvents.Add(newEvent);
+                return newEvent;
+            }
+            else
+            {
+                return null;
             }
         }
 
