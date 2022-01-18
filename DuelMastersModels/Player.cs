@@ -18,12 +18,15 @@ namespace DuelMastersModels
 
         public string Name { get; set; }
 
+        public abstract CardUsageDecision Choose(CardUsageChoice cardUsageChoice);
+
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         public Deck Deck { get; set; }
 
         public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
+        public abstract AttackerDecision Choose(AttackerChoice attackerChoice);
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -209,7 +212,7 @@ namespace DuelMastersModels
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
             return Hand.Cards.Distinct(new CardComparer()).
-                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count()).
+                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations)).
                 GroupBy(
                     card => card.Id,
                     card => new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations)).Select(x => x.Select(y => y.Id)));

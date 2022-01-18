@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
+﻿using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace DuelMastersModels.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
             var attackingCreature = duel.GetPermanent(AttackingCreature);
             var controller = duel.GetPlayer(attackingCreature.Owner);

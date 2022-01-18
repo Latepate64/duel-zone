@@ -37,13 +37,9 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override void Replace(Duel duel, Decision decision)
+        public override void Replace(Duel duel)
         {
-            if (decision == null)
-            {
-                duel.SetAwaitingChoice(new YesNoChoice(Controller));
-            }
-            else if ((decision as YesNoDecision).Decision)
+            if (duel.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
             {
                 duel.AwaitingEvents.RemoveAll(x => x.Id == EventToReplace.Id);
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;

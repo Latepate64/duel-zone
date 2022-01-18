@@ -17,22 +17,16 @@ namespace DuelMastersModels.Steps
             return new MainStep();
         }
 
-        protected internal override void PerformPriorityAction(Decision decision, Duel duel)
+        protected internal override bool PerformPriorityAction(Duel duel)
         {
-            if (decision == null)
+            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            var dec = player.Choose(new GuidSelection(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
+            var cards = dec.Decision;
+            if (cards.Any())
             {
-                duel.SetAwaitingChoice(new GuidSelection(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
+                duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
             }
-            else
-            {
-                //duel.ClearAwaitingChoice();
-                var cards = (decision as GuidDecision).Decision;
-                if (cards.Any())
-                {
-                    duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
-                }
-                PassPriority = true;
-            }
+            return true;
         }
 
         public override Step Copy()

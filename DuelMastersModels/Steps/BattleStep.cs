@@ -33,7 +33,7 @@ namespace DuelMastersModels.Steps
             TargetCreature = step.TargetCreature;
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
             duel.Battle(AttackingCreature, TargetCreature);
         }

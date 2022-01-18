@@ -64,7 +64,7 @@ namespace DuelMastersCards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override void Replace(Duel duel, Decision decision)
+        public override void Replace(Duel duel)
         {
             throw new System.NotImplementedException();
         }

@@ -16,27 +16,20 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
-            if (decision == null)
+            var activePlayer = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            var attackers = activePlayer.BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel) && GetPossibleAttackTargets(c, duel).Any()).Distinct(new CardComparer());
+            var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
+            var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
+            var targets = options.SelectMany(x => x).SelectMany(x => x);
+            if (targets.Any())
             {
-                var attackers = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel)).Distinct(new CardComparer());
-                var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
-                var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
-                var targets = options.SelectMany(x => x).SelectMany(x => x);
-                if (targets.Any())
+                var dec = activePlayer.Choose(new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
+                if (dec.Decision != null)
                 {
-                    duel.SetAwaitingChoice(new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
-                }
-            }
-            else
-            {
-                //duel.ClearAwaitingChoice();
-                var attackerChoice = decision as AttackerDecision;
-                if (attackerChoice.Decision != null)
-                {
-                    AttackingCreature = attackerChoice.Decision.Item1;
-                    AttackTarget = attackerChoice.Decision.Item2;
+                    AttackingCreature = dec.Decision.Item1;
+                    AttackTarget = dec.Decision.Item2;
                     var attacker = duel.GetPermanent(AttackingCreature);
                     attacker.Tapped = true;
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();

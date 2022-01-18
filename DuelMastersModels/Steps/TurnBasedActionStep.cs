@@ -1,10 +1,8 @@
-﻿using DuelMastersModels.Choices;
-
-namespace DuelMastersModels.Steps
+﻿namespace DuelMastersModels.Steps
 {
     public abstract class TurnBasedActionStep : Step
     {
-        public abstract void PerformTurnBasedAction(Duel duel, Decision decision);
+        public abstract void PerformTurnBasedAction(Duel duel);
 
         protected TurnBasedActionStep() : base() { }
         protected TurnBasedActionStep(TurnBasedActionStep step) : base(step) { }

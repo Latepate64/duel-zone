@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
@@ -56,8 +55,6 @@ namespace DuelMastersModels
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
 
         public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
-
-        public Choice AwaitingChoice { get; private set; }
         #endregion Properties
 
         #region Fields
@@ -86,7 +83,6 @@ namespace DuelMastersModels
             }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
-            AwaitingChoice = duel.AwaitingChoice;
         }
 
         public override string ToString()
@@ -138,7 +134,7 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice Start(Player startingPlayer, Player otherPlayer)
+        public void Play(Player startingPlayer, Player otherPlayer)
         {
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
@@ -158,10 +154,19 @@ namespace DuelMastersModels
             startingPlayer.DrawCards(InitialNumberOfHandCards, this);
             otherPlayer.DrawCards(InitialNumberOfHandCards, this);
 
-            return StartNewTurn(startingPlayer.Id, otherPlayer.Id);
+            var activePlayer = startingPlayer;
+            var nonActivePlayer = otherPlayer;
+            while (Players.Count > 1)
+            {
+                StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
+                var tmp1 = activePlayer;
+                var tmp2 = nonActivePlayer;
+                activePlayer = tmp2;
+                nonActivePlayer = tmp1;
+            }
         }
 
-        private Choice StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
+        private void StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
         {
             if (ExtraTurns.Any())
             {
@@ -171,20 +176,7 @@ namespace DuelMastersModels
             {
                 Turns.Add(new Turn { ActivePlayer = activePlayer, NonActivePlayer = nonActivePlayer });
             }
-            return Turns.Last().Start(this, Turns.Count);
-        }
-
-        public Choice Continue(Decision decision)
-        {
-            var choiceVar = CurrentTurn.Continue(decision, this);
-            if (choiceVar == null && Players.Count > 1)
-            {
-                return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
-            }
-            else
-            {
-                return choiceVar;
-            }
+            Turns.Last().Play(this, Turns.Count);
         }
 
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
@@ -438,16 +430,6 @@ namespace DuelMastersModels
                     card.ShieldTriggerPending = true;
                 }
             }
-        }
-
-        public void SetAwaitingChoice(Choice choice)
-        {
-            AwaitingChoice = AwaitingChoice == null ? choice : throw new InvalidOperationException();
-        }
-
-        public void ClearAwaitingChoice()
-        {
-            AwaitingChoice = AwaitingChoice != null ? (Choice)null : throw new InvalidOperationException();
         }
         #endregion Methods
     }

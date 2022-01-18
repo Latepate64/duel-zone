@@ -25,7 +25,7 @@ namespace DuelMastersModels.Steps
             return new EndOfTurnStep(this);
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
             _ = duel.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
             duel.Trigger(new TurnEndsEvent(duel.CurrentTurn));

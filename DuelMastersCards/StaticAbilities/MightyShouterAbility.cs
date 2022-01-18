@@ -37,7 +37,7 @@ namespace DuelMastersCards.StaticAbilities
             return new MightyShouterAbilityEffect(this);
         }
 
-        public override void Replace(Duel duel, Decision decision)
+        public override void Replace(Duel duel)
         {
             duel.AwaitingEvents.RemoveAll(x => x.Id == EventToReplace.Id);
             var newEvent = EventToReplace.Copy() as CardMovedEvent;

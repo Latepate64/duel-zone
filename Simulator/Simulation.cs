@@ -69,9 +69,8 @@ namespace Simulator
             {
                 var currentChoice = new YesNoDecision(option);
                 using var duelCopy = new Duel(duel);
-                var newChoice = duelCopy.Continue(currentChoice);
                 _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(yesNo, decisions);
         }
@@ -88,9 +87,8 @@ namespace Simulator
             {
                 var currentChoice = new EnumDecision(option);
                 using var duelCopy = new Duel(duel);
-                var newChoice = duelCopy.Continue(currentChoice);
                 _optionsRemaining -= options.Count();
-                var foo = Choose(newChoice, duelCopy, currentChoice, numberOfChoicesMade + 1);
+                var foo = Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1);
                 decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
             }
             return Choose(choice, decisions);
@@ -107,9 +105,8 @@ namespace Simulator
             {
                 var currentChoice = new AttackerDecision(option);
                 using var duelCopy = new Duel(duel);
-                var newChoice = duelCopy.Continue(currentChoice);
                 _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(attackerChoice, decisions);
         }
@@ -124,9 +121,8 @@ namespace Simulator
             {
                 var currentChoice = new CardUsageDecision(option);
                 using var duelCopy = new Duel(duel);
-                var newChoice = duelCopy.Continue(currentChoice);
                 _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(newChoice, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
+                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(usage, decisions);
         }
@@ -142,9 +138,8 @@ namespace Simulator
             {
                 var newDecision = new GuidDecision(option);
                 using var duelCopy = new Duel(duel);
-                var newChoice = duelCopy.Continue(newDecision);
                 _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(newDecision, Choose(newChoice, duelCopy, newDecision, numberOfChoicesMade + 1).Item2));
+                decisions.Add(new Tuple<Decision, int>(newDecision, Choose(null, duelCopy, newDecision, numberOfChoicesMade + 1).Item2));
             }
             return Choose(selection, decisions);
         }
