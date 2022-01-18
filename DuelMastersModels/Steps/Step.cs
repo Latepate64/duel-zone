@@ -33,8 +33,7 @@ namespace DuelMastersModels.Steps
                 ResolveSpells(duel);
                 CheckStateBasedActions(duel);
                 CheckShieldTriggers(duel);
-                SelectAbility(duel);
-                ResolveAbility(duel);
+                ResolveAbilities(duel);
                 if (this is PriorityStep priorityStep && !priorityStep.PerformPriorityAction(duel))
                 {
                     Progress(duel);
@@ -42,44 +41,17 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        private void ResolveAbility(Duel duel)
+        private void ResolveAbilities(Duel duel)
         {
-            if (ResolvingAbility != null && !ResolvingAbility.FinishResolution)
+            var abilityGroups = PendingAbilities.GroupBy(x => x.Owner);
+            while (abilityGroups.Any())
             {
-                ResolvingAbility.Resolve(duel);
-                ResolvingAbility.FinishResolution = true;
-                Progress(duel);
-            }
-            else
-            {
-                ResolvingAbility = null;
-            }
-        }
-
-        private void SelectAbility(Duel duel)
-        {
-            var activeAbilities = PendingAbilities.Where(a => a.Owner == duel.CurrentTurn.ActivePlayer);
-            if (activeAbilities.Count() == 1)
-            {
-                ResolvingAbility = activeAbilities.Single();
-                _ = PendingAbilities.Remove(ResolvingAbility);
-            }
-            else if (activeAbilities.Any())
-            {
-                throw new NotImplementedException("TODO: return choice for ability to resolve");
-            }
-            else
-            {
-                var nonActiveAbilities = PendingAbilities.Where(a => a.Owner == duel.CurrentTurn.NonActivePlayer);
-                if (nonActiveAbilities.Count() == 1)
-                {
-                    ResolvingAbility = nonActiveAbilities.Single();
-                    _ = PendingAbilities.Remove(ResolvingAbility);
-                }
-                else if (nonActiveAbilities.Any())
-                {
-                    throw new NotImplementedException("TODO: return choice for ability to resolve");
-                }
+                var abilities = abilityGroups.First();
+                var player = duel.GetPlayer(abilities.Key);
+                var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                var ability = abilities.Single(x => x.Id == decision);
+                ability.Resolve(duel);
+                _ = PendingAbilities.Remove(ability);
             }
         }
 
@@ -187,7 +159,6 @@ namespace DuelMastersModels.Steps
         protected Step(Step step)
         {
             PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
-            ResolvingAbility = step.ResolvingAbility?.Copy() as ResolvableAbility;
             GameEvents = new Queue<GameEvent>(step.GameEvents);
             UsedCards = step.UsedCards.ToList();
             _spellAbilitiesRetrieved = step._spellAbilitiesRetrieved;
@@ -196,7 +167,6 @@ namespace DuelMastersModels.Steps
         protected Step() { }
 
         public List<Card> UsedCards { get; } = new List<Card>();
-        internal ResolvableAbility ResolvingAbility { get; set; }
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
         private bool _spellAbilitiesRetrieved = false;
