@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
@@ -14,7 +14,7 @@ namespace DuelMastersCards.Cards
             Abilities.Add(new CannotAttackCreaturesAbility());
             Abilities.Add(new CannotAttackPlayersAbility());
             var targetFilter = new TargetFilter();
-            Abilities.Add(new WinBattleAbility(new DestroyCreaturesResolvable(targetFilter), targetFilter));
+            Abilities.Add(new WinBattleAbility(new DestroyCreaturesEffect(targetFilter), targetFilter));
         }
     }
 }

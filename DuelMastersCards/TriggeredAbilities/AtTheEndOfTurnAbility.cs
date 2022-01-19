@@ -9,7 +9,7 @@ namespace DuelMastersCards.TriggeredAbilities
     {
         public Guid Turn { get; }
 
-        public AtTheEndOfTurnAbility(Guid turn, Resolvable resolvable) : base(resolvable)
+        public AtTheEndOfTurnAbility(Guid turn, OneShotEffect effect) : base(effect)
         {
             Turn = turn;
         }

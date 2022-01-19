@@ -8,7 +8,7 @@ namespace DuelMastersCards.TriggeredAbilities
     {
         public CardFilter Filter { get; }
 
-        public WinBattleAbility(Resolvable resolvable, CardFilter filter) : base(resolvable)
+        public WinBattleAbility(OneShotEffect effect, CardFilter filter) : base(effect)
         {
             Filter = filter;
         }

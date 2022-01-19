@@ -7,7 +7,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class AtTheEndOfYourTurnAbility : TriggeredAbility
     {
-        public AtTheEndOfYourTurnAbility(Resolvable resolvable) : base(resolvable)
+        public AtTheEndOfYourTurnAbility(OneShotEffect effect) : base(effect)
         {
         }
 

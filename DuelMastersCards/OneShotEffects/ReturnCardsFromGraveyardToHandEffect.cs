@@ -3,31 +3,31 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class ReturnCardsFromGraveyardToHandResolvable : Resolvable
+    public class ReturnCardsFromGraveyardToHandEffect : OneShotEffect
     {
         public int Maximum { get; }
         CardFilter Filter { get; }
 
-        public ReturnCardsFromGraveyardToHandResolvable(int maximum, CardFilter filter)
+        public ReturnCardsFromGraveyardToHandEffect(int maximum, CardFilter filter)
         {
             Maximum = maximum;
             Filter = filter;
         }
 
-        public ReturnCardsFromGraveyardToHandResolvable(ReturnCardsFromGraveyardToHandResolvable resolvable) : base(resolvable)
+        public ReturnCardsFromGraveyardToHandEffect(ReturnCardsFromGraveyardToHandEffect effect) : base(effect)
         {
-            Maximum = resolvable.Maximum;
-            Filter = resolvable.Filter;
+            Maximum = effect.Maximum;
+            Filter = effect.Filter;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new ReturnCardsFromGraveyardToHandResolvable(this);
+            return new ReturnCardsFromGraveyardToHandEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));

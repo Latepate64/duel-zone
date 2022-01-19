@@ -3,24 +3,24 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class SniperMosquitoResolvable : Resolvable
+    public class SniperMosquitoEffect : OneShotEffect
     {
-        public SniperMosquitoResolvable() : base()
+        public SniperMosquitoEffect() : base()
         {
         }
 
-        public SniperMosquitoResolvable(SniperMosquitoResolvable ability) : base(ability)
+        public SniperMosquitoEffect(SniperMosquitoEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new SniperMosquitoResolvable(this);
+            return new SniperMosquitoEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // Return a card from your mana zone to your hand.
             var controller = duel.GetPlayer(Controller);

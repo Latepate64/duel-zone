@@ -2,7 +2,7 @@
 {
     public class TapAbility : ActivatedAbility, IAttackable
     {
-        public TapAbility(Resolvable resolvable) : base(resolvable)
+        public TapAbility(OneShotEffect effect) : base(effect)
         {
         }
 

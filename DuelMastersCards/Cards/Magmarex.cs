@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public Magmarex() : base("Magmarex", 5, Civilization.Fire, 3000, Subtype.RockBeast)
         {
             ShieldTrigger = true;
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyCreaturesResolvable(new CreaturesWithPowerFilter(1000))));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyCreaturesEffect(new CreaturesWithPowerFilter(1000))));
         }
     }
 }

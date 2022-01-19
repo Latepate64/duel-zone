@@ -3,24 +3,24 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class EmeralResolvable : Resolvable
+    public class EmeralEffect : OneShotEffect
     {
-        public EmeralResolvable(EmeralResolvable ability) : base(ability)
+        public EmeralEffect(EmeralEffect effect) : base(effect)
         {
         }
 
-        public EmeralResolvable() : base()
+        public EmeralEffect() : base()
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new EmeralResolvable(this);
+            return new EmeralEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // You may add a card from your hand to your shields face down.
             var controller = duel.GetPlayer(Controller);

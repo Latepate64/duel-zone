@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public Corile() : base("Corile", 5, Civilization.Water, 2000, Subtype.CyberLord)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileResolvable()));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect()));
         }
     }
 }

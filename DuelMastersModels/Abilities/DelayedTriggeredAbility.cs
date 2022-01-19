@@ -13,8 +13,8 @@ namespace DuelMastersModels.Abilities
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
             TriggeredAbility.Owner = owner;
-            TriggeredAbility.Resolvable.Source = source;
-            TriggeredAbility.Resolvable.Controller = owner;
+            TriggeredAbility.OneShotEffect.Source = source;
+            TriggeredAbility.OneShotEffect.Controller = owner;
             Duration = duration;
         }
 

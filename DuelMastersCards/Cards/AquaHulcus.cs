@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public AquaHulcus() : base("Aqua Hulcus", 3, Civilization.Water, 2000, Subtype.LiquidPeople)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardsResolvable(1)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardsEffect(1)));
         }
     }
 }

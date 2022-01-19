@@ -2,32 +2,29 @@
 {
     public abstract class ResolvableAbility : Ability
     {
-        public Resolvable Resolvable { get; set; }
+        public OneShotEffect OneShotEffect { get; set; }
 
-        public bool FinishResolution { get; set; }
-
-        protected ResolvableAbility(Resolvable resolvable) : base()
+        protected ResolvableAbility(OneShotEffect effect) : base()
         {
-            Resolvable = resolvable;
+            OneShotEffect = effect;
         }
 
         protected ResolvableAbility(ResolvableAbility ability) : base(ability)
         {
-            Resolvable = ability.Resolvable.Copy();
-            FinishResolution = ability.FinishResolution;
+            OneShotEffect = ability.OneShotEffect.Copy();
         }
 
         public void Resolve(Duel duel)
         {
-            Resolvable.Resolve(duel);
+            OneShotEffect.Apply(duel);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                Resolvable.Dispose();
-                Resolvable = null;
+                OneShotEffect.Dispose();
+                OneShotEffect = null;
             }
         }
     }

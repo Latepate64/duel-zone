@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public Teleportation() : base("Teleportation", 5, Civilization.Water)
         {
-            Abilities.Add(new SpellAbility(new AquaSurferResolvable(2)));
+            Abilities.Add(new SpellAbility(new AquaSurferEffect(2)));
         }
     }
 }

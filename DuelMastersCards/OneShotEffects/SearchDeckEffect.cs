@@ -3,31 +3,31 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class SearchDeckResolvable : Resolvable
+    public class SearchDeckEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
         public bool Reveal { get; }
 
-        public SearchDeckResolvable(CardFilter filter, bool reveal)
+        public SearchDeckEffect(CardFilter filter, bool reveal)
         {
             Filter = filter;
             Reveal = reveal;
         }
 
-        public SearchDeckResolvable(SearchDeckResolvable resolvable) : base(resolvable)
+        public SearchDeckEffect(SearchDeckEffect effect) : base(effect)
         {
-            Filter = resolvable.Filter;
-            Reveal = resolvable.Reveal;
+            Filter = effect.Filter;
+            Reveal = effect.Reveal;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new SearchDeckResolvable(this);
+            return new SearchDeckEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var cards = player.Deck.Cards.Where(x => Filter.Applies(x, duel));

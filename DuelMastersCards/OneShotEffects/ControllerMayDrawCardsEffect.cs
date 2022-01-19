@@ -2,30 +2,30 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class ControllerMayDrawCardsResolvable : Resolvable
+    public class ControllerMayDrawCardsEffect : OneShotEffect
     {
         public int Maximum { get; }
 
         private int _drawn;
 
-        public ControllerMayDrawCardsResolvable(int maximum) : base()
+        public ControllerMayDrawCardsEffect(int maximum) : base()
         {
             Maximum = maximum;
         }
 
-        public ControllerMayDrawCardsResolvable(ControllerMayDrawCardsResolvable ability) : base(ability)
+        public ControllerMayDrawCardsEffect(ControllerMayDrawCardsEffect effect) : base(effect)
         {
-            Maximum = ability.Maximum;
+            Maximum = effect.Maximum;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new ControllerMayDrawCardsResolvable(this);
+            return new ControllerMayDrawCardsEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var decision = player.Choose(new YesNoChoice(Controller));
@@ -34,7 +34,7 @@ namespace DuelMastersCards.Resolvables
                 player.DrawCards(1, duel);
                 if (++_drawn < Maximum)
                 {
-                    Resolve(duel);
+                    Apply(duel);
                 }
             }
         }

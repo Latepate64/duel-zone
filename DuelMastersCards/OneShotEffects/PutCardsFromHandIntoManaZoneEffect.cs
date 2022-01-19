@@ -3,28 +3,28 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class PutCardsFromHandIntoManaZoneResolvable : Resolvable
+    public class PutCardsFromHandIntoManaZoneEffect : OneShotEffect
     {
         public int Amount { get; set; }
 
-        public PutCardsFromHandIntoManaZoneResolvable(int amount)
+        public PutCardsFromHandIntoManaZoneEffect(int amount)
         {
             Amount = amount;
         }
 
-        public PutCardsFromHandIntoManaZoneResolvable(PutCardsFromHandIntoManaZoneResolvable resolvable) : base(resolvable)
+        public PutCardsFromHandIntoManaZoneEffect(PutCardsFromHandIntoManaZoneEffect effect) : base(effect)
         {
-            Amount = resolvable.Amount;
+            Amount = effect.Amount;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new PutCardsFromHandIntoManaZoneResolvable(this);
+            return new PutCardsFromHandIntoManaZoneEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var cards = player.Hand.Cards;

@@ -6,7 +6,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class WheneverThisCreatureAttacksAbility : TriggeredAbility
     {
-        public WheneverThisCreatureAttacksAbility(Resolvable resolvable) : base(resolvable)
+        public WheneverThisCreatureAttacksAbility(OneShotEffect effect) : base(effect)
         {
         }
 

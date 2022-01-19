@@ -3,28 +3,28 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class ControllerPutsCardsFromGraveyardIntoManaZoneResolvable : Resolvable
+    public class ControllerPutsCardsFromGraveyardIntoManaZoneEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
 
-        public ControllerPutsCardsFromGraveyardIntoManaZoneResolvable(CardFilter filter)
+        public ControllerPutsCardsFromGraveyardIntoManaZoneEffect(CardFilter filter)
         {
             Filter = filter;
         }
 
-        public ControllerPutsCardsFromGraveyardIntoManaZoneResolvable(ControllerPutsCardsFromGraveyardIntoManaZoneResolvable resolvable) : base(resolvable)
+        public ControllerPutsCardsFromGraveyardIntoManaZoneEffect(ControllerPutsCardsFromGraveyardIntoManaZoneEffect effect) : base(effect)
         {
-            Filter = resolvable.Filter;
+            Filter = effect.Filter;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new ControllerPutsCardsFromGraveyardIntoManaZoneResolvable(this);
+            return new ControllerPutsCardsFromGraveyardIntoManaZoneEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));

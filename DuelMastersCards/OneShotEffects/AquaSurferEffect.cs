@@ -3,28 +3,28 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class AquaSurferResolvable : Resolvable
+    public class AquaSurferEffect : OneShotEffect
     {
         public int MaximumAmount { get; }
 
-        public AquaSurferResolvable(int maximumAmount) : base()
+        public AquaSurferEffect(int maximumAmount) : base()
         {
             MaximumAmount = maximumAmount;
         }
 
-        public AquaSurferResolvable(AquaSurferResolvable ability) : base(ability)
+        public AquaSurferEffect(AquaSurferEffect effect) : base(effect)
         {
-            MaximumAmount = ability.MaximumAmount;
+            MaximumAmount = effect.MaximumAmount;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new AquaSurferResolvable(this);
+            return new AquaSurferEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // You may choose a creature in the battle zone and return it to its owner's hand.
             var player = duel.GetPlayer(Controller);

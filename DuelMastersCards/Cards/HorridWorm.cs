@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public HorridWorm() : base("Horrid Worm", 3, Civilization.Darkness, 2000, Subtype.ParasiteWorm)
         {
-            Abilities.Add(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardResolvable()));
+            Abilities.Add(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

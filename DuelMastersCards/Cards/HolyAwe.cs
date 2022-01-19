@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
         public HolyAwe() : base("Holy Awe", 6, Civilization.Light)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new HolyAweResolvable()));
+            Abilities.Add(new SpellAbility(new HolyAweEffect()));
         }
     }
 }

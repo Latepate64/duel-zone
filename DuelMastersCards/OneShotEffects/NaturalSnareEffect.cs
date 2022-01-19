@@ -3,24 +3,24 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    class NaturalSnareResolvable : Resolvable
+    class NaturalSnareEffect : OneShotEffect
     {
-        public NaturalSnareResolvable()
+        public NaturalSnareEffect()
         {
         }
 
-        public NaturalSnareResolvable(Resolvable resolvable) : base(resolvable)
+        public NaturalSnareEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new NaturalSnareResolvable(this);
+            return new NaturalSnareEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var opponent = duel.GetOpponent(player);

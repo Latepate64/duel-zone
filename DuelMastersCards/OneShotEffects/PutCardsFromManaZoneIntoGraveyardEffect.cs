@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
     public enum ZoneOwner { Controller, Opponent }
 
-    public class PutCardsFromManaZoneIntoGraveyardResolvable : Resolvable
+    public class PutCardsFromManaZoneIntoGraveyardEffect : OneShotEffect
     {
         public int Minimum { get; }
 
@@ -17,26 +17,26 @@ namespace DuelMastersCards.Resolvables
 
         public ZoneOwner ZoneOwner { get; }
 
-        public PutCardsFromManaZoneIntoGraveyardResolvable(int minimum, int maximum, ZoneOwner zoneOwner)
+        public PutCardsFromManaZoneIntoGraveyardEffect(int minimum, int maximum, ZoneOwner zoneOwner)
         {
             Minimum = minimum;
             Maximum = maximum;
             ZoneOwner = zoneOwner;
         }
 
-        public PutCardsFromManaZoneIntoGraveyardResolvable(PutCardsFromManaZoneIntoGraveyardResolvable resolvable) : base(resolvable)
+        public PutCardsFromManaZoneIntoGraveyardEffect(PutCardsFromManaZoneIntoGraveyardEffect effect) : base(effect)
         {
-            Minimum = resolvable.Minimum;
-            Maximum = resolvable.Maximum;
-            ZoneOwner = resolvable.ZoneOwner;
+            Minimum = effect.Minimum;
+            Maximum = effect.Maximum;
+            ZoneOwner = effect.ZoneOwner;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new PutCardsFromManaZoneIntoGraveyardResolvable(this);
+            return new PutCardsFromManaZoneIntoGraveyardEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = GetPlayer(duel);
             var cards = player.ManaZone.Cards;

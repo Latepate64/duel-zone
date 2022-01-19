@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public CraniumClamp() : base("Cranium Clamp", 4, Civilization.Darkness)
         {
-            Abilities.Add(new SpellAbility(new CraniumClampResolvable()));
+            Abilities.Add(new SpellAbility(new CraniumClampEffect()));
         }
     }
 }

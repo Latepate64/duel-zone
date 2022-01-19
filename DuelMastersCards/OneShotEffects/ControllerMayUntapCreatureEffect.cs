@@ -2,24 +2,24 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class ControllerMayUntapCreatureResolvable : Resolvable
+    public class ControllerMayUntapCreatureEffect : OneShotEffect
     {
-        public ControllerMayUntapCreatureResolvable()
+        public ControllerMayUntapCreatureEffect()
         {
         }
 
-        public ControllerMayUntapCreatureResolvable(ControllerMayUntapCreatureResolvable resolvable) : base(resolvable)
+        public ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new ControllerMayUntapCreatureResolvable(this);
+            return new ControllerMayUntapCreatureEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var decision = player.Choose(new YesNoChoice(Controller));

@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public PoisonousMushroom() : base("Poisonous Mushroom", 2, Civilization.Nature, 1000, Subtype.BalloonMushroom)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromHandIntoManaZoneResolvable(1)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromHandIntoManaZoneEffect(1)));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
     {
-        public HeartyCapnPolligonAbility(Resolvable resolvable) : base(resolvable)
+        public HeartyCapnPolligonAbility(OneShotEffect effect) : base(effect)
         {
         }
 

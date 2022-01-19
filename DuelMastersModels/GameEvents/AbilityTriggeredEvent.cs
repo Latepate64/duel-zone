@@ -13,7 +13,7 @@ namespace DuelMastersModels.GameEvents
 
         public override string ToString(Duel duel)
         {
-            return $"{Ability} triggered, {Ability.Resolvable} is waiting to be resolved.";
+            return $"{Ability} triggered, {Ability.OneShotEffect} is waiting to be resolved.";
         }
     }
 }

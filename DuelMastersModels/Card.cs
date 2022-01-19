@@ -180,8 +180,8 @@ namespace DuelMastersModels
                 }
                 else if (ability is ResolvableAbility resolvable)
                 {
-                    resolvable.Resolvable.Controller = Owner;
-                    resolvable.Resolvable.Source = Id;
+                    resolvable.OneShotEffect.Controller = Owner;
+                    resolvable.OneShotEffect.Source = Id;
                 }
             }
         }

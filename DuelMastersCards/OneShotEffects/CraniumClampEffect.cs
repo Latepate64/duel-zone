@@ -3,26 +3,26 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class CraniumClampResolvable : Resolvable
+    public class CraniumClampEffect : OneShotEffect
     {
         const int Amount = 2;
 
-        public CraniumClampResolvable()
+        public CraniumClampEffect()
         {
         }
 
-        public CraniumClampResolvable(Resolvable resolvable) : base(resolvable)
+        public CraniumClampEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new CraniumClampResolvable(this);
+            return new CraniumClampEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // Your opponent chooses and discards 2 cards from his hand.
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));

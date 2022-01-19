@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public SniperMosquito() : base("Sniper Mosquito", 1, Civilization.Nature, 2000, Subtype.GiantInsect)
         {
-            Abilities.Add(new WheneverThisCreatureAttacksAbility(new SniperMosquitoResolvable()));
+            Abilities.Add(new WheneverThisCreatureAttacksAbility(new SniperMosquitoEffect()));
         }
     }
 }

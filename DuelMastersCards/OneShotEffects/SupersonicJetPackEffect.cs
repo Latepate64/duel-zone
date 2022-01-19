@@ -6,24 +6,24 @@ using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    class SupersonicJetPackResolvable : Resolvable
+    class SupersonicJetPackEffect : OneShotEffect
     {
-        public SupersonicJetPackResolvable()
+        public SupersonicJetPackEffect()
         {
         }
 
-        public SupersonicJetPackResolvable(Resolvable resolvable) : base(resolvable)
+        public SupersonicJetPackEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new SupersonicJetPackResolvable(this);
+            return new SupersonicJetPackEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
             var player = duel.GetPlayer(Controller);

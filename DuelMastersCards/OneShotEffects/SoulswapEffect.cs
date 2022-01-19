@@ -2,28 +2,26 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class SoulswapResolvable : Resolvable
+    public class SoulswapEffect : OneShotEffect
     {
-        public SoulswapResolvable()
+        public SoulswapEffect()
         {
         }
 
-        public SoulswapResolvable(SoulswapResolvable resolvable) : base(resolvable)
+        public SoulswapEffect(SoulswapEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new SoulswapResolvable(this);
+            return new SoulswapEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // You may choose a creature in the battle zone and put it into its owner's mana zone.
             var player = duel.GetPlayer(Controller);

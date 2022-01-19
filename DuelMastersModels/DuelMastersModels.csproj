@@ -81,7 +81,7 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\ActivatedAbility.cs" />
-    <Compile Include="Abilities\Resolvable.cs" />
+    <Compile Include="Abilities\OneShotEffect.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\StaticAbility.cs" />

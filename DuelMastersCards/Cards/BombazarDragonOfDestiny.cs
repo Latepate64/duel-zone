@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             Abilities.Add(new SpeedAttackerAbility());
             Abilities.Add(new DoubleBreakerAbility());
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyResolvable()));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
         }
     }
 }

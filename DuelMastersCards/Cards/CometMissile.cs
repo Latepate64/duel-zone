@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new CreaturesWithMaxPowerFilter(6000), new BlockerFilter())));
+            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureEffect(new CreaturesWithMaxPowerFilter(6000), new BlockerFilter())));
         }
     }
 }

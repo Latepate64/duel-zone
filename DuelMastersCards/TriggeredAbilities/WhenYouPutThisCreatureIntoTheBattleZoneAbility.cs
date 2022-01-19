@@ -7,7 +7,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
     {
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(Resolvable resolvable) : base(resolvable)
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(OneShotEffect effect) : base(effect)
         {
         }
 

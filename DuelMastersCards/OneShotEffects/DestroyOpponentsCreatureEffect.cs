@@ -4,28 +4,28 @@ using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class DestroyOpponentsCreatureResolvable : Resolvable
+    public class DestroyOpponentsCreatureEffect : OneShotEffect
     {
         public List<CardFilter> Filters { get; }
 
-        public DestroyOpponentsCreatureResolvable(params CardFilter[] cardFilters)
+        public DestroyOpponentsCreatureEffect(params CardFilter[] cardFilters)
         {
             Filters = cardFilters.ToList();
         }
 
-        public DestroyOpponentsCreatureResolvable(DestroyOpponentsCreatureResolvable resolvable) : base(resolvable)
+        public DestroyOpponentsCreatureEffect(DestroyOpponentsCreatureEffect effect) : base(effect)
         {
-            Filters = resolvable.Filters;
+            Filters = effect.Filters;
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new DestroyOpponentsCreatureResolvable(this);
+            return new DestroyOpponentsCreatureEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
             var permanents = duel.GetOpponent(player).BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));

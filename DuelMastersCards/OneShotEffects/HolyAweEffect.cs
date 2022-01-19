@@ -1,25 +1,24 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    class HolyAweResolvable : Resolvable
+    class HolyAweEffect : OneShotEffect
     {
-        public HolyAweResolvable()
+        public HolyAweEffect()
         {
         }
 
-        public HolyAweResolvable(Resolvable resolvable) : base(resolvable)
+        public HolyAweEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new HolyAweResolvable(this);
+            return new HolyAweEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // Tap all your opponent's creatures in the battle zone.
             var opponent = duel.GetOpponent(duel.GetPlayer(Controller));

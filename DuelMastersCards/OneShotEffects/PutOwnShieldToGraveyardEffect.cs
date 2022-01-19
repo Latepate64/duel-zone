@@ -3,24 +3,24 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class PutOwnShieldToGraveyardResolvable : Resolvable
+    public class PutOwnShieldToGraveyardEffect : OneShotEffect
     {
-        public PutOwnShieldToGraveyardResolvable()
+        public PutOwnShieldToGraveyardEffect()
         {
         }
 
-        public PutOwnShieldToGraveyardResolvable(Resolvable resolvable) : base(resolvable)
+        public PutOwnShieldToGraveyardEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new PutOwnShieldToGraveyardResolvable(this);
+            return new PutOwnShieldToGraveyardEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             var controller = duel.GetPlayer(Controller);
             var shields = controller.ShieldZone.Cards;

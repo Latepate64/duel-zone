@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public SupersonicJetPack() : base("Supersonic Jet Pack", 1, Civilization.Fire)
         {
-            Abilities.Add(new SpellAbility(new SupersonicJetPackResolvable()));
+            Abilities.Add(new SpellAbility(new SupersonicJetPackEffect()));
         }
     }
 }

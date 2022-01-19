@@ -5,24 +5,24 @@ using DuelMastersModels.Choices;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    public class WindAxeTheWarriorSavageResolvable : Resolvable
+    public class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
-        public WindAxeTheWarriorSavageResolvable() : base()
+        public WindAxeTheWarriorSavageEffect() : base()
         {
         }
 
-        public WindAxeTheWarriorSavageResolvable(WindAxeTheWarriorSavageResolvable ability) : base(ability)
+        public WindAxeTheWarriorSavageEffect(WindAxeTheWarriorSavageEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new WindAxeTheWarriorSavageResolvable(this);
+            return new WindAxeTheWarriorSavageEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // Destroy one of your opponent's creatures that has "blocker."
             var controller = duel.GetPlayer(Controller);

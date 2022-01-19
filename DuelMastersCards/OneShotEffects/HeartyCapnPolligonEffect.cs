@@ -1,25 +1,24 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
 
 namespace DuelMastersCards.TriggeredAbilities
 {
-    public class HeartyCapnPolligonResolvable : Resolvable
+    public class HeartyCapnPolligonEffect : OneShotEffect
     {
-        public HeartyCapnPolligonResolvable() : base()
+        public HeartyCapnPolligonEffect() : base()
         {
         }
 
-        public HeartyCapnPolligonResolvable(HeartyCapnPolligonResolvable ability) : base(ability)
+        public HeartyCapnPolligonEffect(HeartyCapnPolligonEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new HeartyCapnPolligonResolvable(this);
+            return new HeartyCapnPolligonEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Duel duel)
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
             duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
