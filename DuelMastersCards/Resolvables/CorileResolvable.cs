@@ -29,7 +29,8 @@ namespace DuelMastersCards.Resolvables
             if (choosable.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
-                opponent.PutFromBattleZoneOnTopOfDeck(duel.GetPermanent(dec.Decision.Single()), duel);
+                var card = duel.GetPermanent(dec.Decision.Single());
+                duel.Move(card, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck);
             }
         }
     }

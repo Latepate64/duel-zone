@@ -152,16 +152,9 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                var card = RemoveTopCardOfDeck(duel);
-                ShieldZone.Add(card, duel);
-                var eve = new TopDeckCardPutIntoShieldZoneEvent(Copy(), new Card(card, true));
-                if (duel.Turns.Any())
+                if (Deck.Cards.Any())
                 {
-                    duel.Process(eve);
-                }
-                else
-                {
-                    duel.PreGameEvents.Enqueue(eve);
+                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
                 }
             }
         }
@@ -172,35 +165,14 @@ namespace DuelMastersModels
             _ = duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
-        /// <summary>
-        /// Removes the top card from a player's deck and returns it. Returns null if no cards are left in deck.
-        /// </summary>
-        public Card RemoveTopCardOfDeck(Duel duel)
-        {
-            return Deck.RemoveAndGetTopCard(duel);
-        }
-
         public void DrawCards(int amount, Duel duel)
         {
+            // 121.2.Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
-                Card drawnCard = RemoveTopCardOfDeck(duel);
-                if (drawnCard != null)
+                if (Deck.Cards.Any())
                 {
-                    Hand.Add(drawnCard, duel);
-                    var cardDrawnEvent = new CardDrawnEvent(Copy(), new Card(drawnCard, true));
-                    if (duel.Turns.Any())
-                    {
-                        duel.Process(cardDrawnEvent);
-                    }
-                    else
-                    {
-                        duel.PreGameEvents.Enqueue(cardDrawnEvent);
-                    }
-                }
-                else
-                {
-                    break;
+                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
                 }
             }
         }
@@ -238,9 +210,10 @@ namespace DuelMastersModels
 
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
-            var card = RemoveTopCardOfDeck(duel);
-            ManaZone.Add(card, duel);
-            duel.Process(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
+            if (Deck.Cards.Any())
+            {
+                duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+            }
         }
 
         internal void Cast(Card spell, Duel duel)
@@ -272,13 +245,6 @@ namespace DuelMastersModels
             {
                 duel.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
             }
-        }
-
-        public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
-        {
-            BattleZone.Remove(permanent, duel);
-            Deck.Add(new Card(permanent, false), duel);
-            duel.Process(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
         }
 
         public void Reveal(Duel duel, Card card)

@@ -107,7 +107,6 @@
     <Compile Include="GameEvents\AbilityTriggeredEvent.cs" />
     <Compile Include="GameEvents\BattleEvent.cs" />
     <Compile Include="GameEvents\BlockEvent.cs" />
-    <Compile Include="GameEvents\CardDrawnEvent.cs" />
     <Compile Include="GameEvents\CardMovedEvent.cs" />
     <Compile Include="GameEvents\CreatureAttackedEvent.cs" />
     <Compile Include="GameEvents\CreatureSummonedEvent.cs" />
@@ -116,12 +115,9 @@
     <Compile Include="GameEvents\DeckShuffledEvent.cs" />
     <Compile Include="GameEvents\DirectAttackEvent.cs" />
     <Compile Include="GameEvents\LoseEvent.cs" />
-    <Compile Include="GameEvents\PermanentPutIntoTopDeckEvent.cs" />
     <Compile Include="GameEvents\ShieldsBrokenEvent.cs" />
     <Compile Include="GameEvents\ShieldTriggerEvent.cs" />
     <Compile Include="GameEvents\SpellCastEvent.cs" />
-    <Compile Include="GameEvents\TopDeckCardPutIntoManaZoneEvent.cs" />
-    <Compile Include="GameEvents\TopDeckCardPutIntoShieldZoneEvent.cs" />
     <Compile Include="GameEvents\TurnEndsEvent.cs" />
     <Compile Include="GameEvents\TurnStartsEvent.cs" />
     <Compile Include="GameEvents\WinBattleEvent.cs" />

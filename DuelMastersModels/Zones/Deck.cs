@@ -31,9 +31,6 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        /// <summary>
-        /// Shuffles the deck.
-        /// </summary>
         public void Shuffle()
         {
             foreach (var card in Cards)
@@ -49,34 +46,6 @@ namespace DuelMastersModels.Zones
                 Card value = Cards[k];
                 Cards[k] = Cards[n];
                 Cards[n] = value;
-            }
-        }
-
-        /// <summary>
-        /// Removes the top card of the deck and returns it.
-        /// </summary>
-        public Card RemoveAndGetTopCard(Duel duel)
-        {
-            return GetTopCard(true, duel);
-        }
-
-        /// <summary>
-        /// Returns the top card of a deck. It is also possible to remove the card from the deck.
-        /// </summary>
-        private Card GetTopCard(bool remove, Duel duel)
-        {
-            if (Cards.Any())
-            {
-                Card topCard = Cards.Last();
-                if (remove)
-                {
-                    Remove(topCard, duel);
-                }
-                return topCard;
-            }
-            else
-            {
-                return null;
             }
         }
 

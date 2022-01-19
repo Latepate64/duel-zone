@@ -316,22 +316,29 @@ namespace DuelMastersModels
 
         public void Process(GameEvent gameEvent)
         {
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
-            var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
-            List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            if (Turns.Any())
             {
-                abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
-                if (ability.Duration is Once)
+                CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
+                var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
+                List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
+                foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
-                    toBeRemoved.Add(ability);
+                    abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
+                    if (ability.Duration is Once)
+                    {
+                        toBeRemoved.Add(ability);
+                    }
+                }
+                _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+                foreach (var ability in abilities)
+                {
+                    Process(new AbilityTriggeredEvent(ability));
                 }
             }
-            _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
-            foreach (var ability in abilities)
+            else
             {
-                Process(new AbilityTriggeredEvent(ability));
+                PreGameEvents.Enqueue(gameEvent);
             }
         }
 
