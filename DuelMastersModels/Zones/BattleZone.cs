@@ -32,7 +32,7 @@ namespace DuelMastersModels.Zones
             card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {

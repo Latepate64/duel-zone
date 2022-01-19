@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuelMastersModels.GameEvents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,11 +17,17 @@ namespace DuelMastersModels.Zones
             Cards.Add(card);
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
+            }
+            if (!Cards.Any())
+            {
+                var player = duel.GetPlayer(card.Owner);
+                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(player.Copy()));
+                duel.Lose(player);
             }
         }
 
@@ -48,22 +55,22 @@ namespace DuelMastersModels.Zones
         /// <summary>
         /// Removes the top card of the deck and returns it.
         /// </summary>
-        public Card RemoveAndGetTopCard()
+        public Card RemoveAndGetTopCard(Duel duel)
         {
-            return GetTopCard(true);
+            return GetTopCard(true, duel);
         }
 
         /// <summary>
         /// Returns the top card of a deck. It is also possible to remove the card from the deck.
         /// </summary>
-        private Card GetTopCard(bool remove)
+        private Card GetTopCard(bool remove, Duel duel)
         {
             if (Cards.Any())
             {
                 Card topCard = Cards.Last();
                 if (remove)
                 {
-                    Remove(topCard);
+                    Remove(topCard, duel);
                 }
                 return topCard;
             }

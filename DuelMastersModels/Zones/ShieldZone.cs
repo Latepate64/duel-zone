@@ -15,7 +15,7 @@ namespace DuelMastersModels.Zones
             Cards.Add(card);
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {

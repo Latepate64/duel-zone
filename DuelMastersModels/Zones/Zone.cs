@@ -22,7 +22,7 @@ namespace DuelMastersModels.Zones
 
         public abstract void Add(Card card, Duel duel);
 
-        public abstract void Remove(Card card);
+        public abstract void Remove(Card card, Duel duel);
 
         protected virtual void Dispose(bool disposing)
         {

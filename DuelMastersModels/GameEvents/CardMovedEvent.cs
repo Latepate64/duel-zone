@@ -39,7 +39,7 @@ namespace DuelMastersModels.GameEvents
             var sourceZone = player.GetZone(Source);
             var destinationZone = player.GetZone(Destination);
             var card = duel.GetCard(Card);
-            sourceZone.Remove(card);
+            sourceZone.Remove(card, duel);
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);

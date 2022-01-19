@@ -2,7 +2,6 @@
 using DuelMastersModels.Choices;
 using DuelMastersModels.GameEvents;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -28,7 +27,6 @@ namespace DuelMastersModels.Steps
             }
             else if (duel.Players.Any())
             {
-                CheckStateBasedActions(duel);
                 ResolveAbilities(duel);
                 if (this is PriorityStep priorityStep && !priorityStep.PerformPriorityAction(duel))
                 {
@@ -52,28 +50,6 @@ namespace DuelMastersModels.Steps
                     break;
                 }
             }
-        }
-
-        private void CheckStateBasedActions(Duel duel)
-        {
-            var losers = new Collection<Player>();
-            foreach (var player in duel.Players)
-            {
-                if (!player.Deck.Cards.Any())
-                {
-                    losers.Add(player);
-                }
-            }
-            if (losers.Any())
-            {
-                foreach (var loser in losers)
-                {
-                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(loser.Copy()));
-                    duel.Lose(loser);
-                }
-                Progress(duel);
-            }
-            // TODO: Check direct attack
         }
 
         protected Step(Step step)

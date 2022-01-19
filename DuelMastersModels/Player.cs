@@ -152,7 +152,7 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                var card = RemoveTopCardOfDeck();
+                var card = RemoveTopCardOfDeck(duel);
                 ShieldZone.Add(card, duel);
                 var eve = new TopDeckCardPutIntoShieldZoneEvent(Copy(), new Card(card, true));
                 if (duel.Turns.Any())
@@ -175,16 +175,16 @@ namespace DuelMastersModels
         /// <summary>
         /// Removes the top card from a player's deck and returns it. Returns null if no cards are left in deck.
         /// </summary>
-        public Card RemoveTopCardOfDeck()
+        public Card RemoveTopCardOfDeck(Duel duel)
         {
-            return Deck.RemoveAndGetTopCard();
+            return Deck.RemoveAndGetTopCard(duel);
         }
 
         public void DrawCards(int amount, Duel duel)
         {
             for (int i = 0; i < amount; ++i)
             {
-                Card drawnCard = RemoveTopCardOfDeck();
+                Card drawnCard = RemoveTopCardOfDeck(duel);
                 if (drawnCard != null)
                 {
                     Hand.Add(drawnCard, duel);
@@ -238,14 +238,14 @@ namespace DuelMastersModels
 
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
-            var card = RemoveTopCardOfDeck();
+            var card = RemoveTopCardOfDeck(duel);
             ManaZone.Add(card, duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
         }
 
         internal void Cast(Card spell, Duel duel)
         {
-            Hand.Remove(spell);
+            Hand.Remove(spell, duel);
             spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(Copy(), new Card(spell, true)));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
@@ -276,7 +276,7 @@ namespace DuelMastersModels
 
         public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
         {
-            BattleZone.Remove(permanent);
+            BattleZone.Remove(permanent, duel);
             Deck.Add(new Card(permanent, false), duel);
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
         }
