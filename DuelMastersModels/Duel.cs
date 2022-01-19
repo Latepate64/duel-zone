@@ -122,6 +122,9 @@ namespace DuelMastersModels
 
         public void Play(Player startingPlayer, Player otherPlayer)
         {
+            // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
+
+            // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
 
@@ -131,15 +134,15 @@ namespace DuelMastersModels
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            startingPlayer.ShuffleDeck(this);
-            otherPlayer.ShuffleDeck(this);
+            Players.ToList().ForEach(x => x.ShuffleDeck(this));
 
-            startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
-            otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
+            // Each player puts five card from to the top of their deck into their shield zone.
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this));
 
-            startingPlayer.DrawCards(InitialNumberOfHandCards, this);
-            otherPlayer.DrawCards(InitialNumberOfHandCards, this);
+            // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
+            Players.ToList().ForEach(x => x.DrawCards(InitialNumberOfHandCards, this));
 
+            // 103.7. The starting player takes their first turn.
             var activePlayer = startingPlayer;
             var nonActivePlayer = otherPlayer;
             while (Players.Count > 1)
@@ -172,7 +175,7 @@ namespace DuelMastersModels
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
 
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
+            Process(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
 
             //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
@@ -190,7 +193,7 @@ namespace DuelMastersModels
 
             void Outcome(Card winner, Card loser)
             {
-                Trigger(new WinBattleEvent(winner));
+                Process(new WinBattleEvent(winner));
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
@@ -311,7 +314,7 @@ namespace DuelMastersModels
             }
         }
 
-        public void Trigger(GameEvent gameEvent)
+        public void Process(GameEvent gameEvent)
         {
             CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
             var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
@@ -328,7 +331,7 @@ namespace DuelMastersModels
             CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
             foreach (var ability in abilities)
             {
-                CurrentTurn.CurrentStep.GameEvents.Enqueue(new AbilityTriggeredEvent(ability));
+                Process(new AbilityTriggeredEvent(ability));
             }
         }
 
@@ -364,13 +367,13 @@ namespace DuelMastersModels
         {
             Losers.Add(player);
             _ = Players.Remove(player);
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new LoseEvent(player.Copy()));
+            Process(new LoseEvent(player.Copy()));
         }
 
         public void Win(Player player)
         {
             Winner = player;
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(player.Copy()));
+            Process(new WinEvent(player.Copy()));
         }
 
         /// <summary>
@@ -421,7 +424,7 @@ namespace DuelMastersModels
             foreach (var e in events)
             {
                 e.Apply(this);
-                Trigger(e);
+                Process(e);
             }
             return events;
         }
@@ -468,7 +471,7 @@ namespace DuelMastersModels
                         {
                             var trigger = GetCard(decision.Decision.Single());
                             shieldTriggers = shieldTriggers.Where(x => x.Id != trigger.Id);
-                            CurrentTurn.CurrentStep.GameEvents.Enqueue(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
+                            Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
                             UseCard(trigger, player);
                         }
                         else

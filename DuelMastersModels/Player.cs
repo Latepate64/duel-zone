@@ -140,7 +140,7 @@ namespace DuelMastersModels
             var eve = new DeckShuffledEvent(Copy());
             if (duel.Turns.Any())
             {
-                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
+                duel.Process(eve);
             }
             else
             {
@@ -157,7 +157,7 @@ namespace DuelMastersModels
                 var eve = new TopDeckCardPutIntoShieldZoneEvent(Copy(), new Card(card, true));
                 if (duel.Turns.Any())
                 {
-                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
+                    duel.Process(eve);
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace DuelMastersModels
 
         internal void Summon(Card card, Duel duel)
         {
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(Copy(), new Card(card, true)));
+            duel.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
             _ = duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
@@ -191,7 +191,7 @@ namespace DuelMastersModels
                     var cardDrawnEvent = new CardDrawnEvent(Copy(), new Card(drawnCard, true));
                     if (duel.Turns.Any())
                     {
-                        duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(cardDrawnEvent);
+                        duel.Process(cardDrawnEvent);
                     }
                     else
                     {
@@ -240,14 +240,14 @@ namespace DuelMastersModels
         {
             var card = RemoveTopCardOfDeck(duel);
             ManaZone.Add(card, duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
+            duel.Process(new TopDeckCardPutIntoManaZoneEvent(Copy(), new Card(card, true)));
         }
 
         internal void Cast(Card spell, Duel duel)
         {
             Hand.Remove(spell, duel);
             spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(Copy(), new Card(spell, true)));
+            duel.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
@@ -278,14 +278,14 @@ namespace DuelMastersModels
         {
             BattleZone.Remove(permanent, duel);
             Deck.Add(new Card(permanent, false), duel);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
+            duel.Process(new PermanentPutIntoTopDeckEvent(Copy(), new Card(permanent, true)));
         }
 
         public void Reveal(Duel duel, Card card)
         {
             var opponent = duel.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(Copy(), new Card(card, true)));
+            duel.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
         public Zone GetZone(ZoneType zone)

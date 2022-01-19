@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Choices;
-
-namespace DuelMastersModels.Steps
+﻿namespace DuelMastersModels.Steps
 {
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.

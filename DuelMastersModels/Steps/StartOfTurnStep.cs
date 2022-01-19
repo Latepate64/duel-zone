@@ -31,7 +31,7 @@ namespace DuelMastersModels.Steps
         /// <returns></returns>
         public override void PerformTurnBasedAction(Duel duel)
         {
-            GameEvents.Enqueue(new TurnStartsEvent(duel.CurrentTurn));
+            duel.Process(new TurnStartsEvent(duel.CurrentTurn));
             var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
             foreach (var creature in player.BattleZone.Creatures)
             {

@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Durations;
+﻿using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 
 namespace DuelMastersModels.Steps
@@ -28,7 +27,7 @@ namespace DuelMastersModels.Steps
         public override void PerformTurnBasedAction(Duel duel)
         {
             _ = duel.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
-            duel.Trigger(new TurnEndsEvent(duel.CurrentTurn));
+            duel.Process(new TurnEndsEvent(duel.CurrentTurn));
         }
     }
 }

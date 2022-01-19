@@ -39,7 +39,7 @@ namespace DuelMastersModels.Steps
                     }
                     else
                     {
-                        duel.Trigger(new CreatureAttackedEvent(new Card(attacker, true), duel.GetAttackable(AttackTarget)));
+                        duel.Process(new CreatureAttackedEvent(new Card(attacker, true), duel.GetAttackable(AttackTarget)));
                     }
                 }
             }

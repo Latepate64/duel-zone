@@ -26,7 +26,7 @@ namespace DuelMastersModels.Zones
             if (!Cards.Any())
             {
                 var player = duel.GetPlayer(card.Owner);
-                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new DeckoutEvent(player.Copy()));
+                duel.Process(new DeckoutEvent(player.Copy()));
                 duel.Lose(player);
             }
         }

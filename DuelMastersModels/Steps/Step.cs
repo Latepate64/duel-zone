@@ -21,6 +21,7 @@ namespace DuelMastersModels.Steps
 
         private void Progress(Duel duel)
         {
+            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
             if (duel.Players.Count == 1)
             {
                 duel.Win(duel.Players.Single());
@@ -63,6 +64,7 @@ namespace DuelMastersModels.Steps
 
         public List<Card> UsedCards { get; } = new List<Card>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
+
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
 
         public abstract Step Copy();
