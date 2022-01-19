@@ -30,7 +30,7 @@ namespace DuelMastersModels.Steps
                 {
                     AttackingCreature = dec.Decision.Item1;
                     AttackTarget = dec.Decision.Item2;
-                    var attacker = duel.GetPermanent(AttackingCreature);
+                    var attacker = duel.GetCard(AttackingCreature);
                     attacker.Tapped = true;
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();
                     if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
@@ -72,7 +72,7 @@ namespace DuelMastersModels.Steps
         {
             if (AttackingCreature != Guid.Empty)
             {
-                var tapAbilities = duel.GetPermanent(AttackingCreature).Abilities.OfType<TapAbility>();
+                var tapAbilities = duel.GetCard(AttackingCreature).Abilities.OfType<TapAbility>();
                 if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
                 {
                     return new AttackDeclarationStep();

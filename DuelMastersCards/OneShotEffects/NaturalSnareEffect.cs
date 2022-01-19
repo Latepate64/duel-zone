@@ -28,7 +28,7 @@ namespace DuelMastersCards.OneShotEffects
             if (choosable.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
-                duel.Move(duel.GetPermanent(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
+                duel.Move(duel.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

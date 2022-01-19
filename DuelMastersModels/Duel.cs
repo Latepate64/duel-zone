@@ -40,9 +40,9 @@ namespace DuelMastersModels
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
 
         /// <summary>
-        /// Note: Use method GetChoosableCreaturePermanents if you have to select creature/s.
+        /// Note: Use method GetChoosableBattleZoneCreatures if you have to select creature/s.
         /// </summary>
-        public IEnumerable<Card> CreaturePermanents => Players.SelectMany(x => x.BattleZone.Creatures);
+        public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
         /// <summary>
         /// All the turns of the duel that have been or are processed, in order.
@@ -170,8 +170,8 @@ namespace DuelMastersModels
 
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            var attackingCreature = GetPermanent(attackingCreatureId);
-            var defendingCreature = GetPermanent(defendingCreatureId);
+            var attackingCreature = GetCard(attackingCreatureId);
+            var defendingCreature = GetCard(defendingCreatureId);
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
 
@@ -250,9 +250,9 @@ namespace DuelMastersModels
             }
         }
 
-        public void Destroy(IEnumerable<Card> permanents)
+        public void Destroy(IEnumerable<Card> cards)
         {
-            _ = Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
+            _ = Move(cards, ZoneType.BattleZone, ZoneType.Graveyard);
         }
 
         public Player GetOpponent(Player player)
@@ -280,12 +280,7 @@ namespace DuelMastersModels
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
-        public IEnumerable<Card> Permanents => Players.SelectMany(x => x.BattleZone.Cards);
-
-        public Card GetPermanent(Guid id)
-        {
-            return Permanents.Single(x => x.Id == id);
-        }
+        public IEnumerable<Card> CardsInBattleZone => Players.SelectMany(x => x.BattleZone.Cards);
 
         public Player GetPlayer(Guid id)
         {
@@ -303,9 +298,9 @@ namespace DuelMastersModels
             {
                 return GetPlayer(id);
             }
-            else if (Permanents.Any(x => x.Id == id))
+            else if (CardsInBattleZone.Any(x => x.Id == id))
             {
-                return GetPermanent(id);
+                return GetCard(id);
             }
             else
             {
@@ -318,7 +313,7 @@ namespace DuelMastersModels
             if (Turns.Any())
             {
                 CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
-                var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
+                var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
                 List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
                 foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
@@ -341,12 +336,12 @@ namespace DuelMastersModels
             }
         }
 
-        public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromPermanents(GameEvent gameEvent)
+        public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(GameEvent gameEvent)
         {
             var abilities = new List<TriggeredAbility>();
-            foreach (var permanent in Permanents)
+            foreach (var card in CardsInBattleZone)
             {
-                abilities.AddRange(permanent.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(permanent.Id, permanent.Owner)));
+                abilities.AddRange(card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
             return abilities;
         }
@@ -358,11 +353,11 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
+            var abilities = CardsInBattleZone.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
-        public IEnumerable<Card> GetChoosableCreaturePermanents(Player selector)
+        public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
         {
             var creatures = selector.BattleZone.Creatures.ToList();
             creatures.AddRange(GetOpponent(selector).BattleZone.Creatures.Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));

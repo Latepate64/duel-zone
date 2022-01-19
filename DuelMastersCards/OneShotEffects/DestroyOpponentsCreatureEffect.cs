@@ -28,15 +28,15 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Duel duel)
         {
             var player = duel.GetPlayer(Controller);
-            var permanents = duel.GetOpponent(player).BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
-            if (permanents.Count() > 1)
+            var creatures = duel.GetOpponent(player).BattleZone.GetChoosableCreatures(duel).Where(x => Filters.All(f => f.Applies(x, duel)));
+            if (creatures.Count() > 1)
             {
-                var dec = player.Choose(new GuidSelection(Controller, permanents, 1, 1));
-                duel.Destroy(dec.Decision.Select(x => duel.GetPermanent(x)));
+                var dec = player.Choose(new GuidSelection(Controller, creatures, 1, 1));
+                duel.Destroy(dec.Decision.Select(x => duel.GetCard(x)));
             }
-            else if (permanents.Any())
+            else if (creatures.Any())
             {
-                duel.Destroy(permanents);
+                duel.Destroy(creatures);
             }
         }
     }

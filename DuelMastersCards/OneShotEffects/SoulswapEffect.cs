@@ -25,14 +25,14 @@ namespace DuelMastersCards.OneShotEffects
         {
             // You may choose a creature in the battle zone and put it into its owner's mana zone.
             var player = duel.GetPlayer(Controller);
-            var creatures = duel.GetChoosableCreaturePermanents(player);
+            var creatures = duel.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, creatures, 0, 1));
                 var toManaCreatures = decision.Decision;
                 if (toManaCreatures.Any())
                 {
-                    var creature = duel.GetPermanent(toManaCreatures.Single());
+                    var creature = duel.GetCard(toManaCreatures.Single());
                     var owner = duel.GetPlayer(creature.Owner);
                     duel.Move(creature, ZoneType.BattleZone, ZoneType.ManaZone);
 

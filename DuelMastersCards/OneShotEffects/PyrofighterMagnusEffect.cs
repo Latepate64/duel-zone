@@ -21,7 +21,7 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Duel duel)
         {
             // Return this creature to your hand.
-            duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            duel.Move(duel.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

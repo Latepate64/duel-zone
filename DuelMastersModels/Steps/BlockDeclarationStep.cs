@@ -23,19 +23,19 @@ namespace DuelMastersModels.Steps
             var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
             if (possibleBlockers.Any())
             {
-                var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature));
+                var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetCard(AttackingCreature));
                 possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, duel)));
             }
-            if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature)).Any())
+            if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetCard(AttackingCreature)).Any())
             {
                 var dec = nonActive.Choose(new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
                 var blockers = dec.Decision;
                 if (blockers.Any())
                 {
                     BlockingCreature = blockers.Single();
-                    var blocker = duel.GetPermanent(BlockingCreature);
+                    var blocker = duel.GetCard(BlockingCreature);
                     blocker.Tapped = true;
-                    duel.Process(new BlockEvent(new Card(duel.GetPermanent(AttackingCreature), true), new Card(blocker, true)));
+                    duel.Process(new BlockEvent(new Card(duel.GetCard(AttackingCreature), true), new Card(blocker, true)));
                 }
             }
         }

@@ -28,11 +28,11 @@ namespace DuelMastersCards.OneShotEffects
         {
             // You may choose a creature in the battle zone and return it to its owner's hand.
             var player = duel.GetPlayer(Controller);
-            var creatures = duel.GetChoosableCreaturePermanents(player);
+            var creatures = duel.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, creatures, 0, MaximumAmount));
-                duel.Move(dec.Decision.Select(x => duel.GetPermanent(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+                duel.Move(dec.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

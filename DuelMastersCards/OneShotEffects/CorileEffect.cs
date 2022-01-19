@@ -29,7 +29,7 @@ namespace DuelMastersCards.OneShotEffects
             if (choosable.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
-                var card = duel.GetPermanent(dec.Decision.Single());
+                var card = duel.GetCard(dec.Decision.Single());
                 duel.Move(card, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck);
             }
         }

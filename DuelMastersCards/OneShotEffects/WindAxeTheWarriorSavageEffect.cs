@@ -31,7 +31,7 @@ namespace DuelMastersCards.OneShotEffects
             if (blockers.Any())
             {
                 var decision = controller.Choose(new GuidSelection(controller.Id, blockers, 1, 1));
-                blocker = decision.Decision.Select(x => duel.GetPermanent(x)).ToList();
+                blocker = decision.Decision.Select(x => duel.GetCard(x)).ToList();
                 duel.Destroy(blocker);
             }
 

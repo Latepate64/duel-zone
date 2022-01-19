@@ -24,7 +24,7 @@ namespace DuelMastersModels.Steps
 
         public override void PerformTurnBasedAction(Duel duel)
         {
-            var attackingCreature = duel.GetPermanent(AttackingCreature);
+            var attackingCreature = duel.GetCard(AttackingCreature);
             var controller = duel.GetPlayer(attackingCreature.Owner);
             var opponent = duel.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())

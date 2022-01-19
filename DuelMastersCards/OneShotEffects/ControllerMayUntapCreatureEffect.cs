@@ -25,7 +25,7 @@ namespace DuelMastersCards.OneShotEffects
             var decision = player.Choose(new YesNoChoice(Controller));
             if (decision.Decision)
             {
-                duel.GetPermanent(Source).Tapped = false;
+                duel.GetCard(Source).Tapped = false;
             }
         }
     }
