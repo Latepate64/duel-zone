@@ -29,7 +29,6 @@ namespace DuelMastersModels.Zones
             {
                 throw new NotSupportedException(card.ToString());
             }
-            card.ShieldTriggerPending = false;
         }
 
         public override Zone Copy()

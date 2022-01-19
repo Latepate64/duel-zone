@@ -7,6 +7,7 @@ namespace DuelMastersModels.GameEvents
     {
         public Guid Player { get; }
         public Guid Card { get; }
+        public Guid NewObject { get; set; }
         public ZoneType Source { get; }
         public ZoneType Destination { get; set; }
 
@@ -22,6 +23,7 @@ namespace DuelMastersModels.GameEvents
         {
             Player = e.Player;
             Card = e.Card;
+            NewObject = e.NewObject;
             Source = e.Source;
             Destination = e.Destination;
         }
@@ -41,6 +43,7 @@ namespace DuelMastersModels.GameEvents
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);
+            NewObject = newObject.Id;
             destinationZone.Add(newObject, duel);
         }
 

@@ -24,7 +24,7 @@ namespace DuelMastersModels.Steps
             var cards = dec.Decision;
             if (cards.Any())
             {
-                duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
+                _ = duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
             }
             return true;
         }

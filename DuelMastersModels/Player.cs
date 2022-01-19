@@ -169,7 +169,7 @@ namespace DuelMastersModels
         internal void Summon(Card card, Duel duel)
         {
             duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(Copy(), new Card(card, true)));
-            duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
+            _ = duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         /// <summary>

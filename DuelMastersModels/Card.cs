@@ -87,8 +87,6 @@ namespace DuelMastersModels
 
         public bool ShieldTrigger { get; set; } = false;
 
-        internal bool ShieldTriggerPending { get; set; } = false;
-
         public ICollection<Guid> RevealedTo { get; internal set; } = new List<Guid>();
 
         /// <summary>
@@ -110,7 +108,6 @@ namespace DuelMastersModels
             Power = card.Power;
             RevealedTo = card.RevealedTo.ToList();
             ShieldTrigger = card.ShieldTrigger;
-            ShieldTriggerPending = card.ShieldTriggerPending;
             Subtypes = card.Subtypes?.ToList();
             SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
@@ -210,7 +207,6 @@ namespace DuelMastersModels
                 x.Power == y.Power &&
                 x.RevealedTo.SequenceEqual(y.RevealedTo) &&
                 x.ShieldTrigger == y.ShieldTrigger &&
-                x.ShieldTriggerPending == y.ShieldTriggerPending &&
                 ((x.Subtypes == null && y.Subtypes == null) || x.Subtypes.SequenceEqual(y.Subtypes)) &&
                 x.SummoningSickness == y.SummoningSickness &&
                 x.Tapped == y.Tapped;
@@ -220,7 +216,7 @@ namespace DuelMastersModels
         {
             var x = 0;//obj.Civilizations.GetHashCode();
             var y = 0;// obj.StaticAbilities.GetHashCode();
-            return obj.ManaCost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + obj.ShieldTriggerPending.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
+            return obj.ManaCost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
         }
     }
 
