@@ -177,7 +177,6 @@ namespace DuelMastersModels
 
             Process(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
 
-            //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
                 Outcome(attackingCreature, defendingCreature);

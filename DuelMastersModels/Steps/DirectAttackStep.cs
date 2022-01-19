@@ -39,7 +39,6 @@ namespace DuelMastersModels.Steps
             }
             else
             {
-                //TODO: Direct attack victory should be checked as a state-based action instead.
                 duel.Process(new DirectAttackEvent(opponent.Copy()));
                 duel.Lose(opponent);
             }
