@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace DuelMastersModels.Zones
     {
         public Hand(IEnumerable<Card> cards) : base(cards) { }
 
-        public override Choice Add(Card card, Duel duel, Zone source)
+        public override void Add(Card card, Duel duel)
         {
             var revealedTo = new List<Guid> { card.Owner };
             var opponent = duel.GetOpponent(card.Owner);
@@ -22,16 +21,14 @@ namespace DuelMastersModels.Zones
             }
             card.RevealedTo = revealedTo;
             Cards.Add(card);
-            return null;
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
             }
-            card.ShieldTriggerPending = false;
         }
 
         public override Zone Copy()

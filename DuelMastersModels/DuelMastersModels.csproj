@@ -81,7 +81,6 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\ActivatedAbility.cs" />
-    <Compile Include="Abilities\AsPermanentEntersBattleZoneAbility.cs" />
     <Compile Include="Abilities\Resolvable.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
@@ -108,7 +107,6 @@
     <Compile Include="GameEvents\AbilityTriggeredEvent.cs" />
     <Compile Include="GameEvents\BattleEvent.cs" />
     <Compile Include="GameEvents\BlockEvent.cs" />
-    <Compile Include="GameEvents\CardDrawnEvent.cs" />
     <Compile Include="GameEvents\CardMovedEvent.cs" />
     <Compile Include="GameEvents\CreatureAttackedEvent.cs" />
     <Compile Include="GameEvents\CreatureSummonedEvent.cs" />
@@ -117,12 +115,9 @@
     <Compile Include="GameEvents\DeckShuffledEvent.cs" />
     <Compile Include="GameEvents\DirectAttackEvent.cs" />
     <Compile Include="GameEvents\LoseEvent.cs" />
-    <Compile Include="GameEvents\PermanentPutIntoTopDeckEvent.cs" />
     <Compile Include="GameEvents\ShieldsBrokenEvent.cs" />
     <Compile Include="GameEvents\ShieldTriggerEvent.cs" />
     <Compile Include="GameEvents\SpellCastEvent.cs" />
-    <Compile Include="GameEvents\TopDeckCardPutIntoManaZoneEvent.cs" />
-    <Compile Include="GameEvents\TopDeckCardPutIntoShieldZoneEvent.cs" />
     <Compile Include="GameEvents\TurnEndsEvent.cs" />
     <Compile Include="GameEvents\TurnStartsEvent.cs" />
     <Compile Include="GameEvents\WinBattleEvent.cs" />
@@ -130,7 +125,6 @@
     <Compile Include="Choices\AttackerChoice.cs" />
     <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="DuelObject.cs" />
-    <Compile Include="DuelState.cs" />
     <Compile Include="GameEvents\GameEvent.cs" />
     <Compile Include="IAttackable.cs" />
     <Compile Include="ICopyable.cs" />
@@ -149,7 +143,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StartingPlayer.cs" />
     <Compile Include="Steps\AttackDeclarationStep.cs" />
     <Compile Include="Steps\AttackingCreatureStep.cs" />
     <Compile Include="Steps\BattleStep.cs" />

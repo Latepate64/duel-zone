@@ -24,19 +24,14 @@ namespace DuelMastersCards.Resolvables
             return new ControllerPutsCardsFromGraveyardIntoManaZoneResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
-            if (decision == null)
+            var player = duel.GetPlayer(Controller);
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));
+            if (cards.Any())
             {
-                var cards = duel.GetPlayer(Controller).Graveyard.Cards.Where(x => Filter.Applies(x, duel));
-                if (cards.Any())
-                {
-                    duel.SetAwaitingChoice(new GuidSelection(Controller, cards, 0, 1)); //TODO: min and max could be different
-                }
-            }
-            else
-            {
-                duel.Move((decision as GuidDecision).Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.ManaZone);
+                var decision = player.Choose(new GuidSelection(Controller, cards, 0, 1)); //TODO: min and max could be different
+                duel.Move(decision.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

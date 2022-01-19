@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System;
+﻿using System;
 
 namespace DuelMastersModels.Abilities
 {
@@ -16,7 +15,7 @@ namespace DuelMastersModels.Abilities
             Source = resolvable.Source;
         }
 
-        public abstract void Resolve(Duel duel, Decision decision);
+        public abstract void Resolve(Duel duel);
 
         public abstract Resolvable Copy();
 

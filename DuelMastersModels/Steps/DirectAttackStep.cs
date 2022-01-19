@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
+﻿using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace DuelMastersModels.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
             var attackingCreature = duel.GetPermanent(AttackingCreature);
             var controller = duel.GetPlayer(attackingCreature.Owner);
@@ -36,12 +35,11 @@ namespace DuelMastersModels.Steps
                     breakAmount = 2;
                 }
                 duel.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                GameEvents.Enqueue(new ShieldsBrokenEvent(new Card(attackingCreature, true), new Player(opponent), breakAmount));
+                duel.Process(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
             }
             else
             {
-                //TODO: Direct attack victory should be checked as a state-based action instead.
-                GameEvents.Enqueue(new DirectAttackEvent(new Player(opponent)));
+                duel.Process(new DirectAttackEvent(opponent.Copy()));
                 duel.Lose(opponent);
             }
         }

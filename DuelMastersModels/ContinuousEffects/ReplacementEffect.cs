@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Durations;
+﻿using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System;
 
@@ -28,6 +27,6 @@ namespace DuelMastersModels.ContinuousEffects
 
         public abstract bool Replaceable(GameEvent gameEvent, Duel duel);
 
-        public abstract void Replace(Duel duel, Decision decision);
+        public abstract GameEvent Apply(Duel duel);
     }
 }

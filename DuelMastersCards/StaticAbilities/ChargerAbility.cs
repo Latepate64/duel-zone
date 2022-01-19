@@ -10,7 +10,6 @@ namespace DuelMastersCards.StaticAbilities
         public ChargerAbility()
         {
             ContinuousEffects.Add(new ChargerEffect(new TargetFilter(), new Indefinite()));
-            FunctionZone = DuelMastersModels.Zones.ZoneType.SpellStack;
         }
     }
 }

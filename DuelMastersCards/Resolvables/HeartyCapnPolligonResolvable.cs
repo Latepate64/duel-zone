@@ -19,7 +19,7 @@ namespace DuelMastersCards.TriggeredAbilities
             return new HeartyCapnPolligonResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
             duel.Move(duel.GetPermanent(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);

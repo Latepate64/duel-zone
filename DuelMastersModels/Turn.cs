@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.Steps;
+﻿using DuelMastersModels.Steps;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,13 +42,13 @@ namespace DuelMastersModels
             Id = Guid.NewGuid();
         }
 
-        public Choice Start(Duel duel, int number)
+        public void Play(Duel duel, int number)
         {
             Number = number;
             if (!Steps.Any())
             {
                 Steps.Add(new StartOfTurnStep(Number == 1));
-                return StartCurrentStep(duel);
+                StartCurrentStep(duel);
             }
             else
             {
@@ -57,47 +56,17 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice ChangeAndStartStep(Duel duel)
+        private void StartCurrentStep(Duel duel)
         {
-            Step nextStep = CurrentStep.GetNextStep(duel);
-            if (nextStep != null)
+            CurrentStep.Play(duel);
+            if (duel.Players.Count > 1)
             {
-                Steps.Add(nextStep);
-                return StartCurrentStep(duel);
-            }
-            else
-            {
-                return null; // Turn is over
-            }
-        }
-
-        private Choice StartCurrentStep(Duel duel)
-        {
-            CurrentStep.Proceed(null, duel);
-            if (duel.AwaitingChoice != null)
-            {
-                return duel.AwaitingChoice;
-            }
-            else if (duel.Players.Count > 1)
-            {
-                return ChangeAndStartStep(duel);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        internal Choice Continue(Decision decision, Duel duel)
-        {
-            CurrentStep.Proceed(decision, duel);
-            if (duel.AwaitingChoice == null)
-            {
-                return ChangeAndStartStep(duel);
-            }
-            else
-            {
-                return duel.AwaitingChoice;
+                Step nextStep = CurrentStep.GetNextStep(duel);
+                if (nextStep != null)
+                {
+                    Steps.Add(nextStep);
+                    StartCurrentStep(duel);
+                }
             }
         }
 

@@ -24,7 +24,7 @@ namespace DuelMastersCards.Resolvables
             return new ReturnCreaturesToTheirOwnersHandsResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             duel.Move(duel.Permanents.Where(x => Filter.Applies(x, duel)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }

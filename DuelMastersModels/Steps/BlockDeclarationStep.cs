@@ -17,32 +17,25 @@ namespace DuelMastersModels.Steps
             AttackTarget = attackTarget;
         }
 
-        public override void PerformTurnBasedAction(Duel duel, Decision decision)
+        public override void PerformTurnBasedAction(Duel duel)
         {
-            if (decision == null)
+            var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
+            var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
+            if (possibleBlockers.Any())
             {
-                var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
-                var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
-                if (possibleBlockers.Any())
-                {
-                    var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature));
-                    possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, duel)));
-                }
-                if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature)).Any())
-                {
-                    duel.SetAwaitingChoice(new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
-                }
+                var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature));
+                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, duel)));
             }
-            else
+            if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetPermanent(AttackingCreature)).Any())
             {
-                //duel.ClearAwaitingChoice();
-                var blockers = (decision as GuidDecision).Decision;
+                var dec = nonActive.Choose(new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
+                var blockers = dec.Decision;
                 if (blockers.Any())
                 {
                     BlockingCreature = blockers.Single();
                     var blocker = duel.GetPermanent(BlockingCreature);
                     blocker.Tapped = true;
-                    GameEvents.Enqueue(new BlockEvent(new Card(duel.GetPermanent(AttackingCreature), true), new Card(blocker, true)));
+                    duel.Process(new BlockEvent(new Card(duel.GetPermanent(AttackingCreature), true), new Card(blocker, true)));
                 }
             }
         }

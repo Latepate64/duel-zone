@@ -1,4 +1,7 @@
 ﻿using Combinatorics.Collections;
+using DuelMastersModels.Abilities;
+using DuelMastersModels.Choices;
+using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System;
@@ -10,22 +13,29 @@ namespace DuelMastersModels
     /// <summary>
     /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
     /// </summary>
-    public class Player : IAttackable, IDisposable
+    public abstract class Player : IAttackable, IDisposable, ICopyable<Player>
     {
         #region Properties
         public Guid Id { get; }
 
         public string Name { get; set; }
 
+        public abstract CardUsageDecision Choose(CardUsageChoice cardUsageChoice);
+
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         public Deck Deck { get; set; }
 
+        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
+        public abstract AttackerDecision Choose(AttackerChoice attackerChoice);
+
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
         public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
+
+        public abstract GuidDecision Choose(GuidSelection guidSelection);
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
@@ -77,12 +87,12 @@ namespace DuelMastersModels
         private static readonly Random _random = new Random();
 
         #region Methods
-        public Player()
+        protected Player()
         {
             Id = Guid.NewGuid();
         }
 
-        public Player(Player player)
+        protected Player(Player player)
         {
             Id = player.Id;
             Name = player.Name;
@@ -127,10 +137,10 @@ namespace DuelMastersModels
         public void ShuffleDeck(Duel duel)
         {
             Deck.Shuffle();
-            var eve = new DeckShuffledEvent(new Player(this));
+            var eve = new DeckShuffledEvent(Copy());
             if (duel.Turns.Any())
             {
-                duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
+                duel.Process(eve);
             }
             else
             {
@@ -142,55 +152,27 @@ namespace DuelMastersModels
         {
             for (int i = 0; i < amount; ++i)
             {
-                var card = RemoveTopCardOfDeck();
-                _ = ShieldZone.Add(card, duel, null);
-                var eve = new TopDeckCardPutIntoShieldZoneEvent(new Player(this), new Card(card, true));
-                if (duel.Turns.Any())
+                if (Deck.Cards.Any())
                 {
-                    duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(eve);
-                }
-                else
-                {
-                    duel.PreGameEvents.Enqueue(eve);
+                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
                 }
             }
         }
 
         internal void Summon(Card card, Duel duel)
         {
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CreatureSummonedEvent(new Player(this), new Card(card, true)));
-            duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
-        }
-
-        /// <summary>
-        /// Removes the top card from a player's deck and returns it. Returns null if no cards are left in deck.
-        /// </summary>
-        public Card RemoveTopCardOfDeck()
-        {
-            return Deck.RemoveAndGetTopCard();
+            duel.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
+            _ = duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
         public void DrawCards(int amount, Duel duel)
         {
+            // 121.2.Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
-                Card drawnCard = RemoveTopCardOfDeck();
-                if (drawnCard != null)
+                if (Deck.Cards.Any())
                 {
-                    _ = Hand.Add(drawnCard, duel, null);
-                    var cardDrawnEvent = new CardDrawnEvent(new Player(this), new Card(drawnCard, true));
-                    if (duel.Turns.Any())
-                    {
-                        duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(cardDrawnEvent);
-                    }
-                    else
-                    {
-                        duel.PreGameEvents.Enqueue(cardDrawnEvent);
-                    }
-                }
-                else
-                {
-                    break;
+                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
                 }
             }
         }
@@ -204,7 +186,7 @@ namespace DuelMastersModels
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
             return Hand.Cards.Distinct(new CardComparer()).
-                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count()).
+                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations)).
                 GroupBy(
                     card => card.Id,
                     card => new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations)).Select(x => x.Select(y => y.Id)));
@@ -228,17 +210,33 @@ namespace DuelMastersModels
 
         public void PutFromTopOfDeckIntoManaZone(Duel duel)
         {
-            var card = RemoveTopCardOfDeck();
-            _ = ManaZone.Add(card, duel, null);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new TopDeckCardPutIntoManaZoneEvent(new Player(this), new Card(card, true)));
+            if (Deck.Cards.Any())
+            {
+                duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+            }
         }
 
         internal void Cast(Card spell, Duel duel)
         {
-            Hand.Remove(spell);
+            Hand.Remove(spell, duel);
             spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
-            duel.ResolvingSpells.Push(spell);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new SpellCastEvent(new Player(this), new Card(spell, true)));
+            duel.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
+            foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
+            {
+                ability.Source = spell.Id;
+                ability.Owner = spell.Owner;
+                ability.Resolve(duel);
+            }
+            var effects = duel.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+            if (effects.Any())
+            {
+                duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+            }
+            else
+            {
+                duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+
+            }
         }
 
         public void DiscardAtRandom(Duel duel)
@@ -249,18 +247,11 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromBattleZoneOnTopOfDeck(Card permanent, Duel duel)
-        {
-            BattleZone.Remove(permanent);
-            _ = Deck.Add(new Card(permanent, false), duel, null);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new PermanentPutIntoTopDeckEvent(new Player(this), new Card(permanent, true)));
-        }
-
         public void Reveal(Duel duel, Card card)
         {
             var opponent = duel.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            duel.CurrentTurn.CurrentStep.GameEvents.Enqueue(new CardRevealedEvent(new Player(this), new Card(card, true)));
+            duel.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
         public Zone GetZone(ZoneType zone)
@@ -279,12 +270,13 @@ namespace DuelMastersModels
                     return ManaZone;
                 case ZoneType.ShieldZone:
                     return ShieldZone;
-                case ZoneType.SpellStack:
                 case ZoneType.Anywhere:
                 default:
                     throw new InvalidOperationException();
             }
         }
+
+        public abstract Player Copy();
         #endregion Methods
     }
 }

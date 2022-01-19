@@ -23,32 +23,17 @@ namespace DuelMastersCards.Resolvables
             return new SupersonicJetPackResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
-            if (decision == null)
+            var player = duel.GetPlayer(Controller);
+            var creatures = player.BattleZone.Creatures;
+            if (creatures.Any())
             {
-                OneOfYourCreaturesGetsSpeedAttacker(duel);
-            }
-            else
-            {
-                var target = duel.GetPermanent((decision as GuidDecision).Decision.Single()).Id;
+                var decision = player.Choose(new GuidSelection(Controller, creatures, 1, 1));
+                var target = duel.GetPermanent(decision.Decision.Single()).Id;
                 //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
                 duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = target }, new Indefinite()));
-            }
-        }
-
-        private void OneOfYourCreaturesGetsSpeedAttacker(Duel duel)
-        {
-            var creatures = duel.GetPlayer(Controller).BattleZone.Creatures;
-            if (creatures.Count() > 1)
-            {
-                duel.SetAwaitingChoice(new GuidSelection(Controller, creatures, 1, 1));
-            }
-            else if (creatures.Any())
-            {
-                //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
-                duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = creatures.Single().Id }, new Indefinite()));
             }
         }
     }

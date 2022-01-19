@@ -19,7 +19,7 @@ namespace DuelMastersCards.Resolvables
             return new BronzeArmTribeResolvable(this);
         }
 
-        public override void Resolve(Duel duel, Decision decision)
+        public override void Resolve(Duel duel)
         {
             duel.GetPlayer(Controller).PutFromTopOfDeckIntoManaZone(duel);
         }

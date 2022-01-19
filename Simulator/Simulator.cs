@@ -1,5 +1,4 @@
 ﻿using DuelMastersModels;
-using DuelMastersModels.Choices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,30 +10,30 @@ namespace Simulator
         public Duel PlayDuel(Player player1, Player player2, int choicesMax)
         {
             Duel duel = new();
-            Choice choice = duel.Start(player1, player2);
-            int numberOfChoicesMade = 0;
-            int latestPoints = 0;
-            while (choice != null)
-            {
-                var duelCopy = GetDuelForSimulator(duel, choice.Player);
-                var simulation = new Simulation(choice.Player, choicesMax);
-                var (decision, points) = simulation.Choose(choice, duelCopy, null, numberOfChoicesMade++);
-                using (decision)
-                {
-                    latestPoints = points;
-                    choice = duel.Continue(decision);
-                }
+            duel.Play(player1, player2);
+            //int numberOfChoicesMade = 0;
+            //int latestPoints = 0;
+            //while (choice != null)
+            //{
+            //    var duelCopy = GetDuelForSimulator(duel, choice.Player);
+            //    var simulation = new Simulation(choice.Player, choicesMax);
+            //    var (decision, points) = simulation.Choose(choice, duelCopy, null, numberOfChoicesMade++);
+            //    using (decision)
+            //    {
+            //        latestPoints = points;
+            //        choice = duel.Continue();
+            //    }
 
-                if (duel.Turns.Count > 200) // Could happen Corile vs Corile
-                {
-                    //TODO: Improve
-                    while (duel.Players.Any())
-                    {
-                        duel.Lose(duel.Players.First());
-                    }
-                    return duel;
-                }
-            }
+            //    if (duel.Turns.Count > 200) // Could happen Corile vs Corile
+            //    {
+            //        //TODO: Improve
+            //        while (duel.Players.Any())
+            //        {
+            //            duel.Lose(duel.Players.First());
+            //        }
+            //        return duel;
+            //    }
+            //}
             return duel;
         }
 

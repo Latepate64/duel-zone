@@ -12,36 +12,30 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        protected internal override void PerformPriorityAction(Decision decision, Duel duel)
+        protected internal override bool PerformPriorityAction(Duel duel)
         {
-            if (decision == null)
+            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            var usableCards = player.GetUsableCardsWithPaymentInformation();
+            if (usableCards.Any())
             {
-                var usableCards = duel.GetPlayer(duel.CurrentTurn.ActivePlayer).GetUsableCardsWithPaymentInformation();
-                if (usableCards.Any())
+                var dec = player.Choose(new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards));
+                if (dec.Decision == null)
                 {
-                    duel.SetAwaitingChoice(new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards));
+                    return true;
                 }
                 else
                 {
-                    PassPriority = true;
+                    foreach (Card mana in dec.Decision.Manas.Select(x => duel.GetCard(x)))
+                    {
+                        mana.Tapped = true;
+                    }
+                    duel.UseCard(duel.GetCard(dec.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
+                    return false;
                 }
             }
             else
             {
-                //duel.ClearAwaitingChoice();
-                var usage = decision as CardUsageDecision;
-                if (usage.Decision == null)
-                {
-                    PassPriority = true;
-                }
-                else
-                {
-                    foreach (Card mana in usage.Decision.Manas.Select(x => duel.GetCard(x)))
-                    {
-                        mana.Tapped = true;
-                    }
-                    duel.UseCard(duel.GetCard(usage.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
-                }
+                return true;
             }
         }
 

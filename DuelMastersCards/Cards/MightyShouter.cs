@@ -5,7 +5,7 @@ namespace DuelMastersCards.Cards
 {
     public class MightyShouter : Creature
     {
-        public MightyShouter() : base("Mighty Shouter", 1, Civilization.Nature, 2000, Subtype.BeastFolk) //TODO: Mana cost to 3
+        public MightyShouter() : base("Mighty Shouter", 3, Civilization.Nature, 2000, Subtype.BeastFolk)
         {
             Abilities.Add(new MightyShouterAbility());
         }

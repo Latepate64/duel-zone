@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Zones
@@ -11,13 +10,12 @@ namespace DuelMastersModels.Zones
     {
         public ShieldZone(IEnumerable<Card> cards) : base(cards) { }
 
-        public override Choice Add(Card card, Duel duel, Zone source)
+        public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
-            return null;
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {

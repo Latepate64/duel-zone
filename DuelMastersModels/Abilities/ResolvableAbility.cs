@@ -1,6 +1,4 @@
-﻿using DuelMastersModels.Choices;
-
-namespace DuelMastersModels.Abilities
+﻿namespace DuelMastersModels.Abilities
 {
     public abstract class ResolvableAbility : Ability
     {
@@ -19,9 +17,9 @@ namespace DuelMastersModels.Abilities
             FinishResolution = ability.FinishResolution;
         }
 
-        public void Resolve(Duel duel, Decision decision)
+        public void Resolve(Duel duel)
         {
-            Resolvable.Resolve(duel, decision);
+            Resolvable.Resolve(duel);
         }
 
         protected override void Dispose(bool disposing)

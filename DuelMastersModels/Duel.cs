@@ -54,39 +54,27 @@ namespace DuelMastersModels
         public Queue<Turn> ExtraTurns { get; private set; } = new Queue<Turn>();
 
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
-
-        public List<GameEvent> AwaitingEvents { get; private set; } = new List<GameEvent>();
-
-        public Choice AwaitingChoice { get; private set; }
         #endregion Properties
 
-        #region Fields
-        internal Stack<Card> ResolvingSpells = new Stack<Card>();
-        internal Queue<SpellAbility> ResolvingSpellAbilities = new Queue<SpellAbility>();
         internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
-        #endregion Fields
 
         #region Methods
         public Duel() { }
 
         public Duel(Duel duel)
         {
-            AwaitingEvents = duel.AwaitingEvents.Select(x => x.Copy()).ToList();
             DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
             InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
             InitialNumberOfShields = duel.InitialNumberOfShields;
-            Losers = duel.Losers.Select(x => new Player(x)).ToList();
-            Players = duel.Players.Select(x => new Player(x)).ToList();
-            ResolvingSpellAbilities = new Queue<SpellAbility>(duel.ResolvingSpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>());
-            ResolvingSpells = new Stack<Card>(duel.ResolvingSpells.Select(x => x.Copy()));
+            Losers = duel.Losers.Select(x => x.Copy()).ToList();
+            Players = duel.Players.Select(x => x.Copy()).ToList();
             if (duel.Winner != null)
             {
-                Winner = new Player(duel.Winner);
+                Winner = duel.Winner.Copy();
             }
             Turns = duel.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
-            AwaitingChoice = duel.AwaitingChoice;
         }
 
         public override string ToString()
@@ -119,12 +107,6 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 DelayedTriggeredAbilities.Clear();
-                ResolvingSpellAbilities = null;
-                foreach (var x in ResolvingSpells)
-                {
-                    x.Dispose();
-                }
-                ResolvingSpells = null;
                 foreach (var x in Turns)
                 {
                     x.Dispose();
@@ -138,8 +120,11 @@ namespace DuelMastersModels
             }
         }
 
-        public Choice Start(Player startingPlayer, Player otherPlayer)
+        public void Play(Player startingPlayer, Player otherPlayer)
         {
+            // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
+
+            // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
 
@@ -149,19 +134,28 @@ namespace DuelMastersModels
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            startingPlayer.ShuffleDeck(this);
-            otherPlayer.ShuffleDeck(this);
+            Players.ToList().ForEach(x => x.ShuffleDeck(this));
 
-            startingPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
-            otherPlayer.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this);
+            // Each player puts five card from to the top of their deck into their shield zone.
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(InitialNumberOfShields, this));
 
-            startingPlayer.DrawCards(InitialNumberOfHandCards, this);
-            otherPlayer.DrawCards(InitialNumberOfHandCards, this);
+            // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
+            Players.ToList().ForEach(x => x.DrawCards(InitialNumberOfHandCards, this));
 
-            return StartNewTurn(startingPlayer.Id, otherPlayer.Id);
+            // 103.7. The starting player takes their first turn.
+            var activePlayer = startingPlayer;
+            var nonActivePlayer = otherPlayer;
+            while (Players.Count > 1)
+            {
+                StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
+                var tmp1 = activePlayer;
+                var tmp2 = nonActivePlayer;
+                activePlayer = tmp2;
+                nonActivePlayer = tmp1;
+            }
         }
 
-        private Choice StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
+        private void StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
         {
             if (ExtraTurns.Any())
             {
@@ -171,20 +165,7 @@ namespace DuelMastersModels
             {
                 Turns.Add(new Turn { ActivePlayer = activePlayer, NonActivePlayer = nonActivePlayer });
             }
-            return Turns.Last().Start(this, Turns.Count);
-        }
-
-        public Choice Continue(Decision decision)
-        {
-            var choiceVar = CurrentTurn.Continue(decision, this);
-            if (choiceVar == null && Players.Count > 1)
-            {
-                return StartNewTurn(CurrentTurn.NonActivePlayer, CurrentTurn.ActivePlayer);
-            }
-            else
-            {
-                return choiceVar;
-            }
+            Turns.Last().Play(this, Turns.Count);
         }
 
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
@@ -194,9 +175,8 @@ namespace DuelMastersModels
             int attackingCreaturePower = GetPower(attackingCreature);
             int defendingCreaturePower = GetPower(defendingCreature);
 
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
+            Process(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
 
-            //TODO: Handle destruction as a state-based action. 703.4d
             if (attackingCreaturePower > defendingCreaturePower)
             {
                 Outcome(attackingCreature, defendingCreature);
@@ -212,7 +192,7 @@ namespace DuelMastersModels
 
             void Outcome(Card winner, Card loser)
             {
-                Trigger(new WinBattleEvent(winner));
+                Process(new WinBattleEvent(winner));
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
@@ -241,9 +221,7 @@ namespace DuelMastersModels
 
         public IEnumerable<Card> GetAllCards()
         {
-            var cards = Players.SelectMany(x => x.AllCards).ToList();
-            cards.AddRange(ResolvingSpells);
-            return cards;
+            return Players.SelectMany(x => x.AllCards).ToList();
         }
 
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
@@ -274,7 +252,7 @@ namespace DuelMastersModels
 
         public void Destroy(IEnumerable<Card> permanents)
         {
-            Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
+            _ = Move(permanents, ZoneType.BattleZone, ZoneType.Graveyard);
         }
 
         public Player GetOpponent(Player player)
@@ -295,6 +273,11 @@ namespace DuelMastersModels
         public Card GetCard(Guid id)
         {
             return GetAllCards().Single(c => c.Id == id);
+        }
+
+        public Card TryGetCard(Guid id)
+        {
+            return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Card> Permanents => Players.SelectMany(x => x.BattleZone.Cards);
@@ -330,24 +313,31 @@ namespace DuelMastersModels
             }
         }
 
-        public void Trigger(GameEvent gameEvent)
+        public void Process(GameEvent gameEvent)
         {
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
-            var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
-            List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-            foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            if (Turns.Any())
             {
-                abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
-                if (ability.Duration is Once)
+                CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
+                var abilities = GetAbilitiesThatTriggerFromPermanents(gameEvent).ToList();
+                List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
+                foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
-                    toBeRemoved.Add(ability);
+                    abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
+                    if (ability.Duration is Once)
+                    {
+                        toBeRemoved.Add(ability);
+                    }
+                }
+                _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+                foreach (var ability in abilities)
+                {
+                    Process(new AbilityTriggeredEvent(ability));
                 }
             }
-            _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-            CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
-            foreach (var ability in abilities)
+            else
             {
-                CurrentTurn.CurrentStep.GameEvents.Enqueue(new AbilityTriggeredEvent(ability));
+                PreGameEvents.Enqueue(gameEvent);
             }
         }
 
@@ -369,7 +359,6 @@ namespace DuelMastersModels
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = Permanents.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            abilities.AddRange(ResolvingSpells.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.SpellStack));
             return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
         }
 
@@ -384,13 +373,13 @@ namespace DuelMastersModels
         {
             Losers.Add(player);
             _ = Players.Remove(player);
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new LoseEvent(new Player(player)));
+            Process(new LoseEvent(player.Copy()));
         }
 
         public void Win(Player player)
         {
             Winner = player;
-            CurrentTurn.CurrentStep.GameEvents.Enqueue(new WinEvent(new Player(player)));
+            Process(new WinEvent(player.Copy()));
         }
 
         /// <summary>
@@ -402,7 +391,7 @@ namespace DuelMastersModels
         /// <returns></returns>
         public void Move(Card card, ZoneType source, ZoneType destination)
         {
-            Move(new List<Card> { card }, source, destination);
+            _ = Move(new List<Card> { card }, source, destination);
         }
 
         /// <summary>
@@ -413,14 +402,57 @@ namespace DuelMastersModels
         /// <param name="destination"></param>
         /// 
         /// <returns></returns>
-        public void Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            AwaitingEvents.AddRange(cards.Select(card => new CardMovedEvent(card.Owner, card.Id, source, destination)));
+            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
+        }
+
+        private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
+        {
+            // TODO: Sort players by turn order
+            var effects = GetReplacementEffects(events);
+            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.Card).GroupBy(x => GetCard(x).Owner);
+            foreach (var cardGroup in affectedCardGroups)
+            {
+                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).Card));
+                var player = GetPlayer(cardGroup.Key);
+                var effectGuid = effectGroups.Count() > 1
+                    ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
+                    : effectGroups.Select(x => x.Id).Single();
+                var effect = effectGroups.Single(x => x.Id == effectGuid);
+                var newEvent = effect.Apply(this);
+                if (newEvent != null)
+                {
+                    events = events.Where(x => x.Id != effect.EventToReplace.Id).ToList();
+                    events.Add(newEvent as CardMovedEvent);
+                }
+            }
+            foreach (var e in events)
+            {
+                e.Apply(this);
+                Process(e);
+            }
+            return events;
+        }
+
+        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<CardMovedEvent> events)
+        {
+            var replacementEffects = new List<ReplacementEffect>();
+            foreach (var moveEvent in events)
+            {
+                foreach (var replacementEffect in GetAllCards().SelectMany(x => GetContinuousEffects<ReplacementEffect>(x)).Where(x => x.Replaceable(moveEvent, this)))
+                {
+                    var effect = replacementEffect.Copy() as ReplacementEffect;
+                    effect.EventToReplace = moveEvent.Copy();
+                    replacementEffects.Add(effect);
+                }
+            }
+            return replacementEffects;
         }
 
         public void Discard(IEnumerable<Card> cards)
         {
-            Move(cards, ZoneType.Hand, ZoneType.Graveyard);
+            _ = Move(cards, ZoneType.Hand, ZoneType.Graveyard);
         }
 
         public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
@@ -430,24 +462,31 @@ namespace DuelMastersModels
 
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                foreach (var card in cards.Where(x => x.ShieldTrigger))
+                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.NewObject)).Where(x => x != null && x.ShieldTrigger);
+                while (shieldTriggers.Any())
                 {
-                    card.ShieldTriggerPending = true;
+                    var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);
+                    foreach (var group in triggerGroups)
+                    {
+                        var player = GetPlayer(group.Key);
+                        var decision = player.Choose(new GuidSelection(player.Id, group.Select(x => x.Id), 0, 1));
+                        if (decision.Decision.Any())
+                        {
+                            var trigger = GetCard(decision.Decision.Single());
+                            shieldTriggers = shieldTriggers.Where(x => x.Id != trigger.Id);
+                            Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
+                            UseCard(trigger, player);
+                        }
+                        else
+                        {
+                            shieldTriggers = shieldTriggers.Where(x => !group.Select(y => y.Id).Contains(x.Id));
+                        }
+                    }
                 }
             }
-        }
-
-        public void SetAwaitingChoice(Choice choice)
-        {
-            AwaitingChoice = AwaitingChoice == null ? choice : throw new InvalidOperationException();
-        }
-
-        public void ClearAwaitingChoice()
-        {
-            AwaitingChoice = AwaitingChoice != null ? (Choice)null : throw new InvalidOperationException();
         }
         #endregion Methods
     }

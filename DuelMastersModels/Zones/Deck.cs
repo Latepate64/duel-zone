@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Choices;
+﻿using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +12,25 @@ namespace DuelMastersModels.Zones
     {
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
-        public override Choice Add(Card card, Duel duel, Zone source)
+        public override void Add(Card card, Duel duel)
         {
             Cards.Add(card);
-            return null;
         }
 
-        public override void Remove(Card card)
+        public override void Remove(Card card, Duel duel)
         {
             if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
             }
+            if (!Cards.Any())
+            {
+                var player = duel.GetPlayer(card.Owner);
+                duel.Process(new DeckoutEvent(player.Copy()));
+                duel.Lose(player);
+            }
         }
 
-        /// <summary>
-        /// Shuffles the deck.
-        /// </summary>
         public void Shuffle()
         {
             foreach (var card in Cards)
@@ -44,34 +46,6 @@ namespace DuelMastersModels.Zones
                 Card value = Cards[k];
                 Cards[k] = Cards[n];
                 Cards[n] = value;
-            }
-        }
-
-        /// <summary>
-        /// Removes the top card of the deck and returns it.
-        /// </summary>
-        public Card RemoveAndGetTopCard()
-        {
-            return GetTopCard(true);
-        }
-
-        /// <summary>
-        /// Returns the top card of a deck. It is also possible to remove the card from the deck.
-        /// </summary>
-        private Card GetTopCard(bool remove)
-        {
-            if (Cards.Any())
-            {
-                Card topCard = Cards.Last();
-                if (remove)
-                {
-                    Remove(topCard);
-                }
-                return topCard;
-            }
-            else
-            {
-                return null;
             }
         }
 
