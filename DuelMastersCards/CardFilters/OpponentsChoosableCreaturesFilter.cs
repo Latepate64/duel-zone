@@ -14,9 +14,9 @@ namespace DuelMastersCards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Duel duel)
+        public override bool Applies(Card card, Game game)
         {
-            return duel.GetOpponent(duel.GetPlayer(Owner)).BattleZone.GetChoosableCreatures(duel).Select(x => x.Id).Contains(card.Id);
+            return game.GetOpponent(game.GetPlayer(Owner)).BattleZone.GetChoosableCreatures(game).Select(x => x.Id).Contains(card.Id);
         }
 
         public override CardFilter Copy()

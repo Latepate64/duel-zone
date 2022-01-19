@@ -9,9 +9,9 @@
             Turn = turn;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
-            return $"{Turn} ends for {duel.GetPlayer(Turn.ActivePlayer).Name}.";
+            return $"{Turn} ends for {game.GetPlayer(Turn.ActivePlayer).Name}.";
         }
     }
 }

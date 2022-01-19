@@ -24,14 +24,14 @@ namespace DuelMastersCards.OneShotEffects
             return new ControllerPutsCardsFromGraveyardIntoManaZoneEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
-            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));
+            var player = game.GetPlayer(Controller);
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, cards, 0, 1)); //TODO: min and max could be different
-                duel.Move(decision.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.ManaZone);
+                game.Move(decision.Decision.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

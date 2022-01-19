@@ -20,14 +20,14 @@ namespace DuelMastersCards.OneShotEffects
             return new SniperMosquitoEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // Return a card from your mana zone to your hand.
-            var controller = duel.GetPlayer(Controller);
+            var controller = game.GetPlayer(Controller);
             if (controller.ManaZone.Cards.Any())
             {
                 var decision = controller.Choose(new GuidSelection(Controller, controller.ManaZone.Cards, 1, 1));
-                duel.Move(duel.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Hand);
+                game.Move(game.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

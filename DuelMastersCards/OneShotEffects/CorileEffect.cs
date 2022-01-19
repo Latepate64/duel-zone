@@ -20,17 +20,17 @@ namespace DuelMastersCards.OneShotEffects
             return new CorileEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // Choose one of your opponent's creatures in the battle zone and put it on top of his deck.
-            var player = duel.GetPlayer(Controller);
-            var opponent = duel.GetOpponent(player);
-            var choosable = opponent.BattleZone.GetChoosableCreatures(duel);
+            var player = game.GetPlayer(Controller);
+            var opponent = game.GetOpponent(player);
+            var choosable = opponent.BattleZone.GetChoosableCreatures(game);
             if (choosable.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
-                var card = duel.GetCard(dec.Decision.Single());
-                duel.Move(card, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck);
+                var card = game.GetCard(dec.Decision.Single());
+                game.Move(card, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck);
             }
         }
     }

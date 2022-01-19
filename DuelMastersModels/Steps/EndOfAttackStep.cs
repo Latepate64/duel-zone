@@ -6,7 +6,7 @@
         {
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new AttackDeclarationStep();
         }

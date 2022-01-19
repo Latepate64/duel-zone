@@ -18,10 +18,10 @@ namespace DuelMastersCards.TriggeredAbilities
             return new HeartyCapnPolligonEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
-            duel.Move(duel.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

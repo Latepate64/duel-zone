@@ -129,7 +129,7 @@
     <Compile Include="IAttackable.cs" />
     <Compile Include="ICopyable.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Duel.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Durations\Indefinite.cs" />
     <Compile Include="Durations\Duration.cs" />

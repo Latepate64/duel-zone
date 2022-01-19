@@ -19,7 +19,7 @@ namespace DuelMastersModels
             Owner = filter.Owner;
         }
 
-        public abstract bool Applies(Card card, Duel duel);
+        public abstract bool Applies(Card card, Game game);
 
         public abstract CardFilter Copy();
 

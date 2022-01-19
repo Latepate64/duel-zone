@@ -14,7 +14,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
             return gameEvent is CreatureAttackedEvent e && e.Attacker.Id == Source;
         }

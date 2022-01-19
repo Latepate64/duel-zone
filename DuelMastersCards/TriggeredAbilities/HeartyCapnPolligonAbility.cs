@@ -16,10 +16,10 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            var foo1 = base.CanTrigger(gameEvent, duel);
-            var foo2 = duel.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
+            var foo1 = base.CanTrigger(gameEvent, game);
+            var foo2 = game.CurrentTurn.Steps.OfType<DirectAttackStep>().Where(x => x.AttackingCreature == Source).Any();
             return foo1 && foo2;
         }
     }

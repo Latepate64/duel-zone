@@ -26,6 +26,6 @@ namespace DuelMastersModels.Abilities
             return copy;
         }
 
-        public abstract bool CanTrigger(GameEvent gameEvent, Duel duel);
+        public abstract bool CanTrigger(GameEvent gameEvent, Game game);
     }
 }

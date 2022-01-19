@@ -14,9 +14,9 @@
             OneShotEffect = ability.OneShotEffect.Copy();
         }
 
-        public void Resolve(Duel duel)
+        public void Resolve(Game game)
         {
-            OneShotEffect.Apply(duel);
+            OneShotEffect.Apply(game);
         }
 
         protected override void Dispose(bool disposing)

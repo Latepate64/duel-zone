@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public class Duel : IDisposable
+    public class Game : IDisposable
     {
         #region Properties
         /// <summary>
@@ -24,12 +24,12 @@ namespace DuelMastersModels
         public ICollection<Player> Losers { get; } = new Collection<Player>();
 
         /// <summary>
-        /// The number of shields each player has at the start of a duel. 
+        /// The number of shields each player has at the start of a game. 
         /// </summary>
         public int InitialNumberOfShields { get; set; } = 5;
 
         /// <summary>
-        /// The number of cards each player draw at the start of a duel.
+        /// The number of cards each player draw at the start of a game.
         /// </summary>
         public int InitialNumberOfHandCards { get; set; } = 5;
 
@@ -45,7 +45,7 @@ namespace DuelMastersModels
         public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
 
         /// <summary>
-        /// All the turns of the duel that have been or are processed, in order.
+        /// All the turns of the game that have been or are processed, in order.
         /// </summary>
         public IList<Turn> Turns { get; } = new List<Turn>();
 
@@ -59,22 +59,22 @@ namespace DuelMastersModels
         internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
 
         #region Methods
-        public Duel() { }
+        public Game() { }
 
-        public Duel(Duel duel)
+        public Game(Game game)
         {
-            DelayedTriggeredAbilities = duel.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
-            ExtraTurns = new Queue<Turn>(duel.ExtraTurns.Select(x => new Turn(x)));
-            InitialNumberOfHandCards = duel.InitialNumberOfHandCards;
-            InitialNumberOfShields = duel.InitialNumberOfShields;
-            Losers = duel.Losers.Select(x => x.Copy()).ToList();
-            Players = duel.Players.Select(x => x.Copy()).ToList();
-            if (duel.Winner != null)
+            DelayedTriggeredAbilities = game.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
+            ExtraTurns = new Queue<Turn>(game.ExtraTurns.Select(x => new Turn(x)));
+            InitialNumberOfHandCards = game.InitialNumberOfHandCards;
+            InitialNumberOfShields = game.InitialNumberOfShields;
+            Losers = game.Losers.Select(x => x.Copy()).ToList();
+            Players = game.Players.Select(x => x.Copy()).ToList();
+            if (game.Winner != null)
             {
-                Winner = duel.Winner.Copy();
+                Winner = game.Winner.Copy();
             }
-            Turns = duel.Turns.Select(x => new Turn(x)).ToList();
-            ContinuousEffects = duel.ContinuousEffects.Select(x => x.Copy()).ToList();
+            Turns = game.Turns.Select(x => new Turn(x)).ToList();
+            ContinuousEffects = game.ContinuousEffects.Select(x => x.Copy()).ToList();
         }
 
         public override string ToString()

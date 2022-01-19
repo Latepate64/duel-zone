@@ -27,25 +27,25 @@ namespace DuelMastersCards.OneShotEffects
             return new SearchDeckEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
-            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, duel));
+            var player = game.GetPlayer(Controller);
+            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(player.Id, cards, 0, 1));
-                var cards2 = decision.Decision.Select(x => duel.GetCard(x));
-                duel.Move(cards2, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
+                var cards2 = decision.Decision.Select(x => game.GetCard(x));
+                game.Move(cards2, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
 
                 if (Reveal)
                 {
                     foreach (var card in cards2)
                     {
-                        duel.GetOwner(card).Reveal(duel, card);
+                        game.GetOwner(card).Reveal(game, card);
                     }
                 }
             }
-            player.ShuffleDeck(duel);
+            player.ShuffleDeck(game);
         }
     }
 }

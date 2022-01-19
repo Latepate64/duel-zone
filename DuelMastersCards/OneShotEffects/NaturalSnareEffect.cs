@@ -20,15 +20,15 @@ namespace DuelMastersCards.OneShotEffects
             return new NaturalSnareEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
-            var opponent = duel.GetOpponent(player);
-            var choosable = opponent.BattleZone.GetChoosableCreatures(duel);
+            var player = game.GetPlayer(Controller);
+            var opponent = game.GetOpponent(player);
+            var choosable = opponent.BattleZone.GetChoosableCreatures(game);
             if (choosable.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
-                duel.Move(duel.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
+                game.Move(game.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

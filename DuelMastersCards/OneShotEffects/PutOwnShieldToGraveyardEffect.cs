@@ -20,14 +20,14 @@ namespace DuelMastersCards.OneShotEffects
             return new PutOwnShieldToGraveyardEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var controller = duel.GetPlayer(Controller);
+            var controller = game.GetPlayer(Controller);
             var shields = controller.ShieldZone.Cards;
             if (shields.Any())
             {
                 var decision = controller.Choose(new GuidSelection(Controller, shields, 1, 1));
-                duel.Move(duel.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
+                game.Move(game.GetCard(decision.Decision.Single()), DuelMastersModels.Zones.ZoneType.ShieldZone, DuelMastersModels.Zones.ZoneType.Graveyard);
             }
         }
     }

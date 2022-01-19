@@ -24,14 +24,14 @@ namespace DuelMastersCards.OneShotEffects
             return new PutCardsFromHandIntoManaZoneEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
+            var player = game.GetPlayer(Controller);
             var cards = player.Hand.Cards;
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, cards, 0, Amount));
-                duel.Move(decision.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
+                game.Move(decision.Decision.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ManaZone);
             }
         }
     }

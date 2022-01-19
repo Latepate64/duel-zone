@@ -9,9 +9,9 @@
             Creature = creature;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
-            return $"{duel.GetOwner(Creature)}'s {Creature} won the battle.";
+            return $"{game.GetOwner(Creature)}'s {Creature} won the battle.";
         }
     }
 }

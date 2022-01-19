@@ -15,7 +15,7 @@ namespace DuelMastersModels.Abilities
             Source = effect.Source;
         }
 
-        public abstract void Apply(Duel duel);
+        public abstract void Apply(Game game);
 
         public abstract OneShotEffect Copy();
 

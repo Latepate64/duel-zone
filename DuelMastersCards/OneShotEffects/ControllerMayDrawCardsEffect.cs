@@ -25,16 +25,16 @@ namespace DuelMastersCards.OneShotEffects
             return new ControllerMayDrawCardsEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
+            var player = game.GetPlayer(Controller);
             var decision = player.Choose(new YesNoChoice(Controller));
             if (decision.Decision)
             {
-                player.DrawCards(1, duel);
+                player.DrawCards(1, game);
                 if (++_drawn < Maximum)
                 {
-                    Apply(duel);
+                    Apply(game);
                 }
             }
         }

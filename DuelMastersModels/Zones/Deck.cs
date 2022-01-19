@@ -12,12 +12,12 @@ namespace DuelMastersModels.Zones
     {
         public Deck(IEnumerable<Card> cards) : base(cards) { }
 
-        public override void Add(Card card, Duel duel)
+        public override void Add(Card card, Game game)
         {
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {
@@ -25,9 +25,9 @@ namespace DuelMastersModels.Zones
             }
             if (!Cards.Any())
             {
-                var player = duel.GetPlayer(card.Owner);
-                duel.Process(new DeckoutEvent(player.Copy()));
-                duel.Lose(player);
+                var player = game.GetPlayer(card.Owner);
+                game.Process(new DeckoutEvent(player.Copy()));
+                game.Lose(player);
             }
         }
 

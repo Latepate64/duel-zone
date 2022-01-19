@@ -25,8 +25,8 @@ namespace DuelMastersModels.ContinuousEffects
 
         public Guid Id { get; }
 
-        public abstract bool Replaceable(GameEvent gameEvent, Duel duel);
+        public abstract bool Replaceable(GameEvent gameEvent, Game game);
 
-        public abstract GameEvent Apply(Duel duel);
+        public abstract GameEvent Apply(Game game);
     }
 }

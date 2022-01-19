@@ -9,7 +9,7 @@
         {
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new ChargeStep();
         }
@@ -18,9 +18,9 @@
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
         /// <returns></returns>
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            duel.GetPlayer(duel.CurrentTurn.ActivePlayer).DrawCards(1, duel);
+            game.GetPlayer(game.CurrentTurn.ActivePlayer).DrawCards(1, game);
         }
 
         public override Step Copy()

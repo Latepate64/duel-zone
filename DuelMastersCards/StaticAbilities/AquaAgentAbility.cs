@@ -37,9 +37,9 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Duel duel)
+        public override GameEvent Apply(Game game)
         {
-            if (duel.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
+            if (game.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
             {
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;
                 newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;
@@ -51,11 +51,11 @@ namespace DuelMastersCards.StaticAbilities
             }
         }
 
-        public override bool Replaceable(GameEvent gameEvent, Duel duel)
+        public override bool Replaceable(GameEvent gameEvent, Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filters.Any(x => x.Applies(duel.GetCard(e.Card), duel));
+                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filters.Any(x => x.Applies(game.GetCard(e.Card), game));
             }
             return false;
         }

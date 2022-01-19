@@ -21,9 +21,9 @@ namespace DuelMastersCards.OneShotEffects
             return new QuixoticHeroSwineSnoutEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            duel.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Owner = Controller, Target = Source }, 3000, new UntilTheEndOfTheTurn()));
+            game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Owner = Controller, Target = Source }, 3000, new UntilTheEndOfTheTurn()));
         }
     }
 }

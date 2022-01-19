@@ -16,7 +16,7 @@ namespace DuelMastersCards.CardFilters
             CardType = filter.CardType;
         }
 
-        public override bool Applies(Card card, Duel duel)
+        public override bool Applies(Card card, Game game)
         {
             return card.CardType == CardType;
         }

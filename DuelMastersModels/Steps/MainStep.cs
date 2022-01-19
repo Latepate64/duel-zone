@@ -12,24 +12,24 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        protected internal override bool PerformPriorityAction(Duel duel)
+        protected internal override bool PerformPriorityAction(Game game)
         {
-            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
             var usableCards = player.GetUsableCardsWithPaymentInformation();
             if (usableCards.Any())
             {
-                var dec = player.Choose(new CardUsageChoice(duel.CurrentTurn.ActivePlayer, usableCards));
+                var dec = player.Choose(new CardUsageChoice(game.CurrentTurn.ActivePlayer, usableCards));
                 if (dec.Decision == null)
                 {
                     return true;
                 }
                 else
                 {
-                    foreach (Card mana in dec.Decision.Manas.Select(x => duel.GetCard(x)))
+                    foreach (Card mana in dec.Decision.Manas.Select(x => game.GetCard(x)))
                     {
                         mana.Tapped = true;
                     }
-                    duel.UseCard(duel.GetCard(dec.Decision.ToUse), duel.GetPlayer(duel.CurrentTurn.ActivePlayer));
+                    game.UseCard(game.GetCard(dec.Decision.ToUse), game.GetPlayer(game.CurrentTurn.ActivePlayer));
                     return false;
                 }
             }
@@ -39,7 +39,7 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new AttackDeclarationStep();
         }

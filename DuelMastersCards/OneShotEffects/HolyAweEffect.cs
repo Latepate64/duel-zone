@@ -18,10 +18,10 @@ namespace DuelMastersCards.OneShotEffects
             return new HolyAweEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // Tap all your opponent's creatures in the battle zone.
-            var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
+            var opponent = game.GetOpponent(game.GetPlayer(Controller));
             foreach (var creature in opponent.BattleZone.Creatures)
             {
                 creature.Tapped = true;

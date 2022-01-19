@@ -14,15 +14,15 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            duel.Destroy(duel.BattleZoneCreatures.Where(p => p.Id != Source && duel.GetPower(p) == 6000).ToList());
+            game.Destroy(game.BattleZoneCreatures.Where(p => p.Id != Source && game.GetPower(p) == 6000).ToList());
             // then take an extra turn after this one.
-            Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = duel.GetOpponent(Controller) };
-            duel.ExtraTurns.Enqueue(turn);
+            Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = game.GetOpponent(Controller) };
+            game.ExtraTurns.Enqueue(turn);
             // You lose the game at the end of the extra turn.
-            duel.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once(), Source, Controller));
+            game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once(), Source, Controller));
         }
 
         public override OneShotEffect Copy()
@@ -41,9 +41,9 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            duel.Lose(duel.GetPlayer(Controller));
+            game.Lose(game.GetPlayer(Controller));
         }
 
         public override OneShotEffect Copy()

@@ -36,20 +36,20 @@ namespace DuelMastersCards.OneShotEffects
             return new PutCardsFromManaZoneIntoGraveyardEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = GetPlayer(duel);
+            var player = GetPlayer(game);
             var cards = player.ManaZone.Cards;
             if (Minimum == Maximum)
             {
                 if (cards.Count <= Minimum)
                 {
-                    PutFromManaZoneIntoGraveyard(cards, duel);
+                    PutFromManaZoneIntoGraveyard(cards, game);
                 }
                 else
                 {
                     var decision = player.Choose(new GuidSelection(Controller, cards, Minimum, Maximum));
-                    PutFromManaZoneIntoGraveyard(decision.Decision.Select(x => duel.GetCard(x)), duel);
+                    PutFromManaZoneIntoGraveyard(decision.Decision.Select(x => game.GetCard(x)), game);
                 }
             }
             else
@@ -58,21 +58,21 @@ namespace DuelMastersCards.OneShotEffects
             }
         }
 
-        private void PutFromManaZoneIntoGraveyard(IEnumerable<Card> cards, Duel duel)
+        private void PutFromManaZoneIntoGraveyard(IEnumerable<Card> cards, Game game)
         {
-            duel.Move(cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
+            game.Move(cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
         }
 
-        private Player GetPlayer(Duel duel)
+        private Player GetPlayer(Game game)
         {
-            var controller = duel.GetPlayer(Controller);
+            var controller = game.GetPlayer(Controller);
             if (ZoneOwner == ZoneOwner.Controller)
             {
                 return controller;
             }
             else if (ZoneOwner == ZoneOwner.Opponent)
             {
-                return duel.GetOpponent(controller);
+                return game.GetOpponent(controller);
             }
             else
             {

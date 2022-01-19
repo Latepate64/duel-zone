@@ -21,7 +21,7 @@ namespace DuelMastersServer
         public ClientState State { get; private set; } = ClientState.Available;
 
         /// <summary>
-        /// The id of the other client in case of state being challenge or duel.
+        /// The id of the other client in case of state being challenge or game.
         /// </summary>
         public int OtherClientId { get; private set; }
 

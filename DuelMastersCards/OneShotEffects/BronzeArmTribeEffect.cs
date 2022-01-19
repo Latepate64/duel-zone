@@ -18,9 +18,9 @@ namespace DuelMastersCards.OneShotEffects
             return new BronzeArmTribeEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            duel.GetPlayer(Controller).PutFromTopOfDeckIntoManaZone(duel);
+            game.GetPlayer(Controller).PutFromTopOfDeckIntoManaZone(game);
         }
     }
 }

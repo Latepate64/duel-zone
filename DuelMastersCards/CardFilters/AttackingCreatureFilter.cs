@@ -13,9 +13,9 @@ namespace DuelMastersCards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Duel duel)
+        public override bool Applies(Card card, Game game)
         {
-            return duel.CurrentTurn.CurrentStep is AttackingCreatureStep step && step.AttackingCreature == card.Id;
+            return game.CurrentTurn.CurrentStep is AttackingCreatureStep step && step.AttackingCreature == card.Id;
         }
 
         public override CardFilter Copy()

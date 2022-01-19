@@ -27,14 +27,14 @@ namespace DuelMastersCards.OneShotEffects
             return new ReturnCardsFromGraveyardToHandEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Controller);
-            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, duel));
+            var player = game.GetPlayer(Controller);
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, cards, 0, Maximum));
-                duel.Move(decision.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
+                game.Move(decision.Decision.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }

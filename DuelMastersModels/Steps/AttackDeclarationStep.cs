@@ -16,21 +16,21 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            var activePlayer = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
-            var attackers = activePlayer.BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(duel) && GetPossibleAttackTargets(c, duel).Any()).Distinct(new CardComparer());
-            var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, duel));
+            var activePlayer = game.GetPlayer(game.CurrentTurn.ActivePlayer);
+            var attackers = activePlayer.BattleZone.Creatures.Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && GetPossibleAttackTargets(c, game).Any()).Distinct(new CardComparer());
+            var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
             var targets = options.SelectMany(x => x).SelectMany(x => x);
             if (targets.Any())
             {
-                var dec = activePlayer.Choose(new AttackerChoice(duel.CurrentTurn.ActivePlayer, options, attackers.Any(x => duel.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
+                var dec = activePlayer.Choose(new AttackerChoice(game.CurrentTurn.ActivePlayer, options, attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
                 if (dec.Decision != null)
                 {
                     AttackingCreature = dec.Decision.Item1;
                     AttackTarget = dec.Decision.Item2;
-                    var attacker = duel.GetCard(AttackingCreature);
+                    var attacker = game.GetCard(AttackingCreature);
                     attacker.Tapped = true;
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();
                     if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
@@ -39,24 +39,24 @@ namespace DuelMastersModels.Steps
                     }
                     else
                     {
-                        duel.Process(new CreatureAttackedEvent(new Card(attacker, true), duel.GetAttackable(AttackTarget)));
+                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(AttackTarget)));
                     }
                 }
             }
         }
 
-        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Duel duel)
+        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Game game)
         {
             List<IAttackable> attackables = new List<IAttackable>();
-            var opponent = duel.GetOpponent(duel.GetPlayer(attacker.Owner));
-            if (!duel.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
+            var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
+            if (!game.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
             {
                 attackables.Add(opponent);
             }
-            if (!duel.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
+            if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
             {
                 attackables.AddRange(opponent.BattleZone.Creatures.Where(c => c.Tapped).Distinct(new CardComparer()));
-                if (duel.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                if (game.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
                 {
                     attackables.AddRange(opponent.BattleZone.Creatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
                 }
@@ -68,11 +68,11 @@ namespace DuelMastersModels.Steps
             return attackables;
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             if (AttackingCreature != Guid.Empty)
             {
-                var tapAbilities = duel.GetCard(AttackingCreature).Abilities.OfType<TapAbility>();
+                var tapAbilities = game.GetCard(AttackingCreature).Abilities.OfType<TapAbility>();
                 if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
                 {
                     return new AttackDeclarationStep();

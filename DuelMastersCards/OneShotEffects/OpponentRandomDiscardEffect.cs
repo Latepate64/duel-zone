@@ -18,9 +18,9 @@ namespace DuelMastersCards.OneShotEffects
             return new OpponentRandomDiscardEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            duel.GetOpponent(duel.GetPlayer(Controller)).DiscardAtRandom(duel);
+            game.GetOpponent(game.GetPlayer(Controller)).DiscardAtRandom(game);
         }
     }
 }

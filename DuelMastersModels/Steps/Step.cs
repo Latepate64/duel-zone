@@ -8,45 +8,45 @@ namespace DuelMastersModels.Steps
 {
     public abstract class Step : ICopyable<Step>
     {
-        public abstract Step GetNextStep(Duel duel);
+        public abstract Step GetNextStep(Game game);
 
-        internal void Play(Duel duel)
+        internal void Play(Game game)
         {
             if (this is TurnBasedActionStep turnBasedActionStep)
             {
-                turnBasedActionStep.PerformTurnBasedAction(duel);
+                turnBasedActionStep.PerformTurnBasedAction(game);
             }
-            Progress(duel);
+            Progress(game);
         }
 
-        private void Progress(Duel duel)
+        private void Progress(Game game)
         {
             // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
-            if (duel.Players.Count == 1)
+            if (game.Players.Count == 1)
             {
-                duel.Win(duel.Players.Single());
+                game.Win(game.Players.Single());
             }
-            else if (duel.Players.Any())
+            else if (game.Players.Any())
             {
-                ResolveAbilities(duel);
-                if (this is PriorityStep priorityStep && !priorityStep.PerformPriorityAction(duel))
+                ResolveAbilities(game);
+                if (this is PriorityStep priorityStep && !priorityStep.PerformPriorityAction(game))
                 {
-                    Progress(duel);
+                    Progress(game);
                 }
             }
         }
 
-        private void ResolveAbilities(Duel duel)
+        private void ResolveAbilities(Game game)
         {
             while (PendingAbilities.Any())
             {
                 var abilityGroups = PendingAbilities.GroupBy(x => x.Owner);
                 foreach (var abilities in abilityGroups)
                 {
-                    var player = duel.GetPlayer(abilities.Key);
+                    var player = game.GetPlayer(abilities.Key);
                     var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
                     var ability = abilities.Single(x => x.Id == decision);
-                    ability.Resolve(duel);
+                    ability.Resolve(game);
                     _ = PendingAbilities.Remove(ability);
                     break;
                 }

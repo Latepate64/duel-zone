@@ -15,9 +15,9 @@
             Creature2Power = creature2Power;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
-            return $"{duel.GetOwner(Creature1)}'s {Creature1} ({Creature1Power}) battled {duel.GetOwner(Creature2)}'s {Creature2} ({Creature2Power}).";
+            return $"{game.GetOwner(Creature1)}'s {Creature1} ({Creature1Power}) battled {game.GetOwner(Creature2)}'s {Creature2} ({Creature2Power}).";
         }
     }
 }

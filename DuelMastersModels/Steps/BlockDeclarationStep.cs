@@ -17,36 +17,36 @@ namespace DuelMastersModels.Steps
             AttackTarget = attackTarget;
         }
 
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            var nonActive = duel.GetPlayer(duel.CurrentTurn.NonActivePlayer);
-            var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && duel.GetContinuousEffects<BlockerEffect>(x).Any());
+            var nonActive = game.GetPlayer(game.CurrentTurn.NonActivePlayer);
+            var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
             if (possibleBlockers.Any())
             {
-                var effects = duel.GetContinuousEffects<UnblockableEffect>(duel.GetCard(AttackingCreature));
-                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, duel)));
+                var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature));
+                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game)));
             }
-            if (possibleBlockers.Any() && !duel.GetContinuousEffects<UnblockableEffect>(duel.GetCard(AttackingCreature)).Any())
+            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature)).Any())
             {
-                var dec = nonActive.Choose(new GuidSelection(duel.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
+                var dec = nonActive.Choose(new GuidSelection(game.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
                 var blockers = dec.Decision;
                 if (blockers.Any())
                 {
                     BlockingCreature = blockers.Single();
-                    var blocker = duel.GetCard(BlockingCreature);
+                    var blocker = game.GetCard(BlockingCreature);
                     blocker.Tapped = true;
-                    duel.Process(new BlockEvent(new Card(duel.GetCard(AttackingCreature), true), new Card(blocker, true)));
+                    game.Process(new BlockEvent(new Card(game.GetCard(AttackingCreature), true), new Card(blocker, true)));
                 }
             }
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             if (BlockingCreature != Guid.Empty)
             {
                 return new BattleStep(AttackingCreature, BlockingCreature);
             }
-            else if (duel.GetAttackable(AttackTarget) is Card)
+            else if (game.GetAttackable(AttackTarget) is Card)
             {
                 return new BattleStep(AttackingCreature, AttackTarget);
             }

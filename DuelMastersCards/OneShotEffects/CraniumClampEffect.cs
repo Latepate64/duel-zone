@@ -22,18 +22,18 @@ namespace DuelMastersCards.OneShotEffects
             return new CraniumClampEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // Your opponent chooses and discards 2 cards from his hand.
-            var opponent = duel.GetOpponent(duel.GetPlayer(Controller));
+            var opponent = game.GetOpponent(game.GetPlayer(Controller));
             if (opponent.Hand.Cards.Count <= Amount)
             {
-                duel.Discard(opponent.Hand.Cards.ToList());
+                game.Discard(opponent.Hand.Cards.ToList());
             }
             else
             {
                 var dec = opponent.Choose(new GuidSelection(opponent.Id, opponent.Hand.Cards, Amount, Amount));
-                duel.Discard(dec.Decision.Select(x => duel.GetCard(x)).ToList());
+                game.Discard(dec.Decision.Select(x => game.GetCard(x)).ToList());
             }
         }
     }

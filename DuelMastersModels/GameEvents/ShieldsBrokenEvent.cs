@@ -14,7 +14,7 @@
         public int Amount { get; }
 
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
             return $"{Attacker} broke {Amount} of {Target}'s shields ({Target.ShieldZone.Cards.Count} remaining).";
         }

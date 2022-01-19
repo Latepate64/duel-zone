@@ -28,23 +28,23 @@ namespace DuelMastersModels.GameEvents
             Destination = e.Destination;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
             return $"{Player} put {Card} from their {Source} into their {Destination}.";
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            var player = duel.GetPlayer(Player);
+            var player = game.GetPlayer(Player);
             var sourceZone = player.GetZone(Source);
             var destinationZone = player.GetZone(Destination);
-            var card = duel.GetCard(Card);
-            sourceZone.Remove(card, duel);
+            var card = game.GetCard(Card);
+            sourceZone.Remove(card, game);
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);
             NewObject = newObject.Id;
-            destinationZone.Add(newObject, duel);
+            destinationZone.Add(newObject, game);
         }
 
         public override GameEvent Copy()

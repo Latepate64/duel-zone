@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System;
+﻿using System;
 
 namespace DuelMastersModels.Steps
 {
@@ -16,7 +15,7 @@ namespace DuelMastersModels.Steps
             TargetCreature = targetCreature;
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new EndOfAttackStep();
             //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
@@ -33,9 +32,9 @@ namespace DuelMastersModels.Steps
             TargetCreature = step.TargetCreature;
         }
 
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            duel.Battle(AttackingCreature, TargetCreature);
+            game.Battle(AttackingCreature, TargetCreature);
         }
 
         public override Step Copy()

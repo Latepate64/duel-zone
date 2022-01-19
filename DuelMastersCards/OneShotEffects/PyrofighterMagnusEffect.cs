@@ -18,10 +18,10 @@ namespace DuelMastersCards.OneShotEffects
             return new PyrofighterMagnusEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // Return this creature to your hand.
-            duel.Move(duel.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

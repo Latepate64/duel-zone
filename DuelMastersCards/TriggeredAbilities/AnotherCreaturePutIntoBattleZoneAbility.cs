@@ -15,11 +15,11 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination.GetType() == typeof(BattleZone) && Source != e.Card && duel.GetCard(e.Card).CardType == CardType.Creature;
+                return e.Destination.GetType() == typeof(BattleZone) && Source != e.Card && game.GetCard(e.Card).CardType == CardType.Creature;
             }
             else
             {

@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
             SkipDrawStep = skipDrawStep;
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
             if (SkipDrawStep)
@@ -29,10 +29,10 @@ namespace DuelMastersModels.Steps
         /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
         /// </summary>
         /// <returns></returns>
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            duel.Process(new TurnStartsEvent(duel.CurrentTurn));
-            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
+            game.Process(new TurnStartsEvent(game.CurrentTurn));
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
             foreach (var creature in player.BattleZone.Creatures)
             {
                 creature.SummoningSickness = false;

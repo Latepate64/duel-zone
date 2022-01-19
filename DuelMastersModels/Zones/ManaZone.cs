@@ -22,14 +22,14 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(Card card, Duel duel)
+        public override void Add(Card card, Game game)
         {
-            card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
+            card.RevealedTo = game.Players.Select(x => x.Id).ToList();
             card.EnterManaZone();
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {

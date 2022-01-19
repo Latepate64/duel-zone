@@ -186,9 +186,9 @@ namespace DuelMastersModels
             }
         }
 
-        internal bool AffectedBySummoningSickness(Duel duel)
+        internal bool AffectedBySummoningSickness(Game game)
         {
-            return SummoningSickness && !duel.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
+            return SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
         }
     }
 

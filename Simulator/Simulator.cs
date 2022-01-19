@@ -7,39 +7,39 @@ namespace Simulator
 {
     public class Simulator
     {
-        public Duel PlayDuel(Player player1, Player player2, int choicesMax)
+        public Game PlayDuel(Player player1, Player player2, int choicesMax)
         {
-            Duel duel = new();
-            duel.Play(player1, player2);
+            Game game = new();
+            game.Play(player1, player2);
             //int numberOfChoicesMade = 0;
             //int latestPoints = 0;
             //while (choice != null)
             //{
-            //    var duelCopy = GetDuelForSimulator(duel, choice.Player);
+            //    var duelCopy = GetDuelForSimulator(game, choice.Player);
             //    var simulation = new Simulation(choice.Player, choicesMax);
             //    var (decision, points) = simulation.Choose(choice, duelCopy, null, numberOfChoicesMade++);
             //    using (decision)
             //    {
             //        latestPoints = points;
-            //        choice = duel.Continue();
+            //        choice = game.Continue();
             //    }
 
-            //    if (duel.Turns.Count > 200) // Could happen Corile vs Corile
+            //    if (game.Turns.Count > 200) // Could happen Corile vs Corile
             //    {
             //        //TODO: Improve
-            //        while (duel.Players.Any())
+            //        while (game.Players.Any())
             //        {
-            //            duel.Lose(duel.Players.First());
+            //            game.Lose(game.Players.First());
             //        }
-            //        return duel;
+            //        return game;
             //    }
             //}
-            return duel;
+            return game;
         }
 
-        private Duel GetDuelForSimulator(Duel duel, Guid simulator)
+        private Game GetDuelForSimulator(Game game, Guid simulator)
         {
-            var duelCopy = new Duel(duel);
+            var duelCopy = new Game(game);
             foreach (var card in duelCopy.Players.SelectMany(p => p.AllCards))
             {
                 if (!card.RevealedTo.Contains(simulator))

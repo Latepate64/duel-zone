@@ -11,15 +11,15 @@
             Attackable = attackable;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
             if (Attackable is Card creature)
             {
-                return $"{duel.GetOwner(Attacker)}'s {Attacker} attacked {duel.GetOwner(creature)}'s {creature}.";
+                return $"{game.GetOwner(Attacker)}'s {Attacker} attacked {game.GetOwner(creature)}'s {creature}.";
             }
             else
             {
-                return $"{duel.GetOwner(Attacker)}'s {Attacker} attacked {Attackable}.";
+                return $"{game.GetOwner(Attacker)}'s {Attacker} attacked {Attackable}.";
             }
         }
     }

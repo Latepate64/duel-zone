@@ -17,7 +17,7 @@ namespace DuelMastersCards.CardFilters
             Subtype = filter.Subtype;
         }
 
-        public override bool Applies(Card card, Duel duel)
+        public override bool Applies(Card card, Game game)
         {
             return card.Subtypes.Contains(Subtype);
         }

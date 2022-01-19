@@ -12,19 +12,19 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new MainStep();
         }
 
-        protected internal override bool PerformPriorityAction(Duel duel)
+        protected internal override bool PerformPriorityAction(Game game)
         {
-            var player = duel.GetPlayer(duel.CurrentTurn.ActivePlayer);
-            var dec = player.Choose(new GuidSelection(duel.CurrentTurn.ActivePlayer, duel.GetPlayer(duel.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
+            var dec = player.Choose(new GuidSelection(game.CurrentTurn.ActivePlayer, game.GetPlayer(game.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
             var cards = dec.Decision;
             if (cards.Any())
             {
-                _ = duel.Move(cards.Select(x => duel.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
+                _ = game.Move(cards.Select(x => game.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
             }
             return true;
         }

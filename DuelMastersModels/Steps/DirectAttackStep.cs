@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
             AttackingCreature = attackingCreature;
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return new EndOfAttackStep();
         }
@@ -22,25 +22,25 @@ namespace DuelMastersModels.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            var attackingCreature = duel.GetCard(AttackingCreature);
-            var controller = duel.GetPlayer(attackingCreature.Owner);
-            var opponent = duel.GetOpponent(controller);
+            var attackingCreature = game.GetCard(AttackingCreature);
+            var controller = game.GetPlayer(attackingCreature.Owner);
+            var opponent = game.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())
             {
                 int breakAmount = 1;
-                if (duel.GetContinuousEffects<DoubleBreakerEffect>(attackingCreature).Any())
+                if (game.GetContinuousEffects<DoubleBreakerEffect>(attackingCreature).Any())
                 {
                     breakAmount = 2;
                 }
-                duel.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                duel.Process(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
+                game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
+                game.Process(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
             }
             else
             {
-                duel.Process(new DirectAttackEvent(opponent.Copy()));
-                duel.Lose(opponent);
+                game.Process(new DirectAttackEvent(opponent.Copy()));
+                game.Lose(opponent);
             }
         }
 

@@ -23,9 +23,9 @@ namespace DuelMastersCards.OneShotEffects
             return new ReturnCreaturesToTheirOwnersHandsEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
-            duel.Move(duel.CardsInBattleZone.Where(x => Filter.Applies(x, duel)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.CardsInBattleZone.Where(x => Filter.Applies(x, game)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

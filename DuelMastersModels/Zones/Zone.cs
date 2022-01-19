@@ -20,9 +20,9 @@ namespace DuelMastersModels.Zones
             Cards = new List<Card>(cards.ToList());
         }
 
-        public abstract void Add(Card card, Duel duel);
+        public abstract void Add(Card card, Game game);
 
-        public abstract void Remove(Card card, Duel duel);
+        public abstract void Remove(Card card, Game game);
 
         protected virtual void Dispose(bool disposing)
         {

@@ -24,15 +24,15 @@ namespace DuelMastersCards.OneShotEffects
             return new AquaSurferEffect(this);
         }
 
-        public override void Apply(Duel duel)
+        public override void Apply(Game game)
         {
             // You may choose a creature in the battle zone and return it to its owner's hand.
-            var player = duel.GetPlayer(Controller);
-            var creatures = duel.GetChoosableBattleZoneCreatures(player);
+            var player = game.GetPlayer(Controller);
+            var creatures = game.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, creatures, 0, MaximumAmount));
-                duel.Move(dec.Decision.Select(x => duel.GetCard(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+                game.Move(dec.Decision.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }
     }
