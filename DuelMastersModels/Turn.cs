@@ -12,12 +12,12 @@ namespace DuelMastersModels
         public Guid Id { get; }
 
         /// <summary>
-        /// The player whose turn it is.
+        /// 102.1. The active player is the player whose turn it is.
         /// </summary>
         public Guid ActivePlayer { get; set; }
 
         /// <summary>
-        /// The opponent of the active player.
+        /// 102.1. The other players are nonactive players.
         /// </summary>
         public Guid NonActivePlayer { get; set; }
 
@@ -42,13 +42,13 @@ namespace DuelMastersModels
             Id = Guid.NewGuid();
         }
 
-        public void Play(Duel duel, int number)
+        public void Play(Game game, int number)
         {
             Number = number;
             if (!Steps.Any())
             {
                 Steps.Add(new StartOfTurnStep(Number == 1));
-                StartCurrentStep(duel);
+                StartCurrentStep(game);
             }
             else
             {
@@ -56,16 +56,16 @@ namespace DuelMastersModels
             }
         }
 
-        private void StartCurrentStep(Duel duel)
+        private void StartCurrentStep(Game game)
         {
-            CurrentStep.Play(duel);
-            if (duel.Players.Count > 1)
+            CurrentStep.Play(game);
+            if (game.Players.Count > 1)
             {
-                Step nextStep = CurrentStep.GetNextStep(duel);
+                Step nextStep = CurrentStep.GetNextStep(game);
                 if (nextStep != null)
                 {
                     Steps.Add(nextStep);
-                    StartCurrentStep(duel);
+                    StartCurrentStep(game);
                 }
             }
         }

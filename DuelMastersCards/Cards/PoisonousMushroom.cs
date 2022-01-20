@@ -1,6 +1,8 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -8,7 +10,8 @@ namespace DuelMastersCards.Cards
     {
         public PoisonousMushroom() : base("Poisonous Mushroom", 2, Civilization.Nature, 1000, Subtype.BalloonMushroom)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromHandIntoManaZoneResolvable(1)));
+            // When you put this creature into the battle zone, you may put 1 card from your hand into your mana zone.
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CardMovingEffect(ZoneType.Hand, ZoneType.ManaZone, 0, 1, true, new PlayerFilter(true), new ZoneFilter(ZoneType.Hand))));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DuelMastersCards.TriggeredAbilities
     {
         public CardFilter Filter { get; }
 
-        public WinBattleAbility(Resolvable resolvable, CardFilter filter) : base(resolvable)
+        public WinBattleAbility(OneShotEffect effect, CardFilter filter) : base(effect)
         {
             Filter = filter;
         }
@@ -18,9 +18,9 @@ namespace DuelMastersCards.TriggeredAbilities
             Filter = ability.Filter.Copy();
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is WinBattleEvent winBattle && Filter.Applies(winBattle.Creature, duel);
+            return gameEvent is WinBattleEvent winBattle && Filter.Applies(winBattle.Creature, game);
         }
 
         public override Ability Copy()

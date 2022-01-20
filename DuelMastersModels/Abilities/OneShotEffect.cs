@@ -2,22 +2,22 @@
 
 namespace DuelMastersModels.Abilities
 {
-    public abstract class Resolvable : IDisposable
+    public abstract class OneShotEffect : IDisposable
     {
         public Guid Source { get; set; }
         public Guid Controller { get; set; }
 
-        protected Resolvable() { }
+        protected OneShotEffect() { }
 
-        protected Resolvable(Resolvable resolvable)
+        protected OneShotEffect(OneShotEffect effect)
         {
-            Controller = resolvable.Controller;
-            Source = resolvable.Source;
+            Controller = effect.Controller;
+            Source = effect.Source;
         }
 
-        public abstract void Resolve(Duel duel);
+        public abstract void Apply(Game game);
 
-        public abstract Resolvable Copy();
+        public abstract OneShotEffect Copy();
 
         public void Dispose()
         {

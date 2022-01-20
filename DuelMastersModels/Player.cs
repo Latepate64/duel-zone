@@ -11,7 +11,7 @@ using System.Linq;
 namespace DuelMastersModels
 {
     /// <summary>
-    /// Players are the two people that are participating in the duel. The player during the current turn is known as the "active player" and the other player is known as the "non-active player".
+    /// 102.1. A player is one of the people in the game.
     /// </summary>
     public abstract class Player : IAttackable, IDisposable, ICopyable<Player>
     {
@@ -134,45 +134,45 @@ namespace DuelMastersModels
             }
         }
 
-        public void ShuffleDeck(Duel duel)
+        public void ShuffleDeck(Game game)
         {
             Deck.Shuffle();
             var eve = new DeckShuffledEvent(Copy());
-            if (duel.Turns.Any())
+            if (game.Turns.Any())
             {
-                duel.Process(eve);
+                game.Process(eve);
             }
             else
             {
-                duel.PreGameEvents.Enqueue(eve);
+                game.PreGameEvents.Enqueue(eve);
             }
         }
 
-        public void PutFromTopOfDeckIntoShieldZone(int amount, Duel duel)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, Game game)
         {
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
+                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
                 }
             }
         }
 
-        internal void Summon(Card card, Duel duel)
+        internal void Summon(Card card, Game game)
         {
-            duel.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
-            _ = duel.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
+            game.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
+            _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
-        public void DrawCards(int amount, Duel duel)
+        public void DrawCards(int amount, Game game)
         {
             // 121.2.Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
+                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
                 }
             }
         }
@@ -208,50 +208,50 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromTopOfDeckIntoManaZone(Duel duel)
+        public void PutFromTopOfDeckIntoManaZone(Game game)
         {
             if (Deck.Cards.Any())
             {
-                duel.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+                game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
             }
         }
 
-        internal void Cast(Card spell, Duel duel)
+        internal void Cast(Card spell, Game game)
         {
-            Hand.Remove(spell, duel);
-            spell.RevealedTo = duel.Players.Select(x => x.Id).ToList();
-            duel.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
+            Hand.Remove(spell, game);
+            spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            game.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
                 ability.Owner = spell.Owner;
-                ability.Resolve(duel);
+                ability.Resolve(game);
             }
-            var effects = duel.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
             if (effects.Any())
             {
-                duel.GetPlayer(spell.Owner).ManaZone.Add(spell, duel);
+                game.GetPlayer(spell.Owner).ManaZone.Add(spell, game);
             }
             else
             {
-                duel.GetPlayer(spell.Owner).Graveyard.Add(spell, duel);
+                game.GetPlayer(spell.Owner).Graveyard.Add(spell, game);
 
             }
         }
 
-        public void DiscardAtRandom(Duel duel)
+        public void DiscardAtRandom(Game game)
         {
             if (Hand.Cards.Any())
             {
-                duel.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
+                game.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
             }
         }
 
-        public void Reveal(Duel duel, Card card)
+        public void Reveal(Game game, Card card)
         {
-            var opponent = duel.GetOpponent(this);
+            var opponent = game.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            duel.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
+            game.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
         public Zone GetZone(ZoneType zone)

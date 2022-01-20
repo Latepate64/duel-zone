@@ -7,7 +7,7 @@ namespace DuelMastersCards.Cards
     {
         public HeartyCapnPolligon() : base("Hearty Cap'n Polligon", 1, Civilization.Nature, 2000, Subtype.SnowFaerie)
         {
-            Abilities.Add(new HeartyCapnPolligonAbility(new HeartyCapnPolligonResolvable()));
+            Abilities.Add(new HeartyCapnPolligonAbility(new HeartyCapnPolligonEffect()));
         }
     }
 }

@@ -11,7 +11,7 @@
             Card = card;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
             return $"{Player} used shield trigger of {Card}.";
         }

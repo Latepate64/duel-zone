@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
         public Soulswap() : base("Soulswap", 3, Civilization.Nature)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new SoulswapResolvable()));
+            Abilities.Add(new SpellAbility(new SoulswapEffect()));
         }
     }
 }

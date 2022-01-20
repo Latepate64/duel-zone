@@ -6,34 +6,34 @@ using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using System.Linq;
 
-namespace DuelMastersCards.Resolvables
+namespace DuelMastersCards.OneShotEffects
 {
-    class SupersonicJetPackResolvable : Resolvable
+    class SupersonicJetPackEffect : OneShotEffect
     {
-        public SupersonicJetPackResolvable()
+        public SupersonicJetPackEffect()
         {
         }
 
-        public SupersonicJetPackResolvable(Resolvable resolvable) : base(resolvable)
+        public SupersonicJetPackEffect(OneShotEffect effect) : base(effect)
         {
         }
 
-        public override Resolvable Copy()
+        public override OneShotEffect Copy()
         {
-            return new SupersonicJetPackResolvable(this);
+            return new SupersonicJetPackEffect(this);
         }
 
-        public override void Resolve(Duel duel)
+        public override void Apply(Game game)
         {
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
-            var player = duel.GetPlayer(Controller);
+            var player = game.GetPlayer(Controller);
             var creatures = player.BattleZone.Creatures;
             if (creatures.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, creatures, 1, 1));
-                var target = duel.GetPermanent(decision.Decision.Single()).Id;
+                var target = game.GetCard(decision.Decision.Single()).Id;
                 //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
-                duel.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = target }, new Indefinite()));
+                game.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Owner = Controller, Target = target }, new Indefinite()));
             }
         }
     }

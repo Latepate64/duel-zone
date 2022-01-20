@@ -26,13 +26,13 @@ namespace DuelMastersModels.Zones
             }
         }
 
-        public override void Add(Card card, Duel duel)
+        public override void Add(Card card, Game game)
         {
             Cards.Add(card);
-            card.RevealedTo = duel.Players.Select(x => x.Id).ToList();
+            card.RevealedTo = game.Players.Select(x => x.Id).ToList();
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {
@@ -45,9 +45,9 @@ namespace DuelMastersModels.Zones
             return new BattleZone(this);
         }
 
-        public IEnumerable<Card> GetChoosableCreatures(Duel duel)
+        public IEnumerable<Card> GetChoosableCreatures(Game game)
         {
-            return Creatures.Where(x => !duel.GetContinuousEffects<UnchoosableEffect>(x).Any());
+            return Creatures.Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }
 
         public override string ToString()

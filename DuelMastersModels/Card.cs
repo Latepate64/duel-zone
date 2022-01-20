@@ -180,15 +180,15 @@ namespace DuelMastersModels
                 }
                 else if (ability is ResolvableAbility resolvable)
                 {
-                    resolvable.Resolvable.Controller = Owner;
-                    resolvable.Resolvable.Source = Id;
+                    resolvable.OneShotEffect.Controller = Owner;
+                    resolvable.OneShotEffect.Source = Id;
                 }
             }
         }
 
-        internal bool AffectedBySummoningSickness(Duel duel)
+        internal bool AffectedBySummoningSickness(Game game)
         {
-            return SummoningSickness && !duel.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
+            return SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
         }
     }
 

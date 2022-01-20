@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public TerrorPit() : base("Terror Pit", 6, Civilization.Darkness)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureResolvable(new AnyFilter())));
+            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureEffect(new AnyFilter())));
         }
     }
 }

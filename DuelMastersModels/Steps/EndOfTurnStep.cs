@@ -12,7 +12,7 @@ namespace DuelMastersModels.Steps
         {
         }
 
-        public override Step GetNextStep(Duel duel)
+        public override Step GetNextStep(Game game)
         {
             return null;
         }
@@ -24,10 +24,10 @@ namespace DuelMastersModels.Steps
             return new EndOfTurnStep(this);
         }
 
-        public override void PerformTurnBasedAction(Duel duel)
+        public override void PerformTurnBasedAction(Game game)
         {
-            _ = duel.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
-            duel.Process(new TurnEndsEvent(duel.CurrentTurn));
+            _ = game.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
+            game.Process(new TurnEndsEvent(game.CurrentTurn));
         }
     }
 }

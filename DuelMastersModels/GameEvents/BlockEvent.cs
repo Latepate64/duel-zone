@@ -11,9 +11,9 @@
             Blocker = blocker;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
-            return $"{duel.GetOwner(Blocker)}'s {Blocker} blocked {duel.GetOwner(Attacker)}'s {Attacker}.";
+            return $"{game.GetOwner(Blocker)}'s {Blocker} blocked {game.GetOwner(Attacker)}'s {Attacker}.";
         }
     }
 }

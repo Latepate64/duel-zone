@@ -9,7 +9,7 @@ namespace DuelMastersCards.TriggeredAbilities
     {
         public Guid Turn { get; }
 
-        public AtTheEndOfTurnAbility(Guid turn, Resolvable resolvable) : base(resolvable)
+        public AtTheEndOfTurnAbility(Guid turn, OneShotEffect effect) : base(effect)
         {
             Turn = turn;
         }
@@ -18,7 +18,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
             return gameEvent is TurnEndsEvent e && e.Turn.Id == Turn;
         }

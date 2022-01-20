@@ -17,32 +17,32 @@ namespace Simulator
             _optionsRemaining = optionsRemaining;
         }
 
-        public Tuple<Decision, int> Choose(Choice choice, Duel duel, Decision decision, int numberOfChoicesMade)
+        public Tuple<Decision, int> Choose(Choice choice, Game game, Decision decision, int numberOfChoicesMade)
         {
             var decisions = new List<Tuple<Decision, int>>();
             if (_optionsRemaining <= 0 || choice is null)
             {
-                return new Tuple<Decision, int>(decision, GetPoints(duel, numberOfChoicesMade));
+                return new Tuple<Decision, int>(decision, GetPoints(game, numberOfChoicesMade));
             }
             else if (choice is GuidSelection selection)
             {
-                return ChooseGuid(duel, numberOfChoicesMade, decisions, selection);
+                return ChooseGuid(game, numberOfChoicesMade, decisions, selection);
             }
             else if (choice is CardUsageChoice usage)
             {
-                return ChooseCardToUse(duel, numberOfChoicesMade, decisions, usage);
+                return ChooseCardToUse(game, numberOfChoicesMade, decisions, usage);
             }
             else if (choice is AttackerChoice attackerChoice)
             {
-                return ChooseAttacker(duel, numberOfChoicesMade, decisions, attackerChoice);
+                return ChooseAttacker(game, numberOfChoicesMade, decisions, attackerChoice);
             }
             else if (choice is YesNoChoice yesNo)
             {
-                return ChooseYesOrNo(duel, numberOfChoicesMade, decisions, yesNo);
+                return ChooseYesOrNo(game, numberOfChoicesMade, decisions, yesNo);
             }
             else if (choice is EnumChoice enumChoice)
             {
-                return ChooseEnum(duel, numberOfChoicesMade, decisions, enumChoice);
+                return ChooseEnum(game, numberOfChoicesMade, decisions, enumChoice);
             }
             else
             {
@@ -62,31 +62,31 @@ namespace Simulator
             return result;
         }
 
-        private Tuple<Decision, int> ChooseYesOrNo(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, YesNoChoice yesNo)
+        private Tuple<Decision, int> ChooseYesOrNo(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, YesNoChoice yesNo)
         {
             var options = new List<bool> { true, false };
             foreach (var option in options)
             {
                 var currentChoice = new YesNoDecision(option);
-                using var duelCopy = new Duel(duel);
+                using var duelCopy = new Game(game);
                 _optionsRemaining -= options.Count;
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(yesNo, decisions);
         }
 
-        private Tuple<Decision, int> ChooseEnum(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)
+        private Tuple<Decision, int> ChooseEnum(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)
         {
             //TODO: Atm only Petrova is supported.
-            var options = duel.GetPlayer(choice.Player).BattleZone.Cards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            var options = game.GetPlayer(choice.Player).BattleZone.Cards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
             if (!options.Any())
             {
-                options = duel.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+                options = game.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
             }
             foreach (var option in options)
             {
                 var currentChoice = new EnumDecision(option);
-                using var duelCopy = new Duel(duel);
+                using var duelCopy = new Game(game);
                 _optionsRemaining -= options.Count();
                 var foo = Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1);
                 decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
@@ -94,7 +94,7 @@ namespace Simulator
             return Choose(choice, decisions);
         }
 
-        private Tuple<Decision, int> ChooseAttacker(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
+        private Tuple<Decision, int> ChooseAttacker(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
         {
             var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
             if (!attackerChoice.MustAttack)
@@ -104,30 +104,30 @@ namespace Simulator
             foreach (var option in options)
             {
                 var currentChoice = new AttackerDecision(option);
-                using var duelCopy = new Duel(duel);
+                using var duelCopy = new Game(game);
                 _optionsRemaining -= options.Count;
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(attackerChoice, decisions);
         }
 
-        private Tuple<Decision, int> ChooseCardToUse(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
+        private Tuple<Decision, int> ChooseCardToUse(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
         {
             //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
             //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
-            var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, duel, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
+            var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, game, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
             options.Add(null);
             foreach (var option in options)
             {
                 var currentChoice = new CardUsageDecision(option);
-                using var duelCopy = new Duel(duel);
+                using var duelCopy = new Game(game);
                 _optionsRemaining -= options.Count;
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(usage, decisions);
         }
 
-        private Tuple<Decision, int> ChooseGuid(Duel duel, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
+        private Tuple<Decision, int> ChooseGuid(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
         {
             List<IEnumerable<Guid>> options = new();
             for (int i = selection.MinimumSelection; i <= selection.MaximumSelection; ++i)
@@ -137,18 +137,18 @@ namespace Simulator
             foreach (var option in options)
             {
                 var newDecision = new GuidDecision(option);
-                using var duelCopy = new Duel(duel);
+                using var duelCopy = new Game(game);
                 _optionsRemaining -= options.Count;
                 decisions.Add(new Tuple<Decision, int>(newDecision, Choose(null, duelCopy, newDecision, numberOfChoicesMade + 1).Item2));
             }
             return Choose(selection, decisions);
         }
 
-        private int GetPoints(Duel duel, int numberOfChoicesMade)
+        private int GetPoints(Game game, int numberOfChoicesMade)
         {
-            var player = duel.GetPlayer(_simulator);
-            var opponent = duel.GetOpponent(player);
-            var points = GetPointsForGameOver(duel, player, opponent, numberOfChoicesMade);
+            var player = game.GetPlayer(_simulator);
+            var opponent = game.GetOpponent(player);
+            var points = GetPointsForGameOver(game, player, opponent, numberOfChoicesMade);
             points += 10 * (GetPoints(player.BattleZone.Cards) - GetPoints(opponent.BattleZone.Cards));
             points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
             var manaMultiplier = 2;
@@ -163,12 +163,12 @@ namespace Simulator
             return points;
         }
 
-        private static int GetPointsForGameOver(Duel duel, Player player, Player opponent, int numberOfChoicesMade)
+        private static int GetPointsForGameOver(Game game, Player player, Player opponent, int numberOfChoicesMade)
         {
             const int GameOverPoints = 9999999;
-            if (duel.Players.Count < 2)
+            if (game.Players.Count < 2)
             {
-                return (duel.Losers.Select(x => x.Id).Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
+                return (game.Losers.Select(x => x.Id).Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
             }
             else
             {
@@ -181,9 +181,9 @@ namespace Simulator
             return cards.Sum(x => GetValue(x));
         }
 
-        private static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Duel duel, Guid playerId)
+        private static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Game game, Guid playerId)
         {
-            var remainingMana = duel.GetPlayer(playerId).ManaZone.UntappedCards.Except(usedMana.Select(x => duel.GetCard(x)));
+            var remainingMana = game.GetPlayer(playerId).ManaZone.UntappedCards.Except(usedMana.Select(x => game.GetCard(x)));
             if (!remainingMana.Any())
             {
                 return 0;

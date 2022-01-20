@@ -6,7 +6,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class WheneverThisCreatureAttacksAbility : TriggeredAbility
     {
-        public WheneverThisCreatureAttacksAbility(Resolvable resolvable) : base(resolvable)
+        public WheneverThisCreatureAttacksAbility(OneShotEffect effect) : base(effect)
         {
         }
 
@@ -14,7 +14,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
             return gameEvent is CreatureAttackedEvent e && e.Attacker.Id == Source;
         }

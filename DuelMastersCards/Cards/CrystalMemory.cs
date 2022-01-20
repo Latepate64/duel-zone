@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public CrystalMemory() : base("Crystal Memory", 4, Civilization.Water)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new SearchDeckResolvable(new AnyFilter(), false)));
+            Abilities.Add(new SpellAbility(new SearchDeckEffect(new AnyFilter(), false)));
         }
     }
 }

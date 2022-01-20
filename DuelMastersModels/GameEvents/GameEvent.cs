@@ -16,11 +16,11 @@ namespace DuelMastersModels.GameEvents
 
         public Guid Id { get; }
 
-        public virtual void Apply(Duel duel)
+        public virtual void Apply(Game game)
         {
         }
 
-        public abstract string ToString(Duel duel);
+        public abstract string ToString(Game game);
 
         public virtual GameEvent Copy() { return null; }
     }

@@ -23,7 +23,7 @@ namespace DuelMastersCards.StaticAbilities
         {
         }
 
-        //public override Choice Apply(Duel duel, Decision decision)
+        //public override Choice Apply(Game game, Decision decision)
         //{
         //    if (decision == null)
         //    {
@@ -64,16 +64,16 @@ namespace DuelMastersCards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Duel duel)
+        public override GameEvent Apply(Game game)
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool Replaceable(GameEvent gameEvent, Duel duel)
+        public override bool Replaceable(GameEvent gameEvent, Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filters.Any(x => x.Applies(duel.GetCard(e.Card), duel));
+                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filters.Any(x => x.Applies(game.GetCard(e.Card), game));
             }
             return false;
         }

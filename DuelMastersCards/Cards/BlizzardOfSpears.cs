@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
     {
         public BlizzardOfSpears() : base("Blizzard of Spears", 6, Civilization.Fire)
         {
-            Abilities.Add(new SpellAbility(new DestroyCreaturesResolvable(new CreaturesWithMaxPowerFilter(4000))));
+            Abilities.Add(new SpellAbility(new DestroyCreaturesEffect(new CreaturesWithMaxPowerFilter(4000))));
         }
     }
 }

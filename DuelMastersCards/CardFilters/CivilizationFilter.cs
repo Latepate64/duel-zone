@@ -18,7 +18,7 @@ namespace DuelMastersCards.CardFilters
             Civilizations = filter.Civilizations;
         }
 
-        public override bool Applies(Card card, Duel duel)
+        public override bool Applies(Card card, Game game)
         {
             return card.Civilizations.Intersect(Civilizations).Any();
         }

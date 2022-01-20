@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public BurstShot() : base("Burst Shot", 6, Civilization.Fire)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new DestroyCreaturesResolvable(new CreaturesWithMaxPowerFilter(2000))));
+            Abilities.Add(new SpellAbility(new DestroyCreaturesEffect(new CreaturesWithMaxPowerFilter(2000))));
         }
     }
 }

@@ -81,7 +81,7 @@
   <ItemGroup>
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\ActivatedAbility.cs" />
-    <Compile Include="Abilities\Resolvable.cs" />
+    <Compile Include="Abilities\OneShotEffect.cs" />
     <Compile Include="Abilities\ResolvableAbility.cs" />
     <Compile Include="Abilities\SpellAbility.cs" />
     <Compile Include="Abilities\StaticAbility.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="IAttackable.cs" />
     <Compile Include="ICopyable.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="Duel.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="ContinuousEffects\ContinuousEffect.cs" />
     <Compile Include="Durations\Indefinite.cs" />
     <Compile Include="Durations\Duration.cs" />

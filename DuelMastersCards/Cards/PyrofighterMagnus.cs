@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, Civilization.Fire, 3000, Subtype.Dragonoid)
         {
             Abilities.Add(new SpeedAttackerAbility());
-            Abilities.Add(new AtTheEndOfYourTurnAbility(new PyrofighterMagnusResolvable()));
+            Abilities.Add(new AtTheEndOfYourTurnAbility(new PyrofighterMagnusEffect()));
         }
     }
 }

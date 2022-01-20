@@ -4,7 +4,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public abstract class CardChangesZoneAbility : TriggeredAbility
     {
-        protected CardChangesZoneAbility(Resolvable resolvable) : base(resolvable)
+        protected CardChangesZoneAbility(OneShotEffect effect) : base(effect)
         {
         }
 

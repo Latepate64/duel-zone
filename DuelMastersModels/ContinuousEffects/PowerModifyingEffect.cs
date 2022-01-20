@@ -27,7 +27,7 @@ namespace DuelMastersModels.ContinuousEffects
             return new PowerModifyingEffect(this);
         }
 
-        public virtual int GetPower(Duel duel)
+        public virtual int GetPower(Game game)
         {
             return _power;
         }

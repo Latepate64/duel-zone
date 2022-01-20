@@ -8,7 +8,7 @@ namespace DuelMastersModels.Abilities
     /// </summary>
     public abstract class TriggeredAbility : ResolvableAbility
     {
-        protected TriggeredAbility(Resolvable resolvable) : base(resolvable)
+        protected TriggeredAbility(OneShotEffect effect) : base(effect)
         {
         }
 
@@ -21,11 +21,11 @@ namespace DuelMastersModels.Abilities
             var copy = Copy() as TriggeredAbility;
             copy.Source = source;
             copy.Owner = owner;
-            copy.Resolvable.Source = source;
-            copy.Resolvable.Controller = owner;
+            copy.OneShotEffect.Source = source;
+            copy.OneShotEffect.Controller = owner;
             return copy;
         }
 
-        public abstract bool CanTrigger(GameEvent gameEvent, Duel duel);
+        public abstract bool CanTrigger(GameEvent gameEvent, Game game);
     }
 }

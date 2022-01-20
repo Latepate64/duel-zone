@@ -1,5 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.Resolvables;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
     {
         public SaucerHeadShark() : base("Saucer-Head Shark", 5, Civilization.Water, 3000, Subtype.GelFish)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ReturnCreaturesToTheirOwnersHandsResolvable(new CreaturesWithMaxPowerFilter(2000))));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ReturnCreaturesToTheirOwnersHandsEffect(new CreaturesWithMaxPowerFilter(2000))));
         }
     }
 }

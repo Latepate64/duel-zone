@@ -7,7 +7,7 @@ namespace DuelMastersCards.TriggeredAbilities
 {
     public class AtTheEndOfYourTurnAbility : TriggeredAbility
     {
-        public AtTheEndOfYourTurnAbility(Resolvable resolvable) : base(resolvable)
+        public AtTheEndOfYourTurnAbility(OneShotEffect effect) : base(effect)
         {
         }
 
@@ -15,9 +15,9 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Duel duel)
+        public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is TurnEndsEvent e && duel.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer == Owner;
+            return gameEvent is TurnEndsEvent e && game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer == Owner;
         }
 
         public override Ability Copy()

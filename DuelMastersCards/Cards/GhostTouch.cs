@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.Resolvables;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
         public GhostTouch() : base("Ghost Touch", 2, Civilization.Darkness)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new OpponentRandomDiscardResolvable()));
+            Abilities.Add(new SpellAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

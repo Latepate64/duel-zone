@@ -49,32 +49,32 @@ namespace Simulator
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
             player1.Deck = new(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath));
             player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
-            using var duel = simulator.PlayDuel(player1, player2, simulationDepth);
+            using var game = simulator.PlayDuel(player1, player2, simulationDepth);
 
-            var usedCards = duel.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
-            if (duel.Winner != null)
+            var usedCards = game.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
+            if (game.Winner != null)
             {
-                UpdateWinnerUsedCards(duel, usedCards, matchUp.Players.Distinct().Single(x => x.Name == duel.Winner.Name));
+                UpdateWinnerUsedCards(game, usedCards, matchUp.Players.Distinct().Single(x => x.Name == game.Winner.Name));
             }
-            foreach (var loser in duel.Losers)
+            foreach (var loser in game.Losers)
             {
-                UpdateLoserUsedCards(duel, usedCards, loser, matchUp.Players.Distinct().Single(x => x.Name == loser.Name));
+                UpdateLoserUsedCards(game, usedCards, loser, matchUp.Players.Distinct().Single(x => x.Name == loser.Name));
             }
         }
 
-        private static void UpdateWinnerUsedCards(Duel duel, IEnumerable<Card> usedCards, PlayerConfiguration winner)
+        private static void UpdateWinnerUsedCards(Game game, IEnumerable<Card> usedCards, PlayerConfiguration winner)
         {
             ++winner.Wins;
-            foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == duel.Winner).Select(x => x.Name).Distinct())
+            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
             {
                 UpdateUsedCards(winner.UsedCards, cardName, true);
             }
         }
 
-        private static void UpdateLoserUsedCards(Duel duel, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
+        private static void UpdateLoserUsedCards(Game game, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
         {
             ++loserConfiguration.Losses;
-            foreach (string cardName in usedCards.Where(x => duel.GetOwner(x) == loser).Select(x => x.Name).Distinct())
+            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())
             {
                 UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
             }

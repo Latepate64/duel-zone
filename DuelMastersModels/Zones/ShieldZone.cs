@@ -10,12 +10,12 @@ namespace DuelMastersModels.Zones
     {
         public ShieldZone(IEnumerable<Card> cards) : base(cards) { }
 
-        public override void Add(Card card, Duel duel)
+        public override void Add(Card card, Game game)
         {
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {

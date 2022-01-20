@@ -11,7 +11,7 @@
             Spell = spell;
         }
 
-        public override string ToString(Duel duel)
+        public override string ToString(Game game)
         {
             return $"{Player} cast {Spell}.";
         }

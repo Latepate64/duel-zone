@@ -11,10 +11,10 @@ namespace DuelMastersModels.Zones
     {
         public Hand(IEnumerable<Card> cards) : base(cards) { }
 
-        public override void Add(Card card, Duel duel)
+        public override void Add(Card card, Game game)
         {
             var revealedTo = new List<Guid> { card.Owner };
-            var opponent = duel.GetOpponent(card.Owner);
+            var opponent = game.GetOpponent(card.Owner);
             if (card.RevealedTo.Contains(opponent))
             {
                 revealedTo.Add(opponent);
@@ -23,7 +23,7 @@ namespace DuelMastersModels.Zones
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Duel duel)
+        public override void Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {
