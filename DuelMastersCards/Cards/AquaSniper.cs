@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public AquaSniper() : base("Aqua Sniper", 8, Civilization.Water, 5000, Subtype.LiquidPeople)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaSurferEffect(2)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BounceEffect(2)));
         }
     }
 }

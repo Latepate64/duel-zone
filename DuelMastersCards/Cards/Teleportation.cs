@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
     {
         public Teleportation() : base("Teleportation", 5, Civilization.Water)
         {
-            Abilities.Add(new SpellAbility(new AquaSurferEffect(2)));
+            Abilities.Add(new SpellAbility(new BounceEffect(2)));
         }
     }
 }
