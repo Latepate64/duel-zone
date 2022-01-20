@@ -24,8 +24,7 @@ namespace DuelMastersCards.OneShotEffects
         {
             // Choose one of your opponent's creatures in the battle zone and put it on top of his deck.
             var player = game.GetPlayer(Controller);
-            var opponent = game.GetOpponent(player);
-            var choosable = opponent.BattleZone.GetChoosableCreatures(game);
+            var choosable = game.GetOpponent(player)?.BattleZone.GetChoosableCreatures(game);
             if (choosable.Any())
             {
                 var dec = player.Choose(new GuidSelection(Controller, choosable, 1, 1));
