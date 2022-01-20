@@ -1,6 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -8,7 +10,8 @@ namespace DuelMastersCards.Cards
     {
         public CraniumClamp() : base("Cranium Clamp", 4, Civilization.Darkness)
         {
-            Abilities.Add(new SpellAbility(new CraniumClampEffect()));
+            // Your opponent chooses and discards 2 cards from his hand.
+            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.Hand, ZoneType.Graveyard, 2, 2, false, new PlayerFilter(false), new ZoneFilter(ZoneType.Hand))));
         }
     }
 }
