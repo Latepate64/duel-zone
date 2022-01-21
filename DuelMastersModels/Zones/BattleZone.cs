@@ -47,7 +47,7 @@ namespace DuelMastersModels.Zones
 
         public IEnumerable<Card> GetChoosableCreatures(Game game, Guid owner)
         {
-            return Creatures.Where(x => x.Owner == owner && !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
+            return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }
 
         public override string ToString()

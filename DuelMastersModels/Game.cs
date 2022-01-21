@@ -395,7 +395,7 @@ namespace DuelMastersModels
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
         {
-            return BattleZone.Creatures.Where(x => x.Owner == selector.Id).Union(BattleZone.Creatures.Where(x => x.Owner == GetOpponent(selector.Id) && !GetContinuousEffects<UnchoosableEffect>(x).Any()));
+            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
         }
 
         public void Lose(Player player)

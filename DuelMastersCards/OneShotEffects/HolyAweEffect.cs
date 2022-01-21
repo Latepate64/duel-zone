@@ -22,8 +22,7 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game)
         {
             // Tap all your opponent's creatures in the battle zone.
-            var opponent = game.GetOpponent(game.GetPlayer(Controller));
-            foreach (var creature in game.BattleZone.Creatures.Where(x => x.Owner == opponent.Id))
+            foreach (var creature in game.BattleZone.GetCreatures(game.GetOpponent(Controller)))
             {
                 creature.Tapped = true;
             }
