@@ -15,16 +15,16 @@ namespace DuelMastersCards.OneShotEffects
         public int Minimum { get; }
         public int Maximum { get; }
         public bool ControllerChooses { get; }
-        public ICollection<CardFilter> Filters { get; }
+        public CardFilter Filter { get; }
 
-        public CardMovingEffect(ZoneType source, ZoneType destination, int minimum, int maximum, bool controllerChooses, params CardFilter[] cardFilters)
+        public CardMovingEffect(ZoneType source, ZoneType destination, int minimum, int maximum, bool controllerChooses, CardFilter filter)
         {
             SourceZone = source;
             DestinationZone = destination;
             Minimum = minimum;
             Maximum = maximum;
             ControllerChooses = controllerChooses;
-            Filters = cardFilters;
+            Filter = filter;
         }
 
         public CardMovingEffect(CardMovingEffect effect) : base(effect)
@@ -33,17 +33,14 @@ namespace DuelMastersCards.OneShotEffects
             DestinationZone = effect.DestinationZone;
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
-            Filters = effect.Filters;
-            foreach (var filter in Filters)
-            {
-                filter.Owner = Controller;
-            }
+            Filter = effect.Filter;
+            Filter.Owner = Controller;
             ControllerChooses = effect.ControllerChooses;
         }
 
         public override void Apply(Game game)
         {
-            var cards = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game)));
+            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game));
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())

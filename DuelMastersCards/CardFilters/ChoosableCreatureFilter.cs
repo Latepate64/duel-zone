@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace DuelMastersCards.CardFilters
 {
-    public class ChoosableCreaturesFilter : CardFilter
+    public class ChoosableCreatureFilter : CardFilter
     {
-        public ChoosableCreaturesFilter()
+        public ChoosableCreatureFilter()
         {
         }
 
-        public ChoosableCreaturesFilter(CardFilter filter) : base(filter)
+        public ChoosableCreatureFilter(CardFilter filter) : base(filter)
         {
         }
 
@@ -31,7 +31,7 @@ namespace DuelMastersCards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsChoosableCreaturesFilter(this);
+            return new OpponentsChoosableCreatureFilter(this);
         }
     }
 }
