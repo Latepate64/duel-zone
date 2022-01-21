@@ -28,7 +28,7 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game)
         {
             var player = game.GetPlayer(Controller);
-            var creatures = game.GetOpponent(player).BattleZone.GetChoosableCreatures(game).Where(x => Filters.All(f => f.Applies(x, game)));
+            var creatures = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(Controller)).Where(x => Filters.All(f => f.Applies(x, game)));
             if (creatures.Count() > 1)
             {
                 var dec = player.Choose(new GuidSelection(Controller, creatures, 1, 1));

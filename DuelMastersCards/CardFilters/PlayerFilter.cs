@@ -23,11 +23,11 @@ namespace DuelMastersCards.CardFilters
             var owner = game.GetPlayer(Owner);
             if (OwnerInsteadOfOpponent)
             {
-                return game.GetPlayer(Owner).AllCards.Contains(card);
+                return game.GetAllCards(Owner).Contains(card);
             }
             else
             {
-                return game.GetOpponent(owner).AllCards.Contains(card);
+                return game.GetAllCards(game.GetOpponent(Owner)).Contains(card);
             }
         }
 

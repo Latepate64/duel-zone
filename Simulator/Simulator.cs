@@ -39,22 +39,23 @@ namespace Simulator
 
         private Game GetDuelForSimulator(Game game, Guid simulator)
         {
-            var duelCopy = new Game(game);
-            foreach (var card in duelCopy.Players.SelectMany(p => p.AllCards))
-            {
-                if (!card.RevealedTo.Contains(simulator))
-                {
-                    card.Abilities.Clear();
-                    card.CardType = CardType.Spell;
-                    card.Civilizations.Clear();
-                    card.ManaCost = 999;
-                    card.Name = "Unknown";
-                    card.Power = null;
-                    card.ShieldTrigger = false;
-                    card.Subtypes = new List<Subtype>();
-                }
-            }
-            return duelCopy;
+            throw new NotImplementedException();
+            //var duelCopy = new Game(game);
+            //foreach (var card in duelCopy.Players.SelectMany(p => p.AllCards))
+            //{
+            //    if (!card.RevealedTo.Contains(simulator))
+            //    {
+            //        card.Abilities.Clear();
+            //        card.CardType = CardType.Spell;
+            //        card.Civilizations.Clear();
+            //        card.ManaCost = 999;
+            //        card.Name = "Unknown";
+            //        card.Power = null;
+            //        card.ShieldTrigger = false;
+            //        card.Subtypes = new List<Subtype>();
+            //    }
+            //}
+            //return duelCopy;
         }
     }
 }

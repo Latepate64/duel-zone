@@ -19,7 +19,7 @@ namespace DuelMastersCards.CardFilters
             var opponent = game.GetOpponent(game.GetPlayer(Owner));
             if (opponent != null)
             {
-                return opponent.BattleZone.GetChoosableCreatures(game).Select(x => x.Id).Contains(card.Id);
+                return game.BattleZone.GetChoosableCreatures(game, opponent.Id).Select(x => x.Id).Contains(card.Id);
             }
             else
             {

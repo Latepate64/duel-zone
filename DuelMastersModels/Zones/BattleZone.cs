@@ -18,9 +18,9 @@ namespace DuelMastersModels.Zones
         {
         }
 
-        public void UntapCards()
+        public void UntapCards(Guid owner)
         {
-            foreach (Card card in Cards.Where(x => x.Tapped))
+            foreach (Card card in Cards.Where(x => x.Owner == owner && x.Tapped))
             {
                 card.Tapped = false;
             }
@@ -45,9 +45,9 @@ namespace DuelMastersModels.Zones
             return new BattleZone(this);
         }
 
-        public IEnumerable<Card> GetChoosableCreatures(Game game)
+        public IEnumerable<Card> GetChoosableCreatures(Game game, Guid owner)
         {
-            return Creatures.Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
+            return Creatures.Where(x => x.Owner == owner && !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }
 
         public override string ToString()

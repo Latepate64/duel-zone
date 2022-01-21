@@ -25,7 +25,7 @@ namespace DuelMastersCards.OneShotEffects
 
         public override void Apply(Game game)
         {
-            game.Move(game.CardsInBattleZone.Where(x => Filter.Applies(x, game)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.BattleZone.Cards.Where(x => Filter.Applies(x, game)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

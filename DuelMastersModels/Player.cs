@@ -52,11 +52,6 @@ namespace DuelMastersModels
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new ShieldZone(new List<Card>());
 
-        /// <summary>
-        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
-        /// </summary>
-        public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
-
         public IEnumerable<Card> CardsInNonsharedZones
         {
             get
@@ -71,17 +66,7 @@ namespace DuelMastersModels
             }
         }
 
-        public IEnumerable<Card> AllCards
-        {
-            get
-            {
-                List<Card> cards = CardsInNonsharedZones.ToList();
-                cards.AddRange(BattleZone.Cards);
-                return cards;
-            }
-        }
-
-        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone, BattleZone };
+        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
         #endregion Properties
 
         private static readonly Random _random = new Random();
@@ -101,7 +86,6 @@ namespace DuelMastersModels
             Hand = player.Hand.Copy() as Hand;
             ManaZone = player.ManaZone.Copy() as ManaZone;
             ShieldZone = player.ShieldZone.Copy() as ShieldZone;
-            BattleZone = player.BattleZone.Copy() as BattleZone;
         }
 
         public override string ToString()
@@ -119,8 +103,6 @@ namespace DuelMastersModels
         {
             if (disposing)
             {
-                BattleZone?.Dispose();
-                BattleZone = null;
                 Deck?.Dispose();
                 Deck = null;
                 Graveyard?.Dispose();
@@ -175,12 +157,6 @@ namespace DuelMastersModels
                     game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
                 }
             }
-        }
-
-        public void UntapCardsInBattleZoneAndManaZone()
-        {
-            BattleZone.UntapCards();
-            ManaZone.UntapCards();
         }
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
@@ -258,8 +234,6 @@ namespace DuelMastersModels
         {
             switch (zone)
             {
-                case ZoneType.BattleZone:
-                    return BattleZone;
                 case ZoneType.Deck:
                     return Deck;
                 case ZoneType.Graveyard:
@@ -271,6 +245,7 @@ namespace DuelMastersModels
                 case ZoneType.ShieldZone:
                     return ShieldZone;
                 case ZoneType.Anywhere:
+                case ZoneType.BattleZone:
                 default:
                     throw new InvalidOperationException();
             }

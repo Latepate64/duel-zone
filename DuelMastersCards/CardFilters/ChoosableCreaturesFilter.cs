@@ -17,11 +17,11 @@ namespace DuelMastersCards.CardFilters
         public override bool Applies(Card card, Game game)
         {
             var owner = game.GetPlayer(Owner);
-            var ownerApplies = owner.BattleZone.Creatures.Select(x => x.Id).Contains(card.Id);
+            var ownerApplies = game.BattleZone.Creatures.Where(x => x.Owner == Owner).Select(x => x.Id).Contains(card.Id);
             var opponent = game.GetOpponent(owner);
             if (opponent != null)
             {
-                return opponent.BattleZone.GetChoosableCreatures(game).Select(x => x.Id).Contains(card.Id) || ownerApplies;
+                return game.BattleZone.Creatures.Where(x => x.Owner == opponent.Id).Select(x => x.Id).Contains(card.Id) || ownerApplies;
             }
             else
             {

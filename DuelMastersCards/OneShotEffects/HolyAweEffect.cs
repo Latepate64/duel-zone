@@ -1,5 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
@@ -22,7 +23,7 @@ namespace DuelMastersCards.OneShotEffects
         {
             // Tap all your opponent's creatures in the battle zone.
             var opponent = game.GetOpponent(game.GetPlayer(Controller));
-            foreach (var creature in opponent.BattleZone.Creatures)
+            foreach (var creature in game.BattleZone.Creatures.Where(x => x.Owner == opponent.Id))
             {
                 creature.Tapped = true;
             }

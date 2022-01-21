@@ -17,7 +17,7 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            game.Destroy(game.BattleZoneCreatures.Where(p => p.Id != Source && game.GetPower(p) == 6000).ToList());
+            game.Destroy(game.BattleZone.Creatures.Where(p => p.Id != Source && game.GetPower(p) == 6000).ToList());
             // then take an extra turn after this one.
             Turn turn = new Turn { ActivePlayer = Controller, NonActivePlayer = game.GetOpponent(Controller) };
             game.ExtraTurns.Push(turn);

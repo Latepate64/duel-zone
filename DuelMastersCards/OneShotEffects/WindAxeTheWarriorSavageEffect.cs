@@ -27,7 +27,7 @@ namespace DuelMastersCards.OneShotEffects
             // Destroy one of your opponent's creatures that has "blocker."
             var controller = game.GetPlayer(Controller);
             var blocker = new List<Card>();
-            var blockers = game.GetOpponent(controller).BattleZone.GetChoosableCreatures(game).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
+            var blockers = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(Controller)).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
             if (blockers.Any())
             {
                 var decision = controller.Choose(new GuidSelection(controller.Id, blockers, 1, 1));

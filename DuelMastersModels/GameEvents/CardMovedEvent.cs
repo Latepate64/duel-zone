@@ -36,15 +36,13 @@ namespace DuelMastersModels.GameEvents
         public override void Apply(Game game)
         {
             var player = game.GetPlayer(Player);
-            var sourceZone = player.GetZone(Source);
-            var destinationZone = player.GetZone(Destination);
             var card = game.GetCard(Card);
-            sourceZone.Remove(card, game);
+            (Source == ZoneType.BattleZone ? game.BattleZone : player.GetZone(Source)).Remove(card, game);
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(card, false);
             NewObject = newObject.Id;
-            destinationZone.Add(newObject, game);
+            (Destination == ZoneType.BattleZone ? game.BattleZone : player.GetZone(Destination)).Add(newObject, game);
         }
 
         public override GameEvent Copy()

@@ -27,7 +27,7 @@ namespace DuelMastersCards.OneShotEffects
         {
             // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
             var player = game.GetPlayer(Controller);
-            var creatures = player.BattleZone.Creatures;
+            var creatures = game.BattleZone.Creatures.Where(x => x.Owner == Controller);
             if (creatures.Any())
             {
                 var decision = player.Choose(new GuidSelection(Controller, creatures, 1, 1));
