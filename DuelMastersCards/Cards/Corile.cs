@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         public Corile() : base("Corile", 5, Civilization.Water, 2000, Subtype.CyberLord)
         {
             // When you put this creature into the battle zone, choose one of your opponent's creatures in the battle zone and put it on top of his deck.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CardMovingEffect(DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck, 1, 1, true, new OpponentsChoosableCreatureFilter())));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CardMovingEffect(DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Deck, 1, 1, true, new OpponentsBattleZoneChoosableCreatureFilter())));
         }
     }
 }

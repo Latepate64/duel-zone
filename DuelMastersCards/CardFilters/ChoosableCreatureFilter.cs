@@ -30,7 +30,7 @@ namespace DuelMastersCards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsChoosableCreatureFilter(this);
+            return new ChoosableCreatureFilter(this);
         }
     }
 }

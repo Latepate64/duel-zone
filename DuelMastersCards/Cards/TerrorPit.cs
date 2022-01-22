@@ -2,6 +2,7 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -11,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures.
-            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureEffect(new AnyFilter())));
+            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.BattleZone, ZoneType.Graveyard, 1, 1, true, new OpponentsBattleZoneChoosableCreatureFilter())));
         }
     }
 }
