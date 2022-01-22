@@ -30,20 +30,19 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
-            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, source.Owner));
+            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, player));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(player.Id, cards, 0, 1));
-                var cards2 = decision.Decision.Select(x => game.GetCard(x));
-                game.Move(cards2, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
-
+                var selectedCards = decision.Decision.Select(x => game.GetCard(x));
                 if (Reveal)
                 {
-                    foreach (var card in cards2)
+                    foreach (var card in selectedCards)
                     {
                         game.GetOwner(card).Reveal(game, card);
                     }
                 }
+                game.Move(selectedCards, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
             }
             player.ShuffleDeck(game);
         }

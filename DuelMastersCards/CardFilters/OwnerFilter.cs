@@ -18,16 +18,15 @@ namespace DuelMastersCards.CardFilters
             OwnerInsteadOfOpponent = filter.OwnerInsteadOfOpponent;
         }
 
-        public override bool Applies(Card card, Game game, Guid player)
+        public override bool Applies(Card card, Game game, Player player)
         {
-            var owner = game.GetPlayer(player);
             if (OwnerInsteadOfOpponent)
             {
-                return game.GetAllCards(player).Contains(card);
+                return game.GetAllCards(player.Id).Contains(card);
             }
             else
             {
-                return game.GetAllCards(game.GetOpponent(player)).Contains(card);
+                return game.GetAllCards(game.GetOpponent(player).Id).Contains(card);
             }
         }
 

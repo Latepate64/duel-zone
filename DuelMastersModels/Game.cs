@@ -390,7 +390,7 @@ namespace DuelMastersModels
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = BattleZone.Cards.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, card.Owner)));
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, GetPlayer(card.Owner))));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
@@ -440,10 +440,10 @@ namespace DuelMastersModels
         {
             // TODO: Sort players by turn order
             var effects = GetReplacementEffects(events);
-            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.Card).GroupBy(x => GetCard(x).Owner);
+            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
             foreach (var cardGroup in affectedCardGroups)
             {
-                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).Card));
+                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
                     ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
@@ -494,7 +494,7 @@ namespace DuelMastersModels
             var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.NewObject)).Where(x => x != null && x.ShieldTrigger);
+                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
                 while (shieldTriggers.Any())
                 {
                     var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);

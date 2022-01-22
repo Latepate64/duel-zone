@@ -30,7 +30,7 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
-            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game, source.Owner));
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game, player));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(source.Owner, cards, 0, Maximum));

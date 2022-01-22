@@ -16,7 +16,7 @@ namespace DuelMastersCards.CardFilters
             Power = filter.Power;
         }
 
-        public override bool Applies(Card card, Game game, System.Guid player)
+        public override bool Applies(Card card, Game game, Player player)
         {
             return card.CardType == CardType.Creature && game.GetPower(card) == Power;
         }

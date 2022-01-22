@@ -24,7 +24,7 @@ namespace DuelMastersCards.ContinuousEffects
         public override int GetPower(Game game)
         {
             //this creature gets +1000 power for each fire card in your graveyard.
-            return game.GetPlayer(Controller).Graveyard.Cards.Where(x => MultiplierFilter.Applies(x, game, Controller)).Count() * 1000;
+            return game.GetPlayer(Controller).Graveyard.Cards.Where(x => MultiplierFilter.Applies(x, game, game.GetPlayer(Controller))).Count() * 1000;
         }
     }
 }

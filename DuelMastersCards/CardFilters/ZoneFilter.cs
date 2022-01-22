@@ -19,7 +19,7 @@ namespace DuelMastersCards.CardFilters
             Zone = filter.Zone;
         }
 
-        public override bool Applies(Card card, Game game, System.Guid player)
+        public override bool Applies(Card card, Game game, Player player)
         {
             return game.Players.SelectMany(x => x.GetZone(Zone).Cards).Any(x => x.Id == card.Id);
         }

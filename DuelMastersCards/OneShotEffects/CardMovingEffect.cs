@@ -39,7 +39,7 @@ namespace DuelMastersCards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, source.Owner));
+            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())

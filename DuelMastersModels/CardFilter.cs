@@ -16,7 +16,7 @@ namespace DuelMastersModels
             Target = filter.Target;
         }
 
-        public abstract bool Applies(Card card, Game game, Guid player);
+        public abstract bool Applies(Card card, Game game, Player player);
 
         public abstract CardFilter Copy();
 

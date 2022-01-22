@@ -25,7 +25,7 @@ namespace DuelMastersCards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            game.Destroy(game.BattleZone.Creatures.Where(x => Filter.Applies(x, game, source.Owner)).ToList());
+            game.Destroy(game.BattleZone.Creatures.Where(x => Filter.Applies(x, game, game.GetPlayer(source.Owner))).ToList());
         }
     }
 }

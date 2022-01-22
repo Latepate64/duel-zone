@@ -20,7 +20,7 @@ namespace DuelMastersCards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is WinBattleEvent winBattle && Filter.Applies(winBattle.Creature, game, winBattle.Creature.Owner);
+            return gameEvent is WinBattleEvent winBattle && Filter.Applies(winBattle.Creature, game, game.GetPlayer(winBattle.Creature.Owner));
         }
 
         public override Ability Copy()
