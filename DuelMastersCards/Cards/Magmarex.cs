@@ -10,6 +10,7 @@ namespace DuelMastersCards.Cards
         public Magmarex() : base("Magmarex", 5, Civilization.Fire, 3000, Subtype.RockBeast)
         {
             ShieldTrigger = true;
+            // When you put this creature into the battle zone, destroy all creatures that have power 1000.
             Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyCreaturesEffect(new CreaturesWithPowerFilter(1000))));
         }
     }

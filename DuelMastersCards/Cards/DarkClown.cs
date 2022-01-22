@@ -13,6 +13,7 @@ namespace DuelMastersCards.Cards
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());
             Abilities.Add(new CannotAttackPlayersAbility());
+            // When this creature wins a battle, destroy it.
             var targetFilter = new TargetFilter();
             Abilities.Add(new WinBattleAbility(new DestroyCreaturesEffect(targetFilter), targetFilter));
         }
