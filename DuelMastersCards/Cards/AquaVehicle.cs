@@ -1,5 +1,4 @@
-﻿using DuelMastersCards.StaticAbilities;
-using DuelMastersModels;
+﻿using DuelMastersModels;
 
 namespace DuelMastersCards.Cards
 {

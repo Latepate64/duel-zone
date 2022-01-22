@@ -22,6 +22,11 @@ namespace DuelMastersModels.Abilities
         {
         }
 
+        public StaticAbility(ContinuousEffect effect)
+        {
+            ContinuousEffects.Add(effect);
+        }
+
         protected StaticAbility(StaticAbility ability) : base(ability)
         {
             ContinuousEffects = ability.ContinuousEffects.Select(x => x.Copy()).ToList();
