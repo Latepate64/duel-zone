@@ -18,5 +18,10 @@ namespace DuelMastersCards.CardFilters
         {
             return base.Applies(card, game, player) && !game.GetContinuousEffects<UnchoosableEffect>(card).Any();
         }
+
+        public override CardFilter Copy()
+        {
+            return new OpponentsBattleZoneChoosableCreatureFilter(this);
+        }
     }
 }

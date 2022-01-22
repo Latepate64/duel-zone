@@ -16,5 +16,10 @@ namespace DuelMastersCards.CardFilters
         {
             return base.Applies(card, game, player) && card.CardType == CardType.Creature;
         }
+
+        public override CardFilter Copy()
+        {
+            return new BattleZoneCreatureFilter(this);
+        }
     }
 }

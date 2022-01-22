@@ -20,5 +20,10 @@ namespace DuelMastersCards.CardFilters
         {
             return base.Applies(card, game, player) && game.GetPower(card) <= Power;
         }
+
+        public override CardFilter Copy()
+        {
+            return new BattleZoneMaxPowerCreatureFilter(this);
+        }
     }
 }

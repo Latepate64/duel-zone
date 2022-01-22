@@ -18,5 +18,10 @@ namespace DuelMastersCards.CardFilters
         {
             return base.Applies(card, game, player) && card.Abilities.OfType<BlockerAbility>().Any();
         }
+
+        public override CardFilter Copy()
+        {
+            return new OpponentsBattleZoneChoosableBlockerCreatureFilter(this);
+        }
     }
 }
