@@ -390,7 +390,7 @@ namespace DuelMastersModels
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
             var abilities = BattleZone.Cards.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, card.Owner)));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)

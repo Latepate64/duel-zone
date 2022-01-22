@@ -27,20 +27,19 @@ namespace DuelMastersCards.OneShotEffects
             Filter = filter;
         }
 
-        public CardMovingEffect(CardMovingEffect effect) : base(effect)
+        public CardMovingEffect(CardMovingEffect effect)
         {
             SourceZone = effect.SourceZone;
             DestinationZone = effect.DestinationZone;
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
             Filter = effect.Filter;
-            Filter.Owner = Controller;
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game));
+            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, source.Owner));
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())
@@ -49,7 +48,7 @@ namespace DuelMastersCards.OneShotEffects
                 }
                 else
                 {
-                    var player = game.GetPlayer(ControllerChooses ? Controller : game.GetOpponent(Controller));
+                    var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
                         var selectedCards = player.Choose(new GuidSelection(player.Id, cards.Select(x => x.Id), Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x));

@@ -13,7 +13,7 @@ namespace DuelMastersCards.OneShotEffects
             Filter = filter;
         }
 
-        public ReturnCreaturesToTheirOwnersHandsEffect(ReturnCreaturesToTheirOwnersHandsEffect effect) : base(effect)
+        public ReturnCreaturesToTheirOwnersHandsEffect(ReturnCreaturesToTheirOwnersHandsEffect effect)
         {
             Filter = effect.Filter.Copy();
         }
@@ -23,9 +23,9 @@ namespace DuelMastersCards.OneShotEffects
             return new ReturnCreaturesToTheirOwnersHandsEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            game.Move(game.BattleZone.Cards.Where(x => Filter.Applies(x, game)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.BattleZone.Cards.Where(x => Filter.Applies(x, game, source.Owner)), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

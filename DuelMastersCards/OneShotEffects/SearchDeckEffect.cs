@@ -16,7 +16,7 @@ namespace DuelMastersCards.OneShotEffects
             Reveal = reveal;
         }
 
-        public SearchDeckEffect(SearchDeckEffect effect) : base(effect)
+        public SearchDeckEffect(SearchDeckEffect effect)
         {
             Filter = effect.Filter;
             Reveal = effect.Reveal;
@@ -27,10 +27,10 @@ namespace DuelMastersCards.OneShotEffects
             return new SearchDeckEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = game.GetPlayer(Controller);
-            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game));
+            var player = game.GetPlayer(source.Owner);
+            var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, source.Owner));
             if (cards.Any())
             {
                 var decision = player.Choose(new GuidSelection(player.Id, cards, 0, 1));

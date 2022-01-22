@@ -73,7 +73,7 @@ namespace DuelMastersCards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filters.Any(x => x.Applies(game.GetCard(e.Card), game));
+                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filters.Any(x => x.Applies(game.GetCard(e.Card), game, e.Player));
             }
             return false;
         }

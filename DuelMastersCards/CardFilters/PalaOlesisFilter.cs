@@ -13,10 +13,10 @@ namespace DuelMastersCards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game)
+        public override bool Applies(Card card, Game game, System.Guid player)
         {
             // During your opponent's turn, each of your other creatures
-            return game.CurrentTurn.NonActivePlayer == Owner && game.BattleZone.GetCreatures(Owner).Contains(card) && card.Id != Target;
+            return game.CurrentTurn.NonActivePlayer == player && game.BattleZone.GetCreatures(player).Contains(card) && card.Id != Target;
         }
 
         public override CardFilter Copy()

@@ -24,7 +24,7 @@ namespace DuelMastersModels.Steps
             if (possibleBlockers.Any())
             {
                 var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature));
-                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game)));
+                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game, b.Owner)));
             }
             if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature)).Any())
             {

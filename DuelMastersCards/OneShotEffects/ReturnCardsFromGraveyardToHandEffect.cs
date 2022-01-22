@@ -16,7 +16,7 @@ namespace DuelMastersCards.OneShotEffects
             Filter = filter;
         }
 
-        public ReturnCardsFromGraveyardToHandEffect(ReturnCardsFromGraveyardToHandEffect effect) : base(effect)
+        public ReturnCardsFromGraveyardToHandEffect(ReturnCardsFromGraveyardToHandEffect effect)
         {
             Maximum = effect.Maximum;
             Filter = effect.Filter;
@@ -27,13 +27,13 @@ namespace DuelMastersCards.OneShotEffects
             return new ReturnCardsFromGraveyardToHandEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = game.GetPlayer(Controller);
-            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game));
+            var player = game.GetPlayer(source.Owner);
+            var cards = player.Graveyard.Cards.Where(x => Filter.Applies(x, game, source.Owner));
             if (cards.Any())
             {
-                var decision = player.Choose(new GuidSelection(Controller, cards, 0, Maximum));
+                var decision = player.Choose(new GuidSelection(source.Owner, cards, 0, Maximum));
                 game.Move(decision.Decision.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.Graveyard, DuelMastersModels.Zones.ZoneType.Hand);
             }
         }

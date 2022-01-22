@@ -15,7 +15,7 @@ namespace DuelMastersCards.OneShotEffects
             Maximum = maximum;
         }
 
-        public ControllerMayDrawCardsEffect(ControllerMayDrawCardsEffect effect) : base(effect)
+        public ControllerMayDrawCardsEffect(ControllerMayDrawCardsEffect effect)
         {
             Maximum = effect.Maximum;
         }
@@ -25,16 +25,16 @@ namespace DuelMastersCards.OneShotEffects
             return new ControllerMayDrawCardsEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = game.GetPlayer(Controller);
-            var decision = player.Choose(new YesNoChoice(Controller));
+            var player = game.GetPlayer(source.Owner);
+            var decision = player.Choose(new YesNoChoice(source.Owner));
             if (decision.Decision)
             {
                 player.DrawCards(1, game);
                 if (++_drawn < Maximum)
                 {
-                    Apply(game);
+                    Apply(game, source);
                 }
             }
         }

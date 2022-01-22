@@ -10,7 +10,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public HolyAweEffect(OneShotEffect effect) : base(effect)
+        public HolyAweEffect(OneShotEffect effect)
         {
         }
 
@@ -19,10 +19,10 @@ namespace DuelMastersCards.OneShotEffects
             return new HolyAweEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
             // Tap all your opponent's creatures in the battle zone.
-            foreach (var creature in game.BattleZone.GetCreatures(game.GetOpponent(Controller)))
+            foreach (var creature in game.BattleZone.GetCreatures(game.GetOpponent(source.Owner)))
             {
                 creature.Tapped = true;
             }

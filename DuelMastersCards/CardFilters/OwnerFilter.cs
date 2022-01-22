@@ -4,36 +4,36 @@ using System.Linq;
 
 namespace DuelMastersCards.CardFilters
 {
-    class PlayerFilter : CardFilter
+    class OwnerFilter : CardFilter
     {
         public bool OwnerInsteadOfOpponent { get; }
 
-        public PlayerFilter(bool ownerInsteadOfOpponent)
+        public OwnerFilter(bool ownerInsteadOfOpponent)
         {
             OwnerInsteadOfOpponent = ownerInsteadOfOpponent;
         }
 
-        public PlayerFilter(PlayerFilter filter) : base(filter)
+        public OwnerFilter(OwnerFilter filter) : base(filter)
         {
             OwnerInsteadOfOpponent = filter.OwnerInsteadOfOpponent;
         }
 
-        public override bool Applies(Card card, Game game)
+        public override bool Applies(Card card, Game game, Guid player)
         {
-            var owner = game.GetPlayer(Owner);
+            var owner = game.GetPlayer(player);
             if (OwnerInsteadOfOpponent)
             {
-                return game.GetAllCards(Owner).Contains(card);
+                return game.GetAllCards(player).Contains(card);
             }
             else
             {
-                return game.GetAllCards(game.GetOpponent(Owner)).Contains(card);
+                return game.GetAllCards(game.GetOpponent(player)).Contains(card);
             }
         }
 
         public override CardFilter Copy()
         {
-            return new PlayerFilter(this);
+            return new OwnerFilter(this);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DuelMastersCards.OneShotEffects
             ZoneOwner = zoneOwner;
         }
 
-        public PutCardsFromManaZoneIntoGraveyardEffect(PutCardsFromManaZoneIntoGraveyardEffect effect) : base(effect)
+        public PutCardsFromManaZoneIntoGraveyardEffect(PutCardsFromManaZoneIntoGraveyardEffect effect)
         {
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
@@ -36,9 +36,9 @@ namespace DuelMastersCards.OneShotEffects
             return new PutCardsFromManaZoneIntoGraveyardEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = GetPlayer(game);
+            var player = GetPlayer(game, source.Owner);
             var cards = player.ManaZone.Cards;
             if (Minimum == Maximum)
             {
@@ -48,7 +48,7 @@ namespace DuelMastersCards.OneShotEffects
                 }
                 else
                 {
-                    var decision = player.Choose(new GuidSelection(Controller, cards, Minimum, Maximum));
+                    var decision = player.Choose(new GuidSelection(source.Owner, cards, Minimum, Maximum));
                     PutFromManaZoneIntoGraveyard(decision.Decision.Select(x => game.GetCard(x)), game);
                 }
             }
@@ -63,9 +63,9 @@ namespace DuelMastersCards.OneShotEffects
             game.Move(cards, DuelMastersModels.Zones.ZoneType.ManaZone, DuelMastersModels.Zones.ZoneType.Graveyard);
         }
 
-        private Player GetPlayer(Game game)
+        private Player GetPlayer(Game game, Guid owner)
         {
-            var controller = game.GetPlayer(Controller);
+            var controller = game.GetPlayer(owner);
             if (ZoneOwner == ZoneOwner.Controller)
             {
                 return controller;

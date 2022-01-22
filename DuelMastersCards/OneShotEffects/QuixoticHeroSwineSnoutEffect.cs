@@ -12,7 +12,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public QuixoticHeroSwineSnoutEffect(QuixoticHeroSwineSnoutEffect effect) : base(effect)
+        public QuixoticHeroSwineSnoutEffect(QuixoticHeroSwineSnoutEffect effect)
         {
         }
 
@@ -21,9 +21,9 @@ namespace DuelMastersCards.OneShotEffects
             return new QuixoticHeroSwineSnoutEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Owner = Controller, Target = Source }, 3000, new UntilTheEndOfTheTurn()));
+            game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Target = source.Source }, 3000, new UntilTheEndOfTheTurn()));
         }
     }
 }

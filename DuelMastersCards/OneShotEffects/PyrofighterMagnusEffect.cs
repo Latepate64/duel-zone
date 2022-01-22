@@ -9,7 +9,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public PyrofighterMagnusEffect(PyrofighterMagnusEffect effect) : base(effect)
+        public PyrofighterMagnusEffect(PyrofighterMagnusEffect effect)
         {
         }
 
@@ -18,10 +18,10 @@ namespace DuelMastersCards.OneShotEffects
             return new PyrofighterMagnusEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
             // Return this creature to your hand.
-            game.Move(game.GetCard(Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.GetCard(source.Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
         }
     }
 }

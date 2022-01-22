@@ -13,7 +13,7 @@ namespace DuelMastersCards.OneShotEffects
             Filter = filter;
         }
 
-        public DestroyCreaturesEffect(DestroyCreaturesEffect effect) : base(effect)
+        public DestroyCreaturesEffect(DestroyCreaturesEffect effect)
         {
             Filter = effect.Filter;
         }
@@ -23,9 +23,9 @@ namespace DuelMastersCards.OneShotEffects
             return new DestroyCreaturesEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            game.Destroy(game.BattleZone.Creatures.Where(x => Filter.Applies(x, game)).ToList());
+            game.Destroy(game.BattleZone.Creatures.Where(x => Filter.Applies(x, game, source.Owner)).ToList());
         }
     }
 }

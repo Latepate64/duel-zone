@@ -12,7 +12,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public SoulswapEffect(SoulswapEffect effect) : base(effect)
+        public SoulswapEffect(SoulswapEffect effect)
         {
         }
 
@@ -21,14 +21,14 @@ namespace DuelMastersCards.OneShotEffects
             return new SoulswapEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
             // You may choose a creature in the battle zone and put it into its owner's mana zone.
-            var player = game.GetPlayer(Controller);
+            var player = game.GetPlayer(source.Owner);
             var creatures = game.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
-                var decision = player.Choose(new GuidSelection(Controller, creatures, 0, 1));
+                var decision = player.Choose(new GuidSelection(source.Owner, creatures, 0, 1));
                 var toManaCreatures = decision.Decision;
                 if (toManaCreatures.Any())
                 {
@@ -40,7 +40,7 @@ namespace DuelMastersCards.OneShotEffects
                     var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
                     if (manas.Any())
                     {
-                        var decision2 = player.Choose(new GuidSelection(Controller, manas, 1, 1));
+                        var decision2 = player.Choose(new GuidSelection(source.Owner, manas, 1, 1));
                         var mana = game.GetCard(decision2.Decision.Single());
                         game.Move(mana, ZoneType.ManaZone, ZoneType.BattleZone);
                     }

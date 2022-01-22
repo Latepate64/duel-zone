@@ -16,7 +16,7 @@
 
         public void Resolve(Game game)
         {
-            OneShotEffect.Apply(game);
+            OneShotEffect.Apply(game, this);
         }
 
         protected override void Dispose(bool disposing)

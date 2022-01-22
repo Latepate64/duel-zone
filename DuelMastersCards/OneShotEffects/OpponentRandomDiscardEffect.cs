@@ -9,7 +9,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public OpponentRandomDiscardEffect(OneShotEffect effect) : base(effect)
+        public OpponentRandomDiscardEffect(OneShotEffect effect)
         {
         }
 
@@ -18,9 +18,9 @@ namespace DuelMastersCards.OneShotEffects
             return new OpponentRandomDiscardEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            game.GetOpponent(game.GetPlayer(Controller)).DiscardAtRandom(game);
+            game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game);
         }
     }
 }

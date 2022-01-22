@@ -21,8 +21,6 @@ namespace DuelMastersModels.Abilities
             var copy = Copy() as TriggeredAbility;
             copy.Source = source;
             copy.Owner = owner;
-            copy.OneShotEffect.Source = source;
-            copy.OneShotEffect.Controller = owner;
             return copy;
         }
 

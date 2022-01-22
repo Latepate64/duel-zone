@@ -15,7 +15,7 @@ namespace DuelMastersCards.OneShotEffects
             Filters = cardFilters.ToList();
         }
 
-        public DestroyOpponentsCreatureEffect(DestroyOpponentsCreatureEffect effect) : base(effect)
+        public DestroyOpponentsCreatureEffect(DestroyOpponentsCreatureEffect effect)
         {
             Filters = effect.Filters;
         }
@@ -25,13 +25,13 @@ namespace DuelMastersCards.OneShotEffects
             return new DestroyOpponentsCreatureEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = game.GetPlayer(Controller);
-            var creatures = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(Controller)).Where(x => Filters.All(f => f.Applies(x, game)));
+            var player = game.GetPlayer(source.Owner);
+            var creatures = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(source.Owner)).Where(x => Filters.All(f => f.Applies(x, game, source.Owner)));
             if (creatures.Count() > 1)
             {
-                var dec = player.Choose(new GuidSelection(Controller, creatures, 1, 1));
+                var dec = player.Choose(new GuidSelection(source.Owner, creatures, 1, 1));
                 game.Destroy(dec.Decision.Select(x => game.GetCard(x)));
             }
             else if (creatures.Any())

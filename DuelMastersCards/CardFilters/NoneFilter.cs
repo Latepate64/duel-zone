@@ -12,7 +12,7 @@ namespace DuelMastersCards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game)
+        public override bool Applies(Card card, Game game, System.Guid player)
         {
             return false;
         }

@@ -17,7 +17,7 @@ namespace DuelMastersCards.CardFilters
             return new TargetFilter(this);
         }
 
-        public override bool Applies(Card card, Game game)
+        public override bool Applies(Card card, Game game, System.Guid player)
         {
             return Target == card.Id;
         }

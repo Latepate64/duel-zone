@@ -48,7 +48,7 @@ namespace DuelMastersCards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filters.Any(x => x.Applies(game.GetCard(e.Card), game));
+                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filters.Any(x => x.Applies(game.GetCard(e.Card), game, e.Player));
             }
             return false;
         }

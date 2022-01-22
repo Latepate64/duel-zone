@@ -14,10 +14,10 @@ namespace DuelMastersCards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game)
+        public override bool Applies(Card card, Game game, Guid player)
         {
-            var owner = game.GetPlayer(Owner);
-            var ownerApplies = game.BattleZone.GetCreatures(Owner).Select(x => x.Id).Contains(card.Id);
+            var owner = game.GetPlayer(player);
+            var ownerApplies = game.BattleZone.GetCreatures(player).Select(x => x.Id).Contains(card.Id);
             var opponent = game.GetOpponent(owner);
             if (opponent != null)
             {
