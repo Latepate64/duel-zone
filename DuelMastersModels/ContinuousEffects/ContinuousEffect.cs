@@ -1,4 +1,5 @@
 ﻿using DuelMastersModels.Durations;
+using DuelMastersModels.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace DuelMastersModels.ContinuousEffects
         public ICollection<CardFilter> Filters { get; }
 
         public Guid Controller { get; set; }
+        public Guid SourceAbility { get; private set; }
 
         protected ContinuousEffect(CardFilter filter, Duration duration) : this(new List<CardFilter> { filter }, duration)
         {
@@ -34,7 +36,17 @@ namespace DuelMastersModels.ContinuousEffects
             Controller = effect.Controller;
             Duration = effect.Duration.Copy();
             Filters = effect.Filters.Select(x => x.Copy()).ToList();
+            SourceAbility = effect.SourceAbility;
         }
+
+        public virtual void Start(Guid ability, Game game)
+        {
+            SourceAbility = ability;
+        }
+
+        public virtual void End(Game game) { }
+
+        public virtual void Update(Game game, GameEvent e) { }
 
         public abstract ContinuousEffect Copy();
 

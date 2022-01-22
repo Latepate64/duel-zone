@@ -1,4 +1,5 @@
-﻿using DuelMastersModels.ContinuousEffects;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,19 @@ namespace DuelMastersModels.Zones
         {
             Cards.Add(card);
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
+
+            var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone);
+            var effects = new List<ContinuousEffect>();
+            foreach (var ability in staticAbilities)
+            {
+                foreach (var effect in ability.ContinuousEffects)
+                {
+                    var copy = effect.Copy();
+                    copy.Start(ability.Id, game);
+                    effects.Add(copy);
+                }
+            }
+            game.ContinuousEffects.AddRange(effects);
         }
 
         public override void Remove(Card card, Game game)
@@ -38,6 +52,8 @@ namespace DuelMastersModels.Zones
             {
                 throw new NotSupportedException(card.ToString());
             }
+            var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
+            _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
         }
 
         public override Zone Copy()

@@ -349,6 +349,10 @@ namespace DuelMastersModels
             if (Turns.Any())
             {
                 CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
+                foreach (var effect in ContinuousEffects)
+                {
+                    effect.Update(this, gameEvent);
+                }
                 var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
                 List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
                 foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
@@ -389,8 +393,7 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = BattleZone.Cards.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, GetPlayer(card.Owner))));
+            return ContinuousEffects.OfType<T>().Where(x => x.Filters.All(f => f.Applies(card, this, GetPlayer(card.Owner))));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
