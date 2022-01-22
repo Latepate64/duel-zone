@@ -16,7 +16,7 @@ namespace DuelMastersCards.Cards
             Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000), 1, 1, true)));
 
             // Choose one of your shields and put it into your graveyard.
-            Abilities.Add(new SpellAbility(new PutOwnShieldToGraveyardEffect()));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.ShieldZone, ZoneType.Graveyard, new OwnersShieldZoneCardFilter(), 1, 1, true)));
         }
     }
 }
