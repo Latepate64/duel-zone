@@ -77,21 +77,22 @@ namespace Simulator
 
         private Tuple<Decision, int> ChooseEnum(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)
         {
+            throw new NotImplementedException();
             //TODO: Atm only Petrova is supported.
-            var options = game.GetPlayer(choice.Player).BattleZone.Cards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
-            if (!options.Any())
-            {
-                options = game.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
-            }
-            foreach (var option in options)
-            {
-                var currentChoice = new EnumDecision(option);
-                using var duelCopy = new Game(game);
-                _optionsRemaining -= options.Count();
-                var foo = Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1);
-                decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
-            }
-            return Choose(choice, decisions);
+            //var options = game.GetPlayer(choice.Player).BattleZone.Cards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            //if (!options.Any())
+            //{
+            //    options = game.GetPlayer(choice.Player).AllCards.SelectMany(x => x.Subtypes).Except(choice.Excluded.Cast<Subtype>());
+            //}
+            //foreach (var option in options)
+            //{
+            //    var currentChoice = new EnumDecision(option);
+            //    using var duelCopy = new Game(game);
+            //    _optionsRemaining -= options.Count();
+            //    var foo = Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1);
+            //    decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
+            //}
+            //return Choose(choice, decisions);
         }
 
         private Tuple<Decision, int> ChooseAttacker(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
@@ -146,21 +147,22 @@ namespace Simulator
 
         private int GetPoints(Game game, int numberOfChoicesMade)
         {
-            var player = game.GetPlayer(_simulator);
-            var opponent = game.GetOpponent(player);
-            var points = GetPointsForGameOver(game, player, opponent, numberOfChoicesMade);
-            points += 10 * (GetPoints(player.BattleZone.Cards) - GetPoints(opponent.BattleZone.Cards));
-            points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
-            var manaMultiplier = 2;
-            var handMultiplier = 1;
-            if (GetPoints(player.ManaZone.Cards) > GetPoints(player.Hand.Cards))
-            {
-                manaMultiplier = 1;
-                handMultiplier = 2;
-            }
-            points += manaMultiplier * (GetPoints(player.ManaZone.Cards) - GetPoints(opponent.ManaZone.Cards));
-            points += handMultiplier * (GetPoints(player.Hand.Cards) - GetPoints(opponent.Hand.Cards));
-            return points;
+            throw new NotImplementedException();
+            //var player = game.GetPlayer(_simulator);
+            //var opponent = game.GetOpponent(player);
+            //var points = GetPointsForGameOver(game, player, opponent, numberOfChoicesMade);
+            //points += 10 * (GetPoints(game.BattleZone.Cards.Where(x => x.Owner == pla) - GetPoints(opponent.BattleZone.Cards));
+            //points += 5 * (GetPoints(player.ShieldZone.Cards) - GetPoints(opponent.ShieldZone.Cards));
+            //var manaMultiplier = 2;
+            //var handMultiplier = 1;
+            //if (GetPoints(player.ManaZone.Cards) > GetPoints(player.Hand.Cards))
+            //{
+            //    manaMultiplier = 1;
+            //    handMultiplier = 2;
+            //}
+            //points += manaMultiplier * (GetPoints(player.ManaZone.Cards) - GetPoints(opponent.ManaZone.Cards));
+            //points += handMultiplier * (GetPoints(player.Hand.Cards) - GetPoints(opponent.Hand.Cards));
+            //return points;
         }
 
         private static int GetPointsForGameOver(Game game, Player player, Player opponent, int numberOfChoicesMade)

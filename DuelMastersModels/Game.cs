@@ -40,11 +40,6 @@ namespace DuelMastersModels
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
 
         /// <summary>
-        /// Note: Use method GetChoosableBattleZoneCreatures if you have to select creature/s.
-        /// </summary>
-        public IEnumerable<Card> BattleZoneCreatures => Players.SelectMany(x => x.BattleZone.Creatures);
-
-        /// <summary>
         /// All the turns of the game that have been or are processed, in order.
         /// </summary>
         public IList<Turn> Turns { get; } = new List<Turn>();
@@ -73,6 +68,11 @@ namespace DuelMastersModels
 
         internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
 
+        /// <summary>
+        /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
+        /// </summary>
+        public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
+
         #region Methods
         public Game() { }
 
@@ -90,6 +90,7 @@ namespace DuelMastersModels
             }
             Turns = game.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = game.ContinuousEffects.Select(x => x.Copy()).ToList();
+            BattleZone = game.BattleZone.Copy() as BattleZone;
         }
 
         public override string ToString()
@@ -132,6 +133,8 @@ namespace DuelMastersModels
                     x.Dispose();
                 }
                 ContinuousEffects.Clear();
+                BattleZone?.Dispose();
+                BattleZone = null;
             }
         }
 
@@ -143,7 +146,7 @@ namespace DuelMastersModels
             Players.Add(startingPlayer);
             Players.Add(otherPlayer);
 
-            foreach (var card in Players.SelectMany(x => x.AllCards))
+            foreach (var card in GetAllCards())
             {
                 card.InitializeAbilities();
             }
@@ -234,9 +237,14 @@ namespace DuelMastersModels
             }
         }
 
+        public IEnumerable<Card> GetAllCards(Guid owner)
+        {
+            return GetAllCards().Where(x => x.Owner == owner);
+        }
+
         public IEnumerable<Card> GetAllCards()
         {
-            return Players.SelectMany(x => x.AllCards).ToList();
+            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
         }
 
         private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
@@ -310,8 +318,6 @@ namespace DuelMastersModels
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
-        public IEnumerable<Card> CardsInBattleZone => Players.SelectMany(x => x.BattleZone.Cards);
-
         public Player GetPlayer(Guid id)
         {
             return Players.Union(Losers).Single(x => x.Id == id);
@@ -328,7 +334,7 @@ namespace DuelMastersModels
             {
                 return GetPlayer(id);
             }
-            else if (CardsInBattleZone.Any(x => x.Id == id))
+            else if (BattleZone.Creatures.Any(x => x.Id == id))
             {
                 return GetCard(id);
             }
@@ -369,7 +375,7 @@ namespace DuelMastersModels
         public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(GameEvent gameEvent)
         {
             var abilities = new List<TriggeredAbility>();
-            foreach (var card in CardsInBattleZone)
+            foreach (var card in BattleZone.Cards)
             {
                 abilities.AddRange(card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
@@ -383,15 +389,13 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = CardsInBattleZone.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this)));
+            var abilities = BattleZone.Cards.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
+            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, GetPlayer(card.Owner))));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
         {
-            var creatures = selector.BattleZone.Creatures.ToList();
-            creatures.AddRange(GetOpponent(selector).BattleZone.Creatures.Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
-            return creatures;
+            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
         }
 
         public void Lose(Player player)
@@ -436,10 +440,10 @@ namespace DuelMastersModels
         {
             // TODO: Sort players by turn order
             var effects = GetReplacementEffects(events);
-            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.Card).GroupBy(x => GetCard(x).Owner);
+            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
             foreach (var cardGroup in affectedCardGroups)
             {
-                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).Card));
+                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
                     ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
@@ -490,7 +494,7 @@ namespace DuelMastersModels
             var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.NewObject)).Where(x => x != null && x.ShieldTrigger);
+                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
                 while (shieldTriggers.Any())
                 {
                     var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);

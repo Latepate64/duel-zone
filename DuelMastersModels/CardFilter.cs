@@ -9,17 +9,14 @@ namespace DuelMastersModels
         /// </summary>
         public Guid Target { get; set; }
 
-        public Guid Owner { get; set; }
-
         protected CardFilter() { }
 
         protected CardFilter(CardFilter filter)
         {
             Target = filter.Target;
-            Owner = filter.Owner;
         }
 
-        public abstract bool Applies(Card card, Game game);
+        public abstract bool Applies(Card card, Game game, Player player);
 
         public abstract CardFilter Copy();
 

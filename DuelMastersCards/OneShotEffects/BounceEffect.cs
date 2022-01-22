@@ -6,13 +6,13 @@ namespace DuelMastersCards.OneShotEffects
     /// <summary>
     /// Choose up to X creatures in the battle zone and return them to their owners' hands.
     /// </summary>
-    class BounceEffect : CardMovingEffect
+    class BounceEffect : CardMovingChoiceEffect
     {
-        public BounceEffect(int maximum) : base(ZoneType.BattleZone, ZoneType.Hand, 0, maximum, true, new ChoosableCreaturesFilter())
+        public BounceEffect(int maximum) : base(ZoneType.BattleZone, ZoneType.Hand, new BattleZoneChoosableCreatureFilter(), 0, maximum, true)
         {
         }
 
-        public BounceEffect(CardMovingEffect effect) : base(effect)
+        public BounceEffect(CardMovingChoiceEffect effect) : base(effect)
         {
         }
     }

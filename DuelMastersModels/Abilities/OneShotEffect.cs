@@ -4,18 +4,9 @@ namespace DuelMastersModels.Abilities
 {
     public abstract class OneShotEffect : IDisposable
     {
-        public Guid Source { get; set; }
-        public Guid Controller { get; set; }
-
         protected OneShotEffect() { }
 
-        protected OneShotEffect(OneShotEffect effect)
-        {
-            Controller = effect.Controller;
-            Source = effect.Source;
-        }
-
-        public abstract void Apply(Game game);
+        public abstract void Apply(Game game, Ability source);
 
         public abstract OneShotEffect Copy();
 

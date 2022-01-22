@@ -20,11 +20,11 @@ namespace DuelMastersModels.Steps
         public override void PerformTurnBasedAction(Game game)
         {
             var nonActive = game.GetPlayer(game.CurrentTurn.NonActivePlayer);
-            var possibleBlockers = nonActive.BattleZone.Creatures.Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
+            var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
             if (possibleBlockers.Any())
             {
                 var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature));
-                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game)));
+                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game, game.GetPlayer(b.Owner))));
             }
             if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature)).Any())
             {

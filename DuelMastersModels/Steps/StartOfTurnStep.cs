@@ -33,11 +33,12 @@ namespace DuelMastersModels.Steps
         {
             game.Process(new TurnStartsEvent(game.CurrentTurn));
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            foreach (var creature in player.BattleZone.Creatures)
+            foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer))
             {
                 creature.SummoningSickness = false;
             }
-            player.UntapCardsInBattleZoneAndManaZone();
+            game.BattleZone.UntapCards(game.CurrentTurn.ActivePlayer);
+            player.ManaZone.UntapCards();
         }
 
         internal bool SkipDrawStep { get; set; }

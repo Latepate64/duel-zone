@@ -173,15 +173,9 @@ namespace DuelMastersModels
                         effect.Controller = Owner;
                         foreach (var filter in effect.Filters)
                         {
-                            filter.Owner = Owner;
                             filter.Target = Id;
                         }
                     }
-                }
-                else if (ability is ResolvableAbility resolvable)
-                {
-                    resolvable.OneShotEffect.Controller = Owner;
-                    resolvable.OneShotEffect.Source = Id;
                 }
             }
         }

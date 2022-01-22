@@ -2,6 +2,7 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -9,7 +10,8 @@ namespace DuelMastersCards.Cards
     {
         public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, Civilization.Fire, 1000, Subtype.Xenoparts)
         {
-            Abilities.Add(new TapAbility(new DestroyOpponentsCreatureEffect(new BlockerFilter())));
+            // Instead of having this creature attack, you may tap it to use its tap ability. Destroy one of your opponent's creatures that has "blocker."
+            Abilities.Add(new TapAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)));
         }
     }
 }

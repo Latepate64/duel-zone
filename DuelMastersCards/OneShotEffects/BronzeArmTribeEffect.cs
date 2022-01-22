@@ -9,7 +9,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public BronzeArmTribeEffect(BronzeArmTribeEffect effect) : base(effect)
+        public BronzeArmTribeEffect(BronzeArmTribeEffect effect)
         {
         }
 
@@ -18,9 +18,9 @@ namespace DuelMastersCards.OneShotEffects
             return new BronzeArmTribeEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            game.GetPlayer(Controller).PutFromTopOfDeckIntoManaZone(game);
+            game.GetPlayer(source.Owner).PutFromTopOfDeckIntoManaZone(game);
         }
     }
 }

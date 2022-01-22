@@ -10,7 +10,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
+        public ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect)
         {
         }
 
@@ -19,13 +19,13 @@ namespace DuelMastersCards.OneShotEffects
             return new ControllerMayUntapCreatureEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
-            var player = game.GetPlayer(Controller);
-            var decision = player.Choose(new YesNoChoice(Controller));
+            var player = game.GetPlayer(source.Owner);
+            var decision = player.Choose(new YesNoChoice(source.Owner));
             if (decision.Decision)
             {
-                game.GetCard(Source).Tapped = false;
+                game.GetCard(source.Source).Tapped = false;
             }
         }
     }

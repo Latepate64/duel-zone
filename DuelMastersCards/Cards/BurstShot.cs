@@ -2,6 +2,7 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -10,7 +11,8 @@ namespace DuelMastersCards.Cards
         public BurstShot() : base("Burst Shot", 6, Civilization.Fire)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new DestroyCreaturesEffect(new CreaturesWithMaxPowerFilter(2000))));
+            // Destroy all creatures that have power 2000 or less.
+            Abilities.Add(new SpellAbility(new CardMovingAreaOfEffect(ZoneType.BattleZone, ZoneType.Graveyard, new BattleZoneMaxPowerCreatureFilter(2000))));
         }
     }
 }

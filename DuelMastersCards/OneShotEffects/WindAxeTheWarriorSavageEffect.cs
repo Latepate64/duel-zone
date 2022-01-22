@@ -13,7 +13,7 @@ namespace DuelMastersCards.OneShotEffects
         {
         }
 
-        public WindAxeTheWarriorSavageEffect(WindAxeTheWarriorSavageEffect effect) : base(effect)
+        public WindAxeTheWarriorSavageEffect(WindAxeTheWarriorSavageEffect effect)
         {
         }
 
@@ -22,12 +22,12 @@ namespace DuelMastersCards.OneShotEffects
             return new WindAxeTheWarriorSavageEffect(this);
         }
 
-        public override void Apply(Game game)
+        public override void Apply(Game game, Ability source)
         {
             // Destroy one of your opponent's creatures that has "blocker."
-            var controller = game.GetPlayer(Controller);
+            var controller = game.GetPlayer(source.Owner);
             var blocker = new List<Card>();
-            var blockers = game.GetOpponent(controller).BattleZone.GetChoosableCreatures(game).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
+            var blockers = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(source.Owner)).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
             if (blockers.Any())
             {
                 var decision = controller.Choose(new GuidSelection(controller.Id, blockers, 1, 1));

@@ -2,6 +2,7 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -9,7 +10,8 @@ namespace DuelMastersCards.Cards
     {
         public Gigargon() : base("Gigargon", 8, Civilization.Darkness, 3000, Subtype.Chimera)
         {
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ReturnCardsFromGraveyardToHandEffect(2, new CardTypeFilter(CardType.Creature))));
+            // When you put this creature into the battle zone, return up to 2 creatures from your graveyard to your hand.
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CardMovingChoiceEffect(ZoneType.Graveyard, ZoneType.Hand, new OwnersGraveyardCreatureFilter(), 0, 2, true)));
         }
     }
 }

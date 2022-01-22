@@ -2,6 +2,7 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
+using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -10,7 +11,8 @@ namespace DuelMastersCards.Cards
         public TerrorPit() : base("Terror Pit", 6, Civilization.Darkness)
         {
             ShieldTrigger = true;
-            Abilities.Add(new SpellAbility(new DestroyOpponentsCreatureEffect(new AnyFilter())));
+            // Destroy 1 of your opponent's creatures.
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }

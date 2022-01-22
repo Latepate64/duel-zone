@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Choose one of your opponent's creatures in the battle zone and put it into his mana zone.
-            Abilities.Add(new SpellAbility(new CardMovingEffect(DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone, 1, 1, true, new OpponentsChoosableCreaturesFilter())));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.ManaZone, new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }
