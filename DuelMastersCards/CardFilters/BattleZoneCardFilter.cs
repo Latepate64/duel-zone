@@ -2,24 +2,24 @@
 
 namespace DuelMastersCards.CardFilters
 {
-    public class NoneFilter : CardFilter
+    class BattleZoneCardFilter : CardFilter
     {
-        public NoneFilter()
+        public BattleZoneCardFilter()
         {
         }
 
-        public NoneFilter(CardFilter filter) : base(filter)
+        public BattleZoneCardFilter(CardFilter filter) : base(filter)
         {
         }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return false;
+            return game.BattleZone.Cards.Contains(card);
         }
 
         public override CardFilter Copy()
         {
-            return new NoneFilter(this);
+            return new BattleZoneCardFilter(this);
         }
     }
 }

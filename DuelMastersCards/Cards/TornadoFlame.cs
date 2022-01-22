@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures that has power 4000 or less.
-            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.BattleZone, ZoneType.Graveyard, 1, 1, true, new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000))));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000), 1, 1, true)));
         }
     }
 }

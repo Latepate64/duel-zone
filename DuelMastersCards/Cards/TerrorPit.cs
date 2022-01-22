@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures.
-            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.BattleZone, ZoneType.Graveyard, 1, 1, true, new OpponentsBattleZoneChoosableCreatureFilter())));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }

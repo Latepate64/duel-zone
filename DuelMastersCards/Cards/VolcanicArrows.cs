@@ -13,7 +13,7 @@ namespace DuelMastersCards.Cards
             ShieldTrigger = true;
 
             // Destroy a creature that has power 6000 or less.
-            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.BattleZone, ZoneType.Graveyard, 1, 1, true, new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000))));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000), 1, 1, true)));
 
             // Choose one of your shields and put it into your graveyard.
             Abilities.Add(new SpellAbility(new PutOwnShieldToGraveyardEffect()));

@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Destroy one of your opponent's creatures that has "blocker" and power 6000 or less.
-            Abilities.Add(new SpellAbility(new CardMovingEffect(ZoneType.BattleZone, ZoneType.Graveyard, 1, 1, true, new OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(6000))));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(6000), 1, 1, true)));
         }
     }
 }
