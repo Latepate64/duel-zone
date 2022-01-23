@@ -3,32 +3,32 @@
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.
     /// </summary>
-    public class DrawStep : TurnBasedActionStep
+    public class DrawPhase : Phase, ITurnBasedActionable
     {
-        public DrawStep()
+        public DrawPhase()
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override Phase GetNextPhase(Game game)
         {
-            return new ChargeStep();
+            return new ChargePhase();
         }
 
         /// <summary>
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
         /// <returns></returns>
-        public override void PerformTurnBasedAction(Game game)
+        public void PerformTurnBasedAction(Game game)
         {
             game.GetPlayer(game.CurrentTurn.ActivePlayer).DrawCards(1, game);
         }
 
-        public override Step Copy()
+        public override Phase Copy()
         {
-            return new DrawStep(this);
+            return new DrawPhase(this);
         }
 
-        public DrawStep(DrawStep step) : base(step)
+        public DrawPhase(DrawPhase step) : base(step)
         {
         }
     }

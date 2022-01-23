@@ -91,13 +91,16 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardFilter.cs" />
     <Compile Include="Choices\EnumChoice.cs" />
+    <Compile Include="ContinuousEffects\AbilityGrantingEffect.cs" />
     <Compile Include="ContinuousEffects\AttacksIfAbleEffect.cs" />
     <Compile Include="ContinuousEffects\BlockerEffect.cs" />
     <Compile Include="ContinuousEffects\CanAttackUntappedCreaturesEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackCreaturesEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackPlayersEffect.cs" />
+    <Compile Include="ContinuousEffects\CharacteristicModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\ChargerEffect.cs" />
     <Compile Include="ContinuousEffects\DoubleBreakerEffect.cs" />
+    <Compile Include="ContinuousEffects\PowerAttackerEffect.cs" />
     <Compile Include="ContinuousEffects\PowerModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\ReplacementEffect.cs" />
     <Compile Include="ContinuousEffects\SlayerEffect.cs" />
@@ -144,19 +147,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Steps\AttackDeclarationStep.cs" />
-    <Compile Include="Steps\AttackingCreatureStep.cs" />
+    <Compile Include="Steps\AttackPhase.cs" />
     <Compile Include="Steps\BattleStep.cs" />
     <Compile Include="Steps\BlockDeclarationStep.cs" />
-    <Compile Include="Steps\ChargeStep.cs" />
+    <Compile Include="Steps\ChargePhase.cs" />
     <Compile Include="Steps\DirectAttackStep.cs" />
-    <Compile Include="Steps\DrawStep.cs" />
+    <Compile Include="Steps\DrawPhase.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
-    <Compile Include="Steps\EndOfTurnStep.cs" />
-    <Compile Include="Steps\MainStep.cs" />
-    <Compile Include="Steps\PriorityStep.cs" />
-    <Compile Include="Steps\StartOfTurnStep.cs" />
+    <Compile Include="Steps\EndOfTurnPhase.cs" />
+    <Compile Include="Steps\MainPhase.cs" />
+    <Compile Include="Steps\PriorityPhase.cs" />
+    <Compile Include="Steps\StartOfTurnPhase.cs" />
+    <Compile Include="Steps\Phase.cs" />
     <Compile Include="Steps\Step.cs" />
-    <Compile Include="Steps\TurnBasedActionStep.cs" />
+    <Compile Include="Steps\ITurnBasedActionable.cs" />
     <Compile Include="Turn.cs" />
     <Compile Include="Zones\BattleZone.cs" />
     <Compile Include="Zones\Deck.cs" />

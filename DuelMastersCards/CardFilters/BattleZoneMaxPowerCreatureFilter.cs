@@ -18,7 +18,7 @@ namespace DuelMastersCards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && game.GetPower(card) <= Power;
+            return base.Applies(card, game, player) && card.Power.Value <= Power;
         }
 
         public override CardFilter Copy()

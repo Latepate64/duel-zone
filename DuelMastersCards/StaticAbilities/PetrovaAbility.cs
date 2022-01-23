@@ -16,7 +16,7 @@ namespace DuelMastersCards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.Anywhere, DuelMastersModels.Zones.ZoneType.BattleZone)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.Anywhere, DuelMastersModels.Zones.ZoneType.BattleZone, null)));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)
@@ -64,7 +64,7 @@ namespace DuelMastersCards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Game game)
+        public override GameEvent Apply(Game game, Player player)
         {
             throw new System.NotImplementedException();
         }
@@ -73,7 +73,7 @@ namespace DuelMastersCards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filters.Any(x => x.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player)));
+                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
             }
             return false;
         }

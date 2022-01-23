@@ -1,18 +1,14 @@
 ﻿using DuelMastersModels.Durations;
-using System.Collections.Generic;
+using DuelMastersModels.GameEvents;
+using System.Linq;
 
 namespace DuelMastersModels.ContinuousEffects
 {
-    public class PowerModifyingEffect : ContinuousEffect
+    public class PowerModifyingEffect : CharacteristicModifyingEffect
     {
         private readonly int _power;
 
         public PowerModifyingEffect(CardFilter filter, int power, Duration duration) : base(filter, duration)
-        {
-            _power = power;
-        }
-
-        public PowerModifyingEffect(IEnumerable<CardFilter> filters, int power, Duration duration) : base(filters, duration)
         {
             _power = power;
         }
@@ -27,9 +23,39 @@ namespace DuelMastersModels.ContinuousEffects
             return new PowerModifyingEffect(this);
         }
 
-        public virtual int GetPower(Game game)
+        public override void Start(Game game)
         {
-            return _power;
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
+            {
+                card.Power += _power;
+            }
+        }
+
+        public override void End(Game game)
+        {
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
+            {
+                card.Power -= _power;
+            }
+        }
+
+        public override void Update(Game game, GameEvent e)
+        {
+            if (e is CardMovedEvent cme)
+            {
+                var card = game.GetCard(cme.CardInDestinationZone);
+                if (Filter.Applies(card, game, game.GetOwner(card)))
+                {
+                    if (cme.Destination == Zones.ZoneType.BattleZone)
+                    {
+                        card.Power += _power;
+                    }
+                    if (cme.Source == Zones.ZoneType.BattleZone)
+                    {
+                        card.Power -= _power;
+                    }
+                }
+            }
         }
     }
 }

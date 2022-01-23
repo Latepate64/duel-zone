@@ -8,11 +8,9 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class AttackDeclarationStep : AttackingCreatureStep
+    public class AttackDeclarationStep : Step
     {
-        internal Guid AttackTarget { get; set; }
-
-        public AttackDeclarationStep()
+        public AttackDeclarationStep(AttackPhase phase) : base(phase)
         {
         }
 
@@ -28,18 +26,18 @@ namespace DuelMastersModels.Steps
                 var dec = activePlayer.Choose(new AttackerChoice(game.CurrentTurn.ActivePlayer, options, attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
                 if (dec.Decision != null)
                 {
-                    AttackingCreature = dec.Decision.Item1;
-                    AttackTarget = dec.Decision.Item2;
-                    var attacker = game.GetCard(AttackingCreature);
+                    var attacker = game.GetCard(dec.Decision.Item1);
                     attacker.Tapped = true;
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();
-                    if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                    if (tapAbilities.Select(y => y.Id).Contains(dec.Decision.Item2))
                     {
-                        PendingAbilities.AddRange(tapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
+                        Phase.PendingAbilities.AddRange(tapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
                     }
                     else
                     {
-                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(AttackTarget)));
+                        Phase.SetAttackingCreature(attacker, game);
+                        Phase.AttackTarget = dec.Decision.Item2;
+                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
                     }
                 }
             }
@@ -49,44 +47,47 @@ namespace DuelMastersModels.Steps
         {
             List<IAttackable> attackables = new List<IAttackable>();
             var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
-            if (!game.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
+            if (opponent != null)
             {
-                attackables.Add(opponent);
-            }
-            if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
-            {
-                var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
-                attackables.AddRange(opponentsCreatures.Where(c => c.Tapped).Distinct(new CardComparer()));
-                if (game.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                if (!game.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
                 {
-                    attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
+                    attackables.Add(opponent);
                 }
-            }
-            if (attackables.Any())
-            {
-                attackables.AddRange(attacker.Abilities.OfType<TapAbility>());
+                if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
+                {
+                    var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
+                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped).Distinct(new CardComparer()));
+                    if (game.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                    {
+                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
+                    }
+                }
+                if (attackables.Any())
+                {
+                    attackables.AddRange(attacker.Abilities.OfType<TapAbility>());
+                }
             }
             return attackables;
         }
 
         public override Step GetNextStep(Game game)
         {
-            if (AttackingCreature != Guid.Empty)
+            if (Phase.AttackingCreature != Guid.Empty)
             {
-                var tapAbilities = game.GetCard(AttackingCreature).Abilities.OfType<TapAbility>();
-                if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                var tapAbilities = game.GetCard(Phase.AttackingCreature).Abilities.OfType<TapAbility>();
+                if (tapAbilities.Select(y => y.Id).Contains(Phase.AttackTarget))
                 {
-                    return new AttackDeclarationStep();
+                    return new AttackDeclarationStep(Phase);
                 }
                 else
                 {
-                    return new BlockDeclarationStep(AttackingCreature, AttackTarget);
+                    return new BlockDeclarationStep(Phase);
                 }
             }
             // 506.2. If an attacking creature is not specified, the other substeps are skipped.
             else
             {
-                return new EndOfTurnStep();
+                return null;
             }
         }
 
@@ -97,8 +98,6 @@ namespace DuelMastersModels.Steps
 
         public AttackDeclarationStep(AttackDeclarationStep step) : base(step)
         {
-            AttackingCreature = step.AttackingCreature;
-            AttackTarget = step.AttackTarget;
         }
     }
 }

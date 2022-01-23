@@ -22,14 +22,14 @@ namespace DuelMastersModels
         public Guid NonActivePlayer { get; set; }
 
         /// <summary>
-        /// The step that is currently being processed.
+        /// The phase that is currently being processed.
         /// </summary>
-        public Step CurrentStep => Steps.Last();
+        public Phase CurrentPhase => Phases.Last();
 
         /// <summary>
-        /// All the steps in the turn that have been or are processed, in order.
+        /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
-        public IList<Step> Steps { get; private set; } = new Collection<Step>();
+        public IList<Phase> Phases { get; private set; } = new Collection<Phase>();
 
         /// <summary>
         /// The number of the turn.
@@ -45,10 +45,10 @@ namespace DuelMastersModels
         public void Play(Game game, int number)
         {
             Number = number;
-            if (!Steps.Any())
+            if (!Phases.Any())
             {
-                Steps.Add(new StartOfTurnStep(Number == 1));
-                StartCurrentStep(game);
+                Phases.Add(new StartOfTurnPhase(Number == 1));
+                StartCurrentPhase(game);
             }
             else
             {
@@ -56,16 +56,16 @@ namespace DuelMastersModels
             }
         }
 
-        private void StartCurrentStep(Game game)
+        private void StartCurrentPhase(Game game)
         {
-            CurrentStep.Play(game);
-            if (game.Players.Count > 1)
+            CurrentPhase.Play(game);
+            if (game.Players.Any())
             {
-                Step nextStep = CurrentStep.GetNextStep(game);
-                if (nextStep != null)
+                Phase nextPhase = CurrentPhase.GetNextPhase(game);
+                if (nextPhase != null)
                 {
-                    Steps.Add(nextStep);
-                    StartCurrentStep(game);
+                    Phases.Add(nextPhase);
+                    StartCurrentPhase(game);
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace DuelMastersModels
             Id = turn.Id;
             NonActivePlayer = turn.NonActivePlayer;
             Number = turn.Number;
-            Steps = turn.Steps.Select(x => x.Copy()).ToList();
+            Phases = turn.Phases.Select(x => x.Copy()).ToList();
         }
 
         public override string ToString()
@@ -94,7 +94,7 @@ namespace DuelMastersModels
         {
             if (disposing)
             {
-                Steps = null;
+                Phases = null;
             }
         }
     }

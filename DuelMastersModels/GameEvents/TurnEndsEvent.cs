@@ -4,14 +4,10 @@
     {
         public Turn Turn { get; }
 
-        public TurnEndsEvent(Turn turn)
+        public TurnEndsEvent(Turn turn, Game game)
         {
             Turn = turn;
-        }
-
-        public override string ToString(Game game)
-        {
-            return $"{Turn} ends for {game.GetPlayer(Turn.ActivePlayer).Name}.";
+            Text = $"{Turn} ends for {game.GetPlayer(Turn.ActivePlayer).Name}.";
         }
     }
 }

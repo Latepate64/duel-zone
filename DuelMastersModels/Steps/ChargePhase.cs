@@ -6,15 +6,15 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.
     /// </summary>
-    public class ChargeStep : PriorityStep
+    public class ChargePhase : PriorityPhase
     {
-        public ChargeStep()
+        public ChargePhase()
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override Phase GetNextPhase(Game game)
         {
-            return new MainStep();
+            return new MainPhase();
         }
 
         protected internal override bool PerformPriorityAction(Game game)
@@ -29,11 +29,11 @@ namespace DuelMastersModels.Steps
             return true;
         }
 
-        public override Step Copy()
+        public override Phase Copy()
         {
-            return new ChargeStep(this);
+            return new ChargePhase(this);
         }
 
-        public ChargeStep(ChargeStep step) : base(step) { }
+        public ChargePhase(ChargePhase step) : base(step) { }
     }
 }

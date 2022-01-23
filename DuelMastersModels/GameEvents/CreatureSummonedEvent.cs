@@ -11,7 +11,7 @@
             Creature = creature;
         }
 
-        public override string ToString(Game game)
+        public override string ToString()
         {
             return $"{Player} summoned {Creature}.";
         }

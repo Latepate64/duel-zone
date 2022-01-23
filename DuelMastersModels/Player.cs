@@ -149,7 +149,7 @@ namespace DuelMastersModels
 
         public void DrawCards(int amount, Game game)
         {
-            // 121.2.Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
+            // 121.2. Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())

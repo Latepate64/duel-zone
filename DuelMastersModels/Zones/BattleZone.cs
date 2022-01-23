@@ -1,4 +1,6 @@
-﻿using DuelMastersModels.ContinuousEffects;
+﻿using DuelMastersModels.Abilities;
+using DuelMastersModels.ContinuousEffects;
+using DuelMastersModels.Steps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +32,21 @@ namespace DuelMastersModels.Zones
         {
             Cards.Add(card);
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 
         public override void Remove(Card card, Game game)
         {
+            if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == card.Id)
+            {
+                phase.RemoveAttackingCreature(game);
+            }
             if (!Cards.Remove(card))
             {
                 throw new NotSupportedException(card.ToString());
             }
+            var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
+            _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
         }
 
         public override Zone Copy()

@@ -51,7 +51,7 @@ namespace Simulator
             player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
             using var game = simulator.PlayDuel(player1, player2, simulationDepth);
 
-            var usedCards = game.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
+            var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);
             if (game.Winner != null)
             {
                 UpdateWinnerUsedCards(game, usedCards, matchUp.Players.Distinct().Single(x => x.Name == game.Winner.Name));
@@ -65,19 +65,19 @@ namespace Simulator
         private static void UpdateWinnerUsedCards(Game game, IEnumerable<Card> usedCards, PlayerConfiguration winner)
         {
             ++winner.Wins;
-            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
-            {
-                UpdateUsedCards(winner.UsedCards, cardName, true);
-            }
+            //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
+            //{
+            //    UpdateUsedCards(winner.UsedCards, cardName, true);
+            //}
         }
 
         private static void UpdateLoserUsedCards(Game game, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
         {
             ++loserConfiguration.Losses;
-            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())
-            {
-                UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
-            }
+            //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())
+            //{
+            //    UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
+            //}
         }
 
         private static void PlayRoundOfGames(Simulator simulator, SimulationConfiguration conf, List<MatchUp> matchUps)

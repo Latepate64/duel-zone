@@ -73,7 +73,7 @@ namespace DuelMastersModels
         /// </summary>
         public IEnumerable<Subtype> Subtypes { get; set; } = new Collection<Subtype>();
 
-        public ICollection<Ability> Abilities { get; } = new Collection<Ability>();
+        public List<Ability> Abilities { get; } = new List<Ability>();
 
         public int? Power { get; set; }
 
@@ -170,11 +170,7 @@ namespace DuelMastersModels
                 {
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
-                        effect.Controller = Owner;
-                        foreach (var filter in effect.Filters)
-                        {
-                            filter.Target = Id;
-                        }
+                        effect.Filter.Target = Id;
                     }
                 }
             }

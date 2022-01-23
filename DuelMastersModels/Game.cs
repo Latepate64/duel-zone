@@ -35,9 +35,9 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Steps).SelectMany(x => x.GameEvents));
+        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
-        public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
+        public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
         /// <summary>
         /// All the turns of the game that have been or are processed, in order.
@@ -163,7 +163,7 @@ namespace DuelMastersModels
             // 103.7. The starting player takes their first turn.
             var activePlayer = startingPlayer;
             var nonActivePlayer = otherPlayer;
-            while (Players.Count > 1)
+            while (Players.Any())
             {
                 StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
                 var tmp1 = activePlayer;
@@ -190,16 +190,14 @@ namespace DuelMastersModels
         {
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
-            int attackingCreaturePower = GetPower(attackingCreature);
-            int defendingCreaturePower = GetPower(defendingCreature);
 
-            Process(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
+            Process(new BattleEvent(attackingCreature, defendingCreature, this));
 
-            if (attackingCreaturePower > defendingCreaturePower)
+            if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
                 Outcome(attackingCreature, defendingCreature);
             }
-            else if (attackingCreaturePower < defendingCreaturePower)
+            else if (attackingCreature.Power.Value < defendingCreature.Power.Value)
             {
                 Outcome(defendingCreature, attackingCreature);
             }
@@ -210,9 +208,9 @@ namespace DuelMastersModels
 
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent(winner));
+                Process(new WinBattleEvent(winner, this));
                 var destroyed = new List<Card> { loser };
-                if (GetContinuousEffects<SlayerEffect>(loser).Any())
+                if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
                     destroyed.Add(winner);
                 }
@@ -222,7 +220,7 @@ namespace DuelMastersModels
 
         public void UseCard(Card card, Player player)
         {
-            CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
+            CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
                 player.Summon(card, this);
@@ -295,7 +293,8 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Guid GetOpponent(Guid player)
         {
-            return Players.Single(x => x.Id != player).Id;
+            var opponent = Players.SingleOrDefault(x => x.Id != player);
+            return opponent != null ? opponent.Id : Guid.Empty;
         }
 
         /// <summary>
@@ -305,22 +304,22 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Player GetOwner(Card card)
         {
-            return Players.Union(Losers).Single(x => x.Id == card.Owner);
+            return Players.SingleOrDefault(x => x.Id == card?.Owner);
         }
 
         public Card GetCard(Guid id)
         {
-            return GetAllCards().Single(c => c.Id == id);
-        }
-
-        public Card TryGetCard(Guid id)
-        {
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
+        /// <summary>
+        /// Returns a player who is still in the game.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Player if they are still in the game, null otherwise</returns>
         public Player GetPlayer(Guid id)
         {
-            return Players.Union(Losers).Single(x => x.Id == id);
+            return Players.SingleOrDefault(x => x.Id == id);
         }
 
         /// <summary>
@@ -348,7 +347,11 @@ namespace DuelMastersModels
         {
             if (Turns.Any())
             {
-                CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
+                CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
+                foreach (var effect in ContinuousEffects.OfType<CharacteristicModifyingEffect>().ToList())
+                {
+                    effect.Update(this, gameEvent);
+                }
                 var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
                 List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
                 foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
@@ -360,7 +363,7 @@ namespace DuelMastersModels
                     }
                 }
                 _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+                CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
                     Process(new AbilityTriggeredEvent(ability));
@@ -382,15 +385,9 @@ namespace DuelMastersModels
             return abilities;
         }
 
-        public int GetPower(Card card)
-        {
-            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.GetPower(this));
-        }
-
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            var abilities = BattleZone.Cards.SelectMany(x => x.Abilities).OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList();
-            return abilities.SelectMany(x => x.ContinuousEffects).OfType<T>().Union(ContinuousEffects.OfType<T>()).Where(x => x.Filters.All(f => f.Applies(card, this, GetPlayer(card.Owner))));
+            return ContinuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
@@ -401,14 +398,27 @@ namespace DuelMastersModels
         public void Lose(Player player)
         {
             Losers.Add(player);
-            _ = Players.Remove(player);
             Process(new LoseEvent(player.Copy()));
+            Leave(player);
+
+            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
+            if (Players.Count == 1)
+            {
+                Win(Players.Single());
+            }
         }
 
-        public void Win(Player player)
+        private void Win(Player player)
         {
             Winner = player;
             Process(new WinEvent(player.Copy()));
+            Leave(player);
+        }
+
+        private void Leave(Player player)
+        {
+            _ = Players.Remove(player);
+            _ = Move(BattleZone.Cards.Where(x => x.Owner == player.Id), ZoneType.BattleZone, ZoneType.Anywhere);
         }
 
         /// <summary>
@@ -433,7 +443,7 @@ namespace DuelMastersModels
         /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
+            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination, this)).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
@@ -449,7 +459,7 @@ namespace DuelMastersModels
                     ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                var newEvent = effect.Apply(this);
+                var newEvent = effect.Apply(this, player);
                 if (newEvent != null)
                 {
                     events = events.Where(x => x.Id != effect.EventToReplace.Id).ToList();
@@ -494,7 +504,7 @@ namespace DuelMastersModels
             var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
+                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
                 while (shieldTriggers.Any())
                 {
                     var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);
@@ -516,6 +526,40 @@ namespace DuelMastersModels
                     }
                 }
             }
+        }
+
+        public void AddAbility(Card card, Ability ability)
+        {
+            card.Abilities.Add(ability);
+            if (ability is StaticAbility staticAbility)
+            {
+                AddContinuousEffects(new List<StaticAbility> { staticAbility });
+            }
+        }
+
+        public void RemoveAbility(Card card, Guid ability)
+        {
+            _ = ContinuousEffects.RemoveAll(x => ability == x.SourceAbility);
+            _ = card.Abilities.RemoveAll(x => x.Id == ability);
+        }
+
+        internal void AddContinuousEffects(List<StaticAbility> staticAbilities)
+        {
+            var effects = new List<ContinuousEffect>();
+            foreach (var ability in staticAbilities)
+            {
+                foreach (var effect in ability.ContinuousEffects)
+                {
+                    var copy = effect.Copy();
+                    copy.SourceAbility = ability.Id;
+                    if (copy is CharacteristicModifyingEffect cme)
+                    {
+                        cme.Start(this);
+                    }
+                    effects.Add(copy);
+                }
+            }
+            ContinuousEffects.AddRange(effects);
         }
         #endregion Methods
     }

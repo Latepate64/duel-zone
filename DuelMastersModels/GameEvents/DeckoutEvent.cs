@@ -9,7 +9,7 @@
             Player = player;
         }
 
-        public override string ToString(Game game)
+        public override string ToString()
         {
             return $"{Player}'s deck contains no cards.";
         }

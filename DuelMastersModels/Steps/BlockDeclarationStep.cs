@@ -6,15 +6,10 @@ using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class BlockDeclarationStep : AttackingCreatureStep
+    public class BlockDeclarationStep : Step
     {
-        internal Guid AttackTarget { get; private set; }
-        internal Guid BlockingCreature { get; set; }
-
-        public BlockDeclarationStep(Guid attackingCreature, Guid attackTarget)
+        public BlockDeclarationStep(AttackPhase phase) : base(phase)
         {
-            AttackingCreature = attackingCreature;
-            AttackTarget = attackTarget;
         }
 
         public override void PerformTurnBasedAction(Game game)
@@ -23,36 +18,36 @@ namespace DuelMastersModels.Steps
             var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
             if (possibleBlockers.Any())
             {
-                var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature));
+                var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(Phase.AttackingCreature));
                 possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game, game.GetPlayer(b.Owner))));
             }
-            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(AttackingCreature)).Any())
+            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(Phase.AttackingCreature)).Any())
             {
                 var dec = nonActive.Choose(new GuidSelection(game.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
                 var blockers = dec.Decision;
                 if (blockers.Any())
                 {
-                    BlockingCreature = blockers.Single();
-                    var blocker = game.GetCard(BlockingCreature);
+                    Phase.BlockingCreature = blockers.Single();
+                    var blocker = game.GetCard(Phase.BlockingCreature);
                     blocker.Tapped = true;
-                    game.Process(new BlockEvent(new Card(game.GetCard(AttackingCreature), true), new Card(blocker, true)));
+                    game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true), game));
                 }
             }
         }
 
         public override Step GetNextStep(Game game)
         {
-            if (BlockingCreature != Guid.Empty)
+            if (Phase.BlockingCreature != Guid.Empty)
             {
-                return new BattleStep(AttackingCreature, BlockingCreature);
+                return new BattleStep(Phase);
             }
-            else if (game.GetAttackable(AttackTarget) is Card)
+            else if (game.GetAttackable(Phase.AttackTarget) is Card)
             {
-                return new BattleStep(AttackingCreature, AttackTarget);
+                return new BattleStep(Phase);
             }
             else
             {
-                return new DirectAttackStep(AttackingCreature);
+                return new DirectAttackStep(Phase);
             }
         }
 
@@ -63,9 +58,6 @@ namespace DuelMastersModels.Steps
 
         public BlockDeclarationStep(BlockDeclarationStep step) : base(step)
         {
-            AttackingCreature = step.AttackingCreature;
-            AttackTarget = step.AttackTarget;
-            BlockingCreature = step.BlockingCreature;
         }
     }
 }

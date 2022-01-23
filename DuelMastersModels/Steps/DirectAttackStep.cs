@@ -1,30 +1,27 @@
 ﻿using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
-using System;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
-    public class DirectAttackStep : AttackingCreatureStep
+    public class DirectAttackStep : Step
     {
-        public DirectAttackStep(Guid attackingCreature)
+        public DirectAttackStep(AttackPhase phase) : base(phase)
         {
-            AttackingCreature = attackingCreature;
         }
 
         public override Step GetNextStep(Game game)
         {
-            return new EndOfAttackStep();
+            return new EndOfAttackStep(Phase);
         }
 
         public DirectAttackStep(DirectAttackStep step) : base(step)
         {
-            AttackingCreature = step.AttackingCreature;
         }
 
         public override void PerformTurnBasedAction(Game game)
         {
-            var attackingCreature = game.GetCard(AttackingCreature);
+            var attackingCreature = game.GetCard(Phase.AttackingCreature);
             var controller = game.GetPlayer(attackingCreature.Owner);
             var opponent = game.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())

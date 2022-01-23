@@ -6,7 +6,6 @@ using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System;
-using System.Linq;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -14,7 +13,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public AquaAgentAbility()
         {
-            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard)));
+            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
         }
 
         protected AquaAgentAbility(AquaAgentAbility ability) : base(ability)
@@ -37,9 +36,9 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Game game)
+        public override GameEvent Apply(Game game, Player player)
         {
-            if (game.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
+            if (player.Choose(new YesNoChoice(player.Id)).Decision)
             {
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;
                 newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;
@@ -55,7 +54,7 @@ namespace DuelMastersCards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filters.Any(x => x.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player)));
+                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
             }
             return false;
         }
