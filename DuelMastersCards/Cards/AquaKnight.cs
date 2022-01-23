@@ -8,7 +8,7 @@ namespace DuelMastersCards.Cards
         public AquaKnight() : base("Aqua Knight", 5, Civilization.Water, 4000, Subtype.LiquidPeople)
         {
             // When this creature would be destroyed, return it to your hand instead.
-            Abilities.Add(new AquaKnightAbility());
+            Abilities.Add(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
         }
     }
 }

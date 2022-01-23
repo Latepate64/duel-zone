@@ -10,14 +10,14 @@ using System.Linq;
 
 namespace DuelMastersCards.StaticAbilities
 {
-    public class AquaKnightAbility : StaticAbility
+    public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility : StaticAbility
     {
-        public AquaKnightAbility()
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility()
         {
             ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
         }
 
-        protected AquaKnightAbility(AquaKnightAbility ability) : base(ability)
+        protected WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility ability) : base(ability)
         {
         }
     }
