@@ -4,22 +4,23 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
     class GrantAbilityToOwnersCreatureEffect : OneShotEffect
     {
-        public Ability Ability { get; }
+        public IEnumerable<Ability> Abilities { get; }
 
-        public GrantAbilityToOwnersCreatureEffect(Ability ability)
+        public GrantAbilityToOwnersCreatureEffect(params Ability[] ability)
         {
-            Ability = ability;
+            Abilities = ability;
         }
 
         public GrantAbilityToOwnersCreatureEffect(GrantAbilityToOwnersCreatureEffect effect)
         {
-            Ability = effect.Ability;
+            Abilities = effect.Abilities;
         }
 
         public override OneShotEffect Copy()
@@ -34,7 +35,10 @@ namespace DuelMastersCards.OneShotEffects
             {
                 var decision = game.GetPlayer(source.Owner).Choose(new GuidSelection(source.Owner, creatures, 1, 1));
                 var target = game.GetCard(decision.Decision.Single()).Id;
-                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetFilter { Target = target }, new UntilTheEndOfTheTurn(), Ability.Copy()));
+                foreach (var ability in Abilities)
+                {
+                    game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetFilter { Target = target }, new UntilTheEndOfTheTurn(), ability.Copy()));
+                }
             }
         }
     }
