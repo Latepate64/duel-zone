@@ -190,16 +190,14 @@ namespace DuelMastersModels
         {
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
-            int attackingCreaturePower = GetPower(attackingCreature);
-            int defendingCreaturePower = GetPower(defendingCreature);
 
-            Process(new BattleEvent(attackingCreature, attackingCreaturePower, defendingCreature, defendingCreaturePower));
+            Process(new BattleEvent(attackingCreature, attackingCreature.Power.Value, defendingCreature, defendingCreature.Power.Value));
 
-            if (attackingCreaturePower > defendingCreaturePower)
+            if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
                 Outcome(attackingCreature, defendingCreature);
             }
-            else if (attackingCreaturePower < defendingCreaturePower)
+            else if (attackingCreature.Power.Value < defendingCreature.Power.Value)
             {
                 Outcome(defendingCreature, attackingCreature);
             }
@@ -384,11 +382,6 @@ namespace DuelMastersModels
                 abilities.AddRange(card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
             return abilities;
-        }
-
-        public int GetPower(Card card)
-        {
-            return card.Power.Value + GetContinuousEffects<PowerModifyingEffect>(card).Sum(x => x.GetPower(this));
         }
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect

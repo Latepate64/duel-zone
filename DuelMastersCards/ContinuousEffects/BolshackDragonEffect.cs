@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace DuelMastersCards.ContinuousEffects
 {
-    public class BolshackDragonEffect : PowerModifyingEffect
+    public class BolshackDragonEffect : PowerAttackerEffect
     {
         public CardFilter MultiplierFilter { get; }
 
-        public BolshackDragonEffect(CardFilter multiplierFilter) : base(new TargetFilter(), 0, new Indefinite())
+        public BolshackDragonEffect(CardFilter multiplierFilter) : base(new TargetFilter(), new Indefinite(), 0)
         {
             MultiplierFilter = multiplierFilter;
         }

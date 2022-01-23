@@ -23,11 +23,6 @@ namespace DuelMastersModels.ContinuousEffects
             return new PowerModifyingEffect(this);
         }
 
-        public virtual int GetPower(Game game)
-        {
-            return _power;
-        }
-
         public override void Start(Game game)
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
