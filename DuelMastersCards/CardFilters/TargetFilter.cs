@@ -19,7 +19,7 @@ namespace DuelMastersCards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return Target == card.Id;
+            return Target == card?.Id;
         }
     }
 }
