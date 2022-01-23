@@ -9,7 +9,7 @@ namespace DuelMastersCards.Cards
         public Teleportation() : base("Teleportation", 5, Civilization.Water)
         {
             // Choose up to 2 creatures in the battle zone and return them to their owners' hands.
-            Abilities.Add(new SpellAbility(new BounceEffect(2)));
+            Abilities.Add(new SpellAbility(new BounceEffect(0, 2)));
         }
     }
 }
