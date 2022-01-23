@@ -10,14 +10,14 @@ using System.Linq;
 
 namespace DuelMastersCards.StaticAbilities
 {
-    public class MightyShouterAbility : StaticAbility
+    public class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility : StaticAbility
     {
-        public MightyShouterAbility()
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility()
         {
             ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
         }
 
-        protected MightyShouterAbility(MightyShouterAbility ability) : base(ability)
+        protected WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility ability) : base(ability)
         {
         }
     }

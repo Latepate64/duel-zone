@@ -3,11 +3,11 @@ using DuelMastersModels;
 
 namespace DuelMastersCards.Cards
 {
-    public class MightyShouter : Creature
+    class CoilingVines : Creature
     {
-        public MightyShouter() : base("Mighty Shouter", 3, Civilization.Nature, 2000, Subtype.BeastFolk)
+        public CoilingVines() : base("Coiling Vines", 4, Civilization.Nature, 3000, Subtype.TreeFolk)
         {
-            // When this creature would be destroyed, put it into your mana zone instead.
+            // When this creature would be destroyed, put it into your mana zone instead. 
             Abilities.Add(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility());
         }
     }
