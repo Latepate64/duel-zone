@@ -28,21 +28,27 @@ namespace DuelMastersModels.Steps
                 var dec = activePlayer.Choose(new AttackerChoice(game.CurrentTurn.ActivePlayer, options, attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
                 if (dec.Decision != null)
                 {
-                    AttackingCreature = dec.Decision.Item1;
-                    AttackTarget = dec.Decision.Item2;
-                    var attacker = game.GetCard(AttackingCreature);
+                    var attacker = game.GetCard(dec.Decision.Item1);
                     attacker.Tapped = true;
                     var tapAbilities = attacker.Abilities.OfType<TapAbility>();
-                    if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                    if (tapAbilities.Select(y => y.Id).Contains(dec.Decision.Item2))
                     {
                         PendingAbilities.AddRange(tapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
                     }
                     else
                     {
+                        SetAttackingCreature(attacker, game);
+                        AttackTarget = dec.Decision.Item2;
                         game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(AttackTarget)));
                     }
                 }
             }
+        }
+
+        private void SetAttackingCreature(Card attacker, Game game)
+        {
+            AttackingCreature = attacker.Id;
+            attacker.Power += game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.Power);
         }
 
         private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Game game)

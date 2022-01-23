@@ -9,7 +9,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public PowerAttackerAbility(int power)
         {
-            ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter(), power, new Indefinite()));
+            ContinuousEffects.Add(new PowerAttackerEffect(new TargetFilter(), new Indefinite(), power));
         }
     }
 }

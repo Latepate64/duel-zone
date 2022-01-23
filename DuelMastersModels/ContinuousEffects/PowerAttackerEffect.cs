@@ -4,12 +4,16 @@ namespace DuelMastersModels.ContinuousEffects
 {
     public class PowerAttackerEffect : ContinuousEffect
     {
-        public PowerAttackerEffect(ContinuousEffect effect) : base(effect)
+        public int Power { get; }
+
+        public PowerAttackerEffect(PowerAttackerEffect effect) : base(effect)
         {
+            Power = effect.Power;
         }
 
-        public PowerAttackerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public PowerAttackerEffect(CardFilter filter, Duration duration, int power) : base(filter, duration)
         {
+            Power = power;
         }
 
         public override ContinuousEffect Copy()
