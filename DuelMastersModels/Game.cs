@@ -304,7 +304,7 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Player GetOwner(Card card)
         {
-            return Players.SingleOrDefault(x => x.Id == card.Owner);
+            return Players.SingleOrDefault(x => x.Id == card?.Owner);
         }
 
         public Card GetCard(Guid id)
@@ -418,7 +418,7 @@ namespace DuelMastersModels
         private void Leave(Player player)
         {
             _ = Players.Remove(player);
-            _ = BattleZone.Cards.RemoveAll(x => x.Owner == player.Id);
+            _ = Move(BattleZone.Cards.Where(x => x.Owner == player.Id), ZoneType.BattleZone, ZoneType.Anywhere);
         }
 
         /// <summary>
