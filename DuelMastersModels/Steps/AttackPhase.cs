@@ -8,6 +8,8 @@ namespace DuelMastersModels.Steps
     public class AttackPhase : Phase
     {
         public Guid AttackingCreature { get; protected set; }
+        internal Guid AttackTarget { get; set; }
+        internal Guid BlockingCreature { get; set; }
 
         public AttackPhase()
         {

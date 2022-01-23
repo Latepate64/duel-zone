@@ -10,8 +10,6 @@ namespace DuelMastersModels.Steps
 {
     public class AttackDeclarationStep : Step
     {
-        internal Guid AttackTarget { get; set; }
-
         public AttackDeclarationStep(AttackPhase phase) : base(phase)
         {
         }
@@ -38,8 +36,8 @@ namespace DuelMastersModels.Steps
                     else
                     {
                         Phase.SetAttackingCreature(attacker, game);
-                        AttackTarget = dec.Decision.Item2;
-                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(AttackTarget)));
+                        Phase.AttackTarget = dec.Decision.Item2;
+                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget)));
                     }
                 }
             }
@@ -77,13 +75,13 @@ namespace DuelMastersModels.Steps
             if (Phase.AttackingCreature != Guid.Empty)
             {
                 var tapAbilities = game.GetCard(Phase.AttackingCreature).Abilities.OfType<TapAbility>();
-                if (tapAbilities.Select(y => y.Id).Contains(AttackTarget))
+                if (tapAbilities.Select(y => y.Id).Contains(Phase.AttackTarget))
                 {
                     return new AttackDeclarationStep(Phase);
                 }
                 else
                 {
-                    return new BlockDeclarationStep(AttackTarget, Phase);
+                    return new BlockDeclarationStep(Phase);
                 }
             }
             // 506.2. If an attacking creature is not specified, the other substeps are skipped.
@@ -100,7 +98,6 @@ namespace DuelMastersModels.Steps
 
         public AttackDeclarationStep(AttackDeclarationStep step) : base(step)
         {
-            AttackTarget = step.AttackTarget;
         }
     }
 }

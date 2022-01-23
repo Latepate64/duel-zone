@@ -8,12 +8,8 @@ namespace DuelMastersModels.Steps
 {
     public class BlockDeclarationStep : Step
     {
-        internal Guid AttackTarget { get; private set; }
-        internal Guid BlockingCreature { get; set; }
-
-        public BlockDeclarationStep(Guid attackTarget, AttackPhase phase) : base(phase)
+        public BlockDeclarationStep(AttackPhase phase) : base(phase)
         {
-            AttackTarget = attackTarget;
         }
 
         public override void PerformTurnBasedAction(Game game)
@@ -31,8 +27,8 @@ namespace DuelMastersModels.Steps
                 var blockers = dec.Decision;
                 if (blockers.Any())
                 {
-                    BlockingCreature = blockers.Single();
-                    var blocker = game.GetCard(BlockingCreature);
+                    Phase.BlockingCreature = blockers.Single();
+                    var blocker = game.GetCard(Phase.BlockingCreature);
                     blocker.Tapped = true;
                     game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true)));
                 }
@@ -41,13 +37,13 @@ namespace DuelMastersModels.Steps
 
         public override Step GetNextStep(Game game)
         {
-            if (BlockingCreature != Guid.Empty)
+            if (Phase.BlockingCreature != Guid.Empty)
             {
-                return new BattleStep(BlockingCreature, Phase);
+                return new BattleStep(Phase);
             }
-            else if (game.GetAttackable(AttackTarget) is Card)
+            else if (game.GetAttackable(Phase.AttackTarget) is Card)
             {
-                return new BattleStep(AttackTarget, Phase);
+                return new BattleStep(Phase);
             }
             else
             {
@@ -62,8 +58,6 @@ namespace DuelMastersModels.Steps
 
         public BlockDeclarationStep(BlockDeclarationStep step) : base(step)
         {
-            AttackTarget = step.AttackTarget;
-            BlockingCreature = step.BlockingCreature;
         }
     }
 }
