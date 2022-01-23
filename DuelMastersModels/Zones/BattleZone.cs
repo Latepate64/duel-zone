@@ -32,23 +32,7 @@ namespace DuelMastersModels.Zones
         {
             Cards.Add(card);
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
-
-            var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone);
-            var effects = new List<ContinuousEffect>();
-            foreach (var ability in staticAbilities)
-            {
-                foreach (var effect in ability.ContinuousEffects)
-                {
-                    var copy = effect.Copy();
-                    copy.SourceAbility = ability.Id;
-                    if (copy is CharacteristicModifyingEffect cme)
-                    {
-                        cme.Start(game);
-                    }
-                    effects.Add(copy);
-                }
-            }
-            game.ContinuousEffects.AddRange(effects);
+            game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 
         public override void Remove(Card card, Game game)

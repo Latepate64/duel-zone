@@ -35,7 +35,7 @@ namespace DuelMastersModels.Steps
             if (AttackingCreature != Guid.Empty)
             {
                 var attacker = game.GetCard(AttackingCreature);
-                attacker.Power -= game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.Power);
+                attacker.Power -= game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.GetPower(game, game.GetOwner(attacker)));
                 AttackingCreature = Guid.Empty;
             }
         }

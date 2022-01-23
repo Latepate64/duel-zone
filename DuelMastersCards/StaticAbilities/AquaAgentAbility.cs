@@ -36,9 +36,9 @@ namespace DuelMastersCards.StaticAbilities
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Game game)
+        public override GameEvent Apply(Game game, Player player)
         {
-            if (game.GetPlayer(Controller).Choose(new YesNoChoice(Controller)).Decision)
+            if (player.Choose(new YesNoChoice(player.Id)).Decision)
             {
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;
                 newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;

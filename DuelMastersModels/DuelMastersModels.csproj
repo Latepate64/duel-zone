@@ -91,6 +91,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="CardFilter.cs" />
     <Compile Include="Choices\EnumChoice.cs" />
+    <Compile Include="ContinuousEffects\AbilityGrantingEffect.cs" />
     <Compile Include="ContinuousEffects\AttacksIfAbleEffect.cs" />
     <Compile Include="ContinuousEffects\BlockerEffect.cs" />
     <Compile Include="ContinuousEffects\CanAttackUntappedCreaturesEffect.cs" />

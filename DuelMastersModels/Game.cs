@@ -210,7 +210,7 @@ namespace DuelMastersModels
             {
                 Process(new WinBattleEvent(winner, this));
                 var destroyed = new List<Card> { loser };
-                if (GetContinuousEffects<SlayerEffect>(loser).Any())
+                if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
                     destroyed.Add(winner);
                 }
@@ -348,7 +348,7 @@ namespace DuelMastersModels
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
-                foreach (var effect in ContinuousEffects.OfType<CharacteristicModifyingEffect>())
+                foreach (var effect in ContinuousEffects.OfType<CharacteristicModifyingEffect>().ToList())
                 {
                     effect.Update(this, gameEvent);
                 }
@@ -459,7 +459,7 @@ namespace DuelMastersModels
                     ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                var newEvent = effect.Apply(this);
+                var newEvent = effect.Apply(this, player);
                 if (newEvent != null)
                 {
                     events = events.Where(x => x.Id != effect.EventToReplace.Id).ToList();
@@ -526,6 +526,40 @@ namespace DuelMastersModels
                     }
                 }
             }
+        }
+
+        public void AddAbility(Card card, Ability ability)
+        {
+            card.Abilities.Add(ability);
+            if (ability is StaticAbility staticAbility)
+            {
+                AddContinuousEffects(new List<StaticAbility> { staticAbility });
+            }
+        }
+
+        public void RemoveAbility(Card card, Guid ability)
+        {
+            _ = ContinuousEffects.RemoveAll(x => ability == x.SourceAbility);
+            _ = card.Abilities.RemoveAll(x => x.Id == ability);
+        }
+
+        internal void AddContinuousEffects(List<StaticAbility> staticAbilities)
+        {
+            var effects = new List<ContinuousEffect>();
+            foreach (var ability in staticAbilities)
+            {
+                foreach (var effect in ability.ContinuousEffects)
+                {
+                    var copy = effect.Copy();
+                    copy.SourceAbility = ability.Id;
+                    if (copy is CharacteristicModifyingEffect cme)
+                    {
+                        cme.Start(this);
+                    }
+                    effects.Add(copy);
+                }
+            }
+            ContinuousEffects.AddRange(effects);
         }
         #endregion Methods
     }

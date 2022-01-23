@@ -64,7 +64,7 @@ namespace DuelMastersCards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Game game)
+        public override GameEvent Apply(Game game, Player player)
         {
             throw new System.NotImplementedException();
         }

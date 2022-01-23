@@ -18,7 +18,6 @@ namespace DuelMastersModels.ContinuousEffects
         /// </summary>
         public CardFilter Filter { get; private set; }
 
-        public Guid Controller { get; set; }
         public Guid SourceAbility { get; internal set; }
 
         protected ContinuousEffect(CardFilter filter, Duration duration)
@@ -29,7 +28,6 @@ namespace DuelMastersModels.ContinuousEffects
 
         protected ContinuousEffect(ContinuousEffect effect)
         {
-            Controller = effect.Controller;
             Duration = effect.Duration.Copy();
             Filter = effect.Filter.Copy();
             SourceAbility = effect.SourceAbility;
@@ -47,7 +45,6 @@ namespace DuelMastersModels.ContinuousEffects
         {
             if (disposing)
             {
-                Controller = Guid.Empty;
                 Duration.Dispose();
                 Duration = null;
                 Filter.Dispose();

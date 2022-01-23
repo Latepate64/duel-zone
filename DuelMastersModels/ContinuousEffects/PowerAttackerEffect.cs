@@ -21,7 +21,7 @@ namespace DuelMastersModels.ContinuousEffects
             return new PowerAttackerEffect(this);
         }
 
-        public virtual int GetPower(Game game)
+        public virtual int GetPower(Game game, Player player)
         {
             return Power;
         }

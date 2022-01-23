@@ -37,7 +37,7 @@ namespace DuelMastersCards.StaticAbilities
             return new MightyShouterAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Game game)
+        public override GameEvent Apply(Game game, Player player)
         {
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
             newEvent.Destination = DuelMastersModels.Zones.ZoneType.ManaZone;

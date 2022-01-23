@@ -1,4 +1,5 @@
 ﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -32,8 +33,7 @@ namespace DuelMastersCards.OneShotEffects
             {
                 var decision = player.Choose(new GuidSelection(source.Owner, creatures, 1, 1));
                 var target = game.GetCard(decision.Decision.Single()).Id;
-                //TODO: SpeedAttackerEffect should not be directly added to continuous effects but rather a kind of continuous effect that grants Speed Attacker ability to the target creature.
-                game.ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter { Target = target }, new Indefinite()));
+                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetFilter { Target = target }, new Indefinite(), new SpeedAttackerAbility()));
             }
         }
     }
