@@ -2,21 +2,20 @@
 using DuelMastersModels;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersCards.ContinuousEffects
 {
-    public class PowerModifyingMultiplierEffect : PowerModifyingEffect
+    public class BolshackDragonEffect : PowerModifyingEffect
     {
         public CardFilter MultiplierFilter { get; }
 
-        public PowerModifyingMultiplierEffect(CardFilter multiplierFilter) : base(new List<CardFilter> { new AttackingCreatureFilter(), new TargetFilter() }, 0, new Indefinite())
+        public BolshackDragonEffect(CardFilter multiplierFilter) : base(new TargetFilter(), 0, new Indefinite())
         {
             MultiplierFilter = multiplierFilter;
         }
 
-        public PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
+        public BolshackDragonEffect(BolshackDragonEffect effect) : base(effect)
         {
             MultiplierFilter = effect.MultiplierFilter.Copy();
         }

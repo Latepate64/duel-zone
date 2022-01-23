@@ -3,7 +3,6 @@ using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
-using System;
 using System.Linq;
 
 namespace DuelMastersCards.ContinuousEffects
@@ -29,14 +28,14 @@ namespace DuelMastersCards.ContinuousEffects
 
         public override void Start(Game game)
         {
-            var card = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))).Single();
+            var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
             _lastBuff = Increment * game.GetPlayer(card.Owner).ShieldZone.Cards.Count;
             card.Power += _lastBuff;
         }
 
         public override void End(Game game)
         {
-            var card = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))).Single();
+            var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
             card.Power -= _lastBuff;
         }
 
@@ -44,7 +43,7 @@ namespace DuelMastersCards.ContinuousEffects
         {
             if (e is CardMovedEvent cardMoved)
             {
-                var card = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))).Single();
+                var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
                 if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone).Owner)
                 {
                     if (cardMoved.Source == ZoneType.ShieldZone)

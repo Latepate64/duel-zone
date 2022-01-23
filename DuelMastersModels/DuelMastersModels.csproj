@@ -99,6 +99,7 @@
     <Compile Include="ContinuousEffects\CharacteristicModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\ChargerEffect.cs" />
     <Compile Include="ContinuousEffects\DoubleBreakerEffect.cs" />
+    <Compile Include="ContinuousEffects\PowerAttackerEffect.cs" />
     <Compile Include="ContinuousEffects\PowerModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\ReplacementEffect.cs" />
     <Compile Include="ContinuousEffects\SlayerEffect.cs" />

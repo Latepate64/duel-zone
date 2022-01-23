@@ -1,16 +1,11 @@
 ﻿using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
-using System.Collections.Generic;
 
 namespace DuelMastersModels.ContinuousEffects
 {
     public abstract class CharacteristicModifyingEffect : ContinuousEffect
     {
         protected CharacteristicModifyingEffect(CardFilter filter, Duration duration) : base(filter, duration)
-        {
-        }
-
-        protected CharacteristicModifyingEffect(IEnumerable<CardFilter> filters, Duration duration) : base(filters, duration)
         {
         }
 

@@ -1,7 +1,5 @@
 ﻿using DuelMastersModels.Durations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DuelMastersModels.ContinuousEffects
 {
@@ -16,20 +14,16 @@ namespace DuelMastersModels.ContinuousEffects
         public Duration Duration { get; set; }
 
         /// <summary>
-        /// Filters that can be applied to find cards affected by the effect.
+        /// Filter that can be applied to find cards affected by the effect.
         /// </summary>
-        public ICollection<CardFilter> Filters { get; }
+        public CardFilter Filter { get; private set; }
 
         public Guid Controller { get; set; }
         public Guid SourceAbility { get; internal set; }
 
-        protected ContinuousEffect(CardFilter filter, Duration duration) : this(new List<CardFilter> { filter }, duration)
+        protected ContinuousEffect(CardFilter filter, Duration duration)
         {
-        }
-
-        protected ContinuousEffect(IEnumerable<CardFilter> filters, Duration duration)
-        {
-            Filters = filters.ToList();
+            Filter = filter;
             Duration = duration;
         }
 
@@ -37,7 +31,7 @@ namespace DuelMastersModels.ContinuousEffects
         {
             Controller = effect.Controller;
             Duration = effect.Duration.Copy();
-            Filters = effect.Filters.Select(x => x.Copy()).ToList();
+            Filter = effect.Filter.Copy();
             SourceAbility = effect.SourceAbility;
         }
 
@@ -56,11 +50,8 @@ namespace DuelMastersModels.ContinuousEffects
                 Controller = Guid.Empty;
                 Duration.Dispose();
                 Duration = null;
-                foreach (var filter in Filters)
-                {
-                    filter.Dispose();
-                }
-                Filters.Clear();
+                Filter.Dispose();
+                Filter = null;
                 SourceAbility = Guid.Empty;
             }
         }

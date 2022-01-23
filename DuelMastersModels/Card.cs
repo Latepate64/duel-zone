@@ -171,10 +171,7 @@ namespace DuelMastersModels
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
                         effect.Controller = Owner;
-                        foreach (var filter in effect.Filters)
-                        {
-                            filter.Target = Id;
-                        }
+                        effect.Filter.Target = Id;
                     }
                 }
             }

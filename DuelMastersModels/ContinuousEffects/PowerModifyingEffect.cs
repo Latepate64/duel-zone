@@ -1,6 +1,5 @@
 ﻿using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.ContinuousEffects
@@ -10,11 +9,6 @@ namespace DuelMastersModels.ContinuousEffects
         private readonly int _power;
 
         public PowerModifyingEffect(CardFilter filter, int power, Duration duration) : base(filter, duration)
-        {
-            _power = power;
-        }
-
-        public PowerModifyingEffect(IEnumerable<CardFilter> filters, int power, Duration duration) : base(filters, duration)
         {
             _power = power;
         }
@@ -36,7 +30,7 @@ namespace DuelMastersModels.ContinuousEffects
 
         public override void Start(Game game)
         {
-            foreach (var card in game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))))
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
             {
                 card.Power += _power;
             }
@@ -44,7 +38,7 @@ namespace DuelMastersModels.ContinuousEffects
 
         public override void End(Game game)
         {
-            foreach (var card in game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))))
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
             {
                 card.Power -= _power;
             }
@@ -55,7 +49,7 @@ namespace DuelMastersModels.ContinuousEffects
             if (e is CardMovedEvent cme)
             {
                 var card = game.GetCard(cme.CardInDestinationZone);
-                if (Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner))))
+                if (Filter.Applies(card, game, game.GetPlayer(card.Owner)))
                 {
                     if (cme.Destination == Zones.ZoneType.BattleZone)
                     {
