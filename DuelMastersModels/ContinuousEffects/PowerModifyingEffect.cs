@@ -1,11 +1,11 @@
 ﻿using DuelMastersModels.Durations;
-using System;
+using DuelMastersModels.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.ContinuousEffects
 {
-    public class PowerModifyingEffect : ContinuousEffect
+    public class PowerModifyingEffect : CharacteristicModifyingEffect
     {
         private readonly int _power;
 
@@ -34,11 +34,9 @@ namespace DuelMastersModels.ContinuousEffects
             return _power;
         }
 
-        public override void Start(Guid ability, Game game)
+        public override void Start(Game game)
         {
-            base.Start(ability, game);
-            var cards = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner))));
-            foreach (var card in cards)
+            foreach (var card in game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))))
             {
                 card.Power += _power;
             }
@@ -46,11 +44,28 @@ namespace DuelMastersModels.ContinuousEffects
 
         public override void End(Game game)
         {
-            base.End(game);
-            var cards = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner))));
-            foreach (var card in cards)
+            foreach (var card in game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))))
             {
                 card.Power -= _power;
+            }
+        }
+
+        public override void Update(Game game, GameEvent e)
+        {
+            if (e is CardMovedEvent cme)
+            {
+                var card = game.GetCard(cme.CardInDestinationZone);
+                if (Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner))))
+                {
+                    if (cme.Destination == Zones.ZoneType.BattleZone)
+                    {
+                        card.Power += _power;
+                    }
+                    if (cme.Source == Zones.ZoneType.BattleZone)
+                    {
+                        card.Power -= _power;
+                    }
+                }
             }
         }
     }

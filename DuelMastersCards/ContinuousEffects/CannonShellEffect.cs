@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DuelMastersCards.ContinuousEffects
 {
-    class CannonShellEffect : ContinuousEffect
+    class CannonShellEffect : CharacteristicModifyingEffect
     {
         const int Increment = 1000;
         int _lastBuff;
@@ -27,9 +27,8 @@ namespace DuelMastersCards.ContinuousEffects
             return new CannonShellEffect(this);
         }
 
-        public override void Start(Guid ability, Game game)
+        public override void Start(Game game)
         {
-            base.Start(ability, game);
             var card = game.GetAllCards().Where(card => Filters.All(f => f.Applies(card, game, game.GetPlayer(card.Owner)))).Single();
             _lastBuff = Increment * game.GetPlayer(card.Owner).ShieldZone.Cards.Count;
             card.Power += _lastBuff;

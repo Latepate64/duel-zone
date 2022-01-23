@@ -96,6 +96,7 @@
     <Compile Include="ContinuousEffects\CanAttackUntappedCreaturesEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackCreaturesEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackPlayersEffect.cs" />
+    <Compile Include="ContinuousEffects\CharacteristicModifyingEffect.cs" />
     <Compile Include="ContinuousEffects\ChargerEffect.cs" />
     <Compile Include="ContinuousEffects\DoubleBreakerEffect.cs" />
     <Compile Include="ContinuousEffects\PowerModifyingEffect.cs" />

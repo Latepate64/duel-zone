@@ -39,7 +39,11 @@ namespace DuelMastersModels.Zones
                 foreach (var effect in ability.ContinuousEffects)
                 {
                     var copy = effect.Copy();
-                    copy.Start(ability.Id, game);
+                    copy.SourceAbility = ability.Id;
+                    if (copy is CharacteristicModifyingEffect cme)
+                    {
+                        cme.Start(game);
+                    }
                     effects.Add(copy);
                 }
             }

@@ -349,7 +349,7 @@ namespace DuelMastersModels
             if (Turns.Any())
             {
                 CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
-                foreach (var effect in ContinuousEffects)
+                foreach (var effect in ContinuousEffects.OfType<CharacteristicModifyingEffect>())
                 {
                     effect.Update(this, gameEvent);
                 }
