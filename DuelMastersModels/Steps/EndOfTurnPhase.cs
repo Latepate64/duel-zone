@@ -6,25 +6,25 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 511.1. The ability to trigger at every "turn's end" triggers. The induced effect is a turn We declare solutions to be resolved from the layer and process them in order.
     /// </summary>
-    public class EndOfTurnStep : TurnBasedActionStep
+    public class EndOfTurnPhase : Phase, ITurnBasedActionable
     {
-        public EndOfTurnStep()
+        public EndOfTurnPhase()
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override Phase GetNextPhase(Game game)
         {
             return null;
         }
 
-        public EndOfTurnStep(EndOfTurnStep step) : base(step) { }
+        public EndOfTurnPhase(EndOfTurnPhase step) : base(step) { }
 
-        public override Step Copy()
+        public override Phase Copy()
         {
-            return new EndOfTurnStep(this);
+            return new EndOfTurnPhase(this);
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public void PerformTurnBasedAction(Game game)
         {
             _ = game.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
             game.Process(new TurnEndsEvent(game.CurrentTurn));

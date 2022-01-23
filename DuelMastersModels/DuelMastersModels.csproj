@@ -146,19 +146,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Steps\AttackDeclarationStep.cs" />
-    <Compile Include="Steps\AttackingCreatureStep.cs" />
+    <Compile Include="Steps\AttackPhase.cs" />
     <Compile Include="Steps\BattleStep.cs" />
     <Compile Include="Steps\BlockDeclarationStep.cs" />
-    <Compile Include="Steps\ChargeStep.cs" />
+    <Compile Include="Steps\ChargePhase.cs" />
     <Compile Include="Steps\DirectAttackStep.cs" />
-    <Compile Include="Steps\DrawStep.cs" />
+    <Compile Include="Steps\DrawPhase.cs" />
     <Compile Include="Steps\EndOfAttackStep.cs" />
-    <Compile Include="Steps\EndOfTurnStep.cs" />
-    <Compile Include="Steps\MainStep.cs" />
-    <Compile Include="Steps\PriorityStep.cs" />
-    <Compile Include="Steps\StartOfTurnStep.cs" />
+    <Compile Include="Steps\EndOfTurnPhase.cs" />
+    <Compile Include="Steps\MainPhase.cs" />
+    <Compile Include="Steps\PriorityPhase.cs" />
+    <Compile Include="Steps\StartOfTurnPhase.cs" />
+    <Compile Include="Steps\Phase.cs" />
     <Compile Include="Steps\Step.cs" />
-    <Compile Include="Steps\TurnBasedActionStep.cs" />
+    <Compile Include="Steps\ITurnBasedActionable.cs" />
     <Compile Include="Turn.cs" />
     <Compile Include="Zones\BattleZone.cs" />
     <Compile Include="Zones\Deck.cs" />

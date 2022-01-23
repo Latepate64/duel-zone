@@ -5,19 +5,18 @@ namespace DuelMastersModels.Steps
     /// <summary>
     /// 508.1. If the attacking creature was declared to attack another creature or if the attack was redirected to target a creature, that creature and the attacking creature battle.
     /// </summary>
-    public class BattleStep : AttackingCreatureStep
+    public class BattleStep : Step
     {
         internal Guid TargetCreature { get; private set; }
 
-        public BattleStep(Guid attackingCreature, Guid targetCreature)
+        public BattleStep(Guid targetCreature, AttackPhase phase) : base(phase)
         {
-            AttackingCreature = attackingCreature;
             TargetCreature = targetCreature;
         }
 
         public override Step GetNextStep(Game game)
         {
-            return new EndOfAttackStep();
+            return new EndOfAttackStep(Phase);
             //AttackDeclarationStep lastAttackDeclaration = Steps.Where(step => step is AttackDeclarationStep).Cast<AttackDeclarationStep>().Last();
             //BlockDeclarationStep lastBlockDeclaration = Steps.Where(step => step is BlockDeclarationStep).Cast<BlockDeclarationStep>().Last();
 
@@ -28,13 +27,12 @@ namespace DuelMastersModels.Steps
 
         public BattleStep(BattleStep step) : base(step)
         {
-            AttackingCreature = step.AttackingCreature;
             TargetCreature = step.TargetCreature;
         }
 
         public override void PerformTurnBasedAction(Game game)
         {
-            game.Battle(AttackingCreature, TargetCreature);
+            game.Battle(Phase.AttackingCreature, TargetCreature);
         }
 
         public override Step Copy()

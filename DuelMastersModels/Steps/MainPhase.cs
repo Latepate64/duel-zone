@@ -4,11 +4,11 @@ using System.Linq;
 namespace DuelMastersModels.Steps
 {
     /// <summary>
-    /// 504.1. Normally, the active player can use cards only during their main step.
+    /// 504.1. Normally, the active player can use cards only during their main phase.
     /// </summary>
-    public class MainStep : PriorityStep
+    public class MainPhase : PriorityPhase
     {
-        public MainStep()
+        public MainPhase()
         {
         }
 
@@ -39,16 +39,16 @@ namespace DuelMastersModels.Steps
             }
         }
 
-        public override Step GetNextStep(Game game)
+        public override Phase GetNextPhase(Game game)
         {
-            return new AttackDeclarationStep();
+            return new AttackPhase();
         }
 
-        public MainStep(MainStep step) : base(step) { }
+        public MainPhase(MainPhase step) : base(step) { }
 
-        public override Step Copy()
+        public override Phase Copy()
         {
-            return new MainStep(this);
+            return new MainPhase(this);
         }
     }
 }

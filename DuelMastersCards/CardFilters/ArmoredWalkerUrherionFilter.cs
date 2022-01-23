@@ -17,7 +17,7 @@ namespace DuelMastersCards.CardFilters
         public override bool Applies(Card card, Game game, Player player)
         {
             // While you have at least 1 Human in the battle zone, this creature gets +2000 power during its attacks.
-            return base.Applies(card, game, player) && game.BattleZone.GetCreatures(player.Id).Any(x => x.Subtypes.Contains(Subtype.Human)) && game.CurrentTurn.CurrentStep is AttackingCreatureStep step && step.AttackingCreature == card.Id;
+            return base.Applies(card, game, player) && game.BattleZone.GetCreatures(player.Id).Any(x => x.Subtypes.Contains(Subtype.Human)) && game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == card.Id;
         }
 
         public override CardFilter Copy()

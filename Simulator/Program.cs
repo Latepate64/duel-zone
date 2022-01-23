@@ -51,7 +51,7 @@ namespace Simulator
             player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
             using var game = simulator.PlayDuel(player1, player2, simulationDepth);
 
-            var usedCards = game.Turns.SelectMany(x => x.Steps).SelectMany(x => x.UsedCards);
+            var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);
             if (game.Winner != null)
             {
                 UpdateWinnerUsedCards(game, usedCards, matchUp.Players.Distinct().Single(x => x.Name == game.Winner.Name));

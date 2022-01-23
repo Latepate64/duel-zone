@@ -35,7 +35,7 @@ namespace DuelMastersModels
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Steps).SelectMany(x => x.GameEvents));
+        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
 
@@ -222,7 +222,7 @@ namespace DuelMastersModels
 
         public void UseCard(Card card, Player player)
         {
-            CurrentTurn.CurrentStep.UsedCards.Add(card.Copy());
+            CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
                 player.Summon(card, this);
@@ -348,7 +348,7 @@ namespace DuelMastersModels
         {
             if (Turns.Any())
             {
-                CurrentTurn.CurrentStep.GameEvents.Enqueue(gameEvent);
+                CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
                 foreach (var effect in ContinuousEffects.OfType<CharacteristicModifyingEffect>())
                 {
                     effect.Update(this, gameEvent);
@@ -364,7 +364,7 @@ namespace DuelMastersModels
                     }
                 }
                 _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                CurrentTurn.CurrentStep.PendingAbilities.AddRange(abilities);
+                CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
                     Process(new AbilityTriggeredEvent(ability));

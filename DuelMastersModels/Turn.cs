@@ -22,14 +22,14 @@ namespace DuelMastersModels
         public Guid NonActivePlayer { get; set; }
 
         /// <summary>
-        /// The step that is currently being processed.
+        /// The phase that is currently being processed.
         /// </summary>
-        public Step CurrentStep => Steps.Last();
+        public Phase CurrentPhase => Phases.Last();
 
         /// <summary>
-        /// All the steps in the turn that have been or are processed, in order.
+        /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
-        public IList<Step> Steps { get; private set; } = new Collection<Step>();
+        public IList<Phase> Phases { get; private set; } = new Collection<Phase>();
 
         /// <summary>
         /// The number of the turn.
@@ -45,9 +45,9 @@ namespace DuelMastersModels
         public void Play(Game game, int number)
         {
             Number = number;
-            if (!Steps.Any())
+            if (!Phases.Any())
             {
-                Steps.Add(new StartOfTurnStep(Number == 1));
+                Phases.Add(new StartOfTurnPhase(Number == 1));
                 StartCurrentStep(game);
             }
             else
@@ -58,13 +58,13 @@ namespace DuelMastersModels
 
         private void StartCurrentStep(Game game)
         {
-            CurrentStep.Play(game);
+            CurrentPhase.Play(game);
             if (game.Players.Count > 1)
             {
-                Step nextStep = CurrentStep.GetNextStep(game);
+                Phase nextStep = CurrentPhase.GetNextPhase(game);
                 if (nextStep != null)
                 {
-                    Steps.Add(nextStep);
+                    Phases.Add(nextStep);
                     StartCurrentStep(game);
                 }
             }
@@ -76,7 +76,7 @@ namespace DuelMastersModels
             Id = turn.Id;
             NonActivePlayer = turn.NonActivePlayer;
             Number = turn.Number;
-            Steps = turn.Steps.Select(x => x.Copy()).ToList();
+            Phases = turn.Phases.Select(x => x.Copy()).ToList();
         }
 
         public override string ToString()
@@ -94,7 +94,7 @@ namespace DuelMastersModels
         {
             if (disposing)
             {
-                Steps = null;
+                Phases = null;
             }
         }
     }
