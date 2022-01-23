@@ -11,7 +11,7 @@ namespace DuelMastersModels.GameEvents
             Ability = ability;
         }
 
-        public override string ToString(Game game)
+        public override string ToString()
         {
             return $"{Ability} triggered, {Ability.OneShotEffect} is waiting to be resolved.";
         }

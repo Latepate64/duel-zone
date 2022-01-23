@@ -6,7 +6,6 @@ using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System;
-using System.Linq;
 
 namespace DuelMastersCards.StaticAbilities
 {
@@ -14,7 +13,7 @@ namespace DuelMastersCards.StaticAbilities
     {
         public AquaAgentAbility()
         {
-            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard)));
+            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
         }
 
         protected AquaAgentAbility(AquaAgentAbility ability) : base(ability)

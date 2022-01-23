@@ -4,14 +4,10 @@
     {
         public Card Creature { get; }
 
-        public WinBattleEvent(Card creature)
+        public WinBattleEvent(Card creature, Game game)
         {
             Creature = creature;
-        }
-
-        public override string ToString(Game game)
-        {
-            return $"{game.GetOwner(Creature)}'s {Creature} won the battle.";
+            Text = $"{game.GetOwner(Creature)}'s {Creature} won the battle.";
         }
     }
 }

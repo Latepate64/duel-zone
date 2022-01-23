@@ -11,7 +11,7 @@
             Card = card;
         }
 
-        public override string ToString(Game game)
+        public override string ToString()
         {
             return $"{Player} revealed {Card} to their opponents.";
         }

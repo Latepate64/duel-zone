@@ -16,7 +16,7 @@ namespace DuelMastersCards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.Anywhere, DuelMastersModels.Zones.ZoneType.BattleZone)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.Anywhere, DuelMastersModels.Zones.ZoneType.BattleZone, null)));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)

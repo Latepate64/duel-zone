@@ -37,7 +37,7 @@ namespace DuelMastersModels
 
         public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
-        public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString(this)));
+        public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
         /// <summary>
         /// All the turns of the game that have been or are processed, in order.
@@ -191,7 +191,7 @@ namespace DuelMastersModels
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            Process(new BattleEvent(attackingCreature, attackingCreature.Power.Value, defendingCreature, defendingCreature.Power.Value));
+            Process(new BattleEvent(attackingCreature, defendingCreature, this));
 
             if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
@@ -208,7 +208,7 @@ namespace DuelMastersModels
 
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent(winner));
+                Process(new WinBattleEvent(winner, this));
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).Any())
                 {
@@ -293,7 +293,8 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Guid GetOpponent(Guid player)
         {
-            return Players.Single(x => x.Id != player).Id;
+            var opponent = Players.SingleOrDefault(x => x.Id != player);
+            return opponent != null ? opponent.Id : Guid.Empty;
         }
 
         /// <summary>
@@ -303,22 +304,22 @@ namespace DuelMastersModels
         /// <returns></returns>
         public Player GetOwner(Card card)
         {
-            return Players.Union(Losers).Single(x => x.Id == card.Owner);
+            return Players.SingleOrDefault(x => x.Id == card.Owner);
         }
 
         public Card GetCard(Guid id)
         {
-            return GetAllCards().Single(c => c.Id == id);
-        }
-
-        public Card TryGetCard(Guid id)
-        {
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
+        /// <summary>
+        /// Returns a player who is still in the game.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Player if they are still in the game, null otherwise</returns>
         public Player GetPlayer(Guid id)
         {
-            return Players.Union(Losers).Single(x => x.Id == id);
+            return Players.SingleOrDefault(x => x.Id == id);
         }
 
         /// <summary>
@@ -399,9 +400,15 @@ namespace DuelMastersModels
             Losers.Add(player);
             Process(new LoseEvent(player.Copy()));
             Leave(player);
+
+            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
+            if (Players.Count == 1)
+            {
+                Win(Players.Single());
+            }
         }
 
-        public void Win(Player player)
+        private void Win(Player player)
         {
             Winner = player;
             Process(new WinEvent(player.Copy()));
@@ -436,7 +443,7 @@ namespace DuelMastersModels
         /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
+            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination, this)).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
@@ -497,7 +504,7 @@ namespace DuelMastersModels
             var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => TryGetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
+                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
                 while (shieldTriggers.Any())
                 {
                     var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);

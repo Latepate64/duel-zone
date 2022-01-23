@@ -21,12 +21,7 @@ namespace DuelMastersModels.Steps
 
         internal void Progress(Game game)
         {
-            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
-            if (game.Players.Count == 1)
-            {
-                game.Win(game.Players.Single());
-            }
-            else if (game.Players.Any())
+            if (game.Players.Any())
             {
                 ResolveAbilities(game);
                 if (this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))

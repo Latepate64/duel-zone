@@ -44,7 +44,7 @@ namespace DuelMastersModels.ContinuousEffects
             if (e is CardMovedEvent cme)
             {
                 var card = game.GetCard(cme.CardInDestinationZone);
-                if (Filter.Applies(card, game, game.GetPlayer(card.Owner)))
+                if (Filter.Applies(card, game, game.GetOwner(card)))
                 {
                     if (cme.Destination == Zones.ZoneType.BattleZone)
                     {

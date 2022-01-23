@@ -30,7 +30,7 @@ namespace DuelMastersModels.Steps
                     Phase.BlockingCreature = blockers.Single();
                     var blocker = game.GetCard(Phase.BlockingCreature);
                     blocker.Tapped = true;
-                    game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true)));
+                    game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true), game));
                 }
             }
         }

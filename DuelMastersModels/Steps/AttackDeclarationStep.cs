@@ -37,7 +37,7 @@ namespace DuelMastersModels.Steps
                     {
                         Phase.SetAttackingCreature(attacker, game);
                         Phase.AttackTarget = dec.Decision.Item2;
-                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget)));
+                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
                     }
                 }
             }
