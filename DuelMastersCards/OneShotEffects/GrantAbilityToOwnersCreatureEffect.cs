@@ -1,5 +1,4 @@
 ﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -9,31 +8,33 @@ using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
-    class SupersonicJetPackEffect : OneShotEffect
+    class GrantAbilityToOwnersCreatureEffect : OneShotEffect
     {
-        public SupersonicJetPackEffect()
+        public Ability Ability { get; }
+
+        public GrantAbilityToOwnersCreatureEffect(Ability ability)
         {
+            Ability = ability;
         }
 
-        public SupersonicJetPackEffect(OneShotEffect effect)
+        public GrantAbilityToOwnersCreatureEffect(GrantAbilityToOwnersCreatureEffect effect)
         {
+            Ability = effect.Ability;
         }
 
         public override OneShotEffect Copy()
         {
-            return new SupersonicJetPackEffect(this);
+            return new GrantAbilityToOwnersCreatureEffect(this);
         }
 
         public override void Apply(Game game, Ability source)
         {
-            // One of your creatures in the battle zone gets "speed attacker" until the end of the turn.
-            var player = game.GetPlayer(source.Owner);
             var creatures = game.BattleZone.GetCreatures(source.Owner);
             if (creatures.Any())
             {
-                var decision = player.Choose(new GuidSelection(source.Owner, creatures, 1, 1));
+                var decision = game.GetPlayer(source.Owner).Choose(new GuidSelection(source.Owner, creatures, 1, 1));
                 var target = game.GetCard(decision.Decision.Single()).Id;
-                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetFilter { Target = target }, new Indefinite(), new SpeedAttackerAbility()));
+                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetFilter { Target = target }, new UntilTheEndOfTheTurn(), Ability.Copy()));
             }
         }
     }
