@@ -163,7 +163,7 @@ namespace DuelMastersModels
             // 103.7. The starting player takes their first turn.
             var activePlayer = startingPlayer;
             var nonActivePlayer = otherPlayer;
-            while (Players.Count > 1)
+            while (Players.Any())
             {
                 StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
                 var tmp1 = activePlayer;
@@ -397,14 +397,21 @@ namespace DuelMastersModels
         public void Lose(Player player)
         {
             Losers.Add(player);
-            _ = Players.Remove(player);
             Process(new LoseEvent(player.Copy()));
+            Leave(player);
         }
 
         public void Win(Player player)
         {
             Winner = player;
             Process(new WinEvent(player.Copy()));
+            Leave(player);
+        }
+
+        private void Leave(Player player)
+        {
+            _ = Players.Remove(player);
+            _ = BattleZone.Cards.RemoveAll(x => x.Owner == player.Id);
         }
 
         /// <summary>

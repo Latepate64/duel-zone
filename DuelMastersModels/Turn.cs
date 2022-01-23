@@ -48,7 +48,7 @@ namespace DuelMastersModels
             if (!Phases.Any())
             {
                 Phases.Add(new StartOfTurnPhase(Number == 1));
-                StartCurrentStep(game);
+                StartCurrentPhase(game);
             }
             else
             {
@@ -56,16 +56,16 @@ namespace DuelMastersModels
             }
         }
 
-        private void StartCurrentStep(Game game)
+        private void StartCurrentPhase(Game game)
         {
             CurrentPhase.Play(game);
-            if (game.Players.Count > 1)
+            if (game.Players.Any())
             {
-                Phase nextStep = CurrentPhase.GetNextPhase(game);
-                if (nextStep != null)
+                Phase nextPhase = CurrentPhase.GetNextPhase(game);
+                if (nextPhase != null)
                 {
-                    Phases.Add(nextStep);
-                    StartCurrentStep(game);
+                    Phases.Add(nextPhase);
+                    StartCurrentPhase(game);
                 }
             }
         }

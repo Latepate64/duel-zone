@@ -1,7 +1,5 @@
 ﻿using DuelMastersModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Simulator
 {
@@ -11,6 +9,7 @@ namespace Simulator
         {
             Game game = new();
             game.Play(player1, player2);
+            var eventsText = game.GameEventsText;
             //int numberOfChoicesMade = 0;
             //int latestPoints = 0;
             //while (choice != null)

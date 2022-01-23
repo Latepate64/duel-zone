@@ -49,7 +49,7 @@ namespace DuelMastersModels.Steps
         internal override void Play(Game game)
         {
             Step step = new AttackDeclarationStep(this);
-            while (step != null)
+            while (step != null && game.Players.Any())
             {
                 _steps.Add(step);
                 (step as ITurnBasedActionable).PerformTurnBasedAction(game);

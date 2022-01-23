@@ -65,19 +65,19 @@ namespace Simulator
         private static void UpdateWinnerUsedCards(Game game, IEnumerable<Card> usedCards, PlayerConfiguration winner)
         {
             ++winner.Wins;
-            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
-            {
-                UpdateUsedCards(winner.UsedCards, cardName, true);
-            }
+            //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
+            //{
+            //    UpdateUsedCards(winner.UsedCards, cardName, true);
+            //}
         }
 
         private static void UpdateLoserUsedCards(Game game, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
         {
             ++loserConfiguration.Losses;
-            foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())
-            {
-                UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
-            }
+            //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())
+            //{
+            //    UpdateUsedCards(loserConfiguration.UsedCards, cardName, false);
+            //}
         }
 
         private static void PlayRoundOfGames(Simulator simulator, SimulationConfiguration conf, List<MatchUp> matchUps)
