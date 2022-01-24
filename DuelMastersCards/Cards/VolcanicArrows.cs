@@ -2,7 +2,6 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -16,7 +15,7 @@ namespace DuelMastersCards.Cards
             Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000), 1, 1, true)));
 
             // Choose one of your shields and put it into your graveyard.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OwnersShieldZoneCardFilter(), 1, 1, true, ZoneType.ShieldZone, ZoneType.Graveyard)));
+            Abilities.Add(new SpellAbility(new ShieldBurnEffect(new OwnersShieldZoneCardFilter(), 1, 1, true)));
         }
     }
 }
