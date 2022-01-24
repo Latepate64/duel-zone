@@ -2,7 +2,6 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -12,7 +11,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures that has power 4000 or less.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000), 1, 1, true, ZoneType.BattleZone, ZoneType.Graveyard)));
+            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000), 1, 1, true)));
         }
     }
 }

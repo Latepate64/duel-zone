@@ -2,7 +2,6 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -11,7 +10,7 @@ namespace DuelMastersCards.Cards
         public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
         {
             // Destroy 1 of your opponent's untapped creatures.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.Graveyard)));
+            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true)));
         }
     }
 }
