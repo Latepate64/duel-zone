@@ -2,7 +2,6 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -11,7 +10,7 @@ namespace DuelMastersCards.Cards
         public PangaeasSong() : base("Pangaea's Song", 1, Civilization.Nature)
         {
             // Put 1 of your creatures from the battle zone into your mana zone.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OwnersBattleZoneCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)));
+            Abilities.Add(new SpellAbility(new ManaFeedEffect(new OwnersBattleZoneCreatureFilter(), 1, 1, true)));
         }
     }
 }
