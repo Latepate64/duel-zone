@@ -16,7 +16,7 @@ namespace DuelMastersModels.ContinuousEffects
         /// <summary>
         /// Filter that can be applied to find cards affected by the effect.
         /// </summary>
-        public CardFilter Filter { get; private set; }
+        public CardFilter Filter { get; set; }
 
         public Guid SourceAbility { get; internal set; }
 
@@ -29,7 +29,7 @@ namespace DuelMastersModels.ContinuousEffects
         protected ContinuousEffect(ContinuousEffect effect)
         {
             Duration = effect.Duration.Copy();
-            Filter = effect.Filter.Copy();
+            Filter = effect.Filter?.Copy();
             SourceAbility = effect.SourceAbility;
         }
 
