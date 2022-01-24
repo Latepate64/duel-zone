@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // Choose a card in your opponent's mana zone and put it into his graveyard.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.ManaZone, ZoneType.Graveyard, new OpponentsManaZoneCardFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OpponentsManaZoneCardFilter(), 1, 1, true, ZoneType.ManaZone, ZoneType.Graveyard)));
         }
     }
 }

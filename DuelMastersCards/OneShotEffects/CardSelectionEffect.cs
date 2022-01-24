@@ -7,24 +7,27 @@ using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
-    class TapChoiceEffect : OneShotEffect
+    abstract class CardSelectionEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
         public int Minimum { get; }
         public int Maximum { get; }
+        public bool ControllerChooses { get; }
 
-        public TapChoiceEffect(CardFilter filter, int minimum, int maximum)
+        protected CardSelectionEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses)
         {
             Filter = filter;
             Minimum = minimum;
             Maximum = maximum;
+            ControllerChooses = controllerChooses;
         }
 
-        public TapChoiceEffect(TapChoiceEffect effect)
+        protected CardSelectionEffect(CardSelectionEffect effect)
         {
             Filter = effect.Filter;
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
+            ControllerChooses = effect.ControllerChooses;
         }
 
         public override void Apply(Game game, Ability source)
@@ -34,30 +37,20 @@ namespace DuelMastersCards.OneShotEffects
             {
                 if (Minimum >= cards.Count())
                 {
-                    Tap(cards);
+                    Apply(game, source, cards);
                 }
                 else
                 {
-                    var player = game.GetPlayer(source.Owner);
+                    var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Tap(player.Choose(new GuidSelection(player.Id, cards.Select(x => x.Id), Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x)));
+                        Apply(game, source, player.Choose(new GuidSelection(player.Id, cards.Select(x => x.Id), Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x)));
                     }
                 }
+
             }
         }
 
-        private static void Tap(IEnumerable<Card> cards)
-        {
-            foreach (var card in cards)
-            {
-                card.Tapped = true;
-            }
-        }
-
-        public override OneShotEffect Copy()
-        {
-            return new TapChoiceEffect(this);
-        }
+        protected abstract void Apply(Game game, Ability source, IEnumerable<Card> cards);
     }
 }

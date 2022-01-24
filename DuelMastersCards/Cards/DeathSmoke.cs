@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards
         public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
         {
             // Destroy 1 of your opponent's untapped creatures.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.Graveyard, new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.Graveyard)));
         }
     }
 }

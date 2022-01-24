@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards
         public SniperMosquito() : base("Sniper Mosquito", 1, Civilization.Nature, 2000, Subtype.GiantInsect)
         {
             // Whenever this creature attacks, return a card from your mana zone to your hand.
-            Abilities.Add(new WheneverThisCreatureAttacksAbility(new CardMovingChoiceEffect(ZoneType.ManaZone, ZoneType.Hand, new OwnersManaZoneCardFilter(), 1, 1, true)));
+            Abilities.Add(new WheneverThisCreatureAttacksAbility(new CardMovingChoiceEffect(new OwnersManaZoneCardFilter(), 1, 1, true, ZoneType.ManaZone, ZoneType.Hand)));
         }
     }
 }

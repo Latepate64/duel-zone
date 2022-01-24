@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards
         public PangaeasSong() : base("Pangaea's Song", 1, Civilization.Nature)
         {
             // Put 1 of your creatures from the battle zone into your mana zone.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.BattleZone, ZoneType.ManaZone, new OwnersBattleZoneCreatureFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OwnersBattleZoneCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)));
         }
     }
 }

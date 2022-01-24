@@ -13,7 +13,7 @@ namespace DuelMastersCards.Cards
             ShieldTrigger = true;
 
             // Return a creature from your graveyard to your hand.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.Graveyard, ZoneType.Hand, new OwnersGraveyardCreatureFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OwnersGraveyardCreatureFilter(), 1, 1, true, ZoneType.Graveyard, ZoneType.Hand)));
         }
     }
 }
