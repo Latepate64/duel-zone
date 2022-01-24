@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards
             ShieldTrigger = true;
 
             // Choose 1 of your opponent's creatures in the battle zone and tap it.
-            Abilities.Add(new SpellAbility(new TapChoiceEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1)));
+            Abilities.Add(new SpellAbility(new TapChoiceEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }
