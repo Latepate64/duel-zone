@@ -2,7 +2,6 @@
 using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
 
 namespace DuelMastersCards.Cards
 {
@@ -13,7 +12,7 @@ namespace DuelMastersCards.Cards
             ShieldTrigger = true;
 
             // Return a creature from your graveyard to your hand.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OwnersGraveyardCreatureFilter(), 1, 1, true, ZoneType.Graveyard, ZoneType.Hand)));
+            Abilities.Add(new SpellAbility(new SalvageEffect(new OwnersGraveyardCreatureFilter(), 1, 1, true)));
         }
     }
 }
