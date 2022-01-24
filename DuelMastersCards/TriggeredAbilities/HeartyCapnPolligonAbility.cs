@@ -20,7 +20,7 @@ namespace DuelMastersCards.TriggeredAbilities
         {
             var foo1 = base.CanTrigger(gameEvent, game);
             var foo2 = game.CurrentTurn.Phases.OfType<AttackPhase>().Where(x => x.AttackingCreature == Source).Any();
-            return foo1 && foo2;
+            return foo1 && foo2 && CheckInterveningIfClause(game);
         }
     }
 }

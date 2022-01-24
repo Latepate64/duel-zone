@@ -15,22 +15,29 @@ namespace DuelMastersModels.Steps
         protected internal override bool PerformPriorityAction(Game game)
         {
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            var usableCards = player.GetUsableCardsWithPaymentInformation();
-            if (usableCards.Any())
+            if (player != null)
             {
-                var dec = player.Choose(new CardUsageChoice(game.CurrentTurn.ActivePlayer, usableCards));
-                if (dec.Decision == null)
+                var usableCards = player.GetUsableCardsWithPaymentInformation();
+                if (usableCards.Any())
                 {
-                    return true;
+                    var dec = player.Choose(new CardUsageChoice(game.CurrentTurn.ActivePlayer, usableCards));
+                    if (dec.Decision == null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        foreach (Card mana in dec.Decision.Manas.Select(x => game.GetCard(x)))
+                        {
+                            mana.Tapped = true;
+                        }
+                        game.UseCard(game.GetCard(dec.Decision.ToUse), game.GetPlayer(game.CurrentTurn.ActivePlayer));
+                        return false;
+                    }
                 }
                 else
                 {
-                    foreach (Card mana in dec.Decision.Manas.Select(x => game.GetCard(x)))
-                    {
-                        mana.Tapped = true;
-                    }
-                    game.UseCard(game.GetCard(dec.Decision.ToUse), game.GetPlayer(game.CurrentTurn.ActivePlayer));
-                    return false;
+                    return true;
                 }
             }
             else
