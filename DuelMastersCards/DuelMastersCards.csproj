@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Cards\DM01\" />
-    <Folder Include="Cards\DM02\" />
     <Folder Include="Cards\DM03\" />
     <Folder Include="Cards\DM04\" />
     <Folder Include="Cards\DM05\" />
