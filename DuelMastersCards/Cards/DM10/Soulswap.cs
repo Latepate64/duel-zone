@@ -2,7 +2,7 @@
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM10
 {
     public class Soulswap : Spell
     {

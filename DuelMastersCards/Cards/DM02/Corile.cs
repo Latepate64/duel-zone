@@ -3,7 +3,7 @@ using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM02
 {
     public class Corile : Creature
     {

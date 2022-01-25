@@ -3,7 +3,7 @@ using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM06
 {
     public class PyrofighterMagnus : Creature
     {

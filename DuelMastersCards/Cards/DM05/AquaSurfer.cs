@@ -1,8 +1,7 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
+﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM05
 {
     public class AquaSurfer : Creature
     {

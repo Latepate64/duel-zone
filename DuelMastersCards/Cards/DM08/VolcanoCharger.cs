@@ -4,7 +4,7 @@ using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM08
 {
     public class VolcanoCharger : Spell
     {

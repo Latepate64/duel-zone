@@ -4,7 +4,7 @@ using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM04
 {
     public class Magmarex : Creature
     {

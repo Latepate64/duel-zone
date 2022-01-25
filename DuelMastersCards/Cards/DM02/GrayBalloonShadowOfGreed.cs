@@ -1,7 +1,7 @@
 ﻿using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM02
 {
     public class GrayBalloonShadowOfGreed : Creature
     {

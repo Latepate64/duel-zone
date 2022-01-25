@@ -3,7 +3,7 @@ using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM11
 {
     public class TenTonCrunch : Spell
     {

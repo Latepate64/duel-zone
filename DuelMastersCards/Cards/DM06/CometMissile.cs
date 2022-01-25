@@ -3,7 +3,7 @@ using DuelMastersCards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM06
 {
     public class CometMissile : Spell
     {

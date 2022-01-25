@@ -5,7 +5,7 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM08
 {
     class MegariaEmpressOfDread : Creature
     {

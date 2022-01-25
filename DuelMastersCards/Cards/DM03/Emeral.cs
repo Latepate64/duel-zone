@@ -2,7 +2,7 @@
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM03
 {
     public class Emeral : Creature
     {

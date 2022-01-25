@@ -2,7 +2,7 @@
 using DuelMastersModels;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM10
 {
     public class MelniaTheAquaShadow : Creature
     {

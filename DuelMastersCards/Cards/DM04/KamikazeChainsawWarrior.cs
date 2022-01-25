@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM04
 {
     public class KamikazeChainsawWarrior : Creature
     {

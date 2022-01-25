@@ -2,7 +2,7 @@
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM12
 {
     public class Gigabalza : Creature
     {

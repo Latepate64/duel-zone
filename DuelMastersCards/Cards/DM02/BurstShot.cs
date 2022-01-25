@@ -4,7 +4,7 @@ using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM02
 {
     public class BurstShot : Spell
     {
