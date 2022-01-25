@@ -20,6 +20,11 @@ namespace DuelMastersModels.ContinuousEffects
 
         public Guid SourceAbility { get; internal set; }
 
+        public virtual bool IsActive(Game game, Card card)
+        {
+            return true;
+        }
+
         protected ContinuousEffect(CardFilter filter, Duration duration)
         {
             Filter = filter;
