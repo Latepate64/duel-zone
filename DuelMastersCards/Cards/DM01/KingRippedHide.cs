@@ -1,7 +1,7 @@
 ﻿using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.TriggeredAbilities;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     public class KingRippedHide : Creature
     {

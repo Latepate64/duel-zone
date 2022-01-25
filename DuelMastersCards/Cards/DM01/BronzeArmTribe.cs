@@ -2,7 +2,7 @@
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     public class BronzeArmTribe : Creature
     {

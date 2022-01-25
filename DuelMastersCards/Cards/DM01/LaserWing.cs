@@ -4,7 +4,7 @@ using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     class LaserWing : Spell
     {

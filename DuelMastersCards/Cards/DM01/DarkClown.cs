@@ -5,7 +5,7 @@ using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     public class DarkClown : Creature
     {

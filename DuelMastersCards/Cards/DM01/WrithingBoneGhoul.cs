@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     class WrithingBoneGhoul : Creature
     {

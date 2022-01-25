@@ -2,7 +2,7 @@
 using DuelMastersCards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards
+namespace DuelMastersCards.Cards.DM01
 {
     class Gigaberos : Creature
     {
