@@ -17,6 +17,11 @@ namespace DuelMastersCards.OneShotEffects
             CanUseShieldTrigger = canUseShieldTrigger;
         }
 
+        public ShieldRecoveryEffect(bool canUseShieldTrigger) : this(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, true, canUseShieldTrigger)
+        {
+
+        }
+
         public override OneShotEffect Copy()
         {
             return new ShieldRecoveryEffect(this);

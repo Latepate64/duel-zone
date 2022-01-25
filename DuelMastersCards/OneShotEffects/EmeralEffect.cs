@@ -33,7 +33,7 @@ namespace DuelMastersCards.OneShotEffects
                     game.Move(cards.Select(x => game.GetCard(x)), DuelMastersModels.Zones.ZoneType.Hand, DuelMastersModels.Zones.ZoneType.ShieldZone);
 
                     // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
-                    new ShieldRecoveryEffect(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, true, false).Apply(game, source);
+                    new ShieldRecoveryEffect(false).Apply(game, source);
                 }
             }
         }
