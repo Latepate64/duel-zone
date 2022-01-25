@@ -95,6 +95,7 @@
     <Compile Include="ContinuousEffects\AttacksIfAbleEffect.cs" />
     <Compile Include="ContinuousEffects\BlockerEffect.cs" />
     <Compile Include="ContinuousEffects\CanAttackUntappedCreaturesEffect.cs" />
+    <Compile Include="ContinuousEffects\CanBeAttackedAsThoughTappedEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackCreaturesEffect.cs" />
     <Compile Include="ContinuousEffects\CannotAttackPlayersEffect.cs" />
     <Compile Include="ContinuousEffects\CharacteristicModifyingEffect.cs" />

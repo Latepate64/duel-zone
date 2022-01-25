@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards
         public CraniumClamp() : base("Cranium Clamp", 4, Civilization.Darkness)
         {
             // Your opponent chooses and discards 2 cards from his hand.
-            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(ZoneType.Hand, ZoneType.Graveyard, new OpponentsHandCardFilter(), 2, 2, false)));
+            Abilities.Add(new SpellAbility(new CardMovingChoiceEffect(new OpponentsHandCardFilter(), 2, 2, false, ZoneType.Hand, ZoneType.Graveyard)));
         }
     }
 }

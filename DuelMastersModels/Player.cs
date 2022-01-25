@@ -184,11 +184,14 @@ namespace DuelMastersModels
             }
         }
 
-        public void PutFromTopOfDeckIntoManaZone(Game game)
+        public void PutFromTopOfDeckIntoManaZone(Game game, int amount)
         {
-            if (Deck.Cards.Any())
+            for (int i = 0; i < amount; ++i)
             {
-                game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+                if (Deck.Cards.Any())
+                {
+                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+                }
             }
         }
 

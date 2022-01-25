@@ -5,14 +5,24 @@ using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
-    class CardMovingAreaOfEffect : CardMovingEffect
+    class CardMovingAreaOfEffect : OneShotEffect
     {
-        public CardMovingAreaOfEffect(CardMovingEffect effect) : base(effect)
+        public ZoneType SourceZone { get; }
+        public ZoneType DestinationZone { get; }
+        public CardFilter Filter { get; }
+
+        public CardMovingAreaOfEffect(CardMovingAreaOfEffect effect)
         {
+            SourceZone = effect.SourceZone;
+            DestinationZone = effect.DestinationZone;
+            Filter = effect.Filter;
         }
 
-        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, CardFilter filter) : base(source, destination, filter)
+        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, CardFilter filter)
         {
+            SourceZone = source;
+            DestinationZone = destination;
+            Filter = filter;
         }
 
         public override void Apply(Game game, Ability source)

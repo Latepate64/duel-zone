@@ -387,7 +387,7 @@ namespace DuelMastersModels
 
         public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
         {
-            return ContinuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)));
+            return ContinuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.IsActive(this, card));
         }
 
         public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)

@@ -10,37 +10,37 @@ using System.Linq;
 
 namespace DuelMastersCards.StaticAbilities
 {
-    public class AquaKnightAbility : StaticAbility
+    public class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility : StaticAbility
     {
-        public AquaKnightAbility()
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility()
         {
-            ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
+            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
         }
 
-        protected AquaKnightAbility(AquaKnightAbility ability) : base(ability)
+        protected WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility ability) : base(ability)
         {
         }
     }
 
-    public class AquaKnightAbilityEffect : ReplacementEffect
+    public class MightyShouterAbilityEffect : ReplacementEffect
     {
-        public AquaKnightAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public MightyShouterAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
         {
         }
 
-        public AquaKnightAbilityEffect(AquaKnightAbilityEffect effect) : base(effect)
+        public MightyShouterAbilityEffect(MightyShouterAbilityEffect effect) : base(effect)
         {
         }
 
         public override ContinuousEffect Copy()
         {
-            return new AquaKnightAbilityEffect(this);
+            return new MightyShouterAbilityEffect(this);
         }
 
         public override GameEvent Apply(Game game, Player player)
         {
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
-            newEvent.Destination = DuelMastersModels.Zones.ZoneType.Hand;
+            newEvent.Destination = DuelMastersModels.Zones.ZoneType.ManaZone;
             return newEvent;
         }
 

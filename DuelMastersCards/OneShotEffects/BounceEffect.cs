@@ -8,11 +8,7 @@ namespace DuelMastersCards.OneShotEffects
     /// </summary>
     class BounceEffect : CardMovingChoiceEffect
     {
-        public BounceEffect(int maximum) : base(ZoneType.BattleZone, ZoneType.Hand, new BattleZoneChoosableCreatureFilter(), 0, maximum, true)
-        {
-        }
-
-        public BounceEffect(CardMovingChoiceEffect effect) : base(effect)
+        public BounceEffect(int minimum, int maximum) : base(new BattleZoneChoosableCreatureFilter(), minimum, maximum, true, ZoneType.BattleZone, ZoneType.Hand)
         {
         }
     }

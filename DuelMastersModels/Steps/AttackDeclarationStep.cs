@@ -61,6 +61,7 @@ namespace DuelMastersModels.Steps
                     {
                         attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
                     }
+                    attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
                 }
                 if (attackables.Any())
                 {

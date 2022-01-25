@@ -28,13 +28,16 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
-            var decision = player.Choose(new YesNoChoice(source.Owner));
-            if (decision.Decision)
+            if (player != null)
             {
-                player.DrawCards(1, game);
-                if (++_drawn < Maximum)
+                var decision = player.Choose(new YesNoChoice(source.Owner));
+                if (decision.Decision)
                 {
-                    Apply(game, source);
+                    player.DrawCards(1, game);
+                    if (++_drawn < Maximum)
+                    {
+                        Apply(game, source);
+                    }
                 }
             }
         }

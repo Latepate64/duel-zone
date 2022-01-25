@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
-using DuelMastersModels.Steps;
 using System.Linq;
 
 namespace DuelMastersCards.TriggeredAbilities
@@ -16,11 +15,15 @@ namespace DuelMastersCards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override Ability Copy()
         {
-            var foo1 = base.CanTrigger(gameEvent, game);
-            var foo2 = game.CurrentTurn.Phases.OfType<AttackPhase>().Where(x => x.AttackingCreature == Source).Any();
-            return foo1 && foo2;
+            return new HeartyCapnPolligonAbility(this);
+        }
+
+        public override bool CheckInterveningIfClause(Game game)
+        {
+            // if this creature broke any shields that turn
+            return game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Any(x => x.Attacker.Id == Source);
         }
     }
 }

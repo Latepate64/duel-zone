@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, you may choose a creature in the battle zone and return it to its owner's hand.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BounceEffect(1)));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BounceEffect(0, 1)));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace DuelMastersCards.OneShotEffects
             }
 
             // Then put the top card of your deck into your mana zone.
-            controller.PutFromTopOfDeckIntoManaZone(game);
+            controller.PutFromTopOfDeckIntoManaZone(game, 1);
         }
     }
 }

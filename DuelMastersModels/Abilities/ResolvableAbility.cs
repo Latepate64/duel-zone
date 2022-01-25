@@ -14,7 +14,7 @@
             OneShotEffect = ability.OneShotEffect.Copy();
         }
 
-        public void Resolve(Game game)
+        public virtual void Resolve(Game game)
         {
             OneShotEffect.Apply(game, this);
         }

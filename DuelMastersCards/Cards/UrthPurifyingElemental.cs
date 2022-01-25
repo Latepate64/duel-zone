@@ -1,4 +1,5 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using DuelMastersCards.CardFilters;
+using DuelMastersCards.OneShotEffects;
 using DuelMastersCards.StaticAbilities;
 using DuelMastersCards.TriggeredAbilities;
 using DuelMastersModels;
@@ -11,7 +12,7 @@ namespace DuelMastersCards.Cards
         {
             Abilities.Add(new DoubleBreakerAbility());
             // At the end of each of your turns, you may untap this creature.
-            Abilities.Add(new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect()));
+            Abilities.Add(new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect(new TargetFilter())));
         }
     }
 }

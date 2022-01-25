@@ -1,7 +1,6 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Choices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Simulator
@@ -12,9 +11,13 @@ namespace Simulator
 
         public SimulationPlayer(SimulationPlayer player) : base(player) { }
 
+        static readonly Random rnd = new();
+
         public override GuidDecision Choose(GuidSelection guidSelection)
         {
-            return new GuidDecision(new List<System.Guid> { guidSelection.Options.First() });
+            var amount = rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
+            var selected = guidSelection.Options.OrderBy(x => rnd.Next()).Take(amount);
+            return new GuidDecision(selected);
         }
 
         public override YesNoDecision Choose(YesNoChoice yesNoChoice)

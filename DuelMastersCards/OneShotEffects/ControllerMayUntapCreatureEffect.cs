@@ -1,17 +1,22 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
+using System.Linq;
 
 namespace DuelMastersCards.OneShotEffects
 {
     public class ControllerMayUntapCreatureEffect : OneShotEffect
     {
-        public ControllerMayUntapCreatureEffect()
+        public CardFilter Filter { get; }
+
+        public ControllerMayUntapCreatureEffect(CardFilter filter)
         {
+            Filter = filter;
         }
 
         public ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect)
         {
+            Filter = effect.Filter;
         }
 
         public override OneShotEffect Copy()
@@ -22,10 +27,12 @@ namespace DuelMastersCards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
-            var decision = player.Choose(new YesNoChoice(source.Owner));
-            if (decision.Decision)
+            if (player.Choose(new YesNoChoice(source.Owner)).Decision)
             {
-                game.GetCard(source.Source).Tapped = false;
+                foreach (var card in game.GetAllCards().Where(x => Filter.Applies(x, game, player)))
+                {
+                    card.Tapped = false;
+                }
             }
         }
     }

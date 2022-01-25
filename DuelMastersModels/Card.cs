@@ -37,6 +37,7 @@ namespace DuelMastersModels
         Gladiator,
         Guardian,
         Hedrian,
+        HornedBeast,
         Human,
         Initiate,
         Leviathan,
