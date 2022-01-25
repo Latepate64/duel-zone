@@ -33,6 +33,7 @@ namespace DuelMastersModels
         Fish,
         GelFish,
         Ghost,
+        Giant,
         GiantInsect,
         Gladiator,
         Guardian,
