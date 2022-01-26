@@ -15,7 +15,7 @@ namespace DuelMastersCards.CardFilters
         public override bool Applies(Card card, Game game, Player player)
         {
             var opponent = game.GetOpponent(player);
-            return opponent != null && opponent.Hand.Cards.Contains(card);
+            return base.Applies(card, game, player) && opponent != null && opponent.Hand.Cards.Contains(card);
         }
 
         public override CardFilter Copy()

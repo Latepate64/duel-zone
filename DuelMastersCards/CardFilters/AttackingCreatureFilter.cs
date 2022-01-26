@@ -15,7 +15,7 @@ namespace DuelMastersCards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == card.Id;
+            return base.Applies(card, game, player) && game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == card.Id;
         }
 
         public override CardFilter Copy()

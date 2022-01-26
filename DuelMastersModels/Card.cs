@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public enum CardType { Creature, Spell }
+    public enum CardType { Creature, Spell, Any }
 
     public enum Subtype
     {
