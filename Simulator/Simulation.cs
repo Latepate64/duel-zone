@@ -28,10 +28,6 @@ namespace Simulator
             {
                 return ChooseGuid(game, numberOfChoicesMade, decisions, selection);
             }
-            else if (choice is CardUsageChoice usage)
-            {
-                return ChooseCardToUse(game, numberOfChoicesMade, decisions, usage);
-            }
             else if (choice is AttackerChoice attackerChoice)
             {
                 return ChooseAttacker(game, numberOfChoicesMade, decisions, attackerChoice);
@@ -110,22 +106,6 @@ namespace Simulator
                 decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
             }
             return Choose(attackerChoice, decisions);
-        }
-
-        private Tuple<Decision, int> ChooseCardToUse(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, CardUsageChoice usage)
-        {
-            //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x } ))).ToList();
-            //var options = usage.Options.SelectMany(toUse => toUse.SelectMany(target => target.Take(2).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
-            var options = usage.Options.SelectMany(toUse => toUse.SelectMany(manaCombs => manaCombs.OrderByDescending(manaComb => PointsForUnleftMana(manaComb, game, usage.Player)).Take(1).Select(x => new UseCardContainer { ToUse = toUse.Key, Manas = x }))).ToList();
-            options.Add(null);
-            foreach (var option in options)
-            {
-                var currentChoice = new CardUsageDecision(option);
-                using var duelCopy = new Game(game);
-                _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
-            }
-            return Choose(usage, decisions);
         }
 
         private Tuple<Decision, int> ChooseGuid(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)

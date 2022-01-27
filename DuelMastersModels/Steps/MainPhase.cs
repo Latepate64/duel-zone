@@ -1,5 +1,4 @@
-﻿using DuelMastersModels.Choices;
-using System.Linq;
+﻿using System.Linq;
 
 namespace DuelMastersModels.Steps
 {
@@ -17,23 +16,10 @@ namespace DuelMastersModels.Steps
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
             if (player != null)
             {
-                var usableCards = player.GetUsableCardsWithPaymentInformation();
-                if (usableCards.Any())
+                var cards = player.GetUsableCards();
+                if (cards.Any())
                 {
-                    var dec = player.Choose(new CardUsageChoice(game.CurrentTurn.ActivePlayer, usableCards));
-                    if (dec.Decision == null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        foreach (Card mana in dec.Decision.Manas.Select(x => game.GetCard(x)))
-                        {
-                            mana.Tapped = true;
-                        }
-                        game.UseCard(game.GetCard(dec.Decision.ToUse), game.GetPlayer(game.CurrentTurn.ActivePlayer));
-                        return false;
-                    }
+                    return player.ChooseCardToUse(game, cards);
                 }
                 else
                 {

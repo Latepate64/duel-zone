@@ -20,8 +20,6 @@ namespace DuelMastersModels
 
         public string Name { get; set; }
 
-        public abstract CardUsageDecision Choose(CardUsageChoice cardUsageChoice);
-
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
@@ -159,16 +157,17 @@ namespace DuelMastersModels
             }
         }
 
-        internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
+        internal IEnumerable<Card> GetUsableCards()
         {
-            return Hand.Cards.
-                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations)).
-                GroupBy(
-                    card => card.Id,
-                    card => new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations)).Select(x => x.Select(y => y.Id)));
+            return Hand.Cards.Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations));
         }
 
-        private static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
+        internal IEnumerable<IEnumerable<Card>> GetManaCombinations(Card card)
+        {
+            return new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations));//.Select(x => x.Select(y => y.Id)));
+        }
+
+        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
         {
             if (!civs.Any())
             {
@@ -255,6 +254,52 @@ namespace DuelMastersModels
         }
 
         public abstract Player Copy();
+
+        private void ChooseCardsToPayManaCost(Game game, Card toUse)
+        {
+            var manaDecision = Choose(new GuidSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
+            if (HasCivilizations(manaDecision, toUse.Civilizations))
+            {
+                PayManaCostAndUseCard(game, manaDecision, toUse);
+            }
+            else
+            {
+                ChooseCardsToPayManaCost(game, toUse);
+            }
+        }
+
+        private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
+        {
+            foreach (Card mana in manaCards)
+            {
+                mana.Tapped = true;
+            }
+            game.UseCard(toUse, this);
+        }
+
+        internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
+        {
+            var decision = Choose(new GuidSelection(Id, cards, 0, 1)).Decision;
+            if (decision.Any())
+            {
+                var id = decision.Single();
+                var toUse = cards.Single(x => x.Id == id);
+                var manaCombinations = GetManaCombinations(toUse);
+                if (manaCombinations.Count() > 1)
+                {
+                    ChooseCardsToPayManaCost(game, toUse);
+                }
+                else
+                {
+                    PayManaCostAndUseCard(game, manaCombinations.Single(), toUse);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         #endregion Methods
     }
 }

@@ -30,13 +30,6 @@ namespace Simulator
             return new SimulationPlayer(this);
         }
 
-        public override CardUsageDecision Choose(CardUsageChoice cardUsageChoice)
-        {
-            var choice = cardUsageChoice.Options.First();
-            var second = choice.First().First();
-            return new CardUsageDecision(new UseCardContainer { ToUse = choice.Key, Manas = second });
-        }
-
         public override AttackerDecision Choose(AttackerChoice attackerChoice)
         {
             var choice = attackerChoice.Options.First();
