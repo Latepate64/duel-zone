@@ -44,7 +44,7 @@ namespace DuelMastersCards.OneShotEffects
                     var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Apply(game, source, player.Choose(new GuidSelection(player.Id, cards.Select(x => x.Id), Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x)));
+                        Apply(game, source, player.Choose(new GuidSelection(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x)));
                     }
                 }
 

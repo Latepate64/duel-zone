@@ -511,7 +511,7 @@ namespace DuelMastersModels
                     foreach (var group in triggerGroups)
                     {
                         var player = GetPlayer(group.Key);
-                        var decision = player.Choose(new GuidSelection(player.Id, group.Select(x => x.Id), 0, 1));
+                        var decision = player.Choose(new GuidSelection(player.Id, group, 0, 1));
                         if (decision.Decision.Any())
                         {
                             var trigger = GetCard(decision.Decision.Single());
