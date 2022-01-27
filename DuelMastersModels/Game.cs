@@ -218,40 +218,9 @@ namespace DuelMastersModels
             }
         }
 
-        public IEnumerable<Card> GetAllCards(Guid owner)
-        {
-            return GetAllCards().Where(x => x.Owner == owner);
-        }
-
         public IEnumerable<Card> GetAllCards()
         {
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
-        }
-
-        private static List<List<Civilization>> GetCivilizationCombinations(List<List<Civilization>> civilizationGroups, List<Civilization> knownCivilizations)
-        {
-            if (civilizationGroups.Count > 0)
-            {
-                List<Civilization> civilizations = civilizationGroups.First();
-                List<List<Civilization>> newCivilizationGroups = new List<List<Civilization>>(civilizationGroups);
-                _ = newCivilizationGroups.Remove(civilizations);
-                List<List<Civilization>> output = new List<List<Civilization>>();
-                foreach (Civilization civilization in civilizations)
-                {
-                    List<Civilization> newKnownCivilizations = new List<Civilization>(knownCivilizations) { civilization };
-
-                    output.AddRange(
-                        GetCivilizationCombinations(
-                            newCivilizationGroups,
-                            newKnownCivilizations));
-                }
-                return output;
-            }
-            else
-            {
-                List<Civilization> copyOfKnownCivilizations = new List<Civilization>(knownCivilizations);
-                return new List<List<Civilization>> { copyOfKnownCivilizations };
-            }
         }
 
         public void Destroy(IEnumerable<Card> cards)
@@ -432,14 +401,14 @@ namespace DuelMastersModels
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
         {
             // TODO: Sort players by turn order
-            var effects = GetReplacementEffects(events);
-            var affectedCardGroups = effects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
+            var replacementEffects = GetReplacementEffects(events);
+            var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
             foreach (var cardGroup in affectedCardGroups)
             {
-                var effectGroups = effects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
+                var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
-                    ? player.Choose(new GuidSelection(player.Id, effects.Select(x => x.Id), 1, 1)).Decision.Single()
+                    ? player.Choose(new GuidSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1)).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
                 var newEvent = effect.Apply(this, player);
@@ -472,40 +441,35 @@ namespace DuelMastersModels
             return replacementEffects;
         }
 
-        public void Discard(IEnumerable<Card> cards)
-        {
-            _ = Move(cards, ZoneType.Hand, ZoneType.Graveyard);
-        }
-
-        public void PutFromShieldZoneToHand(Card card, bool canUseShieldTrigger)
-        {
-            PutFromShieldZoneToHand(new List<Card> { card }, canUseShieldTrigger);
-        }
-
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
             var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
             if (canUseShieldTrigger)
             {
-                var shieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
-                while (shieldTriggers.Any())
+                CheckShieldTriggers(events);
+            }
+        }
+
+        private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
+        {
+            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
+            while (allShieldTriggers.Any())
+            {
+                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
+                foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
-                    var triggerGroups = shieldTriggers.GroupBy(x => x.Owner);
-                    foreach (var group in triggerGroups)
+                    var player = GetPlayer(shieldTriggersByPlayer.Key);
+                    var decision = player.Choose(new GuidSelection(player.Id, shieldTriggersByPlayer, 0, 1));
+                    if (decision.Decision.Any())
                     {
-                        var player = GetPlayer(group.Key);
-                        var decision = player.Choose(new GuidSelection(player.Id, group, 0, 1));
-                        if (decision.Decision.Any())
-                        {
-                            var trigger = GetCard(decision.Decision.Single());
-                            shieldTriggers = shieldTriggers.Where(x => x.Id != trigger.Id);
-                            Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
-                            player.UseCard(trigger, this);
-                        }
-                        else
-                        {
-                            shieldTriggers = shieldTriggers.Where(x => !group.Select(y => y.Id).Contains(x.Id));
-                        }
+                        var trigger = GetCard(decision.Decision.Single());
+                        allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
+                        Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
+                        player.UseCard(trigger, this);
+                    }
+                    else
+                    {
+                        allShieldTriggers = allShieldTriggers.Where(x => !shieldTriggersByPlayer.Select(y => y.Id).Contains(x.Id));
                     }
                 }
             }

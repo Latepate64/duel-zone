@@ -166,7 +166,7 @@ namespace DuelMastersModels
             return new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
-        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
+        private static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
         {
             if (!civs.Any())
             {
@@ -220,7 +220,7 @@ namespace DuelMastersModels
         {
             if (Hand.Cards.Any())
             {
-                game.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
+                _ = game.Move(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] }, ZoneType.Hand, ZoneType.Graveyard);
             }
         }
 
@@ -231,7 +231,7 @@ namespace DuelMastersModels
             game.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
-        public Zone GetZone(ZoneType zone)
+        internal Zone GetZone(ZoneType zone)
         {
             switch (zone)
             {

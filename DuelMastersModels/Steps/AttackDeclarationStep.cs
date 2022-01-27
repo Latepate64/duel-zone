@@ -23,28 +23,37 @@ namespace DuelMastersModels.Steps
             var targets = options.SelectMany(x => x).SelectMany(x => x);
             if (targets.Any())
             {
-                var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
-                var decision = activePlayer.Choose(new GuidSelection(activePlayer.Id, attackers, minimum, 1)).Decision;
-                if (decision.Any())
-                {
-                    var id = decision.Single();
-                    var attacker = attackers.Single(x => x.Id == id);
-                    var possibleTargets = GetPossibleAttackTargets(attacker, game);
-                    IAttackable target = possibleTargets.Count() > 1
-                        ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
-                        : possibleTargets.Single();
-                    attacker.Tapped = true;
-                    if (target.Id == attacker.Id)
-                    {
-                        Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
-                    }
-                    else
-                    {
-                        Phase.SetAttackingCreature(attacker, game);
-                        Phase.AttackTarget = target.Id;
-                        game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
-                    }
-                }
+                ChooseAttacker(game, activePlayer, attackers);
+            }
+        }
+
+        private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
+        {
+            var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
+            var decision = activePlayer.Choose(new GuidSelection(activePlayer.Id, attackers, minimum, 1)).Decision;
+            if (decision.Any())
+            {
+                ChooseAttackTarget(game, activePlayer, attackers, decision.Single());
+            }
+        }
+
+        private void ChooseAttackTarget(Game game, Player activePlayer, IEnumerable<Card> attackers, Guid id)
+        {
+            var attacker = attackers.Single(x => x.Id == id);
+            var possibleTargets = GetPossibleAttackTargets(attacker, game);
+            IAttackable target = possibleTargets.Count() > 1
+                ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
+                : possibleTargets.Single();
+            attacker.Tapped = true;
+            if (target.Id == attacker.Id)
+            {
+                Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
+            }
+            else
+            {
+                Phase.SetAttackingCreature(attacker, game);
+                Phase.AttackTarget = target.Id;
+                game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
             }
         }
 
