@@ -10,7 +10,7 @@ namespace DuelMastersCards.Cards.DM03
             ShieldTrigger = true;
 
             // Return a spell from your mana zone to your hand.
-            Abilities.Add(new SpellAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneSpellFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneCardFilter { CardType = CardType.Spell }, 1, 1, true)));
         }
     }
 }

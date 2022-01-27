@@ -17,7 +17,7 @@ namespace DuelMastersModels.Steps
         public override void PerformTurnBasedAction(Game game)
         {
             var activePlayer = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && GetPossibleAttackTargets(c, game).Any()).Distinct(new CardComparer());
+            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && GetPossibleAttackTargets(c, game).Any());
             var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
             var targets = options.SelectMany(x => x).SelectMany(x => x);
@@ -56,10 +56,10 @@ namespace DuelMastersModels.Steps
                 if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
                 {
                     var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
-                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped).Distinct(new CardComparer()));
+                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
                     if (game.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
                     {
-                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped).Distinct(new CardComparer()));
+                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped));
                     }
                     attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
                 }

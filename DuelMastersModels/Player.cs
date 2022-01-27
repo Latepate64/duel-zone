@@ -161,7 +161,7 @@ namespace DuelMastersModels
 
         internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
         {
-            return Hand.Cards.Distinct(new CardComparer()).
+            return Hand.Cards.
                 Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations)).
                 GroupBy(
                     card => card.Id,
