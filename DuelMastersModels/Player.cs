@@ -138,7 +138,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Summon(Card card, Game game)
+        private void Summon(Card card, Game game)
         {
             game.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
             _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
@@ -193,7 +193,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Cast(Card spell, Game game)
+        private void Cast(Card spell, Game game)
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
@@ -273,7 +273,7 @@ namespace DuelMastersModels
             {
                 mana.Tapped = true;
             }
-            game.UseCard(toUse, this);
+            UseCard(toUse, game);
         }
 
         internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
@@ -297,6 +297,23 @@ namespace DuelMastersModels
             else
             {
                 return true;
+            }
+        }
+
+        internal void UseCard(Card card, Game game)
+        {
+            game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
+            if (card.CardType == CardType.Creature)
+            {
+                Summon(card, game);
+            }
+            else if (card.CardType == CardType.Spell)
+            {
+                Cast(card, game);
+            }
+            else
+            {
+                throw new InvalidOperationException();
             }
         }
         #endregion Methods

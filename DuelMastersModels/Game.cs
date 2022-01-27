@@ -218,23 +218,6 @@ namespace DuelMastersModels
             }
         }
 
-        public void UseCard(Card card, Player player)
-        {
-            CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
-            if (card.CardType == CardType.Creature)
-            {
-                player.Summon(card, this);
-            }
-            else if (card.CardType == CardType.Spell)
-            {
-                player.Cast(card, this);
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
         public IEnumerable<Card> GetAllCards(Guid owner)
         {
             return GetAllCards().Where(x => x.Owner == owner);
@@ -517,7 +500,7 @@ namespace DuelMastersModels
                             var trigger = GetCard(decision.Decision.Single());
                             shieldTriggers = shieldTriggers.Where(x => x.Id != trigger.Id);
                             Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
-                            UseCard(trigger, player);
+                            player.UseCard(trigger, this);
                         }
                         else
                         {
