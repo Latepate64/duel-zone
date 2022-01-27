@@ -339,7 +339,7 @@ namespace DuelMastersModels
             }
             else
             {
-                throw new NotSupportedException();
+                return null; // It is possible that the player/card no longers exists.
             }
         }
 

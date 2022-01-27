@@ -207,11 +207,11 @@ namespace DuelMastersModels
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
             if (effects.Any())
             {
-                game.GetPlayer(spell.Owner).ManaZone.Add(spell, game);
+                game.GetPlayer(spell.Owner)?.ManaZone.Add(spell, game);
             }
             else
             {
-                game.GetPlayer(spell.Owner).Graveyard.Add(spell, game);
+                game.GetPlayer(spell.Owner)?.Graveyard.Add(spell, game);
 
             }
         }

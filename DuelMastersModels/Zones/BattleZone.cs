@@ -37,9 +37,20 @@ namespace DuelMastersModels.Zones
 
         public override void Remove(Card card, Game game)
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == card.Id)
+            if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
-                phase.RemoveAttackingCreature(game);
+                if (card.Id == phase.AttackingCreature)
+                {
+                    phase.RemoveAttackingCreature(game);
+                }
+                else if (card.Id == phase.AttackTarget)
+                {
+                    phase.AttackTarget = Guid.Empty;
+                }
+                else if (card.Id == phase.BlockingCreature)
+                {
+                    phase.BlockingCreature = Guid.Empty;
+                }
             }
             if (!Cards.Remove(card))
             {
