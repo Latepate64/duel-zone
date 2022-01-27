@@ -28,10 +28,6 @@ namespace Simulator
             {
                 return ChooseGuid(game, numberOfChoicesMade, decisions, selection);
             }
-            else if (choice is AttackerChoice attackerChoice)
-            {
-                return ChooseAttacker(game, numberOfChoicesMade, decisions, attackerChoice);
-            }
             else if (choice is YesNoChoice yesNo)
             {
                 return ChooseYesOrNo(game, numberOfChoicesMade, decisions, yesNo);
@@ -89,23 +85,6 @@ namespace Simulator
             //    decisions.Add(new Tuple<Decision, int>(currentChoice, foo.Item2));
             //}
             //return Choose(choice, decisions);
-        }
-
-        private Tuple<Decision, int> ChooseAttacker(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, AttackerChoice attackerChoice)
-        {
-            var options = attackerChoice.Options.SelectMany(attacker => attacker.SelectMany(target => target.Select(x => new Tuple<Guid, Guid>(attacker.Key, x)))).ToList();
-            if (!attackerChoice.MustAttack)
-            {
-                options.Add(null);
-            }
-            foreach (var option in options)
-            {
-                var currentChoice = new AttackerDecision(option);
-                using var duelCopy = new Game(game);
-                _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
-            }
-            return Choose(attackerChoice, decisions);
         }
 
         private Tuple<Decision, int> ChooseGuid(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)

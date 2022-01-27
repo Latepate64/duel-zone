@@ -29,12 +29,5 @@ namespace Simulator
         {
             return new SimulationPlayer(this);
         }
-
-        public override AttackerDecision Choose(AttackerChoice attackerChoice)
-        {
-            var choice = attackerChoice.Options.First();
-            var second = choice.First().Last();
-            return new AttackerDecision(new Tuple<Guid, Guid>(choice.Key, second));
-        }
     }
 }

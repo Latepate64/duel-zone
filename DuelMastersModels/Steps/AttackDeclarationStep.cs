@@ -23,20 +23,25 @@ namespace DuelMastersModels.Steps
             var targets = options.SelectMany(x => x).SelectMany(x => x);
             if (targets.Any())
             {
-                var dec = activePlayer.Choose(new AttackerChoice(game.CurrentTurn.ActivePlayer, options, attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any())));
-                if (dec.Decision != null)
+                var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
+                var decision = activePlayer.Choose(new GuidSelection(activePlayer.Id, attackers, minimum, 1)).Decision;
+                if (decision.Any())
                 {
-                    var attacker = game.GetCard(dec.Decision.Item1);
+                    var id = decision.Single();
+                    var attacker = attackers.Single(x => x.Id == id);
+                    var possibleTargets = GetPossibleAttackTargets(attacker, game);
+                    IAttackable target = possibleTargets.Count() > 1
+                        ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
+                        : possibleTargets.Single();
                     attacker.Tapped = true;
-                    var tapAbilities = attacker.Abilities.OfType<TapAbility>();
-                    if (tapAbilities.Select(y => y.Id).Contains(dec.Decision.Item2))
+                    if (target.Id == attacker.Id)
                     {
-                        Phase.PendingAbilities.AddRange(tapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
+                        Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
                     }
                     else
                     {
                         Phase.SetAttackingCreature(attacker, game);
-                        Phase.AttackTarget = dec.Decision.Item2;
+                        Phase.AttackTarget = target.Id;
                         game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
                     }
                 }
@@ -63,9 +68,9 @@ namespace DuelMastersModels.Steps
                     }
                     attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
                 }
-                if (attackables.Any())
+                if (attackables.Any() && attacker.Abilities.OfType<TapAbility>().Any())
                 {
-                    attackables.AddRange(attacker.Abilities.OfType<TapAbility>());
+                    attackables.Add(attacker);
                 }
             }
             return attackables;

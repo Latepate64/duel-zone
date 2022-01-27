@@ -26,7 +26,6 @@ namespace DuelMastersModels
         public Deck Deck { get; set; }
 
         public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
-        public abstract AttackerDecision Choose(AttackerChoice attackerChoice);
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
