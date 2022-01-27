@@ -11,7 +11,7 @@ namespace DuelMastersCards.Cards.DM01
             ShieldTrigger = true;
 
             // Choose 1 creature in the battle zone and return it to its owner's hand.
-            Abilities.Add(new SpellAbility(new BounceEffect(1, 1)));
+            Abilities.Add(new SpellAbility(new BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
         }
     }
 }

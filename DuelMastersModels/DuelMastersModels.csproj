@@ -126,8 +126,6 @@
     <Compile Include="GameEvents\TurnStartsEvent.cs" />
     <Compile Include="GameEvents\WinBattleEvent.cs" />
     <Compile Include="GameEvents\WinEvent.cs" />
-    <Compile Include="Choices\AttackerChoice.cs" />
-    <Compile Include="Choices\CardUsageChoice.cs" />
     <Compile Include="DuelObject.cs" />
     <Compile Include="GameEvents\GameEvent.cs" />
     <Compile Include="IAttackable.cs" />

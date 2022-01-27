@@ -39,10 +39,17 @@ namespace DuelMastersModels.Steps
                 foreach (var abilities in abilityGroups)
                 {
                     var player = game.GetPlayer(abilities.Key);
-                    var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
-                    var ability = abilities.Single(x => x.Id == decision);
-                    ability.Resolve(game);
-                    _ = PendingAbilities.Remove(ability);
+                    if (player != null)
+                    {
+                        var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                        var ability = abilities.Single(x => x.Id == decision);
+                        ability.Resolve(game);
+                        _ = PendingAbilities.Remove(ability);
+                    }
+                    else
+                    {
+                        _ = PendingAbilities.RemoveAll(x => x.Owner == abilities.Key);
+                    }
                     break;
                 }
             }

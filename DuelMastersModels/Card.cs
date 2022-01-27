@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace DuelMastersModels
 {
-    public enum CardType { Creature, Spell }
+    public enum CardType { Creature, Spell, Any }
 
     public enum Subtype
     {
@@ -33,6 +33,7 @@ namespace DuelMastersModels
         Fish,
         GelFish,
         Ghost,
+        Giant,
         GiantInsect,
         Gladiator,
         Guardian,
@@ -180,48 +181,6 @@ namespace DuelMastersModels
         internal bool AffectedBySummoningSickness(Game game)
         {
             return SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
-        }
-    }
-
-    public class CardComparer : IEqualityComparer<Card>
-    {
-        public bool Equals(Card x, Card y)
-        {
-            return
-                //x.Abilities.SequenceEqual(y.Abilities) &&
-                x.Abilities.Count == y.Abilities.Count && //TODO: Abilities should be compared precisely
-                x.CardType == y.CardType &&
-                x.Civilizations.SequenceEqual(y.Civilizations) &&
-                x.ManaCost == y.ManaCost &&
-                x.Name == y.Name &&
-                x.Owner == y.Owner &&
-                x.Power == y.Power &&
-                x.RevealedTo.SequenceEqual(y.RevealedTo) &&
-                x.ShieldTrigger == y.ShieldTrigger &&
-                ((x.Subtypes == null && y.Subtypes == null) || x.Subtypes.SequenceEqual(y.Subtypes)) &&
-                x.SummoningSickness == y.SummoningSickness &&
-                x.Tapped == y.Tapped;
-        }
-
-        public int GetHashCode(Card obj)
-        {
-            var x = 0;//obj.Civilizations.GetHashCode();
-            var y = 0;// obj.StaticAbilities.GetHashCode();
-            return obj.ManaCost + obj.Tapped.GetHashCode() + obj.ShieldTrigger.GetHashCode() + x + y;// + obj.StaticAbilities.Sum(x => x.GetHashCode());
-        }
-    }
-
-    internal class CardsComparer : IEqualityComparer<IEnumerable<Card>>
-    {
-        public bool Equals(IEnumerable<Card> x, IEnumerable<Card> y)
-        {
-            return x.SequenceEqual(y, new CardComparer());
-        }
-
-        public int GetHashCode(IEnumerable<Card> obj)
-        {
-            var cardComparer = new CardComparer();
-            return obj.Sum(x => cardComparer.GetHashCode(x));
         }
     }
 }

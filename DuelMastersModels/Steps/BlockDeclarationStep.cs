@@ -2,6 +2,7 @@
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.GameEvents;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DuelMastersModels.Steps
@@ -23,15 +24,19 @@ namespace DuelMastersModels.Steps
             }
             if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(Phase.AttackingCreature)).Any())
             {
-                var dec = nonActive.Choose(new GuidSelection(game.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1));
-                var blockers = dec.Decision;
-                if (blockers.Any())
-                {
-                    Phase.BlockingCreature = blockers.Single();
-                    var blocker = game.GetCard(Phase.BlockingCreature);
-                    blocker.Tapped = true;
-                    game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true), game));
-                }
+                ChooseBlocker(game, nonActive, possibleBlockers);
+            }
+        }
+
+        private void ChooseBlocker(Game game, Player nonActive, IEnumerable<Card> possibleBlockers)
+        {
+            var blockers = nonActive.Choose(new GuidSelection(game.CurrentTurn.NonActivePlayer, possibleBlockers, 0, 1)).Decision;
+            if (blockers.Any())
+            {
+                Phase.BlockingCreature = blockers.Single();
+                var blocker = game.GetCard(Phase.BlockingCreature);
+                blocker.Tapped = true;
+                game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature), true), new Card(blocker, true), game));
             }
         }
 

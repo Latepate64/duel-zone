@@ -1,6 +1,6 @@
 ﻿namespace DuelMastersModels.Abilities
 {
-    public class TapAbility : ActivatedAbility, IAttackable
+    public class TapAbility : ActivatedAbility
     {
         public TapAbility(OneShotEffect effect) : base(effect)
         {

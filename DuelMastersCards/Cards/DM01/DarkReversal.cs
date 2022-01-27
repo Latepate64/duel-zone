@@ -12,7 +12,7 @@ namespace DuelMastersCards.Cards.DM01
             ShieldTrigger = true;
 
             // Return a creature from your graveyard to your hand.
-            Abilities.Add(new SpellAbility(new SalvageEffect(new OwnersGraveyardCreatureFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new SalvageEffect(new OwnersGraveyardCardFilter { CardType = CardType.Creature }, 1, 1, true)));
         }
     }
 }

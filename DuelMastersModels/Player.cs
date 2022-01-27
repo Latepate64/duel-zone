@@ -20,15 +20,12 @@ namespace DuelMastersModels
 
         public string Name { get; set; }
 
-        public abstract CardUsageDecision Choose(CardUsageChoice cardUsageChoice);
-
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         public Deck Deck { get; set; }
 
         public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
-        public abstract AttackerDecision Choose(AttackerChoice attackerChoice);
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -141,7 +138,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Summon(Card card, Game game)
+        private void Summon(Card card, Game game)
         {
             game.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
             _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
@@ -159,13 +156,14 @@ namespace DuelMastersModels
             }
         }
 
-        internal IEnumerable<IGrouping<Guid, IEnumerable<IEnumerable<Guid>>>> GetUsableCardsWithPaymentInformation()
+        internal IEnumerable<Card> GetUsableCards()
         {
-            return Hand.Cards.Distinct(new CardComparer()).
-                Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations)).
-                GroupBy(
-                    card => card.Id,
-                    card => new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations)).Select(x => x.Select(y => y.Id)));
+            return Hand.Cards.Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations));
+        }
+
+        internal IEnumerable<IEnumerable<Card>> GetManaCombinations(Card card)
+        {
+            return new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
         private static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
@@ -195,7 +193,7 @@ namespace DuelMastersModels
             }
         }
 
-        internal void Cast(Card spell, Game game)
+        private void Cast(Card spell, Game game)
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
@@ -209,11 +207,11 @@ namespace DuelMastersModels
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
             if (effects.Any())
             {
-                game.GetPlayer(spell.Owner).ManaZone.Add(spell, game);
+                game.GetPlayer(spell.Owner)?.ManaZone.Add(spell, game);
             }
             else
             {
-                game.GetPlayer(spell.Owner).Graveyard.Add(spell, game);
+                game.GetPlayer(spell.Owner)?.Graveyard.Add(spell, game);
 
             }
         }
@@ -222,7 +220,7 @@ namespace DuelMastersModels
         {
             if (Hand.Cards.Any())
             {
-                game.Discard(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] });
+                _ = game.Move(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] }, ZoneType.Hand, ZoneType.Graveyard);
             }
         }
 
@@ -233,7 +231,7 @@ namespace DuelMastersModels
             game.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
         }
 
-        public Zone GetZone(ZoneType zone)
+        internal Zone GetZone(ZoneType zone)
         {
             switch (zone)
             {
@@ -255,6 +253,69 @@ namespace DuelMastersModels
         }
 
         public abstract Player Copy();
+
+        private void ChooseCardsToPayManaCost(Game game, Card toUse)
+        {
+            var manaDecision = Choose(new GuidSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
+            if (HasCivilizations(manaDecision, toUse.Civilizations))
+            {
+                PayManaCostAndUseCard(game, manaDecision, toUse);
+            }
+            else
+            {
+                ChooseCardsToPayManaCost(game, toUse);
+            }
+        }
+
+        private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
+        {
+            foreach (Card mana in manaCards)
+            {
+                mana.Tapped = true;
+            }
+            UseCard(toUse, game);
+        }
+
+        internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
+        {
+            var decision = Choose(new GuidSelection(Id, cards, 0, 1)).Decision;
+            if (decision.Any())
+            {
+                var id = decision.Single();
+                var toUse = cards.Single(x => x.Id == id);
+                var manaCombinations = GetManaCombinations(toUse);
+                if (manaCombinations.Count() > 1)
+                {
+                    ChooseCardsToPayManaCost(game, toUse);
+                }
+                else
+                {
+                    PayManaCostAndUseCard(game, manaCombinations.Single(), toUse);
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        internal void UseCard(Card card, Game game)
+        {
+            game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
+            if (card.CardType == CardType.Creature)
+            {
+                Summon(card, game);
+            }
+            else if (card.CardType == CardType.Spell)
+            {
+                Cast(card, game);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
         #endregion Methods
     }
 }

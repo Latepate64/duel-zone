@@ -14,7 +14,7 @@ namespace DuelMastersCards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return game.BattleZone.Cards.Contains(card);
+            return base.Applies(card, game, player) && game.BattleZone.Cards.Contains(card);
         }
 
         public override CardFilter Copy()

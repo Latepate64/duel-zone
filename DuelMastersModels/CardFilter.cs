@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DuelMastersModels
 {
@@ -9,14 +11,25 @@ namespace DuelMastersModels
         /// </summary>
         public Guid Target { get; set; }
 
-        protected CardFilter() { }
+        public List<Civilization> Civilizations { get; } = new List<Civilization>();
+
+        public CardType CardType { get; set; } = CardType.Any;
 
         protected CardFilter(CardFilter filter)
         {
             Target = filter.Target;
+            Civilizations = filter.Civilizations;
+            CardType = filter.CardType;
         }
 
-        public abstract bool Applies(Card card, Game game, Player player);
+        protected CardFilter()
+        {
+        }
+
+        public virtual bool Applies(Card card, Game game, Player player)
+        {
+            return (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && (CardType == CardType.Any || card.CardType == CardType);
+        }
 
         public abstract CardFilter Copy();
 
