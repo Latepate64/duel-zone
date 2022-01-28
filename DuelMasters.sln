@@ -24,10 +24,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simu
 		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3} = {BEF64FF4-4652-44C7-8850-E5F3F1F835A3}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersCards", "DuelMastersCards\DuelMastersCards.csproj", "{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuelMastersCards", "DuelMastersCards\DuelMastersCards.csproj", "{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8959A481-6D73-445E-B137-F1837D674D39} = {8959A481-6D73-445E-B137-F1837D674D39}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{709C74B8-9C36-4101-ABA6-11069E28F1F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
