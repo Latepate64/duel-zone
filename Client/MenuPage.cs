@@ -1,28 +1,30 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Client
 {
     class MenuPage : TabPage
     {
-        readonly FlowLayoutPanel _panel = new()
+        private readonly FlowLayoutPanel _panel = new()
         {
             Dock = DockStyle.Fill,
             FlowDirection = FlowDirection.TopDown,
         };
 
-        readonly Button _connectButton = new()
+        private readonly Button _connectButton = new()
         {
             Text = "Connect",
         };
 
-        readonly TextBox _userNameBox = new()
+        private readonly TextBox _userNameBox = new()
         {
             PlaceholderText = "Username",
             Text = "Shobu",
             Width = 200,
         };
 
-        TextBox _serverAddress = new()
+        private readonly TextBox _serverAddress = new()
         {
             PlaceholderText = "Server address",
             Text = "127.0.0.1",
@@ -44,20 +46,30 @@ namespace Client
 
         private void SetupPanel()
         {
-            
             _panel.Controls.Add(_userNameBox);
             _panel.Controls.Add(_serverAddress);
             _panel.Controls.Add(_connectButton);
         }
 
-        void Connect(object sender, System.EventArgs e)
+        private void Connect(object sender, EventArgs e)
         {
-            _form1.Client.ConnectAsync(_serverAddress.Text, 11000, this, _userNameBox.Text);
+            try
+            {
+                _form1.Client.Connect(_serverAddress.Text, 11000);
+                Task.Run(() => _form1.Client.ReadLoop(_form1));
+                //_form1.Client.ReadLoop(_form1);
+                //_form1.Client.WriteAsync(_userNameBox.Text);
+                OnConnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        internal void OnConnect()
+        private void OnConnect()
         {
-            _form1.UserName = _userNameBox.Text;
+            _form1.UserName = _userNameBox.Text; // TODO: get name from server
             _connectButton.Text = "Disconnect";
             _connectButton.Click -= Connect;
             _connectButton.Click += EndConnect;
@@ -65,7 +77,7 @@ namespace Client
             _form1.TabControl.SelectedTab = _form1.LobbyPage;
         }
 
-        void EndConnect(object sender, System.EventArgs e)
+        private void EndConnect(object sender, System.EventArgs e)
         {
             _form1.Client.EndConnect();
             if (_form1.TabControl.Controls.Contains(_form1.TablePage))

@@ -7,8 +7,30 @@ namespace Client
     {
         internal readonly Button CreateTableButton = new()
         {
-            Dock = DockStyle.Fill,
             Text = "Create table",
+        };
+
+        internal readonly Button SendMessageButton = new()
+        {
+            Text = "Send",
+        };
+
+        internal readonly TextBox ChatBox = new()
+        {
+            Enabled = false,
+            Height = 500,
+            Multiline = true,
+        };
+
+        internal readonly TextBox SendMessageBox = new()
+        {
+            PlaceholderText = "Type message",
+        };
+
+        private readonly FlowLayoutPanel _panel = new()
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.TopDown,
         };
 
         readonly Form1 _form1;
@@ -20,7 +42,20 @@ namespace Client
             Text = "Lobby";
 
             CreateTableButton.Click += CreateTable;
-            Controls.Add(CreateTableButton);
+            SendMessageButton.Click += SendMessage;
+
+            _panel.Controls.Add(CreateTableButton);
+            _panel.Controls.Add(ChatBox);
+            _panel.Controls.Add(SendMessageBox);
+            _panel.Controls.Add(SendMessageButton);
+
+            Controls.Add(_panel);
+        }
+
+        private void SendMessage(object sender, EventArgs e)
+        {
+            _form1.Client.WriteAsync(SendMessageBox.Text);
+            SendMessageBox.Clear();
         }
 
         void CreateTable(object sender, EventArgs e)

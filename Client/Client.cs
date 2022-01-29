@@ -1,6 +1,8 @@
 ﻿using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using System;
+using System.Windows.Forms;
 
 namespace Client
 {
@@ -9,14 +11,32 @@ namespace Client
         private readonly TcpClient _client = new();
         private const int BufferSize = 256;
 
-        internal async void ConnectAsync(string hostname, int port, MenuPage menuPage, string username)
+        internal void Connect(string hostname, int port)
         {
-            await _client.ConnectAsync(hostname, port);
-            menuPage.OnConnect();
-            WriteAsync(username);
+            _client.Connect(hostname, port);
+        }
+
+        internal async Task ReadLoop(Form1 form)
+        {
             while (_client.Connected)
             {
-                ReadAsync();
+                if (_client.Available > 0)
+                {
+                    //var text = await ReadAsync();
+                    var text = Read();
+                    try
+                    {
+                        //form.LobbyPage.ChatBox.AppendText(text + "\r\n");
+                        form.LobbyPage.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.ChatBox.Text += text; form.LobbyPage.ChatBox.Text += Environment.NewLine; }));
+                        //SetTextCallback d = new SetTextCallback(SetText);
+                        //this.Invoke(d, new object[] { text });
+                        //form.LobbyPage.ChatBox.Invoke(() => AppendText, text + "\r\n");
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+                }
             }
         }
 
@@ -26,19 +46,33 @@ namespace Client
             _client.Close();
         }
 
-        private async void WriteAsync(string text)
+        internal void WriteAsync(string text)
         {
             byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
-            using NetworkStream stream = _client.GetStream();
-            await stream.WriteAsync(bytesToSend);
+            _ = _client.GetStream().WriteAsync(bytesToSend);
         }
 
-        private async void ReadAsync()
+        private async Task<string> ReadAsync()
         {
             byte[] data = new byte[BufferSize];
-            using NetworkStream stream = _client.GetStream();
-            int bytes = await stream.ReadAsync(data.AsMemory(0, data.Length));
-            string str = Encoding.Default.GetString(data);
+            int bytesRead = 0;
+            int chunkSize = 1;
+            NetworkStream stream = _client.GetStream();
+            while (bytesRead < data.Length && chunkSize > 0)
+            {
+                bytesRead += chunkSize = await stream.ReadAsync(data.AsMemory(bytesRead, data.Length - bytesRead));
+            }
+            return Encoding.Default.GetString(data);
+        }
+
+        private string Read()
+        {
+            byte[] data = new byte[BufferSize];
+            int bytesRead = 0;
+            int chunkSize = 1;
+            NetworkStream stream = _client.GetStream();
+            bytesRead = stream.Read(data, 0, data.Length);
+            return Encoding.Default.GetString(data).Trim();
         }
     }
 }

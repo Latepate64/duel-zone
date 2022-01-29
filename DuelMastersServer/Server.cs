@@ -10,11 +10,13 @@ namespace DuelMastersServer
 {
     class Server
     {
-        const int Port = 11000;
-        const string IPAddress = "127.0.0.1";//"192.168.1.3";
+        private const int Port = 11000;
+        private const string IPAddress = "127.0.0.1";//"192.168.1.3";
 
-        List<TcpClient> _clients = new List<TcpClient>();
-        TcpListener _listener;
+        private const int BufferSize = 256;
+
+        private readonly List<TcpClient> _clients = new List<TcpClient>();
+        private TcpListener _listener;
 
         internal async void RunServerAsync()
         {
@@ -25,10 +27,35 @@ namespace DuelMastersServer
                 _listener.Start();
                 while (true)
                 {
-                    await OnConnect(await _listener.AcceptTcpClientAsync());
-                    _clients.RemoveAll(x => !x.Connected);
-                    //await Accept();
+                    OnConnect(await _listener.AcceptTcpClientAsync());
                 }
+
+                //var task1 = _listener.AcceptTcpClientAsync();
+                //var task2 = ReadAsync();
+                //var tasks = new List<Task> { task1, task2 };
+                //while (true)
+                //{
+                //    Task finishedTask = await Task.WhenAny(tasks);
+                //    if (finishedTask == task1)
+                //    {
+                //        OnConnect(task1.Result);
+                //    }
+                //    else if (finishedTask == task2)
+                //    {
+                //        var text = task2.Result;
+                //    }
+                //    else
+                //    {
+                //        throw new NotImplementedException(finishedTask.ToString());
+                //    }
+                //    _clients.RemoveAll(x => !x.Connected);
+                //    //if (_client.Available > 0)
+                //    //{
+                //    //    var text = await ReadAsync();
+                //    //}
+
+                //    //OnConnect(await _listener.AcceptTcpClientAsync());
+                //}
             }
             finally
             {
@@ -36,17 +63,50 @@ namespace DuelMastersServer
             }
         }
 
-        const int packet_length = 256;  // user defined packet length
+        
 
-        async Task OnConnect(TcpClient client)
+        private async Task OnConnect(TcpClient client)
         {
-            Program.WriteConsole($"{client} connected.");
             _clients.Add(client);
-
-            //_listener.
+            var message = $"{client} connected.";
+            BroadcastMessage(message);
+            while (true)
+            {
+                if (client.Available > 0)
+                {
+                    var text = await ReadAsync(client);
+                    BroadcastMessage(text);
+                }
+            }
         }
 
-        async Task Accept2(TcpClient client)
+        private void BroadcastMessage(string text)
+        {
+            Program.WriteConsole(text);
+            foreach (var client in _clients.Where(x => x.Connected))
+            {
+                byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
+                client.GetStream().Write(bytesToSend, 0, bytesToSend.Length);
+                //_ = client.GetStream().WriteAsync(bytesToSend, 0, bytesToSend.Length);
+            }
+        }
+
+        private async Task<string> ReadAsync(TcpClient client)
+        {
+            byte[] data = new byte[BufferSize];
+            int bytesRead = 0;
+            int chunkSize = 1;
+            NetworkStream stream = client.GetStream();
+            //while (bytesRead < data.Length && chunkSize > 0)
+            //{
+            //    //bytesRead += chunkSize = await stream.ReadAsync(data, bytesRead, data.Length - bytesRead);
+            //    bytesRead += chunkSize = stream.Read(data, bytesRead, data.Length - bytesRead);
+            //}
+            bytesRead = stream.Read(data, 0, data.Length);
+            return Encoding.Default.GetString(data).Trim();
+        }
+
+        private async Task Accept2(TcpClient client)
         {
             // https://stackoverflow.com/questions/22190536/accept-tcp-client-async
             await Task.Yield();
@@ -55,9 +115,9 @@ namespace DuelMastersServer
                 using (client)
                 using (NetworkStream stream = client.GetStream())
                 {
-                    byte[] data = new byte[packet_length];
+                    byte[] data = new byte[BufferSize];
                     int bytesRead = 0;
-                    int chunkSize = 256;
+                    int chunkSize = 1;
 
                     while (bytesRead < data.Length && chunkSize > 0)
                     {
