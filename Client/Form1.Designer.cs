@@ -61,6 +61,7 @@ namespace Client
         {
             TabControl.Controls.Remove(LobbyPage);
             TabControl.SelectedTab = _menuPage;
+            LobbyPage.ChatBox.Clear();
         }
         #endregion
     }

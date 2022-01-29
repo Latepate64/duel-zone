@@ -8,12 +8,15 @@ namespace Client
 {
     class Client
     {
-        private readonly TcpClient _client = new();
+        private TcpClient _client;
         private const int BufferSize = 256;
 
         internal void Connect(string hostname, int port)
         {
-            _client.Connect(hostname, port);
+            //_client.Connect(hostname, port);
+            _client = new(hostname, port);
+            //_client = new();
+            //_client.BeginConnect()
         }
 
         internal async Task ReadLoop(Form1 form)
@@ -24,25 +27,20 @@ namespace Client
                 {
                     //var text = await ReadAsync();
                     var text = Read();
-                    try
-                    {
-                        //form.LobbyPage.ChatBox.AppendText(text + "\r\n");
-                        form.LobbyPage.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.ChatBox.Text += text; form.LobbyPage.ChatBox.Text += Environment.NewLine; }));
-                        //SetTextCallback d = new SetTextCallback(SetText);
-                        //this.Invoke(d, new object[] { text });
-                        //form.LobbyPage.ChatBox.Invoke(() => AppendText, text + "\r\n");
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
+                    //form.LobbyPage.ChatBox.AppendText(text + "\r\n");
+                    form.LobbyPage.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.ChatBox.Text += text; form.LobbyPage.ChatBox.Text += Environment.NewLine; }));
+                    //SetTextCallback d = new SetTextCallback(SetText);
+                    //this.Invoke(d, new object[] { text });
+                    //form.LobbyPage.ChatBox.Invoke(() => AppendText, text + "\r\n");
                 }
             }
         }
 
         internal void EndConnect()
         {
-            _client.EndConnect(null);
+            //_client.EndConnect(null);
+            //_client.EndConnect()
+            _client.GetStream().Close();
             _client.Close();
         }
 
@@ -72,7 +70,7 @@ namespace Client
             int chunkSize = 1;
             NetworkStream stream = _client.GetStream();
             bytesRead = stream.Read(data, 0, data.Length);
-            return Encoding.Default.GetString(data).Trim();
+            return Encoding.Default.GetString(data, 0, bytesRead).Trim();
         }
     }
 }

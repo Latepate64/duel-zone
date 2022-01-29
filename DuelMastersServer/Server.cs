@@ -27,7 +27,12 @@ namespace DuelMastersServer
                 _listener.Start();
                 while (true)
                 {
-                    OnConnect(await _listener.AcceptTcpClientAsync());
+                    var client = await _listener.AcceptTcpClientAsync();
+                    _clients.Add(client);
+                    BroadcastMessage($"{client} connected.");
+                    Task.Run(() => Foo(client));
+
+                    //OnConnect(await _listener.AcceptTcpClientAsync());
                 }
 
                 //var task1 = _listener.AcceptTcpClientAsync();
@@ -63,31 +68,44 @@ namespace DuelMastersServer
             }
         }
 
-        
+        private async Task Foo(TcpClient client)
+        {
+            while (!client.Client.Poll(1000, SelectMode.SelectRead) || client.Available > 0) // TODO: Connected does not work
+            {
+
+                if (client.Available > 0)
+                {
+                    BroadcastMessage(await ReadAsync(client));
+                }
+            }
+            _clients.Remove(client);
+            BroadcastMessage($"{client} disconnected.");
+        }
 
         private async Task OnConnect(TcpClient client)
         {
             _clients.Add(client);
-            var message = $"{client} connected.";
-            BroadcastMessage(message);
-            while (true)
+            BroadcastMessage($"{client} connected.");
+            while (client.Connected)
             {
                 if (client.Available > 0)
                 {
-                    var text = await ReadAsync(client);
-                    BroadcastMessage(text);
+                    BroadcastMessage(await ReadAsync(client));
                 }
             }
+            _clients.Remove(client);
         }
 
         private void BroadcastMessage(string text)
         {
             Program.WriteConsole(text);
-            foreach (var client in _clients.Where(x => x.Connected))
+            foreach (var client in _clients)
             {
                 byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
-                client.GetStream().Write(bytesToSend, 0, bytesToSend.Length);
-                //_ = client.GetStream().WriteAsync(bytesToSend, 0, bytesToSend.Length);
+                if (client.Connected)
+                {
+                    client.GetStream().Write(bytesToSend, 0, bytesToSend.Length);
+                }
             }
         }
 
@@ -103,7 +121,7 @@ namespace DuelMastersServer
             //    bytesRead += chunkSize = stream.Read(data, bytesRead, data.Length - bytesRead);
             //}
             bytesRead = stream.Read(data, 0, data.Length);
-            return Encoding.Default.GetString(data).Trim();
+            return Encoding.Default.GetString(data, 0, bytesRead);
         }
 
         private async Task Accept2(TcpClient client)
