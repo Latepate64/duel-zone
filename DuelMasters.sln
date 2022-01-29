@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuelMastersCards", "DuelMas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{709C74B8-9C36-4101-ABA6-11069E28F1F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B755B28D-7811-43A2-9DCF-7718798A4E88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{709C74B8-9C36-4101-ABA6-11069E28F1F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B755B28D-7811-43A2-9DCF-7718798A4E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B755B28D-7811-43A2-9DCF-7718798A4E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B755B28D-7811-43A2-9DCF-7718798A4E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B755B28D-7811-43A2-9DCF-7718798A4E88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

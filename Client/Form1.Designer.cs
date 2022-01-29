@@ -35,6 +35,7 @@ namespace Client
         internal LobbyPage LobbyPage;
         internal TablePage TablePage;
         internal GameSetupForm GameSetupForm = new GameSetupForm();
+        internal Client Client = new();
 
         internal string UserName;
 

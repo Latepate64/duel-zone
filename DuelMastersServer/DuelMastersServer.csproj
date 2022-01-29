@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Server.cs" />
     <Compile Include="XMLMessages\AcceptChallengeRequest.cs" />
     <Compile Include="XMLMessages\AcceptChallengeResponse.cs" />
     <Compile Include="XMLMessages\BroadcastMessage.cs" />

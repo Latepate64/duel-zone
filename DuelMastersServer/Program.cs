@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using DuelMastersServer.XMLMessages;
 
 namespace DuelMastersServer
@@ -20,23 +21,29 @@ namespace DuelMastersServer
     class Program
     {
         const int Port = 11000;
-        const string IPAddress = "192.168.1.3";
+        const string IPAddress = "127.0.0.1";//"192.168.1.3";
 
         static List<ClientInformation> _clients = new List<ClientInformation>();
+        static Server _server;
 
         static void Main(string[] args)
         {
             WriteConsole("Started server.");
-            IPAddress ipAddress = System.Net.IPAddress.Parse(IPAddress);
-            Socket serverSocket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            serverSocket.Bind(new IPEndPoint(ipAddress, Port));
-            serverSocket.Listen(100);
-            WriteConsole(string.Format("Server is running on {0} on port {1}.", ipAddress, Port));
-            BeginAccept(serverSocket);
+            _server = new Server();
+            _server.RunServerAsync();
             while (true) { }
+
+            //TcpClient client = 
+
+            //Socket serverSocket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            //serverSocket.Bind(new IPEndPoint(ipAddress, Port));
+            //serverSocket.Listen(100);
+            //WriteConsole(string.Format("Server is running on {0} on port {1}.", ipAddress, Port));
+            //BeginAccept(serverSocket);
+            //
         }
 
-        static void WriteConsole(string text)
+        internal static void WriteConsole(string text)
         {
             Console.Write(string.Format("[{0}] {1}\r\n", DateTime.Now, text));
         }
