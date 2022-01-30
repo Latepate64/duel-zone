@@ -1,10 +1,10 @@
-using DuelMastersCards.TriggeredAbilities;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Durations;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     public class BombazarDragonOfDestinyEffect : OneShotEffect
     {

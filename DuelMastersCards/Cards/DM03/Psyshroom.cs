@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM03
+namespace Cards.Cards.DM03
 {
     class Psyshroom : Creature
     {

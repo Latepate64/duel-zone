@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Durations;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class CreepingPlagueEffect : OneShotEffect
     {

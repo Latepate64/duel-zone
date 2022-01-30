@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace Cards.TriggeredAbilities
 {
     public abstract class CardChangesZoneAbility : TriggeredAbility
     {

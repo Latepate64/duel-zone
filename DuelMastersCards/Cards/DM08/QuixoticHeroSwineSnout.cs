@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM08
+namespace Cards.Cards.DM08
 {
     public class QuixoticHeroSwineSnout : Creature
     {

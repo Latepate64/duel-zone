@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM02
+namespace Cards.Cards.DM02
 {
     public class BurstShot : Spell
     {

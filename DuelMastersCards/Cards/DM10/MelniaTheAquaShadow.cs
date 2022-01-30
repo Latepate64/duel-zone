@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class MelniaTheAquaShadow : Creature
     {

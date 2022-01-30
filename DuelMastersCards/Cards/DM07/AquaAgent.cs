@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM07
+namespace Cards.Cards.DM07
 {
     public class AquaAgent : Creature
     {

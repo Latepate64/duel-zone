@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class GontaTheWarriorSavage : Creature
     {

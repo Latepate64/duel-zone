@@ -5,7 +5,7 @@ using DuelMastersModels.GameEvents;
 using DuelMastersModels.Zones;
 using System.Linq;
 
-namespace DuelMastersCards.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     class CannonShellEffect : CharacteristicModifyingEffect
     {

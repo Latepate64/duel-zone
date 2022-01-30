@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class Soulswap : Spell
     {

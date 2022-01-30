@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using System.Linq;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     public class PalaOlesisFilter : CardFilter
     {

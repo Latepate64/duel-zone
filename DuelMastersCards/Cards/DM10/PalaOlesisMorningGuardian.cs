@@ -1,11 +1,11 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class PalaOlesisMorningGuardian : Creature
     {

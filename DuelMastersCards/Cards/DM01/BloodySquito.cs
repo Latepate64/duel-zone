@@ -1,11 +1,11 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.StaticAbilities;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
+using Cards.StaticAbilities;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     class BloodySquito : Creature
     {

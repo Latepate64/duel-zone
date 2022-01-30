@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM08
+namespace Cards.Cards.DM08
 {
     public class CraniumClamp : Spell
     {

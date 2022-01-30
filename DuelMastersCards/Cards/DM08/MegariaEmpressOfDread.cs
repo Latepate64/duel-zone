@@ -1,11 +1,11 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 
-namespace DuelMastersCards.Cards.DM08
+namespace Cards.Cards.DM08
 {
     class MegariaEmpressOfDread : Creature
     {

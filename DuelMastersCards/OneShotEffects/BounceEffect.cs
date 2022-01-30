@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     /// <summary>
     /// Choose up to X creatures in the battle zone and return them to their owners' hands.

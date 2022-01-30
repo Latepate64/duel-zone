@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class SupersonicJetPack : Spell
     {

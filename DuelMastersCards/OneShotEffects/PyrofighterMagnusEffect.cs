@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     public class PyrofighterMagnusEffect : OneShotEffect
     {

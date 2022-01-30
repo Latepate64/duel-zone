@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     class StampedingLonghorn : Creature
     {

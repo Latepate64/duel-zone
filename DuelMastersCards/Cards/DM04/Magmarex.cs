@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM04
+namespace Cards.Cards.DM04
 {
     public class Magmarex : Creature
     {

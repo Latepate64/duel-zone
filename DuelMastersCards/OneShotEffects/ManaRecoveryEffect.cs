@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class ManaRecoveryEffect : CardMovingChoiceEffect
     {

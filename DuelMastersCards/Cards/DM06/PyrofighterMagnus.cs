@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.StaticAbilities;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.StaticAbilities;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM06
+namespace Cards.Cards.DM06
 {
     public class PyrofighterMagnus : Creature
     {

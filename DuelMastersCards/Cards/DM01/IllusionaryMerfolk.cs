@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     class IllusionaryMerfolk : Creature
     {

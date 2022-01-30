@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     class Tropico : Creature
     {

@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace Cards.TriggeredAbilities
 {
     class IllusionaryMerfolkAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {

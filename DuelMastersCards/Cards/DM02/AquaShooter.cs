@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM02
+namespace Cards.Cards.DM02
 {
     public class AquaShooter : Creature
     {

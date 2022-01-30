@@ -2,7 +2,7 @@
 using DuelMastersModels.ContinuousEffects;
 using System.Linq;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableCreatureFilter : OpponentsBattleZoneCreatureFilter
     {

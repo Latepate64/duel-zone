@@ -1,12 +1,12 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class AuraBlastEffect : OneShotEffect
     {

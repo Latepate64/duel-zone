@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM03
+namespace Cards.Cards.DM03
 {
     public class ExplosiveDudeJoe : Creature
     {

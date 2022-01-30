@@ -1,11 +1,11 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class CreateContinuousEffectChoiceEffect : CardSelectionEffect
     {

@@ -3,7 +3,7 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     public class ControllerMayUntapCreatureEffect : OneShotEffect
     {

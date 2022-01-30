@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class TapChoiceEffect : CardSelectionEffect
     {

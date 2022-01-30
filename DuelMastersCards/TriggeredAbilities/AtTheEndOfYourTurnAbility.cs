@@ -3,7 +3,7 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
 using System.Linq;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace Cards.TriggeredAbilities
 {
     public class AtTheEndOfYourTurnAbility : TriggeredAbility
     {

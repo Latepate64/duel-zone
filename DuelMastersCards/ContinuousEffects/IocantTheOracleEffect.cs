@@ -1,11 +1,11 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System.Linq;
 
-namespace DuelMastersCards.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     /// <summary>
     /// While you have at least 1 Angel Command in the battle zone, this creature gets +2000 power.

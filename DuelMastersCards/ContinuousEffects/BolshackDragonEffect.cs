@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 using System.Linq;
 
-namespace DuelMastersCards.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     public class BolshackDragonEffect : PowerAttackerEffect
     {

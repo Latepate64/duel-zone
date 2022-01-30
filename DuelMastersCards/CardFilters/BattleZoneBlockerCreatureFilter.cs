@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 using System.Linq;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     class BattleZoneBlockerCreatureFilter : BattleZoneCreatureFilter
     {

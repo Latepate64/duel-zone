@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM02
+namespace Cards.Cards.DM02
 {
     class CavalryGeneralCuratops : Creature
     {

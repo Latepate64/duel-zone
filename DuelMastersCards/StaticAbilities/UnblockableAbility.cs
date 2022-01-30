@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 using DuelMastersModels.Durations;
 
-namespace DuelMastersCards.StaticAbilities
+namespace Cards.StaticAbilities
 {
     public class UnblockableAbility : StaticAbility
     {

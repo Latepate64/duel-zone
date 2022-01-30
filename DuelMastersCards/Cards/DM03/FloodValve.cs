@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM03
+namespace Cards.Cards.DM03
 {
     class FloodValve : Spell
     {

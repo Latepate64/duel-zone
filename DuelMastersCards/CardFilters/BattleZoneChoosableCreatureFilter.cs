@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     public class BattleZoneChoosableCreatureFilter : CardFilter
     {

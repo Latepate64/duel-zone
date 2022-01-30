@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM08
+namespace Cards.Cards.DM08
 {
     public class ProwlingElephish : Creature
     {

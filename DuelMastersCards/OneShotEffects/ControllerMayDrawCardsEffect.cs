@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     public class ControllerMayDrawCardsEffect : OneShotEffect
     {

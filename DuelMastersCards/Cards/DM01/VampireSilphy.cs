@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Zones;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     public class VampireSilphy : Creature
     {

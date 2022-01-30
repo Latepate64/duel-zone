@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM02
+namespace Cards.Cards.DM02
 {
     class RumblingTerahorn : Creature
     {

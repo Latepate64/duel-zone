@@ -3,7 +3,7 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Zones;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class CardMovingChoiceEffect : CardSelectionEffect
     {

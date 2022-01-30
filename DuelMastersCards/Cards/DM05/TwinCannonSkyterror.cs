@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM05
+namespace Cards.Cards.DM05
 {
     public class TwinCannonSkyterror : Creature
     {

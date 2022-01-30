@@ -84,7 +84,7 @@ namespace Server
 
         private static List<DuelMastersModels.Card> GetCards(Guid player)
         {
-            List<DuelMastersModels.Card> cards = DuelMastersCards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            List<DuelMastersModels.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
             foreach (var card in cards)
             {
                 card.Owner = player;

@@ -4,7 +4,7 @@ using DuelMastersModels.Choices;
 using DuelMastersModels.Zones;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class GigaberosEffect : OneShotEffect
     {

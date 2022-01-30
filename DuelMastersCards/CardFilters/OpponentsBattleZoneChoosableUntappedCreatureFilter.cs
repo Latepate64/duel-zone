@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableUntappedCreatureFilter : OpponentsBattleZoneChoosableCreatureFilter
     {

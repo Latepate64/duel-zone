@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM04
+namespace Cards.Cards.DM04
 {
     public class Locomotiver : Creature
     {

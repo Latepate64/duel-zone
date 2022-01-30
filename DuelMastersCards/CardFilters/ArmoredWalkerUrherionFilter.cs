@@ -2,7 +2,7 @@
 using DuelMastersModels.Steps;
 using System.Linq;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     class ArmoredWalkerUrherionFilter : TargetFilter
     {

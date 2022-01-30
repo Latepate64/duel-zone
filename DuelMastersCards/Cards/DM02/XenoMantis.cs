@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM02
+namespace Cards.Cards.DM02
 {
     class XenoMantis : Creature
     {

@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\DuelMastersCards\DuelMastersCards.csproj" />
+    <ProjectReference Include="..\DuelMastersCards\Cards.csproj" />
     <ProjectReference Include="..\DuelMastersModels\DuelMastersModels.csproj" />
   </ItemGroup>
 

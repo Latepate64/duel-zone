@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM06
+namespace Cards.Cards.DM06
 {
     public class SpasticMissile : Spell
     {

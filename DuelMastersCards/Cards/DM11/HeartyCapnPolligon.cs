@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM11
+namespace Cards.Cards.DM11
 {
     public class HeartyCapnPolligon : Creature
     {

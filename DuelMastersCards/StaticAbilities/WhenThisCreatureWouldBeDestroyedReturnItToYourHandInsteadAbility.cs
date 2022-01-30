@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -8,7 +8,7 @@ using DuelMastersModels.GameEvents;
 using System;
 using System.Linq;
 
-namespace DuelMastersCards.StaticAbilities
+namespace Cards.StaticAbilities
 {
     public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility : StaticAbility
     {

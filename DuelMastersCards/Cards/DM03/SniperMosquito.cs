@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM03
+namespace Cards.Cards.DM03
 {
     public class SniperMosquito : Creature
     {

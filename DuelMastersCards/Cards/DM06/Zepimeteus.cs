@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM06
+namespace Cards.Cards.DM06
 {
     public class Zepimeteus : Creature
     {

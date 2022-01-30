@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards.StaticAbilities
+namespace Cards.StaticAbilities
 {
     internal class PetrovaAbility : StaticAbility
     {

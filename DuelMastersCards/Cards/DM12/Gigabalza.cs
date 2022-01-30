@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM12
+namespace Cards.Cards.DM12
 {
     public class Gigabalza : Creature
     {

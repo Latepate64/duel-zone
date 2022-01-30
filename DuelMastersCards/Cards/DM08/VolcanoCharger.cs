@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.OneShotEffects;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM08
+namespace Cards.Cards.DM08
 {
     public class VolcanoCharger : Spell
     {

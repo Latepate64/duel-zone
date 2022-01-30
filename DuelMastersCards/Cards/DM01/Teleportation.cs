@@ -1,8 +1,8 @@
-﻿using DuelMastersCards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     public class Teleportation : Spell
     {

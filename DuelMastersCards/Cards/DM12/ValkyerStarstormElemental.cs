@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM12
+namespace Cards.Cards.DM12
 {
     public class ValkyerStarstormElemental : Creature
     {

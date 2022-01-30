@@ -1,10 +1,10 @@
-﻿using DuelMastersCards.CardFilters;
-using DuelMastersCards.ContinuousEffects;
-using DuelMastersCards.StaticAbilities;
+﻿using Cards.CardFilters;
+using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     public class BolshackDragon : Creature
     {

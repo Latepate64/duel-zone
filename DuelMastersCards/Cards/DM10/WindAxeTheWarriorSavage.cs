@@ -1,9 +1,9 @@
-﻿using DuelMastersCards.OneShotEffects;
-using DuelMastersCards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using DuelMastersModels;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.Cards.DM10
+namespace Cards.Cards.DM10
 {
     public class WindAxeTheWarriorSavage : Creature
     {

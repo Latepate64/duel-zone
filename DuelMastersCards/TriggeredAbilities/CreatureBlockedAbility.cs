@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.GameEvents;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace Cards.TriggeredAbilities
 {
     class CreatureBlockedAbility : TriggeredAbility
     {

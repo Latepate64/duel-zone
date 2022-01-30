@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.Choices;
@@ -7,7 +7,7 @@ using DuelMastersModels.Durations;
 using DuelMastersModels.GameEvents;
 using System;
 
-namespace DuelMastersCards.StaticAbilities
+namespace Cards.StaticAbilities
 {
     public class AquaAgentAbility : StaticAbility
     {

@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class HolyAweEffect : OneShotEffect
     {

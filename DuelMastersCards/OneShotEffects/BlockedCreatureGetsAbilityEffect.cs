@@ -1,4 +1,4 @@
-﻿using DuelMastersCards.CardFilters;
+﻿using Cards.CardFilters;
 using DuelMastersModels;
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
@@ -6,7 +6,7 @@ using DuelMastersModels.Durations;
 using DuelMastersModels.Steps;
 using System.Collections.Generic;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class BlockedCreatureGetsAbilityEffect : OneShotEffect
     {

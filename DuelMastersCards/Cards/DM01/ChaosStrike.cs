@@ -2,7 +2,7 @@
 using DuelMastersModels.Abilities;
 using DuelMastersModels.ContinuousEffects;
 
-namespace DuelMastersCards.Cards.DM01
+namespace Cards.Cards.DM01
 {
     class ChaosStrike : Spell
     {

@@ -1,4 +1,4 @@
-﻿using DuelMastersCards;
+﻿using Cards;
 using DuelMastersModels;
 using DuelMastersModels.GameEvents;
 using System;

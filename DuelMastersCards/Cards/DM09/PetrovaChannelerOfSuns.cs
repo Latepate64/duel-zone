@@ -1,7 +1,7 @@
-﻿using DuelMastersCards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM09
+namespace Cards.Cards.DM09
 {
     public class PetrovaChannelerOfSuns : Creature
     {

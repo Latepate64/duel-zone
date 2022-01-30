@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Steps;
 
-namespace DuelMastersCards.CardFilters
+namespace Cards.CardFilters
 {
     public class AttackingCreatureFilter : CardFilter
     {

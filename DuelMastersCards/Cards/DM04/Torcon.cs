@@ -1,6 +1,6 @@
 ﻿using DuelMastersModels;
 
-namespace DuelMastersCards.Cards.DM04
+namespace Cards.Cards.DM04
 {
     public class Torcon : Creature
     {

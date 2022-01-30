@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersCards
+namespace Cards
 {
     public abstract class Creature : Card
     {

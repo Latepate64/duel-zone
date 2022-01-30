@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simu
 		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3} = {BEF64FF4-4652-44C7-8850-E5F3F1F835A3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuelMastersCards", "DuelMastersCards\DuelMastersCards.csproj", "{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cards", "DuelMastersCards\Cards.csproj", "{BEF64FF4-4652-44C7-8850-E5F3F1F835A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8959A481-6D73-445E-B137-F1837D674D39} = {8959A481-6D73-445E-B137-F1837D674D39}
 	EndProjectSection

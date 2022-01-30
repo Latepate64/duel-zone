@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using System.Collections.Generic;
 
-namespace DuelMastersCards
+namespace Cards
 {
     public abstract class Spell : Card
     {

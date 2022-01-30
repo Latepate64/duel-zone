@@ -3,7 +3,7 @@ using DuelMastersModels.Abilities;
 using DuelMastersModels.Zones;
 using System.Linq;
 
-namespace DuelMastersCards.OneShotEffects
+namespace Cards.OneShotEffects
 {
     class CardMovingAreaOfEffect : OneShotEffect
     {

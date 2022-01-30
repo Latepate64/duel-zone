@@ -1,7 +1,7 @@
 ﻿using DuelMastersModels;
 using DuelMastersModels.Abilities;
 
-namespace DuelMastersCards.TriggeredAbilities
+namespace Cards.TriggeredAbilities
 {
     public class HeartyCapnPolligonEffect : OneShotEffect
     {
