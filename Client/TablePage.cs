@@ -23,22 +23,22 @@ namespace Client
 
         const int Offset = 80;
 
-        readonly ZonePanel _opponentHand = new("Opponent's hand", 0, Color.LightBlue);
-        readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", 1 * Offset, Color.LightGreen);
-        readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", 2 * Offset, Color.LightYellow);
-        readonly ZonePanel _opponentDeck = new("Opponent's deck", 3 * Offset, Color.SandyBrown);
-        readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", 4 * Offset, Color.Gray);
-        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", 5 * Offset, Color.PaleVioletRed);
+        readonly ZonePanel _opponentHand = new("Opponent's hand", Color.LightBlue);
+        readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", Color.LightGreen);
+        readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow);
+        readonly ZonePanel _opponentDeck = new("Opponent's deck", Color.SandyBrown);
+        readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", Color.Gray);
+        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed) { Top = 0, Visible = true };
 
-        readonly ZonePanel _playerBattleZone = new("Your battle zone", 6 * Offset, Color.PaleVioletRed);
-        readonly ZonePanel _playerGraveyard = new("Your graveyard", 7 * Offset, Color.Gray);
-        readonly ZonePanel _playerDeck = new("Your deck", 8 * Offset, Color.SandyBrown);
-        readonly ZonePanel _playerShieldZone = new("Your shield zone", 9 * Offset, Color.LightYellow);
-        readonly ZonePanel _playerManaZone = new("Your mana zone", 10 * Offset, Color.LightGreen);
-        readonly ZonePanel _playerHand = new("Your hand", 11 * Offset, Color.LightBlue);
+        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed) { Top = ZonePanel.DefaultHeight + 10, Visible = true };
+        readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray);
+        readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown);
+        readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow);
+        readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen);
+        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue) { Top = 2 * (ZonePanel.DefaultHeight + 10), Visible = true };
 
-        readonly PlayerPanel _opponentPanel = new("Opponent", 0);
-        readonly PlayerPanel _playerPanel = new("You", 300);
+        readonly PlayerPanel _opponentPanel;
+        readonly PlayerPanel _playerPanel;
 
         readonly Form1 _form1;
 
@@ -49,12 +49,34 @@ namespace Client
             Dock = DockStyle.Fill;
             Text = "Table";
 
+            _opponentPanel = new("Opponent", 0);
+            _playerPanel = new("You", 300);
+
+            Foo(_playerPanel._battleZone, _playerBattleZone);
+            Foo(_playerPanel._deck, _playerDeck);
+            Foo(_playerPanel._graveyard, _playerGraveyard);
+            Foo(_playerPanel._hand, _playerHand);
+            Foo(_playerPanel._manaZone, _playerManaZone);
+            Foo(_playerPanel._shieldZone, _playerShieldZone);
+
+            Foo(_opponentPanel._battleZone, _opponentBattleZone);
+            Foo(_opponentPanel._deck, _opponentDeck);
+            Foo(_opponentPanel._graveyard, _opponentGraveyard);
+            Foo(_opponentPanel._hand, _opponentHand);
+            Foo(_opponentPanel._manaZone, _opponentManaZone);
+            Foo(_opponentPanel._shieldZone, _opponentShieldZone);
+
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
             AddControls();
 
             //TODO test
             _playerHand.Controls.Add(new CardPanel("Aqua Vehicle"));
+        }
+
+        private void Foo(Control button, Control control)
+        {
+            button.Click += (object sender, EventArgs e) => control.Visible = !control.Visible;
         }
 
         private void AddControls()

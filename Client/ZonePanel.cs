@@ -5,16 +5,17 @@ namespace Client
 {
     class ZonePanel : FlowLayoutPanel
     {
+        internal const int DefaultHeight = 250;
         private Point MouseDownLocation;
 
-        public ZonePanel(string name, int top, Color color)
+        public ZonePanel(string name, Color color)
         {
-            Left = 50;
-            Top = top;
-            Height = 75;
+            Left = 270;
+            Height = DefaultHeight;
             Width = 1000;
             BackColor = color;
             AutoScroll = true;
+            Visible = false;
 
             new ToolTip().SetToolTip(this, name);
 
