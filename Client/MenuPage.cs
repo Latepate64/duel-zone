@@ -68,7 +68,6 @@ namespace Client
 
         private void OnConnect()
         {
-            _form1.UserName = _userNameBox.Text; // TODO: get name from server
             _connectButton.Text = "Disconnect";
             _connectButton.Click -= Connect;
             _connectButton.Click += EndConnect;

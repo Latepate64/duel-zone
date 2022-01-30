@@ -18,6 +18,8 @@ namespace Server
         private readonly List<TcpClient> _clients = new List<TcpClient>();
         private TcpListener _listener;
 
+        private DuelMastersModels.Game _game;
+
         internal async void RunServerAsync()
         {
             IPAddress ipAddress = System.Net.IPAddress.Parse(IPAddress);
@@ -49,12 +51,45 @@ namespace Server
                 if (client.Available > 0)
                 {
                     var text = await ReadAsync(client);
-                    Program.WriteConsole(Common.Helper.ObjectToText(Common.Serializer.Deserialize(text), client));
+                    var obj = Common.Serializer.Deserialize(text);
+                    if (obj is Common.StartGame startGame)
+                    {
+                        _game = new();
+                        var player1 = new HumanPlayer();
+                        var player2 = new ComputerPlayer();
+                        SetupPlayer(player1);
+                        SetupPlayer(player2);
+                        try
+                        {
+                            _game.Play(player1, player2);
+                        }
+                        catch (Exception e)
+                        {
+                            Program.WriteConsole(e.ToString());
+                        }
+                    }
+                    Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
                     BroadcastMessage(text);
                 }
             }
             _clients.Remove(client);
             BroadcastMessage($"{client} disconnected.");
+        }
+
+        private static void SetupPlayer(DuelMastersModels.Player player)
+        {
+            var cards = GetCards(player.Id);
+            player.Deck = new DuelMastersModels.Zones.Deck(cards);
+        }
+
+        private static List<DuelMastersModels.Card> GetCards(Guid player)
+        {
+            List<DuelMastersModels.Card> cards = DuelMastersCards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            foreach (var card in cards)
+            {
+                card.Owner = player;
+            }
+            return cards;
         }
 
         private void BroadcastMessage(string text)

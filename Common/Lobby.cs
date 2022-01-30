@@ -4,6 +4,6 @@ namespace Common
 {
     public class Lobby
     {
-        public List<Table> Tables { get; set; }
+        public List<CreateTable> Tables { get; set; }
     }
 }

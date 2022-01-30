@@ -7,13 +7,18 @@ namespace Client
     {
         readonly Button _exitTableButton = new()
         {
-            Dock = DockStyle.Fill,
             Text = "Exit table",
+            Width = 200,
         };
         readonly Button _gameSetupButton = new()
         {
-            Dock = DockStyle.Fill,
             Text = "Setup game",
+            Width = 200,
+        };
+        readonly FlowLayoutPanel _panel = new()
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.LeftToRight,
         };
 
         readonly Form1 _form1;
@@ -26,10 +31,12 @@ namespace Client
             Text = "Table";
 
             _gameSetupButton.Click += SetupGame;
-            Controls.Add(_gameSetupButton);
-
             _exitTableButton.Click += ExitTable;
-            Controls.Add(_exitTableButton);
+
+            _panel.Controls.Add(_gameSetupButton);
+            _panel.Controls.Add(_exitTableButton);
+
+            Controls.Add(_panel);
         }
 
         private void SetupGame(object sender, EventArgs e)
@@ -40,9 +47,19 @@ namespace Client
 
         internal void ExitTable(object sender, EventArgs e)
         {
-            _form1.LobbyPage.CreateTableButton.Enabled = true;
-            _form1.TabControl.Controls.Remove(_form1.TablePage);
-            _form1.TabControl.SelectedTab = _form1.LobbyPage;
+            _form1.Client.WriteAsync(new Common.LeaveTable());
+        }
+
+        internal void OnExitTable()
+        {
+            _form1.LobbyPage.Panel.CreateTableButton.Invoke(new MethodInvoker(delegate { _form1.LobbyPage.Panel.CreateTableButton.Enabled = true; }));
+            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.Controls.Remove(_form1.TablePage); }));
+            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.SelectedTab = _form1.LobbyPage; }));
+        }
+
+        internal void OnStartGame()
+        {
+            // TODO
         }
     }
 }

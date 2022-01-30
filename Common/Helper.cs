@@ -19,6 +19,14 @@ namespace Common
             {
                 return $"{client.Client.RemoteEndPoint}: {message.Text}";
             }
+            else if (obj is CreateTable)
+            {
+                return $"{client.Client.RemoteEndPoint} created table.";
+            }
+            else if (obj is LeaveTable)
+            {
+                return $"{client.Client.RemoteEndPoint} left table.";
+            }
             else
             {
                 throw new NotImplementedException();

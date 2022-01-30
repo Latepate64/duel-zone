@@ -25,21 +25,30 @@ namespace Client
             {
                 if (_client.Available > 0)
                 {
-                    //var text = await ReadAsync();
-                    var text = Read();
-                    //form.LobbyPage.ChatBox.AppendText(text + "\r\n");
-                    form.LobbyPage.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.ChatBox.Text += text; form.LobbyPage.ChatBox.Text += Environment.NewLine; }));
-                    //SetTextCallback d = new SetTextCallback(SetText);
-                    //this.Invoke(d, new object[] { text });
-                    //form.LobbyPage.ChatBox.Invoke(() => AppendText, text + "\r\n");
+                    var obj = Read();
+                    if (obj is Common.CreateTable)
+                    {
+                        form.LobbyPage.Panel.OnCreateTable();
+                    }
+                    else if (obj is Common.LeaveTable)
+                    {
+                        form.TablePage.OnExitTable();
+                    }
+                    else if (obj is Common.ClientName name)
+                    {
+                        form.UserName = name.Name;
+                    }
+                    else if (obj is Common.StartGame)
+                    {
+                        form.TablePage.OnStartGame();
+                    }
+                    form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
                 }
             }
         }
 
         internal void EndConnect()
         {
-            //_client.EndConnect(null);
-            //_client.EndConnect()
             _client.GetStream().Close();
             _client.Close();
         }
@@ -47,7 +56,10 @@ namespace Client
         internal void WriteAsync(object obj)
         {
             byte[] bytesToSend = Encoding.ASCII.GetBytes(Common.Serializer.Serialize(obj));
-            _ = _client.GetStream().WriteAsync(bytesToSend);
+            if (_client.Connected)
+            {
+                _ = _client.GetStream().WriteAsync(bytesToSend);
+            }
         }
 
         private async Task<string> ReadAsync()
@@ -63,12 +75,12 @@ namespace Client
             return Encoding.Default.GetString(data);
         }
 
-        private string Read()
+        private object Read()
         {
             byte[] data = new byte[BufferSize];
             var bytesRead = _client.GetStream().Read(data, 0, data.Length);
             var text = Encoding.Default.GetString(data, 0, bytesRead).Trim();
-            return Common.Helper.ObjectToText(Common.Serializer.Deserialize(text), _client);
+            return Common.Serializer.Deserialize(text);
         }
     }
 }

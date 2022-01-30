@@ -5,9 +5,23 @@ namespace Client
 {
     class LobbyPage : TabPage
     {
+        internal readonly LobbyPanel Panel;
+
+        public LobbyPage(Form1 form1)
+        {
+            Panel = new(form1);
+            Dock = DockStyle.Fill;
+            Text = "Lobby";
+            Controls.Add(Panel);
+        }
+    }
+
+    class LobbyPanel : FlowLayoutPanel
+    {
         internal readonly Button CreateTableButton = new()
         {
             Text = "Create table",
+            Width = 300,
         };
 
         internal readonly Button SendMessageButton = new()
@@ -18,8 +32,9 @@ namespace Client
         internal readonly TextBox ChatBox = new()
         {
             Enabled = false,
-            Height = 500,
+            Height = 1000,
             Multiline = true,
+            ScrollBars = ScrollBars.Vertical,
         };
 
         internal readonly TextBox SendMessageBox = new()
@@ -27,29 +42,22 @@ namespace Client
             PlaceholderText = "Type message",
         };
 
-        private readonly FlowLayoutPanel _panel = new()
-        {
-            Dock = DockStyle.Fill,
-            FlowDirection = FlowDirection.TopDown,
-        };
-
         readonly Form1 _form1;
 
-        public LobbyPage(Form1 form1)
+        public LobbyPanel(Form1 form1)
         {
             _form1 = form1;
+
             Dock = DockStyle.Fill;
-            Text = "Lobby";
+            FlowDirection = FlowDirection.LeftToRight;
 
             CreateTableButton.Click += CreateTable;
             SendMessageButton.Click += SendMessage;
 
-            _panel.Controls.Add(CreateTableButton);
-            _panel.Controls.Add(ChatBox);
-            _panel.Controls.Add(SendMessageBox);
-            _panel.Controls.Add(SendMessageButton);
-
-            Controls.Add(_panel);
+            Controls.Add(CreateTableButton);
+            Controls.Add(ChatBox);
+            Controls.Add(SendMessageBox);
+            Controls.Add(SendMessageButton);
         }
 
         private void SendMessage(object sender, EventArgs e)
@@ -58,11 +66,16 @@ namespace Client
             SendMessageBox.Clear();
         }
 
-        void CreateTable(object sender, EventArgs e)
+        private void CreateTable(object sender, EventArgs e)
         {
-            _form1.TabControl.Controls.Add(_form1.TablePage);
-            _form1.TabControl.SelectedTab = _form1.TablePage;
-            CreateTableButton.Enabled = false;
+            _form1.Client.WriteAsync(new Common.CreateTable());
+        }
+
+        internal void OnCreateTable()
+        {
+            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.Controls.Add(_form1.TablePage); }));
+            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.SelectedTab = _form1.TablePage; }));
+            CreateTableButton.Invoke(new MethodInvoker(delegate { CreateTableButton.Enabled = false; }));
         }
     }
 }

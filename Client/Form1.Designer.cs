@@ -34,7 +34,7 @@ namespace Client
         MenuPage _menuPage;
         internal LobbyPage LobbyPage;
         internal TablePage TablePage;
-        internal GameSetupForm GameSetupForm = new GameSetupForm();
+        internal GameSetupForm GameSetupForm;
         internal Client Client = new();
 
         internal string UserName;
@@ -48,6 +48,7 @@ namespace Client
             _menuPage = new MenuPage(this);
             LobbyPage = new LobbyPage(this);
             TablePage = new TablePage(this);
+            GameSetupForm = new(Client);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -61,7 +62,7 @@ namespace Client
         {
             TabControl.Controls.Remove(LobbyPage);
             TabControl.SelectedTab = _menuPage;
-            LobbyPage.ChatBox.Clear();
+            LobbyPage.Panel.ChatBox.Clear();
         }
         #endregion
     }
