@@ -1,4 +1,4 @@
-﻿using DuelMastersModels.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {

@@ -1,9 +1,9 @@
 ﻿using Cards.CardFilters;
 using Cards.StaticAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
+using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
+using Engine.Durations;
 
 namespace Cards.Cards.DM10
 {

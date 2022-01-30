@@ -1,10 +1,10 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
+using Engine;
+using Engine.Abilities;
+using Engine.Choices;
+using Engine.ContinuousEffects;
+using Engine.Durations;
+using Engine.GameEvents;
 using System;
 using System.Linq;
 
@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility()
         {
-            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Graveyard, null)));
+            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Engine.Zones.ZoneType.BattleZone, Engine.Zones.ZoneType.Graveyard, null)));
         }
 
         protected WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility ability) : base(ability)
@@ -40,7 +40,7 @@ namespace Cards.StaticAbilities
         public override GameEvent Apply(Game game, Player player)
         {
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
-            newEvent.Destination = DuelMastersModels.Zones.ZoneType.ManaZone;
+            newEvent.Destination = Engine.Zones.ZoneType.ManaZone;
             return newEvent;
         }
 
@@ -48,7 +48,7 @@ namespace Cards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == DuelMastersModels.Zones.ZoneType.BattleZone && e.Destination == DuelMastersModels.Zones.ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Source == Engine.Zones.ZoneType.BattleZone && e.Destination == Engine.Zones.ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
             }
             return false;
         }

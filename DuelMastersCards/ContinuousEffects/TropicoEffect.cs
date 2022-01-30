@@ -1,7 +1,7 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
+using Engine;
+using Engine.ContinuousEffects;
+using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects

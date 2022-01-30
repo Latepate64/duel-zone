@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.Choices
+namespace Engine.Choices
 {
     public class GuidSelection : Choice
     {

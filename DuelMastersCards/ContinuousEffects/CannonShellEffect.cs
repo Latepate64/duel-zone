@@ -1,8 +1,8 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
-using DuelMastersModels.Zones;
+﻿using Engine;
+using Engine.ContinuousEffects;
+using Engine.Durations;
+using Engine.GameEvents;
+using Engine.Zones;
 using System.Linq;
 
 namespace Cards.ContinuousEffects

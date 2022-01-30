@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Durations
+﻿namespace Engine.Durations
 {
     public class UntilTheEndOfTheTurn : Duration
     {

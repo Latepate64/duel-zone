@@ -1,8 +1,8 @@
-﻿using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
+﻿using Engine.Durations;
+using Engine.GameEvents;
 using System;
 
-namespace DuelMastersModels.ContinuousEffects
+namespace Engine.ContinuousEffects
 {
     /// <summary>
     /// 614.1. Some continuous effects are replacement effects.

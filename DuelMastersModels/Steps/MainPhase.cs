@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace DuelMastersModels.Steps
+namespace Engine.Steps
 {
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main phase.

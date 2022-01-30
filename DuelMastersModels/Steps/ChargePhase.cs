@@ -1,7 +1,7 @@
-﻿using DuelMastersModels.Choices;
+﻿using Engine.Choices;
 using System.Linq;
 
-namespace DuelMastersModels.Steps
+namespace Engine.Steps
 {
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.

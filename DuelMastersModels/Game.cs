@@ -1,15 +1,15 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
-using DuelMastersModels.Zones;
+﻿using Engine.Abilities;
+using Engine.Choices;
+using Engine.ContinuousEffects;
+using Engine.Durations;
+using Engine.GameEvents;
+using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels
+namespace Engine
 {
     public class Game : IDisposable
     {

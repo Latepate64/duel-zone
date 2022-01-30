@@ -1,9 +1,9 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
-using DuelMastersModels.Steps;
+using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
+using Engine.Durations;
+using Engine.Steps;
 using System.Collections.Generic;
 
 namespace Cards.OneShotEffects

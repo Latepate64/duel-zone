@@ -1,6 +1,6 @@
-﻿using DuelMastersModels.Durations;
+﻿using Engine.Durations;
 
-namespace DuelMastersModels.ContinuousEffects
+namespace Engine.ContinuousEffects
 {
     public class CannotAttackCreaturesEffect : ContinuousEffect
     {

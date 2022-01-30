@@ -1,8 +1,8 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Zones;
+using Engine;
+using Engine.Zones;
 
 namespace Cards.Cards.DM04
 {

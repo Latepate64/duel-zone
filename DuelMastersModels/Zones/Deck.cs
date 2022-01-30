@@ -1,9 +1,9 @@
-﻿using DuelMastersModels.GameEvents;
+﻿using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.Zones
+namespace Engine.Zones
 {
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.

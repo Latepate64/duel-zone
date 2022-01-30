@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels
+﻿namespace Engine
 {
     public interface ICopyable<T>
     {

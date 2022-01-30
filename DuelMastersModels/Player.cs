@@ -1,14 +1,14 @@
 ﻿using Combinatorics.Collections;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.GameEvents;
-using DuelMastersModels.Zones;
+using Engine.Abilities;
+using Engine.Choices;
+using Engine.ContinuousEffects;
+using Engine.GameEvents;
+using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels
+namespace Engine
 {
     /// <summary>
     /// 102.1. A player is one of the people in the game.

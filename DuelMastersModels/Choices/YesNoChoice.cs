@@ -1,6 +1,6 @@
 using System;
 
-namespace DuelMastersModels.Choices
+namespace Engine.Choices
 {
     public class YesNoChoice : Choice
     {

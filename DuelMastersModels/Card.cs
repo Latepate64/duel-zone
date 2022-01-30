@@ -1,11 +1,11 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.ContinuousEffects;
+﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels
+namespace Engine
 {
     public enum CardType { Creature, Spell, Any }
 

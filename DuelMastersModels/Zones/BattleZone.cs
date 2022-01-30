@@ -1,11 +1,11 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Steps;
+﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
+using Engine.Steps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.Zones
+namespace Engine.Zones
 {
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.

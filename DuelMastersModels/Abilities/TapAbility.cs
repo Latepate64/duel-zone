@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Abilities
+﻿namespace Engine.Abilities
 {
     public class TapAbility : ActivatedAbility
     {

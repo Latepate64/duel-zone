@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Choices;
+﻿using Engine;
+using Engine.Choices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -187,7 +187,7 @@ namespace Simulator
                     var lockedNew = locked.ToList();
                     lockedNew.Add(element);
                     unlockedNew.Remove(element);
-                    var combs = GetCombinations<T>(lockedNew, unlockedNew, size);
+                    var combs = GetCombinations(lockedNew, unlockedNew, size);
                     if (combs != null)
                     {
                         res.AddRange(combs);

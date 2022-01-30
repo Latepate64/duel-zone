@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Steps;
+﻿using Engine;
+using Engine.Steps;
 
 namespace Cards.CardFilters
 {

@@ -1,5 +1,5 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels;
+using Engine;
 
 namespace Cards.Cards.DM02
 {

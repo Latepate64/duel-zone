@@ -1,7 +1,7 @@
-﻿using DuelMastersModels.Zones;
+﻿using Engine.Zones;
 using System;
 
-namespace DuelMastersModels.GameEvents
+namespace Engine.GameEvents
 {
     public class CardMovedEvent : GameEvent
     {

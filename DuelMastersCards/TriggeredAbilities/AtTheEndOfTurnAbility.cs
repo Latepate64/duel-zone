@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.GameEvents;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.GameEvents;
 using System;
 
 namespace Cards.TriggeredAbilities

@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Abilities
+﻿namespace Engine.Abilities
 {
     public abstract class ResolvableAbility : Ability
     {

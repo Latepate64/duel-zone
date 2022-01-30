@@ -1,6 +1,6 @@
-﻿using DuelMastersModels.Abilities;
+﻿using Engine.Abilities;
 
-namespace DuelMastersModels.GameEvents
+namespace Engine.GameEvents
 {
     public class AbilityTriggeredEvent : GameEvent
     {

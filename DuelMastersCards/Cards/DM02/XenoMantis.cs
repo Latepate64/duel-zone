@@ -1,6 +1,6 @@
 ﻿using Cards.CardFilters;
 using Cards.StaticAbilities;
-using DuelMastersModels;
+using Engine;
 
 namespace Cards.Cards.DM02
 {

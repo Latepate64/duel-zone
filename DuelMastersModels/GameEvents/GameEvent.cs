@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.GameEvents
+namespace Engine.GameEvents
 {
     public abstract class GameEvent
     {

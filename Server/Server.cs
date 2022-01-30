@@ -18,7 +18,7 @@ namespace Server
         private readonly List<TcpClient> _clients = new List<TcpClient>();
         private TcpListener _listener;
 
-        private DuelMastersModels.Game _game;
+        private Engine.Game _game;
 
         internal async void RunServerAsync()
         {
@@ -76,15 +76,15 @@ namespace Server
             BroadcastMessage($"{client} disconnected.");
         }
 
-        private static void SetupPlayer(DuelMastersModels.Player player)
+        private static void SetupPlayer(Engine.Player player)
         {
             var cards = GetCards(player.Id);
-            player.Deck = new DuelMastersModels.Zones.Deck(cards);
+            player.Deck = new Engine.Zones.Deck(cards);
         }
 
-        private static List<DuelMastersModels.Card> GetCards(Guid player)
+        private static List<Engine.Card> GetCards(Guid player)
         {
-            List<DuelMastersModels.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
             foreach (var card in cards)
             {
                 card.Owner = player;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels
+namespace Engine
 {
     public abstract class DuelObject : IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DuelMastersModels.Choices
+namespace Engine.Choices
 {
     public class EnumChoice : Choice
     {

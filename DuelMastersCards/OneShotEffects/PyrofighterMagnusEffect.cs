@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
+﻿using Engine;
+using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             // Return this creature to your hand.
-            game.Move(game.GetCard(source.Source), DuelMastersModels.Zones.ZoneType.BattleZone, DuelMastersModels.Zones.ZoneType.Hand);
+            game.Move(game.GetCard(source.Source), Engine.Zones.ZoneType.BattleZone, Engine.Zones.ZoneType.Hand);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Cards.OneShotEffects;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
+using Engine;
+using Engine.Abilities;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities

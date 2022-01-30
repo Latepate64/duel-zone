@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Zones;
+﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.OneShotEffects
 {

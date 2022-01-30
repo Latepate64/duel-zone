@@ -1,6 +1,6 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
-using DuelMastersModels;
+using Engine;
 
 namespace Cards.Cards.DM01
 {

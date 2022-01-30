@@ -1,7 +1,7 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
-using DuelMastersModels.Zones;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.Choices;
+using Engine.Zones;
 using System.Linq;
 
 namespace Cards.OneShotEffects

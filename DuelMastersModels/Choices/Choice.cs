@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.Choices
+namespace Engine.Choices
 {
     /// <summary>
     /// Represents a choice a player can make.

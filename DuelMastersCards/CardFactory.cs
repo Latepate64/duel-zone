@@ -1,4 +1,4 @@
-﻿using DuelMastersModels;
+﻿using Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace Cards
 
         static public IEnumerable<Card> CreateAll()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("DuelMastersCards.Cards")).Select(x => Activator.CreateInstance(x)).Cast<Card>();
+            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace.StartsWith("Cards.Cards")).Select(x => Activator.CreateInstance(x)).Cast<Card>();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using DuelMastersModels.Abilities;
-using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
+﻿using Engine.Abilities;
+using Engine.Durations;
+using Engine.GameEvents;
 using System.Linq;
 
-namespace DuelMastersModels.ContinuousEffects
+namespace Engine.ContinuousEffects
 {
     public class AbilityGrantingEffect : CharacteristicModifyingEffect
     {

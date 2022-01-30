@@ -1,7 +1,7 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.GameEvents;
-using DuelMastersModels.Zones;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.GameEvents;
+using Engine.Zones;
 
 namespace Cards.TriggeredAbilities
 {

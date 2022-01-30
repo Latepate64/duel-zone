@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DuelMastersCards\Cards.csproj" />
-    <ProjectReference Include="..\DuelMastersModels\DuelMastersModels.csproj" />
+    <ProjectReference Include="..\DuelMastersModels\Engine.csproj" />
   </ItemGroup>
 
 </Project>

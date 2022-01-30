@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DuelMastersModels.Properties {
+namespace Engine.Properties {
     using System;
     
     

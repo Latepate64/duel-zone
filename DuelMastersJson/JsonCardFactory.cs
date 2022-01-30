@@ -33,7 +33,7 @@ namespace Json
         {
             if (deck == null)
             {
-                throw new System.ArgumentNullException(nameof(deck));
+                throw new ArgumentNullException(nameof(deck));
             }
             return GetCardsForXmlDeck(deck, GetJsonCards(path));
         }
@@ -63,11 +63,11 @@ namespace Json
         /// <param name="uri">Uri of the json-file.</param>
         /// <param name="deck">Instance of XmlDeck which specifies which JsonCards will be returned.</param>
         /// <returns>The parsed JsonCards.</returns>
-        public static Collection<JsonCard> GetJsonCardsFromUrl(System.Uri uri, XmlDeck deck)
+        public static Collection<JsonCard> GetJsonCardsFromUrl(Uri uri, XmlDeck deck)
         {
             if (deck is null)
             {
-                throw new System.ArgumentNullException(nameof(deck));
+                throw new ArgumentNullException(nameof(deck));
             }
 
             return GetCardsForXmlDeck(deck, GetJsonCardsFromUrl(uri));

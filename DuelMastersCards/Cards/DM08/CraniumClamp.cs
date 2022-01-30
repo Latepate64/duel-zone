@@ -1,8 +1,8 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Zones;
+using Engine;
+using Engine.Abilities;
+using Engine.Zones;
 
 namespace Cards.Cards.DM08
 {

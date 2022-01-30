@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.Choices;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -42,7 +42,7 @@ namespace Cards.OneShotEffects
                         game.GetOwner(card).Reveal(game, card);
                     }
                 }
-                game.Move(selectedCards, DuelMastersModels.Zones.ZoneType.Deck, DuelMastersModels.Zones.ZoneType.Hand);
+                game.Move(selectedCards, Engine.Zones.ZoneType.Deck, Engine.Zones.ZoneType.Hand);
             }
             player.ShuffleDeck(game);
         }

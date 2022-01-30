@@ -1,9 +1,9 @@
-﻿using DuelMastersModels.ContinuousEffects;
+﻿using Engine.ContinuousEffects;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.Steps
+namespace Engine.Steps
 {
     public class AttackPhase : Phase
     {

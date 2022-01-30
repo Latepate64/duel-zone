@@ -1,5 +1,5 @@
 ﻿
-namespace DuelMastersModels.Abilities
+namespace Engine.Abilities
 {
     public abstract class ActivatedAbility : ResolvableAbility
     {

@@ -1,11 +1,11 @@
-﻿using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.GameEvents;
+﻿using Engine.Choices;
+using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DuelMastersModels.Steps
+namespace Engine.Steps
 {
     public class BlockDeclarationStep : Step
     {

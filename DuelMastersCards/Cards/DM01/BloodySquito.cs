@@ -2,8 +2,8 @@
 using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Zones;
+using Engine;
+using Engine.Zones;
 
 namespace Cards.Cards.DM01
 {

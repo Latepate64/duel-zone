@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DuelMastersModels.Abilities
+namespace Engine.Abilities
 {
     public abstract class OneShotEffect : IDisposable
     {

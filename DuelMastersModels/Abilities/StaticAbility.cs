@@ -1,10 +1,10 @@
-﻿using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Zones;
+﻿using Engine.ContinuousEffects;
+using Engine.Zones;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace DuelMastersModels.Abilities
+namespace Engine.Abilities
 {
     /// <summary>
     /// Static abilities do something all the time rather than being activated or triggered. They are written as statements, and they’re simply true.

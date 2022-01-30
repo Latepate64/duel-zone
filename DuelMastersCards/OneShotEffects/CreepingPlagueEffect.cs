@@ -1,7 +1,7 @@
 ﻿using Cards.StaticAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Durations;
+using Engine;
+using Engine.Abilities;
+using Engine.Durations;
 
 namespace Cards.OneShotEffects
 {

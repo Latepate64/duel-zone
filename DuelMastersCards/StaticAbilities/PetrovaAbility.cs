@@ -1,10 +1,10 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
+using Engine;
+using Engine.Abilities;
+using Engine.Choices;
+using Engine.ContinuousEffects;
+using Engine.Durations;
+using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Cards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, DuelMastersModels.Zones.ZoneType.Anywhere, DuelMastersModels.Zones.ZoneType.BattleZone, null)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Engine.Zones.ZoneType.Anywhere, Engine.Zones.ZoneType.BattleZone, null)));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)
@@ -66,14 +66,14 @@ namespace Cards.StaticAbilities
 
         public override GameEvent Apply(Game game, Player player)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override bool Replaceable(GameEvent gameEvent, Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == DuelMastersModels.Zones.ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Destination == Engine.Zones.ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
             }
             return false;
         }

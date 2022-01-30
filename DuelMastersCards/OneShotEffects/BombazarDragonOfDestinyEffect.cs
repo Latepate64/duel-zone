@@ -1,7 +1,7 @@
 using Cards.TriggeredAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Durations;
+using Engine;
+using Engine.Abilities;
+using Engine.Durations;
 using System.Linq;
 
 namespace Cards.OneShotEffects

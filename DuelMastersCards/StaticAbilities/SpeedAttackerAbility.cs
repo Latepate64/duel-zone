@@ -1,7 +1,7 @@
 ﻿using Cards.CardFilters;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.Durations;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
+using Engine.Durations;
 
 namespace Cards.StaticAbilities
 {

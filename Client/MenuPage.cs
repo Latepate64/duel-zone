@@ -75,7 +75,7 @@ namespace Client
             _form1.TabControl.SelectedTab = _form1.LobbyPage;
         }
 
-        private void EndConnect(object sender, System.EventArgs e)
+        private void EndConnect(object sender, EventArgs e)
         {
             _form1.Client.EndConnect();
             if (_form1.TabControl.Controls.Contains(_form1.TablePage))

@@ -1,6 +1,6 @@
 ﻿using Cards.OneShotEffects;
-using DuelMastersModels;
-using DuelMastersModels.Zones;
+using Engine;
+using Engine.Zones;
 
 namespace Cards.Cards.DM03
 {

@@ -1,7 +1,7 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {

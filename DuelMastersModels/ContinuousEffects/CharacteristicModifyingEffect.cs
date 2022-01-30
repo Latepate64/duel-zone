@@ -1,7 +1,7 @@
-﻿using DuelMastersModels.Durations;
-using DuelMastersModels.GameEvents;
+﻿using Engine.Durations;
+using Engine.GameEvents;
 
-namespace DuelMastersModels.ContinuousEffects
+namespace Engine.ContinuousEffects
 {
     public abstract class CharacteristicModifyingEffect : ContinuousEffect
     {

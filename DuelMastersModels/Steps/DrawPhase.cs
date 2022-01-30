@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Steps
+﻿namespace Engine.Steps
 {
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.

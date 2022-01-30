@@ -1,8 +1,8 @@
-﻿using DuelMastersModels.ContinuousEffects;
-using DuelMastersModels.GameEvents;
+﻿using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System.Linq;
 
-namespace DuelMastersModels.Steps
+namespace Engine.Steps
 {
     public class DirectAttackStep : Step
     {

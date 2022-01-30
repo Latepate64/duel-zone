@@ -1,8 +1,8 @@
 ﻿using Cards.CardFilters;
 using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
-using DuelMastersModels;
-using DuelMastersModels.Abilities;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {

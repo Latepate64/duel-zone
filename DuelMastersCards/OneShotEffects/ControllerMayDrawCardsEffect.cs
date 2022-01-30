@@ -1,6 +1,6 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Abilities;
-using DuelMastersModels.Choices;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.Choices;
 
 namespace Cards.OneShotEffects
 {

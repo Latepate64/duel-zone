@@ -1,4 +1,4 @@
-﻿namespace DuelMastersModels.Steps
+﻿namespace Engine.Steps
 {
     public abstract class PriorityPhase : Phase
     {

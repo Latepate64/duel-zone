@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.CardFilters

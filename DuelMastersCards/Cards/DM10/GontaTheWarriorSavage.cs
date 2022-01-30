@@ -1,4 +1,4 @@
-﻿using DuelMastersModels;
+﻿using Engine;
 using System.Collections.Generic;
 
 namespace Cards.Cards.DM10

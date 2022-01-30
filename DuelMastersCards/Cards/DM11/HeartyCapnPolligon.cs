@@ -1,5 +1,5 @@
 ﻿using Cards.TriggeredAbilities;
-using DuelMastersModels;
+using Engine;
 
 namespace Cards.Cards.DM11
 {

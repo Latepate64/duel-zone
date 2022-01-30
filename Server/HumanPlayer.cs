@@ -1,5 +1,5 @@
-﻿using DuelMastersModels;
-using DuelMastersModels.Choices;
+﻿using Engine;
+using Engine.Choices;
 
 namespace Server
 {

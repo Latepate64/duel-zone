@@ -1,7 +1,7 @@
-﻿using DuelMastersModels.Durations;
+﻿using Engine.Durations;
 using System;
 
-namespace DuelMastersModels.Abilities
+namespace Engine.Abilities
 {
     public class DelayedTriggeredAbility : IDisposable
     {
