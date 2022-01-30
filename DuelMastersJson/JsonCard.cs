@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DuelMastersJson
+namespace Json
 {
     /// <summary>
     /// A template for a card parsed from json-file.

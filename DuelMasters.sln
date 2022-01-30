@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersModels", "DuelMastersModels\DuelMastersModels.csproj", "{8959A481-6D73-445E-B137-F1837D674D39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuelMastersJson", "DuelMastersJson\DuelMastersJson.csproj", "{FA620C3D-861D-42E7-8C8F-27E60525A354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json", "DuelMastersJson\Json.csproj", "{FA620C3D-861D-42E7-8C8F-27E60525A354}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA60DF2E-FC28-4FFC-9CB3-1A0447F84A1A}"
 	ProjectSection(SolutionItems) = preProject

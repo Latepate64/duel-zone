@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace DuelMastersJson
+namespace Json
 {
     /// <summary>
     /// Represents a deck that a player can have.

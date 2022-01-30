@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-namespace DuelMastersJson
+namespace Json
 {
     /// <summary>
     /// Manages the instantiation of card templates from JSON.
