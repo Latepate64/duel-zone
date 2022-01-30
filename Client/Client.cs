@@ -44,9 +44,9 @@ namespace Client
             _client.Close();
         }
 
-        internal void WriteAsync(string text)
+        internal void WriteAsync(object obj)
         {
-            byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
+            byte[] bytesToSend = Encoding.ASCII.GetBytes(Serializer.Serialize(obj));
             _ = _client.GetStream().WriteAsync(bytesToSend);
         }
 

@@ -70,30 +70,20 @@ namespace DuelMastersServer
 
         private async Task Foo(TcpClient client)
         {
-            while (!client.Client.Poll(1000, SelectMode.SelectRead) || client.Available > 0) // TODO: Connected does not work
+            while (!client.Client.Poll(1000, SelectMode.SelectRead) || client.Available > 0)
             {
-
                 if (client.Available > 0)
                 {
-                    BroadcastMessage(await ReadAsync(client));
+                    var text = await ReadAsync(client);
+                    if (text.StartsWith("name: "))
+                    {
+                        text = text.Replace("name: ", "") + " connected.";
+                    }
+                    BroadcastMessage(text);
                 }
             }
             _clients.Remove(client);
             BroadcastMessage($"{client} disconnected.");
-        }
-
-        private async Task OnConnect(TcpClient client)
-        {
-            _clients.Add(client);
-            BroadcastMessage($"{client} connected.");
-            while (client.Connected)
-            {
-                if (client.Available > 0)
-                {
-                    BroadcastMessage(await ReadAsync(client));
-                }
-            }
-            _clients.Remove(client);
         }
 
         private void BroadcastMessage(string text)

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersModels", "DuelMastersModels\DuelMastersModels.csproj", "{8959A481-6D73-445E-B137-F1837D674D39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersServer", "DuelMastersServer\DuelMastersServer.csproj", "{B6811480-1238-4676-9CFC-B397C360C5B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B755B28D-7811-43A2-9DCF-7718798A4E88} = {B755B28D-7811-43A2-9DCF-7718798A4E88}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuelMastersApplication", "DuelMastersApplication\DuelMastersApplication.csproj", "{E497DE8D-CBE3-47F2-A2AB-D8953D0D83C6}"
 EndProject
@@ -29,9 +32,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuelMastersCards", "DuelMas
 		{8959A481-6D73-445E-B137-F1837D674D39} = {8959A481-6D73-445E-B137-F1837D674D39}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{709C74B8-9C36-4101-ABA6-11069E28F1F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{709C74B8-9C36-4101-ABA6-11069E28F1F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B755B28D-7811-43A2-9DCF-7718798A4E88} = {B755B28D-7811-43A2-9DCF-7718798A4E88}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B755B28D-7811-43A2-9DCF-7718798A4E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{B755B28D-7811-43A2-9DCF-7718798A4E88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
