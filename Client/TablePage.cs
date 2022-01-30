@@ -37,6 +37,9 @@ namespace Client
         readonly ZonePanel _playerManaZone = new("Your mana zone", 10 * Offset, Color.LightGreen);
         readonly ZonePanel _playerHand = new("Your hand", 11 * Offset, Color.LightBlue);
 
+        readonly PlayerPanel _opponentPanel = new("Opponent", 0);
+        readonly PlayerPanel _playerPanel = new("You", 300);
+
         readonly Form1 _form1;
 
         public TablePage(Form1 form1)
@@ -48,7 +51,14 @@ namespace Client
 
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
+            AddControls();
 
+            //TODO test
+            _playerHand.Controls.Add(new CardPanel("Aqua Vehicle"));
+        }
+
+        private void AddControls()
+        {
             Controls.Add(_gameSetupButton);
             Controls.Add(_exitTableButton);
 
@@ -65,6 +75,9 @@ namespace Client
             Controls.Add(_playerShieldZone);
             Controls.Add(_playerManaZone);
             Controls.Add(_playerHand);
+
+            Controls.Add(_opponentPanel);
+            Controls.Add(_playerPanel);
         }
 
         private void SetupGame(object sender, EventArgs e)

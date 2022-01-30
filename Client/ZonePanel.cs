@@ -14,6 +14,7 @@ namespace Client
             Height = 75;
             Width = 1000;
             BackColor = color;
+            AutoScroll = true;
 
             new ToolTip().SetToolTip(this, name);
 
