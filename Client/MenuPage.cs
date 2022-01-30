@@ -56,12 +56,9 @@ namespace Client
             try
             {
                 _form1.Client.Connect(_serverAddress.Text, 11000);
-                Common.ClientName name = new() { Name = _userNameBox.Text };
-                _form1.Client.WriteAsync(name);
                 Task.Run(() => _form1.Client.ReadLoop(_form1));
-                //_form1.Client.ReadLoop(_form1);
-                //_form1.Client.WriteAsync(_userNameBox.Text);
                 OnConnect();
+                _form1.Client.WriteAsync(new Common.ClientName() { Name = _userNameBox.Text });
             }
             catch (Exception ex)
             {

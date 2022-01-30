@@ -54,7 +54,7 @@ namespace Client
 
         private void SendMessage(object sender, EventArgs e)
         {
-            _form1.Client.WriteAsync(SendMessageBox.Text);
+            _form1.Client.WriteAsync(new Common.Message { Text = SendMessageBox.Text });
             SendMessageBox.Clear();
         }
 

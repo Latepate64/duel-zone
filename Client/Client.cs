@@ -46,7 +46,7 @@ namespace Client
 
         internal void WriteAsync(object obj)
         {
-            byte[] bytesToSend = Encoding.ASCII.GetBytes(Serializer.Serialize(obj));
+            byte[] bytesToSend = Encoding.ASCII.GetBytes(Common.Serializer.Serialize(obj));
             _ = _client.GetStream().WriteAsync(bytesToSend);
         }
 
@@ -66,11 +66,9 @@ namespace Client
         private string Read()
         {
             byte[] data = new byte[BufferSize];
-            int bytesRead = 0;
-            int chunkSize = 1;
-            NetworkStream stream = _client.GetStream();
-            bytesRead = stream.Read(data, 0, data.Length);
-            return Encoding.Default.GetString(data, 0, bytesRead).Trim();
+            var bytesRead = _client.GetStream().Read(data, 0, data.Length);
+            var text = Encoding.Default.GetString(data, 0, bytesRead).Trim();
+            return Common.Helper.ObjectToText(Common.Serializer.Deserialize(text), _client);
         }
     }
 }
