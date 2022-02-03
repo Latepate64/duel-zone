@@ -1,10 +1,10 @@
-﻿using Engine;
+﻿using Common;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards
 {
-    public abstract class Creature : Card
+    public abstract class Creature : Engine.Card
     {
         protected Creature(string name, int manaCost, Civilization civilization, int power, Subtype race) : this(name, manaCost, new List<Civilization> { civilization }, power, new List<Subtype> { race })
         {

@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.StaticAbilities;
-using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM10
 {
     public class PalaOlesisMorningGuardian : Creature
     {
-        public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, Civilization.Light, 2500, Subtype.Guardian)
+        public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, Common.Civilization.Light, 2500, Common.Subtype.Guardian)
         {
             Abilities.Add(new BlockerAbility());
 

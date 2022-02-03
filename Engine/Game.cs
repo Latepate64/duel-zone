@@ -301,7 +301,7 @@ namespace Engine
 
         public void Process(GameEvent gameEvent)
         {
-            OnGameEvent.Invoke(gameEvent);
+            OnGameEvent?.Invoke(gameEvent);
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
@@ -469,7 +469,7 @@ namespace Engine
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
+                        Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger)));
                         player.UseCard(trigger, this);
                     }
                     else

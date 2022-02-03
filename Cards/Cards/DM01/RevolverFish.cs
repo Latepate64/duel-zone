@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class RevolverFish : Creature
     {
-        public RevolverFish() : base("Revolver Fish", 4, Civilization.Water, 5000, Subtype.GelFish)
+        public RevolverFish() : base("Revolver Fish", 4, Common.Civilization.Water, 5000, Common.Subtype.GelFish)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());

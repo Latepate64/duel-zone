@@ -1,12 +1,10 @@
 ﻿using Cards.CardFilters;
 using Engine;
 using Engine.Abilities;
-using Engine.Choices;
 using Engine.ContinuousEffects;
 using Engine.Durations;
 using Engine.GameEvents;
 using System;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {

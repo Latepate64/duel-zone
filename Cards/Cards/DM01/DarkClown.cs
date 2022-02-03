@@ -2,14 +2,13 @@
 using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
-using Engine;
 using Engine.Zones;
 
 namespace Cards.Cards.DM01
 {
     public class DarkClown : Creature
     {
-        public DarkClown() : base("Dark Clown", 4, Civilization.Darkness, 6000, Subtype.BrainJacker)
+        public DarkClown() : base("Dark Clown", 4, Common.Civilization.Darkness, 6000, Common.Subtype.BrainJacker)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());

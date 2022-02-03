@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM06
 {
     public class MadrillonFish : Creature
     {
-        public MadrillonFish() : base("Madrillon Fish", 2, Civilization.Water, 3000, Subtype.GelFish)
+        public MadrillonFish() : base("Madrillon Fish", 2, Common.Civilization.Water, 3000, Common.Subtype.GelFish)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());

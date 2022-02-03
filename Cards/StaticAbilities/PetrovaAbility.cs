@@ -1,13 +1,10 @@
 ﻿using Cards.CardFilters;
 using Engine;
 using Engine.Abilities;
-using Engine.Choices;
 using Engine.ContinuousEffects;
 using Engine.Durations;
 using Engine.GameEvents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {
@@ -27,7 +24,7 @@ namespace Cards.StaticAbilities
         //{
         //    if (decision == null)
         //    {
-        //        return new EnumChoice(Owner, new List<Enum> { Subtype.MechaDelSol });
+        //        return new EnumChoice(Owner, new List<Enum> { Common.Subtype.MechaDelSol });
         //    }
         //    else
         //    {

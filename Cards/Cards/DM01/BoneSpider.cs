@@ -1,14 +1,13 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
-using Engine;
 using Engine.Zones;
 
 namespace Cards.Cards.DM01
 {
     class BoneSpider : Creature
     {
-        public BoneSpider() : base("Bone Spider", 3, Civilization.Darkness, 5000, Subtype.LivingDead)
+        public BoneSpider() : base("Bone Spider", 3, Common.Civilization.Darkness, 5000, Common.Subtype.LivingDead)
         {
             // When this creature wins a battle, destroy it.
             var targetFilter = new TargetFilter();

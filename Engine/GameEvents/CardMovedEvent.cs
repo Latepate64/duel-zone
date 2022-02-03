@@ -68,7 +68,7 @@ namespace Engine.GameEvents
             if (Destination != ZoneType.Anywhere)
             {
                 // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-                var newObject = new Card(card, false);
+                var newObject = new Card(card);
                 CardInDestinationZone = newObject.Id;
                 (Destination == ZoneType.BattleZone ? game.BattleZone : player.GetZone(Destination)).Add(newObject, game);
             }

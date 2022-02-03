@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM05
 {
     public class RikabuTheDismantler : Creature
     {
-        public RikabuTheDismantler() : base("Rikabu, the Dismantler", 3, Civilization.Fire, 1000, Subtype.MachineEater)
+        public RikabuTheDismantler() : base("Rikabu, the Dismantler", 3, Common.Civilization.Fire, 1000, Common.Subtype.MachineEater)
         {
             Abilities.Add(new SpeedAttackerAbility());
         }

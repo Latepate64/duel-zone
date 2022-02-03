@@ -1,4 +1,4 @@
-﻿using Engine;
+﻿using Common;
 using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Zones;
@@ -15,7 +15,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override bool CanTrigger(GameEvent gameEvent, Engine.Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {

@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
     class IocantTheOracle : Creature
     {
-        public IocantTheOracle() : base("Iocant, the Oracle", 2, Civilization.Light, 2000, Subtype.LightBringer)
+        public IocantTheOracle() : base("Iocant, the Oracle", 2, Common.Civilization.Light, 2000, Common.Subtype.LightBringer)
         {
             Abilities.Add(new BlockerAbility());
 

@@ -1,13 +1,12 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
     class SolarRay : Spell
     {
-        public SolarRay() : base("Solar Ray", 2, Civilization.Light)
+        public SolarRay() : base("Solar Ray", 2, Common.Civilization.Light)
         {
             ShieldTrigger = true;
 

@@ -1,4 +1,5 @@
 ﻿using Combinatorics.Collections;
+using Common;
 using Engine.Abilities;
 using Engine.Choices;
 using Engine.ContinuousEffects;
@@ -140,7 +141,7 @@ namespace Engine
 
         private void Summon(Card card, Game game)
         {
-            game.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
+            game.Process(new CreatureSummonedEvent(Copy(), new Card(card)));
             _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
@@ -197,7 +198,7 @@ namespace Engine
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
-            game.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
+            game.Process(new SpellCastEvent(Copy(), new Card(spell)));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
@@ -228,7 +229,7 @@ namespace Engine
         {
             var opponent = game.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            game.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
+            game.Process(new CardRevealedEvent(Copy(), new Card(card)));
         }
 
         internal Zone GetZone(ZoneType zone)

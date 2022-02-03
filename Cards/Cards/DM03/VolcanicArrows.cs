@@ -1,13 +1,12 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
     public class VolcanicArrows : Spell
     {
-        public VolcanicArrows() : base("Volcanic Arrows", 2, Civilization.Fire)
+        public VolcanicArrows() : base("Volcanic Arrows", 2, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
 

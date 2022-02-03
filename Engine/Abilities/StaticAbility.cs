@@ -33,18 +33,6 @@ namespace Engine.Abilities
             FunctionZone = ability.FunctionZone;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                foreach (var x in ContinuousEffects)
-                {
-                    x.Dispose();
-                }
-                ContinuousEffects.Clear();
-            }
-        }
-
         public override Ability Copy()
         {
             return new StaticAbility(this);

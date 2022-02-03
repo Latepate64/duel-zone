@@ -1,10 +1,8 @@
-﻿using Engine;
-
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class ScissorEye : Creature
     {
-        public ScissorEye() : base("Scissor Eye", 4, Civilization.Water, 3000, Subtype.GelFish)
+        public ScissorEye() : base("Scissor Eye", 4, Common.Civilization.Water, 3000, Common.Subtype.GelFish)
         {
         }
     }

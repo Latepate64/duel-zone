@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class GatlingSkyterror : Creature
     {
-        public GatlingSkyterror() : base("Gatling Skyterror", 7, Civilization.Fire, 7000, Subtype.ArmoredWyvern)
+        public GatlingSkyterror() : base("Gatling Skyterror", 7, Common.Civilization.Fire, 7000, Common.Subtype.ArmoredWyvern)
         {
             Abilities.Add(new CanAttackUntappedCreaturesAbility());
             Abilities.Add(new DoubleBreakerAbility());

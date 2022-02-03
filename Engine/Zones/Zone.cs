@@ -13,7 +13,7 @@ namespace Engine.Zones
     {
         public List<Card> Cards { get; private set; }
 
-        public IEnumerable<Card> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
+        public IEnumerable<Card> Creatures => Cards.Where(x => x.CardType == Common.CardType.Creature);
 
         protected Zone(IEnumerable<Card> cards)
         {
@@ -26,14 +26,6 @@ namespace Engine.Zones
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && Cards != null)
-            {
-                foreach (var card in Cards)
-                {
-                    card.Dispose();
-                }
-                Cards = null;
-            }
         }
 
         public void Dispose()

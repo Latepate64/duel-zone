@@ -1,11 +1,10 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
     class FloodValve : Spell
     {
-        public FloodValve() : base("Flood Valve", 2, Civilization.Water)
+        public FloodValve() : base("Flood Valve", 2, Common.Civilization.Water)
         {
             ShieldTrigger = true;
 

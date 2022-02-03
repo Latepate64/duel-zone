@@ -1,10 +1,8 @@
-﻿using Engine;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     public class ExplosiveDudeJoe : Creature
     {
-        public ExplosiveDudeJoe() : base("Explosive Dude Joe", 3, Civilization.Fire, 3000, Subtype.Human)
+        public ExplosiveDudeJoe() : base("Explosive Dude Joe", 3, Common.Civilization.Fire, 3000, Common.Subtype.Human)
         {
         }
     }

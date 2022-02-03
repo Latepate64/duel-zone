@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class DarkRavenShadowOfGrief : Creature
     {
-        public DarkRavenShadowOfGrief() : base("Dark Raven, Shadow of Grief", 4, Civilization.Darkness, 1000, Subtype.Ghost)
+        public DarkRavenShadowOfGrief() : base("Dark Raven, Shadow of Grief", 4, Common.Civilization.Darkness, 1000, Common.Subtype.Ghost)
         {
             Abilities.Add(new BlockerAbility());
         }

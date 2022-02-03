@@ -32,7 +32,7 @@ namespace Engine.Steps
                     breakAmount = 2;
                 }
                 game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                game.Process(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
+                game.Process(new ShieldsBrokenEvent(new Card(attackingCreature), opponent.Copy(), breakAmount));
             }
             else
             {

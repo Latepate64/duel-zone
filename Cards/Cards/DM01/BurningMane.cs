@@ -1,10 +1,8 @@
-﻿using Engine;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     public class BurningMane : Creature
     {
-        public BurningMane() : base("Burning Mane", 2, Civilization.Nature, 2000, Subtype.BeastFolk)
+        public BurningMane() : base("Burning Mane", 2, Common.Civilization.Nature, 2000, Common.Subtype.BeastFolk)
         {
         }
     }
