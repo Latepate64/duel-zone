@@ -1,5 +1,4 @@
 ﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,9 +78,7 @@ namespace Engine
 
         public int? Power { get; set; }
 
-#pragma warning disable CA2227 // Collection properties should be read only
         public ICollection<Civilization> Civilizations { get; set; }
-#pragma warning restore CA2227 // Collection properties should be read only
 
         public int ManaCost { get; set; }
 
@@ -151,14 +148,6 @@ namespace Engine
             }
         }
 
-        public virtual void EnterManaZone()
-        {
-            if (Civilizations.Count > 1)
-            {
-                Tapped = true;
-            }
-        }
-
         /// <summary>
         /// Initializes the sources and controllers of all abilities and related abstractions of the card.
         /// </summary>
@@ -176,11 +165,6 @@ namespace Engine
                     }
                 }
             }
-        }
-
-        internal bool AffectedBySummoningSickness(Game game)
-        {
-            return SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(this).Any();
         }
     }
 }

@@ -25,7 +25,10 @@ namespace Engine.Zones
         public override void Add(Card card, Game game)
         {
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
-            card.EnterManaZone();
+            if (card.Civilizations.Count > 1)
+            {
+                card.Tapped = true;
+            }
             Cards.Add(card);
         }
 

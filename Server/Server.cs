@@ -54,19 +54,7 @@ namespace Server
                     var obj = Common.Serializer.Deserialize(text);
                     if (obj is Common.StartGame startGame)
                     {
-                        _game = new();
-                        var player1 = new HumanPlayer();
-                        var player2 = new ComputerPlayer();
-                        SetupPlayer(player1);
-                        SetupPlayer(player2);
-                        try
-                        {
-                            _game.Play(player1, player2);
-                        }
-                        catch (Exception e)
-                        {
-                            Program.WriteConsole(e.ToString());
-                        }
+                        StartGame();
                     }
                     Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
                     BroadcastMessage(text);
@@ -74,6 +62,29 @@ namespace Server
             }
             _clients.Remove(client);
             BroadcastMessage($"{client} disconnected.");
+        }
+
+        private void StartGame()
+        {
+            _game = new();
+            _game.OnGameEvent += OnGameEvent;
+            var player1 = new HumanPlayer();
+            var player2 = new ComputerPlayer();
+            SetupPlayer(player1);
+            SetupPlayer(player2);
+            try
+            {
+                _game.Play(player1, player2);
+            }
+            catch (Exception e)
+            {
+                Program.WriteConsole(e.ToString());
+            }
+        }
+
+        private void OnGameEvent(Engine.GameEvents.GameEvent gameEvent)
+        {
+            throw new NotImplementedException();
         }
 
         private static void SetupPlayer(Engine.Player player)

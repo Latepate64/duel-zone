@@ -73,6 +73,10 @@ namespace Engine
         /// </summary>
         public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
 
+        public delegate void GameEventHandler(GameEvent gameEvent);
+
+        public event GameEventHandler OnGameEvent;
+
         #region Methods
         public Game() { }
 
@@ -297,6 +301,7 @@ namespace Engine
 
         public void Process(GameEvent gameEvent)
         {
+            OnGameEvent.Invoke(gameEvent);
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
