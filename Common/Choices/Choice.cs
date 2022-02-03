@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Engine.Choices
+namespace Common.Choices
 {
     /// <summary>
     /// Represents a choice a player can make.

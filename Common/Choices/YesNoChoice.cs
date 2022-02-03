@@ -1,6 +1,6 @@
 using System;
 
-namespace Engine.Choices
+namespace Common.Choices
 {
     public class YesNoChoice : Choice
     {

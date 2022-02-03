@@ -21,6 +21,7 @@ namespace Engine.Abilities
 
         protected Ability()
         {
+            Id = Guid.NewGuid();
         }
 
         protected Ability(Ability ability)

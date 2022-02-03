@@ -1,7 +1,7 @@
 ﻿using Common;
 using Common.GameEvents;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 using Engine.ContinuousEffects;
 using Engine.Durations;
 using Engine.Zones;

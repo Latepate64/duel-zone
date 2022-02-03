@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Engine.Choices
+namespace Common.Choices
 {
     public class EnumChoice : Choice
     {

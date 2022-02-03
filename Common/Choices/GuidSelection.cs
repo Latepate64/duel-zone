@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Engine.Choices
+namespace Common.Choices
 {
     public class GuidSelection : Choice
     {
