@@ -425,10 +425,25 @@ namespace Engine
             }
             foreach (var e in events)
             {
-                e.Apply(this);
+                Move(e);
                 Process(e);
             }
             return events;
+        }
+
+        private void Move(CardMovedEvent e)
+        {
+            var player = GetPlayer(e.Player);
+            var card = GetCard(e.CardInSourceZone);
+            (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
+
+            if (e.Destination != ZoneType.Anywhere)
+            {
+                // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+                var newObject = new Card(card);
+                e.CardInDestinationZone = newObject.Id;
+                (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
+            }
         }
 
         private List<ReplacementEffect> GetReplacementEffects(IEnumerable<CardMovedEvent> events)

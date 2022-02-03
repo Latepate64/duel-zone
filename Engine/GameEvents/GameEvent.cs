@@ -16,10 +16,6 @@ namespace Engine.GameEvents
 
         public Guid Id { get; }
 
-        public virtual void Apply(Game game)
-        {
-        }
-
         public virtual GameEvent Copy() { return null; }
 
         public string Text { get; protected set; }
