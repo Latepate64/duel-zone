@@ -125,7 +125,7 @@ namespace Simulator
             //return points;
         }
 
-        private static int GetPointsForGameOver(Game game, Player player, Player opponent, int numberOfChoicesMade)
+        private static int GetPointsForGameOver(Game game, Engine.Player player, Engine.Player opponent, int numberOfChoicesMade)
         {
             const int GameOverPoints = 9999999;
             if (game.Players.Count < 2)

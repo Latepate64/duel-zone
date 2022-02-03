@@ -1,11 +1,11 @@
-﻿namespace Engine.GameEvents
+﻿namespace Common.GameEvents
 {
-    public class CardRevealedEvent : GameEvent
+    public class ShieldTriggerEvent : GameEvent
     {
         public Player Player { get; }
         public Card Card { get; }
 
-        public CardRevealedEvent(Player player, Card card)
+        public ShieldTriggerEvent(Player player, Card card)
         {
             Player = player;
             Card = card;
@@ -13,7 +13,7 @@
 
         public override string ToString()
         {
-            return $"{Player} revealed {Card} to their opponents.";
+            return $"{Player} used shield trigger of {Card}.";
         }
     }
 }

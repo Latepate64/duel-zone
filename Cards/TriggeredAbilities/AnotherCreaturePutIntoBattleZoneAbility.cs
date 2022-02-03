@@ -1,7 +1,6 @@
 ﻿using Common;
+using Common.GameEvents;
 using Engine.Abilities;
-using Engine.GameEvents;
-using Engine.Zones;
 
 namespace Cards.TriggeredAbilities
 {

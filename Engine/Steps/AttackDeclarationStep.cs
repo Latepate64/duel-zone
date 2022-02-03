@@ -1,7 +1,7 @@
-﻿using Engine.Abilities;
+﻿using Common.GameEvents;
+using Engine.Abilities;
 using Engine.Choices;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace Engine.Steps
             {
                 Phase.SetAttackingCreature(attacker, game);
                 Phase.AttackTarget = target.Id;
-                game.Process(new CreatureAttackedEvent(new Card(attacker), game.GetAttackable(Phase.AttackTarget), game));
+                game.Process(new CreatureAttackedEvent(new Card(attacker), game.GetAttackable(Phase.AttackTarget).Id));
             }
         }
 

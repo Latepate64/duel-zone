@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.GameEvents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -82,7 +83,7 @@ namespace Server
             }
         }
 
-        private void OnGameEvent(Engine.GameEvents.GameEvent gameEvent)
+        private void OnGameEvent(GameEvent gameEvent)
         {
             throw new NotImplementedException();
         }

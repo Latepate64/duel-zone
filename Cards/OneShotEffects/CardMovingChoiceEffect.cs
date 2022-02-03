@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
-using Engine.Zones;
 using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
             return new CardMovingChoiceEffect(this);
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
+        protected override void Apply(Game game, Ability source, IEnumerable<Engine.Card> cards)
         {
             game.Move(cards, SourceZone, DestinationZone);
         }

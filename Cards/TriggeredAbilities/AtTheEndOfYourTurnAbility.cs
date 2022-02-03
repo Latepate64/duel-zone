@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities
@@ -17,7 +17,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is TurnEndsEvent e && game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer == Owner && CheckInterveningIfClause(game);
+            return gameEvent is TurnEndsEvent e && game.Turns.Single(x => x.Id == e.Turn).ActivePlayer == Owner && CheckInterveningIfClause(game);
         }
 
         public override Ability Copy()

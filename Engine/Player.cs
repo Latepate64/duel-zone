@@ -1,9 +1,9 @@
 ﻿using Combinatorics.Collections;
 using Common;
+using Common.GameEvents;
 using Engine.Abilities;
 using Engine.Choices;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,9 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : IAttackable, IDisposable, ICopyable<Player>
+    public abstract class Player : Common.Player, IAttackable, IDisposable, ICopyable<Player>
     {
         #region Properties
-        public Guid Id { get; }
-
-        public string Name { get; set; }
-
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
@@ -72,13 +68,10 @@ namespace Engine
         #region Methods
         protected Player()
         {
-            Id = Guid.NewGuid();
         }
 
-        protected Player(Player player)
+        protected Player(Player player) : base(player)
         {
-            Id = player.Id;
-            Name = player.Name;
             Deck = player.Deck.Copy() as Deck;
             Graveyard = player.Graveyard.Copy() as Graveyard;
             Hand = player.Hand.Copy() as Hand;

@@ -1,7 +1,6 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
-using Common;
 
 namespace Cards.Cards.DM02
 {

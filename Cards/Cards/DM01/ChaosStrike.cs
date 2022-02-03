@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM01

@@ -1,5 +1,5 @@
-﻿using Engine.Durations;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.Durations;
 using System;
 
 namespace Engine.ContinuousEffects

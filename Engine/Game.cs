@@ -1,8 +1,9 @@
-﻿using Engine.Abilities;
+﻿using Common;
+using Common.GameEvents;
+using Engine.Abilities;
 using Engine.Choices;
 using Engine.ContinuousEffects;
 using Engine.Durations;
-using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,7 @@ namespace Engine
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
         #endregion Properties
 
-        internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
+        internal Queue<GameEvent> PreGameEvents = new();
 
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
@@ -195,7 +196,7 @@ namespace Engine
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            Process(new BattleEvent(attackingCreature, defendingCreature, this));
+            Process(new BattleEvent(attackingCreature, defendingCreature));
 
             if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
@@ -212,7 +213,7 @@ namespace Engine
 
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent(winner, this));
+                Process(new WinBattleEvent(winner));
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
@@ -323,7 +324,7 @@ namespace Engine
                 CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
-                    Process(new AbilityTriggeredEvent(ability));
+                    Process(new AbilityTriggeredEvent(ability.Id));
                 }
             }
             else
@@ -400,7 +401,7 @@ namespace Engine
         /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination, this)).ToList());
+            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)

@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class AquaVehicle : Creature
     {

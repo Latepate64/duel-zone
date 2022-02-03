@@ -1,17 +1,17 @@
-﻿namespace Engine.GameEvents
+﻿namespace Common.GameEvents
 {
-    public class LoseEvent : GameEvent
+    public class WinEvent : GameEvent
     {
         public Player Player { get; }
 
-        public LoseEvent(Player player)
+        public WinEvent(Player player)
         {
             Player = player;
         }
 
         public override string ToString()
         {
-            return $"{Player} lost the game.";
+            return $"{Player} won the game.";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
 using Engine.Choices;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace Cards.OneShotEffects
                         game.GetOwner(card).Reveal(game, card);
                     }
                 }
-                game.Move(selectedCards, Engine.Zones.ZoneType.Deck, Engine.Zones.ZoneType.Hand);
+                game.Move(selectedCards, ZoneType.Deck, ZoneType.Hand);
             }
             player.ShuffleDeck(game);
         }

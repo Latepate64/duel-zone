@@ -1,6 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Common.GameEvents;
+using Engine.Abilities;
 using Engine.Choices;
-using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 

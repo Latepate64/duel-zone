@@ -1,4 +1,4 @@
-﻿namespace Engine.GameEvents
+﻿namespace Common.GameEvents
 {
     public class SpellCastEvent : GameEvent
     {

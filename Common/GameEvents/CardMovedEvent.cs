@@ -1,7 +1,6 @@
-﻿using Engine.Zones;
-using System;
+﻿using System;
 
-namespace Engine.GameEvents
+namespace Common.GameEvents
 {
     public class CardMovedEvent : GameEvent
     {
@@ -15,16 +14,16 @@ namespace Engine.GameEvents
         public ZoneType Source { get; }
         public ZoneType Destination { get; set; }
 
-        public CardMovedEvent(Guid player, Guid cardInSourceZone, ZoneType source, ZoneType destination, Game game) : base()
+        public CardMovedEvent(Guid player, Guid cardInSourceZone, ZoneType source, ZoneType destination) : base()
         {
             Player = player;
             CardInSourceZone = cardInSourceZone;
             Source = source;
             Destination = destination;
-            if (game != null)
-            {
-                Text = $"{game.GetPlayer(Player)} put {game.GetCard(CardInSourceZone)} from {ToString(Source)} into {ToString(Destination)}."; ;
-            }
+            //if (game != null)
+            //{
+            //    Text = $"{game.GetPlayer(Player)} put {game.GetCard(CardInSourceZone)} from {ToString(Source)} into {ToString(Destination)}."; ;
+            //}
         }
 
         private static string ToString(ZoneType zone)

@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class BolzardDragon : Creature
     {

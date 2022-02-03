@@ -1,6 +1,6 @@
-﻿using Engine.Choices;
+﻿using Common.GameEvents;
+using Engine.Choices;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +36,7 @@ namespace Engine.Steps
                 Phase.BlockingCreature = blockers.Single();
                 var blocker = game.GetCard(Phase.BlockingCreature);
                 blocker.Tapped = true;
-                game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature)), new Card(blocker), game));
+                game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature)), new Card(blocker)));
             }
         }
 

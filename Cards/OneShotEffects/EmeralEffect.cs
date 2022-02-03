@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
 using Engine.Choices;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Cards.OneShotEffects
                 var cards = (decision as GuidDecision).Decision;
                 if (cards.Any())
                 {
-                    game.Move(cards.Select(x => game.GetCard(x)), Engine.Zones.ZoneType.Hand, Engine.Zones.ZoneType.ShieldZone);
+                    game.Move(cards.Select(x => game.GetCard(x)), ZoneType.Hand, ZoneType.ShieldZone);
 
                     // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
                     new ShieldRecoveryEffect(false).Apply(game, source);

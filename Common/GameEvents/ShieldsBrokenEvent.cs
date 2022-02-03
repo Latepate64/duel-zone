@@ -1,4 +1,4 @@
-﻿namespace Engine.GameEvents
+﻿namespace Common.GameEvents
 {
     public class ShieldsBrokenEvent : GameEvent
     {
@@ -16,7 +16,7 @@
 
         public override string ToString()
         {
-            return $"{Attacker} broke {Amount} of {Target}'s shields ({Target.ShieldZone.Cards.Count} remaining).";
+            return $"{Attacker} broke {Amount} of {Target}'s shields.";
         }
     }
 }

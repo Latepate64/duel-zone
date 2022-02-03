@@ -1,6 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Common.GameEvents;
+using Engine.Abilities;
 using Engine.Durations;
-using Engine.GameEvents;
 using System.Linq;
 
 namespace Engine.ContinuousEffects
@@ -47,11 +47,11 @@ namespace Engine.ContinuousEffects
                 var card = game.GetCard(cme.CardInDestinationZone);
                 if (Filter.Applies(card, game, game.GetOwner(card)))
                 {
-                    if (cme.Destination == Zones.ZoneType.BattleZone)
+                    if (cme.Destination == Common.ZoneType.BattleZone)
                     {
                         game.AddAbility(card, Ability.Copy());
                     }
-                    if (cme.Source == Zones.ZoneType.BattleZone)
+                    if (cme.Source == Common.ZoneType.BattleZone)
                     {
                         game.RemoveAbility(card, Ability.Id);
                     }

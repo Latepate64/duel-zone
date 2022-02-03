@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     class BaragaBladeOfGloom : Creature
     {

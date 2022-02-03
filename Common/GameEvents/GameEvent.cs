@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Engine.GameEvents
+namespace Common.GameEvents
 {
     public abstract class GameEvent
     {

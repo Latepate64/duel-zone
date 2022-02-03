@@ -1,9 +1,10 @@
 ﻿using Cards.CardFilters;
+using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
-using Engine.GameEvents;
 using System;
 
 namespace Cards.StaticAbilities
@@ -13,7 +14,7 @@ namespace Cards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Engine.Zones.ZoneType.Anywhere, Engine.Zones.ZoneType.BattleZone, null)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, ZoneType.Anywhere, ZoneType.BattleZone)));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)
@@ -61,7 +62,7 @@ namespace Cards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Game game, Player player)
+        public override GameEvent Apply(Game game, Engine.Player player)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +71,7 @@ namespace Cards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == Engine.Zones.ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Destination == ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
             }
             return false;
         }

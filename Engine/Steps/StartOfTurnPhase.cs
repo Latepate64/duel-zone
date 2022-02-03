@@ -1,4 +1,4 @@
-﻿using Engine.GameEvents;
+﻿using Common.GameEvents;
 
 namespace Engine.Steps
 {
@@ -31,7 +31,7 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(Game game)
         {
-            game.Process(new TurnStartsEvent(game.CurrentTurn, game));
+            game.Process(new TurnStartsEvent());//game.CurrentTurn, game));
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
             foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer))
             {

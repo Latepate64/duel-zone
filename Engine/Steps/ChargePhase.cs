@@ -24,7 +24,7 @@ namespace Engine.Steps
             var cards = dec.Decision;
             if (cards.Any())
             {
-                _ = game.Move(cards.Select(x => game.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
+                _ = game.Move(cards.Select(x => game.GetCard(x)), Common.ZoneType.Hand, Common.ZoneType.ManaZone);
             }
             return true;
         }
