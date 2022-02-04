@@ -41,7 +41,7 @@ namespace Cards.ContinuousEffects
 
         public override void Update(Game game, GameEvent e)
         {
-            if (e is CardMovedEvent cardMoved)
+            if (e is CardMovedEvent cardMoved && cardMoved.CardInDestinationZone != null)
             {
                 var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
                 if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone.Id)?.Owner)
