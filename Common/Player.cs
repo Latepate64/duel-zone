@@ -13,7 +13,7 @@ namespace Common
             Id = Guid.NewGuid();
         }
 
-        protected Player(Player player)
+        public Player(Player player)
         {
             Id = player.Id;
             Name = player.Name;

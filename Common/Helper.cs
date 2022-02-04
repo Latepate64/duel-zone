@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 namespace Common
 {
@@ -29,7 +28,7 @@ namespace Common
             }
             else
             {
-                throw new NotImplementedException();
+                return obj.ToString();
             }
         }
     }

@@ -2,16 +2,13 @@
 {
     public class ShieldsBrokenEvent : GameEvent
     {
-        public ShieldsBrokenEvent(Card attacker, Player target, int amount)
+        public ShieldsBrokenEvent()
         {
-            Attacker = attacker;
-            Target = target;
-            Amount = amount;
         }
 
-        public Card Attacker { get; }
-        public Player Target { get; }
-        public int Amount { get; }
+        public Card Attacker { get; set; }
+        public Player Target { get; set; }
+        public int Amount { get; set; }
 
 
         public override string ToString()

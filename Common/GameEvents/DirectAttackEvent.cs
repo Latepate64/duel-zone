@@ -2,11 +2,10 @@
 {
     public class DirectAttackEvent : GameEvent
     {
-        public Player Player { get; }
+        public Player Player { get; set; }
 
-        public DirectAttackEvent(Player player)
+        public DirectAttackEvent()
         {
-            Player = player;
         }
 
         public override string ToString()

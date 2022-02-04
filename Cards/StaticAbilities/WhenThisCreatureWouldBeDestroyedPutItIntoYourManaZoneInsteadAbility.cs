@@ -13,7 +13,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility()
         {
-            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, ZoneType.BattleZone, ZoneType.Graveyard)));
+            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility ability) : base(ability)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Common
@@ -29,7 +28,7 @@ namespace Common
             Tapped = card.Tapped;
         }
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
@@ -43,11 +42,11 @@ namespace Common
         /// <summary>
         /// Also known as race for creatures.
         /// </summary>
-        public IEnumerable<Subtype> Subtypes { get; set; } = new Collection<Subtype>();
+        public List<Subtype> Subtypes { get; set; } = new List<Subtype>();
 
         public int? Power { get; set; }
 
-        public ICollection<Civilization> Civilizations { get; set; }
+        public List<Civilization> Civilizations { get; set; }
 
         public int ManaCost { get; set; }
 
@@ -55,7 +54,7 @@ namespace Common
 
         public bool ShieldTrigger { get; set; } = false;
 
-        public ICollection<Guid> RevealedTo { get; set; } = new List<Guid>();
+        public List<Guid> RevealedTo { get; set; } = new List<Guid>();
 
         public bool SummoningSickness { get; set; } = true;
     }

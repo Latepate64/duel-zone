@@ -27,7 +27,7 @@ namespace Engine.Steps
         public void PerformTurnBasedAction(Game game)
         {
             _ = game.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
-            game.Process(new TurnEndsEvent(game.CurrentTurn.Id));
+            game.Process(new TurnEndsEvent { Turn = game.CurrentTurn.Id });
         }
     }
 }

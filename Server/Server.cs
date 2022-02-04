@@ -53,12 +53,13 @@ namespace Server
                 {
                     var text = await ReadAsync(client);
                     var obj = Common.Serializer.Deserialize(text);
-                    if (obj is Common.StartGame startGame)
+                    Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
+
+                    BroadcastMessage(text);
+                    if (obj is Common.StartGame)
                     {
                         StartGame();
                     }
-                    Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
-                    BroadcastMessage(text);
                 }
             }
             _clients.Remove(client);
@@ -69,7 +70,7 @@ namespace Server
         {
             _game = new();
             _game.OnGameEvent += OnGameEvent;
-            var player1 = new HumanPlayer();
+            var player1 = new ComputerPlayer();
             var player2 = new ComputerPlayer();
             SetupPlayer(player1);
             SetupPlayer(player2);
@@ -85,7 +86,9 @@ namespace Server
 
         private void OnGameEvent(GameEvent gameEvent)
         {
-            throw new NotImplementedException();
+            var text = Common.Serializer.Serialize(gameEvent);
+            Program.WriteConsole(text);
+            BroadcastMessage(text);
         }
 
         private static void SetupPlayer(Engine.Player player)

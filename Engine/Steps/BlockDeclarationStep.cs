@@ -36,7 +36,7 @@ namespace Engine.Steps
                 Phase.BlockingCreature = blockers.Single();
                 var blocker = game.GetCard(Phase.BlockingCreature);
                 blocker.Tapped = true;
-                game.Process(new BlockEvent(new Card(game.GetCard(Phase.AttackingCreature)), new Card(blocker)));
+                game.Process(new BlockEvent { Attacker = game.GetCard(Phase.AttackingCreature).Convert(), Blocker = blocker.Convert() });
             }
         }
 

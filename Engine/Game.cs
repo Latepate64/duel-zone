@@ -87,12 +87,12 @@ namespace Engine
             ExtraTurns = new Stack<Turn>(game.ExtraTurns.Select(x => new Turn(x)));
             StartingHandSize = game.StartingHandSize;
             StartingNumberOfShields = game.StartingNumberOfShields;
-            Losers = game.Losers.Select(x => x.Copy()).ToList();
-            Players = game.Players.Select(x => x.Copy()).ToList();
-            if (game.Winner != null)
-            {
-                Winner = game.Winner.Copy();
-            }
+            //Losers = game.Losers.Select(x => x.Copy()).ToList();
+            //Players = game.Players.Select(x => x.Copy()).ToList();
+            //if (game.Winner != null)
+            //{
+            //    Winner = game.Winner.Copy();
+            //}
             Turns = game.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = game.ContinuousEffects.Select(x => x.Copy()).ToList();
             BattleZone = game.BattleZone.Copy() as BattleZone;
@@ -196,7 +196,7 @@ namespace Engine
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            Process(new BattleEvent(attackingCreature, defendingCreature));
+            Process(new BattleEvent { Creature1 = attackingCreature.Convert(), Creature2 = defendingCreature.Convert() });
 
             if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
@@ -213,7 +213,7 @@ namespace Engine
 
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent(winner));
+                Process(new WinBattleEvent { Creature = winner.Convert() });
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
@@ -324,7 +324,7 @@ namespace Engine
                 CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
-                    Process(new AbilityTriggeredEvent(ability.Id));
+                    Process(new AbilityTriggeredEvent { Ability = ability.Id });
                 }
             }
             else
@@ -356,7 +356,7 @@ namespace Engine
         public void Lose(Player player)
         {
             Losers.Add(player);
-            Process(new LoseEvent(player.Copy()));
+            Process(new LoseEvent { Player = player.Copy() });
             Leave(player);
 
             // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
@@ -369,7 +369,7 @@ namespace Engine
         private void Win(Player player)
         {
             Winner = player;
-            Process(new WinEvent(player.Copy()));
+            Process(new WinEvent { Player = player.Copy() });
             Leave(player);
         }
 
@@ -401,7 +401,7 @@ namespace Engine
         /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination)).ToList());
+            return Move(cards.Select(x => new CardMovedEvent { Player = x.Owner, CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
@@ -485,7 +485,7 @@ namespace Engine
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger)));
+                        Process(new ShieldTriggerEvent { Player = player.Copy(), Card = trigger.Convert() });
                         player.UseCard(trigger, this);
                     }
                     else

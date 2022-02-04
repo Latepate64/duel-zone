@@ -1,24 +1,32 @@
 ﻿using Engine;
 using Common.Choices;
 using System;
+using System.Linq;
 
 namespace Server
 {
-    class ComputerPlayer : Player
+    public class ComputerPlayer : Player
     {
+        static readonly Random rnd = new();
+
+        public ComputerPlayer()
+        {
+        }
+
+        public ComputerPlayer(Player player) : base(player)
+        {
+        }
+
         public override YesNoDecision Choose(YesNoChoice yesNoChoice)
         {
-            throw new NotImplementedException();
+            return new YesNoDecision(true);
         }
 
         public override GuidDecision Choose(GuidSelection guidSelection)
         {
-            throw new NotImplementedException();
-        }
-
-        public override Player Copy()
-        {
-            throw new NotImplementedException();
+            var amount = rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
+            var selected = guidSelection.Options.OrderBy(x => rnd.Next()).Take(amount);
+            return new GuidDecision(selected);
         }
     }
 }

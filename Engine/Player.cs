@@ -14,7 +14,7 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : Common.Player, IAttackable, IDisposable, ICopyable<Player>
+    public abstract class Player : Common.Player, IAttackable, IDisposable//, ICopyable<Player>
     {
         #region Properties
         /// <summary>
@@ -110,7 +110,7 @@ namespace Engine
         public void ShuffleDeck(Game game)
         {
             Deck.Shuffle();
-            var eve = new DeckShuffledEvent(Copy());
+            var eve = new DeckShuffledEvent { Player = Copy() };
             if (game.Turns.Any())
             {
                 game.Process(eve);
@@ -134,7 +134,7 @@ namespace Engine
 
         private void Summon(Card card, Game game)
         {
-            game.Process(new CreatureSummonedEvent(Copy(), new Card(card)));
+            game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
             _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
         }
 
@@ -191,7 +191,7 @@ namespace Engine
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
-            game.Process(new SpellCastEvent(Copy(), new Card(spell)));
+            game.Process(new SpellCastEvent { Player = Copy(), Spell = spell.Convert() });
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
@@ -222,7 +222,7 @@ namespace Engine
         {
             var opponent = game.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            game.Process(new CardRevealedEvent(Copy(), new Card(card)));
+            game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 
         internal Zone GetZone(ZoneType zone)
@@ -246,7 +246,10 @@ namespace Engine
             }
         }
 
-        public abstract Player Copy();
+        public Common.Player Copy()
+        {
+            return Convert();
+        }
 
         private void ChooseCardsToPayManaCost(Game game, Card toUse)
         {
@@ -309,6 +312,11 @@ namespace Engine
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        internal Common.Player Convert()
+        {
+            return new Common.Player(this);
         }
         #endregion Methods
     }

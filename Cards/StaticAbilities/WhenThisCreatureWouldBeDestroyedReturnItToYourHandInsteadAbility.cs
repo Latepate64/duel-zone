@@ -13,7 +13,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility()
         {
-            ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, ZoneType.BattleZone, ZoneType.Graveyard)));
+            ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility ability) : base(ability)

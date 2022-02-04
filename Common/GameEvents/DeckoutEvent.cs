@@ -2,11 +2,10 @@
 {
     public class DeckoutEvent : GameEvent
     {
-        public Player Player { get; }
+        public Player Player { get; set; }
 
-        public DeckoutEvent(Player player)
+        public DeckoutEvent()
         {
-            Player = player;
         }
 
         public override string ToString()

@@ -4,11 +4,10 @@ namespace Common.GameEvents
 {
     public class AbilityTriggeredEvent : GameEvent
     {
-        public Guid Ability { get; }
+        public Guid Ability { get; set; }
 
-        public AbilityTriggeredEvent(Guid ability)
+        public AbilityTriggeredEvent()
         {
-            Ability = ability;
         }
 
         public override string ToString()

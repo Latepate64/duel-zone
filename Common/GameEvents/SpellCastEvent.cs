@@ -2,13 +2,11 @@
 {
     public class SpellCastEvent : GameEvent
     {
-        public Player Player { get; }
-        public Card Spell { get; }
+        public Player Player { get; set; }
+        public Card Spell { get; set; }
 
-        public SpellCastEvent(Player player, Card spell)
+        public SpellCastEvent()
         {
-            Player = player;
-            Spell = spell;
         }
 
         public override string ToString()

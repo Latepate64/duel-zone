@@ -4,13 +4,11 @@ namespace Common.GameEvents
 {
     public class CreatureAttackedEvent : GameEvent
     {
-        public Card Attacker { get; }
-        public Guid Attackable { get; }
+        public Card Attacker { get; set; }
+        public Guid Attackable { get; set; }
 
-        public CreatureAttackedEvent(Card attacker, Guid attackable)
+        public CreatureAttackedEvent()
         {
-            Attacker = attacker;
-            Attackable = attackable;
             //Text = Attackable is Card creature
             //    ? $"{game.GetOwner(Attacker)}'s {Attacker} attacked {game.GetOwner(creature)}'s {creature}."
             //    : $"{game.GetOwner(Attacker)}'s {Attacker} attacked {Attackable}.";

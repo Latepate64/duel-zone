@@ -2,11 +2,10 @@
 {
     public class LoseEvent : GameEvent
     {
-        public Player Player { get; }
+        public Player Player { get; set; }
 
-        public LoseEvent(Player player)
+        public LoseEvent()
         {
-            Player = player;
         }
 
         public override string ToString()

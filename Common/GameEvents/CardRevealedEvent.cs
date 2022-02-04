@@ -2,13 +2,11 @@
 {
     public class CardRevealedEvent : GameEvent
     {
-        public Player Player { get; }
-        public Card Card { get; }
+        public Player Player { get; set; }
+        public Card Card { get; set; }
 
-        public CardRevealedEvent(Player player, Card card)
+        public CardRevealedEvent()
         {
-            Player = player;
-            Card = card;
         }
 
         public override string ToString()

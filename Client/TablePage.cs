@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.GameEvents;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -21,8 +22,6 @@ namespace Client
             Width = 200,
         };
 
-        const int Offset = 80;
-
         readonly ZonePanel _opponentHand = new("Opponent's hand", Color.LightBlue);
         readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", Color.LightGreen);
         readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow);
@@ -34,6 +33,7 @@ namespace Client
         readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray);
         readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown);
         readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow);
+
         readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen);
         readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue) { Top = 2 * (ZonePanel.DefaultHeight + 10), Visible = true };
 
@@ -41,6 +41,8 @@ namespace Client
         readonly PlayerPanel _playerPanel;
 
         readonly Form1 _form1;
+
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 300, Left = 1500, Multiline = true, };
 
         public TablePage(Form1 form1)
         {
@@ -100,6 +102,8 @@ namespace Client
 
             Controls.Add(_opponentPanel);
             Controls.Add(_playerPanel);
+
+            Controls.Add(_textBox);
         }
 
         private void SetupGame(object sender, EventArgs e)
@@ -122,7 +126,12 @@ namespace Client
 
         internal void OnStartGame()
         {
-            // TODO
+            _form1.GameSetupForm.Invoke(new MethodInvoker(delegate { _form1.GameSetupForm.Hide(); }));
+        }
+
+        internal void Process(GameEvent e)
+        {
+            _textBox.Invoke(new MethodInvoker(delegate { _textBox.Text += e; _textBox.Text += Environment.NewLine; }));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Client
     class Client
     {
         private TcpClient _client;
-        private const int BufferSize = 256;
+        private const int BufferSize = 256 * 8;
 
         internal void Connect(string hostname, int port)
         {
@@ -21,29 +21,40 @@ namespace Client
 
         internal async Task ReadLoop(Form1 form)
         {
-            while (_client.Connected)
+            try
             {
-                if (_client.Available > 0)
+                while (_client.Connected)
                 {
-                    var obj = Read();
-                    if (obj is Common.CreateTable)
+                    if (_client.Available > 0)
                     {
-                        form.LobbyPage.Panel.OnCreateTable();
+                        var obj = Read();
+                        if (obj is Common.CreateTable)
+                        {
+                            form.LobbyPage.Panel.OnCreateTable();
+                        }
+                        else if (obj is Common.LeaveTable)
+                        {
+                            form.TablePage.OnExitTable();
+                        }
+                        else if (obj is Common.ClientName name)
+                        {
+                            form.UserName = name.Name;
+                        }
+                        else if (obj is Common.StartGame)
+                        {
+                            form.TablePage.OnStartGame();
+                        }
+                        else if (obj is Common.GameEvents.GameEvent e)
+                        {
+                            form.TablePage.Process(e);
+                        }
+                        form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
                     }
-                    else if (obj is Common.LeaveTable)
-                    {
-                        form.TablePage.OnExitTable();
-                    }
-                    else if (obj is Common.ClientName name)
-                    {
-                        form.UserName = name.Name;
-                    }
-                    else if (obj is Common.StartGame)
-                    {
-                        form.TablePage.OnStartGame();
-                    }
-                    form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + e.StackTrace);
             }
         }
 

@@ -2,13 +2,11 @@
 {
     public class CreatureSummonedEvent : GameEvent
     {
-        public Player Player { get; }
-        public Card Creature { get; }
+        public Player Player { get; set; }
+        public Card Creature { get; set; }
 
-        public CreatureSummonedEvent(Player player, Card creature)
+        public CreatureSummonedEvent()
         {
-            Player = player;
-            Creature = creature;
         }
 
         public override string ToString()

@@ -2,13 +2,11 @@
 {
     public class ShieldTriggerEvent : GameEvent
     {
-        public Player Player { get; }
-        public Card Card { get; }
+        public Player Player { get; set; }
+        public Card Card { get; set; }
 
-        public ShieldTriggerEvent(Player player, Card card)
+        public ShieldTriggerEvent()
         {
-            Player = player;
-            Card = card;
         }
 
         public override string ToString()

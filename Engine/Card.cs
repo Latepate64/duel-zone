@@ -49,5 +49,10 @@ namespace Engine
                 }
             }
         }
+
+        internal Common.Card Convert()
+        {
+            return new Common.Card(this);
+        }
     }
 }

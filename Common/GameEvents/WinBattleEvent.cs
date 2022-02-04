@@ -2,11 +2,10 @@
 {
     public class WinBattleEvent : GameEvent
     {
-        public Card Creature { get; }
+        public Card Creature { get; set; }
 
-        public WinBattleEvent(Card creature)
+        public WinBattleEvent()
         {
-            Creature = creature;
             //Text = $"{game.GetOwner(Creature)}'s {Creature} won the battle.";
         }
     }

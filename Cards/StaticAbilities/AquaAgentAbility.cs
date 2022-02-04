@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
     {
         public AquaAgentAbility()
         {
-            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Common.ZoneType.BattleZone, Common.ZoneType.Graveyard)));
+            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected AquaAgentAbility(AquaAgentAbility ability) : base(ability)

@@ -4,22 +4,18 @@ namespace Common.GameEvents
 {
     public class CardMovedEvent : GameEvent
     {
-        public Guid Player { get; }
-        public Guid CardInSourceZone { get; }
+        public Guid Player { get; set; }
+        public Guid CardInSourceZone { get; set; }
 
         /// <summary>
         /// 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
         /// </summary>
         public Guid CardInDestinationZone { get; set; }
-        public ZoneType Source { get; }
+        public ZoneType Source { get; set; }
         public ZoneType Destination { get; set; }
 
-        public CardMovedEvent(Guid player, Guid cardInSourceZone, ZoneType source, ZoneType destination) : base()
+        public CardMovedEvent() : base()
         {
-            Player = player;
-            CardInSourceZone = cardInSourceZone;
-            Source = source;
-            Destination = destination;
             //if (game != null)
             //{
             //    Text = $"{game.GetPlayer(Player)} put {game.GetCard(CardInSourceZone)} from {ToString(Source)} into {ToString(Destination)}."; ;

@@ -4,11 +4,10 @@ namespace Common.GameEvents
 {
     public class TurnEndsEvent : GameEvent
     {
-        public Guid Turn { get; }
+        public Guid Turn { get; set; }
 
-        public TurnEndsEvent(Guid turn)
+        public TurnEndsEvent()
         {
-            Turn = turn;
             //Text = $"{Turn} ends for {game.GetPlayer(Turn.ActivePlayer).Name}.";
         }
     }

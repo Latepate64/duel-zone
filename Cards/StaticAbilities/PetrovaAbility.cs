@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, ZoneType.Anywhere, ZoneType.BattleZone)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)

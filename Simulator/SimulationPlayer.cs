@@ -24,10 +24,5 @@ namespace Simulator
         {
             return new YesNoDecision(true);
         }
-
-        public override Player Copy()
-        {
-            return new SimulationPlayer(this);
-        }
     }
 }
