@@ -71,7 +71,7 @@ namespace Cards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Destination == ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
         }

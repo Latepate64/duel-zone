@@ -5,7 +5,7 @@
     /// </summary>
     public class BattleStep : Step
     {
-        public BattleStep(AttackPhase phase) : base(phase)
+        public BattleStep(AttackPhase phase) : base(phase, Common.GameEvents.PhaseOrStep.Battle)
         {
         }
 

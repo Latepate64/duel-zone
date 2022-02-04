@@ -18,5 +18,10 @@ namespace Common
             Id = player.Id;
             Name = player.Name;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

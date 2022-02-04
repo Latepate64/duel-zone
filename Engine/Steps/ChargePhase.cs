@@ -8,7 +8,7 @@ namespace Engine.Steps
     /// </summary>
     public class ChargePhase : PriorityPhase
     {
-        public ChargePhase()
+        public ChargePhase() : base(Common.GameEvents.PhaseOrStep.Charge)
         {
         }
 

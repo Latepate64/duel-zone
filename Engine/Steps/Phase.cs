@@ -55,19 +55,24 @@ namespace Engine.Steps
             }
         }
 
-        protected Phase(Phase step)
+        protected Phase(Phase phase)
         {
-            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
-            GameEvents = new Queue<GameEvent>(step.GameEvents);
-            UsedCards = step.UsedCards.ToList();
+            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
+            GameEvents = new Queue<GameEvent>(phase.GameEvents);
+            UsedCards = phase.UsedCards.ToList();
+            Type = phase.Type;
         }
 
-        protected Phase() { }
+        protected Phase(PhaseOrStep type) 
+        {
+            Type = type;
+        }
 
         public List<Card> UsedCards { get; } = new List<Card>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
 
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
+        public PhaseOrStep Type { get; }
 
         public abstract Phase Copy();
     }

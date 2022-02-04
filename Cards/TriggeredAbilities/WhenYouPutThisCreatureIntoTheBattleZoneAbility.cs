@@ -18,7 +18,7 @@ namespace Cards.TriggeredAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == ZoneType.BattleZone && Source == e.CardInDestinationZone && game.GetCard(e.CardInDestinationZone).CardType == CardType.Creature && CheckInterveningIfClause(game);
+                return e.Destination == ZoneType.BattleZone && Source == e.CardInDestinationZone.Id && game.GetCard(e.CardInDestinationZone.Id).CardType == CardType.Creature && CheckInterveningIfClause(game);
             }
             else
             {

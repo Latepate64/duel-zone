@@ -1,4 +1,5 @@
-﻿using Engine.ContinuousEffects;
+﻿using Common.GameEvents;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Engine.Steps
         public Guid AttackTarget { get; set; }
         public Guid BlockingCreature { get; set; }
 
-        public AttackPhase()
+        public AttackPhase() : base(PhaseOrStep.Attack)
         {
         }
 
@@ -52,12 +53,13 @@ namespace Engine.Steps
             while (step != null && game.Players.Any())
             {
                 _steps.Add(step);
+                game.Process(new PhaseBegunEvent(step.Type, game.GetPlayer(game.CurrentTurn.ActivePlayer).Convert(), game.CurrentTurn.Id));
                 (step as ITurnBasedActionable).PerformTurnBasedAction(game);
                 Progress(game);
                 step = step.GetNextStep(game);
             }
         }
 
-        private readonly Collection<Step> _steps = new Collection<Step>();
+        private readonly Collection<Step> _steps = new();
     }
 }

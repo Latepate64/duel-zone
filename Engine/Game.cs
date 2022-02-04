@@ -401,7 +401,7 @@ namespace Engine
         /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
         {
-            return Move(cards.Select(x => new CardMovedEvent { Player = x.Owner, CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
+            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
@@ -434,7 +434,7 @@ namespace Engine
 
         private void Move(CardMovedEvent e)
         {
-            var player = GetPlayer(e.Player);
+            var player = GetPlayer(e.Player.Id);
             var card = GetCard(e.CardInSourceZone);
             (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
 
@@ -442,7 +442,7 @@ namespace Engine
             {
                 // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
                 var newObject = new Card(card);
-                e.CardInDestinationZone = newObject.Id;
+                e.CardInDestinationZone = newObject.Convert();
                 (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
             }
         }
@@ -473,7 +473,7 @@ namespace Engine
 
         private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);

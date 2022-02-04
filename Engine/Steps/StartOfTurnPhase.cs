@@ -7,7 +7,7 @@ namespace Engine.Steps
     /// </summary>
     public class StartOfTurnPhase : Phase, ITurnBasedActionable
     {
-        public StartOfTurnPhase(bool skipDrawStep)
+        public StartOfTurnPhase(bool skipDrawStep) : base(PhaseOrStep.StartOfTurn)
         {
             SkipDrawStep = skipDrawStep;
         }
@@ -31,7 +31,6 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(Game game)
         {
-            game.Process(new TurnStartsEvent());//game.CurrentTurn, game));
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
             foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer))
             {

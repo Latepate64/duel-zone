@@ -43,7 +43,7 @@ namespace Engine.ContinuousEffects
         {
             if (e is CardMovedEvent cme)
             {
-                var card = game.GetCard(cme.CardInDestinationZone);
+                var card = game.GetCard(cme.CardInDestinationZone.Id);
                 if (Filter.Applies(card, game, game.GetOwner(card)))
                 {
                     if (cme.Destination == Common.ZoneType.BattleZone)

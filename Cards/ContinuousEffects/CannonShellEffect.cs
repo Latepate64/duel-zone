@@ -44,7 +44,7 @@ namespace Cards.ContinuousEffects
             if (e is CardMovedEvent cardMoved)
             {
                 var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-                if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone)?.Owner)
+                if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone.Id)?.Owner)
                 {
                     if (cardMoved.Source == ZoneType.ShieldZone)
                     {

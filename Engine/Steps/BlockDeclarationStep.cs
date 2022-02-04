@@ -9,7 +9,7 @@ namespace Engine.Steps
 {
     public class BlockDeclarationStep : Step
     {
-        public BlockDeclarationStep(AttackPhase phase) : base(phase)
+        public BlockDeclarationStep(AttackPhase phase) : base(phase, PhaseOrStep.BlockDeclaration)
         {
         }
 

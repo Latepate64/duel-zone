@@ -2,7 +2,7 @@
 {
     public class EndOfAttackStep : Step
     {
-        public EndOfAttackStep(AttackPhase phase) : base(phase)
+        public EndOfAttackStep(AttackPhase phase) : base(phase, Common.GameEvents.PhaseOrStep.EndOfAttack)
         {
         }
 

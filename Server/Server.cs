@@ -78,8 +78,8 @@ namespace Server
         {
             _game = new();
             _game.OnGameEvent += OnGameEvent;
-            var player1 = new ComputerPlayer();
-            var player2 = new ComputerPlayer();
+            var player1 = new ComputerPlayer { Name = "Shobu" };
+            var player2 = new ComputerPlayer { Name = "Kokujo" };
             SetupPlayer(player1);
             SetupPlayer(player2);
             try

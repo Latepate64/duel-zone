@@ -20,7 +20,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is TurnEndsEvent e && e.Turn == Turn && CheckInterveningIfClause(game);
+            return gameEvent is PhaseBegunEvent e && e.PhaseOrStep == PhaseOrStep.EndOfTurn && e.Turn == Turn && CheckInterveningIfClause(game);
         }
 
         public override Ability Copy()

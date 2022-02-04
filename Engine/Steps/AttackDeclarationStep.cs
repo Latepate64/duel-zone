@@ -10,7 +10,7 @@ namespace Engine.Steps
 {
     public class AttackDeclarationStep : Step
     {
-        public AttackDeclarationStep(AttackPhase phase) : base(phase)
+        public AttackDeclarationStep(AttackPhase phase) : base(phase, PhaseOrStep.AttackDeclaration)
         {
         }
 

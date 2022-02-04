@@ -27,6 +27,10 @@ namespace Common
             SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
         }
+        public override string ToString()
+        {
+            return Name;
+        }
 
         public Guid Id { get; set; }
 
