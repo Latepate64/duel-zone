@@ -19,8 +19,8 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(Game game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            var dec = player.Choose(new GuidSelection(game.CurrentTurn.ActivePlayer, game.GetPlayer(game.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var dec = player.Choose(new GuidSelection(game.CurrentTurn.ActivePlayer.Id, game.GetPlayer(game.CurrentTurn.ActivePlayer.Id).Hand.Cards, 0, 1));
             var cards = dec.Decision;
             if (cards.Any())
             {

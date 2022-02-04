@@ -31,12 +31,12 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(Game game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer))
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id))
             {
                 creature.SummoningSickness = false;
             }
-            game.BattleZone.UntapCards(game.CurrentTurn.ActivePlayer);
+            game.BattleZone.UntapCards(game.CurrentTurn.ActivePlayer.Id);
             player.ManaZone.UntapCards();
         }
 

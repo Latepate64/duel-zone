@@ -53,7 +53,7 @@ namespace Engine.Steps
             while (step != null && game.Players.Any())
             {
                 _steps.Add(step);
-                game.Process(new PhaseBegunEvent(step.Type, game.GetPlayer(game.CurrentTurn.ActivePlayer).Convert(), game.CurrentTurn.Id));
+                game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));
                 (step as ITurnBasedActionable).PerformTurnBasedAction(game);
                 Progress(game);
                 step = step.GetNextStep(game);

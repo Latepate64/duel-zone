@@ -170,7 +170,7 @@ namespace Engine
             var nonActivePlayer = otherPlayer;
             while (Players.Any())
             {
-                StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
+                StartNewTurn(activePlayer.Convert(), nonActivePlayer.Convert());
                 var tmp1 = activePlayer;
                 var tmp2 = nonActivePlayer;
                 activePlayer = tmp2;
@@ -178,7 +178,7 @@ namespace Engine
             }
         }
 
-        private void StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
+        private void StartNewTurn(Common.Player activePlayer, Common.Player nonActivePlayer)
         {
             if (ExtraTurns.Any())
             {

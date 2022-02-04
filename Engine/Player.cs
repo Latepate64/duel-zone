@@ -314,7 +314,7 @@ namespace Engine
             }
         }
 
-        internal Common.Player Convert()
+        public Common.Player Convert()
         {
             return new Common.Player(this);
         }

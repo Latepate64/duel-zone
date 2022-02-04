@@ -21,24 +21,21 @@ namespace Common.GameEvents
     {
         public PhaseOrStep PhaseOrStep { get; set; }
 
-        public Player Player { get; set; }
-
-        public Guid Turn { get; set; }
+        public Turn Turn { get; set; }
 
         public PhaseBegunEvent()
         {
         }
 
-        public PhaseBegunEvent(PhaseOrStep phase, Player player, Guid turn)
+        public PhaseBegunEvent(PhaseOrStep phase, Turn turn)
         {
             PhaseOrStep = phase;
-            Player = player;
             Turn = turn;
         }
 
         public override string ToString()
         {
-            return $"{Player} started {ToString(PhaseOrStep)}.";
+            return $"{Turn}: {ToString(PhaseOrStep)} begun.";
         }
 
         private static string ToString(PhaseOrStep phase)

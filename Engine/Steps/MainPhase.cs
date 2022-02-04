@@ -13,7 +13,7 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(Game game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
             if (player != null)
             {
                 var cards = player.GetUsableCards();

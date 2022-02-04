@@ -7,21 +7,9 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Turn : IDisposable
+    public class Turn : Common.Turn, IDisposable
     {
         #region Properties
-        public Guid Id { get; }
-
-        /// <summary>
-        /// 102.1. The active player is the player whose turn it is.
-        /// </summary>
-        public Guid ActivePlayer { get; set; }
-
-        /// <summary>
-        /// 102.1. The other players are nonactive players.
-        /// </summary>
-        public Guid NonActivePlayer { get; set; }
-
         /// <summary>
         /// The phase that is currently being processed.
         /// </summary>
@@ -31,16 +19,10 @@ namespace Engine
         /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
         public IList<Phase> Phases { get; private set; } = new Collection<Phase>();
-
-        /// <summary>
-        /// The number of the turn.
-        /// </summary>
-        internal int Number { get; private set; }
         #endregion Properties
 
-        public Turn()
+        public Turn() : base()
         {
-            Id = Guid.NewGuid();
         }
 
         public void Play(Game game, int number)
@@ -66,7 +48,7 @@ namespace Engine
                 if (nextPhase != null)
                 {
                     Phases.Add(nextPhase);
-                    game.Process(new PhaseBegunEvent(nextPhase.Type, game.GetPlayer(game.CurrentTurn.ActivePlayer).Convert(), game.CurrentTurn.Id));
+                    game.Process(new PhaseBegunEvent(nextPhase.Type, game.CurrentTurn.Convert()));
                     StartCurrentPhase(game);
                 }
             }
@@ -98,6 +80,11 @@ namespace Engine
             {
                 Phases = null;
             }
+        }
+
+        public Common.Turn Convert()
+        {
+            return new Common.Turn(this);
         }
     }
 }
