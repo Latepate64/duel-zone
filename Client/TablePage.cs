@@ -42,7 +42,7 @@ namespace Client
 
         readonly Form1 _form1;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 300, Left = 1500, Multiline = true, };
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 400, Left = 1400, Multiline = true, ScrollBars = ScrollBars.Vertical, };
 
         public TablePage(Form1 form1)
         {

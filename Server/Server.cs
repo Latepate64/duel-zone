@@ -52,18 +52,26 @@ namespace Server
                 if (client.Available > 0)
                 {
                     var text = await ReadAsync(client);
-                    var obj = Common.Serializer.Deserialize(text);
-                    Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
-
-                    BroadcastMessage(text);
-                    if (obj is Common.StartGame)
+                    var objects = Common.Serializer.Deserialize(text);
+                    foreach (var obj in objects)
                     {
-                        StartGame();
+                        Process(client, text, obj);
                     }
                 }
             }
             _clients.Remove(client);
             BroadcastMessage($"{client} disconnected.");
+        }
+
+        private void Process(TcpClient client, string text, object obj)
+        {
+            Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
+
+            BroadcastMessage(text);
+            if (obj is Common.StartGame)
+            {
+                StartGame();
+            }
         }
 
         private void StartGame()
