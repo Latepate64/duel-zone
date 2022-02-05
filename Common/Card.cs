@@ -56,10 +56,10 @@ namespace Common
 
         public bool Tapped { get; set; }
 
-        public bool ShieldTrigger { get; set; } = false;
+        public bool ShieldTrigger { get; set; }
 
         public List<Guid> RevealedTo { get; set; } = new List<Guid>();
 
-        public bool SummoningSickness { get; set; } = true;
+        public bool SummoningSickness { get; set; }
     }
 }

@@ -23,8 +23,9 @@ namespace Engine.Zones
 
         public override void Add(Card card, Game game)
         {
-            Cards.Add(card);
+            card.SummoningSickness = true;
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            Cards.Add(card);
             game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 

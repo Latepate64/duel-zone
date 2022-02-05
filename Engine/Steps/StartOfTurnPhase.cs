@@ -33,12 +33,13 @@ namespace Engine.Steps
         public void PerformTurnBasedAction(Game game)
         {
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
-            foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id))
+            var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
+            foreach (var creature in ownCreaturesWithSummoningSickness)
             {
                 creature.SummoningSickness = false;
             }
-            player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).ToArray());
-            player.Untap(game, player.ManaZone.Cards.ToArray());
+            game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
+            player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Union(player.ManaZone.Cards).ToArray());
         }
 
         internal bool SkipDrawStep { get; set; }

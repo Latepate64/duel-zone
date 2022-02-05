@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,6 +11,7 @@ namespace Client
         const int CardWidth = 222;
         const int CardHeight = 307;
         readonly Label _tapLabel;
+        readonly Label _summoningSicknessLabel;
 
         public CardPanel(Card card)
         {
@@ -48,7 +50,8 @@ namespace Client
                 }
                 if (card.SummoningSickness)
                 {
-                    Controls.Add(GetLabel("Summoning sickness"));
+                    _summoningSicknessLabel = GetLabel("Summoning sickness");
+                    Controls.Add(_summoningSicknessLabel);
                 }
             }
         }
@@ -67,13 +70,18 @@ namespace Client
                 Civilization.Darkness => System.Drawing.Color.DarkGray,
                 Civilization.Fire => System.Drawing.Color.Red,
                 Civilization.Nature => System.Drawing.Color.Green,
-                _ => throw new System.NotImplementedException(),
+                _ => throw new NotImplementedException(),
             };
         }
 
-        public void TapOrUntap(bool tapInsteadOfUntap)
+        internal void TapOrUntap(bool tapInsteadOfUntap)
         {
             _tapLabel.Text = tapInsteadOfUntap ? "Tapped" : "Untapped";
+        }
+
+        internal void RemoveSummoningSickness()
+        {
+            Controls.Remove(_summoningSicknessLabel);
         }
     }
 }

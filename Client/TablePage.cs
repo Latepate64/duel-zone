@@ -168,10 +168,23 @@ namespace Client
             {
                 foreach (var card in tap.Cards.Select(x => x.Id))
                 {
-                    var panel = Zones.Single(x => x.Controls.ContainsKey(card.ToString())).Controls.Find(card.ToString(), true).OfType<CardPanel>().Single();
+                    var panel = GetCardPanel(card.ToString());
                     panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(tap.TapInsteadOfUntap); }));
                 }
             }
+            else if (e is SummoningSicknessEvent sse)
+            {
+                foreach (var card in sse.Cards.Select(x => x.Id))
+                {
+                    var panel = GetCardPanel(card.ToString());
+                    panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
+                }
+            }
+        }
+
+        private CardPanel GetCardPanel(string id)
+        {
+            return Zones.Single(x => x.Controls.ContainsKey(id)).Controls.Find(id, true).OfType<CardPanel>().Single();
         }
 
         private static void RemoveCard(ZonePanel zone, string cardId)
