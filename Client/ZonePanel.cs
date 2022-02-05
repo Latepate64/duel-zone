@@ -6,6 +6,7 @@ namespace Client
     class ZonePanel : FlowLayoutPanel
     {
         internal const int DefaultHeight = 250;
+        internal const int DefaultLeft = 270;
         private Point MouseDownLocation;
         public Common.ZoneType ZoneType { get; }
 
@@ -13,7 +14,7 @@ namespace Client
         {
             ZoneType = zoneType;
 
-            Left = 270;
+            Left = DefaultLeft;
             Height = DefaultHeight;
             Width = 1000;
             BackColor = color;

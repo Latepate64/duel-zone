@@ -9,11 +9,13 @@ namespace Common.Choices
         /// <summary>
         /// Options player can choose from.
         /// </summary>
-        public IEnumerable<Guid> Options { get; private set; }
+        public List<Guid> Options { get; set; }
 
-        public int MinimumSelection { get; private set; }
+        public int MinimumSelection { get; set; }
 
-        public int MaximumSelection { get; private set; }
+        public int MaximumSelection { get; set; }
+
+        public GuidSelection() { }
 
         /// <summary>
         /// Creates a selection. Note that selection (property Selected) may be already set here if there is only one legal option to choose from.
@@ -24,7 +26,7 @@ namespace Common.Choices
         /// <param name="maximumSelection"></param>
         public GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
         {
-            Options = options;
+            Options = options.ToList();
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
         }
@@ -42,11 +44,13 @@ namespace Common.Choices
 
     public class GuidDecision : Decision
     {
-        public IEnumerable<Guid> Decision { get; private set; }
+        public List<Guid> Decision { get; set; }
+
+        public GuidDecision() { }
 
         public GuidDecision(IEnumerable<Guid> decision)
         {
-            Decision = decision;
+            Decision = decision.ToList();
         }
 
         protected override void Dispose(bool disposing)

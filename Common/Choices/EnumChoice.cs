@@ -5,9 +5,9 @@ namespace Common.Choices
 {
     public class EnumChoice : Choice
     {
-        public IEnumerable<Enum> Excluded { get; private set; }
+        public List<Enum> Excluded { get; set; }
 
-        public EnumChoice(Guid player, IEnumerable<Enum> excluded) : base(player)
+        public EnumChoice(Guid player, List<Enum> excluded) : base(player)
         {
             Excluded = excluded;
         }

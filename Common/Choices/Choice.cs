@@ -10,7 +10,9 @@ namespace Common.Choices
         /// <summary>
         /// Player who makes the choice.
         /// </summary>
-        public Guid Player { get; private set; }
+        public Guid Player { get; set; }
+
+        protected Choice() { } 
 
         protected Choice(Guid player)
         {

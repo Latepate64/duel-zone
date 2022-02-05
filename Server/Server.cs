@@ -17,7 +17,7 @@ namespace Server
 
         private const int BufferSize = 256;
 
-        private readonly List<TcpClient> _clients = new List<TcpClient>();
+        private readonly List<TcpClient> _clients = new();
         private TcpListener _listener;
 
         private Engine.Game _game;
@@ -34,9 +34,9 @@ namespace Server
                     var client = await _listener.AcceptTcpClientAsync();
                     _clients.Add(client);
                     var conn = new ClientConnected();
-                    string text = Common.Helper.ObjectToText(conn, client);
+                    string text = Helper.ObjectToText(conn, client);
                     Program.WriteConsole(text);
-                    BroadcastMessage(Common.Serializer.Serialize(conn));
+                    BroadcastMessage(Serializer.Serialize(conn));
                     Task.Run(() => Read(client));
                 }
             }
@@ -46,7 +46,7 @@ namespace Server
             }
         }
 
-        private async Task Read(TcpClient client)
+        internal async Task Read(TcpClient client)
         {
             while (!client.Client.Poll(1000, SelectMode.SelectRead) || client.Available > 0)
             {
@@ -69,7 +69,7 @@ namespace Server
             Program.WriteConsole(Helper.ObjectToText(obj, client));
             if (obj is StartGame)
             {
-                StartGame();
+                StartGame(client);
             }
             else
             {
@@ -77,12 +77,12 @@ namespace Server
             }
         }
 
-        private void StartGame()
+        private void StartGame(TcpClient client)
         {
             _game = new();
             _game.OnGameEvent += OnGameEvent;
-            var player1 = new ComputerPlayer { Name = "Shobu" };
-            var player2 = new ComputerPlayer { Name = "Kokujo" };
+            var player1 = new HumanPlayer { Name = "Shobu", Server = this, Client = client };
+            var player2 = new ComputerPlayer { Name = "Kokujo", };
             SetupPlayer(player1);
             SetupPlayer(player2);
             var players = new List<Engine.Player> { player1, player2 };
@@ -130,7 +130,7 @@ namespace Server
             return cards;
         }
 
-        private void BroadcastMessage(string text)
+        internal void BroadcastMessage(string text)
         {
             foreach (var client in _clients)
             {
@@ -142,7 +142,7 @@ namespace Server
             }
         }
 
-        private async Task<string> ReadAsync(TcpClient client)
+        internal async Task<string> ReadAsync(TcpClient client)
         {
             byte[] data = new byte[BufferSize];
             int bytesRead = 0;

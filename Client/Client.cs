@@ -64,6 +64,10 @@ namespace Client
             {
                 form.TablePage.Process(e);
             }
+            else if (obj is Common.Choices.Choice c)
+            {
+                form.TablePage.Process(c);
+            }
             form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
         }
 

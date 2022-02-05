@@ -1,15 +1,16 @@
-﻿using Engine;
-using Common.Choices;
+﻿using Common.Choices;
+using Common;
+using System.Net.Sockets;
+using System.Linq;
 
 namespace Server
 {
-    class HumanPlayer : Player
+    class HumanPlayer : Engine.Player
     {
-        public HumanPlayer() : base()
-        {
-        }
+        public Server Server { get; set; }
+        public TcpClient Client { get; internal set; }
 
-        public HumanPlayer(Player player) : base(player)
+        public HumanPlayer() : base()
         {
         }
 
@@ -21,8 +22,10 @@ namespace Server
 
         public override GuidDecision Choose(GuidSelection guidSelection)
         {
-            while (true) ;
-            return null;
+            Server.BroadcastMessage(Serializer.Serialize(guidSelection));
+            var text = Server.ReadAsync(Client);
+            var decision = Serializer.Deserialize(text.Result).First() as GuidDecision;
+            return decision;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.GameEvents;
+﻿using Common.Choices;
+using Common.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,7 +46,9 @@ namespace Client
 
         readonly Form1 _form1;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Left = 1300, Multiline = true, ScrollBars = ScrollBars.Vertical, };
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Left = 1300, Multiline = true, ScrollBars = ScrollBars.Vertical };
+
+        readonly ChoicePanel _choicePanel;
 
         public TablePage(Form1 form1)
         {
@@ -56,6 +59,7 @@ namespace Client
 
             _opponentPanel = new("Opponent", 0);
             _playerPanel = new("You", 300);
+            _choicePanel = new(_form1.Client) { Left = ZonePanel.DefaultLeft, Top = 3 * (ZonePanel.DefaultHeight + 10) };
 
             Foo(_playerPanel._battleZone, _playerBattleZone);
             Foo(_playerPanel._deck, _playerDeck);
@@ -106,6 +110,7 @@ namespace Client
             Controls.Add(_playerPanel);
 
             Controls.Add(_textBox);
+            Controls.Add(_choicePanel);
         }
 
         private void SetupGame(object sender, EventArgs e)
@@ -158,7 +163,7 @@ namespace Client
 
         internal void Process(GameEvent e)
         {
-            _textBox.Invoke(new MethodInvoker(delegate { _textBox.Text += e; _textBox.Text += Environment.NewLine; }));
+            _textBox.Invoke(new MethodInvoker(delegate { _textBox.AppendText(e + Environment.NewLine); }));
             if (e is CardMovedEvent cme && cme.Player != null)
             {
                 RemoveCard(GetZonePanel(cme.Player.Id.ToString(), cme.Source), cme.CardInSourceZone.ToString());
@@ -180,6 +185,11 @@ namespace Client
                     panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
                 }
             }
+        }
+
+        internal void Process(Choice c)
+        {
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.PassButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
         }
 
         private CardPanel GetCardPanel(string id)
