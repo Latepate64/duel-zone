@@ -9,7 +9,7 @@ namespace Server
     {
         static readonly Random rnd = new();
 
-        public ComputerPlayer()
+        public ComputerPlayer() : base()
         {
         }
 

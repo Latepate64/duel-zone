@@ -7,9 +7,12 @@ namespace Client
     {
         internal const int DefaultHeight = 250;
         private Point MouseDownLocation;
+        public Common.ZoneType ZoneType { get; }
 
-        public ZonePanel(string name, Color color)
+        public ZonePanel(string name, Color color, Common.ZoneType zoneType)
         {
+            ZoneType = zoneType;
+
             Left = 270;
             Height = DefaultHeight;
             Width = 1000;
@@ -38,6 +41,11 @@ namespace Client
             {
                 MouseDownLocation = e.Location;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} {ZoneType}";
         }
     }
 }

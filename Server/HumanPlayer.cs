@@ -5,7 +5,7 @@ namespace Server
 {
     class HumanPlayer : Player
     {
-        public HumanPlayer()
+        public HumanPlayer() : base()
         {
         }
 

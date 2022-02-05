@@ -1,6 +1,8 @@
 ﻿using Common.GameEvents;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Client
@@ -22,20 +24,21 @@ namespace Client
             Width = 200,
         };
 
-        readonly ZonePanel _opponentHand = new("Opponent's hand", Color.LightBlue);
-        readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", Color.LightGreen);
-        readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow);
-        readonly ZonePanel _opponentDeck = new("Opponent's deck", Color.SandyBrown);
-        readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", Color.Gray);
-        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed) { Top = 0, Visible = true };
+        readonly ZonePanel _opponentHand = new("Opponent's hand", Color.LightBlue, Common.ZoneType.Hand);
+        readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", Color.LightGreen, Common.ZoneType.ManaZone);
+        readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
+        readonly ZonePanel _opponentDeck = new("Opponent's deck", Color.SandyBrown, Common.ZoneType.Deck);
+        readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", Color.Gray, Common.ZoneType.Graveyard);
+        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Top = 0, Visible = true };
 
-        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed) { Top = ZonePanel.DefaultHeight + 10, Visible = true };
-        readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray);
-        readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown);
-        readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow);
+        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Top = ZonePanel.DefaultHeight + 10, Visible = true };
+        readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray, Common.ZoneType.Graveyard);
+        readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown, Common.ZoneType.Deck);
+        readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
+        readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen, Common.ZoneType.ManaZone);
+        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue, Common.ZoneType.Hand) { Top = 2 * (ZonePanel.DefaultHeight + 10), Visible = true };
 
-        readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen);
-        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue) { Top = 2 * (ZonePanel.DefaultHeight + 10), Visible = true };
+        IEnumerable<ZonePanel> Zones => new List<ZonePanel> { _playerBattleZone, _playerGraveyard, _playerDeck, _playerShieldZone, _playerManaZone, _playerHand, _opponentBattleZone, _opponentGraveyard, _opponentDeck, _opponentShieldZone, _opponentManaZone, _opponentHand };
 
         readonly PlayerPanel _opponentPanel;
         readonly PlayerPanel _playerPanel;
@@ -72,8 +75,7 @@ namespace Client
             _exitTableButton.Click += ExitTable;
             AddControls();
 
-            //TODO test
-            _playerHand.Controls.Add(new CardPanel("Aqua Vehicle"));
+            
         }
 
         private void Foo(Control button, Control control)
@@ -124,14 +126,59 @@ namespace Client
             _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.SelectedTab = _form1.LobbyPage; }));
         }
 
-        internal void OnStartGame()
+        internal void OnStartGame(Common.StartGame startGame)
         {
             _form1.GameSetupForm.Invoke(new MethodInvoker(delegate { _form1.GameSetupForm.Hide(); }));
+            bool playerInsteadOfOpponent = true;
+            foreach (var playerDeck in startGame.Players)
+            {
+                foreach (var zone in GetZonePanels(playerInsteadOfOpponent))
+                {
+                    zone.Name = playerDeck.Player.Id.ToString();
+                }
+                foreach (var card in playerDeck.Deck)
+                {
+                    AddCard(playerInsteadOfOpponent ? _playerDeck : _opponentDeck, card);
+                }
+                playerInsteadOfOpponent = !playerInsteadOfOpponent;
+            }
+        }
+
+        private List<ZonePanel> GetZonePanels(bool playerInsteadOfOpponent)
+        {
+            if (playerInsteadOfOpponent)
+            {
+                return new List<ZonePanel> { _playerBattleZone, _playerGraveyard, _playerDeck, _playerShieldZone, _playerManaZone, _playerHand };
+            }
+            else
+            {
+                return new List<ZonePanel> { _opponentBattleZone, _opponentGraveyard, _opponentDeck, _opponentShieldZone, _opponentManaZone, _opponentHand };
+            }
         }
 
         internal void Process(GameEvent e)
         {
             _textBox.Invoke(new MethodInvoker(delegate { _textBox.Text += e; _textBox.Text += Environment.NewLine; }));
+            if (e is CardMovedEvent cme && cme.Player != null)
+            {
+                RemoveCard(GetZonePanel(cme.Player.Id.ToString(), cme.Source), cme.CardInSourceZone.ToString());
+                AddCard(GetZonePanel(cme.Player.Id.ToString(), cme.Destination), cme.CardInDestinationZone);
+            }
+        }
+
+        private static void RemoveCard(ZonePanel zone, string cardId)
+        {
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.RemoveByKey(cardId); }));
+        }
+
+        private static void AddCard(ZonePanel zone, Common.Card card)
+        {
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card)); }));
+        }
+
+        private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)
+        {
+            return Zones.Single(x => x.Name == playerId && x.ZoneType == zoneType);
         }
     }
 }

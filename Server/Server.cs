@@ -1,4 +1,5 @@
-﻿using Common.GameEvents;
+﻿using Common;
+using Common.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Server
                 {
                     var client = await _listener.AcceptTcpClientAsync();
                     _clients.Add(client);
-                    var conn = new Common.ClientConnected();
+                    var conn = new ClientConnected();
                     string text = Common.Helper.ObjectToText(conn, client);
                     Program.WriteConsole(text);
                     BroadcastMessage(Common.Serializer.Serialize(conn));
@@ -52,7 +53,7 @@ namespace Server
                 if (client.Available > 0)
                 {
                     var text = await ReadAsync(client);
-                    var objects = Common.Serializer.Deserialize(text);
+                    var objects = Serializer.Deserialize(text);
                     foreach (var obj in objects)
                     {
                         Process(client, text, obj);
@@ -65,12 +66,14 @@ namespace Server
 
         private void Process(TcpClient client, string text, object obj)
         {
-            Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
-
-            BroadcastMessage(text);
-            if (obj is Common.StartGame)
+            Program.WriteConsole(Helper.ObjectToText(obj, client));
+            if (obj is StartGame)
             {
                 StartGame();
+            }
+            else
+            {
+                BroadcastMessage(text);
             }
         }
 
@@ -82,6 +85,18 @@ namespace Server
             var player2 = new ComputerPlayer { Name = "Kokujo" };
             SetupPlayer(player1);
             SetupPlayer(player2);
+            var players = new List<Engine.Player> { player1, player2 };
+
+            var startEvent = new StartGame
+            {
+                Players = players.Select(x => new PlayerDeck
+                {
+                    Player = x.Convert(),
+                    Deck = x.Deck.Cards.Select(x => x.Convert()).ToList()
+                }).ToList(),
+            };
+            BroadcastMessage(Serializer.Serialize(startEvent));
+
             try
             {
                 _game.Play(player1, player2);
@@ -94,7 +109,7 @@ namespace Server
 
         private void OnGameEvent(GameEvent gameEvent)
         {
-            var text = Common.Serializer.Serialize(gameEvent);
+            var text = Serializer.Serialize(gameEvent);
             Program.WriteConsole(text);
             BroadcastMessage(text);
         }

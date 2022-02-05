@@ -56,9 +56,9 @@ namespace Client
             {
                 form.UserName = name.Name;
             }
-            else if (obj is Common.StartGame)
+            else if (obj is Common.StartGame startGame)
             {
-                form.TablePage.OnStartGame();
+                form.TablePage.OnStartGame(startGame);
             }
             else if (obj is Common.GameEvents.GameEvent e)
             {

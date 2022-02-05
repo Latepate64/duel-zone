@@ -50,7 +50,7 @@ namespace Engine
             }
         }
 
-        internal Common.Card Convert()
+        public Common.Card Convert()
         {
             return new Common.Card(this);
         }
