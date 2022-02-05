@@ -1,17 +1,21 @@
 ﻿namespace Common.GameEvents
 {
-    public class SpellCastEvent : GameEvent
+    public class SpellCastEvent : CardMovedEvent
     {
-        public Player Player { get; set; }
-        public Card Spell { get; set; }
+        public SpellCastEvent() { }
 
-        public SpellCastEvent()
+        public SpellCastEvent(Player player, Card spell)
         {
+            CardInSourceZone = spell.Id;
+            CardInDestinationZone = spell;
+            Destination = ZoneType.Anywhere;
+            Player = player;
+            Source = ZoneType.Hand; // TODO: Possible to cast from elsewhere
         }
 
         public override string ToString()
         {
-            return $"{Player} cast {Spell}.";
+            return $"{Player} cast {CardInDestinationZone}.";
         }
     }
 }

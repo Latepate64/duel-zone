@@ -196,7 +196,7 @@ namespace Engine
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
-            game.Process(new SpellCastEvent { Player = Copy(), Spell = spell.Convert() });
+            game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
@@ -204,15 +204,21 @@ namespace Engine
                 ability.Resolve(game);
             }
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+
+            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+            var newObject = new Card(spell);
+            ZoneType destination;
             if (effects.Any())
             {
-                game.GetPlayer(spell.Owner)?.ManaZone.Add(spell, game);
+                game.GetPlayer(newObject.Owner)?.ManaZone.Add(newObject, game);
+                destination = ZoneType.ManaZone;
             }
             else
             {
-                game.GetPlayer(spell.Owner)?.Graveyard.Add(spell, game);
-
+                game.GetPlayer(newObject.Owner)?.Graveyard.Add(newObject, game);
+                destination = ZoneType.Graveyard;
             }
+            game.Process(new CardMovedEvent { CardInDestinationZone = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
         public void DiscardAtRandom(Game game)

@@ -213,7 +213,7 @@ namespace Client
 
         private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)
         {
-            return Zones.Single(x => x.Name == playerId && x.ZoneType == zoneType);
+            return Zones.SingleOrDefault(x => x.Name == playerId && x.ZoneType == zoneType);
         }
     }
 }
