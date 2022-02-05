@@ -5,13 +5,15 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    class CardPanel : FlowLayoutPanel
+    class CardPanel : Panel
     {
         const double SizeScale = 0.7;
+        const double InnerSizeScale = 0.63;
         const int CardWidth = 222;
         const int CardHeight = 307;
         readonly Label _tapLabel;
         readonly Label _summoningSicknessLabel;
+        readonly FlowLayoutPanel _inner = new() { Height = (int)(CardHeight * InnerSizeScale), Width = (int)(CardWidth * InnerSizeScale) };
 
         public CardPanel(Card card)
         {
@@ -19,46 +21,52 @@ namespace Client
 
             Height = (int)(CardHeight * SizeScale);
             Width = (int)(CardWidth * SizeScale);
+            BackColor = System.Drawing.Color.Black;
+            _inner.Left = (Width - _inner.Width) / 2;
+            _inner.Top = (Height - _inner.Height) / 2;
+
+            Controls.Add(_inner);
+            _inner.Anchor = AnchorStyles.None;
 
             if (card.Civilizations.Count == 1)
             {
-                BackColor = GetColor(card.Civilizations.First());
+                _inner.BackColor = GetColor(card.Civilizations.First());
             }
             else
             {
-                BackColor = System.Drawing.Color.Gold;
+                _inner.BackColor = System.Drawing.Color.Gold;
             }
 
-            Controls.Add(GetLabel(card.Name));
-            Controls.Add(GetLabel(card.ManaCost.ToString()));
+            _inner.Controls.Add(GetLabel(card.Name));
+            _inner.Controls.Add(GetLabel(card.ManaCost.ToString()));
             _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped");
-            Controls.Add(_tapLabel);
+            _inner.Controls.Add(_tapLabel);
             if (card.ShieldTrigger)
             {
-                Controls.Add(GetLabel("Shield trigger"));
+                _inner.Controls.Add(GetLabel("Shield trigger"));
             }
 
             if (card.CardType == CardType.Creature)
             {
                 if (card.Subtypes.Any())
                 {
-                    Controls.Add(GetLabel(string.Join(" / ", card.Subtypes)));
+                    _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes)));
                 }
                 if (card.Power.HasValue)
                 {
-                    Controls.Add(GetLabel(card.Power.Value.ToString()));
+                    _inner.Controls.Add(GetLabel(card.Power.Value.ToString()));
                 }
                 if (card.SummoningSickness)
                 {
                     _summoningSicknessLabel = GetLabel("Summoning sickness");
-                    Controls.Add(_summoningSicknessLabel);
+                    _inner.Controls.Add(_summoningSicknessLabel);
                 }
             }
         }
 
         private static Label GetLabel(string text)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 5, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * SizeScale) };
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 5, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale) };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)
@@ -81,7 +89,7 @@ namespace Client
 
         internal void RemoveSummoningSickness()
         {
-            Controls.Remove(_summoningSicknessLabel);
+            _inner.Controls.Remove(_summoningSicknessLabel);
         }
     }
 }
