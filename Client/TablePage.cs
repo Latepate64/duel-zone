@@ -164,6 +164,14 @@ namespace Client
                 RemoveCard(GetZonePanel(cme.Player.Id.ToString(), cme.Source), cme.CardInSourceZone.ToString());
                 AddCard(GetZonePanel(cme.Player.Id.ToString(), cme.Destination), cme.CardInDestinationZone);
             }
+            else if (e is TapEvent tap)
+            {
+                foreach (var card in tap.Cards.Select(x => x.Id))
+                {
+                    var panel = Zones.Single(x => x.Controls.ContainsKey(card.ToString())).Controls.Find(card.ToString(), true).OfType<CardPanel>().Single();
+                    panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(tap.TapInsteadOfUntap); }));
+                }
+            }
         }
 
         private static void RemoveCard(ZonePanel zone, string cardId)

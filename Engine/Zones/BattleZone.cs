@@ -21,14 +21,6 @@ namespace Engine.Zones
         {
         }
 
-        public void UntapCards(Guid owner)
-        {
-            foreach (Card card in Cards.Where(x => x.Owner == owner && x.Tapped))
-            {
-                card.Tapped = false;
-            }
-        }
-
         public override void Add(Card card, Game game)
         {
             Cards.Add(card);

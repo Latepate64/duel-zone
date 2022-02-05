@@ -1,4 +1,5 @@
 ﻿using Common.GameEvents;
+using System.Linq;
 
 namespace Engine.Steps
 {
@@ -36,8 +37,8 @@ namespace Engine.Steps
             {
                 creature.SummoningSickness = false;
             }
-            game.BattleZone.UntapCards(game.CurrentTurn.ActivePlayer.Id);
-            player.ManaZone.UntapCards();
+            player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).ToArray());
+            player.Untap(game, player.ManaZone.Cards.ToArray());
         }
 
         internal bool SkipDrawStep { get; set; }

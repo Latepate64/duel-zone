@@ -49,7 +49,7 @@ namespace Engine.Steps
             IAttackable target = possibleTargets.Count() > 1
                 ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
                 : possibleTargets.Single();
-            attacker.Tapped = true;
+            activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
                 Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());

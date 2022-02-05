@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -21,10 +22,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
         {
-            foreach (var card in cards)
-            {
-                card.Tapped = true;
-            }
+            game.GetPlayer(source.Owner).Tap(game, cards.ToArray());
         }
     }
 }

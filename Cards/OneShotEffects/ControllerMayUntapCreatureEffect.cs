@@ -29,10 +29,7 @@ namespace Cards.OneShotEffects
             var player = game.GetPlayer(source.Owner);
             if (player.Choose(new YesNoChoice(source.Owner)).Decision)
             {
-                foreach (var card in game.GetAllCards().Where(x => Filter.Applies(x, game, player)))
-                {
-                    card.Tapped = false;
-                }
+                player.Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, player)).ToArray());
             }
         }
     }

@@ -15,14 +15,6 @@ namespace Engine.Zones
         public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => card.Tapped).ToList());
         public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => !card.Tapped).ToList());
 
-        public void UntapCards()
-        {
-            foreach (Card card in TappedCards)
-            {
-                card.Tapped = false;
-            }
-        }
-
         public override void Add(Card card, Game game)
         {
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();

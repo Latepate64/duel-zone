@@ -7,13 +7,16 @@ namespace Client
     class CardPanel : FlowLayoutPanel
     {
         const double SizeScale = 0.7;
+        const int CardWidth = 222;
+        const int CardHeight = 307;
+        readonly Label _tapLabel;
 
         public CardPanel(Card card)
         {
             Name = card.Id.ToString();
 
-            Height = (int)(307 * SizeScale);
-            Width = (int)(222 * SizeScale);
+            Height = (int)(CardHeight * SizeScale);
+            Width = (int)(CardWidth * SizeScale);
 
             if (card.Civilizations.Count == 1)
             {
@@ -26,11 +29,8 @@ namespace Client
 
             Controls.Add(GetLabel(card.Name));
             Controls.Add(GetLabel(card.ManaCost.ToString()));
-            
-            if (card.Tapped)
-            {
-                Controls.Add(GetLabel("Tapped"));
-            }
+            _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped");
+            Controls.Add(_tapLabel);
             if (card.ShieldTrigger)
             {
                 Controls.Add(GetLabel("Shield trigger"));
@@ -55,26 +55,25 @@ namespace Client
 
         private static Label GetLabel(string text)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 5, System.Drawing.FontStyle.Bold) };
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 5, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * SizeScale) };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)
         {
-            switch (civilization)
+            return civilization switch
             {
-                case Civilization.Light:
-                    return System.Drawing.Color.Yellow;
-                case Civilization.Water:
-                    return System.Drawing.Color.Aqua;
-                case Civilization.Darkness:
-                    return System.Drawing.Color.DarkGray;
-                case Civilization.Fire:
-                    return System.Drawing.Color.Red;
-                case Civilization.Nature:
-                    return System.Drawing.Color.Green;
-                default:
-                    throw new System.NotImplementedException();
-            }
+                Civilization.Light => System.Drawing.Color.Yellow,
+                Civilization.Water => System.Drawing.Color.Aqua,
+                Civilization.Darkness => System.Drawing.Color.DarkGray,
+                Civilization.Fire => System.Drawing.Color.Red,
+                Civilization.Nature => System.Drawing.Color.Green,
+                _ => throw new System.NotImplementedException(),
+            };
+        }
+
+        public void TapOrUntap(bool tapInsteadOfUntap)
+        {
+            _tapLabel.Text = tapInsteadOfUntap ? "Tapped" : "Untapped";
         }
     }
 }

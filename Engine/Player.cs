@@ -24,6 +24,11 @@ namespace Engine
 
         public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
 
+        public void Tap(Game game, object toarray)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
@@ -266,10 +271,7 @@ namespace Engine
 
         private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
         {
-            foreach (Card mana in manaCards)
-            {
-                mana.Tapped = true;
-            }
+            Tap(game, manaCards.ToArray());
             UseCard(toUse, game);
         }
 
@@ -317,6 +319,32 @@ namespace Engine
         public Common.Player Convert()
         {
             return new Common.Player(this);
+        }
+
+        public void Tap(Game game, params Card[] cards)
+        {
+            var untappedCards = cards.Where(x => !x.Tapped).ToList();
+            foreach (Card card in untappedCards)
+            {
+                card.Tapped = true;
+            }
+            if (untappedCards.Any())
+            {
+                game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
+            }
+        }
+
+        public void Untap(Game game, params Card[] cards)
+        {
+            var tappedCards = cards.Where(x => x.Tapped).ToList();
+            foreach (Card card in tappedCards)
+            {
+                card.Tapped = false;
+            }
+            if (tappedCards.Any())
+            {
+                game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
+            }
         }
         #endregion Methods
     }
