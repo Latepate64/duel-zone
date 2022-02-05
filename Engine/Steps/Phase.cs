@@ -41,7 +41,15 @@ namespace Engine.Steps
                     var player = game.GetPlayer(abilities.Key);
                     if (player != null)
                     {
-                        var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                        System.Guid decision;
+                        if (abilities.Count() > 1)
+                        {
+                            decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                        }
+                        else
+                        {
+                            decision = abilities.First().Id;
+                        }
                         var ability = abilities.Single(x => x.Id == decision);
                         ability.Resolve(game);
                         _ = PendingAbilities.Remove(ability);

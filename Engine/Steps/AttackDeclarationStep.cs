@@ -35,7 +35,7 @@ namespace Engine.Steps
         private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
-            var decision = activePlayer.Choose(new GuidSelection(activePlayer.Id, attackers, minimum, 1)).Decision;
+            var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum)).Decision;
             if (decision.Any())
             {
                 ChooseAttackTarget(game, activePlayer, attackers, decision.Single());

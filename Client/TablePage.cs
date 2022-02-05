@@ -50,6 +50,9 @@ namespace Client
 
         readonly ChoicePanel _choicePanel;
 
+        internal Choice CurrentChoice;
+        internal List<CardPanel> SelectedCards = new();
+
         public TablePage(Form1 form1)
         {
             _form1 = form1;
@@ -59,7 +62,7 @@ namespace Client
 
             _opponentPanel = new("Opponent", 0);
             _playerPanel = new("You", 300);
-            _choicePanel = new(_form1.Client) { Left = ZonePanel.DefaultLeft, Top = 3 * (ZonePanel.DefaultHeight + 10) };
+            _choicePanel = new(_form1.Client, this) { Left = ZonePanel.DefaultLeft, Top = 3 * (ZonePanel.DefaultHeight + 10) };
 
             Foo(_playerPanel._battleZone, _playerBattleZone);
             Foo(_playerPanel._deck, _playerDeck);
@@ -189,7 +192,8 @@ namespace Client
 
         internal void Process(Choice c)
         {
-            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.PassButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
+            CurrentChoice = c;
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
         }
 
         private CardPanel GetCardPanel(string id)
@@ -202,9 +206,9 @@ namespace Client
             zone?.Invoke(new MethodInvoker(delegate { zone.Controls.RemoveByKey(cardId); }));
         }
 
-        private static void AddCard(ZonePanel zone, Common.Card card)
+        private void AddCard(ZonePanel zone, Common.Card card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card)); }));
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this)); }));
         }
 
         private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)

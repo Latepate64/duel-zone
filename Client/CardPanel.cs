@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Choices;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,9 +15,14 @@ namespace Client
         readonly Label _tapLabel;
         readonly Label _summoningSicknessLabel;
         readonly FlowLayoutPanel _inner = new() { Height = (int)(CardHeight * InnerSizeScale), Width = (int)(CardWidth * InnerSizeScale) };
+        readonly Client _client;
+        readonly TablePage _tablePage;
 
-        public CardPanel(Card card)
+        public CardPanel(Card card, Client client, TablePage tablePage)
         {
+            _client = client;
+            _tablePage = tablePage;
+
             Name = card.Id.ToString();
 
             Height = (int)(CardHeight * SizeScale);
@@ -60,6 +66,35 @@ namespace Client
                 {
                     _summoningSicknessLabel = GetLabel("Summoning sickness");
                     _inner.Controls.Add(_summoningSicknessLabel);
+                }
+            }
+
+            _inner.Click += CardPanel_Click;
+        }
+
+        private void CardPanel_Click(object sender, EventArgs e)
+        {
+            if (_tablePage.CurrentChoice is GuidSelection guidSelection)
+            {
+                if (_tablePage.SelectedCards.Contains(this))
+                {
+                    BackColor = System.Drawing.Color.Black;
+                    _tablePage.SelectedCards.Remove(this);
+                }
+                else
+                {
+                    BackColor = System.Drawing.Color.Violet;
+                    _tablePage.SelectedCards.Add(this);
+                }
+                if (guidSelection.MaximumSelection == _tablePage.SelectedCards.Count())
+                {
+                    var decision = new GuidDecision { Decision = _tablePage.SelectedCards.Select(x => new Guid(x.Name)).ToList() };
+                    foreach (var card in _tablePage.SelectedCards)
+                    {
+                        card.BackColor = System.Drawing.Color.Black;
+                    }
+                    _tablePage.SelectedCards.Clear();
+                    _client.WriteAsync(decision);
                 }
             }
         }

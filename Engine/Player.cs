@@ -258,7 +258,7 @@ namespace Engine
 
         private void ChooseCardsToPayManaCost(Game game, Card toUse)
         {
-            var manaDecision = Choose(new GuidSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
+            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
             if (HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
@@ -277,7 +277,7 @@ namespace Engine
 
         internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
         {
-            var decision = Choose(new GuidSelection(Id, cards, 0, 1)).Decision;
+            var decision = Choose(new UseCardSelection(Id, cards)).Decision;
             if (decision.Any())
             {
                 var id = decision.Single();

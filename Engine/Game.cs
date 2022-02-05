@@ -483,7 +483,7 @@ namespace Engine
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
                     var player = GetPlayer(shieldTriggersByPlayer.Key);
-                    var decision = player.Choose(new GuidSelection(player.Id, shieldTriggersByPlayer, 0, 1));
+                    var decision = player.Choose(new ShieldTriggerSelection(player.Id, shieldTriggersByPlayer));
                     if (decision.Decision.Any())
                     {
                         var trigger = GetCard(decision.Decision.Single());
