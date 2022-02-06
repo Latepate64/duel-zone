@@ -24,7 +24,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"{base.ToString()} in your mana zone";
+            return $"{ToStringBase()} in your mana zone";
         }
     }
 }

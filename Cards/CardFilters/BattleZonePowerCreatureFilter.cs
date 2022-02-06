@@ -25,5 +25,10 @@ namespace Cards.CardFilters
         {
             return new BattleZonePowerCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" with power {Power}";
+        }
     }
 }

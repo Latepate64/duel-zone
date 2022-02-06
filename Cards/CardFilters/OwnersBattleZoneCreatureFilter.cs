@@ -25,7 +25,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return "all your creatures in the battle zone";
+            return $"your {ToStringBase()}";
         }
     }
 }

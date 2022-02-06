@@ -24,7 +24,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"{base.ToString()} in your shield zone";
+            return $"{ToStringBase()} in your shield zone";
         }
     }
 }

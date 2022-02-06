@@ -24,7 +24,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"of your opponent's creatures";
+            return $"of your opponent's {ToStringBase()}s";
         }
     }
 }

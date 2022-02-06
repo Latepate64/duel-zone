@@ -24,7 +24,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"{base.ToString()} in your hand";
+            return $"{ToStringBase()} in your hand";
         }
     }
 }

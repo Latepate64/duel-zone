@@ -10,7 +10,7 @@ namespace Cards.StaticAbilities
     {
         public CardFilter BlockerFilter { get; }
 
-        public UnblockableAbility() : this(new AnyFilter())
+        public UnblockableAbility() : this(new BattleZoneCreatureFilter())
         {
         }
 

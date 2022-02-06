@@ -23,5 +23,10 @@ namespace Cards.CardFilters
         {
             return new PalaOlesisFilter(this);
         }
+
+        public override string ToString()
+        {
+            return "each of your other creatures";
+        }
     }
 }

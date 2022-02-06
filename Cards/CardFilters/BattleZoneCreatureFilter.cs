@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new BattleZoneCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return ToStringBase();
+        }
     }
 }

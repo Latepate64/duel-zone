@@ -44,7 +44,7 @@ namespace Engine
             GC.SuppressFinalize(this);
         }
 
-        public override string ToString()
+        protected string ToStringBase()
         {
             if (Civilizations.Any())
             {
@@ -55,6 +55,8 @@ namespace Engine
                 return ToString(CardType);
             }
         }
+
+        public abstract override string ToString();
 
         private static string ToString(CardType type)
         {
