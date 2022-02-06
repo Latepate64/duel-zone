@@ -9,7 +9,7 @@ namespace Cards.StaticAbilities
     {
         public ChargerAbility()
         {
-            ContinuousEffects.Add(new ChargerEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new ChargerEffect());
         }
     }
 }

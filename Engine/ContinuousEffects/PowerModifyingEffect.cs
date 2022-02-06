@@ -57,5 +57,10 @@ namespace Engine.ContinuousEffects
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Filter} gets +{_power} power{GetDurationAsText()}.";
+        }
     }
 }

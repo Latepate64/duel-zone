@@ -1,11 +1,8 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using System;
 
 namespace Cards.StaticAbilities
 {
@@ -13,7 +10,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility()
         {
-            ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
+            ContinuousEffects.Add(new AquaKnightAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility ability) : base(ability)
@@ -23,7 +20,7 @@ namespace Cards.StaticAbilities
 
     public class AquaKnightAbilityEffect : ReplacementEffect
     {
-        public AquaKnightAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public AquaKnightAbilityEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -50,6 +47,11 @@ namespace Cards.StaticAbilities
                 return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, return it to your hand instead.";
         }
     }
 }

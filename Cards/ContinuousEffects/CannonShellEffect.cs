@@ -2,7 +2,6 @@
 using Common.GameEvents;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -17,7 +16,7 @@ namespace Cards.ContinuousEffects
             _lastBuff = effect._lastBuff;
         }
 
-        public CannonShellEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public CannonShellEffect()
         {
         }
 
@@ -58,6 +57,11 @@ namespace Cards.ContinuousEffects
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return $"This creature gets +{Increment} power for each shield you have.";
         }
     }
 }

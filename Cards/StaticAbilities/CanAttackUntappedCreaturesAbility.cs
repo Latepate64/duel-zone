@@ -9,7 +9,7 @@ namespace Cards.StaticAbilities
     {
         public CanAttackUntappedCreaturesAbility()
         {
-            ContinuousEffects.Add(new CanAttackUntappedCreaturesEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new CanAttackUntappedCreaturesEffect());
         }
     }
 }

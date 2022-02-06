@@ -32,5 +32,7 @@ namespace Engine.Abilities
         }
 
         public abstract Ability Copy();
+
+        public override abstract string ToString();
     }
 }

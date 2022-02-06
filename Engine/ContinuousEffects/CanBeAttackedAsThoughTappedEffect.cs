@@ -16,5 +16,10 @@ namespace Engine.ContinuousEffects
         {
             return new CanBeAttackedAsThoughTappedEffect(this);
         }
+
+        public override string ToString()
+        {
+            return $"{Filter} can be attacked attacked as though those were tapped{GetDurationAsText()}.";
+        }
     }
 }

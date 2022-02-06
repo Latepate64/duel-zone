@@ -1,9 +1,7 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -17,7 +15,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public IocantTheOracleEffect() : base(new TargetFilter(), new Indefinite())
+        public IocantTheOracleEffect()
         {
         }
 
@@ -67,5 +65,10 @@ namespace Cards.ContinuousEffects
 
         bool _buffActive;
         const int Buff = 2000;
+
+        public override string ToString()
+        {
+            return $"While you have at least 1 Angel Command in the battle zone, this creature gets +{Buff} power.";
+        }
     }
 }

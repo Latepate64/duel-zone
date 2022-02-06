@@ -23,5 +23,10 @@ namespace Cards.TriggeredAbilities
         {
             return new CreatureBlockedAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"Whenever a creature becomes blocked, {OneShotEffect}";
+        }
     }
 }

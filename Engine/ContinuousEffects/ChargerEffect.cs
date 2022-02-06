@@ -1,12 +1,9 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class ChargerEffect : ContinuousEffect
     {
-        public ChargerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public ChargerEffect()
         {
-
         }
 
         public ChargerEffect(ChargerEffect effect) : base(effect)
@@ -16,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new ChargerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Charger (After you cast this spell, put it into your mana zone instead of your graveyard.)";
         }
     }
 }

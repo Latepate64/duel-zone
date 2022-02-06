@@ -1,6 +1,4 @@
-﻿using Engine;
-
-namespace Cards.CardFilters
+﻿namespace Engine
 {
     public class TargetFilter : CardFilter
     {

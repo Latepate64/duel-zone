@@ -9,7 +9,7 @@ namespace Cards.StaticAbilities
     {
         public SpeedAttackerAbility() : base()
         {
-            ContinuousEffects.Add(new SpeedAttackerEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new SpeedAttackerEffect());
         }
     }
 }

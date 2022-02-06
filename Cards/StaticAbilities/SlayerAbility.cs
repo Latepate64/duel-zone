@@ -9,7 +9,7 @@ namespace Cards.StaticAbilities
     {
         public SlayerAbility()
         {
-            ContinuousEffects.Add(new SlayerEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new SlayerEffect());
         }
     }
 }

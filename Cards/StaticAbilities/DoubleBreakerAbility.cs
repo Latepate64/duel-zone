@@ -9,7 +9,7 @@ namespace Cards.StaticAbilities
     {
         public DoubleBreakerAbility() : base()
         {
-            ContinuousEffects.Add(new DoubleBreakerEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new DoubleBreakerEffect());
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -12,9 +10,8 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public TropicoEffect() : base(new TargetFilter(), new Indefinite())
-        {
-            
+        public TropicoEffect()
+        { 
         }
 
         public override ContinuousEffect Copy()
@@ -24,9 +21,13 @@ namespace Cards.ContinuousEffects
 
         public override bool IsActive(Game game, Card card)
         {
-            // This creature can't be blocked while you have at least 2 other creatures in the battle zone.
             var player = game.GetOwner(card);
             return Filter.Applies(card, game, player) && game.BattleZone.GetCreatures(player.Id).Count(x => x.Id != card.Id) >= 2;
+        }
+
+        public override string ToString()
+        {
+            return $"This creature can't be blocked while you have at least 2 other creatures in the battle zone.";
         }
     }
 }

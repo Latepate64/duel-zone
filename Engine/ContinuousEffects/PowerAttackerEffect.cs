@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class PowerAttackerEffect : ContinuousEffect
     {
@@ -11,7 +9,7 @@ namespace Engine.ContinuousEffects
             Power = effect.Power;
         }
 
-        public PowerAttackerEffect(CardFilter filter, Duration duration, int power) : base(filter, duration)
+        public PowerAttackerEffect(int power)
         {
             Power = power;
         }
@@ -24,6 +22,11 @@ namespace Engine.ContinuousEffects
         public virtual int GetPower(Game game, Player player)
         {
             return Power;
+        }
+
+        public override string ToString()
+        {
+            return $"Power attacker +{Power} (While attacking, this creature gets +{Power} power.)";
         }
     }
 }

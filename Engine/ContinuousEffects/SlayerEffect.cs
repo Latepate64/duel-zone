@@ -1,10 +1,8 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class SlayerEffect : ContinuousEffect
     {
-        public SlayerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public SlayerEffect()
         {
 
         }
@@ -16,6 +14,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new SlayerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Slayer (Whenever this creature battles, destroy the other creature after the battle.)";
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)
@@ -49,7 +49,7 @@ namespace Cards.StaticAbilities
 
     internal class PetrovaChannelerOfSunsEffect : ReplacementEffect
     {
-        public PetrovaChannelerOfSunsEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -74,6 +74,11 @@ namespace Cards.StaticAbilities
                 return e.Destination == ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "As you put this creature into the battle zone, choose a race other than Mecha Del Sol. Each creature of that race gets +4000 power.";
         }
     }
 }

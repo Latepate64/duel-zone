@@ -37,5 +37,10 @@ namespace Engine.Abilities
         {
             return new StaticAbility(this);
         }
+
+        public override string ToString()
+        {
+            return string.Join(" ", ContinuousEffects);
+        }
     }
 }

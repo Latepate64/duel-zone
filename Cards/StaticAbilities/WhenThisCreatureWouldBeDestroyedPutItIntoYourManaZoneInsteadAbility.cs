@@ -1,10 +1,8 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System;
 
 namespace Cards.StaticAbilities
@@ -13,7 +11,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility()
         {
-            ContinuousEffects.Add(new MightyShouterAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
+            ContinuousEffects.Add(new MightyShouterAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility ability) : base(ability)
@@ -23,7 +21,7 @@ namespace Cards.StaticAbilities
 
     public class MightyShouterAbilityEffect : ReplacementEffect
     {
-        public MightyShouterAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public MightyShouterAbilityEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -50,6 +48,11 @@ namespace Cards.StaticAbilities
                 return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, put it into your mana zone instead.";
         }
     }
 }

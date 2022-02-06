@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
     {
         public AquaAgentAbility()
         {
-            ContinuousEffects.Add(new AquaAgentAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
+            ContinuousEffects.Add(new AquaAgentAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected AquaAgentAbility(AquaAgentAbility ability) : base(ability)
@@ -24,7 +24,7 @@ namespace Cards.StaticAbilities
 
     public class AquaAgentAbilityEffect : ReplacementEffect
     {
-        public AquaAgentAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public AquaAgentAbilityEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -58,6 +58,11 @@ namespace Cards.StaticAbilities
                 return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, you may return it to your hand instead.";
         }
     }
 }

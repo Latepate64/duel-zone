@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class CanAttackUntappedCreaturesEffect : ContinuousEffect
     {
@@ -8,13 +6,18 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        public CanAttackUntappedCreaturesEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public CanAttackUntappedCreaturesEffect()
         {
         }
 
         public override ContinuousEffect Copy()
         {
             return new CanAttackUntappedCreaturesEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{Filter} can attack untapped creatures{GetDurationAsText()}.";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
     {
         public CardFilter MultiplierFilter { get; }
 
-        public BolshackDragonEffect(CardFilter multiplierFilter) : base(new TargetFilter(), new Indefinite(), 0)
+        public BolshackDragonEffect(CardFilter multiplierFilter) : base(0)
         {
             MultiplierFilter = multiplierFilter;
         }

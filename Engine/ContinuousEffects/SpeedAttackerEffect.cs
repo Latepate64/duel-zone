@@ -1,10 +1,8 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class SpeedAttackerEffect : ContinuousEffect
     {
-        public SpeedAttackerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public SpeedAttackerEffect()
         {
         }
 
@@ -15,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new SpeedAttackerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Speed attacker (This creature doesn't get summoning sickness.)";
         }
     }
 }

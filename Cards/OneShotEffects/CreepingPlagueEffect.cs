@@ -9,6 +9,7 @@ namespace Cards.OneShotEffects
     {
         public override void Apply(Game game, Ability source)
         {
+            // TODO: Now DelayedTriggeredAbility applies to any creature, should apply to own battle zone creatures only.
             game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new TriggeredAbilities.CreatureBlockedAbility(new BlockedCreatureGetsAbilityEffect(new UntilTheEndOfTheTurn(), new SlayerAbility())), new UntilTheEndOfTheTurn(), source.Source, source.Owner));
         }
 

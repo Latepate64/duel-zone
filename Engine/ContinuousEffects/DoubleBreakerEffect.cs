@@ -1,12 +1,9 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class DoubleBreakerEffect : ContinuousEffect
     {
-        public DoubleBreakerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public DoubleBreakerEffect()
         {
-
         }
 
         public DoubleBreakerEffect(DoubleBreakerEffect effect) : base(effect)
@@ -16,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new DoubleBreakerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Double breaker (This creature breaks 2 shields.)";
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Cards.Cards.DM04
             ShieldTrigger = true;
 
             // This creature gets +1000 power for each shield you have.
-            Abilities.Add(new StaticAbility(new CannonShellEffect(new TargetFilter(), new Indefinite())));
+            Abilities.Add(new StaticAbility(new CannonShellEffect()));
         }
     }
 }
