@@ -39,7 +39,7 @@ namespace Cards.StaticAbilities
 
         public override GameEvent Apply(Game game, Engine.Player player)
         {
-            if (player.Choose(new YesNoChoice(player.Id)).Decision)
+            if (player.Choose(new YesNoChoice(player.Id, ToString())).Decision)
             {
                 var newEvent = EventToReplace.Copy() as CardMovedEvent;
                 newEvent.Destination = ZoneType.Hand;

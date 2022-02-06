@@ -17,5 +17,7 @@ namespace Common.GameEvents
         public Guid Id { get; }
 
         public virtual GameEvent Copy() { return null; }
+
+        public override abstract string ToString();
     }
 }

@@ -40,6 +40,11 @@ namespace Common.Choices
                 Options = null;
             }
         }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class GuidDecision : Decision

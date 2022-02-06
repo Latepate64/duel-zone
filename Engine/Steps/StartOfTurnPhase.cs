@@ -34,11 +34,14 @@ namespace Engine.Steps
         {
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
             var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
-            foreach (var creature in ownCreaturesWithSummoningSickness)
+            if (ownCreaturesWithSummoningSickness.Any())
             {
-                creature.SummoningSickness = false;
+                foreach (var creature in ownCreaturesWithSummoningSickness)
+                {
+                    creature.SummoningSickness = false;
+                }
+                game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
-            game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Union(player.ManaZone.Cards).ToArray());
         }
 

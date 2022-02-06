@@ -6,7 +6,11 @@
 
         public WinBattleEvent()
         {
-            //Text = $"{game.GetOwner(Creature)}'s {Creature} won the battle.";
+        }
+
+        public override string ToString()
+        {
+            return $"{Creature} won the battle.";
         }
     }
 }

@@ -7,7 +7,11 @@
 
         public BlockEvent()
         {
-            //Text = $"{game.GetOwner(Blocker)}'s {Blocker} blocked {game.GetOwner(Attacker)}'s {Attacker}.";
+        }
+
+        public override string ToString()
+        {
+            return $"{Blocker} blocked {Attacker}.";
         }
     }
 }

@@ -9,9 +9,11 @@ namespace Common.GameEvents
 
         public CreatureAttackedEvent()
         {
-            //Text = Attackable is Card creature
-            //    ? $"{game.GetOwner(Attacker)}'s {Attacker} attacked {game.GetOwner(creature)}'s {creature}."
-            //    : $"{game.GetOwner(Attacker)}'s {Attacker} attacked {Attackable}.";
+        }
+
+        public override string ToString()
+        {
+            return $"{Attacker} attacked {Attackable}.";
         }
     }
 }

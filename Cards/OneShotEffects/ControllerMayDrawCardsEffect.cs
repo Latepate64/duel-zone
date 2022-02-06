@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
             var player = game.GetPlayer(source.Owner);
             if (player != null)
             {
-                var decision = player.Choose(new YesNoChoice(source.Owner));
+                var decision = player.Choose(new YesNoChoice(source.Owner, "You may draw a card."));
                 if (decision.Decision)
                 {
                     player.DrawCards(1, game);

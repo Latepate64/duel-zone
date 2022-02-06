@@ -20,5 +20,10 @@ namespace Common.GameEvents
             Cards = cards;
             TapInsteadOfUntap = tapInsteadOfUntap;
         }
+
+        public override string ToString()
+        {
+            return $"{Player} {(TapInsteadOfUntap ? "" : "un")}tapped {string.Join(", ", Cards)}.";
+        }
     }
 }

@@ -6,5 +6,10 @@
         {
             return new UntilTheEndOfTheTurn();
         }
+
+        public override string ToString()
+        {
+            return "until the end of the turn";
+        }
     }
 }

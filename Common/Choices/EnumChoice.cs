@@ -16,6 +16,11 @@ namespace Common.Choices
         {
             Excluded = null;
         }
+
+        public override string ToString()
+        {
+            return $"Choose other than {string.Join(", ", Excluded)}.";
+        }
     }
 
     public class EnumDecision : Decision

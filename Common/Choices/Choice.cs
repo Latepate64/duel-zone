@@ -26,6 +26,8 @@ namespace Common.Choices
         }
 
         protected abstract void Dispose(bool disposing);
+
+        public override abstract string ToString();
     }
 
     public abstract class Decision : IDisposable

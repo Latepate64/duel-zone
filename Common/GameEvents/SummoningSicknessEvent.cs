@@ -9,5 +9,10 @@ namespace Common.GameEvents
         public SummoningSicknessEvent()
         {
         }
+
+        public override string ToString()
+        {
+            return $"{string.Join(", ", Cards)} lost summoning sickness.";
+        }
     }
 }

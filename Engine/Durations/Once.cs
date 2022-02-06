@@ -1,15 +1,15 @@
 ﻿namespace Engine.Durations
 {
-    public class Indefinite : Duration
+    public class Once : Duration
     {
         public override Duration Copy()
         {
-            return new Indefinite();
+            return new Once();
         }
 
         public override string ToString()
         {
-            return string.Empty;
+            return "once";
         }
     }
 }
