@@ -22,19 +22,10 @@ namespace Engine
         /// </summary>
         public Deck Deck { get; set; }
 
-        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
-
-        public void Tap(Game game, object toarray)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
         public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
-
-        public abstract GuidDecision Choose(GuidSelection guidSelection);
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
@@ -68,7 +59,7 @@ namespace Engine
         public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
         #endregion Properties
 
-        private static readonly Random _random = new Random();
+        private static readonly Random _random = new();
 
         #region Methods
         protected Player()
@@ -111,6 +102,23 @@ namespace Engine
                 ShieldZone = null;
             }
         }
+
+        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
+
+        public GuidDecision Choose(GuidSelection selection)
+        {
+            var legal = false;
+            GuidDecision decision = null;
+            while (!legal)
+            {
+                decision = ClientChoose(selection);
+                var dist = decision.Decision.Distinct();
+                legal = dist.Count() >= selection.MinimumSelection && dist.Count() <= selection.MaximumSelection && dist.All(i => selection.Options.Contains(i));
+            }
+            return decision;
+        }
+
+        public abstract GuidDecision ClientChoose(GuidSelection guidSelection);
 
         public void ShuffleDeck(Game game)
         {

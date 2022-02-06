@@ -29,7 +29,7 @@ namespace Engine
 
         public virtual bool Applies(Card card, Game game, Player player)
         {
-            return (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && (CardType == CardType.Any || card.CardType == CardType);
+            return card != null && (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && (CardType == CardType.Any || card.CardType == CardType);
         }
 
         public abstract CardFilter Copy();

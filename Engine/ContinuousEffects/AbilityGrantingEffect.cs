@@ -42,7 +42,7 @@ namespace Engine.ContinuousEffects
 
         public override void Update(Game game, GameEvent e)
         {
-            if (e is CardMovedEvent cme && cme.CardInDestinationZone != null)
+            if (e is CardMovedEvent cme && cme.CardInDestinationZone != null && cme.Destination != Common.ZoneType.Anywhere)
             {
                 var card = game.GetCard(cme.CardInDestinationZone.Id);
                 if (Filter.Applies(card, game, game.GetOwner(card)))

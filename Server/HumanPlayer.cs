@@ -20,7 +20,7 @@ namespace Server
             return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
         }
 
-        public override GuidDecision Choose(GuidSelection guidSelection)
+        public override GuidDecision ClientChoose(GuidSelection guidSelection)
         {
             Server.BroadcastMessage(Serializer.Serialize(guidSelection));
             return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
