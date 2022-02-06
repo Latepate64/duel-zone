@@ -22,11 +22,13 @@ namespace Common
             Name = card.Name;
             Power = card.Power;
             RevealedTo = card.RevealedTo.ToList();
+            RulesText = card.RulesText;
             ShieldTrigger = card.ShieldTrigger;
             Subtypes = card.Subtypes?.ToList();
             SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
         }
+
         public override string ToString()
         {
             return Name;
@@ -61,5 +63,7 @@ namespace Common
         public List<Guid> RevealedTo { get; set; } = new List<Guid>();
 
         public bool SummoningSickness { get; set; }
+
+        public string RulesText { get; set; }
     }
 }

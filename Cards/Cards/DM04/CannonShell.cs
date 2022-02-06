@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Cards.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
 using Engine.Abilities;
-using Engine.Durations;
 
 namespace Cards.Cards.DM04
 {

@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "put" : "your opponent puts")} {GetAmountAsText()} {Filter} on top of its owner's deck.";
+            return $"{(ControllerChooses ? "put" : "your opponent puts")} {GetAmountAsText()} of {Filter} on top of its owner's deck.";
         }
     }
 }

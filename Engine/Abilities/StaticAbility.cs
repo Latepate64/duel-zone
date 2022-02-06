@@ -40,7 +40,7 @@ namespace Engine.Abilities
 
         public override string ToString()
         {
-            return string.Join(" ", ContinuousEffects);
+            return string.Join(" ", ContinuousEffects.Select(x => UpperCaseFirstCharacter(x.ToString())));
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects

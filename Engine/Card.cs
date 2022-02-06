@@ -48,11 +48,17 @@ namespace Engine
                     }
                 }
             }
+            SetRulesText();
         }
 
         public Common.Card Convert()
         {
             return new Common.Card(this);
+        }
+
+        private void SetRulesText()
+        {
+            RulesText = string.Join(System.Environment.NewLine, Abilities.Select(x => x.ToString()));
         }
     }
 }

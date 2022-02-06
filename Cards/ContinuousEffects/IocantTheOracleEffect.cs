@@ -27,7 +27,7 @@ namespace Cards.ContinuousEffects
         public override void Start(Game game)
         {
             var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-            if (game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Common.Subtype.AngelCommand)))
+            if (game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand)))
             {
                 _buffActive = true;
                 card.Power += Buff;
@@ -49,7 +49,7 @@ namespace Cards.ContinuousEffects
             if (e is CardMovedEvent cardMoved && (cardMoved.Source == ZoneType.BattleZone || cardMoved.Destination == ZoneType.BattleZone))
             {
                 var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-                var buffShouldBeApplied = game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Common.Subtype.AngelCommand));
+                var buffShouldBeApplied = game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand));
                 if (buffShouldBeApplied && !_buffActive)
                 {
                     _buffActive = true;

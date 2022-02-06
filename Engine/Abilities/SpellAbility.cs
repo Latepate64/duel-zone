@@ -15,8 +15,7 @@
 
         public override string ToString()
         {
-            var text = OneShotEffect.ToString();
-            return char.ToUpper(text[0]) + text[1..];
+            return UpperCaseFirstCharacter(OneShotEffect.ToString());
         }
     }
 }

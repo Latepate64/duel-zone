@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class BloodySquito : Creature
     {
-        public BloodySquito() : base("Bloody Squito", 2, Common.Civilization.Darkness, 4000, Common.Subtype.BrainJacker)
+        public BloodySquito() : base("Bloody Squito", 2, Civilization.Darkness, 4000, Subtype.BrainJacker)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());

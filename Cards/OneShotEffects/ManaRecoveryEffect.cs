@@ -17,7 +17,6 @@ namespace Cards.OneShotEffects
         {
         }
 
-        //you may return a creature from your mana zone to your hand
         public override string ToString()
         {
             return $"{(ControllerChooses ? "return" : "your opponent returns")} {GetAmountAsText()} {Filter} to their owner's hand.";

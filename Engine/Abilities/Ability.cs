@@ -34,5 +34,10 @@ namespace Engine.Abilities
         public abstract Ability Copy();
 
         public override abstract string ToString();
+
+        protected static string UpperCaseFirstCharacter(string text)
+        {
+            return char.ToUpper(text[0]) + text[1..];
+        }
     }
 }

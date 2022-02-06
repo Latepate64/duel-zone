@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return base.ToString() + $" with power {Power} or less";
+            return base.ToString() + $" that has power {Power} or less";
         }
     }
 }

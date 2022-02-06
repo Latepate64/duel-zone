@@ -6,6 +6,7 @@ namespace Cards.CardFilters
     {
         public OpponentsBattleZoneCreatureFilter()
         {
+            CardType = Common.CardType.Creature;
         }
 
         public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
@@ -24,7 +25,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"of your opponent's {ToStringBase()}s";
+            return $"your opponent's {ToStringBase()}s";
         }
     }
 }

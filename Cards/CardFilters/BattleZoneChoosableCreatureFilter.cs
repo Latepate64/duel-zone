@@ -8,6 +8,7 @@ namespace Cards.CardFilters
     {
         public BattleZoneChoosableCreatureFilter()
         {
+            CardType = Common.CardType.Creature;
         }
 
         public BattleZoneChoosableCreatureFilter(CardFilter filter) : base(filter)

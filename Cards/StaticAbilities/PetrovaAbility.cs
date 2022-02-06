@@ -1,10 +1,8 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System;
 
 namespace Cards.StaticAbilities
