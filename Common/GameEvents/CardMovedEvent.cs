@@ -16,33 +16,21 @@ namespace Common.GameEvents
 
         public CardMovedEvent() : base()
         {
-            //if (game != null)
-            //{
-            //    Text = $"{game.GetPlayer(Player)} put {game.GetCard(CardInSourceZone)} from {ToString(Source)} into {ToString(Destination)}."; ;
-            //}
         }
 
-        private static string ToString(ZoneType zone)
+        public static string ToString(ZoneType zone)
         {
-            switch (zone)
+            return zone switch
             {
-                case ZoneType.BattleZone:
-                    return "the battle zone";
-                case ZoneType.Deck:
-                    return "their deck";
-                case ZoneType.Graveyard:
-                    return "their graveyard";
-                case ZoneType.Hand:
-                    return "their hand";
-                case ZoneType.ManaZone:
-                    return "their mana zone";
-                case ZoneType.ShieldZone:
-                    return "their shields";
-                case ZoneType.Anywhere:
-                    return "anywhere";
-                default:
-                    throw new InvalidOperationException();
-            }
+                ZoneType.BattleZone => "the battle zone",
+                ZoneType.Deck => "their deck",
+                ZoneType.Graveyard => "their graveyard",
+                ZoneType.Hand => "their hand",
+                ZoneType.ManaZone => "their mana zone",
+                ZoneType.ShieldZone => "their shields",
+                ZoneType.Anywhere => "anywhere",
+                _ => throw new InvalidOperationException(),
+            };
         }
 
         public override string ToString()

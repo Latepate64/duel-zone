@@ -24,5 +24,17 @@ namespace Cards.OneShotEffects
         {
             game.GetPlayer(source.Owner).Tap(game, cards.ToArray());
         }
+
+        public override string ToString()
+        {
+            if (ControllerChooses)
+            {
+                return $"choose {GetAmountAsText()} {Filter} and tap them.";
+            }
+            else
+            {
+                return $"your opponents chooses {GetAmountAsText()} {Filter} and taps them.";
+            }
+        }
     }
 }

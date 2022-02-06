@@ -49,5 +49,10 @@ namespace Cards.OneShotEffects
         {
             return new GigaberosEffect();
         }
+
+        public override string ToString()
+        {
+            return "destroy 2 of your other creatures or destroy this creature.";
+        }
     }
 }

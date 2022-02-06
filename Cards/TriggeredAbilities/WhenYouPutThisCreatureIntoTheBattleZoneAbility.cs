@@ -30,6 +30,11 @@ namespace Cards.TriggeredAbilities
         {
             return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"When you put this creature into the battle zone, {OneShotEffect}";
+        }
     }
 }
 

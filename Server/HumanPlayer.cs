@@ -16,16 +16,14 @@ namespace Server
 
         public override YesNoDecision Choose(YesNoChoice yesNoChoice)
         {
-            while (true);
-            return null;
+            Server.BroadcastMessage(Serializer.Serialize(yesNoChoice));
+            return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
         }
 
         public override GuidDecision Choose(GuidSelection guidSelection)
         {
             Server.BroadcastMessage(Serializer.Serialize(guidSelection));
-            var text = Server.ReadAsync(Client);
-            var decision = Serializer.Deserialize(text.Result).First() as GuidDecision;
-            return decision;
+            return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
         }
     }
 }

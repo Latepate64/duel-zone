@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new CardMovingAreaOfEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"put {Filter} from {CardMovedEvent.ToString(SourceZone)} to {CardMovedEvent.ToString(DestinationZone)}.";
         }
     }
 }

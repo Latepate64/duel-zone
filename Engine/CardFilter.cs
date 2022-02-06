@@ -43,5 +43,28 @@ namespace Engine
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public override string ToString()
+        {
+            if (Civilizations.Any())
+            {
+                return string.Join(" ", string.Join("/", Civilizations), ToString(CardType));
+            }
+            else
+            {
+                return ToString(CardType);
+            }
+        }
+
+        private static string ToString(CardType type)
+        {
+            return type switch
+            {
+                CardType.Creature => "creature",
+                CardType.Spell => "spell",
+                CardType.Any => "card",
+                _ => throw new NotImplementedException(),
+            };
+        }
     }
 }

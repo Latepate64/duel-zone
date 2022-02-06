@@ -22,5 +22,10 @@ namespace Cards.CardFilters
         {
             return new OwnersBattleZoneCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return "all your creatures in the battle zone";
+        }
     }
 }

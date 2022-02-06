@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return Target == card?.Id;
         }
+
+        public override string ToString()
+        {
+            return "this creature";
+        }
     }
 }

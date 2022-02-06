@@ -27,5 +27,10 @@ namespace Cards.TriggeredAbilities
         {
             return new AtTheEndOfTurnAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"At the end of that turn, {OneShotEffect}";
+        }
     }
 }

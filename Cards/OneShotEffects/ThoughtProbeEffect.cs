@@ -8,7 +8,6 @@ namespace Cards.OneShotEffects
     {
         public override void Apply(Game game, Ability source)
         {
-            // When you cast this spell, if your opponent has 3 or more creatures in the battle zone, draw 3 cards.
             var player = game.GetPlayer(source.Owner);
             if (game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Count() >= 3)
             {
@@ -19,6 +18,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new ThoughtProbeEffect();
+        }
+
+        public override string ToString()
+        {
+            return "if your opponent has 3 or more creatures in the battle zone, draw 3 cards.";
         }
     }
 }

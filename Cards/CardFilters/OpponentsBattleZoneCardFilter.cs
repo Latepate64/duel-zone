@@ -22,5 +22,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsBattleZoneCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"of your opponent's cards";
+        }
     }
 }

@@ -21,8 +21,12 @@ namespace Cards.TriggeredAbilities
 
         public override void Apply(Game game, Ability source)
         {
-            // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
             game.Move(game.GetCard(source.Source), ZoneType.BattleZone, ZoneType.Hand);
+        }
+
+        public override string ToString()
+        {
+            return "if this creature broke any shields that turn, return it to your hand.";
         }
     }
 }

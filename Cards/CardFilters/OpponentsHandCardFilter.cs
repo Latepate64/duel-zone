@@ -22,5 +22,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsHandCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} in your opponent's hand";
+        }
     }
 }

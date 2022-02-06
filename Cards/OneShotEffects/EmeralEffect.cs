@@ -38,5 +38,10 @@ namespace Cards.OneShotEffects
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return "you may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
+        }
     }
 }

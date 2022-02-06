@@ -21,8 +21,12 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            // Return this creature to your hand.
             game.Move(game.GetCard(source.Source), ZoneType.BattleZone, ZoneType.Hand);
+        }
+
+        public override string ToString()
+        {
+            return "return this creature to your hand.";
         }
     }
 }

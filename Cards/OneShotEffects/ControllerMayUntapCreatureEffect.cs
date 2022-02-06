@@ -32,5 +32,10 @@ namespace Cards.OneShotEffects
                 player.Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, player)).ToArray());
             }
         }
+
+        public override string ToString()
+        {
+            return $"you may untap {Filter}.";
+        }
     }
 }

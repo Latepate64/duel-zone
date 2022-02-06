@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsBattleZoneCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"of your opponent's creatures";
+        }
     }
 }

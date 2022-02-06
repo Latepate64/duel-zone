@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 
 namespace Cards.Cards.DM03
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM03
             // Whenever this creature attacks, you may put a nature card from your graveyard into your mana zone.
             var filter = new CardFilters.OwnersGraveyardCardFilter();
             filter.Civilizations.Add(Common.Civilization.Nature);
-            Abilities.Add(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new CardMovingChoiceEffect(filter, 0, 1, true, ZoneType.Graveyard, ZoneType.ManaZone)));
+            Abilities.Add(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new FromGraveyardIntoManaZoneEffect(filter, 0, 1, true)));
         }
     }
 }

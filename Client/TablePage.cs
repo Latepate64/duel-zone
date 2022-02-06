@@ -52,6 +52,7 @@ namespace Client
 
         internal Choice CurrentChoice;
         internal List<CardPanel> SelectedCards = new();
+        internal List<CardPanel> SelectableCards = new();
 
         public TablePage(Form1 form1)
         {
@@ -194,6 +195,15 @@ namespace Client
         {
             CurrentChoice = c;
             _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
+            if (c is GuidSelection selection)
+            {
+                foreach (var card in selection.Options)
+                {
+                    var panel = GetCardPanel(card.ToString());
+                    panel.Invoke(new MethodInvoker(delegate { panel.BackColor = Color.White; }));
+                    SelectableCards.Add(panel);
+                }
+            }
         }
 
         private CardPanel GetCardPanel(string id)

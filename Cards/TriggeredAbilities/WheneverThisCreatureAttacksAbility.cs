@@ -23,5 +23,10 @@ namespace Cards.TriggeredAbilities
         {
             return new WheneverThisCreatureAttacksAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"Whenever this creature attacks, {OneShotEffect}";
+        }
     }
 }

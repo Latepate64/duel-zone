@@ -27,5 +27,10 @@ namespace Cards.TriggeredAbilities
         {
             return new WinBattleAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"When {Filter} wins a battle, {OneShotEffect}";
+        }
     }
 }

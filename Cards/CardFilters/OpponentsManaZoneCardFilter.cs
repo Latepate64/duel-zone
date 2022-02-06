@@ -22,5 +22,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsManaZoneCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} in your opponent's mana zone";
+        }
     }
 }

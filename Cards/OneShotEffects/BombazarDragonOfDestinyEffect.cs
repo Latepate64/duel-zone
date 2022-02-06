@@ -30,6 +30,11 @@ namespace Cards.OneShotEffects
         {
             return new BombazarDragonOfDestinyEffect(this);
         }
+
+        public override string ToString()
+        {
+            return "destroy all other creatures that have power 6000, then take an extra turn after this one. You lose the game at the end of the extra turn.";
+        }
     }
 
     public class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
@@ -50,6 +55,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new YouLoseTheGameAtTheEndOfTheExtraTurnEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "you lose the game.";
         }
     }
 }

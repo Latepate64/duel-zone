@@ -31,5 +31,10 @@ namespace Cards.TriggeredAbilities
         {
             return new AnotherCreaturePutIntoBattleZoneAbility(this);
         }
+
+        public override string ToString()
+        {
+            return $"Whenever another creature is put into the battle zone, {OneShotEffect}";
+        }
     }
 }

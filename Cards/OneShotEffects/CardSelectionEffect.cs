@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    abstract class CardSelectionEffect : OneShotEffect
+    public abstract class CardSelectionEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
         public int Minimum { get; }
@@ -44,7 +44,7 @@ namespace Cards.OneShotEffects
                     var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Apply(game, source, player.Choose(new GuidSelection(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()))).Decision.Select(x => game.GetCard(x)));
+                        Apply(game, source, player.Choose(new GuidSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString())).Decision.Select(x => game.GetCard(x)));
                     }
                 }
 
@@ -52,5 +52,25 @@ namespace Cards.OneShotEffects
         }
 
         protected abstract void Apply(Game game, Ability source, IEnumerable<Card> cards);
+
+        protected string GetAmountAsText()
+        {
+            if (Minimum == 0)
+            {
+                return $"up to {Maximum}";
+            }
+            else if (Minimum < Maximum)
+            {
+                return $"from {Minimum} up to {Maximum}";
+            }
+            else if (Minimum == 1)
+            {
+                return "one";
+            }
+            else
+            {
+                return Maximum.ToString();
+            }
+        }
     }
 }

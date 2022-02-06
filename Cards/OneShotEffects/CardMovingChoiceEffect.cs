@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class CardMovingChoiceEffect : CardSelectionEffect
+    public abstract class CardMovingChoiceEffect : CardSelectionEffect
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
@@ -20,11 +20,6 @@ namespace Cards.OneShotEffects
         {
             SourceZone = effect.SourceZone;
             DestinationZone = effect.DestinationZone;
-        }
-
-        public override OneShotEffect Copy()
-        {
-            return new CardMovingChoiceEffect(this);
         }
 
         protected override void Apply(Game game, Ability source, IEnumerable<Engine.Card> cards)

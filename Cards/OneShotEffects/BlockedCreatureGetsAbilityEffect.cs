@@ -41,5 +41,10 @@ namespace Cards.OneShotEffects
         {
             return new BlockedCreatureGetsAbilityEffect(this);
         }
+
+        public override string ToString()
+        {
+            return $"it gets {string.Join(" and ", Abilities)} {Duration}.";
+        }
     }
 }

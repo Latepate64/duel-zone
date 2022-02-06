@@ -25,5 +25,10 @@ namespace Cards.OneShotEffects
         {
             game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Target = source.Source }, 3000, new UntilTheEndOfTheTurn()));
         }
+
+        public override string ToString()
+        {
+            return "this creature gets +3000 power until the end of the turn.";
+        }
     }
 }

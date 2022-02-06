@@ -19,5 +19,7 @@ namespace Engine.Abilities
         protected virtual void Dispose(bool disposing)
         {
         }
+
+        public override abstract string ToString();
     }
 }

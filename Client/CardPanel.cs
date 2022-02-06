@@ -94,6 +94,11 @@ namespace Client
                         card.BackColor = System.Drawing.Color.Black;
                     }
                     _tablePage.SelectedCards.Clear();
+                    foreach (var card in _tablePage.SelectableCards)
+                    {
+                        card.BackColor = System.Drawing.Color.Black;
+                    }
+                    _tablePage.SelectableCards.Clear();
                     _client.WriteAsync(decision);
                 }
             }

@@ -34,5 +34,10 @@ namespace Cards.OneShotEffects
                 game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id)), new UntilTheEndOfTheTurn(), ability.Copy()));
             }
         }
+
+        public override string ToString()
+        {
+            return $"{(ControllerChooses ? "grant" : "your opponent grants")} {string.Join(", ", Abilities)} to {GetAmountAsText()} {Filter}.";
+        }
     }
 }

@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OwnersDeckCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()} in your deck";
+        }
     }
 }
