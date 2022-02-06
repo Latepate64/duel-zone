@@ -30,14 +30,14 @@ namespace Client
         readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
         readonly ZonePanel _opponentDeck = new("Opponent's deck", Color.SandyBrown, Common.ZoneType.Deck);
         readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", Color.Gray, Common.ZoneType.Graveyard);
-        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Top = 0, Visible = true };
+        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Visible = true };
 
-        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Top = ZonePanel.DefaultHeight + 10, Visible = true };
+        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Visible = true };
         readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray, Common.ZoneType.Graveyard);
         readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown, Common.ZoneType.Deck);
         readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
         readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen, Common.ZoneType.ManaZone);
-        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue, Common.ZoneType.Hand) { Top = 2 * (ZonePanel.DefaultHeight + 10), Visible = true };
+        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue, Common.ZoneType.Hand) { Visible = true };
 
         IEnumerable<ZonePanel> Zones => new List<ZonePanel> { _playerBattleZone, _playerGraveyard, _playerDeck, _playerShieldZone, _playerManaZone, _playerHand, _opponentBattleZone, _opponentGraveyard, _opponentDeck, _opponentShieldZone, _opponentManaZone, _opponentHand };
 
@@ -58,12 +58,20 @@ namespace Client
         {
             _form1 = form1;
 
+            foreach (var zone in Zones)
+            {
+                zone.SetHeight(form1.Height);
+            }
+            _playerBattleZone.Top = _playerBattleZone.Height + 10;
+            _playerHand.Top = 2 * (_playerHand.Height + 10);
+
+
             Dock = DockStyle.Fill;
             Text = "Table";
 
             _opponentPanel = new("Opponent", 0);
             _playerPanel = new("You", 300);
-            _choicePanel = new(_form1.Client, this) { Left = ZonePanel.DefaultLeft, Top = 3 * (ZonePanel.DefaultHeight + 10) };
+            _choicePanel = new(_form1.Client, this) { Left = ZonePanel.DefaultLeft, Top = 3 * (_playerBattleZone.Height + 10) };
 
             Foo(_playerPanel._battleZone, _playerBattleZone);
             Foo(_playerPanel._deck, _playerDeck);
@@ -218,7 +226,7 @@ namespace Client
 
         private void AddCard(ZonePanel zone, Common.Card card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this)); }));
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _form1.Height)); }));
         }
 
         private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)

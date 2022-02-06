@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return "Double breaker (This creature breaks 2 shields.)";
+            return "Double breaker";
         }
     }
 }

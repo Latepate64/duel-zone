@@ -8,25 +8,31 @@ namespace Client
 {
     class CardPanel : Panel
     {
-        const double SizeScale = 0.7;
-        const double InnerSizeScale = 0.63;
+        const double SizeScale = 0.00065;//0.7; // 0.7/1080 = x
+        const double InnerSizeScale = 0.00058;//0.63;
         const int CardWidth = 222;
         const int CardHeight = 307;
         readonly Label _tapLabel;
         readonly Label _summoningSicknessLabel;
-        readonly FlowLayoutPanel _inner = new() { Height = (int)(CardHeight * InnerSizeScale), Width = (int)(CardWidth * InnerSizeScale) };
+        readonly FlowLayoutPanel _inner;
         readonly Client _client;
         readonly TablePage _tablePage;
+        readonly TextBox _textBox;
+        internal static int FontSize;
+        const double FontScale = 0.005;
 
-        public CardPanel(Card card, Client client, TablePage tablePage)
+        public CardPanel(Card card, Client client, TablePage tablePage, int windowHeight)
         {
+            FontSize = (int)(FontScale * windowHeight);
+            _inner = new() { Height = (int)(CardHeight * InnerSizeScale * windowHeight), Width = (int)(CardWidth * InnerSizeScale * windowHeight) };
+
             _client = client;
             _tablePage = tablePage;
 
             Name = card.Id.ToString();
 
-            Height = (int)(CardHeight * SizeScale);
-            Width = (int)(CardWidth * SizeScale);
+            Height = (int)(CardHeight * SizeScale * windowHeight);
+            Width = (int)(CardWidth * SizeScale * windowHeight);
             BackColor = System.Drawing.Color.Black;
             _inner.Left = (Width - _inner.Width) / 2;
             _inner.Top = (Height - _inner.Height) / 2;
@@ -43,30 +49,31 @@ namespace Client
                 _inner.BackColor = System.Drawing.Color.Gold;
             }
 
-            _inner.Controls.Add(GetLabel(card.Name));
-            _inner.Controls.Add(GetLabel(card.ManaCost.ToString()));
-            _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped");
-            _inner.Controls.Add(_tapLabel);
+            _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, windowHeight));
+            _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes), windowHeight));
+
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * windowHeight * 0.95), Height = (int)(CardHeight * InnerSizeScale * windowHeight * 0.6), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize) };
             if (card.ShieldTrigger)
             {
-                _inner.Controls.Add(GetLabel("Shield trigger"));
+                _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText;
             }
-
-            if (card.CardType == CardType.Creature)
+            else
             {
-                if (card.Subtypes.Any())
-                {
-                    _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes)));
-                }
-                if (card.Power.HasValue)
-                {
-                    _inner.Controls.Add(GetLabel(card.Power.Value.ToString()));
-                }
-                if (card.SummoningSickness)
-                {
-                    _summoningSicknessLabel = GetLabel("Summoning sickness");
-                    _inner.Controls.Add(_summoningSicknessLabel);
-                }
+                _textBox.Text = card.RulesText;
+            }
+            _inner.Controls.Add(_textBox);
+
+            if (card.CardType == CardType.Creature && card.SummoningSickness)
+            {
+                _summoningSicknessLabel = GetLabel("Summoning sickness", windowHeight);
+                _inner.Controls.Add(_summoningSicknessLabel);
+            }
+            _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped", windowHeight);
+            _inner.Controls.Add(_tapLabel);
+
+            if (card.Power.HasValue)
+            {
+                _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), windowHeight));
             }
 
             _inner.Click += CardPanel_Click;
@@ -104,9 +111,9 @@ namespace Client
             }
         }
 
-        private static Label GetLabel(string text)
+        private static Label GetLabel(string text, int windowHeight)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 5, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale) };
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * windowHeight) };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)

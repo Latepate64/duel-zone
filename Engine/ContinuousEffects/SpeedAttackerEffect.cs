@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return "Speed attacker (This creature doesn't get summoning sickness.)";
+            return "Speed attacker";
         }
     }
 }

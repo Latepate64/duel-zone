@@ -26,7 +26,7 @@
 
         public override string ToString()
         {
-            return $"Power attacker +{Power} (While attacking, this creature gets +{Power} power.)";
+            return $"Power attacker +{Power}";
         }
     }
 }

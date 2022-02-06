@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return "Blocker (You may tap this creature to change the attack target of your opponent's creature to this creature.)";
+            return "Blocker";
         }
     }
 }

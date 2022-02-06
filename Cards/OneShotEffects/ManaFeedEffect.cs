@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override OneShotEffect Copy()
         {
-            return new ShieldBurnEffect(this);
+            return new ManaFeedEffect(this);
         }
 
         public override string ToString()

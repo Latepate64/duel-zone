@@ -7,6 +7,7 @@ namespace Cards.CardFilters
     {
         public OwnersBattleZoneCreatureFilter()
         {
+            CardType = Common.CardType.Creature;
         }
 
         public OwnersBattleZoneCreatureFilter(OwnersBattleZoneCreatureFilter filter) : base(filter)
@@ -25,7 +26,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your {ToStringBase()}";
+            return $"your {ToStringBase()}s";
         }
     }
 }

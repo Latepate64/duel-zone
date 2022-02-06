@@ -58,7 +58,7 @@ namespace Engine
 
         private void SetRulesText()
         {
-            RulesText = string.Join(System.Environment.NewLine, Abilities.Select(x => x.ToString()));
+            RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
     }
 }

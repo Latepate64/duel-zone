@@ -18,7 +18,7 @@
 
         public override string ToString()
         {
-            return "Slayer (Whenever this creature battles, destroy the other creature after the battle.)";
+            return "Slayer";
         }
     }
 }

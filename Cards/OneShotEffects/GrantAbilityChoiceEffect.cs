@@ -11,15 +11,18 @@ namespace Cards.OneShotEffects
     class GrantAbilityChoiceEffect : CardSelectionEffect
     {
         public IEnumerable<Ability> Abilities { get; }
+        public Duration Duration { get; }
 
         public GrantAbilityChoiceEffect(CardFilter filter, int minimum, int maximum, bool ownerChooses, params Ability[] ability) : base(filter, minimum, maximum, ownerChooses)
         {
             Abilities = ability;
+            Duration = new UntilTheEndOfTheTurn();
         }
 
         public GrantAbilityChoiceEffect(GrantAbilityChoiceEffect effect) : base(effect)
         {
             Abilities = effect.Abilities;
+            Duration = effect.Duration;
         }
 
         public override OneShotEffect Copy()
@@ -31,13 +34,13 @@ namespace Cards.OneShotEffects
         {
             foreach (var ability in Abilities)
             {
-                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id)), new UntilTheEndOfTheTurn(), ability.Copy()));
+                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id)), Duration, ability.Copy()));
             }
         }
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "grant" : "your opponent grants")} {string.Join(", ", Abilities)} to {GetAmountAsText()} {Filter}.";
+            return $"{GetAmountAsText()} of {Filter} gets {string.Join(", ", Abilities)} {Duration}{(ControllerChooses ? "" : "by your opponent's choice.")}";
         }
     }
 }
