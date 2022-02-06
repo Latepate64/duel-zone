@@ -39,5 +39,10 @@ namespace Engine.Abilities
         {
             return char.ToUpper(text[0]) + text[1..];
         }
+
+        protected static string LowerCaseFirstCharacter(string text)
+        {
+            return char.ToLower(text[0]) + text[1..];
+        }
     }
 }

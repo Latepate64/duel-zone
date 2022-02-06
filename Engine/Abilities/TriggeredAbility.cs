@@ -61,5 +61,10 @@ namespace Engine.Abilities
                 OneShotEffect.Apply(game, this);
             }
         }
+
+        protected string ToStringBase()
+        {
+            return LowerCaseFirstCharacter(OneShotEffect.ToString());
+        }
     }
 }

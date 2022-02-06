@@ -30,7 +30,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When {Filter} wins a battle, {OneShotEffect}";
+            return $"When {Filter} wins a battle, {ToStringBase()}";
         }
     }
 }

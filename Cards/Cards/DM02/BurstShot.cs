@@ -11,7 +11,7 @@ namespace Cards.Cards.DM02
         {
             ShieldTrigger = true;
             // Destroy all creatures that have power 2000 or less.
-            Abilities.Add(new SpellAbility(new CardMovingAreaOfEffect(ZoneType.BattleZone, ZoneType.Graveyard, new BattleZoneMaxPowerCreatureFilter(2000))));
+            Abilities.Add(new SpellAbility(new DestroyAreaOfEffect(new BattleZoneMaxPowerCreatureFilter(2000))));
         }
     }
 }

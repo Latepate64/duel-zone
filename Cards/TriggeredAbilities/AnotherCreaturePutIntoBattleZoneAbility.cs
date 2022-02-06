@@ -34,7 +34,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"Whenever another creature is put into the battle zone, {OneShotEffect}";
+            return $"Whenever another creature is put into the battle zone, {ToStringBase()}";
         }
     }
 }

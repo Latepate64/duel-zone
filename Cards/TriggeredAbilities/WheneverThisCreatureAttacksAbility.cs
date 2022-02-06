@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"Whenever this creature attacks, {OneShotEffect}";
+            return $"Whenever this creature attacks, {ToStringBase()}";
         }
     }
 }

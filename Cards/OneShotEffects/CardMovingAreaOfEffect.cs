@@ -1,12 +1,11 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class CardMovingAreaOfEffect : OneShotEffect
+    abstract class CardMovingAreaOfEffect : OneShotEffect
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
@@ -31,14 +30,9 @@ namespace Cards.OneShotEffects
             _ = game.Move(game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))), SourceZone, DestinationZone);
         }
 
-        public override OneShotEffect Copy()
-        {
-            return new CardMovingAreaOfEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"put {Filter} from {CardMovedEvent.ToString(SourceZone)} to {CardMovedEvent.ToString(DestinationZone)}.";
-        }
+        //public override string ToString()
+        //{
+        //    return $"put {Filter} from {CardMovedEvent.ToString(SourceZone)} to {CardMovedEvent.ToString(DestinationZone)}.";
+        //}
     }
 }

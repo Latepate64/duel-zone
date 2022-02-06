@@ -16,7 +16,7 @@ namespace Cards.Cards.DM01
 
             // When this creature wins a battle, destroy it.
             var targetFilter = new TargetFilter();
-            Abilities.Add(new WinBattleAbility(new CardMovingAreaOfEffect(ZoneType.BattleZone, ZoneType.Graveyard, targetFilter), targetFilter));
+            Abilities.Add(new WinBattleAbility(new DestroyAreaOfEffect(targetFilter), targetFilter));
         }
     }
 }
