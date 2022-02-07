@@ -12,16 +12,14 @@ namespace Client
     {
         readonly Button _exitTableButton = new()
         {
-            Left = 1200,
             Text = "Exit table",
-            Top = 800,
+            Height = 100,
             Width = 200,
         };
         readonly Button _gameSetupButton = new()
         {
-            Left = 1000,
             Text = "Setup game",
-            Top = 800,
+            Height = 100,
             Width = 200,
         };
 
@@ -46,7 +44,7 @@ namespace Client
 
         readonly Form1 _form1;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Left = 1300, Multiline = true, ScrollBars = ScrollBars.Vertical };
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right }; //Left = 1300,
 
         readonly ChoicePanel _choicePanel;
 
@@ -60,18 +58,17 @@ namespace Client
 
             foreach (var zone in Zones)
             {
-                zone.SetHeight(form1.Height);
+                zone.SetSize(form1.Size);
             }
-            _playerBattleZone.Top = _playerBattleZone.Height + 10;
-            _playerHand.Top = 2 * (_playerHand.Height + 10);
-
+            _playerBattleZone.Top = _opponentBattleZone.Bottom;
+            _choicePanel = new(_form1.Client, this, new Size(_playerBattleZone.Width, (int)(0.5 * _playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * (_playerBattleZone.Height + 10) };
+            _playerHand.Top = _choicePanel.Bottom + 10;
 
             Dock = DockStyle.Fill;
             Text = "Table";
 
             _opponentPanel = new("Opponent", 0);
             _playerPanel = new("You", 300);
-            _choicePanel = new(_form1.Client, this) { Left = ZonePanel.DefaultLeft, Top = 3 * (_playerBattleZone.Height + 10) };
 
             Foo(_playerPanel._battleZone, _playerBattleZone);
             Foo(_playerPanel._deck, _playerDeck);
@@ -91,7 +88,8 @@ namespace Client
             _exitTableButton.Click += ExitTable;
             AddControls();
 
-            
+            _gameSetupButton.Top = _playerPanel.Bottom + 10;
+            _exitTableButton.Top = _gameSetupButton.Bottom + 10;
         }
 
         private void Foo(Control button, Control control)
@@ -226,12 +224,26 @@ namespace Client
 
         private void AddCard(ZonePanel zone, Common.Card card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _form1.Height)); }));
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _playerBattleZone.Height, zone.ZoneType == Common.ZoneType.BattleZone || zone.ZoneType == Common.ZoneType.ManaZone)); }));
         }
 
         private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)
         {
             return Zones.SingleOrDefault(x => x.Name == playerId && x.ZoneType == zoneType);
+        }
+
+        internal void ClearSelectedAndSelectableCards()
+        {
+            foreach (var card in SelectedCards)
+            {
+                card.BackColor = Color.Black;
+            }
+            SelectedCards.Clear();
+            foreach (var card in SelectableCards)
+            {
+                card.BackColor = Color.Black;
+            }
+            SelectableCards.Clear();
         }
     }
 }

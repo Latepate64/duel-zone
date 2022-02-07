@@ -1,31 +1,41 @@
 ﻿using Common.Choices;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Client
 {
-    internal class ChoicePanel : FlowLayoutPanel
+    internal class ChoicePanel : Panel
     {
-        readonly internal Label Label = new();
-        readonly internal Button DefaultButton = new() { Text = "Pass", Enabled = false, };
+        readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+        readonly internal Label Label = new() { TextAlign = ContentAlignment.MiddleCenter };
+        readonly internal Button DefaultButton = new() { Text = "Pass", Enabled = false };
         readonly Client _client;
         readonly TablePage _tablePage;
 
-        internal ChoicePanel(Client client, TablePage tablePage)
+        internal ChoicePanel(Client client, TablePage tablePage, Size size)
         {
             _client = client;
             _tablePage = tablePage;
 
-            BackColor = System.Drawing.Color.Beige;
-            FlowDirection = FlowDirection.TopDown;
-            Width = 600;
-            Height = 200;
-            Label.Width = Width;
+            BackColor = Color.Beige;
+            Width = size.Width;
+            Height = size.Height;
+
+            Label.Width = size.Width;
+            Label.Height = size.Height / 2;
+
+            DefaultButton.Width = size.Width;
+            DefaultButton.Height = size.Height / 2;
+
+            DefaultButton.Top = Label.Bottom;
 
             DefaultButton.Click += DefaultButtonClick;
 
+            Label.Font = _font;
+            DefaultButton.Font = _font;
+
             Controls.Add(Label);
             Controls.Add(DefaultButton);
-
         }
 
         private void DefaultButtonClick(object sender, System.EventArgs e)
@@ -43,6 +53,7 @@ namespace Client
             {
                 throw new System.NotImplementedException();
             }
+            _tablePage.ClearSelectedAndSelectableCards();
             _client.WriteAsync(decision);
         }
     }

@@ -5,7 +5,8 @@ namespace Client
 {
     class ZonePanel : FlowLayoutPanel
     {
-        internal const double HeightScale = 0.23;//1080 -> 250/1080 = x/2160 23%
+        internal const double HeightScale = 0.265;
+        internal const double WidthScale = 0.75;
         internal const int DefaultLeft = 270;
         private Point MouseDownLocation;
         public Common.ZoneType ZoneType { get; }
@@ -27,9 +28,10 @@ namespace Client
             MouseMove += ZonePanel_MouseMove;
         }
 
-        internal void SetHeight(int windowHeight)
+        internal void SetSize(Size size)
         {
-            Height = (int)(HeightScale * windowHeight);
+            Height = (int)(HeightScale * size.Height);
+            Width = (int)(WidthScale * size.Width);
         }
 
         private void ZonePanel_MouseMove(object sender, MouseEventArgs e)
