@@ -51,7 +51,10 @@ namespace Common.Choices
     {
         public List<Guid> Decision { get; set; }
 
-        public GuidDecision() { }
+        public GuidDecision()
+        {
+            Decision = new List<Guid>();
+        }
 
         public GuidDecision(IEnumerable<Guid> decision)
         {

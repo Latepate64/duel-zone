@@ -15,7 +15,7 @@ namespace Server
         private const int Port = 11000;
         private const string IPAddress = "127.0.0.1";//"192.168.1.3";
 
-        private const int BufferSize = 256;
+        private const int BufferSize = 256 * 256;
 
         private readonly List<TcpClient> _clients = new();
         private TcpListener _listener;
