@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common.Choices
 {
-    public class GuidSelectionInEffect : GuidSelection
+    public class GuidSelectionInEffect : CardSelection
     {
         private readonly string _text;
 

@@ -47,7 +47,7 @@ namespace Engine.Steps
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);
             IAttackable target = possibleTargets.Count() > 1
-                ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
+                ? game.GetAttackable(activePlayer.Choose(new AttackTargetSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
                 : possibleTargets.Single();
             activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)

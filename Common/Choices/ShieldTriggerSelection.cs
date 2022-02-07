@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common.Choices
 {
-    public class ShieldTriggerSelection : GuidSelection
+    public class ShieldTriggerSelection : CardSelection
     {
         public ShieldTriggerSelection()
         {

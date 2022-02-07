@@ -27,8 +27,8 @@ namespace Cards.OneShotEffects
             var controller = game.GetPlayer(source.Owner);
             if (controller.Hand.Cards.Any())
             {
-                var decision = controller.Choose(new GuidSelection(source.Owner, controller.Hand.Cards, 0, 1));
-                var cards = (decision as GuidDecision).Decision;
+                var decision = controller.Choose(new CardSelection(source.Owner, controller.Hand.Cards, 0, 1));
+                var cards = decision.Decision;
                 if (cards.Any())
                 {
                     game.Move(cards.Select(x => game.GetCard(x)), ZoneType.Hand, ZoneType.ShieldZone);

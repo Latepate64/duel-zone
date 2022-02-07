@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
             var creatures = game.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
-                var decision = player.Choose(new GuidSelection(source.Owner, creatures, 0, 1));
+                var decision = player.Choose(new CardSelection(source.Owner, creatures, 0, 1));
                 var toManaCreatures = decision.Decision;
                 if (toManaCreatures.Any())
                 {
@@ -40,7 +40,7 @@ namespace Cards.OneShotEffects
                     var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
                     if (manas.Any())
                     {
-                        var decision2 = player.Choose(new GuidSelection(source.Owner, manas, 1, 1));
+                        var decision2 = player.Choose(new CardSelection(source.Owner, manas, 1, 1));
                         var mana = game.GetCard(decision2.Decision.Single());
                         game.Move(mana, ZoneType.ManaZone, ZoneType.BattleZone);
                     }

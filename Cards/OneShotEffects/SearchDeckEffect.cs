@@ -34,7 +34,7 @@ namespace Cards.OneShotEffects
             var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, player));
             if (cards.Any())
             {
-                var decision = player.Choose(new GuidSelection(player.Id, cards, 0, 1));
+                var decision = player.Choose(new CardSelection(player.Id, cards, 0, 1));
                 var selectedCards = decision.Decision.Select(x => game.GetCard(x));
                 if (Reveal)
                 {

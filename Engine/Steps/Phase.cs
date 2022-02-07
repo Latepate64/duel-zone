@@ -44,7 +44,7 @@ namespace Engine.Steps
                         System.Guid decision;
                         if (abilities.Count() > 1)
                         {
-                            decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                            decision = player.Choose(new AbilitySelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
                         }
                         else
                         {

@@ -414,7 +414,7 @@ namespace Engine
                 var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
-                    ? player.Choose(new GuidSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1)).Decision.Single()
+                    ? player.Choose(new ReplacementEffectSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1)).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
                 var newEvent = effect.Apply(this, player);

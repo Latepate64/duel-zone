@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Common.Choices
 {
-    public class GuidSelection : Choice
+    public abstract class GuidSelection : Choice
     {
         /// <summary>
         /// Options player can choose from.
@@ -24,14 +24,12 @@ namespace Common.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        public GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
+        protected GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
         {
             Options = options.ToList();
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
         }
-
-        public GuidSelection(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection) : this(player, options.Select(x => x.Id), minimumSelection, maximumSelection) { }
 
         protected override void Dispose(bool disposing)
         {
@@ -41,10 +39,7 @@ namespace Common.Choices
             }
         }
 
-        public override string ToString()
-        {
-            throw new NotImplementedException();
-        }
+        public override abstract string ToString();
     }
 
     public class GuidDecision : Decision

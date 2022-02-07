@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
             var blockers = game.BattleZone.GetChoosableCreatures(game, game.GetOpponent(source.Owner)).Where(c => c.Abilities.OfType<BlockerAbility>().Any());
             if (blockers.Any())
             {
-                var decision = controller.Choose(new GuidSelection(controller.Id, blockers, 1, 1));
+                var decision = controller.Choose(new CardSelection(controller.Id, blockers, 1, 1));
                 blocker = decision.Decision.Select(x => game.GetCard(x)).ToList();
                 game.Destroy(blocker);
             }
