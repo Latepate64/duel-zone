@@ -35,7 +35,7 @@ namespace Engine.Steps
         private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
-            var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum)).Decision;
+            var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum), game).Decision;
             if (decision.Any())
             {
                 ChooseAttackTarget(game, activePlayer, attackers, decision.Single());
@@ -47,7 +47,7 @@ namespace Engine.Steps
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);
             IAttackable target = possibleTargets.Count() > 1
-                ? game.GetAttackable(activePlayer.Choose(new AttackTargetSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
+                ? game.GetAttackable(activePlayer.Choose(new AttackTargetSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
                 : possibleTargets.Single();
             activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)

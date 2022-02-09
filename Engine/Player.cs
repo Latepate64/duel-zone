@@ -103,17 +103,39 @@ namespace Engine
             }
         }
 
-        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
+        public YesNoDecision Choose(YesNoChoice yesNoChoice, Game game)
+        {
+           var decision = ClientChoose(yesNoChoice);
+           if (decision != null)
+           {
+                return decision;
+           }
+           else
+           {
+                Concede(game);
+                return new YesNoDecision();
+            }
+        }
 
-        public GuidDecision Choose(GuidSelection selection)
+        public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
+
+        public GuidDecision Choose(GuidSelection selection, Game game)
         {
             var legal = false;
             GuidDecision decision = null;
             while (!legal)
             {
                 decision = ClientChoose(selection);
-                var dist = decision.Decision.Distinct();
-                legal = dist.Count() >= selection.MinimumSelection && dist.Count() <= selection.MaximumSelection && dist.All(i => selection.Options.Contains(i));
+                if (decision != null)
+                {
+                    var dist = decision.Decision.Distinct();
+                    legal = dist.Count() >= selection.MinimumSelection && dist.Count() <= selection.MaximumSelection && dist.All(i => selection.Options.Contains(i));
+                }
+                else
+                {
+                    Concede(game);
+                    return new GuidDecision();
+                }
             }
             return decision;
         }
@@ -272,7 +294,7 @@ namespace Engine
 
         private void ChooseCardsToPayManaCost(Game game, Card toUse)
         {
-            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
+            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
             if (HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
@@ -291,7 +313,7 @@ namespace Engine
 
         internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
         {
-            var decision = Choose(new UseCardSelection(Id, cards)).Decision;
+            var decision = Choose(new UseCardSelection(Id, cards), game).Decision;
             if (decision.Any())
             {
                 var id = decision.Single();
@@ -359,6 +381,18 @@ namespace Engine
             {
                 game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
             }
+        }
+
+        /// <summary>
+        /// 104.3a A player can concede the game at any time.
+        /// A player who concedes leaves the game immediately.
+        /// That player loses the game.
+        /// </summary>
+        /// <param name="game"></param>
+        private void Concede(Game game)
+        {
+            game.Process(new ConcedeEvent { Player = Convert() });
+            game.Lose(this);
         }
         #endregion Methods
     }

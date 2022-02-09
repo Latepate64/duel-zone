@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Common.Choices
 {
-    public class GuidSelectionInEffect : CardSelection
+    public class CardSelectionInEffect : CardSelection
     {
         private readonly string _text;
 
-        public GuidSelectionInEffect()
+        public CardSelectionInEffect()
         {
         }
 
-        public GuidSelectionInEffect(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection, string text) : base(player, options, minimumSelection, maximumSelection)
+        public CardSelectionInEffect(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection, string text) : base(player, options, minimumSelection, maximumSelection)
         {
             _text = text;
         }

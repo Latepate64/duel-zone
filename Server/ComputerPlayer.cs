@@ -18,7 +18,7 @@ namespace Server
         {
         }
 
-        public override YesNoDecision Choose(YesNoChoice yesNoChoice)
+        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
             return new YesNoDecision(true);
         }

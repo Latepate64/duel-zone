@@ -67,8 +67,8 @@ namespace Client
             Dock = DockStyle.Fill;
             Text = "Table";
 
-            _opponentPanel = new("Opponent", 0);
-            _playerPanel = new("You", 300);
+            _opponentPanel = new("Opponent", 0, this, _form1.Client);
+            _playerPanel = new("You", 300, this, _form1.Client);
 
             Foo(_playerPanel._battleZone, _playerBattleZone);
             Foo(_playerPanel._deck, _playerDeck);
@@ -143,6 +143,7 @@ namespace Client
 
         internal void OnStartGame(Common.StartGame startGame)
         {
+            _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
             _form1.GameSetupForm.Invoke(new MethodInvoker(delegate { _form1.GameSetupForm.Hide(); }));
             bool playerInsteadOfOpponent = true;
             foreach (var playerDeck in startGame.Players)
@@ -201,15 +202,33 @@ namespace Client
         {
             CurrentChoice = c;
             _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
-            if (c is GuidSelection selection)
+            if (c is CardSelection cardSelection)
             {
-                foreach (var card in selection.Options)
+                foreach (var card in cardSelection.Options)
                 {
-                    var panel = GetCardPanel(card.ToString());
-                    panel.Invoke(new MethodInvoker(delegate { panel.BackColor = Color.White; }));
-                    SelectableCards.Add(panel);
+                    MarkSelectable(GetCardPanel(card.ToString()));
                 }
             }
+            else if (c is AttackTargetSelection targetSelection)
+            {
+                foreach (var option in targetSelection.Options)
+                {
+                    if (option.ToString() == _opponentPanel.Name)
+                    {
+                        _opponentPanel.Invoke(new MethodInvoker(delegate { _opponentPanel.Enabled = true; }));
+                    }
+                    else
+                    {
+                        MarkSelectable(GetCardPanel(option.ToString()));
+                    }
+                }
+            }
+        }
+
+        private void MarkSelectable(CardPanel panel)
+        {
+            panel.Invoke(new MethodInvoker(delegate { panel.BackColor = Color.White; }));
+            SelectableCards.Add(panel);
         }
 
         private CardPanel GetCardPanel(string id)

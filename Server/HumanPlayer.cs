@@ -2,7 +2,7 @@
 using Common;
 using System.Net.Sockets;
 using System.Linq;
-using Engine;
+using System;
 
 namespace Server
 {
@@ -15,7 +15,7 @@ namespace Server
         {
         }
 
-        public override YesNoDecision Choose(YesNoChoice yesNoChoice)
+        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
             Server.BroadcastMessage(Serializer.Serialize(yesNoChoice));
             return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
@@ -23,8 +23,15 @@ namespace Server
 
         public override GuidDecision ClientChoose(GuidSelection guidSelection)
         {
-            Server.BroadcastMessage(Serializer.Serialize(guidSelection));
-            return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
+            try
+            {
+                Server.BroadcastMessage(Serializer.Serialize(guidSelection));
+                return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

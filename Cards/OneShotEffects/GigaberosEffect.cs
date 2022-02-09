@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
             {
                 if (otherCreatures.Count() > 2)
                 {
-                    var selection = game.GetPlayer(source.Owner).Choose(new CardSelection(source.Owner, otherCreatures, 2, 2)).Decision;
+                    var selection = game.GetPlayer(source.Owner).Choose(new CardSelectionInEffect(source.Owner, otherCreatures, 2, 2, "Destroy 2 of your creatures."), game).Decision;
                     game.Move(selection.Select(x => game.GetCard(x)), ZoneType.BattleZone, ZoneType.Graveyard);
                 }
                 else
@@ -26,13 +26,13 @@ namespace Cards.OneShotEffects
                     game.Move(otherCreatures, ZoneType.BattleZone, ZoneType.Graveyard);
                 }
             }
-            else if(otherCreatures.Count() < 2)
+            else if (otherCreatures.Count() < 2)
             {
                 game.Move(thisCreature, ZoneType.BattleZone, ZoneType.Graveyard);
             }
             else
             {
-                var selection = game.GetPlayer(source.Owner).Choose(new CardSelection(source.Owner, creatures, 1, 2)).Decision;
+                var selection = game.GetPlayer(source.Owner).Choose(new CardSelectionInEffect(source.Owner, creatures, 1, 2, ToString()), game).Decision;
                 if ((selection.Count() == 1 && selection.Single() == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x != thisCreature.Id)))
                 {
                     game.Move(selection.Select(x => game.GetCard(x)), ZoneType.BattleZone, ZoneType.Graveyard);

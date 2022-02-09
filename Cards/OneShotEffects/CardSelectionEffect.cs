@@ -44,7 +44,7 @@ namespace Cards.OneShotEffects
                     var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Apply(game, source, player.Choose(new GuidSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString())).Decision.Select(x => game.GetCard(x)));
+                        Apply(game, source, player.Choose(new CardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)));
                     }
                 }
 

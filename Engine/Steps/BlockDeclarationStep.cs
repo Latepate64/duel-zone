@@ -30,7 +30,7 @@ namespace Engine.Steps
 
         private void ChooseBlocker(Game game, Player nonActive, IEnumerable<Card> possibleBlockers)
         {
-            var blockers = nonActive.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers)).Decision;
+            var blockers = nonActive.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
             if (blockers.Any())
             {
                 Phase.BlockingCreature = blockers.Single();

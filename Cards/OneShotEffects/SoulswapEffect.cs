@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
             var creatures = game.GetChoosableBattleZoneCreatures(player);
             if (creatures.Any())
             {
-                var decision = player.Choose(new CardSelection(source.Owner, creatures, 0, 1));
+                var decision = player.Choose(new CardSelectionInEffect(source.Owner, creatures, 0, 1, "You may choose a creature in the battle zone and put it into its owner's mana zone."), game);
                 var toManaCreatures = decision.Decision;
                 if (toManaCreatures.Any())
                 {
@@ -40,7 +40,7 @@ namespace Cards.OneShotEffects
                     var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
                     if (manas.Any())
                     {
-                        var decision2 = player.Choose(new CardSelection(source.Owner, manas, 1, 1));
+                        var decision2 = player.Choose(new CardSelectionInEffect(source.Owner, manas, 1, 1, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone."), game);
                         var mana = game.GetCard(decision2.Decision.Single());
                         game.Move(mana, ZoneType.ManaZone, ZoneType.BattleZone);
                     }

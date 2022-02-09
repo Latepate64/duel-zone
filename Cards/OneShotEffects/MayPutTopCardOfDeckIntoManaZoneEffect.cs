@@ -11,7 +11,7 @@ namespace Cards.OneShotEffects
             var player = game.GetPlayer(source.Owner);
             if (player != null)
             {
-                if (player.Choose(new YesNoChoice(source.Owner, ToString())).Decision)
+                if (player.Choose(new YesNoChoice(source.Owner, ToString()), game).Decision)
                 {
                     player.PutFromTopOfDeckIntoManaZone(game, 1);
                 }

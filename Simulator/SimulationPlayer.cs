@@ -20,7 +20,7 @@ namespace Simulator
             return new GuidDecision(selected);
         }
 
-        public override YesNoDecision Choose(YesNoChoice yesNoChoice)
+        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
             return new YesNoDecision(true);
         }
