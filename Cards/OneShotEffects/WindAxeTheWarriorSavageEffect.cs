@@ -41,7 +41,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "destroy one of your opponent's creatures that has \"blocker.\" Then put the top card of your deck into your mana zone.";
+            return "Destroy one of your opponent's creatures that has \"blocker.\" Then put the top card of your deck into your mana zone.";
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"destroy {Filter}.";
+            return $"Destroy {Filter}.";
         }
     }
 }

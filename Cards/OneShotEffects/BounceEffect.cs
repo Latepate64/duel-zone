@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"choose {GetAmountAsText()} {Filter} in the battle zone and return them to their owners' hands.";
+            return $"Choose {GetAmountAsText()} {Filter} in the battle zone and return them to their owners' hands.";
         }
 
         public override OneShotEffect Copy()

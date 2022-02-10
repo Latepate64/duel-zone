@@ -33,7 +33,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "destroy all other creatures that have power 6000, then take an extra turn after this one. You lose the game at the end of the extra turn.";
+            return "Destroy all other creatures that have power 6000, then take an extra turn after this one. You lose the game at the end of the extra turn.";
         }
     }
 
@@ -59,7 +59,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "you lose the game.";
+            return "You lose the game.";
         }
     }
 }

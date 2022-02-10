@@ -44,7 +44,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return Maximum == 1 ? "you may draw a card." : $"you may draw up to {Maximum} cards.";
+            return Maximum == 1 ? "You may draw a card." : $"You may draw up to {Maximum} cards.";
         }
     }
 }

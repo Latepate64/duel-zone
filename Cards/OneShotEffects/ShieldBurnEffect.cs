@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "put" : "your opponent puts")} {GetAmountAsText()} {Filter} into its owner's graveyard.";
+            return $"{(ControllerChooses ? "Put" : "Your opponent puts")} {GetAmountAsText()} {Filter} into its owner's graveyard.";
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"you may untap {Filter}.";
+            return $"You may untap {Filter}.";
         }
     }
 }

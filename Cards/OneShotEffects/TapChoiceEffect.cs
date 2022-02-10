@@ -29,11 +29,11 @@ namespace Cards.OneShotEffects
         {
             if (ControllerChooses)
             {
-                return $"choose {GetAmountAsText()} {Filter} and tap them.";
+                return $"Choose {GetAmountAsText()} {Filter} and tap them.";
             }
             else
             {
-                return $"your opponents chooses {GetAmountAsText()} {Filter} and taps them.";
+                return $"Your opponents chooses {GetAmountAsText()} {Filter} and taps them.";
             }
         }
     }

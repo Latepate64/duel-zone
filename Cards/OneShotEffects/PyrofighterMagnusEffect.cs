@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "return this creature to your hand.";
+            return "Return this creature to your hand.";
         }
     }
 }

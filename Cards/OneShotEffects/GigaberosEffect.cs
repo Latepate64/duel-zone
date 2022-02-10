@@ -52,7 +52,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "destroy 2 of your other creatures or destroy this creature.";
+            return "Destroy 2 of your other creatures or destroy this creature.";
         }
     }
 }

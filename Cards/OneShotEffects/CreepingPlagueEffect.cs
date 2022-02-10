@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "Whenever any of your creatures becomes blocked this turn, it gets \"slayer\" until the end of the turn. (When a creature that has \"slayer\" loses a battle, destroy the other creature.)";
+            return "Whenever any of your creatures becomes blocked this turn, it gets \"slayer\" until the end of the turn.";
         }
     }
 }

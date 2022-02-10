@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"return each {Filter} to its owner's hand.";
+            return $"Return each {Filter} to its owner's hand.";
         }
     }
 }

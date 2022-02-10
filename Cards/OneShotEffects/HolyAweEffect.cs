@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "tap all your opponent's creatures in the battle zone.";
+            return "Tap all your opponent's creatures in the battle zone.";
         }
     }
 }

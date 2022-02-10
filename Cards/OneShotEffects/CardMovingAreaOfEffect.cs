@@ -29,10 +29,5 @@ namespace Cards.OneShotEffects
         {
             _ = game.Move(game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))), SourceZone, DestinationZone);
         }
-
-        //public override string ToString()
-        //{
-        //    return $"put {Filter} from {CardMovedEvent.ToString(SourceZone)} to {CardMovedEvent.ToString(DestinationZone)}.";
-        //}
     }
 }

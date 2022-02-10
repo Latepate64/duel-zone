@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "this creature gets +3000 power until the end of the turn.";
+            return "This creature gets +3000 power until the end of the turn.";
         }
     }
 }

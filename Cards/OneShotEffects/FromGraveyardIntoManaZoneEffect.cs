@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "put" : "your opponent puts")} {GetAmountAsText()} {Filter} into their owner's mana zone.";
+            return $"{(ControllerChooses ? "Put" : "Your opponent puts")} {GetAmountAsText()} {Filter} into their owner's mana zone.";
         }
     }
 }

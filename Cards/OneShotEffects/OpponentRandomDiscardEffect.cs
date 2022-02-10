@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "your opponent discards a card at random from his hand.";
+            return "Your opponent discards a card at random from his hand.";
         }
     }
 }

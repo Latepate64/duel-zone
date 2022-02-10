@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "you may put the top card of your deck into your mana zone.";
+            return "You may put the top card of your deck into your mana zone.";
         }
     }
 }

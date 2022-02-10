@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "if your opponent has 3 or more creatures in the battle zone, draw 3 cards.";
+            return "If your opponent has 3 or more creatures in the battle zone, draw 3 cards.";
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
+            return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
         }
     }
 }

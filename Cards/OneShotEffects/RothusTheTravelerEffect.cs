@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "destroy one of your creatures. Then your opponent chooses one of his creatures and destroys it.";
+            return "Destroy one of your creatures. Then your opponent chooses one of his creatures and destroys it.";
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"it gets {string.Join(" and ", Abilities)} {Duration}.";
+            return $"It gets {string.Join(" and ", Abilities)} {Duration}.";
         }
     }
 }

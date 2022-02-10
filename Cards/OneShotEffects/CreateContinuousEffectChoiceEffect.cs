@@ -38,7 +38,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "choose" : "your opponent chooses")} {GetAmountAsText()} {Filter}. {string.Join(", ", ContinuousEffects)}.";
+            return $"{(ControllerChooses ? "Choose" : "Your opponent chooses")} {GetAmountAsText()} {Filter}. {string.Join(", ", ContinuousEffects)}.";
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Cards.OneShotEffects
         public override string ToString() //choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
         {
             var triggerText = CanUseShieldTrigger ? "" : " \"Shield trigger\" abilities of those shields can't be used.";
-            return $"{(ControllerChooses ? "put" : "your opponent puts")} {GetAmountAsText()} {Filter} into their owner's hand.{triggerText}";
+            return $"{(ControllerChooses ? "Put" : "Your opponent puts")} {GetAmountAsText()} {Filter} into their owner's hand.{triggerText}";
         }
     }
 }

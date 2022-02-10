@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return "if this creature broke any shields that turn, return it to your hand.";
+            return "If this creature broke any shields that turn, return it to your hand.";
         }
     }
 }

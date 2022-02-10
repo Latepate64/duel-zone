@@ -16,7 +16,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{(ControllerChooses ? "destroy" : "your opponent destroys")} {GetAmountAsText()} of {Filter}.";
+            return $"{(ControllerChooses ? "Destroy" : "Your opponent destroys")} {GetAmountAsText()} of {Filter}.";
         }
 
         public override OneShotEffect Copy()
