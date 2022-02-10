@@ -12,21 +12,12 @@ namespace Cards.OneShotEffects
         {
             // Destroy 2 of your other creatures or destroy this creature.
             var creatures = game.BattleZone.GetCreatures(source.Owner);
-            var otherCreatures = creatures.Where(x => x.Id != source.Source);
             var thisCreature = creatures.SingleOrDefault(x => x.Id == source.Source);
             if (thisCreature == null)
             {
-                if (otherCreatures.Count() > 2)
-                {
-                    var selection = game.GetPlayer(source.Owner).Choose(new CardSelectionInEffect(source.Owner, otherCreatures, 2, 2, "Destroy 2 of your creatures."), game).Decision;
-                    game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());
-                }
-                else
-                {
-                    game.Move(ZoneType.BattleZone, ZoneType.Graveyard, otherCreatures.ToArray());
-                }
+                new DestroyEffect(new CardFilters.OwnersBattleZoneCreatureFilter(), 2, 2, true).Apply(game, source);
             }
-            else if (otherCreatures.Count() < 2)
+            else if (creatures.Where(x => x.Id != source.Source).Count() < 2)
             {
                 game.Move(ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
             }
