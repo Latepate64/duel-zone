@@ -51,7 +51,7 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             var reveal = Reveal ? ", show it to your opponent," : "";
-            return $"Search your deck. You may take {Filter} from your deck{reveal} and put it into your hand. Then shuffle your deck.";
+            return $"Search your deck. You may take {Filter}{reveal} and put it into your hand. Then shuffle your deck.";
         }
     }
 }

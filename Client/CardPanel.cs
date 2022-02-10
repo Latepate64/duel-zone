@@ -51,16 +51,16 @@ namespace Client
             }
 
             _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
-            _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes), height));
+            _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
 
-            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.6), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize) };
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
             {
-                _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText;
+                _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText?.Replace("\n", Environment.NewLine);
             }
             else
             {
-                _textBox.Text = card.RulesText;
+                _textBox.Text = card.RulesText?.Replace("\n", Environment.NewLine);
             }
             _inner.Controls.Add(_textBox);
 
@@ -80,7 +80,12 @@ namespace Client
                 _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), height));
             }
 
-            _inner.Click += CardPanel_Click;
+            Click += CardPanel_Click;
+            foreach (Control control in _inner.Controls)
+            {
+                control.Click += CardPanel_Click;
+            }
+
         }
 
         private void CardPanel_Click(object sender, EventArgs e)
@@ -108,7 +113,7 @@ namespace Client
 
         private Label GetLabel(string text, int height)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 9};
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)
@@ -132,6 +137,11 @@ namespace Client
         internal void RemoveSummoningSickness()
         {
             _inner.Controls.Remove(_summoningSicknessLabel);
+        }
+
+        private static string SplitCamelCase(string input)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(input, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
         }
     }
 }

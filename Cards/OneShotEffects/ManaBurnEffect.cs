@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override OneShotEffect Copy()
         {
-            return new BounceEffect(this);
+            return new ManaBurnEffect(this);
         }
     }
 }

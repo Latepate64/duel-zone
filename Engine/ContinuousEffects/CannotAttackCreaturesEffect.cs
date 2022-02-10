@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return $"{Filter} can't attack creatures {GetDurationAsText()}.";
+            return $"{Filter} can't attack creatures{GetDurationAsText()}.";
         }
     }
 }

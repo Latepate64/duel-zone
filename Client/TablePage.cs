@@ -44,7 +44,7 @@ namespace Client
 
         readonly Form1 _form1;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right }; //Left = 1300,
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
 
         readonly ChoicePanel _choicePanel;
 
@@ -61,8 +61,15 @@ namespace Client
                 zone.SetSize(form1.Size);
             }
             _playerBattleZone.Top = _opponentBattleZone.Bottom;
-            _choicePanel = new(_form1.Client, this, new Size(_playerBattleZone.Width, (int)(0.5 * _playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * (_playerBattleZone.Height + 10) };
-            _playerHand.Top = _choicePanel.Bottom + 10;
+            const int ZoneOffset = 10;
+            _choicePanel = new(_form1.Client, this, new Size(_playerBattleZone.Width, (int)(0.5 * _playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * (_playerBattleZone.Height + ZoneOffset) };
+            _playerHand.Top = _choicePanel.Bottom + ZoneOffset;
+
+            var index = 0;
+            foreach (var zone in Zones.Except(new List<ZonePanel> { _opponentBattleZone, _playerBattleZone, _playerHand }))
+            {
+                zone.Top = _opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
+            }
 
             Dock = DockStyle.Fill;
             Text = "Table";
@@ -70,31 +77,35 @@ namespace Client
             _opponentPanel = new("Opponent", 0, this, _form1.Client);
             _playerPanel = new("You", 300, this, _form1.Client);
 
-            Foo(_playerPanel._battleZone, _playerBattleZone);
-            Foo(_playerPanel._deck, _playerDeck);
-            Foo(_playerPanel._graveyard, _playerGraveyard);
-            Foo(_playerPanel._hand, _playerHand);
-            Foo(_playerPanel._manaZone, _playerManaZone);
-            Foo(_playerPanel._shieldZone, _playerShieldZone);
+            SetupClick(_playerPanel._battleZone, _playerBattleZone);
+            SetupClick(_playerPanel._deck, _playerDeck);
+            SetupClick(_playerPanel._graveyard, _playerGraveyard);
+            SetupClick(_playerPanel._hand, _playerHand);
+            SetupClick(_playerPanel._manaZone, _playerManaZone);
+            SetupClick(_playerPanel._shieldZone, _playerShieldZone);
 
-            Foo(_opponentPanel._battleZone, _opponentBattleZone);
-            Foo(_opponentPanel._deck, _opponentDeck);
-            Foo(_opponentPanel._graveyard, _opponentGraveyard);
-            Foo(_opponentPanel._hand, _opponentHand);
-            Foo(_opponentPanel._manaZone, _opponentManaZone);
-            Foo(_opponentPanel._shieldZone, _opponentShieldZone);
+            SetupClick(_opponentPanel._battleZone, _opponentBattleZone);
+            SetupClick(_opponentPanel._deck, _opponentDeck);
+            SetupClick(_opponentPanel._graveyard, _opponentGraveyard);
+            SetupClick(_opponentPanel._hand, _opponentHand);
+            SetupClick(_opponentPanel._manaZone, _opponentManaZone);
+            SetupClick(_opponentPanel._shieldZone, _opponentShieldZone);
 
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
             AddControls();
 
-            _gameSetupButton.Top = _playerPanel.Bottom + 10;
-            _exitTableButton.Top = _gameSetupButton.Bottom + 10;
+            _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
+            _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
         }
 
-        private void Foo(Control button, Control control)
+        private void SetupClick(Control button, Control control)
         {
-            button.Click += (object sender, EventArgs e) => control.Visible = !control.Visible;
+            button.Click += (object sender, EventArgs e) =>
+            {
+                control.Visible = !control.Visible;
+                control.BringToFront();
+            };
         }
 
         private void AddControls()
@@ -201,9 +212,13 @@ namespace Client
         internal void Process(Choice c)
         {
             CurrentChoice = c;
-            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Enabled = true; _choicePanel.Label.Text = c.ToString(); }));
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.Label.Text = c.ToString(); }));
             if (c is CardSelection cardSelection)
             {
+                if (cardSelection.MinimumSelection == 0)
+                {
+                    _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Visible = true; }));
+                }
                 foreach (var card in cardSelection.Options)
                 {
                     MarkSelectable(GetCardPanel(card.ToString()));
@@ -222,6 +237,10 @@ namespace Client
                         MarkSelectable(GetCardPanel(option.ToString()));
                     }
                 }
+            }
+            else if (c is YesNoChoice yesNoChoice)
+            {
+                _choicePanel.DeclineButton.Visible = true;
             }
         }
 
@@ -263,6 +282,8 @@ namespace Client
                 card.BackColor = Color.Black;
             }
             SelectableCards.Clear();
+            _choicePanel.DefaultButton.Visible = false;
+            _choicePanel.DeclineButton.Visible = false;
         }
     }
 }

@@ -4,13 +4,13 @@ namespace Common.Choices
 {
     public class YesNoChoice : Choice
     {
-        string _text;
+        public string Text { get; set; }
         
         public YesNoChoice() { }
 
         public YesNoChoice(Guid player, string text) : base(player)
         {
-            _text = text;
+            Text = text;
         }
 
         protected override void Dispose(bool disposing)
@@ -19,7 +19,7 @@ namespace Common.Choices
 
         public override string ToString()
         {
-            return _text;
+            return Text;
         }
     }
 
