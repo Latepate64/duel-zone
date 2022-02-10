@@ -162,7 +162,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
+                    game.Move(ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
                 }
             }
         }
@@ -170,7 +170,7 @@ namespace Engine
         private void Summon(Card card, Game game)
         {
             game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
-            _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
+            _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
         }
 
         public void DrawCards(int amount, Game game)
@@ -180,7 +180,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
+                    game.Move(ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
                 }
             }
         }
@@ -217,7 +217,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+                    game.Move(ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
                 }
             }
         }
@@ -255,7 +255,7 @@ namespace Engine
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] }, ZoneType.Hand, ZoneType.Graveyard);
+                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards[_random.Next(Hand.Cards.Count)]);
             }
         }
 

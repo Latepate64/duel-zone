@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            _ = game.Move(game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))), SourceZone, DestinationZone);
+            _ = game.Move(SourceZone, DestinationZone, game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))).ToArray());
         }
     }
 }

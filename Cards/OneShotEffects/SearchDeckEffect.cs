@@ -43,7 +43,7 @@ namespace Cards.OneShotEffects
                         game.GetOwner(card).Reveal(game, card);
                     }
                 }
-                game.Move(selectedCards, ZoneType.Deck, ZoneType.Hand);
+                game.Move(ZoneType.Deck, ZoneType.Hand, selectedCards.ToArray());
             }
             player.ShuffleDeck(game);
         }

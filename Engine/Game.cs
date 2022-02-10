@@ -230,7 +230,7 @@ namespace Engine
 
         public void Destroy(IEnumerable<Card> cards)
         {
-            _ = Move(cards, ZoneType.BattleZone, ZoneType.Graveyard);
+            _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         /// <summary>
@@ -376,30 +376,18 @@ namespace Engine
         private void Leave(Player player)
         {
             _ = Players.Remove(player);
-            _ = Move(BattleZone.Cards.Where(x => x.Owner == player.Id), ZoneType.BattleZone, ZoneType.Anywhere);
-        }
-
-        /// <summary>
-        /// Only use this method if exactly one card moves between zones, otherwise use the overload that takes multiple cards.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        /// <returns></returns>
-        public void Move(Card card, ZoneType source, ZoneType destination)
-        {
-            _ = Move(new List<Card> { card }, source, destination);
+            _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
         /// <summary>
         /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
         /// </summary>
-        /// <param name="cards"></param>
         /// <param name="source"></param>
         /// <param name="destination"></param>
+        /// <param name="cards"></param>
         /// 
         /// <returns></returns>
-        public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params Card[] cards)
         {
             return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
@@ -467,7 +455,7 @@ namespace Engine
 
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
             if (canUseShieldTrigger)
             {
                 CheckShieldTriggers(events);

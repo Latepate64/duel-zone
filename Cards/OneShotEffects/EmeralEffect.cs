@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
                 var cards = decision.Decision;
                 if (cards.Any())
                 {
-                    game.Move(cards.Select(x => game.GetCard(x)), ZoneType.Hand, ZoneType.ShieldZone);
+                    game.Move(ZoneType.Hand, ZoneType.ShieldZone, cards.Select(x => game.GetCard(x)).ToArray());
 
                     // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
                     new ShieldRecoveryEffect(false).Apply(game, source);
