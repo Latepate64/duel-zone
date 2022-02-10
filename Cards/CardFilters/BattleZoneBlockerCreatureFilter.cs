@@ -23,5 +23,10 @@ namespace Cards.CardFilters
         {
             return new BattleZoneBlockerCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return "blockers";
+        }
     }
 }

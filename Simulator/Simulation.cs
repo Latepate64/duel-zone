@@ -1,5 +1,6 @@
-﻿using Engine;
-using Engine.Choices;
+﻿using Common;
+using Engine;
+using Common.Choices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,7 +125,7 @@ namespace Simulator
             //return points;
         }
 
-        private static int GetPointsForGameOver(Game game, Player player, Player opponent, int numberOfChoicesMade)
+        private static int GetPointsForGameOver(Game game, Engine.Player player, Engine.Player opponent, int numberOfChoicesMade)
         {
             const int GameOverPoints = 9999999;
             if (game.Players.Count < 2)
@@ -135,11 +136,6 @@ namespace Simulator
             {
                 return 0;
             }
-        }
-
-        private static int GetPoints(IEnumerable<Card> cards)
-        {
-            return cards.Sum(x => GetValue(x));
         }
 
         private static int PointsForUnleftMana(IEnumerable<Guid> usedMana, Game game, Guid playerId)
@@ -160,12 +156,6 @@ namespace Simulator
             }
             var res = civs.Distinct().Count() * 20 + (include.Any() ? include.Min() : 0);
             return res;
-        }
-
-        private static int GetValue(Card card)
-        {
-            //TODO: Improve card value calculation.
-            return card.Power.HasValue ? card.Power.Value / 500 : 0 + (card.Tapped ? 1 : 0);
         }
 
         private static IEnumerable<IEnumerable<T>> GetCombinations<T>(IEnumerable<T> locked, IEnumerable<T> unlocked, int size)

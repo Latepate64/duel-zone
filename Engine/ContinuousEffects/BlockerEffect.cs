@@ -1,12 +1,9 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class BlockerEffect : ContinuousEffect
     {
-        public BlockerEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public BlockerEffect()
         {
-
         }
 
         public BlockerEffect(BlockerEffect effect) : base(effect)
@@ -16,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new BlockerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Blocker";
         }
     }
 }

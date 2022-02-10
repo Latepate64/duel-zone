@@ -1,8 +1,7 @@
-﻿using Engine;
+﻿using Common;
+using Common.GameEvents;
+using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using Engine.GameEvents;
-using Engine.Zones;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -17,7 +16,7 @@ namespace Cards.ContinuousEffects
             _lastBuff = effect._lastBuff;
         }
 
-        public CannonShellEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public CannonShellEffect()
         {
         }
 
@@ -41,10 +40,10 @@ namespace Cards.ContinuousEffects
 
         public override void Update(Game game, GameEvent e)
         {
-            if (e is CardMovedEvent cardMoved)
+            if (e is CardMovedEvent cardMoved && cardMoved.CardInDestinationZone != null)
             {
                 var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-                if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone)?.Owner)
+                if (card.Owner == game.GetCard(cardMoved.CardInDestinationZone.Id)?.Owner)
                 {
                     if (cardMoved.Source == ZoneType.ShieldZone)
                     {
@@ -58,6 +57,11 @@ namespace Cards.ContinuousEffects
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return $"This creature gets +{Increment} power for each shield you have.";
         }
     }
 }

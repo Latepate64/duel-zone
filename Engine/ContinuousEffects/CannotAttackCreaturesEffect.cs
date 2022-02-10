@@ -1,12 +1,9 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class CannotAttackCreaturesEffect : ContinuousEffect
     {
-        public CannotAttackCreaturesEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public CannotAttackCreaturesEffect()
         {
-
         }
 
         public CannotAttackCreaturesEffect(CannotAttackCreaturesEffect effect) : base(effect)
@@ -16,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new CannotAttackCreaturesEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{Filter} can't attack creatures{GetDurationAsText()}.";
         }
     }
 }

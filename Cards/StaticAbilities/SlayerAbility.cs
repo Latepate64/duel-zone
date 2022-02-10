@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.StaticAbilities
 {
@@ -9,7 +7,7 @@ namespace Cards.StaticAbilities
     {
         public SlayerAbility()
         {
-            ContinuousEffects.Add(new SlayerEffect(new TargetFilter(), new Indefinite()));
+            ContinuousEffects.Add(new SlayerEffect());
         }
     }
 }

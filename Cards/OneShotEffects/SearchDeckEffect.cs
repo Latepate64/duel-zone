@@ -1,6 +1,7 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -33,7 +34,7 @@ namespace Cards.OneShotEffects
             var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, player));
             if (cards.Any())
             {
-                var decision = player.Choose(new GuidSelection(player.Id, cards, 0, 1));
+                var decision = player.Choose(new CardSelectionInEffect(player.Id, cards, 0, 1, ToString()), game);
                 var selectedCards = decision.Decision.Select(x => game.GetCard(x));
                 if (Reveal)
                 {
@@ -42,9 +43,15 @@ namespace Cards.OneShotEffects
                         game.GetOwner(card).Reveal(game, card);
                     }
                 }
-                game.Move(selectedCards, Engine.Zones.ZoneType.Deck, Engine.Zones.ZoneType.Hand);
+                game.Move(ZoneType.Deck, ZoneType.Hand, selectedCards.ToArray());
             }
             player.ShuffleDeck(game);
+        }
+
+        public override string ToString()
+        {
+            var reveal = Reveal ? ", show it to your opponent," : "";
+            return $"Search your deck. You may take {Filter}{reveal} and put it into your hand. Then shuffle your deck.";
         }
     }
 }

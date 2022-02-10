@@ -1,5 +1,5 @@
-﻿using Engine.Durations;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.Durations;
 using System.Linq;
 
 namespace Engine.ContinuousEffects
@@ -41,21 +41,26 @@ namespace Engine.ContinuousEffects
 
         public override void Update(Game game, GameEvent e)
         {
-            if (e is CardMovedEvent cme)
+            if (e is CardMovedEvent cme && cme.CardInDestinationZone != null)
             {
-                var card = game.GetCard(cme.CardInDestinationZone);
+                var card = game.GetCard(cme.CardInDestinationZone.Id);
                 if (Filter.Applies(card, game, game.GetOwner(card)))
                 {
-                    if (cme.Destination == Zones.ZoneType.BattleZone)
+                    if (cme.Destination == Common.ZoneType.BattleZone)
                     {
                         card.Power += _power;
                     }
-                    if (cme.Source == Zones.ZoneType.BattleZone)
+                    if (cme.Source == Common.ZoneType.BattleZone)
                     {
                         card.Power -= _power;
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return $"{Filter} gets +{_power} power{GetDurationAsText()}.";
         }
     }
 }

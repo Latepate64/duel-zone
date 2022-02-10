@@ -1,11 +1,11 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
-using Engine.Zones;
 using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class CardMovingAreaOfEffect : OneShotEffect
+    abstract class CardMovingAreaOfEffect : OneShotEffect
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
@@ -27,12 +27,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            _ = game.Move(game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))), SourceZone, DestinationZone);
-        }
-
-        public override OneShotEffect Copy()
-        {
-            return new CardMovingAreaOfEffect(this);
+            _ = game.Move(SourceZone, DestinationZone, game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))).ToArray());
         }
     }
 }

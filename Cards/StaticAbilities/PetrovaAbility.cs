@@ -1,13 +1,9 @@
-﻿using Cards.CardFilters;
+﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
-using Engine.Choices;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using Engine.GameEvents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {
@@ -16,7 +12,7 @@ namespace Cards.StaticAbilities
         public PetrovaAbility()
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Engine.Zones.ZoneType.Anywhere, Engine.Zones.ZoneType.BattleZone, null)));
+            ContinuousEffects.Add(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)
@@ -27,7 +23,7 @@ namespace Cards.StaticAbilities
         //{
         //    if (decision == null)
         //    {
-        //        return new EnumChoice(Owner, new List<Enum> { Subtype.MechaDelSol });
+        //        return new EnumChoice(Owner, new List<Enum> { Common.Subtype.MechaDelSol });
         //    }
         //    else
         //    {
@@ -51,7 +47,7 @@ namespace Cards.StaticAbilities
 
     internal class PetrovaChannelerOfSunsEffect : ReplacementEffect
     {
-        public PetrovaChannelerOfSunsEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -64,7 +60,7 @@ namespace Cards.StaticAbilities
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Game game, Player player)
+        public override GameEvent Apply(Game game, Engine.Player player)
         {
             throw new NotImplementedException();
         }
@@ -73,9 +69,14 @@ namespace Cards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == Engine.Zones.ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Destination == ZoneType.BattleZone && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "As you put this creature into the battle zone, choose a race other than Mecha Del Sol. Each creature of that race gets +4000 power.";
         }
     }
 }

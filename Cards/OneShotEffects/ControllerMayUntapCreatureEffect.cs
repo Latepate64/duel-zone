@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -27,13 +27,15 @@ namespace Cards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
-            if (player.Choose(new YesNoChoice(source.Owner)).Decision)
+            if (player.Choose(new YesNoChoice(source.Owner, ToString()), game).Decision)
             {
-                foreach (var card in game.GetAllCards().Where(x => Filter.Applies(x, game, player)))
-                {
-                    card.Tapped = false;
-                }
+                player.Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, player)).ToArray());
             }
+        }
+
+        public override string ToString()
+        {
+            return $"You may untap {Filter}.";
         }
     }
 }

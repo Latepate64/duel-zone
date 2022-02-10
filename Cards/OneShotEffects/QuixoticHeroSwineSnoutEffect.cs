@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
@@ -24,6 +23,11 @@ namespace Cards.OneShotEffects
         public override void Apply(Game game, Ability source)
         {
             game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Target = source.Source }, 3000, new UntilTheEndOfTheTurn()));
+        }
+
+        public override string ToString()
+        {
+            return "This creature gets +3000 power until the end of the turn.";
         }
     }
 }

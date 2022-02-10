@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OwnersManaZoneCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{ToStringBase()} in your mana zone";
+        }
     }
 }

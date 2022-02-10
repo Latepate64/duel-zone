@@ -1,12 +1,12 @@
-﻿using Engine.ContinuousEffects;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Engine.Steps
 {
     public class DirectAttackStep : Step
     {
-        public DirectAttackStep(AttackPhase phase) : base(phase)
+        public DirectAttackStep(AttackPhase phase) : base(phase, PhaseOrStep.DirectAttack)
         {
         }
 
@@ -32,11 +32,11 @@ namespace Engine.Steps
                     breakAmount = 2;
                 }
                 game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                game.Process(new ShieldsBrokenEvent(new Card(attackingCreature, true), opponent.Copy(), breakAmount));
+                game.Process(new ShieldsBrokenEvent { Attacker = attackingCreature.Convert(), Target = opponent.Copy(), Amount = breakAmount });
             }
             else
             {
-                game.Process(new DirectAttackEvent(opponent.Copy()));
+                game.Process(new DirectAttackEvent { Player = opponent.Copy() });
                 game.Lose(opponent);
             }
         }

@@ -1,8 +1,9 @@
 ﻿using Combinatorics.Collections;
+using Common;
+using Common.GameEvents;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -13,26 +14,18 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : IAttackable, IDisposable, ICopyable<Player>
+    public abstract class Player : Common.Player, IAttackable, IDisposable//, ICopyable<Player>
     {
         #region Properties
-        public Guid Id { get; }
-
-        public string Name { get; set; }
-
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
         public Deck Deck { get; set; }
 
-        public abstract YesNoDecision Choose(YesNoChoice yesNoChoice);
-
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
         public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
-
-        public abstract GuidDecision Choose(GuidSelection guidSelection);
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
@@ -66,18 +59,15 @@ namespace Engine
         public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
         #endregion Properties
 
-        private static readonly Random _random = new Random();
+        private static readonly Random _random = new();
 
         #region Methods
         protected Player()
         {
-            Id = Guid.NewGuid();
         }
 
-        protected Player(Player player)
+        protected Player(Player player) : base(player)
         {
-            Id = player.Id;
-            Name = player.Name;
             Deck = player.Deck.Copy() as Deck;
             Graveyard = player.Graveyard.Copy() as Graveyard;
             Hand = player.Hand.Copy() as Hand;
@@ -113,10 +103,49 @@ namespace Engine
             }
         }
 
+        public YesNoDecision Choose(YesNoChoice yesNoChoice, Game game)
+        {
+           var decision = ClientChoose(yesNoChoice);
+           if (decision != null)
+           {
+                return decision;
+           }
+           else
+           {
+                Concede(game);
+                return new YesNoDecision();
+            }
+        }
+
+        public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
+
+        public GuidDecision Choose(GuidSelection selection, Game game)
+        {
+            var legal = false;
+            GuidDecision decision = null;
+            while (!legal)
+            {
+                decision = ClientChoose(selection);
+                if (decision != null)
+                {
+                    var dist = decision.Decision.Distinct();
+                    legal = dist.Count() >= selection.MinimumSelection && dist.Count() <= selection.MaximumSelection && dist.All(i => selection.Options.Contains(i));
+                }
+                else
+                {
+                    Concede(game);
+                    return new GuidDecision();
+                }
+            }
+            return decision;
+        }
+
+        public abstract GuidDecision ClientChoose(GuidSelection guidSelection);
+
         public void ShuffleDeck(Game game)
         {
             Deck.Shuffle();
-            var eve = new DeckShuffledEvent(Copy());
+            var eve = new DeckShuffledEvent { Player = Copy() };
             if (game.Turns.Any())
             {
                 game.Process(eve);
@@ -133,15 +162,15 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ShieldZone);
+                    game.Move(ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
                 }
             }
         }
 
         private void Summon(Card card, Game game)
         {
-            game.Process(new CreatureSummonedEvent(Copy(), new Card(card, true)));
-            _ = game.Move(new List<Card> { card }, ZoneType.Hand, ZoneType.BattleZone);
+            game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
+            _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
         }
 
         public void DrawCards(int amount, Game game)
@@ -151,7 +180,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.Hand);
+                    game.Move(ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
                 }
             }
         }
@@ -188,7 +217,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(Deck.Cards.Last(), ZoneType.Deck, ZoneType.ManaZone);
+                    game.Move(ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
                 }
             }
         }
@@ -197,7 +226,7 @@ namespace Engine
         {
             Hand.Remove(spell, game);
             spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
-            game.Process(new SpellCastEvent(Copy(), new Card(spell, true)));
+            game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
@@ -205,22 +234,28 @@ namespace Engine
                 ability.Resolve(game);
             }
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+
+            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+            var newObject = new Card(spell);
+            ZoneType destination;
             if (effects.Any())
             {
-                game.GetPlayer(spell.Owner)?.ManaZone.Add(spell, game);
+                game.GetPlayer(newObject.Owner)?.ManaZone.Add(newObject, game);
+                destination = ZoneType.ManaZone;
             }
             else
             {
-                game.GetPlayer(spell.Owner)?.Graveyard.Add(spell, game);
-
+                game.GetPlayer(newObject.Owner)?.Graveyard.Add(newObject, game);
+                destination = ZoneType.Graveyard;
             }
+            game.Process(new CardMovedEvent { CardInDestinationZone = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
         public void DiscardAtRandom(Game game)
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(new List<Card> { Hand.Cards[_random.Next(Hand.Cards.Count)] }, ZoneType.Hand, ZoneType.Graveyard);
+                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards[_random.Next(Hand.Cards.Count)]);
             }
         }
 
@@ -228,7 +263,7 @@ namespace Engine
         {
             var opponent = game.GetOpponent(this);
             card.RevealedTo.Add(opponent.Id);
-            game.Process(new CardRevealedEvent(Copy(), new Card(card, true)));
+            game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 
         internal Zone GetZone(ZoneType zone)
@@ -252,11 +287,14 @@ namespace Engine
             }
         }
 
-        public abstract Player Copy();
+        public Common.Player Copy()
+        {
+            return Convert();
+        }
 
         private void ChooseCardsToPayManaCost(Game game, Card toUse)
         {
-            var manaDecision = Choose(new GuidSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost)).Decision.Select(x => game.GetCard(x));
+            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
             if (HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
@@ -269,16 +307,13 @@ namespace Engine
 
         private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
         {
-            foreach (Card mana in manaCards)
-            {
-                mana.Tapped = true;
-            }
+            Tap(game, manaCards.ToArray());
             UseCard(toUse, game);
         }
 
         internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
         {
-            var decision = Choose(new GuidSelection(Id, cards, 0, 1)).Decision;
+            var decision = Choose(new UseCardSelection(Id, cards), game).Decision;
             if (decision.Any())
             {
                 var id = decision.Single();
@@ -315,6 +350,49 @@ namespace Engine
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        public Common.Player Convert()
+        {
+            return new Common.Player(this);
+        }
+
+        public void Tap(Game game, params Card[] cards)
+        {
+            var untappedCards = cards.Where(x => !x.Tapped).ToList();
+            foreach (Card card in untappedCards)
+            {
+                card.Tapped = true;
+            }
+            if (untappedCards.Any())
+            {
+                game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
+            }
+        }
+
+        public void Untap(Game game, params Card[] cards)
+        {
+            var tappedCards = cards.Where(x => x.Tapped).ToList();
+            foreach (Card card in tappedCards)
+            {
+                card.Tapped = false;
+            }
+            if (tappedCards.Any())
+            {
+                game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
+            }
+        }
+
+        /// <summary>
+        /// 104.3a A player can concede the game at any time.
+        /// A player who concedes leaves the game immediately.
+        /// That player loses the game.
+        /// </summary>
+        /// <param name="game"></param>
+        private void Concede(Game game)
+        {
+            game.Process(new ConcedeEvent { Player = Convert() });
+            game.Lose(this);
         }
         #endregion Methods
     }

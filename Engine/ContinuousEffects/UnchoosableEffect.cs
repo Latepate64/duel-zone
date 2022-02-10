@@ -1,10 +1,8 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class UnchoosableEffect : ContinuousEffect
     {
-        public UnchoosableEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public UnchoosableEffect()
         {
         }
 
@@ -15,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new UnchoosableEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Your opponent can't choose {Filter}{GetDurationAsText()}.";
         }
     }
 }

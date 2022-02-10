@@ -19,7 +19,8 @@ namespace Cards.OneShotEffects
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
             game.Destroy(game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToList());
             // then take an extra turn after this one.
-            Turn turn = new() { ActivePlayer = source.Owner, NonActivePlayer = game.GetOpponent(source.Owner) };
+            var owner = game.GetPlayer(source.Owner);
+            Turn turn = new() { ActivePlayer = owner.Convert(), NonActivePlayer = game.GetOpponent(owner).Convert() };
             game.ExtraTurns.Push(turn);
             // You lose the game at the end of the extra turn.
             game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once(), source.Source, source.Owner));
@@ -28,6 +29,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new BombazarDragonOfDestinyEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Destroy all other creatures that have power 6000, then take an extra turn after this one. You lose the game at the end of the extra turn.";
         }
     }
 
@@ -49,6 +55,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new YouLoseTheGameAtTheEndOfTheExtraTurnEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "You lose the game.";
         }
     }
 }

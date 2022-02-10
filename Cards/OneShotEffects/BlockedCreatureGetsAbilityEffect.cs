@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
@@ -40,6 +39,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new BlockedCreatureGetsAbilityEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"It gets {string.Join(" and ", Abilities)} {Duration}.";
         }
     }
 }

@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OwnersGraveyardCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{ToStringBase()} in your graveyard";
+        }
     }
 }

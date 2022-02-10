@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
@@ -17,10 +18,39 @@ namespace Common
             return stream.ToString();
         }
 
-        public static object Deserialize(string text)
+        //https://www.generacodice.com/en/articolo/2837816/xml-parser,-multiple-roots
+        public static List<object> Deserialize(string text)
         {
-            XElement xElement = XElement.Parse(text);
-            return new XmlSerializer(Type.GetType($"Common.{xElement.Name}", true)).Deserialize(xElement.CreateReader());
+            var objects = new List<object>();
+            var readerSettings = new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Fragment };
+            using (var reader = XmlReader.Create(new StringReader(text), readerSettings))
+            {
+                while (reader.Read())
+                {
+                    using var fragmentReader = reader.ReadSubtree();
+                    if (fragmentReader.Read())
+                    {
+                        var fragment = XNode.ReadFrom(fragmentReader) as XElement;
+                        objects.Add(new XmlSerializer(GetCorrectType(fragment.Name)).Deserialize(fragment.CreateReader()));
+                    }
+                }
+            }
+            return objects;
+        }
+
+        private static Type GetCorrectType(XName name)
+        {
+            var namespaces = new List<string> { "", "Choices.", "GameEvents." };
+            foreach (var ns in namespaces)
+            {
+                var typeName = $"Common.{ns}{name}";
+                var type = Type.GetType(typeName);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+            throw new InvalidOperationException();
         }
     }
 }

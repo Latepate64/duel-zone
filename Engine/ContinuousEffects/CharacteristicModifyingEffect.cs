@@ -1,10 +1,12 @@
-﻿using Engine.Durations;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.Durations;
 
 namespace Engine.ContinuousEffects
 {
     public abstract class CharacteristicModifyingEffect : ContinuousEffect
     {
+        protected CharacteristicModifyingEffect() { }
+
         protected CharacteristicModifyingEffect(CardFilter filter, Duration duration) : base(filter, duration)
         {
         }

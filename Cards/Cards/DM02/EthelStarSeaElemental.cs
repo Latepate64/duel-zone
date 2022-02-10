@@ -1,10 +1,8 @@
-﻿using Engine;
-
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class EthelStarSeaElemental : Creature
     {
-        public EthelStarSeaElemental() : base("Ethel, Star Sea Elemental", 6, Civilization.Light, 5500, Subtype.AngelCommand)
+        public EthelStarSeaElemental() : base("Ethel, Star Sea Elemental", 6, Common.Civilization.Light, 5500, Common.Subtype.AngelCommand)
         {
             Abilities.Add(new StaticAbilities.UnblockableAbility());
         }

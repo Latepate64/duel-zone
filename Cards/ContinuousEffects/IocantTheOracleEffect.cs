@@ -1,8 +1,7 @@
-﻿using Cards.CardFilters;
+﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using Engine.GameEvents;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -16,7 +15,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public IocantTheOracleEffect() : base(new TargetFilter(), new Indefinite())
+        public IocantTheOracleEffect()
         {
         }
 
@@ -47,7 +46,7 @@ namespace Cards.ContinuousEffects
 
         public override void Update(Game game, GameEvent e)
         {
-            if (e is CardMovedEvent cardMoved && (cardMoved.Source == Engine.Zones.ZoneType.BattleZone || cardMoved.Destination == Engine.Zones.ZoneType.BattleZone))
+            if (e is CardMovedEvent cardMoved && (cardMoved.Source == ZoneType.BattleZone || cardMoved.Destination == ZoneType.BattleZone))
             {
                 var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
                 var buffShouldBeApplied = game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand));
@@ -66,5 +65,10 @@ namespace Cards.ContinuousEffects
 
         bool _buffActive;
         const int Buff = 2000;
+
+        public override string ToString()
+        {
+            return $"While you have at least 1 Angel Command in the battle zone, this creature gets +{Buff} power.";
+        }
     }
 }

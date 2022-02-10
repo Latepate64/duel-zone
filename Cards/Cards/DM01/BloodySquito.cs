@@ -1,9 +1,8 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
+using Common;
 using Engine;
-using Engine.Zones;
 
 namespace Cards.Cards.DM01
 {
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM01
 
             // When this creature wins a battle, destroy it.
             var targetFilter = new TargetFilter();
-            Abilities.Add(new WinBattleAbility(new CardMovingAreaOfEffect(ZoneType.BattleZone, ZoneType.Graveyard, targetFilter), targetFilter));
+            Abilities.Add(new WinBattleAbility(new DestroyAreaOfEffect(targetFilter), targetFilter));
         }
     }
 }

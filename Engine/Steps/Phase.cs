@@ -1,6 +1,6 @@
-﻿using Engine.Abilities;
-using Engine.Choices;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.Abilities;
+using Common.Choices;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,7 +41,15 @@ namespace Engine.Steps
                     var player = game.GetPlayer(abilities.Key);
                     if (player != null)
                     {
-                        var decision = player.Choose(new GuidSelection(player.Id, abilities.Select(x => x.Id), 1, 1)).Decision.Single();
+                        System.Guid decision;
+                        if (abilities.Count() > 1)
+                        {
+                            decision = player.Choose(new AbilitySelection(player.Id, abilities.Select(x => x.Id), 1, 1), game).Decision.Single();
+                        }
+                        else
+                        {
+                            decision = abilities.First().Id;
+                        }
                         var ability = abilities.Single(x => x.Id == decision);
                         ability.Resolve(game);
                         _ = PendingAbilities.Remove(ability);
@@ -55,19 +63,24 @@ namespace Engine.Steps
             }
         }
 
-        protected Phase(Phase step)
+        protected Phase(Phase phase)
         {
-            PendingAbilities = step.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
-            GameEvents = new Queue<GameEvent>(step.GameEvents);
-            UsedCards = step.UsedCards.ToList();
+            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
+            GameEvents = new Queue<GameEvent>(phase.GameEvents);
+            UsedCards = phase.UsedCards.ToList();
+            Type = phase.Type;
         }
 
-        protected Phase() { }
+        protected Phase(PhaseOrStep type) 
+        {
+            Type = type;
+        }
 
         public List<Card> UsedCards { get; } = new List<Card>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
 
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
+        public PhaseOrStep Type { get; }
 
         public abstract Phase Copy();
     }

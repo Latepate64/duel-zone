@@ -23,7 +23,7 @@ namespace Cards.TriggeredAbilities
         public override bool CheckInterveningIfClause(Game game)
         {
             // if you have a Cyber Lord in the battle zone
-            return game.BattleZone.GetCreatures(Owner).Any(x => x.Subtypes.Contains(Subtype.CyberLord));
+            return game.BattleZone.GetCreatures(Owner).Any(x => x.Subtypes.Contains(Common.Subtype.CyberLord));
         }
     }
 }

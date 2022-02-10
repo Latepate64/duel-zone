@@ -1,12 +1,8 @@
-﻿using Cards.CardFilters;
+﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
-using Engine.Choices;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using Engine.GameEvents;
-using System;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {
@@ -14,7 +10,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility()
         {
-            ContinuousEffects.Add(new AquaKnightAbilityEffect(new TargetFilter(), new Indefinite(), new CardMovedEvent(Guid.Empty, Guid.Empty, Engine.Zones.ZoneType.BattleZone, Engine.Zones.ZoneType.Graveyard, null)));
+            ContinuousEffects.Add(new AquaKnightAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility ability) : base(ability)
@@ -24,7 +20,7 @@ namespace Cards.StaticAbilities
 
     public class AquaKnightAbilityEffect : ReplacementEffect
     {
-        public AquaKnightAbilityEffect(CardFilter filter, Duration duration, GameEvent gameEvent) : base(filter, duration, gameEvent)
+        public AquaKnightAbilityEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
@@ -37,10 +33,10 @@ namespace Cards.StaticAbilities
             return new AquaKnightAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Game game, Player player)
+        public override GameEvent Apply(Game game, Engine.Player player)
         {
             var newEvent = EventToReplace.Copy() as CardMovedEvent;
-            newEvent.Destination = Engine.Zones.ZoneType.Hand;
+            newEvent.Destination = ZoneType.Hand;
             return newEvent;
         }
 
@@ -48,9 +44,14 @@ namespace Cards.StaticAbilities
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == Engine.Zones.ZoneType.BattleZone && e.Destination == Engine.Zones.ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player));
+                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, return it to your hand instead.";
         }
     }
 }

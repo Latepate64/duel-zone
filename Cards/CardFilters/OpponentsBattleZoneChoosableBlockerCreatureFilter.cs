@@ -23,5 +23,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsBattleZoneChoosableBlockerCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + " that has \"blocker.\"";
+        }
     }
 }

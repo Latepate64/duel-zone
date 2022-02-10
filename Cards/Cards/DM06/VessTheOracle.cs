@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM06
 {
     public class VessTheOracle : Creature
     {
-        public VessTheOracle() : base("Vess, the Oracle", 1, Civilization.Light, 2000, Subtype.LightBringer)
+        public VessTheOracle() : base("Vess, the Oracle", 1, Common.Civilization.Light, 2000, Common.Subtype.LightBringer)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackPlayersAbility());

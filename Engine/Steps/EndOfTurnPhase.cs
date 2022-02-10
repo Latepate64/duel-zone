@@ -1,5 +1,5 @@
-﻿using Engine.Durations;
-using Engine.GameEvents;
+﻿using Common.GameEvents;
+using Engine.Durations;
 
 namespace Engine.Steps
 {
@@ -8,7 +8,7 @@ namespace Engine.Steps
     /// </summary>
     public class EndOfTurnPhase : Phase, ITurnBasedActionable
     {
-        public EndOfTurnPhase()
+        public EndOfTurnPhase() : base(PhaseOrStep.EndOfTurn)
         {
         }
 
@@ -27,7 +27,6 @@ namespace Engine.Steps
         public void PerformTurnBasedAction(Game game)
         {
             _ = game.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
-            game.Process(new TurnEndsEvent(game.CurrentTurn, game));
         }
     }
 }

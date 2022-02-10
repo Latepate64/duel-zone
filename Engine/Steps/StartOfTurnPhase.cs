@@ -1,4 +1,5 @@
-﻿using Engine.GameEvents;
+﻿using Common.GameEvents;
+using System.Linq;
 
 namespace Engine.Steps
 {
@@ -7,7 +8,7 @@ namespace Engine.Steps
     /// </summary>
     public class StartOfTurnPhase : Phase, ITurnBasedActionable
     {
-        public StartOfTurnPhase(bool skipDrawStep)
+        public StartOfTurnPhase(bool skipDrawStep) : base(PhaseOrStep.StartOfTurn)
         {
             SkipDrawStep = skipDrawStep;
         }
@@ -31,14 +32,17 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(Game game)
         {
-            game.Process(new TurnStartsEvent(game.CurrentTurn, game));
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            foreach (var creature in game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer))
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
+            if (ownCreaturesWithSummoningSickness.Any())
             {
-                creature.SummoningSickness = false;
+                foreach (var creature in ownCreaturesWithSummoningSickness)
+                {
+                    creature.SummoningSickness = false;
+                }
+                game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
-            game.BattleZone.UntapCards(game.CurrentTurn.ActivePlayer);
-            player.ManaZone.UntapCards();
+            player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Union(player.ManaZone.Cards).ToArray());
         }
 
         internal bool SkipDrawStep { get; set; }

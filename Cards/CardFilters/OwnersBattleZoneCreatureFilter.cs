@@ -7,6 +7,7 @@ namespace Cards.CardFilters
     {
         public OwnersBattleZoneCreatureFilter()
         {
+            CardType = Common.CardType.Creature;
         }
 
         public OwnersBattleZoneCreatureFilter(OwnersBattleZoneCreatureFilter filter) : base(filter)
@@ -15,12 +16,17 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.CardType == CardType.Creature;
+            return base.Applies(card, game, player) && card.CardType == Common.CardType.Creature;
         }
 
         public override CardFilter Copy()
         {
             return new OwnersBattleZoneCreatureFilter(this);
+        }
+
+        public override string ToString()
+        {
+            return $"your {ToStringBase()}s";
         }
     }
 }

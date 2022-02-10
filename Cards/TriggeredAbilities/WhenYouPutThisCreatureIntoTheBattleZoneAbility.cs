@@ -1,7 +1,6 @@
-﻿using Engine;
+﻿using Common;
+using Common.GameEvents;
 using Engine.Abilities;
-using Engine.GameEvents;
-using Engine.Zones;
 
 namespace Cards.TriggeredAbilities
 {
@@ -15,11 +14,11 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override bool CanTrigger(GameEvent gameEvent, Engine.Game game)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Destination == ZoneType.BattleZone && Source == e.CardInDestinationZone && game.GetCard(e.CardInDestinationZone).CardType == CardType.Creature && CheckInterveningIfClause(game);
+                return e.Destination == ZoneType.BattleZone && Source == e.CardInDestinationZone.Id && game.GetCard(e.CardInDestinationZone.Id).CardType == CardType.Creature && CheckInterveningIfClause(game);
             }
             else
             {
@@ -30,6 +29,11 @@ namespace Cards.TriggeredAbilities
         public override Ability Copy()
         {
             return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return $"When you put this creature into the battle zone, {ToStringBase()}";
         }
     }
 }

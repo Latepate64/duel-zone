@@ -1,23 +1,37 @@
-﻿using Engine;
-using Engine.Choices;
+﻿using Common.Choices;
+using Common;
+using System.Net.Sockets;
+using System.Linq;
+using System;
 
 namespace Server
 {
-    class HumanPlayer : Player
+    class HumanPlayer : Engine.Player
     {
-        public override YesNoDecision Choose(YesNoChoice yesNoChoice)
+        public Server Server { get; set; }
+        public TcpClient Client { get; internal set; }
+
+        public HumanPlayer() : base()
         {
-            throw new System.NotImplementedException();
         }
 
-        public override GuidDecision Choose(GuidSelection guidSelection)
+        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
-            throw new System.NotImplementedException();
+            Server.BroadcastMessage(Serializer.Serialize(yesNoChoice));
+            return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
         }
 
-        public override Player Copy()
+        public override GuidDecision ClientChoose(GuidSelection guidSelection)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                Server.BroadcastMessage(Serializer.Serialize(guidSelection));
+                return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

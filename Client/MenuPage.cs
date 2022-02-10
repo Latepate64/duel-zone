@@ -27,7 +27,7 @@ namespace Client
         private readonly TextBox _serverAddress = new()
         {
             PlaceholderText = "Server address",
-            Text = "127.0.0.1",
+            Text = Properties.Settings.Default.IP,
             Width = 200,
         };
 

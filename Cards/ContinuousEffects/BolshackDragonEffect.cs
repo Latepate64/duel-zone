@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -10,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         public CardFilter MultiplierFilter { get; }
 
-        public BolshackDragonEffect(CardFilter multiplierFilter) : base(new TargetFilter(), new Indefinite(), 0)
+        public BolshackDragonEffect(CardFilter multiplierFilter) : base(0)
         {
             MultiplierFilter = multiplierFilter;
         }
@@ -22,8 +20,12 @@ namespace Cards.ContinuousEffects
 
         public override int GetPower(Game game, Player player)
         {
-            //this creature gets +1000 power for each fire card in your graveyard.
             return player.Graveyard.Cards.Where(x => MultiplierFilter.Applies(x, game, player)).Count() * 1000;
+        }
+
+        public override string ToString()
+        {
+            return $"While attacking, this creature gets +1000 power for each {MultiplierFilter}.";
         }
     }
 }

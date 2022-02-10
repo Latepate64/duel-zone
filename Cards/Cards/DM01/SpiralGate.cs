@@ -1,12 +1,11 @@
 ﻿using Cards.OneShotEffects;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
     class SpiralGate : Spell
     {
-        public SpiralGate() : base("Spiral Gate", 2, Civilization.Water)
+        public SpiralGate() : base("Spiral Gate", 2, Common.Civilization.Water)
         {
             ShieldTrigger = true;
 

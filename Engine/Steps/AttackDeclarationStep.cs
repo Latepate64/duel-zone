@@ -1,7 +1,7 @@
-﻿using Engine.Abilities;
-using Engine.Choices;
+﻿using Common.GameEvents;
+using Engine.Abilities;
+using Common.Choices;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +10,14 @@ namespace Engine.Steps
 {
     public class AttackDeclarationStep : Step
     {
-        public AttackDeclarationStep(AttackPhase phase) : base(phase)
+        public AttackDeclarationStep(AttackPhase phase) : base(phase, PhaseOrStep.AttackDeclaration)
         {
         }
 
         public override void PerformTurnBasedAction(Game game)
         {
-            var activePlayer = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && GetPossibleAttackTargets(c, game).Any());
+            var activePlayer = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(game, c) && GetPossibleAttackTargets(c, game).Any());
             var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
             var targets = options.SelectMany(x => x).SelectMany(x => x);
@@ -27,10 +27,15 @@ namespace Engine.Steps
             }
         }
 
+        internal static bool AffectedBySummoningSickness(Game game, Card creature)
+        {
+            return creature.SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any();
+        }
+
         private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
-            var decision = activePlayer.Choose(new GuidSelection(activePlayer.Id, attackers, minimum, 1)).Decision;
+            var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum), game).Decision;
             if (decision.Any())
             {
                 ChooseAttackTarget(game, activePlayer, attackers, decision.Single());
@@ -42,9 +47,9 @@ namespace Engine.Steps
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);
             IAttackable target = possibleTargets.Count() > 1
-                ? game.GetAttackable(activePlayer.Choose(new GuidSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1)).Decision.Single())
+                ? game.GetAttackable(activePlayer.Choose(new AttackTargetSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
                 : possibleTargets.Single();
-            attacker.Tapped = true;
+            activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
                 Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
@@ -53,7 +58,7 @@ namespace Engine.Steps
             {
                 Phase.SetAttackingCreature(attacker, game);
                 Phase.AttackTarget = target.Id;
-                game.Process(new CreatureAttackedEvent(new Card(attacker, true), game.GetAttackable(Phase.AttackTarget), game));
+                game.Process(new CreatureAttackedEvent { Attacker = attacker.Convert(), Attackable = game.GetAttackable(Phase.AttackTarget).Id });
             }
         }
 

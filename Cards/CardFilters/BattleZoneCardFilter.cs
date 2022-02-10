@@ -2,7 +2,7 @@
 
 namespace Cards.CardFilters
 {
-    class BattleZoneCardFilter : CardFilter
+    abstract class BattleZoneCardFilter : CardFilter
     {
         public BattleZoneCardFilter()
         {
@@ -15,11 +15,6 @@ namespace Cards.CardFilters
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && game.BattleZone.Cards.Contains(card);
-        }
-
-        public override CardFilter Copy()
-        {
-            return new BattleZoneCardFilter(this);
         }
     }
 }

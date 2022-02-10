@@ -1,7 +1,7 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
-using Engine;
+using Common;
 using System.Collections.Generic;
 
 namespace Cards.Cards.DM10

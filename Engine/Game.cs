@@ -1,8 +1,9 @@
-﻿using Engine.Abilities;
-using Engine.Choices;
+﻿using Common;
+using Common.GameEvents;
+using Engine.Abilities;
+using Common.Choices;
 using Engine.ContinuousEffects;
 using Engine.Durations;
-using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -66,12 +67,16 @@ namespace Engine
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
         #endregion Properties
 
-        internal Queue<GameEvent> PreGameEvents = new Queue<GameEvent>();
+        internal Queue<GameEvent> PreGameEvents = new();
 
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
+
+        public delegate void GameEventHandler(GameEvent gameEvent);
+
+        public event GameEventHandler OnGameEvent;
 
         #region Methods
         public Game() { }
@@ -82,12 +87,12 @@ namespace Engine
             ExtraTurns = new Stack<Turn>(game.ExtraTurns.Select(x => new Turn(x)));
             StartingHandSize = game.StartingHandSize;
             StartingNumberOfShields = game.StartingNumberOfShields;
-            Losers = game.Losers.Select(x => x.Copy()).ToList();
-            Players = game.Players.Select(x => x.Copy()).ToList();
-            if (game.Winner != null)
-            {
-                Winner = game.Winner.Copy();
-            }
+            //Losers = game.Losers.Select(x => x.Copy()).ToList();
+            //Players = game.Players.Select(x => x.Copy()).ToList();
+            //if (game.Winner != null)
+            //{
+            //    Winner = game.Winner.Copy();
+            //}
             Turns = game.Turns.Select(x => new Turn(x)).ToList();
             ContinuousEffects = game.ContinuousEffects.Select(x => x.Copy()).ToList();
             BattleZone = game.BattleZone.Copy() as BattleZone;
@@ -165,7 +170,7 @@ namespace Engine
             var nonActivePlayer = otherPlayer;
             while (Players.Any())
             {
-                StartNewTurn(activePlayer.Id, nonActivePlayer.Id);
+                StartNewTurn(activePlayer.Convert(), nonActivePlayer.Convert());
                 var tmp1 = activePlayer;
                 var tmp2 = nonActivePlayer;
                 activePlayer = tmp2;
@@ -173,7 +178,7 @@ namespace Engine
             }
         }
 
-        private void StartNewTurn(Guid activePlayer, Guid nonActivePlayer)
+        private void StartNewTurn(Common.Player activePlayer, Common.Player nonActivePlayer)
         {
             if (ExtraTurns.Any())
             {
@@ -191,7 +196,7 @@ namespace Engine
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            Process(new BattleEvent(attackingCreature, defendingCreature, this));
+            Process(new BattleEvent { Creature1 = attackingCreature.Convert(), Creature2 = defendingCreature.Convert() });
 
             if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
@@ -208,7 +213,7 @@ namespace Engine
 
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent(winner, this));
+                Process(new WinBattleEvent { Creature = winner.Convert() });
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
@@ -225,7 +230,7 @@ namespace Engine
 
         public void Destroy(IEnumerable<Card> cards)
         {
-            _ = Move(cards, ZoneType.BattleZone, ZoneType.Graveyard);
+            _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         /// <summary>
@@ -297,6 +302,7 @@ namespace Engine
 
         public void Process(GameEvent gameEvent)
         {
+            OnGameEvent?.Invoke(gameEvent);
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
@@ -318,7 +324,7 @@ namespace Engine
                 CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
-                    Process(new AbilityTriggeredEvent(ability));
+                    Process(new AbilityTriggeredEvent { Ability = ability.Id });
                 }
             }
             else
@@ -350,7 +356,7 @@ namespace Engine
         public void Lose(Player player)
         {
             Losers.Add(player);
-            Process(new LoseEvent(player.Copy()));
+            Process(new LoseEvent { Player = player.Copy() });
             Leave(player);
 
             // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
@@ -363,39 +369,27 @@ namespace Engine
         private void Win(Player player)
         {
             Winner = player;
-            Process(new WinEvent(player.Copy()));
+            Process(new WinEvent { Player = player.Copy() });
             Leave(player);
         }
 
         private void Leave(Player player)
         {
             _ = Players.Remove(player);
-            _ = Move(BattleZone.Cards.Where(x => x.Owner == player.Id), ZoneType.BattleZone, ZoneType.Anywhere);
-        }
-
-        /// <summary>
-        /// Only use this method if exactly one card moves between zones, otherwise use the overload that takes multiple cards.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        /// <returns></returns>
-        public void Move(Card card, ZoneType source, ZoneType destination)
-        {
-            _ = Move(new List<Card> { card }, source, destination);
+            _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
         /// <summary>
         /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
         /// </summary>
-        /// <param name="cards"></param>
         /// <param name="source"></param>
         /// <param name="destination"></param>
+        /// <param name="cards"></param>
         /// 
         /// <returns></returns>
-        public IEnumerable<CardMovedEvent> Move(IEnumerable<Card> cards, ZoneType source, ZoneType destination)
+        public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params Card[] cards)
         {
-            return Move(cards.Select(x => new CardMovedEvent(x.Owner, x.Id, source, destination, this)).ToList());
+            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
@@ -408,7 +402,7 @@ namespace Engine
                 var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
-                    ? player.Choose(new GuidSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1)).Decision.Single()
+                    ? player.Choose(new ReplacementEffectSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
                 var newEvent = effect.Apply(this, player);
@@ -420,10 +414,28 @@ namespace Engine
             }
             foreach (var e in events)
             {
-                e.Apply(this);
+                Move(e);
                 Process(e);
             }
             return events;
+        }
+
+        private void Move(CardMovedEvent e)
+        {
+            if (e.Player != null)
+            {
+                var player = GetPlayer(e.Player.Id);
+                var card = GetCard(e.CardInSourceZone);
+                (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
+
+                if (e.Destination != ZoneType.Anywhere)
+                {
+                    // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+                    var newObject = new Card(card);
+                    (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
+                    e.CardInDestinationZone = newObject.Convert();
+                }
+            }
         }
 
         private List<ReplacementEffect> GetReplacementEffects(IEnumerable<CardMovedEvent> events)
@@ -443,7 +455,7 @@ namespace Engine
 
         public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
         {
-            var events = Move(cards, ZoneType.ShieldZone, ZoneType.Hand);
+            var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
             if (canUseShieldTrigger)
             {
                 CheckShieldTriggers(events);
@@ -452,19 +464,19 @@ namespace Engine
 
         private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
                     var player = GetPlayer(shieldTriggersByPlayer.Key);
-                    var decision = player.Choose(new GuidSelection(player.Id, shieldTriggersByPlayer, 0, 1));
+                    var decision = player.Choose(new ShieldTriggerSelection(player.Id, shieldTriggersByPlayer), this);
                     if (decision.Decision.Any())
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent(player.Copy(), new Card(trigger, true)));
+                        Process(new ShieldTriggerEvent { Player = player.Copy(), Card = trigger.Convert() });
                         player.UseCard(trigger, this);
                     }
                     else

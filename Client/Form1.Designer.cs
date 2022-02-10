@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Windows.Forms;
 
 namespace Client
@@ -45,13 +44,18 @@ namespace Client
         /// </summary>
         void InitializeComponent()
         {
+            this.ClientSize = Properties.Settings.Default.Resolution;
+            if (Properties.Settings.Default.Maximized)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+
             _menuPage = new MenuPage(this);
             LobbyPage = new LobbyPage(this);
             TablePage = new TablePage(this);
             GameSetupForm = new(Client);
             this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;  
             this.Text = "Duel Zone";
 
             TabControl.Controls.Add(_menuPage);

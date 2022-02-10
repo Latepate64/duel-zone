@@ -6,5 +6,10 @@
         {
             return new Indefinite();
         }
+
+        public override string ToString()
+        {
+            return string.Empty;
+        }
     }
 }

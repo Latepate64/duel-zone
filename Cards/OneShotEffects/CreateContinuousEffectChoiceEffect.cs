@@ -35,5 +35,10 @@ namespace Cards.OneShotEffects
                 game.ContinuousEffects.Add(copy);
             }
         }
+
+        public override string ToString()
+        {
+            return $"{(ControllerChooses ? "Choose" : "Your opponent chooses")} {GetAmountAsText()} {Filter}. {string.Join(", ", ContinuousEffects)}.";
+        }
     }
 }

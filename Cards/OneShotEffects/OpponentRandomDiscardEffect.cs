@@ -22,5 +22,10 @@ namespace Cards.OneShotEffects
         {
             game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game);
         }
+
+        public override string ToString()
+        {
+            return "Your opponent discards a card at random from his hand.";
+        }
     }
 }

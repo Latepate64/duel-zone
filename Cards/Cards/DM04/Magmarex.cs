@@ -1,8 +1,7 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
-using Engine;
-using Engine.Zones;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM04
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, destroy all creatures that have power 1000.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CardMovingAreaOfEffect(ZoneType.BattleZone, ZoneType.Graveyard, new BattleZonePowerCreatureFilter(1000))));
+            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAreaOfEffect(new BattleZonePowerCreatureFilter(1000))));
         }
     }
 }

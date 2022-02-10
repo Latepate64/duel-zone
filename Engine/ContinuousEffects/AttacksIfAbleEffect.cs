@@ -1,12 +1,9 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public class AttacksIfAbleEffect : ContinuousEffect
     {
-        public AttacksIfAbleEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public AttacksIfAbleEffect()
         {
-
         }
 
         public AttacksIfAbleEffect(AttacksIfAbleEffect effect) : base(effect)
@@ -16,6 +13,11 @@ namespace Engine.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new AttacksIfAbleEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{Filter} attacks if able{GetDurationAsText()}.";
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
@@ -11,7 +11,7 @@ namespace Cards.OneShotEffects
             var player = game.GetPlayer(source.Owner);
             if (player != null)
             {
-                if (player.Choose(new YesNoChoice(source.Owner)).Decision)
+                if (player.Choose(new YesNoChoice(source.Owner, ToString()), game).Decision)
                 {
                     player.PutFromTopOfDeckIntoManaZone(game, 1);
                 }
@@ -21,6 +21,11 @@ namespace Cards.OneShotEffects
         public override OneShotEffect Copy()
         {
             return new MayPutTopCardOfDeckIntoManaZoneEffect();
+        }
+
+        public override string ToString()
+        {
+            return "You may put the top card of your deck into your mana zone.";
         }
     }
 }

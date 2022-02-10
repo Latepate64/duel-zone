@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class WanderingBraineater : Creature
     {
-        public WanderingBraineater() : base("Wandering Braineater", 2, Civilization.Darkness, 2000, Subtype.LivingDead)
+        public WanderingBraineater() : base("Wandering Braineater", 2, Common.Civilization.Darkness, 2000, Common.Subtype.LivingDead)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackCreaturesAbility());

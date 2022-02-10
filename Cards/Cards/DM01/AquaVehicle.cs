@@ -1,10 +1,8 @@
-﻿using Engine;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class AquaVehicle : Creature
     {
-        public AquaVehicle() : base("Aqua Vehicle", 2, Civilization.Water, 1000, Subtype.LiquidPeople)
+        public AquaVehicle() : base("Aqua Vehicle", 2, Common.Civilization.Water, 1000, Common.Subtype.LiquidPeople)
         {
         }
     }

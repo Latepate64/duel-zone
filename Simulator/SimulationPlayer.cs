@@ -1,5 +1,5 @@
 ﻿using Engine;
-using Engine.Choices;
+using Common.Choices;
 using System;
 using System.Linq;
 
@@ -13,21 +13,16 @@ namespace Simulator
 
         static readonly Random rnd = new();
 
-        public override GuidDecision Choose(GuidSelection guidSelection)
+        public override GuidDecision ClientChoose(GuidSelection guidSelection)
         {
             var amount = rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
             var selected = guidSelection.Options.OrderBy(x => rnd.Next()).Take(amount);
             return new GuidDecision(selected);
         }
 
-        public override YesNoDecision Choose(YesNoChoice yesNoChoice)
+        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
             return new YesNoDecision(true);
-        }
-
-        public override Player Copy()
-        {
-            return new SimulationPlayer(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Engine.Abilities;
+﻿using Common;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Steps;
 using System;
@@ -20,18 +21,11 @@ namespace Engine.Zones
         {
         }
 
-        public void UntapCards(Guid owner)
-        {
-            foreach (Card card in Cards.Where(x => x.Owner == owner && x.Tapped))
-            {
-                card.Tapped = false;
-            }
-        }
-
         public override void Add(Card card, Game game)
         {
-            Cards.Add(card);
+            card.SummoningSickness = true;
             card.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            Cards.Add(card);
             game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 

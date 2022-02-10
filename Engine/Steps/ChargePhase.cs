@@ -1,4 +1,4 @@
-﻿using Engine.Choices;
+﻿using Common.Choices;
 using System.Linq;
 
 namespace Engine.Steps
@@ -8,7 +8,7 @@ namespace Engine.Steps
     /// </summary>
     public class ChargePhase : PriorityPhase
     {
-        public ChargePhase()
+        public ChargePhase() : base(Common.GameEvents.PhaseOrStep.Charge)
         {
         }
 
@@ -19,12 +19,12 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(Game game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer);
-            var dec = player.Choose(new GuidSelection(game.CurrentTurn.ActivePlayer, game.GetPlayer(game.CurrentTurn.ActivePlayer).Hand.Cards, 0, 1));
+            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var dec = player.Choose(new ChargeManaSelection(game.CurrentTurn.ActivePlayer.Id, game.GetPlayer(game.CurrentTurn.ActivePlayer.Id).Hand.Cards), game);
             var cards = dec.Decision;
             if (cards.Any())
             {
-                _ = game.Move(cards.Select(x => game.GetCard(x)), Zones.ZoneType.Hand, Zones.ZoneType.ManaZone);
+                _ = game.Move(Common.ZoneType.Hand, Common.ZoneType.ManaZone, cards.Select(x => game.GetCard(x)).ToArray());
             }
             return true;
         }

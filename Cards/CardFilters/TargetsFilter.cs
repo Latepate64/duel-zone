@@ -28,5 +28,10 @@ namespace Cards.CardFilters
         {
             return card != null && Cards.Contains(card.Id);
         }
+
+        public override string ToString()
+        {
+            return string.Join(", ", Cards);
+        }
     }
 }

@@ -18,14 +18,5 @@
         {
             OneShotEffect.Apply(game, this);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                OneShotEffect.Dispose();
-                OneShotEffect = null;
-            }
-        }
     }
 }

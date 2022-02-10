@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Engine.Choices;
+using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
             var player = game.GetPlayer(source.Owner);
             if (player != null)
             {
-                var decision = player.Choose(new YesNoChoice(source.Owner));
+                var decision = player.Choose(new YesNoChoice(source.Owner, "You may draw a card."), game);
                 if (decision.Decision)
                 {
                     player.DrawCards(1, game);
@@ -40,6 +40,11 @@ namespace Cards.OneShotEffects
                     }
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return Maximum == 1 ? "You may draw a card." : $"You may draw up to {Maximum} cards.";
         }
     }
 }

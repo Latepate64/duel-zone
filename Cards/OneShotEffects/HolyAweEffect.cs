@@ -21,11 +21,12 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            // Tap all your opponent's creatures in the battle zone.
-            foreach (var creature in game.BattleZone.GetCreatures(game.GetOpponent(source.Owner)))
-            {
-                creature.Tapped = true;
-            }
+            game.GetPlayer(source.Owner).Tap(game, game.BattleZone.GetCreatures(game.GetOpponent(source.Owner)).ToArray());
+        }
+
+        public override string ToString()
+        {
+            return "Tap all your opponent's creatures in the battle zone.";
         }
     }
 }

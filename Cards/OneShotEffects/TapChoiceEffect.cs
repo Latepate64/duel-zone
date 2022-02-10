@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -21,9 +22,18 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
         {
-            foreach (var card in cards)
+            game.GetPlayer(source.Owner).Tap(game, cards.ToArray());
+        }
+
+        public override string ToString()
+        {
+            if (ControllerChooses)
             {
-                card.Tapped = true;
+                return $"Choose {GetAmountAsText()} {Filter} and tap them.";
+            }
+            else
+            {
+                return $"Your opponents chooses {GetAmountAsText()} {Filter} and taps them.";
             }
         }
     }

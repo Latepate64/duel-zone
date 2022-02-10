@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class SzubsKinTwilightGuardian : Creature
     {
-        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, Civilization.Light, 6000, Subtype.Guardian)
+        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, Common.Civilization.Light, 6000, Common.Subtype.Guardian)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackPlayersAbility());

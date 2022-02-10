@@ -5,7 +5,7 @@
     /// </summary>
     public class DrawPhase : Phase, ITurnBasedActionable
     {
-        public DrawPhase()
+        public DrawPhase() : base(Common.GameEvents.PhaseOrStep.Draw)
         {
         }
 
@@ -20,7 +20,7 @@
         /// <returns></returns>
         public void PerformTurnBasedAction(Game game)
         {
-            game.GetPlayer(game.CurrentTurn.ActivePlayer).DrawCards(1, game);
+            game.GetPlayer(game.CurrentTurn.ActivePlayer.Id).DrawCards(1, game);
         }
 
         public override Phase Copy()

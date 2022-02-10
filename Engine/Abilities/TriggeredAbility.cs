@@ -1,4 +1,4 @@
-﻿using Engine.GameEvents;
+﻿using Common.GameEvents;
 using System;
 
 namespace Engine.Abilities
@@ -60,6 +60,11 @@ namespace Engine.Abilities
             {
                 OneShotEffect.Apply(game, this);
             }
+        }
+
+        protected string ToStringBase()
+        {
+            return LowerCaseFirstCharacter(OneShotEffect.ToString());
         }
     }
 }

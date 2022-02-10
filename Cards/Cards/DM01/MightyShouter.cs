@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     public class MightyShouter : Creature
     {
-        public MightyShouter() : base("Mighty Shouter", 3, Civilization.Nature, 2000, Subtype.BeastFolk)
+        public MightyShouter() : base("Mighty Shouter", 3, Common.Civilization.Nature, 2000, Common.Subtype.BeastFolk)
         {
             // When this creature would be destroyed, put it into your mana zone instead.
             Abilities.Add(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility());

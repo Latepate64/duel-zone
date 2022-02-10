@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OwnersShieldZoneCardFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"{ToStringBase()} in your shield zone";
+        }
     }
 }

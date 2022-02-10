@@ -1,9 +1,9 @@
-﻿using Engine;
+﻿using Common;
 using System.Collections.Generic;
 
 namespace Cards
 {
-    public abstract class Spell : Card
+    public abstract class Spell : Engine.Card
     {
         protected Spell(string name, int manaCost, Civilization civilization)
         {

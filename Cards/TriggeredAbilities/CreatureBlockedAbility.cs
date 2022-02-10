@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -22,6 +22,11 @@ namespace Cards.TriggeredAbilities
         public override Ability Copy()
         {
             return new CreatureBlockedAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Whenever a creature becomes blocked, {ToStringBase()}";
         }
     }
 }

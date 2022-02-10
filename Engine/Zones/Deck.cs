@@ -1,5 +1,4 @@
-﻿using Engine.GameEvents;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,7 +25,7 @@ namespace Engine.Zones
             if (!Cards.Any())
             {
                 var player = game.GetPlayer(card.Owner);
-                game.Process(new DeckoutEvent(player.Copy()));
+                game.Process(new Common.GameEvents.DeckoutEvent { Player = player.Copy() });
                 game.Lose(player);
             }
         }

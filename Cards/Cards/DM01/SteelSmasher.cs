@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
     class SteelSmasher : Creature
     {
-        public SteelSmasher() : base("Steel Smasher", 2, Civilization.Nature, 3000, Subtype.BeastFolk)
+        public SteelSmasher() : base("Steel Smasher", 2, Common.Civilization.Nature, 3000, Common.Subtype.BeastFolk)
         {
             Abilities.Add(new CannotAttackPlayersAbility());
         }

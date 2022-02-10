@@ -21,5 +21,10 @@ namespace Cards.CardFilters
         {
             return new OpponentsBattleZoneChoosableUntappedCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return $"your opponent's untapped {ToStringBase()}s";
+        }
     }
 }

@@ -1,13 +1,12 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
     public class TenTonCrunch : Spell
     {
-        public TenTonCrunch() : base("Ten-Ton Crunch", 4, Civilization.Fire)
+        public TenTonCrunch() : base("Ten-Ton Crunch", 4, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
             // Destroy one of your opponent's creatures that has power 3000 or less.

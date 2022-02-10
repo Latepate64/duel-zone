@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Common;
+using Common.GameEvents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,9 +15,9 @@ namespace Server
         private const int Port = 11000;
         private const string IPAddress = "127.0.0.1";//"192.168.1.3";
 
-        private const int BufferSize = 256;
+        private const int BufferSize = 256 * 256;
 
-        private readonly List<TcpClient> _clients = new List<TcpClient>();
+        private readonly List<TcpClient> _clients = new();
         private TcpListener _listener;
 
         private Engine.Game _game;
@@ -31,10 +33,10 @@ namespace Server
                 {
                     var client = await _listener.AcceptTcpClientAsync();
                     _clients.Add(client);
-                    var conn = new Common.ClientConnected();
-                    string text = Common.Helper.ObjectToText(conn, client);
+                    var conn = new ClientConnected();
+                    string text = Helper.ObjectToText(conn, client);
                     Program.WriteConsole(text);
-                    BroadcastMessage(Common.Serializer.Serialize(conn));
+                    BroadcastMessage(Serializer.Serialize(conn));
                     Task.Run(() => Read(client));
                 }
             }
@@ -44,36 +46,72 @@ namespace Server
             }
         }
 
-        private async Task Read(TcpClient client)
+        internal async Task Read(TcpClient client)
         {
             while (!client.Client.Poll(1000, SelectMode.SelectRead) || client.Available > 0)
             {
                 if (client.Available > 0)
                 {
                     var text = await ReadAsync(client);
-                    var obj = Common.Serializer.Deserialize(text);
-                    if (obj is Common.StartGame startGame)
+                    var objects = Serializer.Deserialize(text);
+                    foreach (var obj in objects)
                     {
-                        _game = new();
-                        var player1 = new HumanPlayer();
-                        var player2 = new ComputerPlayer();
-                        SetupPlayer(player1);
-                        SetupPlayer(player2);
-                        try
-                        {
-                            _game.Play(player1, player2);
-                        }
-                        catch (Exception e)
-                        {
-                            Program.WriteConsole(e.ToString());
-                        }
+                        Process(client, text, obj);
                     }
-                    Program.WriteConsole(Common.Helper.ObjectToText(obj, client));
-                    BroadcastMessage(text);
                 }
             }
             _clients.Remove(client);
             BroadcastMessage($"{client} disconnected.");
+        }
+
+        private void Process(TcpClient client, string text, object obj)
+        {
+            Program.WriteConsole(Helper.ObjectToText(obj, client));
+            if (obj is StartGame)
+            {
+                StartGame(client);
+            }
+            else
+            {
+                BroadcastMessage(text);
+            }
+        }
+
+        private void StartGame(TcpClient client)
+        {
+            _game = new();
+            _game.OnGameEvent += OnGameEvent;
+            var player1 = new HumanPlayer { Name = "Shobu", Server = this, Client = client };
+            var player2 = new ComputerPlayer { Name = "Kokujo", };
+            SetupPlayer(player1);
+            SetupPlayer(player2);
+            var players = new List<Engine.Player> { player1, player2 };
+
+            var startEvent = new StartGame
+            {
+                Players = players.Select(x => new PlayerDeck
+                {
+                    Player = x.Convert(),
+                    Deck = x.Deck.Cards.Select(x => x.Convert()).ToList()
+                }).ToList(),
+            };
+            BroadcastMessage(Serializer.Serialize(startEvent));
+
+            try
+            {
+                _game.Play(player1, player2);
+            }
+            catch (Exception e)
+            {
+                Program.WriteConsole(e.ToString());
+            }
+        }
+
+        private void OnGameEvent(GameEvent gameEvent)
+        {
+            var text = Serializer.Serialize(gameEvent);
+            Program.WriteConsole(text);
+            BroadcastMessage(text);
         }
 
         private static void SetupPlayer(Engine.Player player)
@@ -92,7 +130,7 @@ namespace Server
             return cards;
         }
 
-        private void BroadcastMessage(string text)
+        internal void BroadcastMessage(string text)
         {
             foreach (var client in _clients)
             {
@@ -104,7 +142,7 @@ namespace Server
             }
         }
 
-        private async Task<string> ReadAsync(TcpClient client)
+        internal async Task<string> ReadAsync(TcpClient client)
         {
             byte[] data = new byte[BufferSize];
             int bytesRead = 0;

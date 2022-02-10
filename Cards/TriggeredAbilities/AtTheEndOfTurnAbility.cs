@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 using System;
 
 namespace Cards.TriggeredAbilities
@@ -20,12 +20,17 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is TurnEndsEvent e && e.Turn.Id == Turn && CheckInterveningIfClause(game);
+            return gameEvent is PhaseBegunEvent e && e.PhaseOrStep == PhaseOrStep.EndOfTurn && e.Turn.Id == Turn && CheckInterveningIfClause(game);
         }
 
         public override Ability Copy()
         {
             return new AtTheEndOfTurnAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return $"At the end of that turn, {ToStringBase()}";
         }
     }
 }

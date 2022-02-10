@@ -1,5 +1,5 @@
-﻿using Engine.ContinuousEffects;
-using Engine.Zones;
+﻿using Common;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -33,21 +33,14 @@ namespace Engine.Abilities
             FunctionZone = ability.FunctionZone;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                foreach (var x in ContinuousEffects)
-                {
-                    x.Dispose();
-                }
-                ContinuousEffects.Clear();
-            }
-        }
-
         public override Ability Copy()
         {
             return new StaticAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", ContinuousEffects.Select(x => UpperCaseFirstCharacter(x.ToString())));
         }
     }
 }

@@ -26,5 +26,10 @@ namespace Cards.OneShotEffects
         {
             game.GetPlayer(source.Owner).PutFromTopOfDeckIntoManaZone(game, Amount);
         }
+
+        public override string ToString()
+        {
+            return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
+        }
     }
 }

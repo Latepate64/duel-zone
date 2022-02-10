@@ -1,11 +1,12 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.Abilities;
-using Engine.Zones;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class CardMovingChoiceEffect : CardSelectionEffect
+    public abstract class CardMovingChoiceEffect : CardSelectionEffect
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
@@ -22,14 +23,9 @@ namespace Cards.OneShotEffects
             DestinationZone = effect.DestinationZone;
         }
 
-        public override OneShotEffect Copy()
+        protected override void Apply(Game game, Ability source, IEnumerable<Engine.Card> cards)
         {
-            return new CardMovingChoiceEffect(this);
-        }
-
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
-        {
-            game.Move(cards, SourceZone, DestinationZone);
+            game.Move(SourceZone, DestinationZone, cards.ToArray());
         }
     }
 }

@@ -25,5 +25,10 @@ namespace Cards.CardFilters
         {
             return new BattleZoneMaxPowerCreatureFilter(this);
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" that has power {Power} or less";
+        }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Cards.StaticAbilities;
-using Engine;
 
 namespace Cards.Cards.DM04
 {
     public class SariusVizierOfSuppression : Creature
     {
-        public SariusVizierOfSuppression() : base("Sarius, Vizier of Suppression", 2, Civilization.Light, 3000, Subtype.Initiate)
+        public SariusVizierOfSuppression() : base("Sarius, Vizier of Suppression", 2, Common.Civilization.Light, 3000, Common.Subtype.Initiate)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackPlayersAbility());

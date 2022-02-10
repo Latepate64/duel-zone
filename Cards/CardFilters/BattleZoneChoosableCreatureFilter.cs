@@ -8,6 +8,7 @@ namespace Cards.CardFilters
     {
         public BattleZoneChoosableCreatureFilter()
         {
+            CardType = Common.CardType.Creature;
         }
 
         public BattleZoneChoosableCreatureFilter(CardFilter filter) : base(filter)
@@ -38,6 +39,11 @@ namespace Cards.CardFilters
         public override CardFilter Copy()
         {
             return new BattleZoneChoosableCreatureFilter(this);
+        }
+
+        public override string ToString()
+        {
+            return ToStringBase();
         }
     }
 }

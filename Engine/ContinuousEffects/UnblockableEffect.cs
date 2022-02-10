@@ -20,5 +20,10 @@ namespace Engine.ContinuousEffects
         {
             return new UnblockableEffect(this);
         }
+
+        public override string ToString()
+        {
+            return $"{Filter} can't be blocked{GetDurationAsText()}.";
+        }
     }
 }

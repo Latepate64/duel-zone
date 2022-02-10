@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -20,12 +20,17 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is WinBattleEvent winBattle && Filter.Applies(winBattle.Creature, game, game.GetPlayer(winBattle.Creature.Owner)) && CheckInterveningIfClause(game);
+            return gameEvent is WinBattleEvent winBattle && Filter.Applies(game.GetCard(winBattle.Creature.Id), game, game.GetPlayer(winBattle.Creature.Owner)) && CheckInterveningIfClause(game);
         }
 
         public override Ability Copy()
         {
             return new WinBattleAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return $"When {Filter} wins a battle, {ToStringBase()}";
         }
     }
 }
