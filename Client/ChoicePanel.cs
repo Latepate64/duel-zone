@@ -7,7 +7,7 @@ namespace Client
     internal class ChoicePanel : Panel
     {
         internal Label _label = new() { TextAlign = ContentAlignment.MiddleCenter };
-        internal Button _defaultButton = new() { Text = "Pass", Visible = false };
+        internal Button _defaultButton = new() { Visible = false };
         internal readonly Button _declineButton = new() { Text = "Decline", Visible = false };
         private readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
         private readonly FlowLayoutPanel _buttonPanel = new() { FlowDirection = FlowDirection.LeftToRight };
@@ -99,6 +99,18 @@ namespace Client
             }
             _tablePage.ClearSelectedAndSelectableCards();
             _client.WriteAsync(decision);
+        }
+
+        internal void ActivateDefaultButton(string text)
+        {
+            _defaultButton.Text = text;
+            _defaultButton.Visible = true;
+        }
+
+        internal void ActivateDeclineButton()
+        {
+            _declineButton.Visible = true;
+            _declineButton.Left = _defaultButton.Right;
         }
     }
 }

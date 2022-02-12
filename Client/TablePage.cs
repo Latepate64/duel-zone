@@ -40,6 +40,7 @@ namespace Client
         private readonly List<CardPanel> _selectableCards = new();
         private PlayerPanel _opponentPanel;
         private PlayerPanel _playerPanel;
+        private Label _phaseLabel = new() { Font = new(FontFamily.GenericSansSerif, 12), Height = 100, Width = 200 };
 
         internal TablePage(Size size)
         {
@@ -63,6 +64,7 @@ namespace Client
             _textBox.Width = (int)(0.19 * size.Width);
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
+            _phaseLabel.Top = _exitTableButton.Bottom + ZoneOffset;
         }
 
         private void SetupPanels(Size size)
@@ -142,6 +144,7 @@ namespace Client
             Controls.Add(_opponentPanel);
             Controls.Add(_playerPanel);
             Controls.Add(_textBox);
+            Controls.Add(_phaseLabel);
         }
 
         private void SetupGame(object sender, EventArgs e)
@@ -225,6 +228,57 @@ namespace Client
             {
                 SetChoiceText("You lost!");
             }
+            else if (e is PhaseBegunEvent phase)
+            {
+                _phaseLabel.Invoke(new MethodInvoker(delegate { _phaseLabel.Text = phase.ToString(); }));
+            }
+            else if (e is CreatureAttackedEvent attackEvent)
+            {
+                var panel = GetCardPanel(attackEvent.Attacker.Id.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Attacking"); }));
+                try
+                {
+                    var targetPanel = GetCardPanel(attackEvent.Attackable.ToString());
+                    targetPanel.Invoke(new MethodInvoker(delegate { targetPanel.DrawCombat("Target of attack"); }));
+                }
+                catch (Exception)
+                {
+                    // TODO: Should draw opponent as target of attack
+                }
+            }
+            else if (e is CreatureStoppedAttackingEvent stop)
+            {
+                var panel = GetCardPanel(stop.Attacker.Id.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+            }
+            else if (e is BlockEvent block)
+            {
+                var panel = GetCardPanel(block.Blocker.Id.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Blocking"); }));
+            }
+            else if (e is CreatureStoppedBlockingEvent stopBlock)
+            {
+                var panel = GetCardPanel(stopBlock.Blocker.Id.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+            }
+            else if (e is AttackTargetRemovedEvent target)
+            {
+                if (target.TargetCard != null)
+                {
+                    var panel = GetCardPanel(target.TargetCard.Id.ToString());
+                    panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+                }
+                else
+                {
+                    // TODO: Should antidraw opponent
+                }
+            }
+            else if (e is CreatureSummonedEvent || e is AbilityTriggeredEvent || e is DeckShuffledEvent || e is ShieldsBrokenEvent || e is BattleEvent || e is WinBattleEvent || e is DirectAttackEvent) // These events need not to be displayed.
+            { }
+            else
+            {
+                throw new NotImplementedException(e.ToString());
+            }
         }
 
         private void Process(SummoningSicknessEvent e)
@@ -263,7 +317,7 @@ namespace Client
             {
                 Process(targetSelection);
             }
-            else if (c is YesNoChoice yesNoChoice)
+            else if (c is YesNoChoice)
             {
                 ProcessYesNoChoice();
             }
@@ -276,7 +330,7 @@ namespace Client
 
         private void ProcessYesNoChoice()
         {
-            _choicePanel._declineButton.Visible = true;
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.ActivateDefaultButton("Take action"); _choicePanel.ActivateDeclineButton(); }));
         }
 
         private void Process(AttackTargetSelection targetSelection)
@@ -298,7 +352,7 @@ namespace Client
         {
             if (cardSelection.MinimumSelection == 0)
             {
-                _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._defaultButton.Visible = true; }));
+                _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.ActivateDefaultButton("Pass"); }));
             }
             foreach (var card in cardSelection.Options)
             {

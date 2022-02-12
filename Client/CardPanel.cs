@@ -23,6 +23,7 @@ namespace Client
         private Label _summoningSicknessLabel;
         private FlowLayoutPanel _inner;
         private TextBox _textBox;
+        private Label _combatLabel;
 
         internal CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
         {
@@ -42,6 +43,7 @@ namespace Client
                 DrawInformation(card, height, showTapStatus);
                 SetupClick();
             }
+            _combatLabel = GetLabel("", height);
         }
 
         private void DrawInformation(Card card, int height, bool showTapStatus)
@@ -59,7 +61,7 @@ namespace Client
             Name = card.Id.ToString();
             Height = (int)(CardHeight * SizeScale * height);
             Width = (int)(CardWidth * SizeScale * height);
-            BackColor = System.Drawing.Color.Black;
+            BackColor = Color.Black;
         }
 
         private void SetupInnerPanel(int height)
@@ -108,7 +110,7 @@ namespace Client
 
         private void DrawRulesText(Card card, int height)
         {
-            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new Font(FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
             {
                 _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText?.Replace("\n", Environment.NewLine);
@@ -128,7 +130,7 @@ namespace Client
             }
             else
             {
-                _inner.BackColor = System.Drawing.Color.Gold;
+                _inner.BackColor = Color.Gold;
             }
         }
 
@@ -162,7 +164,7 @@ namespace Client
                 }
                 else
                 {
-                    Select();
+                    MarkSelected();
                 }
                 CheckSelectedCards(guidSelection);
             }
@@ -178,32 +180,32 @@ namespace Client
             }
         }
 
-        private void Select()
+        private void MarkSelected()
         {
-            BackColor = System.Drawing.Color.Violet;
+            BackColor = Color.Violet;
             _tablePage._selectedCards.Add(this);
         }
 
         private void Unselect()
         {
-            BackColor = System.Drawing.Color.Black;
+            BackColor = Color.Black;
             _tablePage._selectedCards.Remove(this);
         }
 
         private Label GetLabel(string text, int height)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
+            return new Label { Text = text, Font = new Font(FontFamily.GenericSansSerif, FontSize, FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
         }
 
-        private static System.Drawing.Color GetColor(Civilization civilization)
+        private static Color GetColor(Civilization civilization)
         {
             return civilization switch
             {
-                Civilization.Light => System.Drawing.Color.Yellow,
-                Civilization.Water => System.Drawing.Color.Aqua,
-                Civilization.Darkness => System.Drawing.Color.DarkGray,
-                Civilization.Fire => System.Drawing.Color.Red,
-                Civilization.Nature => System.Drawing.Color.Green,
+                Civilization.Light => Color.Yellow,
+                Civilization.Water => Color.Aqua,
+                Civilization.Darkness => Color.DarkGray,
+                Civilization.Fire => Color.Red,
+                Civilization.Nature => Color.Green,
                 _ => throw new NotImplementedException(),
             };
         }
@@ -211,6 +213,17 @@ namespace Client
         private static string SplitCamelCase(string input)
         {
             return System.Text.RegularExpressions.Regex.Replace(input, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
+        }
+
+        internal void DrawCombat(string text)
+        {
+            _combatLabel.Text = text;
+            _inner.Controls.Add(_combatLabel);
+        }
+
+        internal void RemoveCombat()
+        {
+            _inner.Controls.Remove(_combatLabel);
         }
     }
 }
