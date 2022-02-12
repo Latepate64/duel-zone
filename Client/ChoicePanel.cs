@@ -10,7 +10,7 @@ namespace Client
         internal Button _defaultButton = new() { Visible = false };
         internal readonly Button _declineButton = new() { Text = "Decline", Visible = false };
         private readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
-        private readonly FlowLayoutPanel _buttonPanel = new() { FlowDirection = FlowDirection.LeftToRight };
+        private readonly Panel _buttonPanel = new();
         internal Client _client;
         internal TablePage _tablePage;
 
