@@ -1,6 +1,7 @@
 ﻿using Common;
 using Common.Choices;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -29,10 +30,18 @@ namespace Client
             _tablePage = tablePage;
             FontSize = (int)(FontScale * height);
             SetupProperties(card, height);
-            SetupInnerPanel(height);
-            PaintBackColor(card);
-            DrawInformation(card, height, showTapStatus);
-            SetupClick();
+            if (string.IsNullOrEmpty(card.Name))
+            {
+                BackgroundImage = Image.FromFile(Properties.Settings.Default.CardBack);
+                BackgroundImageLayout = ImageLayout.Stretch;
+            }
+            else
+            {
+                SetupInnerPanel(height);
+                PaintBackColor(card);
+                DrawInformation(card, height, showTapStatus);
+                SetupClick();
+            }
         }
 
         private void DrawInformation(Card card, int height, bool showTapStatus)

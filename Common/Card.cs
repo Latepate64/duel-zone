@@ -11,22 +11,24 @@ namespace Common
             Id = Guid.NewGuid();
         }
 
-        public Card(Card card)
+        public Card(Card card, bool clear)
         {
             Id = card.Id;
             Owner = card.Owner;
-
-            CardType = card.CardType;
-            Civilizations = card.Civilizations.ToList();
-            ManaCost = card.ManaCost;
-            Name = card.Name;
-            Power = card.Power;
-            RevealedTo = card.RevealedTo.ToList();
-            RulesText = card.RulesText;
-            ShieldTrigger = card.ShieldTrigger;
-            Subtypes = card.Subtypes?.ToList();
-            SummoningSickness = card.SummoningSickness;
-            Tapped = card.Tapped;
+            KnownBy = card.KnownBy.ToList();
+            if (!clear)
+            {
+                CardType = card.CardType;
+                Civilizations = card.Civilizations.ToList();
+                ManaCost = card.ManaCost;
+                Name = card.Name;
+                Power = card.Power;
+                RulesText = card.RulesText;
+                ShieldTrigger = card.ShieldTrigger;
+                Subtypes = card.Subtypes?.ToList();
+                SummoningSickness = card.SummoningSickness;
+                Tapped = card.Tapped;
+            }
         }
 
         public override string ToString()
@@ -60,7 +62,7 @@ namespace Common
 
         public bool ShieldTrigger { get; set; }
 
-        public List<Guid> RevealedTo { get; set; } = new List<Guid>();
+        public List<Guid> KnownBy { get; set; } = new List<Guid>();
 
         public bool SummoningSickness { get; set; }
 

@@ -11,5 +11,8 @@
     <Setting Name="IP" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
+    <Setting Name="CardBack" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Lauri\Documents\dm-ocg-octgn\dm-ocg-octgn\game\cards\back.jpg</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

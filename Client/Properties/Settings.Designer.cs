@@ -58,5 +58,17 @@ namespace Client.Properties {
                 this["IP"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Lauri\\Documents\\dm-ocg-octgn\\dm-ocg-octgn\\game\\cards\\back.jpg")]
+        public string CardBack {
+            get {
+                return ((string)(this["CardBack"]));
+            }
+            set {
+                this["CardBack"] = value;
+            }
+        }
     }
 }

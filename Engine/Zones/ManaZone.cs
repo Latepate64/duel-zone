@@ -17,7 +17,7 @@ namespace Engine.Zones
 
         public override void Add(Card card, Game game)
         {
-            card.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownBy = game.Players.Select(x => x.Id).ToList();
             if (card.Civilizations.Count > 1)
             {
                 card.Tapped = true;

@@ -15,11 +15,11 @@ namespace Engine.Zones
         {
             var revealedTo = new List<Guid> { card.Owner };
             var opponent = game.GetOpponent(card.Owner);
-            if (card.RevealedTo.Contains(opponent))
+            if (card.KnownBy.Contains(opponent))
             {
                 revealedTo.Add(opponent);
             }
-            card.RevealedTo = revealedTo;
+            card.KnownBy = revealedTo;
             Cards.Add(card);
         }
 

@@ -14,7 +14,7 @@ namespace Engine
         {
         }
 
-        internal Card(Card card) : base(card)
+        internal Card(Card card) : base(card, false)
         {
             Abilities = card.Abilities.Select(x => x.Copy()).ToList();
             InitializeAbilities();
@@ -51,9 +51,9 @@ namespace Engine
             SetRulesText();
         }
 
-        public Common.Card Convert()
+        public Common.Card Convert(bool clear = false)
         {
-            return new Common.Card(this);
+            return new Common.Card(this, clear);
         }
 
         private void SetRulesText()
