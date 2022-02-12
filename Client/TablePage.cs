@@ -84,20 +84,13 @@ namespace Client
 
         private void SetupClicks()
         {
-            SetupClick(_playerPanel._battleZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)]);
-            SetupClick(_playerPanel._deck, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, true)]);
-            SetupClick(_playerPanel._graveyard, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Graveyard, true)]);
-            SetupClick(_playerPanel._hand, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)]);
-            SetupClick(_playerPanel._manaZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ManaZone, true)]);
-            SetupClick(_playerPanel._shieldZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ShieldZone, true)]);
-
-            SetupClick(_opponentPanel._battleZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)]);
-            SetupClick(_opponentPanel._deck, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, false)]);
-            SetupClick(_opponentPanel._graveyard, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Graveyard, false)]);
-            SetupClick(_opponentPanel._hand, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, false)]);
-            SetupClick(_opponentPanel._manaZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ManaZone, false)]);
-            SetupClick(_opponentPanel._shieldZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ShieldZone, false)]);
-
+            foreach (var panel in new[] { _playerPanel, _opponentPanel })
+            {
+                foreach (var button in panel._zoneButtons)
+                {
+                    SetupClick(button.Value, _zonePanels[new Tuple<ZoneType, bool>(button.Key, panel == _playerPanel)]);
+                }
+            }
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
         }

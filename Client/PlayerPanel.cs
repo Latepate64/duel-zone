@@ -1,17 +1,14 @@
-﻿using Common.Choices;
+﻿using Common;
+using Common.Choices;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Client
 {
-    class PlayerPanel : TableLayoutPanel
+    internal class PlayerPanel : TableLayoutPanel
     {
-        internal readonly Button _manaZone = new() { Dock = DockStyle.Fill, Text = "Mana zone" };
-        internal readonly Button _hand = new() { Dock = DockStyle.Fill, Text = "Hand" };
-        internal readonly Button _graveyard = new() { Dock = DockStyle.Fill, Text = "Graveyard" };
-        internal readonly Button _shieldZone = new() { Dock = DockStyle.Fill, Text = "Shield zone" };
-        internal readonly Button _battleZone = new() { Dock = DockStyle.Fill, Text = "Battle zone" };
-        internal readonly Button _deck = new() { Dock = DockStyle.Fill, Text = "Deck" };
-        internal readonly Button _player = new() { Dock = DockStyle.Fill, Text = "Player" };
+        internal readonly Dictionary<ZoneType, Button> _zoneButtons = new();
+        private readonly Button _player = new() { Dock = DockStyle.Fill, Text = "Player" };
         private readonly TablePage _tablePage;
         private readonly Client _client;
 
@@ -34,14 +31,19 @@ namespace Client
             RowStyles.Add(new RowStyle(SizeType.Percent, 25));
             RowStyles.Add(new RowStyle(SizeType.Percent, 25));
 
+            foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
+            {
+                _zoneButtons.Add(zoneType, new Button { Dock = DockStyle.Fill, Text = zoneType.ToString() });
+            }
+
             Controls.Add(new Label { Dock = DockStyle.Fill, Text = name }, 0, 0);
             Controls.Add(_player, 1, 0);
-            Controls.Add(_battleZone, 0, 1);
-            Controls.Add(_graveyard, 1, 1);
-            Controls.Add(_manaZone, 0, 2);
-            Controls.Add(_shieldZone, 1, 2);
-            Controls.Add(_hand, 0, 3);
-            Controls.Add(_deck, 1, 3);
+            Controls.Add(_zoneButtons[ZoneType.BattleZone], 0, 1);
+            Controls.Add(_zoneButtons[ZoneType.Graveyard], 1, 1);
+            Controls.Add(_zoneButtons[ZoneType.ManaZone], 0, 2);
+            Controls.Add(_zoneButtons[ZoneType.ShieldZone], 1, 2);
+            Controls.Add(_zoneButtons[ZoneType.Hand], 0, 3);
+            Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
 
             _player.Enabled = false;
             _player.Click += _player_Click;
