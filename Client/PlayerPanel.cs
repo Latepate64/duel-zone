@@ -49,7 +49,7 @@ namespace Client
 
         private void _player_Click(object sender, System.EventArgs e)
         {
-            if (_tablePage.CurrentChoice is AttackTargetSelection)
+            if (_tablePage._currentChoice is AttackTargetSelection)
             {
                 var decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid> { new System.Guid(Name) } };
                 Enabled = false;

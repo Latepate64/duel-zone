@@ -1,31 +1,46 @@
-﻿using System.Drawing;
+﻿using Common;
+using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Client
 {
     class ZonePanel : FlowLayoutPanel
     {
-        internal const double HeightScale = 0.26;
-        internal const double WidthScale = 0.65;
-        internal const int DefaultLeft = 270;
-        private Point MouseDownLocation;
-        public Common.ZoneType ZoneType { get; }
+        internal ZoneType ZoneType { get; }
 
-        public ZonePanel(string name, Color color, Common.ZoneType zoneType)
+        internal const int DefaultLeft = 270;
+        private const double HeightScale = 0.26;
+        private const double WidthScale = 0.65;
+
+        private Point _mouseDownLocation;
+
+        public ZonePanel(ZoneType zoneType, bool player)
         {
             ZoneType = zoneType;
-
             Left = DefaultLeft;
-            
             Width = 1000;
-            BackColor = color;
+            BackColor = GetColor(ZoneType);
             AutoScroll = true;
-            Visible = false;
-
-            new ToolTip().SetToolTip(this, name);
-
+            Visible = zoneType == ZoneType.BattleZone || (zoneType == ZoneType.Hand && player);
+            new ToolTip().SetToolTip(this, $"{(player ? "Your" : "Your opponents")} {zoneType}");
             MouseDown += ZonePanel_MouseDown;
             MouseMove += ZonePanel_MouseMove;
+        }
+
+        private static Color GetColor(ZoneType zoneType)
+        {
+            return zoneType switch
+            {
+                ZoneType.BattleZone => Color.PaleVioletRed,
+                ZoneType.Deck => Color.SandyBrown,
+                ZoneType.Graveyard => Color.Gray,
+                ZoneType.Hand => Color.LightBlue,
+                ZoneType.ManaZone => Color.LightGreen,
+                ZoneType.ShieldZone => Color.LightYellow,
+                ZoneType.Anywhere => throw new NotImplementedException(),
+                _ => throw new NotImplementedException(),
+            };
         }
 
         internal void SetSize(Size size)
@@ -38,8 +53,8 @@ namespace Client
         {
             if (e.Button == MouseButtons.Left)
             {
-                Left = e.X + Left - MouseDownLocation.X;
-                Top = e.Y + Top - MouseDownLocation.Y;
+                Left = e.X + Left - _mouseDownLocation.X;
+                Top = e.Y + Top - _mouseDownLocation.Y;
             }
         }
 
@@ -47,7 +62,7 @@ namespace Client
         {
             if (e.Button == MouseButtons.Left)
             {
-                MouseDownLocation = e.Location;
+                _mouseDownLocation = e.Location;
             }
         }
 

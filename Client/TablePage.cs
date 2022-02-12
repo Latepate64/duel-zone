@@ -1,4 +1,5 @@
-﻿using Common.Choices;
+﻿using Common;
+using Common.Choices;
 using Common.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -8,96 +9,97 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    class TablePage : TabPage
+    internal class TablePage : TabPage
     {
-        readonly Button _exitTableButton = new()
+        private readonly Button _exitTableButton = new()
         {
             Text = "Exit table",
             Height = 100,
             Width = 200,
         };
-        readonly Button _gameSetupButton = new()
+        private readonly Button _gameSetupButton = new()
         {
             Text = "Setup game",
             Height = 100,
             Width = 200,
         };
 
-        readonly ZonePanel _opponentHand = new("Opponent's hand", Color.LightBlue, Common.ZoneType.Hand);
-        readonly ZonePanel _opponentManaZone = new("Opponent's mana zone", Color.LightGreen, Common.ZoneType.ManaZone);
-        readonly ZonePanel _opponentShieldZone = new("Opponent's shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
-        readonly ZonePanel _opponentDeck = new("Opponent's deck", Color.SandyBrown, Common.ZoneType.Deck);
-        readonly ZonePanel _opponentGraveyard = new("Opponent's graveyard", Color.Gray, Common.ZoneType.Graveyard);
-        readonly ZonePanel _opponentBattleZone = new("Opponent's battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Visible = true };
+        private Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
 
-        readonly ZonePanel _playerBattleZone = new("Your battle zone", Color.PaleVioletRed, Common.ZoneType.BattleZone) { Visible = true };
-        readonly ZonePanel _playerGraveyard = new("Your graveyard", Color.Gray, Common.ZoneType.Graveyard);
-        readonly ZonePanel _playerDeck = new("Your deck", Color.SandyBrown, Common.ZoneType.Deck);
-        readonly ZonePanel _playerShieldZone = new("Your shield zone", Color.LightYellow, Common.ZoneType.ShieldZone);
-        readonly ZonePanel _playerManaZone = new("Your mana zone", Color.LightGreen, Common.ZoneType.ManaZone);
-        readonly ZonePanel _playerHand = new("Your hand", Color.LightBlue, Common.ZoneType.Hand) { Visible = true };
+        private readonly PlayerPanel _opponentPanel;
+        private readonly PlayerPanel _playerPanel;
 
-        IEnumerable<ZonePanel> Zones => new List<ZonePanel> { _playerBattleZone, _playerGraveyard, _playerDeck, _playerShieldZone, _playerManaZone, _playerHand, _opponentBattleZone, _opponentGraveyard, _opponentDeck, _opponentShieldZone, _opponentManaZone, _opponentHand };
+        private readonly Form1 _form1;
 
-        readonly PlayerPanel _opponentPanel;
-        readonly PlayerPanel _playerPanel;
+        private readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
 
-        readonly Form1 _form1;
+        private readonly ChoicePanel _choicePanel;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
+        internal Choice _currentChoice;
+        internal List<CardPanel> _selectedCards = new();
+        internal List<CardPanel> _selectableCards = new();
 
-        readonly ChoicePanel _choicePanel;
+        private const int ZoneOffset = 10;
 
-        internal Choice CurrentChoice;
-        internal List<CardPanel> SelectedCards = new();
-        internal List<CardPanel> SelectableCards = new();
-
-        public TablePage(Form1 form1)
+        internal TablePage(Form1 form1)
         {
             _form1 = form1;
 
-            foreach (var zone in Zones)
+            foreach (var player in new[] { false, true })
             {
-                zone.SetSize(form1.Size);
+                foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
+                {
+                    var panel = new ZonePanel(zoneType, player);
+                    _zonePanels.Add(new Tuple<ZoneType, bool>(zoneType, player), panel);
+                    panel.SetSize(form1.Size);
+                    Controls.Add(panel);
+                }
             }
+
             _textBox.Width = (int)(0.19 * form1.Width);
-            _playerBattleZone.Top = _opponentBattleZone.Bottom;
-            const int ZoneOffset = 10;
-            _choicePanel = new(_form1.Client, this, new Size(_playerBattleZone.Width, (int)(0.5 * _playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * (_playerBattleZone.Height + ZoneOffset) };
-            _playerHand.Top = _choicePanel.Bottom + ZoneOffset;
-
-            var index = 0;
-            foreach (var zone in Zones.Except(new List<ZonePanel> { _opponentBattleZone, _playerBattleZone, _playerHand }))
-            {
-                zone.Top = _opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
-            }
-
-            Dock = DockStyle.Fill;
-            Text = "Table";
-
+            var playerBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)];
+            playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
+            _choicePanel = new(_form1.Client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
+            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
             _opponentPanel = new("Opponent", 0, this, _form1.Client);
             _playerPanel = new("You", 300, this, _form1.Client);
+            SetupZoneTops();
+            Dock = DockStyle.Fill;
+            Text = "Table";
+            SetupClicks();
+            AddControls();
+            _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
+            _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
+        }
 
-            SetupClick(_playerPanel._battleZone, _playerBattleZone);
-            SetupClick(_playerPanel._deck, _playerDeck);
-            SetupClick(_playerPanel._graveyard, _playerGraveyard);
-            SetupClick(_playerPanel._hand, _playerHand);
-            SetupClick(_playerPanel._manaZone, _playerManaZone);
-            SetupClick(_playerPanel._shieldZone, _playerShieldZone);
+        private void SetupZoneTops()
+        {
+            var index = 0;
+            var opponentBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)];
+            foreach (var zone in _zonePanels.Where(x => !(x.Key.Item1 == ZoneType.BattleZone || (x.Key.Item1 == ZoneType.Hand && x.Key.Item2))).Select(x => x.Value))
+            {
+                zone.Top = opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
+            }
+        }
 
-            SetupClick(_opponentPanel._battleZone, _opponentBattleZone);
-            SetupClick(_opponentPanel._deck, _opponentDeck);
-            SetupClick(_opponentPanel._graveyard, _opponentGraveyard);
-            SetupClick(_opponentPanel._hand, _opponentHand);
-            SetupClick(_opponentPanel._manaZone, _opponentManaZone);
-            SetupClick(_opponentPanel._shieldZone, _opponentShieldZone);
+        private void SetupClicks()
+        {
+            SetupClick(_playerPanel._battleZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)]);
+            SetupClick(_playerPanel._deck, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, true)]);
+            SetupClick(_playerPanel._graveyard, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Graveyard, true)]);
+            SetupClick(_playerPanel._hand, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)]);
+            SetupClick(_playerPanel._manaZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ManaZone, true)]);
+            SetupClick(_playerPanel._shieldZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ShieldZone, true)]);
+
+            SetupClick(_opponentPanel._battleZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)]);
+            SetupClick(_opponentPanel._deck, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, false)]);
+            SetupClick(_opponentPanel._graveyard, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Graveyard, false)]);
+            SetupClick(_opponentPanel._hand, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, false)]);
+            SetupClick(_opponentPanel._manaZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ManaZone, false)]);
+            SetupClick(_opponentPanel._shieldZone, _zonePanels[new Tuple<ZoneType, bool>(ZoneType.ShieldZone, false)]);
 
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
-            AddControls();
-
-            _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
-            _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
         }
 
         private void SetupClick(Control button, Control control)
@@ -113,24 +115,8 @@ namespace Client
         {
             Controls.Add(_gameSetupButton);
             Controls.Add(_exitTableButton);
-
-            Controls.Add(_opponentHand);
-            Controls.Add(_opponentManaZone);
-            Controls.Add(_opponentShieldZone);
-            Controls.Add(_opponentDeck);
-            Controls.Add(_opponentGraveyard);
-            Controls.Add(_opponentBattleZone);
-
-            Controls.Add(_playerBattleZone);
-            Controls.Add(_playerGraveyard);
-            Controls.Add(_playerDeck);
-            Controls.Add(_playerShieldZone);
-            Controls.Add(_playerManaZone);
-            Controls.Add(_playerHand);
-
             Controls.Add(_opponentPanel);
             Controls.Add(_playerPanel);
-
             Controls.Add(_textBox);
             Controls.Add(_choicePanel);
         }
@@ -166,22 +152,15 @@ namespace Client
                 }
                 foreach (var card in playerDeck.Deck)
                 {
-                    AddCard(playerInsteadOfOpponent ? _playerDeck : _opponentDeck, card);
+                    AddCard(_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, playerInsteadOfOpponent)], card);
                 }
                 playerInsteadOfOpponent = !playerInsteadOfOpponent;
             }
         }
 
-        private List<ZonePanel> GetZonePanels(bool playerInsteadOfOpponent)
+        private IEnumerable<ZonePanel> GetZonePanels(bool playerInsteadOfOpponent)
         {
-            if (playerInsteadOfOpponent)
-            {
-                return new List<ZonePanel> { _playerBattleZone, _playerGraveyard, _playerDeck, _playerShieldZone, _playerManaZone, _playerHand };
-            }
-            else
-            {
-                return new List<ZonePanel> { _opponentBattleZone, _opponentGraveyard, _opponentDeck, _opponentShieldZone, _opponentManaZone, _opponentHand };
-            }
+            return _zonePanels.Where(x => x.Key.Item2 == playerInsteadOfOpponent).Select(x => x.Value);
         }
 
         internal void Process(GameEvent e)
@@ -212,7 +191,7 @@ namespace Client
 
         internal void Process(Choice c)
         {
-            CurrentChoice = c;
+            _currentChoice = c;
             _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._label.Text = c.ToString(); }));
             if (c is CardSelection cardSelection)
             {
@@ -248,12 +227,12 @@ namespace Client
         private void MarkSelectable(CardPanel panel)
         {
             panel.Invoke(new MethodInvoker(delegate { panel.BackColor = Color.White; }));
-            SelectableCards.Add(panel);
+            _selectableCards.Add(panel);
         }
 
         private CardPanel GetCardPanel(string id)
         {
-            return Zones.Single(x => x.Controls.ContainsKey(id)).Controls.Find(id, true).OfType<CardPanel>().Single();
+            return _zonePanels.Values.Single(x => x.Controls.ContainsKey(id)).Controls.Find(id, true).OfType<CardPanel>().Single();
         }
 
         private static void RemoveCard(ZonePanel zone, string cardId)
@@ -261,28 +240,28 @@ namespace Client
             zone?.Invoke(new MethodInvoker(delegate { zone.Controls.RemoveByKey(cardId); }));
         }
 
-        private void AddCard(ZonePanel zone, Common.Card card)
+        private void AddCard(ZonePanel zone, Card card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _playerBattleZone.Height, zone.ZoneType == Common.ZoneType.BattleZone || zone.ZoneType == Common.ZoneType.ManaZone)); }));
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
         }
 
-        private ZonePanel GetZonePanel(string playerId, Common.ZoneType zoneType)
+        private ZonePanel GetZonePanel(string playerId, ZoneType zoneType)
         {
-            return Zones.SingleOrDefault(x => x.Name == playerId && x.ZoneType == zoneType);
+            return _zonePanels.SingleOrDefault(x => x.Value.Name == playerId && x.Key.Item1 == zoneType).Value;
         }
 
         internal void ClearSelectedAndSelectableCards()
         {
-            foreach (var card in SelectedCards)
+            foreach (var card in _selectedCards)
             {
                 card.BackColor = Color.Black;
             }
-            SelectedCards.Clear();
-            foreach (var card in SelectableCards)
+            _selectedCards.Clear();
+            foreach (var card in _selectableCards)
             {
                 card.BackColor = Color.Black;
             }
-            SelectableCards.Clear();
+            _selectableCards.Clear();
             _choicePanel._defaultButton.Visible = false;
             _choicePanel._declineButton.Visible = false;
         }

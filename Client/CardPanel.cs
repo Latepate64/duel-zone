@@ -139,21 +139,21 @@ namespace Client
 
         private void CardPanel_Click(object sender, EventArgs e)
         {
-            if (_tablePage.CurrentChoice is GuidSelection guidSelection)
+            if (_tablePage._currentChoice is GuidSelection guidSelection)
             {
-                if (_tablePage.SelectedCards.Contains(this))
+                if (_tablePage._selectedCards.Contains(this))
                 {
                     BackColor = System.Drawing.Color.Black;
-                    _tablePage.SelectedCards.Remove(this);
+                    _tablePage._selectedCards.Remove(this);
                 }
                 else
                 {
                     BackColor = System.Drawing.Color.Violet;
-                    _tablePage.SelectedCards.Add(this);
+                    _tablePage._selectedCards.Add(this);
                 }
-                if (guidSelection.MaximumSelection == _tablePage.SelectedCards.Count())
+                if (guidSelection.MaximumSelection == _tablePage._selectedCards.Count())
                 {
-                    var decision = new GuidDecision { Decision = _tablePage.SelectedCards.Select(x => new Guid(x.Name)).ToList() };
+                    var decision = new GuidDecision { Decision = _tablePage._selectedCards.Select(x => new Guid(x.Name)).ToList() };
                     _tablePage.ClearSelectedAndSelectableCards();
                     _client.WriteAsync(decision);
                 }

@@ -69,7 +69,7 @@ namespace Client
 
         private void DeclineButtonClick(object sender, System.EventArgs e)
         {
-            if (_tablePage.CurrentChoice is YesNoChoice)
+            if (_tablePage._currentChoice is YesNoChoice)
             {
                 var decision = new YesNoDecision { Decision = false };
                 _client.WriteAsync(decision);
@@ -83,11 +83,11 @@ namespace Client
         private void DefaultButtonClick(object sender, System.EventArgs e)
         {
             Decision decision;
-            if (_tablePage.CurrentChoice is GuidSelection)
+            if (_tablePage._currentChoice is GuidSelection)
             {
                 decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid>() };
             }
-            else if (_tablePage.CurrentChoice is YesNoChoice)
+            else if (_tablePage._currentChoice is YesNoChoice)
             {
                 decision = new YesNoDecision { Decision = true };
             }
