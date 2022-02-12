@@ -5,8 +5,8 @@ namespace Client
 {
     class ZonePanel : FlowLayoutPanel
     {
-        internal const double HeightScale = 0.265;
-        internal const double WidthScale = 0.75;
+        internal const double HeightScale = 0.26;
+        internal const double WidthScale = 0.65;
         internal const int DefaultLeft = 270;
         private Point MouseDownLocation;
         public Common.ZoneType ZoneType { get; }

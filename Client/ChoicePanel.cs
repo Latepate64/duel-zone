@@ -6,50 +6,65 @@ namespace Client
 {
     internal class ChoicePanel : Panel
     {
-        readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
-        readonly internal Label Label = new() { TextAlign = ContentAlignment.MiddleCenter };
-        readonly internal Button DefaultButton = new() { Text = "Pass", Visible = false };
-        readonly internal Button DeclineButton = new() { Text = "Decline", Visible = false };
-        readonly private FlowLayoutPanel ButtonPanel = new() { FlowDirection = FlowDirection.LeftToRight };
-        readonly Client _client;
-        readonly TablePage _tablePage;
+        internal Label _label = new() { TextAlign = ContentAlignment.MiddleCenter };
+        internal Button _defaultButton = new() { Text = "Pass", Visible = false };
+        internal readonly Button _declineButton = new() { Text = "Decline", Visible = false };
+        private readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+        private readonly FlowLayoutPanel _buttonPanel = new() { FlowDirection = FlowDirection.LeftToRight };
+        private readonly Client _client;
+        private readonly TablePage _tablePage;
 
         internal ChoicePanel(Client client, TablePage tablePage, Size size)
         {
             _client = client;
             _tablePage = tablePage;
+            SetupProperties(size);
+            SetupLabel(size);
+            SetupButtonPanel(size);
+            SetupDefaultButton();
+            SetupDeclineButton();
+        }
 
+        private void SetupButtonPanel(Size size)
+        {
+            _buttonPanel.Width = size.Width;
+            _buttonPanel.Height = size.Height / 2;
+            _buttonPanel.Top = _label.Bottom;
+            Controls.Add(_buttonPanel);
+        }
+
+        private void SetupDeclineButton()
+        {
+            _declineButton.Click += DeclineButtonClick;
+            _declineButton.Font = _font;
+            _declineButton.Width = _buttonPanel.Width / 2;
+            _declineButton.Height = _buttonPanel.Height / 2;
+            _declineButton.Left = _defaultButton.Right;
+            _buttonPanel.Controls.Add(_declineButton);
+        }
+
+        private void SetupDefaultButton()
+        {
+            _defaultButton.Click += DefaultButtonClick;
+            _defaultButton.Font = _font;
+            _defaultButton.Width = _buttonPanel.Width / 2;
+            _defaultButton.Height = _buttonPanel.Height / 2;
+            _buttonPanel.Controls.Add(_defaultButton);
+        }
+
+        private void SetupProperties(Size size)
+        {
             BackColor = Color.Beige;
             Width = size.Width;
             Height = size.Height;
+        }
 
-            Label.Width = size.Width;
-            Label.Height = size.Height / 2;
-
-            ButtonPanel.Width = size.Width;
-            ButtonPanel.Height = size.Height / 2;
-
-            ButtonPanel.Top = Label.Bottom;
-
-            DefaultButton.Click += DefaultButtonClick;
-            DeclineButton.Click += DeclineButtonClick;
-
-            Label.Font = _font;
-            DefaultButton.Font = _font;
-            DeclineButton.Font = _font;
-
-            DefaultButton.Width = ButtonPanel.Width / 2;
-            DefaultButton.Height = ButtonPanel.Height / 2;
-
-            DeclineButton.Width = ButtonPanel.Width / 2;
-            DeclineButton.Height = ButtonPanel.Height / 2;
-            DeclineButton.Left = DefaultButton.Right;
-
-            ButtonPanel.Controls.Add(DefaultButton);
-            ButtonPanel.Controls.Add(DeclineButton);
-
-            Controls.Add(Label);
-            Controls.Add(ButtonPanel);
+        private void SetupLabel(Size size)
+        {
+            _label.Width = size.Width;
+            _label.Height = size.Height / 2;
+            _label.Font = _font;
+            Controls.Add(_label);
         }
 
         private void DeclineButtonClick(object sender, System.EventArgs e)

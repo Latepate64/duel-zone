@@ -44,7 +44,7 @@ namespace Client
 
         readonly Form1 _form1;
 
-        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Width = 550, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
+        readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
 
         readonly ChoicePanel _choicePanel;
 
@@ -60,6 +60,7 @@ namespace Client
             {
                 zone.SetSize(form1.Size);
             }
+            _textBox.Width = (int)(0.19 * form1.Width);
             _playerBattleZone.Top = _opponentBattleZone.Bottom;
             const int ZoneOffset = 10;
             _choicePanel = new(_form1.Client, this, new Size(_playerBattleZone.Width, (int)(0.5 * _playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * (_playerBattleZone.Height + ZoneOffset) };
@@ -212,12 +213,12 @@ namespace Client
         internal void Process(Choice c)
         {
             CurrentChoice = c;
-            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.Label.Text = c.ToString(); }));
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._label.Text = c.ToString(); }));
             if (c is CardSelection cardSelection)
             {
                 if (cardSelection.MinimumSelection == 0)
                 {
-                    _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.DefaultButton.Visible = true; }));
+                    _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._defaultButton.Visible = true; }));
                 }
                 foreach (var card in cardSelection.Options)
                 {
@@ -240,7 +241,7 @@ namespace Client
             }
             else if (c is YesNoChoice yesNoChoice)
             {
-                _choicePanel.DeclineButton.Visible = true;
+                _choicePanel._declineButton.Visible = true;
             }
         }
 
@@ -282,8 +283,8 @@ namespace Client
                 card.BackColor = Color.Black;
             }
             SelectableCards.Clear();
-            _choicePanel.DefaultButton.Visible = false;
-            _choicePanel.DeclineButton.Visible = false;
+            _choicePanel._defaultButton.Visible = false;
+            _choicePanel._declineButton.Visible = false;
         }
     }
 }
