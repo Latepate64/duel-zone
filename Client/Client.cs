@@ -4,13 +4,22 @@ using System.Threading.Tasks;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Common;
 
 namespace Client
 {
-    class Client
+    internal class Client
     {
+        internal string _userName;
+
         private TcpClient _client;
         private const int BufferSize = 256 * 256 * 16;
+        internal LobbyPanel _lobbyPanel;
+        internal TablePage _tablePage;
+
+        internal Client()
+        {
+        }
 
         internal void Connect(string hostname, int port)
         {
@@ -20,7 +29,7 @@ namespace Client
             //_client.BeginConnect()
         }
 
-        internal async Task ReadLoop(Form1 form)
+        internal async Task ReadLoop()
         {
             try
             {
@@ -31,7 +40,7 @@ namespace Client
                         var objects = Read();
                         foreach (var obj in objects)
                         {
-                            Process(form, obj);
+                            Process(obj);
                         }
                     }
                 }
@@ -42,33 +51,33 @@ namespace Client
             }
         }
 
-        private void Process(Form1 form, object obj)
+        private void Process(object obj)
         {
-            if (obj is Common.CreateTable)
+            if (obj is CreateTable)
             {
-                form.LobbyPage._panel.OnCreateTable();
+                _lobbyPanel.OnCreateTable();
             }
-            else if (obj is Common.LeaveTable)
+            else if (obj is LeaveTable)
             {
-                form.TablePage.OnExitTable();
+                _tablePage.OnExitTable();
             }
-            else if (obj is Common.ClientName name)
+            else if (obj is ClientName name)
             {
-                form.UserName = name.Name;
+                _userName = name.Name;
             }
-            else if (obj is Common.StartGame startGame)
+            else if (obj is StartGame startGame)
             {
-                form.TablePage.OnStartGame(startGame);
+                _tablePage.OnStartGame(startGame);
             }
             else if (obj is Common.GameEvents.GameEvent e)
             {
-                form.TablePage.Process(e);
+                _tablePage.Process(e);
             }
             else if (obj is Common.Choices.Choice c)
             {
-                form.TablePage.Process(c);
+                _tablePage.Process(c);
             }
-            form.LobbyPage._panel._chatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage._panel._chatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage._panel._chatBox.Text += Environment.NewLine; }));
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Common.Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
         internal void EndConnect()

@@ -3,20 +3,16 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    class LobbyPage : TabPage
+    internal class LobbyPage : TabPage
     {
-        internal readonly LobbyPanel _panel;
-
-        public LobbyPage(Form1 form1, TabControl tabControl)
+        internal LobbyPage()
         {
             Dock = DockStyle.Fill;
             Text = "Lobby";
-            _panel = new(form1, tabControl);
-            Controls.Add(_panel);
         }
     }
 
-    class LobbyPanel : FlowLayoutPanel
+    internal class LobbyPanel : FlowLayoutPanel
     {
         internal readonly Button _createTableButton = new()
         {
@@ -42,13 +38,15 @@ namespace Client
             PlaceholderText = "Type message",
         };
 
-        readonly Form1 _form1;
         private readonly TabControl _tabControl;
+        private readonly Client _client;
+        private readonly TablePage _tablePage;
 
-        public LobbyPanel(Form1 form1, TabControl tabControl)
+        public LobbyPanel(TabControl tabControl, Client client, TablePage tablePage)
         {
-            _form1 = form1;
             _tabControl = tabControl;
+            _client = client;
+            _tablePage = tablePage;
             Dock = DockStyle.Fill;
             FlowDirection = FlowDirection.LeftToRight;
 
@@ -63,19 +61,19 @@ namespace Client
 
         private void SendMessage(object sender, EventArgs e)
         {
-            _form1.Client.WriteAsync(new Common.Message { Text = _sendMessageBox.Text });
+            _client.WriteAsync(new Common.Message { Text = _sendMessageBox.Text });
             _sendMessageBox.Clear();
         }
 
         private void CreateTable(object sender, EventArgs e)
         {
-            _form1.Client.WriteAsync(new Common.CreateTable());
+            _client.WriteAsync(new Common.CreateTable());
         }
 
         internal void OnCreateTable()
         {
-            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.Controls.Add(_form1.TablePage); }));
-            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.SelectedTab = _form1.TablePage; }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.Controls.Add(_tablePage); }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.SelectedTab = _tablePage; }));
             _createTableButton.Invoke(new MethodInvoker(delegate { _createTableButton.Enabled = false; }));
         }
     }

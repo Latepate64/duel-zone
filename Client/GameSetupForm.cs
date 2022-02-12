@@ -4,14 +4,14 @@ namespace Client
 {
     class GameSetupForm : Form
     {
-        internal readonly GameSetupPanel GameSetupTable;
+        internal readonly GameSetupPanel _gameSetupTable;
         
         public GameSetupForm(Client client)
         {
-            GameSetupTable = new(client);
+            _gameSetupTable = new(client);
             Dock = DockStyle.Fill;
             Text = "Game setup";
-            Controls.Add(GameSetupTable);
+            Controls.Add(_gameSetupTable);
         }
     }
 }

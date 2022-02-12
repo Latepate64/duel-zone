@@ -30,19 +30,28 @@ namespace Client
             Dock = DockStyle.Fill,
         };
 
-        MenuPage _menuPage;
-        internal LobbyPage LobbyPage;
-        internal TablePage TablePage;
-        internal GameSetupForm GameSetupForm;
-        internal Client Client = new();
-
-        internal string UserName;
-
         /// <summary>
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
         void InitializeComponent()
+        {
+            SetupProperties();
+
+            var menuPage = new MenuPage();
+            var tablePage = new TablePage(Size);
+            var client = new Client();
+            var lobbyPage = new LobbyPage();
+            var lobbyPanel = new LobbyPanel(_tabControl, client, tablePage);
+
+            _tabControl.Controls.Add(menuPage);
+            this.Controls.Add(_tabControl);
+            SetupDependencies(menuPage, tablePage, client, new GameSetupForm(client), lobbyPage, lobbyPanel);
+
+            lobbyPage.Controls.Add(lobbyPanel);
+        }
+
+        private void SetupProperties()
         {
             this.ClientSize = Properties.Settings.Default.Resolution;
             if (Properties.Settings.Default.Maximized)
@@ -50,23 +59,26 @@ namespace Client
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            GameSetupForm = new(Client);
             this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;  
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "Duel Zone";
-
-            _tabControl.Controls.Add(_menuPage);
-            this.Controls.Add(_tabControl);
-            _menuPage = new MenuPage(this, _tabControl);
-            LobbyPage = new LobbyPage(this, _tabControl);
-            TablePage = new TablePage(this, _tabControl);
         }
 
-        internal void CloseLobbyPage()
+        private void SetupDependencies(MenuPage menuPage, TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel)
         {
-            _tabControl.Controls.Remove(LobbyPage);
-            _tabControl.SelectedTab = _menuPage;
-            LobbyPage._panel._chatBox.Clear();
+            menuPage._client = client;
+            menuPage._lobbyPage = lobbyPage;
+            menuPage._tabControl = _tabControl;
+            menuPage._tablePage = tablePage;
+
+            tablePage._client = client;
+            tablePage._gameSetupForm = gameSetupForm;
+            tablePage._lobbyPage = lobbyPage;
+            tablePage._lobbyPanel = lobbyPanel;
+            tablePage._tabControl = _tabControl;
+
+            client._lobbyPanel = lobbyPanel;
+            client._tablePage = tablePage;
         }
         #endregion
     }

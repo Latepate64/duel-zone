@@ -29,26 +29,27 @@ namespace Client
             Width = 200,
         };
         private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
-        private readonly Form1 _form1;
-        private readonly TabControl _tabControl;
+        internal TabControl _tabControl;
+        internal Client _client;
+        internal LobbyPage _lobbyPage;
+        internal LobbyPanel _lobbyPanel;
+        internal GameSetupForm _gameSetupForm;
         private readonly TextBox _textBox = new() { ReadOnly = true, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
         private readonly List<CardPanel> _selectableCards = new();
         private PlayerPanel _opponentPanel;
         private PlayerPanel _playerPanel;
         private ChoicePanel _choicePanel; 
 
-        internal TablePage(Form1 form1, TabControl tabControl)
+        internal TablePage(Size size)
         {
-            _form1 = form1;
-            _tabControl = tabControl;
-            SetupZonePanels(form1);
+            SetupZonePanels(size);
             SetupVisiblePanels();
             SetupPlayerPanels();
             SetupZoneTops();
             SetupProperties();
             SetupClicks();
             AddControls();
-            _textBox.Width = (int)(0.19 * form1.Width);
+            _textBox.Width = (int)(0.19 * size.Width);
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
         }
@@ -57,14 +58,14 @@ namespace Client
         {
             var playerBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)];
             playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
-            _choicePanel = new(_form1.Client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
+            _choicePanel = new(_client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
             _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
         }
 
         private void SetupPlayerPanels()
         {
-            _opponentPanel = new("Opponent", this, _form1.Client);
-            _playerPanel = new("You", this, _form1.Client) { Top = 300 };
+            _opponentPanel = new("Opponent", this, _client);
+            _playerPanel = new("You", this, _client) { Top = 300 };
         }
 
         private void SetupProperties()
@@ -73,7 +74,7 @@ namespace Client
             Text = "Table";
         }
 
-        private void SetupZonePanels(Form1 form1)
+        private void SetupZonePanels(Size size)
         {
             foreach (var player in new[] { false, true })
             {
@@ -81,7 +82,7 @@ namespace Client
                 {
                     var panel = new ZonePanel(zoneType, player);
                     _zonePanels.Add(new Tuple<ZoneType, bool>(zoneType, player), panel);
-                    panel.SetSize(form1.Size);
+                    panel.SetSize(size);
                     Controls.Add(panel);
                 }
             }
@@ -131,26 +132,26 @@ namespace Client
 
         private void SetupGame(object sender, EventArgs e)
         {
-            _form1.GameSetupForm.GameSetupTable.Setup(_form1.UserName, "Computer");
-            _form1.GameSetupForm.ShowDialog();
+            _gameSetupForm._gameSetupTable.Setup(_client._userName, "Computer");
+            _gameSetupForm.ShowDialog();
         }
 
         internal void ExitTable(object sender, EventArgs e)
         {
-            _form1.Client.WriteAsync(new LeaveTable());
+            _client.WriteAsync(new LeaveTable());
         }
 
         internal void OnExitTable()
         {
-            _form1.LobbyPage._panel._createTableButton.Invoke(new MethodInvoker(delegate { _form1.LobbyPage._panel._createTableButton.Enabled = true; }));
-            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.Controls.Remove(_form1.TablePage); }));
-            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.SelectedTab = _form1.LobbyPage; }));
+            _lobbyPanel._createTableButton.Invoke(new MethodInvoker(delegate { _lobbyPanel._createTableButton.Enabled = true; }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.Controls.Remove(this); }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.SelectedTab = _lobbyPage; }));
         }
 
         internal void OnStartGame(StartGame startGame)
         {
             _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
-            _form1.GameSetupForm.Invoke(new MethodInvoker(delegate { _form1.GameSetupForm.Hide(); }));
+            _gameSetupForm.Invoke(new MethodInvoker(delegate { _gameSetupForm.Hide(); }));
             bool playerInsteadOfOpponent = true;
             foreach (var playerDeck in startGame.Players)
             {
@@ -275,7 +276,7 @@ namespace Client
 
         private void AddCard(ZonePanel zone, Card card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _form1.Client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
+            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
         }
 
         private ZonePanel GetZonePanel(string playerId, ZoneType zoneType)
