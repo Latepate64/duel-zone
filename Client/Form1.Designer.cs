@@ -1,4 +1,5 @@
 ﻿
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Client
@@ -37,17 +38,20 @@ namespace Client
         void InitializeComponent()
         {
             SetupProperties();
-
-            var menuPage = new MenuPage();
-            var tablePage = new TablePage(Size);
-            var client = new Client();
             var lobbyPage = new LobbyPage();
+            var client = new Client();
+            var tablePage = new TablePage(Size);
             var lobbyPanel = new LobbyPanel(_tabControl, client, tablePage);
+            var menuPage = new MenuPage();
+            var choicePanel = new ChoicePanel();
+            SetupDependencies(menuPage, tablePage, client, new GameSetupForm(client), lobbyPage, lobbyPanel, choicePanel);
+            AddControls(lobbyPage, lobbyPanel, menuPage);
+        }
 
+        private void AddControls(LobbyPage lobbyPage, LobbyPanel lobbyPanel, MenuPage menuPage)
+        {
+            Controls.Add(_tabControl);
             _tabControl.Controls.Add(menuPage);
-            this.Controls.Add(_tabControl);
-            SetupDependencies(menuPage, tablePage, client, new GameSetupForm(client), lobbyPage, lobbyPanel);
-
             lobbyPage.Controls.Add(lobbyPanel);
         }
 
@@ -64,21 +68,46 @@ namespace Client
             this.Text = "Duel Zone";
         }
 
-        private void SetupDependencies(MenuPage menuPage, TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel)
+        private void SetupDependencies(MenuPage menuPage, TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)
         {
-            menuPage._client = client;
-            menuPage._lobbyPage = lobbyPage;
-            menuPage._tabControl = _tabControl;
-            menuPage._tablePage = tablePage;
+            SetupMenuPage(menuPage, tablePage, client, lobbyPage);
+            SetupChoicePanel(tablePage, client, choicePanel);
+            SetupTablePage(tablePage, client, gameSetupForm, lobbyPage, lobbyPanel, choicePanel);
+            SetupClient(tablePage, client, lobbyPanel);
+        }
 
+        private static void SetupChoicePanel(TablePage tablePage, Client client, ChoicePanel choicePanel)
+        {
+            choicePanel._client = client;
+            choicePanel._tablePage = tablePage;
+
+            choicePanel.UpdateSize(new Size(tablePage.ZonePanelSize.Width, (int)(0.5 * tablePage.ZonePanelSize.Height)));
+            choicePanel.Left = ZonePanel.DefaultLeft;
+            choicePanel.Top = 2 * tablePage.ZonePanelSize.Height + TablePage.ZoneOffset;
+        }
+
+        private static void SetupClient(TablePage tablePage, Client client, LobbyPanel lobbyPanel)
+        {
+            client._lobbyPanel = lobbyPanel;
+            client._tablePage = tablePage;
+        }
+
+        private void SetupTablePage(TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)
+        {
             tablePage._client = client;
             tablePage._gameSetupForm = gameSetupForm;
             tablePage._lobbyPage = lobbyPage;
             tablePage._lobbyPanel = lobbyPanel;
             tablePage._tabControl = _tabControl;
+            tablePage.SetChoicePanel(choicePanel);
+        }
 
-            client._lobbyPanel = lobbyPanel;
-            client._tablePage = tablePage;
+        private void SetupMenuPage(MenuPage menuPage, TablePage tablePage, Client client, LobbyPage lobbyPage)
+        {
+            menuPage._client = client;
+            menuPage._lobbyPage = lobbyPage;
+            menuPage._tabControl = _tabControl;
+            menuPage._tablePage = tablePage;
         }
         #endregion
     }

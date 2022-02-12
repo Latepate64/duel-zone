@@ -7,7 +7,7 @@ namespace Client
 {
     class ZonePanel : FlowLayoutPanel
     {
-        internal ZoneType ZoneType { get; }
+        internal ZoneType ZoneType { get; private set; }
 
         internal const int DefaultLeft = 270;
         private const double HeightScale = 0.26;
@@ -17,13 +17,23 @@ namespace Client
 
         public ZonePanel(ZoneType zoneType, bool player)
         {
+            SetupProperties(zoneType, player);
+            new ToolTip().SetToolTip(this, $"{(player ? "Your" : "Your opponents")} {zoneType}");
+            SetupEvents();
+        }
+
+        private void SetupProperties(ZoneType zoneType, bool player)
+        {
             ZoneType = zoneType;
             Left = DefaultLeft;
             Width = 1000;
             BackColor = GetColor(ZoneType);
             AutoScroll = true;
             Visible = zoneType == ZoneType.BattleZone || (zoneType == ZoneType.Hand && player);
-            new ToolTip().SetToolTip(this, $"{(player ? "Your" : "Your opponents")} {zoneType}");
+        }
+
+        private void SetupEvents()
+        {
             MouseDown += ZonePanel_MouseDown;
             MouseMove += ZonePanel_MouseMove;
         }

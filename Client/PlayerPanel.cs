@@ -56,6 +56,11 @@ namespace Client
         {
             Controls.Add(new Label { Dock = DockStyle.Fill, Text = name }, 0, 0);
             Controls.Add(_player, 1, 0);
+            AddZoneButtons();
+        }
+
+        private void AddZoneButtons()
+        {
             Controls.Add(_zoneButtons[ZoneType.BattleZone], 0, 1);
             Controls.Add(_zoneButtons[ZoneType.Graveyard], 1, 1);
             Controls.Add(_zoneButtons[ZoneType.ManaZone], 0, 2);

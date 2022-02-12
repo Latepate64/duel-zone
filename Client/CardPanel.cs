@@ -31,13 +31,18 @@ namespace Client
             SetupProperties(card, height);
             SetupInnerPanel(height);
             PaintBackColor(card);
+            DrawInformation(card, height, showTapStatus);
+            SetupClick();
+        }
+
+        private void DrawInformation(Card card, int height, bool showTapStatus)
+        {
             DrawManaCostAndName(card, height);
             DrawSubtypes(card, height);
             DrawRulesText(card, height);
             DrawSummoningSickness(card, height);
             DrawTapStatus(card, height, showTapStatus);
             DrawPower(card, height);
-            SetupClick();
         }
 
         private void SetupProperties(Card card, int height)
@@ -144,21 +149,36 @@ namespace Client
             {
                 if (_tablePage._selectedCards.Contains(this))
                 {
-                    BackColor = System.Drawing.Color.Black;
-                    _tablePage._selectedCards.Remove(this);
+                    Unselect();
                 }
                 else
                 {
-                    BackColor = System.Drawing.Color.Violet;
-                    _tablePage._selectedCards.Add(this);
+                    Select();
                 }
-                if (guidSelection.MaximumSelection == _tablePage._selectedCards.Count())
-                {
-                    var decision = new GuidDecision { Decision = _tablePage._selectedCards.Select(x => new Guid(x.Name)).ToList() };
-                    _tablePage.ClearSelectedAndSelectableCards();
-                    _client.WriteAsync(decision);
-                }
+                CheckSelectedCards(guidSelection);
             }
+        }
+
+        private void CheckSelectedCards(GuidSelection guidSelection)
+        {
+            if (guidSelection.MaximumSelection == _tablePage._selectedCards.Count())
+            {
+                var decision = new GuidDecision { Decision = _tablePage._selectedCards.Select(x => new Guid(x.Name)).ToList() };
+                _tablePage.ClearSelectedAndSelectableCards();
+                _client.WriteAsync(decision);
+            }
+        }
+
+        private void Select()
+        {
+            BackColor = System.Drawing.Color.Violet;
+            _tablePage._selectedCards.Add(this);
+        }
+
+        private void Unselect()
+        {
+            BackColor = System.Drawing.Color.Black;
+            _tablePage._selectedCards.Remove(this);
         }
 
         private Label GetLabel(string text, int height)

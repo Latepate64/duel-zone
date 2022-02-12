@@ -85,12 +85,22 @@ namespace Client
             {
                 _tablePage.ExitTable(null, null);
             }
+            UpdateConnectButton();
+            UpdateTabControl();
+            _lobbyPanel._chatBox.Clear();
+        }
+
+        private void UpdateTabControl()
+        {
+            _tabControl.Controls.Remove(_lobbyPage);
+            _tabControl.SelectedTab = this;
+        }
+
+        private void UpdateConnectButton()
+        {
             _connectButton.Text = "Connect";
             _connectButton.Click -= EndConnect;
             _connectButton.Click += Connect;
-            _tabControl.Controls.Remove(_lobbyPage);
-            _tabControl.SelectedTab = this;
-            _lobbyPanel._chatBox.Clear();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Client
         internal Choice _currentChoice;
         internal List<CardPanel> _selectedCards = new();
 
-        private const int ZoneOffset = 10;
+        internal const int ZoneOffset = 10;
 
         private readonly Button _exitTableButton = new()
         {
@@ -28,38 +28,53 @@ namespace Client
             Height = 100,
             Width = 200,
         };
+        internal Size ZonePanelSize => _zonePanels.First().Value.Size;
         private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
         internal TabControl _tabControl;
         internal Client _client;
         internal LobbyPage _lobbyPage;
         internal LobbyPanel _lobbyPanel;
         internal GameSetupForm _gameSetupForm;
+        private ChoicePanel _choicePanel; 
         private readonly TextBox _textBox = new() { ReadOnly = true, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
         private readonly List<CardPanel> _selectableCards = new();
         private PlayerPanel _opponentPanel;
         private PlayerPanel _playerPanel;
-        private ChoicePanel _choicePanel; 
 
         internal TablePage(Size size)
         {
-            SetupZonePanels(size);
-            SetupVisiblePanels();
-            SetupPlayerPanels();
+            SetupPanels(size);
             SetupZoneTops();
             SetupProperties();
             SetupClicks();
             AddControls();
+            SetupFields(size);
+        }
+
+        internal void SetChoicePanel(ChoicePanel choicePanel)
+        {
+            _choicePanel = choicePanel;
+            Controls.Add(_choicePanel);
+            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+        }
+
+        private void SetupFields(Size size)
+        {
             _textBox.Width = (int)(0.19 * size.Width);
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
         }
 
+        private void SetupPanels(Size size)
+        {
+            SetupZonePanels(size);
+            SetupVisiblePanels();
+            SetupPlayerPanels();
+        }
+
         private void SetupVisiblePanels()
         {
-            var playerBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)];
-            playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
-            _choicePanel = new(_client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
-            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)].Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
         }
 
         private void SetupPlayerPanels()
@@ -111,7 +126,7 @@ namespace Client
             _exitTableButton.Click += ExitTable;
         }
 
-        private void SetupClick(Control button, Control control)
+        private static void SetupClick(Control button, Control control)
         {
             button.Click += (object sender, EventArgs e) =>
             {
@@ -127,7 +142,6 @@ namespace Client
             Controls.Add(_opponentPanel);
             Controls.Add(_playerPanel);
             Controls.Add(_textBox);
-            Controls.Add(_choicePanel);
         }
 
         private void SetupGame(object sender, EventArgs e)
@@ -155,15 +169,30 @@ namespace Client
             bool playerInsteadOfOpponent = true;
             foreach (var playerDeck in startGame.Players)
             {
-                foreach (var zone in GetZonePanels(playerInsteadOfOpponent))
-                {
-                    zone.Name = playerDeck.Player.Id.ToString();
-                }
-                foreach (var card in playerDeck.Deck)
-                {
-                    AddCard(_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, playerInsteadOfOpponent)], card);
-                }
-                playerInsteadOfOpponent = !playerInsteadOfOpponent;
+                playerInsteadOfOpponent = SetupPlayer(playerInsteadOfOpponent, playerDeck);
+            }
+        }
+
+        private bool SetupPlayer(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
+        {
+            SetupZoneNames(playerInsteadOfOpponent, playerDeck);
+            AddDeckCards(playerInsteadOfOpponent, playerDeck);
+            return !playerInsteadOfOpponent;
+        }
+
+        private void AddDeckCards(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
+        {
+            foreach (var card in playerDeck.Deck)
+            {
+                AddCard(_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, playerInsteadOfOpponent)], card);
+            }
+        }
+
+        private void SetupZoneNames(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
+        {
+            foreach (var zone in GetZonePanels(playerInsteadOfOpponent))
+            {
+                zone.Name = playerDeck.Player.Id.ToString();
             }
         }
 
@@ -227,8 +256,13 @@ namespace Client
             }
             else if (c is YesNoChoice yesNoChoice)
             {
-                _choicePanel._declineButton.Visible = true;
+                ProcessYesNoChoice();
             }
+        }
+
+        private void ProcessYesNoChoice()
+        {
+            _choicePanel._declineButton.Visible = true;
         }
 
         private void Process(AttackTargetSelection targetSelection)
@@ -286,18 +320,33 @@ namespace Client
 
         internal void ClearSelectedAndSelectableCards()
         {
-            foreach (var card in _selectedCards)
-            {
-                card.BackColor = Color.Black;
-            }
-            _selectedCards.Clear();
+            ClearSelectedCards();
+            ClearSelectableCards();
+            HideChoiceButtons();
+        }
+
+        private void HideChoiceButtons()
+        {
+            _choicePanel._defaultButton.Visible = false;
+            _choicePanel._declineButton.Visible = false;
+        }
+
+        private void ClearSelectableCards()
+        {
             foreach (var card in _selectableCards)
             {
                 card.BackColor = Color.Black;
             }
             _selectableCards.Clear();
-            _choicePanel._defaultButton.Visible = false;
-            _choicePanel._declineButton.Visible = false;
+        }
+
+        private void ClearSelectedCards()
+        {
+            foreach (var card in _selectedCards)
+            {
+                card.BackColor = Color.Black;
+            }
+            _selectedCards.Clear();
         }
     }
 }
