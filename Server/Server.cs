@@ -117,12 +117,9 @@ namespace Server
             foreach (var player in _playerClients)
             {
                 var eventToSend = gameEvent;
-                if (gameEvent is CardMovedEvent e)
+                if (gameEvent is CardMovedEvent e && e.CardInDestinationZone != null && !e.CardInDestinationZone.KnownBy.Contains(player.Key.Id))
                 {
-                    if (!e.CardInDestinationZone.KnownBy.Contains(player.Key.Id))
-                    {
-                        (eventToSend as CardMovedEvent).CardInDestinationZone = new Card((eventToSend as CardMovedEvent).CardInDestinationZone, true);
-                    }
+                    (eventToSend as CardMovedEvent).CardInDestinationZone = new Card((eventToSend as CardMovedEvent).CardInDestinationZone, true);
                 }
                 var text = Serializer.Serialize(eventToSend);
                 Program.WriteConsole(text);

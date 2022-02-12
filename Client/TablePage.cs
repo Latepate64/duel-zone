@@ -164,6 +164,7 @@ namespace Client
 
         internal void OnStartGame(StartGame startGame)
         {
+            _playerPanel.Name = startGame.Players.First().Player.Id.ToString();
             _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
             _gameSetupForm.Invoke(new MethodInvoker(delegate { _gameSetupForm.Hide(); }));
             bool playerInsteadOfOpponent = true;
@@ -216,6 +217,14 @@ namespace Client
             {
                 Process(sse);
             }
+            else if (e is WinEvent win && win.Player.Id.ToString() == _playerPanel.Name)
+            {
+                SetChoiceText("You won!");
+            }
+            else if (e is LoseEvent lose && lose.Player.Id.ToString() == _playerPanel.Name)
+            {
+                SetChoiceText("You lost!");
+            }
         }
 
         private void Process(SummoningSicknessEvent e)
@@ -245,7 +254,7 @@ namespace Client
         internal void Process(Choice c)
         {
             _currentChoice = c;
-            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._label.Text = c.ToString(); }));
+            SetChoiceText(c.ToString());
             if (c is CardSelection cardSelection)
             {
                 Process(cardSelection);
@@ -258,6 +267,11 @@ namespace Client
             {
                 ProcessYesNoChoice();
             }
+        }
+
+        private void SetChoiceText(string text)
+        {
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._label.Text = text; }));
         }
 
         private void ProcessYesNoChoice()
