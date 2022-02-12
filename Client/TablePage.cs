@@ -61,8 +61,8 @@ namespace Client
             playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
             _choicePanel = new(_form1.Client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
             _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
-            _opponentPanel = new("Opponent", 0, this, _form1.Client);
-            _playerPanel = new("You", 300, this, _form1.Client);
+            _opponentPanel = new("Opponent", this, _form1.Client);
+            _playerPanel = new("You", this, _form1.Client) { Top = 300 };
             SetupZoneTops();
             Dock = DockStyle.Fill;
             Text = "Table";
@@ -86,7 +86,7 @@ namespace Client
         {
             foreach (var panel in new[] { _playerPanel, _opponentPanel })
             {
-                foreach (var button in panel._zoneButtons)
+                foreach (var button in panel.ZoneButtons)
                 {
                     SetupClick(button.Value, _zonePanels[new Tuple<ZoneType, bool>(button.Key, panel == _playerPanel)]);
                 }
