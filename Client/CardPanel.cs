@@ -6,54 +6,94 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    class CardPanel : Panel
+    internal class CardPanel : Panel
     {
-        const double Foo = 4.75;
-        const double SizeScale = Foo * 0.00065;
-        const double InnerSizeScale = Foo * 0.00058;
-        const int CardWidth = 222;
-        const int CardHeight = 307;
-        readonly Label _tapLabel;
-        readonly Label _summoningSicknessLabel;
-        readonly FlowLayoutPanel _inner;
-        readonly Client _client;
-        readonly TablePage _tablePage;
-        readonly TextBox _textBox;
-        internal static int FontSize;
-        const double FontScale = Foo * 0.005;
+        private const double SizeScale = 0.0030875;
+        private const double InnerSizeScale = 0.002755;
+        private const double FontScale = 0.03;
+        private const int CardWidth = 222;
+        private const int CardHeight = 307;
 
-        public CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
+        internal static int _fontSize;
+        private readonly Client _client;
+        private readonly TablePage _tablePage;
+        private Label _tapLabel;
+        private Label _summoningSicknessLabel;
+        private FlowLayoutPanel _inner;
+        private TextBox _textBox;
+
+        internal CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
         {
-            FontSize = (int)(FontScale * height);
-            _inner = new() { Height = (int)(CardHeight * InnerSizeScale * height), Width = (int)(CardWidth * InnerSizeScale * height) };
-
             _client = client;
             _tablePage = tablePage;
+            _fontSize = (int)(FontScale * height);
+            SetupProperties(card, height);
+            SetupInnerPanel(height);
+            PaintBackColor(card);
+            DrawManaCostAndName(card, height);
+            DrawSubtypes(card, height);
+            DrawRulesText(card, height);
+            DrawSummoningSickness(card, height);
+            DrawTapStatus(card, height, showTapStatus);
+            DrawPower(card, height);
+            SetupClick();
+        }
 
+        private void SetupProperties(Card card, int height)
+        {
             Name = card.Id.ToString();
-
             Height = (int)(CardHeight * SizeScale * height);
             Width = (int)(CardWidth * SizeScale * height);
             BackColor = System.Drawing.Color.Black;
+        }
+
+        private void SetupInnerPanel(int height)
+        {
+            _inner = new() { Height = (int)(CardHeight * InnerSizeScale * height), Width = (int)(CardWidth * InnerSizeScale * height) };
             _inner.Left = (Width - _inner.Width) / 2;
             _inner.Top = (Height - _inner.Height) / 2;
-
             Controls.Add(_inner);
-            _inner.Anchor = AnchorStyles.None;
+        }
 
-            if (card.Civilizations.Count == 1)
+        private void DrawPower(Card card, int height)
+        {
+            if (card.Power.HasValue)
             {
-                _inner.BackColor = GetColor(card.Civilizations.First());
+                _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), height));
             }
-            else
-            {
-                _inner.BackColor = System.Drawing.Color.Gold;
-            }
+        }
 
-            _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
+        private void DrawTapStatus(Card card, int height, bool showTapStatus)
+        {
+            if (showTapStatus)
+            {
+                _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped", height);
+                _inner.Controls.Add(_tapLabel);
+            }
+        }
+
+        private void DrawSummoningSickness(Card card, int height)
+        {
+            if (card.CardType == CardType.Creature && card.SummoningSickness)
+            {
+                _summoningSicknessLabel = GetLabel("Summoning sickness", height);
+                _inner.Controls.Add(_summoningSicknessLabel);
+            }
+        }
+
+        private void DrawSubtypes(Card card, int height)
+        {
             _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
+        }
 
-            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
+        private void DrawManaCostAndName(Card card, int height)
+        {
+            _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
+        }
+
+        private void DrawRulesText(Card card, int height)
+        {
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, _fontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
             {
                 _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText?.Replace("\n", Environment.NewLine);
@@ -63,29 +103,38 @@ namespace Client
                 _textBox.Text = card.RulesText?.Replace("\n", Environment.NewLine);
             }
             _inner.Controls.Add(_textBox);
+        }
 
-            if (card.CardType == CardType.Creature && card.SummoningSickness)
+        private void PaintBackColor(Card card)
+        {
+            if (card.Civilizations.Count == 1)
             {
-                _summoningSicknessLabel = GetLabel("Summoning sickness", height);
-                _inner.Controls.Add(_summoningSicknessLabel);
+                _inner.BackColor = GetColor(card.Civilizations.First());
             }
-            if (showTapStatus)
+            else
             {
-                _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped", height);
-                _inner.Controls.Add(_tapLabel);
+                _inner.BackColor = System.Drawing.Color.Gold;
             }
+        }
 
-            if (card.Power.HasValue)
-            {
-                _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), height));
-            }
+        internal void TapOrUntap(bool tapInsteadOfUntap)
+        {
+            _tapLabel.Text = tapInsteadOfUntap ? "Tapped" : "Untapped";
+        }
 
+        internal void RemoveSummoningSickness()
+        {
+            _inner.Controls.Remove(_summoningSicknessLabel);
+        }
+
+        private void SetupClick()
+        {
             Click += CardPanel_Click;
+            _inner.Click += CardPanel_Click;
             foreach (Control control in _inner.Controls)
             {
                 control.Click += CardPanel_Click;
             }
-
         }
 
         private void CardPanel_Click(object sender, EventArgs e)
@@ -113,7 +162,7 @@ namespace Client
 
         private Label GetLabel(string text, int height)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, _fontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)
@@ -127,16 +176,6 @@ namespace Client
                 Civilization.Nature => System.Drawing.Color.Green,
                 _ => throw new NotImplementedException(),
             };
-        }
-
-        internal void TapOrUntap(bool tapInsteadOfUntap)
-        {
-            _tapLabel.Text = tapInsteadOfUntap ? "Tapped" : "Untapped";
-        }
-
-        internal void RemoveSummoningSickness()
-        {
-            _inner.Controls.Remove(_summoningSicknessLabel);
         }
 
         private static string SplitCamelCase(string input)
