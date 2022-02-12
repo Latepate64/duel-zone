@@ -152,7 +152,7 @@ namespace Engine
             }
             else
             {
-                game.PreGameEvents.Enqueue(eve);
+                game._preGameEvents.Enqueue(eve);
             }
         }
 

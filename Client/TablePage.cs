@@ -11,6 +11,11 @@ namespace Client
 {
     internal class TablePage : TabPage
     {
+        internal Choice _currentChoice;
+        internal List<CardPanel> _selectedCards = new();
+
+        private const int ZoneOffset = 10;
+
         private readonly Button _exitTableButton = new()
         {
             Text = "Exit table",
@@ -23,28 +28,53 @@ namespace Client
             Height = 100,
             Width = 200,
         };
-
-        private Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
-
-        private readonly PlayerPanel _opponentPanel;
-        private readonly PlayerPanel _playerPanel;
-
+        private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
         private readonly Form1 _form1;
+        private readonly TabControl _tabControl;
+        private readonly TextBox _textBox = new() { ReadOnly = true, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
+        private readonly List<CardPanel> _selectableCards = new();
+        private PlayerPanel _opponentPanel;
+        private PlayerPanel _playerPanel;
+        private ChoicePanel _choicePanel; 
 
-        private readonly TextBox _textBox = new() { ReadOnly = true, Height = 1000, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
-
-        private readonly ChoicePanel _choicePanel;
-
-        internal Choice _currentChoice;
-        internal List<CardPanel> _selectedCards = new();
-        internal List<CardPanel> _selectableCards = new();
-
-        private const int ZoneOffset = 10;
-
-        internal TablePage(Form1 form1)
+        internal TablePage(Form1 form1, TabControl tabControl)
         {
             _form1 = form1;
+            _tabControl = tabControl;
+            SetupZonePanels(form1);
+            SetupVisiblePanels();
+            SetupPlayerPanels();
+            SetupZoneTops();
+            SetupProperties();
+            SetupClicks();
+            AddControls();
+            _textBox.Width = (int)(0.19 * form1.Width);
+            _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
+            _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
+        }
 
+        private void SetupVisiblePanels()
+        {
+            var playerBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)];
+            playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
+            _choicePanel = new(_form1.Client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
+            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+        }
+
+        private void SetupPlayerPanels()
+        {
+            _opponentPanel = new("Opponent", this, _form1.Client);
+            _playerPanel = new("You", this, _form1.Client) { Top = 300 };
+        }
+
+        private void SetupProperties()
+        {
+            Dock = DockStyle.Fill;
+            Text = "Table";
+        }
+
+        private void SetupZonePanels(Form1 form1)
+        {
             foreach (var player in new[] { false, true })
             {
                 foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
@@ -55,21 +85,6 @@ namespace Client
                     Controls.Add(panel);
                 }
             }
-
-            _textBox.Width = (int)(0.19 * form1.Width);
-            var playerBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)];
-            playerBattleZone.Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
-            _choicePanel = new(_form1.Client, this, new Size(playerBattleZone.Width, (int)(0.5 * playerBattleZone.Height))) { Left = ZonePanel.DefaultLeft, Top = 2 * playerBattleZone.Height + ZoneOffset };
-            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
-            _opponentPanel = new("Opponent", this, _form1.Client);
-            _playerPanel = new("You", this, _form1.Client) { Top = 300 };
-            SetupZoneTops();
-            Dock = DockStyle.Fill;
-            Text = "Table";
-            SetupClicks();
-            AddControls();
-            _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
-            _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
         }
 
         private void SetupZoneTops()
@@ -122,17 +137,17 @@ namespace Client
 
         internal void ExitTable(object sender, EventArgs e)
         {
-            _form1.Client.WriteAsync(new Common.LeaveTable());
+            _form1.Client.WriteAsync(new LeaveTable());
         }
 
         internal void OnExitTable()
         {
-            _form1.LobbyPage.Panel.CreateTableButton.Invoke(new MethodInvoker(delegate { _form1.LobbyPage.Panel.CreateTableButton.Enabled = true; }));
-            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.Controls.Remove(_form1.TablePage); }));
-            _form1.TabControl.Invoke(new MethodInvoker(delegate { _form1.TabControl.SelectedTab = _form1.LobbyPage; }));
+            _form1.LobbyPage._panel._createTableButton.Invoke(new MethodInvoker(delegate { _form1.LobbyPage._panel._createTableButton.Enabled = true; }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.Controls.Remove(_form1.TablePage); }));
+            _tabControl.Invoke(new MethodInvoker(delegate { _tabControl.SelectedTab = _form1.LobbyPage; }));
         }
 
-        internal void OnStartGame(Common.StartGame startGame)
+        internal void OnStartGame(StartGame startGame)
         {
             _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
             _form1.GameSetupForm.Invoke(new MethodInvoker(delegate { _form1.GameSetupForm.Hide(); }));
@@ -161,25 +176,40 @@ namespace Client
             _textBox.Invoke(new MethodInvoker(delegate { _textBox.AppendText(e + Environment.NewLine); }));
             if (e is CardMovedEvent cme && cme.Player != null)
             {
-                RemoveCard(GetZonePanel(cme.Player.Id.ToString(), cme.Source), cme.CardInSourceZone.ToString());
-                AddCard(GetZonePanel(cme.Player.Id.ToString(), cme.Destination), cme.CardInDestinationZone);
+                Process(cme);
             }
             else if (e is TapEvent tap)
             {
-                foreach (var card in tap.Cards.Select(x => x.Id))
-                {
-                    var panel = GetCardPanel(card.ToString());
-                    panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(tap.TapInsteadOfUntap); }));
-                }
+                Process(tap);
             }
             else if (e is SummoningSicknessEvent sse)
             {
-                foreach (var card in sse.Cards.Select(x => x.Id))
-                {
-                    var panel = GetCardPanel(card.ToString());
-                    panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
-                }
+                Process(sse);
             }
+        }
+
+        private void Process(SummoningSicknessEvent e)
+        {
+            foreach (var card in e.Cards.Select(x => x.Id))
+            {
+                var panel = GetCardPanel(card.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
+            }
+        }
+
+        private void Process(TapEvent e)
+        {
+            foreach (var card in e.Cards.Select(x => x.Id))
+            {
+                var panel = GetCardPanel(card.ToString());
+                panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(e.TapInsteadOfUntap); }));
+            }
+        }
+
+        private void Process(CardMovedEvent e)
+        {
+            RemoveCard(GetZonePanel(e.Player.Id.ToString(), e.Source), e.CardInSourceZone.ToString());
+            AddCard(GetZonePanel(e.Player.Id.ToString(), e.Destination), e.CardInDestinationZone);
         }
 
         internal void Process(Choice c)
@@ -188,32 +218,42 @@ namespace Client
             _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._label.Text = c.ToString(); }));
             if (c is CardSelection cardSelection)
             {
-                if (cardSelection.MinimumSelection == 0)
-                {
-                    _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._defaultButton.Visible = true; }));
-                }
-                foreach (var card in cardSelection.Options)
-                {
-                    MarkSelectable(GetCardPanel(card.ToString()));
-                }
+                Process(cardSelection);
             }
             else if (c is AttackTargetSelection targetSelection)
             {
-                foreach (var option in targetSelection.Options)
-                {
-                    if (option.ToString() == _opponentPanel.Name)
-                    {
-                        _opponentPanel.Invoke(new MethodInvoker(delegate { _opponentPanel.Enabled = true; }));
-                    }
-                    else
-                    {
-                        MarkSelectable(GetCardPanel(option.ToString()));
-                    }
-                }
+                Process(targetSelection);
             }
             else if (c is YesNoChoice yesNoChoice)
             {
                 _choicePanel._declineButton.Visible = true;
+            }
+        }
+
+        private void Process(AttackTargetSelection targetSelection)
+        {
+            foreach (var option in targetSelection.Options)
+            {
+                if (option.ToString() == _opponentPanel.Name)
+                {
+                    _opponentPanel.Invoke(new MethodInvoker(delegate { _opponentPanel.Enabled = true; }));
+                }
+                else
+                {
+                    MarkSelectable(GetCardPanel(option.ToString()));
+                }
+            }
+        }
+
+        private void Process(CardSelection cardSelection)
+        {
+            if (cardSelection.MinimumSelection == 0)
+            {
+                _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel._defaultButton.Visible = true; }));
+            }
+            foreach (var card in cardSelection.Options)
+            {
+                MarkSelectable(GetCardPanel(card.ToString()));
             }
         }
 

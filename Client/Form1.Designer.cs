@@ -25,7 +25,7 @@ namespace Client
 
         #region Windows Form Designer generated code
 
-        internal TabControl TabControl = new TabControl
+        private TabControl _tabControl = new TabControl
         {
             Dock = DockStyle.Fill,
         };
@@ -50,23 +50,23 @@ namespace Client
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            _menuPage = new MenuPage(this);
-            LobbyPage = new LobbyPage(this);
-            TablePage = new TablePage(this);
             GameSetupForm = new(Client);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;  
             this.Text = "Duel Zone";
 
-            TabControl.Controls.Add(_menuPage);
-            this.Controls.Add(TabControl);
+            _tabControl.Controls.Add(_menuPage);
+            this.Controls.Add(_tabControl);
+            _menuPage = new MenuPage(this, _tabControl);
+            LobbyPage = new LobbyPage(this, _tabControl);
+            TablePage = new TablePage(this, _tabControl);
         }
 
         internal void CloseLobbyPage()
         {
-            TabControl.Controls.Remove(LobbyPage);
-            TabControl.SelectedTab = _menuPage;
-            LobbyPage.Panel.ChatBox.Clear();
+            _tabControl.Controls.Remove(LobbyPage);
+            _tabControl.SelectedTab = _menuPage;
+            LobbyPage._panel._chatBox.Clear();
         }
         #endregion
     }

@@ -36,7 +36,7 @@ namespace Engine
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
+        public IEnumerable<GameEvent> GameEvents => _preGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
@@ -67,7 +67,7 @@ namespace Engine
         public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
         #endregion Properties
 
-        internal Queue<GameEvent> PreGameEvents = new();
+        internal Queue<GameEvent> _preGameEvents = new();
 
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
@@ -329,7 +329,7 @@ namespace Engine
             }
             else
             {
-                PreGameEvents.Enqueue(gameEvent);
+                _preGameEvents.Enqueue(gameEvent);
             }
         }
 

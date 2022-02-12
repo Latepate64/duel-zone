@@ -46,7 +46,7 @@ namespace Client
         {
             if (obj is Common.CreateTable)
             {
-                form.LobbyPage.Panel.OnCreateTable();
+                form.LobbyPage._panel.OnCreateTable();
             }
             else if (obj is Common.LeaveTable)
             {
@@ -68,7 +68,7 @@ namespace Client
             {
                 form.TablePage.Process(c);
             }
-            form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
+            form.LobbyPage._panel._chatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage._panel._chatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage._panel._chatBox.Text += Environment.NewLine; }));
         }
 
         internal void EndConnect()

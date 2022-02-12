@@ -19,7 +19,7 @@ namespace Client
             _tablePage = tablePage;
             _client = client;
             _player.Enabled = false;
-            _player.Click += _player_Click;
+            _player.Click += PlayerClick;
             SetupProperties();
             SetColumnAndRowStyles();
             SetupZoneButtons();
@@ -64,7 +64,7 @@ namespace Client
             Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
         }
 
-        private void _player_Click(object sender, System.EventArgs e)
+        private void PlayerClick(object sender, System.EventArgs e)
         {
             if (_tablePage._currentChoice is AttackTargetSelection)
             {

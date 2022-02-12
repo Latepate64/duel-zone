@@ -14,7 +14,8 @@ namespace Client
         private const int CardWidth = 222;
         private const int CardHeight = 307;
 
-        internal static int _fontSize;
+        internal static int FontSize;
+
         private readonly Client _client;
         private readonly TablePage _tablePage;
         private Label _tapLabel;
@@ -26,7 +27,7 @@ namespace Client
         {
             _client = client;
             _tablePage = tablePage;
-            _fontSize = (int)(FontScale * height);
+            FontSize = (int)(FontScale * height);
             SetupProperties(card, height);
             SetupInnerPanel(height);
             PaintBackColor(card);
@@ -93,7 +94,7 @@ namespace Client
 
         private void DrawRulesText(Card card, int height)
         {
-            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, _fontSize), BorderStyle = BorderStyle.None };
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
             {
                 _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText?.Replace("\n", Environment.NewLine);
@@ -162,7 +163,7 @@ namespace Client
 
         private Label GetLabel(string text, int height)
         {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, _fontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
+            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
         }
 
         private static System.Drawing.Color GetColor(Civilization civilization)

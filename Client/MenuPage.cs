@@ -31,11 +31,13 @@ namespace Client
             Width = 200,
         };
 
-        readonly Form1 _form1;
+        private readonly Form1 _form1;
+        private readonly TabControl _tabControl;
 
-        public MenuPage(Form1 form1)
+        public MenuPage(Form1 form1, TabControl tabControl)
         {
             _form1 = form1;
+            _tabControl = tabControl;
             Dock = DockStyle.Fill;
             Text = "Menu";
 
@@ -71,14 +73,14 @@ namespace Client
             _connectButton.Text = "Disconnect";
             _connectButton.Click -= Connect;
             _connectButton.Click += EndConnect;
-            _form1.TabControl.Controls.Add(_form1.LobbyPage);
-            _form1.TabControl.SelectedTab = _form1.LobbyPage;
+            _tabControl.Controls.Add(_form1.LobbyPage);
+            _tabControl.SelectedTab = _form1.LobbyPage;
         }
 
         private void EndConnect(object sender, EventArgs e)
         {
             _form1.Client.EndConnect();
-            if (_form1.TabControl.Controls.Contains(_form1.TablePage))
+            if (_tabControl.Controls.Contains(_form1.TablePage))
             {
                 _form1.TablePage.ExitTable(null, null);
             }
