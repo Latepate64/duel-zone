@@ -109,10 +109,15 @@ namespace Client
         {
             var index = 0;
             var opponentBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)];
-            foreach (var zone in _zonePanels.Where(x => !(x.Key.Item1 == ZoneType.BattleZone || (x.Key.Item1 == ZoneType.Hand && x.Key.Item2))).Select(x => x.Value))
+            foreach (var zone in GetNonDefaultZones())
             {
                 zone.Top = opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
             }
+        }
+
+        private IEnumerable<ZonePanel> GetNonDefaultZones()
+        {
+            return _zonePanels.Where(x => !(x.Key.Item1 == ZoneType.BattleZone || (x.Key.Item1 == ZoneType.Hand && x.Key.Item2))).Select(x => x.Value);
         }
 
         private void SetupClicks()
@@ -220,13 +225,19 @@ namespace Client
             {
                 Process(sse);
             }
-            else if (e is WinEvent win && win.Player.Id.ToString() == _playerPanel.Name)
+            else if (e is WinEvent win)
             {
-                SetChoiceText("You won!");
+                if (win.Player.Id.ToString() == _playerPanel.Name)
+                {
+                    SetChoiceText("You won!");
+                }
             }
-            else if (e is LoseEvent lose && lose.Player.Id.ToString() == _playerPanel.Name)
+            else if (e is LoseEvent lose)
             {
-                SetChoiceText("You lost!");
+                if (lose.Player.Id.ToString() == _playerPanel.Name)
+                {
+                    SetChoiceText("You lost!");
+                }
             }
             else if (e is PhaseBegunEvent phase)
             {
@@ -360,10 +371,16 @@ namespace Client
             }
         }
 
-        private void MarkSelectable(CardPanel panel)
+        private void MarkSelectable(CardPanel card)
         {
-            panel.Invoke(new MethodInvoker(delegate { panel.BackColor = Color.White; }));
-            _selectableCards.Add(panel);
+            card.Invoke(new MethodInvoker(delegate { card.BackColor = Color.White; }));
+            _selectableCards.Add(card);
+            var zone = card.Parent;
+            if (!zone.Visible)
+            {
+                zone.Invoke(new MethodInvoker(delegate { zone.Visible = true; }));
+            }
+            zone.Invoke(new MethodInvoker(delegate { zone.BringToFront(); }));
         }
 
         private CardPanel GetCardPanel(string id)
@@ -391,6 +408,10 @@ namespace Client
             ClearSelectedCards();
             ClearSelectableCards();
             HideChoiceButtons();
+            foreach (var zone in GetNonDefaultZones().Where(x => x.Visible))
+            {
+                zone?.Invoke(new MethodInvoker(delegate { zone.Visible = false; }));
+            }
         }
 
         private void HideChoiceButtons()
