@@ -1,60 +1,81 @@
-﻿using Common.Choices;
+﻿using Common;
+using Common.Choices;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Client
 {
-    class PlayerPanel : TableLayoutPanel
+    internal class PlayerPanel : TableLayoutPanel
     {
-        internal readonly Button _manaZone = new() { Dock = DockStyle.Fill, Text = "Mana zone" };
-        internal readonly Button _hand = new() { Dock = DockStyle.Fill, Text = "Hand" };
-        internal readonly Button _graveyard = new() { Dock = DockStyle.Fill, Text = "Graveyard" };
-        internal readonly Button _shieldZone = new() { Dock = DockStyle.Fill, Text = "Shield zone" };
-        internal readonly Button _battleZone = new() { Dock = DockStyle.Fill, Text = "Battle zone" };
-        internal readonly Button _deck = new() { Dock = DockStyle.Fill, Text = "Deck" };
-        internal readonly Button _player = new() { Dock = DockStyle.Fill, Text = "Player" };
-        private readonly TablePage _tablePage;
-        private readonly Client _client;
+        internal IEnumerable<KeyValuePair<ZoneType, Button>> ZoneButtons => _zoneButtons;
 
-        public PlayerPanel(string name, int top, TablePage tablePage, Client client)
+        private readonly Dictionary<ZoneType, Button> _zoneButtons = new();
+        internal readonly Button _attackButton = new() { Dock = DockStyle.Fill, Text = "Player" };
+        private readonly TablePage _tablePage;
+        internal Client _client;
+
+        internal PlayerPanel(string name, TablePage tablePage)
         {
             _tablePage = tablePage;
-            _client = client;
-            Width = 250;
-            Height = (int)(1.1 * Width);
-
-            Top = top;
-
-            ColumnCount = 2;
-            RowCount = 4;
-
-            ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-            ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
-            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
-
-            Controls.Add(new Label { Dock = DockStyle.Fill, Text = name }, 0, 0);
-            Controls.Add(_player, 1, 0);
-            Controls.Add(_battleZone, 0, 1);
-            Controls.Add(_graveyard, 1, 1);
-            Controls.Add(_manaZone, 0, 2);
-            Controls.Add(_shieldZone, 1, 2);
-            Controls.Add(_hand, 0, 3);
-            Controls.Add(_deck, 1, 3);
-
-            _player.Enabled = false;
-            _player.Click += _player_Click;
+            _attackButton.Enabled = false;
+            _attackButton.Click += PlayerClick;
+            SetupProperties();
+            SetColumnAndRowStyles();
+            SetupZoneButtons();
+            AddControls(name);
         }
 
-        private void _player_Click(object sender, System.EventArgs e)
+        private void SetupProperties()
         {
-            if (_tablePage.CurrentChoice is AttackTargetSelection)
+            Width = 250;
+            Height = 275;
+            ColumnCount = 2;
+            RowCount = 4;
+        }
+
+        private void SetupZoneButtons()
+        {
+            foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
             {
-                var decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid> { new System.Guid(Name) } };
-                Enabled = false;
+                _zoneButtons.Add(zoneType, new Button { Dock = DockStyle.Fill, Text = zoneType.ToString() });
+            }
+        }
+
+        private void SetColumnAndRowStyles()
+        {
+            ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+            RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+        }
+
+        private void AddControls(string name)
+        {
+            Controls.Add(new Label { Dock = DockStyle.Fill, Text = name }, 0, 0);
+            Controls.Add(_attackButton, 1, 0);
+            AddZoneButtons();
+        }
+
+        private void AddZoneButtons()
+        {
+            Controls.Add(_zoneButtons[ZoneType.BattleZone], 0, 1);
+            Controls.Add(_zoneButtons[ZoneType.Graveyard], 1, 1);
+            Controls.Add(_zoneButtons[ZoneType.ManaZone], 0, 2);
+            Controls.Add(_zoneButtons[ZoneType.ShieldZone], 1, 2);
+            Controls.Add(_zoneButtons[ZoneType.Hand], 0, 3);
+            Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
+        }
+
+        private void PlayerClick(object sender, EventArgs e)
+        {
+            if (_tablePage._currentChoice is AttackTargetSelection)
+            {
+                _attackButton.Enabled = false;
                 _tablePage.ClearSelectedAndSelectableCards();
-                _client.WriteAsync(decision);
+                _client.WriteAsync(new GuidDecision { Decision = new List<Guid> { new Guid(Name) } });
             }
         }
     }

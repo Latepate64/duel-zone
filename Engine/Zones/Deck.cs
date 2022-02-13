@@ -34,7 +34,7 @@ namespace Engine.Zones
         {
             foreach (var card in Cards)
             {
-                card.RevealedTo = new List<Guid>();
+                card.KnownBy = new List<Guid>();
             }
             Random random = new Random(Guid.NewGuid().GetHashCode());
             int n = Cards.Count;

@@ -19,8 +19,8 @@
         public override void PerformTurnBasedAction(Game game)
         {
             Phase.RemoveAttackingCreature(game);
-            Phase.AttackTarget = System.Guid.Empty;
-            Phase.BlockingCreature = System.Guid.Empty;
+            Phase.RemoveAttackTarget(game);
+            Phase.RemoveBlockingCreature(game);
         }
 
         public EndOfAttackStep(EndOfAttackStep step) : base(step) { }

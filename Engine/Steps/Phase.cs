@@ -44,7 +44,7 @@ namespace Engine.Steps
                         System.Guid decision;
                         if (abilities.Count() > 1)
                         {
-                            decision = player.Choose(new AbilitySelection(player.Id, abilities.Select(x => x.Id), 1, 1), game).Decision.Single();
+                            decision = player.Choose(new AbilitySelection(player.Id, abilities.Select(x => Convert(x)), 1, 1), game).Decision.Single();
                         }
                         else
                         {
@@ -61,6 +61,11 @@ namespace Engine.Steps
                     break;
                 }
             }
+        }
+
+        private static AbilityText Convert(ResolvableAbility x)
+        {
+            return new AbilityText(x.Id, x.ToString());
         }
 
         protected Phase(Phase phase)

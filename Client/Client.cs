@@ -4,13 +4,24 @@ using System.Threading.Tasks;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Common;
+using Common.GameEvents;
+using Common.Choices;
 
 namespace Client
 {
-    class Client
+    internal class Client
     {
+        internal string _userName;
+
         private TcpClient _client;
         private const int BufferSize = 256 * 256 * 16;
+        internal LobbyPanel _lobbyPanel;
+        internal TablePage _tablePage;
+
+        internal Client()
+        {
+        }
 
         internal void Connect(string hostname, int port)
         {
@@ -20,7 +31,7 @@ namespace Client
             //_client.BeginConnect()
         }
 
-        internal async Task ReadLoop(Form1 form)
+        internal async Task ReadLoop()
         {
             try
             {
@@ -31,7 +42,7 @@ namespace Client
                         var objects = Read();
                         foreach (var obj in objects)
                         {
-                            Process(form, obj);
+                            Process(obj);
                         }
                     }
                 }
@@ -42,33 +53,65 @@ namespace Client
             }
         }
 
-        private void Process(Form1 form, object obj)
+        private void Process(object obj)
         {
-            if (obj is Common.CreateTable)
+            if (obj is CreateTable)
             {
-                form.LobbyPage.Panel.OnCreateTable();
+                CreateTable(obj);
             }
-            else if (obj is Common.LeaveTable)
+            else if (obj is LeaveTable)
             {
-                form.TablePage.OnExitTable();
+                LeaveTable(obj);
             }
-            else if (obj is Common.ClientName name)
+            else if (obj is ClientName name)
             {
-                form.UserName = name.Name;
+                SetClientName(obj, name);
             }
-            else if (obj is Common.StartGame startGame)
+            else if (obj is StartGame startGame)
             {
-                form.TablePage.OnStartGame(startGame);
+                StartGame(startGame);
             }
-            else if (obj is Common.GameEvents.GameEvent e)
+            else if (obj is GameEvent e)
             {
-                form.TablePage.Process(e);
+                Process(e);
             }
-            else if (obj is Common.Choices.Choice c)
+            else if (obj is Choice c)
             {
-                form.TablePage.Process(c);
+                Process(c);
             }
-            form.LobbyPage.Panel.ChatBox.Invoke(new MethodInvoker(delegate { form.LobbyPage.Panel.ChatBox.Text += Common.Helper.ObjectToText(obj, _client); form.LobbyPage.Panel.ChatBox.Text += Environment.NewLine; }));
+        }
+
+        private void StartGame(StartGame startGame)
+        {
+            _tablePage.OnStartGame(startGame);
+        }
+
+        private void Process(Choice c)
+        {
+            _tablePage.Process(c);
+        }
+
+        private void Process(GameEvent e)
+        {
+            _tablePage.Process(e);
+        }
+
+        private void SetClientName(object obj, ClientName name)
+        {
+            _userName = name.Name;
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+        }
+
+        private void LeaveTable(object obj)
+        {
+            _tablePage.OnExitTable();
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+        }
+
+        private void CreateTable(object obj)
+        {
+            _lobbyPanel.OnCreateTable();
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
         internal void EndConnect()
@@ -79,59 +122,17 @@ namespace Client
 
         internal void WriteAsync(object obj)
         {
-            byte[] bytesToSend = Encoding.ASCII.GetBytes(Common.Serializer.Serialize(obj));
+            byte[] bytesToSend = Encoding.ASCII.GetBytes(Serializer.Serialize(obj));
             if (_client.Connected)
             {
                 _ = _client.GetStream().WriteAsync(bytesToSend);
             }
         }
 
-        private async Task<string> ReadAsync()
-        {
-            byte[] data = new byte[BufferSize];
-            int bytesRead = 0;
-            int chunkSize = 1;
-            NetworkStream stream = _client.GetStream();
-            while (bytesRead < data.Length && chunkSize > 0)
-            {
-                bytesRead += chunkSize = await stream.ReadAsync(data.AsMemory(bytesRead, data.Length - bytesRead));
-            }
-            return Encoding.Default.GetString(data);
-        }
-
         private List<object> Read()
         {
-            List<object> objects = new();
             byte[] data = new byte[BufferSize];
-            var bytesRead = _client.GetStream().Read(data, 0, data.Length);
-            var text = Encoding.Default.GetString(data, 0, bytesRead).Trim();
-            return Common.Serializer.Deserialize(text);
+            return Serializer.Deserialize(Encoding.Default.GetString(data, 0, _client.GetStream().Read(data, 0, data.Length)).Trim());
         }
-
-        //private List<object> Read()
-        //{
-        //    List<object> objects = new();
-        //    int totalBytesRead = 0;
-        //    int bytesRead;
-        //    byte[] readBuffer = new byte[BufferSize];
-
-        //    while ((bytesRead = _client.GetStream().Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
-        //    {
-        //        totalBytesRead += bytesRead;
-
-        //        if (totalBytesRead == readBuffer.Length)
-        //        {
-        //            int nextByte = _client.GetStream().ReadByte();
-        //            if (nextByte != -1)
-        //            {
-        //                byte[] temp = new byte[readBuffer.Length * 2];
-        //                Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-        //                Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
-        //                readBuffer = temp;
-        //                totalBytesRead++;
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

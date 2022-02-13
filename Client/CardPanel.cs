@@ -1,59 +1,116 @@
 ﻿using Common;
 using Common.Choices;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Client
 {
-    class CardPanel : Panel
+    internal class CardPanel : Panel
     {
-        const double Foo = 4.75;
-        const double SizeScale = Foo * 0.00065;
-        const double InnerSizeScale = Foo * 0.00058;
-        const int CardWidth = 222;
-        const int CardHeight = 307;
-        readonly Label _tapLabel;
-        readonly Label _summoningSicknessLabel;
-        readonly FlowLayoutPanel _inner;
-        readonly Client _client;
-        readonly TablePage _tablePage;
-        readonly TextBox _textBox;
+        private const double SizeScale = 0.0030875;
+        private const double InnerSizeScale = 0.002755;
+        private const double FontScale = 0.03;
+        private const int CardWidth = 222;
+        private const int CardHeight = 307;
+
         internal static int FontSize;
-        const double FontScale = Foo * 0.005;
 
-        public CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
+        private readonly Client _client;
+        private readonly TablePage _tablePage;
+        private Label _tapLabel;
+        private Label _summoningSicknessLabel;
+        private FlowLayoutPanel _inner;
+        private TextBox _textBox;
+        private Label _combatLabel;
+
+        internal CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
         {
-            FontSize = (int)(FontScale * height);
-            _inner = new() { Height = (int)(CardHeight * InnerSizeScale * height), Width = (int)(CardWidth * InnerSizeScale * height) };
-
             _client = client;
             _tablePage = tablePage;
-
-            Name = card.Id.ToString();
-
-            Height = (int)(CardHeight * SizeScale * height);
-            Width = (int)(CardWidth * SizeScale * height);
-            BackColor = System.Drawing.Color.Black;
-            _inner.Left = (Width - _inner.Width) / 2;
-            _inner.Top = (Height - _inner.Height) / 2;
-
-            Controls.Add(_inner);
-            _inner.Anchor = AnchorStyles.None;
-
-            if (card.Civilizations.Count == 1)
+            FontSize = (int)(FontScale * height);
+            SetupProperties(card, height);
+            if (string.IsNullOrEmpty(card.Name))
             {
-                _inner.BackColor = GetColor(card.Civilizations.First());
+                BackgroundImage = Image.FromFile(Properties.Settings.Default.CardBack);
+                BackgroundImageLayout = ImageLayout.Stretch;
             }
             else
             {
-                _inner.BackColor = System.Drawing.Color.Gold;
+                SetupInnerPanel(height);
+                PaintBackColor(card);
+                DrawInformation(card, height, showTapStatus);
+                SetupClick();
             }
+            _combatLabel = GetLabel("", height);
+        }
 
-            _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
+        private void DrawInformation(Card card, int height, bool showTapStatus)
+        {
+            DrawManaCostAndName(card, height);
+            DrawSubtypes(card, height);
+            DrawRulesText(card, height);
+            DrawSummoningSickness(card, height);
+            DrawTapStatus(card, height, showTapStatus);
+            DrawPower(card, height);
+        }
+
+        private void SetupProperties(Card card, int height)
+        {
+            Name = card.Id.ToString();
+            Height = (int)(CardHeight * SizeScale * height);
+            Width = (int)(CardWidth * SizeScale * height);
+            BackColor = Color.Black;
+        }
+
+        private void SetupInnerPanel(int height)
+        {
+            _inner = new() { Height = (int)(CardHeight * InnerSizeScale * height), Width = (int)(CardWidth * InnerSizeScale * height) };
+            _inner.Left = (Width - _inner.Width) / 2;
+            _inner.Top = (Height - _inner.Height) / 2;
+            Controls.Add(_inner);
+        }
+
+        private void DrawPower(Card card, int height)
+        {
+            if (card.Power.HasValue)
+            {
+                _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), height));
+            }
+        }
+
+        private void DrawTapStatus(Card card, int height, bool showTapStatus)
+        {
+            if (showTapStatus)
+            {
+                _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped", height);
+                _inner.Controls.Add(_tapLabel);
+            }
+        }
+
+        private void DrawSummoningSickness(Card card, int height)
+        {
+            if (card.CardType == CardType.Creature && card.SummoningSickness)
+            {
+                _summoningSicknessLabel = GetLabel("Summoning sickness", height);
+                _inner.Controls.Add(_summoningSicknessLabel);
+            }
+        }
+
+        private void DrawSubtypes(Card card, int height)
+        {
             _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
+        }
 
-            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
+        private void DrawManaCostAndName(Card card, int height)
+        {
+            _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
+        }
+
+        private void DrawRulesText(Card card, int height)
+        {
+            _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new Font(FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
             {
                 _textBox.Text = "Shield trigger" + Environment.NewLine + card.RulesText?.Replace("\n", Environment.NewLine);
@@ -63,70 +120,18 @@ namespace Client
                 _textBox.Text = card.RulesText?.Replace("\n", Environment.NewLine);
             }
             _inner.Controls.Add(_textBox);
-
-            if (card.CardType == CardType.Creature && card.SummoningSickness)
-            {
-                _summoningSicknessLabel = GetLabel("Summoning sickness", height);
-                _inner.Controls.Add(_summoningSicknessLabel);
-            }
-            if (showTapStatus)
-            {
-                _tapLabel = GetLabel(card.Tapped ? "Tapped" : "Untapped", height);
-                _inner.Controls.Add(_tapLabel);
-            }
-
-            if (card.Power.HasValue)
-            {
-                _inner.Controls.Add(GetLabel(card.Power.Value.ToString(), height));
-            }
-
-            Click += CardPanel_Click;
-            foreach (Control control in _inner.Controls)
-            {
-                control.Click += CardPanel_Click;
-            }
-
         }
 
-        private void CardPanel_Click(object sender, EventArgs e)
+        private void PaintBackColor(Card card)
         {
-            if (_tablePage.CurrentChoice is GuidSelection guidSelection)
+            if (card.Civilizations.Count == 1)
             {
-                if (_tablePage.SelectedCards.Contains(this))
-                {
-                    BackColor = System.Drawing.Color.Black;
-                    _tablePage.SelectedCards.Remove(this);
-                }
-                else
-                {
-                    BackColor = System.Drawing.Color.Violet;
-                    _tablePage.SelectedCards.Add(this);
-                }
-                if (guidSelection.MaximumSelection == _tablePage.SelectedCards.Count())
-                {
-                    var decision = new GuidDecision { Decision = _tablePage.SelectedCards.Select(x => new Guid(x.Name)).ToList() };
-                    _tablePage.ClearSelectedAndSelectableCards();
-                    _client.WriteAsync(decision);
-                }
+                _inner.BackColor = GetColor(card.Civilizations.First());
             }
-        }
-
-        private Label GetLabel(string text, int height)
-        {
-            return new Label { Text = text, Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, FontSize, System.Drawing.FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
-        }
-
-        private static System.Drawing.Color GetColor(Civilization civilization)
-        {
-            return civilization switch
+            else
             {
-                Civilization.Light => System.Drawing.Color.Yellow,
-                Civilization.Water => System.Drawing.Color.Aqua,
-                Civilization.Darkness => System.Drawing.Color.DarkGray,
-                Civilization.Fire => System.Drawing.Color.Red,
-                Civilization.Nature => System.Drawing.Color.Green,
-                _ => throw new NotImplementedException(),
-            };
+                _inner.BackColor = Color.Gold;
+            }
         }
 
         internal void TapOrUntap(bool tapInsteadOfUntap)
@@ -139,9 +144,86 @@ namespace Client
             _inner.Controls.Remove(_summoningSicknessLabel);
         }
 
+        private void SetupClick()
+        {
+            Click += CardPanel_Click;
+            _inner.Click += CardPanel_Click;
+            foreach (Control control in _inner.Controls)
+            {
+                control.Click += CardPanel_Click;
+            }
+        }
+
+        private void CardPanel_Click(object sender, EventArgs e)
+        {
+            if (_tablePage._currentChoice is GuidSelection guidSelection)
+            {
+                if (_tablePage._selectedCards.Contains(this))
+                {
+                    Unselect();
+                }
+                else
+                {
+                    MarkSelected();
+                }
+                CheckSelectedCards(guidSelection);
+            }
+        }
+
+        private void CheckSelectedCards(GuidSelection guidSelection)
+        {
+            if (guidSelection.MaximumSelection == _tablePage._selectedCards.Count())
+            {
+                var decision = new GuidDecision { Decision = _tablePage._selectedCards.Select(x => new Guid(x.Name)).ToList() };
+                _tablePage.ClearSelectedAndSelectableCards();
+                _client.WriteAsync(decision);
+            }
+        }
+
+        private void MarkSelected()
+        {
+            BackColor = Color.Violet;
+            _tablePage._selectedCards.Add(this);
+        }
+
+        private void Unselect()
+        {
+            BackColor = Color.Black;
+            _tablePage._selectedCards.Remove(this);
+        }
+
+        private Label GetLabel(string text, int height)
+        {
+            return new Label { Text = text, Font = new Font(FontFamily.GenericSansSerif, FontSize, FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
+        }
+
+        private static Color GetColor(Civilization civilization)
+        {
+            return civilization switch
+            {
+                Civilization.Light => Color.Yellow,
+                Civilization.Water => Color.Aqua,
+                Civilization.Darkness => Color.DarkGray,
+                Civilization.Fire => Color.Red,
+                Civilization.Nature => Color.Green,
+                _ => throw new NotImplementedException(),
+            };
+        }
+
         private static string SplitCamelCase(string input)
         {
             return System.Text.RegularExpressions.Regex.Replace(input, "([A-Z])", " $1", System.Text.RegularExpressions.RegexOptions.Compiled).Trim();
+        }
+
+        internal void DrawCombat(string text)
+        {
+            _combatLabel.Text = text;
+            _inner.Controls.Add(_combatLabel);
+        }
+
+        internal void RemoveCombat()
+        {
+            _inner.Controls.Remove(_combatLabel);
         }
     }
 }

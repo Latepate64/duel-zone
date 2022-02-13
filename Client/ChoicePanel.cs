@@ -1,4 +1,6 @@
 ﻿using Common.Choices;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,82 +8,134 @@ namespace Client
 {
     internal class ChoicePanel : Panel
     {
-        readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
-        readonly internal Label Label = new() { TextAlign = ContentAlignment.MiddleCenter };
-        readonly internal Button DefaultButton = new() { Text = "Pass", Visible = false };
-        readonly internal Button DeclineButton = new() { Text = "Decline", Visible = false };
-        readonly private FlowLayoutPanel ButtonPanel = new() { FlowDirection = FlowDirection.LeftToRight };
-        readonly Client _client;
-        readonly TablePage _tablePage;
+        internal Label _label = new() { TextAlign = ContentAlignment.MiddleCenter };
+        internal Button _defaultButton = new() { Visible = false };
+        internal readonly Button _declineButton = new() { Text = "Decline", Visible = false };
+        private readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+        private readonly Panel _buttonPanel = new();
+        internal Client _client;
+        internal TablePage _tablePage;
+        private readonly ComboBox _abilityBox = new() { DropDownStyle = ComboBoxStyle.DropDownList, Visible = false };
 
-        internal ChoicePanel(Client client, TablePage tablePage, Size size)
+        internal ChoicePanel()
         {
-            _client = client;
-            _tablePage = tablePage;
-
-            BackColor = Color.Beige;
-            Width = size.Width;
-            Height = size.Height;
-
-            Label.Width = size.Width;
-            Label.Height = size.Height / 2;
-
-            ButtonPanel.Width = size.Width;
-            ButtonPanel.Height = size.Height / 2;
-
-            ButtonPanel.Top = Label.Bottom;
-
-            DefaultButton.Click += DefaultButtonClick;
-            DeclineButton.Click += DeclineButtonClick;
-
-            Label.Font = _font;
-            DefaultButton.Font = _font;
-            DeclineButton.Font = _font;
-
-            DefaultButton.Width = ButtonPanel.Width / 2;
-            DefaultButton.Height = ButtonPanel.Height / 2;
-
-            DeclineButton.Width = ButtonPanel.Width / 2;
-            DeclineButton.Height = ButtonPanel.Height / 2;
-            DeclineButton.Left = DefaultButton.Right;
-
-            ButtonPanel.Controls.Add(DefaultButton);
-            ButtonPanel.Controls.Add(DeclineButton);
-
-            Controls.Add(Label);
-            Controls.Add(ButtonPanel);
+            SetupProperties();
+            SetupLabel();
+            SetupButtonPanel();
+            SetupDefaultButton();
+            SetupDeclineButton();
+            _buttonPanel.Controls.Add(_abilityBox);
+            _abilityBox.SelectedValueChanged += AbilityListClick;
         }
 
-        private void DeclineButtonClick(object sender, System.EventArgs e)
+        internal void UpdateSize(Size size)
         {
-            if (_tablePage.CurrentChoice is YesNoChoice)
+            Width = size.Width;
+            Height = size.Height;
+            _label.Width = size.Width;
+            _label.Height = size.Height / 2;
+            _buttonPanel.Width = size.Width;
+            _buttonPanel.Height = size.Height / 2;
+            _declineButton.Width = size.Width / 2;
+            _declineButton.Height = size.Height / 2;
+            _defaultButton.Width = size.Width / 2;
+            _defaultButton.Height = size.Height / 2;
+            _declineButton.Left = _defaultButton.Right;
+            _buttonPanel.Top = _label.Bottom;
+            _abilityBox.Width = size.Width;
+            _abilityBox.Height = size.Height / 2;
+        }
+
+        private void SetupButtonPanel()
+        {
+            Controls.Add(_buttonPanel);
+        }
+
+        private void SetupDeclineButton()
+        {
+            _declineButton.Click += DeclineButtonClick;
+            _declineButton.Font = _font;
+            _buttonPanel.Controls.Add(_declineButton);
+        }
+
+        private void SetupDefaultButton()
+        {
+            _defaultButton.Click += DefaultButtonClick;
+            _defaultButton.Font = _font;
+            _buttonPanel.Controls.Add(_defaultButton);
+        }
+
+        private void SetupProperties()
+        {
+            BackColor = Color.Beige;
+        }
+
+        private void SetupLabel()
+        {
+            _label.Font = _font;
+            Controls.Add(_label);
+        }
+
+        private void DeclineButtonClick(object sender, EventArgs e)
+        {
+            if (_tablePage._currentChoice is YesNoChoice)
             {
                 var decision = new YesNoDecision { Decision = false };
                 _client.WriteAsync(decision);
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
-        private void DefaultButtonClick(object sender, System.EventArgs e)
+        private void DefaultButtonClick(object sender, EventArgs e)
         {
             Decision decision;
-            if (_tablePage.CurrentChoice is GuidSelection)
+            if (_tablePage._currentChoice is GuidSelection)
             {
-                decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid>() };
+                decision = new GuidDecision { Decision = new List<Guid>() };
             }
-            else if (_tablePage.CurrentChoice is YesNoChoice)
+            else if (_tablePage._currentChoice is YesNoChoice)
             {
                 decision = new YesNoDecision { Decision = true };
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             _tablePage.ClearSelectedAndSelectableCards();
             _client.WriteAsync(decision);
+        }
+
+        internal void ActivateDefaultButton(string text)
+        {
+            _defaultButton.Text = text;
+            _defaultButton.Visible = true;
+        }
+
+        internal void ActivateDeclineButton()
+        {
+            _declineButton.Visible = true;
+            _declineButton.Left = _defaultButton.Right;
+        }
+
+        internal void Process(AbilitySelection selection)
+        {
+            _abilityBox.Items.Clear();
+            foreach (var ability in selection.Abilities)
+            {
+                _abilityBox.Items.Add(ability);
+            }
+            _abilityBox.Visible = true;
+        }
+
+        private void AbilityListClick(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            _client.WriteAsync(new GuidDecision { Decision = new List<Guid> { new Guid((comboBox.SelectedItem as AbilityText).Id.ToString()) } });
+            comboBox.Items.Clear();
+            comboBox.Visible = false;
         }
     }
 }

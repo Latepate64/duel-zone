@@ -1,4 +1,5 @@
 ﻿
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Client
@@ -25,18 +26,10 @@ namespace Client
 
         #region Windows Form Designer generated code
 
-        internal TabControl TabControl = new TabControl
+        private TabControl _tabControl = new TabControl
         {
             Dock = DockStyle.Fill,
         };
-
-        MenuPage _menuPage;
-        internal LobbyPage LobbyPage;
-        internal TablePage TablePage;
-        internal GameSetupForm GameSetupForm;
-        internal Client Client = new();
-
-        internal string UserName;
 
         /// <summary>
         ///  Required method for Designer support - do not modify
@@ -44,29 +37,77 @@ namespace Client
         /// </summary>
         void InitializeComponent()
         {
+            SetupProperties();
+            var lobbyPage = new LobbyPage();
+            var client = new Client();
+            var tablePage = new TablePage(Size);
+            var lobbyPanel = new LobbyPanel(_tabControl, client, tablePage);
+            var menuPage = new MenuPage();
+            var choicePanel = new ChoicePanel();
+            SetupDependencies(menuPage, tablePage, client, new GameSetupForm(client), lobbyPage, lobbyPanel, choicePanel);
+            AddControls(lobbyPage, lobbyPanel, menuPage);
+        }
+
+        private void AddControls(LobbyPage lobbyPage, LobbyPanel lobbyPanel, MenuPage menuPage)
+        {
+            Controls.Add(_tabControl);
+            _tabControl.Controls.Add(menuPage);
+            lobbyPage.Controls.Add(lobbyPanel);
+        }
+
+        private void SetupProperties()
+        {
             this.ClientSize = Properties.Settings.Default.Resolution;
             if (Properties.Settings.Default.Maximized)
             {
                 this.WindowState = FormWindowState.Maximized;
             }
 
-            _menuPage = new MenuPage(this);
-            LobbyPage = new LobbyPage(this);
-            TablePage = new TablePage(this);
-            GameSetupForm = new(Client);
             this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;  
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Text = "Duel Zone";
-
-            TabControl.Controls.Add(_menuPage);
-            this.Controls.Add(TabControl);
         }
 
-        internal void CloseLobbyPage()
+        private void SetupDependencies(MenuPage menuPage, TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)
         {
-            TabControl.Controls.Remove(LobbyPage);
-            TabControl.SelectedTab = _menuPage;
-            LobbyPage.Panel.ChatBox.Clear();
+            SetupMenuPage(menuPage, tablePage, client, lobbyPage);
+            SetupChoicePanel(tablePage, client, choicePanel);
+            SetupTablePage(tablePage, client, gameSetupForm, lobbyPage, lobbyPanel, choicePanel);
+            SetupClient(tablePage, client, lobbyPanel);
+        }
+
+        private static void SetupChoicePanel(TablePage tablePage, Client client, ChoicePanel choicePanel)
+        {
+            choicePanel._client = client;
+            choicePanel._tablePage = tablePage;
+
+            choicePanel.UpdateSize(new Size(tablePage.ZonePanelSize.Width, (int)(0.5 * tablePage.ZonePanelSize.Height)));
+            choicePanel.Left = ZonePanel.DefaultLeft;
+            choicePanel.Top = 2 * tablePage.ZonePanelSize.Height + TablePage.ZoneOffset;
+        }
+
+        private static void SetupClient(TablePage tablePage, Client client, LobbyPanel lobbyPanel)
+        {
+            client._lobbyPanel = lobbyPanel;
+            client._tablePage = tablePage;
+        }
+
+        private void SetupTablePage(TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)
+        {
+            tablePage.SetClient(client);
+            tablePage._gameSetupForm = gameSetupForm;
+            tablePage._lobbyPage = lobbyPage;
+            tablePage._lobbyPanel = lobbyPanel;
+            tablePage._tabControl = _tabControl;
+            tablePage.SetChoicePanel(choicePanel);
+        }
+
+        private void SetupMenuPage(MenuPage menuPage, TablePage tablePage, Client client, LobbyPage lobbyPage)
+        {
+            menuPage._client = client;
+            menuPage._lobbyPage = lobbyPage;
+            menuPage._tabControl = _tabControl;
+            menuPage._tablePage = tablePage;
         }
         #endregion
     }

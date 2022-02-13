@@ -59,7 +59,7 @@ namespace Engine
         public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
         #endregion Properties
 
-        private static readonly Random _random = new();
+        private static readonly Random Random = new();
 
         #region Methods
         protected Player()
@@ -152,7 +152,7 @@ namespace Engine
             }
             else
             {
-                game.PreGameEvents.Enqueue(eve);
+                game._preGameEvents.Enqueue(eve);
             }
         }
 
@@ -225,7 +225,7 @@ namespace Engine
         private void Cast(Card spell, Game game)
         {
             Hand.Remove(spell, game);
-            spell.RevealedTo = game.Players.Select(x => x.Id).ToList();
+            spell.KnownBy = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
@@ -255,14 +255,14 @@ namespace Engine
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards[_random.Next(Hand.Cards.Count)]);
+                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards[Random.Next(Hand.Cards.Count)]);
             }
         }
 
         public void Reveal(Game game, Card card)
         {
             var opponent = game.GetOpponent(this);
-            card.RevealedTo.Add(opponent.Id);
+            card.KnownBy.Add(opponent.Id);
             game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 

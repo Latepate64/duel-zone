@@ -10,7 +10,8 @@ namespace Cards
     {
         static public Card Create(string name)
         {
-            return Activator.CreateInstance(null, $"DuelMastersCards.Cards.{ToPascalCase(name)}").Unwrap() as Card;
+            string set = "DM08"; //TODO: improve
+            return Activator.CreateInstance(null, $"Cards.Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
         }
 
         public static string ToPascalCase(string original)

@@ -40,7 +40,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"{GetAmountAsText()} of {Filter} gets {string.Join(", ", Abilities)} {Duration}{(ControllerChooses ? "" : "by your opponent's choice.")}";
+            return $"{GetAmountAsText()} of {Filter} gets {string.Join(", ", Abilities)} {Duration}{(ControllerChooses ? "" : "by your opponent's choice")}.";
         }
     }
 }

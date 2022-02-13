@@ -22,6 +22,8 @@ namespace Server
 
         private Engine.Game _game;
 
+        private readonly Dictionary<Player, TcpClient> _playerClients = new();
+
         internal async void RunServerAsync()
         {
             IPAddress ipAddress = System.Net.IPAddress.Parse(IPAddress);
@@ -86,16 +88,19 @@ namespace Server
             SetupPlayer(player1);
             SetupPlayer(player2);
             var players = new List<Engine.Player> { player1, player2 };
+            _playerClients.Add(player1, client);
 
             var startEvent = new StartGame
             {
                 Players = players.Select(x => new PlayerDeck
                 {
                     Player = x.Convert(),
-                    Deck = x.Deck.Cards.Select(x => x.Convert()).ToList()
+                    Deck = x.Deck.Cards.Select(x => x.Convert(true)).ToList()
                 }).ToList(),
             };
             BroadcastMessage(Serializer.Serialize(startEvent));
+
+            //Players.SelectMany(x => x.Deck.Cards).ToList().ForEach(x => x.KnownBy = new List<Guid>());
 
             try
             {
@@ -109,9 +114,17 @@ namespace Server
 
         private void OnGameEvent(GameEvent gameEvent)
         {
-            var text = Serializer.Serialize(gameEvent);
-            Program.WriteConsole(text);
-            BroadcastMessage(text);
+            foreach (var player in _playerClients)
+            {
+                var eventToSend = gameEvent;
+                if (gameEvent is CardMovedEvent e && e.CardInDestinationZone != null && !e.CardInDestinationZone.KnownBy.Contains(player.Key.Id))
+                {
+                    (eventToSend as CardMovedEvent).CardInDestinationZone = new Card((eventToSend as CardMovedEvent).CardInDestinationZone, true);
+                }
+                var text = Serializer.Serialize(eventToSend);
+                Program.WriteConsole(text);
+                Write(text, player.Value);
+            } 
         }
 
         private static void SetupPlayer(Engine.Player player)
@@ -122,7 +135,12 @@ namespace Server
 
         private static List<Engine.Card> GetCards(Guid player)
         {
-            List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            //List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            List<Engine.Card> cards = new();
+            for (int i = 0; i < 40; ++i)
+            {
+                cards.Add(Cards.CardFactory.Create("Quixotic Hero Swine Snout"));
+            }
             foreach (var card in cards)
             {
                 card.Owner = player;
@@ -134,11 +152,16 @@ namespace Server
         {
             foreach (var client in _clients)
             {
-                byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
-                if (client.Connected)
-                {
-                    client.GetStream().Write(bytesToSend, 0, bytesToSend.Length);
-                }
+                Write(text, client);
+            }
+        }
+
+        private static void Write(string text, TcpClient client)
+        {
+            byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
+            if (client.Connected)
+            {
+                client.GetStream().Write(bytesToSend, 0, bytesToSend.Length);
             }
         }
 

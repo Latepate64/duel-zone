@@ -26,6 +26,35 @@ namespace Engine.Steps
             return new AttackPhase(this);
         }
 
+        internal void RemoveAttackTarget(Game game)
+        {
+            if (AttackTarget != Guid.Empty)
+            {
+                var target = game.GetAttackable(AttackTarget);
+                AttackTarget = Guid.Empty;
+                var e = new AttackTargetRemovedEvent();
+                if (target is Card card)
+                {
+                    e.TargetCard = card.Convert();
+                }
+                else if (target is Player player)
+                {
+                    e.TargetPlayer = player.Convert();
+                }
+                game.Process(e);
+            }
+        }
+
+        internal void RemoveBlockingCreature(Game game)
+        {
+            if (BlockingCreature != Guid.Empty)
+            {
+                var blocker = game.GetCard(BlockingCreature);
+                BlockingCreature = Guid.Empty;
+                game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
+            }
+        }
+
         public override Phase GetNextPhase(Game game)
         {
             return new EndOfTurnPhase();
@@ -38,6 +67,7 @@ namespace Engine.Steps
                 var attacker = game.GetCard(AttackingCreature);
                 attacker.Power -= game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.GetPower(game, game.GetOwner(attacker)));
                 AttackingCreature = Guid.Empty;
+                game.Process(new CreatureStoppedAttackingEvent { Attacker = attacker.Convert() });
             }
         }
 

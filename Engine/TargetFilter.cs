@@ -22,7 +22,7 @@
 
         public override string ToString()
         {
-            return "this creature";
+            return Target.ToString();
         }
     }
 }

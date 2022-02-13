@@ -13,13 +13,7 @@ namespace Engine.Zones
 
         public override void Add(Card card, Game game)
         {
-            var revealedTo = new List<Guid> { card.Owner };
-            var opponent = game.GetOpponent(card.Owner);
-            if (card.RevealedTo.Contains(opponent))
-            {
-                revealedTo.Add(opponent);
-            }
-            card.RevealedTo = revealedTo;
+            card.KnownBy = new List<Guid> { card.Owner };
             Cards.Add(card);
         }
 
