@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Choices;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -10,16 +11,15 @@ namespace Client
         internal IEnumerable<KeyValuePair<ZoneType, Button>> ZoneButtons => _zoneButtons;
 
         private readonly Dictionary<ZoneType, Button> _zoneButtons = new();
-        private readonly Button _player = new() { Dock = DockStyle.Fill, Text = "Player" };
+        internal readonly Button _attackButton = new() { Dock = DockStyle.Fill, Text = "Player" };
         private readonly TablePage _tablePage;
-        private readonly Client _client;
+        internal Client _client;
 
-        internal PlayerPanel(string name, TablePage tablePage, Client client)
+        internal PlayerPanel(string name, TablePage tablePage)
         {
             _tablePage = tablePage;
-            _client = client;
-            _player.Enabled = false;
-            _player.Click += PlayerClick;
+            _attackButton.Enabled = false;
+            _attackButton.Click += PlayerClick;
             SetupProperties();
             SetColumnAndRowStyles();
             SetupZoneButtons();
@@ -55,7 +55,7 @@ namespace Client
         private void AddControls(string name)
         {
             Controls.Add(new Label { Dock = DockStyle.Fill, Text = name }, 0, 0);
-            Controls.Add(_player, 1, 0);
+            Controls.Add(_attackButton, 1, 0);
             AddZoneButtons();
         }
 
@@ -69,14 +69,13 @@ namespace Client
             Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
         }
 
-        private void PlayerClick(object sender, System.EventArgs e)
+        private void PlayerClick(object sender, EventArgs e)
         {
             if (_tablePage._currentChoice is AttackTargetSelection)
             {
-                var decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid> { new System.Guid(Name) } };
-                Enabled = false;
+                _attackButton.Enabled = false;
                 _tablePage.ClearSelectedAndSelectableCards();
-                _client.WriteAsync(decision);
+                _client.WriteAsync(new GuidDecision { Decision = new List<Guid> { new Guid(Name) } });
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using Common.Choices;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,6 +15,7 @@ namespace Client
         private readonly Panel _buttonPanel = new();
         internal Client _client;
         internal TablePage _tablePage;
+        private readonly ComboBox _abilityBox = new() { DropDownStyle = ComboBoxStyle.DropDownList, Visible = false };
 
         internal ChoicePanel()
         {
@@ -21,6 +24,8 @@ namespace Client
             SetupButtonPanel();
             SetupDefaultButton();
             SetupDeclineButton();
+            _buttonPanel.Controls.Add(_abilityBox);
+            _abilityBox.SelectedValueChanged += AbilityListClick;
         }
 
         internal void UpdateSize(Size size)
@@ -37,6 +42,8 @@ namespace Client
             _defaultButton.Height = size.Height / 2;
             _declineButton.Left = _defaultButton.Right;
             _buttonPanel.Top = _label.Bottom;
+            _abilityBox.Width = size.Width;
+            _abilityBox.Height = size.Height / 2;
         }
 
         private void SetupButtonPanel()
@@ -69,7 +76,7 @@ namespace Client
             Controls.Add(_label);
         }
 
-        private void DeclineButtonClick(object sender, System.EventArgs e)
+        private void DeclineButtonClick(object sender, EventArgs e)
         {
             if (_tablePage._currentChoice is YesNoChoice)
             {
@@ -78,16 +85,16 @@ namespace Client
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
-        private void DefaultButtonClick(object sender, System.EventArgs e)
+        private void DefaultButtonClick(object sender, EventArgs e)
         {
             Decision decision;
             if (_tablePage._currentChoice is GuidSelection)
             {
-                decision = new GuidDecision { Decision = new System.Collections.Generic.List<System.Guid>() };
+                decision = new GuidDecision { Decision = new List<Guid>() };
             }
             else if (_tablePage._currentChoice is YesNoChoice)
             {
@@ -95,7 +102,7 @@ namespace Client
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
             _tablePage.ClearSelectedAndSelectableCards();
             _client.WriteAsync(decision);
@@ -111,6 +118,24 @@ namespace Client
         {
             _declineButton.Visible = true;
             _declineButton.Left = _defaultButton.Right;
+        }
+
+        internal void Process(AbilitySelection selection)
+        {
+            _abilityBox.Items.Clear();
+            foreach (var ability in selection.Abilities)
+            {
+                _abilityBox.Items.Add(ability);
+            }
+            _abilityBox.Visible = true;
+        }
+
+        private void AbilityListClick(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            _client.WriteAsync(new GuidDecision { Decision = new List<Guid> { new Guid((comboBox.SelectedItem as AbilityText).Id.ToString()) } });
+            comboBox.Items.Clear();
+            comboBox.Visible = false;
         }
     }
 }

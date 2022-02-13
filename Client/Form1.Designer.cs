@@ -94,7 +94,7 @@ namespace Client
 
         private void SetupTablePage(TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)
         {
-            tablePage._client = client;
+            tablePage.SetClient(client);
             tablePage._gameSetupForm = gameSetupForm;
             tablePage._lobbyPage = lobbyPage;
             tablePage._lobbyPanel = lobbyPanel;

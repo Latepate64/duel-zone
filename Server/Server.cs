@@ -135,7 +135,12 @@ namespace Server
 
         private static List<Engine.Card> GetCards(Guid player)
         {
-            List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            //List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            List<Engine.Card> cards = new();
+            for (int i = 0; i < 40; ++i)
+            {
+                cards.Add(Cards.CardFactory.Create("Quixotic Hero Swine Snout"));
+            }
             foreach (var card in cards)
             {
                 card.Owner = player;

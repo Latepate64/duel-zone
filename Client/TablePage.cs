@@ -31,10 +31,10 @@ namespace Client
         internal Size ZonePanelSize => _zonePanels.First().Value.Size;
         private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
         internal TabControl _tabControl;
-        internal Client _client;
         internal LobbyPage _lobbyPage;
         internal LobbyPanel _lobbyPanel;
         internal GameSetupForm _gameSetupForm;
+        private Client _client;
         private ChoicePanel _choicePanel; 
         private readonly TextBox _textBox = new() { ReadOnly = true, Multiline = true, ScrollBars = ScrollBars.Vertical, Dock = DockStyle.Right };
         private readonly List<CardPanel> _selectableCards = new();
@@ -47,6 +47,7 @@ namespace Client
             SetupPanels(size);
             SetupZoneTops();
             SetupProperties();
+            SetupPlayerPanels();
             SetupClicks();
             AddControls();
             SetupFields(size);
@@ -71,7 +72,6 @@ namespace Client
         {
             SetupZonePanels(size);
             SetupVisiblePanels();
-            SetupPlayerPanels();
         }
 
         private void SetupVisiblePanels()
@@ -81,8 +81,15 @@ namespace Client
 
         private void SetupPlayerPanels()
         {
-            _opponentPanel = new("Opponent", this, _client);
-            _playerPanel = new("You", this, _client) { Top = 300 };
+            _opponentPanel = new("Opponent", this);
+            _playerPanel = new("You", this) { Top = 300 };
+        }
+
+        internal void SetClient(Client client)
+        {
+            _client = client;
+            _opponentPanel._client = client;
+            _playerPanel._client = client;
         }
 
         private void SetupProperties()
@@ -332,6 +339,19 @@ namespace Client
             {
                 ProcessYesNoChoice();
             }
+            else if (c is AbilitySelection a)
+            {
+                Process(a);
+            }
+            else
+            {
+                throw new NotImplementedException(c.ToString());
+            }
+        }
+
+        private void Process(AbilitySelection a)
+        {
+            _choicePanel.Invoke(new MethodInvoker(delegate { _choicePanel.Process(a); }));
         }
 
         private void SetChoiceText(string text)
@@ -350,7 +370,7 @@ namespace Client
             {
                 if (option.ToString() == _opponentPanel.Name)
                 {
-                    _opponentPanel.Invoke(new MethodInvoker(delegate { _opponentPanel.Enabled = true; }));
+                    _opponentPanel.Invoke(new MethodInvoker(delegate { _opponentPanel._attackButton.Enabled = true; }));
                 }
                 else
                 {
