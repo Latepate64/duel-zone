@@ -8,7 +8,7 @@ namespace Common
 
         public string Name { get; set; }
 
-        protected Player()
+        public Player()
         {
             Id = Guid.NewGuid();
         }

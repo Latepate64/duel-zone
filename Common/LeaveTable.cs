@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Common
+﻿namespace Common
 {
-    [Serializable]
     public class LeaveTable
     {
     }

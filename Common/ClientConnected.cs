@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Common
 {
-    [Serializable]
     public class ClientConnected
     {
+        public List<Table> Tables { get; set; }
     }
 }

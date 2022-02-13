@@ -12,7 +12,7 @@ namespace Client
 {
     internal class Client
     {
-        internal string _userName;
+        internal Player _player;
 
         private TcpClient _client;
         private const int BufferSize = 256 * 256 * 16;
@@ -55,9 +55,17 @@ namespace Client
 
         private void Process(object obj)
         {
-            if (obj is CreateTable)
+            if (obj is CreateTable createTable)
             {
-                CreateTable(obj);
+                CreateTable(createTable);
+            }
+            else if (obj is ClientConnected connected)
+            {
+                ClientConnected(connected);
+            }
+            else if (obj is JoinTable joinTable)
+            {
+                JoinTable(joinTable);
             }
             else if (obj is LeaveTable)
             {
@@ -81,6 +89,20 @@ namespace Client
             }
         }
 
+        private void ClientConnected(ClientConnected connected)
+        {
+            _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel.AddTables(connected.Tables); }));
+        }
+
+        private void JoinTable(JoinTable joinTable)
+        {
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(joinTable, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            if (_player.Id == joinTable.Table.Guest.Id)
+            {
+                _lobbyPanel.OnCreateOrJoinTable();
+            }
+        }
+
         private void StartGame(StartGame startGame)
         {
             _tablePage.OnStartGame(startGame);
@@ -98,7 +120,7 @@ namespace Client
 
         private void SetClientName(object obj, ClientName name)
         {
-            _userName = name.Name;
+            _player = new Player { Name = name.Name };
             _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
@@ -108,10 +130,14 @@ namespace Client
             _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
-        private void CreateTable(object obj)
+        private void CreateTable(CreateTable obj)
         {
-            _lobbyPanel.OnCreateTable();
+            _lobbyPanel.OnCreateOrJoinTable();
             _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            //if (obj.HumanOpponent)
+            //{
+            //    _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel._tables.Items.Add(obj.Table.Id.ToString()); })); 
+            //}
         }
 
         internal void EndConnect()

@@ -24,6 +24,8 @@ namespace Server
 
         private readonly Dictionary<Player, TcpClient> _playerClients = new();
 
+        private readonly List<Table> _tables = new();
+
         internal async void RunServerAsync()
         {
             IPAddress ipAddress = System.Net.IPAddress.Parse(IPAddress);
@@ -35,7 +37,7 @@ namespace Server
                 {
                     var client = await _listener.AcceptTcpClientAsync();
                     _clients.Add(client);
-                    var conn = new ClientConnected();
+                    var conn = new ClientConnected { Tables = _tables };
                     string text = Helper.ObjectToText(conn, client);
                     Program.WriteConsole(text);
                     BroadcastMessage(Serializer.Serialize(conn));
@@ -72,6 +74,16 @@ namespace Server
             if (obj is StartGame)
             {
                 StartGame(client);
+            }
+            else if (obj is CreateTable createTable)
+            {
+                _tables.Add(createTable.Table);
+                BroadcastMessage(text);
+            }
+            else if (obj is JoinTable joinTable)
+            {
+                _tables.Single(x => x.Id == joinTable.Table.Id).Guest = joinTable.Table.Guest;
+                BroadcastMessage(text);
             }
             else
             {

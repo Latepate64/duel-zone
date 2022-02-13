@@ -8,7 +8,7 @@ namespace Server
 {
     public class ComputerPlayer : Player
     {
-        static readonly Random rnd = new();
+        static readonly Random Rnd = new();
 
         public ComputerPlayer() : base()
         {
@@ -42,8 +42,8 @@ namespace Server
             }
             else
             {
-                var amount = rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
-                var selected = guidSelection.Options.OrderBy(x => rnd.Next()).Take(amount);
+                var amount = Rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
+                var selected = guidSelection.Options.OrderBy(x => Rnd.Next()).Take(amount);
                 return new GuidDecision(selected);
             }
         }

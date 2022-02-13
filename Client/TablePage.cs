@@ -161,7 +161,7 @@ namespace Client
 
         private void SetupGame(object sender, EventArgs e)
         {
-            _gameSetupForm._gameSetupTable.Setup(_client._userName, "Computer");
+            _gameSetupForm._gameSetupTable.Setup(_client._player.Name, "Computer");
             _gameSetupForm.ShowDialog();
         }
 
