@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Common
 {
@@ -10,9 +11,20 @@ namespace Common
 
         public Player Guest { get; set; }
 
+        public bool HostReady { get; set; }
+
+        public bool GuestReady { get; set; }
+
+        public bool HumanOpponent { get; set; }
+
         public Table()
         {
             Id = Guid.NewGuid();
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return new[] { Host, Guest };
         }
     }
 }

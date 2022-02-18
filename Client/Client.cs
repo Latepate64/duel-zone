@@ -91,6 +91,7 @@ namespace Client
 
         private void ClientConnected(ClientConnected connected)
         {
+            _player = connected.ConnectedPlayer;
             _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel.AddTables(connected.Tables); }));
         }
 
@@ -120,7 +121,7 @@ namespace Client
 
         private void SetClientName(object obj, ClientName name)
         {
-            _player = new Player { Name = name.Name };
+            _player.Name = name.Name;
             _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 

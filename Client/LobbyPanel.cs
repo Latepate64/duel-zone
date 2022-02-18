@@ -86,8 +86,7 @@ namespace Client
         {
             _client.WriteAsync(new CreateTable 
             {
-                HumanOpponent = _humanOpponent.Checked,
-                Table = new Table { Host = new Player(_client._player) }
+                Table = new Table { Host = new Player(_client._player), HumanOpponent = _humanOpponent.Checked }
             });
         }
 

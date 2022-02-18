@@ -17,12 +17,10 @@ namespace Server
 
         private const int BufferSize = 256 * 256;
 
-        private readonly List<TcpClient> _clients = new();
+        private readonly List<HumanPlayer> _players = new();
         private TcpListener _listener;
 
         private Engine.Game _game;
-
-        private readonly Dictionary<Player, TcpClient> _playerClients = new();
 
         private readonly List<Table> _tables = new();
 
@@ -36,10 +34,13 @@ namespace Server
                 while (true)
                 {
                     var client = await _listener.AcceptTcpClientAsync();
-                    _clients.Add(client);
-                    var conn = new ClientConnected { Tables = _tables };
-                    string text = Helper.ObjectToText(conn, client);
+                    var player = new HumanPlayer(this, client);
+                    _players.Add(player);
+                    var conn = new ClientConnected { Tables = _tables, ConnectedPlayer = player.Convert() };
+                    //string text = Helper.ObjectToText(conn, client);
+                    var text = Serializer.Serialize(conn);
                     Program.WriteConsole(text);
+                    Write(text, client);
                     BroadcastMessage(Serializer.Serialize(conn));
                     Task.Run(() => Read(client));
                 }
@@ -64,16 +65,16 @@ namespace Server
                     }
                 }
             }
-            _clients.Remove(client);
+            _players.RemoveAll(x => x.Client == client);
             BroadcastMessage($"{client} disconnected.");
         }
 
         private void Process(TcpClient client, string text, object obj)
         {
             Program.WriteConsole(Helper.ObjectToText(obj, client));
-            if (obj is StartGame)
+            if (obj is StartGame startGame)
             {
-                StartGame(client);
+                StartGame(client, startGame);
             }
             else if (obj is CreateTable createTable)
             {
@@ -91,16 +92,40 @@ namespace Server
             }
         }
 
-        private void StartGame(TcpClient client)
+        private void StartGame(TcpClient client, StartGame startGame)
+        {
+            var player1 = _players.Single(x => x.Client == client);
+            var table = _tables.Single(x => x.GetPlayers().Contains(player1));
+            if (!table.HumanOpponent)
+            {
+                var player2 = new ComputerPlayer { Name = "Kokujo", };
+                StartGame(player1, player2);
+            }
+            else
+            {
+                if (player1 == table.Host)
+                {
+                    table.HostReady = true;
+                }
+                else if (player1 == table.Guest)
+                {
+                    table.GuestReady = true;
+                }
+                if (table.HostReady && table.GuestReady)
+                {
+                    var player2 = table.GetPlayers().Single(x => x != player1) as HumanPlayer;
+                    StartGame(player1, player2);
+                }
+            }
+        }
+
+        private void StartGame(Engine.Player player1, Engine.Player player2)
         {
             _game = new();
             _game.OnGameEvent += OnGameEvent;
-            var player1 = new HumanPlayer { Name = "Shobu", Server = this, Client = client };
-            var player2 = new ComputerPlayer { Name = "Kokujo", };
             SetupPlayer(player1);
             SetupPlayer(player2);
             var players = new List<Engine.Player> { player1, player2 };
-            _playerClients.Add(player1, client);
 
             var startEvent = new StartGame
             {
@@ -126,16 +151,17 @@ namespace Server
 
         private void OnGameEvent(GameEvent gameEvent)
         {
-            foreach (var player in _playerClients)
+            var table = _tables.Single(); //TODO: Support more tables
+            foreach (var player in table.GetPlayers())
             {
                 var eventToSend = gameEvent;
-                if (gameEvent is CardMovedEvent e && e.CardInDestinationZone != null && !e.CardInDestinationZone.KnownBy.Contains(player.Key.Id))
+                if (gameEvent is CardMovedEvent e && e.CardInDestinationZone != null && !e.CardInDestinationZone.KnownBy.Contains(player.Id))
                 {
                     (eventToSend as CardMovedEvent).CardInDestinationZone = new Card((eventToSend as CardMovedEvent).CardInDestinationZone, true);
                 }
                 var text = Serializer.Serialize(eventToSend);
                 Program.WriteConsole(text);
-                Write(text, player.Value);
+                Write(text, (player as HumanPlayer).Client);
             } 
         }
 
@@ -162,9 +188,9 @@ namespace Server
 
         internal void BroadcastMessage(string text)
         {
-            foreach (var client in _clients)
+            foreach (var client in _players)
             {
-                Write(text, client);
+                Write(text, client.Client);
             }
         }
 
