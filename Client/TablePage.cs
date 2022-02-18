@@ -63,9 +63,24 @@ namespace Client
         private void SetupFields(Size size)
         {
             _textBox.Width = (int)(0.19 * size.Width);
+            foreach (var panel in new[] { _opponentPanel, _playerPanel })
+            {
+                panel.Width = (int)(0.19 * size.Width);
+                panel.Height = (int)(0.32 * size.Height);
+            }
+            _playerPanel.Top = _opponentPanel.Bottom + +ZoneOffset;
+            foreach (var button in new[] { _gameSetupButton, _exitTableButton })
+            {
+                button.Width = (int)(0.1 * size.Width);
+                button.Height = (int)(0.05 * size.Height);
+            }
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
             _phaseLabel.Top = _exitTableButton.Bottom + ZoneOffset;
+            foreach (var zone in _zonePanels.Values)
+            {
+                zone.Left = _opponentPanel.Right + ZoneOffset;
+            }
         }
 
         private void SetupPanels(Size size)
@@ -82,7 +97,7 @@ namespace Client
         private void SetupPlayerPanels()
         {
             _opponentPanel = new("Opponent", this);
-            _playerPanel = new("You", this) { Top = 300 };
+            _playerPanel = new("You", this);
         }
 
         internal void SetClient(Client client)

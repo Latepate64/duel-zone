@@ -123,9 +123,8 @@ namespace Server
         {
             _game = new();
             _game.OnGameEvent += OnGameEvent;
-            SetupPlayer(player1);
-            SetupPlayer(player2);
             var players = new List<Engine.Player> { player1, player2 };
+            players.ForEach(x => SetupPlayer(x));
 
             var startEvent = new StartGame
             {
@@ -135,10 +134,9 @@ namespace Server
                     Deck = x.Deck.Cards.Select(x => x.Convert(true)).ToList()
                 }).ToList(),
             };
-            BroadcastMessage(Serializer.Serialize(startEvent));
-
+            var text = Serializer.Serialize(startEvent);
+            players.OfType<HumanPlayer>().ToList().ForEach(x => Write(text, x.Client));
             //Players.SelectMany(x => x.Deck.Cards).ToList().ForEach(x => x.KnownBy = new List<Guid>());
-
             try
             {
                 _game.Play(player1, player2);

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Resolution" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">1920, 1080</Value>
+      <Value Profile="(Default)">960, 540</Value>
     </Setting>
     <Setting Name="Maximized" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

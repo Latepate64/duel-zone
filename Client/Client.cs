@@ -57,7 +57,10 @@ namespace Client
         {
             if (obj is CreateTable createTable)
             {
-                CreateTable(createTable);
+                if (_player.Id == createTable.Table.Host.Id)
+                {
+                    CreateTable(createTable);
+                }
             }
             else if (obj is ClientConnected connected)
             {
@@ -91,7 +94,10 @@ namespace Client
 
         private void ClientConnected(ClientConnected connected)
         {
-            _player = connected.ConnectedPlayer;
+            if (_player == null)
+            {
+                _player = connected.ConnectedPlayer;
+            }
             _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel.AddTables(connected.Tables); }));
         }
 
