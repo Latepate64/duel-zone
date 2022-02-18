@@ -1,6 +1,6 @@
 ﻿namespace Common
 {
-    public class CreateTable
+    public class JoinTable
     {
         public Table Table { get; set; }
     }

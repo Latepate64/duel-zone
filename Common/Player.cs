@@ -8,7 +8,7 @@ namespace Common
 
         public string Name { get; set; }
 
-        protected Player()
+        public Player()
         {
             Id = Guid.NewGuid();
         }
@@ -16,12 +16,17 @@ namespace Common
         public Player(Player player)
         {
             Id = player.Id;
-            Name = player.Name;
+            Name = player?.Name;
         }
 
         public override string ToString()
         {
             return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Player player && Id == player.Id;
         }
     }
 }

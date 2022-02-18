@@ -8,11 +8,13 @@ namespace Server
 {
     class HumanPlayer : Engine.Player
     {
-        public Server Server { get; set; }
-        public TcpClient Client { get; internal set; }
+        public Server Server { get; }
+        public TcpClient Client { get; }
 
-        public HumanPlayer() : base()
+        public HumanPlayer(Server server, TcpClient client) : base()
         {
+            Server = server;
+            Client = client;
         }
 
         public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)

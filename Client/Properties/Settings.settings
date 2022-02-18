@@ -6,7 +6,7 @@
       <Value Profile="(Default)">1920, 1080</Value>
     </Setting>
     <Setting Name="Maximized" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="IP" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
