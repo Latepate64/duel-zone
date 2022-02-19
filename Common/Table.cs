@@ -26,5 +26,10 @@ namespace Common
         {
             return new[] { Host, Guest };
         }
+
+        public override string ToString()
+        {
+            return $"table {Id}";
+        }
     }
 }

@@ -33,22 +33,27 @@ namespace Server
                 _listener.Start();
                 while (true)
                 {
-                    var client = await _listener.AcceptTcpClientAsync();
-                    var player = new HumanPlayer(this, client);
-                    _players.Add(player);
-                    var conn = new ClientConnected { Tables = _tables, ConnectedPlayer = player.Convert() };
-                    //string text = Helper.ObjectToText(conn, client);
-                    var text = Serializer.Serialize(conn);
-                    Program.WriteConsole(text);
-                    Write(text, client);
-                    BroadcastMessage(Serializer.Serialize(conn));
-                    Task.Run(() => Read(client));
+                    await Loop();
                 }
             }
             finally
             {
                 _listener.Stop();
             }
+        }
+
+        private async Task Loop()
+        {
+            var client = await _listener.AcceptTcpClientAsync();
+            var player = new HumanPlayer(this, client);
+            _players.Add(player);
+            var conn = new ClientConnected { Tables = _tables, ConnectedPlayer = player.Convert() };
+            //string text = Helper.ObjectToText(conn, client);
+            var text = Serializer.Serialize(conn);
+            Program.WriteConsole(text);
+            Write(text, client);
+            BroadcastMessage(Serializer.Serialize(conn));
+            Task.Run(() => Read(client));
         }
 
         internal async Task Read(TcpClient client)
@@ -61,7 +66,7 @@ namespace Server
                     var objects = Serializer.Deserialize(text);
                     foreach (var obj in objects)
                     {
-                        Process(client, text, obj);
+                        Process(client, obj);
                     }
                 }
             }
@@ -69,54 +74,80 @@ namespace Server
             BroadcastMessage($"{client} disconnected.");
         }
 
-        private void Process(TcpClient client, string text, object obj)
+        private void Process(TcpClient client, object obj)
         {
-            Program.WriteConsole(Helper.ObjectToText(obj, client));
-            if (obj is StartGame startGame)
+            Program.WriteConsole(obj.ToString());
+            if (obj is CreateTable createTable)
             {
-                StartGame(client, startGame);
-            }
-            else if (obj is CreateTable createTable)
-            {
-                _tables.Add(createTable.Table);
-                BroadcastMessage(text);
+                CreateTable(createTable);
             }
             else if (obj is JoinTable joinTable)
             {
-                _tables.Single(x => x.Id == joinTable.Table.Id).Guest = joinTable.Table.Guest;
-                BroadcastMessage(text);
+                JoinTable(joinTable);
             }
-            else
+            else if (obj is ReadyToStartGame ready)
             {
-                BroadcastMessage(text);
+                ReadyToStartGame(client, obj, ready);
+            }
+            else if (obj is PlayerChangeName changeName)
+            {
+                PlayerChangeName(changeName);
+            }
+            BroadcastMessage(Serializer.Serialize(obj));
+        }
+
+        private void CreateTable(CreateTable createTable)
+        {
+            _tables.Add(createTable.Table);
+        }
+
+        private void JoinTable(JoinTable joinTable)
+        {
+            _tables.Single(x => x.Id == joinTable.Table.Id).Guest = joinTable.Table.Guest;
+        }
+
+        private void PlayerChangeName(PlayerChangeName changeName)
+        {
+            _players.Single(x => x.Id == changeName.Player.Id).Name = changeName.Player.Name;
+        }
+
+        private void ReadyToStartGame(TcpClient client, object obj, ReadyToStartGame ready)
+        {
+            var table = GetTable(ready.Player);
+            if (ready.Player.Id == table.Host.Id)
+            {
+                table.HostReady = !table.HostReady;
+            }
+            else if (ready.Player.Id == table.Guest.Id)
+            {
+                table.GuestReady = !table.GuestReady;
+            }
+            if (table.HostReady && (!table.HumanOpponent || table.GuestReady))
+            {
+                StartGame(client);
             }
         }
 
-        private void StartGame(TcpClient client, StartGame startGame)
+        private Table GetTable(Player player)
+        {
+            return _tables.Single(x => x.GetPlayers().Contains(player));
+        }
+
+        private void StartGame(TcpClient client)
         {
             var player1 = _players.Single(x => x.Client == client);
-            var table = _tables.Single(x => x.GetPlayers().Contains(player1));
-            if (!table.HumanOpponent)
+            var table = GetTable(player1);
+            Engine.Player player2;
+            if (table.HumanOpponent)
             {
-                var player2 = new ComputerPlayer { Name = "Kokujo", };
-                StartGame(player1, player2);
+                var playerTmp = table.GetPlayers().Single(x => x.Id != player1.Id);
+                player2 = _players.Single(x => x.Id == playerTmp.Id);
             }
             else
             {
-                if (player1 == table.Host)
-                {
-                    table.HostReady = true;
-                }
-                else if (player1 == table.Guest)
-                {
-                    table.GuestReady = true;
-                }
-                if (table.HostReady && table.GuestReady)
-                {
-                    var player2 = table.GetPlayers().Single(x => x != player1) as HumanPlayer;
-                    StartGame(player1, player2);
-                }
+                player2 = new ComputerPlayer { Name = "Bot" };
             }
+            StartGame(player1, player2);
         }
 
         private void StartGame(Engine.Player player1, Engine.Player player2)
@@ -152,15 +183,36 @@ namespace Server
             var table = _tables.Single(); //TODO: Support more tables
             foreach (var player in table.GetPlayers())
             {
-                var eventToSend = gameEvent;
-                if (gameEvent is CardMovedEvent e && e.CardInDestinationZone != null && !e.CardInDestinationZone.KnownBy.Contains(player.Id))
+                if (gameEvent is CardMovedEvent e)
                 {
-                    (eventToSend as CardMovedEvent).CardInDestinationZone = new Card((eventToSend as CardMovedEvent).CardInDestinationZone, true);
+                    var copy = e.Copy() as CardMovedEvent;
+                    if (copy.CardInDestinationZone != null && !copy.CardInDestinationZone.KnownBy.Contains(player.Id))
+                    {
+                        copy.CardInDestinationZone = new Card(copy.CardInDestinationZone, true);
+                        WriteToConsoleAndClient(player, copy);
+                    }
+                    else
+                    {
+                        WriteToConsoleAndClient(player, copy);
+                    }
                 }
-                var text = Serializer.Serialize(eventToSend);
-                Program.WriteConsole(text);
-                Write(text, (player as HumanPlayer).Client);
+                else
+                {
+                    WriteToConsoleAndClient(player, gameEvent);
+                }
             } 
+        }
+
+        private void WriteToConsoleAndClient(Player player, GameEvent e)
+        {
+            var text = Serializer.Serialize(e);
+            Program.WriteConsole(text);
+            Write(text, GetHumanPlayer(player).Client);
+        }
+
+        private HumanPlayer GetHumanPlayer(Player player)
+        {
+            return _players.Single(x => x.Id == player.Id);
         }
 
         private static void SetupPlayer(Engine.Player player)
@@ -171,12 +223,12 @@ namespace Server
 
         private static List<Engine.Card> GetCards(Guid player)
         {
-            //List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
-            List<Engine.Card> cards = new();
-            for (int i = 0; i < 40; ++i)
-            {
-                cards.Add(Cards.CardFactory.Create("Quixotic Hero Swine Snout"));
-            }
+            List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            //List<Engine.Card> cards = new();
+            //for (int i = 0; i < 40; ++i)
+            //{
+            //    cards.Add(Cards.CardFactory.Create("Quixotic Hero Swine Snout"));
+            //}
             foreach (var card in cards)
             {
                 card.Owner = player;
@@ -192,7 +244,7 @@ namespace Server
             }
         }
 
-        private static void Write(string text, TcpClient client)
+        internal static void Write(string text, TcpClient client)
         {
             byte[] bytesToSend = Encoding.ASCII.GetBytes(text);
             if (client.Connected)

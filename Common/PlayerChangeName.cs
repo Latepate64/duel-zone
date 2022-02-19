@@ -1,14 +1,12 @@
 ﻿namespace Common
 {
-    public class LeaveTable
+    public class PlayerChangeName
     {
-        public Table Table { get; set; }
-
         public Player Player { get; set; }
 
         public override string ToString()
         {
-            return $"{Player} left {Table}.";
+            return $"{Player.Id} set their name as {Player}.";
         }
     }
 }

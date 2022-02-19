@@ -18,6 +18,7 @@ namespace Client
         private const int BufferSize = 256 * 256 * 16;
         internal LobbyPanel _lobbyPanel;
         internal TablePage _tablePage;
+        internal MenuPage _menuPage;
 
         internal Client()
         {
@@ -74,9 +75,12 @@ namespace Client
             {
                 LeaveTable(obj);
             }
-            else if (obj is ClientName name)
+            else if (obj is PlayerChangeName name)
             {
-                SetClientName(obj, name);
+                if (_player.Id == name.Player.Id)
+                {
+                    SetClientName(obj, name);
+                } 
             }
             else if (obj is StartGame startGame)
             {
@@ -90,6 +94,18 @@ namespace Client
             {
                 Process(c);
             }
+            else if (obj is ReadyToStartGame ready)
+            {
+                ReadyToStartGame(ready);
+            }
+        }
+
+        private void ReadyToStartGame(ReadyToStartGame ready)
+        {
+            if (_player.Id == ready.Player.Id)
+            {
+                _tablePage.Invoke(new MethodInvoker(delegate { _tablePage._gameSetupForm._gameSetupTable._startButton.Text = "Waiting for opponent"; })); 
+            }
         }
 
         private void ClientConnected(ClientConnected connected)
@@ -97,13 +113,14 @@ namespace Client
             if (_player == null)
             {
                 _player = connected.ConnectedPlayer;
+                WriteAsync(new PlayerChangeName { Player = new Player(_player) { Name = _menuPage._userNameBox.Text } });
             }
-            _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel.AddTables(connected.Tables); }));
+            _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel.UpdateTables(connected.Tables); }));
         }
 
         private void JoinTable(JoinTable joinTable)
         {
-            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(joinTable, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += joinTable; _lobbyPanel._chatBox.Text += Environment.NewLine; }));
             if (_player.Id == joinTable.Table.Guest.Id)
             {
                 _lobbyPanel.OnCreateOrJoinTable();
@@ -125,26 +142,31 @@ namespace Client
             _tablePage.Process(e);
         }
 
-        private void SetClientName(object obj, ClientName name)
+        private void SetClientName(object obj, PlayerChangeName name)
         {
-            _player.Name = name.Name;
-            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            _player.Name = name.Player.Name;
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { WriteChatBox(obj.ToString()); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
         private void LeaveTable(object obj)
         {
             _tablePage.OnExitTable();
-            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { WriteChatBox(obj.ToString()); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
         }
 
         private void CreateTable(CreateTable obj)
         {
             _lobbyPanel.OnCreateOrJoinTable();
-            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { _lobbyPanel._chatBox.Text += Helper.ObjectToText(obj, _client); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
+            _lobbyPanel._chatBox.Invoke(new MethodInvoker(delegate { WriteChatBox(obj.ToString()); _lobbyPanel._chatBox.Text += Environment.NewLine; }));
             //if (obj.HumanOpponent)
             //{
             //    _lobbyPanel.Invoke(new MethodInvoker(delegate { _lobbyPanel._tables.Items.Add(obj.Table.Id.ToString()); })); 
             //}
+        }
+
+        private void WriteChatBox(string text)
+        {
+            _lobbyPanel._chatBox.Text += text;
         }
 
         internal void EndConnect()

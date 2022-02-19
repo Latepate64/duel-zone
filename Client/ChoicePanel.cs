@@ -11,7 +11,7 @@ namespace Client
         internal Label _label = new() { TextAlign = ContentAlignment.MiddleCenter };
         internal Button _defaultButton = new() { Visible = false };
         internal readonly Button _declineButton = new() { Text = "Decline", Visible = false };
-        private readonly Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
+        private Font _font = new(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
         private readonly Panel _buttonPanel = new();
         internal Client _client;
         internal TablePage _tablePage;
@@ -44,6 +44,7 @@ namespace Client
             _buttonPanel.Top = _label.Bottom;
             _abilityBox.Width = size.Width;
             _abilityBox.Height = size.Height / 2;
+            _font = new(FontFamily.GenericSansSerif, size.Height / 12, FontStyle.Bold);
         }
 
         private void SetupButtonPanel()

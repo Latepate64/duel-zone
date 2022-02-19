@@ -58,6 +58,7 @@ namespace Client
             _choicePanel = choicePanel;
             Controls.Add(_choicePanel);
             _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+            _choicePanel.Left = _opponentPanel.Right + ZoneOffset;
         }
 
         private void SetupFields(Size size)
@@ -194,21 +195,19 @@ namespace Client
 
         internal void OnStartGame(StartGame startGame)
         {
-            _playerPanel.Name = startGame.Players.First().Player.Id.ToString();
-            _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
+            var player = startGame.Players.Single(x => x.Player.Id == _client._player.Id);
+            var opponent = startGame.Players.Single(x => x.Player.Id != _client._player.Id);
+            _playerPanel.Name = player.Player.Id.ToString();
+            _opponentPanel.Name = opponent.Player.Id.ToString();
             _gameSetupForm.Invoke(new MethodInvoker(delegate { _gameSetupForm.Hide(); }));
-            bool playerInsteadOfOpponent = true;
-            foreach (var playerDeck in startGame.Players)
-            {
-                playerInsteadOfOpponent = SetupPlayer(playerInsteadOfOpponent, playerDeck);
-            }
+            SetupPlayer(true, player);
+            SetupPlayer(false, opponent);
         }
 
-        private bool SetupPlayer(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
+        private void SetupPlayer(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
         {
             SetupZoneNames(playerInsteadOfOpponent, playerDeck);
             AddDeckCards(playerInsteadOfOpponent, playerDeck);
-            return !playerInsteadOfOpponent;
         }
 
         private void AddDeckCards(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
@@ -305,12 +304,6 @@ namespace Client
                 {
                     // TODO: Should antidraw opponent
                 }
-            }
-            else if (e is CreatureSummonedEvent || e is AbilityTriggeredEvent || e is DeckShuffledEvent || e is ShieldsBrokenEvent || e is BattleEvent || e is WinBattleEvent || e is DirectAttackEvent) // These events need not to be displayed.
-            { }
-            else
-            {
-                throw new NotImplementedException(e.ToString());
             }
         }
 
@@ -447,6 +440,7 @@ namespace Client
             {
                 zone?.Invoke(new MethodInvoker(delegate { zone.Visible = false; }));
             }
+            SetChoiceText("Opponent is making a choice...");
         }
 
         private void HideChoiceButtons()

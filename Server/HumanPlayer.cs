@@ -19,7 +19,7 @@ namespace Server
 
         public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
         {
-            Server.BroadcastMessage(Serializer.Serialize(yesNoChoice));
+            Server.Write(Serializer.Serialize(yesNoChoice), Client);
             return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
         }
 
@@ -27,7 +27,7 @@ namespace Server
         {
             try
             {
-                Server.BroadcastMessage(Serializer.Serialize(guidSelection));
+                Server.Write(Serializer.Serialize(guidSelection), Client);
                 return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
             }
             catch (Exception e)

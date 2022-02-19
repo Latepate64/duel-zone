@@ -25,7 +25,7 @@ namespace Client.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("960, 540")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1320, 720")]
         public global::System.Drawing.Size Resolution {
             get {
                 return ((global::System.Drawing.Size)(this["Resolution"]));
