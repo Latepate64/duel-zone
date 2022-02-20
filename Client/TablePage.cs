@@ -19,14 +19,15 @@ namespace Client
         private readonly Button _exitTableButton = new()
         {
             Text = "Exit table",
-            Height = 100,
-            Width = 200,
         };
         private readonly Button _gameSetupButton = new()
         {
             Text = "Setup game",
-            Height = 100,
-            Width = 200,
+        };
+        private readonly Button _concedeButton = new()
+        {
+            Text = "Concede",
+            Visible = false,
         };
         internal Size ZonePanelSize => _zonePanels.First().Value.Size;
         private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
@@ -70,12 +71,13 @@ namespace Client
                 panel.Height = (int)(0.32 * size.Height);
             }
             _playerPanel.Top = _opponentPanel.Bottom + +ZoneOffset;
-            foreach (var button in new[] { _gameSetupButton, _exitTableButton })
+            foreach (var button in new[] { _gameSetupButton, _exitTableButton, _concedeButton })
             {
                 button.Width = (int)(0.1 * size.Width);
                 button.Height = (int)(0.05 * size.Height);
             }
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
+            _concedeButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
             _phaseLabel.Top = _exitTableButton.Bottom + ZoneOffset;
             foreach (var zone in _zonePanels.Values)
@@ -154,6 +156,12 @@ namespace Client
             }
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
+            _concedeButton.Click += Concede;
+        }
+
+        private void Concede(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void SetupClick(Control button, Control control)
@@ -195,6 +203,9 @@ namespace Client
 
         internal void OnStartGame(StartGame startGame)
         {
+            _gameSetupButton.Visible = false;
+            _exitTableButton.Visible = false;
+            _concedeButton.Visible = true;
             var player = startGame.Players.Single(x => x.Player.Id == _client._player.Id);
             var opponent = startGame.Players.Single(x => x.Player.Id != _client._player.Id);
             _playerPanel.Name = player.Player.Id.ToString();

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Common;
 using Common.GameEvents;
 using Common.Choices;
+using System.Linq;
 
 namespace Client
 {
@@ -19,6 +20,8 @@ namespace Client
         internal LobbyPanel _lobbyPanel;
         internal TablePage _tablePage;
         internal MenuPage _menuPage;
+
+        private readonly List<Table> _tables = new();
 
         internal Client()
         {
@@ -188,6 +191,34 @@ namespace Client
         {
             byte[] data = new byte[BufferSize];
             return Serializer.Deserialize(Encoding.Default.GetString(data, 0, _client.GetStream().Read(data, 0, data.Length)).Trim());
+        }
+
+        private void UpdateTable(Table table)
+        {
+            if (!_tables.Contains(table))
+            {
+                _tables.Add(table);
+            }
+            else
+            {
+                if (table.Host == null)
+                {
+                    if (table.Guest != null)
+                    {
+                        var foundTable = _tables.Single(x => x.Id == table.Id);
+                        foundTable = new Table(table);
+                    }
+                    else
+                    {
+                        _tables.Remove(table);
+                    }
+                }
+                else
+                {
+
+                }
+                
+            }
         }
     }
 }
