@@ -17,7 +17,7 @@ namespace Client
             Text = "Connect",
         };
 
-        private readonly TextBox _userNameBox = new()
+        internal readonly TextBox _userNameBox = new()
         {
             PlaceholderText = "Username",
             Text = "Shobu",
@@ -61,7 +61,6 @@ namespace Client
                 _client.Connect(_serverAddress.Text, 11000);
                 Task.Run(() => _client.ReadLoop());
                 OnConnect();
-                _client.WriteAsync(new Common.ClientName() { Name = _userNameBox.Text });
             }
             catch (Exception ex)
             {

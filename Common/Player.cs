@@ -21,7 +21,7 @@ namespace Common
 
         public override string ToString()
         {
-            return Name;
+            return Name ?? Id.ToString();
         }
 
         public override bool Equals(object obj)

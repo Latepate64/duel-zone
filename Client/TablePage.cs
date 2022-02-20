@@ -19,14 +19,15 @@ namespace Client
         private readonly Button _exitTableButton = new()
         {
             Text = "Exit table",
-            Height = 100,
-            Width = 200,
         };
         private readonly Button _gameSetupButton = new()
         {
             Text = "Setup game",
-            Height = 100,
-            Width = 200,
+        };
+        private readonly Button _concedeButton = new()
+        {
+            Text = "Concede",
+            Visible = false,
         };
         internal Size ZonePanelSize => _zonePanels.First().Value.Size;
         private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
@@ -58,14 +59,31 @@ namespace Client
             _choicePanel = choicePanel;
             Controls.Add(_choicePanel);
             _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+            _choicePanel.Left = _opponentPanel.Right + ZoneOffset;
         }
 
         private void SetupFields(Size size)
         {
             _textBox.Width = (int)(0.19 * size.Width);
+            foreach (var panel in new[] { _opponentPanel, _playerPanel })
+            {
+                panel.Width = (int)(0.19 * size.Width);
+                panel.Height = (int)(0.32 * size.Height);
+            }
+            _playerPanel.Top = _opponentPanel.Bottom + +ZoneOffset;
+            foreach (var button in new[] { _gameSetupButton, _exitTableButton, _concedeButton })
+            {
+                button.Width = (int)(0.1 * size.Width);
+                button.Height = (int)(0.05 * size.Height);
+            }
             _gameSetupButton.Top = _playerPanel.Bottom + ZoneOffset;
+            _concedeButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
             _phaseLabel.Top = _exitTableButton.Bottom + ZoneOffset;
+            foreach (var zone in _zonePanels.Values)
+            {
+                zone.Left = _opponentPanel.Right + ZoneOffset;
+            }
         }
 
         private void SetupPanels(Size size)
@@ -82,7 +100,7 @@ namespace Client
         private void SetupPlayerPanels()
         {
             _opponentPanel = new("Opponent", this);
-            _playerPanel = new("You", this) { Top = 300 };
+            _playerPanel = new("You", this);
         }
 
         internal void SetClient(Client client)
@@ -138,6 +156,12 @@ namespace Client
             }
             _gameSetupButton.Click += SetupGame;
             _exitTableButton.Click += ExitTable;
+            _concedeButton.Click += Concede;
+        }
+
+        private void Concede(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static void SetupClick(Control button, Control control)
@@ -179,21 +203,22 @@ namespace Client
 
         internal void OnStartGame(StartGame startGame)
         {
-            _playerPanel.Name = startGame.Players.First().Player.Id.ToString();
-            _opponentPanel.Name = startGame.Players.Last().Player.Id.ToString();
+            _gameSetupButton.Visible = false;
+            _exitTableButton.Visible = false;
+            _concedeButton.Visible = true;
+            var player = startGame.Players.Single(x => x.Player.Id == _client._player.Id);
+            var opponent = startGame.Players.Single(x => x.Player.Id != _client._player.Id);
+            _playerPanel.Name = player.Player.Id.ToString();
+            _opponentPanel.Name = opponent.Player.Id.ToString();
             _gameSetupForm.Invoke(new MethodInvoker(delegate { _gameSetupForm.Hide(); }));
-            bool playerInsteadOfOpponent = true;
-            foreach (var playerDeck in startGame.Players)
-            {
-                playerInsteadOfOpponent = SetupPlayer(playerInsteadOfOpponent, playerDeck);
-            }
+            SetupPlayer(true, player);
+            SetupPlayer(false, opponent);
         }
 
-        private bool SetupPlayer(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
+        private void SetupPlayer(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
         {
             SetupZoneNames(playerInsteadOfOpponent, playerDeck);
             AddDeckCards(playerInsteadOfOpponent, playerDeck);
-            return !playerInsteadOfOpponent;
         }
 
         private void AddDeckCards(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
@@ -290,12 +315,6 @@ namespace Client
                 {
                     // TODO: Should antidraw opponent
                 }
-            }
-            else if (e is CreatureSummonedEvent || e is AbilityTriggeredEvent || e is DeckShuffledEvent || e is ShieldsBrokenEvent || e is BattleEvent || e is WinBattleEvent || e is DirectAttackEvent) // These events need not to be displayed.
-            { }
-            else
-            {
-                throw new NotImplementedException(e.ToString());
             }
         }
 
@@ -432,6 +451,7 @@ namespace Client
             {
                 zone?.Invoke(new MethodInvoker(delegate { zone.Visible = false; }));
             }
+            SetChoiceText("Opponent is making a choice...");
         }
 
         private void HideChoiceButtons()

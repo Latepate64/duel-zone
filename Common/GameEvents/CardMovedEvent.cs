@@ -40,9 +40,15 @@ namespace Common.GameEvents
 
         public CardMovedEvent(CardMovedEvent e) : base(e)
         {
-            Player = e.Player;
+            if (e.Player != null)
+            {
+                Player = new Player(e.Player);
+            }
             CardInSourceZone = e.CardInSourceZone;
-            CardInDestinationZone = e.CardInDestinationZone;
+            if (e.CardInDestinationZone != null)
+            {
+                CardInDestinationZone = new Card(e.CardInDestinationZone, false);
+            }
             Source = e.Source;
             Destination = e.Destination;
         }

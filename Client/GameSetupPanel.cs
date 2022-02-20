@@ -6,7 +6,7 @@ namespace Client
     {
         private readonly TextBox _player1Name = new() { Dock = DockStyle.Fill, ReadOnly = true };
         private readonly TextBox _player2Name = new() { Dock = DockStyle.Fill, ReadOnly = true };
-        private readonly Button _startButton = new() { Dock = DockStyle.Fill, Text = "Start" };
+        internal readonly Button _startButton = new() { Dock = DockStyle.Fill, Text = "Start" };
         private readonly Client _client;
 
         internal GameSetupPanel(Client client)
@@ -36,8 +36,8 @@ namespace Client
         private void AddControls()
         {
             Controls.Add(_player1Name, 0, 0);
+            Controls.Add(_startButton, 0, 1);
             Controls.Add(_player2Name, 1, 0);
-            Controls.Add(_startButton, 1, 0);
         }
 
         internal void Setup(string userName, string opponent)
@@ -48,7 +48,7 @@ namespace Client
 
         private void StartGame(object sender, System.EventArgs e)
         {
-            _client.WriteAsync(new Common.StartGame());
+            _client.WriteAsync(new Common.ReadyToStartGame { Player = _client._player });
         }
     }
 }

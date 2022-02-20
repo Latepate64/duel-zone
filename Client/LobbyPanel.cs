@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Client
@@ -31,7 +32,7 @@ namespace Client
             PlaceholderText = "Type message",
         };
 
-        internal readonly ListView _tables = new() { MultiSelect = false };
+        internal readonly ListView _tables = new() { MultiSelect = false, Height = 600 };
 
         private readonly TabControl _tabControl;
         private readonly Client _client;
@@ -46,10 +47,10 @@ namespace Client
             SetupProperties();
             SetupEvents();
             AddControls();
-            _tables.ItemActivate += TableActivate;
+            _tables.ItemActivate += JoinTable;
         }
 
-        private void TableActivate(object sender, EventArgs e)
+        private void JoinTable(object sender, EventArgs e)
         {
             _client.WriteAsync(new JoinTable { Table = new Table { Id = new Guid((sender as ListView).SelectedItems[0].Text), Guest = new Player(_client._player) } });
         }
@@ -78,7 +79,7 @@ namespace Client
 
         private void SendMessage(object sender, EventArgs e)
         {
-            _client.WriteAsync(new Common.Message { Text = _sendMessageBox.Text });
+            _client.WriteAsync(new Common.Message { Text = _sendMessageBox.Text, Player = _client._player });
             _sendMessageBox.Clear();
         }
 
@@ -96,8 +97,9 @@ namespace Client
             _createTableButton.Invoke(new MethodInvoker(delegate { _createTableButton.Enabled = false; }));
         }
 
-        internal void AddTables(IEnumerable<Table> tables)
+        internal void UpdateTables(IEnumerable<Table> tables)
         {
+            _tables.Clear();
             foreach (var table in tables)
             {
                 _tables.Items.Add(table.Id.ToString());

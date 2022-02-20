@@ -73,7 +73,7 @@ namespace Client
             SetupMenuPage(menuPage, tablePage, client, lobbyPage);
             SetupChoicePanel(tablePage, client, choicePanel);
             SetupTablePage(tablePage, client, gameSetupForm, lobbyPage, lobbyPanel, choicePanel);
-            SetupClient(tablePage, client, lobbyPanel);
+            SetupClient(tablePage, client, lobbyPanel, menuPage);
         }
 
         private static void SetupChoicePanel(TablePage tablePage, Client client, ChoicePanel choicePanel)
@@ -86,10 +86,11 @@ namespace Client
             choicePanel.Top = 2 * tablePage.ZonePanelSize.Height + TablePage.ZoneOffset;
         }
 
-        private static void SetupClient(TablePage tablePage, Client client, LobbyPanel lobbyPanel)
+        private static void SetupClient(TablePage tablePage, Client client, LobbyPanel lobbyPanel, MenuPage menuPage)
         {
             client._lobbyPanel = lobbyPanel;
             client._tablePage = tablePage;
+            client._menuPage = menuPage;
         }
 
         private void SetupTablePage(TablePage tablePage, Client client, GameSetupForm gameSetupForm, LobbyPage lobbyPage, LobbyPanel lobbyPanel, ChoicePanel choicePanel)

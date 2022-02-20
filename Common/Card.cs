@@ -33,7 +33,7 @@ namespace Common
 
         public override string ToString()
         {
-            return Name;
+            return Name ?? "a card";
         }
 
         public Guid Id { get; set; }

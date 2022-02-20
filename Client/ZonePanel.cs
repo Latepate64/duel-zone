@@ -10,8 +10,8 @@ namespace Client
         internal ZoneType ZoneType { get; private set; }
 
         internal const int DefaultLeft = 270;
-        private const double HeightScale = 0.26;
-        private const double WidthScale = 0.65;
+        private const double HeightScale = 0.245; // 0.24-0.25
+        private const double WidthScale = 0.58;
 
         private Point _mouseDownLocation;
 

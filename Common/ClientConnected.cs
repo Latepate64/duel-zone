@@ -7,5 +7,10 @@ namespace Common
         public List<Table> Tables { get; set; }
 
         public Player ConnectedPlayer { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ConnectedPlayer} connected to server.";
+        }
     }
 }
