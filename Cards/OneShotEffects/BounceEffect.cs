@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public BounceEffect(CardMovingChoiceEffect effect) : base(effect)
+        public BounceEffect(BounceEffect effect) : base(effect)
         {
         }
 
