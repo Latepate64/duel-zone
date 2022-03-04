@@ -4,9 +4,9 @@
     {
         public CardFilter TargetFilter { get; }
 
-        public CanAttackUntappedCreaturesEffect(ContinuousEffect effect) : base(effect)
+        public CanAttackUntappedCreaturesEffect(CanAttackUntappedCreaturesEffect effect) : base(effect)
         {
-            TargetFilter = TargetFilter.Copy();
+            TargetFilter = effect.TargetFilter.Copy();
         }
 
         public CanAttackUntappedCreaturesEffect(CardFilter targetFilter)
