@@ -18,6 +18,7 @@
         DarkLord,
         DeathPuppet,
         DemonCommand,
+        DevilMask,
         Dragonoid,
         EarthDragon,
         EarthEater,
