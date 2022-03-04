@@ -19,7 +19,6 @@
     <Folder Include="Cards\DM06\" />
     <Folder Include="Cards\DM07\" />
     <Folder Include="Cards\DM08\" />
-    <Folder Include="Cards\DM10\" />
     <Folder Include="Cards\DM11\" />
     <Folder Include="Cards\DM12\" />
   </ItemGroup>
