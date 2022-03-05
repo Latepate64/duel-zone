@@ -14,7 +14,7 @@ namespace Cards.Cards.DM03
             Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000), 1, 1, true)));
 
             // Choose one of your shields and put it into your graveyard.
-            Abilities.Add(new SpellAbility(new ShieldBurnEffect(new OwnersShieldZoneCardFilter(), 1, 1, true)));
+            Abilities.Add(new SpellAbility(new SelfShieldBurnEffect()));
         }
     }
 }
