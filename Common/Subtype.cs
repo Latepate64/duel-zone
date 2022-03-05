@@ -41,6 +41,7 @@
         MechaDelSol,
         MechaThunder,
         Merfolk,
+        MysteryTotem,
         PandorasBox,
         ParasiteWorm,
         RainbowPhantom,
