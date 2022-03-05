@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Tap all your opponent's creatures in the battle zone.
-            Abilities.Add(new SpellAbility(new HolyAweEffect()));
+            Abilities.Add(new SpellAbility(new TapAreaOfEffect(new CardFilters.OpponentsBattleZoneCreatureFilter())));
         }
     }
 }

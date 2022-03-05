@@ -232,6 +232,11 @@ namespace Engine
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
         }
 
+        public IEnumerable<Card> GetAllCards(CardFilter filter, Guid player)
+        {
+            return GetAllCards().Where(card => filter.Applies(card, this, GetPlayer(player)));
+        }
+
         public void Destroy(IEnumerable<Card> cards)
         {
             _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
