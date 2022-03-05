@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
         public VampireSilphy() : base("Vampire Silphy", 8, Civilization.Darkness, 4000, Subtype.DarkLord)
         {
             // When you put this creature into the battle zone, destroy all creatures that have power 3000 or less.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAreaOfEffect(new BattleZoneMaxPowerCreatureFilter(3000))));
+            Abilities.Add(new PutIntoPlayAbility(new DestroyAreaOfEffect(new BattleZoneMaxPowerCreatureFilter(3000))));
         }
     }
 }

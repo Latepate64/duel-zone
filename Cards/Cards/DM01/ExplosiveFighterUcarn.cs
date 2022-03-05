@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
         public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, Common.Civilization.Fire, 9000, Common.Subtype.Dragonoid)
         {
             // When you put this creature into the battle zone, put 2 cards from your mana zone into your graveyard.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 2, 2, true)));
+            Abilities.Add(new PutIntoPlayAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 2, 2, true)));
             Abilities.Add(new DoubleBreakerAbility());
         }
     }

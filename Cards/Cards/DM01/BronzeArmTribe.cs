@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
         public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
         {
             // When you put this creature into the battle zone, put the top card of your deck into your mana zone.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutTopCardsOfDeckIntoManaZoneEffect(1)));
+            Abilities.Add(new PutIntoPlayAbility(new PutTopCardsOfDeckIntoManaZoneEffect(1)));
         }
     }
 }

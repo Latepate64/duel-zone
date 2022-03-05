@@ -11,7 +11,7 @@ namespace Cards.Cards.DM04
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, destroy all creatures that have power 1000.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAreaOfEffect(new BattleZonePowerCreatureFilter(1000))));
+            Abilities.Add(new PutIntoPlayAbility(new DestroyAreaOfEffect(new BattleZonePowerCreatureFilter(1000))));
         }
     }
 }

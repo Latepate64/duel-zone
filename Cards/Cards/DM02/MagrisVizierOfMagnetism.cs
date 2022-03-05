@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
         public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, Common.Civilization.Light, 3000, Common.Subtype.Initiate)
         {
             // When you put this creature into the battle zone, you may draw a card.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ControllerMayDrawCardsEffect(1)));
+            Abilities.Add(new PutIntoPlayAbility(new ControllerMayDrawCardsEffect(1)));
         }
     }
 }

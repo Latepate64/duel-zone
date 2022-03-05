@@ -3,13 +3,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    public class AncientHornTheWatcherAbility : PutIntoPlayAbility
     {
         public AncientHornTheWatcherAbility() : base(new OneShotEffects.UntapEffect(new CardFilters.OwnersManaZoneCardFilter()))
         {
         }
 
-        public AncientHornTheWatcherAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
+        public AncientHornTheWatcherAbility(PutIntoPlayAbility ability) : base(ability)
         {
         }
 

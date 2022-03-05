@@ -5,13 +5,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
+    public class PutIntoPlayAbility : CardChangesZoneAbility
     {
         /// <summary>
         /// Source of the ability is put into the battle zone.
         /// </summary>
         /// <param name="effect"></param>
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(OneShotEffect effect) : base(effect)
+        public PutIntoPlayAbility(OneShotEffect effect) : base(effect)
         {
         }
 
@@ -20,11 +20,11 @@ namespace Cards.TriggeredAbilities
         /// </summary>
         /// <param name="effect"></param>
         /// <param name="filter"></param>
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(OneShotEffect effect, CardFilter filter) : base(effect, filter)
+        public PutIntoPlayAbility(OneShotEffect effect, CardFilter filter) : base(effect, filter)
         {
         }
 
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
+        public PutIntoPlayAbility(PutIntoPlayAbility ability) : base(ability)
         {
         }
 
@@ -35,7 +35,7 @@ namespace Cards.TriggeredAbilities
 
         public override Ability Copy()
         {
-            return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
+            return new PutIntoPlayAbility(this);
         }
 
         public override string ToString()

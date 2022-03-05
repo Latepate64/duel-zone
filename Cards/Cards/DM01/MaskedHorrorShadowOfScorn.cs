@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
         public MaskedHorrorShadowOfScorn() : base("Masked Horror, Shadow of Scorn", 5, Common.Civilization.Darkness, 1000, Common.Subtype.Ghost)
         {
             // When you put this creature into the battle zone, your opponent discards a card at random from his hand.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
+            Abilities.Add(new PutIntoPlayAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }
