@@ -58,7 +58,7 @@ namespace Engine.Steps
             {
                 Phase.SetAttackingCreature(attacker, game);
                 Phase.AttackTarget = target.Id;
-                game.Process(new CreatureAttackedEvent { Attacker = attacker.Convert(), Attackable = game.GetAttackable(Phase.AttackTarget).Id });
+                game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(Phase.AttackTarget).Id });
             }
         }
 

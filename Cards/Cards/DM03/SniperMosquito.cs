@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
         public SniperMosquito() : base("Sniper Mosquito", 1, Common.Civilization.Nature, 2000, Common.Subtype.GiantInsect)
         {
             // Whenever this creature attacks, return a card from your mana zone to your hand.
-            Abilities.Add(new WheneverThisCreatureAttacksAbility(new ManaRecoveryEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
+            Abilities.Add(new AttackAbility(new ManaRecoveryEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
         }
     }
 }

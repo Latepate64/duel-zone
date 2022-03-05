@@ -29,7 +29,7 @@ namespace Engine.Zones
             game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 
-        public override void Remove(Card card, Game game)
+        public override bool Remove(Card card, Game game)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
@@ -48,10 +48,14 @@ namespace Engine.Zones
             }
             if (!Cards.Remove(card))
             {
-                throw new NotSupportedException(card.ToString());
+                return false;
             }
-            var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
-            _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
+            else 
+            {
+                var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
+                _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
+                return true;
+            }
         }
 
         public override Zone Copy()

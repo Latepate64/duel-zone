@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return "Whenever this creature attacks, put a non-fire card from your mana zone into your graveyard. Then your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
+            return "Put a non-fire card from your mana zone into your graveyard. Then your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
         }
     }
 }

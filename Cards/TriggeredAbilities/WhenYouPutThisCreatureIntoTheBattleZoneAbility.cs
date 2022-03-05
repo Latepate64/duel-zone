@@ -1,12 +1,26 @@
 ﻿using Common;
 using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
     public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
     {
+        /// <summary>
+        /// Source of the ability is put into the battle zone.
+        /// </summary>
+        /// <param name="effect"></param>
         public WhenYouPutThisCreatureIntoTheBattleZoneAbility(OneShotEffect effect) : base(effect)
+        {
+        }
+
+        /// <summary>
+        /// Card matching the filter is put into the battle zone.
+        /// </summary>
+        /// <param name="effect"></param>
+        /// <param name="filter"></param>
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(OneShotEffect effect, CardFilter filter) : base(effect, filter)
         {
         }
 
@@ -16,14 +30,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Engine.Game game)
         {
-            if (gameEvent is CardMovedEvent e)
-            {
-                return e.Destination == ZoneType.BattleZone && Source == e.CardInDestinationZone.Id && game.GetCard(e.CardInDestinationZone.Id).CardType == CardType.Creature && CheckInterveningIfClause(game);
-            }
-            else
-            {
-                return false;
-            }
+            return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Destination == ZoneType.BattleZone;
         }
 
         public override Ability Copy()
@@ -33,7 +40,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When you put this creature into the battle zone, {ToStringBase()}";
+            return $"When ${Filter} is put into the battle zone, {ToStringBase()}";
         }
     }
 }

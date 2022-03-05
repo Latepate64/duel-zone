@@ -1,17 +1,16 @@
 ﻿namespace Common.GameEvents
 {
-    public class BlockEvent : GameEvent
+    public class BecomeBlockedEvent : CardEvent
     {
-        public Card Attacker { get; set; }
         public Card Blocker { get; set; }
 
-        public BlockEvent()
+        public BecomeBlockedEvent()
         {
         }
 
         public override string ToString()
         {
-            return $"{Blocker} blocked {Attacker}.";
+            return $"{Card} became blocked by {Blocker}.";
         }
     }
 }

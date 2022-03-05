@@ -47,6 +47,10 @@ namespace Engine
                         effect.Filter.Target = Id;
                     }
                 }
+                else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
+                {
+                    target.Target = Id;
+                }
             }
             SetRulesText();
         }

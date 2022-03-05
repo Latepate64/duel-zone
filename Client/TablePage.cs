@@ -277,7 +277,7 @@ namespace Client
             }
             else if (e is CreatureAttackedEvent attackEvent)
             {
-                var panel = GetCardPanel(attackEvent.Attacker.Id.ToString());
+                var panel = GetCardPanel(attackEvent.Card.Id.ToString());
                 panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Attacking"); }));
                 try
                 {
@@ -294,7 +294,7 @@ namespace Client
                 var panel = GetCardPanel(stop.Attacker.Id.ToString());
                 panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
             }
-            else if (e is BlockEvent block)
+            else if (e is BecomeBlockedEvent block)
             {
                 var panel = GetCardPanel(block.Blocker.Id.ToString());
                 panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Blocking"); }));

@@ -8,7 +8,7 @@
             var filter = new CardFilters.OpponentsBattleZoneChoosableCreatureFilter();
             filter.Civilizations.Add(Common.Civilization.Fire);
             filter.Civilizations.Add(Common.Civilization.Nature);
-            Abilities.Add(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.BounceEffect(0, 1, filter)));
+            Abilities.Add(new TriggeredAbilities.AttackAbility(new OneShotEffects.BounceEffect(0, 1, filter)));
         }
     }
 }
