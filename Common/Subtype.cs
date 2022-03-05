@@ -51,5 +51,6 @@
         StarlightTree,
         TreeFolk,
         Xenoparts,
+        ZombieDragon,
     }
 }
