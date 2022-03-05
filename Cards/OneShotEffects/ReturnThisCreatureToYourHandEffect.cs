@@ -4,19 +4,19 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class PyrofighterMagnusEffect : OneShotEffect
+    public class ReturnThisCreatureToYourHandEffect : OneShotEffect
     {
-        public PyrofighterMagnusEffect() : base()
+        public ReturnThisCreatureToYourHandEffect() : base()
         {
         }
 
-        public PyrofighterMagnusEffect(PyrofighterMagnusEffect effect)
+        public ReturnThisCreatureToYourHandEffect(ReturnThisCreatureToYourHandEffect effect)
         {
         }
 
         public override OneShotEffect Copy()
         {
-            return new PyrofighterMagnusEffect(this);
+            return new ReturnThisCreatureToYourHandEffect(this);
         }
 
         public override void Apply(Game game, Ability source)

@@ -1,15 +1,17 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
+using Common;
 
 namespace Cards.Cards.DM06
 {
-    public class PyrofighterMagnus : Creature
+    class BazagazealDragon : Creature
     {
-        public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, Common.Civilization.Fire, 3000, Common.Subtype.Dragonoid)
+        public BazagazealDragon() : base("Bazagazeal Dragon", 8, Civilization.Fire, 8000, Subtype.ArmoredDragon)
         {
             Abilities.Add(new SpeedAttackerAbility());
-            // At the end of your turn, return this creature to your hand.
+            Abilities.Add(new CanAttackUntappedCreaturesAbility());
+            Abilities.Add(new DoubleBreakerAbility());
             Abilities.Add(new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
         }
     }
