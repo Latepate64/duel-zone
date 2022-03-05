@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             }
             else
             {
-                var selection = game.GetPlayer(source.Owner).Choose(new CardSelectionInEffect(source.Owner, creatures, 1, 2, ToString()), game).Decision;
+                var selection = game.GetPlayer(source.Owner).Choose(new BoundedCardSelectionInEffect(source.Owner, creatures, 1, 2, ToString()), game).Decision;
                 if ((selection.Count() == 1 && selection.Single() == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x != thisCreature.Id)))
                 {
                     game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());

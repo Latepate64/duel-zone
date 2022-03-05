@@ -42,7 +42,15 @@ namespace Server
             }
             else
             {
-                var amount = Rnd.Next(guidSelection.MinimumSelection, guidSelection.MaximumSelection + 1);
+                var amount = 0;
+                if (guidSelection is BoundedGuidSelection bounded)
+                {
+                    amount = Rnd.Next(bounded.MinimumSelection, bounded.MaximumSelection + 1);
+                }
+                else
+                {
+                    amount = Rnd.Next(0, guidSelection.Options.Count + 1);
+                }
                 var selected = guidSelection.Options.OrderBy(x => Rnd.Next()).Take(amount);
                 return new GuidDecision(selected);
             }

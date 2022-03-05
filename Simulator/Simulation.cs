@@ -25,7 +25,7 @@ namespace Simulator
             {
                 return new Tuple<Decision, int>(decision, GetPoints(game, numberOfChoicesMade));
             }
-            else if (choice is GuidSelection selection)
+            else if (choice is BoundedGuidSelection selection)
             {
                 return ChooseGuid(game, numberOfChoicesMade, decisions, selection);
             }
@@ -88,7 +88,7 @@ namespace Simulator
             //return Choose(choice, decisions);
         }
 
-        private Tuple<Decision, int> ChooseGuid(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, GuidSelection selection)
+        private Tuple<Decision, int> ChooseGuid(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, BoundedGuidSelection selection)
         {
             List<IEnumerable<Guid>> options = new();
             for (int i = selection.MinimumSelection; i <= selection.MaximumSelection; ++i)

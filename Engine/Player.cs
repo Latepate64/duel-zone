@@ -129,7 +129,7 @@ namespace Engine
                 if (decision != null)
                 {
                     var dist = decision.Decision.Distinct();
-                    legal = dist.Count() >= selection.MinimumSelection && dist.Count() <= selection.MaximumSelection && dist.All(i => selection.Options.Contains(i));
+                    legal = selection.IsLegal(dist);
                 }
                 else
                 {

@@ -346,7 +346,7 @@ namespace Client
         {
             _currentChoice = c;
             SetChoiceText(c.ToString());
-            if (c is CardSelection cardSelection)
+            if (c is BoundedCardSelection cardSelection)
             {
                 Process(cardSelection);
             }
@@ -398,7 +398,7 @@ namespace Client
             }
         }
 
-        private void Process(CardSelection cardSelection)
+        private void Process(BoundedCardSelection cardSelection)
         {
             if (cardSelection.MinimumSelection == 0)
             {

@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
             var controller = game.GetPlayer(source.Owner);
             if (controller.Hand.Cards.Any())
             {
-                var decision = controller.Choose(new CardSelectionInEffect(source.Owner, controller.Hand.Cards, 0, 1, "You may add a card from your hand to your shields face down."), game);
+                var decision = controller.Choose(new BoundedCardSelectionInEffect(source.Owner, controller.Hand.Cards, 0, 1, "You may add a card from your hand to your shields face down."), game);
                 var cards = decision.Decision;
                 if (cards.Any())
                 {

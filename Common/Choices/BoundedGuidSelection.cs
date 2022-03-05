@@ -4,18 +4,13 @@ using System.Linq;
 
 namespace Common.Choices
 {
-    public abstract class GuidSelection : Choice
+    public abstract class BoundedGuidSelection : GuidSelection
     {
-        /// <summary>
-        /// Options player can choose from.
-        /// </summary>
-        public List<Guid> Options { get; set; }
-
         public int MinimumSelection { get; set; }
 
         public int MaximumSelection { get; set; }
 
-        public GuidSelection() { }
+        public BoundedGuidSelection() { }
 
         /// <summary>
         /// Creates a selection. Note that selection (property Selected) may be already set here if there is only one legal option to choose from.
@@ -24,22 +19,16 @@ namespace Common.Choices
         /// <param name="options"></param>
         /// <param name="minimumSelection"></param>
         /// <param name="maximumSelection"></param>
-        protected GuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player)
+        protected BoundedGuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player, options)
         {
-            Options = options.ToList();
             MinimumSelection = minimumSelection;
             MaximumSelection = maximumSelection;
         }
 
-        protected override void Dispose(bool disposing)
+        public override bool IsLegal(IEnumerable<Guid> decision)
         {
-            if (disposing)
-            {
-                Options = null;
-            }
+            return base.IsLegal(decision) && decision.Count() >= MinimumSelection && decision.Count() <= MaximumSelection;
         }
-
-        public override abstract string ToString();
     }
 
     public class GuidDecision : Decision
@@ -62,6 +51,38 @@ namespace Common.Choices
             {
                 Decision = null;
             }
+        }
+    }
+
+    public abstract class GuidSelection : Choice
+    {
+        /// <summary>
+        /// Options player can choose from.
+        /// </summary>
+        public List<Guid> Options { get; set; }
+
+        public GuidSelection()
+        {
+        }
+
+        protected GuidSelection(Guid player, IEnumerable<Guid> options) : base(player)
+        {
+            Options = options.ToList();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Options = null;
+            }
+        }
+
+        public override abstract string ToString();
+
+        public virtual bool IsLegal(IEnumerable<Guid> decision)
+        {
+            return decision.All(i => Options.Contains(i));
         }
     }
 }
