@@ -10,6 +10,7 @@ namespace Cards.Cards.DM11
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new PutIntoPlayAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneCardFilter { CardType = CardType.Spell }, 1, 1, true)));
+            Abilities.Add(new CannotAttackPlayersAbility());
         }
     }
 }
