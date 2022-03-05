@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        protected abstract void Apply(Game game, Ability source, IEnumerable<Card> cards);
+        protected abstract void Apply(Game game, Ability source, params Card[] cards);
 
         public override void Apply(Game game, Ability source)
         {

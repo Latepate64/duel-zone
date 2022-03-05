@@ -1,7 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -11,13 +9,13 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public GhastlyDrainEffect(ChooseAnyNumberOfCardsEffect effect) : base(effect)
+        public GhastlyDrainEffect(GhastlyDrainEffect effect) : base(effect)
         {
         }
 
         public override OneShotEffect Copy()
         {
-            return new GhastlyDrainEffect();
+            return new GhastlyDrainEffect(this);
         }
 
         public override string ToString()
@@ -25,9 +23,9 @@ namespace Cards.OneShotEffects
             return "Choose any number of your shields and put them into your hand. You can't use the \"shield trigger\" abilities of those shields.";
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
+        protected override void Apply(Game game, Ability source, params Card[] cards)
         {
-            game.PutFromShieldZoneToHand(cards.ToArray(), false);
+            game.PutFromShieldZoneToHand(cards, false);
         }
     }
 }
