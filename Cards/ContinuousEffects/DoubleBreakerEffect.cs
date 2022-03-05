@@ -1,6 +1,8 @@
-﻿namespace Engine.ContinuousEffects
+﻿using Engine.ContinuousEffects;
+
+namespace Cards.ContinuousEffects
 {
-    public class DoubleBreakerEffect : ContinuousEffect
+    public class DoubleBreakerEffect : BreakerEffect
     {
         public DoubleBreakerEffect()
         {
@@ -13,6 +15,11 @@
         public override ContinuousEffect Copy()
         {
             return new DoubleBreakerEffect(this);
+        }
+
+        public override int GetAmount()
+        {
+            return 2;
         }
 
         public override string ToString()
