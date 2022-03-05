@@ -17,6 +17,10 @@ namespace Cards.OneShotEffects
             CanUseShieldTrigger = canUseShieldTrigger;
         }
 
+        /// <summary>
+        /// Must choose one of own shields.
+        /// </summary>
+        /// <param name="canUseShieldTrigger"></param>
         public ShieldRecoveryEffect(bool canUseShieldTrigger) : this(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, true, canUseShieldTrigger)
         {
 
