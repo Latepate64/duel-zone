@@ -11,7 +11,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Return a creature from your graveyard to your hand.
-            AddAbilities(new SpellAbility(new SelfSalvageCreatureEffect(1, 1)));
+            AddAbilities(new SpellAbility(new SalvageCreatureEffect(1, 1)));
         }
     }
 }
