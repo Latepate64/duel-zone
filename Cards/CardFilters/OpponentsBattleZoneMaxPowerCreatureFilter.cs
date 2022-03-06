@@ -4,11 +4,11 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneMaxPowerCreatureFilter : OpponentsBattleZoneCardFilter
     {
-        public int Power { get; set; }
+        public PowerFilter Power { get; set; }
 
         public OpponentsBattleZoneMaxPowerCreatureFilter(int power)
         {
-            Power = power;
+            Power = new PowerFilter(PowerMode.Max, power);
         }
 
         public OpponentsBattleZoneMaxPowerCreatureFilter(OpponentsBattleZoneMaxPowerCreatureFilter filter) : base(filter)
@@ -23,12 +23,12 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your opponent's {ToStringBase()}s that have power ${Power} or less";
+            return $"your opponent's {ToStringBase()}s ${Power}";
         }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Power <= Power;
+            return base.Applies(card, game, player) && Power.Applies(card);
         }
     }
 }

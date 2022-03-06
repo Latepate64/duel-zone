@@ -1,34 +1,9 @@
-﻿using Engine;
-
-namespace Cards.CardFilters
+﻿namespace Cards.CardFilters
 {
-    class BattleZoneMaxPowerCreatureFilter : BattleZoneCreatureFilter
+    class BattleZoneMaxPowerCreatureFilter : BattleZonePowerCreatureFilter
     {
-        public int Power { get; }
-
-        public BattleZoneMaxPowerCreatureFilter(int power)
+        public BattleZoneMaxPowerCreatureFilter(int power) : base(new PowerFilter(PowerMode.Max, power))
         {
-            Power = power;
-        }
-
-        public BattleZoneMaxPowerCreatureFilter(BattleZoneMaxPowerCreatureFilter filter) : base(filter)
-        {
-            Power = filter.Power;
-        }
-
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && card.Power.Value <= Power;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new BattleZoneMaxPowerCreatureFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + $" that has power {Power} or less";
         }
     }
 }
