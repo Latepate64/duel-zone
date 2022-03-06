@@ -1,7 +1,6 @@
 ﻿using Common.Choices;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.OneShotEffects

@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.OneShotEffects
@@ -20,8 +19,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            new ManaRecoveryEffect(new OwnersManaZoneCardFilter(), Amount, Amount, true).Apply(game, source);
-            new ManaRecoveryEffect(new OpponentsManaZoneCardFilter(), Amount, Amount, false).Apply(game, source);
+            new SelfManaRecoveryEffect(Amount, Amount, true, Common.CardType.Any).Apply(game, source);
+            new OpponentManaRecoveryEffect(Amount, Amount, false).Apply(game, source);
         }
 
         public override OneShotEffect Copy()
