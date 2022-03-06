@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public AquaShooter() : base("Aqua Shooter", 4, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

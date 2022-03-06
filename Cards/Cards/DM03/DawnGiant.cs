@@ -6,8 +6,8 @@ namespace Cards.Cards.DM03
     {
         public DawnGiant() : base("Dawn Giant", 7, 11000, Common.Subtype.Giant, Common.Civilization.Nature)
         {
-            Abilities.Add(new CannotAttackCreaturesAbility());
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new CannotAttackCreaturesAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

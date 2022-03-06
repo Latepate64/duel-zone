@@ -347,7 +347,7 @@ namespace Engine
             var abilities = new List<TriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.TriggeredAbilities.Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
+                abilities.AddRange(card.GetAbilities<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
             return abilities;
         }

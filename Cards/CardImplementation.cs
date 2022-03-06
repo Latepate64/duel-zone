@@ -20,10 +20,5 @@ namespace Cards
         {
             Subtypes.AddRange(subtypes);
         }
-
-        protected void AddAbilities(params Ability[] abilities)
-        {
-            Abilities.AddRange(abilities);
-        }
     }
 }

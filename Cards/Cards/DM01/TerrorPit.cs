@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures.
-            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }

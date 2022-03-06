@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Draw up to 2 cards.
-            Abilities.Add(new SpellAbility(new ControllerMayDrawCardsEffect(2)));
+            AddAbilities(new SpellAbility(new ControllerMayDrawCardsEffect(2)));
         }
     }
 }

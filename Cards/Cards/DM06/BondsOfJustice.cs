@@ -10,7 +10,7 @@ namespace Cards.Cards.DM06
         {
             ShieldTrigger = true;
             // Tap all creatures in the battle zone that don't have "blocker."
-            Abilities.Add(new SpellAbility(new TapAreaOfEffect(new CardFilters.BattleZoneNonBlockerCreatureFilter())));
+            AddAbilities(new SpellAbility(new TapAreaOfEffect(new CardFilters.BattleZoneNonBlockerCreatureFilter())));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public ProwlingElephish() : base("Prowling Elephish", 4, 2000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

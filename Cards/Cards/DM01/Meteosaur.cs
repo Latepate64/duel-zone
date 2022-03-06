@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         public Meteosaur() : base("Meteosaur", 5, 2000, Common.Subtype.RockBeast, Common.Civilization.Fire)
         {
             // When you put this creature into the battle zone, you may destroy 1 of your opponent's creatures that has power 2000 or less.
-            Abilities.Add(new PutIntoPlayAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(2000), 0, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(2000), 0, 1, true)));
         }
     }
 }

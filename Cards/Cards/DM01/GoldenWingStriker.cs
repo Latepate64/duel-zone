@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public GoldenWingStriker() : base("Golden Wing Striker", 3, 2000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            Abilities.Add(new PowerAttackerAbility(2000));
+            AddAbilities(new PowerAttackerAbility(2000));
         }
     }
 }

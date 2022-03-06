@@ -6,8 +6,8 @@ namespace Cards.Cards.DM01
     {
         public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, 6000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

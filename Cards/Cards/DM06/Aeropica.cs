@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public Aeropica() : base("Aeropica", 7, 4000, Subtype.SeaHacker, Civilization.Water)
         {
-            Abilities.Add(new TapAbility(new OneShotEffects.BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddAbilities(new TapAbility(new OneShotEffects.BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
         }
     }
 }

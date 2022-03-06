@@ -10,7 +10,7 @@ namespace Cards.Cards.DM10
         {
             AddSubtypes(Subtype.Human, Subtype.BeastFolk);
             // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker." Then put the top card of your deck into your mana zone.
-            Abilities.Add(new PutIntoPlayAbility(new WindAxeTheWarriorSavageEffect()));
+            AddAbilities(new PutIntoPlayAbility(new WindAxeTheWarriorSavageEffect()));
         }
     }
 }

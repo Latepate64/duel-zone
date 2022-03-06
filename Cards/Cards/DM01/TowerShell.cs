@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public TowerShell() : base("Tower Shell", 6, 5000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            Abilities.Add(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(4000)));
+            AddAbilities(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(4000)));
         }
     }
 }

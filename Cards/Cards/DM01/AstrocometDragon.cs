@@ -6,8 +6,7 @@ namespace Cards.Cards.DM01
     {
         public AstrocometDragon() : base("Astrocomet Dragon", 7, 6000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
-            Abilities.Add(new PowerAttackerAbility(4000));
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new PowerAttackerAbility(4000), new DoubleBreakerAbility());
         }
     }
 }

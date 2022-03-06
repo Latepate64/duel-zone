@@ -8,8 +8,8 @@ namespace Cards.Cards.DM09
     {
         public AbductionCharger() : base("AbductionCharger", 7, Civilization.Water)
         {
-            Abilities.Add(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneCreatureFilter())));
-            Abilities.Add(new StaticAbilities.ChargerAbility());
+            AddAbilities(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneCreatureFilter())));
+            AddAbilities(new StaticAbilities.ChargerAbility());
         }
     }
 }

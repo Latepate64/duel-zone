@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
         public HunterCluster() : base("Hunter Cluster", 4, 1000, Common.Subtype.CyberCluster, Common.Civilization.Water)
         {
             ShieldTrigger = true;
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

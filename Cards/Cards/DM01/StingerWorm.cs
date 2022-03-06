@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         public StingerWorm() : base("Stinger Worm", 3, 5000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
             // When you put this creature into the battle zone, destroy 1 of your creatures.
-            Abilities.Add(new PutIntoPlayAbility(new DestroyEffect(new OwnersBattleZoneCreatureFilter(), 1, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new DestroyEffect(new OwnersBattleZoneCreatureFilter(), 1, 1, true)));
         }
     }
 }

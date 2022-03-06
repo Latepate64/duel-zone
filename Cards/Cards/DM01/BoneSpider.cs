@@ -10,8 +10,7 @@ namespace Cards.Cards.DM01
         public BoneSpider() : base("Bone Spider", 3, 5000, Subtype.LivingDead, Civilization.Darkness)
         {
             // When this creature wins a battle, destroy it.
-            var targetFilter = new TargetFilter();
-            Abilities.Add(new WinBattleAbility(new DestroyAreaOfEffect(targetFilter)));
+            AddAbilities(new WinBattleAbility(new DestroyAreaOfEffect(new TargetFilter())));
         }
     }
 }

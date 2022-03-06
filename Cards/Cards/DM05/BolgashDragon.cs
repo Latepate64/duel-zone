@@ -7,8 +7,8 @@ namespace Cards.Cards.DM05
     {
         public BolgashDragon() : base("Bolgash Dragon", 8, 4000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            Abilities.Add(new PowerAttackerAbility(8000));
-            Abilities.Add(new TripleBreakerAbility());
+            AddAbilities(new PowerAttackerAbility(8000));
+            AddAbilities(new TripleBreakerAbility());
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public BroodShell() : base("Brood Shell", 4, 3000, Subtype.ColonyBeetle, Civilization.Nature)
         {
-            Abilities.Add(new TapAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneCardFilter { CardType = CardType.Creature }, 1, 1, true)));
+            AddAbilities(new TapAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneCardFilter { CardType = CardType.Creature }, 1, 1, true)));
         }
     }
 }

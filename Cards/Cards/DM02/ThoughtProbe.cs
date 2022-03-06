@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
             ShieldTrigger = true;
 
             // When you cast this spell, if your opponent has 3 or more creatures in the battle zone, draw 3 cards.
-            Abilities.Add(new SpellAbility(new OneShotEffects.ThoughtProbeEffect()));
+            AddAbilities(new SpellAbility(new OneShotEffects.ThoughtProbeEffect()));
         }
     }
 }

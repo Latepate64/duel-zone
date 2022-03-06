@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public CandyDrop() : base("Candy Drop", 3, 1000, Common.Subtype.CyberVirus, Common.Civilization.Water)
         {
-            Abilities.Add(new UnblockableAbility());
+            AddAbilities(new UnblockableAbility());
         }
     }
 }

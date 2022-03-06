@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public Draglide() : base("Draglide", 5, 5000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
-            Abilities.Add(new AttacksIfAbleAbility());
+            AddAbilities(new AttacksIfAbleAbility());
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Cards.Cards.DM06
     {
         public VessTheOracle() : base("Vess, the Oracle", 1, 2000, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

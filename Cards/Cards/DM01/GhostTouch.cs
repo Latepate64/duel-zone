@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Your opponent discards a card at random from his hand.
-            Abilities.Add(new SpellAbility(new OpponentRandomDiscardEffect()));
+            AddAbilities(new SpellAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

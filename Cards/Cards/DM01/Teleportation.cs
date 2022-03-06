@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
         public Teleportation() : base("Teleportation", 5, Common.Civilization.Water)
         {
             // Choose up to 2 creatures in the battle zone and return them to their owners' hands.
-            Abilities.Add(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddAbilities(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneChoosableCreatureFilter())));
         }
     }
 }

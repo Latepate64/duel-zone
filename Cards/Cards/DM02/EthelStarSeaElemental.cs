@@ -4,7 +4,7 @@
     {
         public EthelStarSeaElemental() : base("Ethel, Star Sea Elemental", 6, 5500, Common.Subtype.AngelCommand, Common.Civilization.Light)
         {
-            Abilities.Add(new StaticAbilities.UnblockableAbility());
+            AddAbilities(new StaticAbilities.UnblockableAbility());
         }
     }
 }

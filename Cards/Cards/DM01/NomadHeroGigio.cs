@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public NomadHeroGigio() : base("Nomad Hero Gigio", 5, 3000, Common.Subtype.MachineEater, Common.Civilization.Fire)
         {
-            Abilities.Add(new CanAttackUntappedCreaturesAbility());
+            AddAbilities(new CanAttackUntappedCreaturesAbility());
         }
     }
 }

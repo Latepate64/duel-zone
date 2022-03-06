@@ -10,7 +10,7 @@ namespace Cards.Cards.DM06
         {
             ShieldTrigger = true;
             // Destroy one of your opponent's creatures that has "blocker" and power 6000 or less.
-            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(6000), 1, 1, true)));
+            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(6000), 1, 1, true)));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public HanusaRadianceElemental() : base("Hanusa, Radiance Elemental", 7, 9500, Common.Subtype.AngelCommand, Common.Civilization.Light)
         {
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

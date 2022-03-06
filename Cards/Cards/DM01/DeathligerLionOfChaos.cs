@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DeathligerLionOfChaos() : base("Deathliger, Lion of Chaos", 7, 9000, Common.Subtype.DemonCommand, Common.Civilization.Darkness)
         {
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

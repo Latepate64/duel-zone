@@ -8,9 +8,9 @@ namespace Cards.Cards.DM06
     {
         public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, 3000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
-            Abilities.Add(new SpeedAttackerAbility());
+            AddAbilities(new SpeedAttackerAbility());
             // At the end of your turn, return this creature to your hand.
-            Abilities.Add(new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
+            AddAbilities(new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
         }
     }
 }

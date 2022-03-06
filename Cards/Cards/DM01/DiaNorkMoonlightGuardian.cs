@@ -6,8 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DiaNorkMoonlightGuardian() : base("Dia Nork, Moonlight Guardian", 4, 5000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

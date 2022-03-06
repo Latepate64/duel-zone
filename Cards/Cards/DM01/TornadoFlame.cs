@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures that has power 4000 or less.
-            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000), 1, 1, true)));
+            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(4000), 1, 1, true)));
         }
     }
 }

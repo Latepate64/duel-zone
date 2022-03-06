@@ -10,7 +10,7 @@ namespace Cards.Cards.DM02
         public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
             // When you put this creature into the battle zone, choose one of your opponent's creatures in the battle zone and put it on top of his deck.
-            Abilities.Add(new PutIntoPlayAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 }

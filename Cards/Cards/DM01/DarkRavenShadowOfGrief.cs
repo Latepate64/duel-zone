@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DarkRavenShadowOfGrief() : base("Dark Raven, Shadow of Grief", 4, 1000, Common.Subtype.Ghost, Common.Civilization.Darkness)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

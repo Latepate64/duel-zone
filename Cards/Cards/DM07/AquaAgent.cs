@@ -8,7 +8,7 @@ namespace Cards.Cards.DM07
         {
             //TODO: Water stealth
             // When this creature would be destroyed, you may return it to your hand instead.
-            Abilities.Add(new AquaAgentAbility());
+            AddAbilities(new AquaAgentAbility());
         }
     }
 }

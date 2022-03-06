@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public BombatGeneralOfSpeed() : base("Bombat, General of Speed", 5, 3000, Subtype.Dragonoid, Civilization.Fire)
         {
-            Abilities.Add(new StaticAbilities.SpeedAttackerAbility());
+            AddAbilities(new StaticAbilities.SpeedAttackerAbility());
         }
     }
 }

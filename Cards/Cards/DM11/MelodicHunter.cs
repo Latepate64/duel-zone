@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
     {
         public MelodicHunter() : base("Melodic Hunter", 5, 3000, Common.Subtype.Merfolk, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

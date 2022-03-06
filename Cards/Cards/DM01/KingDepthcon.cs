@@ -6,8 +6,8 @@ namespace Cards.Cards.DM01
     {
         public KingDepthcon() : base("King Depthcon", 7, 6000, Common.Subtype.Leviathan, Common.Civilization.Water)
         {
-            Abilities.Add(new DoubleBreakerAbility());
-            Abilities.Add(new UnblockableAbility());
+            AddAbilities(new DoubleBreakerAbility());
+            AddAbilities(new UnblockableAbility());
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
         public AquaSoldier() : base("Aqua Soldier", 3, 1000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
             // When this creature would be destroyed, return it to your hand instead.
-            Abilities.Add(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
+            AddAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
         }
     }
 }

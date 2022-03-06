@@ -5,8 +5,8 @@
         public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000, Common.Subtype.DarkLord, Common.Civilization.Darkness)
         {
             // Whenever this creature attacks, choose one of your shields without looking and put it into your graveyard. You can't use the "shield trigger" ability of that shield.
-            Abilities.Add(new TriggeredAbilities.AttackAbility(new OneShotEffects.SelfShieldBurnEffect()));
-            Abilities.Add(new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.AttackAbility(new OneShotEffects.SelfShieldBurnEffect()));
+            AddAbilities(new StaticAbilities.DoubleBreakerAbility());
         }
     }
 }

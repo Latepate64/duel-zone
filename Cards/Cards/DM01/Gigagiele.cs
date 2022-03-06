@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public Gigagiele() : base("Gigagiele", 5, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
-            Abilities.Add(new SlayerAbility());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

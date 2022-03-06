@@ -9,7 +9,7 @@ namespace Cards.Cards.DM06
         public SpasticMissile() : base("Spastic Missile", 3, Common.Civilization.Fire)
         {
             // Destroy one of your opponent's creatures that has power 3000 or less.
-            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true)));
+            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true)));
         }
     }
 }
