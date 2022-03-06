@@ -6,10 +6,8 @@ namespace Cards.Cards.DM12
     {
         public BuzzBetocchi() : base("Buzz Betocchi", 3, 4000)
         {
-            Civilizations.Add(Civilization.Fire);
-            Civilizations.Add(Civilization.Nature);
-            Subtypes.Add(Subtype.FireBird);
-            Subtypes.Add(Subtype.GiantInsect);
+            AddCivilizations(Civilization.Fire, Civilization.Nature);
+            AddSubtypes(Subtype.FireBird, Subtype.GiantInsect);
         }
     }
 }

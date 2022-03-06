@@ -1,6 +1,5 @@
 ﻿using Cards.StaticAbilities;
 using Common;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -8,9 +7,8 @@ namespace Cards.Cards.DM10
     {
         public AquaSkydiver() : base("Aqua Skydiver", 4, 1000)
         {
-            Civilizations.Add(Civilization.Light);
-            Civilizations.Add(Civilization.Water);
-            Subtypes.Add(Subtype.LiquidPeople);
+            AddCivilizations(Civilization.Light, Civilization.Water);
+            AddSubtypes(Subtype.LiquidPeople);
 
             ShieldTrigger = true;
             Abilities.Add(new BlockerAbility());

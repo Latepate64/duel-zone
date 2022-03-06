@@ -6,10 +6,8 @@ namespace Cards.Cards.DM10
     {
         public GontaTheWarriorSavage() : base("Gonta, the Warrior Savage", 2, 4000)
         {
-            Civilizations.Add(Civilization.Fire);
-            Civilizations.Add(Civilization.Nature);
-            Subtypes.Add(Subtype.Human);
-            Subtypes.Add(Subtype.BeastFolk);
+            AddCivilizations(Civilization.Fire, Civilization.Nature);
+            AddSubtypes(Subtype.Human, Subtype.BeastFolk);
         }
     }
 }

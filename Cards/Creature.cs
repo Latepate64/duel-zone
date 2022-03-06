@@ -35,5 +35,15 @@ namespace Cards
             Name = name;
             Power = power;
         }
+
+        internal void AddCivilizations(params Civilization[] civilizations)
+        {
+            Civilizations.AddRange(civilizations);
+        }
+
+        internal void AddSubtypes(params Subtype[] subtypes)
+        {
+            Subtypes.AddRange(subtypes);
+        }
     }
 }

@@ -7,10 +7,8 @@ namespace Cards.Cards.DM10
     {
         public MelniaTheAquaShadow() : base("Melnia, the Aqua Shadow", 2, 1000)
         {
-            Civilizations.Add(Civilization.Water);
-            Civilizations.Add(Civilization.Darkness);
-            Subtypes.Add(Subtype.LiquidPeople);
-            Subtypes.Add(Subtype.Ghost);
+            AddCivilizations(Civilization.Water, Civilization.Darkness);
+            AddSubtypes(Subtype.LiquidPeople, Subtype.Ghost);
 
             Abilities.Add(new UnblockableAbility());
             Abilities.Add(new SlayerAbility());

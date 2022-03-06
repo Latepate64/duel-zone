@@ -9,10 +9,8 @@ namespace Cards.Cards.DM10
     {
         public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000)
         {
-            Civilizations.Add(Civilization.Fire);
-            Civilizations.Add(Civilization.Nature);
-            Subtypes.Add(Subtype.ArmoredDragon);
-            Subtypes.Add(Subtype.EarthDragon);
+            AddCivilizations(Civilization.Fire, Civilization.Nature);
+            AddSubtypes(Subtype.ArmoredDragon, Subtype.EarthDragon);
 
             Abilities.Add(new SpeedAttackerAbility());
             Abilities.Add(new DoubleBreakerAbility());
