@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
-    public class MagrisVizierOfMagnetism : Creature
+    class MagrisVizierOfMagnetism : Creature
     {
         public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, Common.Civilization.Light, 3000, Common.Subtype.Initiate)
         {

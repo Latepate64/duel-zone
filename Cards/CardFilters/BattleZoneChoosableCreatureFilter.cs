@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.CardFilters
 {
-    public class BattleZoneChoosableCreatureFilter : CardFilter
+    class BattleZoneChoosableCreatureFilter : CardFilter
     {
         public BattleZoneChoosableCreatureFilter()
         {

@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM08
 {
-    public class CraniumClamp : Spell
+    class CraniumClamp : Spell
     {
         public CraniumClamp() : base("Cranium Clamp", 4, Common.Civilization.Darkness)
         {

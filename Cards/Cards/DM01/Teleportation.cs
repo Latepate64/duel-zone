@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class Teleportation : Spell
+    class Teleportation : Spell
     {
         public Teleportation() : base("Teleportation", 5, Common.Civilization.Water)
         {

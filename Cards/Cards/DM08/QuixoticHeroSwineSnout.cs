@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM08
 {
-    public class QuixoticHeroSwineSnout : Creature
+    class QuixoticHeroSwineSnout : Creature
     {
         public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
         {

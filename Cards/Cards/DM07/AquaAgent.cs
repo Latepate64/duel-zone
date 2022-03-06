@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM07
 {
-    public class AquaAgent : Creature
+    class AquaAgent : Creature
     {
         public AquaAgent() : base("Aqua Agent", 6, Common.Civilization.Water, 2000, Common.Subtype.LiquidPeople)
         {

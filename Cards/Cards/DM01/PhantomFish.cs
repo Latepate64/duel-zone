@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class PhantomFish : Creature
+    class PhantomFish : Creature
     {
         public PhantomFish() : base("Phantom Fish", 3, Common.Civilization.Water, 4000, Common.Subtype.GelFish)
         {

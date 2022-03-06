@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class HolyAwe : Spell
+    class HolyAwe : Spell
     {
         public HolyAwe() : base("Holy Awe", 6, Common.Civilization.Light)
         {

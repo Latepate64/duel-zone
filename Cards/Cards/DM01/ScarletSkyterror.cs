@@ -5,7 +5,7 @@ using Common;
 
 namespace Cards.Cards.DM01
 {
-    public class ScarletSkyterror : Creature
+    class ScarletSkyterror : Creature
     {
         public ScarletSkyterror() : base("Scarlet Skyterror", 8, Civilization.Fire, 3000, Subtype.ArmoredWyvern)
         {

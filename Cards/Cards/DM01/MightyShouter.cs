@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class MightyShouter : Creature
+    class MightyShouter : Creature
     {
         public MightyShouter() : base("Mighty Shouter", 3, Common.Civilization.Nature, 2000, Common.Subtype.BeastFolk)
         {

@@ -1,9 +1,8 @@
 ﻿using Common;
-using System.Collections.Generic;
 
 namespace Cards
 {
-    public abstract class Creature : Engine.Card
+    abstract class Creature : CardImplementation
     {
         /// <summary>
         /// This constructor should be used for monocolored cards with one subtype.
@@ -25,25 +24,9 @@ namespace Cards
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
         /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power)
+        protected Creature(string name, int manaCost, int power) : base(name, manaCost, CardType.Creature)
         {
-            CardType = CardType.Creature;
-            Civilizations = new List<Civilization>();
-            Subtypes = new List<Subtype>();
-
-            ManaCost = manaCost;
-            Name = name;
             Power = power;
-        }
-
-        internal void AddCivilizations(params Civilization[] civilizations)
-        {
-            Civilizations.AddRange(civilizations);
-        }
-
-        internal void AddSubtypes(params Subtype[] subtypes)
-        {
-            Subtypes.AddRange(subtypes);
         }
     }
 }

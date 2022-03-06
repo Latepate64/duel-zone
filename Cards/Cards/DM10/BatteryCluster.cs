@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM10
 {
-    public class BatteryCluster : Creature
+    class BatteryCluster : Creature
     {
         public BatteryCluster() : base("Battery Cluster", 2, Common.Civilization.Water, 3000, Common.Subtype.CyberCluster)
         {

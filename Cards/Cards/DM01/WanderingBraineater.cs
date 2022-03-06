@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class WanderingBraineater : Creature
+    class WanderingBraineater : Creature
     {
         public WanderingBraineater() : base("Wandering Braineater", 2, Common.Civilization.Darkness, 2000, Common.Subtype.LivingDead)
         {

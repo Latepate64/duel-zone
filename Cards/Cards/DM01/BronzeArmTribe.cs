@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class BronzeArmTribe : Creature
+    class BronzeArmTribe : Creature
     {
         public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
         {

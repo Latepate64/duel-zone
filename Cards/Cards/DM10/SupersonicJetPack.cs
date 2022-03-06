@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    public class SupersonicJetPack : Spell
+    class SupersonicJetPack : Spell
     {
         public SupersonicJetPack() : base("Supersonic Jet Pack", 1, Common.Civilization.Fire)
         {

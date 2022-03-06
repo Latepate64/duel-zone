@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class TornadoFlame : Spell
+    class TornadoFlame : Spell
     {
         public TornadoFlame() : base("Tornado Flame", 5, Common.Civilization.Fire)
         {

@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class TerrorPit : Spell
+    class TerrorPit : Spell
     {
         public TerrorPit() : base("Terror Pit", 6, Common.Civilization.Darkness)
         {

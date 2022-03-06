@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class PoisonousMushroom : Creature
+    class PoisonousMushroom : Creature
     {
         public PoisonousMushroom() : base("Poisonous Mushroom", 2, Common.Civilization.Nature, 1000, Common.Subtype.BalloonMushroom)
         {

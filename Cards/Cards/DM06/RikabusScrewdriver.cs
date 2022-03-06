@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
-    public class RikabusScrewdriver : Creature
+    class RikabusScrewdriver : Creature
     {
         public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, Common.Civilization.Fire, 1000, Common.Subtype.Xenoparts)
         {

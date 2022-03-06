@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class KingCoral : Creature
+    class KingCoral : Creature
     {
         public KingCoral() : base("King Coral", 3, Common.Civilization.Water, 1000, Common.Subtype.Leviathan)
         {

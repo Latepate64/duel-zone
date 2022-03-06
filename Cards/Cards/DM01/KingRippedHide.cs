@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class KingRippedHide : Creature
+    class KingRippedHide : Creature
     {
         public KingRippedHide() : base("King Ripped-Hide", 7, Common.Civilization.Water, 5000, Common.Subtype.Leviathan)
         {

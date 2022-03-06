@@ -1,16 +1,12 @@
 ﻿using Common;
-using System.Collections.Generic;
 
 namespace Cards
 {
-    public abstract class Spell : Engine.Card
+    abstract class Spell : CardImplementation
     {
-        protected Spell(string name, int manaCost, Civilization civilization)
+        protected Spell(string name, int manaCost, Civilization civilization) : base(name, manaCost, CardType.Spell)
         {
-            CardType = CardType.Spell;
-            Civilizations = new List<Civilization> { civilization };
-            ManaCost = manaCost;
-            Name = name;
+            Civilizations.Add(civilization);
         }
     }
 }

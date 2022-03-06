@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM11
 {
-    public class EngbeltTheSpydroid : Creature
+    class EngbeltTheSpydroid : Creature
     {
         public EngbeltTheSpydroid() : base("Engbelt, the Spydroid", 4, Common.Civilization.Light, 5500, Common.Subtype.Soltrooper)
         {

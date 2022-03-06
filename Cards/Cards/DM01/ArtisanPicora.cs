@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class ArtisanPicora : Creature
+    class ArtisanPicora : Creature
     {
         public ArtisanPicora() : base("Artisan Picora", 1, Common.Civilization.Fire, 2000, Common.Subtype.MachineEater)
         {

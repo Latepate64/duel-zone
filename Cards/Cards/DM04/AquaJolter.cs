@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    public class AquaJolter : Creature
+    class AquaJolter : Creature
     {
         public AquaJolter() : base("Aqua Jolter", 3, Civilization.Water, 2000, Subtype.LiquidPeople)
         {

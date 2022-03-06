@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class NaturalSnare : Spell
+    class NaturalSnare : Spell
     {
         public NaturalSnare() : base("Natural Snare", 6, Common.Civilization.Nature)
         {

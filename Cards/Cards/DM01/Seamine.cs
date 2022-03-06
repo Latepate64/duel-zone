@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class Seamine : Creature
+    class Seamine : Creature
     {
         public Seamine() : base("Seamine", 6, Common.Civilization.Water, 4000, Common.Subtype.Fish)
         {

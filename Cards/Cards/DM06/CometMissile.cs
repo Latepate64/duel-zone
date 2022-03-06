@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
-    public class CometMissile : Spell
+    class CometMissile : Spell
     {
         public CometMissile() : base("Comet Missile", 1, Common.Civilization.Fire)
         {

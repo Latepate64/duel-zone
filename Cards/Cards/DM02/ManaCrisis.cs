@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM02
 {
-    public class ManaCrisis : Spell
+    class ManaCrisis : Spell
     {
         public ManaCrisis() : base("Mana Crisis", 4, Common.Civilization.Nature)
         {

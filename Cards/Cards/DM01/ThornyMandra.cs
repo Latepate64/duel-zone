@@ -5,7 +5,7 @@ using Common;
 
 namespace Cards.Cards.DM01
 {
-    public class ThornyMandra : Creature
+    class ThornyMandra : Creature
     {
         public ThornyMandra() : base("Thorny Mandra", 5, Civilization.Nature, 4000, Subtype.TreeFolk)
         {

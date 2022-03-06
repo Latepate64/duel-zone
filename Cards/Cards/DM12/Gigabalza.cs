@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
-    public class Gigabalza : Creature
+    class Gigabalza : Creature
     {
         public Gigabalza() : base("Gigabalza", 4, Common.Civilization.Darkness, 1000, Common.Subtype.Chimera)
         {

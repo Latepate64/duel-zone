@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class RaylaTruthEnforcer : Creature
+    class RaylaTruthEnforcer : Creature
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, Common.Civilization.Light, 3000, Common.Subtype.Berserker)
         {

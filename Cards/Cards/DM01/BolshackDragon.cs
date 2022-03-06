@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class BolshackDragon : Creature
+    class BolshackDragon : Creature
     {
         public BolshackDragon() : base("Bolshack Dragon", 6, Common.Civilization.Fire, 6000, Common.Subtype.ArmoredDragon)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class MarineFlower : Creature
+    class MarineFlower : Creature
     {
         public MarineFlower() : base("Marine Flower", 1, Common.Civilization.Water, 2000, Common.Subtype.CyberVirus)
         {

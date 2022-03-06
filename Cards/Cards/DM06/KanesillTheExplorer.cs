@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    public class KanesillTheExplorer : Creature
+    class KanesillTheExplorer : Creature
     {
         public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, Common.Civilization.Light, 4000, Common.Subtype.Gladiator)
         {

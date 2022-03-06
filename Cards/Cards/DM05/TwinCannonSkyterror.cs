@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    public class TwinCannonSkyterror : Creature
+    class TwinCannonSkyterror : Creature
     {
         public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, Common.Civilization.Fire, 7000, Common.Subtype.ArmoredWyvern)
         {

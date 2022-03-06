@@ -5,7 +5,7 @@ using Common;
 
 namespace Cards.Cards.DM04
 {
-    public class Magmarex : Creature
+    class Magmarex : Creature
     {
         public Magmarex() : base("Magmarex", 5, Civilization.Fire, 3000, Subtype.RockBeast)
         {

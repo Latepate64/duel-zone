@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class GatlingSkyterror : Creature
+    class GatlingSkyterror : Creature
     {
         public GatlingSkyterror() : base("Gatling Skyterror", 7, Common.Civilization.Fire, 7000, Common.Subtype.ArmoredWyvern)
         {

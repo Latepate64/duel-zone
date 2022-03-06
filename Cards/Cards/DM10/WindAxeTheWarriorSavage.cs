@@ -4,7 +4,7 @@ using Common;
 
 namespace Cards.Cards.DM10
 {
-    public class WindAxeTheWarriorSavage : Creature
+    class WindAxeTheWarriorSavage : Creature
     {
         public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000)
         {

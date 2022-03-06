@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM12
 {
-    public class ValkyerStarstormElemental : Creature
+    class ValkyerStarstormElemental : Creature
     {
         public ValkyerStarstormElemental() : base("Valkyer, Starstorm Elemental", 5, Common.Civilization.Light, 7000, Common.Subtype.AngelCommand)
         {

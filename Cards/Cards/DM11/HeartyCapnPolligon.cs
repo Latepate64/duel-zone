@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM11
 {
-    public class HeartyCapnPolligon : Creature
+    class HeartyCapnPolligon : Creature
     {
         public HeartyCapnPolligon() : base("Hearty Cap'n Polligon", 1, Common.Civilization.Nature, 2000, Common.Subtype.SnowFaerie)
         {

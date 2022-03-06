@@ -5,7 +5,7 @@ using Common;
 
 namespace Cards.Cards.DM02
 {
-    public class Corile : Creature
+    class Corile : Creature
     {
         public Corile() : base("Corile", 5, Civilization.Water, 2000, Subtype.CyberLord)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class RoaringGreatHorn : Creature
+    class RoaringGreatHorn : Creature
     {
         public RoaringGreatHorn() : base("Roaring Great-Horn", 7, Common.Civilization.Nature, 8000, Common.Subtype.HornedBeast)
         {

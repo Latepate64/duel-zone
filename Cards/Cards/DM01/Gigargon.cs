@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class Gigargon : Creature
+    class Gigargon : Creature
     {
         public Gigargon() : base("Gigargon", 8, Common.Civilization.Darkness, 3000, Common.Subtype.Chimera)
         {

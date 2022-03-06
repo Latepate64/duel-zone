@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class AquaSniper : Creature
+    class AquaSniper : Creature
     {
         public AquaSniper() : base("Aqua Sniper", 8, Common.Civilization.Water, 5000, Common.Subtype.LiquidPeople)
         {

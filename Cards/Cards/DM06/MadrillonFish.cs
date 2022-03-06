@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    public class MadrillonFish : Creature
+    class MadrillonFish : Creature
     {
         public MadrillonFish() : base("Madrillon Fish", 2, Common.Civilization.Water, 3000, Common.Subtype.GelFish)
         {

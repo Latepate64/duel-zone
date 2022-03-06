@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
-    public class PyrofighterMagnus : Creature
+    class PyrofighterMagnus : Creature
     {
         public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, Common.Civilization.Fire, 3000, Common.Subtype.Dragonoid)
         {

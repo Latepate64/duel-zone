@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class CrimsonHammer : Spell
+    class CrimsonHammer : Spell
     {
         public CrimsonHammer() : base("Crimson Hammer", 2, Common.Civilization.Fire)
         {

@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    public class BlizzardOfSpears : Spell
+    class BlizzardOfSpears : Spell
     {
         public BlizzardOfSpears() : base("Blizzard of Spears", 6, Civilization.Fire)
         {

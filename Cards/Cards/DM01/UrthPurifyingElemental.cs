@@ -5,7 +5,7 @@ using Engine;
 
 namespace Cards.Cards.DM01
 {
-    public class UrthPurifyingElemental : Creature
+    class UrthPurifyingElemental : Creature
     {
         public UrthPurifyingElemental() : base("Urth, Purifying Elemental", 6, Common.Civilization.Light, 6000, Common.Subtype.AngelCommand)
         {

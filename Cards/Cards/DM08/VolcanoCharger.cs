@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM08
 {
-    public class VolcanoCharger : Spell
+    class VolcanoCharger : Spell
     {
         public VolcanoCharger() : base("Volcano Charger", 4, Common.Civilization.Fire)
         {

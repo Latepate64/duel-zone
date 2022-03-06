@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class UnicornFish : Creature
+    class UnicornFish : Creature
     {
         public UnicornFish() : base("Unicorn Fish", 4, Common.Civilization.Water, 1000, Common.Subtype.Fish)
         {

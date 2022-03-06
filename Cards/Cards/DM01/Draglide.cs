@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class Draglide : Creature
+    class Draglide : Creature
     {
         public Draglide() : base("Draglide", 5, Common.Civilization.Fire, 5000, Common.Subtype.ArmoredWyvern)
         {

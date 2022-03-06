@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class GhostTouch : Spell
+    class GhostTouch : Spell
     {
         public GhostTouch() : base("Ghost Touch", 2, Common.Civilization.Darkness)
         {

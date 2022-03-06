@@ -5,7 +5,7 @@ using Common;
 
 namespace Cards.Cards.DM01
 {
-    public class SaucerHeadShark : Creature
+    class SaucerHeadShark : Creature
     {
         public SaucerHeadShark() : base("Saucer-Head Shark", 5, Civilization.Water, 3000, Subtype.GelFish)
         {

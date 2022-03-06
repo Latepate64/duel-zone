@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM03
 {
-    public class SniperMosquito : Creature
+    class SniperMosquito : Creature
     {
         public SniperMosquito() : base("Sniper Mosquito", 1, Common.Civilization.Nature, 2000, Common.Subtype.GiantInsect)
         {

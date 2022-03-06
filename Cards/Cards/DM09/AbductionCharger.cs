@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    public class AbductionCharger : Spell
+    class AbductionCharger : Spell
     {
         public AbductionCharger() : base("AbductionCharger", 7, Civilization.Water)
         {

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.StaticAbilities;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,12 +7,10 @@ namespace Cards.Cards.DM04
     {
         public AerisFlightElemental() : base("Aeris, Flight Elemental", 5, Civilization.Light, 9000, Subtype.AngelCommand)
         {
-            Abilities.Add(new StaticAbilities.CannotAttackPlayersAbility());
-
             // This creature can attack untapped darkness creatures.
             var filter = new CardFilters.OpponentsBattleZoneUntappedCreatureFilter();
             filter.Civilizations.Add(Civilization.Darkness);
-            Abilities.Add(new StaticAbilities.CanAttackUntappedCreaturesAbility(filter));
+            AddAbilities(new CannotAttackPlayersAbility(), new CanAttackUntappedCreaturesAbility(filter));
         }
     }
 }

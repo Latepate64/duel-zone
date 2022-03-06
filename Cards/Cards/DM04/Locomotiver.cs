@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
-    public class Locomotiver : Creature
+    class Locomotiver : Creature
     {
         public Locomotiver() : base("Locomotiver", 4, Common.Civilization.Darkness, 1000, Common.Subtype.Hedrian)
         {

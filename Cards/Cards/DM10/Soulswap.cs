@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    public class Soulswap : Spell
+    class Soulswap : Spell
     {
         public Soulswap() : base("Soulswap", 3, Common.Civilization.Nature)
         {

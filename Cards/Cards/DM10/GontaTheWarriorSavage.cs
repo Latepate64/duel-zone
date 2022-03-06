@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM10
 {
-    public class GontaTheWarriorSavage : Creature
+    class GontaTheWarriorSavage : Creature
     {
         public GontaTheWarriorSavage() : base("Gonta, the Warrior Savage", 2, 4000)
         {

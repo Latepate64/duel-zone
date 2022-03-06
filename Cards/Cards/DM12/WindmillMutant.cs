@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
-    public class WindmillMutant : Creature
+    class WindmillMutant : Creature
     {
         public WindmillMutant() : base("Windmill Mutant", 3, Common.Civilization.Darkness, 2000, Common.Subtype.Hedrian)
         {

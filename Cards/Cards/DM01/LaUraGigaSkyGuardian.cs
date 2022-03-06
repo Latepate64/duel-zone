@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class LaUraGigaSkyGuardian : Creature
+    class LaUraGigaSkyGuardian : Creature
     {
         public LaUraGigaSkyGuardian() : base("La Ura Giga, Sky Guardian", 1, Common.Civilization.Light, 2000, Common.Subtype.Guardian)
         {

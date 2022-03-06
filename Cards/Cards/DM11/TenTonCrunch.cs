@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
-    public class TenTonCrunch : Spell
+    class TenTonCrunch : Spell
     {
         public TenTonCrunch() : base("Ten-Ton Crunch", 4, Common.Civilization.Fire)
         {

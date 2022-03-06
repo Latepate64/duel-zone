@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
-    public class AquaFencer : Creature
+    class AquaFencer : Creature
     {
         public AquaFencer() : base("Aqua Fencer", 7, Civilization.Water, 3000, Subtype.LiquidPeople)
         {

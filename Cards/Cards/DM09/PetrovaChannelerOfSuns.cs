@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM09
 {
-    public class PetrovaChannelerOfSuns : Creature
+    class PetrovaChannelerOfSuns : Creature
     {
         public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, Common.Civilization.Light, 3500, Common.Subtype.MechaDelSol)
         {

@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class CrystalMemory : Spell
+    class CrystalMemory : Spell
     {
         public CrystalMemory() : base("Crystal Memory", 4, Common.Civilization.Water)
         {

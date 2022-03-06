@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    public class VileMulderWingOfTheVoid : Creature
+    class VileMulderWingOfTheVoid : Creature
     {
         public VileMulderWingOfTheVoid() : base("Vile Mulder, Wing of the Void", 4, Civilization.Darkness, 7000, Subtype.DemonCommand)
         {

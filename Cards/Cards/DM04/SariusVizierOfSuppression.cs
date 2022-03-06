@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    public class SariusVizierOfSuppression : Creature
+    class SariusVizierOfSuppression : Creature
     {
         public SariusVizierOfSuppression() : base("Sarius, Vizier of Suppression", 2, Common.Civilization.Light, 3000, Common.Subtype.Initiate)
         {

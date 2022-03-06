@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
-    public class HorridWorm : Creature
+    class HorridWorm : Creature
     {
         public HorridWorm() : base("Horrid Worm", 3, Common.Civilization.Darkness, 2000, Common.Subtype.ParasiteWorm)
         {

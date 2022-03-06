@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
-    public class AquaBouncer : Creature
+    class AquaBouncer : Creature
     {
         public AquaBouncer() : base("Aqua Bouncer", 6, Common.Civilization.Water, 1000, Common.Subtype.LiquidPeople)
         {

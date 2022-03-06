@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    public class Shtra : Creature
+    class Shtra : Creature
     {
         public Shtra() : base("Shtra", 4, Civilization.Water, 2000, Subtype.CyberLord)
         {

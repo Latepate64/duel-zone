@@ -3,7 +3,7 @@ using Common;
 
 namespace Cards.Cards.DM08
 {
-    public class AquaRanger : Creature
+    class AquaRanger : Creature
     {
         public AquaRanger() : base("Aqua Ranger", 6, Civilization.Water, 3000, Subtype.LiquidPeople)
         {

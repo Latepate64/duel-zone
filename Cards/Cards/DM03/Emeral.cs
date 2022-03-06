@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM03
 {
-    public class Emeral : Creature
+    class Emeral : Creature
     {
         public Emeral() : base("Emeral", 2, Common.Civilization.Water, 1000, Common.Subtype.CyberLord)
         {

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.StaticAbilities;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -9,8 +10,7 @@ namespace Cards.Cards.DM04
             // This creature can't be blocked by darkness creatures.
             var filter = new CardFilters.OpponentsBattleZoneCreatureFilter();
             filter.Civilizations.Add(Civilization.Darkness);
-            Abilities.Add(new StaticAbilities.UnblockableAbility(filter));
-            Abilities.Add(new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new UnblockableAbility(filter), new DoubleBreakerAbility());
         }
     }
 }

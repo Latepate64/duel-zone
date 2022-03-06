@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    public class SzubsKinTwilightGuardian : Creature
+    class SzubsKinTwilightGuardian : Creature
     {
         public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, Common.Civilization.Light, 6000, Common.Subtype.Guardian)
         {

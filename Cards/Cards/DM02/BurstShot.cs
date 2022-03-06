@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM02
 {
-    public class BurstShot : Spell
+    class BurstShot : Spell
     {
         public BurstShot() : base("Burst Shot", 6, Civilization.Fire)
         {

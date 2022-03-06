@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM10
 {
-    public class MikayRattlingDoll : Creature
+    class MikayRattlingDoll : Creature
     {
         public MikayRattlingDoll() : base("Mikay, Rattling Doll", 2, Common.Civilization.Darkness, 2000, Common.Subtype.DeathPuppet)
         {
