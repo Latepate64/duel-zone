@@ -22,6 +22,7 @@
         Dragonoid,
         EarthDragon,
         EarthEater,
+        FireBird,
         Fish,
         GelFish,
         Ghost,
@@ -40,6 +41,7 @@
         MachineEater,
         MechaDelSol,
         MechaThunder,
+        MeltWarrior,
         Merfolk,
         MysteryTotem,
         PandorasBox,
@@ -53,6 +55,5 @@
         TreeFolk,
         Xenoparts,
         ZombieDragon,
-        FireBird,
     }
 }
