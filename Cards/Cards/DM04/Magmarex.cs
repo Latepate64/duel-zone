@@ -5,13 +5,13 @@ using Common;
 
 namespace Cards.Cards.DM04
 {
-    public class Magmarex : Creature
+    class Magmarex : Creature
     {
-        public Magmarex() : base("Magmarex", 5, Civilization.Fire, 3000, Subtype.RockBeast)
+        public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, destroy all creatures that have power 1000.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAreaOfEffect(new BattleZonePowerCreatureFilter(1000))));
+            AddAbilities(new PutIntoPlayAbility(new DestroyAreaOfEffect(new BattleZoneExactPowerCreatureFilter(1000))));
         }
     }
 }

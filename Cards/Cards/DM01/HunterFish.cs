@@ -2,13 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class HunterFish : Creature
+    class HunterFish : Creature
     {
-        public HunterFish() : base("Hunter Fish", 2, Common.Civilization.Water, 3000, Common.Subtype.Fish)
+        public HunterFish() : base("Hunter Fish", 2, 3000, Common.Subtype.Fish, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackCreaturesAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

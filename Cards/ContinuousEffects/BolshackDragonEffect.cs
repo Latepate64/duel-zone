@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    public class BolshackDragonEffect : PowerAttackerEffect
+    class BolshackDragonEffect : PowerAttackerEffect
     {
         public CardFilter MultiplierFilter { get; }
 

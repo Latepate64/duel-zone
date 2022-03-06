@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM02
 {
-    public class GrayBalloonShadowOfGreed : Creature
+    class GrayBalloonShadowOfGreed : Creature
     {
-        public GrayBalloonShadowOfGreed() : base("Gray Balloon, Shadow of Greed", 3, Common.Civilization.Darkness, 3000, Common.Subtype.Ghost)
+        public GrayBalloonShadowOfGreed() : base("Gray Balloon, Shadow of Greed", 3, 3000, Common.Subtype.Ghost, Common.Civilization.Darkness)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

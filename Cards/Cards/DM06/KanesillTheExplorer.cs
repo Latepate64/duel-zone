@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM06
 {
-    public class KanesillTheExplorer : Creature
+    class KanesillTheExplorer : Creature
     {
-        public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, Common.Civilization.Light, 4000, Common.Subtype.Gladiator)
+        public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, 4000, Common.Subtype.Gladiator, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

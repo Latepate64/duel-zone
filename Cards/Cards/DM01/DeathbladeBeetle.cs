@@ -2,12 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class DeathbladeBeetle : Creature
+    class DeathbladeBeetle : Creature
     {
-        public DeathbladeBeetle() : base("Deathblade Beetle", 5, Common.Civilization.Nature, 3000, Common.Subtype.GiantInsect)
+        public DeathbladeBeetle() : base("Deathblade Beetle", 5, 3000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            Abilities.Add(new PowerAttackerAbility(4000));
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new PowerAttackerAbility(4000), new DoubleBreakerAbility());
         }
     }
 }

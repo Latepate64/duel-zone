@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
             ShieldTrigger = true;
 
             // Destroy one of your opponent's creatures that has "blocker."
-            Abilities.Add(new SpellAbility(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)));
+            AddAbilities(new SpellAbility(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)));
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     class ScissorEye : Creature
     {
-        public ScissorEye() : base("Scissor Eye", 4, Common.Civilization.Water, 3000, Common.Subtype.GelFish)
+        public ScissorEye() : base("Scissor Eye", 4, 3000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
         }
     }

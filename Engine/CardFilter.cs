@@ -16,20 +16,24 @@ namespace Engine
 
         public CardType CardType { get; set; } = CardType.Any;
 
+        public string CardName { get; set; }
+
         protected CardFilter(CardFilter filter)
         {
             Target = filter.Target;
             Civilizations = filter.Civilizations;
             CardType = filter.CardType;
+            CardName = filter.CardName;
         }
 
-        protected CardFilter()
+        protected CardFilter(params Civilization[] civilizations)
         {
+            Civilizations.AddRange(civilizations);
         }
 
         public virtual bool Applies(Card card, Game game, Player player)
         {
-            return card != null && (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && (CardType == CardType.Any || card.CardType == CardType);
+            return card != null && (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && (CardType == CardType.Any || card.CardType == CardType) && (string.IsNullOrEmpty(CardName) || card.Name == CardName);
         }
 
         public abstract CardFilter Copy();
@@ -49,6 +53,10 @@ namespace Engine
             if (Civilizations.Any())
             {
                 return string.Join(" ", string.Join("/", Civilizations), ToString(CardType));
+            }
+            else if (!string.IsNullOrEmpty(CardName))
+            {
+                return CardName;
             }
             else
             {

@@ -2,11 +2,11 @@
 
 namespace Cards.Cards.DM10
 {
-    public class TidePatroller : Creature
+    class TidePatroller : Creature
     {
-        public TidePatroller() : base("Tide Patroller", 4, Common.Civilization.Water, 2000, Common.Subtype.Merfolk)
+        public TidePatroller() : base("Tide Patroller", 4, 2000, Common.Subtype.Merfolk, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

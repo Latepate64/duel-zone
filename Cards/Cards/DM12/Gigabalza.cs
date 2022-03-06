@@ -3,13 +3,13 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
-    public class Gigabalza : Creature
+    class Gigabalza : Creature
     {
-        public Gigabalza() : base("Gigabalza", 4, Common.Civilization.Darkness, 1000, Common.Subtype.Chimera)
+        public Gigabalza() : base("Gigabalza", 4, 1000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, your opponent discards a card at random from his hand.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
+            AddAbilities(new PutIntoPlayAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

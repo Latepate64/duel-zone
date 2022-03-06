@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    class DestroyedAbility : CardChangesZoneAbility
+    public class DestroyedAbility : CardChangesZoneAbility
     {
         public DestroyedAbility(OneShotEffect effect) : base(effect)
         {
@@ -17,7 +17,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Source == e.CardInDestinationZone.Id && game.GetCard(e.CardInDestinationZone.Id).CardType == CardType.Creature && CheckInterveningIfClause(game);
+            return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard;
         }
 
         public override Ability Copy()
@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When this creature is destroyed, {ToStringBase()}";
+            return $"When ${Filter} is destroyed, {ToStringBase()}";
         }
     }
 }

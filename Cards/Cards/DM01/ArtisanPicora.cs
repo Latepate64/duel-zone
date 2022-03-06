@@ -4,12 +4,12 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class ArtisanPicora : Creature
+    class ArtisanPicora : Creature
     {
-        public ArtisanPicora() : base("Artisan Picora", 1, Common.Civilization.Fire, 2000, Common.Subtype.MachineEater)
+        public ArtisanPicora() : base("Artisan Picora", 1, 2000, Common.Subtype.MachineEater, Common.Civilization.Fire)
         {
             // When you put this creature into the battle zone, put 1 card from your mana zone into your graveyard.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
         }
     }
 }

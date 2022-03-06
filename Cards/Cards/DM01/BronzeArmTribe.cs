@@ -3,12 +3,12 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class BronzeArmTribe : Creature
+    class BronzeArmTribe : Creature
     {
-        public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
+        public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, 1000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
             // When you put this creature into the battle zone, put the top card of your deck into your mana zone.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutTopCardsOfDeckIntoManaZoneEffect(1)));
+            AddAbilities(new PutIntoPlayAbility(new PutTopCardsOfDeckIntoManaZoneEffect(1)));
         }
     }
 }

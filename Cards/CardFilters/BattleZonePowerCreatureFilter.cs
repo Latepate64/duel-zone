@@ -4,9 +4,9 @@ namespace Cards.CardFilters
 {
     class BattleZonePowerCreatureFilter : BattleZoneCreatureFilter
     {
-        public int Power { get; }
+        public PowerFilter Power { get; }
 
-        public BattleZonePowerCreatureFilter(int power)
+        public BattleZonePowerCreatureFilter(PowerFilter power)
         {
             Power = power;
         }
@@ -18,7 +18,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Power.Value == Power;
+            return base.Applies(card, game, player) && Power.Applies(card);
         }
 
         public override CardFilter Copy()
@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return base.ToString() + $" with power {Power}";
+            return base.ToString() + Power;
         }
     }
 }

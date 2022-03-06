@@ -27,9 +27,10 @@ namespace Engine.Steps
             if (opponent.ShieldZone.Cards.Any())
             {
                 int breakAmount = 1;
-                if (game.GetContinuousEffects<DoubleBreakerEffect>(attackingCreature).Any())
+                var breakerEffects = game.GetContinuousEffects<BreakerEffect>(attackingCreature);
+                if (breakerEffects.Any())
                 {
-                    breakAmount = 2;
+                    breakAmount = breakerEffects.Max(x => x.GetAmount());
                 }
                 game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
                 game.Process(new ShieldsBrokenEvent { Attacker = attackingCreature.Convert(), Target = opponent.Copy(), Amount = breakAmount });

@@ -4,12 +4,12 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class OnslaughterTriceps : Creature
+    class OnslaughterTriceps : Creature
     {
-        public OnslaughterTriceps() : base("Onslaughter Triceps", 3, Common.Civilization.Fire, 5000, Common.Subtype.Dragonoid)
+        public OnslaughterTriceps() : base("Onslaughter Triceps", 3, 5000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
             // When you put this creature into the battle zone, put 1 card from your mana zone into your graveyard.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
         }
     }
 }

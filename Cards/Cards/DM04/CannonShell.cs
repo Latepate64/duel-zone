@@ -5,12 +5,12 @@ namespace Cards.Cards.DM04
 {
     class CannonShell : Creature
     {
-        public CannonShell() : base("Cannon Shell", 4, Common.Civilization.Nature, 1000, Common.Subtype.ColonyBeetle)
+        public CannonShell() : base("Cannon Shell", 4, 1000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
             ShieldTrigger = true;
 
             // This creature gets +1000 power for each shield you have.
-            Abilities.Add(new StaticAbility(new CannonShellEffect()));
+            AddAbilities(new StaticAbility(new CannonShellEffect()));
         }
     }
 }

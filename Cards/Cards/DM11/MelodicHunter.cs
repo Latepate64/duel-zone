@@ -2,11 +2,11 @@
 
 namespace Cards.Cards.DM11
 {
-    public class MelodicHunter : Creature
+    class MelodicHunter : Creature
     {
-        public MelodicHunter() : base("Melodic Hunter", 5, Common.Civilization.Water, 3000, Common.Subtype.Merfolk)
+        public MelodicHunter() : base("Melodic Hunter", 5, 3000, Common.Subtype.Merfolk, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

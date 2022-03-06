@@ -1,8 +1,8 @@
 ﻿namespace Cards.Cards.DM01
 {
-    public class FearFang : Creature
+    class FearFang : Creature
     {
-        public FearFang() : base("Fear Fang", 3, Common.Civilization.Nature, 3000, Common.Subtype.BeastFolk)
+        public FearFang() : base("Fear Fang", 3, 3000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
         }
     }

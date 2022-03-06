@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM04
 {
-    public class HunterCluster : Creature
+    class HunterCluster : Creature
     {
-        public HunterCluster() : base("Hunter Cluster", 4, Common.Civilization.Water, 1000, Common.Subtype.CyberCluster)
+        public HunterCluster() : base("Hunter Cluster", 4, 1000, Common.Subtype.CyberCluster, Common.Civilization.Water)
         {
             ShieldTrigger = true;
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

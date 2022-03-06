@@ -7,13 +7,10 @@ namespace Cards.Cards.DM01
 {
     class RubyGrass : Creature
     {
-        public RubyGrass() : base("Ruby Grass", 3, Common.Civilization.Light, 3000, Common.Subtype.StarlightTree)
+        public RubyGrass() : base("Ruby Grass", 3, 3000, Common.Subtype.StarlightTree, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
-
             // At the end of each of your turns, you may untap this creature.
-            Abilities.Add(new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect(new TargetFilter())));
+            AddAbilities(new BlockerAbility(), new CannotAttackPlayersAbility(), new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect(new TargetFilter())));
         }
     }
 }

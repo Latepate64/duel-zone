@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Cards.CardFilters
 {
-    public class PalaOlesisFilter : CardFilter
+    class PalaOlesisFilter : CardFilter
     {
         public PalaOlesisFilter()
         {

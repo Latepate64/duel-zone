@@ -16,7 +16,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Abilities.OfType<BlockerAbility>().Any();
+            return base.Applies(card, game, player) && card.GetAbilities<BlockerAbility>().Any();
         }
 
         public override CardFilter Copy()

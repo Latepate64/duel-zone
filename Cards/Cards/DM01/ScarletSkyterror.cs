@@ -5,12 +5,12 @@ using Common;
 
 namespace Cards.Cards.DM01
 {
-    public class ScarletSkyterror : Creature
+    class ScarletSkyterror : Creature
     {
-        public ScarletSkyterror() : base("Scarlet Skyterror", 8, Civilization.Fire, 3000, Subtype.ArmoredWyvern)
+        public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
             // When you put this creature into the battle zone, destroy all creatures that have "blocker."
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAreaOfEffect(new BattleZoneBlockerCreatureFilter())));
+            AddAbilities(new PutIntoPlayAbility(new DestroyAreaOfEffect(new BattleZoneBlockerCreatureFilter())));
         }
     }
 }

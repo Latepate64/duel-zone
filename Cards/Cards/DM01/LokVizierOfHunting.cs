@@ -2,7 +2,7 @@
 {
     class LokVizierOfHunting : Creature
     {
-        public LokVizierOfHunting() : base("Lok, Vizier of Hunting", 4, Common.Civilization.Light, 4000, Common.Subtype.Initiate)
+        public LokVizierOfHunting() : base("Lok, Vizier of Hunting", 4, 4000, Common.Subtype.Initiate, Common.Civilization.Light)
         {
         }
     }

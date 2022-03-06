@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         public MoonlightFlash() : base("Moonlight Flash", 4, Common.Civilization.Light)
         {
             // Choose up to 2 of your opponent's creatures in the battle zone and tap them.
-            Abilities.Add(new SpellAbility(new TapChoiceEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)));
+            AddAbilities(new SpellAbility(new TapChoiceEffect(0, 2, true)));
         }
     }
 }

@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class WindAxeTheWarriorSavageEffect : OneShotEffect
+    class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
         public WindAxeTheWarriorSavageEffect() : base()
         {

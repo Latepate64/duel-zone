@@ -156,7 +156,7 @@ namespace Client
 
         private void CardPanel_Click(object sender, EventArgs e)
         {
-            if (_tablePage._currentChoice is GuidSelection guidSelection)
+            if (_tablePage._currentChoice is BoundedGuidSelection guidSelection)
             {
                 if (_tablePage._selectedCards.Contains(this))
                 {
@@ -170,7 +170,7 @@ namespace Client
             }
         }
 
-        private void CheckSelectedCards(GuidSelection guidSelection)
+        private void CheckSelectedCards(BoundedGuidSelection guidSelection)
         {
             if (guidSelection.MaximumSelection == _tablePage._selectedCards.Count())
             {

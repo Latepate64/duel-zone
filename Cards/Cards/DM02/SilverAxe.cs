@@ -2,10 +2,10 @@
 {
     class SilverAxe : Creature
     {
-        public SilverAxe() : base("Silver Axe", 3, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
+        public SilverAxe() : base("Silver Axe", 3, 1000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
             // Whenever this creature attacks, you may put the top card of your deck into your mana zone.
-            Abilities.Add(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.MayPutTopCardOfDeckIntoManaZoneEffect()));
+            AddAbilities(new TriggeredAbilities.AttackAbility(new OneShotEffects.MayPutTopCardOfDeckIntoManaZoneEffect()));
         }
     }
 }

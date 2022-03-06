@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Common.Choices
 {
-    public class AbilitySelection : GuidSelection
+    public class AbilitySelection : BoundedGuidSelection
     {
         public List<AbilityText> Abilities { get; set; }
 

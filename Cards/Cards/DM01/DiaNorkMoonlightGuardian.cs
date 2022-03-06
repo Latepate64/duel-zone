@@ -2,12 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class DiaNorkMoonlightGuardian : Creature
+    class DiaNorkMoonlightGuardian : Creature
     {
-        public DiaNorkMoonlightGuardian() : base("Dia Nork, Moonlight Guardian", 4, Common.Civilization.Light, 5000, Common.Subtype.Guardian)
+        public DiaNorkMoonlightGuardian() : base("Dia Nork, Moonlight Guardian", 4, 5000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

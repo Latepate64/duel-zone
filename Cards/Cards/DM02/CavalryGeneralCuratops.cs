@@ -2,9 +2,9 @@
 {
     class CavalryGeneralCuratops : Creature
     {
-        public CavalryGeneralCuratops() : base("Cavalry General Curatops", 3, Common.Civilization.Fire, 2000, Common.Subtype.Dragonoid)
+        public CavalryGeneralCuratops() : base("Cavalry General Curatops", 3, 2000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
-            Abilities.Add(new StaticAbilities.CanAttackUntappedCreaturesAbility());
+            AddAbilities(new StaticAbilities.CanAttackUntappedCreaturesAbility());
         }
     }
 }

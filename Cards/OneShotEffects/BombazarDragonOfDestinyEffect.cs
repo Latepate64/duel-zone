@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class BombazarDragonOfDestinyEffect : OneShotEffect
+    class BombazarDragonOfDestinyEffect : OneShotEffect
     {
         public BombazarDragonOfDestinyEffect() : base() { }
 
@@ -37,7 +37,7 @@ namespace Cards.OneShotEffects
         }
     }
 
-    public class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
+    class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
     {
         public YouLoseTheGameAtTheEndOfTheExtraTurnEffect() : base()
         {

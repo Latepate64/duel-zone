@@ -4,9 +4,9 @@ namespace Cards.Cards.DM01
 {
     class SteelSmasher : Creature
     {
-        public SteelSmasher() : base("Steel Smasher", 2, Common.Civilization.Nature, 3000, Common.Subtype.BeastFolk)
+        public SteelSmasher() : base("Steel Smasher", 2, 3000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

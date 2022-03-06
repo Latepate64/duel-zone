@@ -3,11 +3,11 @@ using Cards.StaticAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class TowerShell : Creature
+    class TowerShell : Creature
     {
-        public TowerShell() : base("Tower Shell", 6, Common.Civilization.Nature, 5000, Common.Subtype.ColonyBeetle)
+        public TowerShell() : base("Tower Shell", 6, 5000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            Abilities.Add(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(4000)));
+            AddAbilities(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(4000)));
         }
     }
 }

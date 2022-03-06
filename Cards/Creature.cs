@@ -1,23 +1,31 @@
 ﻿using Common;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards
 {
-    public abstract class Creature : Engine.Card
+    abstract class Creature : CardImplementation
     {
-        protected Creature(string name, int manaCost, Civilization civilization, int power, Subtype race) : this(name, manaCost, new List<Civilization> { civilization }, power, new List<Subtype> { race })
+        /// <summary>
+        /// This constructor should be used for cards with one subtype.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="manaCost"></param>
+        /// <param name="power"></param>
+        /// <param name="race"></param>
+        /// <param name="civilizations"></param>
+        protected Creature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
         {
+            Subtypes.Add(race);
         }
 
-        protected Creature(string name, int manaCost, IEnumerable<Civilization> civilizations, int power, IEnumerable<Subtype> races)
+        /// <summary>
+        /// This constructor should be used for multicolored cards. Add subtypes for the card in the constructor of the inheritor.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="manaCost"></param>
+        /// <param name="power"></param>
+        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, civilizations)
         {
-            CardType = CardType.Creature;
-            Civilizations = civilizations.ToList();
-            ManaCost = manaCost;
-            Name = name;
             Power = power;
-            Subtypes = races.ToList();
         }
     }
 }

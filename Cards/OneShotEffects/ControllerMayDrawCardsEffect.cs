@@ -4,7 +4,7 @@ using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
-    public class ControllerMayDrawCardsEffect : OneShotEffect
+    class ControllerMayDrawCardsEffect : OneShotEffect
     {
         public int Maximum { get; }
 

@@ -1,15 +1,14 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    public class Gigargon : Creature
+    class Gigargon : Creature
     {
-        public Gigargon() : base("Gigargon", 8, Common.Civilization.Darkness, 3000, Common.Subtype.Chimera)
+        public Gigargon() : base("Gigargon", 8, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
             // When you put this creature into the battle zone, return up to 2 creatures from your graveyard to your hand.
-            Abilities.Add(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SalvageEffect(new OwnersGraveyardCardFilter { CardType = Common.CardType.Creature }, 0, 2, true)));
+            AddAbilities(new PutIntoPlayAbility(new SalvageCreatureEffect(0, 2)));
         }
     }
 }

@@ -2,13 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class RevolverFish : Creature
+    class RevolverFish : Creature
     {
-        public RevolverFish() : base("Revolver Fish", 4, Common.Civilization.Water, 5000, Common.Subtype.GelFish)
+        public RevolverFish() : base("Revolver Fish", 4, 5000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackCreaturesAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM01
 {
-    public class KingDepthcon : Creature
+    class KingDepthcon : Creature
     {
-        public KingDepthcon() : base("King Depthcon", 7, Common.Civilization.Water, 6000, Common.Subtype.Leviathan)
+        public KingDepthcon() : base("King Depthcon", 7, 6000, Common.Subtype.Leviathan, Common.Civilization.Water)
         {
-            Abilities.Add(new DoubleBreakerAbility());
-            Abilities.Add(new UnblockableAbility());
+            AddAbilities(new DoubleBreakerAbility());
+            AddAbilities(new UnblockableAbility());
         }
     }
 }

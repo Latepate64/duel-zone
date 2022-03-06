@@ -2,11 +2,11 @@
 
 namespace Cards.Cards.DM02
 {
-    public class AquaShooter : Creature
+    class AquaShooter : Creature
     {
-        public AquaShooter() : base("Aqua Shooter", 4, Common.Civilization.Water, 2000, Common.Subtype.LiquidPeople)
+        public AquaShooter() : base("Aqua Shooter", 4, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

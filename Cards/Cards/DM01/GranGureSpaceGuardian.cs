@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM01
 {
-    public class GranGureSpaceGuardian : Creature
+    class GranGureSpaceGuardian : Creature
     {
-        public GranGureSpaceGuardian() : base("Gran Gure, Space Guardian", 6, Common.Civilization.Light, 9000, Common.Subtype.Guardian)
+        public GranGureSpaceGuardian() : base("Gran Gure, Space Guardian", 6, 9000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

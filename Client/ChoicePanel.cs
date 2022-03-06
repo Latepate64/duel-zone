@@ -93,7 +93,7 @@ namespace Client
         private void DefaultButtonClick(object sender, EventArgs e)
         {
             Decision decision;
-            if (_tablePage._currentChoice is GuidSelection)
+            if (_tablePage._currentChoice is BoundedGuidSelection)
             {
                 decision = new GuidDecision { Decision = new List<Guid>() };
             }

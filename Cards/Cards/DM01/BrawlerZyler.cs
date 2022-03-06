@@ -4,9 +4,9 @@ namespace Cards.Cards.DM01
 {
     class BrawlerZyler : Creature
     {
-        public BrawlerZyler() : base("Brawler Zyler", 2, Common.Civilization.Fire, 1000, Common.Subtype.Human)
+        public BrawlerZyler() : base("Brawler Zyler", 2, 1000, Common.Subtype.Human, Common.Civilization.Fire)
         {
-            Abilities.Add(new PowerAttackerAbility(2000));
+            AddAbilities(new PowerAttackerAbility(2000));
         }
     }
 }

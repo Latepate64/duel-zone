@@ -8,7 +8,12 @@ namespace Engine
     {
         // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
 
-        public List<Ability> Abilities { get; } = new List<Ability>();
+        private List<Ability> _abilities = new();
+
+        public IEnumerable<T> GetAbilities<T>()
+        {
+            return _abilities.OfType<T>();
+        }
 
         public Card()
         {
@@ -16,7 +21,7 @@ namespace Engine
 
         internal Card(Card card) : base(card, false)
         {
-            Abilities = card.Abilities.Select(x => x.Copy()).ToList();
+            _abilities = card._abilities.Select(x => x.Copy()).ToList();
             InitializeAbilities();
         }
 
@@ -36,7 +41,7 @@ namespace Engine
         /// </summary>
         public void InitializeAbilities()
         {
-            foreach (var ability in Abilities)
+            foreach (var ability in _abilities)
             {
                 ability.Owner = Owner;
                 ability.Source = Id;
@@ -46,6 +51,10 @@ namespace Engine
                     {
                         effect.Filter.Target = Id;
                     }
+                }
+                else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
+                {
+                    target.Target = Id;
                 }
             }
             SetRulesText();
@@ -58,7 +67,22 @@ namespace Engine
 
         private void SetRulesText()
         {
-            RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
+            RulesText = string.Join("\r\n", _abilities.Select(x => x.ToString()));
+        }
+
+        internal void AddAbility(Ability ability)
+        {
+            _abilities.Add(ability);
+        }
+
+        internal void RemoveAbility(System.Guid id)
+        {
+            _ = _abilities.RemoveAll(x => x.Id == id);
+        }
+
+        protected void AddAbilities(params Ability[] abilities)
+        {
+            _abilities.AddRange(abilities);
         }
     }
 }

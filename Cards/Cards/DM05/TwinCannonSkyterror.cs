@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM05
 {
-    public class TwinCannonSkyterror : Creature
+    class TwinCannonSkyterror : Creature
     {
-        public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, Common.Civilization.Fire, 7000, Common.Subtype.ArmoredWyvern)
+        public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
-            Abilities.Add(new SpeedAttackerAbility());
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new SpeedAttackerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

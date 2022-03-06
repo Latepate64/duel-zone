@@ -2,11 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class NightMasterShadowOfDecay : Creature
+    class NightMasterShadowOfDecay : Creature
     {
-        public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, Common.Civilization.Darkness, 3000, Common.Subtype.Ghost)
+        public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, 3000, Common.Subtype.Ghost, Common.Civilization.Darkness)
         {
-            Abilities.Add(new BlockerAbility());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

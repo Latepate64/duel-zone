@@ -1,13 +1,18 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.StaticAbilities
 {
     public class CanAttackUntappedCreaturesAbility : StaticAbility
     {
-        public CanAttackUntappedCreaturesAbility()
+        public CanAttackUntappedCreaturesAbility() : this(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter())
         {
-            ContinuousEffects.Add(new CanAttackUntappedCreaturesEffect());
+        }
+
+        public CanAttackUntappedCreaturesAbility(CardFilter targetFilter)
+        {
+            ContinuousEffects.Add(new CanAttackUntappedCreaturesEffect(targetFilter));
         }
     }
 }

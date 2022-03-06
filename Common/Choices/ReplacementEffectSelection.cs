@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common.Choices
 {
-    public class ReplacementEffectSelection : GuidSelection
+    public class ReplacementEffectSelection : BoundedGuidSelection
     {
         public ReplacementEffectSelection()
         {

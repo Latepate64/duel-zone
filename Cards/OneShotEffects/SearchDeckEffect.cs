@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class SearchDeckEffect : OneShotEffect
+    class SearchDeckEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
         public bool Reveal { get; }
@@ -34,7 +34,7 @@ namespace Cards.OneShotEffects
             var cards = player.Deck.Cards.Where(x => Filter.Applies(x, game, player));
             if (cards.Any())
             {
-                var decision = player.Choose(new CardSelectionInEffect(player.Id, cards, 0, 1, ToString()), game);
+                var decision = player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, 0, 1, ToString()), game);
                 var selectedCards = decision.Decision.Select(x => game.GetCard(x));
                 if (Reveal)
                 {

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
             ShieldTrigger = true;
 
             // Return a card from your mana zone to your hand.
-            Abilities.Add(new SpellAbility(new OneShotEffects.ManaRecoveryEffect(new CardFilters.OwnersManaZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new SpellAbility(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, Common.CardType.Any)));
         }
     }
 }

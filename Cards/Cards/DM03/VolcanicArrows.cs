@@ -1,20 +1,16 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
-    public class VolcanicArrows : Spell
+    class VolcanicArrows : Spell
     {
         public VolcanicArrows() : base("Volcanic Arrows", 2, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
-
             // Destroy a creature that has power 6000 or less.
-            Abilities.Add(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(6000), 1, 1, true)));
-
             // Choose one of your shields and put it into your graveyard.
-            Abilities.Add(new SpellAbility(new ShieldBurnEffect(new OwnersShieldZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new SpellAbility(new DestroyMaxPowerCreature(6000)), new SpellAbility(new SelfShieldBurnEffect()));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
         public VirtualTripwire() : base("Virtual Tripwire", 3, Common.Civilization.Water)
         {
             // Choose 1 of your opponent's creatures in the battle zone and tap it.
-            Abilities.Add(new SpellAbility(new TapChoiceEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddAbilities(new SpellAbility(new TapChoiceEffect(1, 1, true)));
         }
     }
 }

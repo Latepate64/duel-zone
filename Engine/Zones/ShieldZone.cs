@@ -15,12 +15,9 @@ namespace Engine.Zones
             Cards.Add(card);
         }
 
-        public override void Remove(Card card, Game game)
+        public override bool Remove(Card card, Game game)
         {
-            if (!Cards.Remove(card))
-            {
-                throw new System.NotSupportedException(card.ToString());
-            }
+            return Cards.Remove(card);
         }
 
         public override Zone Copy()

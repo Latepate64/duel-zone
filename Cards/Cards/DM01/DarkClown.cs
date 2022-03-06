@@ -6,17 +6,11 @@ using Engine;
 
 namespace Cards.Cards.DM01
 {
-    public class DarkClown : Creature
+    class DarkClown : Creature
     {
-        public DarkClown() : base("Dark Clown", 4, Civilization.Darkness, 6000, Subtype.BrainJacker)
+        public DarkClown() : base("Dark Clown", 4, 6000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackCreaturesAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
-
-            // When this creature wins a battle, destroy it.
-            var targetFilter = new TargetFilter();
-            Abilities.Add(new WinBattleAbility(new DestroyAreaOfEffect(targetFilter), targetFilter));
+            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility(), new WinBattleAbility(new DestroyAreaOfEffect(new TargetFilter()))); // When this creature wins a battle, destroy it.
         }
     }
 }

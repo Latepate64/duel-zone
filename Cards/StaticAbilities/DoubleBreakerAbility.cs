@@ -1,5 +1,5 @@
-﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.StaticAbilities
 {

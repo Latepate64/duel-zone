@@ -2,9 +2,8 @@
 
 namespace Common.GameEvents
 {
-    public class CreatureAttackedEvent : GameEvent
+    public class CreatureAttackedEvent : CardEvent
     {
-        public Card Attacker { get; set; }
         public Guid Attackable { get; set; }
 
         public CreatureAttackedEvent()
@@ -13,7 +12,7 @@ namespace Common.GameEvents
 
         public override string ToString()
         {
-            return $"{Attacker} attacked {Attackable}.";
+            return $"{Card} attacked {Attackable}.";
         }
     }
 }

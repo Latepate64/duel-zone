@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common.Choices
 {
-    public class AttackerSelection : CardSelection
+    public class AttackerSelection : BoundedCardSelection
     {
         public AttackerSelection()
         {

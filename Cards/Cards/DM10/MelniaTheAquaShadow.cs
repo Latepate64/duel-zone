@@ -1,15 +1,14 @@
 ﻿using Cards.StaticAbilities;
 using Common;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    public class MelniaTheAquaShadow : Creature
+    class MelniaTheAquaShadow : Creature
     {
-        public MelniaTheAquaShadow() : base("Melnia, the Aqua Shadow", 2, new List<Civilization> { Civilization.Water, Civilization.Darkness }, 1000, new List<Subtype> { Subtype.LiquidPeople, Subtype.Ghost })
+        public MelniaTheAquaShadow() : base("Melnia, the Aqua Shadow", 2, 1000, Civilization.Water, Civilization.Darkness)
         {
-            Abilities.Add(new UnblockableAbility());
-            Abilities.Add(new SlayerAbility());
+            AddSubtypes(Subtype.LiquidPeople, Subtype.Ghost);
+            AddAbilities(new UnblockableAbility(), new SlayerAbility());
         }
     }
 }

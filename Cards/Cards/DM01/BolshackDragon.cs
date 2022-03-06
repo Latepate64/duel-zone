@@ -5,15 +5,12 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
-    public class BolshackDragon : Creature
+    class BolshackDragon : Creature
     {
-        public BolshackDragon() : base("Bolshack Dragon", 6, Common.Civilization.Fire, 6000, Common.Subtype.ArmoredDragon)
+        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
             // While attacking, this creature gets +1000 power for each fire card in your graveyard.
-            var filter = new OwnersGraveyardCardFilter();
-            filter.Civilizations.Add(Common.Civilization.Fire);
-            Abilities.Add(new StaticAbility(new BolshackDragonEffect(filter)));
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new StaticAbility(new BolshackDragonEffect(new OwnersGraveyardCardFilter(Common.Civilization.Fire))), new DoubleBreakerAbility());
         }
     }
 }

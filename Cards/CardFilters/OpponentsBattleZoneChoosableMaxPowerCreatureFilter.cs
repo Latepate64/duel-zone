@@ -4,11 +4,11 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableMaxPowerCreatureFilter : OpponentsBattleZoneChoosableCreatureFilter
     {
-        public int Power { get; }
+        public PowerFilter Power { get; }
 
         public OpponentsBattleZoneChoosableMaxPowerCreatureFilter(int power)
         {
-            Power = power;
+            Power = new PowerFilter(PowerMode.Max, power);
         }
 
         public OpponentsBattleZoneChoosableMaxPowerCreatureFilter(OpponentsBattleZoneChoosableMaxPowerCreatureFilter filter) : base(filter)
@@ -18,7 +18,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Power.Value <= Power;
+            return base.Applies(card, game, player) && Power.Applies(card);
         }
 
         public override CardFilter Copy()
@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return base.ToString() + $" with power {Power} or less";
+            return base.ToString() + Power;
         }
     }
 }

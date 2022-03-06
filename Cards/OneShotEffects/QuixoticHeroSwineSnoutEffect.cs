@@ -5,7 +5,7 @@ using Engine.Durations;
 
 namespace Cards.OneShotEffects
 {
-    public class QuixoticHeroSwineSnoutEffect : OneShotEffect
+    class QuixoticHeroSwineSnoutEffect : OneShotEffect
     {
         public QuixoticHeroSwineSnoutEffect()
         {

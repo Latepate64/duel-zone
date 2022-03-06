@@ -4,9 +4,9 @@ namespace Cards.Cards.DM01
 {
     class PoisonousDahlia : Creature
     {
-        public PoisonousDahlia() : base("Poisonous Dahlia", 4, Common.Civilization.Nature, 5000, Common.Subtype.TreeFolk)
+        public PoisonousDahlia() : base("Poisonous Dahlia", 4, 5000, Common.Subtype.TreeFolk, Common.Civilization.Nature)
         {
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new CannotAttackPlayersAbility());
         }
     }
 }

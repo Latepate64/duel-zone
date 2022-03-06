@@ -2,11 +2,11 @@
 
 namespace Cards.Cards.DM01
 {
-    public class ZagaanKnightOfDarkness : Creature
+    class ZagaanKnightOfDarkness : Creature
     {
-        public ZagaanKnightOfDarkness() : base("Zagaan, Knight of Darkness", 6, Common.Civilization.Darkness, 7000, Common.Subtype.DemonCommand)
+        public ZagaanKnightOfDarkness() : base("Zagaan, Knight of Darkness", 6, 7000, Common.Subtype.DemonCommand, Common.Civilization.Darkness)
         {
-            Abilities.Add(new DoubleBreakerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

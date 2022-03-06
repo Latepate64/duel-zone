@@ -4,10 +4,10 @@ namespace Cards.Cards.DM01
 {
     class ChiliasTheOracle : Creature
     {
-        public ChiliasTheOracle() : base("Chilias, the Oracle", 4, Common.Civilization.Light, 2500, Common.Subtype.LightBringer)
+        public ChiliasTheOracle() : base("Chilias, the Oracle", 4, 2500, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
             // When this creature would be destroyed, put it into your hand instead.
-            Abilities.Add(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
+            AddAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
         }
     }
 }

@@ -3,12 +3,12 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
-    public class WindmillMutant : Creature
+    class WindmillMutant : Creature
     {
-        public WindmillMutant() : base("Windmill Mutant", 3, Common.Civilization.Darkness, 2000, Common.Subtype.Hedrian)
+        public WindmillMutant() : base("Windmill Mutant", 3, 2000, Common.Subtype.Hedrian, Common.Civilization.Darkness)
         {
             // Whenever this creature attacks, you opponent discards a card at random from his hand.
-            Abilities.Add(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect()));
+            AddAbilities(new AttackAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

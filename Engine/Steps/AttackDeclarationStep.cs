@@ -52,13 +52,13 @@ namespace Engine.Steps
             activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
-                Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
+                Phase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
             }
             else
             {
                 Phase.SetAttackingCreature(attacker, game);
                 Phase.AttackTarget = target.Id;
-                game.Process(new CreatureAttackedEvent { Attacker = attacker.Convert(), Attackable = game.GetAttackable(Phase.AttackTarget).Id });
+                game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(Phase.AttackTarget).Id });
             }
         }
 
@@ -82,7 +82,7 @@ namespace Engine.Steps
                     }
                     attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
                 }
-                if (attackables.Any() && attacker.Abilities.OfType<TapAbility>().Any())
+                if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
                 {
                     attackables.Add(attacker);
                 }
@@ -94,7 +94,7 @@ namespace Engine.Steps
         {
             if (Phase.AttackingCreature != Guid.Empty)
             {
-                var tapAbilities = game.GetCard(Phase.AttackingCreature).Abilities.OfType<TapAbility>();
+                var tapAbilities = game.GetCard(Phase.AttackingCreature).GetAbilities<TapAbility>();
                 if (tapAbilities.Select(y => y.Id).Contains(Phase.AttackTarget))
                 {
                     return new AttackDeclarationStep(Phase);

@@ -196,7 +196,9 @@ namespace Engine
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            Process(new BattleEvent { Creature1 = attackingCreature.Convert(), Creature2 = defendingCreature.Convert() });
+            // Battle event must be processed relative to both creatures.
+            Process(new BattleEvent { Card = attackingCreature.Convert(), OtherCard = defendingCreature.Convert() });
+            Process(new BattleEvent { Card = defendingCreature.Convert(), OtherCard = attackingCreature.Convert() });
 
             if (attackingCreature.Power.Value > defendingCreature.Power.Value)
             {
@@ -211,9 +213,11 @@ namespace Engine
                 Destroy(new List<Card> { attackingCreature, defendingCreature });
             }
 
+            Process(new AfterBattleEvent());
+
             void Outcome(Card winner, Card loser)
             {
-                Process(new WinBattleEvent { Creature = winner.Convert() });
+                Process(new WinBattleEvent { Card = winner.Convert() });
                 var destroyed = new List<Card> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
@@ -226,6 +230,11 @@ namespace Engine
         public IEnumerable<Card> GetAllCards()
         {
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
+        }
+
+        public IEnumerable<Card> GetAllCards(CardFilter filter, Guid player)
+        {
+            return GetAllCards().Where(card => filter.Applies(card, this, GetPlayer(player)));
         }
 
         public void Destroy(IEnumerable<Card> cards)
@@ -338,7 +347,7 @@ namespace Engine
             var abilities = new List<TriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
+                abilities.AddRange(card.GetAbilities<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
             return abilities;
         }
@@ -379,21 +388,29 @@ namespace Engine
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
-        /// <summary>
-        /// Moving a card into the battle zone may require a choice to be made (eg. Petrova)
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        /// <param name="cards"></param>
-        /// 
-        /// <returns></returns>
         public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params Card[] cards)
         {
             return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
+        /// <summary>
+        /// 400.6.
+        /// If an object would move from one zone to another, determine what event is moving the object.
+        /// If the object is moving to a public zone and its owner will be able to look at it in that zone,
+        /// its owner looks at it to see if it has any abilities that would affect the move.
+        /// If the object is moving to the battlefield, each other player who will be able to look at it in that zone does so.
+        /// Then any appropriate replacement effects, whether they come from that object or from elsewhere, are applied to that event.
+        /// If any effects or rules try to do two or more contradictory or mutually exclusive things to a particular object,
+        /// that object’s controller—or its owner if it has no controller—chooses which effect to apply, and what that effect does.
+        /// (Note that multiple instances of the same thing may be mutually exclusive; for example, two simultaneous “destroy” effects.)
+        /// Then the event moves the object.
+        /// </summary>
+        /// <param name="events"></param>
+        /// <returns></returns>
         private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
         {
+            //TODO: Refactor based on summary.
+
             // TODO: Sort players by turn order
             var replacementEffects = GetReplacementEffects(events);
             var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
@@ -426,14 +443,16 @@ namespace Engine
             {
                 var player = GetPlayer(e.Player.Id);
                 var card = GetCard(e.CardInSourceZone);
-                (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
-
-                if (e.Destination != ZoneType.Anywhere)
+                var removed = (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
+                if (removed)
                 {
-                    // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-                    var newObject = new Card(card);
-                    (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
-                    e.CardInDestinationZone = newObject.Convert();
+                    if (e.Destination != ZoneType.Anywhere)
+                    {
+                        // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
+                        var newObject = new Card(card);
+                        (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
+                        e.CardInDestinationZone = newObject.Convert();
+                    }
                 }
             }
         }
@@ -489,7 +508,7 @@ namespace Engine
 
         public void AddAbility(Card card, Ability ability)
         {
-            card.Abilities.Add(ability);
+            card.AddAbility(ability);
             if (ability is StaticAbility staticAbility)
             {
                 AddContinuousEffects(new List<StaticAbility> { staticAbility });
@@ -499,7 +518,7 @@ namespace Engine
         public void RemoveAbility(Card card, Guid ability)
         {
             _ = ContinuousEffects.RemoveAll(x => ability == x.SourceAbility);
-            _ = card.Abilities.RemoveAll(x => x.Id == ability);
+            card.RemoveAbility(ability);
         }
 
         internal void AddContinuousEffects(List<StaticAbility> staticAbilities)

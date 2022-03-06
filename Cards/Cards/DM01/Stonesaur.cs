@@ -4,9 +4,9 @@ namespace Cards.Cards.DM01
 {
     class Stonesaur : Creature
     {
-        public Stonesaur() : base("Stonesaur", 5, Common.Civilization.Fire, 4000, Common.Subtype.RockBeast)
+        public Stonesaur() : base("Stonesaur", 5, 4000, Common.Subtype.RockBeast, Common.Civilization.Fire)
         {
-            Abilities.Add(new PowerAttackerAbility(2000));
+            AddAbilities(new PowerAttackerAbility(2000));
         }
     }
 }

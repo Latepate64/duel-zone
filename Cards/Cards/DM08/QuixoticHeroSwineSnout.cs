@@ -3,12 +3,12 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM08
 {
-    public class QuixoticHeroSwineSnout : Creature
+    class QuixoticHeroSwineSnout : Creature
     {
-        public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
+        public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
             // Whenever another creature is put into the battle zone, this creature gets +3000 power until the end of the turn.
-            Abilities.Add(new AnotherCreaturePutIntoBattleZoneAbility(new QuixoticHeroSwineSnoutEffect()));
+            AddAbilities(new PutIntoPlayAbility(new QuixoticHeroSwineSnoutEffect(), new CardFilters.AnotherBattleZoneCreatureFilter()));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            new DestroyEffect(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true).Apply(game, source);
+            new SacrificeEffect().Apply(game, source);
             new DestroyEffect(new CardFilters.OpponentsBattleZoneCreatureFilter(), 1, 1, false).Apply(game, source);
         }
 

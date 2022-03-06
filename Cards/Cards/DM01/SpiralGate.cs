@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Choose 1 creature in the battle zone and return it to its owner's hand.
-            Abilities.Add(new SpellAbility(new BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddAbilities(new SpellAbility(new BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
         }
     }
 }

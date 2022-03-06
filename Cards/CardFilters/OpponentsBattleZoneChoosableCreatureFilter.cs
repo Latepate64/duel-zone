@@ -6,8 +6,9 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableCreatureFilter : OpponentsBattleZoneCreatureFilter
     {
-        public OpponentsBattleZoneChoosableCreatureFilter()
+        public OpponentsBattleZoneChoosableCreatureFilter(params Common.Civilization[] civilizations)
         {
+            Civilizations.AddRange(civilizations);
         }
 
         public OpponentsBattleZoneChoosableCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)

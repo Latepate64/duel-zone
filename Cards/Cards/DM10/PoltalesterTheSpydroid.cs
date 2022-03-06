@@ -2,13 +2,12 @@
 
 namespace Cards.Cards.DM10
 {
-    public class PoltalesterTheSpydroid : Creature
+    class PoltalesterTheSpydroid : Creature
     {
-        public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, Common.Civilization.Light, 2000, Common.Subtype.Soltrooper)
+        public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Common.Subtype.Soltrooper, Common.Civilization.Light)
         {
             ShieldTrigger = true;
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackPlayersAbility());
         }
     }
 }
