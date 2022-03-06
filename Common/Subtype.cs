@@ -53,5 +53,6 @@
         TreeFolk,
         Xenoparts,
         ZombieDragon,
+        FireBird,
     }
 }
