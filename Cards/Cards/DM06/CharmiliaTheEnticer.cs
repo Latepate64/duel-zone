@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public CharmiliaTheEnticer() : base("Charmilia, the Enticer", 4, 3000, Subtype.SnowFaerie, Civilization.Nature)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.SearchDeckEffect(new CardFilters.OwnersDeckCardFilter { CardType = CardType.Creature }, true)));
+            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.SearchDeckEffect(new CardFilters.OwnersDeckCardFilter { CardType = CardType.Creature }, true)));
         }
     }
 }
