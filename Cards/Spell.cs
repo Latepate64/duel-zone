@@ -4,9 +4,8 @@ namespace Cards
 {
     abstract class Spell : CardImplementation
     {
-        protected Spell(string name, int manaCost, Civilization civilization) : base(name, manaCost, CardType.Spell)
+        protected Spell(string name, int manaCost, params Civilization[] civilizations) : base(CardType.Spell, name, manaCost, civilizations)
         {
-            Civilizations.Add(civilization);
         }
     }
 }

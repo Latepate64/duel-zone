@@ -5,7 +5,7 @@ namespace Cards.Cards.DM04
 {
     class AncientGiant : Creature
     {
-        public AncientGiant() : base("Ancient Giant", 8, Civilization.Nature, 9000, Subtype.Giant)
+        public AncientGiant() : base("Ancient Giant", 8, 9000, Subtype.Giant, Civilization.Nature)
         {
             // This creature can't be blocked by darkness creatures.
             var filter = new CardFilters.OpponentsBattleZoneCreatureFilter();

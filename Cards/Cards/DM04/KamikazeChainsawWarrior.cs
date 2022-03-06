@@ -2,7 +2,7 @@
 {
     class KamikazeChainsawWarrior : Creature
     {
-        public KamikazeChainsawWarrior() : base("Kamikaze, Chainsaw Warrior", 2, Common.Civilization.Fire, 1000, Common.Subtype.Armorloid)
+        public KamikazeChainsawWarrior() : base("Kamikaze, Chainsaw Warrior", 2, 1000, Common.Subtype.Armorloid, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
         }

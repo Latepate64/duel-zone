@@ -4,7 +4,7 @@ namespace Cards.Cards.DM01
 {
     class Gigagiele : Creature
     {
-        public Gigagiele() : base("Gigagiele", 5, Common.Civilization.Darkness, 3000, Common.Subtype.Chimera)
+        public Gigagiele() : base("Gigagiele", 5, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
             Abilities.Add(new SlayerAbility());
         }

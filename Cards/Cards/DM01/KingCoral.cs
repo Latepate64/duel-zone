@@ -4,7 +4,7 @@ namespace Cards.Cards.DM01
 {
     class KingCoral : Creature
     {
-        public KingCoral() : base("King Coral", 3, Common.Civilization.Water, 1000, Common.Subtype.Leviathan)
+        public KingCoral() : base("King Coral", 3, 1000, Common.Subtype.Leviathan, Common.Civilization.Water)
         {
             Abilities.Add(new BlockerAbility());
         }

@@ -5,7 +5,7 @@ namespace Cards.Cards.DM05
 {
     class AquaSurfer : Creature
     {
-        public AquaSurfer() : base("Aqua Surfer", 6, Common.Civilization.Water, 2000, Common.Subtype.LiquidPeople)
+        public AquaSurfer() : base("Aqua Surfer", 6, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, you may choose a creature in the battle zone and return it to its owner's hand.

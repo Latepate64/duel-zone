@@ -2,7 +2,7 @@
 {
     class WrithingBoneGhoul : Creature
     {
-        public WrithingBoneGhoul() : base("Writhing Bone Ghoul", 2, Common.Civilization.Darkness, 2000, Common.Subtype.LivingDead)
+        public WrithingBoneGhoul() : base("Writhing Bone Ghoul", 2, 2000, Common.Subtype.LivingDead, Common.Civilization.Darkness)
         {
         }
     }

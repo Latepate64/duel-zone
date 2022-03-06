@@ -4,7 +4,7 @@ namespace Cards.Cards.DM11
 {
     class BradsCutter : Creature
     {
-        public BradsCutter() : base("Brad's Cutter", 2, Civilization.Fire, 1000, Subtype.Xenoparts)
+        public BradsCutter() : base("Brad's Cutter", 2, 1000, Subtype.Xenoparts, Civilization.Fire)
         {
             ShieldTrigger = true;
         }

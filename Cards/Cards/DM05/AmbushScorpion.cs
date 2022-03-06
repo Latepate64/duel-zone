@@ -4,7 +4,7 @@ namespace Cards.Cards.DM05
 {
     class AmbushScorpion : Creature
     {
-        public AmbushScorpion() : base("Ambush Scorpion", 5, Civilization.Nature, 3000, Subtype.GiantInsect)
+        public AmbushScorpion() : base("Ambush Scorpion", 5, 3000, Subtype.GiantInsect, Civilization.Nature)
         {
             Abilities.Add(new StaticAbilities.PowerAttackerAbility(3000));
 

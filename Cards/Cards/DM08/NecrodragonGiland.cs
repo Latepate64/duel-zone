@@ -4,7 +4,7 @@ namespace Cards.Cards.DM08
 {
     class NecrodragonGiland : Creature
     {
-        public NecrodragonGiland() : base("Necrodragon Giland", 4, Civilization.Darkness, 6000, Subtype.ZombieDragon)
+        public NecrodragonGiland() : base("Necrodragon Giland", 4, 6000, Subtype.ZombieDragon, Civilization.Darkness)
         {
             Abilities.Add(new StaticAbilities.DoubleBreakerAbility());
 

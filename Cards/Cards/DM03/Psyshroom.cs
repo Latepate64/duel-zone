@@ -4,7 +4,7 @@ namespace Cards.Cards.DM03
 {
     class Psyshroom : Creature
     {
-        public Psyshroom() : base("Psyshroom", 4, Common.Civilization.Nature, 2000, Common.Subtype.BalloonMushroom)
+        public Psyshroom() : base("Psyshroom", 4, 2000, Common.Subtype.BalloonMushroom, Common.Civilization.Nature)
         {
             // Whenever this creature attacks, you may put a nature card from your graveyard into your mana zone.
             var filter = new CardFilters.OwnersGraveyardCardFilter();

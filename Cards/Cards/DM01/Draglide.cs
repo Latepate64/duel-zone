@@ -4,7 +4,7 @@ namespace Cards.Cards.DM01
 {
     class Draglide : Creature
     {
-        public Draglide() : base("Draglide", 5, Common.Civilization.Fire, 5000, Common.Subtype.ArmoredWyvern)
+        public Draglide() : base("Draglide", 5, 5000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
             Abilities.Add(new AttacksIfAbleAbility());
         }

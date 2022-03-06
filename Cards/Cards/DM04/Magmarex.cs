@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class Magmarex : Creature
     {
-        public Magmarex() : base("Magmarex", 5, Civilization.Fire, 3000, Subtype.RockBeast)
+        public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, destroy all creatures that have power 1000.

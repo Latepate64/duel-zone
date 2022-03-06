@@ -2,7 +2,7 @@
 {
     class ExplosiveDudeJoe : Creature
     {
-        public ExplosiveDudeJoe() : base("Explosive Dude Joe", 3, Common.Civilization.Fire, 3000, Common.Subtype.Human)
+        public ExplosiveDudeJoe() : base("Explosive Dude Joe", 3, 3000, Common.Subtype.Human, Common.Civilization.Fire)
         {
         }
     }

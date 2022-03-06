@@ -8,7 +8,7 @@ namespace Cards.Cards.DM09
 {
     class BetraleTheExplorer : Creature
     {
-        public BetraleTheExplorer() : base("Betrale, the Explorer", 5, Civilization.Light, 5000, Subtype.Gladiator)
+        public BetraleTheExplorer() : base("Betrale, the Explorer", 5, 5000, Subtype.Gladiator, Civilization.Light)
         {
             Abilities.Add(new BlockerAbility());
             Abilities.Add(new CannotAttackPlayersAbility());

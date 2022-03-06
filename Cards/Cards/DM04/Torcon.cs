@@ -2,7 +2,7 @@
 {
     class Torcon : Creature
     {
-        public Torcon() : base("Torcon", 2, Common.Civilization.Nature, 1000, Common.Subtype.BeastFolk)
+        public Torcon() : base("Torcon", 2, 1000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
             ShieldTrigger = true;
         }

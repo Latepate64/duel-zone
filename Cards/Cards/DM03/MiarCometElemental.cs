@@ -2,7 +2,7 @@
 {
     class MiarCometElemental : Creature
     {
-        public MiarCometElemental() : base("Miar, Comet Elemental", 8, Common.Civilization.Light, 11500, Common.Subtype.AngelCommand)
+        public MiarCometElemental() : base("Miar, Comet Elemental", 8, 11500, Common.Subtype.AngelCommand, Common.Civilization.Light)
         {
             Abilities.Add(new StaticAbilities.DoubleBreakerAbility());
         }

@@ -4,7 +4,7 @@ namespace Cards.Cards.DM11
 {
     class FantasyFish : Creature
     {
-        public FantasyFish() : base("Fantasy Fish", 7, Common.Civilization.Water, 2000, Common.Subtype.GelFish)
+        public FantasyFish() : base("Fantasy Fish", 7, 2000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
             ShieldTrigger = true;
             Abilities.Add(new BlockerAbility());

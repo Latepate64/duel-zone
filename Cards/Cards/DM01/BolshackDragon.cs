@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class BolshackDragon : Creature
     {
-        public BolshackDragon() : base("Bolshack Dragon", 6, Common.Civilization.Fire, 6000, Common.Subtype.ArmoredDragon)
+        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
             // While attacking, this creature gets +1000 power for each fire card in your graveyard.
             AddAbilities(new StaticAbility(new BolshackDragonEffect(new OwnersGraveyardCardFilter(Common.Civilization.Fire))), new DoubleBreakerAbility());

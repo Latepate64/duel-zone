@@ -5,26 +5,25 @@ namespace Cards
     abstract class Creature : CardImplementation
     {
         /// <summary>
-        /// This constructor should be used for monocolored cards with one subtype.
+        /// This constructor should be used for cards with one subtype.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
-        /// <param name="civilization"></param>
         /// <param name="power"></param>
         /// <param name="race"></param>
-        protected Creature(string name, int manaCost, Civilization civilization, int power, Subtype race) : this(name, manaCost, power)
+        /// <param name="civilizations"></param>
+        protected Creature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
         {
-            Civilizations.Add(civilization);
             Subtypes.Add(race);
         }
 
         /// <summary>
-        /// This constructor should be used for multicolored cards. Add civilizations and subtypes for the card in the constructor of the inheritor.
+        /// This constructor should be used for multicolored cards. Add subtypes for the card in the constructor of the inheritor.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
         /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power) : base(name, manaCost, CardType.Creature)
+        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, civilizations)
         {
             Power = power;
         }
