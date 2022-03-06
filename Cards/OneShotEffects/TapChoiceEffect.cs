@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     class TapChoiceEffect : CardSelectionEffect
     {
-        public TapChoiceEffect(CardFilter filter, int minimum, int maximum, bool ownerChooses) : base(filter, minimum, maximum, ownerChooses)
+        public TapChoiceEffect(int minimum, int maximum, bool ownerChooses) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), minimum, maximum, ownerChooses)
         {
         }
 
