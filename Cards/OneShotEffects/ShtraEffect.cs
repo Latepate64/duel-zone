@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class ShtraEffect : OneShotEffect
+    class ShtraEffect : OneShotEffect
     {
         public int Amount { get; }
 

@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class GhastlyDrainEffect : ChooseAnyNumberOfCardsEffect
+    class GhastlyDrainEffect : ChooseAnyNumberOfCardsEffect
     {
         public GhastlyDrainEffect() : base(new CardFilters.OwnersShieldZoneCardFilter())
         {

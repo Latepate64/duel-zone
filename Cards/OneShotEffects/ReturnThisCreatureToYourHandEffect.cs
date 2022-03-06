@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class ReturnThisCreatureToYourHandEffect : OneShotEffect
+    class ReturnThisCreatureToYourHandEffect : OneShotEffect
     {
         public ReturnThisCreatureToYourHandEffect() : base()
         {

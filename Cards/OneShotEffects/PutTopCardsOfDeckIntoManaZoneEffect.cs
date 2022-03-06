@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
+    class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
     {
         public int Amount { get; }
 

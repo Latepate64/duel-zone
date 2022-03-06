@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class AuroraOfReversalEffect : ChooseAnyNumberOfCardsEffect
+    class AuroraOfReversalEffect : ChooseAnyNumberOfCardsEffect
     {
         public AuroraOfReversalEffect() : base(new CardFilters.OwnersShieldZoneCardFilter())
         {

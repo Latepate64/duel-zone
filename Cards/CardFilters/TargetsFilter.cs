@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.CardFilters
 {
-    public class TargetsFilter : CardFilter
+    class TargetsFilter : CardFilter
     {
         public List<Guid> Cards { get; }
 

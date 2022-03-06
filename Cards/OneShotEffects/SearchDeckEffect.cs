@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class SearchDeckEffect : OneShotEffect
+    class SearchDeckEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
         public bool Reveal { get; }

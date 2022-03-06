@@ -2,7 +2,7 @@
 
 namespace Cards.ContinuousEffects
 {
-    public class TripleBreakerEffect : BreakerEffect
+    class TripleBreakerEffect : BreakerEffect
     {
         public TripleBreakerEffect()
         {

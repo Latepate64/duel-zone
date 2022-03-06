@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class OpponentRandomDiscardEffect : OneShotEffect
+    class OpponentRandomDiscardEffect : OneShotEffect
     {
         public OpponentRandomDiscardEffect()
         {

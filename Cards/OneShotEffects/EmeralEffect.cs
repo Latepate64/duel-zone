@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class EmeralEffect : OneShotEffect
+    class EmeralEffect : OneShotEffect
     {
         public EmeralEffect(EmeralEffect effect)
         {

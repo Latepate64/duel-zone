@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class ControllerMayUntapCreatureEffect : OneShotEffect
+    class ControllerMayUntapCreatureEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
 

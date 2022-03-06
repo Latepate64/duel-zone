@@ -5,7 +5,7 @@ using Engine.Durations;
 
 namespace Cards.OneShotEffects
 {
-    public class DestroyAfterBattleEffect : OneShotEffect
+    class DestroyAfterBattleEffect : OneShotEffect
     {
         public DestroyAfterBattleEffect()
         {

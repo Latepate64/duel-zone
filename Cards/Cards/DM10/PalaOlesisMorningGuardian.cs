@@ -11,9 +11,7 @@ namespace Cards.Cards.DM10
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, Common.Civilization.Light, 2500, Common.Subtype.Guardian)
         {
             // During your opponent's turn, each of your other creatures gets +2000 power.
-            var ability = new StaticAbility();
-            ability.ContinuousEffects.Add(new PowerModifyingEffect(new PalaOlesisFilter(), 2000, new Indefinite()));
-            AddAbilities(new BlockerAbility(), ability, new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new StaticAbility(new PowerModifyingEffect(new PalaOlesisFilter(), 2000, new Indefinite())), new CannotAttackPlayersAbility());
         }
     }
 }

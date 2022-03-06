@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    public class ArmoredWarriorQuelosEffect : OneShotEffect
+    class ArmoredWarriorQuelosEffect : OneShotEffect
     {
         public override void Apply(Game game, Ability source)
         {

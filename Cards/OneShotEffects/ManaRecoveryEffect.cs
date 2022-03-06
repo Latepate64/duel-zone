@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public class ManaRecoveryEffect : CardMovingChoiceEffect
+    class ManaRecoveryEffect : CardMovingChoiceEffect
     {
         /// <summary>
         /// Mana Recovery is a term given to cards that return cards in your mana zone to your hand.

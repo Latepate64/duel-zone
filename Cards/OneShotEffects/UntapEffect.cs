@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    public class UntapEffect : OneShotEffect
+    class UntapEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
 

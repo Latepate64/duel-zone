@@ -14,12 +14,13 @@ namespace Engine.Abilities
         /// <summary>
         /// Static abilities create continuous effects, some of which are prevention effects or replacement effects. These effects are active as long as the card with the ability remains on the battle zone and has the ability, or as long as the card with the ability remains in the appropriate zone.
         /// </summary>
-        public ICollection<ContinuousEffect> ContinuousEffects { get; private set; } = new Collection<ContinuousEffect>();
+        public List<ContinuousEffect> ContinuousEffects { get; private set; } = new List<ContinuousEffect>();
 
         public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
 
-        public StaticAbility() : base()
+        public StaticAbility(params ContinuousEffect[] continuousEffects) : base()
         {
+            ContinuousEffects.AddRange(continuousEffects);
         }
 
         public StaticAbility(ContinuousEffect effect)
