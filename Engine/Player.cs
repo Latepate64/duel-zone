@@ -227,13 +227,13 @@ namespace Engine
             Hand.Remove(spell, game);
             spell.KnownBy = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
-            foreach (var ability in spell.Abilities.OfType<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
+            foreach (var ability in spell.SpellAbilities.Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
                 ability.Owner = spell.Owner;
                 ability.Resolve(game);
             }
-            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.Abilities.OfType<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.StaticAbilities.SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(spell);

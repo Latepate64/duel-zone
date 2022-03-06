@@ -4,9 +4,8 @@ namespace Cards.CardFilters
 {
     class OwnersGraveyardCardFilter : CardFilter
     {
-        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations)
+        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations) : base(civilizations)
         {
-            Civilizations.AddRange(civilizations);
         }
 
         public OwnersGraveyardCardFilter(OwnersGraveyardCardFilter filter) : base(filter)

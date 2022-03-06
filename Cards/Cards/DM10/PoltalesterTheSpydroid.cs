@@ -7,8 +7,7 @@ namespace Cards.Cards.DM10
         public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Common.Subtype.Soltrooper, Common.Civilization.Light)
         {
             ShieldTrigger = true;
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

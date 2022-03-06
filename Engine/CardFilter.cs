@@ -26,8 +26,9 @@ namespace Engine
             CardName = filter.CardName;
         }
 
-        protected CardFilter()
+        protected CardFilter(params Civilization[] civilizations)
         {
+            Civilizations.AddRange(civilizations);
         }
 
         public virtual bool Applies(Card card, Game game, Player player)

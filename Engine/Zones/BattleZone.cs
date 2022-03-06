@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Steps;
 using System;
@@ -26,7 +25,7 @@ namespace Engine.Zones
             card.SummoningSickness = true;
             card.KnownBy = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.AddContinuousEffects(card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
+            game.AddContinuousEffects(card.StaticAbilities.Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
         }
 
         public override bool Remove(Card card, Game game)
@@ -52,7 +51,7 @@ namespace Engine.Zones
             }
             else 
             {
-                var staticAbilities = card.Abilities.OfType<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
+                var staticAbilities = card.StaticAbilities.Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
                 _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
                 return true;
             }

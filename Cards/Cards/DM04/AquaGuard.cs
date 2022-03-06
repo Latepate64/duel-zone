@@ -7,9 +7,7 @@ namespace Cards.Cards.DM04
     {
         public AquaGuard() : base("Aqua Guard", 1, 2000, Subtype.LiquidPeople, Civilization.Water)
         {
-            Abilities.Add(new BlockerAbility());
-            Abilities.Add(new CannotAttackCreaturesAbility());
-            Abilities.Add(new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
         }
     }
 }

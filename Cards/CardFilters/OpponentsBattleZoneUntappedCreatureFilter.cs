@@ -4,7 +4,7 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneUntappedCreatureFilter : OpponentsBattleZoneCreatureFilter
     {
-        public OpponentsBattleZoneUntappedCreatureFilter()
+        public OpponentsBattleZoneUntappedCreatureFilter(params Common.Civilization[] civilizations) : base(civilizations)
         {
         }
 

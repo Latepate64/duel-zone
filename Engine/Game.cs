@@ -347,7 +347,7 @@ namespace Engine
             var abilities = new List<TriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.Abilities.OfType<TriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
+                abilities.AddRange(card.TriggeredAbilities.Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
             }
             return abilities;
         }
@@ -508,7 +508,7 @@ namespace Engine
 
         public void AddAbility(Card card, Ability ability)
         {
-            card.Abilities.Add(ability);
+            card.AddAbility(ability);
             if (ability is StaticAbility staticAbility)
             {
                 AddContinuousEffects(new List<StaticAbility> { staticAbility });
@@ -518,7 +518,7 @@ namespace Engine
         public void RemoveAbility(Card card, Guid ability)
         {
             _ = ContinuousEffects.RemoveAll(x => ability == x.SourceAbility);
-            _ = card.Abilities.RemoveAll(x => x.Id == ability);
+            card.RemoveAbility(ability);
         }
 
         internal void AddContinuousEffects(List<StaticAbility> staticAbilities)

@@ -52,7 +52,7 @@ namespace Engine.Steps
             activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
-                Phase.PendingAbilities.AddRange(attacker.Abilities.OfType<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
+                Phase.PendingAbilities.AddRange(attacker.TapAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>());
             }
             else
             {
@@ -82,7 +82,7 @@ namespace Engine.Steps
                     }
                     attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
                 }
-                if (attackables.Any() && attacker.Abilities.OfType<TapAbility>().Any())
+                if (attackables.Any() && attacker.TapAbilities.Any())
                 {
                     attackables.Add(attacker);
                 }
@@ -94,7 +94,7 @@ namespace Engine.Steps
         {
             if (Phase.AttackingCreature != Guid.Empty)
             {
-                var tapAbilities = game.GetCard(Phase.AttackingCreature).Abilities.OfType<TapAbility>();
+                var tapAbilities = game.GetCard(Phase.AttackingCreature).TapAbilities;
                 if (tapAbilities.Select(y => y.Id).Contains(Phase.AttackTarget))
                 {
                     return new AttackDeclarationStep(Phase);

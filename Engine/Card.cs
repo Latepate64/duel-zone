@@ -10,6 +10,11 @@ namespace Engine
 
         public List<Ability> Abilities { get; } = new List<Ability>();
 
+        internal IEnumerable<SpellAbility> SpellAbilities => Abilities.OfType<SpellAbility>();
+        internal IEnumerable<StaticAbility> StaticAbilities => Abilities.OfType<StaticAbility>();
+        internal IEnumerable<TapAbility> TapAbilities => Abilities.OfType<TapAbility>();
+        internal IEnumerable<TriggeredAbility> TriggeredAbilities => Abilities.OfType<TriggeredAbility>();
+
         public Card()
         {
         }
@@ -63,6 +68,16 @@ namespace Engine
         private void SetRulesText()
         {
             RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
+        }
+
+        internal void AddAbility(Ability ability)
+        {
+            Abilities.Add(ability);
+        }
+
+        internal void RemoveAbility(System.Guid id)
+        {
+            _ = Abilities.RemoveAll(x => x.Id == id);
         }
     }
 }
