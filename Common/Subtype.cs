@@ -14,6 +14,7 @@
         ColonyBeetle,
         CyberCluster,
         CyberLord,
+        CyberMoon,
         CyberVirus,
         DarkLord,
         DeathPuppet,
