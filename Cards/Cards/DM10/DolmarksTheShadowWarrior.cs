@@ -1,4 +1,7 @@
-﻿using Common;
+﻿using Cards.OneShotEffects;
+using Common;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
@@ -7,7 +10,28 @@ namespace Cards.Cards.DM10
         public DolmarksTheShadowWarrior() : base("Dolmarks, the Shadow Warrior", 4, 4000, Civilization.Darkness, Civilization.Fire)
         {
             AddSubtypes(Subtype.Ghost, Subtype.Human);
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.DolmarksTheShadowWarriorEffect()));
+            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new DolmarksTheShadowWarriorEffect()));
+        }
+    }
+
+    class DolmarksTheShadowWarriorEffect : OneShotEffect
+    {
+        public override void Apply(Game game, Ability source)
+        {
+            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new SelfManaBurnEffect(1), new OpponentSacrificeEffect(), new ManaBurnEffect(new CardFilters.OpponentsManaZoneCardFilter(), 1, 1, false) })
+            {
+                effect.Apply(game, source);
+            }
+        }
+
+        public override OneShotEffect Copy()
+        {
+            return new DolmarksTheShadowWarriorEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy one of your creatures and put a card from your mana zone into your graveyard. Then your opponent chooses and destroys one of his creatures and chooses a card in his mana zone and puts it into his graveyard.";
         }
     }
 }

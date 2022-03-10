@@ -1,11 +1,35 @@
-﻿namespace Cards.Cards.DM01
+﻿using Cards.OneShotEffects;
+using Engine;
+using Engine.Abilities;
+
+namespace Cards.Cards.DM01
 {
     class RothusTheTraveler : Creature
     {
         public RothusTheTraveler() : base("Rothus, the Traveler", 4, 4000, Common.Subtype.Armorloid, Common.Civilization.Fire)
         {
-            // When you put this creature into the battle zone, destroy one of your creatures. Then your opponent chooses one of his creatures and destroys it.
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.RothusTheTravelerEffect()));
+            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new RothusTheTravelerEffect()));
+        }
+    }
+
+    class RothusTheTravelerEffect : OneShotEffect
+    {
+        public override void Apply(Game game, Ability source)
+        {
+            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new OpponentSacrificeEffect() })
+            {
+                effect.Apply(game, source);
+            }
+        }
+
+        public override OneShotEffect Copy()
+        {
+            return new RothusTheTravelerEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy one of your creatures. Then your opponent chooses one of his creatures and destroys it.";
         }
     }
 }

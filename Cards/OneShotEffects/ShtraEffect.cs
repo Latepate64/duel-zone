@@ -19,8 +19,10 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            new SelfManaRecoveryEffect(Amount, Amount, true, Common.CardType.Any).Apply(game, source);
-            new OpponentManaRecoveryEffect(Amount, Amount, false).Apply(game, source);
+            foreach (var effect in new OneShotEffect[] { new SelfManaRecoveryEffect(Amount, Amount, true, Common.CardType.Any), new OpponentManaRecoveryEffect(Amount, Amount, false)})
+            {
+                effect.Apply(game, source);
+            }
         }
 
         public override OneShotEffect Copy()

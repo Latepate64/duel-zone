@@ -1,4 +1,7 @@
 ﻿using Cards.TriggeredAbilities;
+using Common;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
@@ -8,6 +11,24 @@ namespace Cards.Cards.DM11
         {
             // At the end of each of your turns, if this creature broke any shields that turn, return it to your hand.
             AddAbilities(new HeartyCapnPolligonAbility(new HeartyCapnPolligonEffect()));
+        }
+    }
+
+    class HeartyCapnPolligonEffect : OneShotEffect
+    {
+        public override OneShotEffect Copy()
+        {
+            return new HeartyCapnPolligonEffect();
+        }
+
+        public override void Apply(Game game, Ability source)
+        {
+            game.Move(ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
+        }
+
+        public override string ToString()
+        {
+            return "If this creature broke any shields that turn, return it to your hand.";
         }
     }
 }
