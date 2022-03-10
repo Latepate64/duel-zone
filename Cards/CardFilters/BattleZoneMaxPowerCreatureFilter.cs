@@ -1,8 +1,10 @@
-﻿namespace Cards.CardFilters
+﻿using Engine;
+
+namespace Cards.CardFilters
 {
     class BattleZoneMaxPowerCreatureFilter : BattleZonePowerCreatureFilter
     {
-        public BattleZoneMaxPowerCreatureFilter(int power) : base(new PowerFilter(PowerMode.Max, power))
+        public BattleZoneMaxPowerCreatureFilter(int power) : base(new PowerFilter(CompareMode.Max, power))
         {
         }
     }

@@ -1,6 +1,8 @@
 ﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 using Common;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
@@ -9,8 +11,28 @@ namespace Cards.Cards.DM10
         public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, Civilization.Fire, Civilization.Nature)
         {
             AddSubtypes(Subtype.Human, Subtype.BeastFolk);
-            // When you put this creature into the battle zone, destroy one of your opponent's creatures that has "blocker." Then put the top card of your deck into your mana zone.
             AddAbilities(new PutIntoPlayAbility(new WindAxeTheWarriorSavageEffect()));
+        }
+    }
+
+    class WindAxeTheWarriorSavageEffect : OneShotEffect
+    {
+        public override OneShotEffect Copy()
+        {
+            return new WindAxeTheWarriorSavageEffect();
+        }
+
+        public override void Apply(Game game, Ability source)
+        {
+            foreach (var effect in new OneShotEffect[] { new DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
+            {
+                effect.Apply(game, source);
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Destroy one of your opponent's creatures that has \"blocker.\" Then put the top card of your deck into your mana zone.";
         }
     }
 }

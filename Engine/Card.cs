@@ -84,5 +84,7 @@ namespace Engine
         {
             _abilities.AddRange(abilities);
         }
+
+        public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
     }
 }

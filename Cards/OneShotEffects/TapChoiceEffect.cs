@@ -11,6 +11,8 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public TapChoiceEffect(int minimum, int maximum, bool ownerChooses, CardFilter filter) : base(filter, minimum, maximum, ownerChooses) { }
+
         public TapChoiceEffect(TapChoiceEffect effect) : base(effect)
         {
         }

@@ -251,11 +251,11 @@ namespace Engine
             game.Process(new CardMovedEvent { CardInDestinationZone = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
-        public void DiscardAtRandom(Game game)
+        public void DiscardAtRandom(Game game, int amount)
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards[Random.Next(Hand.Cards.Count)]);
+                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
             }
         }
 

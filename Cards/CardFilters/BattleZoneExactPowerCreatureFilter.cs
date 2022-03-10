@@ -1,8 +1,10 @@
-﻿namespace Cards.CardFilters
+﻿using Engine;
+
+namespace Cards.CardFilters
 {
     class BattleZoneExactPowerCreatureFilter : BattleZonePowerCreatureFilter
     {
-        public BattleZoneExactPowerCreatureFilter(int power) : base(new PowerFilter(PowerMode.Exact, power))
+        public BattleZoneExactPowerCreatureFilter(int power) : base(new PowerFilter(CompareMode.Exact, power))
         {
         }
     }

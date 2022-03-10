@@ -4,6 +4,11 @@ using System.Linq;
 
 namespace Common
 {
+    public enum Supertype
+    {
+        Evolution
+    }
+
     public class Card
     {
         public Card()
@@ -27,6 +32,7 @@ namespace Common
                 ShieldTrigger = card.ShieldTrigger;
                 Subtypes = card.Subtypes?.ToList();
                 SummoningSickness = card.SummoningSickness;
+                Supertypes = card.Supertypes?.ToList();
                 Tapped = card.Tapped;
             }
         }
@@ -67,5 +73,7 @@ namespace Common
         public bool SummoningSickness { get; set; }
 
         public string RulesText { get; set; }
+
+        public List<Supertype> Supertypes { get; set; } = new List<Supertype>();
     }
 }

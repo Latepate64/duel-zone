@@ -5,12 +5,16 @@ namespace Cards.OneShotEffects
 {
     class OpponentRandomDiscardEffect : OneShotEffect
     {
-        public OpponentRandomDiscardEffect()
+        public int Amount { get; set; }
+
+        public OpponentRandomDiscardEffect(int amount = 1)
         {
+            Amount = amount;
         }
 
-        public OpponentRandomDiscardEffect(OneShotEffect effect)
+        public OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
         {
+            Amount = effect.Amount;
         }
 
         public override OneShotEffect Copy()
@@ -20,12 +24,12 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game);
+            game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game, Amount);
         }
 
         public override string ToString()
         {
-            return "Your opponent discards a card at random from his hand.";
+            return $"Your opponent discards {(Amount == 1 ? "a card" : $"{Amount} cards")} at random from his hand.";
         }
     }
 }

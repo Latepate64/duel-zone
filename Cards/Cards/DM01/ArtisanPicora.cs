@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
         public ArtisanPicora() : base("Artisan Picora", 1, 2000, Common.Subtype.MachineEater, Common.Civilization.Fire)
         {
             // When you put this creature into the battle zone, put 1 card from your mana zone into your graveyard.
-            AddAbilities(new PutIntoPlayAbility(new ManaBurnEffect(new OwnersManaZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new PutIntoPlayAbility(new SelfManaBurnEffect(1)));
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     class SalvageCreatureEffect : SalvageEffect
     {
-        public SalvageCreatureEffect(int minimum, int maximum) : base(new CardFilters.OwnersGraveyardCardFilter { CardType = Common.CardType.Creature }, minimum, maximum, true)
+        public SalvageCreatureEffect(int minimum, int maximum, params Common.Civilization[] civilizations) : base(new CardFilters.OwnersGraveyardCardFilter(civilizations) { CardType = Common.CardType.Creature }, minimum, maximum, true)
         {
         }
     }
