@@ -37,7 +37,7 @@ namespace Cards.Cards.DM10
                         game.Move(ZoneType.BattleZone, ZoneType.ManaZone, creature);
 
                         // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
-                        var manas = owner.ManaZone.Creatures.Where(c => c.ManaCost <= owner.ManaZone.Cards.Count); //TODO: Check that is not evolution creature
+                        var manas = owner.ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= owner.ManaZone.Cards.Count);
                         if (manas.Any())
                         {
                             var decision2 = player.Choose(new BoundedCardSelectionInEffect(source.Owner, manas, 1, 1, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone."), game);
