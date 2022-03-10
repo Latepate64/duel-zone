@@ -1,29 +1,39 @@
-﻿using Common.GameEvents;
+﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities
 {
-    public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
+    class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
     {
-        public HeartyCapnPolligonAbility(OneShotEffect effect) : base(effect)
+        public HeartyCapnPolligonAbility() : base(new HeartyCapnPolligonEffect())
         {
-        }
-
-        public HeartyCapnPolligonAbility(AtTheEndOfYourTurnAbility ability) : base(ability)
-        {
-        }
-
-        public override Ability Copy()
-        {
-            return new HeartyCapnPolligonAbility(this);
         }
 
         public override bool CheckInterveningIfClause(Game game)
         {
             // if this creature broke any shields that turn
             return game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Any(x => x.Attacker.Id == Source);
+        }
+    }
+
+    class HeartyCapnPolligonEffect : OneShotEffect
+    {
+        public override OneShotEffect Copy()
+        {
+            return new HeartyCapnPolligonEffect();
+        }
+
+        public override void Apply(Game game, Ability source)
+        {
+            game.Move(ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
+        }
+
+        public override string ToString()
+        {
+            return "If this creature broke any shields that turn, return it to your hand.";
         }
     }
 }
