@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
             {
                 var copy = effect.Copy();
                 copy.Filter = new TargetsFilter(cards.Select(x => x.Id));
-                game.ContinuousEffects.Add(copy);
+                game.AddContinuousEffects(copy);
             }
         }
 

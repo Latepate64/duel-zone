@@ -236,7 +236,7 @@ namespace Engine
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(spell);
+            var newObject = new Card(spell, game.GetTimestamp());
             ZoneType destination;
             if (effects.Any())
             {

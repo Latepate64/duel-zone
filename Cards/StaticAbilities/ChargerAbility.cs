@@ -7,7 +7,7 @@ namespace Cards.StaticAbilities
     {
         public ChargerAbility()
         {
-            ContinuousEffects.Add(new ChargerEffect());
+            AddContinuousEffects(new ChargerEffect());
         }
     }
 }

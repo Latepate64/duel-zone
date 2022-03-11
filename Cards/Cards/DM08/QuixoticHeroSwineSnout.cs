@@ -24,7 +24,7 @@ namespace Cards.Cards.DM08
 
         public override void Apply(Game game, Ability source)
         {
-            game.ContinuousEffects.Add(new PowerModifyingEffect(new TargetFilter { Target = source.Source }, 3000, new UntilTheEndOfTheTurn()));
+            game.AddContinuousEffects(new PowerModifyingEffect(new TargetFilter { Target = source.Source }, 3000, new UntilTheEndOfTheTurn()));
         }
 
         public override string ToString()

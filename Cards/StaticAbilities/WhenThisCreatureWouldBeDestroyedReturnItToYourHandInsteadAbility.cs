@@ -10,7 +10,7 @@ namespace Cards.StaticAbilities
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility()
         {
-            ContinuousEffects.Add(new AquaKnightAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
+            AddContinuousEffects(new AquaKnightAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
         }
 
         protected WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility ability) : base(ability)

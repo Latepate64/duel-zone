@@ -7,7 +7,7 @@ namespace Cards.StaticAbilities
     {
         public SpeedAttackerAbility() : base()
         {
-            ContinuousEffects.Add(new SpeedAttackerEffect());
+            AddContinuousEffects(new SpeedAttackerEffect());
         }
     }
 }

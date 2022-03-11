@@ -7,7 +7,7 @@ namespace Cards.StaticAbilities
     {
         public TripleBreakerAbility() : base()
         {
-            ContinuousEffects.Add(new TripleBreakerEffect());
+            AddContinuousEffects(new TripleBreakerEffect());
         }
     }
 }

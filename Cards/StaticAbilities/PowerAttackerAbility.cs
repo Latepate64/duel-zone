@@ -7,7 +7,7 @@ namespace Cards.StaticAbilities
     {
         public PowerAttackerAbility(int power)
         {
-            ContinuousEffects.Add(new PowerAttackerEffect(power));
+            AddContinuousEffects(new PowerAttackerEffect(power));
         }
     }
 }

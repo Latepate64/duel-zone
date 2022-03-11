@@ -4,11 +4,13 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<Card>, IAttackable
+    public class Card : Common.Card, ICopyable<Card>, IAttackable, ITimestampable
     {
         // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
 
-        private List<Ability> _abilities = new();
+        private readonly List<Ability> _abilities = new();
+
+        public int Timestamp { get; }
 
         public IEnumerable<T> GetAbilities<T>()
         {
@@ -19,15 +21,17 @@ namespace Engine
         {
         }
 
-        internal Card(Card card) : base(card, false)
+        internal Card(Card card, int timeStamp) : base(card, false)
         {
+            // 613.7d An object receives a timestamp at the time it enters a zone.
+            Timestamp = timeStamp;
             _abilities = card._abilities.Select(x => x.Copy()).ToList();
             InitializeAbilities();
         }
 
         public virtual Card Copy()
         {
-            return new Card(this);
+            return new Card(this, Timestamp);
         }
 
         public override string ToString()
