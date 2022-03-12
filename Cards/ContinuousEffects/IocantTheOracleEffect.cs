@@ -9,13 +9,13 @@ namespace Cards.ContinuousEffects
     /// <summary>
     /// While you have at least 1 Angel Command in the battle zone, this creature gets +2000 power.
     /// </summary>
-    class IocantTheOracleEffect : CharacteristicModifyingEffect
+    class IocantTheOracleEffect : PowerModifyingEffect
     {
         public IocantTheOracleEffect(IocantTheOracleEffect effect) : base(effect)
         {
         }
 
-        public IocantTheOracleEffect()
+        public IocantTheOracleEffect() : base(2000)
         {
         }
 
@@ -24,51 +24,20 @@ namespace Cards.ContinuousEffects
             return new IocantTheOracleEffect(this);
         }
 
-        public override void Start(Game game)
+        public override void Apply(Game game)
         {
-            var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-            if (game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand)))
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
             {
-                _buffActive = true;
-                card.Power += Buff;
-            }
-        }
-
-        public override void End(Game game)
-        {
-            var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-            if (_buffActive)
-            {
-                _buffActive = false;
-                card.Power -= Buff;
-            }
-        }
-
-        public override void Update(Game game, GameEvent e)
-        {
-            if (e is CardMovedEvent cardMoved && (cardMoved.Source == ZoneType.BattleZone || cardMoved.Destination == ZoneType.BattleZone))
-            {
-                var card = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))).Single();
-                var buffShouldBeApplied = game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand));
-                if (buffShouldBeApplied && !_buffActive)
+                if (game.BattleZone.GetCreatures(card.Owner).Any(x => x.Subtypes.Contains(Subtype.AngelCommand)))
                 {
-                    _buffActive = true;
-                    card.Power += Buff;
-                }
-                else if (!buffShouldBeApplied && _buffActive)
-                {
-                    _buffActive = false;
-                    card.Power -= Buff;
+                    card.Power += _power;
                 }
             }
         }
-
-        bool _buffActive;
-        const int Buff = 2000;
 
         public override string ToString()
         {
-            return $"While you have at least 1 Angel Command in the battle zone, this creature gets +{Buff} power.";
+            return $"While you have at least 1 Angel Command in the battle zone, {Filter} gets +{_power} power.";
         }
     }
 }

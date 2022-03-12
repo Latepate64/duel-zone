@@ -23,7 +23,7 @@ namespace Cards
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
         /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, civilizations)
+        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, power, civilizations)
         {
             Power = power;
         }

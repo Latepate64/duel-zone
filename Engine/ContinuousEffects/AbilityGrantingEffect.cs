@@ -24,38 +24,11 @@ namespace Engine.ContinuousEffects
             return new AbilityGrantingEffect(this);
         }
 
-        public override void Start(Game game)
+        public override void Apply(Game game)
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
             {
                 game.AddAbility(card, Ability.Copy());
-            }
-        }
-
-        public override void End(Game game)
-        {
-            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
-            {
-                game.RemoveAbility(card, Ability.Id);
-            }
-        }
-
-        public override void Update(Game game, GameEvent e)
-        {
-            if (e is CardMovedEvent cme && cme.CardInDestinationZone != null && cme.Destination != Common.ZoneType.Anywhere)
-            {
-                var card = game.GetCard(cme.CardInDestinationZone.Id);
-                if (Filter.Applies(card, game, game.GetOwner(card)))
-                {
-                    if (cme.Destination == Common.ZoneType.BattleZone)
-                    {
-                        game.AddAbility(card, Ability.Copy());
-                    }
-                    if (cme.Source == Common.ZoneType.BattleZone)
-                    {
-                        game.RemoveAbility(card, Ability.Id);
-                    }
-                }
             }
         }
 

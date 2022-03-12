@@ -39,7 +39,8 @@ namespace Engine
 
         public virtual bool Applies(Card card, Game game, Player player)
         {
-            return card != null && 
+            return player != null &&
+                card != null && 
                 (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && 
                 (CardType == CardType.Any || card.CardType == CardType) && 
                 (string.IsNullOrEmpty(CardName) || card.Name == CardName) && 

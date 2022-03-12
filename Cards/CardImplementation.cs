@@ -6,7 +6,7 @@ namespace Cards
 {
     abstract class CardImplementation : Engine.Card
     {
-        protected CardImplementation(CardType type, string name, int manaCost, params Civilization[] civilizations)
+        protected CardImplementation(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : base(power)
         {
             CardType = type;
             Civilizations = civilizations.ToList();
