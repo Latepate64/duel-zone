@@ -7,12 +7,12 @@ namespace Engine.ContinuousEffects
     {
         protected readonly int _power;
 
-        public PowerModifyingEffect(CardFilter filter, int power, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
+        public PowerModifyingEffect(int power, CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
             _power = power;
         }
 
-        public PowerModifyingEffect(int power, params Condition[] conditions) : this(new TargetFilter(), power, new Indefinite(), conditions) { }
+        public PowerModifyingEffect(int power, params Condition[] conditions) : this(power, new TargetFilter(), new Indefinite(), conditions) { }
 
         public PowerModifyingEffect(PowerModifyingEffect effect) : base(effect)
         {

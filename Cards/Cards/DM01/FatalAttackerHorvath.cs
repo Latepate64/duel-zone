@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
         public FatalAttackerHorvath() : base("Fatal Attacker Horvath", 3, 2000, Common.Subtype.Human, Common.Civilization.Fire)
         {
             // While you have at least 1 Armorloid in the battle zone, this creature gets +2000 power during its attacks.
-            AddAbilities(new StaticAbility(new PowerModifyingEffect(new ArmoredWalkerUrherionFilter(Common.Subtype.Armorloid), 2000, new Indefinite())));
+            AddAbilities(new StaticAbility(new PowerModifyingEffect(2000, new ArmoredWalkerUrherionFilter(Common.Subtype.Armorloid), new Indefinite())));
         }
     }
 }
