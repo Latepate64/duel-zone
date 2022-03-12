@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class ChargerAbility : StaticAbility
     {
-        public ChargerAbility()
+        public ChargerAbility() : base(new ChargerEffect())
         {
-            AddContinuousEffects(new ChargerEffect());
         }
     }
 }

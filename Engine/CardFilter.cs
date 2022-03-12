@@ -22,6 +22,8 @@ namespace Engine
 
         public ManaCostFilter ManaCost { get; set; }
 
+        public List<Subtype> Subtypes { get; } = new List<Subtype>();
+
         protected CardFilter(CardFilter filter)
         {
             Civilizations = filter.Civilizations;
@@ -29,6 +31,7 @@ namespace Engine
             CardName = filter.CardName;
             ManaCost = filter.ManaCost;
             Power = filter.Power;
+            Subtypes = filter.Subtypes;
             Target = filter.Target;
         }
 
@@ -37,15 +40,21 @@ namespace Engine
             Civilizations.AddRange(civilizations);
         }
 
+        protected CardFilter(Subtype subtype)
+        {
+            Subtypes.Add(subtype);
+        }
+
         public virtual bool Applies(Card card, Game game, Player player)
         {
             return player != null &&
-                card != null && 
-                (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && 
-                (CardType == CardType.Any || card.CardType == CardType) && 
-                (string.IsNullOrEmpty(CardName) || card.Name == CardName) && 
+                card != null &&
+                (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
+                (CardType == CardType.Any || card.CardType == CardType) &&
+                (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) &&
+                (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
-                (ManaCost == null || ManaCost.Applies(card));
+                (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any());
         }
 
         public abstract CardFilter Copy();
@@ -66,6 +75,10 @@ namespace Engine
             if (Civilizations.Any())
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Civilizations)));
+            }
+            if (Subtypes.Any())
+            {
+                textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
             }
             textPieces.Add(ToString(CardType));
             if (!string.IsNullOrEmpty(CardName))

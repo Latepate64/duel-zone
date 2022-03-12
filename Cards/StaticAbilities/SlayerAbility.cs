@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class SlayerAbility : StaticAbility
     {
-        public SlayerAbility()
+        public SlayerAbility() : base(new SlayerEffect())
         {
-            AddContinuousEffects(new SlayerEffect());
         }
     }
 }

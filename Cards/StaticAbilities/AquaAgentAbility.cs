@@ -9,12 +9,7 @@ namespace Cards.StaticAbilities
 {
     public class AquaAgentAbility : StaticAbility
     {
-        public AquaAgentAbility()
-        {
-            AddContinuousEffects(new AquaAgentAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }));
-        }
-
-        protected AquaAgentAbility(AquaAgentAbility ability) : base(ability)
+        public AquaAgentAbility() : base(new AquaAgentAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
         {
         }
     }

@@ -33,7 +33,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
         {
-            game.AddContinuousEffects(new PowerModifyingEffect(new TargetsFilter(cards.Select(x => x.Id)), Power, Duration));
+            game.AddContinuousEffects(source, new PowerModifyingEffect(new TargetsFilter(cards.Select(x => x.Id)), Power, Duration));
         }
     }
 }

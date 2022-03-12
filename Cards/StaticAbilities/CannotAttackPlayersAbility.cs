@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class CannotAttackPlayersAbility : StaticAbility
     {
-        public CannotAttackPlayersAbility() : base()
+        public CannotAttackPlayersAbility() : base(new CannotAttackPlayersEffect())
         {
-            AddContinuousEffects(new CannotAttackPlayersEffect());
         }
     }
 }

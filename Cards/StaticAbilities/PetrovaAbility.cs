@@ -9,10 +9,9 @@ namespace Cards.StaticAbilities
 {
     internal class PetrovaAbility : StaticAbility
     {
-        public PetrovaAbility()
+        public PetrovaAbility() : base(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }))
         {
             //ContinuousEffects.Add(new PowerModifyingEffect(new NoneFilter(), 4000, new Indefinite()));
-            AddContinuousEffects(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }));
         }
 
         public PetrovaAbility(PetrovaAbility ability) : base(ability)

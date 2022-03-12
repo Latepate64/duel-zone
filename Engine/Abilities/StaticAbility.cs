@@ -44,10 +44,5 @@ namespace Engine.Abilities
         {
             return string.Join(" ", _continuousEffects.Select(x => UpperCaseFirstCharacter(x.ToString())));
         }
-
-        public void AddContinuousEffects(params ContinuousEffect[] continuousEffects)
-        {
-            _continuousEffects.AddRange(continuousEffects);
-        }
     }
 }

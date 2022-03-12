@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class BlockerAbility : StaticAbility
     {
-        public BlockerAbility() : base()
+        public BlockerAbility() : base(new BlockerEffect())
         {
-            AddContinuousEffects(new BlockerEffect());
         }
     }
 }

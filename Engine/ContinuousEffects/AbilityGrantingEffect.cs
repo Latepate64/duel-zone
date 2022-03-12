@@ -1,5 +1,4 @@
-﻿using Common.GameEvents;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.Durations;
 using System.Linq;
 
@@ -34,7 +33,7 @@ namespace Engine.ContinuousEffects
 
         public override string ToString()
         {
-            return $"{Filter} get {Ability}{GetDurationAsText()}.";
+            return $"{ToStringBase()}{Filter} get {Ability}{GetDurationAsText()}.";
         }
     }
 }

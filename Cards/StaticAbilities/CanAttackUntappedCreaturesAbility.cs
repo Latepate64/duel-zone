@@ -10,9 +10,8 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public CanAttackUntappedCreaturesAbility(CardFilter targetFilter)
+        public CanAttackUntappedCreaturesAbility(CardFilter targetFilter) : base(new CanAttackUntappedCreaturesEffect(targetFilter))
         {
-            AddContinuousEffects(new CanAttackUntappedCreaturesEffect(targetFilter));
         }
     }
 }

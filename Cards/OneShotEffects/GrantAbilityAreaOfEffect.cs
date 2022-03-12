@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(Game game, Ability source)
         {
-            game.AddContinuousEffects(new AbilityGrantingEffect(new TargetsFilter(game.BattleZone.GetCreatures(source.Owner).Select(x => x.Id)), new UntilTheEndOfTheTurn(), Ability));
+            game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(game.BattleZone.GetCreatures(source.Owner).Select(x => x.Id)), new UntilTheEndOfTheTurn(), Ability));
         }
 
         public override OneShotEffect Copy()

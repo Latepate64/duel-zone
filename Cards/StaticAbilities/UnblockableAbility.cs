@@ -14,9 +14,8 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public UnblockableAbility(CardFilter blockerFilter)
+        public UnblockableAbility(CardFilter blockerFilter) : base(new UnblockableEffect(new TargetFilter(), new Indefinite(), blockerFilter))
         {
-            AddContinuousEffects(new UnblockableEffect(new TargetFilter(), new Indefinite(), blockerFilter));
         }
     }
 }
