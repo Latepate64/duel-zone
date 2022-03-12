@@ -9,6 +9,11 @@ namespace Cards.CardFilters
             CardType = Common.CardType.Creature;
         }
 
+        public BattleZoneCreatureFilter(Common.Subtype subtype) : base(subtype)
+        {
+            CardType = Common.CardType.Creature;
+        }
+
         public BattleZoneCreatureFilter(CardFilter filter) : base(filter)
         {
         }
