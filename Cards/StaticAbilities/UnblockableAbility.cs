@@ -10,11 +10,11 @@ namespace Cards.StaticAbilities
     {
         public CardFilter BlockerFilter { get; }
 
-        public UnblockableAbility() : this(new BattleZoneCreatureFilter())
+        public UnblockableAbility(params Condition[] conditions) : this(new BattleZoneCreatureFilter(), conditions)
         {
         }
 
-        public UnblockableAbility(CardFilter blockerFilter) : base(new UnblockableEffect(new TargetFilter(), new Indefinite(), blockerFilter))
+        public UnblockableAbility(CardFilter blockerFilter, params Condition[] conditions) : base(new UnblockableEffect(new TargetFilter(), new Indefinite(), blockerFilter, conditions))
         {
         }
     }

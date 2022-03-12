@@ -1,53 +1,25 @@
 ﻿using Engine.Durations;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
     public abstract class CharacteristicModifyingEffect : ContinuousEffect
     {
-        private readonly List<Condition> _conditions = new();
-
-        protected CharacteristicModifyingEffect(CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration)
+        protected CharacteristicModifyingEffect(CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
-            _conditions.AddRange(conditions);
         }
 
         protected CharacteristicModifyingEffect(CharacteristicModifyingEffect effect) : base(effect)
         {
-            _conditions = effect._conditions.ToList(); //TODO: Implement copy?
         }
 
         internal virtual void CheckConditionsAndApply(Game game)
         {
-            var source = game.GetAbility(SourceAbility);
-            if (source != null)
+            if (ConditionsApply(game))
             {
-                var player = game.GetPlayer(source.Owner);
-                if (player != null && _conditions.All(x => x.Applies(game, player.Id)))
-                {
-                    Apply(game);
-                }
+                Apply(game);
             }
         }
 
         public abstract void Apply(Game game);
-
-        protected string ToStringBase()
-        {
-            if (_conditions.Any())
-            {
-                return string.Join(" and ", _conditions) + " ,";
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        internal void SetupConditionFilters(System.Guid id)
-        {
-            _conditions.Select(x => x.Filter).ToList().ForEach(x => x.Target = id);
-        }
     }
 }

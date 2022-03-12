@@ -59,16 +59,9 @@ namespace Engine
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
                         effect.Filter.Target = Id;
-                        if (effect is CharacteristicModifyingEffect cme)
-                        {
-                            cme.SetupConditionFilters(Id);
-                        }
+                        effect.SetupConditionFilters(Id);
                     }
                 }
-                //else if (ability is ResolvableAbility resolvableAbility)
-                //{
-                //    foreach (var eff in resolvableAbility.)
-                //}
                 else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
                 {
                     target.Target = Id;
