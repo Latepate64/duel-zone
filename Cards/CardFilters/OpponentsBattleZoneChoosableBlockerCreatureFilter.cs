@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.CardFilters
 {
-    class OpponentsBattleZoneChoosableBlockerCreatureFilter : OpponentsBattleZoneChoosableCreatureFilter
+    class OpponentsBattleZoneChoosableBlockerCreatureFilter : OpponentsBattleZoneBlockerCreatureFilter
     {
         public OpponentsBattleZoneChoosableBlockerCreatureFilter()
         {
@@ -16,17 +16,12 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.GetAbilities<BlockerAbility>().Any();
+            return base.Applies(card, game, player) && !card.GetAbilities<UnchoosableAbility>().Any();
         }
 
         public override CardFilter Copy()
         {
             return new OpponentsBattleZoneChoosableBlockerCreatureFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return base.ToString() + " that has \"blocker.\"";
         }
     }
 }
