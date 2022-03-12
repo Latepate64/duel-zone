@@ -11,6 +11,10 @@ namespace Engine.ContinuousEffects
             BlockerFilter = blockerFilter;
         }
 
+        public UnblockableEffect(CardFilter filter, CardFilter blockerFilter, params Condition[] conditions) : this(filter, new Indefinite(), blockerFilter, conditions)
+        {
+        }
+
         public UnblockableEffect(UnblockableEffect effect) : base(effect)
         {
             BlockerFilter = effect.BlockerFilter;
