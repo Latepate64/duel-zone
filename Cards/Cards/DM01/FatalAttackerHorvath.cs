@@ -1,5 +1,5 @@
-﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
         public FatalAttackerHorvath() : base("Fatal Attacker Horvath", 3, 2000, Common.Subtype.Human, Common.Civilization.Fire)
         {
             // While you have at least 1 Armorloid in the battle zone, this creature gets +2000 power during its attacks.
-            AddAbilities(new StaticAbility(new PowerModifyingEffect(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Common.Subtype.Armorloid))));
+            AddAbilities(new StaticAbility(new PowerAttackerEffect(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Common.Subtype.Armorloid))));
         }
     }
 }

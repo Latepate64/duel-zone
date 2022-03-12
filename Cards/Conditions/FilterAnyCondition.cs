@@ -8,11 +8,8 @@ namespace Cards.Conditions
     /// </summary>
     class FilterAnyCondition : Condition
     {
-        internal CardFilter Filter { get; set; }
-
-        internal FilterAnyCondition(CardFilter filter)
+        internal FilterAnyCondition(CardFilter filter) : base(filter)
         {
-            Filter = filter;
         }
 
         public override bool Applies(Game game, System.Guid player)

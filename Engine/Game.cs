@@ -26,7 +26,9 @@ namespace Engine
 
         internal Ability GetAbility(Guid id)
         {
-            return GetAllCards().SelectMany(x => x.GetAbilities<Ability>()).SingleOrDefault(x => x.Id == id);
+            var abilities = GetAllCards().SelectMany(x => x.GetAbilities<Ability>());
+            var foo = abilities.Where(x => x.Id == id).ToList();
+            return foo.SingleOrDefault();
         }
 
         /// <summary>

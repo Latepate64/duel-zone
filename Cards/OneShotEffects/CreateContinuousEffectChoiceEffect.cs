@@ -31,7 +31,7 @@ namespace Cards.OneShotEffects
             foreach (var effect in ContinuousEffects)
             {
                 var copy = effect.Copy();
-                copy.Filter = new TargetsFilter(cards.Select(x => x.Id));
+                copy.Filter = new TargetsFilter(cards.Select(x => x.Id).ToArray());
                 game.AddContinuousEffects(source, copy);
             }
         }

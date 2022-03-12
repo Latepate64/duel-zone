@@ -44,5 +44,10 @@ namespace Engine.ContinuousEffects
                 return string.Empty;
             }
         }
+
+        internal void SetupConditionFilters(System.Guid id)
+        {
+            _conditions.Select(x => x.Filter).ToList().ForEach(x => x.Target = id);
+        }
     }
 }

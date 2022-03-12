@@ -10,7 +10,7 @@ namespace Engine.ContinuousEffects
 
         public AbilityGrantingEffect(AbilityGrantingEffect effect) : base(effect)
         {
-            Ability = effect.Ability;
+            Ability = effect.Ability.Copy();
         }
 
         public AbilityGrantingEffect(CardFilter filter, Duration duration, Ability ability) : base(filter, duration)

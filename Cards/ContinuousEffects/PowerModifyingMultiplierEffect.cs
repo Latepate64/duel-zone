@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         public CardFilter Multiplier { get; set; }
 
-        public PowerModifyingMultiplierEffect(int power, CardFilter multiplier) : base(power)
+        public PowerModifyingMultiplierEffect(int power, CardFilter multiplier, params Condition[] conditions) : base(power, conditions)
         {
             Multiplier = multiplier;
         }
@@ -26,6 +26,13 @@ namespace Cards.ContinuousEffects
         protected override int GetPower(Game game)
         {
             return game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
+        }
+    }
+
+    class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
+    {
+        public PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier, new Conditions.AttackingCreatureCondition(new TargetFilter()))
+        {
         }
     }
 }

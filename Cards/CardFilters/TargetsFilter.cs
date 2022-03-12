@@ -9,7 +9,7 @@ namespace Cards.CardFilters
     {
         public List<Guid> Cards { get; }
 
-        public TargetsFilter(IEnumerable<Guid> cards)
+        public TargetsFilter(params Guid[] cards)
         {
             Cards = cards.ToList();
         }

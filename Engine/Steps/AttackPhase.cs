@@ -65,7 +65,6 @@ namespace Engine.Steps
             if (AttackingCreature != Guid.Empty)
             {
                 var attacker = game.GetCard(AttackingCreature);
-                attacker.Power -= game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.GetPower(game, game.GetOwner(attacker)));
                 AttackingCreature = Guid.Empty;
                 game.Process(new CreatureStoppedAttackingEvent { Attacker = attacker.Convert() });
             }
@@ -74,7 +73,6 @@ namespace Engine.Steps
         internal void SetAttackingCreature(Card attacker, Game game)
         {
             AttackingCreature = attacker.Id;
-            attacker.Power += game.GetContinuousEffects<PowerAttackerEffect>(attacker).Sum(x => x.Power);
         }
 
         internal override void Play(Game game)
