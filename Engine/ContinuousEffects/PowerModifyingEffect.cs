@@ -28,13 +28,18 @@ namespace Engine.ContinuousEffects
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
             {
-                card.Power += _power;
+                card.Power += GetPower(game);
             }
         }
 
         public override string ToString()
         {
             return $"{Filter} gets +{_power} power{GetDurationAsText()}.";
+        }
+
+        protected virtual int GetPower(Game game)
+        {
+            return _power;
         }
     }
 }
