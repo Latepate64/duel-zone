@@ -33,6 +33,10 @@ namespace Engine.ContinuousEffects
         {
         }
 
+        protected ContinuousEffect(CardFilter filter) : this(filter, new Indefinite())
+        {
+        }
+
         protected ContinuousEffect(CardFilter filter, Duration duration, params Condition[] conditions)
         {
             _conditions.AddRange(conditions);
