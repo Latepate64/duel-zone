@@ -1,10 +1,9 @@
 ﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.Durations;
 
-namespace Cards.Cards.DM02
+namespace Cards.OneShotEffects
 {
     class GrantPowerAreaOfEffect : OneShotAreaOfEffect
     {
