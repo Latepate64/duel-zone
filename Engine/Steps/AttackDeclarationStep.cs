@@ -64,7 +64,7 @@ namespace Engine.Steps
 
         private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Game game)
         {
-            List<IAttackable> attackables = new List<IAttackable>();
+            List<IAttackable> attackables = new();
             var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
             if (opponent != null)
             {
@@ -72,7 +72,7 @@ namespace Engine.Steps
                 {
                     attackables.Add(opponent);
                 }
-                if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
+                if (attacker.CanAttackCreatures(game))
                 {
                     var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
                     attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));

@@ -97,5 +97,10 @@ namespace Engine
             Power = _printedPower;
             _addedAbilities.Clear();
         }
+
+        public bool CanAttackCreatures(Game game)
+        {
+            return !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
+        }
     }
 }

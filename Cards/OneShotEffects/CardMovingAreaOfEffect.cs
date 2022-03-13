@@ -5,29 +5,26 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    abstract class CardMovingAreaOfEffect : OneShotEffect
+    abstract class CardMovingAreaOfEffect : OneShotAreaOfEffect
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
-        public CardFilter Filter { get; }
 
-        public CardMovingAreaOfEffect(CardMovingAreaOfEffect effect)
+        public CardMovingAreaOfEffect(CardMovingAreaOfEffect effect) : base(effect)
         {
             SourceZone = effect.SourceZone;
             DestinationZone = effect.DestinationZone;
-            Filter = effect.Filter;
         }
 
-        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, CardFilter filter)
+        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, CardFilter filter) : base(filter)
         {
             SourceZone = source;
             DestinationZone = destination;
-            Filter = filter;
         }
 
         public override void Apply(Game game, Ability source)
         {
-            _ = game.Move(SourceZone, DestinationZone, game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner))).ToArray());
+            _ = game.Move(SourceZone, DestinationZone, GetAffectedCards(game, source).ToArray());
         }
     }
 }

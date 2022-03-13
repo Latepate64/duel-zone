@@ -14,6 +14,11 @@
             TargetFilter = targetFilter;
         }
 
+        public CanAttackUntappedCreaturesEffect(CardFilter attackerFilter, CardFilter targetFilter) : base(attackerFilter)
+        {
+            TargetFilter = targetFilter;
+        }
+
         public override ContinuousEffect Copy()
         {
             return new CanAttackUntappedCreaturesEffect(this);

@@ -3,29 +3,28 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class GrantAbilityAreaOfEffect : OneShotEffect
+    class GrantAbilityAreaOfEffect : OneShotAreaOfEffect
     {
         public Ability Ability { get; }
 
-        public GrantAbilityAreaOfEffect(Ability ability) 
+        public GrantAbilityAreaOfEffect(Ability ability) : base(new OwnersBattleZoneCreatureFilter())
         {
             Ability = ability;
         }
 
-        public GrantAbilityAreaOfEffect(GrantAbilityAreaOfEffect effect)
+        public GrantAbilityAreaOfEffect(GrantAbilityAreaOfEffect effect) : base(effect)
         {
             Ability = effect.Ability.Copy();
         }
 
         public override void Apply(Game game, Ability source)
         {
-            foreach (var creature in game.BattleZone.GetCreatures(source.Owner).Select(x => x.Id))
+            foreach (var creature in GetAffectedCards(game, source))
             {
-                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature), new UntilTheEndOfTheTurn(), Ability.Copy()));
+                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn(), Ability.Copy()));
             }
         }
 
