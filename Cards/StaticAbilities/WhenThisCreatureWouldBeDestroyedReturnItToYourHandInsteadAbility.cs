@@ -8,24 +8,24 @@ namespace Cards.StaticAbilities
 {
     public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new AquaKnightAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
         {
         }
     }
 
-    public class AquaKnightAbilityEffect : ReplacementEffect
+    public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : ReplacementEffect
     {
-        public AquaKnightAbilityEffect(GameEvent gameEvent) : base(gameEvent)
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
-        public AquaKnightAbilityEffect(AquaKnightAbilityEffect effect) : base(effect)
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect effect) : base(effect)
         {
         }
 
         public override ContinuousEffect Copy()
         {
-            return new AquaKnightAbilityEffect(this);
+            return new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(this);
         }
 
         public override GameEvent Apply(Game game, Engine.Player player)

@@ -8,24 +8,24 @@ namespace Cards.StaticAbilities
 {
     public class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new MightyShouterAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
         {
         }
     }
 
-    public class MightyShouterAbilityEffect : ReplacementEffect
+    public class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : ReplacementEffect
     {
-        public MightyShouterAbilityEffect(GameEvent gameEvent) : base(gameEvent)
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(GameEvent gameEvent) : base(gameEvent)
         {
         }
 
-        public MightyShouterAbilityEffect(MightyShouterAbilityEffect effect) : base(effect)
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
         {
         }
 
         public override ContinuousEffect Copy()
         {
-            return new MightyShouterAbilityEffect(this);
+            return new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
         public override GameEvent Apply(Game game, Engine.Player player)
