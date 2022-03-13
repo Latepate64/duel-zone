@@ -102,5 +102,10 @@ namespace Engine
         {
             return !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
         }
+
+        public bool CanAttackPlayers(Game game)
+        {
+            return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
+        }
     }
 }
