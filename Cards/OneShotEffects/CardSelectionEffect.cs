@@ -2,7 +2,6 @@
 using Engine.Abilities;
 using Common.Choices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -37,20 +36,20 @@ namespace Cards.OneShotEffects
             {
                 if (Minimum >= cards.Count())
                 {
-                    Apply(game, source, cards);
+                    Apply(game, source, cards.ToArray());
                 }
                 else
                 {
                     var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Apply(game, source, player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)));
+                        Apply(game, source, player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray());
                     }
                 }
             }
         }
 
-        protected abstract void Apply(Game game, Ability source, IEnumerable<Card> cards);
+        protected abstract void Apply(Game game, Ability source, params Card[] cards);
 
         protected string GetAmountAsText()
         {

@@ -13,7 +13,7 @@ namespace Engine.Zones
 
         public override void Add(Card card, Game game)
         {
-            card.KnownBy = new List<Guid> { card.Owner };
+            card.KnownTo = new List<Guid> { card.Owner };
             Cards.Add(card);
         }
 

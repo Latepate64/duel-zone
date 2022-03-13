@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -31,7 +30,7 @@ namespace Cards.OneShotEffects
             return $"{Filter} gets +${Power}{Duration}.";
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
+        protected override void Apply(Game game, Ability source, params Card[] cards)
         {
             game.AddContinuousEffects(source, new PowerModifyingEffect(Power, new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration));
         }

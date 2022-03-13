@@ -20,7 +20,7 @@ namespace Common
         {
             Id = card.Id;
             Owner = card.Owner;
-            KnownBy = card.KnownBy.ToList();
+            KnownTo = card.KnownTo.ToList();
             if (!clear)
             {
                 CardType = card.CardType;
@@ -68,7 +68,7 @@ namespace Common
 
         public bool ShieldTrigger { get; set; }
 
-        public List<Guid> KnownBy { get; set; } = new List<Guid>();
+        public List<Guid> KnownTo { get; set; } = new List<Guid>();
 
         public bool SummoningSickness { get; set; }
 
