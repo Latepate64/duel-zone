@@ -10,14 +10,14 @@ namespace Cards.StaticAbilities
 {
     public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect())
         {
         }
     }
 
     class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(GameEvent gameEvent) : base(gameEvent)
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base()
         {
         }
 

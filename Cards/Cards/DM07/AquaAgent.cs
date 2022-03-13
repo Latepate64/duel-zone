@@ -14,13 +14,13 @@ namespace Cards.Cards.DM07
         {
             //TODO: Water stealth
             // When this creature would be destroyed, you may return it to your hand instead.
-            AddAbilities(new StaticAbility(new AquaAgentAbilityEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })));
+            AddAbilities(new StaticAbility(new AquaAgentAbilityEffect()));
         }
     }
 
     class AquaAgentAbilityEffect : DestructionReplacementEffect
     {
-        public AquaAgentAbilityEffect(GameEvent gameEvent) : base(gameEvent)
+        public AquaAgentAbilityEffect() : base()
         {
         }
 
