@@ -7,7 +7,7 @@
         public SpellCastEvent(Player player, Card spell)
         {
             CardInSourceZone = spell.Id;
-            CardInDestinationZone = spell;
+            Card = spell;
             Destination = ZoneType.Anywhere;
             Player = player;
             Source = ZoneType.Hand; // TODO: Possible to cast from elsewhere
@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"{Player} cast {CardInDestinationZone}.";
+            return $"{Player} cast {Card}.";
         }
     }
 }

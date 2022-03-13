@@ -339,7 +339,7 @@ namespace Client
         private void Process(CardMovedEvent e)
         {
             RemoveCard(GetZonePanel(e.Player.Id.ToString(), e.Source), e.CardInSourceZone.ToString());
-            AddCard(GetZonePanel(e.Player.Id.ToString(), e.Destination), e.CardInDestinationZone);
+            AddCard(GetZonePanel(e.Player.Id.ToString(), e.Destination), e.Card);
         }
 
         internal void Process(Choice c)

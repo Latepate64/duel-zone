@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEngine", "TestEngine\TestEngine.csproj", "{E8605426-B890-4498-861E-8FC61DCC80E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCards", "TestCards\TestCards.csproj", "{F1EF56F9-143C-46E9-A689-339A2CCC81C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{E8605426-B890-4498-861E-8FC61DCC80E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8605426-B890-4498-861E-8FC61DCC80E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8605426-B890-4498-861E-8FC61DCC80E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1EF56F9-143C-46E9-A689-339A2CCC81C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1EF56F9-143C-46E9-A689-339A2CCC81C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1EF56F9-143C-46E9-A689-339A2CCC81C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1EF56F9-143C-46E9-A689-339A2CCC81C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -468,7 +468,7 @@ namespace Engine
                         // 613.7d An object receives a timestamp at the time it enters a zone.
                         var newObject = new Card(card, GetTimestamp());
                         (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
-                        e.CardInDestinationZone = newObject.Convert();
+                        e.Card = newObject.Convert();
                     }
                 }
             }
@@ -500,7 +500,7 @@ namespace Engine
 
         private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);

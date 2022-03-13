@@ -20,7 +20,13 @@ namespace Engine.Abilities
 
         public override bool CanTrigger(GameEvent gameEvent, Game game)
         {
-            return CheckInterveningIfClause(game) && gameEvent is CardEvent e && Filter.Applies(game.GetCard(e.Card.Id), game, game.GetPlayer(e.Card.Owner));
+            if (CheckInterveningIfClause(game))
+            {
+                bool foo = gameEvent is CardEvent e;
+                return foo;
+            }
+            return false;
+            //return CheckInterveningIfClause(game) && gameEvent is CardEvent e && Filter.Applies(game.GetCard(e.Card.Id), game, game.GetPlayer(e.Card.Owner));
         }
     }
 }

@@ -250,7 +250,7 @@ namespace Engine
                 game.GetPlayer(newObject.Owner)?.Graveyard.Add(newObject, game);
                 destination = ZoneType.Graveyard;
             }
-            game.Process(new CardMovedEvent { CardInDestinationZone = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
+            game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
         public void DiscardAtRandom(Game game, int amount)
