@@ -14,13 +14,13 @@ namespace Cards.Cards.DM02
     {
         public Gigastand() : base("Gigastand", 4, 3000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbility(new GigastandEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })));
+            AddAbilities(new StaticAbility(new GigastandEffect()));
         }
     }
 
     class GigastandEffect : DestructionReplacementEffect
     {
-        public GigastandEffect(GameEvent eventToReplace) : base(eventToReplace)
+        public GigastandEffect() : base()
         {
         }
 

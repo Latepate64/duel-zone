@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var filter1 = new OwnersManaZoneCardFilter();
             var filter2 = new OpponentsManaZoneCardFilter();
@@ -29,6 +29,7 @@ namespace Cards.Cards.DM03
             {
                 effect.Apply(game, source);
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

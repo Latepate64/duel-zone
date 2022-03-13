@@ -10,14 +10,14 @@ namespace Cards.StaticAbilities
 {
     class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }))
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect())
         {
         }
     }
 
     class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(GameEvent gameEvent) : base(gameEvent)
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
         }
 

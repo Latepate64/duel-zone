@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
             var cards = game.GetAllCards().Where(x => Filter.Applies(x, game, player));
@@ -29,6 +29,7 @@ namespace Cards.OneShotEffects
                 Apply(game, source, selectedCards.ToArray());
             }
             player.ShuffleDeck(game);
+            return cards.Any();
         }
 
         protected abstract void Apply(Game game, Ability source, params Card[] cards);

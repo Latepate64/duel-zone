@@ -55,7 +55,7 @@ namespace Engine
             Subtypes.Add(subtype);
         }
 
-        public virtual bool Applies(Card card, Game game, Player player)
+        public virtual bool Applies(Card card, Game game, Player player) //TODO: Filter based on civilizations does not work
         {
             return player != null &&
                 card != null &&

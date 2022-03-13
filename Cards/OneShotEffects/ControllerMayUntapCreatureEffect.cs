@@ -24,12 +24,17 @@ namespace Cards.OneShotEffects
             return new ControllerMayUntapCreatureEffect(this);
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
             if (player.Choose(new YesNoChoice(source.Owner, ToString()), game).Decision)
             {
                 player.Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, player)).ToArray());
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

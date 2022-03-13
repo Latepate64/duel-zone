@@ -14,12 +14,13 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             game.AddDelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                     new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Light))),
                 new Engine.Durations.Once());
+            return null;
         }
 
         public override OneShotEffect Copy()

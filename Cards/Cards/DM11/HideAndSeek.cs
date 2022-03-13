@@ -15,12 +15,13 @@ namespace Cards.Cards.DM11
 
     class HideAndSeekEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var effect in new OneShotEffect[] { new BounceEffect(1, 1, new CardFilters.OpponentsBattleZoneChoosableNonEvolutionCreatureFilter()), new OpponentRandomDiscardEffect() })
             {
                 effect.Apply(game, source);
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

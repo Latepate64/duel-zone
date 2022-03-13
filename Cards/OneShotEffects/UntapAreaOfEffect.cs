@@ -14,9 +14,10 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             game.GetPlayer(source.Owner).Untap(game, GetAffectedCards(game, source).ToArray());
+            return true;
         }
 
         public override OneShotEffect Copy()

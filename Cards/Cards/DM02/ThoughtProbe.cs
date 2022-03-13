@@ -17,13 +17,14 @@ namespace Cards.Cards.DM02
 
     class ThoughtProbeEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
             if (game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Count() >= 3)
             {
                 player.DrawCards(3, game);
             }
+            return true;
         }
 
         public override OneShotEffect Copy()

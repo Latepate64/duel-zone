@@ -18,12 +18,13 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var effect in new OneShotEffect[] { new ManaBurnEffect(new OwnersManaZoneCardFilter(), Amount, Amount, true), new ManaBurnEffect(new OpponentsManaZoneCardFilter(), Amount, Amount, false) })
             {
                 effect.Apply(game, source);
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
             return new ControllerMayDrawCardsEffect(this);
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
             if (player != null)
@@ -40,6 +40,7 @@ namespace Cards.OneShotEffects
                     }
                 }
             }
+            return null;
         }
 
         public override string ToString()
