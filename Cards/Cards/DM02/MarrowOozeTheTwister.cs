@@ -17,7 +17,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(Game game, Ability source)
         {
-            game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyAreaOfEffect(new TargetFilter()), source.Source), new Engine.Durations.Once(), source.Id, source.Owner));
+            game.AddDelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyAreaOfEffect(new TargetFilter()), source.Source), new Engine.Durations.Once());
         }
 
         public override OneShotEffect Copy()

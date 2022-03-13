@@ -71,7 +71,7 @@ namespace Engine
         /// 603.7. An effect may create a delayed triggered ability that can do something at a later time.
         /// A delayed triggered ability will contain “when,” “whenever,” or “at,” although that word won’t usually begin the ability.
         /// </summary>
-        public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
+        private readonly List<DelayedTriggeredAbility> _delayedTriggeredAbilities = new();
         #endregion Properties
 
         internal Queue<GameEvent> _preGameEvents = new();
@@ -91,7 +91,7 @@ namespace Engine
 
         public Game(Game game)
         {
-            DelayedTriggeredAbilities = game.DelayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
+            _delayedTriggeredAbilities = game._delayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Stack<Turn>(game.ExtraTurns.Select(x => new Turn(x)));
             StartingHandSize = game.StartingHandSize;
             StartingNumberOfShields = game.StartingNumberOfShields;
@@ -131,11 +131,11 @@ namespace Engine
                     x.Dispose();
                 }
                 Players.Clear();
-                foreach (var x in DelayedTriggeredAbilities)
+                foreach (var x in _delayedTriggeredAbilities)
                 {
                     x.Dispose();
                 }
-                DelayedTriggeredAbilities.Clear();
+                _delayedTriggeredAbilities.Clear();
                 foreach (var x in Turns)
                 {
                     x.Dispose();
@@ -326,7 +326,7 @@ namespace Engine
                 ApplyContinuousEffects();
                 var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
                 List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-                foreach (var ability in DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+                foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
                     abilities.Add(ability.TriggeredAbility.Copy() as TriggeredAbility);
                     if (ability.Duration is Once)
@@ -334,7 +334,7 @@ namespace Engine
                         toBeRemoved.Add(ability);
                     }
                 }
-                _ = DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
                 CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
                 foreach (var ability in abilities)
                 {
@@ -549,9 +549,10 @@ namespace Engine
             return _timestamp++;
         }
 
-        internal void RemoveContinuousEffects(Type duration)
+        internal void RemoveRevokedObjects(Type duration)
         {
             _ = _continuousEffects.RemoveAll(x => x.Duration.GetType() == duration);
+            _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.GetType() == duration);
         }
 
         internal void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities)
@@ -596,6 +597,11 @@ namespace Engine
         private void ApplyEffects<T>() where T : CharacteristicModifyingEffect
         {
             _continuousEffects.OfType<T>().OrderBy(x => x.Timestamp).ToList().ForEach(x => x.CheckConditionsAndApply(this));
+        }
+        
+        public void AddDelayedTriggeredAbility(TriggeredAbility ability, Duration duration)
+        {
+            _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
         }
         #endregion Methods
     }
