@@ -18,7 +18,7 @@ namespace Cards.Cards.DM07
         {
             game.AddDelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfYourTurnAbility(
-                    new OneShotEffects.UntapEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Light))),
+                    new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Light))),
                 new Engine.Durations.Once());
         }
 

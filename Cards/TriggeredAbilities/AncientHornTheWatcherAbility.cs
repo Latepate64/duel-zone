@@ -5,7 +5,7 @@ namespace Cards.TriggeredAbilities
 {
     public class AncientHornTheWatcherAbility : PutIntoPlayAbility
     {
-        public AncientHornTheWatcherAbility() : base(new OneShotEffects.UntapEffect(new CardFilters.OwnersManaZoneCardFilter()))
+        public AncientHornTheWatcherAbility() : base(new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersManaZoneCardFilter()))
         {
         }
 
