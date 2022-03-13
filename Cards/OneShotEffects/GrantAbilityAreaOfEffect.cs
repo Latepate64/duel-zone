@@ -20,12 +20,13 @@ namespace Cards.OneShotEffects
             Ability = effect.Ability.Copy();
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var creature in GetAffectedCards(game, source))
             {
                 game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn(), Ability.Copy()));
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

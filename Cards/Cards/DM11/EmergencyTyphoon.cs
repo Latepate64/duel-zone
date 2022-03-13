@@ -16,12 +16,13 @@ namespace Cards.Cards.DM11
 
     class EmergencyTyphoonEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var effect in new OneShotEffect[] { new ControllerMayDrawCardsEffect(2), new DiscardEffect(new CardFilters.OwnersHandCardFilter(), 1, 1, true) })
             {
                 effect.Apply(game, source);
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

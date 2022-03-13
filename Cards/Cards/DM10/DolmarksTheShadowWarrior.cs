@@ -16,12 +16,13 @@ namespace Cards.Cards.DM10
 
     class DolmarksTheShadowWarriorEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new SelfManaBurnEffect(1), new OpponentSacrificeEffect(), new ManaBurnEffect(new CardFilters.OpponentsManaZoneCardFilter(), 1, 1, false) })
             {
                 effect.Apply(game, source);
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

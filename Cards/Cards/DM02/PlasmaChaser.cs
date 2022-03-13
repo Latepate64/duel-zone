@@ -16,7 +16,7 @@ namespace Cards.Cards.DM02
 
     class PlasmaChaserEffect : OneShotEffect
     {
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             var player = game.GetPlayer(source.Owner);
             if (player != null)
@@ -27,6 +27,7 @@ namespace Cards.Cards.DM02
                     player.DrawCards(amount, game);
                 }
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
             Abilities = effect.Abilities;
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != System.Guid.Empty)
             {
@@ -34,6 +34,7 @@ namespace Cards.OneShotEffects
                     game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetFilter { Target = phase.AttackingCreature }, new UntilTheEndOfTheTurn(), ability.Copy()));
                 }
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

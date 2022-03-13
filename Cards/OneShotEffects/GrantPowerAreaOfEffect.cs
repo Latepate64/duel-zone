@@ -19,12 +19,13 @@ namespace Cards.OneShotEffects
             Power = effect.Power;
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             foreach (var creature in GetAffectedCards(game, source))
             {
                 game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(Power, new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn()));
             }
+            return null;
         }
 
         public override OneShotEffect Copy()

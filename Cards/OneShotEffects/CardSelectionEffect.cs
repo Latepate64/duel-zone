@@ -3,6 +3,7 @@ using Engine.Abilities;
 using Common.Choices;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -29,7 +30,7 @@ namespace Cards.OneShotEffects
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override void Apply(Game game, Ability source)
+        public override IEnumerable<Card> Apply(Game game, Ability source)
         {
             var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
             if (cards.Any())
@@ -43,10 +44,13 @@ namespace Cards.OneShotEffects
                     var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
                     if (player != null)
                     {
-                        Apply(game, source, player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray());
+                        var chosen = player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
+                        Apply(game, source, chosen);
+                        return chosen;
                     }
                 }
             }
+            return cards;
         }
 
         protected abstract void Apply(Game game, Ability source, params Card[] cards);

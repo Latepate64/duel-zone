@@ -22,9 +22,10 @@ namespace Cards.OneShotEffects
             return new PutTopCardsOfDeckIntoManaZoneEffect(this);
         }
 
-        public override void Apply(Game game, Ability source)
+        public override object Apply(Game game, Ability source)
         {
             game.GetPlayer(source.Owner).PutFromTopOfDeckIntoManaZone(game, Amount);
+            return null;
         }
 
         public override string ToString()
