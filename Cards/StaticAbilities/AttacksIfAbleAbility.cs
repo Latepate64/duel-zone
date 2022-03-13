@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class AttacksIfAbleAbility : StaticAbility
     {
-        public AttacksIfAbleAbility() : base()
+        public AttacksIfAbleAbility() : base(new AttacksIfAbleEffect())
         {
-            ContinuousEffects.Add(new AttacksIfAbleEffect());
         }
     }
 }

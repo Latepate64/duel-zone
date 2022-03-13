@@ -1,33 +1,42 @@
 ﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<Card>, IAttackable
+    public class Card : Common.Card, ICopyable<Card>, IAttackable, ITimestampable
     {
-        // 109.3. An object’s characteristics are name, mana cost, color, color indicator, card type, subtype, supertype, rules text, abilities, power, toughness, loyalty, hand modifier, and life modifier. Objects can have some or all of these characteristics. Any other information about an object isn’t a characteristic.
+        private IEnumerable<Ability> Abilities => _printedAbilities.Union(_addedAbilities);
+        private readonly List<Ability> _printedAbilities = new();
+        private readonly List<Ability> _addedAbilities = new();
 
-        private List<Ability> _abilities = new();
+        private readonly int? _printedPower;
+
+        public int Timestamp { get; }
 
         public IEnumerable<T> GetAbilities<T>()
         {
-            return _abilities.OfType<T>();
+            return Abilities.OfType<T>();
         }
 
-        public Card()
+        public Card(int? power)
         {
+            _printedPower = power;
         }
 
-        internal Card(Card card) : base(card, false)
+        internal Card(Card card, int timeStamp) : base(card, false)
         {
-            _abilities = card._abilities.Select(x => x.Copy()).ToList();
+            Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
+            _addedAbilities = card._addedAbilities.Select(x => x.Copy()).ToList();
+            _printedAbilities = card._printedAbilities.Select(x => x.Copy()).ToList();
+            _printedPower = card._printedPower;
             InitializeAbilities();
         }
 
         public virtual Card Copy()
         {
-            return new Card(this);
+            return new Card(this, Timestamp);
         }
 
         public override string ToString()
@@ -41,7 +50,7 @@ namespace Engine
         /// </summary>
         public void InitializeAbilities()
         {
-            foreach (var ability in _abilities)
+            foreach (var ability in Abilities)
             {
                 ability.Owner = Owner;
                 ability.Source = Id;
@@ -50,6 +59,7 @@ namespace Engine
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
                         effect.Filter.Target = Id;
+                        effect.SetupConditionFilters(Id);
                     }
                 }
                 else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
@@ -67,24 +77,35 @@ namespace Engine
 
         private void SetRulesText()
         {
-            RulesText = string.Join("\r\n", _abilities.Select(x => x.ToString()));
+            RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
 
-        internal void AddAbility(Ability ability)
+        internal void AddGrantedAbility(Ability ability)
         {
-            _abilities.Add(ability);
-        }
-
-        internal void RemoveAbility(System.Guid id)
-        {
-            _ = _abilities.RemoveAll(x => x.Id == id);
+            _addedAbilities.Add(ability);
         }
 
         protected void AddAbilities(params Ability[] abilities)
         {
-            _abilities.AddRange(abilities);
+            _printedAbilities.AddRange(abilities);
         }
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
+
+        internal void ResetToPrintedValues()
+        {
+            Power = _printedPower;
+            _addedAbilities.Clear();
+        }
+
+        public bool CanAttackCreatures(Game game)
+        {
+            return !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
+        }
+
+        public bool CanAttackPlayers(Game game)
+        {
+            return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
+        }
     }
 }

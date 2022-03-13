@@ -1,5 +1,4 @@
-﻿using Common.GameEvents;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.Durations;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace Engine.ContinuousEffects
 
         public AbilityGrantingEffect(AbilityGrantingEffect effect) : base(effect)
         {
-            Ability = effect.Ability;
+            Ability = effect.Ability.Copy();
         }
 
         public AbilityGrantingEffect(CardFilter filter, Duration duration, Ability ability) : base(filter, duration)
@@ -24,7 +23,7 @@ namespace Engine.ContinuousEffects
             return new AbilityGrantingEffect(this);
         }
 
-        public override void Start(Game game)
+        public override void Apply(Game game)
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
             {
@@ -32,36 +31,9 @@ namespace Engine.ContinuousEffects
             }
         }
 
-        public override void End(Game game)
-        {
-            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
-            {
-                game.RemoveAbility(card, Ability.Id);
-            }
-        }
-
-        public override void Update(Game game, GameEvent e)
-        {
-            if (e is CardMovedEvent cme && cme.CardInDestinationZone != null && cme.Destination != Common.ZoneType.Anywhere)
-            {
-                var card = game.GetCard(cme.CardInDestinationZone.Id);
-                if (Filter.Applies(card, game, game.GetOwner(card)))
-                {
-                    if (cme.Destination == Common.ZoneType.BattleZone)
-                    {
-                        game.AddAbility(card, Ability.Copy());
-                    }
-                    if (cme.Source == Common.ZoneType.BattleZone)
-                    {
-                        game.RemoveAbility(card, Ability.Id);
-                    }
-                }
-            }
-        }
-
         public override string ToString()
         {
-            return $"{Filter} get {Ability}{GetDurationAsText()}.";
+            return $"{ToStringBase()}{Filter} get {Ability}{GetDurationAsText()}.";
         }
     }
 }

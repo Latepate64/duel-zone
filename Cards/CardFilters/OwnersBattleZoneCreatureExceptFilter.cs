@@ -4,7 +4,11 @@ namespace Cards.CardFilters
 {
     class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter
     {
-        public OwnersBattleZoneCreatureExceptFilter()
+        public OwnersBattleZoneCreatureExceptFilter() : base()
+        {
+        }
+
+        public OwnersBattleZoneCreatureExceptFilter(Common.Subtype subtype) : base(subtype)
         {
         }
 

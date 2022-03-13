@@ -26,13 +26,13 @@ namespace Cards.OneShotEffects
             return new CreateContinuousEffectChoiceEffect(this);
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
+        protected override void Apply(Game game, Ability source, params Card[] cards)
         {
             foreach (var effect in ContinuousEffects)
             {
                 var copy = effect.Copy();
-                copy.Filter = new TargetsFilter(cards.Select(x => x.Id));
-                game.ContinuousEffects.Add(copy);
+                copy.Filter = new TargetsFilter(cards.Select(x => x.Id).ToArray());
+                game.AddContinuousEffects(source, copy);
             }
         }
 

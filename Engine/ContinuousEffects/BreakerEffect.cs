@@ -2,7 +2,7 @@
 {
     public abstract class BreakerEffect : ContinuousEffect
     {
-        protected BreakerEffect()
+        protected BreakerEffect(params Condition[] conditions) : base(conditions)
         {
         }
 

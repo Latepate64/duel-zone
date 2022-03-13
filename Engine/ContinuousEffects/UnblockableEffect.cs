@@ -6,9 +6,13 @@ namespace Engine.ContinuousEffects
     {
         public CardFilter BlockerFilter { get; }
 
-        public UnblockableEffect(CardFilter filter, Duration duration, CardFilter blockerFilter) : base(filter, duration)
+        public UnblockableEffect(CardFilter filter, Duration duration, CardFilter blockerFilter, params Condition[] conditions) : base(filter, duration, conditions)
         {
             BlockerFilter = blockerFilter;
+        }
+
+        public UnblockableEffect(CardFilter filter, CardFilter blockerFilter, params Condition[] conditions) : this(filter, new Indefinite(), blockerFilter, conditions)
+        {
         }
 
         public UnblockableEffect(UnblockableEffect effect) : base(effect)

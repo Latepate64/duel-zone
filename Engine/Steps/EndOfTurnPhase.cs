@@ -26,7 +26,7 @@ namespace Engine.Steps
 
         public void PerformTurnBasedAction(Game game)
         {
-            _ = game.ContinuousEffects.RemoveAll(x => x.Duration is UntilTheEndOfTheTurn);
+            game.RemoveRevokedObjects(typeof(UntilTheEndOfTheTurn));
         }
     }
 }

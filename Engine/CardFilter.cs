@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace Engine
 {
+    public enum TapStatus
+    {
+        Any,
+        Tapped,
+        Untapped
+    }
+
     public abstract class CardFilter : IDisposable
     {
         /// <summary>
@@ -22,6 +29,10 @@ namespace Engine
 
         public ManaCostFilter ManaCost { get; set; }
 
+        public List<Subtype> Subtypes { get; } = new List<Subtype>();
+
+        public TapStatus TapStatus { get; set; } = TapStatus.Any;
+
         protected CardFilter(CardFilter filter)
         {
             Civilizations = filter.Civilizations;
@@ -29,6 +40,8 @@ namespace Engine
             CardName = filter.CardName;
             ManaCost = filter.ManaCost;
             Power = filter.Power;
+            Subtypes = filter.Subtypes;
+            TapStatus = filter.TapStatus;
             Target = filter.Target;
         }
 
@@ -37,14 +50,22 @@ namespace Engine
             Civilizations.AddRange(civilizations);
         }
 
+        protected CardFilter(Subtype subtype)
+        {
+            Subtypes.Add(subtype);
+        }
+
         public virtual bool Applies(Card card, Game game, Player player)
         {
-            return card != null && 
-                (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) && 
-                (CardType == CardType.Any || card.CardType == CardType) && 
-                (string.IsNullOrEmpty(CardName) || card.Name == CardName) && 
+            return player != null &&
+                card != null &&
+                (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
+                (CardType == CardType.Any || card.CardType == CardType) &&
+                (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) &&
+                (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
-                (ManaCost == null || ManaCost.Applies(card));
+                (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any()) &&
+                (TapStatus == TapStatus.Any || (TapStatus == TapStatus.Tapped && card.Tapped) || (TapStatus == TapStatus.Untapped && !card.Tapped));
         }
 
         public abstract CardFilter Copy();
@@ -66,6 +87,10 @@ namespace Engine
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Civilizations)));
             }
+            if (Subtypes.Any())
+            {
+                textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
+            }
             textPieces.Add(ToString(CardType));
             if (!string.IsNullOrEmpty(CardName))
             {
@@ -78,6 +103,14 @@ namespace Engine
             if (Power != null)
             {
                 textPieces.Add(Power.ToString());
+            }
+            if (TapStatus == TapStatus.Tapped)
+            {
+                textPieces.Add("tapped");
+            }
+            else if (TapStatus == TapStatus.Untapped)
+            {
+                textPieces.Add("untapped");
             }
             return string.Join(" ", textPieces);
         }

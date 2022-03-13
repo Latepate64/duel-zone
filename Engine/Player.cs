@@ -225,7 +225,7 @@ namespace Engine
         private void Cast(Card spell, Game game)
         {
             Hand.Remove(spell, game);
-            spell.KnownBy = game.Players.Select(x => x.Id).ToList();
+            spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             foreach (var ability in spell.GetAbilities<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
@@ -236,7 +236,7 @@ namespace Engine
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(spell);
+            var newObject = new Card(spell, game.GetTimestamp());
             ZoneType destination;
             if (effects.Any())
             {
@@ -262,29 +262,21 @@ namespace Engine
         public void Reveal(Game game, Card card)
         {
             var opponent = game.GetOpponent(this);
-            card.KnownBy.Add(opponent.Id);
+            card.KnownTo.Add(opponent.Id);
             game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 
         internal Zone GetZone(ZoneType zone)
         {
-            switch (zone)
+            return zone switch
             {
-                case ZoneType.Deck:
-                    return Deck;
-                case ZoneType.Graveyard:
-                    return Graveyard;
-                case ZoneType.Hand:
-                    return Hand;
-                case ZoneType.ManaZone:
-                    return ManaZone;
-                case ZoneType.ShieldZone:
-                    return ShieldZone;
-                case ZoneType.Anywhere:
-                case ZoneType.BattleZone:
-                default:
-                    throw new InvalidOperationException();
-            }
+                ZoneType.Deck => Deck,
+                ZoneType.Graveyard => Graveyard,
+                ZoneType.Hand => Hand,
+                ZoneType.ManaZone => ManaZone,
+                ZoneType.ShieldZone => ShieldZone,
+                _ => throw new InvalidOperationException(),
+            };
         }
 
         public Common.Player Copy()
@@ -393,6 +385,11 @@ namespace Engine
         {
             game.Process(new ConcedeEvent { Player = Convert() });
             game.Lose(this);
+        }
+
+        public void Look(Card[] cards)
+        {
+            cards.Where(x => !x.KnownTo.Contains(Id)).ToList().ForEach(x => x.KnownTo.Add(Id));
         }
         #endregion Methods
     }

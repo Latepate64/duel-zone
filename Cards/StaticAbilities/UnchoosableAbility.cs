@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class UnchoosableAbility : StaticAbility
     {
-        public UnchoosableAbility()
+        public UnchoosableAbility() : base(new UnchoosableEffect())
         {
-            ContinuousEffects.Add(new UnchoosableEffect());
         }
     }
 }

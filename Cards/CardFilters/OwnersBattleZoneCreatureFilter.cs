@@ -1,5 +1,4 @@
-﻿
-using Engine;
+﻿using Engine;
 
 namespace Cards.CardFilters
 {
@@ -9,6 +8,8 @@ namespace Cards.CardFilters
         {
             CardType = Common.CardType.Creature;
         }
+
+        public OwnersBattleZoneCreatureFilter(Common.Subtype subtype) : base(subtype) { }
 
         public OwnersBattleZoneCreatureFilter(OwnersBattleZoneCreatureFilter filter) : base(filter)
         {

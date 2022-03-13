@@ -16,12 +16,10 @@ namespace Cards.Cards.DM07
     {
         public override void Apply(Game game, Ability source)
         {
-            game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(
+            game.AddDelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfYourTurnAbility(
-                    new OneShotEffects.UntapEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Light))),
-                    new Engine.Durations.Once(),
-                    source.Id,
-                    source.Owner));
+                    new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Light))),
+                new Engine.Durations.Once());
         }
 
         public override OneShotEffect Copy()

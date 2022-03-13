@@ -186,7 +186,7 @@ namespace Server
                 if (gameEvent is CardMovedEvent e)
                 {
                     var copy = e.Copy() as CardMovedEvent;
-                    if (copy.CardInDestinationZone != null && !copy.CardInDestinationZone.KnownBy.Contains(player.Id))
+                    if (copy.CardInDestinationZone != null && !copy.CardInDestinationZone.KnownTo.Contains(player.Id))
                     {
                         copy.CardInDestinationZone = new Card(copy.CardInDestinationZone, true);
                         WriteToConsoleAndClient(player, copy);

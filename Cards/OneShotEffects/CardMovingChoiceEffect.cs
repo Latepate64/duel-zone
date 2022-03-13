@@ -1,8 +1,6 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -23,9 +21,9 @@ namespace Cards.OneShotEffects
             DestinationZone = effect.DestinationZone;
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Engine.Card> cards)
+        protected override void Apply(Game game, Ability source, params Engine.Card[] cards)
         {
-            game.Move(SourceZone, DestinationZone, cards.ToArray());
+            game.Move(SourceZone, DestinationZone, cards);
         }
     }
 }

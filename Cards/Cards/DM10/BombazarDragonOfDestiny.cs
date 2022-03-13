@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             Engine.Turn turn = new() { ActivePlayer = owner.Convert(), NonActivePlayer = game.GetOpponent(owner).Convert() };
             game.ExtraTurns.Push(turn);
             // You lose the game at the end of the extra turn.
-            game.DelayedTriggeredAbilities.Add(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once(), source.Source, source.Owner));
+            game.AddDelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once());
         }
 
         public override OneShotEffect Copy()

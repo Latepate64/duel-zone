@@ -29,7 +29,7 @@ namespace Engine.Steps
 
         internal static bool AffectedBySummoningSickness(Game game, Card creature)
         {
-            return creature.SummoningSickness && !game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any();
+            return creature.SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(creature).Any());
         }
 
         private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
@@ -64,15 +64,15 @@ namespace Engine.Steps
 
         private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Game game)
         {
-            List<IAttackable> attackables = new List<IAttackable>();
+            List<IAttackable> attackables = new();
             var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
             if (opponent != null)
             {
-                if (!game.GetContinuousEffects<CannotAttackPlayersEffect>(attacker).Any())
+                if (attacker.CanAttackPlayers(game))
                 {
                     attackables.Add(opponent);
                 }
-                if (!game.GetContinuousEffects<CannotAttackCreaturesEffect>(attacker).Any())
+                if (attacker.CanAttackCreatures(game))
                 {
                     var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
                     attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));

@@ -24,9 +24,9 @@ namespace Engine.Zones
         public override void Add(Card card, Game game)
         {
             card.SummoningSickness = true;
-            card.KnownBy = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.AddContinuousEffects(card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToList());
+            game.AddContinuousEffects(card, card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
         public override bool Remove(Card card, Game game)
@@ -52,8 +52,8 @@ namespace Engine.Zones
             }
             else 
             {
-                var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id).ToList();
-                _ = game.ContinuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
+                var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
+                game.RemoveContinuousEffects(staticAbilities);
                 return true;
             }
         }

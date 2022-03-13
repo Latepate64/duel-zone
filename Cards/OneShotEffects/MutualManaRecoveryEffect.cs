@@ -3,16 +3,16 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class ShtraEffect : OneShotEffect
+    class MutualManaRecoveryEffect : OneShotEffect
     {
         public int Amount { get; }
 
-        public ShtraEffect(int amount)
+        public MutualManaRecoveryEffect(int amount)
         {
             Amount = amount;
         }
 
-        public ShtraEffect(ShtraEffect effect)
+        public MutualManaRecoveryEffect(MutualManaRecoveryEffect effect)
         {
             Amount = effect.Amount;
         }
@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         public override OneShotEffect Copy()
         {
-            return new ShtraEffect(this);
+            return new MutualManaRecoveryEffect(this);
         }
 
         public override string ToString()

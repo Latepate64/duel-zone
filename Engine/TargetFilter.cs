@@ -17,7 +17,7 @@
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return Target == card?.Id;
+            return player != null && Target == card?.Id;
         }
 
         public override string ToString()

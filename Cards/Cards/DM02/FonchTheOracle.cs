@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02

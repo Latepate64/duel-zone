@@ -27,11 +27,11 @@ namespace Cards.OneShotEffects
             return new GrantAbilityChoiceEffect(this);
         }
 
-        protected override void Apply(Game game, Ability source, IEnumerable<Card> cards)
+        protected override void Apply(Game game, Ability source, params Card[] cards)
         {
             foreach (var ability in Abilities)
             {
-                game.ContinuousEffects.Add(new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id)), Duration, ability.Copy()));
+                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration, ability.Copy()));
             }
         }
 

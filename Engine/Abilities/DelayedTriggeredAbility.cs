@@ -3,7 +3,7 @@ using System;
 
 namespace Engine.Abilities
 {
-    public class DelayedTriggeredAbility : IDisposable
+    internal class DelayedTriggeredAbility : IDisposable
     {
         internal TriggeredAbility TriggeredAbility { get; private set; }
         internal Duration Duration { get; private set; }

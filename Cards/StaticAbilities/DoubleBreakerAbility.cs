@@ -5,9 +5,8 @@ namespace Cards.StaticAbilities
 {
     public class DoubleBreakerAbility : StaticAbility
     {
-        public DoubleBreakerAbility() : base()
+        public DoubleBreakerAbility(params Engine.Condition[] conditions) : base(new DoubleBreakerEffect(conditions))
         {
-            ContinuousEffects.Add(new DoubleBreakerEffect());
         }
     }
 }
