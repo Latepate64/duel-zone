@@ -10,7 +10,11 @@ namespace Engine.Zones
     /// </summary>
     public class ManaZone : Zone
     {
-        public ManaZone(IEnumerable<Card> cards) : base(cards) { }
+        public ManaZone() : base() { }
+
+        public ManaZone(Zone zone) : base(zone)
+        {
+        }
 
         public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => card.Tapped).ToList());
         public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>(Cards.Where(card => !card.Tapped).ToList());
@@ -40,11 +44,6 @@ namespace Engine.Zones
             {
                 return cards.First().Civilizations.Select(x => civs.Append(x)).SelectMany(x => GetCivilizationSubsequences(cards.Skip(1), x)).Distinct();
             }
-        }
-
-        public override Zone Copy()
-        {
-            return new ManaZone(Cards.Select(x => x.Copy()));
         }
 
         public override string ToString()

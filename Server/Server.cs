@@ -217,8 +217,7 @@ namespace Server
 
         private static void SetupPlayer(Engine.Player player)
         {
-            var cards = GetCards(player.Id);
-            player.Deck = new Engine.Zones.Deck(cards);
+            player.Deck.Setup(GetCards(player.Id));
         }
 
         private static List<Engine.Card> GetCards(Guid player)

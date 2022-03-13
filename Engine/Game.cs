@@ -80,7 +80,7 @@ namespace Engine
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
+        public BattleZone BattleZone { get; set; } = new();
 
         public delegate void GameEventHandler(GameEvent gameEvent);
 
@@ -103,7 +103,7 @@ namespace Engine
             //}
             Turns = game.Turns.Select(x => new Turn(x)).ToList();
             _continuousEffects = game._continuousEffects.Select(x => x.Copy()).ToList();
-            BattleZone = game.BattleZone.Copy() as BattleZone;
+            BattleZone = new BattleZone(game.BattleZone);
         }
 
         public override string ToString()
@@ -153,6 +153,14 @@ namespace Engine
 
         public void Play(Player startingPlayer, Player otherPlayer)
         {
+            foreach (var player in new Player[] { startingPlayer, otherPlayer })
+            {
+                if (!player.Deck.Cards.Any())
+                {
+                    throw new InvalidOperationException("Deck may not be empty.");
+                }
+            }
+
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
             // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.

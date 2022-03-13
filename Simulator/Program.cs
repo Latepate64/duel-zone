@@ -46,8 +46,8 @@ namespace Simulator
         private static void PlayGame(MatchUp matchUp, Simulator simulator, int simulationDepth)
         {
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
-            player1.Deck = new(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath));
-            player2.Deck = new(GetCards(player2.Id, matchUp.Opponent.DeckPath));
+            player1.Deck.Setup(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath));
+            player2.Deck.Setup(GetCards(player2.Id, matchUp.Opponent.DeckPath));
             using var game = simulator.PlayDuel(player1, player2, simulationDepth);
 
             var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);

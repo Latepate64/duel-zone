@@ -9,7 +9,11 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone
     {
-        public Deck(IEnumerable<Card> cards) : base(cards) { }
+        public Deck() : base() { }
+
+        public Deck(Zone zone) : base(zone)
+        {
+        }
 
         public override void Add(Card card, Game game)
         {
@@ -49,14 +53,14 @@ namespace Engine.Zones
             }
         }
 
-        public override Zone Copy()
-        {
-            return new Deck(Cards.Select(x => x.Copy()));
-        }
-
         public override string ToString()
         {
             return "deck";
+        }
+
+        public void Setup(IEnumerable<Card> cards)
+        {
+            Cards.AddRange(cards);
         }
     }
 }
