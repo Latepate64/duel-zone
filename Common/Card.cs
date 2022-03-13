@@ -56,11 +56,11 @@ namespace Common
         /// <summary>
         /// Also known as race for creatures.
         /// </summary>
-        public List<Subtype> Subtypes { get; set; } = new List<Subtype>();
+        public List<Subtype> Subtypes { get; set; } = new();
 
         public int? Power { get; set; }
 
-        public List<Civilization> Civilizations { get; set; }
+        public List<Civilization> Civilizations { get; set; } = new();
 
         public int ManaCost { get; set; }
 
@@ -68,12 +68,12 @@ namespace Common
 
         public bool ShieldTrigger { get; set; }
 
-        public List<Guid> KnownTo { get; set; } = new List<Guid>();
+        public List<Guid> KnownTo { get; set; } = new();
 
         public bool SummoningSickness { get; set; }
 
         public string RulesText { get; set; }
 
-        public List<Supertype> Supertypes { get; set; } = new List<Supertype>();
+        public List<Supertype> Supertypes { get; set; } = new();
     }
 }

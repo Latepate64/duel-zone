@@ -58,8 +58,9 @@ namespace Engine.Zones
             return "deck";
         }
 
-        public void Setup(IEnumerable<Card> cards)
+        public void Setup(IEnumerable<Card> cards, Guid owner)
         {
+            cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);
         }
     }

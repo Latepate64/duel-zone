@@ -217,7 +217,7 @@ namespace Server
 
         private static void SetupPlayer(Engine.Player player)
         {
-            player.Deck.Setup(GetCards(player.Id));
+            player.Deck.Setup(GetCards(player.Id), player.Id);
         }
 
         private static List<Engine.Card> GetCards(Guid player)

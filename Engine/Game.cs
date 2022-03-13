@@ -18,7 +18,7 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public ICollection<Player> Players { get; } = new Collection<Player>();
+        public List<Player> Players { get; } = new();
 
         public Player Winner { get; private set; }
 
@@ -153,13 +153,7 @@ namespace Engine
 
         public void Play(Player startingPlayer, Player otherPlayer)
         {
-            foreach (var player in new Player[] { startingPlayer, otherPlayer })
-            {
-                if (!player.Deck.Cards.Any())
-                {
-                    throw new InvalidOperationException("Deck may not be empty.");
-                }
-            }
+            ValidateDeckNotEmpty(startingPlayer, otherPlayer);
 
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
@@ -191,6 +185,17 @@ namespace Engine
                 var tmp2 = nonActivePlayer;
                 activePlayer = tmp2;
                 nonActivePlayer = tmp1;
+            }
+        }
+
+        private static void ValidateDeckNotEmpty(params Player[] players)
+        {
+            foreach (var player in players)
+            {
+                if (!player.Deck.Cards.Any())
+                {
+                    throw new InvalidOperationException("Deck may not be empty.");
+                }
             }
         }
 
@@ -397,7 +402,7 @@ namespace Engine
 
         private void Leave(Player player)
         {
-            _ = Players.Remove(player);
+            _ = Players.RemoveAll(x => x.Id == player.Id);
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 

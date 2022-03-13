@@ -20,6 +20,8 @@ namespace Engine
             return Abilities.OfType<T>();
         }
 
+        public Card() { }
+
         public Card(int? power)
         {
             _printedPower = power;

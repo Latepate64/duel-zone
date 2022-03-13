@@ -1,6 +1,7 @@
 using Engine;
 using Moq;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace TestEngine
@@ -10,10 +11,25 @@ namespace TestEngine
         [Fact]
         public void Play_EmptyDeck_ThrowException()
         {
-            var game = new Game();
-            var player1 = Mock.Of<Player>();
-            var player2 = Mock.Of<Player>();
-            Assert.Throws<InvalidOperationException>(() => game.Play(player1, player2));
+            Assert.Throws<InvalidOperationException>(() => new Game().Play(Mock.Of<Player>(), Mock.Of<Player>()));
+        }
+
+        [Fact]
+        public void Play_NonEmptyDeck_Pass()
+        {
+            new Game().Play(GetPlayerMock(), GetPlayerMock());
+        }
+
+        private static Player GetPlayerMock()
+        {
+            List<Card> cards = new();
+            for (int i = 0; i < 40; ++i)
+            {
+                cards.Add(Mock.Of<Card>());
+            }
+            var player = Mock.Of<Player>();
+            player.Deck.Setup(cards, player.Id);
+            return player;
         }
     }
 }
