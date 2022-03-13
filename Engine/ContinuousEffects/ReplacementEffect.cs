@@ -11,7 +11,7 @@ namespace Engine.ContinuousEffects
     /// </summary>
     public abstract class ReplacementEffect : ContinuousEffect
     {
-        protected ReplacementEffect(GameEvent eventToReplace)
+        protected ReplacementEffect(GameEvent eventToReplace) : base()
         {
             Id = Guid.NewGuid();
             EventToReplace = eventToReplace;
@@ -29,6 +29,6 @@ namespace Engine.ContinuousEffects
 
         public abstract bool Replaceable(GameEvent gameEvent, Game game);
 
-        public abstract GameEvent Apply(Game game, Player player);
+        public abstract bool Apply(Game game, Player player);
     }
 }

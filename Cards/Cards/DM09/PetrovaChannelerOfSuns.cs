@@ -34,7 +34,7 @@ namespace Cards.Cards.DM09
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override GameEvent Apply(Engine.Game game, Engine.Player player)
+        public override bool Apply(Engine.Game game, Engine.Player player)
         {
             throw new NotImplementedException();
         }

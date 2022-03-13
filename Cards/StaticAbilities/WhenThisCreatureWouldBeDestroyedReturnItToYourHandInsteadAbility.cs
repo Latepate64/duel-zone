@@ -1,8 +1,10 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.StaticAbilities
 {
@@ -13,7 +15,7 @@ namespace Cards.StaticAbilities
         }
     }
 
-    public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : ReplacementEffect
+    class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(GameEvent gameEvent) : base(gameEvent)
         {
@@ -28,25 +30,15 @@ namespace Cards.StaticAbilities
             return new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(this);
         }
 
-        public override GameEvent Apply(Game game, Engine.Player player)
+        public override bool Apply(Game game, Engine.Player player)
         {
-            var newEvent = EventToReplace.Copy() as CardMovedEvent;
-            newEvent.Destination = ZoneType.Hand;
-            return newEvent;
-        }
-
-        public override bool Replaceable(GameEvent gameEvent, Game game)
-        {
-            if (gameEvent is CardMovedEvent e)
-            {
-                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
-            }
-            return false;
+            game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
+            return true;
         }
 
         public override string ToString()
         {
-            return "When this creature would be destroyed, return it to your hand instead.";
+            return base.ToString() + "return it to your hand instead.";
         }
     }
 }

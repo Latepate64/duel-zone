@@ -1,4 +1,5 @@
-﻿using Engine.Durations;
+﻿using Engine.Abilities;
+using Engine.Durations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,6 +116,11 @@ namespace Engine.ContinuousEffects
             {
                 return string.Empty;
             }
+        }
+
+        protected IEnumerable<Card> GetAffectedCards(Game game)
+        {
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(game.GetAbility(SourceAbility).Owner)));
         }
     }
 }

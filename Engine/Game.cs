@@ -24,7 +24,7 @@ namespace Engine
 
         public ICollection<Player> Losers { get; } = new Collection<Player>();
 
-        internal Ability GetAbility(Guid id)
+        public Ability GetAbility(Guid id)
         {
             var abilities = GetAllCards().SelectMany(x => x.GetAbilities<Ability>());
             var foo = abilities.Where(x => x.Id == id).ToList();
@@ -427,11 +427,9 @@ namespace Engine
                     ? player.Choose(new ReplacementEffectSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                var newEvent = effect.Apply(this, player);
-                if (newEvent != null)
+                if (effect.Apply(this, player))
                 {
-                    events = events.Where(x => x.Id != effect.EventToReplace.Id).ToList();
-                    events.Add(newEvent as CardMovedEvent);
+                    events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
                 }
             }
             foreach (var e in events)

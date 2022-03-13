@@ -1,8 +1,10 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Common.Choices;
 using Common.GameEvents;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM07
 {
@@ -16,7 +18,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    public class AquaAgentAbilityEffect : ReplacementEffect
+    class AquaAgentAbilityEffect : DestructionReplacementEffect
     {
         public AquaAgentAbilityEffect(GameEvent gameEvent) : base(gameEvent)
         {
@@ -31,32 +33,19 @@ namespace Cards.Cards.DM07
             return new AquaAgentAbilityEffect(this);
         }
 
-        public override GameEvent Apply(Engine.Game game, Engine.Player player)
+        public override bool Apply(Engine.Game game, Engine.Player player)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
-                var newEvent = EventToReplace.Copy() as CardMovedEvent;
-                newEvent.Destination = ZoneType.Hand;
-                return newEvent;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public override bool Replaceable(GameEvent gameEvent, Engine.Game game)
-        {
-            if (gameEvent is CardMovedEvent e)
-            {
-                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
+                game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
+                return true;
             }
             return false;
         }
 
         public override string ToString()
         {
-            return "When this creature would be destroyed, you may return it to your hand instead.";
+            return base.ToString() + "you may return it to your hand instead.";
         }
     }
 }
