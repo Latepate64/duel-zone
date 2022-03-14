@@ -1,30 +1,21 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OwnersDeckCardFilter : CardFilter
+    class OwnersDeckCardFilter : ZoneCardFilter<Deck>
     {
-        public OwnersDeckCardFilter()
+        public OwnersDeckCardFilter() : base(true)
         {
         }
 
-        public OwnersDeckCardFilter(CardFilter filter) : base(filter)
+        public OwnersDeckCardFilter(OwnersDeckCardFilter filter) : base(filter)
         {
-        }
-
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && player != null && player.Graveyard.Cards.Contains(card);
         }
 
         public override CardFilter Copy()
         {
             return new OwnersDeckCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your deck";
         }
     }
 }

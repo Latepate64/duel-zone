@@ -1,10 +1,11 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OpponentsManaZoneCardFilter : CardFilter
+    class OpponentsManaZoneCardFilter : ZoneCardFilter<ManaZone>
     {
-        public OpponentsManaZoneCardFilter()
+        public OpponentsManaZoneCardFilter() : base(false)
         {
         }
 
@@ -12,20 +13,9 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            var opponent = game.GetOpponent(player);
-            return base.Applies(card, game, player) && opponent != null && opponent.ManaZone.Cards.Contains(card);
-        }
-
         public override CardFilter Copy()
         {
             return new OpponentsManaZoneCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your opponent's mana zone";
         }
     }
 }

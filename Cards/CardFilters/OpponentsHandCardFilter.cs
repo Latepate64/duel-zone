@@ -1,10 +1,11 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OpponentsHandCardFilter : CardFilter
+    class OpponentsHandCardFilter : ZoneCardFilter<Hand>
     {
-        public OpponentsHandCardFilter()
+        public OpponentsHandCardFilter() : base(false)
         {
         }
 
@@ -12,20 +13,9 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            var opponent = game.GetOpponent(player);
-            return base.Applies(card, game, player) && opponent != null && opponent.Hand.Cards.Contains(card);
-        }
-
         public override CardFilter Copy()
         {
             return new OpponentsHandCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your opponent's hand";
         }
     }
 }

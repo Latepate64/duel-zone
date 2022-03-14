@@ -1,10 +1,11 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OpponentsShieldZoneCardFilter : CardFilter
+    class OpponentsShieldZoneCardFilter : ZoneCardFilter<ShieldZone>
     {
-        public OpponentsShieldZoneCardFilter()
+        public OpponentsShieldZoneCardFilter() : base(false)
         {
         }
 
@@ -12,19 +13,9 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && player != null && game.GetOpponent(player).ShieldZone.Cards.Contains(card);
-        }
-
         public override CardFilter Copy()
         {
             return new OpponentsShieldZoneCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your opponent's shield zone";
         }
     }
 }

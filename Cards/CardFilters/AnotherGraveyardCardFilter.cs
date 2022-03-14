@@ -12,19 +12,19 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && card.Id != Target;
-        }
+        //public override bool Applies(Card card, Game game, Player player)
+        //{
+        //    return base.Applies(card, game, player) && card.Id != Target;
+        //}
 
         public override CardFilter Copy()
         {
             return new AnotherGraveyardCardFilter(this);
         }
 
-        public override string ToString()
-        {
-            return $"another {ToStringBase()}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"another {ToStringBase()}";
+        //}
     }
 }
