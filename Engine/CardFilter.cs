@@ -5,13 +5,6 @@ using System.Linq;
 
 namespace Engine
 {
-    public enum TapStatus
-    {
-        Any,
-        Tapped,
-        Untapped
-    }
-
     public abstract class CardFilter : IDisposable
     {
         /// <summary>
@@ -27,8 +20,6 @@ namespace Engine
 
         public List<Subtype> Subtypes { get; } = new List<Subtype>();
 
-        public TapStatus TapStatus { get; set; } = TapStatus.Any;
-
         protected CardFilter() { }
 
         protected CardFilter(CardFilter filter)
@@ -37,7 +28,6 @@ namespace Engine
             ManaCost = filter.ManaCost;
             Power = filter.Power;
             Subtypes = filter.Subtypes;
-            TapStatus = filter.TapStatus;
             Target = filter.Target;
         }
 
@@ -53,8 +43,7 @@ namespace Engine
                 (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
                 (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
-                (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any()) &&
-                (TapStatus == TapStatus.Any || (TapStatus == TapStatus.Tapped && card.Tapped) || (TapStatus == TapStatus.Untapped && !card.Tapped));
+                (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any());
         }
 
         public abstract CardFilter Copy();
@@ -87,14 +76,6 @@ namespace Engine
             if (Power != null)
             {
                 textPieces.Add(Power.ToString());
-            }
-            if (TapStatus == TapStatus.Tapped)
-            {
-                textPieces.Add("tapped");
-            }
-            else if (TapStatus == TapStatus.Untapped)
-            {
-                textPieces.Add("untapped");
             }
             return string.Join(" ", textPieces);
         }
