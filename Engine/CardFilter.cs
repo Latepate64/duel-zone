@@ -14,15 +14,12 @@ namespace Engine
 
         public PowerFilter Power { get; set; }
 
-        public ManaCostFilter ManaCost { get; set; }
-
         public List<Subtype> Subtypes { get; } = new List<Subtype>();
 
         protected CardFilter() { }
 
         protected CardFilter(CardFilter filter)
         {
-            ManaCost = filter.ManaCost;
             Power = filter.Power;
             Subtypes = filter.Subtypes;
             Target = filter.Target;
@@ -37,7 +34,6 @@ namespace Engine
         {
             return player != null &&
                 card != null &&
-                (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
                 (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any());
         }
@@ -60,10 +56,6 @@ namespace Engine
             if (Subtypes.Any())
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
-            }
-            if (ManaCost != null)
-            {
-                textPieces.Add(ManaCost.ToString());
             }
             if (Power != null)
             {
