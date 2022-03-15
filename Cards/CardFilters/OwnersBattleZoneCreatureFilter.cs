@@ -6,7 +6,6 @@ namespace Cards.CardFilters
     {
         public OwnersBattleZoneCreatureFilter() : base()
         {
-            CardType = Common.CardType.Creature;
         }
 
         public OwnersBattleZoneCreatureFilter(Common.Subtype subtype) : base(subtype) { }
@@ -17,7 +16,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.CardType == Common.CardType.Creature;
+            return base.Applies(card, game, player) && new CreatureFilter().Applies(card, game, player);
         }
 
         public override CardFilter Copy()

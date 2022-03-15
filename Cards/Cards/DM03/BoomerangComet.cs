@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
         public BoomerangComet() : base("Boomerang Comet", 6, Civilization.Light)
         {
             ShieldTrigger = true;
-            AddAbilities(new SpellAbility(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, CardType.Any)), new StaticAbilities.ChargerAbility());
+            AddAbilities(new SpellAbility(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneCardFilter())), new StaticAbilities.ChargerAbility());
         }
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Cards.CardFilters
 {
-    class OpponentsBattleZoneCreatureFilter : OpponentsBattleZoneCardFilter
+    class OwnersManaZoneCreatureFilter : OwnersManaZoneCardFilter
     {
-        public OpponentsBattleZoneCreatureFilter() : base()
+        public OwnersManaZoneCreatureFilter()
         {
         }
 
-        public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCreatureFilter filter) : base(filter)
+        public OwnersManaZoneCreatureFilter(OwnersManaZoneCardFilter filter) : base(filter)
         {
         }
 
@@ -19,12 +19,12 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneCreatureFilter(this);
+            return new OwnersManaZoneCreatureFilter(this);
         }
 
         public override string ToString()
         {
-            return $"your opponent's {ToStringBase()}s";
+            return $"{base.ToString()} creature";
         }
     }
 }

@@ -19,8 +19,6 @@ namespace Engine
         /// </summary>
         public Guid Target { get; set; }
 
-        public CardType CardType { get; set; } = CardType.Any;
-
         public string CardName { get; set; }
 
         public PowerFilter Power { get; set; }
@@ -35,7 +33,6 @@ namespace Engine
 
         protected CardFilter(CardFilter filter)
         {
-            CardType = filter.CardType;
             CardName = filter.CardName;
             ManaCost = filter.ManaCost;
             Power = filter.Power;
@@ -54,7 +51,6 @@ namespace Engine
             return player != null &&
                 card != null &&
                 (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
-                (CardType == CardType.Any || card.CardType == CardType) &&
                 (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
                 (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any()) &&
@@ -80,7 +76,6 @@ namespace Engine
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
             }
-            textPieces.Add(ToString(CardType));
             if (!string.IsNullOrEmpty(CardName))
             {
                 textPieces.Add(CardName);
@@ -105,16 +100,5 @@ namespace Engine
         }
 
         public abstract override string ToString();
-
-        private static string ToString(CardType type)
-        {
-            return type switch
-            {
-                CardType.Creature => "creature",
-                CardType.Spell => "spell",
-                CardType.Any => "card",
-                _ => throw new NotImplementedException(),
-            };
-        }
     }
 }

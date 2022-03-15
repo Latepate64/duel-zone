@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(Game game, Ability source)
         {
-            foreach (var effect in new OneShotEffect[] { new SelfManaRecoveryEffect(Amount, Amount, true, Common.CardType.Any), new OpponentManaRecoveryEffect(Amount, Amount, false)})
+            foreach (var effect in new OneShotEffect[] { new SelfManaRecoveryEffect(Amount, Amount, true, new CardFilters.OwnersManaZoneCardFilter()), new OpponentManaRecoveryEffect(Amount, Amount, false)})
             {
                 effect.Apply(game, source);
             }
