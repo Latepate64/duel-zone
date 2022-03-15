@@ -6,12 +6,11 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableCreatureFilter : OpponentsBattleZoneCreatureFilter
     {
-        public OpponentsBattleZoneChoosableCreatureFilter(params Common.Civilization[] civilizations)
+        public OpponentsBattleZoneChoosableCreatureFilter()
         {
-            Civilizations.AddRange(civilizations);
         }
 
-        public OpponentsBattleZoneChoosableCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
+        public OpponentsBattleZoneChoosableCreatureFilter(OpponentsBattleZoneChoosableCreatureFilter filter) : base(filter)
         {
         }
 

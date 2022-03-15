@@ -16,7 +16,7 @@ namespace Engine
             Number = number;
         }
 
-        internal abstract bool Applies(Card card);
+        public abstract bool Applies(Card card);
         public abstract override string ToString();
     }
 
@@ -26,7 +26,7 @@ namespace Engine
         {
         }
 
-        internal override bool Applies(Card card)
+        public override bool Applies(Card card)
         {
             return Mode switch
             {
@@ -56,7 +56,7 @@ namespace Engine
         {
         }
 
-        internal override bool Applies(Card card)
+        public override bool Applies(Card card)
         {
             return Mode switch
             {

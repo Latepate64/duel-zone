@@ -8,7 +8,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public OpponentsBattleZoneChoosableUntappedCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
+        public OpponentsBattleZoneChoosableUntappedCreatureFilter(OpponentsBattleZoneChoosableUntappedCreatureFilter filter) : base(filter)
         {
         }
 

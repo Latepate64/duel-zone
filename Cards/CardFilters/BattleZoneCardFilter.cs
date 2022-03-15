@@ -4,7 +4,7 @@ namespace Cards.CardFilters
 {
     abstract class BattleZoneCardFilter : CardFilter
     {
-        public BattleZoneCardFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public BattleZoneCardFilter() : base()
         {
         }
 

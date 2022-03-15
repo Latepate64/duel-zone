@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.CardFilters
 {
-    public abstract class ZoneCardFilter<T> : CardFilter where T : Zone
+    abstract class ZoneCardFilter<T> : CardFilter where T : Zone
     {
         public bool OwnerInsteadOfOpponent { get; }
 
@@ -18,12 +18,12 @@ namespace Cards.CardFilters
             OwnerInsteadOfOpponent = filter.OwnerInsteadOfOpponent;
         }
 
-        public sealed override string ToString()
+        public override string ToString()
         {
             return $"{(OwnerInsteadOfOpponent ? "Your" : "Your opponent's")} {typeof(T)}";
         }
 
-        public sealed override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, Player player)
         {
             var targetPlayer = OwnerInsteadOfOpponent ? player : game.GetOpponent(player);
             return base.Applies(card, game, player) && targetPlayer != null && targetPlayer.Zones.OfType<T>().Single().Cards.Contains(card);

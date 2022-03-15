@@ -1,5 +1,4 @@
 ﻿using Engine.Abilities;
-using System;
 
 namespace Cards.TriggeredAbilities
 {

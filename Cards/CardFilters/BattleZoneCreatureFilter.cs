@@ -4,7 +4,7 @@ namespace Cards.CardFilters
 {
     class BattleZoneCreatureFilter : BattleZoneCardFilter
     {
-        public BattleZoneCreatureFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public BattleZoneCreatureFilter() : base()
         {
             CardType = Common.CardType.Creature;
         }

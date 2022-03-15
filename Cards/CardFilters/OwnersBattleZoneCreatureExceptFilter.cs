@@ -4,7 +4,7 @@ namespace Cards.CardFilters
 {
     class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter
     {
-        public OwnersBattleZoneCreatureExceptFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public OwnersBattleZoneCreatureExceptFilter() : base()
         {
         }
 

@@ -2,7 +2,6 @@
 using Cards.TriggeredAbilities;
 using Common;
 using Common.Choices;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;

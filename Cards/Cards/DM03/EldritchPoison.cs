@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(Game game, Ability source)
         {
-            var cards = new SacrificeEffect(new CardFilters.OwnersBattleZoneCreatureFilter(Civilization.Darkness), false).Apply(game, source);
+            var cards = new SacrificeEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness), false).Apply(game, source);
             if (cards.Any())
             {
                 return new SelfManaRecoveryEffect(1, 1, true, CardType.Creature).Apply(game, source);

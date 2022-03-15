@@ -19,8 +19,6 @@ namespace Engine
         /// </summary>
         public Guid Target { get; set; }
 
-        public List<Civilization> Civilizations { get; } = new List<Civilization>();
-
         public CardType CardType { get; set; } = CardType.Any;
 
         public string CardName { get; set; }
@@ -33,9 +31,10 @@ namespace Engine
 
         public TapStatus TapStatus { get; set; } = TapStatus.Any;
 
+        protected CardFilter() { }
+
         protected CardFilter(CardFilter filter)
         {
-            Civilizations = filter.Civilizations;
             CardType = filter.CardType;
             CardName = filter.CardName;
             ManaCost = filter.ManaCost;
@@ -43,11 +42,6 @@ namespace Engine
             Subtypes = filter.Subtypes;
             TapStatus = filter.TapStatus;
             Target = filter.Target;
-        }
-
-        protected CardFilter(params Civilization[] civilizations)
-        {
-            Civilizations.AddRange(civilizations);
         }
 
         protected CardFilter(Subtype subtype)
@@ -61,7 +55,6 @@ namespace Engine
                 card != null &&
                 (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
                 (CardType == CardType.Any || card.CardType == CardType) &&
-                (!Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any()) &&
                 (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
                 (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any()) &&
@@ -83,10 +76,6 @@ namespace Engine
         protected string ToStringBase()
         {
             var textPieces = new List<string>();
-            if (Civilizations.Any())
-            {
-                textPieces.Add(string.Join(" ", string.Join("/", Civilizations)));
-            }
             if (Subtypes.Any())
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));

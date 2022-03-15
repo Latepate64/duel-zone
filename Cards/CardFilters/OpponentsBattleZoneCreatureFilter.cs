@@ -4,12 +4,12 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneCreatureFilter : OpponentsBattleZoneCardFilter
     {
-        public OpponentsBattleZoneCreatureFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public OpponentsBattleZoneCreatureFilter() : base()
         {
             CardType = Common.CardType.Creature;
         }
 
-        public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
+        public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCreatureFilter filter) : base(filter)
         {
         }
 

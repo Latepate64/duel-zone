@@ -1,11 +1,10 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 
 namespace Cards.CardFilters
 {
     class OwnersBattleZoneCreatureThatCanAttackCreaturesFilter : OwnersBattleZoneCreatureFilter
     {
-        public OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(params Civilization[] civilizations) : base(civilizations)
+        public OwnersBattleZoneCreatureThatCanAttackCreaturesFilter() : base()
         {
         }
 
