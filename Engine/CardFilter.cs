@@ -12,8 +12,6 @@ namespace Engine
         /// </summary>
         public Guid Target { get; set; }
 
-        public string CardName { get; set; }
-
         public PowerFilter Power { get; set; }
 
         public ManaCostFilter ManaCost { get; set; }
@@ -24,7 +22,6 @@ namespace Engine
 
         protected CardFilter(CardFilter filter)
         {
-            CardName = filter.CardName;
             ManaCost = filter.ManaCost;
             Power = filter.Power;
             Subtypes = filter.Subtypes;
@@ -40,7 +37,6 @@ namespace Engine
         {
             return player != null &&
                 card != null &&
-                (string.IsNullOrEmpty(CardName) || card.Name == CardName) &&
                 (ManaCost == null || ManaCost.Applies(card)) &&
                 (Power == null || Power.Applies(card)) &&
                 (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any());
@@ -64,10 +60,6 @@ namespace Engine
             if (Subtypes.Any())
             {
                 textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
-            }
-            if (!string.IsNullOrEmpty(CardName))
-            {
-                textPieces.Add(CardName);
             }
             if (ManaCost != null)
             {
