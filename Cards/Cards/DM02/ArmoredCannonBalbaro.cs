@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public ArmoredCannonBalbaro() : base("Armored Cannon Balbaro", 3, 3000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.BattleZoneCreatureFilter(Subtype.Human))));
+            AddAbilities(new StaticAbility(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human))));
         }
     }
 }

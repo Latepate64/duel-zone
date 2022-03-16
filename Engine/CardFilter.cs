@@ -14,28 +14,19 @@ namespace Engine
 
         public PowerFilter Power { get; set; }
 
-        public List<Subtype> Subtypes { get; } = new List<Subtype>();
-
         protected CardFilter() { }
 
         protected CardFilter(CardFilter filter)
         {
             Power = filter.Power;
-            Subtypes = filter.Subtypes;
             Target = filter.Target;
         }
 
-        protected CardFilter(Subtype subtype)
-        {
-            Subtypes.Add(subtype);
-        }
-
-        public virtual bool Applies(Card card, Game game, Player player) //TODO: Filter based on civilizations does not work
+        public virtual bool Applies(Card card, Game game, Player player)
         {
             return player != null &&
                 card != null &&
-                (Power == null || Power.Applies(card)) &&
-                (!Subtypes.Any() || card.Subtypes.Intersect(Subtypes).Any());
+                (Power == null || Power.Applies(card));
         }
 
         public abstract CardFilter Copy();
@@ -53,10 +44,6 @@ namespace Engine
         protected string ToStringBase()
         {
             var textPieces = new List<string>();
-            if (Subtypes.Any())
-            {
-                textPieces.Add(string.Join(" ", string.Join("/", Subtypes)));
-            }
             if (Power != null)
             {
                 textPieces.Add(Power.ToString());

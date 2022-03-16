@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.PowerModifyingEffect(1000, new CardFilters.OwnersBattleZoneCreatureExceptFilter(Subtype.Human), new Engine.Durations.Indefinite())), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.PowerModifyingEffect(1000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human), new Engine.Durations.Indefinite())), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 }

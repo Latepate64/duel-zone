@@ -10,7 +10,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public BattleZoneBlockerCreatureFilter(CardFilter filter) : base(filter)
+        public BattleZoneBlockerCreatureFilter(BattleZoneBlockerCreatureFilter filter) : base(filter)
         {
         }
 

@@ -8,11 +8,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public BattleZoneCreatureFilter(Common.Subtype subtype) : base(subtype)
-        {
-        }
-
-        public BattleZoneCreatureFilter(CardFilter filter) : base(filter)
+        public BattleZoneCreatureFilter(BattleZoneCreatureFilter filter) : base(filter)
         {
         }
 

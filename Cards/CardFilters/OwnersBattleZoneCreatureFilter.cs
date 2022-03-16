@@ -8,8 +8,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OwnersBattleZoneCreatureFilter(Common.Subtype subtype) : base(subtype) { }
-
         public OwnersBattleZoneCreatureFilter(OwnersBattleZoneCreatureFilter filter) : base(filter)
         {
         }
