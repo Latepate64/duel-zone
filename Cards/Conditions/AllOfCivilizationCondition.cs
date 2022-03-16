@@ -26,5 +26,10 @@ namespace Cards.Conditions
         {
             return $"All the cards in {Filter} are {Civilization} cards";
         }
+
+        public override Condition Copy()
+        {
+            return new AllOfCivilizationCondition(this);
+        }
     }
 }

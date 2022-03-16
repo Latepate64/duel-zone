@@ -13,7 +13,7 @@ namespace Cards.CardFilters
             OwnerInsteadOfOpponent = ownerInsteadOfOpponent;
         }
 
-        protected ZoneCardFilter(ZoneCardFilter<T> filter) : base(filter)
+        protected ZoneCardFilter(ZoneCardFilter<T> filter) : base()
         {
             OwnerInsteadOfOpponent = filter.OwnerInsteadOfOpponent;
         }

@@ -9,7 +9,7 @@ namespace Cards.CardFilters
             SubtypeFilter = new SubtypeFilter(subtypes);
         }
 
-        public BattleZoneSubtypeCreatureFilter(BattleZoneSubtypeCreatureFilter filter) : base(filter)
+        public BattleZoneSubtypeCreatureFilter(BattleZoneSubtypeCreatureFilter filter) : base()
         {
             SubtypeFilter = filter.SubtypeFilter;
         }

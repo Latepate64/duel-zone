@@ -10,10 +10,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OpponentsBattleZoneChoosableCreatureFilter(OpponentsBattleZoneChoosableCreatureFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && !game.GetContinuousEffects<UnchoosableEffect>(card).Any();
@@ -21,7 +17,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneChoosableCreatureFilter(this);
+            return new OpponentsBattleZoneChoosableCreatureFilter();
         }
 
         public override string ToString()

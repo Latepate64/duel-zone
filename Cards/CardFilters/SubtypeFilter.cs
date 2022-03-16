@@ -13,7 +13,7 @@ namespace Cards.CardFilters
             Subtypes.AddRange(subtypes);
         }
 
-        public SubtypeFilter(SubtypeFilter filter) : base(filter)
+        public SubtypeFilter(SubtypeFilter filter) : base()
         {
             Subtypes = filter.Subtypes;
         }

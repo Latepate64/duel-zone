@@ -14,7 +14,7 @@ namespace Cards.CardFilters
             Civilizations.AddRange(civilizations);
         }
 
-        public CivilizationFilter(CivilizationFilter filter) : base(filter)
+        public CivilizationFilter(CivilizationFilter filter) : base()
         {
             Civilizations = filter.Civilizations;
         }

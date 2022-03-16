@@ -9,6 +9,10 @@ namespace Cards.Conditions
     /// </summary>
     class FilterNoneCondition : Condition
     {
+        public FilterNoneCondition(FilterNoneCondition condition) : base(condition)
+        {
+        }
+
         internal FilterNoneCondition(CardFilter filter) : base(filter)
         {
         }
@@ -16,6 +20,11 @@ namespace Cards.Conditions
         public override bool Applies(Game game, Guid player)
         {
             return !game.GetAllCards().Any(card => Filter.Applies(card, game, game.GetPlayer(player)));
+        }
+
+        public override Condition Copy()
+        {
+            return new FilterNoneCondition(this);
         }
 
         public override string ToString()

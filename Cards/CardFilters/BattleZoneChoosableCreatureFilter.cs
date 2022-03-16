@@ -10,10 +10,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public BattleZoneChoosableCreatureFilter(CardFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             var ownerApplies = game.BattleZone.GetCreatures(player.Id).Select(x => x.Id).Contains(card.Id);
@@ -30,7 +26,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new BattleZoneChoosableCreatureFilter(this);
+            return new BattleZoneChoosableCreatureFilter();
         }
 
         public override string ToString()

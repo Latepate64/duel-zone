@@ -60,7 +60,10 @@ namespace Engine
                 {
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
-                        effect.Filter.Target = Id;
+                        if (effect.Filter is ITargetFilterable target)
+                        {
+                            target.TargetFilter = new TargetFilter { Target = Id };
+                        }
                         effect.SetupConditionFilters(Id);
                     }
                 }

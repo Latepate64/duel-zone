@@ -12,7 +12,7 @@ namespace Cards.CardFilters
             CardType = cardType;
         }
 
-        protected CardTypeFilter(CardTypeFilter filter) : base(filter)
+        protected CardTypeFilter(CardTypeFilter filter) : base()
         {
             CardType = filter.CardType;
         }

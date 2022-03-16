@@ -9,10 +9,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OwnersBattleZoneCardFilter(OwnersBattleZoneCardFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return player != null && game.BattleZone.GetCreatures(player.Id).Contains(card);

@@ -2,14 +2,14 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneSubtypeCreatureFilter : OwnersBattleZoneCreatureExceptFilter, ISubtypeFilterable
+    class OwnersBattleZoneSubtypeCreatureFilter : OwnersBattleZoneCreatureFilter, ISubtypeFilterable
     {
         public OwnersBattleZoneSubtypeCreatureFilter(params Common.Subtype[] subtypes)
         {
             SubtypeFilter = new SubtypeFilter(subtypes);
         }
 
-        public OwnersBattleZoneSubtypeCreatureFilter(OwnersBattleZoneSubtypeCreatureFilter filter) : base(filter)
+        public OwnersBattleZoneSubtypeCreatureFilter(OwnersBattleZoneSubtypeCreatureFilter filter) : base()
         {
             SubtypeFilter = filter.SubtypeFilter;
         }

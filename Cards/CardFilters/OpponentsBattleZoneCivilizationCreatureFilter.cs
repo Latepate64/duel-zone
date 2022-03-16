@@ -11,7 +11,7 @@ namespace Cards.CardFilters
             CivilizationFilter = new CivilizationFilter(civilization);
         }
 
-        public OpponentsBattleZoneCivilizationCreatureFilter(OpponentsBattleZoneCivilizationCreatureFilter filter) : base(filter)
+        public OpponentsBattleZoneCivilizationCreatureFilter(OpponentsBattleZoneCivilizationCreatureFilter filter) : base()
         {
             CivilizationFilter = filter.CivilizationFilter;
         }

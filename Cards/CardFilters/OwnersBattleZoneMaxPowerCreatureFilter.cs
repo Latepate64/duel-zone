@@ -9,7 +9,7 @@ namespace Cards.CardFilters
             PowerFilter = new PowerFilter(CompareMode.Max, power);
         }
 
-        public OwnersBattleZoneMaxPowerCreatureFilter(OwnersBattleZoneMaxPowerCreatureFilter filter) : base(filter)
+        public OwnersBattleZoneMaxPowerCreatureFilter(OwnersBattleZoneMaxPowerCreatureFilter filter) : base()
         {
             PowerFilter = filter.PowerFilter;
         }

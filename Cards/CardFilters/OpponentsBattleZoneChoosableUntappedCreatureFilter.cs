@@ -8,10 +8,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OpponentsBattleZoneChoosableUntappedCreatureFilter(OpponentsBattleZoneChoosableUntappedCreatureFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && !card.Tapped;
@@ -19,7 +15,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneChoosableUntappedCreatureFilter(this);
+            return new OpponentsBattleZoneChoosableUntappedCreatureFilter();
         }
 
         public override string ToString()

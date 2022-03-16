@@ -11,7 +11,7 @@ namespace Cards.CardFilters
             ManaCostFilter = new ManaCostFilter(CompareMode.Max, cost);
         }
 
-        public OwnersBattleZoneMaxCostCreatureFilter(OwnersBattleZoneMaxCostCreatureFilter filter) : base(filter)
+        public OwnersBattleZoneMaxCostCreatureFilter(OwnersBattleZoneMaxCostCreatureFilter filter) : base()
         {
             ManaCostFilter = filter.ManaCostFilter;
         }

@@ -8,10 +8,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCreatureFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && new CreatureFilter().Applies(card, game, player);
@@ -19,7 +15,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneCreatureFilter(this);
+            return new OpponentsBattleZoneCreatureFilter();
         }
 
         public override string ToString()

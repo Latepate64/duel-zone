@@ -9,10 +9,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public ManaZoneCardFilter(ManaZoneCardFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return game.Players.Any(x => x.ManaZone.Cards.Contains(card));
@@ -20,7 +16,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new ManaZoneCardFilter(this);
+            return new ManaZoneCardFilter();
         }
 
         public override string ToString()

@@ -2,19 +2,23 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter
+    class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter, ITargetFilterable
     {
         public OwnersBattleZoneCreatureExceptFilter() : base()
         {
+            TargetFilter = new TargetFilter();
         }
 
-        public OwnersBattleZoneCreatureExceptFilter(OwnersBattleZoneCreatureExceptFilter filter) : base(filter)
+        public OwnersBattleZoneCreatureExceptFilter(OwnersBattleZoneCreatureExceptFilter filter) : base()
         {
+            TargetFilter = filter.TargetFilter;
         }
+
+        public TargetFilter TargetFilter { get; set; }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Id != Target;
+            return base.Applies(card, game, player) && card.Id != TargetFilter.Target;
         }
 
         public override CardFilter Copy()

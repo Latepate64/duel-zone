@@ -8,10 +8,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public OwnersBattleZoneTappedCreatureExceptFilter(OwnersBattleZoneTappedCreatureExceptFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && card.Tapped;

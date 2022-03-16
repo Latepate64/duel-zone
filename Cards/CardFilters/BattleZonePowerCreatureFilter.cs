@@ -9,7 +9,7 @@ namespace Cards.CardFilters
             PowerFilter = powerFilter;
         }
 
-        public BattleZonePowerCreatureFilter(BattleZonePowerCreatureFilter filter) : base(filter)
+        public BattleZonePowerCreatureFilter(BattleZonePowerCreatureFilter filter) : base()
         {
             PowerFilter = filter.PowerFilter;
         }

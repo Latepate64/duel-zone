@@ -9,7 +9,7 @@ namespace Cards.CardFilters
             SubtypeFilter = new SubtypeFilter(subtypes);
         }
 
-        public OwnersBattleZoneSubtypeCreatureExceptFilter(OwnersBattleZoneSubtypeCreatureExceptFilter filter) : base(filter)
+        public OwnersBattleZoneSubtypeCreatureExceptFilter(OwnersBattleZoneSubtypeCreatureExceptFilter filter) : base()
         {
             SubtypeFilter = filter.SubtypeFilter;
         }

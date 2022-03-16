@@ -10,9 +10,18 @@ namespace Cards.Conditions
         {
         }
 
+        public TappedCondition(TappedCondition condition) : base(condition)
+        {
+        }
+
         public override bool Applies(Game game, Guid player)
         {
             return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(player))).All(x => x.Tapped);
+        }
+
+        public override Condition Copy()
+        {
+            return new TappedCondition(this);
         }
 
         public override string ToString()
