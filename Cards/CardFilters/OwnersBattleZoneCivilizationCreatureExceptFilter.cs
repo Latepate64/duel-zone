@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your other {CivilizationFilter} {ToStringBase()}s";
+            return $"your other {CivilizationFilter} creatures";
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your opponent's {CivilizationFilter} {ToStringBase()}s";
+            return $"your opponent's {CivilizationFilter} creatures";
         }
     }
 }

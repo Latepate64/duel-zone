@@ -25,7 +25,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"{ToStringBase()}s in all mana zones";
+            return $"cards in all mana zones";
         }
     }
 }

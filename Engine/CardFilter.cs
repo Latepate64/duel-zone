@@ -1,7 +1,5 @@
-﻿using Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine
 {
@@ -12,21 +10,16 @@ namespace Engine
         /// </summary>
         public Guid Target { get; set; }
 
-        public PowerFilter Power { get; set; }
-
         protected CardFilter() { }
 
         protected CardFilter(CardFilter filter)
         {
-            Power = filter.Power;
             Target = filter.Target;
         }
 
         public virtual bool Applies(Card card, Game game, Player player)
         {
-            return player != null &&
-                card != null &&
-                (Power == null || Power.Applies(card));
+            return player != null && card != null;
         }
 
         public abstract CardFilter Copy();
@@ -39,16 +32,6 @@ namespace Engine
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        protected string ToStringBase()
-        {
-            var textPieces = new List<string>();
-            if (Power != null)
-            {
-                textPieces.Add(Power.ToString());
-            }
-            return string.Join(" ", textPieces);
         }
 
         public abstract override string ToString();

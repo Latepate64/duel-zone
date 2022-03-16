@@ -42,7 +42,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return ToStringBase();
+            return "creatures";
         }
     }
 }

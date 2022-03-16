@@ -1,5 +1,4 @@
 ﻿using Common.GameEvents;
-using Engine.ContinuousEffects;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

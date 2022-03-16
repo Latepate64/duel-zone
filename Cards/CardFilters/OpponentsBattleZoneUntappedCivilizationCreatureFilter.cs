@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your opponent's untapped {CivilizationFilter} {ToStringBase()}s";
+            return $"your opponent's untapped {CivilizationFilter} creatures";
         }
     }
 }

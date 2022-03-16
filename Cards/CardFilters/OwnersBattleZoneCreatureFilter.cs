@@ -24,7 +24,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your {ToStringBase()}s";
+            return $"your creatures";
         }
     }
 }

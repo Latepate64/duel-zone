@@ -20,7 +20,7 @@ namespace Engine
         public abstract override string ToString();
     }
 
-    public class PowerFilter : NumberFilter
+    sealed public class PowerFilter : NumberFilter
     {
         public PowerFilter(CompareMode mode, int power) : base(mode, power)
         {
@@ -48,6 +48,11 @@ namespace Engine
             };
             return $"that have power {Number}{ending}";
         }
+    }
+
+    public interface IPowerFilterable
+    {
+        public PowerFilter PowerFilter { get; set; }
     }
 
     public class ManaCostFilter : NumberFilter
