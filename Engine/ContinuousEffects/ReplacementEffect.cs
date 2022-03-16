@@ -11,7 +11,7 @@ namespace Engine.ContinuousEffects
     /// </summary>
     public abstract class ReplacementEffect : ContinuousEffect
     {
-        protected ReplacementEffect(GameEvent eventToReplace) : base()
+        protected ReplacementEffect(GameEvent eventToReplace, CardFilter filter) : base(filter)
         {
             Id = Guid.NewGuid();
             EventToReplace = eventToReplace;

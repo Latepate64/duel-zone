@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
 
     internal class PetrovaChannelerOfSunsEffect : ReplacementEffect
     {
-        public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent)
+        public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent, new Engine.TargetFilter())
         {
         }
 

@@ -13,23 +13,23 @@ namespace Cards.Cards.DM07
         {
             //TODO: Water stealth
             // When this creature would be destroyed, you may return it to your hand instead.
-            AddAbilities(new StaticAbility(new AquaAgentAbilityEffect()));
+            AddAbilities(new StaticAbility(new AquaAgentEffect()));
         }
     }
 
-    class AquaAgentAbilityEffect : DestructionReplacementEffect
+    class AquaAgentEffect : DestructionReplacementEffect
     {
-        public AquaAgentAbilityEffect() : base()
+        public AquaAgentEffect() : base(new Engine.TargetFilter())
         {
         }
 
-        public AquaAgentAbilityEffect(AquaAgentAbilityEffect effect) : base(effect)
+        public AquaAgentEffect(AquaAgentEffect effect) : base(effect)
         {
         }
 
         public override ContinuousEffect Copy()
         {
-            return new AquaAgentAbilityEffect(this);
+            return new AquaAgentEffect(this);
         }
 
         public override bool Apply(Engine.Game game, Engine.Player player)

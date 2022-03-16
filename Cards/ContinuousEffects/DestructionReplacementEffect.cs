@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     abstract class DestructionReplacementEffect : ReplacementEffect
     {
-        protected DestructionReplacementEffect() : base(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })
+        protected DestructionReplacementEffect(CardFilter filter) : base(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }, filter)
         {
         }
 

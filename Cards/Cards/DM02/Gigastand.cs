@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
 
     class GigastandEffect : DestructionReplacementEffect
     {
-        public GigastandEffect() : base()
+        public GigastandEffect() : base(new TargetFilter())
         {
         }
 
