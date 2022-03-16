@@ -1,4 +1,5 @@
 ﻿using Engine;
+using System;
 
 namespace Cards.CardFilters
 {
@@ -6,19 +7,18 @@ namespace Cards.CardFilters
     {
         public AnotherBattleZoneCreatureFilter()
         {
-            TargetFilter = new TargetFilter();
         }
 
         public AnotherBattleZoneCreatureFilter(AnotherBattleZoneCreatureFilter filter)
         {
-            TargetFilter = filter.TargetFilter;
+            Target = filter.Target;
         }
 
-        public TargetFilter TargetFilter { get; set; }
+        public Guid Target { get; set; }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Id != TargetFilter.Target;
+            return base.Applies(card, game, player) && Target == card?.Id;
         }
 
         public override CardFilter Copy()

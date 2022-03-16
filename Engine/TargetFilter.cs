@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-    sealed public class TargetFilter : CardFilter
+    sealed public class TargetFilter : CardFilter, ITargetFilterable
     {
         /// <summary>
         /// Target and/or source of the filter. Not all filters need to consider this in applying the filter. (eg. for creature with Speed Attacker ability this is the creature, for Super Sonic Jetpack selection this is the target of the effect)
@@ -36,6 +36,6 @@ namespace Engine
 
     public interface ITargetFilterable
     {
-        public TargetFilter TargetFilter { get; set; }
+        public Guid Target { get; set; }
     }
 }

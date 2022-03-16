@@ -62,7 +62,7 @@ namespace Engine
                     {
                         if (effect.Filter is ITargetFilterable target)
                         {
-                            target.TargetFilter = new TargetFilter { Target = Id };
+                            target.Target = Id;
                         }
                         effect.SetupConditionFilters(Id);
                     }

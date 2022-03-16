@@ -88,7 +88,7 @@ namespace Engine.ContinuousEffects
 
         internal void SetupConditionFilters(Guid id)
         {
-            _conditions.Select(x => x.Filter).OfType<ITargetFilterable>().ToList().ForEach(x => x.TargetFilter.Target = id);
+            _conditions.Select(x => x.Filter).OfType<ITargetFilterable>().ToList().ForEach(x => x.Target = id);
         }
 
         internal bool ConditionsApply(Game game)
