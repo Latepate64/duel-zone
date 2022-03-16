@@ -15,7 +15,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && game.BattleZone.GetCreatures(player.Id).Contains(card);
+            return player != null && game.BattleZone.GetCreatures(player.Id).Contains(card);
         }
     }
 }

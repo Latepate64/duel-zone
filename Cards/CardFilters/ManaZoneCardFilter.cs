@@ -15,7 +15,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && game.Players.Any(x => x.ManaZone.Cards.Contains(card));
+            return game.Players.Any(x => x.ManaZone.Cards.Contains(card));
         }
 
         public override CardFilter Copy()
@@ -25,7 +25,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"cards in all mana zones";
+            return "cards in all mana zones";
         }
     }
 }

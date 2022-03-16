@@ -26,7 +26,7 @@ namespace Cards.CardFilters
         public override bool Applies(Card card, Game game, Player player)
         {
             var targetPlayer = OwnerInsteadOfOpponent ? player : game.GetOpponent(player);
-            return base.Applies(card, game, player) && targetPlayer != null && targetPlayer.Zones.OfType<T>().Single().Cards.Contains(card);
+            return targetPlayer != null && targetPlayer.Zones.OfType<T>().Single().Cards.Contains(card);
         }
     }
 }

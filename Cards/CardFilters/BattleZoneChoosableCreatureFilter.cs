@@ -16,22 +16,15 @@ namespace Cards.CardFilters
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            if (base.Applies(card, game, player))
+            var ownerApplies = game.BattleZone.GetCreatures(player.Id).Select(x => x.Id).Contains(card.Id);
+            var opponent = game.GetOpponent(player);
+            if (opponent != null)
             {
-                var ownerApplies = game.BattleZone.GetCreatures(player.Id).Select(x => x.Id).Contains(card.Id);
-                var opponent = game.GetOpponent(player);
-                if (opponent != null)
-                {
-                    return game.BattleZone.GetCreatures(opponent.Id).Select(x => x.Id).Contains(card.Id) || ownerApplies;
-                }
-                else
-                {
-                    return ownerApplies;
-                }
+                return game.BattleZone.GetCreatures(opponent.Id).Select(x => x.Id).Contains(card.Id) || ownerApplies;
             }
             else
             {
-                return false;
+                return ownerApplies;
             }
         }
 

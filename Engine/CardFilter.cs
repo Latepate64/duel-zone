@@ -17,10 +17,7 @@ namespace Engine
             Target = filter.Target;
         }
 
-        public virtual bool Applies(Card card, Game game, Player player)
-        {
-            return player != null && card != null;
-        }
+        public abstract bool Applies(Card card, Game game, Player player);
 
         public abstract CardFilter Copy();
 
