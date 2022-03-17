@@ -5,7 +5,7 @@ namespace Cards.StaticAbilities
 {
     public class BlockerAbility : StaticAbility
     {
-        public BlockerAbility() : base(new BlockerEffect(new Engine.TargetFilter()))
+        public BlockerAbility(params Engine.Condition[] conditions) : base(new BlockerEffect(new Engine.TargetFilter(), conditions))
         {
         }
     }
