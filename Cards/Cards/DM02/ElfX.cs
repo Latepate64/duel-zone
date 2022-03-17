@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public ElfX() : base("Elf-X", 4, 2000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.CostModifyingEffect(-1, new CardFilters.OwnersHandCardFilter { CardType = CardType.Creature })));
+            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.CostModifyingEffect(-1, new CardFilters.OwnersHandCreatureFilter())));
         }
     }
 }

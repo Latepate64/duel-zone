@@ -4,28 +4,23 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneCreatureFilter : OpponentsBattleZoneCardFilter
     {
-        public OpponentsBattleZoneCreatureFilter(params Common.Civilization[] civilizations) : base(civilizations)
-        {
-            CardType = Common.CardType.Creature;
-        }
-
-        public OpponentsBattleZoneCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
+        public OpponentsBattleZoneCreatureFilter() : base()
         {
         }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.CardType == Common.CardType.Creature;
+            return base.Applies(card, game, player) && new CreatureFilter().Applies(card, game, player);
         }
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneCreatureFilter(this);
+            return new OpponentsBattleZoneCreatureFilter();
         }
 
         public override string ToString()
         {
-            return $"your opponent's {ToStringBase()}s";
+            return $"your opponent's creatures";
         }
     }
 }

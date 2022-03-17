@@ -20,6 +20,8 @@ namespace Engine
             return Abilities.OfType<T>();
         }
 
+        public Card() { }
+
         public Card(int? power)
         {
             _printedPower = power;
@@ -58,7 +60,10 @@ namespace Engine
                 {
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
-                        effect.Filter.Target = Id;
+                        if (effect.Filter is ITargetFilterable target)
+                        {
+                            target.Target = Id;
+                        }
                         effect.SetupConditionFilters(Id);
                     }
                 }

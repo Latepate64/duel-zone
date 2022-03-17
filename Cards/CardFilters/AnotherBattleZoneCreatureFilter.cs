@@ -1,20 +1,24 @@
 ﻿using Engine;
+using System;
 
 namespace Cards.CardFilters
 {
-    class AnotherBattleZoneCreatureFilter : BattleZoneCreatureFilter
+    class AnotherBattleZoneCreatureFilter : BattleZoneCreatureFilter, ITargetFilterable
     {
         public AnotherBattleZoneCreatureFilter()
         {
         }
 
-        public AnotherBattleZoneCreatureFilter(AnotherBattleZoneCreatureFilter filter) : base(filter)
+        public AnotherBattleZoneCreatureFilter(AnotherBattleZoneCreatureFilter filter)
         {
+            Target = filter.Target;
         }
+
+        public Guid Target { get; set; }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Id != Target;
+            return base.Applies(card, game, player) && Target == card?.Id;
         }
 
         public override CardFilter Copy()
@@ -24,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"another {ToStringBase()}";
+            return "another creature";
         }
     }
 }

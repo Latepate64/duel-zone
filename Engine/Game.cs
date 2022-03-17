@@ -18,7 +18,7 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public ICollection<Player> Players { get; } = new Collection<Player>();
+        public List<Player> Players { get; } = new();
 
         public Player Winner { get; private set; }
 
@@ -80,7 +80,7 @@ namespace Engine
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public BattleZone BattleZone { get; set; } = new BattleZone(new List<Card>());
+        public BattleZone BattleZone { get; set; } = new();
 
         public delegate void GameEventHandler(GameEvent gameEvent);
 
@@ -103,7 +103,7 @@ namespace Engine
             //}
             Turns = game.Turns.Select(x => new Turn(x)).ToList();
             _continuousEffects = game._continuousEffects.Select(x => x.Copy()).ToList();
-            BattleZone = game.BattleZone.Copy() as BattleZone;
+            BattleZone = new BattleZone(game.BattleZone);
         }
 
         public override string ToString()
@@ -153,6 +153,8 @@ namespace Engine
 
         public void Play(Player startingPlayer, Player otherPlayer)
         {
+            ValidateDeckNotEmpty(startingPlayer, otherPlayer);
+
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
             // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
@@ -183,6 +185,17 @@ namespace Engine
                 var tmp2 = nonActivePlayer;
                 activePlayer = tmp2;
                 nonActivePlayer = tmp1;
+            }
+        }
+
+        private static void ValidateDeckNotEmpty(params Player[] players)
+        {
+            foreach (var player in players)
+            {
+                if (!player.Deck.Cards.Any())
+                {
+                    throw new InvalidOperationException("Deck may not be empty.");
+                }
             }
         }
 
@@ -389,7 +402,7 @@ namespace Engine
 
         private void Leave(Player player)
         {
-            _ = Players.Remove(player);
+            _ = Players.RemoveAll(x => x.Id == player.Id);
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
@@ -455,7 +468,7 @@ namespace Engine
                         // 613.7d An object receives a timestamp at the time it enters a zone.
                         var newObject = new Card(card, GetTimestamp());
                         (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
-                        e.CardInDestinationZone = newObject.Convert();
+                        e.Card = newObject.Convert();
                     }
                 }
             }
@@ -487,7 +500,7 @@ namespace Engine
 
         private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);

@@ -5,7 +5,7 @@ namespace Cards.StaticAbilities
 {
     public class AttacksIfAbleAbility : StaticAbility
     {
-        public AttacksIfAbleAbility() : base(new AttacksIfAbleEffect())
+        public AttacksIfAbleAbility() : base(new AttacksIfAbleEffect(new Engine.TargetFilter()))
         {
         }
     }

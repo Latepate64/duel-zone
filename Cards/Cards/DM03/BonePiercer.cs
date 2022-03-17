@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
         public BonePiercer() : base("Bone Piercer", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
         {
             // When this creature is put into your graveyard from the battle zone, you may return a creature from your mana zone to your hand.
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.SelfManaRecoveryEffect(0, 1, true, CardType.Creature)));
+            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.SelfManaRecoveryEffect(0, 1, true, new CardFilters.OwnersManaZoneCreatureFilter())));
         }
     }
 }

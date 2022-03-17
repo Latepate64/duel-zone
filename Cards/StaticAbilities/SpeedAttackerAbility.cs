@@ -5,7 +5,7 @@ namespace Cards.StaticAbilities
 {
     public class SpeedAttackerAbility : StaticAbility
     {
-        public SpeedAttackerAbility() : base(new SpeedAttackerEffect())
+        public SpeedAttackerAbility() : base(new SpeedAttackerEffect(new Engine.TargetFilter()))
         {
         }
     }

@@ -16,17 +16,17 @@ namespace Engine
             Number = number;
         }
 
-        internal abstract bool Applies(Card card);
+        public abstract bool Applies(Card card);
         public abstract override string ToString();
     }
 
-    public class PowerFilter : NumberFilter
+    sealed public class PowerFilter : NumberFilter
     {
         public PowerFilter(CompareMode mode, int power) : base(mode, power)
         {
         }
 
-        internal override bool Applies(Card card)
+        public override bool Applies(Card card)
         {
             return Mode switch
             {
@@ -50,13 +50,18 @@ namespace Engine
         }
     }
 
+    public interface IPowerFilterable
+    {
+        public PowerFilter PowerFilter { get; }
+    }
+
     public class ManaCostFilter : NumberFilter
     {
         public ManaCostFilter(CompareMode mode, int manaCost) : base(mode, manaCost)
         {
         }
 
-        internal override bool Applies(Card card)
+        public override bool Applies(Card card)
         {
             return Mode switch
             {
@@ -78,5 +83,10 @@ namespace Engine
             };
             return $"that cost {Number}{ending}";
         }
+    }
+
+    public interface IManaCostFilterable
+    {
+        public ManaCostFilter ManaCostFilter { get; }
     }
 }

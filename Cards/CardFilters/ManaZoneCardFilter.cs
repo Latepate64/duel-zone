@@ -9,23 +9,19 @@ namespace Cards.CardFilters
         {
         }
 
-        public ManaZoneCardFilter(ManaZoneCardFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && game.Players.Any(x => x.ManaZone.Cards.Contains(card));
+            return game.Players.Any(x => x.ManaZone.Cards.Contains(card));
         }
 
         public override CardFilter Copy()
         {
-            return new ManaZoneCardFilter(this);
+            return new ManaZoneCardFilter();
         }
 
         public override string ToString()
         {
-            return $"{ToStringBase()}s in all mana zones";
+            return "cards in all mana zones";
         }
     }
 }

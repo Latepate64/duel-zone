@@ -1,24 +1,24 @@
 ﻿using Engine;
+using System;
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter
+    class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter, ITargetFilterable
     {
-        public OwnersBattleZoneCreatureExceptFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public OwnersBattleZoneCreatureExceptFilter() : base()
         {
         }
 
-        public OwnersBattleZoneCreatureExceptFilter(Common.Subtype subtype) : base(subtype)
+        public OwnersBattleZoneCreatureExceptFilter(OwnersBattleZoneCreatureExceptFilter filter) : base()
         {
+            Target = filter.Target;
         }
 
-        public OwnersBattleZoneCreatureExceptFilter(OwnersBattleZoneCreatureExceptFilter filter) : base(filter)
-        {
-        }
+        public Guid Target { get; set; }
 
         public override bool Applies(Card card, Game game, Player player)
         {
-            return base.Applies(card, game, player) && card.Id != Target;
+            return base.Applies(card, game, player) && Target == card?.Id;
         }
 
         public override CardFilter Copy()
@@ -28,7 +28,7 @@ namespace Cards.CardFilters
 
         public override string ToString()
         {
-            return $"your other {ToStringBase()}s";
+            return $"your other creatures";
         }
     }
 }

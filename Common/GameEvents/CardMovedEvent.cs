@@ -2,7 +2,7 @@
 
 namespace Common.GameEvents
 {
-    public class CardMovedEvent : GameEvent
+    public class CardMovedEvent : CardEvent
     {
         public Player Player { get; set; }
         public Guid CardInSourceZone { get; set; }
@@ -10,7 +10,7 @@ namespace Common.GameEvents
         /// <summary>
         /// 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
         /// </summary>
-        public Card CardInDestinationZone { get; set; }
+        //public Card Card { get; set; }
         public ZoneType Source { get; set; }
         public ZoneType Destination { get; set; }
 
@@ -35,7 +35,7 @@ namespace Common.GameEvents
 
         public override string ToString()
         {
-            return $"{Player} put {CardInDestinationZone} from {ToString(Source)} into {ToString(Destination)}.";
+            return $"{Player} put {Card} from {ToString(Source)} into {ToString(Destination)}.";
         }
 
         public CardMovedEvent(CardMovedEvent e) : base(e)
@@ -45,9 +45,9 @@ namespace Common.GameEvents
                 Player = new Player(e.Player);
             }
             CardInSourceZone = e.CardInSourceZone;
-            if (e.CardInDestinationZone != null)
+            if (e.Card != null)
             {
-                CardInDestinationZone = new Card(e.CardInDestinationZone, false);
+                Card = new Card(e.Card, false);
             }
             Source = e.Source;
             Destination = e.Destination;

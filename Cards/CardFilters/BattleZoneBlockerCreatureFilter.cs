@@ -10,10 +10,6 @@ namespace Cards.CardFilters
         {
         }
 
-        public BattleZoneBlockerCreatureFilter(CardFilter filter) : base(filter)
-        {
-        }
-
         public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && card.GetAbilities<BlockerAbility>().Any();
@@ -21,7 +17,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new BattleZoneBlockerCreatureFilter(this);
+            return new BattleZoneBlockerCreatureFilter();
         }
 
         public override string ToString()

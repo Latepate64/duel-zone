@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public DogarnTheMarauder() : base("Dogarn, the Marauder", 3, 2000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.OwnersBattleZoneCreatureExceptFilter { TapStatus = Engine.TapStatus.Tapped })));
+            AddAbilities(new StaticAbility(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())));
         }
     }
 }

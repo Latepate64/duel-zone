@@ -21,7 +21,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public AmbushScorpionEffect() : base(new CardFilters.OwnersManaZoneCardFilter { CardName = "Ambush Scorpion" }, 0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        public AmbushScorpionEffect() : base(new CardFilters.OwnersManaZoneNamedCardFilter("Ambush Scorpion"), 0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
         }
 

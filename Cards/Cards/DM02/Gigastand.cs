@@ -2,7 +2,6 @@
 using Cards.TriggeredAbilities;
 using Common;
 using Common.Choices;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM02
 
     class GigastandEffect : DestructionReplacementEffect
     {
-        public GigastandEffect() : base()
+        public GigastandEffect() : base(new TargetFilter())
         {
         }
 

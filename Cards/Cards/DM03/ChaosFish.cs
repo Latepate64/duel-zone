@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public ChaosFish() : base("Chaos Fish", 7, 1000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new StaticAbility(new ContinuousEffects.PowerModifyingMultiplierEffect(1000, new CardFilters.OwnersBattleZoneCreatureExceptFilter(Civilization.Water))), new TriggeredAbilities.AttackAbility(new ChaosFishEffect()));
+            AddAbilities(new StaticAbilities.GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Water), new TriggeredAbilities.AttackAbility(new ChaosFishEffect()));
         }
     }
 
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(Game game, Ability source)
         {
-            return new OneShotEffects.ControllerMayDrawCardsEffect(game.GetAllCards(new CardFilters.OwnersBattleZoneCreatureExceptFilter(Civilization.Water), source.Owner).Count()).Apply(game, source);
+            return new OneShotEffects.ControllerMayDrawCardsEffect(game.GetAllCards(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), source.Owner).Count()).Apply(game, source);
         }
 
         public override OneShotEffect Copy()

@@ -2,7 +2,7 @@
 {
     class ManaSpellRecoveryEffect : SelfManaRecoveryEffect
     {
-        public ManaSpellRecoveryEffect(bool mandatory) : base(mandatory ? 1 : 0, 1, true, Common.CardType.Spell)
+        public ManaSpellRecoveryEffect(bool mandatory) : base(mandatory ? 1 : 0, 1, true, new CardFilters.OwnersManaZoneSpellFilter())
         {
         }
     }

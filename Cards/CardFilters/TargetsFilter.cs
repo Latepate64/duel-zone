@@ -14,7 +14,7 @@ namespace Cards.CardFilters
             Cards = cards.ToList();
         }
 
-        public TargetsFilter(TargetsFilter filter) : base(filter)
+        public TargetsFilter(TargetsFilter filter) : base()
         {
             Cards = filter.Cards;
         }

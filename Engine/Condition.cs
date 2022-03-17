@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-    public abstract class Condition
+    public abstract class Condition : ICopyable<Condition>
     {
         public CardFilter Filter { get; }
 
@@ -11,7 +11,7 @@ namespace Engine
             Filter = filter;
         }
 
-        public Condition(Condition condition)
+        protected Condition(Condition condition)
         {
             Filter = condition.Filter.Copy();
         }
@@ -19,5 +19,7 @@ namespace Engine
         public abstract bool Applies(Game game, Guid player);
 
         public override abstract string ToString();
+
+        public abstract Condition Copy();
     }
 }

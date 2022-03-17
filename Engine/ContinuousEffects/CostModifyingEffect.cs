@@ -14,7 +14,7 @@ namespace Engine.ContinuousEffects
             CostChange = costChange;
         }
 
-        public CostModifyingEffect(CostModifyingEffect effect)
+        public CostModifyingEffect(CostModifyingEffect effect) : base(effect)
         {
             CostChange = effect.CostChange;
         }

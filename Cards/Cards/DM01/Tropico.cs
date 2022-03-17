@@ -19,9 +19,18 @@ namespace Cards.Cards.DM01
         {
         }
 
+        public TropicoCondition(TropicoCondition condition) : base(condition)
+        {
+        }
+
         public override bool Applies(Game game, Guid player)
         {
             return game.GetAllCards().Count(card => Filter.Applies(card, game, game.GetPlayer(player))) >= 2;
+        }
+
+        public override Condition Copy()
+        {
+            return new TropicoCondition(this);
         }
 
         public override string ToString()

@@ -1,21 +1,22 @@
 ﻿using Engine.Abilities;
 using Engine.Durations;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
     public class AbilityGrantingEffect : CharacteristicModifyingEffect
     {
-        public Ability Ability { get; }
+        public List<Ability> Abilities { get; }
 
         public AbilityGrantingEffect(AbilityGrantingEffect effect) : base(effect)
         {
-            Ability = effect.Ability.Copy();
+            Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
-        public AbilityGrantingEffect(CardFilter filter, Duration duration, Ability ability) : base(filter, duration)
+        public AbilityGrantingEffect(CardFilter filter, Duration duration, params Ability[] abilities) : base(filter, duration)
         {
-            Ability = ability;
+            Abilities = abilities.ToList();
         }
 
         public override ContinuousEffect Copy()
@@ -27,13 +28,14 @@ namespace Engine.ContinuousEffects
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
             {
-                game.AddAbility(card, Ability.Copy());
+                Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
+                ;
             }
         }
 
         public override string ToString()
         {
-            return $"{ToStringBase()}{Filter} get {Ability}{GetDurationAsText()}.";
+            return $"{ToStringBase()}{Filter} get {Abilities}{GetDurationAsText()}.";
         }
     }
 }

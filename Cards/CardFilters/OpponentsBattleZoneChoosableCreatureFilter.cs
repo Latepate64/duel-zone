@@ -6,12 +6,7 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableCreatureFilter : OpponentsBattleZoneCreatureFilter
     {
-        public OpponentsBattleZoneChoosableCreatureFilter(params Common.Civilization[] civilizations)
-        {
-            Civilizations.AddRange(civilizations);
-        }
-
-        public OpponentsBattleZoneChoosableCreatureFilter(OpponentsBattleZoneCardFilter filter) : base(filter)
+        public OpponentsBattleZoneChoosableCreatureFilter()
         {
         }
 
@@ -22,7 +17,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OpponentsBattleZoneChoosableCreatureFilter(this);
+            return new OpponentsBattleZoneChoosableCreatureFilter();
         }
 
         public override string ToString()

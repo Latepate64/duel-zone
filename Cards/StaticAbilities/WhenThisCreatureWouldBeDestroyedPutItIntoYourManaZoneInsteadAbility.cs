@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -10,24 +9,24 @@ namespace Cards.StaticAbilities
 {
     class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect())
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility() : base(new WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(new TargetFilter()))
         {
         }
     }
 
-    class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
+    class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
+        public WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(CardFilter filter) : base(filter)
         {
         }
 
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
+        public WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
         {
         }
 
         public override ContinuousEffect Copy()
         {
-            return new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
+            return new WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
         public override bool Apply(Game game, Engine.Player player)

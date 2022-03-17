@@ -186,9 +186,9 @@ namespace Server
                 if (gameEvent is CardMovedEvent e)
                 {
                     var copy = e.Copy() as CardMovedEvent;
-                    if (copy.CardInDestinationZone != null && !copy.CardInDestinationZone.KnownTo.Contains(player.Id))
+                    if (copy.Card != null && !copy.Card.KnownTo.Contains(player.Id))
                     {
-                        copy.CardInDestinationZone = new Card(copy.CardInDestinationZone, true);
+                        copy.Card = new Card(copy.Card, true);
                         WriteToConsoleAndClient(player, copy);
                     }
                     else
@@ -217,8 +217,7 @@ namespace Server
 
         private static void SetupPlayer(Engine.Player player)
         {
-            var cards = GetCards(player.Id);
-            player.Deck = new Engine.Zones.Deck(cards);
+            player.Deck.Setup(GetCards(player.Id), player.Id);
         }
 
         private static List<Engine.Card> GetCards(Guid player)

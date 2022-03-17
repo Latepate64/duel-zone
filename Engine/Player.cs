@@ -20,33 +20,33 @@ namespace Engine
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; set; }
+        public Deck Deck { get; private set; } = new();
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; } = new Graveyard(new List<Card>());
+        public Graveyard Graveyard { get; private set; } = new();
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; } = new Hand(new List<Card>());
+        public Hand Hand { get; private set; } = new();
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; } = new ManaZone(new List<Card>());
+        public ManaZone ManaZone { get; private set; } = new();
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; } = new ShieldZone(new List<Card>());
+        public ShieldZone ShieldZone { get; private set; } = new();
 
         public IEnumerable<Card> CardsInNonsharedZones
         {
             get
             {
-                List<Card> cards = new List<Card>();
+                List<Card> cards = new();
                 cards.AddRange(Deck.Cards);
                 cards.AddRange(Graveyard.Cards);
                 cards.AddRange(Hand.Cards);
@@ -68,11 +68,11 @@ namespace Engine
 
         protected Player(Player player) : base(player)
         {
-            Deck = player.Deck.Copy() as Deck;
-            Graveyard = player.Graveyard.Copy() as Graveyard;
-            Hand = player.Hand.Copy() as Hand;
-            ManaZone = player.ManaZone.Copy() as ManaZone;
-            ShieldZone = player.ShieldZone.Copy() as ShieldZone;
+            Deck = new Deck(player.Deck);
+            Graveyard = new Graveyard(player.Graveyard);
+            Hand = new Hand(player.Hand);
+            ManaZone = new ManaZone(player.ManaZone);
+            ShieldZone = new ShieldZone(player.ShieldZone);
         }
 
         public override string ToString()
@@ -175,7 +175,9 @@ namespace Engine
 
         public void DrawCards(int amount, Game game)
         {
-            // 121.2. Cards may only be drawn one at a time. If a player is instructed to draw multiple cards, that player performs that many individual card draws.
+            // 121.2. Cards may only be drawn one at a time.
+            // If a player is instructed to draw multiple cards,
+            // that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
@@ -248,7 +250,7 @@ namespace Engine
                 game.GetPlayer(newObject.Owner)?.Graveyard.Add(newObject, game);
                 destination = ZoneType.Graveyard;
             }
-            game.Process(new CardMovedEvent { CardInDestinationZone = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
+            game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
         public void DiscardAtRandom(Game game, int amount)

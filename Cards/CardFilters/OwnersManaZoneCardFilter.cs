@@ -1,10 +1,11 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OwnersManaZoneCardFilter : CardFilter
+    class OwnersManaZoneCardFilter : ZoneCardFilter<ManaZone>
     {
-        public OwnersManaZoneCardFilter()
+        public OwnersManaZoneCardFilter() : base(true)
         {
         }
 
@@ -12,19 +13,9 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && player != null && player.ManaZone.Cards.Contains(card);
-        }
-
         public override CardFilter Copy()
         {
             return new OwnersManaZoneCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your mana zone";
         }
     }
 }

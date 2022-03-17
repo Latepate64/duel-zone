@@ -1,10 +1,11 @@
 ﻿using Engine;
+using Engine.Zones;
 
 namespace Cards.CardFilters
 {
-    class OwnersGraveyardCardFilter : CardFilter
+    class OwnersGraveyardCardFilter : ZoneCardFilter<Graveyard>
     {
-        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations) : base(civilizations)
+        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations) : base(true) //civilizations
         {
         }
 
@@ -12,19 +13,9 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
-        {
-            return base.Applies(card, game, player) && player != null && player.Graveyard.Cards.Contains(card);
-        }
-
         public override CardFilter Copy()
         {
             return new OwnersGraveyardCardFilter(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()} in your graveyard";
         }
     }
 }

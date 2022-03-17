@@ -3,7 +3,6 @@ using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -19,12 +18,8 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(Game game, Ability source)
         {
-            var filter1 = new OwnersManaZoneCardFilter();
-            var filter2 = new OpponentsManaZoneCardFilter();
-            foreach (var filter in new List<CardFilter> { filter1, filter2 })
-            {
-                filter.Civilizations.AddRange(new List<Civilization> { Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature });
-            }
+            var filter1 = new OwnersManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature);
+            var filter2 = new OpponentsManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature);
             foreach (var effect in new OneShotEffect[] { new ManaBurnEffect(filter1, 1, 1, true), new ManaBurnEffect(filter2, 1, 1, false)})
             {
                 effect.Apply(game, source);

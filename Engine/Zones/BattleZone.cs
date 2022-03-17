@@ -13,11 +13,11 @@ namespace Engine.Zones
     /// </summary>
     public class BattleZone : Zone
     {
-        public BattleZone(IEnumerable<Card> cards) : base(cards)
+        public BattleZone() : base()
         {
         }
 
-        public BattleZone(BattleZone zone) : base(zone.Cards.Select(x => x.Copy()))
+        public BattleZone(BattleZone zone) : base(zone)
         {
         }
 
@@ -56,11 +56,6 @@ namespace Engine.Zones
                 game.RemoveContinuousEffects(staticAbilities);
                 return true;
             }
-        }
-
-        public override Zone Copy()
-        {
-            return new BattleZone(this);
         }
 
         public IEnumerable<Card> GetChoosableCreatures(Game game, Guid owner)

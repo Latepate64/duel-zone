@@ -1,4 +1,4 @@
 ﻿namespace Common
 {
-    public enum CardType { Creature, Spell, Any }
+    public enum CardType { Creature, Spell }
 }

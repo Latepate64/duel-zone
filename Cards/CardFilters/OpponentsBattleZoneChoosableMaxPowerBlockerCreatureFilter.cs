@@ -10,7 +10,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter filter) : base(filter.Power.Number)
+        public OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter filter) : base(filter.PowerFilter.Number)
         {
         }
 

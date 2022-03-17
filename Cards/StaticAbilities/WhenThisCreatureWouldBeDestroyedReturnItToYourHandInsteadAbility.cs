@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -10,14 +9,14 @@ namespace Cards.StaticAbilities
 {
     public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility : StaticAbility
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect())
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility() : base(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(new TargetFilter()))
         {
         }
     }
 
     class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base()
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(CardFilter filter) : base(filter)
         {
         }
 

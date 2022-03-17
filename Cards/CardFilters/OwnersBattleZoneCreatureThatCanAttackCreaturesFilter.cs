@@ -1,19 +1,14 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 
 namespace Cards.CardFilters
 {
     class OwnersBattleZoneCreatureThatCanAttackCreaturesFilter : OwnersBattleZoneCreatureFilter
     {
-        public OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(params Civilization[] civilizations) : base(civilizations)
+        public OwnersBattleZoneCreatureThatCanAttackCreaturesFilter() : base()
         {
         }
 
-        public OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(OwnersBattleZoneCreatureFilter filter) : base(filter)
-        {
-        }
-
-        public override bool Applies(Engine.Card card, Game game, Engine.Player player)
+        public override bool Applies(Card card, Game game, Player player)
         {
             return base.Applies(card, game, player) && card.CanAttackCreatures(game);
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine.Zones
 {
@@ -9,7 +8,11 @@ namespace Engine.Zones
     /// </summary>
     public class Hand : Zone
     {
-        public Hand(IEnumerable<Card> cards) : base(cards) { }
+        public Hand() : base() { }
+
+        public Hand(Zone zone) : base(zone)
+        {
+        }
 
         public override void Add(Card card, Game game)
         {
@@ -20,11 +23,6 @@ namespace Engine.Zones
         public override bool Remove(Card card, Game game)
         {
             return Cards.Remove(card);
-        }
-
-        public override Zone Copy()
-        {
-            return new Hand(Cards.Select(x => x.Copy()));
         }
 
         public override string ToString()

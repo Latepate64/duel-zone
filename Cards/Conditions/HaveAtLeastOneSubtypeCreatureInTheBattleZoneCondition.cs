@@ -4,7 +4,7 @@ namespace Cards.Conditions
 {
     class HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition : FilterAnyCondition
     {
-        internal HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype subtype) : base(new CardFilters.OwnersBattleZoneCreatureFilter(subtype))
+        internal HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype subtype) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype))
         {
         }
     }

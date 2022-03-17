@@ -7,15 +7,19 @@ namespace Engine.Zones
     /// <summary>
     /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone, graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own zones except for the battle zone which is shared by each player.
     /// </summary>
-    public abstract class Zone : IDisposable, ICopyable<Zone>
+    public abstract class Zone : IDisposable
     {
-        public List<Card> Cards { get; private set; }
+        public List<Card> Cards { get; private set; } = new List<Card>();
 
         public IEnumerable<Card> Creatures => Cards.Where(x => x.CardType == Common.CardType.Creature);
 
-        protected Zone(IEnumerable<Card> cards)
+        protected Zone()
         {
-            Cards = new List<Card>(cards.ToList());
+        }
+
+        protected Zone(Zone zone)
+        {
+            Cards = zone.Cards.Select(x => x.Copy()).ToList();
         }
 
         public abstract void Add(Card card, Game game);
@@ -32,11 +36,11 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public abstract Zone Copy();
-
         public IEnumerable<Card> GetCreatures(Guid owner)
         {
             return Creatures.Where(x => x.Owner == owner);
         }
+
+        public abstract override string ToString();
     }
 }

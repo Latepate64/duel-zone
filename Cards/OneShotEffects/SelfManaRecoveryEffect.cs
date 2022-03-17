@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.OneShotEffects
@@ -8,7 +9,7 @@ namespace Cards.OneShotEffects
         /// <summary>
         /// Mana Recovery is a term given to cards that return cards in your mana zone to your hand.
         /// </summary>
-        public SelfManaRecoveryEffect(int minimum, int maximum, bool controllerChooses, CardType cardType) : base(minimum, maximum, controllerChooses, new CardFilters.OwnersManaZoneCardFilter { CardType = cardType })
+        public SelfManaRecoveryEffect(int minimum, int maximum, bool controllerChooses, CardFilter filter) : base(minimum, maximum, controllerChooses, filter)
         {
         }
 
