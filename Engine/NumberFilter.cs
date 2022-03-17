@@ -52,7 +52,7 @@ namespace Engine
 
     public interface IPowerFilterable
     {
-        public PowerFilter PowerFilter { get; set; }
+        public PowerFilter PowerFilter { get; }
     }
 
     public class ManaCostFilter : NumberFilter
@@ -83,5 +83,10 @@ namespace Engine
             };
             return $"that cost {Number}{ending}";
         }
+    }
+
+    public interface IManaCostFilterable
+    {
+        public ManaCostFilter ManaCostFilter { get; }
     }
 }

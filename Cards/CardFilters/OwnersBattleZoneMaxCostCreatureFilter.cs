@@ -2,7 +2,7 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneMaxCostCreatureFilter : OwnersBattleZoneCreatureFilter
+    class OwnersBattleZoneMaxCostCreatureFilter : OwnersBattleZoneCreatureFilter, IManaCostFilterable
     {
         public ManaCostFilter ManaCostFilter { get; }
 
