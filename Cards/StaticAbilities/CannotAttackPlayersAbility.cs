@@ -5,7 +5,7 @@ namespace Cards.StaticAbilities
 {
     public class CannotAttackPlayersAbility : StaticAbility
     {
-        public CannotAttackPlayersAbility() : base(new CannotAttackPlayersEffect(new Engine.TargetFilter()))
+        public CannotAttackPlayersAbility(params Engine.Condition[] conditions) : base(new CannotAttackPlayersEffect(new Engine.TargetFilter(), conditions))
         {
         }
     }
