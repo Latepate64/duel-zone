@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public ChaosFish() : base("Chaos Fish", 7, 1000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new StaticAbility(new ContinuousEffects.PowerModifyingMultiplierEffect(1000, new CardFilters.OwnersBattleZoneCivilizationCreatureExceptFilter(Civilization.Water))), new TriggeredAbilities.AttackAbility(new ChaosFishEffect()));
+            AddAbilities(new StaticAbilities.GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Water), new TriggeredAbilities.AttackAbility(new ChaosFishEffect()));
         }
     }
 
