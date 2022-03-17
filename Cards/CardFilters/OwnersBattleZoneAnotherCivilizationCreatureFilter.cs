@@ -2,16 +2,16 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneCivilizationCreatureExceptFilter : OwnersBattleZoneCreatureExceptFilter, ICivilizationFilterable
+    class OwnersBattleZoneAnotherCivilizationCreatureFilter : OwnersBattleZoneCreatureExceptFilter, ICivilizationFilterable
     {
         public CivilizationFilter CivilizationFilter { get; }
 
-        public OwnersBattleZoneCivilizationCreatureExceptFilter(Common.Civilization civilization)
+        public OwnersBattleZoneAnotherCivilizationCreatureFilter(Common.Civilization civilization)
         {
             CivilizationFilter = new CivilizationFilter(civilization);
         }
 
-        public OwnersBattleZoneCivilizationCreatureExceptFilter(OwnersBattleZoneCivilizationCreatureExceptFilter filter) : base()
+        public OwnersBattleZoneAnotherCivilizationCreatureFilter(OwnersBattleZoneAnotherCivilizationCreatureFilter filter) : base()
         {
             CivilizationFilter = filter.CivilizationFilter;
         }
@@ -23,7 +23,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OwnersBattleZoneCivilizationCreatureExceptFilter(this);
+            return new OwnersBattleZoneAnotherCivilizationCreatureFilter(this);
         }
 
         public override string ToString()

@@ -5,7 +5,7 @@ namespace Cards.StaticAbilities
 {
     public class ChargerAbility : StaticAbility
     {
-        public ChargerAbility() : base(new ChargerEffect())
+        public ChargerAbility() : base(new ChargerEffect(new Engine.TargetFilter()))
         {
         }
     }

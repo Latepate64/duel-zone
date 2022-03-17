@@ -2,7 +2,7 @@
 {
     public class SlayerEffect : ContinuousEffect
     {
-        public SlayerEffect()
+        public SlayerEffect(CardFilter filter) : base(filter)
         {
 
         }

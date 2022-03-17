@@ -2,6 +2,6 @@
 {
     class GetsPowerForEachOtherCivilizationCreatureYouControlAbility : Engine.Abilities.StaticAbility
     {
-        public GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Common.Civilization civilization) : base(new ContinuousEffects.PowerModifyingMultiplierEffect(1000, new CardFilters.OwnersBattleZoneCivilizationCreatureExceptFilter(civilization))) { }
+        public GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Common.Civilization civilization) : base(new ContinuousEffects.PowerModifyingMultiplierEffect(1000, new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(civilization))) { }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class AttacksIfAbleEffect : ContinuousEffect
     {
-        public AttacksIfAbleEffect()
+        public AttacksIfAbleEffect(CardFilter filter) : base(filter)
         {
         }
 

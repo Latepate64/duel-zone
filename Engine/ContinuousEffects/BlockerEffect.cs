@@ -2,7 +2,7 @@
 {
     public class BlockerEffect : ContinuousEffect
     {
-        public BlockerEffect()
+        public BlockerEffect(CardFilter filter) : base(filter)
         {
         }
 

@@ -2,7 +2,7 @@
 {
     public class SpeedAttackerEffect : ContinuousEffect
     {
-        public SpeedAttackerEffect()
+        public SpeedAttackerEffect(CardFilter filter) : base(filter)
         {
         }
 
