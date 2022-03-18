@@ -513,7 +513,10 @@ namespace Engine
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
                         Process(new ShieldTriggerEvent { Player = player.Copy(), Card = trigger.Convert() });
-                        player.UseCard(trigger, this);
+                        if (trigger.CanBeUsedRegardlessOfManaCost(this))
+                        {
+                            player.UseCard(trigger, this);
+                        }
                     }
                     else
                     {
@@ -613,6 +616,11 @@ namespace Engine
         public void AddDelayedTriggeredAbility(TriggeredAbility ability, Duration duration)
         {
             _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
+        }
+
+        internal bool CanBeEvolved(Card card)
+        {
+            return BattleZone.GetCreatures(card.Owner).Any(x => card.CanEvolveFrom(this, x));
         }
         #endregion Methods
     }

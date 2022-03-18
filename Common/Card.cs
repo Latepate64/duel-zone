@@ -27,6 +27,7 @@ namespace Common
                 Civilizations = card.Civilizations.ToList();
                 ManaCost = card.ManaCost;
                 Name = card.Name;
+                OnTopOf = card.OnTopOf;
                 Power = card.Power;
                 RulesText = card.RulesText;
                 ShieldTrigger = card.ShieldTrigger;
@@ -34,6 +35,7 @@ namespace Common
                 SummoningSickness = card.SummoningSickness;
                 Supertypes = card.Supertypes?.ToList();
                 Tapped = card.Tapped;
+                Underneath = card.Underneath;
             }
         }
 
@@ -75,5 +77,9 @@ namespace Common
         public string RulesText { get; set; }
 
         public List<Supertype> Supertypes { get; set; } = new();
+
+        public Guid OnTopOf { get; set; }
+
+        public Guid Underneath { get; set; }
     }
 }

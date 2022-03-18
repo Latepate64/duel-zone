@@ -1,4 +1,5 @@
-﻿using Engine.Abilities;
+﻿using Combinatorics.Collections;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +112,42 @@ namespace Engine
         public bool CanAttackPlayers(Game game)
         {
             return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
+        }
+
+        internal bool CanEvolveFrom(Game game, Card card)
+        {
+            return game.GetContinuousEffects<EvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
+        }
+
+        internal bool CanBeUsedRegardlessOfManaCost(Game game)
+        {
+            return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanBeEvolved(this);
+        }
+
+        internal bool CanBePaid(Player player)
+        {
+            return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
+        }
+
+        internal IEnumerable<IEnumerable<Card>> GetManaCombinations(Player player)
+        {
+            return new Combinations<Card>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
+        }
+
+        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Common.Civilization> civs)
+        {
+            if (!civs.Any())
+            {
+                return true;
+            }
+            else if (!manas.Any())
+            {
+                return false;
+            }
+            else
+            {
+                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
+            }
         }
     }
 }

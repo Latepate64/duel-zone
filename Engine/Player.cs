@@ -187,30 +187,14 @@ namespace Engine
             }
         }
 
-        internal IEnumerable<Card> GetUsableCards()
+        internal IEnumerable<Card> GetCardsThatCanBePaid()
         {
-            return Hand.Cards.Where(card => card.ManaCost <= ManaZone.UntappedCards.Count() && HasCivilizations(ManaZone.UntappedCards, card.Civilizations));
+            return Hand.Cards.Where(card => card.CanBePaid(this));
         }
 
-        internal IEnumerable<IEnumerable<Card>> GetManaCombinations(Card card)
+        internal IEnumerable<Card> GetCardsThatCanBePaidAndUsed(Game game)
         {
-            return new Combinations<Card>(ManaZone.UntappedCards, card.ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, card.Civilizations));//.Select(x => x.Select(y => y.Id)));
-        }
-
-        private static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
-        {
-            if (!civs.Any())
-            {
-                return true;
-            }
-            else if (!manas.Any())
-            {
-                return false;
-            }
-            else
-            {
-                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
-            }
+            return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
 
         public void PutFromTopOfDeckIntoManaZone(Game game, int amount)
@@ -289,7 +273,7 @@ namespace Engine
         private void ChooseCardsToPayManaCost(Game game, Card toUse)
         {
             var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
-            if (HasCivilizations(manaDecision, toUse.Civilizations))
+            if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
             }
@@ -305,14 +289,14 @@ namespace Engine
             UseCard(toUse, game);
         }
 
-        internal bool ChooseCardToUse(Game game, IEnumerable<Card> cards)
+        internal bool ChooseCardToUse(Game game, IEnumerable<Card> usableCards)
         {
-            var decision = Choose(new UseCardSelection(Id, cards), game).Decision;
+            var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
             if (decision.Any())
             {
                 var id = decision.Single();
-                var toUse = cards.Single(x => x.Id == id);
-                var manaCombinations = GetManaCombinations(toUse);
+                var toUse = usableCards.Single(x => x.Id == id);
+                var manaCombinations = toUse.GetManaCombinations(this);
                 if (manaCombinations.Count() > 1)
                 {
                     ChooseCardsToPayManaCost(game, toUse);
