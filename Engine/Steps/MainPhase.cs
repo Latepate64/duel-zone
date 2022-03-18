@@ -16,7 +16,7 @@ namespace Engine.Steps
             var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
             if (player != null)
             {
-                var cards = player.GetUsableCards();
+                var cards = player.GetCardsThatCanBePaidAndUsed(game);
                 if (cards.Any())
                 {
                     return player.ChooseCardToUse(game, cards);
