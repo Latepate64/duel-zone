@@ -27,12 +27,12 @@ namespace Engine.Steps
             }
         }
 
-        internal static bool AffectedBySummoningSickness(Game game, Card creature)
+        internal static bool AffectedBySummoningSickness(Game game, ICard creature)
         {
             return creature.SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(creature).Any());
         }
 
-        private void ChooseAttacker(Game game, IPlayer activePlayer, IEnumerable<Card> attackers)
+        private void ChooseAttacker(Game game, IPlayer activePlayer, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
             var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum), game).Decision;
@@ -42,11 +42,11 @@ namespace Engine.Steps
             }
         }
 
-        private void ChooseAttackTarget(Game game, IPlayer activePlayer, IEnumerable<Card> attackers, Guid id)
+        private void ChooseAttackTarget(Game game, IPlayer activePlayer, IEnumerable<ICard> attackers, Guid id)
         {
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);
-            IAttackable target = possibleTargets.Count() > 1
+            Common.IIdentifiable target = possibleTargets.Count() > 1
                 ? game.GetAttackable(activePlayer.Choose(new AttackTargetSelection(activePlayer.Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
                 : possibleTargets.Single();
             activePlayer.Tap(game, attacker);
@@ -62,9 +62,9 @@ namespace Engine.Steps
             }
         }
 
-        private static IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker, Game game)
+        private static IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker, Game game)
         {
-            List<IAttackable> attackables = new();
+            List<Common.IIdentifiable> attackables = new();
             var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
             if (opponent != null)
             {

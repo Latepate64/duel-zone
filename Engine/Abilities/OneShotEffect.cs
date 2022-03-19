@@ -16,7 +16,7 @@ namespace Engine.Abilities
         /// <param name="game"></param>
         /// <param name="source">Ability that created the effect.</param>
         /// <returns>Any object that represents usable information of whatever happened during the effect (such as did the player take an action or what cards were affected). This information may be applied for reflexive triggered abilities (see rule 603.12.). Returns null if no information of what happened is of use.</returns>
-        public abstract object Apply(Game game, Ability source);
+        public abstract object Apply(IGame game, IAbility source);
 
         public abstract OneShotEffect Copy();
 

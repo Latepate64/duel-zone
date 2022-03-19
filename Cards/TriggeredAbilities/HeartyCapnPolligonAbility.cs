@@ -12,7 +12,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CheckInterveningIfClause(Game game)
+        public override bool CheckInterveningIfClause(IGame game)
         {
             // if this creature broke any shields that turn
             return game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Any(x => x.Attacker.Id == Source);
@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
             return new HeartyCapnPolligonEffect();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
             return null;

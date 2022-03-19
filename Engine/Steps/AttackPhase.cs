@@ -59,7 +59,7 @@ namespace Engine.Steps
             return new EndOfTurnPhase();
         }
 
-        internal void RemoveAttackingCreature(Game game)
+        internal void RemoveAttackingCreature(IGame game)
         {
             if (AttackingCreature != Guid.Empty)
             {
@@ -69,7 +69,7 @@ namespace Engine.Steps
             }
         }
 
-        internal void SetAttackingCreature(Card attacker, Game game)
+        internal void SetAttackingCreature(ICard attacker, Game game)
         {
             AttackingCreature = attacker.Id;
         }

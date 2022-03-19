@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class EldritchPoisonEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var cards = new SacrificeEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness), false).Apply(game, source);
             if (cards.Any())

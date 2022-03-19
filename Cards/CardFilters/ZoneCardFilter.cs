@@ -23,7 +23,7 @@ namespace Cards.CardFilters
             return $"{(OwnerInsteadOfOpponent ? "Your" : "Your opponent's")} {typeof(T)}";
         }
 
-        public override bool Applies(Card card, Game game, IPlayer player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             var targetPlayer = OwnerInsteadOfOpponent ? player : game.GetOpponent(player);
             return targetPlayer != null && targetPlayer.Zones.OfType<T>().Single().Cards.Contains(card);

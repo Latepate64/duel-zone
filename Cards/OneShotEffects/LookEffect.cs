@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             return $"Look at {GetAmountAsText()} of {Filter}. Then put them back where they were.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.GetPlayer(source.Owner).Look(cards);
         }

@@ -81,7 +81,7 @@ namespace Engine.Steps
             Type = type;
         }
 
-        public List<Card> UsedCards { get; } = new List<Card>();
+        public List<ICard> UsedCards { get; } = new List<ICard>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
 
         public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();

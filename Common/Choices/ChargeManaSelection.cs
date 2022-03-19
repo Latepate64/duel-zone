@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public ChargeManaSelection(Guid player, IEnumerable<Card> options) : base(player, options, 0, 1)
+        public ChargeManaSelection(Guid player, IEnumerable<ICard> options) : base(player, options, 0, 1)
         {
         }
 

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class ChaosFishEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             return new OneShotEffects.ControllerMayDrawCardsEffect(game.GetAllCards(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), source.Owner).Count()).Apply(game, source);
         }

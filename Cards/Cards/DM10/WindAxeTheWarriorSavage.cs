@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
             return new WindAxeTheWarriorSavageEffect();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
             {

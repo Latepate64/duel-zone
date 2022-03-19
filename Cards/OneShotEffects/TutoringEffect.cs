@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
             return $"Search your deck. You may take {Filter}{reveal} and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             if (Reveal)
             {

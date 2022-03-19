@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-    public interface IAttackable : IIdentifiable
+    public interface IAttackable
     {
     }
 }

@@ -14,7 +14,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.GetPlayer(source.Owner).Untap(game, GetAffectedCards(game, source).ToArray());
             return true;

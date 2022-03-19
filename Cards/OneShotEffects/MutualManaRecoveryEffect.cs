@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new SelfManaRecoveryEffect(Amount, Amount, true, new CardFilters.OwnersManaZoneCardFilter()), new OpponentManaRecoveryEffect(Amount, Amount, false)})
             {

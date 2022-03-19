@@ -15,16 +15,16 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, Game game)
+        public override void Add(ICard card, IGame game)
         {
             Cards.Add(card);
         }
 
-        public override List<Card> Remove(Card card, Game game)
+        public override List<ICard> Remove(ICard card, IGame game)
         {
             if (!Cards.Remove(card))
             {
-                return new List<Card>();
+                return new List<ICard>();
             }
             if (!Cards.Any())
             {
@@ -32,7 +32,7 @@ namespace Engine.Zones
                 game.Process(new Common.GameEvents.DeckoutEvent { Player = player.Copy() });
                 game.Lose(player);
             }
-            return new List<Card> { card };
+            return new List<ICard> { card };
         }
 
         public void Shuffle()
@@ -47,7 +47,7 @@ namespace Engine.Zones
             {
                 n--;
                 int k = random.Next(n + 1);
-                Card value = Cards[k];
+                var value = Cards[k];
                 Cards[k] = Cards[n];
                 Cards[n] = value;
             }

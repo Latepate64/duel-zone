@@ -8,6 +8,6 @@ namespace Common.Choices
     {
         protected CardSelection() { }
 
-        protected CardSelection(Guid player, IEnumerable<Card> options) : base(player, options.Select(x => x.Id)) { }
+        protected CardSelection(Guid player, IEnumerable<ICard> options) : base(player, options.Select(x => x.Id)) { }
     }
 }

@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
             DestinationZone = effect.DestinationZone;
         }
 
-        protected override void Apply(Game game, Ability source, params Engine.Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(SourceZone, DestinationZone, cards);
         }

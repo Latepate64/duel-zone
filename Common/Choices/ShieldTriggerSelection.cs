@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public ShieldTriggerSelection(Guid player, IEnumerable<Card> options) : base(player, options, 0, 1)
+        public ShieldTriggerSelection(Guid player, IEnumerable<ICard> options) : base(player, options, 0, 1)
         {
         }
 

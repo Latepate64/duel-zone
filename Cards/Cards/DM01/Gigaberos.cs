@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
 
     class GigaberosEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             // Destroy 2 of your other creatures or destroy this creature.
             var creatures = game.BattleZone.GetCreatures(source.Owner);

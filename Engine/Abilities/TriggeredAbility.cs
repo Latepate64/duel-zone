@@ -43,7 +43,7 @@ namespace Engine.Abilities
         /// This rule is referred to as the “intervening ‘if’ clause” rule.
         /// (The word “if” has only its normal English meaning anywhere else in the text of a card; this rule only applies to an “if” that immediately follows a trigger condition.)
         /// </summary>
-        public virtual bool CheckInterveningIfClause(Game game)
+        public virtual bool CheckInterveningIfClause(IGame game)
         {
             return true;
         }
@@ -54,7 +54,7 @@ namespace Engine.Abilities
         /// Otherwise, it continues to resolve. See rule 603.4.
         /// </summary>
         /// <param name="game"></param>
-        public override void Resolve(Game game)
+        public override void Resolve(IGame game)
         {
             if (CheckInterveningIfClause(game))
             {

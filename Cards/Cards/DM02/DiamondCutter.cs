@@ -15,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class DiamondCutterEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new IgnoreCannotAttackPlayersEffects(new CardFilters.OwnersBattleZoneCreatureFilter(), new Engine.Durations.UntilTheEndOfTheTurn()));
             return null;

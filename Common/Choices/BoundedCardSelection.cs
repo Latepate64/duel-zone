@@ -8,6 +8,6 @@ namespace Common.Choices
     {
         protected BoundedCardSelection() { }
 
-        protected BoundedCardSelection(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection) : base(player, options.Select(x => x.Id), minimumSelection, maximumSelection) { }
+        protected BoundedCardSelection(Guid player, IEnumerable<ICard> options, int minimumSelection, int maximumSelection) : base(player, options.Select(x => x.Id), minimumSelection, maximumSelection) { }
     }
 }

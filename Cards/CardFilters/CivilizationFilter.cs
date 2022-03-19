@@ -29,7 +29,7 @@ namespace Cards.CardFilters
             return string.Join("/", Civilizations);
         }
 
-        public override bool Applies(Engine.Card card, Game game, Engine.IPlayer player)
+        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
         {
             return !Civilizations.Any() || card.Civilizations.Intersect(Civilizations).Any();
         }

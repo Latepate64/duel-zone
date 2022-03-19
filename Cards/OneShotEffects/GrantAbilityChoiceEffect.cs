@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
             return new GrantAbilityChoiceEffect(this);
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             foreach (var ability in Abilities)
             {

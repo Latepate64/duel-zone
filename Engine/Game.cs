@@ -43,7 +43,7 @@ namespace Engine
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<GameEvent> GameEvents => _preGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
+        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
@@ -74,7 +74,7 @@ namespace Engine
         private readonly List<DelayedTriggeredAbility> _delayedTriggeredAbilities = new();
         #endregion Properties
 
-        internal Queue<GameEvent> _preGameEvents = new();
+        public Queue<GameEvent> PreGameEvents { get; } = new();
         private int _timestamp = 0;
 
         /// <summary>
@@ -231,15 +231,15 @@ namespace Engine
             }
             else
             {
-                Destroy(new List<Card> { attackingCreature, defendingCreature });
+                Destroy(new List<ICard> { attackingCreature, defendingCreature });
             }
 
             Process(new AfterBattleEvent());
 
-            void Outcome(Card winner, Card loser)
+            void Outcome(ICard winner, ICard loser)
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
-                var destroyed = new List<Card> { loser };
+                var destroyed = new List<ICard> { loser };
                 if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
                 {
                     destroyed.Add(winner);
@@ -248,17 +248,17 @@ namespace Engine
             }
         }
 
-        public IEnumerable<Card> GetAllCards()
+        public IEnumerable<ICard> GetAllCards()
         {
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
         }
 
-        public IEnumerable<Card> GetAllCards(CardFilter filter, Guid player)
+        public IEnumerable<ICard> GetAllCards(CardFilter filter, Guid player)
         {
             return GetAllCards().Where(card => filter.Applies(card, this, GetPlayer(player)));
         }
 
-        public void Destroy(IEnumerable<Card> cards)
+        public void Destroy(IEnumerable<ICard> cards)
         {
             _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
         }
@@ -289,12 +289,12 @@ namespace Engine
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>
-        public IPlayer GetOwner(Card card)
+        public IPlayer GetOwner(ICard card)
         {
             return Players.SingleOrDefault(x => x.Id == card?.Owner);
         }
 
-        public Card GetCard(Guid id)
+        public ICard GetCard(Guid id)
         {
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
@@ -314,7 +314,7 @@ namespace Engine
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IAttackable GetAttackable(Guid id)
+        public Common.IIdentifiable GetAttackable(Guid id)
         {
             if (Players.Any(x => x.Id == id))
             {
@@ -356,7 +356,7 @@ namespace Engine
             }
             else
             {
-                _preGameEvents.Enqueue(gameEvent);
+                PreGameEvents.Enqueue(gameEvent);
             }
         }
 
@@ -370,12 +370,12 @@ namespace Engine
             return abilities;
         }
 
-        public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : IContinuousEffect
+        public IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect
         {
             return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.ConditionsApply(this));
         }
 
-        public IEnumerable<Card> GetChoosableBattleZoneCreatures(IPlayer selector)
+        public IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector)
         {
             return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
         }
@@ -406,7 +406,7 @@ namespace Engine
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
-        public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params Card[] cards)
+        public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
             return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
@@ -489,7 +489,7 @@ namespace Engine
             return replacementEffects;
         }
 
-        public void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger)
+        public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger)
         {
             var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
             if (canUseShieldTrigger)
@@ -526,7 +526,7 @@ namespace Engine
             }
         }
 
-        public void AddAbility(Card card, Ability ability)
+        public void AddAbility(ICard card, Ability ability)
         {
             card.AddGrantedAbility(ability);
             if (ability is StaticAbility staticAbility)
@@ -535,7 +535,7 @@ namespace Engine
             }
         }
 
-        internal void AddContinuousEffects(Card source, params StaticAbility[] staticAbilities)
+        public void AddContinuousEffects(ICard source, params StaticAbility[] staticAbilities)
         {
             var effects = new List<ContinuousEffect>();
             foreach (var ability in staticAbilities)
@@ -558,7 +558,7 @@ namespace Engine
             _continuousEffects.AddRange(effects);
         }
 
-        internal int GetTimestamp()
+        public int GetTimestamp()
         {
             return _timestamp++;
         }
@@ -569,12 +569,12 @@ namespace Engine
             _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.GetType() == duration);
         }
 
-        internal void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities)
+        public void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities)
         {
             _ = _continuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
         }
 
-        public void AddContinuousEffects(Ability source, params ContinuousEffect[] continuousEffects)
+        public void AddContinuousEffects(IAbility source, params ContinuousEffect[] continuousEffects)
         {
             // 613.7b A continuous effect generated by the resolution of a spell or ability receives a timestamp at the time it’s created.
             continuousEffects.ToList().ForEach(x => { x.Timestamp = GetTimestamp(); x.SourceAbility = source.Id; });
@@ -618,12 +618,12 @@ namespace Engine
             _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
         }
 
-        internal bool CanEvolve(Card card)
+        public bool CanEvolve(Card card)
         {
             return BattleZone.GetCreatures(card.Owner).Any(x => card.CanEvolveFrom(this, x));
         }
 
-        internal IEnumerable<Card> GetCreaturesCreatureCanEvolveFrom(Card card)
+        public IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card)
         {
             return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
         }

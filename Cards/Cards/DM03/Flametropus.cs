@@ -18,7 +18,7 @@ namespace Cards.Cards.DM03
 
     class FlametropusEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var cards = new OneShotEffects.SelfManaBurnEffect(0, 1).Apply(game, source);
             if (cards.Any())

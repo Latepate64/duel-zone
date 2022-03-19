@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public EvolutionBaitSelection(Guid player, IEnumerable<Card> options) : base(player, options, 1, 1)
+        public EvolutionBaitSelection(Guid player, IEnumerable<ICard> options) : base(player, options, 1, 1)
         {
         }
 

@@ -14,21 +14,21 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, Game game)
+        public override void Add(ICard card, IGame game)
         {
             card.KnownTo = new List<Guid> { card.Owner };
             Cards.Add(card);
         }
 
-        public override List<Card> Remove(Card card, Game game)
+        public override List<ICard> Remove(ICard card, IGame game)
         {
             if (Cards.Remove(card))
             {
-                return new List<Card> { card };
+                return new List<ICard> { card };
             }
             else
             {
-                return new List<Card>();
+                return new List<ICard>();
             }
         }
 

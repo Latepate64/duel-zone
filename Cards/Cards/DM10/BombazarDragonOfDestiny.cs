@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
 
     class BombazarDragonOfDestinyEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
             game.Destroy(game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToList());
@@ -46,7 +46,7 @@ namespace Cards.Cards.DM10
 
     class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.Lose(game.GetPlayer(source.Owner));
             return true;

@@ -41,11 +41,11 @@ namespace Engine
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new();
 
-        public IEnumerable<Card> CardsInNonsharedZones
+        public IEnumerable<ICard> CardsInNonsharedZones
         {
             get
             {
-                List<Card> cards = new();
+                List<ICard> cards = new();
                 cards.AddRange(Deck.Cards);
                 cards.AddRange(Graveyard.Cards);
                 cards.AddRange(Hand.Cards);
@@ -104,7 +104,7 @@ namespace Engine
             }
         }
 
-        public YesNoDecision Choose(YesNoChoice yesNoChoice, Game game)
+        public YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game)
         {
             var decision = ClientChoose(yesNoChoice);
             if (decision != null)
@@ -120,7 +120,7 @@ namespace Engine
 
         public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
 
-        public GuidDecision Choose(GuidSelection selection, Game game)
+        public GuidDecision Choose(GuidSelection selection, IGame game)
         {
             var legal = false;
             GuidDecision decision = null;
@@ -143,7 +143,7 @@ namespace Engine
 
         public abstract GuidDecision ClientChoose(GuidSelection guidSelection);
 
-        public void ShuffleDeck(Game game)
+        public void ShuffleDeck(IGame game)
         {
             Deck.Shuffle();
             var eve = new DeckShuffledEvent { Player = Copy() };
@@ -153,11 +153,11 @@ namespace Engine
             }
             else
             {
-                game._preGameEvents.Enqueue(eve);
+                game.PreGameEvents.Enqueue(eve);
             }
         }
 
-        public void PutFromTopOfDeckIntoShieldZone(int amount, Game game)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
         {
             for (int i = 0; i < amount; ++i)
             {
@@ -168,13 +168,13 @@ namespace Engine
             }
         }
 
-        private void Summon(Card card, Game game)
+        private void Summon(ICard card, IGame game)
         {
             game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
             _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
         }
 
-        public void DrawCards(int amount, Game game)
+        public void DrawCards(int amount, IGame game)
         {
             // 121.2. Cards may only be drawn one at a time.
             // If a player is instructed to draw multiple cards,
@@ -188,17 +188,17 @@ namespace Engine
             }
         }
 
-        internal IEnumerable<Card> GetCardsThatCanBePaid()
+        internal IEnumerable<ICard> GetCardsThatCanBePaid()
         {
             return Hand.Cards.Where(card => card.CanBePaid(this));
         }
 
-        public IEnumerable<Card> GetCardsThatCanBePaidAndUsed(Game game)
+        public IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game)
         {
             return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
 
-        public void PutFromTopOfDeckIntoManaZone(Game game, int amount)
+        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount)
         {
             for (int i = 0; i < amount; ++i)
             {
@@ -209,7 +209,7 @@ namespace Engine
             }
         }
 
-        private void Cast(Card spell, Game game)
+        private void Cast(ICard spell, IGame game)
         {
             Hand.Remove(spell, game);
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
@@ -238,7 +238,7 @@ namespace Engine
             game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
-        public void DiscardAtRandom(Game game, int amount)
+        public void DiscardAtRandom(IGame game, int amount)
         {
             if (Hand.Cards.Any())
             {
@@ -246,7 +246,7 @@ namespace Engine
             }
         }
 
-        public void Reveal(Game game, Card card)
+        public void Reveal(IGame game, ICard card)
         {
             var opponent = game.GetOpponent(this);
             card.KnownTo.Add(opponent.Id);
@@ -271,7 +271,7 @@ namespace Engine
             return Convert();
         }
 
-        private void ChooseCardsToPayManaCost(Game game, Card toUse)
+        private void ChooseCardsToPayManaCost(IGame game, ICard toUse)
         {
             var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
             if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
@@ -284,13 +284,13 @@ namespace Engine
             }
         }
 
-        private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
+        private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)
         {
             Tap(game, manaCards.ToArray());
             UseCard(toUse, game);
         }
 
-        public bool ChooseCardToUse(Game game, IEnumerable<Card> usableCards)
+        public bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards)
         {
             var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
             if (decision.Any())
@@ -314,7 +314,7 @@ namespace Engine
             }
         }
 
-        public void UseCard(Card card, Game game)
+        public void UseCard(ICard card, IGame game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
@@ -335,7 +335,7 @@ namespace Engine
             }
         }
 
-        private void Evolve(Card card, Game game)
+        private void Evolve(ICard card, IGame game)
         {
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
             var bait = game.GetCard(Choose(new EvolutionBaitSelection(Id, baits), game).Decision.Single());
@@ -347,7 +347,7 @@ namespace Engine
             return new Common.Player(this);
         }
 
-        public void Tap(Game game, params Card[] cards)
+        public void Tap(IGame game, params ICard[] cards)
         {
             var untappedCards = cards.Where(x => !x.Tapped).ToList();
             foreach (Card card in untappedCards)
@@ -360,7 +360,7 @@ namespace Engine
             }
         }
 
-        public void Untap(Game game, params Card[] cards)
+        public void Untap(IGame game, params ICard[] cards)
         {
             var tappedCards = cards.Where(x => x.Tapped).ToList();
             foreach (Card card in tappedCards)
@@ -379,13 +379,13 @@ namespace Engine
         /// That player loses the game.
         /// </summary>
         /// <param name="game"></param>
-        private void Concede(Game game)
+        private void Concede(IGame game)
         {
             game.Process(new ConcedeEvent { Player = Convert() });
             game.Lose(this);
         }
 
-        public void Look(Card[] cards)
+        public void Look(ICard[] cards)
         {
             cards.Where(x => !x.KnownTo.Contains(Id)).ToList().ForEach(x => x.KnownTo.Add(Id));
         }

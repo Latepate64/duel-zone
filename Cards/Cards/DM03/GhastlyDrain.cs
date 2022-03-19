@@ -32,7 +32,7 @@ namespace Cards.Cards.DM03
             return "Choose any number of your shields and put them into your hand. You can't use the \"shield trigger\" abilities of those shields.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.PutFromShieldZoneToHand(cards, false);
         }

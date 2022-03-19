@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common
 {
-    public interface ICard
+    public interface ICard : IIdentifiable
     {
         CardType CardType { get; set; }
         List<Civilization> Civilizations { get; set; }

@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public BlockerSelection(Guid player, IEnumerable<Card> options) : base(player, options, 0, 1)
+        public BlockerSelection(Guid player, IEnumerable<ICard> options) : base(player, options, 0, 1)
         {
         }
 

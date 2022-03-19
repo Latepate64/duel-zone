@@ -10,7 +10,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, IPlayer player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             var ownerApplies = game.BattleZone.GetCreatures(player.Id).Select(x => x.Id).Contains(card.Id);
             var opponent = game.GetOpponent(player);

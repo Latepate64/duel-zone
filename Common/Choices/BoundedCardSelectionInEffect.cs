@@ -11,7 +11,7 @@ namespace Common.Choices
         {
         }
 
-        public BoundedCardSelectionInEffect(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection, string text) : base(player, options, minimumSelection, maximumSelection)
+        public BoundedCardSelectionInEffect(Guid player, IEnumerable<ICard> options, int minimumSelection, int maximumSelection, string text) : base(player, options, minimumSelection, maximumSelection)
         {
             Text = text;
         }

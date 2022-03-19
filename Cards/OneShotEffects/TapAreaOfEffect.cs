@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             return new TapAreaOfEffect(this);
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var cards = game.GetAllCards(Filter, source.Owner).ToArray();
             game.GetPlayer(source.Owner).Tap(game, cards);

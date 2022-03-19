@@ -15,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class RumbleGateEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new Engine.ContinuousEffects.CanAttackUntappedCreaturesEffect(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(), new CardFilters.OpponentsBattleZoneUntappedCreatureFilter()));
             return null;

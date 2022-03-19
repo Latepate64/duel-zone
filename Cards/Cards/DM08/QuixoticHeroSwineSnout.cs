@@ -22,7 +22,7 @@ namespace Cards.Cards.DM08
             return new QuixoticHeroSwineSnoutEffect();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new PowerModifyingEffect(3000, new TargetFilter { Target = source.Source }, new UntilTheEndOfTheTurn()));
             return null;

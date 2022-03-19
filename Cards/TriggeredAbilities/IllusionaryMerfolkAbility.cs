@@ -20,7 +20,7 @@ namespace Cards.TriggeredAbilities
             return new IllusionaryMerfolkAbility(this);
         }
 
-        public override bool CheckInterveningIfClause(Game game)
+        public override bool CheckInterveningIfClause(IGame game)
         {
             // if you have a Cyber Lord in the battle zone
             return game.BattleZone.GetCreatures(Owner).Any(x => x.Subtypes.Contains(Common.Subtype.CyberLord));

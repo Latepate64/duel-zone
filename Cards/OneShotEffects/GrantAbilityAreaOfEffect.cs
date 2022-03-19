@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             Ability = effect.Ability.Copy();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var creature in GetAffectedCards(game, source))
             {

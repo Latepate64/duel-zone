@@ -16,7 +16,7 @@ namespace Cards.CardFilters
             ManaCostFilter = filter.ManaCostFilter;
         }
 
-        public override bool Applies(Card card, Game game, IPlayer player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             return base.Applies(card, game, player) && ManaCostFilter.Applies(card);
         }

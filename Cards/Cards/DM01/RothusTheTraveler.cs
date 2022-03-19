@@ -14,7 +14,7 @@ namespace Cards.Cards.DM01
 
     class RothusTheTravelerEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new OpponentSacrificeEffect() })
             {

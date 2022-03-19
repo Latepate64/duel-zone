@@ -110,7 +110,7 @@ namespace Engine.ContinuousEffects
             }
         }
 
-        protected IEnumerable<Card> GetAffectedCards(Game game)
+        protected IEnumerable<ICard> GetAffectedCards(Game game)
         {
             return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(game.GetAbility(SourceAbility).Owner)));
         }

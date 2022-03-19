@@ -11,7 +11,7 @@ namespace Common.Choices
         {
         }
 
-        public CardSelectionInEffect(Guid player, IEnumerable<Card> options, string text) : base(player, options)
+        public CardSelectionInEffect(Guid player, IEnumerable<ICard> options, string text) : base(player, options)
         {
             Text = text;
         }

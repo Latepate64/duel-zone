@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public AttackerSelection(Guid player, IEnumerable<Card> options, int minimumSelection) : base(player, options, minimumSelection, 1)
+        public AttackerSelection(Guid player, IEnumerable<ICard> options, int minimumSelection) : base(player, options, minimumSelection, 1)
         {
         }
 

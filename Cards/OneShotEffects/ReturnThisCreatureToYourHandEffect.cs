@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             return new ReturnThisCreatureToYourHandEffect(this);
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
             return null;

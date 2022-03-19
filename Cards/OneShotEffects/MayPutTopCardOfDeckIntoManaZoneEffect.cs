@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class MayPutTopCardOfDeckIntoManaZoneEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var player = game.GetPlayer(source.Owner);
             if (player != null)

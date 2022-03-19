@@ -21,7 +21,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, Game game)
+        public override void Add(ICard card, IGame game)
         {
             card.SummoningSickness = true;
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
@@ -29,7 +29,7 @@ namespace Engine.Zones
             game.AddContinuousEffects(card, card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
-        public override List<Card> Remove(Card card, Game game)
+        public override List<ICard> Remove(ICard card, IGame game)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
@@ -48,17 +48,17 @@ namespace Engine.Zones
             }
             if (!Cards.Remove(card))
             {
-                return new List<Card>();
+                return new List<ICard>();
             }
             else 
             {
                 var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
                 game.RemoveContinuousEffects(staticAbilities);
-                return card.Deconstruct(game, new List<Card>());
+                return card.Deconstruct(game, new List<ICard>());
             }
         }
 
-        public IEnumerable<Card> GetChoosableCreatures(Game game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreatures(Game game, Guid owner)
         {
             return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }

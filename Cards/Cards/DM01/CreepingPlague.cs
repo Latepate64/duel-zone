@@ -16,7 +16,7 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             // TODO: Now DelayedTriggeredAbility applies to any creature, should apply to own battle zone creatures only.
             game.AddDelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsAbilityEffect(new UntilTheEndOfTheTurn(), new SlayerAbility())), new UntilTheEndOfTheTurn());

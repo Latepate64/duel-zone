@@ -16,7 +16,7 @@ namespace Common
             Id = Guid.NewGuid();
         }
 
-        public Card(Card card, bool clear)
+        public Card(ICard card, bool clear)
         {
             Id = card.Id;
             Owner = card.Owner;
