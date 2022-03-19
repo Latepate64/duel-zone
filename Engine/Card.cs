@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<Card>, IAttackable, ITimestampable
+    public class Card : Common.Card, ICopyable<Card>, IAttackable, ITimestampable, ICard
     {
         private IEnumerable<Ability> Abilities => _printedAbilities.Union(_addedAbilities);
         private readonly List<Ability> _printedAbilities = new();
@@ -117,9 +117,9 @@ namespace Engine
             return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
         }
 
-        internal bool CanEvolveFrom(Game game, Card card)
+        public bool CanEvolveFrom(IGame game, ICard card)
         {
-            return game.GetContinuousEffects<EvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
+            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
         }
 
         internal bool CanBeUsedRegardlessOfManaCost(Game game)

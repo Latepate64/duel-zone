@@ -9,7 +9,7 @@ namespace Common
         Evolution
     }
 
-    public class Card
+    public class Card : ICard
     {
         public Card()
         {

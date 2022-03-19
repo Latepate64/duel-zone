@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Game : IDisposable
+    public class Game : IDisposable, IGame
     {
         #region Properties
         /// <summary>
@@ -370,7 +370,7 @@ namespace Engine
             return abilities;
         }
 
-        public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : ContinuousEffect
+        public IEnumerable<T> GetContinuousEffects<T>(Card card) where T : IContinuousEffect
         {
             return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.ConditionsApply(this));
         }
@@ -612,7 +612,7 @@ namespace Engine
         {
             _continuousEffects.OfType<T>().OrderBy(x => x.Timestamp).ToList().ForEach(x => x.CheckConditionsAndApply(this));
         }
-        
+
         public void AddDelayedTriggeredAbility(TriggeredAbility ability, Duration duration)
         {
             _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
