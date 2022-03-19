@@ -318,6 +318,10 @@ namespace Engine
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
+                if (card.Supertypes.Contains(Supertype.Evolution))
+                {
+                    Evolve(card, game);
+                }
                 Summon(card, game);
             }
             else if (card.CardType == CardType.Spell)
@@ -328,6 +332,13 @@ namespace Engine
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        private void Evolve(Card card, Game game)
+        {
+            var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
+            var bait = game.GetCard(Choose(new EvolutionBaitSelection(Id, baits), game).Decision.Single());
+            card.PutOnTopOf(bait);
         }
 
         public Common.Player Convert()

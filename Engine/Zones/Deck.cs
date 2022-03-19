@@ -20,11 +20,11 @@ namespace Engine.Zones
             Cards.Add(card);
         }
 
-        public override bool Remove(Card card, Game game)
+        public override List<Card> Remove(Card card, Game game)
         {
             if (!Cards.Remove(card))
             {
-                return false;
+                return new List<Card>();
             }
             if (!Cards.Any())
             {
@@ -32,7 +32,7 @@ namespace Engine.Zones
                 game.Process(new Common.GameEvents.DeckoutEvent { Player = player.Copy() });
                 game.Lose(player);
             }
-            return true;
+            return new List<Card> { card };
         }
 
         public void Shuffle()

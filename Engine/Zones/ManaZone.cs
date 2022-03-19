@@ -29,9 +29,16 @@ namespace Engine.Zones
             Cards.Add(card);
         }
 
-        public override bool Remove(Card card, Game game)
+        public override List<Card> Remove(Card card, Game game)
         {
-            return Cards.Remove(card);
+            if (Cards.Remove(card))
+            {
+                return new List<Card> { card };
+            }
+            else
+            {
+                return new List<Card>();
+            }
         }
 
         private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)

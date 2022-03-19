@@ -24,7 +24,7 @@ namespace Engine.Zones
 
         public abstract void Add(Card card, Game game);
 
-        public abstract bool Remove(Card card, Game game);
+        public abstract List<Card> Remove(Card card, Game game);
 
         protected virtual void Dispose(bool disposing)
         {

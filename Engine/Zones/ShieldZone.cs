@@ -1,4 +1,6 @@
-﻿namespace Engine.Zones
+﻿using System.Collections.Generic;
+
+namespace Engine.Zones
 {
     /// <summary>
     /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
@@ -16,9 +18,16 @@
             Cards.Add(card);
         }
 
-        public override bool Remove(Card card, Game game)
+        public override List<Card> Remove(Card card, Game game)
         {
-            return Cards.Remove(card);
+            if (Cards.Remove(card))
+            {
+                return new List<Card> { card };
+            }
+            else
+            {
+                return new List<Card>();
+            }
         }
 
         public override string ToString()

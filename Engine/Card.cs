@@ -1,6 +1,7 @@
 ﻿using Combinatorics.Collections;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,8 @@ namespace Engine
         private readonly int? _printedPower;
 
         public int Timestamp { get; }
+
+        internal bool CountsAsIfExists => Underneath != Guid.Empty;
 
         public IEnumerable<T> GetAbilities<T>()
         {
@@ -121,7 +124,7 @@ namespace Engine
 
         internal bool CanBeUsedRegardlessOfManaCost(Game game)
         {
-            return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanBeEvolved(this);
+            return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this);
         }
 
         internal bool CanBePaid(Player player)
@@ -147,6 +150,27 @@ namespace Engine
             else
             {
                 return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
+            }
+        }
+
+        internal void PutOnTopOf(Card bait)
+        {
+            OnTopOf = bait.Id;
+            bait.Underneath = Id;
+        }
+
+        internal List<Card> Deconstruct(Game game, List<Card> deconstructred)
+        {
+            if (Underneath != Guid.Empty)
+            {
+                deconstructred.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
+                Underneath = Guid.Empty;
+                return deconstructred;
+            }
+            else
+            {
+                OnTopOf = Guid.Empty;
+                return new List<Card> { this };
             }
         }
     }

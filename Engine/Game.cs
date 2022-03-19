@@ -460,13 +460,13 @@ namespace Engine
                 var player = GetPlayer(e.Player.Id);
                 var card = GetCard(e.CardInSourceZone);
                 var removed = (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
-                if (removed)
+                foreach (var removedCard in removed)
                 {
                     if (e.Destination != ZoneType.Anywhere)
                     {
                         // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
                         // 613.7d An object receives a timestamp at the time it enters a zone.
-                        var newObject = new Card(card, GetTimestamp());
+                        var newObject = new Card(removedCard, GetTimestamp());
                         (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
                         e.Card = newObject.Convert();
                     }
@@ -618,9 +618,14 @@ namespace Engine
             _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
         }
 
-        internal bool CanBeEvolved(Card card)
+        internal bool CanEvolve(Card card)
         {
             return BattleZone.GetCreatures(card.Owner).Any(x => card.CanEvolveFrom(this, x));
+        }
+
+        internal IEnumerable<Card> GetCreaturesCreatureCanEvolveFrom(Card card)
+        {
+            return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
         }
         #endregion Methods
     }
