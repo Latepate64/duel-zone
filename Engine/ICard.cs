@@ -11,6 +11,7 @@ namespace Engine
         int? PrintedPower { get; }
 
         void AddGrantedAbility(IAbility ability);
+        bool AffectedBySummoningSickness(IGame game);
         bool CanAttackCreatures(IGame game);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);

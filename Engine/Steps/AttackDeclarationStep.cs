@@ -17,7 +17,7 @@ namespace Engine.Steps
         public override void PerformTurnBasedAction(IGame game)
         {
             var activePlayer = game.CurrentTurn.ActivePlayer;
-            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(game, c) && Player.GetPossibleAttackTargets(c, game).Any());
+            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && Player.GetPossibleAttackTargets(c, game).Any());
             var attackersWithAttackTargets = attackers.GroupBy(a => a, a => Player.GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
             var targets = options.SelectMany(x => x).SelectMany(x => x);
@@ -25,11 +25,6 @@ namespace Engine.Steps
             {
                 activePlayer.ChooseAttacker(game, attackers);
             }
-        }
-
-        internal static bool AffectedBySummoningSickness(IGame game, ICard creature)
-        {
-            return creature.SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(creature).Any());
         }
 
         public override Step GetNextStep(IGame game)
