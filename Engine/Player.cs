@@ -7,6 +7,7 @@ using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Steps;
 
 namespace Engine
 {
@@ -388,6 +389,65 @@ namespace Engine
         public void Look(ICard[] cards)
         {
             cards.Where(x => !x.KnownTo.Contains(Id)).ToList().ForEach(x => x.KnownTo.Add(Id));
+        }
+
+        public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
+        {
+            var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
+            var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
+            if (decision.Any())
+            {
+                ChooseAttackTarget(game, attackers, decision.Single());
+            }
+        }
+
+        private void ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
+        {
+            var attacker = attackers.Single(x => x.Id == id);
+            var possibleTargets = GetPossibleAttackTargets(attacker, game);
+            Common.IIdentifiable target = possibleTargets.Count() > 1
+                ? game.GetAttackable(Choose(new AttackTargetSelection(Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
+                : possibleTargets.Single();
+            Tap(game, attacker);
+            if (target.Id == attacker.Id)
+            {
+                game.CurrentTurn.CurrentPhase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>());
+            }
+            else
+            {
+                var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
+                phase.SetAttackingCreature(attacker, game);
+                phase.AttackTarget = target.Id;
+                game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
+            }
+        }
+
+        internal static IEnumerable<IIdentifiable> GetPossibleAttackTargets(ICard attacker, IGame game)
+        {
+            List<Common.IIdentifiable> attackables = new();
+            var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
+            if (opponent != null)
+            {
+                if (attacker.CanAttackPlayers(game))
+                {
+                    attackables.Add(opponent);
+                }
+                if (attacker.CanAttackCreatures(game))
+                {
+                    var opponentsCreatures = game.BattleZone.GetCreatures(opponent.Id);
+                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
+                    if (game.GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                    {
+                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped));
+                    }
+                    attackables.AddRange(opponentsCreatures.Where(creature => game.GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
+                }
+                if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
+                {
+                    attackables.Add(attacker);
+                }
+            }
+            return attackables;
         }
         #endregion Methods
     }

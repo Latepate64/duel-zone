@@ -16,6 +16,7 @@ namespace Engine
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
+        void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
         Common.IPlayer Convert();
         Common.IPlayer Copy();
