@@ -67,5 +67,10 @@ namespace Engine.Zones
         {
             return "battle zone";
         }
+
+        public IEnumerable<ICard> GetChoosableEvolutionCreatures(IGame game, Guid owner)
+        {
+            return GetChoosableCreatures(game, owner).Where(x => x.IsEvolutionCreature);
+        }
     }
 }

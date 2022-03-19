@@ -25,5 +25,6 @@ namespace Engine
         void InitializeAbilities();
         void PutOnTopOf(ICard bait);
         void ResetToPrintedValues();
+        void MoveTopCardIntoOwnersGraveyard(IGame game);
     }
 }

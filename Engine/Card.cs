@@ -179,5 +179,16 @@ namespace Engine
         {
             return SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(this).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any());
         }
+
+        public void MoveTopCardIntoOwnersGraveyard(IGame game)
+        {
+            if (OnTopOf != Guid.Empty)
+            {
+                var card = game.GetCard(OnTopOf);
+                OnTopOf = Guid.Empty;
+                card.Underneath = Guid.Empty;
+            }
+            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
+        }
     }
 }
