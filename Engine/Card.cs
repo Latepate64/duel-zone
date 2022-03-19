@@ -124,7 +124,7 @@ namespace Engine
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this);
+            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<CannotUseCardEffect>(this).Any();
         }
 
         public bool CanBePaid(IPlayer player)

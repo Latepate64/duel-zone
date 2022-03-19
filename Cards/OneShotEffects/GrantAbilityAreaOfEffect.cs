@@ -3,28 +3,30 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
     class GrantAbilityAreaOfEffect : OneShotAreaOfEffect
     {
-        public IAbility Ability { get; }
+        public List<IAbility> Abilities { get; } = new List<IAbility>();
 
-        public GrantAbilityAreaOfEffect(Ability ability) : base(new OwnersBattleZoneCreatureFilter())
+        public GrantAbilityAreaOfEffect(params IAbility[] abilities) : base(new OwnersBattleZoneCreatureFilter())
         {
-            Ability = ability;
+            Abilities.AddRange(abilities);
         }
 
         public GrantAbilityAreaOfEffect(GrantAbilityAreaOfEffect effect) : base(effect)
         {
-            Ability = effect.Ability.Copy();
+            Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
         public override object Apply(IGame game, IAbility source)
         {
             foreach (var creature in GetAffectedCards(game, source))
             {
-                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn(), Ability.Copy()));
+                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn(), Abilities.Select(x => x.Copy()).ToArray()));
             }
             return null;
         }
@@ -36,7 +38,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"Each of your creatures in the battle zone gets ${Ability} until the end of the turn.";
+            return $"Each of your creatures in the battle zone gets {Abilities} until the end of the turn.";
         }
     }
 }
