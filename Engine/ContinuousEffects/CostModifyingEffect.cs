@@ -9,7 +9,7 @@ namespace Engine.ContinuousEffects
     {
         public int CostChange { get; set; }
 
-        public CostModifyingEffect(int costChange, CardFilter filter) : base(filter)
+        public CostModifyingEffect(int costChange, ICardFilter filter) : base(filter)
         {
             CostChange = costChange;
         }

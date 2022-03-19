@@ -29,7 +29,7 @@ namespace Engine
         bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
         IEnumerable<ICard> GetAllCards();
-        IEnumerable<ICard> GetAllCards(CardFilter filter, Guid player);
+        IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player);
         Common.IIdentifiable GetAttackable(Guid id);
         ICard GetCard(Guid id);
         IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector);

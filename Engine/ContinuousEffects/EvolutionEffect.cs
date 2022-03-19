@@ -8,7 +8,7 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        protected EvolutionEffect(CardFilter filter) : base(filter)
+        protected EvolutionEffect(ICardFilter filter) : base(filter)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Engine.ContinuousEffects
             Race = effect.Race;
         }
 
-        public RaceEvolutionEffect(CardFilter filter, Subtype race) : base(filter)
+        public RaceEvolutionEffect(ICardFilter filter, Subtype race) : base(filter)
         {
             Race = race;
         }

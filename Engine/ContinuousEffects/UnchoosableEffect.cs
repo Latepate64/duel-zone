@@ -2,7 +2,7 @@
 {
     public class UnchoosableEffect : ContinuousEffect
     {
-        public UnchoosableEffect(CardFilter filter) : base(filter)
+        public UnchoosableEffect(ICardFilter filter) : base(filter)
         {
         }
 

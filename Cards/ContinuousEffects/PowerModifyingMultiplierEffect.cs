@@ -6,9 +6,9 @@ namespace Cards.ContinuousEffects
 {
     class PowerModifyingMultiplierEffect : PowerModifyingEffect
     {
-        public CardFilter Multiplier { get; set; }
+        public ICardFilter Multiplier { get; set; }
 
-        public PowerModifyingMultiplierEffect(int power, CardFilter multiplier, params Condition[] conditions) : base(power, conditions)
+        public PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, conditions)
         {
             Multiplier = multiplier;
         }

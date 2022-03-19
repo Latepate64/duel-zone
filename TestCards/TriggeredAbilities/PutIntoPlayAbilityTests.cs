@@ -12,7 +12,7 @@ namespace TestCards.TriggeredAbilities
         [Fact]
         public void CanTrigger_CardMovesToBattleZone_ReturnTrue()
         {
-            var filter = new Mock<CardFilter>();
+            var filter = new Mock<ICardFilter>();
             filter.Setup(x => x.Applies(It.IsAny<ICard>(), It.IsAny<Game>(), It.IsAny<Player>())).Returns(true);
             var e = Mock.Of<CardMovedEvent>();
             e.Destination = Common.ZoneType.BattleZone;

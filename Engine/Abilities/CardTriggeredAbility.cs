@@ -4,11 +4,11 @@ namespace Engine.Abilities
 {
     public abstract class CardTriggeredAbility : TriggeredAbility
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
         protected CardTriggeredAbility(IOneShotEffect effect) : this(effect, new TargetFilter()) { }
 
-        protected CardTriggeredAbility(IOneShotEffect effect, CardFilter filter) : base(effect)
+        protected CardTriggeredAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
         {
             Filter = filter;
         }

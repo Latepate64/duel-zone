@@ -7,9 +7,9 @@ namespace Cards.OneShotEffects
 {
     abstract class OneShotAreaOfEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
-        protected OneShotAreaOfEffect(CardFilter filter)
+        protected OneShotAreaOfEffect(ICardFilter filter)
         {
             Filter = filter;
         }

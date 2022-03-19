@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     public abstract class ChooseAnyNumberOfCardsEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
         protected ChooseAnyNumberOfCardsEffect(CardFilter filter)
         {

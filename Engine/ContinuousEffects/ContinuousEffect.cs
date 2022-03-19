@@ -18,7 +18,7 @@ namespace Engine.ContinuousEffects
         /// <summary>
         /// Filter that can be applied to find cards affected by the effect.
         /// </summary>
-        public CardFilter Filter { get; set; }
+        public ICardFilter Filter { get; set; }
 
         public Guid SourceAbility { get; set; }
 
@@ -26,11 +26,11 @@ namespace Engine.ContinuousEffects
 
         private readonly List<Condition> _conditions = new();
 
-        protected ContinuousEffect(CardFilter filter, params Condition[] conditions) : this(filter, new Indefinite(), conditions)
+        protected ContinuousEffect(ICardFilter filter, params Condition[] conditions) : this(filter, new Indefinite(), conditions)
         {
         }
 
-        protected ContinuousEffect(CardFilter filter, IDuration duration, params Condition[] conditions)
+        protected ContinuousEffect(ICardFilter filter, IDuration duration, params Condition[] conditions)
         {
             _conditions.AddRange(conditions);
             Duration = duration;

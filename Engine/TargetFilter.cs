@@ -18,7 +18,7 @@ namespace Engine
             Target = filter.Target;
         }
 
-        public override CardFilter Copy()
+        public override ICardFilter Copy()
         {
             return new TargetFilter(this);
         }

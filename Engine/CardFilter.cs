@@ -2,13 +2,13 @@
 
 namespace Engine
 {
-    public abstract class CardFilter : IDisposable
+    public abstract class CardFilter : ICardFilter
     {
         protected CardFilter() { }
 
         public abstract bool Applies(ICard card, IGame game, IPlayer player);
 
-        public abstract CardFilter Copy();
+        public abstract ICardFilter Copy();
 
         protected virtual void Dispose(bool disposing) { }
 

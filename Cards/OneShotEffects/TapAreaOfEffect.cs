@@ -6,9 +6,9 @@ namespace Cards.OneShotEffects
 {
     class TapAreaOfEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
-        public TapAreaOfEffect(CardFilter filter)
+        public TapAreaOfEffect(ICardFilter filter)
         {
             Filter = filter;
         }

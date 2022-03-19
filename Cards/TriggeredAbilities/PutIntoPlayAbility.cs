@@ -20,7 +20,7 @@ namespace Cards.TriggeredAbilities
         /// </summary>
         /// <param name="effect"></param>
         /// <param name="filter"></param>
-        public PutIntoPlayAbility(IOneShotEffect effect, CardFilter filter) : base(effect, filter)
+        public PutIntoPlayAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
         {
         }
 

@@ -4,14 +4,14 @@ namespace Engine.ContinuousEffects
 {
     public class UnblockableEffect : ContinuousEffect
     {
-        public CardFilter BlockerFilter { get; }
+        public ICardFilter BlockerFilter { get; }
 
-        public UnblockableEffect(CardFilter filter, IDuration duration, CardFilter blockerFilter, params Condition[] conditions) : base(filter, duration, conditions)
+        public UnblockableEffect(ICardFilter filter, IDuration duration, ICardFilter blockerFilter, params Condition[] conditions) : base(filter, duration, conditions)
         {
             BlockerFilter = blockerFilter;
         }
 
-        public UnblockableEffect(CardFilter filter, CardFilter blockerFilter, params Condition[] conditions) : this(filter, new Indefinite(), blockerFilter, conditions)
+        public UnblockableEffect(ICardFilter filter, ICardFilter blockerFilter, params Condition[] conditions) : this(filter, new Indefinite(), blockerFilter, conditions)
         {
         }
 

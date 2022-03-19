@@ -4,9 +4,9 @@ namespace Engine
 {
     public abstract class Condition : ICopyable<Condition>
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
-        protected Condition(CardFilter filter)
+        protected Condition(ICardFilter filter)
         {
             Filter = filter;
         }

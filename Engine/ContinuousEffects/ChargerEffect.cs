@@ -2,7 +2,7 @@
 {
     public class ChargerEffect : ContinuousEffect
     {
-        public ChargerEffect(CardFilter filter) : base(filter)
+        public ChargerEffect(ICardFilter filter) : base(filter)
         {
         }
 

@@ -10,7 +10,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public DestroyAreaOfEffect(CardFilter filter) : base(ZoneType.BattleZone, ZoneType.Graveyard, filter)
+        public DestroyAreaOfEffect(ICardFilter filter) : base(ZoneType.BattleZone, ZoneType.Graveyard, filter)
         {
         }
 

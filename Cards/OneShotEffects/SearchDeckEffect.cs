@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     abstract class SearchDeckEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
         protected SearchDeckEffect(CardFilter filter)
         {

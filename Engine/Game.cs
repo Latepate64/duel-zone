@@ -273,7 +273,7 @@ namespace Engine
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
         }
 
-        public IEnumerable<ICard> GetAllCards(CardFilter filter, Guid player)
+        public IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player)
         {
             return GetAllCards().Where(card => filter.Applies(card, this, GetPlayer(player)));
         }

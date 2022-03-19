@@ -2,7 +2,7 @@
 {
     public class CannotAttackCreaturesEffect : ContinuousEffect
     {
-        public CannotAttackCreaturesEffect(CardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        public CannotAttackCreaturesEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
         {
         }
 
