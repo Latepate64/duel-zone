@@ -19,7 +19,7 @@ namespace Engine
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; private set; } = new();
+        public IDeck Deck { get; private set; } = new Deck();
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -34,7 +34,7 @@ namespace Engine
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; } = new();
+        public IManaZone ManaZone { get; private set; } = new ManaZone();
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
@@ -55,7 +55,7 @@ namespace Engine
             }
         }
 
-        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+        public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
         public Guid AttackableId { get; set; }
         #endregion Properties
@@ -67,7 +67,7 @@ namespace Engine
         {
         }
 
-        protected Player(Player player) : base(player)
+        protected Player(IPlayer player) : base(player)
         {
             Deck = new Deck(player.Deck);
             Graveyard = new Graveyard(player.Graveyard);
@@ -120,10 +120,10 @@ namespace Engine
 
         public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
 
-        public GuidDecision Choose(GuidSelection selection, IGame game)
+        public IGuidDecision Choose(GuidSelection selection, IGame game)
         {
             var legal = false;
-            GuidDecision decision = null;
+            IGuidDecision decision = null;
             while (!legal)
             {
                 decision = ClientChoose(selection);
@@ -141,7 +141,7 @@ namespace Engine
             return decision;
         }
 
-        public abstract GuidDecision ClientChoose(GuidSelection guidSelection);
+        public abstract IGuidDecision ClientChoose(GuidSelection guidSelection);
 
         public void ShuffleDeck(IGame game)
         {
@@ -253,7 +253,7 @@ namespace Engine
             game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 
-        public Zone GetZone(ZoneType zone)
+        public IZone GetZone(ZoneType zone)
         {
             return zone switch
             {
@@ -266,7 +266,7 @@ namespace Engine
             };
         }
 
-        public Common.Player Copy()
+        public Common.IPlayer Copy()
         {
             return Convert();
         }
@@ -342,7 +342,7 @@ namespace Engine
             card.PutOnTopOf(bait);
         }
 
-        public Common.Player Convert()
+        public Common.IPlayer Convert()
         {
             return new Common.Player(this);
         }

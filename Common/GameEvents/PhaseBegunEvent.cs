@@ -21,13 +21,13 @@ namespace Common.GameEvents
     {
         public PhaseOrStep PhaseOrStep { get; set; }
 
-        public Turn Turn { get; set; }
+        public ITurn Turn { get; set; }
 
         public PhaseBegunEvent()
         {
         }
 
-        public PhaseBegunEvent(PhaseOrStep phase, Turn turn)
+        public PhaseBegunEvent(PhaseOrStep phase, ITurn turn)
         {
             PhaseOrStep = phase;
             Turn = turn;

@@ -8,9 +8,9 @@ namespace Engine.Steps
 {
     public abstract class Phase : ICopyable<Phase>
     {
-        public abstract Phase GetNextPhase(Game game);
+        public abstract Phase GetNextPhase(IGame game);
 
-        internal virtual void Play(Game game)
+        internal virtual void Play(IGame game)
         {
             if (this is ITurnBasedActionable turnBasedActionable)
             {
@@ -19,19 +19,19 @@ namespace Engine.Steps
             Progress(game);
         }
 
-        internal void Progress(Game game)
+        internal void Progress(IGame game)
         {
-            if (game.Players.Any())
+            if (!game.Ended)
             {
                 ResolveAbilities(game);
-                if (this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
+                if (!game.Ended && this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
                 {
                     Progress(game);
                 }
             }
         }
 
-        private void ResolveAbilities(Game game)
+        private void ResolveAbilities(IGame game)
         {
             while (PendingAbilities.Any())
             {

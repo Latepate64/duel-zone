@@ -9,7 +9,7 @@
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override Step GetNextStep(IGame game)
         {
             return new EndOfAttackStep(Phase);
         }
@@ -18,7 +18,7 @@
         {
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
             game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == System.Guid.Empty ? Phase.AttackTarget : Phase.BlockingCreature);
         }

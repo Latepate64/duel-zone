@@ -6,7 +6,7 @@
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override Step GetNextStep(IGame game)
         {
             return new AttackDeclarationStep(Phase);
         }
@@ -16,7 +16,7 @@
             return new EndOfAttackStep(this);
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
             Phase.RemoveAttackingCreature(game);
             Phase.RemoveAttackTarget(game);

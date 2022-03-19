@@ -14,9 +14,9 @@ namespace Engine.Steps
         {
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
-            var activePlayer = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var activePlayer = game.CurrentTurn.ActivePlayer;
             var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(game, c) && GetPossibleAttackTargets(c, game).Any());
             var attackersWithAttackTargets = attackers.GroupBy(a => a, a => GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
@@ -27,12 +27,12 @@ namespace Engine.Steps
             }
         }
 
-        internal static bool AffectedBySummoningSickness(Game game, ICard creature)
+        internal static bool AffectedBySummoningSickness(IGame game, ICard creature)
         {
             return creature.SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(creature).Any());
         }
 
-        private void ChooseAttacker(Game game, IPlayer activePlayer, IEnumerable<ICard> attackers)
+        private void ChooseAttacker(IGame game, IPlayer activePlayer, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
             var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum), game).Decision;
@@ -42,7 +42,7 @@ namespace Engine.Steps
             }
         }
 
-        private void ChooseAttackTarget(Game game, IPlayer activePlayer, IEnumerable<ICard> attackers, Guid id)
+        private void ChooseAttackTarget(IGame game, IPlayer activePlayer, IEnumerable<ICard> attackers, Guid id)
         {
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);
@@ -62,7 +62,7 @@ namespace Engine.Steps
             }
         }
 
-        private static IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker, Game game)
+        private static IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker, IGame game)
         {
             List<Common.IIdentifiable> attackables = new();
             var opponent = game.GetOpponent(game.GetPlayer(attacker.Owner));
@@ -90,7 +90,7 @@ namespace Engine.Steps
             return attackables;
         }
 
-        public override Step GetNextStep(Game game)
+        public override Step GetNextStep(IGame game)
         {
             if (Phase.AttackingCreature != Guid.Empty)
             {

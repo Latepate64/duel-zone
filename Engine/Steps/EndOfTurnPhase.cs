@@ -12,7 +12,7 @@ namespace Engine.Steps
         {
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             return null;
         }
@@ -24,7 +24,7 @@ namespace Engine.Steps
             return new EndOfTurnPhase(this);
         }
 
-        public void PerformTurnBasedAction(Game game)
+        public void PerformTurnBasedAction(IGame game)
         {
             game.RemoveRevokedObjects(typeof(UntilTheEndOfTheTurn));
         }

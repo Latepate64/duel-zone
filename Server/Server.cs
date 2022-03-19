@@ -128,7 +128,7 @@ namespace Server
             }
         }
 
-        private Table GetTable(Player player)
+        private Table GetTable(IPlayer player)
         {
             return _tables.Single(x => x.GetPlayers().Contains(player));
         }

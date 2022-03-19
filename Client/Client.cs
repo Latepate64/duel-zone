@@ -13,7 +13,7 @@ namespace Client
 {
     internal class Client
     {
-        internal Player _player;
+        internal IPlayer _player;
 
         private TcpClient _client;
         private const int BufferSize = 256 * 256 * 16;

@@ -2,7 +2,7 @@
 {
     public class DeckoutEvent : GameEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
         public DeckoutEvent()
         {

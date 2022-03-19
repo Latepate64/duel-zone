@@ -6,24 +6,24 @@ namespace Engine
 {
     public interface IPlayer : Common.IPlayer, IAttackable
     {
-        Deck Deck { get; }
+        IDeck Deck { get; }
         IEnumerable<ICard> CardsInNonsharedZones { get; }
         Graveyard Graveyard { get; }
-        ManaZone ManaZone { get; }
-        IEnumerable<Zone> Zones { get; }
+        IManaZone ManaZone { get; }
+        IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
 
-        GuidDecision Choose(GuidSelection selection, IGame game);
+        IGuidDecision Choose(GuidSelection selection, IGame game);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
-        Common.Player Convert();
-        Common.Player Copy();
+        Common.IPlayer Convert();
+        Common.IPlayer Copy();
         void DiscardAtRandom(IGame game, int amount);
         void Dispose();
         void DrawCards(int amount, IGame game);
         IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game);
-        Zone GetZone(Common.ZoneType zone);
+        IZone GetZone(Common.ZoneType zone);
         void Look(ICard[] cards);
         void PutFromTopOfDeckIntoManaZone(IGame game, int amount);
         void PutFromTopOfDeckIntoShieldZone(int amount, IGame game);

@@ -9,7 +9,7 @@
         {
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new ChargePhase();
         }
@@ -18,9 +18,9 @@
         /// 702.3b Immediately after the draw step begins, the active player draws a card.
         /// </summary>
         /// <returns></returns>
-        public void PerformTurnBasedAction(Game game)
+        public void PerformTurnBasedAction(IGame game)
         {
-            game.GetPlayer(game.CurrentTurn.ActivePlayer.Id).DrawCards(1, game);
+           game.CurrentTurn.ActivePlayer.DrawCards(1, game);
         }
 
         public override Phase Copy()

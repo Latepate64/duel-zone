@@ -13,7 +13,7 @@ namespace Engine.Steps
             SkipDrawStep = skipDrawStep;
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
             if (SkipDrawStep)
@@ -30,9 +30,9 @@ namespace Engine.Steps
         /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
         /// </summary>
         /// <returns></returns>
-        public void PerformTurnBasedAction(Game game)
+        public void PerformTurnBasedAction(IGame game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var player = game.CurrentTurn.ActivePlayer;
             var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
             if (ownCreaturesWithSummoningSickness.Any())
             {

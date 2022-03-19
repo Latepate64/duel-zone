@@ -12,15 +12,14 @@ namespace Engine.Steps
         {
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new MainPhase();
         }
 
-        protected internal override bool PerformPriorityAction(Game game)
+        protected internal override bool PerformPriorityAction(IGame game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
-            var dec = player.Choose(new ChargeManaSelection(game.CurrentTurn.ActivePlayer.Id, game.GetPlayer(game.CurrentTurn.ActivePlayer.Id).Hand.Cards), game);
+            var dec = game.CurrentTurn.ActivePlayer.Choose(new ChargeManaSelection(game.CurrentTurn.ActivePlayer.Id, game.CurrentTurn.ActivePlayer.Hand.Cards), game);
             var cards = dec.Decision;
             if (cards.Any())
             {

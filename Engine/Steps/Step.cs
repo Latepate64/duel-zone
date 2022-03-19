@@ -19,8 +19,8 @@ namespace Engine.Steps
         public AttackPhase Phase { get; }
         public PhaseOrStep Type { get; }
 
-        public abstract Step GetNextStep(Game game);
+        public abstract Step GetNextStep(IGame game);
         public abstract Step Copy();
-        public abstract void PerformTurnBasedAction(Game game);
+        public abstract void PerformTurnBasedAction(IGame game);
     }
 }

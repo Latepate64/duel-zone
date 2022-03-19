@@ -7,11 +7,11 @@ namespace Engine.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone
+    public class Deck : Zone, IDeck
     {
         public Deck() : base() { }
 
-        public Deck(Zone zone) : base(zone)
+        public Deck(IDeck zone) : base(zone)
         {
         }
 
@@ -58,7 +58,7 @@ namespace Engine.Zones
             return "deck";
         }
 
-        public void Setup(IEnumerable<Card> cards, Guid owner)
+        public void Setup(IEnumerable<ICard> cards, Guid owner)
         {
             cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);

@@ -11,9 +11,9 @@ namespace Engine.Steps
         {
         }
 
-        protected internal override bool PerformPriorityAction(Game game)
+        protected internal override bool PerformPriorityAction(IGame game)
         {
-            var player = game.GetPlayer(game.CurrentTurn.ActivePlayer.Id);
+            var player = game.CurrentTurn.ActivePlayer;
             if (player != null)
             {
                 var cards = player.GetCardsThatCanBePaidAndUsed(game);
@@ -32,7 +32,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new AttackPhase();
         }

@@ -2,7 +2,7 @@
 {
     public class WinEvent : GameEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
         public WinEvent()
         {

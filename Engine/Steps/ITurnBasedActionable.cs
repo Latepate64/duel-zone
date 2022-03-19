@@ -2,6 +2,6 @@
 {
     public interface ITurnBasedActionable
     {
-        void PerformTurnBasedAction(Game game);
+        void PerformTurnBasedAction(IGame game);
     }
 }

@@ -13,9 +13,9 @@ namespace Engine.Steps
         {
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
-            var nonActive = game.GetPlayer(game.CurrentTurn.NonActivePlayer.Id);
+            var nonActive = game.CurrentTurn.NonActivePlayer;
             var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
             if (possibleBlockers.Any())
             {
@@ -28,7 +28,7 @@ namespace Engine.Steps
             }
         }
 
-        private void ChooseBlocker(Game game, IPlayer nonActive, IEnumerable<ICard> possibleBlockers)
+        private void ChooseBlocker(IGame game, IPlayer nonActive, IEnumerable<ICard> possibleBlockers)
         {
             var blockers = nonActive.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
             if (blockers.Any())
@@ -41,7 +41,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Step GetNextStep(Game game)
+        public override Step GetNextStep(IGame game)
         {
             if (Phase.BlockingCreature != Guid.Empty)
             {

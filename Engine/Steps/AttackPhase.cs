@@ -25,7 +25,7 @@ namespace Engine.Steps
             return new AttackPhase(this);
         }
 
-        internal void RemoveAttackTarget(Game game)
+        internal void RemoveAttackTarget(IGame game)
         {
             if (AttackTarget != Guid.Empty)
             {
@@ -44,7 +44,7 @@ namespace Engine.Steps
             }
         }
 
-        internal void RemoveBlockingCreature(Game game)
+        internal void RemoveBlockingCreature(IGame game)
         {
             if (BlockingCreature != Guid.Empty)
             {
@@ -54,7 +54,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new EndOfTurnPhase();
         }
@@ -69,15 +69,15 @@ namespace Engine.Steps
             }
         }
 
-        internal void SetAttackingCreature(ICard attacker, Game game)
+        internal void SetAttackingCreature(ICard attacker, IGame game)
         {
             AttackingCreature = attacker.Id;
         }
 
-        internal override void Play(Game game)
+        internal override void Play(IGame game)
         {
             Step step = new AttackDeclarationStep(this);
-            while (step != null && game.Players.Any())
+            while (step != null && !game.Ended)
             {
                 _steps.Add(step);
                 game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));

@@ -2,6 +2,6 @@
 {
     public class ReadyToStartGame
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
     }
 }
