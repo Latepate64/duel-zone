@@ -1,7 +1,6 @@
 ﻿using Common.GameEvents;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Engine.Steps
 {
@@ -20,7 +19,7 @@ namespace Engine.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new AttackPhase(this);
         }
@@ -54,7 +53,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Phase GetNextPhase(IGame game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return new EndOfTurnPhase();
         }
@@ -74,9 +73,9 @@ namespace Engine.Steps
             AttackingCreature = attacker.Id;
         }
 
-        internal override void Play(IGame game)
+        public override void Play(IGame game)
         {
-            Step step = new AttackDeclarationStep(this);
+            IStep step = new AttackDeclarationStep(this);
             while (step != null && !game.Ended)
             {
                 _steps.Add(step);
@@ -87,6 +86,6 @@ namespace Engine.Steps
             }
         }
 
-        private readonly Collection<Step> _steps = new();
+        private readonly Collection<IStep> _steps = new();
     }
 }

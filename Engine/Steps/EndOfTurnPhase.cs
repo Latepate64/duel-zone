@@ -12,14 +12,14 @@ namespace Engine.Steps
         {
         }
 
-        public override Phase GetNextPhase(IGame game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return null;
         }
 
         public EndOfTurnPhase(EndOfTurnPhase step) : base(step) { }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new EndOfTurnPhase(this);
         }

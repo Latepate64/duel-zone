@@ -2,7 +2,7 @@
 
 namespace Engine.Steps
 {
-    public abstract class Step : ITurnBasedActionable
+    public abstract class Step : ITurnBasedActionable, IStep
     {
         protected Step(AttackPhase phase, PhaseOrStep type)
         {
@@ -10,7 +10,7 @@ namespace Engine.Steps
             Type = type;
         }
 
-        protected Step(Step step)
+        protected Step(IStep step)
         {
             Phase = step.Phase;
             Type = step.Type;
@@ -19,8 +19,8 @@ namespace Engine.Steps
         public AttackPhase Phase { get; }
         public PhaseOrStep Type { get; }
 
-        public abstract Step GetNextStep(IGame game);
-        public abstract Step Copy();
+        public abstract IStep GetNextStep(IGame game);
+        public abstract IStep Copy();
         public abstract void PerformTurnBasedAction(IGame game);
     }
 }

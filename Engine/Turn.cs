@@ -13,12 +13,12 @@ namespace Engine
         /// <summary>
         /// The phase that is currently being processed.
         /// </summary>
-        public Phase CurrentPhase => Phases.Last();
+        public IPhase CurrentPhase => Phases.Last();
 
         /// <summary>
         /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
-        public IList<Phase> Phases { get; private set; } = new Collection<Phase>();
+        public IList<IPhase> Phases { get; private set; } = new Collection<IPhase>();
 
         /// <summary>
         /// 102.1. The active player is the player whose turn it is.
@@ -61,7 +61,7 @@ namespace Engine
             CurrentPhase.Play(game);
             if (!game.Ended)
             {
-                Phase nextPhase = CurrentPhase.GetNextPhase(game);
+                IPhase nextPhase = CurrentPhase.GetNextPhase(game);
                 if (nextPhase != null)
                 {
                     Phases.Add(nextPhase);

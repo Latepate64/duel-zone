@@ -6,12 +6,12 @@
         {
         }
 
-        public override Step GetNextStep(IGame game)
+        public override IStep GetNextStep(IGame game)
         {
             return new AttackDeclarationStep(Phase);
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new EndOfAttackStep(this);
         }

@@ -32,14 +32,14 @@ namespace Engine.Steps
             }
         }
 
-        public override Phase GetNextPhase(IGame game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return new AttackPhase();
         }
 
         public MainPhase(MainPhase step) : base(step) { }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new MainPhase(this);
         }

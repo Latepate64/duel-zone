@@ -7,8 +7,8 @@ namespace Engine
     {
         IPlayer ActivePlayer { get; set; }
         IPlayer NonActivePlayer { get; set; }
-        Phase CurrentPhase { get; }
-        IList<Phase> Phases { get; }
+        IPhase CurrentPhase { get; }
+        IList<IPhase> Phases { get; }
 
         Common.ITurn Convert();
         void Dispose();

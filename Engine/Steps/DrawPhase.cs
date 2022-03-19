@@ -9,7 +9,7 @@
         {
         }
 
-        public override Phase GetNextPhase(IGame game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return new ChargePhase();
         }
@@ -23,7 +23,7 @@
            game.CurrentTurn.ActivePlayer.DrawCards(1, game);
         }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new DrawPhase(this);
         }

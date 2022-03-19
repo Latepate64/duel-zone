@@ -41,7 +41,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Step GetNextStep(IGame game)
+        public override IStep GetNextStep(IGame game)
         {
             if (Phase.BlockingCreature != Guid.Empty)
             {
@@ -57,7 +57,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new BlockDeclarationStep(this);
         }

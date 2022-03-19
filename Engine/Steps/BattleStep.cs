@@ -9,7 +9,7 @@
         {
         }
 
-        public override Step GetNextStep(IGame game)
+        public override IStep GetNextStep(IGame game)
         {
             return new EndOfAttackStep(Phase);
         }
@@ -23,7 +23,7 @@
             game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == System.Guid.Empty ? Phase.AttackTarget : Phase.BlockingCreature);
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new BattleStep(this);
         }

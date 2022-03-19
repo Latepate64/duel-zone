@@ -12,7 +12,7 @@ namespace Engine.Steps
         {
         }
 
-        public override Phase GetNextPhase(IGame game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return new MainPhase();
         }
@@ -28,7 +28,7 @@ namespace Engine.Steps
             return true;
         }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new ChargePhase(this);
         }

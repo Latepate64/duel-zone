@@ -16,18 +16,16 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            var activePlayer = game.CurrentTurn.ActivePlayer;
             var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && Player.GetPossibleAttackTargets(c, game).Any());
             var attackersWithAttackTargets = attackers.GroupBy(a => a, a => Player.GetPossibleAttackTargets(a, game));
             var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
-            var targets = options.SelectMany(x => x).SelectMany(x => x);
-            if (targets.Any())
+            if (options.SelectMany(x => x).SelectMany(x => x).Any())
             {
-                activePlayer.ChooseAttacker(game, attackers);
+                game.CurrentTurn.ActivePlayer.ChooseAttacker(game, attackers);
             }
         }
 
-        public override Step GetNextStep(IGame game)
+        public override IStep GetNextStep(IGame game)
         {
             if (Phase.AttackingCreature != Guid.Empty)
             {
@@ -48,7 +46,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new AttackDeclarationStep(this);
         }
