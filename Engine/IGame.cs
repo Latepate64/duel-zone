@@ -35,10 +35,12 @@ namespace Engine
         IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector);
         IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card);
+        IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);
         Guid GetOpponent(Guid player);
         IPlayer GetOwner(ICard card);
         IPlayer GetPlayer(Guid id);
+        IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
         void Lose(IPlayer player);
         IEnumerable<ICardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);

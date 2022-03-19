@@ -16,10 +16,8 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            var attackers = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(game) && Player.GetPossibleAttackTargets(c, game).Any());
-            var attackersWithAttackTargets = attackers.GroupBy(a => a, a => Player.GetPossibleAttackTargets(a, game));
-            var options = attackersWithAttackTargets.GroupBy(x => x.Key.Id, x => x.SelectMany(y => y.Select(z => z.Id)));
-            if (options.SelectMany(x => x).SelectMany(x => x).Any())
+            var attackers = game.GetCreaturesThatHaveAttackTargets();
+            if (attackers.Any())
             {
                 game.CurrentTurn.ActivePlayer.ChooseAttacker(game, attackers);
             }

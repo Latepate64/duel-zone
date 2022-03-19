@@ -647,6 +647,39 @@ namespace Engine
         {
             return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
         }
+
+        public IEnumerable<IIdentifiable> GetPossibleAttackTargets(ICard attacker)
+        {
+            List<IIdentifiable> attackables = new();
+            var opponent = GetOpponent(GetPlayer(attacker.Owner));
+            if (opponent != null)
+            {
+                if (attacker.CanAttackPlayers(this))
+                {
+                    attackables.Add(opponent);
+                }
+                if (attacker.CanAttackCreatures(this))
+                {
+                    var opponentsCreatures = BattleZone.GetCreatures(opponent.Id);
+                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
+                    if (GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
+                    {
+                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped));
+                    }
+                    attackables.AddRange(opponentsCreatures.Where(creature => GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
+                }
+                if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
+                {
+                    attackables.Add(attacker);
+                }
+            }
+            return attackables;
+        }
+
+        public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
+        {
+            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(this) && GetPossibleAttackTargets(c).Any());
+        }
         #endregion Methods
     }
 }
