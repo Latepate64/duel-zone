@@ -24,7 +24,7 @@ namespace Engine.Abilities
             Id = Guid.NewGuid();
         }
 
-        protected Ability(Ability ability)
+        protected Ability(IAbility ability)
         {
             Id = Guid.NewGuid();
             Owner = ability.Owner;

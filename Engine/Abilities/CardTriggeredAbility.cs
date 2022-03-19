@@ -6,9 +6,9 @@ namespace Engine.Abilities
     {
         public CardFilter Filter { get; }
 
-        protected CardTriggeredAbility(OneShotEffect effect) : this(effect, new TargetFilter()) { }
+        protected CardTriggeredAbility(IOneShotEffect effect) : this(effect, new TargetFilter()) { }
 
-        protected CardTriggeredAbility(OneShotEffect effect, CardFilter filter) : base(effect)
+        protected CardTriggeredAbility(IOneShotEffect effect, CardFilter filter) : base(effect)
         {
             Filter = filter;
         }

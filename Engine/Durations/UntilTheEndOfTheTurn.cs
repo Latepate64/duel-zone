@@ -2,7 +2,7 @@
 {
     public class UntilTheEndOfTheTurn : Duration
     {
-        public override Duration Copy()
+        public override IDuration Copy()
         {
             return new UntilTheEndOfTheTurn();
         }

@@ -2,11 +2,11 @@
 {
     public class TapAbility : ActivatedAbility
     {
-        public TapAbility(OneShotEffect effect) : base(effect)
+        public TapAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        public TapAbility(ResolvableAbility ability) : base(ability)
+        public TapAbility(IResolvableAbility ability) : base(ability)
         {
         }
 

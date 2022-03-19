@@ -11,7 +11,7 @@ namespace Engine
     public interface IGame
     {
         IList<IPlayer> Players { get; }
-        BattleZone BattleZone { get; set; }
+        IBattleZone BattleZone { get; set; }
         IList<ITurn> Turns { get; }
         ITurn CurrentTurn { get; }
         Queue<IGameEvent> PreGameEvents { get; }
@@ -22,11 +22,11 @@ namespace Engine
         /// </summary>
         bool Ended { get; }
 
-        void AddContinuousEffects(IAbility source, params ContinuousEffect[] continuousEffects);
-        void AddContinuousEffects(ICard source, params StaticAbility[] staticAbilities);
-        void AddDelayedTriggeredAbility(TriggeredAbility ability, Duration duration);
+        void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
+        void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
+        void AddDelayedTriggeredAbility(ITriggeredAbility ability, IDuration duration);
         void Battle(Guid attackingCreatureId, Guid defendingCreatureId);
-        bool CanEvolve(Card card);
+        bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
         IEnumerable<ICard> GetAllCards();
         IEnumerable<ICard> GetAllCards(CardFilter filter, Guid player);

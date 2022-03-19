@@ -52,7 +52,7 @@ namespace Engine.Steps
             activePlayer.Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
-                Phase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<ResolvableAbility>());
+                Phase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>());
             }
             else
             {

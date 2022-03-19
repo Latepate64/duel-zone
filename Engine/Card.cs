@@ -15,7 +15,7 @@ namespace Engine
 
         public int? PrintedPower { get; }
 
-        public int Timestamp { get; }
+        public int Timestamp { get; set; }
 
         internal bool CountsAsIfExists => Underneath != Guid.Empty;
 
@@ -60,7 +60,7 @@ namespace Engine
             {
                 ability.Owner = Owner;
                 ability.Source = Id;
-                if (ability is StaticAbility staticAbility)
+                if (ability is IStaticAbility staticAbility)
                 {
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {

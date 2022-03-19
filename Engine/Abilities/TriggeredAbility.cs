@@ -6,13 +6,13 @@ namespace Engine.Abilities
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
-    public abstract class TriggeredAbility : ResolvableAbility
+    public abstract class TriggeredAbility : ResolvableAbility, ITriggeredAbility
     {
-        protected TriggeredAbility(OneShotEffect effect) : base(effect)
+        protected TriggeredAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        protected TriggeredAbility(TriggeredAbility ability) : base(ability)
+        protected TriggeredAbility(ITriggeredAbility ability) : base(ability)
         {
         }
 
@@ -23,9 +23,9 @@ namespace Engine.Abilities
         /// <param name="source"></param>
         /// <param name="owner"></param>
         /// <returns></returns>
-        public TriggeredAbility Trigger(Guid source, Guid owner)
+        public ITriggeredAbility Trigger(Guid source, Guid owner)
         {
-            var copy = Copy() as TriggeredAbility;
+            var copy = Copy() as ITriggeredAbility;
             copy.Source = source;
             copy.Owner = owner;
             return copy;

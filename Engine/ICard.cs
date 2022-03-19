@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    public interface ICard : Common.ICard
+    public interface ICard : Common.ICard, ITimestampable
     {
         bool IsEvolutionCreature { get; }
         IList<IAbility> PrintedAbilities { get; }
         IList<IAbility> AddedAbilities { get; }
         int? PrintedPower { get; }
-        int Timestamp { get; }
 
         void AddGrantedAbility(IAbility ability);
         bool CanAttackCreatures(IGame game);

@@ -14,7 +14,7 @@ namespace Engine.ContinuousEffects
             Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
-        public AbilityGrantingEffect(CardFilter filter, Duration duration, params IAbility[] abilities) : base(filter, duration)
+        public AbilityGrantingEffect(CardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter, duration)
         {
             Abilities = abilities.ToList();
         }

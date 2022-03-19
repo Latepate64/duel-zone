@@ -63,14 +63,14 @@ namespace Engine.Steps
             }
         }
 
-        private static AbilityText Convert(ResolvableAbility x)
+        private static AbilityText Convert(IResolvableAbility x)
         {
             return new AbilityText(x.Id, x.ToString());
         }
 
         protected Phase(Phase phase)
         {
-            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
+            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>().ToList();
             GameEvents = new Queue<IGameEvent>(phase.GameEvents);
             UsedCards = phase.UsedCards.ToList();
             Type = phase.Type;
@@ -82,7 +82,7 @@ namespace Engine.Steps
         }
 
         public List<ICard> UsedCards { get; } = new List<ICard>();
-        public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
+        public List<IResolvableAbility> PendingAbilities { get; internal set; } = new List<IResolvableAbility>();
 
         public Queue<IGameEvent> GameEvents { get; } = new Queue<IGameEvent>();
         public PhaseOrStep Type { get; }

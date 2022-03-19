@@ -11,7 +11,7 @@ namespace Cards.TriggeredAbilities
         /// Source of the ability is put into the battle zone.
         /// </summary>
         /// <param name="effect"></param>
-        public PutIntoPlayAbility(OneShotEffect effect) : base(effect)
+        public PutIntoPlayAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -20,7 +20,7 @@ namespace Cards.TriggeredAbilities
         /// </summary>
         /// <param name="effect"></param>
         /// <param name="filter"></param>
-        public PutIntoPlayAbility(OneShotEffect effect, CardFilter filter) : base(effect, filter)
+        public PutIntoPlayAbility(IOneShotEffect effect, CardFilter filter) : base(effect, filter)
         {
         }
 

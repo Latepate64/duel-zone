@@ -7,7 +7,7 @@ namespace Engine.ContinuousEffects
     {
         protected readonly int _power;
 
-        public PowerModifyingEffect(int power, CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
+        public PowerModifyingEffect(int power, CardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
             _power = power;
         }

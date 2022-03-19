@@ -11,13 +11,13 @@ namespace Engine.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone
+    public class BattleZone : Zone, IBattleZone
     {
         public BattleZone() : base()
         {
         }
 
-        public BattleZone(BattleZone zone) : base(zone)
+        public BattleZone(IBattleZone zone) : base(zone)
         {
         }
 
@@ -26,7 +26,7 @@ namespace Engine.Zones
             card.SummoningSickness = true;
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.AddContinuousEffects(card, card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            game.AddContinuousEffects(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
         public override List<ICard> Remove(ICard card, IGame game)
@@ -50,15 +50,15 @@ namespace Engine.Zones
             {
                 return new List<ICard>();
             }
-            else 
+            else
             {
-                var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
+                var staticAbilities = card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
                 game.RemoveContinuousEffects(staticAbilities);
                 return card.Deconstruct(game, new List<ICard>()).ToList();
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreatures(Game game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
         {
             return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }

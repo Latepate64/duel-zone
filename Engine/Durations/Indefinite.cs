@@ -2,7 +2,7 @@
 {
     public class Indefinite : Duration
     {
-        public override Duration Copy()
+        public override IDuration Copy()
         {
             return new Indefinite();
         }

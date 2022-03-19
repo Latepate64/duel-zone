@@ -1,15 +1,15 @@
 ﻿namespace Engine.Abilities
 {
-    public abstract class ResolvableAbility : Ability
+    public abstract class ResolvableAbility : Ability, IResolvableAbility
     {
-        public OneShotEffect OneShotEffect { get; set; }
+        public IOneShotEffect OneShotEffect { get; set; }
 
-        protected ResolvableAbility(OneShotEffect effect) : base()
+        protected ResolvableAbility(IOneShotEffect effect) : base()
         {
             OneShotEffect = effect;
         }
 
-        protected ResolvableAbility(ResolvableAbility ability) : base(ability)
+        protected ResolvableAbility(IResolvableAbility ability) : base(ability)
         {
             OneShotEffect = ability.OneShotEffect.Copy();
         }
