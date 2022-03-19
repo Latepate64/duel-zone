@@ -39,7 +39,7 @@ namespace Cards.Cards.DM09
             throw new NotImplementedException();
         }
 
-        public override bool Replaceable(GameEvent gameEvent, Engine.Game game)
+        public override bool Replaceable(IGameEvent gameEvent, Engine.IGame game)
         {
             if (gameEvent is CardMovedEvent e)
             {

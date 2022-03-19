@@ -53,7 +53,7 @@ namespace Common.GameEvents
             Destination = e.Destination;
         }
 
-        public override GameEvent Copy()
+        public override IGameEvent Copy()
         {
             return new CardMovedEvent(this);
         }

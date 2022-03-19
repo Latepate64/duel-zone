@@ -11,7 +11,7 @@ namespace Engine.ContinuousEffects
     /// </summary>
     public abstract class ReplacementEffect : ContinuousEffect
     {
-        protected ReplacementEffect(GameEvent eventToReplace, CardFilter filter) : base(filter)
+        protected ReplacementEffect(IGameEvent eventToReplace, CardFilter filter) : base(filter)
         {
             Id = Guid.NewGuid();
             EventToReplace = eventToReplace;
@@ -23,11 +23,11 @@ namespace Engine.ContinuousEffects
             EventToReplace = effect.EventToReplace.Copy();
         }
 
-        public GameEvent EventToReplace { get; set; }
+        public IGameEvent EventToReplace { get; set; }
 
         public Guid Id { get; }
 
-        public abstract bool Replaceable(GameEvent gameEvent, Game game);
+        public abstract bool Replaceable(IGameEvent gameEvent, IGame game);
 
         public abstract bool Apply(Game game, IPlayer player);
     }

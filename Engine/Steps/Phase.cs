@@ -71,7 +71,7 @@ namespace Engine.Steps
         protected Phase(Phase phase)
         {
             PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
-            GameEvents = new Queue<GameEvent>(phase.GameEvents);
+            GameEvents = new Queue<IGameEvent>(phase.GameEvents);
             UsedCards = phase.UsedCards.ToList();
             Type = phase.Type;
         }
@@ -84,7 +84,7 @@ namespace Engine.Steps
         public List<ICard> UsedCards { get; } = new List<ICard>();
         public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
 
-        public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
+        public Queue<IGameEvent> GameEvents { get; } = new Queue<IGameEvent>();
         public PhaseOrStep Type { get; }
 
         public abstract Phase Copy();

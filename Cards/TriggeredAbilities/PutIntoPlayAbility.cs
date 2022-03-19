@@ -28,7 +28,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Engine.Game game)
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Destination == ZoneType.BattleZone;
         }

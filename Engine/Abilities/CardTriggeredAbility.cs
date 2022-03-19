@@ -18,7 +18,7 @@ namespace Engine.Abilities
             Filter = ability.Filter.Copy();
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             if (CheckInterveningIfClause(game))
             {

@@ -8,5 +8,6 @@ namespace Engine.ContinuousEffects
         CardFilter Filter { get; set; }
 
         bool ConditionsApply(Game game);
+        ContinuousEffect Copy();
     }
 }

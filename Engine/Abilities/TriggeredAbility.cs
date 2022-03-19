@@ -31,7 +31,7 @@ namespace Engine.Abilities
             return copy;
         }
 
-        public abstract bool CanTrigger(GameEvent gameEvent, Game game);
+        public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
 
         /// <summary>
         /// 603.4. A triggered ability may read “When/Whenever/At [trigger event], if [condition], [effect].”

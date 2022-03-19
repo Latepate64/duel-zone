@@ -10,11 +10,11 @@ namespace Engine
 {
     public interface IGame
     {
-        List<IPlayer> Players { get; }
+        IList<IPlayer> Players { get; }
         BattleZone BattleZone { get; set; }
         IList<Turn> Turns { get; }
         Turn CurrentTurn { get; }
-        Queue<GameEvent> PreGameEvents { get; }
+        Queue<IGameEvent> PreGameEvents { get; }
         Stack<Turn> ExtraTurns { get; }
 
         void AddContinuousEffects(IAbility source, params ContinuousEffect[] continuousEffects);
@@ -36,7 +36,7 @@ namespace Engine
         void Lose(IPlayer player);
         IEnumerable<CardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
-        void Process(GameEvent gameEvent);
+        void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
     }

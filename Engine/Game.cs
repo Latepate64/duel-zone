@@ -18,7 +18,7 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public List<IPlayer> Players { get; } = new();
+        public IList<IPlayer> Players { get; } = new List<IPlayer>();
 
         public IPlayer Winner { get; private set; }
 
@@ -43,7 +43,7 @@ namespace Engine
 
         public Turn CurrentTurn => Turns.Last();
 
-        public IEnumerable<GameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
+        public IEnumerable<IGameEvent> GameEvents => PreGameEvents.Union(Turns.SelectMany(x => x.Phases).SelectMany(x => x.GameEvents));
 
         public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
@@ -74,7 +74,7 @@ namespace Engine
         private readonly List<DelayedTriggeredAbility> _delayedTriggeredAbilities = new();
         #endregion Properties
 
-        public Queue<GameEvent> PreGameEvents { get; } = new();
+        public Queue<IGameEvent> PreGameEvents { get; } = new();
         private int _timestamp = 0;
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Engine
         /// </summary>
         public BattleZone BattleZone { get; set; } = new();
 
-        public delegate void GameEventHandler(GameEvent gameEvent);
+        public delegate void GameEventHandler(IGameEvent gameEvent);
 
         public event GameEventHandler OnGameEvent;
 
@@ -330,7 +330,7 @@ namespace Engine
             }
         }
 
-        public void Process(GameEvent gameEvent)
+        public void Process(IGameEvent gameEvent)
         {
             OnGameEvent?.Invoke(gameEvent);
             if (Turns.Any())
@@ -360,7 +360,7 @@ namespace Engine
             }
         }
 
-        public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(GameEvent gameEvent)
+        public IEnumerable<TriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(IGameEvent gameEvent)
         {
             var abilities = new List<TriggeredAbility>();
             foreach (var card in BattleZone.Cards)
@@ -402,7 +402,7 @@ namespace Engine
 
         private void Leave(IPlayer player)
         {
-            _ = Players.RemoveAll(x => x.Id == player.Id);
+            _ = Players.Remove(player);
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
