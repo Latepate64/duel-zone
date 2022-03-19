@@ -41,7 +41,7 @@ namespace Engine
         IPlayer GetPlayer(Guid id);
         int GetTimestamp();
         void Lose(IPlayer player);
-        IEnumerable<CardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
+        IEnumerable<ICardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);

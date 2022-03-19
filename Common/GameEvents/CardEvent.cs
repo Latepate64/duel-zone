@@ -1,6 +1,6 @@
 ﻿namespace Common.GameEvents
 {
-    public abstract class CardEvent : GameEvent
+    public abstract class CardEvent : GameEvent, ICardEvent
     {
         /// <summary>
         /// The card the event is relative to (eg. card is used, card attacks etc.)
@@ -11,7 +11,7 @@
         {
         }
 
-        protected CardEvent(CardEvent e)
+        protected CardEvent(ICardEvent e)
         {
             Card = e.Card;
         }

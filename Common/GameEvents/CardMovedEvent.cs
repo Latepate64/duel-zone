@@ -2,7 +2,7 @@
 
 namespace Common.GameEvents
 {
-    public class CardMovedEvent : CardEvent
+    public class CardMovedEvent : CardEvent, ICardMovedEvent
     {
         public IPlayer Player { get; set; }
         public Guid CardInSourceZone { get; set; }

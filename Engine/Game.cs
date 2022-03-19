@@ -426,7 +426,7 @@ namespace Engine
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
         }
 
-        public IEnumerable<CardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
             return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
@@ -445,16 +445,16 @@ namespace Engine
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        private IEnumerable<CardMovedEvent> Move(List<CardMovedEvent> events)
+        private IEnumerable<ICardMovedEvent> Move(List<CardMovedEvent> events)
         {
             //TODO: Refactor based on summary.
 
             // TODO: Sort players by turn order
             var replacementEffects = GetReplacementEffects(events);
-            var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<CardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
+            var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<ICardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
             foreach (var cardGroup in affectedCardGroups)
             {
-                var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as CardMovedEvent).CardInSourceZone));
+                var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as ICardMovedEvent).CardInSourceZone));
                 var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
                     ? player.Choose(new ReplacementEffectSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
@@ -473,7 +473,7 @@ namespace Engine
             return events;
         }
 
-        private void Move(CardMovedEvent e)
+        private void Move(ICardMovedEvent e)
         {
             if (e.Player != null)
             {
@@ -494,7 +494,7 @@ namespace Engine
             }
         }
 
-        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<CardMovedEvent> events)
+        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
         {
             var replacementEffects = new List<ReplacementEffect>();
             foreach (var moveEvent in events)
@@ -518,7 +518,7 @@ namespace Engine
             }
         }
 
-        private void CheckShieldTriggers(IEnumerable<CardMovedEvent> events)
+        private void CheckShieldTriggers(IEnumerable<ICardMovedEvent> events)
         {
             var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())

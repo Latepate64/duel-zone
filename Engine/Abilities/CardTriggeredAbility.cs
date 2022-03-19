@@ -22,7 +22,7 @@ namespace Engine.Abilities
         {
             if (CheckInterveningIfClause(game))
             {
-                bool foo = gameEvent is CardEvent e;
+                bool foo = gameEvent is ICardEvent e;
                 return foo;
             }
             return false;
