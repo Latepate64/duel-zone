@@ -18,7 +18,7 @@ namespace Cards.CardFilters
             Subtypes = filter.Subtypes;
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return card.Subtypes.Intersect(Subtypes).Any();
         }

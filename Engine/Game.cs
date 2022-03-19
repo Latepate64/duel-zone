@@ -18,11 +18,11 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public List<Player> Players { get; } = new();
+        public List<IPlayer> Players { get; } = new();
 
-        public Player Winner { get; private set; }
+        public IPlayer Winner { get; private set; }
 
-        public ICollection<Player> Losers { get; } = new Collection<Player>();
+        public ICollection<IPlayer> Losers { get; } = new Collection<IPlayer>();
 
         public Ability GetAbility(Guid id)
         {
@@ -151,7 +151,7 @@ namespace Engine
             }
         }
 
-        public void Play(Player startingPlayer, Player otherPlayer)
+        public void Play(IPlayer startingPlayer, IPlayer otherPlayer)
         {
             ValidateDeckNotEmpty(startingPlayer, otherPlayer);
 
@@ -188,7 +188,7 @@ namespace Engine
             }
         }
 
-        private static void ValidateDeckNotEmpty(params Player[] players)
+        private static void ValidateDeckNotEmpty(params IPlayer[] players)
         {
             foreach (var player in players)
             {
@@ -268,7 +268,7 @@ namespace Engine
         /// </summary>
         /// <param name="player"></param>
         /// <returns>Opponent if they are still in the game, null otherwise.</returns>
-        public Player GetOpponent(Player player)
+        public IPlayer GetOpponent(IPlayer player)
         {
             return Players.SingleOrDefault(x => x != player);
         }
@@ -289,7 +289,7 @@ namespace Engine
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>
-        public Player GetOwner(Card card)
+        public IPlayer GetOwner(Card card)
         {
             return Players.SingleOrDefault(x => x.Id == card?.Owner);
         }
@@ -304,7 +304,7 @@ namespace Engine
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Player if they are still in the game, null otherwise</returns>
-        public Player GetPlayer(Guid id)
+        public IPlayer GetPlayer(Guid id)
         {
             return Players.SingleOrDefault(x => x.Id == id);
         }
@@ -375,12 +375,12 @@ namespace Engine
             return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.ConditionsApply(this));
         }
 
-        public IEnumerable<Card> GetChoosableBattleZoneCreatures(Player selector)
+        public IEnumerable<Card> GetChoosableBattleZoneCreatures(IPlayer selector)
         {
             return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
         }
 
-        public void Lose(Player player)
+        public void Lose(IPlayer player)
         {
             Losers.Add(player);
             Process(new LoseEvent { Player = player.Copy() });
@@ -393,14 +393,14 @@ namespace Engine
             }
         }
 
-        private void Win(Player player)
+        private void Win(IPlayer player)
         {
             Winner = player;
             Process(new WinEvent { Player = player.Copy() });
             Leave(player);
         }
 
-        private void Leave(Player player)
+        private void Leave(IPlayer player)
         {
             _ = Players.RemoveAll(x => x.Id == player.Id);
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());

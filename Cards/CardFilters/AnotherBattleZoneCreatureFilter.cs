@@ -16,7 +16,7 @@ namespace Cards.CardFilters
 
         public Guid Target { get; set; }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return base.Applies(card, game, player) && Target == card?.Id;
         }

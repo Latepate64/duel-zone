@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public class Player
+    public class Player : IPlayer
     {
         public Guid Id { get; set; }
 

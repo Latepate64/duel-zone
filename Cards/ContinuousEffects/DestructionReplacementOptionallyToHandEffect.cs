@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
             return new DestructionReplacementOptionallyToHandEffect(this);
         }
 
-        public override bool Apply(Engine.Game game, Engine.Player player)
+        public override bool Apply(Engine.Game game, Engine.IPlayer player)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {

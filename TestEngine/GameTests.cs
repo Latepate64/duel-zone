@@ -2,6 +2,7 @@ using Engine;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace TestEngine
@@ -11,7 +12,14 @@ namespace TestEngine
         [Fact]
         public void Play_EmptyDeck_ThrowException()
         {
-            Assert.Throws<InvalidOperationException>(() => new Game().Play(Mock.Of<Player>(), Mock.Of<Player>()));
+            var players = new List<IPlayer>();
+            for (int i = 0; i < 2; ++i)
+            {
+                var player = new Mock<IPlayer>();
+                player.SetupGet(x => x.Deck).Returns(new Engine.Zones.Deck());
+                players.Add(player.Object);
+            }
+            Assert.Throws<InvalidOperationException>(() => new Game().Play(players.First(), players.Last()));
         }
 
         [Fact]

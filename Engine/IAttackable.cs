@@ -1,7 +1,8 @@
-﻿namespace Engine
+﻿using Common;
+
+namespace Engine
 {
-    public interface IAttackable
+    public interface IAttackable : IIdentifiable
     {
-        System.Guid Id { get; }
     }
 }

@@ -22,7 +22,7 @@ namespace Cards.CardFilters
             return $"{base.ToString()} spell";
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return base.Applies(card, game, player) && new SpellFilter().Applies(card, game, player);
         }

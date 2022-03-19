@@ -5,9 +5,9 @@ namespace Engine
 {
     public interface IGame
     {
-        List<Player> Players { get; }
+        List<IPlayer> Players { get; }
 
         IEnumerable<T> GetContinuousEffects<T>(Card card) where T : IContinuousEffect;
-        void Play(Player startingPlayer, Player otherPlayer);
+        void Play(IPlayer startingPlayer, IPlayer otherPlayer);
     }
 }

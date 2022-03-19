@@ -32,7 +32,7 @@ namespace Engine.Steps
             return creature.SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(creature).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(creature).Any());
         }
 
-        private void ChooseAttacker(Game game, Player activePlayer, IEnumerable<Card> attackers)
+        private void ChooseAttacker(Game game, IPlayer activePlayer, IEnumerable<Card> attackers)
         {
             var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
             var decision = activePlayer.Choose(new AttackerSelection(activePlayer.Id, attackers, minimum), game).Decision;
@@ -42,7 +42,7 @@ namespace Engine.Steps
             }
         }
 
-        private void ChooseAttackTarget(Game game, Player activePlayer, IEnumerable<Card> attackers, Guid id)
+        private void ChooseAttackTarget(Game game, IPlayer activePlayer, IEnumerable<Card> attackers, Guid id)
         {
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = GetPossibleAttackTargets(attacker, game);

@@ -1,5 +1,4 @@
-﻿using Combinatorics.Collections;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
@@ -14,7 +13,7 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : Common.Player, IAttackable, IDisposable//, ICopyable<Player>
+    public abstract class Player : Common.Player, IDisposable, IPlayer
     {
         #region Properties
         /// <summary>
@@ -57,6 +56,8 @@ namespace Engine
         }
 
         public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+
+        public Guid AttackableId { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
@@ -105,13 +106,13 @@ namespace Engine
 
         public YesNoDecision Choose(YesNoChoice yesNoChoice, Game game)
         {
-           var decision = ClientChoose(yesNoChoice);
-           if (decision != null)
-           {
+            var decision = ClientChoose(yesNoChoice);
+            if (decision != null)
+            {
                 return decision;
-           }
-           else
-           {
+            }
+            else
+            {
                 Concede(game);
                 return new YesNoDecision();
             }
@@ -192,7 +193,7 @@ namespace Engine
             return Hand.Cards.Where(card => card.CanBePaid(this));
         }
 
-        internal IEnumerable<Card> GetCardsThatCanBePaidAndUsed(Game game)
+        public IEnumerable<Card> GetCardsThatCanBePaidAndUsed(Game game)
         {
             return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
@@ -252,7 +253,7 @@ namespace Engine
             game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
         }
 
-        internal Zone GetZone(ZoneType zone)
+        public Zone GetZone(ZoneType zone)
         {
             return zone switch
             {
@@ -289,7 +290,7 @@ namespace Engine
             UseCard(toUse, game);
         }
 
-        internal bool ChooseCardToUse(Game game, IEnumerable<Card> usableCards)
+        public bool ChooseCardToUse(Game game, IEnumerable<Card> usableCards)
         {
             var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
             if (decision.Any())
@@ -313,7 +314,7 @@ namespace Engine
             }
         }
 
-        internal void UseCard(Card card, Game game)
+        public void UseCard(Card card, Game game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)

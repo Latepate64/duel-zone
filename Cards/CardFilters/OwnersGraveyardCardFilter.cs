@@ -5,7 +5,7 @@ namespace Cards.CardFilters
 {
     class OwnersGraveyardCardFilter : ZoneCardFilter<Graveyard>
     {
-        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations) : base(true) //civilizations
+        public OwnersGraveyardCardFilter(params Common.Civilization[] civilizations) : base(true) //TODO: civilizations
         {
         }
 

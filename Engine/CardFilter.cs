@@ -6,7 +6,7 @@ namespace Engine
     {
         protected CardFilter() { }
 
-        public abstract bool Applies(Card card, Game game, Player player);
+        public abstract bool Applies(Card card, Game game, IPlayer player);
 
         public abstract CardFilter Copy();
 

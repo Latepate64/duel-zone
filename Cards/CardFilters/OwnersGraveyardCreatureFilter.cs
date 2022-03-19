@@ -12,7 +12,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Engine.Card card, Game game, Engine.Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return base.Applies(card, game, player) && new CreatureFilter().Applies(card, game, player);
         }

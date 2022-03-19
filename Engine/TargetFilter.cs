@@ -23,7 +23,7 @@ namespace Engine
             return new TargetFilter(this);
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return player != null && Target == card?.Id;
         }

@@ -101,6 +101,8 @@ namespace Engine
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
 
+        public Guid AttackableId { get; set; }
+
         internal void ResetToPrintedValues()
         {
             Power = _printedPower;

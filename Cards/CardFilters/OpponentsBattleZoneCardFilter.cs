@@ -9,7 +9,7 @@ namespace Cards.CardFilters
         {
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Contains(card);
         }

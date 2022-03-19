@@ -16,7 +16,7 @@ namespace Cards.CardFilters
 
         public CivilizationFilter CivilizationFilter { get; }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(Card card, Game game, IPlayer player)
         {
             return base.Applies(card, game, player);
         }

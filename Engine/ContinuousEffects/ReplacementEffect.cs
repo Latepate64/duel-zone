@@ -29,6 +29,6 @@ namespace Engine.ContinuousEffects
 
         public abstract bool Replaceable(GameEvent gameEvent, Game game);
 
-        public abstract bool Apply(Game game, Player player);
+        public abstract bool Apply(Game game, IPlayer player);
     }
 }
