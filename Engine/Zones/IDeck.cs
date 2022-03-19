@@ -7,5 +7,6 @@ namespace Engine.Zones
     {
         void Setup(IEnumerable<ICard> cards, Guid owner);
         void Shuffle();
+        IEnumerable<ICard> GetTopCards(int amount);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -25,7 +26,12 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.GetPlayer(source.Owner).Look(cards);
+            if (cards.Any())
+            {
+                var revealer = game.GetOwner(cards.First());
+                game.GetPlayer(source.Owner).Look(revealer, game, cards);
+                revealer.Unreveal(cards);
+            }
         }
     }
 }

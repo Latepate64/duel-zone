@@ -247,11 +247,23 @@ namespace Engine
             }
         }
 
-        public void Reveal(IGame game, ICard card)
+        /// <summary>
+        /// 701.16a To reveal a card, show that card to all players for a brief time.
+        /// If an effect causes a card to be revealed, it remains revealed for as long
+        /// as necessary to complete the parts of the effect that card is relevant to.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="cards"></param>
+        public void Reveal(IGame game, params ICard[] cards)
         {
-            var opponent = game.GetOpponent(this);
-            card.KnownTo.Add(opponent.Id);
-            game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
+            Reveal(game, game.Players, cards);
+        }
+
+        public void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards)
+        {
+            // TODO: Implement reveal information on cards and add them here.
+            cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
+            game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
         }
 
         public IZone GetZone(ZoneType zone)
@@ -386,9 +398,12 @@ namespace Engine
             game.Lose(this);
         }
 
-        public void Look(ICard[] cards)
+        public void Look(IPlayer owner, IGame game, params ICard[] cards)
         {
-            cards.Where(x => !x.KnownTo.Contains(Id)).ToList().ForEach(x => x.KnownTo.Add(Id));
+            // 701.16d Some effects instruct a player to look at one or more cards.
+            // Looking at a card follows the same rules as revealing a card,
+            // except that the card is shown only to the specified player.
+            owner.Reveal(game, new List<IPlayer> { this }, cards);
         }
 
         public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
@@ -420,6 +435,18 @@ namespace Engine
                 phase.AttackTarget = target.Id;
                 game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
             }
+        }
+
+        public IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game)
+        {
+            var cards = Deck.GetTopCards(amount);
+            Reveal(game, cards.ToArray());
+            return cards;
+        }
+
+        public void Unreveal(IEnumerable<ICard> cards)
+        {
+            // TODO: Implement reveal information on cards and remove them here.
         }
         #endregion Methods
     }

@@ -37,6 +37,8 @@ namespace Engine.Zones
 
         public void Shuffle()
         {
+            // 701.16c If cards in a player’s library are shuffled or otherwise reordered, any revealed cards that are reordered stop being revealed and become new objects.
+            // TODO: Become new objects
             foreach (var card in Cards)
             {
                 card.KnownTo = new List<Guid>();
@@ -62,6 +64,11 @@ namespace Engine.Zones
         {
             cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);
+        }
+
+        public IEnumerable<ICard> GetTopCards(int amount)
+        {
+            return Cards.TakeLast(amount);
         }
     }
 }

@@ -32,12 +32,13 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                foreach (var card in cards)
-                {
-                    game.GetOwner(card).Reveal(game, card);
-                }
+                game.GetPlayer(source.Owner).Reveal(game, cards);
             }
             game.Move(Common.ZoneType.Deck, Common.ZoneType.Hand, cards);
+            if (Reveal)
+            {
+                game.GetPlayer(source.Owner)?.Unreveal(cards);
+            }
         }
     }
 }
