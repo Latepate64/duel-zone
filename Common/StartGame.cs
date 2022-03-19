@@ -11,6 +11,6 @@ namespace Common
     {
         public Player Player { get; set; }
 
-        public List<Card> Deck { get; set; }
+        public List<ICard> Deck { get; set; }
     }
 }

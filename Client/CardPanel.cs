@@ -25,7 +25,7 @@ namespace Client
         private TextBox _textBox;
         private Label _combatLabel;
 
-        internal CardPanel(Card card, Client client, TablePage tablePage, int height, bool showTapStatus)
+        internal CardPanel(ICard card, Client client, TablePage tablePage, int height, bool showTapStatus)
         {
             _client = client;
             _tablePage = tablePage;
@@ -46,7 +46,7 @@ namespace Client
             _combatLabel = GetLabel("", height);
         }
 
-        private void DrawInformation(Card card, int height, bool showTapStatus)
+        private void DrawInformation(ICard card, int height, bool showTapStatus)
         {
             DrawManaCostAndName(card, height);
             DrawSubtypes(card, height);
@@ -56,7 +56,7 @@ namespace Client
             DrawPower(card, height);
         }
 
-        private void SetupProperties(Card card, int height)
+        private void SetupProperties(ICard card, int height)
         {
             Name = card.Id.ToString();
             Height = (int)(CardHeight * SizeScale * height);
@@ -72,7 +72,7 @@ namespace Client
             Controls.Add(_inner);
         }
 
-        private void DrawPower(Card card, int height)
+        private void DrawPower(ICard card, int height)
         {
             if (card.Power.HasValue)
             {
@@ -80,7 +80,7 @@ namespace Client
             }
         }
 
-        private void DrawTapStatus(Card card, int height, bool showTapStatus)
+        private void DrawTapStatus(ICard card, int height, bool showTapStatus)
         {
             if (showTapStatus)
             {
@@ -89,7 +89,7 @@ namespace Client
             }
         }
 
-        private void DrawSummoningSickness(Card card, int height)
+        private void DrawSummoningSickness(ICard card, int height)
         {
             if (card.CardType == CardType.Creature && card.SummoningSickness)
             {
@@ -98,17 +98,17 @@ namespace Client
             }
         }
 
-        private void DrawSubtypes(Card card, int height)
+        private void DrawSubtypes(ICard card, int height)
         {
             _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
         }
 
-        private void DrawManaCostAndName(Card card, int height)
+        private void DrawManaCostAndName(ICard card, int height)
         {
             _inner.Controls.Add(GetLabel(card.ManaCost.ToString() + " " + card.Name, height));
         }
 
-        private void DrawRulesText(Card card, int height)
+        private void DrawRulesText(ICard card, int height)
         {
             _textBox = new() { Width = (int)(CardWidth * InnerSizeScale * height * 0.95), Height = (int)(CardHeight * InnerSizeScale * height * 0.4), Multiline = true, ReadOnly = true, Font = new Font(FontFamily.GenericSansSerif, FontSize), BorderStyle = BorderStyle.None };
             if (card.ShieldTrigger)
@@ -122,7 +122,7 @@ namespace Client
             _inner.Controls.Add(_textBox);
         }
 
-        private void PaintBackColor(Card card)
+        private void PaintBackColor(ICard card)
         {
             if (card.Civilizations.Count == 1)
             {

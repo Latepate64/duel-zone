@@ -2,8 +2,8 @@
 {
     public class ShieldTriggerEvent : GameEvent
     {
-        public Player Player { get; set; }
-        public Card Card { get; set; }
+        public IPlayer Player { get; set; }
+        public ICard Card { get; set; }
 
         public ShieldTriggerEvent()
         {

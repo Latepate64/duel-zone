@@ -4,7 +4,7 @@ namespace Common.GameEvents
 {
     public class CardMovedEvent : CardEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
         public Guid CardInSourceZone { get; set; }
 
         /// <summary>

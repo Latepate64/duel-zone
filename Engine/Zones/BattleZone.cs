@@ -54,7 +54,7 @@ namespace Engine.Zones
             {
                 var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
                 game.RemoveContinuousEffects(staticAbilities);
-                return card.Deconstruct(game, new List<ICard>());
+                return card.Deconstruct(game, new List<ICard>()).ToList();
             }
         }
 

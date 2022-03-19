@@ -526,7 +526,7 @@ namespace Engine
             }
         }
 
-        public void AddAbility(ICard card, Ability ability)
+        public void AddAbility(ICard card, IAbility ability)
         {
             card.AddGrantedAbility(ability);
             if (ability is StaticAbility staticAbility)

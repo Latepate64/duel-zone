@@ -9,9 +9,9 @@ namespace Engine
 {
     public class Card : Common.Card, ICopyable<ICard>, ITimestampable, ICard
     {
-        private IEnumerable<Ability> Abilities => PrintedAbilities.Union(AddedAbilities);
-        public List<Ability> PrintedAbilities { get; } = new();
-        public List<Ability> AddedAbilities { get; } = new();
+        private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
+        public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
+        public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
         public int? PrintedPower { get; }
 
@@ -79,7 +79,7 @@ namespace Engine
             SetRulesText();
         }
 
-        public Common.Card Convert(bool clear = false)
+        public Common.ICard Convert(bool clear = false)
         {
             return new Common.Card(this, clear);
         }
@@ -89,14 +89,14 @@ namespace Engine
             RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
 
-        public void AddGrantedAbility(Ability ability)
+        public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
         }
 
-        protected void AddAbilities(params Ability[] abilities)
+        protected void AddAbilities(params IAbility[] abilities)
         {
-            PrintedAbilities.AddRange(abilities);
+            abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
         }
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
@@ -127,12 +127,12 @@ namespace Engine
             return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this);
         }
 
-        public bool CanBePaid(Player player)
+        public bool CanBePaid(IPlayer player)
         {
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
         }
 
-        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(Player player)
+        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player)
         {
             return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
@@ -159,13 +159,14 @@ namespace Engine
             bait.Underneath = Id;
         }
 
-        public List<ICard> Deconstruct(IGame game, List<ICard> deconstructred)
+        public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
         {
             if (Underneath != Guid.Empty)
             {
-                deconstructred.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
+                var list = deconstructred.ToList();
+                list.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
                 Underneath = Guid.Empty;
-                return deconstructred;
+                return list;
             }
             else
             {

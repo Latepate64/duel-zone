@@ -350,7 +350,7 @@ namespace Engine
         public void Tap(IGame game, params ICard[] cards)
         {
             var untappedCards = cards.Where(x => !x.Tapped).ToList();
-            foreach (Card card in untappedCards)
+            foreach (var card in untappedCards)
             {
                 card.Tapped = true;
             }
@@ -363,7 +363,7 @@ namespace Engine
         public void Untap(IGame game, params ICard[] cards)
         {
             var tappedCards = cards.Where(x => x.Tapped).ToList();
-            foreach (Card card in tappedCards)
+            foreach (var card in tappedCards)
             {
                 card.Tapped = false;
             }

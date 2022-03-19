@@ -432,7 +432,7 @@ namespace Client
             zone?.Invoke(new MethodInvoker(delegate { zone.Controls.RemoveByKey(cardId); }));
         }
 
-        private void AddCard(ZonePanel zone, Card card)
+        private void AddCard(ZonePanel zone, ICard card)
         {
             zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
         }

@@ -8,7 +8,7 @@ namespace Engine.Abilities
         Guid Owner { get; set; }
         Guid Source { get; set; }
 
-        Ability Copy();
+        IAbility Copy();
         string ToString();
     }
 }

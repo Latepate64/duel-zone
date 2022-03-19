@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
 {
     class GrantAbilityAreaOfEffect : OneShotAreaOfEffect
     {
-        public Ability Ability { get; }
+        public IAbility Ability { get; }
 
         public GrantAbilityAreaOfEffect(Ability ability) : base(new OwnersBattleZoneCreatureFilter())
         {

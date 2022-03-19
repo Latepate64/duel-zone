@@ -32,7 +32,7 @@ namespace Engine.Steps
                 var target = game.GetAttackable(AttackTarget);
                 AttackTarget = Guid.Empty;
                 var e = new AttackTargetRemovedEvent();
-                if (target is Card card)
+                if (target is ICard card)
                 {
                     e.TargetCard = card.Convert();
                 }

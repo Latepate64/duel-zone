@@ -2,7 +2,7 @@
 {
     public class BattleEvent : CardEvent
     {
-        public Card OtherCard { get; set; }
+        public ICard OtherCard { get; set; }
 
         public BattleEvent()
         {

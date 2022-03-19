@@ -31,7 +31,7 @@ namespace Engine.Abilities
             Source = ability.Source;
         }
 
-        public abstract Ability Copy();
+        public abstract IAbility Copy();
 
         public override abstract string ToString();
 
