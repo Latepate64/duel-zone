@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM03
             ShieldTrigger = true;
             // Destroy a creature that has power 6000 or less.
             // Choose one of your shields and put it into your graveyard.
-            AddAbilities(new SpellAbility(new DestroyMaxPowerCreature(6000)), new SpellAbility(new SelfShieldBurnEffect()));
+            AddSpellAbilities(new DestroyMaxPowerCreature(6000), new SelfShieldBurnEffect());
         }
     }
 }

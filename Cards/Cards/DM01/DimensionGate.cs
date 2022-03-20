@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Search your deck. You may take a creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.
-            AddAbilities(new SpellAbility(new TutoringEffect(new CardFilters.OwnersDeckCreatureFilter(), true)));
+            AddSpellAbilities(new TutoringEffect(new CardFilters.OwnersDeckCreatureFilter(), true));
         }
     }
 }

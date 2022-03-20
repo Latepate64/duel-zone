@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
     {
         public CreepingPlague() : base("Creeping Plague", 1, Common.Civilization.Darkness)
         {
-            AddAbilities(new SpellAbility(new CreepingPlagueEffect()));
+            AddSpellAbilities(new CreepingPlagueEffect());
         }
     }
 

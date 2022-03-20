@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Choose 1 creature in the battle zone and return it to its owner's hand.
-            AddAbilities(new SpellAbility(new BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddSpellAbilities(new BounceEffect(1, 1, new CardFilters.BattleZoneChoosableCreatureFilter()));
         }
     }
 }

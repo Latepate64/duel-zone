@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public PsychicShaper() : base("Psychic Shaper", 6, Civilization.Water)
         {
-            AddAbilities(new SpellAbility(new PsychicShaperEffect()));
+            AddSpellAbilities(new PsychicShaperEffect());
         }
     }
 

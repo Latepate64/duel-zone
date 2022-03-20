@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public GhastlyDrain() : base("Ghastly Drain", 3, Common.Civilization.Darkness)
         {
-            AddAbilities(new SpellAbility(new GhastlyDrainEffect()));
+            AddSpellAbilities(new GhastlyDrainEffect());
         }
     }
 

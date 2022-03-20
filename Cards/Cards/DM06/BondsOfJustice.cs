@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM06
         {
             ShieldTrigger = true;
             // Tap all creatures in the battle zone that don't have "blocker."
-            AddAbilities(new SpellAbility(new TapAreaOfEffect(new CardFilters.BattleZoneNonBlockerCreatureFilter())));
+            AddSpellAbilities(new TapAreaOfEffect(new CardFilters.BattleZoneNonBlockerCreatureFilter()));
         }
     }
 }

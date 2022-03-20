@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public DivineRiptide() : base("Divine Riptide", 9, Civilization.Water)
         {
-            AddAbilities(new Engine.Abilities.SpellAbility(new OneShotEffects.ManaRecoveryAreaOfEffect(new CardFilters.ManaZoneCardFilter())));
+            AddSpellAbilities(new OneShotEffects.ManaRecoveryAreaOfEffect(new CardFilters.ManaZoneCardFilter()));
         }
     }
 }

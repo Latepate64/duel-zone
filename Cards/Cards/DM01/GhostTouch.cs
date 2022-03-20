@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Your opponent discards a card at random from his hand.
-            AddAbilities(new SpellAbility(new OpponentRandomDiscardEffect()));
+            AddSpellAbilities(new OpponentRandomDiscardEffect());
         }
     }
 }

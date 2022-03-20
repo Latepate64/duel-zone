@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM11
         {
             ShieldTrigger = true;
             // Destroy one of your opponent's creatures that has power 3000 or less.
-            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true)));
+            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true));
         }
     }
 }

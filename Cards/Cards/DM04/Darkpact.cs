@@ -10,7 +10,7 @@ namespace Cards.Cards.DM04
     {
         public Darkpact() : base("Darkpact", 2, Civilization.Darkness)
         {
-            AddAbilities(new SpellAbility(new DarkpactEffect()));
+            AddSpellAbilities(new DarkpactEffect());
         }
     }
 

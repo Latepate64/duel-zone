@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Tap all your opponent's creatures in the battle zone.
-            AddAbilities(new SpellAbility(new TapAreaOfEffect(new CardFilters.OpponentsBattleZoneCreatureFilter())));
+            AddSpellAbilities(new TapAreaOfEffect(new CardFilters.OpponentsBattleZoneCreatureFilter()));
         }
     }
 }

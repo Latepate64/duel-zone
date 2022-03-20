@@ -1,6 +1,4 @@
-﻿using Engine.Abilities;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     class LogicSphere : Spell
     {
@@ -9,7 +7,7 @@ namespace Cards.Cards.DM03
             ShieldTrigger = true;
 
             // Return a spell from your mana zone to your hand.
-            AddAbilities(new SpellAbility(new OneShotEffects.ManaSpellRecoveryEffect(true)));
+            AddSpellAbilities(new OneShotEffects.ManaSpellRecoveryEffect(true));
         }
     }
 }

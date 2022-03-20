@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public RainbowStone() : base("Rainbow Stone", 4, Civilization.Nature)
         {
-            AddAbilities(new SpellAbility(new RainbowStoneEffect()));
+            AddSpellAbilities(new RainbowStoneEffect());
         }
     }
 

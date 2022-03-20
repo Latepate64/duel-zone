@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM09
         public BlizzardOfSpears() : base("Blizzard of Spears", 6, Civilization.Fire)
         {
             // Destroy all creatures that have power 4000 or less.
-            AddAbilities(new SpellAbility(new DestroyMaxPowerAreaOfEffect(4000)));
+            AddSpellAbilities(new DestroyMaxPowerAreaOfEffect(4000));
         }
     }
 }

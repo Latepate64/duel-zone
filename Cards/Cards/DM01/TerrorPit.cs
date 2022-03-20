@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Destroy 1 of your opponent's creatures.
-            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true));
         }
     }
 }

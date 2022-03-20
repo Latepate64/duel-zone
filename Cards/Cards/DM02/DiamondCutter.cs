@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
         {
-            AddAbilities(new SpellAbility(new DiamondCutterEffect()));
+            AddSpellAbilities(new DiamondCutterEffect());
         }
     }
 

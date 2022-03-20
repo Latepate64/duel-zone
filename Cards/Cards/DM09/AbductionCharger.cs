@@ -1,15 +1,13 @@
 ﻿using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    class AbductionCharger : Spell
+    class AbductionCharger : Charger
     {
         public AbductionCharger() : base("AbductionCharger", 7, Civilization.Water)
         {
-            AddAbilities(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneCreatureFilter())));
-            AddAbilities(new StaticAbilities.ChargerAbility());
+            AddSpellAbilities(new BounceEffect(0, 2, new CardFilters.BattleZoneCreatureFilter()));
         }
     }
 }
