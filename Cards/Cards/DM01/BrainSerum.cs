@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Draw up to 2 cards.
-            AddAbilities(new SpellAbility(new ControllerMayDrawCardsEffect(2)));
+            AddSpellAbilities(new ControllerMayDrawCardsEffect(2));
         }
     }
 }

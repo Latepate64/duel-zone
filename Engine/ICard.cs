@@ -12,6 +12,7 @@ namespace Engine
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
+        bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);

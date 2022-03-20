@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
         {
             ShieldTrigger = true;
             // Choose one of your opponent's creatures in the battle zone and put it into his mana zone.
-            AddAbilities(new SpellAbility(new ManaFeedEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddSpellAbilities(new ManaFeedEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true));
         }
     }
 }

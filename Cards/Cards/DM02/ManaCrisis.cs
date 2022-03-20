@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM02
 {
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM02
         {
             ShieldTrigger = true;
             // Choose a card in your opponent's mana zone and put it into his graveyard.
-            AddAbilities(new SpellAbility(new ManaBurnEffect(new OpponentsManaZoneCardFilter(), 1, 1, true)));
+            AddSpellAbilities(new ManaBurnEffect(new OpponentsManaZoneCardFilter(), 1, 1, true));
         }
     }
 }

@@ -6,11 +6,16 @@ namespace Cards.Cards.DM03
     {
         public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            AddAbilities(new Engine.Abilities.StaticAbility(new ÜberdragonJabahaEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new ÜberdragonJabahaAbility(), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 
-    class ÜberdragonJabahaEffect : Engine.ContinuousEffects.AbilityGrantingEffect
+    class ÜberdragonJabahaAbility : Engine.Abilities.StaticAbility
+    {
+        public ÜberdragonJabahaAbility() : base(new ÜberdragonJabahaEffect()) { }
+    }
+
+    class ÜberdragonJabahaEffect : Engine.ContinuousEffects.AbilityAddingEffect
     {
         public ÜberdragonJabahaEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Fire), new Engine.Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(2000)) { }
 

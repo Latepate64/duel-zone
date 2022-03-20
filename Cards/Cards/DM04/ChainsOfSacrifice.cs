@@ -1,7 +1,6 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM04
         {
             // Destroy up to 2 of your opponent's creatures.
             // Destroy one of your creatures.
-            AddAbilities(new SpellAbility(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)), new SpellAbility(new SacrificeEffect()));
+            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true), new SacrificeEffect());
         }
     }
 }

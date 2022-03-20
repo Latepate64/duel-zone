@@ -31,7 +31,7 @@ namespace Cards.OneShotEffects
         {
             foreach (var ability in Abilities)
             {
-                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration, ability.Copy()));
+                game.AddContinuousEffects(source, new AbilityAddingEffect(new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration, ability.Copy()));
             }
         }
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
-    public class PowerModifyingEffect : CharacteristicModifyingEffect
+    public class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
     {
         protected readonly int _power;
 
@@ -24,22 +24,22 @@ namespace Engine.ContinuousEffects
             return new PowerModifyingEffect(this);
         }
 
-        public override void Apply(Game game)
-        {
-            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
-            {
-                card.Power += GetPower(game);
-            }
-        }
-
         public override string ToString()
         {
             return $"{ToStringBase()}{Filter} gets +{_power} power{GetDurationAsText()}.";
         }
 
-        protected virtual int GetPower(Game game)
+        protected virtual int GetPower(IGame game)
         {
             return _power;
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(card.Owner))))
+            {
+                card.Power += GetPower(game);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cards.Cards.DM10
         public Soulswap() : base("Soulswap", 3, Common.Civilization.Nature)
         {
             ShieldTrigger = true;
-            AddAbilities(new SpellAbility(new SoulswapEffect()));
+            AddSpellAbilities(new SoulswapEffect());
         }
 
         class SoulswapEffect : OneShotEffect

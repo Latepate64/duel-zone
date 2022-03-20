@@ -9,7 +9,7 @@ namespace Cards.Cards.DM11
     {
         public HideAndSeek() : base("Hide and Seek", 4, Civilization.Water, Civilization.Darkness)
         {
-            AddAbilities(new SpellAbility(new HideAndSeekEffect()));
+            AddSpellAbilities(new HideAndSeekEffect());
         }
     }
 

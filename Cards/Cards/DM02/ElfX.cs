@@ -7,7 +7,24 @@ namespace Cards.Cards.DM02
     {
         public ElfX() : base("Elf-X", 4, 2000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.CostModifyingEffect(-1, new CardFilters.OwnersHandCreatureFilter())));
+            AddAbilities(new ElfXAbility());
+        }
+    }
+
+    class ElfXAbility : StaticAbility
+    {
+        public ElfXAbility() : base(new ElfXEffect())
+        {
+        }
+    }
+
+    class ElfXEffect : Engine.ContinuousEffects.CostModifyingEffect
+    {
+        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter()) { }
+
+        public override string ToString()
+        {
+            return "Your creatures each cost 1 less to summon. They can't cost less than 1.";
         }
     }
 }

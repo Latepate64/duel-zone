@@ -1,6 +1,4 @@
-﻿using Engine.Abilities;
-
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class CriticalBlade : Spell
     {
@@ -9,7 +7,7 @@ namespace Cards.Cards.DM02
             ShieldTrigger = true;
 
             // Destroy one of your opponent's creatures that has "blocker."
-            AddAbilities(new SpellAbility(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)));
+            AddSpellAbilities(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true));
         }
     }
 }

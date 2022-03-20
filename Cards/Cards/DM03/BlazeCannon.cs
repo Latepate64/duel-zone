@@ -10,7 +10,14 @@ namespace Cards.Cards.DM03
     {
         public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new BlazeCannonRestrictionEffect()), new SpellAbility(new BlazeCannonBuffEffect()));
+            AddAbilities(new BlazeCannonAbility(), new SpellAbility(new BlazeCannonBuffEffect()));
+        }
+    }
+
+    class BlazeCannonAbility : StaticAbility
+    {
+        public BlazeCannonAbility() : base(new BlazeCannonRestrictionEffect())
+        {
         }
     }
 
@@ -37,7 +44,7 @@ namespace Cards.Cards.DM03
 
     class BlazeCannonBuffEffect : GrantAbilityAreaOfEffect
     {
-        public BlazeCannonBuffEffect() : base(new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public BlazeCannonBuffEffect() : base(new Engine.Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

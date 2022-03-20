@@ -7,7 +7,26 @@ namespace Cards.Cards.DM02
     {
         public ArmoredCannonBalbaro() : base("Armored Cannon Balbaro", 3, 3000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human))));
+            AddAbilities(new ArmoredCannonBalbaroAbility());
+        }
+    }
+
+    class ArmoredCannonBalbaroAbility : StaticAbility
+    {
+        public ArmoredCannonBalbaroAbility() : base(new ArmoredCannonBalbaroEffect())
+        {
+        }
+    }
+
+    class ArmoredCannonBalbaroEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    {
+        public ArmoredCannonBalbaroEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human))
+        {
+        }
+
+        public override string ToString()
+        {
+            return "While attacking, this creature gets +2000 power for each other Human in the battle zone.";
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Engine.Abilities;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     class FloodValve : Spell
     {
@@ -9,7 +7,7 @@ namespace Cards.Cards.DM03
             ShieldTrigger = true;
 
             // Return a card from your mana zone to your hand.
-            AddAbilities(new SpellAbility(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneCardFilter())));
+            AddSpellAbilities(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneCardFilter()));
         }
     }
 }

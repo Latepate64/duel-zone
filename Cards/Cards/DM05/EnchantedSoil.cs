@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
         {
-            AddAbilities(new Engine.Abilities.SpellAbility(new OneShotEffects.FromGraveyardIntoManaZoneEffect(new CardFilters.OwnersGraveyardCreatureFilter(), 0, 2, true)));
+            AddSpellAbilities(new OneShotEffects.FromGraveyardIntoManaZoneEffect(new CardFilters.OwnersGraveyardCreatureFilter(), 0, 2, true));
         }
     }
 }

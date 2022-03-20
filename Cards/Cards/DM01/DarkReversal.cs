@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Return a creature from your graveyard to your hand.
-            AddAbilities(new SpellAbility(new SalvageCreatureEffect(1, 1)));
+            AddSpellAbilities(new SalvageCreatureEffect(1, 1));
         }
     }
 }

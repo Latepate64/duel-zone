@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
             return $"{Filter} gets +{_power} power for each {Multiplier}.";
         }
 
-        protected override int GetPower(Game game)
+        protected override int GetPower(IGame game)
         {
             return game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
         }

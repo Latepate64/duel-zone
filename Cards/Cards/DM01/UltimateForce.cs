@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM01
         public UltimateForce() : base("Ultimate Force", 5, Common.Civilization.Nature)
         {
             // Put the top 2 cards of your deck into your mana zone.
-            AddAbilities(new SpellAbility(new PutTopCardsOfDeckIntoManaZoneEffect(2)));
+            AddSpellAbilities(new PutTopCardsOfDeckIntoManaZoneEffect(2));
         }
     }
 }

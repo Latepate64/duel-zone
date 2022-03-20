@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
         public RoarOfTheEarth() : base("Roar of the Earth", 2, Civilization.Nature)
         {
             ShieldTrigger = true;
-            AddAbilities(new Engine.Abilities.SpellAbility(new RoarOfTheEarthEffect()));
+            AddSpellAbilities(new RoarOfTheEarthEffect());
         }
     }
 

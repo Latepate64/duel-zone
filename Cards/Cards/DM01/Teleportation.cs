@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM01
         public Teleportation() : base("Teleportation", 5, Common.Civilization.Water)
         {
             // Choose up to 2 creatures in the battle zone and return them to their owners' hands.
-            AddAbilities(new SpellAbility(new BounceEffect(0, 2, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddSpellAbilities(new BounceEffect(0, 2, new CardFilters.BattleZoneChoosableCreatureFilter()));
         }
     }
 }

@@ -10,8 +10,26 @@ namespace Cards.Cards.DM08
     {
         public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Common.Subtype.DarkLord, Common.Civilization.Darkness)
         {
-            // Each creature in the battle zone has "slayer." (Whenever a creature that has "slayer" battles, destroy the other creature after the battle.)
-            AddAbilities(new StaticAbility(new AbilityGrantingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility())));
+            AddAbilities(new MegariaEmpressOfDreadAbility());
+        }
+    }
+
+    class MegariaEmpressOfDreadAbility : StaticAbility
+    {
+        public MegariaEmpressOfDreadAbility() : base(new MegariaEmpressOfDreadEffect())
+        {
+        }
+    }
+
+    class MegariaEmpressOfDreadEffect : AbilityAddingEffect
+    {
+        public MegariaEmpressOfDreadEffect() : base(new AbilityAddingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility()))
+        {
+        }
+
+        public override string ToString()
+        {
+            return "Each creature in the battle zone has \"slayer.\"";
         }
     }
 }

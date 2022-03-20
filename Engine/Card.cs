@@ -109,12 +109,12 @@ namespace Engine
 
         public bool CanAttackCreatures(IGame game)
         {
-            return !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
+            return !game.GetContinuousEffects<CannotAttackEffect>(this).Any() && !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
         }
 
         public bool CanAttackPlayers(IGame game)
         {
-            return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
+            return (!game.GetContinuousEffects<CannotAttackEffect>(this).Any() && !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any()) || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
@@ -189,6 +189,11 @@ namespace Engine
                 card.Underneath = Guid.Empty;
             }
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
+        }
+
+        public bool CanAttack(ICard creature, IGame game)
+        {
+            return !game.GetContinuousEffects<CannotBeAttackedEffect>(creature).Any(x => x.AttackerFilter.Applies(this, game, game.GetOwner(this)));
         }
     }
 }
