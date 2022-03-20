@@ -15,7 +15,7 @@ namespace Cards.Cards.DM04
 
     class FullDefensorEffect : GrantAbilityAreaOfEffect
     {
-        public FullDefensorEffect() : base(new StaticAbilities.BlockerAbility())
+        public FullDefensorEffect() : base(new Engine.Durations.UntilStartOfYourNextTurn(), new StaticAbilities.BlockerAbility())
         {
         }
 

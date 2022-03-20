@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
         {
             // Each of your creatures in the battle zone gets "double breaker" until the end of the turn.
             // Choose one of your shields and put it into your graveyard.
-            AddSpellAbilities(new GrantAbilityAreaOfEffect(new DoubleBreakerAbility()), new SelfShieldBurnEffect());
+            AddSpellAbilities(new GrantAbilityAreaOfEffect(new Engine.Durations.UntilTheEndOfTheTurn(), new DoubleBreakerAbility()), new SelfShieldBurnEffect());
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Cards.Cards.DM03
 
     class BlazeCannonBuffEffect : GrantAbilityAreaOfEffect
     {
-        public BlazeCannonBuffEffect() : base(new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public BlazeCannonBuffEffect() : base(new Engine.Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 
