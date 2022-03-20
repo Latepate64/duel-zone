@@ -27,9 +27,9 @@ namespace Engine.Abilities
         /// </summary>
         public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
 
-        public StaticAbility(params IContinuousEffect[] continuousEffects) : base()
+        public StaticAbility(IContinuousEffect continuousEffects) : base()
         {
-            _continuousEffects.AddRange(continuousEffects);
+            _continuousEffects.Add(continuousEffects);
         }
 
         private StaticAbility(StaticAbility ability) : base(ability)
