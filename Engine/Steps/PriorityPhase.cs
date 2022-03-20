@@ -4,7 +4,7 @@ namespace Engine.Steps
 {
     public abstract class PriorityPhase : Phase
     {
-        protected internal abstract bool PerformPriorityAction(Game game);
+        protected internal abstract bool PerformPriorityAction(IGame game);
 
         protected PriorityPhase(PhaseOrStep type) : base(type)
         {

@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
             return $"{Filter} gets +${Power}{Duration}.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.AddContinuousEffects(source, new PowerModifyingEffect(Power, new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration));
         }

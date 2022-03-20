@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Replaceable(GameEvent gameEvent, Game game)
+        public override bool Replaceable(IGameEvent gameEvent, IGame game)
         {
             if (gameEvent is CardMovedEvent e)
             {

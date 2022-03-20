@@ -2,17 +2,17 @@
 
 namespace Engine.ContinuousEffects
 {
-    public abstract class EvolutionEffect : ContinuousEffect
+    public abstract class EvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
         protected EvolutionEffect(EvolutionEffect effect) : base(effect)
         {
         }
 
-        protected EvolutionEffect(CardFilter filter) : base(filter)
+        protected EvolutionEffect(ICardFilter filter) : base(filter)
         {
         }
 
-        public abstract bool CanEvolveFrom(Card card);
+        public abstract bool CanEvolveFrom(ICard card);
     }
 
     public class RaceEvolutionEffect : EvolutionEffect
@@ -22,14 +22,14 @@ namespace Engine.ContinuousEffects
             Race = effect.Race;
         }
 
-        public RaceEvolutionEffect(CardFilter filter, Subtype race) : base(filter)
+        public RaceEvolutionEffect(ICardFilter filter, Subtype race) : base(filter)
         {
             Race = race;
         }
 
         public Subtype Race { get; }
 
-        public override bool CanEvolveFrom(Card card)
+        public override bool CanEvolveFrom(ICard card)
         {
             return card.Subtypes.Contains(Race);
         }

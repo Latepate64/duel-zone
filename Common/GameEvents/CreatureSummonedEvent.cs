@@ -2,8 +2,8 @@
 {
     public class CreatureSummonedEvent : GameEvent
     {
-        public Player Player { get; set; }
-        public Card Creature { get; set; }
+        public IPlayer Player { get; set; }
+        public ICard Creature { get; set; }
 
         public CreatureSummonedEvent()
         {

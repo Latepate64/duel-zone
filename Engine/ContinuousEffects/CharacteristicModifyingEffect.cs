@@ -4,7 +4,7 @@ namespace Engine.ContinuousEffects
 {
     public abstract class CharacteristicModifyingEffect : ContinuousEffect
     {
-        protected CharacteristicModifyingEffect(CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
+        protected CharacteristicModifyingEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
 

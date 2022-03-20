@@ -5,11 +5,11 @@ namespace Cards.TriggeredAbilities
 {
     public abstract class CardChangesZoneAbility : CardTriggeredAbility
     {
-        protected CardChangesZoneAbility(OneShotEffect effect) : base(effect)
+        protected CardChangesZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        protected CardChangesZoneAbility(OneShotEffect effect, CardFilter filter) : base(effect, filter)
+        protected CardChangesZoneAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
         {
         }
 

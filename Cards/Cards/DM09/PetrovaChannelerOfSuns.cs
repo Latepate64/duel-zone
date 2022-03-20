@@ -34,12 +34,12 @@ namespace Cards.Cards.DM09
             return new PetrovaChannelerOfSunsEffect(this);
         }
 
-        public override bool Apply(Engine.Game game, Engine.Player player)
+        public override bool Apply(Engine.Game game, Engine.IPlayer player)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Replaceable(GameEvent gameEvent, Engine.Game game)
+        public override bool Replaceable(IGameEvent gameEvent, Engine.IGame game)
         {
             if (gameEvent is CardMovedEvent e)
             {

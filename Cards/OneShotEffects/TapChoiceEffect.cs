@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             return new TapChoiceEffect(this);
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.GetPlayer(source.Owner).Tap(game, cards);
         }

@@ -1,5 +1,4 @@
-﻿using Combinatorics.Collections;
-using Common;
+﻿using Common;
 using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
@@ -8,19 +7,20 @@ using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Steps;
 
 namespace Engine
 {
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : Common.Player, IAttackable, IDisposable//, ICopyable<Player>
+    public abstract class Player : Common.Player, IDisposable, IPlayer
     {
         #region Properties
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; private set; } = new();
+        public IDeck Deck { get; private set; } = new Deck();
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
@@ -35,18 +35,18 @@ namespace Engine
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; } = new();
+        public IManaZone ManaZone { get; private set; } = new ManaZone();
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new();
 
-        public IEnumerable<Card> CardsInNonsharedZones
+        public IEnumerable<ICard> CardsInNonsharedZones
         {
             get
             {
-                List<Card> cards = new();
+                List<ICard> cards = new();
                 cards.AddRange(Deck.Cards);
                 cards.AddRange(Graveyard.Cards);
                 cards.AddRange(Hand.Cards);
@@ -56,7 +56,9 @@ namespace Engine
             }
         }
 
-        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+        public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+
+        public Guid AttackableId { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
@@ -66,7 +68,7 @@ namespace Engine
         {
         }
 
-        protected Player(Player player) : base(player)
+        protected Player(IPlayer player) : base(player)
         {
             Deck = new Deck(player.Deck);
             Graveyard = new Graveyard(player.Graveyard);
@@ -103,15 +105,15 @@ namespace Engine
             }
         }
 
-        public YesNoDecision Choose(YesNoChoice yesNoChoice, Game game)
+        public YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game)
         {
-           var decision = ClientChoose(yesNoChoice);
-           if (decision != null)
-           {
+            var decision = ClientChoose(yesNoChoice);
+            if (decision != null)
+            {
                 return decision;
-           }
-           else
-           {
+            }
+            else
+            {
                 Concede(game);
                 return new YesNoDecision();
             }
@@ -119,10 +121,10 @@ namespace Engine
 
         public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
 
-        public GuidDecision Choose(GuidSelection selection, Game game)
+        public IGuidDecision Choose(GuidSelection selection, IGame game)
         {
             var legal = false;
-            GuidDecision decision = null;
+            IGuidDecision decision = null;
             while (!legal)
             {
                 decision = ClientChoose(selection);
@@ -140,9 +142,9 @@ namespace Engine
             return decision;
         }
 
-        public abstract GuidDecision ClientChoose(GuidSelection guidSelection);
+        public abstract IGuidDecision ClientChoose(GuidSelection guidSelection);
 
-        public void ShuffleDeck(Game game)
+        public void ShuffleDeck(IGame game)
         {
             Deck.Shuffle();
             var eve = new DeckShuffledEvent { Player = Copy() };
@@ -152,11 +154,11 @@ namespace Engine
             }
             else
             {
-                game._preGameEvents.Enqueue(eve);
+                game.PreGameEvents.Enqueue(eve);
             }
         }
 
-        public void PutFromTopOfDeckIntoShieldZone(int amount, Game game)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
         {
             for (int i = 0; i < amount; ++i)
             {
@@ -167,13 +169,13 @@ namespace Engine
             }
         }
 
-        private void Summon(Card card, Game game)
+        private void Summon(ICard card, IGame game)
         {
             game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
             _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
         }
 
-        public void DrawCards(int amount, Game game)
+        public void DrawCards(int amount, IGame game)
         {
             // 121.2. Cards may only be drawn one at a time.
             // If a player is instructed to draw multiple cards,
@@ -187,17 +189,17 @@ namespace Engine
             }
         }
 
-        internal IEnumerable<Card> GetCardsThatCanBePaid()
+        internal IEnumerable<ICard> GetCardsThatCanBePaid()
         {
             return Hand.Cards.Where(card => card.CanBePaid(this));
         }
 
-        internal IEnumerable<Card> GetCardsThatCanBePaidAndUsed(Game game)
+        public IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game)
         {
             return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
 
-        public void PutFromTopOfDeckIntoManaZone(Game game, int amount)
+        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount)
         {
             for (int i = 0; i < amount; ++i)
             {
@@ -208,7 +210,7 @@ namespace Engine
             }
         }
 
-        private void Cast(Card spell, Game game)
+        private void Cast(ICard spell, IGame game)
         {
             Hand.Remove(spell, game);
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
@@ -219,7 +221,7 @@ namespace Engine
                 ability.Owner = spell.Owner;
                 ability.Resolve(game);
             }
-            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<StaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
 
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(spell, game.GetTimestamp());
@@ -237,7 +239,7 @@ namespace Engine
             game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
-        public void DiscardAtRandom(Game game, int amount)
+        public void DiscardAtRandom(IGame game, int amount)
         {
             if (Hand.Cards.Any())
             {
@@ -245,14 +247,26 @@ namespace Engine
             }
         }
 
-        public void Reveal(Game game, Card card)
+        /// <summary>
+        /// 701.16a To reveal a card, show that card to all players for a brief time.
+        /// If an effect causes a card to be revealed, it remains revealed for as long
+        /// as necessary to complete the parts of the effect that card is relevant to.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="cards"></param>
+        public void Reveal(IGame game, params ICard[] cards)
         {
-            var opponent = game.GetOpponent(this);
-            card.KnownTo.Add(opponent.Id);
-            game.Process(new CardRevealedEvent { Player = Copy(), Card = card.Convert() });
+            Reveal(game, game.Players, cards);
         }
 
-        internal Zone GetZone(ZoneType zone)
+        public void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards)
+        {
+            // TODO: Implement reveal information on cards and add them here.
+            cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
+            game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
+        }
+
+        public IZone GetZone(ZoneType zone)
         {
             return zone switch
             {
@@ -265,12 +279,12 @@ namespace Engine
             };
         }
 
-        public Common.Player Copy()
+        public Common.IPlayer Copy()
         {
             return Convert();
         }
 
-        private void ChooseCardsToPayManaCost(Game game, Card toUse)
+        private void ChooseCardsToPayManaCost(IGame game, ICard toUse)
         {
             var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
             if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
@@ -283,13 +297,13 @@ namespace Engine
             }
         }
 
-        private void PayManaCostAndUseCard(Game game, IEnumerable<Card> manaCards, Card toUse)
+        private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)
         {
             Tap(game, manaCards.ToArray());
             UseCard(toUse, game);
         }
 
-        internal bool ChooseCardToUse(Game game, IEnumerable<Card> usableCards)
+        public bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards)
         {
             var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
             if (decision.Any())
@@ -313,11 +327,15 @@ namespace Engine
             }
         }
 
-        internal void UseCard(Card card, Game game)
+        public void UseCard(ICard card, IGame game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card.CardType == CardType.Creature)
             {
+                if (card.Supertypes.Contains(Supertype.Evolution))
+                {
+                    Evolve(card, game);
+                }
                 Summon(card, game);
             }
             else if (card.CardType == CardType.Spell)
@@ -330,15 +348,22 @@ namespace Engine
             }
         }
 
-        public Common.Player Convert()
+        private void Evolve(ICard card, IGame game)
+        {
+            var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
+            var bait = game.GetCard(Choose(new EvolutionBaitSelection(Id, baits), game).Decision.Single());
+            card.PutOnTopOf(bait);
+        }
+
+        public Common.IPlayer Convert()
         {
             return new Common.Player(this);
         }
 
-        public void Tap(Game game, params Card[] cards)
+        public void Tap(IGame game, params ICard[] cards)
         {
             var untappedCards = cards.Where(x => !x.Tapped).ToList();
-            foreach (Card card in untappedCards)
+            foreach (var card in untappedCards)
             {
                 card.Tapped = true;
             }
@@ -348,10 +373,10 @@ namespace Engine
             }
         }
 
-        public void Untap(Game game, params Card[] cards)
+        public void Untap(IGame game, params ICard[] cards)
         {
             var tappedCards = cards.Where(x => x.Tapped).ToList();
-            foreach (Card card in tappedCards)
+            foreach (var card in tappedCards)
             {
                 card.Tapped = false;
             }
@@ -367,15 +392,61 @@ namespace Engine
         /// That player loses the game.
         /// </summary>
         /// <param name="game"></param>
-        private void Concede(Game game)
+        private void Concede(IGame game)
         {
             game.Process(new ConcedeEvent { Player = Convert() });
             game.Lose(this);
         }
 
-        public void Look(Card[] cards)
+        public void Look(IPlayer owner, IGame game, params ICard[] cards)
         {
-            cards.Where(x => !x.KnownTo.Contains(Id)).ToList().ForEach(x => x.KnownTo.Add(Id));
+            // 701.16d Some effects instruct a player to look at one or more cards.
+            // Looking at a card follows the same rules as revealing a card,
+            // except that the card is shown only to the specified player.
+            owner.Reveal(game, new List<IPlayer> { this }, cards);
+        }
+
+        public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
+        {
+            var minimum = attackers.Any(x => game.GetContinuousEffects<AttacksIfAbleEffect>(x).Any()) ? 1 : 0;
+            var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
+            if (decision.Any())
+            {
+                ChooseAttackTarget(game, attackers, decision.Single());
+            }
+        }
+
+        private void ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
+        {
+            var attacker = attackers.Single(x => x.Id == id);
+            var possibleTargets = game.GetPossibleAttackTargets(attacker);
+            Common.IIdentifiable target = possibleTargets.Count() > 1
+                ? game.GetAttackable(Choose(new AttackTargetSelection(Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
+                : possibleTargets.Single();
+            Tap(game, attacker);
+            if (target.Id == attacker.Id)
+            {
+                game.CurrentTurn.CurrentPhase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>());
+            }
+            else
+            {
+                var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
+                phase.SetAttackingCreature(attacker, game);
+                phase.AttackTarget = target.Id;
+                game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
+            }
+        }
+
+        public IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game)
+        {
+            var cards = Deck.GetTopCards(amount);
+            Reveal(game, cards.ToArray());
+            return cards;
+        }
+
+        public void Unreveal(IEnumerable<ICard> cards)
+        {
+            // TODO: Implement reveal information on cards and remove them here.
         }
         #endregion Methods
     }

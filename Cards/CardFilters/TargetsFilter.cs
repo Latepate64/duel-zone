@@ -24,7 +24,7 @@ namespace Cards.CardFilters
             return new TargetsFilter(this);
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             return card != null && Cards.Contains(card.Id);
         }

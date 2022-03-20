@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     abstract class SearchDeckEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
         protected SearchDeckEffect(CardFilter filter)
         {
@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var player = game.GetPlayer(source.Owner);
             var cards = game.GetAllCards().Where(x => Filter.Applies(x, game, player));
@@ -32,6 +32,6 @@ namespace Cards.OneShotEffects
             return cards.Any();
         }
 
-        protected abstract void Apply(Game game, Ability source, params Card[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
     }
 }

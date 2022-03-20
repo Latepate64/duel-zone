@@ -2,7 +2,7 @@
 {
     public class SpellAbility : ResolvableAbility
     {
-        public SpellAbility(OneShotEffect effect) : base(effect)
+        public SpellAbility(IOneShotEffect effect) : base(effect)
         { }
 
         public SpellAbility(SpellAbility ability) : base(ability)

@@ -4,9 +4,9 @@ namespace Common.GameEvents
 {
     public class TapEvent : GameEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
-        public List<Card> Cards { get; set; }
+        public List<ICard> Cards { get; set; }
 
         public bool TapInsteadOfUntap { get; set; }
 
@@ -14,7 +14,7 @@ namespace Common.GameEvents
         {
         }
 
-        public TapEvent(Player player, List<Card> cards, bool tapInsteadOfUntap)
+        public TapEvent(IPlayer player, List<ICard> cards, bool tapInsteadOfUntap)
         {
             Player = player;
             Cards = cards;

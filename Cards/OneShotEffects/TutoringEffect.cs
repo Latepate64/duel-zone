@@ -28,16 +28,17 @@ namespace Cards.OneShotEffects
             return $"Search your deck. You may take {Filter}{reveal} and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             if (Reveal)
             {
-                foreach (var card in cards)
-                {
-                    game.GetOwner(card).Reveal(game, card);
-                }
+                game.GetPlayer(source.Owner).Reveal(game, cards);
             }
             game.Move(Common.ZoneType.Deck, Common.ZoneType.Hand, cards);
+            if (Reveal)
+            {
+                game.GetPlayer(source.Owner)?.Unreveal(cards);
+            }
         }
     }
 }

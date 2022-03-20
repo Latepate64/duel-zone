@@ -6,13 +6,13 @@ namespace Engine.Abilities
     /// <summary>
     /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
     /// </summary>
-    public abstract class TriggeredAbility : ResolvableAbility
+    public abstract class TriggeredAbility : ResolvableAbility, ITriggeredAbility
     {
-        protected TriggeredAbility(OneShotEffect effect) : base(effect)
+        protected TriggeredAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        protected TriggeredAbility(TriggeredAbility ability) : base(ability)
+        protected TriggeredAbility(ITriggeredAbility ability) : base(ability)
         {
         }
 
@@ -23,15 +23,15 @@ namespace Engine.Abilities
         /// <param name="source"></param>
         /// <param name="owner"></param>
         /// <returns></returns>
-        public TriggeredAbility Trigger(Guid source, Guid owner)
+        public ITriggeredAbility Trigger(Guid source, Guid owner)
         {
-            var copy = Copy() as TriggeredAbility;
+            var copy = Copy() as ITriggeredAbility;
             copy.Source = source;
             copy.Owner = owner;
             return copy;
         }
 
-        public abstract bool CanTrigger(GameEvent gameEvent, Game game);
+        public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
 
         /// <summary>
         /// 603.4. A triggered ability may read “When/Whenever/At [trigger event], if [condition], [effect].”
@@ -43,7 +43,7 @@ namespace Engine.Abilities
         /// This rule is referred to as the “intervening ‘if’ clause” rule.
         /// (The word “if” has only its normal English meaning anywhere else in the text of a card; this rule only applies to an “if” that immediately follows a trigger condition.)
         /// </summary>
-        public virtual bool CheckInterveningIfClause(Game game)
+        public virtual bool CheckInterveningIfClause(IGame game)
         {
             return true;
         }
@@ -54,7 +54,7 @@ namespace Engine.Abilities
         /// Otherwise, it continues to resolve. See rule 603.4.
         /// </summary>
         /// <param name="game"></param>
-        public override void Resolve(Game game)
+        public override void Resolve(IGame game)
         {
             if (CheckInterveningIfClause(game))
             {

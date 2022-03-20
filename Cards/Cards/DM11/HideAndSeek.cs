@@ -15,7 +15,7 @@ namespace Cards.Cards.DM11
 
     class HideAndSeekEffect : OneShotEffect
     {
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new BounceEffect(1, 1, new CardFilters.OpponentsBattleZoneChoosableNonEvolutionCreatureFilter()), new OpponentRandomDiscardEffect() })
             {

@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
             Abilities = effect.Abilities;
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != System.Guid.Empty)
             {

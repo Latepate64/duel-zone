@@ -4,7 +4,7 @@ namespace Common.GameEvents
 {
     public class SummoningSicknessEvent : GameEvent
     {
-        public List<Card> Cards { get; set; }
+        public List<ICard> Cards { get; set; }
 
         public SummoningSicknessEvent()
         {

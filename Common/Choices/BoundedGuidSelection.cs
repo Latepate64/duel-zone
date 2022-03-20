@@ -31,7 +31,7 @@ namespace Common.Choices
         }
     }
 
-    public class GuidDecision : Decision
+    public class GuidDecision : Decision, IGuidDecision
     {
         public List<Guid> Decision { get; set; }
 

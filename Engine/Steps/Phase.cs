@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Engine.Steps
 {
-    public abstract class Phase : ICopyable<Phase>
+    public abstract class Phase : ICopyable<IPhase>, IPhase
     {
-        public abstract Phase GetNextPhase(Game game);
+        public abstract IPhase GetNextPhase(IGame game);
 
-        internal virtual void Play(Game game)
+        public virtual void Play(IGame game)
         {
             if (this is ITurnBasedActionable turnBasedActionable)
             {
@@ -19,19 +19,19 @@ namespace Engine.Steps
             Progress(game);
         }
 
-        internal void Progress(Game game)
+        internal void Progress(IGame game)
         {
-            if (game.Players.Any())
+            if (!game.Ended)
             {
                 ResolveAbilities(game);
-                if (this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
+                if (!game.Ended && this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
                 {
                     Progress(game);
                 }
             }
         }
 
-        private void ResolveAbilities(Game game)
+        private void ResolveAbilities(IGame game)
         {
             while (PendingAbilities.Any())
             {
@@ -63,30 +63,30 @@ namespace Engine.Steps
             }
         }
 
-        private static AbilityText Convert(ResolvableAbility x)
+        private static AbilityText Convert(IResolvableAbility x)
         {
             return new AbilityText(x.Id, x.ToString());
         }
 
-        protected Phase(Phase phase)
+        protected Phase(IPhase phase)
         {
-            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<ResolvableAbility>().ToList();
-            GameEvents = new Queue<GameEvent>(phase.GameEvents);
+            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>().ToList();
+            GameEvents = new Queue<IGameEvent>(phase.GameEvents);
             UsedCards = phase.UsedCards.ToList();
             Type = phase.Type;
         }
 
-        protected Phase(PhaseOrStep type) 
+        protected Phase(PhaseOrStep type)
         {
             Type = type;
         }
 
-        public List<Card> UsedCards { get; } = new List<Card>();
-        public List<ResolvableAbility> PendingAbilities { get; internal set; } = new List<ResolvableAbility>();
+        public List<ICard> UsedCards { get; } = new List<ICard>();
+        public List<IResolvableAbility> PendingAbilities { get; internal set; } = new List<IResolvableAbility>();
 
-        public Queue<GameEvent> GameEvents { get; } = new Queue<GameEvent>();
+        public Queue<IGameEvent> GameEvents { get; } = new Queue<IGameEvent>();
         public PhaseOrStep Type { get; }
 
-        public abstract Phase Copy();
+        public abstract IPhase Copy();
     }
 }

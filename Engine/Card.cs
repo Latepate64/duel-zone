@@ -1,20 +1,23 @@
 ﻿using Combinatorics.Collections;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<Card>, IAttackable, ITimestampable
+    public class Card : Common.Card, ICopyable<ICard>, ITimestampable, ICard
     {
-        private IEnumerable<Ability> Abilities => _printedAbilities.Union(_addedAbilities);
-        private readonly List<Ability> _printedAbilities = new();
-        private readonly List<Ability> _addedAbilities = new();
+        private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
+        public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
+        public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
-        private readonly int? _printedPower;
+        public int? PrintedPower { get; }
 
-        public int Timestamp { get; }
+        public int Timestamp { get; set; }
+
+        internal bool CountsAsIfExists => Underneath != Guid.Empty;
 
         public IEnumerable<T> GetAbilities<T>()
         {
@@ -25,19 +28,19 @@ namespace Engine
 
         public Card(int? power)
         {
-            _printedPower = power;
+            PrintedPower = power;
         }
 
-        internal Card(Card card, int timeStamp) : base(card, false)
+        internal Card(ICard card, int timeStamp) : base(card, false)
         {
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
-            _addedAbilities = card._addedAbilities.Select(x => x.Copy()).ToList();
-            _printedAbilities = card._printedAbilities.Select(x => x.Copy()).ToList();
-            _printedPower = card._printedPower;
+            AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
+            PrintedPower = card.PrintedPower;
             InitializeAbilities();
         }
 
-        public virtual Card Copy()
+        public virtual ICard Copy()
         {
             return new Card(this, Timestamp);
         }
@@ -57,7 +60,7 @@ namespace Engine
             {
                 ability.Owner = Owner;
                 ability.Source = Id;
-                if (ability is StaticAbility staticAbility)
+                if (ability is IStaticAbility staticAbility)
                 {
                     foreach (var effect in staticAbility.ContinuousEffects)
                     {
@@ -76,7 +79,7 @@ namespace Engine
             SetRulesText();
         }
 
-        public Common.Card Convert(bool clear = false)
+        public Common.ICard Convert(bool clear = false)
         {
             return new Common.Card(this, clear);
         }
@@ -86,55 +89,55 @@ namespace Engine
             RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
 
-        internal void AddGrantedAbility(Ability ability)
+        public void AddGrantedAbility(IAbility ability)
         {
-            _addedAbilities.Add(ability);
+            AddedAbilities.Add(ability);
         }
 
-        protected void AddAbilities(params Ability[] abilities)
+        protected void AddAbilities(params IAbility[] abilities)
         {
-            _printedAbilities.AddRange(abilities);
+            abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
         }
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
 
-        internal void ResetToPrintedValues()
+        public void ResetToPrintedValues()
         {
-            Power = _printedPower;
-            _addedAbilities.Clear();
+            Power = PrintedPower;
+            AddedAbilities.Clear();
         }
 
-        public bool CanAttackCreatures(Game game)
+        public bool CanAttackCreatures(IGame game)
         {
             return !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
         }
 
-        public bool CanAttackPlayers(Game game)
+        public bool CanAttackPlayers(IGame game)
         {
             return !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any() || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
         }
 
-        internal bool CanEvolveFrom(Game game, Card card)
+        public bool CanEvolveFrom(IGame game, ICard card)
         {
-            return game.GetContinuousEffects<EvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
+            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
         }
 
-        internal bool CanBeUsedRegardlessOfManaCost(Game game)
+        public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return !Supertypes.Contains(Common.Supertype.Evolution) || game.CanBeEvolved(this);
+            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<CannotUseCardEffect>(this).Any();
         }
 
-        internal bool CanBePaid(Player player)
+        public bool CanBePaid(IPlayer player)
         {
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
         }
 
-        internal IEnumerable<IEnumerable<Card>> GetManaCombinations(Player player)
+        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player)
         {
-            return new Combinations<Card>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
+            return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
-        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Common.Civilization> civs)
+        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Common.Civilization> civs)
         {
             if (!civs.Any())
             {
@@ -148,6 +151,44 @@ namespace Engine
             {
                 return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
             }
+        }
+
+        public void PutOnTopOf(ICard bait)
+        {
+            OnTopOf = bait.Id;
+            bait.Underneath = Id;
+        }
+
+        public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
+        {
+            if (Underneath != Guid.Empty)
+            {
+                var list = deconstructred.ToList();
+                list.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
+                Underneath = Guid.Empty;
+                return list;
+            }
+            else
+            {
+                OnTopOf = Guid.Empty;
+                return new List<ICard> { this };
+            }
+        }
+
+        public bool AffectedBySummoningSickness(IGame game)
+        {
+            return SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(this).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any());
+        }
+
+        public void MoveTopCardIntoOwnersGraveyard(IGame game)
+        {
+            if (OnTopOf != Guid.Empty)
+            {
+                var card = game.GetCard(OnTopOf);
+                OnTopOf = Guid.Empty;
+                card.Underneath = Guid.Empty;
+            }
+            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
         }
     }
 }

@@ -6,17 +6,17 @@
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override IStep GetNextStep(IGame game)
         {
             return new AttackDeclarationStep(Phase);
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new EndOfAttackStep(this);
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
             Phase.RemoveAttackingCreature(game);
             Phase.RemoveAttackTarget(game);

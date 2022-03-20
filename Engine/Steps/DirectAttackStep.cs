@@ -10,7 +10,7 @@ namespace Engine.Steps
         {
         }
 
-        public override Step GetNextStep(Game game)
+        public override IStep GetNextStep(IGame game)
         {
             return new EndOfAttackStep(Phase);
         }
@@ -19,7 +19,7 @@ namespace Engine.Steps
         {
         }
 
-        public override void PerformTurnBasedAction(Game game)
+        public override void PerformTurnBasedAction(IGame game)
         {
             var attackingCreature = game.GetCard(Phase.AttackingCreature);
             var controller = game.GetPlayer(attackingCreature.Owner);
@@ -42,7 +42,7 @@ namespace Engine.Steps
             }
         }
 
-        public override Step Copy()
+        public override IStep Copy()
         {
             return new DirectAttackStep(this);
         }

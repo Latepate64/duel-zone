@@ -6,8 +6,8 @@
         {
         }
 
-        public Card Attacker { get; set; }
-        public Player Target { get; set; }
+        public ICard Attacker { get; set; }
+        public IPlayer Target { get; set; }
         public int Amount { get; set; }
 
 

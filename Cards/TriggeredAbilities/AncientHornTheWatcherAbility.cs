@@ -18,7 +18,7 @@ namespace Cards.TriggeredAbilities
             return new AncientHornTheWatcherAbility(this);
         }
 
-        public override bool CheckInterveningIfClause(Game game)
+        public override bool CheckInterveningIfClause(IGame game)
         {
             // if you have 5 or more shields
             return game.GetPlayer(Owner)?.ShieldZone.Cards.Count >= 5;

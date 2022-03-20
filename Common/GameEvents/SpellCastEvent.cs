@@ -4,7 +4,7 @@
     {
         public SpellCastEvent() { }
 
-        public SpellCastEvent(Player player, Card spell)
+        public SpellCastEvent(IPlayer player, ICard spell)
         {
             CardInSourceZone = spell.Id;
             Card = spell;

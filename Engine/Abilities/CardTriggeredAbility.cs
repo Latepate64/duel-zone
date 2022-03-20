@@ -4,11 +4,11 @@ namespace Engine.Abilities
 {
     public abstract class CardTriggeredAbility : TriggeredAbility
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
-        protected CardTriggeredAbility(OneShotEffect effect) : this(effect, new TargetFilter()) { }
+        protected CardTriggeredAbility(IOneShotEffect effect) : this(effect, new TargetFilter()) { }
 
-        protected CardTriggeredAbility(OneShotEffect effect, CardFilter filter) : base(effect)
+        protected CardTriggeredAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
         {
             Filter = filter;
         }
@@ -18,11 +18,11 @@ namespace Engine.Abilities
             Filter = ability.Filter.Copy();
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             if (CheckInterveningIfClause(game))
             {
-                bool foo = gameEvent is CardEvent e;
+                bool foo = gameEvent is ICardEvent e;
                 return foo;
             }
             return false;

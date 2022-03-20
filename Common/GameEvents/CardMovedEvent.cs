@@ -2,9 +2,9 @@
 
 namespace Common.GameEvents
 {
-    public class CardMovedEvent : CardEvent
+    public class CardMovedEvent : CardEvent, ICardMovedEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
         public Guid CardInSourceZone { get; set; }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Common.GameEvents
             Destination = e.Destination;
         }
 
-        public override GameEvent Copy()
+        public override IGameEvent Copy()
         {
             return new CardMovedEvent(this);
         }

@@ -8,7 +8,7 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        public IgnoreCannotAttackPlayersEffects(CardFilter filter, Duration duration, params Condition[] conditions) : base(filter, duration, conditions)
+        public IgnoreCannotAttackPlayersEffects(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
 

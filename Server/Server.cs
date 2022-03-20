@@ -128,7 +128,7 @@ namespace Server
             }
         }
 
-        private Table GetTable(Player player)
+        private Table GetTable(IPlayer player)
         {
             return _tables.Single(x => x.GetPlayers().Contains(player));
         }
@@ -178,7 +178,7 @@ namespace Server
             }
         }
 
-        private void OnGameEvent(GameEvent gameEvent)
+        private void OnGameEvent(IGameEvent gameEvent)
         {
             var table = _tables.Single(); //TODO: Support more tables
             foreach (var player in table.GetPlayers())
@@ -203,14 +203,14 @@ namespace Server
             } 
         }
 
-        private void WriteToConsoleAndClient(Player player, GameEvent e)
+        private void WriteToConsoleAndClient(IPlayer player, IGameEvent e)
         {
             var text = Serializer.Serialize(e);
             Program.WriteConsole(text);
             Write(text, GetHumanPlayer(player).Client);
         }
 
-        private HumanPlayer GetHumanPlayer(Player player)
+        private HumanPlayer GetHumanPlayer(IPlayer player)
         {
             return _players.Single(x => x.Id == player.Id);
         }

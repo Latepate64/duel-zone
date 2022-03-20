@@ -2,7 +2,7 @@
 {
     public class BecomeBlockedEvent : CardEvent
     {
-        public Card Blocker { get; set; }
+        public ICard Blocker { get; set; }
 
         public BecomeBlockedEvent()
         {

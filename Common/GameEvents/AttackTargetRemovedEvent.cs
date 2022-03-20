@@ -2,8 +2,8 @@
 {
     public class AttackTargetRemovedEvent : GameEvent
     {
-        public Card TargetCard { get; set; }
-        public Player TargetPlayer { get; set; }
+        public ICard TargetCard { get; set; }
+        public IPlayer TargetPlayer { get; set; }
 
         public AttackTargetRemovedEvent()
         {

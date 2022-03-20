@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
             return new EmeralEffect();
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var cards = new ShieldAdditionEffect(new CardFilters.OwnersHandCardFilter(), 0, 1, true).Apply(game, source);
             if (cards.Any())

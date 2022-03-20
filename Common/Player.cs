@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public class Player
+    public class Player : IPlayer
     {
         public Guid Id { get; set; }
 
@@ -13,7 +13,7 @@ namespace Common
             Id = Guid.NewGuid();
         }
 
-        public Player(Player player)
+        public Player(IPlayer player)
         {
             Id = player.Id;
             Name = player?.Name;

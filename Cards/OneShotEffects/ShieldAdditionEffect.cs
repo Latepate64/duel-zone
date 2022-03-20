@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             return $"Add {GetAmountAsText()} {Filter} to your shields face down.";
         }
 
-        protected override void Apply(Game game, Ability source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.Move(Common.ZoneType.Hand, Common.ZoneType.ShieldZone, cards);
         }

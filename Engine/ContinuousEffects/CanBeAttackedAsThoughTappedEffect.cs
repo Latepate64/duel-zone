@@ -8,7 +8,7 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        public CanBeAttackedAsThoughTappedEffect(CardFilter filter, Duration duration) : base(filter, duration)
+        public CanBeAttackedAsThoughTappedEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

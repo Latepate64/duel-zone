@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override IEnumerable<Card> Apply(Game game, Ability source)
+        public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
             var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
             if (cards.Any())
@@ -53,7 +53,7 @@ namespace Cards.OneShotEffects
             return cards;
         }
 
-        protected abstract void Apply(Game game, Ability source, params Card[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
         protected string GetAmountAsText()
         {

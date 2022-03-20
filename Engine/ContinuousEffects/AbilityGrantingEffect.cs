@@ -7,14 +7,14 @@ namespace Engine.ContinuousEffects
 {
     public class AbilityGrantingEffect : CharacteristicModifyingEffect
     {
-        public List<Ability> Abilities { get; }
+        public List<IAbility> Abilities { get; }
 
         public AbilityGrantingEffect(AbilityGrantingEffect effect) : base(effect)
         {
             Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
-        public AbilityGrantingEffect(CardFilter filter, Duration duration, params Ability[] abilities) : base(filter, duration)
+        public AbilityGrantingEffect(ICardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter, duration)
         {
             Abilities = abilities.ToList();
         }
@@ -29,7 +29,6 @@ namespace Engine.ContinuousEffects
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
             {
                 Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
-                ;
             }
         }
 

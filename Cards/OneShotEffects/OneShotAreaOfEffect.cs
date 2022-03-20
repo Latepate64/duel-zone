@@ -7,9 +7,9 @@ namespace Cards.OneShotEffects
 {
     abstract class OneShotAreaOfEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
-        protected OneShotAreaOfEffect(CardFilter filter)
+        protected OneShotAreaOfEffect(ICardFilter filter)
         {
             Filter = filter;
         }
@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        protected IEnumerable<Card> GetAffectedCards(Game game, Ability source)
+        protected IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
         }

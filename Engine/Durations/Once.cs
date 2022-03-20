@@ -2,7 +2,7 @@
 {
     public class Once : Duration
     {
-        public override Duration Copy()
+        public override IDuration Copy()
         {
             return new Once();
         }

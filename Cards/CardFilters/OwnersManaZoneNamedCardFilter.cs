@@ -16,7 +16,7 @@ namespace Cards.CardFilters
             _name = filter._name;
         }
 
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             return base.Applies(card, game, player) && card.Name == _name;
         }

@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Power = effect.Power;
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             foreach (var creature in GetAffectedCards(game, source))
             {

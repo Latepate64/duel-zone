@@ -9,8 +9,8 @@ namespace Common
 
     public class PlayerDeck
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
-        public List<Card> Deck { get; set; }
+        public List<ICard> Deck { get; set; }
     }
 }

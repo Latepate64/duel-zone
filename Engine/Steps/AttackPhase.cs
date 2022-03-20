@@ -1,7 +1,6 @@
 ﻿using Common.GameEvents;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Engine.Steps
 {
@@ -20,19 +19,19 @@ namespace Engine.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override Phase Copy()
+        public override IPhase Copy()
         {
             return new AttackPhase(this);
         }
 
-        internal void RemoveAttackTarget(Game game)
+        internal void RemoveAttackTarget(IGame game)
         {
             if (AttackTarget != Guid.Empty)
             {
                 var target = game.GetAttackable(AttackTarget);
                 AttackTarget = Guid.Empty;
                 var e = new AttackTargetRemovedEvent();
-                if (target is Card card)
+                if (target is ICard card)
                 {
                     e.TargetCard = card.Convert();
                 }
@@ -44,7 +43,7 @@ namespace Engine.Steps
             }
         }
 
-        internal void RemoveBlockingCreature(Game game)
+        internal void RemoveBlockingCreature(IGame game)
         {
             if (BlockingCreature != Guid.Empty)
             {
@@ -54,12 +53,12 @@ namespace Engine.Steps
             }
         }
 
-        public override Phase GetNextPhase(Game game)
+        public override IPhase GetNextPhase(IGame game)
         {
             return new EndOfTurnPhase();
         }
 
-        internal void RemoveAttackingCreature(Game game)
+        internal void RemoveAttackingCreature(IGame game)
         {
             if (AttackingCreature != Guid.Empty)
             {
@@ -69,15 +68,15 @@ namespace Engine.Steps
             }
         }
 
-        internal void SetAttackingCreature(Card attacker, Game game)
+        internal void SetAttackingCreature(ICard attacker, IGame game)
         {
             AttackingCreature = attacker.Id;
         }
 
-        internal override void Play(Game game)
+        public override void Play(IGame game)
         {
-            Step step = new AttackDeclarationStep(this);
-            while (step != null && game.Players.Any())
+            IStep step = new AttackDeclarationStep(this);
+            while (step != null && !game.Ended)
             {
                 _steps.Add(step);
                 game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));
@@ -87,6 +86,6 @@ namespace Engine.Steps
             }
         }
 
-        private readonly Collection<Step> _steps = new();
+        private readonly Collection<IStep> _steps = new();
     }
 }

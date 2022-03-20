@@ -11,25 +11,25 @@ namespace Engine.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone
+    public class BattleZone : Zone, IBattleZone
     {
         public BattleZone() : base()
         {
         }
 
-        public BattleZone(BattleZone zone) : base(zone)
+        public BattleZone(IBattleZone zone) : base(zone)
         {
         }
 
-        public override void Add(Card card, Game game)
+        public override void Add(ICard card, IGame game)
         {
             card.SummoningSickness = true;
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.AddContinuousEffects(card, card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            game.AddContinuousEffects(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
-        public override bool Remove(Card card, Game game)
+        public override List<ICard> Remove(ICard card, IGame game)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
@@ -48,17 +48,17 @@ namespace Engine.Zones
             }
             if (!Cards.Remove(card))
             {
-                return false;
+                return new List<ICard>();
             }
-            else 
+            else
             {
-                var staticAbilities = card.GetAbilities<StaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
+                var staticAbilities = card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
                 game.RemoveContinuousEffects(staticAbilities);
-                return true;
+                return card.Deconstruct(game, new List<ICard>()).ToList();
             }
         }
 
-        public IEnumerable<Card> GetChoosableCreatures(Game game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
         {
             return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
         }
@@ -66,6 +66,11 @@ namespace Engine.Zones
         public override string ToString()
         {
             return "battle zone";
+        }
+
+        public IEnumerable<ICard> GetChoosableEvolutionCreatures(IGame game, Guid owner)
+        {
+            return GetChoosableCreatures(game, owner).Where(x => x.IsEvolutionCreature);
         }
     }
 }

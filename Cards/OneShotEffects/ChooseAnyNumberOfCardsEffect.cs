@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     public abstract class ChooseAnyNumberOfCardsEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
+        public ICardFilter Filter { get; }
 
         protected ChooseAnyNumberOfCardsEffect(CardFilter filter)
         {
@@ -19,9 +19,9 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        protected abstract void Apply(Game game, Ability source, params Card[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var player = game.GetPlayer(source.Owner);
             var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));

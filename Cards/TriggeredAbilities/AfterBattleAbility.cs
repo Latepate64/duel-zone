@@ -14,7 +14,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(GameEvent gameEvent, Game game)
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             return CheckInterveningIfClause(game) && gameEvent is AfterBattleEvent;
         }

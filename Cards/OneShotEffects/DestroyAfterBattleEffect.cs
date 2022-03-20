@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var ability = new AfterBattleAbility(new DestroyAreaOfEffect((source as CardTriggeredAbility).Filter));
             game.AddDelayedTriggeredAbility(ability, new Once());

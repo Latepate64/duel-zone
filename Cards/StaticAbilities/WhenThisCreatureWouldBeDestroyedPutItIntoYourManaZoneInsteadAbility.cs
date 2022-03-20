@@ -29,7 +29,7 @@ namespace Cards.StaticAbilities
             return new WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
-        public override bool Apply(Game game, Engine.Player player)
+        public override bool Apply(Game game, Engine.IPlayer player)
         {
             game.Move(ZoneType.BattleZone, ZoneType.ManaZone, GetAffectedCards(game).ToArray());
             return true;

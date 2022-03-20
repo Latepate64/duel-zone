@@ -4,7 +4,7 @@ namespace Cards.CardFilters
 {
     class OpponentsBattleZoneChoosableNonEvolutionCreatureFilter : OpponentsBattleZoneChoosableCreatureFilter
     {
-        public override bool Applies(Card card, Game game, Player player)
+        public override bool Applies(ICard card, IGame game, IPlayer player)
         {
             return base.Applies(card, game, player) && card.IsEvolutionCreature;
         }

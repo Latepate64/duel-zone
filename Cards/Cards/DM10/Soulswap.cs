@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
                 return new SoulswapEffect();
             }
 
-            public override object Apply(Game game, Ability source)
+            public override object Apply(IGame game, IAbility source)
             {
                 // You may choose a creature in the battle zone and put it into its owner's mana zone.
                 var player = game.GetPlayer(source.Owner);

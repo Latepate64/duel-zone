@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
             return new ControllerMayDrawCardsEffect(this);
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var player = game.GetPlayer(source.Owner);
             if (player != null)

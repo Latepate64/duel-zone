@@ -2,7 +2,7 @@
 {
     public class ConcedeEvent : GameEvent
     {
-        public Player Player { get; set; }
+        public IPlayer Player { get; set; }
 
         public ConcedeEvent()
         {

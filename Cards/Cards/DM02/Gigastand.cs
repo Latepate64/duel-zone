@@ -27,7 +27,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public override bool Apply(Game game, Engine.Player player)
+        public override bool Apply(Game game, Engine.IPlayer player)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {

@@ -2,7 +2,7 @@
 
 namespace Common.GameEvents
 {
-    public abstract class GameEvent
+    public abstract class GameEvent : IGameEvent
     {
         protected GameEvent()
         {
@@ -14,9 +14,9 @@ namespace Common.GameEvents
             Id = e.Id;
         }
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
-        public virtual GameEvent Copy() { return null; }
+        public virtual IGameEvent Copy() { return null; }
 
         public override abstract string ToString();
     }

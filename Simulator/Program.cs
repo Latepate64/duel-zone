@@ -61,7 +61,7 @@ namespace Simulator
             }
         }
 
-        private static void UpdateWinnerUsedCards(Game game, IEnumerable<Card> usedCards, PlayerConfiguration winner)
+        private static void UpdateWinnerUsedCards(Game game, IEnumerable<ICard> usedCards, PlayerConfiguration winner)
         {
             ++winner.Wins;
             //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == game.Winner).Select(x => x.Name).Distinct())
@@ -70,7 +70,7 @@ namespace Simulator
             //}
         }
 
-        private static void UpdateLoserUsedCards(Game game, IEnumerable<Card> usedCards, Player loser, PlayerConfiguration loserConfiguration)
+        private static void UpdateLoserUsedCards(Game game, IEnumerable<ICard> usedCards, IPlayer loser, PlayerConfiguration loserConfiguration)
         {
             ++loserConfiguration.Losses;
             //foreach (string cardName in usedCards.Where(x => game.GetOwner(x) == loser).Select(x => x.Name).Distinct())

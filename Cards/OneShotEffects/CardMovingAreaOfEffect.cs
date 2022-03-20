@@ -16,13 +16,13 @@ namespace Cards.OneShotEffects
             DestinationZone = effect.DestinationZone;
         }
 
-        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, CardFilter filter) : base(filter)
+        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, ICardFilter filter) : base(filter)
         {
             SourceZone = source;
             DestinationZone = destination;
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             var cards = GetAffectedCards(game, source).ToArray();
             _ = game.Move(SourceZone, DestinationZone, cards);

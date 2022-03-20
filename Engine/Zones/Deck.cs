@@ -7,24 +7,24 @@ namespace Engine.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone
+    public class Deck : Zone, IDeck
     {
         public Deck() : base() { }
 
-        public Deck(Zone zone) : base(zone)
+        public Deck(IDeck zone) : base(zone)
         {
         }
 
-        public override void Add(Card card, Game game)
+        public override void Add(ICard card, IGame game)
         {
             Cards.Add(card);
         }
 
-        public override bool Remove(Card card, Game game)
+        public override List<ICard> Remove(ICard card, IGame game)
         {
             if (!Cards.Remove(card))
             {
-                return false;
+                return new List<ICard>();
             }
             if (!Cards.Any())
             {
@@ -32,11 +32,13 @@ namespace Engine.Zones
                 game.Process(new Common.GameEvents.DeckoutEvent { Player = player.Copy() });
                 game.Lose(player);
             }
-            return true;
+            return new List<ICard> { card };
         }
 
         public void Shuffle()
         {
+            // 701.16c If cards in a player’s library are shuffled or otherwise reordered, any revealed cards that are reordered stop being revealed and become new objects.
+            // TODO: Become new objects
             foreach (var card in Cards)
             {
                 card.KnownTo = new List<Guid>();
@@ -47,7 +49,7 @@ namespace Engine.Zones
             {
                 n--;
                 int k = random.Next(n + 1);
-                Card value = Cards[k];
+                var value = Cards[k];
                 Cards[k] = Cards[n];
                 Cards[n] = value;
             }
@@ -58,10 +60,15 @@ namespace Engine.Zones
             return "deck";
         }
 
-        public void Setup(IEnumerable<Card> cards, Guid owner)
+        public void Setup(IEnumerable<ICard> cards, Guid owner)
         {
             cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);
+        }
+
+        public IEnumerable<ICard> GetTopCards(int amount)
+        {
+            return Cards.TakeLast(amount);
         }
     }
 }

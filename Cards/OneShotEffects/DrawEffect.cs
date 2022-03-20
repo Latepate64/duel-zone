@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public override object Apply(Game game, Ability source)
+        public override object Apply(IGame game, IAbility source)
         {
             game.GetPlayer(source.Owner).DrawCards(_amount, game);
             return null;

@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public PaymentSelection(Guid player, IEnumerable<Card> options, int minimumSelection, int maximumSelection) : base(player, options, minimumSelection, maximumSelection)
+        public PaymentSelection(Guid player, IEnumerable<ICard> options, int minimumSelection, int maximumSelection) : base(player, options, minimumSelection, maximumSelection)
         {
         }
 

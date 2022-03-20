@@ -9,14 +9,14 @@ namespace Common
         Evolution
     }
 
-    public class Card
+    public class Card : ICard
     {
         public Card()
         {
             Id = Guid.NewGuid();
         }
 
-        public Card(Card card, bool clear)
+        public Card(ICard card, bool clear)
         {
             Id = card.Id;
             Owner = card.Owner;
@@ -78,8 +78,14 @@ namespace Common
 
         public List<Supertype> Supertypes { get; set; } = new();
 
+        /// <summary>
+        /// Id of the card this card is on top of.
+        /// </summary>
         public Guid OnTopOf { get; set; }
 
+        /// <summary>
+        /// Id of the card this card is underneath of.
+        /// </summary>
         public Guid Underneath { get; set; }
     }
 }

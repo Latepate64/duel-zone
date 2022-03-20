@@ -2,7 +2,7 @@
 {
     public class CreatureStoppedAttackingEvent : GameEvent
     {
-        public Card Attacker { get; set; }
+        public ICard Attacker { get; set; }
 
         public CreatureStoppedAttackingEvent()
         {

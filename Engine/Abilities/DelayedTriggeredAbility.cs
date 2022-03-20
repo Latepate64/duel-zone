@@ -5,10 +5,10 @@ namespace Engine.Abilities
 {
     internal class DelayedTriggeredAbility : IDisposable
     {
-        internal TriggeredAbility TriggeredAbility { get; private set; }
-        internal Duration Duration { get; private set; }
+        internal ITriggeredAbility TriggeredAbility { get; private set; }
+        internal IDuration Duration { get; private set; }
 
-        public DelayedTriggeredAbility(TriggeredAbility triggeredAbility, Duration duration, Guid source, Guid owner)
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, IDuration duration, Guid source, Guid owner)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
@@ -18,7 +18,7 @@ namespace Engine.Abilities
 
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
-            TriggeredAbility = ability.TriggeredAbility.Copy() as TriggeredAbility;
+            TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
             Duration = ability.Duration.Copy();
         }
 
