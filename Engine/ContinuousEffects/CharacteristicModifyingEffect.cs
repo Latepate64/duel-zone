@@ -11,15 +11,5 @@ namespace Engine.ContinuousEffects
         protected CharacteristicModifyingEffect(CharacteristicModifyingEffect effect) : base(effect)
         {
         }
-
-        internal virtual void CheckConditionsAndApply(Game game)
-        {
-            if (ConditionsApply(game))
-            {
-                Apply(game);
-            }
-        }
-
-        public abstract void Apply(Game game);
     }
 }

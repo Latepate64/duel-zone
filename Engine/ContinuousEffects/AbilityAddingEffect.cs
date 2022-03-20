@@ -24,11 +24,6 @@ namespace Engine.ContinuousEffects
             return new AbilityAddingEffect(this);
         }
 
-        public override void Apply(Game game)
-        {
-            throw new System.NotImplementedException("TODO: remove");
-        }
-
         public override string ToString()
         {
             return $"{ToStringBase()}{Filter} get {Abilities}{GetDurationAsText()}.";

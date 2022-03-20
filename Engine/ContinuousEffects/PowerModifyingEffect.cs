@@ -41,10 +41,5 @@ namespace Engine.ContinuousEffects
                 card.Power += GetPower(game);
             }
         }
-
-        public override void Apply(Game game)
-        {
-            throw new System.NotImplementedException("TODO: Should be removed");
-        }
     }
 }

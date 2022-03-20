@@ -34,11 +34,6 @@ namespace Cards.Cards.DM03
             }
         }
 
-        public override void Apply(Game game)
-        {
-            throw new System.NotImplementedException("TODO remove");
-        }
-
         public override IContinuousEffect Copy()
         {
             return new RagingDashHornEffect(this);
