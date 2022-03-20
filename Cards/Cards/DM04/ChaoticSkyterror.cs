@@ -8,7 +8,19 @@ namespace Cards.Cards.DM04
     {
         public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new Engine.Abilities.StaticAbility(new ChaoticSkyterrorEffect()));
+            AddAbilities(new ChaoticSkyterrorAbility());
+        }
+    }
+
+    class ChaoticSkyterrorAbility : Engine.Abilities.StaticAbility
+    {
+        public ChaoticSkyterrorAbility() : base(new ChaoticSkyterrorEffect())
+        {
+        }
+
+        public override string ToString()
+        {
+            return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
         }
     }
 

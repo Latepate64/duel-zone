@@ -9,17 +9,20 @@ namespace Cards.Cards.DM09
 {
     class PetrovaChannelerOfSuns : Creature
     {
-        public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, 3500, Common.Subtype.MechaDelSol, Common.Civilization.Light)
+        public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, 3500, Subtype.MechaDelSol, Civilization.Light)
         {
-            // When you put this creature into the battle zone, choose a race other than Mecha del Sol. Each creature of that race gets +4000 power.
-            AddAbilities(new StaticAbility(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone })));
-
-            // Whenever your opponent would choose a creature in the battle zone, he can't choose this one. (It can still be attacked and blocked.)
-            AddAbilities(new UnchoosableAbility());
+            AddAbilities(new PetrovaChannelerOfSunsAbility(), new UnchoosableAbility());
         }
     }
 
-    internal class PetrovaChannelerOfSunsEffect : ReplacementEffect
+    class PetrovaChannelerOfSunsAbility : StaticAbility
+    {
+        public PetrovaChannelerOfSunsAbility() : base(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }))
+        {
+        }
+    }
+
+    class PetrovaChannelerOfSunsEffect : ReplacementEffect
     {
         public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent, new Engine.TargetFilter())
         {

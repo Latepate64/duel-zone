@@ -10,7 +10,19 @@ namespace Cards.Cards.DM03
     {
         public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
         {
-            AddAbilities(new StaticAbility(new BlazeCannonRestrictionEffect()), new SpellAbility(new BlazeCannonBuffEffect()));
+            AddAbilities(new BlazeCannonAbility(), new SpellAbility(new BlazeCannonBuffEffect()));
+        }
+    }
+
+    class BlazeCannonAbility : StaticAbility
+    {
+        public BlazeCannonAbility() : base(new BlazeCannonRestrictionEffect())
+        {
+        }
+
+        public override string ToString()
+        {
+            return "You can cast this spell only if all the cards in your mana zone are fire cards.";
         }
     }
 
