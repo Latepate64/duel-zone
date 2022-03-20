@@ -8,7 +8,19 @@ namespace Cards.Cards.DM02
     {
         public KingNautilus() : base("King Nautilus", 8, 6000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new StaticAbility(new Engine.ContinuousEffects.UnblockableEffect(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter())), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new KingNautilusAbility(), new StaticAbilities.DoubleBreakerAbility());
+        }
+    }
+
+    class KingNautilusAbility : StaticAbility
+    {
+        public KingNautilusAbility() : base(new Engine.ContinuousEffects.UnblockableEffect(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter()))
+        {
+        }
+
+        public override string ToString()
+        {
+            return "Liquid People can't be blocked.";
         }
     }
 }

@@ -13,7 +13,19 @@ namespace Cards.Cards.DM02
     {
         public Gigastand() : base("Gigastand", 4, 3000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbility(new GigastandEffect()));
+            AddAbilities(new GigastandAbility());
+        }
+    }
+
+    class GigastandAbility : StaticAbility
+    {
+        public GigastandAbility() : base(new GigastandEffect())
+        {
+        }
+
+        public override string ToString()
+        {
+            return "When this creature would be put into your graveyard from the battle zone, you may return it to your hand instead. If you do, discard a card from your hand.";
         }
     }
 
