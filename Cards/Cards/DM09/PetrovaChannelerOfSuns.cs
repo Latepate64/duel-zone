@@ -11,7 +11,7 @@ namespace Cards.Cards.DM09
     {
         public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, 3500, Subtype.MechaDelSol, Civilization.Light)
         {
-            AddAbilities(new PetrovaChannelerOfSunsAbility(), new UnchoosableAbility());
+            AddAbilities(new PetrovaChannelerOfSunsAbility(), new OpponentCannotChooseThisCreatureAbility());
         }
     }
 

@@ -12,7 +12,14 @@ namespace Cards.Cards.DM03
 
     class LegendaryBynorAbility : Engine.Abilities.StaticAbility
     {
-        public LegendaryBynorAbility() : base(new Engine.ContinuousEffects.UnblockableEffect(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new CardFilters.BattleZoneCreatureFilter()))
+        public LegendaryBynorAbility() : base(new LegendaryBynorEffect())
+        {
+        }
+    }
+
+    class LegendaryBynorEffect : Engine.ContinuousEffects.UnblockableEffect
+    {
+        public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new CardFilters.BattleZoneCreatureFilter())
         {
         }
 

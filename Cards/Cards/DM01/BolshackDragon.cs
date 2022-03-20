@@ -15,7 +15,14 @@ namespace Cards.Cards.DM01
 
     class BolshackDragonAbility : StaticAbility
     {
-        public BolshackDragonAbility() : base(new PowerAttackerMultiplierEffect(1000, new OwnersGraveyardCardFilter(Common.Civilization.Fire)))
+        public BolshackDragonAbility() : base(new BolshackDragonEffect())
+        {
+        }
+    }
+
+    class BolshackDragonEffect : PowerAttackerMultiplierEffect
+    {
+        public BolshackDragonEffect() : base(1000, new OwnersGraveyardCardFilter(Common.Civilization.Fire))
         {
         }
 

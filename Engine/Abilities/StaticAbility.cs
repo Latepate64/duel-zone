@@ -19,7 +19,7 @@ namespace Engine.Abilities
 
         public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
 
-        public StaticAbility(params ContinuousEffect[] continuousEffects) : base()
+        public StaticAbility(params IContinuousEffect[] continuousEffects) : base()
         {
             _continuousEffects.AddRange(continuousEffects);
         }
@@ -35,7 +35,7 @@ namespace Engine.Abilities
             return new StaticAbility(this);
         }
 
-        public override string ToString()
+        public sealed override string ToString()
         {
             return string.Join(" ", _continuousEffects.Select(x => UpperCaseFirstCharacter(x.ToString())));
         }

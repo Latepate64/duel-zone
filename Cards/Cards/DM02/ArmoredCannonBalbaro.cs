@@ -13,7 +13,14 @@ namespace Cards.Cards.DM02
 
     class ArmoredCannonBalbaroAbility : StaticAbility
     {
-        public ArmoredCannonBalbaroAbility() : base(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human)))
+        public ArmoredCannonBalbaroAbility() : base(new ArmoredCannonBalbaroEffect())
+        {
+        }
+    }
+
+    class ArmoredCannonBalbaroEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    {
+        public ArmoredCannonBalbaroEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human))
         {
         }
 

@@ -13,7 +13,14 @@ namespace Cards.Cards.DM02
 
     class LeapingTornadoHornAbility : StaticAbility
     {
-        public LeapingTornadoHornAbility() : base(new ContinuousEffects.PowerAttackerMultiplierEffect(1000, new CardFilters.OwnersBattleZoneCreatureExceptFilter()))
+        public LeapingTornadoHornAbility() : base(new LeapingTornadoHornEffect())
+        {
+        }
+    }
+
+    class LeapingTornadoHornEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    {
+        public LeapingTornadoHornEffect() : base(1000, new CardFilters.OwnersBattleZoneCreatureExceptFilter())
         {
         }
 

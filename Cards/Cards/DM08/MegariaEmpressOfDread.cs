@@ -16,7 +16,14 @@ namespace Cards.Cards.DM08
 
     class MegariaEmpressOfDreadAbility : StaticAbility
     {
-        public MegariaEmpressOfDreadAbility() : base(new AbilityGrantingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility()))
+        public MegariaEmpressOfDreadAbility() : base(new MegariaEmpressOfDreadEffect())
+        {
+        }
+    }
+
+    class MegariaEmpressOfDreadEffect : AbilityGrantingEffect
+    {
+        public MegariaEmpressOfDreadEffect() : base(new AbilityGrantingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility()))
         {
         }
 

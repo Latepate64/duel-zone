@@ -13,7 +13,14 @@ namespace Cards.Cards.DM03
 
     class JackViperShadowOfDoomAbility : Engine.Abilities.StaticAbility
     {
-        public JackViperShadowOfDoomAbility() : base(new DestructionReplacementOptionallyToHandEffect(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Darkness)))
+        public JackViperShadowOfDoomAbility() : base(new JackViperShadowOfDoomEffect())
+        {
+        }
+    }
+
+    class JackViperShadowOfDoomEffect : DestructionReplacementOptionallyToHandEffect
+    {
+        public JackViperShadowOfDoomEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Darkness))
         {
         }
 

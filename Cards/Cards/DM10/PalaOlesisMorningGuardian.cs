@@ -1,5 +1,6 @@
 ﻿using Cards.CardFilters;
 using Cards.StaticAbilities;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Durations;
@@ -16,7 +17,14 @@ namespace Cards.Cards.DM10
 
     class PalaOlesisMorningGuardianAbility : StaticAbility
     {
-        public PalaOlesisMorningGuardianAbility() : base(new PowerModifyingEffect(2000, new OwnersBattleZoneCreatureExceptFilter(), new Indefinite(), new Conditions.ItIsYourOpponentsTurnCondition()))
+        public PalaOlesisMorningGuardianAbility() : base(new PalaOlesisMorningGuardianEffect())
+        {
+        }
+    }
+
+    class PalaOlesisMorningGuardianEffect : PowerModifyingEffect
+    {
+        public PalaOlesisMorningGuardianEffect() : base(new PowerModifyingEffect(2000, new OwnersBattleZoneCreatureExceptFilter(), new Indefinite(), new Conditions.ItIsYourOpponentsTurnCondition()))
         {
         }
 

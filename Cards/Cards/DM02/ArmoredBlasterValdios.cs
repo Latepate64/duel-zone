@@ -14,9 +14,14 @@ namespace Cards.Cards.DM02
 
     class ArmoredBlasterValdiosAbility : StaticAbility
     {
-        public ArmoredBlasterValdiosAbility() : base(new PowerModifyingEffect(1000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human), new Engine.Durations.Indefinite()))
+        public ArmoredBlasterValdiosAbility() : base(new ArmoredBlasterValdiosEffect())
         {
         }
+    }
+
+    class ArmoredBlasterValdiosEffect : PowerModifyingEffect
+    {
+        public ArmoredBlasterValdiosEffect() : base(1000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human), new Engine.Durations.Indefinite()) { }
 
         public override string ToString()
         {

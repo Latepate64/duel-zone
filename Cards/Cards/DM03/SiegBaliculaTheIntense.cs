@@ -15,11 +15,6 @@ namespace Cards.Cards.DM03
         public SiegBaliculaTheIntenseAbility() : base(new SiegBaliculaTheIntenseEffect())
         {
         }
-
-        public override string ToString()
-        {
-            return "Each of your other light creatures in the battle zone has \"blocker.\"";
-        }
     }
 
     class SiegBaliculaTheIntenseEffect : Engine.ContinuousEffects.BlockerEffect

@@ -13,9 +13,14 @@ namespace Cards.Cards.DM02
 
     class ElfXAbility : StaticAbility
     {
-        public ElfXAbility() : base(new Engine.ContinuousEffects.CostModifyingEffect(-1, new CardFilters.OwnersHandCreatureFilter()))
+        public ElfXAbility() : base(new ElfXEffect())
         {
         }
+    }
+
+    class ElfXEffect : Engine.ContinuousEffects.CostModifyingEffect
+    {
+        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter()) { }
 
         public override string ToString()
         {

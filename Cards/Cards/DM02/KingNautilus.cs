@@ -14,7 +14,14 @@ namespace Cards.Cards.DM02
 
     class KingNautilusAbility : StaticAbility
     {
-        public KingNautilusAbility() : base(new Engine.ContinuousEffects.UnblockableEffect(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter()))
+        public KingNautilusAbility() : base(new KingNautilusEffect())
+        {
+        }
+    }
+
+    class KingNautilusEffect : Engine.ContinuousEffects.UnblockableEffect
+    {
+        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter())
         {
         }
 

@@ -12,7 +12,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return base.Applies(card, game, player) && !card.GetAbilities<UnchoosableAbility>().Any();
+            return base.Applies(card, game, player) && !card.GetAbilities<OpponentCannotChooseThisCreatureAbility>().Any();
         }
 
         public override CardFilter Copy()

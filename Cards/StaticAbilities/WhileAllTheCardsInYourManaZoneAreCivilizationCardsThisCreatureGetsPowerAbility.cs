@@ -1,22 +1,32 @@
 ﻿using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.StaticAbilities
 {
     class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility : Engine.Abilities.StaticAbility
     {
-        private readonly Civilization _civilization;
-        private readonly int _power;
-
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility(Civilization civilization, int power) : base(new Engine.ContinuousEffects.PowerModifyingEffect(power, new Conditions.AllOfCivilizationCondition(civilization)))
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility(Civilization civilization, int power) : base(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(civilization, power))
         {
-            _civilization = civilization;
-            _power = power;
+        }
+    }
+
+    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : PowerModifyingEffect
+    {
+        private readonly Civilization _civilization;
+
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
+        {
+            _civilization = effect._civilization;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility ability) : base(ability)
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Conditions.AllOfCivilizationCondition(civilization))
         {
-            _civilization = ability._civilization;
-            _power = ability._power;
+            _civilization = civilization;
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
         }
 
         public override string ToString()

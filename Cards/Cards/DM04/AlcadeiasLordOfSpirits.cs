@@ -17,11 +17,6 @@ namespace Cards.Cards.DM04
         public AlcadeiasLordOfSpiritsAbility() : base(new AlcadeiasLordOfSpiritsEffect())
         {
         }
-
-        public override string ToString()
-        {
-            return "Players can't cast spells other than light spells.";
-        }
     }
 
     class AlcadeiasLordOfSpiritsEffect : CannotUseCardEffect

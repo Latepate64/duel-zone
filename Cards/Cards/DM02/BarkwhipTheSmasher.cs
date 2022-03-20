@@ -14,7 +14,14 @@ namespace Cards.Cards.DM02
 
     class BarkwhipTheSmasherAbility : StaticAbility
     {
-        public BarkwhipTheSmasherAbility() : base(new PowerModifyingEffect(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Engine.Durations.Indefinite(), new Conditions.TappedCondition(new Engine.TargetFilter())))
+        public BarkwhipTheSmasherAbility() : base(new BarkwhipTheSmasherEffect())
+        {
+        }
+    }
+
+    class BarkwhipTheSmasherEffect : PowerModifyingEffect
+    {
+        public BarkwhipTheSmasherEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Engine.Durations.Indefinite(), new Conditions.TappedCondition(new Engine.TargetFilter()))
         {
         }
 

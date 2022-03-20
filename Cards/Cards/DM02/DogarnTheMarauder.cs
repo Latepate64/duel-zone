@@ -13,7 +13,14 @@ namespace Cards.Cards.DM02
 
     class DogarnTheMarauderAbility : StaticAbility
     {
-        public DogarnTheMarauderAbility() : base(new ContinuousEffects.PowerAttackerMultiplierEffect(2000, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter()))
+        public DogarnTheMarauderAbility() : base(new DogarnTheMarauderEffect())
+        {
+        }
+    }
+
+    class DogarnTheMarauderEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    {
+        public DogarnTheMarauderEffect() : base(2000, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())
         {
         }
 

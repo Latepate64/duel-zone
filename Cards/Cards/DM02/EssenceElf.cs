@@ -13,7 +13,14 @@ namespace Cards.Cards.DM02
 
     class EssenceElfAbility : StaticAbility
     {
-        public EssenceElfAbility() : base(new Engine.ContinuousEffects.CostModifyingEffect(-1, new CardFilters.OwnersHandSpellFilter()))
+        public EssenceElfAbility() : base(new EssenceElfEffect())
+        {
+        }
+    }
+
+    class EssenceElfEffect : Engine.ContinuousEffects.CostModifyingEffect
+    {
+        public EssenceElfEffect() : base(-1, new CardFilters.OwnersHandSpellFilter())
         {
         }
 

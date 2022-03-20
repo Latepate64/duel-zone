@@ -17,11 +17,6 @@ namespace Cards.Cards.DM04
         public ChaoticSkyterrorAbility() : base(new ChaoticSkyterrorEffect())
         {
         }
-
-        public override string ToString()
-        {
-            return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
-        }
     }
 
     class ChaoticSkyterrorEffect : AbilityGrantingEffect

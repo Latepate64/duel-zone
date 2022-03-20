@@ -14,7 +14,14 @@ namespace Cards.Cards.DM04
 
     class CannonShellAbility : StaticAbility
     {
-        public CannonShellAbility() : base(new PowerModifyingMultiplierEffect(1000, new CardFilters.OwnersShieldZoneCardFilter()))
+        public CannonShellAbility() : base(new CannonShellEffect())
+        {
+        }
+    }
+
+    class CannonShellEffect : PowerModifyingMultiplierEffect
+    {
+        public CannonShellEffect() : base(1000, new CardFilters.OwnersShieldZoneCardFilter())
         {
         }
 

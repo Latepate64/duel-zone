@@ -19,11 +19,6 @@ namespace Cards.Cards.DM03
         public BlazeCannonAbility() : base(new BlazeCannonRestrictionEffect())
         {
         }
-
-        public override string ToString()
-        {
-            return "You can cast this spell only if all the cards in your mana zone are fire cards.";
-        }
     }
 
     class BlazeCannonRestrictionEffect : CannotUseCardEffect

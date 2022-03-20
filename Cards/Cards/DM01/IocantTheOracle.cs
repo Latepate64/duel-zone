@@ -15,7 +15,14 @@ namespace Cards.Cards.DM01
 
     class IocantTheOracleAbility : StaticAbility
     {
-        public IocantTheOracleAbility() : base(new PowerModifyingEffect(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand)))
+        public IocantTheOracleAbility() : base(new IocantTheOracleEffect())
+        {
+        }
+    }
+
+    class IocantTheOracleEffect : PowerModifyingEffect
+    {
+        public IocantTheOracleEffect() : base(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand))
         {
         }
 

@@ -1,5 +1,6 @@
 ﻿using Cards.StaticAbilities;
 using Common;
+using Engine;
 
 namespace Cards.Cards.DM03
 {
@@ -13,7 +14,14 @@ namespace Cards.Cards.DM03
 
     class GigamantisAbility : Engine.Abilities.StaticAbility
     {
-        public GigamantisAbility() : base(new WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Nature)))
+        public GigamantisAbility() : base(new GigamantisEffect())
+        {
+        }
+    }
+
+    class GigamantisEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
+    {
+        public GigamantisEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Nature))
         {
         }
 
