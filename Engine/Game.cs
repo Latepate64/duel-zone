@@ -654,7 +654,7 @@ namespace Engine
                 }
                 if (attacker.CanAttackCreatures(this))
                 {
-                    var opponentsCreatures = BattleZone.GetCreatures(opponent.Id);
+                    var opponentsCreatures = BattleZone.GetCreatures(opponent.Id).Where(x => attacker.CanAttack(x, this));
                     attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
                     if (GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
                     {

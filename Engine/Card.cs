@@ -190,5 +190,10 @@ namespace Engine
             }
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
         }
+
+        public bool CanAttack(ICard creature, IGame game)
+        {
+            return !game.GetContinuousEffects<CannotBeAttackedEffect>(creature).Any(x => x.AttackerFilter.Applies(this, game, game.GetOwner(this)));
+        }
     }
 }
