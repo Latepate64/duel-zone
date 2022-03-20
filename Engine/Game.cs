@@ -518,6 +518,10 @@ namespace Engine
             }
         }
 
+        /// <summary>
+        /// TODO: Refactor and consider CannotUseShieldTriggerEffect
+        /// </summary>
+        /// <param name="events"></param>
         private void CheckShieldTriggers(IEnumerable<ICardMovedEvent> events)
         {
             var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
