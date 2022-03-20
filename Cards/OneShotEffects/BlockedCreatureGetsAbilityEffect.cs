@@ -31,7 +31,7 @@ namespace Cards.OneShotEffects
             {
                 foreach (var ability in Abilities)
                 {
-                    game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetFilter { Target = phase.AttackingCreature }, new UntilTheEndOfTheTurn(), ability.Copy()));
+                    game.AddContinuousEffects(source, new AbilityAddingEffect(new TargetFilter { Target = phase.AttackingCreature }, new UntilTheEndOfTheTurn(), ability.Copy()));
                 }
             }
             return null;

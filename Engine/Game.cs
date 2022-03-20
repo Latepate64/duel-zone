@@ -24,7 +24,7 @@ namespace Engine
 
         public ICollection<IPlayer> Losers { get; } = new Collection<IPlayer>();
 
-        public Ability GetAbility(Guid id)
+        public IAbility GetAbility(Guid id)
         {
             var abilities = GetAllCards().SelectMany(x => x.GetAbilities<Ability>());
             var foo = abilities.Where(x => x.Id == id).ToList();
@@ -613,28 +613,18 @@ namespace Engine
             // 613.1.The values of an object’s characteristics are determined by starting with the actual object.
             // For a card, that means the values of the characteristics printed on that card.
             GetAllCards().ToList().ForEach(x => x.ResetToPrintedValues());
+            var effects = _continuousEffects.OfType<CharacteristicModifyingEffect>().OrderBy(x => x.Timestamp);
 
             // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, subtype, and / or supertype.
 
             // 613.1f Layer 6: Ability-adding effects, ability-removing effects, and effects that say an object can’t have an ability are applied.
-            ApplyEffects<AbilityGrantingEffect>();
+            effects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility(this));
 
             // 613.1g Layer 7: Power-changing effects are applied.
             // 613.4c Layer 7c: Effects that modify power (but don’t set power to a specific number or value) are applied.
-            ApplyEffects<PowerModifyingEffect>();
+            effects.OfType<IPowerModifyingEffect>().ToList().ForEach(x => x.ModifyPower(this));
 
             // TODO: Should check if any characteristics have changed and provide that information as an event.
-        }
-
-        /// <summary>
-        /// 613.2. Apply effects in a series of sublayers in the order described below.
-        /// Within each sublayer, apply effects in timestamp order (see rule 613.7).
-        /// Note that dependency may alter the order in which effects are applied within a sublayer. (See rule 613.8.)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        private void ApplyEffects<T>() where T : CharacteristicModifyingEffect
-        {
-            _continuousEffects.OfType<T>().OrderBy(x => x.Timestamp).ToList().ForEach(x => x.CheckConditionsAndApply(this));
         }
 
         public void AddDelayedTriggeredAbility(ITriggeredAbility ability, IDuration duration)

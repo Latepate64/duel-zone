@@ -22,12 +22,14 @@ namespace Engine
         /// </summary>
         bool Ended { get; }
 
+        void AddAbility(ICard card, IAbility ability);
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
         void AddDelayedTriggeredAbility(ITriggeredAbility ability, IDuration duration);
         void Battle(Guid attackingCreatureId, Guid defendingCreatureId);
         bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
+        IAbility GetAbility(Guid id);
         IEnumerable<ICard> GetAllCards();
         IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player);
         Common.IIdentifiable GetAttackable(Guid id);

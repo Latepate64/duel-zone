@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
         {
             foreach (var creature in GetAffectedCards(game, source))
             {
-                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetsFilter(creature.Id), _duration, Abilities.Select(x => x.Copy()).ToArray()));
+                game.AddContinuousEffects(source, new AbilityAddingEffect(new TargetsFilter(creature.Id), _duration, Abilities.Select(x => x.Copy()).ToArray()));
             }
             return null;
         }

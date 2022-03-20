@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
             var cards = new OneShotEffects.SelfManaBurnEffect(0, 1).Apply(game, source);
             if (cards.Any())
             {
-                game.AddContinuousEffects(source, new AbilityGrantingEffect(new TargetFilter { Target = source.Source }, new UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility()));                 
+                game.AddContinuousEffects(source, new AbilityAddingEffect(new TargetFilter { Target = source.Source }, new UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility()));                 
             }
             return null;
         }

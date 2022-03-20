@@ -21,9 +21,9 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class MegariaEmpressOfDreadEffect : AbilityGrantingEffect
+    class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
-        public MegariaEmpressOfDreadEffect() : base(new AbilityGrantingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility()))
+        public MegariaEmpressOfDreadEffect() : base(new AbilityAddingEffect(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility()))
         {
         }
 

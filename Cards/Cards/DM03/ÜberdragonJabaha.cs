@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
         public ÜberdragonJabahaAbility() : base(new ÜberdragonJabahaEffect()) { }
     }
 
-    class ÜberdragonJabahaEffect : Engine.ContinuousEffects.AbilityGrantingEffect
+    class ÜberdragonJabahaEffect : Engine.ContinuousEffects.AbilityAddingEffect
     {
         public ÜberdragonJabahaEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Fire), new Engine.Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(2000)) { }
 

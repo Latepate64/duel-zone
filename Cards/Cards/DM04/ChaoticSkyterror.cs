@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ChaoticSkyterrorEffect : AbilityGrantingEffect
+    class ChaoticSkyterrorEffect : AbilityAddingEffect
     {
         public ChaoticSkyterrorEffect(ChaoticSkyterrorEffect effect) : base(effect)
         {
