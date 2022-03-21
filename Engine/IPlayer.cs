@@ -18,6 +18,7 @@ namespace Engine
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
+        void Discard(ICard[] cards, IGame game);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
         Common.IPlayer Convert();
         Common.IPlayer Copy();
