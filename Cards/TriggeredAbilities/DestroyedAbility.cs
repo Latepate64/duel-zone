@@ -7,7 +7,11 @@ namespace Cards.TriggeredAbilities
 {
     public class DestroyedAbility : CardChangesZoneAbility
     {
-        public DestroyedAbility(OneShotEffect effect) : base(effect)
+        public DestroyedAbility(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public DestroyedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
         {
         }
 
@@ -20,7 +24,7 @@ namespace Cards.TriggeredAbilities
             return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard;
         }
 
-        public override Ability Copy()
+        public override IAbility Copy()
         {
             return new DestroyedAbility(this);
         }
