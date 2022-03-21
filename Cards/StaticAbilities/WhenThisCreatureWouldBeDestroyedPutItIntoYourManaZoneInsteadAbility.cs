@@ -37,7 +37,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return base.ToString() + "put it into your mana zone instead.";
+            return "When this creature would be destroyed, put it into your mana zone instead.";
         }
     }
 }

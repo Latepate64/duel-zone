@@ -37,7 +37,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return base.ToString() + "return it to your hand instead.";
+            return "When this creature would be destroyed, return it to your hand instead.";
         }
     }
 }

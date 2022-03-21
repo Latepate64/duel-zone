@@ -6,7 +6,6 @@ namespace Cards.Cards.DM01
     {
         public MightyShouter() : base("Mighty Shouter", 3, 2000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            // When this creature would be destroyed, put it into your mana zone instead.
             AddAbilities(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility());
         }
     }
