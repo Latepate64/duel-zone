@@ -18,7 +18,7 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public IList<IPlayer> Players { get; } = new List<IPlayer>();
+        public IList<IPlayer> Players { get; } = new List<IPlayer>(); //TODO: Should be reworked to return players in APNAP order, or make method for that.
 
         public IPlayer Winner { get; private set; }
 
