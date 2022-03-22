@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             return true;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new UntapAreaOfEffect(this);
         }
