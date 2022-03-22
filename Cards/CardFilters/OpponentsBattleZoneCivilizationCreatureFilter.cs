@@ -6,9 +6,9 @@ namespace Cards.CardFilters
     {
         public CivilizationFilter CivilizationFilter { get; }
 
-        public OpponentsBattleZoneCivilizationCreatureFilter(Common.Civilization civilization)
+        public OpponentsBattleZoneCivilizationCreatureFilter(params Common.Civilization[] civilizations)
         {
-            CivilizationFilter = new CivilizationFilter(civilization);
+            CivilizationFilter = new CivilizationFilter(civilizations);
         }
 
         public OpponentsBattleZoneCivilizationCreatureFilter(OpponentsBattleZoneCivilizationCreatureFilter filter) : base()

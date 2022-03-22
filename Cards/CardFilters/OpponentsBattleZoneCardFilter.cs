@@ -11,7 +11,8 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Contains(card);
+            var opponent = game.GetOpponent(player);
+            return opponent != null && game.BattleZone.GetCreatures(opponent.Id).Contains(card);
         }
     }
 }
