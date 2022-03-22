@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
     {
         public bool Reveal { get; }
 
-        public TutoringEffect(CardFilter filter, bool reveal) : base(filter)
+        public TutoringEffect(CardFilter filter, bool reveal, int maximum = 1) : base(filter, maximum)
         {
             Reveal = reveal;
         }
