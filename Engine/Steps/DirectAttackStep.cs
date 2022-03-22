@@ -26,20 +26,26 @@ namespace Engine.Steps
             var opponent = game.GetOpponent(controller);
             if (opponent.ShieldZone.Cards.Any())
             {
-                int breakAmount = 1;
-                var breakerEffects = game.GetContinuousEffects<BreakerEffect>(attackingCreature);
-                if (breakerEffects.Any())
-                {
-                    breakAmount = breakerEffects.Max(x => x.GetAmount());
-                }
-                game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
-                game.Process(new ShieldsBrokenEvent { Attacker = attackingCreature.Convert(), Target = opponent.Copy(), Amount = breakAmount });
+                var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
+                attackingCreature.Break(game, breakAmount);
             }
             else
             {
                 game.Process(new DirectAttackEvent { Player = opponent.Copy() });
                 game.Lose(opponent);
             }
+        }
+
+        private static int GetAmountOfShieldsToBreak(IGame game, ICard attackingCreature)
+        {
+            int breakAmount = 1;
+            var breakerEffects = game.GetContinuousEffects<BreakerEffect>(attackingCreature);
+            if (breakerEffects.Any())
+            {
+                breakAmount = breakerEffects.Max(x => x.GetAmount());
+            }
+
+            return breakAmount;
         }
 
         public override IStep Copy()
