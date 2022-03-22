@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
 
     class PalaOlesisMorningGuardianEffect : PowerModifyingEffect
     {
-        public PalaOlesisMorningGuardianEffect() : base(new PowerModifyingEffect(2000, new OwnersBattleZoneCreatureExceptFilter(), new Indefinite(), new Conditions.ItIsYourOpponentsTurnCondition()))
+        public PalaOlesisMorningGuardianEffect() : base(new PowerModifyingEffect(2000, new OwnersOtherBattleZoneCreatureFilter(), new Indefinite(), new Conditions.ItIsYourOpponentsTurnCondition()))
         {
         }
 

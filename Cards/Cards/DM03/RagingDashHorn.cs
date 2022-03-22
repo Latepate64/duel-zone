@@ -49,7 +49,7 @@ namespace Cards.Cards.DM03
 
         public override string ToString()
         {
-            return "While all the cards in your mana zone are nature cards, this creature gets +3000 power and has \"double breaker (This creature breaks 2 shields).\"";
+            return "While all the cards in your mana zone are nature cards, this creature gets +3000 power and has \"double breaker.\"";
         }
 
         private bool Applies(IGame game)

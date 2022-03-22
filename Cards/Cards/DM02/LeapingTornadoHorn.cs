@@ -20,7 +20,7 @@ namespace Cards.Cards.DM02
 
     class LeapingTornadoHornEffect : ContinuousEffects.PowerAttackerMultiplierEffect
     {
-        public LeapingTornadoHornEffect() : base(1000, new CardFilters.OwnersBattleZoneCreatureExceptFilter())
+        public LeapingTornadoHornEffect() : base(1000, new CardFilters.OwnersOtherBattleZoneCreatureFilter())
         {
         }
 
