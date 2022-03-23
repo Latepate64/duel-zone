@@ -7,8 +7,7 @@ namespace Cards.Cards.DM04
     {
         public AerisFlightElemental() : base("Aeris, Flight Elemental", 5, 9000, Subtype.AngelCommand, Civilization.Light)
         {
-            // This creature can attack untapped darkness creatures.
-            AddAbilities(new CannotAttackPlayersAbility(), new CanAttackUntappedCreaturesAbility(new CardFilters.OpponentsBattleZoneUntappedCivilizationCreatureFilter(Civilization.Darkness)));
+            AddAbilities(new CannotAttackPlayersAbility(), new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Darkness));
         }
     }
 }
