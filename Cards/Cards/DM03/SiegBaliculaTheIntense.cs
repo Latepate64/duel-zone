@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
 
     class SiegBaliculaTheIntenseEffect : Engine.ContinuousEffects.BlockerEffect
     {
-        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light)) { }
+        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new CardFilters.OpponentsBattleZoneCreatureFilter()) { }
 
         public override string ToString()
         {
