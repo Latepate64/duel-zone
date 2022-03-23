@@ -260,7 +260,7 @@ namespace Engine
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
                 var destroyed = new List<ICard> { loser };
-                if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
+                if (GetContinuousEffects<SlayerEffect>(loser).Any(x => x.WorksAgainstFilter.Applies(winner, this, GetPlayer(winner.Owner))))
                 {
                     destroyed.Add(winner);
                 }
