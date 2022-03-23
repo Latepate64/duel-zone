@@ -8,8 +8,7 @@ namespace Cards.Cards.DM05
         public AquaSurfer() : base("Aqua Surfer", 6, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
             ShieldTrigger = true;
-            // When you put this creature into the battle zone, you may choose a creature in the battle zone and return it to its owner's hand.
-            AddAbilities(new PutIntoPlayAbility(new BounceEffect(0, 1, new CardFilters.BattleZoneChoosableCreatureFilter())));
+            AddAbilities(new PutIntoPlayAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
         }
     }
 }
