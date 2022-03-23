@@ -6,7 +6,6 @@ namespace Cards.Cards.DM03
     {
         public Shtra() : base("Shtra", 4, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            // When you put this creature into the battle zone, return a card from your mana zone to your hand. Then your opponent chooses a card in his mana zone and returns it to his hand.
             AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.MutualManaRecoveryEffect(1)));
         }
     }

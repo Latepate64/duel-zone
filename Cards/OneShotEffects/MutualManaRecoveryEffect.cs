@@ -33,7 +33,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"Return ${Amount} cards from your mana zone to your hand. Then your opponent chooses ${Amount} cards in his mana zone and returns them to his hand.";
+            return $"Return {Amount} cards from your mana zone to your hand. Then your opponent chooses {Amount} cards in his mana zone and returns them to his hand.";
         }
     }
 }
