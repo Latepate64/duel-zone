@@ -49,8 +49,10 @@ namespace Engine.Abilities
         }
 
         /// <summary>
-        /// 608.2a If a triggered ability has an intervening “if” clause, it checks whether the clause’s condition is true.
-        /// If it isn’t, the ability is removed from the stack and does nothing.
+        /// 608.2a
+        /// If a triggered ability has an intervening “if” clause,
+        /// it checks whether the clause’s condition is true.
+        /// If it isn’t, the ability does nothing.
         /// Otherwise, it continues to resolve. See rule 603.4.
         /// </summary>
         /// <param name="game"></param>
