@@ -14,7 +14,11 @@ namespace Cards.OneShotEffects
 
         public List<IAbility> Abilities { get; } = new List<IAbility>();
 
-        public GrantAbilityAreaOfEffect(IDuration duration, params IAbility[] abilities) : base(new OwnersBattleZoneCreatureFilter())
+        public GrantAbilityAreaOfEffect(IDuration duration, params IAbility[] abilities) : this(new OwnersBattleZoneCreatureFilter(), duration, abilities)
+        {
+        }
+
+        public GrantAbilityAreaOfEffect(ICardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter)
         {
             Abilities.AddRange(abilities);
             _duration = duration;
@@ -35,7 +39,7 @@ namespace Cards.OneShotEffects
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GrantAbilityAreaOfEffect(this);
         }
