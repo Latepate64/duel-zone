@@ -15,7 +15,11 @@ namespace Cards.OneShotEffects
             Power = effect.Power;
         }
 
-        public GrantPowerChoiceEffect(int power) : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public GrantPowerChoiceEffect(int power) : this(power, new OwnersBattleZoneCreatureFilter())
+        {
+        }
+
+        public GrantPowerChoiceEffect(int power, CardFilter filter) : base(filter, 1, 1, true)
         {
             Power = power;
         }
