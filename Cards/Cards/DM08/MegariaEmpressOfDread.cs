@@ -27,6 +27,11 @@ namespace Cards.Cards.DM08
         {
         }
 
+        public override IContinuousEffect Copy()
+        {
+            return new MegariaEmpressOfDreadEffect();
+        }
+
         public override string ToString()
         {
             return "Each creature in the battle zone has \"slayer.\"";
