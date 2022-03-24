@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter.Copy();
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new TapAreaOfEffect(this);
         }
