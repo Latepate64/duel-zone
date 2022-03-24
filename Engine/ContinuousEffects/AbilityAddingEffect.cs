@@ -36,5 +36,7 @@ namespace Engine.ContinuousEffects
                 Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
             }
         }
+
+        protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
     }
 }

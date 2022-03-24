@@ -33,7 +33,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {string.Join(", ", Abilities.Select(x => x.ToString()))}";
+            return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {AbilitiesAsText}";
         }
     }
 }

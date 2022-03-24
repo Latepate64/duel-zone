@@ -10,18 +10,14 @@ namespace Cards.StaticAbilities
         }
     }
 
-    class SurvivorEffect : ContinuousEffect
+    class SurvivorEffect : AbilityAddingEffect
     {
-        private readonly IAbility _ability;
-
         public SurvivorEffect(SurvivorEffect effect) : base(effect)
         {
-            _ability = effect._ability.Copy();
         }
 
-        public SurvivorEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Common.Subtype.Survivor))
+        public SurvivorEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Common.Subtype.Survivor), new Engine.Durations.Indefinite(), ability)
         {
-            _ability = ability;
         }
 
         public override IContinuousEffect Copy()
@@ -31,7 +27,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return $"Survivor (Each of your Survivors has this creature's Survivor ability.) : {_ability}";
+            return $"Survivor : {AbilitiesAsText}";
         }
     }
 }
