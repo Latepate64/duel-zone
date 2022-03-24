@@ -19,7 +19,7 @@ namespace Engine.ContinuousEffects
             Abilities = abilities.ToList();
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new AbilityAddingEffect(this);
         }
