@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public ChaosWorm() : base("Chaos Worm", 5, 5000, Subtype.ParasiteWorm, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, 1, true)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, 1, true)));
         }
     }
 }

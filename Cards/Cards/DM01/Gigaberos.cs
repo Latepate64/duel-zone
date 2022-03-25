@@ -12,7 +12,7 @@ namespace Cards.Cards.DM01
     {
         public Gigaberos() : base("Gigaberos", 5, 8000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new GigaberosEffect()), new DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new GigaberosEffect()), new DoubleBreakerAbility());
         }
     }
 

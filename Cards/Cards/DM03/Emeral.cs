@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public Emeral() : base("Emeral", 2, 1000, Common.Subtype.CyberLord, Common.Civilization.Water)
         {
-            AddAbilities(new PutIntoPlayAbility(new EmeralEffect()));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new EmeralEffect()));
         }
     }
 

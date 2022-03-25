@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
     {
         public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Subtype.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new RimuelCloudbreakElementalEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 

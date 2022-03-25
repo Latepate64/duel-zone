@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.TriggeredAbilities
 {
-    class IllusionaryMerfolkAbility : PutIntoPlayAbility
+    class IllusionaryMerfolkAbility : WhenThisCreatureIsPutIntoTheBattleZoneAbility
     {
         public IllusionaryMerfolkAbility() : base(new ControllerMayDrawCardsEffect(3))
         {

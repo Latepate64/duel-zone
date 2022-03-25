@@ -12,7 +12,7 @@ namespace Cards.Cards.DM04
     {
         public KingAquakamui() : base("King Aquakamui", 7, 5000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
         }
     }
 

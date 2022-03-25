@@ -22,11 +22,9 @@ namespace Engine.Abilities
         {
             if (CheckInterveningIfClause(game))
             {
-                bool foo = gameEvent is ICardEvent e;
-                return foo;
+                return gameEvent is CardEvent e && Filter.Applies(game.GetCard(e.Card.Id), game, game.GetPlayer(e.Card.Owner));
             }
             return false;
-            //return CheckInterveningIfClause(game) && gameEvent is CardEvent e && Filter.Applies(game.GetCard(e.Card.Id), game, game.GetPlayer(e.Card.Owner));
         }
     }
 }

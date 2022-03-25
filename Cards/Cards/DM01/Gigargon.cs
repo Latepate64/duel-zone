@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
         public Gigargon() : base("Gigargon", 8, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
             // When you put this creature into the battle zone, return up to 2 creatures from your graveyard to your hand.
-            AddAbilities(new PutIntoPlayAbility(new SalvageCreatureEffect(0, 2)));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new SalvageCreatureEffect(0, 2)));
         }
     }
 }

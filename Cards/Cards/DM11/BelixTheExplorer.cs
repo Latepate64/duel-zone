@@ -8,7 +8,7 @@ namespace Cards.Cards.DM11
     {
         public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Subtype.Gladiator, Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new PutIntoPlayAbility(new OneShotEffects.ManaSpellRecoveryEffect(true)), new ThisCreatureCannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ManaSpellRecoveryEffect(true)), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

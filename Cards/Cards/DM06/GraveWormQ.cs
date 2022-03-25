@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
         public GraveWormQ() : base("Grave Worm Q", 5, 3000, Civilization.Darkness)
         {
             AddSubtypes(Subtype.Survivor, Subtype.ParasiteWorm);
-            AddAbilities(new StaticAbilities.SurvivorAbility(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype.Survivor))));
+            AddAbilities(new StaticAbilities.SurvivorAbility(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype.Survivor))));
         }
     }
 }

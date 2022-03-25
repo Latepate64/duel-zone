@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
     {
         public AquaBouncer() : base("Aqua Bouncer", 6, 1000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new PutIntoPlayAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
+            AddAbilities(new BlockerAbility(), new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
         }
     }
 }

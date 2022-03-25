@@ -16,7 +16,7 @@ namespace TestCards.TriggeredAbilities
             filter.Setup(x => x.Applies(It.IsAny<ICard>(), It.IsAny<Game>(), It.IsAny<Player>())).Returns(true);
             var e = Mock.Of<CardMovedEvent>();
             e.Destination = Common.ZoneType.BattleZone;
-            Assert.True(new PutIntoPlayAbility(Mock.Of<IOneShotEffect>(), filter.Object).CanTrigger(e, Mock.Of<Game>()));
+            Assert.True(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(Mock.Of<IOneShotEffect>()).CanTrigger(e, Mock.Of<Game>()));
         }
     }
 }

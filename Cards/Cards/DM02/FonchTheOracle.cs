@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public FonchTheOracle() : base("Fonch, the Oracle", 4, 2000, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
-            AddAbilities(new PutIntoPlayAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
         }
     }
 }

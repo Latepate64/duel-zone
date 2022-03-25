@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public RothusTheTraveler() : base("Rothus, the Traveler", 4, 4000, Common.Subtype.Armorloid, Common.Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new RothusTheTravelerEffect()));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new RothusTheTravelerEffect()));
         }
     }
 
