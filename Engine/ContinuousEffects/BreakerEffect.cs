@@ -6,7 +6,7 @@
         {
         }
 
-        protected BreakerEffect(ContinuousEffect effect) : base(effect)
+        protected BreakerEffect(BreakerEffect effect) : base(effect)
         {
         }
 
