@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public SinisterGeneralDamudo() : base("Sinister General Damudo", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000)));
         }
     }
 }

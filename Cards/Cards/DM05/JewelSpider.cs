@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public JewelSpider() : base("Jewel Spider", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect()));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect()));
         }
     }
 

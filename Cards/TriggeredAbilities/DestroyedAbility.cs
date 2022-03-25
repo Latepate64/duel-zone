@@ -5,33 +5,41 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class DestroyedAbility : CardChangesZoneAbility
+    public abstract class DestroyedAbility : CardChangesZoneAbility
     {
-        public DestroyedAbility(IOneShotEffect effect) : base(effect)
+        protected DestroyedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
         {
         }
 
-        public DestroyedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
-        {
-        }
-
-        public DestroyedAbility(DestroyedAbility ability) : base(ability)
+        protected DestroyedAbility(DestroyedAbility ability) : base(ability)
         {
         }
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
+            //TODO: Filter should be applied?
             return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard;
+        }
+    }
+
+    public class WhenThisCreatureIsDestroyedAbility : DestroyedAbility
+    {
+        public WhenThisCreatureIsDestroyedAbility(WhenThisCreatureIsDestroyedAbility ability) : base(ability)
+        {
+        }
+
+        public WhenThisCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        {
         }
 
         public override IAbility Copy()
         {
-            return new DestroyedAbility(this);
+            return new WhenThisCreatureIsDestroyedAbility(this);
         }
 
         public override string ToString()
         {
-            return $"When ${Filter} is destroyed, {GetEffectText()}";
+            return $"When this creature is destroyed, {GetEffectText()}";
         }
     }
 }
