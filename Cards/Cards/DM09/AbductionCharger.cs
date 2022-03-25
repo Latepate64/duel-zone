@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
     {
         public AbductionCharger() : base("Abduction Charger", 7, Civilization.Water)
         {
-            AddSpellAbilities(new BounceEffect(0, 2, new CardFilters.BattleZoneCreatureFilter()));
+            AddSpellAbilities(new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect());
         }
     }
 }
