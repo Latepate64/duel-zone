@@ -5,8 +5,25 @@ namespace Cards.StaticAbilities
 {
     public class ChargerAbility : StaticAbility
     {
-        public ChargerAbility() : base(new ChargerEffect(new Engine.TargetFilter()))
+        public ChargerAbility() : base(new ThisSpellHasChargerEffect())
         {
+        }
+    }
+
+    class ThisSpellHasChargerEffect : ChargerEffect
+    {
+        public ThisSpellHasChargerEffect() : base(new Engine.TargetFilter())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ThisSpellHasChargerEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Charger";
         }
     }
 }
