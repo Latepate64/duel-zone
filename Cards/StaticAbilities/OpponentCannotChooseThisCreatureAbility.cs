@@ -16,9 +16,14 @@ namespace Cards.StaticAbilities
         {
         }
 
+        public override IContinuousEffect Copy()
+        {
+            return new OpponentCannotChooseThisCreatureEffect();
+        }
+
         public override string ToString()
         {
-            return "Whenever your opponent would choose a creature in the battle zone, he can't choose this one. (It can still be attacked and blocked.)";
+            return "Whenever your opponent would choose a creature in the battle zone, he can't choose this one.";
         }
     }
 }
