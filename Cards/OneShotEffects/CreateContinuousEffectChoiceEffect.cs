@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
             ContinuousEffects = effects;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new CreateContinuousEffectChoiceEffect(this);
         }

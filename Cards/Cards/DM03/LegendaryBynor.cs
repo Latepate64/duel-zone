@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
@@ -21,6 +22,11 @@ namespace Cards.Cards.DM03
     {
         public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new CardFilters.BattleZoneCreatureFilter())
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new LegendaryBynorEffect();
         }
 
         public override string ToString()

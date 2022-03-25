@@ -1,4 +1,6 @@
 ﻿using Common;
+using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM05
 {
@@ -6,8 +8,29 @@ namespace Cards.Cards.DM05
     {
         public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Subtype.Initiate, Civilization.Light)
         {
-            // This creature can't be blocked by creatures that have power 4000 or more.
-            AddAbilities(new StaticAbilities.UnblockableAbility(new CardFilters.BattleZoneMinPowerCreatureFilter(4000)));
+            AddAbilities(new CalgoVizierOfRaincloudsAbility());
+        }
+    }
+
+    class CalgoVizierOfRaincloudsAbility : Engine.Abilities.StaticAbility
+    {
+        public CalgoVizierOfRaincloudsAbility() : base(new CalgoVizierOfRaincloudsEffect()) { }
+    }
+
+    class CalgoVizierOfRaincloudsEffect : UnblockableEffect
+    {
+        public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter(), new Engine.Durations.Indefinite(), new CardFilters.BattleZoneMinPowerCreatureFilter(4000))
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new CalgoVizierOfRaincloudsEffect();
+        }
+
+        public override string ToString()
+        {
+            return "This creature can't be blocked by creatures that have power 4000 or more.";
         }
     }
 }
