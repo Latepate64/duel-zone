@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
@@ -17,9 +18,14 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class SiegBaliculaTheIntenseEffect : Engine.ContinuousEffects.BlockerEffect
+    class SiegBaliculaTheIntenseEffect : BlockerEffect
     {
         public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new CardFilters.OpponentsBattleZoneCreatureFilter()) { }
+
+        public override IContinuousEffect Copy()
+        {
+            return new SiegBaliculaTheIntenseEffect();
+        }
 
         public override string ToString()
         {

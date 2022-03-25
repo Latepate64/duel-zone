@@ -1,6 +1,6 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class BlockerEffect : ContinuousEffect
+    public abstract class BlockerEffect : ContinuousEffect
     {
         public ICardFilter BlockableCreatures { get; }
 
@@ -12,16 +12,6 @@
         public BlockerEffect(BlockerEffect effect) : base(effect)
         {
             BlockableCreatures = effect.BlockableCreatures.Copy();
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new BlockerEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Blocker";
         }
     }
 }
