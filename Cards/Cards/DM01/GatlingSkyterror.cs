@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
-            AddAbilities(new CanAttackUntappedCreaturesAbility());
+            AddAbilities(new ThisCreatureCanAttackUntappedCreaturesAbility());
             AddAbilities(new DoubleBreakerAbility());
         }
     }
