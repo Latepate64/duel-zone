@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public StingerBall() : base("Stinger Ball", 3, 1000, Subtype.CyberVirus, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new OneShotEffects.LookEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1, true)));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.LookEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1, true)));
         }
     }
 }

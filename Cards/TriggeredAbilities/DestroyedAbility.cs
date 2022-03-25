@@ -31,7 +31,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When ${Filter} is destroyed, {ToStringBase()}";
+            return $"When ${Filter} is destroyed, {GetEffectText()}";
         }
     }
 }

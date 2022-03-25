@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new TriggeredAbilities.AttackAbility(new OneShotEffects.ManaRecoveryAreaOfEffect(new CardFilters.OwnersManaZoneCreatureFilter())));
+            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.ManaRecoveryAreaOfEffect(new CardFilters.OwnersManaZoneCreatureFilter())));
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When your opponent summons a creature or casts a spell, {ToStringBase()}";
+            return $"When your opponent summons a creature or casts a spell, {GetEffectText()}";
         }
     }
 }

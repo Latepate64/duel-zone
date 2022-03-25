@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class AttackAbility : CardTriggeredAbility
+    public class WheneverThisCreatureAttacksAbility : CardTriggeredAbility
     {
-        public AttackAbility(OneShotEffect effect) : base(effect)
+        public WheneverThisCreatureAttacksAbility(OneShotEffect effect) : base(effect)
         {
         }
 
-        public AttackAbility(AttackAbility ability) : base(ability)
+        public WheneverThisCreatureAttacksAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
         {
         }
 
@@ -21,12 +21,12 @@ namespace Cards.TriggeredAbilities
 
         public override Ability Copy()
         {
-            return new AttackAbility(this);
+            return new WheneverThisCreatureAttacksAbility(this);
         }
 
         public override string ToString()
         {
-            return $"Whenever {Filter} attacks, {ToStringBase()}";
+            return $"Whenever this creature attacks, {GetEffectText()}";
         }
     }
 }

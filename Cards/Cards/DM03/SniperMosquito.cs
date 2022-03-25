@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public SniperMosquito() : base("Sniper Mosquito", 1, 2000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            AddAbilities(new AttackAbility(new ReturnCardFromYourManaZoneToYourHandEffect()));
+            AddAbilities(new WheneverThisCreatureAttacksAbility(new ReturnCardFromYourManaZoneToYourHandEffect()));
         }
     }
 }

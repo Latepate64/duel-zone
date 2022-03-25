@@ -64,7 +64,7 @@ namespace Engine.Abilities
             }
         }
 
-        protected string ToStringBase()
+        protected string GetEffectText()
         {
             return LowerCaseFirstCharacter(OneShotEffect.ToString());
         }

@@ -12,7 +12,7 @@ namespace Cards.Cards.DM03
     {
         public Flametropus() : base("Flametropus", 4, 3000, Subtype.RockBeast, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new FlametropusEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new FlametropusEffect()));
         }
     }
 

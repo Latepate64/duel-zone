@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public WynTheOracle() : base("Wyn, the Oracle", 2, 1500, Subtype.LightBringer, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new OneShotEffects.LookEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1, true)));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.LookEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1, true)));
         }
     }
 }

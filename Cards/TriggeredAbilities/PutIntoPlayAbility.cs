@@ -40,7 +40,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When {Filter} is put into the battle zone, {ToStringBase()}";
+            return $"When {Filter} is put into the battle zone, {GetEffectText()}";
         }
     }
 }

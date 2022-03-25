@@ -8,7 +8,7 @@ namespace Cards.Cards.DM05
         public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, Civilization.Darkness)
         {
             AddSubtypes(Subtype.Survivor, Subtype.BrainJacker);
-            AddAbilities(new StaticAbilities.SurvivorAbility(new TriggeredAbilities.AttackAbility(new YourOpponentChoosesAndDiscardsCardFromHisHandEffect())));
+            AddAbilities(new StaticAbilities.SurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new YourOpponentChoosesAndDiscardsCardFromHisHandEffect())));
         }
     }
 

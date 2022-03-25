@@ -12,7 +12,7 @@ namespace Cards.Cards.DM04
     {
         public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new ThreeEyedDragonflyOneShotEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect()));
         }
     }
 

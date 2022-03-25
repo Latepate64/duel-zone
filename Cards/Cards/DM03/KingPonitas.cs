@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public KingPonitas() : base("King Ponitas", 8, 4000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckCivilizationCardFilter(Civilization.Water), true)));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckCivilizationCardFilter(Civilization.Water), true)));
         }
     }
 }

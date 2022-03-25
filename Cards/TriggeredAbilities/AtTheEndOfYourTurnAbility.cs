@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"At the end of your turn, {ToStringBase()}";
+            return $"At the end of your turn, {GetEffectText()}";
         }
     }
 }

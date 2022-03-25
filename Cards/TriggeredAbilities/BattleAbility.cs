@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When {Filter} battles, {ToStringBase()}";
+            return $"When {Filter} battles, {GetEffectText()}";
         }
     }
 }

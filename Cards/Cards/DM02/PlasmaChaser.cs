@@ -10,7 +10,7 @@ namespace Cards.Cards.DM02
     {
         public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new PlasmaChaserEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new PlasmaChaserEffect()));
         }
     }
 

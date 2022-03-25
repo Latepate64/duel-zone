@@ -17,7 +17,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"Whenever another creature is destroyed, {ToStringBase()}";
+            return $"Whenever another creature is destroyed, {GetEffectText()}";
         }
     }
 }

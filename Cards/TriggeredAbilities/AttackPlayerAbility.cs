@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    class AttackPlayerAbility : AttackAbility
+    class AttackPlayerAbility : WheneverThisCreatureAttacksAbility
     {
         public AttackPlayerAbility(OneShotEffect effect) : base(effect)
         {
         }
 
-        public AttackPlayerAbility(AttackAbility ability) : base(ability)
+        public AttackPlayerAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
         {
         }
 
@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"Whenever {Filter} attacks a player, {ToStringBase()}";
+            return $"Whenever {Filter} attacks a player, {GetEffectText()}";
         }
     }
 }
