@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
+    // TODO: Make abstract
     public class AbilityAddingEffect : CharacteristicModifyingEffect, IAbilityAddingEffect
     {
         public List<IAbility> Abilities { get; }
