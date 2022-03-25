@@ -8,7 +8,7 @@ namespace Cards.Cards.DM11
     {
         public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Subtype.PandorasBox, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new CannotAttackPlayersAbility(), new TriggeredAbilities.BattleAbility(new DestroyAfterBattleEffect())); // When this creature battles, destroy it after the battle.
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility(), new TriggeredAbilities.BattleAbility(new DestroyAfterBattleEffect())); // When this creature battles, destroy it after the battle.
         }
     }
 }

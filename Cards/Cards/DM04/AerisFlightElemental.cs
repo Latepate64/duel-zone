@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public AerisFlightElemental() : base("Aeris, Flight Elemental", 5, 9000, Subtype.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new CannotAttackPlayersAbility(), new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Darkness));
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility(), new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Darkness));
         }
     }
 }

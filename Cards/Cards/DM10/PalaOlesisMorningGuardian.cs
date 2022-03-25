@@ -11,7 +11,7 @@ namespace Cards.Cards.DM10
     {
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new PalaOlesisMorningGuardianAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new PalaOlesisMorningGuardianAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 

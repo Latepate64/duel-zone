@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public PhantomFish() : base("Phantom Fish", 3, 4000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public CursedPincher() : base("Cursed Pincher", 4, 2000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new SlayerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new SlayerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

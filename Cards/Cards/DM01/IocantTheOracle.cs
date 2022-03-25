@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new IocantTheOracleAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new IocantTheOracleAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 

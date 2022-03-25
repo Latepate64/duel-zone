@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public SteelSmasher() : base("Steel Smasher", 2, 3000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            AddAbilities(new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

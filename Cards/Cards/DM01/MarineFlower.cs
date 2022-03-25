@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public MarineFlower() : base("Marine Flower", 1, 2000, Common.Subtype.CyberVirus, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

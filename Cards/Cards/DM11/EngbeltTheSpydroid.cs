@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
         public EngbeltTheSpydroid() : base("Engbelt, the Spydroid", 4, 5500, Common.Subtype.Soltrooper, Common.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddAbilities(new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

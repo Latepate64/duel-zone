@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
         public EmeraldGrass() : base("Emerald Grass", 2, 3000, Common.Subtype.StarlightTree, Common.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddAbilities(new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }
