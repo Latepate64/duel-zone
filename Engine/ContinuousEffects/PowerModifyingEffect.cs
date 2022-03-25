@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
+    // TODO: Make abstract
     public class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
     {
         protected readonly int _power;
