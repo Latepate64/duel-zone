@@ -2,24 +2,14 @@
 
 namespace Engine.ContinuousEffects
 {
-    public class IgnoreCannotAttackPlayersEffects : ContinuousEffect
+    public abstract class IgnoreCannotAttackPlayersEffects : ContinuousEffect
     {
-        public IgnoreCannotAttackPlayersEffects(IgnoreCannotAttackPlayersEffects effect) : base(effect)
+        protected IgnoreCannotAttackPlayersEffects(IgnoreCannotAttackPlayersEffects effect) : base(effect)
         {
         }
 
-        public IgnoreCannotAttackPlayersEffects(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
+        protected IgnoreCannotAttackPlayersEffects(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new IgnoreCannotAttackPlayersEffects(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Ignore any effects that would prevent {Filter} from attacking your opponent.";
         }
     }
 }
