@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public Zepimeteus() : base("Zepimeteus", 1, 2000, Common.Subtype.SeaHacker, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility());
         }
     }
 }

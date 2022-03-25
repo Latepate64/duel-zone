@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public BatteryCluster() : base("Battery Cluster", 2, 3000, Common.Subtype.CyberCluster, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility());
         }
     }
 }

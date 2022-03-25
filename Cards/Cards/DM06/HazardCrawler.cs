@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public HazardCrawler() : base("Hazard Crawler", 5, 6000, Common.Subtype.EarthEater, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility());
         }
     }
 }

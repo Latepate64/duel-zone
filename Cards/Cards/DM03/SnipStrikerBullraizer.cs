@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Subtype.Dragonoid, Civilization.Fire)
         {
-            AddAbilities(new CannotAttackAbility(new SnipStrikerBullraizerCondition()));
+            AddAbilities(new ThisCreatureCannotAttackAbility(new SnipStrikerBullraizerCondition()));
         }
     }
 

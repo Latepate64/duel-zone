@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public Gigagriff() : base("Gigagriff", 6, 4000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new SlayerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new ThisCreatureCannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new SlayerAbility(), new ThisCreatureCannotAttackAbility());
         }
     }
 }
