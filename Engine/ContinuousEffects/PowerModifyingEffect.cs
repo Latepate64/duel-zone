@@ -19,7 +19,7 @@ namespace Engine.ContinuousEffects
             _power = effect._power;
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new PowerModifyingEffect(this);
         }
