@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return "Charger (After you cast this spell, put it into your mana zone instead of your graveyard.)";
+            return "Charger";
         }
     }
 }

@@ -110,7 +110,9 @@ namespace Simulator
 
         static List<Card> GetCards(Guid player)
         {
-            List<Card> cards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            var allCards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid());
+            var cardTexts = string.Join(Environment.NewLine, allCards.OrderBy(x => x.Name).Select(x => x.Name + ": " + string.Join("; ", x.PrintedAbilities.Select(x => x.ToString()))));
+            var cards = allCards.Take(40).ToList();
             foreach (var card in cards)
             {
                 card.Owner = player;
