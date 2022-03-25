@@ -4,12 +4,12 @@
     {
         public ICardFilter BlockableCreatures { get; }
 
-        public BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, params Condition[] conditions) : base(filter, conditions)
+        protected BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, params Condition[] conditions) : base(filter, conditions)
         {
             BlockableCreatures = blockableCreatures;
         }
 
-        public BlockerEffect(BlockerEffect effect) : base(effect)
+        protected BlockerEffect(BlockerEffect effect) : base(effect)
         {
             BlockableCreatures = effect.BlockableCreatures.Copy();
         }
