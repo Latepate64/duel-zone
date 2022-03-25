@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
 
         public override string ToString()
         {
-            return $"When this creature is put into the battle zone, {GetEffectText()}";
+            return $"When you put this creature into the battle zone, {GetEffectText()}";
         }
     }
 
