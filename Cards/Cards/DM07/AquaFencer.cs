@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public AquaFencer() : base("Aqua Fencer", 7, 3000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.OpponentManaRecoveryEffect(1, 1, true)));
+            AddAbilities(new TapAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect()));
         }
     }
 }

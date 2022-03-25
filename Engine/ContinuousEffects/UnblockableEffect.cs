@@ -20,7 +20,7 @@ namespace Engine.ContinuousEffects
             BlockerFilter = effect.BlockerFilter;
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new UnblockableEffect(this);
         }
