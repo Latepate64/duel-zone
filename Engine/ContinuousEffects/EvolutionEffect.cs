@@ -41,7 +41,12 @@ namespace Engine.ContinuousEffects
 
         public override string ToString()
         {
-            return $"Evolution - Put on one of your {Race}s.";
+            return $"Evolution - Put on one of your {SplitByCase(Race.ToString())}s.";
         }
-    }
+
+        private static string SplitByCase(string text)
+        {
+            return string.Join(' ', System.Text.RegularExpressions.Regex.Split(text, @"(?<!^)(?=[A-Z])"));
+        }
+    } 
 }
