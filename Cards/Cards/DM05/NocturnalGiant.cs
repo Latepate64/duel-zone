@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public NocturnalGiant() : base("Nocturnal Giant", 7, 7000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.CannotAttackCreaturesAbility(), new StaticAbilities.PowerAttackerAbility(7000), new StaticAbilities.TripleBreakerAbility());
+            AddAbilities(new StaticAbilities.ThisCreatureCannotAttackCreaturesAbility(), new StaticAbilities.PowerAttackerAbility(7000), new StaticAbilities.TripleBreakerAbility());
         }
     }
 }

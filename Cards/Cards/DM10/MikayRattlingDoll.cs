@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public MikayRattlingDoll() : base("Mikay, Rattling Doll", 2, 2000, Common.Subtype.DeathPuppet, Common.Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
         }
     }
 }
