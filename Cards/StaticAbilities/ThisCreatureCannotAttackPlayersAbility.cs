@@ -24,7 +24,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return "This creature can't attack players";
+            return "This creature can't attack players.";
         }
     }
 }

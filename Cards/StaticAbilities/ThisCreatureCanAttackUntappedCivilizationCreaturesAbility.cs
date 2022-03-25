@@ -31,7 +31,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return $"This creature can attack untapped {_civilization} creatures.";
+            return $"This creature can attack untapped {_civilization.ToString().ToLower()} creatures.";
         }
     }
 }
