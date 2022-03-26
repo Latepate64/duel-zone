@@ -1,14 +1,10 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
-
-namespace Cards.Cards.DM06
+﻿namespace Cards.Cards.DM06
 {
     class SpasticMissile : Spell
     {
         public SpasticMissile() : base("Spastic Missile", 3, Common.Civilization.Fire)
         {
-            // Destroy one of your opponent's creatures that has power 3000 or less.
-            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true));
+            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(3000));
         }
     }
 }

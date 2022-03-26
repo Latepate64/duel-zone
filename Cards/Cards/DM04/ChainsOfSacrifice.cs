@@ -1,6 +1,7 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Common;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
@@ -8,9 +9,24 @@ namespace Cards.Cards.DM04
     {
         public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
         {
-            // Destroy up to 2 of your opponent's creatures.
-            // Destroy one of your creatures.
-            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true), new SacrificeEffect());
+            AddSpellAbilities(new ChainsOfSacrificeEffect(), new SacrificeEffect());
+        }
+    }
+
+    class ChainsOfSacrificeEffect : DestroyEffect
+    {
+        public ChainsOfSacrificeEffect() : base(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ChainsOfSacrificeEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy up to 2 of your opponent's creatures.";
         }
     }
 }

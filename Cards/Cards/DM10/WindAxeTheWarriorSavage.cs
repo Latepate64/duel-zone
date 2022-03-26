@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
 
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
+            foreach (var effect in new OneShotEffect[] { new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
             {
                 effect.Apply(game, source);
             }

@@ -1,15 +1,11 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
-
-namespace Cards.Cards.DM06
+﻿namespace Cards.Cards.DM06
 {
     class PhantomDragonsFlame : Spell
     {
         public PhantomDragonsFlame() : base("Phantom Dragon's Flame", 3, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
-            // Destroy one of your opponent's creatures that has power 2000 or less.
-            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(2000), 1, 1, true));
+            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
         }
     }
 }

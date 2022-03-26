@@ -25,7 +25,7 @@ namespace Cards.Cards.DM01
             var thisCreature = creatures.SingleOrDefault(x => x.Id == source.Source);
             if (thisCreature == null)
             {
-                return new DestroyEffect(new CardFilters.OwnersBattleZoneCreatureFilter(), 2, 2, true).Apply(game, source);
+                return new GigaberosDestroyEffect().Apply(game, source);
             }
             else if (creatures.Where(x => x.Id != source.Source).Count() < 2)
             {
@@ -54,6 +54,23 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Destroy 2 of your other creatures or destroy this creature.";
+        }
+    }
+
+    class GigaberosDestroyEffect : DestroyEffect
+    {
+        public GigaberosDestroyEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 2, 2, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new GigaberosDestroyEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy 2 of your other creatures.";
         }
     }
 }

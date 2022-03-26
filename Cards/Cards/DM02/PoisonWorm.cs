@@ -1,4 +1,5 @@
 ﻿using Cards.CardFilters;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM02
 {
@@ -6,8 +7,24 @@ namespace Cards.Cards.DM02
     {
         public PoisonWorm() : base("Poison Worm", 4, 4000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            // When you put this creature into the battle zone, destroy one of your creatures that has power 3000 or less.
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.DestroyEffect(new OwnersBattleZoneMaxPowerCreatureFilter(3000), 1, 1, true)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new PoisonWormEffect()));
+        }
+    }
+
+    class PoisonWormEffect : OneShotEffects.DestroyEffect
+    {
+        public PoisonWormEffect() : base(new OwnersBattleZoneMaxPowerCreatureFilter(3000), 1, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new PoisonWormEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy one of your creatures that has power 3000 or less.";
         }
     }
 }

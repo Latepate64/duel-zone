@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06
@@ -8,8 +7,7 @@ namespace Cards.Cards.DM06
     {
         public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, 1000, Common.Subtype.Xenoparts, Common.Civilization.Fire)
         {
-            // Instead of having this creature attack, you may tap it to use its tap ability. Destroy one of your opponent's creatures that has "blocker."
-            AddAbilities(new TapAbility(new DestroyEffect(new OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)));
+            AddAbilities(new TapAbility(new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect()));
         }
     }
 }
