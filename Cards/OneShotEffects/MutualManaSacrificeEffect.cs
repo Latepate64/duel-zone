@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.OneShotEffects
@@ -20,21 +19,21 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new ManaBurnEffect(new OwnersManaZoneCardFilter(), Amount, Amount, true), new ManaBurnEffect(new OpponentsManaZoneCardFilter(), Amount, Amount, false) })
+            foreach (var effect in new OneShotEffect[] { new PutCardsFromYourManaZoneIntoYourGraveyard(Amount), new YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(Amount) })
             {
                 effect.Apply(game, source);
             }
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new MutualManaSacrificeEffect(this);
         }
 
         public override string ToString()
         {
-            return $"Each player chooses 2 cards in his mana zone and puts them into his graveyard.";
+            return $"Each player chooses {(Amount > 1 ? $"{Amount} cards" : "a card")} in his mana zone and puts {(Amount > 1 ? "them" : "it")} into his graveyard.";
         }
     }
 }

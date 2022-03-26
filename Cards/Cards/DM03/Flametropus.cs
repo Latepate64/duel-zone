@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var cards = new OneShotEffects.SelfManaBurnEffect(0, 1).Apply(game, source);
+            var cards = new FlametropusManaEffect().Apply(game, source);
             if (cards.Any())
             {
                 game.AddContinuousEffects(source, new FlametropusContinuousEffect(new TargetFilter { Target = source.Source }));                 
@@ -56,6 +56,23 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "This creature gets \"power attacker +3000\" and \"double breaker\" until the end of the turn.";
+        }
+    }
+
+    class FlametropusManaEffect : OneShotEffects.ManaBurnEffect
+    {
+        public FlametropusManaEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 0, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new FlametropusManaEffect();
+        }
+
+        public override string ToString()
+        {
+            return "You may put a card from your mana zone into your graveyard.";
         }
     }
 }

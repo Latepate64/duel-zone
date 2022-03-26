@@ -18,7 +18,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new SelfManaBurnEffect(1), new OpponentSacrificeEffect(), new ManaBurnEffect(new CardFilters.OpponentsManaZoneCardFilter(), 1, 1, false) })
+            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new PutCardsFromYourManaZoneIntoYourGraveyard(1), new OpponentSacrificeEffect(), new YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1) })
             {
                 effect.Apply(game, source);
             }
