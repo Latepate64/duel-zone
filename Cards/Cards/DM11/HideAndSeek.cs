@@ -17,7 +17,7 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new BounceEffect(1, 1, new CardFilters.OpponentsBattleZoneChoosableNonEvolutionCreatureFilter()), new OpponentRandomDiscardEffect() })
+            foreach (var effect in new OneShotEffect[] { new HideAndSeekBounceEffect(), new OpponentRandomDiscardEffect() })
             {
                 effect.Apply(game, source);
             }
@@ -32,6 +32,23 @@ namespace Cards.Cards.DM11
         public override string ToString()
         {
             return "Choose one of your opponent's non-evolution creatures in the battle zone and return it to his hand. Then he discards a card at random from his hand.";
+        }
+    }
+
+    class HideAndSeekBounceEffect : BounceEffect
+    {
+        public HideAndSeekBounceEffect() : base(new CardFilters.OpponentsBattleZoneChoosableNonEvolutionCreatureFilter(), 1, 1)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HideAndSeekBounceEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Choose one of your opponent's non-evolution creatures in the battle zone and return it to his hand.";
         }
     }
 }
