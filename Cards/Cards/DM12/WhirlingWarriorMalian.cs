@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
     {
         public WhirlingWarriorMalian() : base("Whirling Warrior Malian", 4, 6000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.TapAreaOfEffect(new Engine.TargetFilter())));
+            AddAbilities(new TriggeredAbilities.WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.TapThisCreatureEffect()));
         }
     }
 }

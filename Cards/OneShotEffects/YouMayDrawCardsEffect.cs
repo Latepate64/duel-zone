@@ -4,25 +4,25 @@ using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
-    class ControllerMayDrawCardsEffect : OneShotEffect
+    class YouMayDrawCardsEffect : OneShotEffect
     {
         public int Maximum { get; }
 
         private int _drawn;
 
-        public ControllerMayDrawCardsEffect(int maximum) : base()
+        public YouMayDrawCardsEffect(int maximum) : base()
         {
             Maximum = maximum;
         }
 
-        public ControllerMayDrawCardsEffect(ControllerMayDrawCardsEffect effect)
+        public YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
         {
             Maximum = effect.Maximum;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new ControllerMayDrawCardsEffect(this);
+            return new YouMayDrawCardsEffect(this);
         }
 
         public override object Apply(IGame game, IAbility source)

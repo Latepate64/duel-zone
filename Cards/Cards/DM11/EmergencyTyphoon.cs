@@ -18,7 +18,7 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new ControllerMayDrawCardsEffect(2), new DiscardCardFromYourHandEffect() })
+            foreach (var effect in new OneShotEffect[] { new YouMayDrawCardsEffect(2), new DiscardCardFromYourHandEffect() })
             {
                 effect.Apply(game, source);
             }

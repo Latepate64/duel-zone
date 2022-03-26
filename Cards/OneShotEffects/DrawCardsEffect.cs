@@ -3,16 +3,16 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    internal class DrawEffect : OneShotEffect
+    class DrawCardsEffect : OneShotEffect
     {
-        private int _amount;
+        private readonly int _amount;
 
-        public DrawEffect(int amount)
+        public DrawCardsEffect(int amount)
         {
             _amount = amount;
         }
 
-        public DrawEffect(DrawEffect effect)
+        public DrawCardsEffect(DrawCardsEffect effect)
         {
             _amount = effect._amount;
         }
@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         public override IOneShotEffect Copy()
         {
-            return new DrawEffect(this);
+            return new DrawCardsEffect(this);
         }
 
         public override string ToString()

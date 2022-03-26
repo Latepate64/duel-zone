@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.ControllerMayDrawCardsEffect(game.GetAllCards(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), source.Owner).Count()).Apply(game, source);
+            return new OneShotEffects.YouMayDrawCardsEffect(game.GetAllCards(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), source.Owner).Count()).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

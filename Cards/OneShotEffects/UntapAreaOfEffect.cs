@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
+    //TODO: Abstract
     class UntapAreaOfEffect : OneShotAreaOfEffect
     {
         public UntapAreaOfEffect(CardFilter filter) : base(filter)

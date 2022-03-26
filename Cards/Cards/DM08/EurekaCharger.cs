@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public EurekaCharger() : base("Eureka Charger", 4, Civilization.Water)
         {
-            AddSpellAbilities(new OneShotEffects.DrawEffect(1));
+            AddSpellAbilities(new OneShotEffects.DrawCardsEffect(1));
         }
     }
 }

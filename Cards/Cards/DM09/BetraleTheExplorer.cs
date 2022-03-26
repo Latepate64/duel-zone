@@ -10,8 +10,7 @@ namespace Cards.Cards.DM09
     {
         public BetraleTheExplorer() : base("Betrale, the Explorer", 5, 5000, Subtype.Gladiator, Civilization.Light)
         {
-            // At the end of each of your turns, you may untap this creature.
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackPlayersAbility(), new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect(new TargetFilter())));
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackPlayersAbility(), new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }
     }
 }

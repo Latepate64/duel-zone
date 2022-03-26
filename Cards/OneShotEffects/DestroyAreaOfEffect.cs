@@ -4,6 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
+    //TODO: Abstract
     class DestroyAreaOfEffect : CardMovingAreaOfEffect
     {
         public DestroyAreaOfEffect(DestroyAreaOfEffect effect) : base(effect)

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
             ShieldTrigger = true;
 
             // Draw up to 2 cards.
-            AddSpellAbilities(new ControllerMayDrawCardsEffect(2));
+            AddSpellAbilities(new YouMayDrawCardsEffect(2));
         }
     }
 }

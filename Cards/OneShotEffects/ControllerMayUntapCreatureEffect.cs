@@ -5,23 +5,18 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class ControllerMayUntapCreatureEffect : OneShotEffect
+    abstract class ControllerMayUntapCreatureEffect : OneShotEffect
     {
         public CardFilter Filter { get; }
 
-        public ControllerMayUntapCreatureEffect(CardFilter filter)
+        protected ControllerMayUntapCreatureEffect(CardFilter filter)
         {
             Filter = filter;
         }
 
-        public ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect)
+        protected ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect)
         {
             Filter = effect.Filter;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ControllerMayUntapCreatureEffect(this);
         }
 
         public override object Apply(IGame game, IAbility source)
@@ -37,10 +32,22 @@ namespace Cards.OneShotEffects
                 return false;
             }
         }
+    }
+
+    class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
+    {
+        public YouMayUntapThisCreatureEffect() : base(new TargetFilter())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new YouMayUntapThisCreatureEffect();
+        }
 
         public override string ToString()
         {
-            return $"You may untap {Filter}.";
+            return "You may untap this creature.";
         }
     }
 }

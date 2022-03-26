@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public EnergyStream() : base("Energy Stream", 3, Civilization.Water)
         {
-            AddSpellAbilities(new OneShotEffects.DrawEffect(2));
+            AddSpellAbilities(new OneShotEffects.DrawCardsEffect(2));
         }
     }
 }
