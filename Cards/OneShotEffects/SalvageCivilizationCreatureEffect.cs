@@ -1,8 +1,8 @@
 ﻿namespace Cards.OneShotEffects
 {
-    class SalvageCivilizationCreatureEffect : SalvageEffect
+    abstract class SalvageCivilizationCreatureEffect : SalvageEffect
     {
-        public SalvageCivilizationCreatureEffect(int minimum, int maximum, params Common.Civilization[] civilizations) : base(new CardFilters.OwnersGraveyardCivilizationCreatureFilter(civilizations), minimum, maximum, true)
+        protected SalvageCivilizationCreatureEffect(int minimum, int maximum, params Common.Civilization[] civilizations) : base(new CardFilters.OwnersGraveyardCivilizationCreatureFilter(civilizations), minimum, maximum, true)
         {
         }
     }

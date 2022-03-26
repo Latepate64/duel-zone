@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM01
 {
@@ -8,9 +7,7 @@ namespace Cards.Cards.DM01
         public DarkReversal() : base("Dark Reversal", 2, Civilization.Darkness)
         {
             ShieldTrigger = true;
-
-            // Return a creature from your graveyard to your hand.
-            AddSpellAbilities(new SalvageCreatureEffect(1, 1));
+            AddSpellAbilities(new OneShotEffects.ReturnCreatureFromYourGraveyardToYourHandEffect());
         }
     }
 }

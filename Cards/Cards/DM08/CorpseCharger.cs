@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public CorpseCharger() : base("Corpse Charger", 4, Civilization.Darkness)
         {
-            AddSpellAbilities(new OneShotEffects.SalvageCreatureEffect(1, 1));
+            AddSpellAbilities(new OneShotEffects.ReturnCreatureFromYourGraveyardToYourHandEffect());
         }
     }
 }
