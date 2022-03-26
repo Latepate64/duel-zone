@@ -20,7 +20,7 @@ namespace Cards.Cards.DM03
 
     class SiegBaliculaTheIntenseEffect : BlockerEffect
     {
-        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new CardFilters.OpponentsBattleZoneCreatureFilter()) { }
+        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {

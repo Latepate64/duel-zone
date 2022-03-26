@@ -21,7 +21,7 @@ namespace Cards.Cards.DM02
 
     class EssenceElfEffect : CostModifyingEffect
     {
-        public EssenceElfEffect() : base(-1, new CardFilters.OwnersHandSpellFilter())
+        public EssenceElfEffect() : base(-1, new CardFilters.OwnersHandSpellFilter(), new Durations.Indefinite())
         {
         }
 

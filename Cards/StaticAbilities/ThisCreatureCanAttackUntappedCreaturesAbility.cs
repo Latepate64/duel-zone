@@ -16,7 +16,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public ThisCreatureCanAttackUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter())
+        public ThisCreatureCanAttackUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
         {
         }
 

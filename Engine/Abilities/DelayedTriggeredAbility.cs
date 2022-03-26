@@ -1,5 +1,4 @@
-﻿using Engine.Durations;
-using System;
+﻿using System;
 
 namespace Engine.Abilities
 {
@@ -16,18 +15,13 @@ namespace Engine.Abilities
         /// </summary>
         internal bool TriggersOnlyOnce { get; private set; }
 
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, IDuration duration)
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, IDuration duration, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
             TriggeredAbility.Owner = owner;
             Duration = duration;
-            TriggersOnlyOnce = false;
-        }
-
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner) : this(triggeredAbility, source, owner, new Indefinite())
-        {
-            TriggersOnlyOnce = true;
+            TriggersOnlyOnce = triggersOnlyOnce;
         }
 
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)

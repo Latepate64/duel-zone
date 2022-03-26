@@ -22,7 +22,7 @@ namespace Cards.Cards.DM02
 
     class KingNautilusEffect : UnblockableEffect
     {
-        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter())
+        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new Durations.Indefinite(), new BattleZoneCreatureFilter())
         {
         }
 

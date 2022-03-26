@@ -3,7 +3,6 @@ using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -45,7 +44,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), new UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), new Durations.UntilTheEndOfTheTurn())
         {
         }
 

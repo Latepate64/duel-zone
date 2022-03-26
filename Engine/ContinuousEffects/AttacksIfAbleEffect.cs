@@ -2,7 +2,7 @@
 {
     public abstract class AttacksIfAbleEffect : ContinuousEffect
     {
-        protected AttacksIfAbleEffect(ICardFilter filter) : base(filter)
+        protected AttacksIfAbleEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

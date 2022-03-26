@@ -18,9 +18,9 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class LegendaryBynorEffect : Engine.ContinuousEffects.UnblockableEffect
+    class LegendaryBynorEffect : UnblockableEffect
     {
-        public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new CardFilters.BattleZoneCreatureFilter())
+        public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
         {
         }
 

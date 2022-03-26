@@ -2,7 +2,6 @@
 using Cards.StaticAbilities;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM08
 {
@@ -23,7 +22,7 @@ namespace Cards.Cards.DM08
 
     class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
-        public MegariaEmpressOfDreadEffect() : base(new BattleZoneCreatureFilter(), new Indefinite(), new SlayerAbility())
+        public MegariaEmpressOfDreadEffect() : base(new BattleZoneCreatureFilter(), new Durations.Indefinite(), new SlayerAbility())
         {
         }
 

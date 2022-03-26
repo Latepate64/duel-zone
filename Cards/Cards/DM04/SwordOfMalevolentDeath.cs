@@ -41,7 +41,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SwordOfMalevolentDeathContinuousEffect(ICardFilter filter, int power) : base(filter, new Engine.Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(power))
+        public SwordOfMalevolentDeathContinuousEffect(ICardFilter filter, int power) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(power))
         {
         }
 

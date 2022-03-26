@@ -6,7 +6,7 @@
         {
         }
 
-        protected CannotUseShieldTriggerEffect(ICardFilter filter) : base(filter)
+        protected CannotUseShieldTriggerEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
     }

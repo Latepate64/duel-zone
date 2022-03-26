@@ -2,7 +2,7 @@
 {
     public abstract class SpeedAttackerEffect : ContinuousEffect
     {
-        protected SpeedAttackerEffect(ICardFilter filter) : base(filter)
+        protected SpeedAttackerEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

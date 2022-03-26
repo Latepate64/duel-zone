@@ -1,7 +1,7 @@
 ﻿using Common.GameEvents;
 using System;
 
-namespace Engine.Durations
+namespace Engine
 {
     public interface IDuration : IDisposable
     {

@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.ContinuousEffects
 {
@@ -10,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new UntilTheEndOfTheTurn(), new StaticAbilities.BlockerAbility())
+        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.BlockerAbility())
         {
         }
 

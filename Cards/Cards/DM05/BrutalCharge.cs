@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), source.Source, source.Owner));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return null;
         }
 

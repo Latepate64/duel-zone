@@ -20,7 +20,7 @@ namespace Cards.StaticAbilities
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base(power, new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Engine.Durations.Indefinite())
+        public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base(power, new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
         {
             _civilizations = civilizations;
         }

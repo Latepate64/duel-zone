@@ -7,7 +7,7 @@
     {
         public int CostChange { get; set; }
 
-        protected CostModifyingEffect(int costChange, ICardFilter filter) : base(filter)
+        protected CostModifyingEffect(int costChange, ICardFilter filter, IDuration duration) : base(filter, duration)
         {
             CostChange = costChange;
         }

@@ -2,7 +2,7 @@
 {
     public abstract class CannotAttackPlayersEffect : ContinuousEffect
     {
-        protected CannotAttackPlayersEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotAttackPlayersEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
 
         }

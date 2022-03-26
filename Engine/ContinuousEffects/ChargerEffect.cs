@@ -2,7 +2,7 @@
 {
     public abstract class ChargerEffect : ContinuousEffect
     {
-        protected ChargerEffect(ICardFilter filter) : base(filter)
+        protected ChargerEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

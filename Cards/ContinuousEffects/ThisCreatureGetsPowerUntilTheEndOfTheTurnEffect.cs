@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -11,7 +10,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(power, new CardFilters.TargetsFilter(cards.ToArray()), new UntilTheEndOfTheTurn())
+        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(power, new CardFilters.TargetsFilter(cards.ToArray()), new Durations.UntilTheEndOfTheTurn())
         {
         }
 

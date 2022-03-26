@@ -20,7 +20,7 @@ namespace Cards.Cards.DM03
 
     class SparkleFlowerEffect : BlockerEffect
     {
-        public SparkleFlowerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Conditions.AllOfCivilizationCondition(Civilization.Light))
+        public SparkleFlowerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite(), new Conditions.AllOfCivilizationCondition(Civilization.Light))
         {
         }
 

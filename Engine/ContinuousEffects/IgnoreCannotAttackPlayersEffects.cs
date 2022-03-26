@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public abstract class IgnoreCannotAttackPlayersEffects : ContinuousEffect
     {

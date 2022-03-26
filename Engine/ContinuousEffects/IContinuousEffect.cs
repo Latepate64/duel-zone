@@ -1,5 +1,4 @@
-﻿using Engine.Durations;
-using System;
+﻿using System;
 
 namespace Engine.ContinuousEffects
 {

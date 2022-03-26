@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public abstract class UnblockableEffect : ContinuousEffect
     {
@@ -9,10 +7,6 @@ namespace Engine.ContinuousEffects
         protected UnblockableEffect(ICardFilter filter, IDuration duration, ICardFilter blockerFilter, params Condition[] conditions) : base(filter, duration, conditions)
         {
             BlockerFilter = blockerFilter;
-        }
-
-        protected UnblockableEffect(ICardFilter filter, ICardFilter blockerFilter, params Condition[] conditions) : this(filter, new Indefinite(), blockerFilter, conditions)
-        {
         }
 
         protected UnblockableEffect(UnblockableEffect effect) : base(effect)

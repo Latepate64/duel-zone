@@ -48,7 +48,7 @@ namespace Cards.Cards.DM01
 
     class TropicoEffect : UnblockableEffect
     {
-        public TropicoEffect() : base(new TargetFilter(), new CardFilters.BattleZoneCreatureFilter(), new TropicoCondition())
+        public TropicoEffect() : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter(), new TropicoCondition())
         {
         }
 

@@ -14,7 +14,7 @@ namespace Cards.StaticAbilities
     {
         private readonly Civilization _civilization;
 
-        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Conditions.FilterAnyCondition(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization)))
+        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Durations.Indefinite(), new Conditions.FilterAnyCondition(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization)))
         {
             _civilization = civilization;
         }

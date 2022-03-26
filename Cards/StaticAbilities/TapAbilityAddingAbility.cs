@@ -1,7 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {
@@ -21,7 +20,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization), new Engine.Durations.Indefinite(), new TapAbility(effect))
+        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization), new Durations.Indefinite(), new TapAbility(effect))
         {
             _civilization = civilization;
         }

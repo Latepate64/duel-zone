@@ -21,7 +21,9 @@ namespace Cards.Cards.DM07
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))),
                         source.Source,
-                        source.Owner));
+                        source.Owner,
+                        new Durations.Indefinite(),
+                        true));
             return null;
         }
 

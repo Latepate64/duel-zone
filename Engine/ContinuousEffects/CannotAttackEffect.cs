@@ -6,7 +6,7 @@
         {
         }
 
-        protected CannotAttackEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotAttackEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
     }

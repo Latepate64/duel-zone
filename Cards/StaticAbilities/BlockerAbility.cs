@@ -12,7 +12,7 @@ namespace Cards.StaticAbilities
 
     public class ThisCreatureHasBlockerEffect : BlockerEffect
     {
-        public ThisCreatureHasBlockerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter())
+        public ThisCreatureHasBlockerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite())
         {
         }
 

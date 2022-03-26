@@ -9,9 +9,9 @@ namespace Cards.StaticAbilities
         }
     }
 
-    class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : Engine.ContinuousEffects.CannotAttackEffect
+    class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : CannotAttackEffect
     {
-        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new Engine.TargetFilter(), new Conditions.FilterNoneCondition(new CardFilters.OpponentsShieldZoneCardFilter())) { }
+        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite(), new Conditions.FilterNoneCondition(new CardFilters.OpponentsShieldZoneCardFilter())) { }
 
         public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect(WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect effect) : base(effect)
         {

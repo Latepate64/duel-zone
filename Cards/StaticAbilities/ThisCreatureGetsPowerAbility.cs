@@ -1,6 +1,4 @@
-﻿using Engine;
-using Engine.ContinuousEffects;
-using Engine.Durations;
+﻿using Engine.ContinuousEffects;
 
 namespace Cards.StaticAbilities
 {
@@ -17,7 +15,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public ThisCreatureGetsPowerEffect(int power) : base(power)
+        public ThisCreatureGetsPowerEffect(int power) : base(power, new Durations.Indefinite())
         {
         }
 

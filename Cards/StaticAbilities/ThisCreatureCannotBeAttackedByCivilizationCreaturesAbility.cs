@@ -21,7 +21,7 @@ namespace Cards.StaticAbilities
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations))
+        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
         {
             _civilizations = civilizations;
         }

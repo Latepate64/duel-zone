@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public abstract class EvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
@@ -8,7 +6,7 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        protected EvolutionEffect(ICardFilter filter) : base(filter)
+        protected EvolutionEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

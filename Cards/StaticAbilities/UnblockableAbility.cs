@@ -18,7 +18,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public ThisCreatureCannotBeEffect() : base(new TargetFilter(), new BattleZoneCreatureFilter())
+        public ThisCreatureCannotBeEffect() : base(new TargetFilter(), new Durations.Indefinite(), new BattleZoneCreatureFilter())
         {
         }
 
@@ -49,7 +49,7 @@ namespace Cards.StaticAbilities
             _power = effect._power;
         }
 
-        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter(), new BattleZoneMaxPowerCreatureFilter(power))
+        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter(), new Durations.Indefinite(), new BattleZoneMaxPowerCreatureFilter(power))
         {
             _power = power;
         }

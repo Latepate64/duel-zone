@@ -9,7 +9,7 @@
             AttackerFilter = effect.AttackerFilter.Copy();
         }
 
-        protected CannotBeAttackedEffect(ICardFilter filter, ICardFilter attackerFilter) : base(filter)
+        protected CannotBeAttackedEffect(ICardFilter filter, ICardFilter attackerFilter, IDuration duration) : base(filter, duration)
         {
             AttackerFilter = attackerFilter;
         }

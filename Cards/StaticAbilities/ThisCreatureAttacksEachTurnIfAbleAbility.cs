@@ -12,7 +12,7 @@ namespace Cards.StaticAbilities
 
     class ThisCreatureAttacksEachTurnIfAbleEffect : AttacksIfAbleEffect
     {
-        public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter())
+        public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 

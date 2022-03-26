@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
+
 namespace Cards.StaticAbilities
 {
     class ThisCreatureCannotAttackAbility : Engine.Abilities.StaticAbility
@@ -9,7 +10,7 @@ namespace Cards.StaticAbilities
 
     class ThisCreatureCannotAttackEffect : CannotAttackEffect
     {
-        public ThisCreatureCannotAttackEffect(params Condition[] conditions) : base(new TargetFilter(), conditions)
+        public ThisCreatureCannotAttackEffect(params Condition[] conditions) : base(new TargetFilter(), new Durations.Indefinite(), conditions)
         {
         }
 

@@ -12,7 +12,7 @@ namespace Cards.StaticAbilities
 
     class OpponentCannotChooseThisCreatureEffect : UnchoosableEffect
     {
-        public OpponentCannotChooseThisCreatureEffect() : base(new Engine.TargetFilter())
+        public OpponentCannotChooseThisCreatureEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 

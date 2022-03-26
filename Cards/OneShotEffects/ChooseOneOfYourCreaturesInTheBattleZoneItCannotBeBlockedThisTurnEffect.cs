@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
 
     class ThisCreatureCannotBeBlockedThisTurnEffect : UnblockableEffect
     {
-        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(null, new Engine.Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(null, new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
         {
         }
 

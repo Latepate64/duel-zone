@@ -3,7 +3,6 @@ using Common.Choices;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -52,7 +51,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public KingAquakamuiContinuousEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Indefinite())
+        public KingAquakamuiContinuousEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Durations.Indefinite())
         {
         }
 

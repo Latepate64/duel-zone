@@ -3,8 +3,6 @@ using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
-using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -44,7 +42,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public ThisCreatureGetsSpeedAttackerUntilTheEndOfTheTurnEffect(ICardFilter filter) : base(filter, new UntilTheEndOfTheTurn(), new SpeedAttackerAbility())
+        public ThisCreatureGetsSpeedAttackerUntilTheEndOfTheTurnEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new SpeedAttackerAbility())
         {
         }
 

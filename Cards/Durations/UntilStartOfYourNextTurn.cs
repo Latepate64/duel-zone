@@ -1,7 +1,8 @@
 ﻿using Common.GameEvents;
+using Engine;
 using System;
 
-namespace Engine.Durations
+namespace Cards.Durations
 {
     public class UntilStartOfYourNextTurn : Duration
     {
@@ -12,7 +13,7 @@ namespace Engine.Durations
             _player = duration._player;
         }
 
-        public UntilStartOfYourNextTurn(System.Guid player)
+        public UntilStartOfYourNextTurn(Guid player)
         {
             _player = player;
         }

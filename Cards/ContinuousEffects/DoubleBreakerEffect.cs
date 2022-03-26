@@ -4,7 +4,7 @@ namespace Cards.ContinuousEffects
 {
     class DoubleBreakerEffect : BreakerEffect
     {
-        public DoubleBreakerEffect(params Engine.Condition[] conditions) : base(conditions)
+        public DoubleBreakerEffect(params Engine.Condition[] conditions) : base(new Durations.Indefinite(), conditions)
         {
         }
 

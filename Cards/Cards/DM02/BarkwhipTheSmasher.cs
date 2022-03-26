@@ -21,7 +21,7 @@ namespace Cards.Cards.DM02
 
     class BarkwhipTheSmasherEffect : PowerModifyingEffect
     {
-        public BarkwhipTheSmasherEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Engine.Durations.Indefinite(), new Conditions.TappedCondition(new Engine.TargetFilter()))
+        public BarkwhipTheSmasherEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Durations.Indefinite(), new Conditions.TappedCondition(new Engine.TargetFilter()))
         {
         }
 

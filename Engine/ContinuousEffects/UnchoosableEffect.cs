@@ -2,7 +2,7 @@
 {
     public abstract class UnchoosableEffect : ContinuousEffect
     {
-        protected UnchoosableEffect(ICardFilter filter) : base(filter)
+        protected UnchoosableEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 

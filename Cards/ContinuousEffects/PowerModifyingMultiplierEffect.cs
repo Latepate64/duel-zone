@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         public ICardFilter Multiplier { get; set; }
 
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, conditions)
+        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, new Durations.Indefinite(), conditions)
         {
             Multiplier = multiplier;
         }

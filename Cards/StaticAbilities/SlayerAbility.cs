@@ -16,7 +16,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public ThisCreatureHasSlayerEffect() : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCreatureFilter())
+        public ThisCreatureHasSlayerEffect() : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCreatureFilter(), new Durations.Indefinite())
         {
         }
 

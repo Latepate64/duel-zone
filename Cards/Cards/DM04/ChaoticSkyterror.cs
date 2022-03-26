@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM04
 {
@@ -25,7 +24,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ChaoticSkyterrorEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new Indefinite(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public ChaoticSkyterrorEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

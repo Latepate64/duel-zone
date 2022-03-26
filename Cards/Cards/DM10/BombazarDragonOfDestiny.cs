@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
             Engine.Turn turn = new() { ActivePlayer = owner, NonActivePlayer = game.GetOpponent(owner) };
             game.ExtraTurns.Push(turn);
             // You lose the game at the end of the extra turn.
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Owner));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return true;
         }
 

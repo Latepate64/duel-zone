@@ -1,7 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM06
 {
@@ -22,7 +21,7 @@ namespace Cards.Cards.DM06
 
     class FrostSpecterShadowOfAgeEffect : AbilityAddingEffect
     {
-        public FrostSpecterShadowOfAgeEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Ghost), new Indefinite(), new StaticAbilities.SlayerAbility())
+        public FrostSpecterShadowOfAgeEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Ghost), new Durations.Indefinite(), new StaticAbilities.SlayerAbility())
         {
         }
 

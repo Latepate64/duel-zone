@@ -4,7 +4,7 @@
     {
         public ICardFilter BlockableCreatures { get; }
 
-        protected BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, params Condition[] conditions) : base(filter, conditions)
+        protected BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
             BlockableCreatures = blockableCreatures;
         }

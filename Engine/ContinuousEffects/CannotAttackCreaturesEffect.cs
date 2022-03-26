@@ -2,7 +2,7 @@
 {
     public abstract class CannotAttackCreaturesEffect : ContinuousEffect
     {
-        protected CannotAttackCreaturesEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotAttackCreaturesEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
 

@@ -22,7 +22,7 @@ namespace Cards.Cards.DM01
 
     class IocantTheOracleEffect : PowerModifyingEffect
     {
-        public IocantTheOracleEffect() : base(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand))
+        public IocantTheOracleEffect() : base(2000, new Durations.Indefinite(), new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand))
         {
         }
 

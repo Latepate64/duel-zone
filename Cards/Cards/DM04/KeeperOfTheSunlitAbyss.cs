@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
 
     class KeeperOfTheSunlitAbyssEffect : PowerModifyingEffect
     {
-        public KeeperOfTheSunlitAbyssEffect() : base(1000, new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Engine.Durations.Indefinite()) { }
+        public KeeperOfTheSunlitAbyssEffect() : base(1000, new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {

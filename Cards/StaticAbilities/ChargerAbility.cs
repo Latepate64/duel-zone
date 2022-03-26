@@ -12,7 +12,7 @@ namespace Cards.StaticAbilities
 
     class ThisSpellHasChargerEffect : ChargerEffect
     {
-        public ThisSpellHasChargerEffect() : base(new Engine.TargetFilter())
+        public ThisSpellHasChargerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 

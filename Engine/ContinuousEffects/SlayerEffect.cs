@@ -4,7 +4,7 @@
     {
         public ICardFilter WorksAgainstFilter { get; }
 
-        protected SlayerEffect(ICardFilter filter, ICardFilter worksAgainstFilter) : base(filter)
+        protected SlayerEffect(ICardFilter filter, ICardFilter worksAgainstFilter, IDuration duration) : base(filter, duration)
         {
             WorksAgainstFilter = worksAgainstFilter;
         }

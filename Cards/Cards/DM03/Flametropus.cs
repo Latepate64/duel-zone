@@ -3,7 +3,6 @@ using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM03
@@ -45,7 +44,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 

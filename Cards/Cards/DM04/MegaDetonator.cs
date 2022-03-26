@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -70,7 +69,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new UntilTheEndOfTheTurn(), new StaticAbilities.DoubleBreakerAbility())
+        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

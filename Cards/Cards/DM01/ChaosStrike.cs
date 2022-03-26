@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
 
     class ChaosStrikeContinousEffect : CanBeAttackedAsThoughTappedEffect
     {
-        public ChaosStrikeContinousEffect() : base(null, new Engine.Durations.UntilTheEndOfTheTurn())
+        public ChaosStrikeContinousEffect() : base(null, new Durations.UntilTheEndOfTheTurn())
         {
         }
 

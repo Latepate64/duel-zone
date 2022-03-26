@@ -19,7 +19,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Conditions.AllOfCivilizationCondition(civilization))
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Durations.Indefinite(), new Conditions.AllOfCivilizationCondition(civilization))
         {
             _civilization = civilization;
         }

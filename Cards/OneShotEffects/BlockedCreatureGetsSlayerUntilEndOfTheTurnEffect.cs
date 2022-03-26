@@ -1,7 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using Engine.Steps;
 
 namespace Cards.OneShotEffects
@@ -38,7 +37,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new UntilTheEndOfTheTurn(), new StaticAbilities.SlayerAbility())
+        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.SlayerAbility())
         {
         }
 

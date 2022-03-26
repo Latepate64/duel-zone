@@ -1,4 +1,4 @@
-﻿namespace Engine.Durations
+﻿namespace Engine
 {
     public interface IDurationable
     {

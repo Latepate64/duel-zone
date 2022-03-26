@@ -1,6 +1,7 @@
 ﻿using Common.GameEvents;
+using Engine;
 
-namespace Engine.Durations
+namespace Cards.Durations
 {
     public class UntilTheEndOfTheTurn : Duration
     {

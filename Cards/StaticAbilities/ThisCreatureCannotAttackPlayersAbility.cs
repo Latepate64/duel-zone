@@ -13,7 +13,7 @@ namespace Cards.StaticAbilities
 
     public class ThisCreatureCannotAttackPlayersEffect : CannotAttackPlayersEffect
     {
-        public ThisCreatureCannotAttackPlayersEffect(params Condition[] conditions) : base(new TargetFilter(), conditions)
+        public ThisCreatureCannotAttackPlayersEffect(params Condition[] conditions) : base(new TargetFilter(), new Durations.Indefinite(), conditions)
         {
         }
 

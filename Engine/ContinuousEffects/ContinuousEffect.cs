@@ -1,5 +1,4 @@
-﻿using Engine.Durations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,10 +24,6 @@ namespace Engine.ContinuousEffects
         public int Timestamp { get; set; }
 
         private readonly List<Condition> _conditions = new();
-
-        protected ContinuousEffect(ICardFilter filter, params Condition[] conditions) : this(filter, new Indefinite(), conditions)
-        {
-        }
 
         protected ContinuousEffect(ICardFilter filter, IDuration duration, params Condition[] conditions)
         {
@@ -69,14 +64,7 @@ namespace Engine.ContinuousEffects
 
         protected string GetDurationAsText()
         {
-            if (Duration is Indefinite)
-            {
-                return "";
-            }
-            else
-            {
-                return Duration.ToString();
-            }
+            return Duration.ToString();
         }
 
         public void SetupConditionFilters(Guid id)

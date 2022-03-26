@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.StaticAbilities
 {
@@ -20,7 +19,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base(power, new CardFilters.AnotherBattleZoneCivilizationCreatureFilter(civilization), new Indefinite())
+        public EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base(power, new CardFilters.AnotherBattleZoneCivilizationCreatureFilter(civilization), new Durations.Indefinite())
         {
             _civilization = civilization;
         }

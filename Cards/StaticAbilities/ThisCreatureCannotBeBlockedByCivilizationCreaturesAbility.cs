@@ -20,7 +20,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilization))
+        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilization))
         {
             _civilization = civilization;
         }

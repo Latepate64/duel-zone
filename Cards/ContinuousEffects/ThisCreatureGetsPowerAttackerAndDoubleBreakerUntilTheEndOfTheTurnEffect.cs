@@ -1,7 +1,6 @@
 ﻿using Cards.StaticAbilities;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.ContinuousEffects
 {
@@ -11,7 +10,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new UntilTheEndOfTheTurn(), new PowerAttackerAbility(4000), new DoubleBreakerAbility())
+        public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(4000), new DoubleBreakerAbility())
         {
         }
 

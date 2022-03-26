@@ -12,7 +12,7 @@ namespace Cards.StaticAbilities
 
     class ThisCreatureHasSpeedAttackerEffect : SpeedAttackerEffect
     {
-        public ThisCreatureHasSpeedAttackerEffect() : base(new Engine.TargetFilter())
+        public ThisCreatureHasSpeedAttackerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 

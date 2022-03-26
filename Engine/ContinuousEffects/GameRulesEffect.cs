@@ -9,7 +9,7 @@
         {
         }
 
-        protected GameRulesEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected GameRulesEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
     }

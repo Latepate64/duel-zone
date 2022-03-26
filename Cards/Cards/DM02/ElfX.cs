@@ -21,7 +21,7 @@ namespace Cards.Cards.DM02
 
     class ElfXEffect : CostModifyingEffect
     {
-        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter()) { }
+        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {

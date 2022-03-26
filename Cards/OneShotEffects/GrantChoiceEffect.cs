@@ -1,5 +1,4 @@
 ﻿using Engine;
-using Engine.Durations;
 
 namespace Cards.OneShotEffects
 {
@@ -14,7 +13,7 @@ namespace Cards.OneShotEffects
 
         protected GrantChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses)
         {
-            Duration = new UntilTheEndOfTheTurn();
+            Duration = new Durations.UntilTheEndOfTheTurn();
         }
     }
 }
