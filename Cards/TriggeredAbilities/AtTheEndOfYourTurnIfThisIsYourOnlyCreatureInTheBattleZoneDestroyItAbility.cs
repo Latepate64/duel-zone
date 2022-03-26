@@ -6,7 +6,7 @@ namespace Cards.TriggeredAbilities
 {
     class AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility : AtTheEndOfYourTurnAbility
     {
-        public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility() : base(new OneShotEffects.DestroyAreaOfEffect(new TargetFilter()))
+        public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility() : base(new OneShotEffects.DestroyThisCreatureEffect())
         {
         }
 

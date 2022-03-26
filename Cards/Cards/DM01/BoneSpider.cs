@@ -1,7 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
+﻿using Cards.TriggeredAbilities;
 using Common;
-using Engine;
 
 namespace Cards.Cards.DM01
 {
@@ -9,8 +7,7 @@ namespace Cards.Cards.DM01
     {
         public BoneSpider() : base("Bone Spider", 3, 5000, Subtype.LivingDead, Civilization.Darkness)
         {
-            // When this creature wins a battle, destroy it.
-            AddAbilities(new WinBattleAbility(new DestroyAreaOfEffect(new TargetFilter())));
+            AddAbilities(new WinBattleAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }
     }
 }
