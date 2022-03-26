@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public BoneSpider() : base("Bone Spider", 3, 5000, Subtype.LivingDead, Civilization.Darkness)
         {
-            AddAbilities(new WinBattleAbility(new OneShotEffects.DestroyThisCreatureEffect()));
+            AddAbilities(new WhenThisCreatureWinsBattleAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }
     }
 }

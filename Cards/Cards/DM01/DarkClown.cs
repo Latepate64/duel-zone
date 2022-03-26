@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public DarkClown() : base("Dark Clown", 4, 6000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility(), new WinBattleAbility(new DestroyThisCreatureEffect()));
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility(), new WhenThisCreatureWinsBattleAbility(new DestroyThisCreatureEffect()));
         }
     }
 }
