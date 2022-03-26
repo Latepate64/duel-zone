@@ -4,24 +4,14 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class LookEffect : CardSelectionEffect
+    abstract class LookEffect : CardSelectionEffect
     {
-        public LookEffect(LookEffect effect) : base(effect)
+        protected LookEffect(LookEffect effect) : base(effect)
         {
         }
 
-        public LookEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses)
+        protected LookEffect(CardFilter filter, int minimum, int maximum) : base(filter, minimum, maximum, true)
         {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new LookEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Look at {GetAmountAsText()} of {Filter}. Then put them back where they were.";
         }
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)

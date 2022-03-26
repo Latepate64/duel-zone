@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public CuriousEye() : base("Curious Eye", 3, 1000, Subtype.CyberVirus, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.LookEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1, true)));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayLookAtOneOfYourOpponentsShieldsEffect()));
         }
     }
 }
