@@ -3,8 +3,7 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
-    // TODO: Make abstract
-    public class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
+    public abstract class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
     {
         protected readonly int _power;
 
@@ -18,16 +17,6 @@ namespace Engine.ContinuousEffects
         public PowerModifyingEffect(PowerModifyingEffect effect) : base(effect)
         {
             _power = effect._power;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new PowerModifyingEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()}{Filter} gets +{_power} power{GetDurationAsText()}.";
         }
 
         protected virtual int GetPower(IGame game)

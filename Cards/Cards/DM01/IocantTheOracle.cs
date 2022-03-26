@@ -26,6 +26,11 @@ namespace Cards.Cards.DM01
         {
         }
 
+        public override IContinuousEffect Copy()
+        {
+            return new IocantTheOracleEffect();
+        }
+
         public override string ToString()
         {
             return "While you have at least 1 Angel Command in the battle zone, this creature gets +2000 power.";

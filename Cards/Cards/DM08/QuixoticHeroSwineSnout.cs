@@ -1,8 +1,6 @@
 ﻿using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM08
 {
@@ -23,7 +21,7 @@ namespace Cards.Cards.DM08
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new PowerModifyingEffect(3000, new TargetFilter { Target = source.Source }, new UntilTheEndOfTheTurn()));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000, game.GetCard(source.Source)));
             return null;
         }
 

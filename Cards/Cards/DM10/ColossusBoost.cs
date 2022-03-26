@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public ColossusBoost() : base("Colossus Boost", 1, Civilization.Fire)
         {
-            AddSpellAbilities(new OneShotEffects.GrantPowerChoiceEffect(4000));
+            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(4000));
         }
     }
 }

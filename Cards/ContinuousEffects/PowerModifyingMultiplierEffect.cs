@@ -27,6 +27,11 @@ namespace Cards.ContinuousEffects
         {
             return game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
         }
+
+        public override IContinuousEffect Copy()
+        {
+            return new PowerModifyingMultiplierEffect(this);
+        }
     }
 
     class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect

@@ -21,5 +21,15 @@ namespace Cards.Cards.DM04
     class KeeperOfTheSunlitAbyssEffect : PowerModifyingEffect
     {
         public KeeperOfTheSunlitAbyssEffect() : base(1000, new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Engine.Durations.Indefinite()) { }
+
+        public override IContinuousEffect Copy()
+        {
+            return new KeeperOfTheSunlitAbyssEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Light creatures and darkness creatures in the battle zone each get +1000 power.";
+        }
     }
 }

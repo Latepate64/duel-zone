@@ -25,6 +25,11 @@ namespace Cards.Cards.DM02
         {
         }
 
+        public override IContinuousEffect Copy()
+        {
+            return new BarkwhipTheSmasherEffect();
+        }
+
         public override string ToString()
         {
             return "While this creature is tapped, each of your other Beast Folk in the battle zone gets +2000 power.";
