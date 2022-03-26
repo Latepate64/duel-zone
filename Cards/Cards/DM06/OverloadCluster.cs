@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public OverloadCluster() : base("Overload Cluster", 5, 4000, Subtype.CyberCluster, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnEffect()));
+            AddAbilities(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
         }
     }
 }

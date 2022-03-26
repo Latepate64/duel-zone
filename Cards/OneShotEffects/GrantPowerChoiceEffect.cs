@@ -36,7 +36,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(source, new PowerModifyingEffect(Power, new TargetsFilter(cards.Select(x => x.Id).ToArray()), Duration));
+            game.AddContinuousEffects(source, new PowerModifyingEffect(Power, new TargetsFilter(cards), Duration));
         }
     }
 }

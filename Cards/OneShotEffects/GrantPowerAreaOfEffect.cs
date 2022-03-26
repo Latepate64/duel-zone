@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
         {
             foreach (var creature in GetAffectedCards(game, source))
             {
-                game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(Power, new TargetsFilter(creature.Id), new UntilTheEndOfTheTurn()));
+                game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(Power, new TargetsFilter(creature), new UntilTheEndOfTheTurn()));
             }
             return null;
         }

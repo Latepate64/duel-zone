@@ -3,6 +3,7 @@ using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -42,10 +43,21 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class BlazeCannonBuffEffect : GrantAbilityAreaOfEffect
+    class BlazeCannonBuffEffect : OneShotAreaOfEffect
     {
-        public BlazeCannonBuffEffect() : base(new Engine.Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public BlazeCannonBuffEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
         {
+        }
+
+        public override object Apply(IGame game, IAbility source)
+        {
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(GetAffectedCards(game, source).ToArray()));
+            return null;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new BlazeCannonBuffEffect();
         }
 
         public override string ToString()

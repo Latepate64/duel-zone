@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         {
             var creatures = game.BattleZone.GetCreatures(source.Owner);
             var power = creatures.Where(x => x.Civilizations.Contains(Civilization.Light)).Count() * 1000;
-            game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(power, new CardFilters.TargetsFilter(creatures.Select(x => x.Id).ToArray()), new Engine.Durations.UntilTheEndOfTheTurn()));
+            game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(power, new CardFilters.TargetsFilter(creatures.ToArray()), new Engine.Durations.UntilTheEndOfTheTurn()));
             return null;
         }
 

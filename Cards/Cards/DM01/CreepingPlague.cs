@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.Durations;
@@ -19,11 +18,11 @@ namespace Cards.Cards.DM01
         public override object Apply(IGame game, IAbility source)
         {
             // TODO: Now DelayedTriggeredAbility applies to any creature, should apply to own battle zone creatures only.
-            game.AddDelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsAbilityEffect(new UntilTheEndOfTheTurn(), new SlayerAbility())), new UntilTheEndOfTheTurn());
+            game.AddDelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect()), new UntilTheEndOfTheTurn());
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new CreepingPlagueEffect();
         }

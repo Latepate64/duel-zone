@@ -1,5 +1,6 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,8 +8,29 @@ namespace Cards.Cards.DM01
     {
         public BurningPower() : base("Burning Power", 1, Common.Civilization.Fire)
         {
-            // One of your creatures gets "power attacker +2000" until the end of the turn. (While attacking, a creature that has "power attacker +2000" gets +2000 power.)
-            AddSpellAbilities(new GrantAbilityChoiceEffect(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true, new PowerAttackerAbility(2000)));
+            AddSpellAbilities(new BurningPowerEffect());
+        }
+    }
+
+    class BurningPowerEffect : GrantChoiceEffect
+    {
+        public BurningPowerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new BurningPowerEffect();
+        }
+
+        public override string ToString()
+        {
+            return "One of your creatures gets \"power attacker +2000\" until the end of the turn.";
+        }
+
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        {
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(cards));
         }
     }
 }

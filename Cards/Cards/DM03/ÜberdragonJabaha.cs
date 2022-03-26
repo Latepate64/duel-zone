@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
@@ -15,9 +16,14 @@ namespace Cards.Cards.DM03
         public ÜberdragonJabahaAbility() : base(new ÜberdragonJabahaEffect()) { }
     }
 
-    class ÜberdragonJabahaEffect : Engine.ContinuousEffects.AbilityAddingEffect
+    class ÜberdragonJabahaEffect : AbilityAddingEffect
     {
         public ÜberdragonJabahaEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Fire), new Engine.Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(2000)) { }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ÜberdragonJabahaEffect();
+        }
 
         public override string ToString()
         {

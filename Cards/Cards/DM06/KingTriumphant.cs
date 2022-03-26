@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public KingTriumphant() : base("King Triumphant", 8, 7000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 }

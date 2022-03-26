@@ -5,29 +5,18 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
-    // TODO: Make abstract
-    public class AbilityAddingEffect : CharacteristicModifyingEffect, IAbilityAddingEffect
+    public abstract class AbilityAddingEffect : CharacteristicModifyingEffect, IAbilityAddingEffect
     {
         public List<IAbility> Abilities { get; }
 
-        public AbilityAddingEffect(AbilityAddingEffect effect) : base(effect)
+        protected AbilityAddingEffect(AbilityAddingEffect effect) : base(effect)
         {
             Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
-        public AbilityAddingEffect(ICardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter, duration)
+        protected AbilityAddingEffect(ICardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter, duration)
         {
             Abilities = abilities.ToList();
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new AbilityAddingEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()}{Filter} get {Abilities}{GetDurationAsText()}.";
         }
 
         public void AddAbility(IGame game)

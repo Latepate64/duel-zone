@@ -1,6 +1,8 @@
 ﻿using Cards.OneShotEffects;
 using Common;
+using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -13,9 +15,9 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class FullDefensorEffect : GrantAbilityAreaOfEffect
+    class FullDefensorEffect : OneShotAreaOfEffect
     {
-        public FullDefensorEffect() : base(new Engine.Durations.UntilStartOfYourNextTurn(), new StaticAbilities.BlockerAbility())
+        public FullDefensorEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
         {
         }
 
@@ -23,7 +25,13 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override OneShotEffect Copy()
+        public override object Apply(IGame game, IAbility source)
+        {
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(GetAffectedCards(game, source).ToArray()));
+            return null;
+        }
+
+        public override IOneShotEffect Copy()
         {
             return new FullDefensorEffect(this);
         }
