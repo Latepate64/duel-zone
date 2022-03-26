@@ -18,7 +18,8 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.OpponentManaRecoveryEffect(0, game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Light)).Count(), true).Apply(game, source);
+            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
+            return new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
@@ -29,6 +30,31 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "For each light creature you have in the battle zone, you may choose a card in your opponent's mana zone and return it to his hand.";
+        }
+    }
+
+    class HydroHurricaneManaBounceEffect : OpponentManaRecoveryEffect
+    {
+        private readonly int _amount;
+
+        public HydroHurricaneManaBounceEffect(int amount) : base(0, amount, true)
+        {
+            _amount = amount;
+        }
+
+        public HydroHurricaneManaBounceEffect(HydroHurricaneManaBounceEffect effect) : base(effect)
+        {
+            _amount = effect._amount;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HydroHurricaneManaBounceEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Choose up to {(_amount > 1 ? $"{_amount} cards" : "a card")} in your opponent's mana zone and return {(_amount > 1 ? "them" : "it")} to his hand.";
         }
     }
 
@@ -72,7 +98,7 @@ namespace Cards.Cards.DM04
 
         public override string ToString()
         {
-            return $"Choose up to {_maximum} of your opponent's creatures in the battle zone and return them to his hand.";
+            return $"Choose up to {(_maximum > 1 ? $"{_maximum} cards" : "a card")} of your opponent's creatures in the battle zone and return {(_maximum > 1 ? "them" : "it")} to his hand.";
         }
     }
 }

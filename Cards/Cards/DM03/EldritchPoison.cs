@@ -22,7 +22,7 @@ namespace Cards.Cards.DM03
             var cards = new EldritchPoisonSacrificeEffect().Apply(game, source);
             if (cards.Any())
             {
-                return new SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneCreatureFilter()).Apply(game, source);
+                return new ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
             }
             return cards;
         }
