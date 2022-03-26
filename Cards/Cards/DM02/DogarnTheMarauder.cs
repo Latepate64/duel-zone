@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -22,6 +23,11 @@ namespace Cards.Cards.DM02
     {
         public DogarnTheMarauderEffect() : base(2000, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new DogarnTheMarauderEffect();
         }
 
         public override string ToString()

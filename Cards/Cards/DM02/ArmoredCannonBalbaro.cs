@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -22,6 +23,11 @@ namespace Cards.Cards.DM02
     {
         public ArmoredCannonBalbaroEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.Human))
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ArmoredCannonBalbaroEffect();
         }
 
         public override string ToString()
