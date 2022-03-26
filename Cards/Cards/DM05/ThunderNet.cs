@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
         public override object Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Water)).Count();
-            return new OneShotEffects.TapChoiceEffect(0, amount, true).Apply(game, source);
+            return new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

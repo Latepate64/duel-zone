@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Subtype.RainbowPhantom, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.TapChoiceEffect(1, 1, true, new CardFilters.BattleZoneChoosableCivilizationCreatureFilter(Civilization.Darkness, Civilization.Fire))));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect()));
         }
     }
 }
