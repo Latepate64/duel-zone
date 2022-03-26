@@ -6,7 +6,7 @@ namespace Cards.TriggeredAbilities
 {
     public class WheneverThisCreatureAttacksAbility : CardTriggeredAbility
     {
-        public WheneverThisCreatureAttacksAbility(OneShotEffect effect) : base(effect)
+        public WheneverThisCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -19,7 +19,7 @@ namespace Cards.TriggeredAbilities
             return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent;
         }
 
-        public override Ability Copy()
+        public override IAbility Copy()
         {
             return new WheneverThisCreatureAttacksAbility(this);
         }

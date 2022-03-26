@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Subtype.LivingDead, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new AttackPlayerAbility(new MarrowOozeTheTwisterEffect()));
+            AddAbilities(new StaticAbilities.BlockerAbility(), new WhenThisCreatureAttacksPlayerAbility(new MarrowOozeTheTwisterEffect()));
         }
     }
 

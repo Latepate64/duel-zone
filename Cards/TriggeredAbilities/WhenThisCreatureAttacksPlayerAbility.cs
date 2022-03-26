@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    class AttackPlayerAbility : WheneverThisCreatureAttacksAbility
+    class WhenThisCreatureAttacksPlayerAbility : WheneverThisCreatureAttacksAbility
     {
-        public AttackPlayerAbility(OneShotEffect effect) : base(effect)
+        public WhenThisCreatureAttacksPlayerAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        public AttackPlayerAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
+        public WhenThisCreatureAttacksPlayerAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
         {
         }
 
@@ -19,14 +19,14 @@ namespace Cards.TriggeredAbilities
             return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Attackable == game.GetOpponent(Owner);
         }
 
-        public override Ability Copy()
+        public override IAbility Copy()
         {
-            return new AttackPlayerAbility(this);
+            return new WhenThisCreatureAttacksPlayerAbility(this);
         }
 
         public override string ToString()
         {
-            return $"Whenever {Filter} attacks a player, {GetEffectText()}";
+            return $"When this creature attacks a player, {GetEffectText()}";
         }
     }
 }
