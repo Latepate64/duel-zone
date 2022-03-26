@@ -55,6 +55,7 @@ namespace Cards.OneShotEffects
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
+        //TODO: remove
         protected string GetAmountAsText()
         {
             if (Minimum == 0)
