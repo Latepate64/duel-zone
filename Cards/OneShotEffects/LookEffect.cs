@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class LookEffect : CardSelectionEffect
     {
-        public LookEffect(CardSelectionEffect effect) : base(effect)
+        public LookEffect(LookEffect effect) : base(effect)
         {
         }
 
@@ -14,7 +14,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new LookEffect(this);
         }

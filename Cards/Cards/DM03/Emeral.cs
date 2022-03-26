@@ -26,8 +26,7 @@ namespace Cards.Cards.DM03
             var cards = new ShieldAdditionEffect(new CardFilters.OwnersHandCardFilter(), 0, 1, true).Apply(game, source);
             if (cards.Any())
             {
-                // If you do, choose one of your shields and put it into your hand. You can't use the "shield trigger" ability of that shield.
-                return new ShieldRecoveryEffect(false).Apply(game, source);
+                return new ShieldRecoveryCannotUseShieldTriggerEffect().Apply(game, source);
             }
             return cards;
         }

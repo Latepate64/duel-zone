@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new TapChoiceEffect(this);
         }
