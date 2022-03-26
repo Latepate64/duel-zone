@@ -6,8 +6,7 @@ namespace Cards.Cards.DM08
     {
         public BruiserDragon() : base("Bruiser Dragon", 5, 5000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            // When this creature is destroyed, choose one of your shields and put it into your graveyard.
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.SelfShieldBurnEffect()));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
         }
     }
 }

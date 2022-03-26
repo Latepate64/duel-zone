@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
         public VolcanicArrows() : base("Volcanic Arrows", 2, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
-            AddSpellAbilities(new DestroyMaxPowerCreature(6000), new SelfShieldBurnEffect());
+            AddSpellAbilities(new DestroyMaxPowerCreature(6000), new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
         }
     }
 }

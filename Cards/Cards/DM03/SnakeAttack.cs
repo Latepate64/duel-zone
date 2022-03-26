@@ -11,7 +11,7 @@ namespace Cards.Cards.DM03
     {
         public SnakeAttack() : base("Snake Attack", 4, Common.Civilization.Darkness)
         {
-            AddSpellAbilities(new SnakeAttackEffect(), new SelfShieldBurnEffect());
+            AddSpellAbilities(new SnakeAttackEffect(), new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
         }
     }
 
