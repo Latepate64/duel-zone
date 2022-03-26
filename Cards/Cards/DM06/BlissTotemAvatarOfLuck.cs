@@ -7,7 +7,24 @@ namespace Cards.Cards.DM06
     {
         public BlissTotemAvatarOfLuck() : base("Bliss Totem, Avatar of Luck", 6, 5000, Subtype.MysteryTotem, Civilization.Nature)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.FromGraveyardIntoManaZoneEffect(new CardFilters.OwnersManaZoneCardFilter(), 0, 3, true)));
+            AddAbilities(new TapAbility(new BlissTotemAvatarOfLuckEffect()));
+        }
+    }
+
+    class BlissTotemAvatarOfLuckEffect : OneShotEffects.FromGraveyardIntoManaZoneEffect
+    {
+        public BlissTotemAvatarOfLuckEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 0, 3, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new BlissTotemAvatarOfLuckEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Put up to 3 cards from your graveyard into your mana zone.";
         }
     }
 }
