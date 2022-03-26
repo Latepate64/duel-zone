@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.GameEvents;
+using System;
 
 namespace Engine.Durations
 {
@@ -23,5 +24,7 @@ namespace Engine.Durations
         }
 
         public override abstract string ToString();
+
+        public abstract bool ShouldExpire(IGameEvent gameEvent);
     }
 }

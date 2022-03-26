@@ -3,11 +3,10 @@ using System;
 
 namespace Engine.ContinuousEffects
 {
-    public interface IContinuousEffect : ITimestampable, IDisposable
+    public interface IContinuousEffect : ITimestampable, IDisposable, IDurationable
     {
         Guid SourceAbility { get; set; }
         ICardFilter Filter { get; set; }
-        IDuration Duration { get; set; }
 
         bool ConditionsApply(Game game);
         IContinuousEffect Copy();

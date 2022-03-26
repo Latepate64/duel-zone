@@ -32,7 +32,6 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-            game.RemoveRevokedObjects(typeof(Durations.UntilStartOfYourNextTurn)); //TODO: Check that it is the correct player's turn.
             var player = game.CurrentTurn.ActivePlayer;
             var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
             if (ownCreaturesWithSummoningSickness.Any())

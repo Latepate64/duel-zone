@@ -3,7 +3,6 @@ using Cards.TriggeredAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM10
@@ -13,7 +12,6 @@ namespace Cards.Cards.DM10
         public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Civilization.Fire, Civilization.Nature)
         {
             AddSubtypes(Subtype.ArmoredDragon, Subtype.EarthDragon);
-            // When you put this creature into the battle zone, destroy all other creatures that have 6000 power. Take an extra turn after this one. You lose the game at the end of that turn.
             AddAbilities(new SpeedAttackerAbility(), new DoubleBreakerAbility(), new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
         }
     }
@@ -29,7 +27,7 @@ namespace Cards.Cards.DM10
             Engine.Turn turn = new() { ActivePlayer = owner, NonActivePlayer = game.GetOpponent(owner) };
             game.ExtraTurns.Push(turn);
             // You lose the game at the end of the extra turn.
-            game.AddDelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), new Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Owner));
             return true;
         }
 

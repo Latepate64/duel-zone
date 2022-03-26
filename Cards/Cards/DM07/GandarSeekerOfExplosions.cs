@@ -17,9 +17,11 @@ namespace Cards.Cards.DM07
         public override object Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(
-                new TriggeredAbilities.AtTheEndOfYourTurnAbility(
-                    new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))),
-                new Engine.Durations.Once());
+                new DelayedTriggeredAbility(
+                    new TriggeredAbilities.AtTheEndOfYourTurnAbility(
+                        new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))),
+                        source.Source,
+                        source.Owner));
             return null;
         }
 

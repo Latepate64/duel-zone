@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
         public override object Apply(IGame game, IAbility source)
         {
             // TODO: Now DelayedTriggeredAbility applies to any creature, should apply to own battle zone creatures only.
-            game.AddDelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect()), new UntilTheEndOfTheTurn());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect()), source.Source, source.Owner, new UntilTheEndOfTheTurn()));
             return null;
         }
 

@@ -26,7 +26,6 @@ namespace Engine.Steps
 
         public void PerformTurnBasedAction(IGame game)
         {
-            game.RemoveRevokedObjects(typeof(UntilTheEndOfTheTurn));
         }
     }
 }
