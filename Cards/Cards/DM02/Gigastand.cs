@@ -39,7 +39,7 @@ namespace Cards.Cards.DM02
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
                 game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
-                new ReflexiveTriggeredAbility(new OneShotEffects.DiscardEffect(new CardFilters.OwnersHandCardFilter(), 1, 1, true)).Resolve(game);
+                new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect()).Resolve(game);
                 return true;
             }
             return false;
