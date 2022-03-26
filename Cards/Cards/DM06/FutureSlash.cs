@@ -12,7 +12,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class FutureSlashEffect : OneShotEffects.SearchDeckEffect
+    class FutureSlashEffect : OneShotEffects.SearchAnyDeckEffect
     {
         public FutureSlashEffect() : base(new CardFilters.OpponentsDeckCardFilter(), 2, true)
         {

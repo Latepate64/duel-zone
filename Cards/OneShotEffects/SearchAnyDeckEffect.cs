@@ -5,21 +5,21 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    abstract class SearchDeckEffect : OneShotEffect
+    abstract class SearchAnyDeckEffect : OneShotEffect
     {
         private readonly int _maximum;
         private readonly bool _searchOpponentsDeck;
 
         public ICardFilter Filter { get; }
 
-        protected SearchDeckEffect(CardFilter filter, int maximum = 1, bool searchOpponentsDeck = false)
+        protected SearchAnyDeckEffect(CardFilter filter, int maximum = 1, bool searchOpponentsDeck = false)
         {
             Filter = filter;
             _maximum = maximum;
             _searchOpponentsDeck = searchOpponentsDeck;
         }
 
-        protected SearchDeckEffect(SearchDeckEffect effect)
+        protected SearchAnyDeckEffect(SearchAnyDeckEffect effect)
         {
             Filter = effect.Filter.Copy();
             _maximum = effect._maximum;

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public CharmiliaTheEnticer() : base("Charmilia, the Enticer", 4, 3000, Subtype.SnowFaerie, Civilization.Nature)
         {
-            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckCreatureFilter(), true)));
+            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.SearchCreatureEffect()));
         }
     }
 }

@@ -6,8 +6,7 @@ namespace Cards.Cards.DM02
     {
         public LagunaLightningEnforcer() : base("Laguna, Lightning Enforcer", 5, 2500, Subtype.Berserker, Civilization.Light)
         {
-            // Whenever this creature attacks, search your deck. You may take a spell from your deck, show that spell to your opponent, and put it into your hand. Then shuffle your deck.
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckSpellFilter(), true)));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.SearchSpellEffect()));
         }
     }
 }
