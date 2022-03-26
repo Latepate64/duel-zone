@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class EmeralEffect : OneShotEffect
     {
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new EmeralEffect();
         }

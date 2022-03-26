@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
             return true;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new BombazarDragonOfDestinyEffect();
         }
@@ -50,7 +50,7 @@ namespace Cards.Cards.DM10
             return true;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouLoseTheGameAtTheEndOfTheExtraTurnEffect();
         }

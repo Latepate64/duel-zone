@@ -23,7 +23,7 @@ namespace Cards.Cards.DM01
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new RothusTheTravelerEffect();
         }

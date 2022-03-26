@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new MutualManaRecoveryEffect(this);
         }

@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             Reveal = effect.Reveal;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new TutoringEffect(this);
         }

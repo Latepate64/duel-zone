@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Filter = effect.Filter;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new ControllerMayUntapCreatureEffect(this);
         }

@@ -14,7 +14,7 @@ namespace Cards.Cards.DM08
 
     class QuixoticHeroSwineSnoutEffect : OneShotEffect
     {
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new QuixoticHeroSwineSnoutEffect();
         }

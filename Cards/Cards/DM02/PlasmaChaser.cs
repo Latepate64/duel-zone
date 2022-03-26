@@ -30,7 +30,7 @@ namespace Cards.Cards.DM02
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new PlasmaChaserEffect();
         }

@@ -23,7 +23,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new RainbowStoneEffect(this);
         }

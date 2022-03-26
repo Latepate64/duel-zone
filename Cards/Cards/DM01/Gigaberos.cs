@@ -46,7 +46,7 @@ namespace Cards.Cards.DM01
             }
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GigaberosEffect();
         }

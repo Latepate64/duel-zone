@@ -27,7 +27,7 @@ namespace Cards.Cards.DM07
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GandarSeekerOfExplosionsEffect();
         }

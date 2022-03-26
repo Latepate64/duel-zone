@@ -24,7 +24,7 @@ namespace Cards.Cards.DM11
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new HideAndSeekEffect();
         }

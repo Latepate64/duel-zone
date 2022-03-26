@@ -25,7 +25,7 @@ namespace Cards.Cards.DM03
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new ArmoredWarriorQuelosEffect();
         }

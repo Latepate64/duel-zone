@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             Maximum = effect.Maximum;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new ControllerMayDrawCardsEffect(this);
         }

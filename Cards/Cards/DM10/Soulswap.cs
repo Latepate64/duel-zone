@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
         class SoulswapEffect : OneShotEffect
         {
-            public override OneShotEffect Copy()
+            public override IOneShotEffect Copy()
             {
                 return new SoulswapEffect();
             }

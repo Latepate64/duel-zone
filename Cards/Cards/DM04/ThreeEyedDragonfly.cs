@@ -84,7 +84,7 @@ namespace Cards.Cards.DM04
             return "You may destroy one of your other creatures.";
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
         }

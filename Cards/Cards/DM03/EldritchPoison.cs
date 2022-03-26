@@ -27,7 +27,7 @@ namespace Cards.Cards.DM03
             return cards;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new EldritchPoisonEffect();
         }

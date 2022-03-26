@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             _subtype = effect._subtype;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(this);
         }

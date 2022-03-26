@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
 
     class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new WindAxeTheWarriorSavageEffect();
         }
