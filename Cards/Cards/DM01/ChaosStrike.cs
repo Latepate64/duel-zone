@@ -24,7 +24,7 @@ namespace Cards.Cards.DM01
 
         public override string ToString()
         {
-            return "Choose 1 of your opponent's untapped creatures in the battle zone. Your creatures can attack it this turn as though it were tapped.";
+            return "Choose one of your opponent's untapped creatures in the battle zone. Your creatures can attack it this turn as though it were tapped.";
         }
     }
 

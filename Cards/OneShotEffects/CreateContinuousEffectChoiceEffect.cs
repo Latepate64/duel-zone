@@ -6,23 +6,18 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class CreateContinuousEffectChoiceEffect : CardSelectionEffect
+    abstract class CreateContinuousEffectChoiceEffect : CardSelectionEffect
     {
         public IEnumerable<ContinuousEffect> ContinuousEffects { get; }
 
-        public CreateContinuousEffectChoiceEffect(CreateContinuousEffectChoiceEffect effect) : base(effect)
+        protected CreateContinuousEffectChoiceEffect(CreateContinuousEffectChoiceEffect effect) : base(effect)
         {
             ContinuousEffects = effect.ContinuousEffects;
         }
 
-        public CreateContinuousEffectChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(filter, minimum, maximum, controllerChooses)
+        protected CreateContinuousEffectChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(filter, minimum, maximum, controllerChooses)
         {
             ContinuousEffects = effects;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new CreateContinuousEffectChoiceEffect(this);
         }
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
@@ -33,11 +28,6 @@ namespace Cards.OneShotEffects
                 copy.Filter = new TargetsFilter(cards);
                 game.AddContinuousEffects(source, copy);
             }
-        }
-
-        public override string ToString()
-        {
-            return $"{(ControllerChooses ? "Choose" : "Your opponent chooses")} {GetAmountAsText()} {Filter}. {string.Join(", ", ContinuousEffects)}.";
         }
     }
 }
