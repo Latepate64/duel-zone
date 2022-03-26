@@ -4,14 +4,13 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    //TODO: Abstract
-    class UntapAreaOfEffect : OneShotAreaOfEffect
+    abstract class UntapAreaOfEffect : OneShotAreaOfEffect
     {
-        public UntapAreaOfEffect(CardFilter filter) : base(filter)
+        protected UntapAreaOfEffect(CardFilter filter) : base(filter)
         {
         }
 
-        public UntapAreaOfEffect(UntapAreaOfEffect effect) : base(effect)
+        protected UntapAreaOfEffect(UntapAreaOfEffect effect) : base(effect)
         {
         }
 
@@ -19,16 +18,6 @@ namespace Cards.OneShotEffects
         {
             game.GetPlayer(source.Owner).Untap(game, GetAffectedCards(game, source).ToArray());
             return true;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new UntapAreaOfEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Untap {Filter}.";
         }
     }
 }
