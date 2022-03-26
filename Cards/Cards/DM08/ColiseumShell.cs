@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public ColiseumShell() : base("Coliseum Shell", 4, 3000, Subtype.ColonyBeetle, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.BecomeBlockedAbility(new OneShotEffects.MayPutTopCardOfDeckIntoManaZoneEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.MayPutTopCardOfDeckIntoManaZoneEffect()));
         }
     }
 }

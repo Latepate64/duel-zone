@@ -16,8 +16,7 @@ namespace Cards.Cards.DM01
     {
         public override object Apply(IGame game, IAbility source)
         {
-            // TODO: Now DelayedTriggeredAbility applies to any creature, should apply to own battle zone creatures only.
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.BecomeBlockedAbility(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect()), source.Source, source.Owner, new Durations.UntilTheEndOfTheTurn(), false));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new CreepingPlagueTriggeredAbility(), source.Source, source.Owner, new Durations.UntilTheEndOfTheTurn(), false));
             return null;
         }
 
@@ -29,6 +28,23 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Whenever any of your creatures becomes blocked this turn, it gets \"slayer\" until the end of the turn.";
+        }
+    }
+
+    class CreepingPlagueTriggeredAbility : TriggeredAbilities.BecomeBlockedAbility
+    {
+        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect(), new CardFilters.OwnersBattleZoneCreatureFilter())
+        {
+        }
+
+        public override IAbility Copy()
+        {
+            return new CreepingPlagueTriggeredAbility();
+        }
+
+        public override string ToString()
+        {
+            return "Whenever any of your creatures becomes blocked, it gets \"slayer\" until the end of the turn.";
         }
     }
 }

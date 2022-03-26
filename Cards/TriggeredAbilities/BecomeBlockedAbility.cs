@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class BecomeBlockedAbility : CardTriggeredAbility
+    abstract class BecomeBlockedAbility : CardTriggeredAbility
     {
-        public BecomeBlockedAbility(BecomeBlockedAbility ability) : base(ability)
+        protected BecomeBlockedAbility(BecomeBlockedAbility ability) : base(ability)
         {
         }
 
-        public BecomeBlockedAbility(OneShotEffect effect) : base(effect)
+        protected BecomeBlockedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
         {
         }
 
@@ -18,15 +18,26 @@ namespace Cards.TriggeredAbilities
         {
             return base.CanTrigger(gameEvent, game) && gameEvent is BecomeBlockedEvent;
         }
+    }
 
-        public override Ability Copy()
+    class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
+    {
+        public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        { 
+        }
+
+        public WheneverThisCreatureBecomesBlockedAbility(WheneverThisCreatureBecomesBlockedAbility ability) : base(ability)
         {
-            return new BecomeBlockedAbility(this);
+        }
+
+        public override IAbility Copy()
+        {
+            return new WheneverThisCreatureBecomesBlockedAbility(this);
         }
 
         public override string ToString()
         {
-            return $"Whenever {Filter} becomes blocked, {GetEffectText()}";
+            return $"Whenever this creature becomes blocked, {GetEffectText()}";
         }
     }
 }
