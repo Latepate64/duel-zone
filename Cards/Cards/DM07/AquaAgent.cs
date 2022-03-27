@@ -8,8 +8,7 @@ namespace Cards.Cards.DM07
     {
         public AquaAgent() : base("Aqua Agent", 6, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            //TODO: Water stealth
-            AddAbilities(new AquaAgentAbility());
+            AddAbilities(new StaticAbilities.StealthAbility(Common.Civilization.Water), new AquaAgentAbility());
         }
     }
 
