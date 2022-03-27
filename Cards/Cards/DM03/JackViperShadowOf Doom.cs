@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
@@ -22,6 +23,11 @@ namespace Cards.Cards.DM03
     {
         public JackViperShadowOfDoomEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Darkness))
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new JackViperShadowOfDoomEffect();
         }
 
         public override string ToString()

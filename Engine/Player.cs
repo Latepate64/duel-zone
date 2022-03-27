@@ -448,6 +448,11 @@ namespace Engine
         {
             // TODO: Implement reveal information on cards and remove them here.
         }
+
+        public void Discard(ICard[] cards, IGame game)
+        {
+            _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
+        }
         #endregion Methods
     }
 }

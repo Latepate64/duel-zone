@@ -34,5 +34,10 @@ namespace Cards.StaticAbilities
         {
             return new WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect(this);
         }
+
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, add it to your shields face down instead.";
+        }
     }
 }

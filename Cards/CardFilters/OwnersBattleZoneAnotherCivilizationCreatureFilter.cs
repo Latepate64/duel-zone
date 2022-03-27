@@ -2,7 +2,7 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneAnotherCivilizationCreatureFilter : OwnersBattleZoneCreatureExceptFilter, ICivilizationFilterable
+    class OwnersBattleZoneAnotherCivilizationCreatureFilter : OwnersOtherBattleZoneCreatureFilter, ICivilizationFilterable
     {
         public CivilizationFilter CivilizationFilter { get; }
 

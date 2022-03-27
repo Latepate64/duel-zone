@@ -2,7 +2,7 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneTappedCreatureExceptFilter : OwnersBattleZoneCreatureExceptFilter
+    class OwnersBattleZoneTappedCreatureExceptFilter : OwnersOtherBattleZoneCreatureFilter
     {
         public OwnersBattleZoneTappedCreatureExceptFilter()
         {

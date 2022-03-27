@@ -2,7 +2,7 @@
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneSubtypeCreatureExceptFilter : OwnersBattleZoneCreatureExceptFilter, ISubtypeFilterable
+    class OwnersBattleZoneSubtypeCreatureExceptFilter : OwnersOtherBattleZoneCreatureFilter, ISubtypeFilterable
     {
         public OwnersBattleZoneSubtypeCreatureExceptFilter(params Common.Subtype[] subtypes)
         {

@@ -3,13 +3,13 @@ using System;
 
 namespace Cards.CardFilters
 {
-    class OwnersBattleZoneCreatureExceptFilter : OwnersBattleZoneCreatureFilter, ITargetFilterable
+    class OwnersOtherBattleZoneCreatureFilter : OwnersBattleZoneCreatureFilter, ITargetFilterable
     {
-        public OwnersBattleZoneCreatureExceptFilter() : base()
+        public OwnersOtherBattleZoneCreatureFilter() : base()
         {
         }
 
-        public OwnersBattleZoneCreatureExceptFilter(OwnersBattleZoneCreatureExceptFilter filter) : base()
+        public OwnersOtherBattleZoneCreatureFilter(OwnersOtherBattleZoneCreatureFilter filter) : base()
         {
             Target = filter.Target;
         }
@@ -23,7 +23,7 @@ namespace Cards.CardFilters
 
         public override CardFilter Copy()
         {
-            return new OwnersBattleZoneCreatureExceptFilter(this);
+            return new OwnersOtherBattleZoneCreatureFilter(this);
         }
 
         public override string ToString()

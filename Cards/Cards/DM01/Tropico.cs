@@ -15,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class TropicoCondition : Condition
     {
-        public TropicoCondition() : base(new CardFilters.OwnersBattleZoneCreatureExceptFilter())
+        public TropicoCondition() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter())
         {
         }
 

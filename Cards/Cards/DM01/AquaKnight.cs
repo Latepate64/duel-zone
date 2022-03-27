@@ -6,7 +6,6 @@ namespace Cards.Cards.DM01
     {
         public AquaKnight() : base("Aqua Knight", 5, 4000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            // When this creature would be destroyed, return it to your hand instead.
             AddAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
         }
     }

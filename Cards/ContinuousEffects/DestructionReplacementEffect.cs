@@ -23,10 +23,5 @@ namespace Cards.ContinuousEffects
             }
             return false;
         }
-
-        public override string ToString()
-        {
-            return $"When {Filter} would be destroyed, ";
-        }
     }
 }
