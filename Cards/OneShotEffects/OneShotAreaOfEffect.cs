@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Controller)));
         }
     }
 }

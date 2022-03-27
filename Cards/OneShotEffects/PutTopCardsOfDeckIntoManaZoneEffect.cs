@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.GetPlayer(source.Owner).PutFromTopOfDeckIntoManaZone(game, Amount);
+            game.GetPlayer(source.Controller).PutFromTopOfDeckIntoManaZone(game, Amount);
             return null;
         }
 

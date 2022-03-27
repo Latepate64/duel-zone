@@ -17,7 +17,7 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             if (game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Count() >= 3)
             {
                 player.DrawCards(3, game);

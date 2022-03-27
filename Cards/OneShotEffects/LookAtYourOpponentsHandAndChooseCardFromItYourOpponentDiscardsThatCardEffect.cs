@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             if (player != null)
             {
                 var opponent = game.GetOpponent(player);

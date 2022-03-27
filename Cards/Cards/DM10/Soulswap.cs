@@ -24,11 +24,11 @@ namespace Cards.Cards.DM10
             public override object Apply(IGame game, IAbility source)
             {
                 // You may choose a creature in the battle zone and put it into its owner's mana zone.
-                var player = game.GetPlayer(source.Owner);
+                var player = game.GetPlayer(source.Controller);
                 var creatures = game.GetChoosableBattleZoneCreatures(player);
                 if (creatures.Any())
                 {
-                    var decision = player.Choose(new BoundedCardSelectionInEffect(source.Owner, creatures, 0, 1, "You may choose a creature in the battle zone and put it into its owner's mana zone."), game);
+                    var decision = player.Choose(new BoundedCardSelectionInEffect(source.Controller, creatures, 0, 1, "You may choose a creature in the battle zone and put it into its owner's mana zone."), game);
                     var toManaCreatures = decision.Decision;
                     if (toManaCreatures.Any())
                     {
@@ -40,7 +40,7 @@ namespace Cards.Cards.DM10
                         var manas = owner.ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= owner.ManaZone.Cards.Count);
                         if (manas.Any())
                         {
-                            var decision2 = player.Choose(new BoundedCardSelectionInEffect(source.Owner, manas, 1, 1, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone."), game);
+                            var decision2 = player.Choose(new BoundedCardSelectionInEffect(source.Controller, manas, 1, 1, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone."), game);
                             var mana = game.GetCard(decision2.Decision.Single());
                             game.Move(ZoneType.ManaZone, ZoneType.BattleZone, mana);
                         }

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM01
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new CreepingPlagueTriggeredAbility(), source.Source, source.Owner, new Durations.UntilTheEndOfTheTurn(), false));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, new Durations.UntilTheEndOfTheTurn(), false));
             return null;
         }
 

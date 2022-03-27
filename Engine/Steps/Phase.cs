@@ -35,7 +35,7 @@ namespace Engine.Steps
         {
             while (PendingAbilities.Any())
             {
-                var abilityGroups = PendingAbilities.GroupBy(x => x.Owner);
+                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller);
                 foreach (var abilities in abilityGroups)
                 {
                     var player = game.GetPlayer(abilities.Key);
@@ -56,7 +56,7 @@ namespace Engine.Steps
                     }
                     else
                     {
-                        _ = PendingAbilities.RemoveAll(x => x.Owner == abilities.Key);
+                        _ = PendingAbilities.RemoveAll(x => x.Controller == abilities.Key);
                     }
                     break;
                 }

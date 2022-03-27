@@ -16,7 +16,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Owner);
+            var creatures = game.BattleZone.GetCreatures(source.Controller);
             var power = creatures.Where(x => x.Civilizations.Contains(Common.Civilization.Light)).Count() * 1000;
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
             return null;

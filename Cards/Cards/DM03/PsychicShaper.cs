@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             var cards = player.RevealTopCardsOfDeck(4, game);
             game.Move(ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.Civilizations.Contains(Civilization.Water)).ToArray());
             game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.Civilizations.Contains(Civilization.Water)).ToArray());

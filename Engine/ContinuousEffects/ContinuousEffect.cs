@@ -77,7 +77,7 @@ namespace Engine.ContinuousEffects
             var source = game.GetAbility(SourceAbility);
             if (source != null)
             {
-                var player = game.GetPlayer(source.Owner);
+                var player = game.GetPlayer(source.Controller);
                 if (player != null && _conditions.All(x => x.Applies(game, player.Id)))
                 {
                     return true;
@@ -100,7 +100,7 @@ namespace Engine.ContinuousEffects
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(game.GetAbility(SourceAbility).Owner)));
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(game.GetAbility(SourceAbility).Controller)));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             var amount = player.Hand.Cards.Count;
             game.Move(ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
             player.ShuffleDeck(game);

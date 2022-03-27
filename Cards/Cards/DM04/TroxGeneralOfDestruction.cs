@@ -17,8 +17,8 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Id != source.Source && x.Civilizations.Contains(Civilization.Darkness)).Count();
-            game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game, amount);
+            var amount = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Id != source.Source && x.Civilizations.Contains(Civilization.Darkness)).Count();
+            game.GetOpponent(game.GetPlayer(source.Controller)).DiscardAtRandom(game, amount);
             return null;
         }
 

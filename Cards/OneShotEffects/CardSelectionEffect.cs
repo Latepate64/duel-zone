@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
 
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
+            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Controller)));
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())
@@ -41,7 +41,7 @@ namespace Cards.OneShotEffects
                 }
                 else
                 {
-                    var player = game.GetPlayer(ControllerChooses ? source.Owner : game.GetOpponent(source.Owner));
+                    var player = game.GetPlayer(ControllerChooses ? source.Controller : game.GetOpponent(source.Controller));
                     if (player != null)
                     {
                         var chosen = player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();

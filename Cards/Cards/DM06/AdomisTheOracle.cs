@@ -35,7 +35,7 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             if (player != null)
             {
                 var opponent = game.GetOpponent(player);

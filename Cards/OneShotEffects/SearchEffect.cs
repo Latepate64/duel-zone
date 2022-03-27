@@ -21,12 +21,12 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                game.GetPlayer(source.Owner).Reveal(game, cards);
+                game.GetPlayer(source.Controller).Reveal(game, cards);
             }
             game.Move(Common.ZoneType.Deck, Common.ZoneType.Hand, cards);
             if (Reveal)
             {
-                game.GetPlayer(source.Owner)?.Unreveal(cards);
+                game.GetPlayer(source.Controller)?.Unreveal(cards);
             }
         }
     }

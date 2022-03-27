@@ -24,8 +24,8 @@ namespace Cards.OneShotEffects
 
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Owner)));
+            var player = game.GetPlayer(source.Controller);
+            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Controller)));
             if (cards.Any())
             {
                 var chosen = player.Choose(new CardSelectionInEffect(player.Id, cards, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();

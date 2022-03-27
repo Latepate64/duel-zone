@@ -11,7 +11,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.GetPlayer(source.Owner).PutFromTopOfDeckIntoShieldZone(1, game);
+            game.GetPlayer(source.Controller).PutFromTopOfDeckIntoShieldZone(1, game);
             return null;
         }
 

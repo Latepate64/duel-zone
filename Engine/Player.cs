@@ -218,7 +218,7 @@ namespace Engine
             foreach (var ability in spell.GetAbilities<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
-                ability.Owner = spell.Owner;
+                ability.Controller = spell.Owner;
                 ability.Resolve(game);
             }
             var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());

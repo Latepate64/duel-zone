@@ -59,7 +59,7 @@ namespace Engine
         {
             foreach (var ability in Abilities)
             {
-                ability.Owner = Owner;
+                ability.Controller = Owner;
                 ability.Source = Id;
                 if (ability is IStaticAbility staticAbility)
                 {

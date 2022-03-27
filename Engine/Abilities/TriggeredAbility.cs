@@ -27,7 +27,7 @@ namespace Engine.Abilities
         {
             var copy = Copy() as ITriggeredAbility;
             copy.Source = source;
-            copy.Owner = owner;
+            copy.Controller = owner;
             return copy;
         }
 

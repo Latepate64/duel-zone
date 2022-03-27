@@ -57,7 +57,7 @@ namespace Cards.Cards.DM03
             var ability = game.GetAbility(SourceAbility);
             if (ability != null)
             { 
-                var player = game.GetPlayer(ability.Owner);
+                var player = game.GetPlayer(ability.Controller);
                 return player != null && player.ManaZone.Cards.All(x => x.Civilizations.Contains(Civilization.Nature));
             }
             return false;

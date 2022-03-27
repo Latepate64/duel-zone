@@ -21,7 +21,7 @@ namespace Cards.Cards.DM01
         public override object Apply(IGame game, IAbility source)
         {
             // Destroy 2 of your other creatures or destroy this creature.
-            var creatures = game.BattleZone.GetCreatures(source.Owner);
+            var creatures = game.BattleZone.GetCreatures(source.Controller);
             var thisCreature = creatures.SingleOrDefault(x => x.Id == source.Source);
             if (thisCreature == null)
             {
@@ -33,7 +33,7 @@ namespace Cards.Cards.DM01
             }
             else
             {
-                var selection = game.GetPlayer(source.Owner).Choose(new BoundedCardSelectionInEffect(source.Owner, creatures, 1, 2, ToString()), game).Decision;
+                var selection = game.GetPlayer(source.Controller).Choose(new BoundedCardSelectionInEffect(source.Controller, creatures, 1, 2, ToString()), game).Decision;
                 if ((selection.Count() == 1 && selection.Single() == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x != thisCreature.Id)))
                 {
                     return game .Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());

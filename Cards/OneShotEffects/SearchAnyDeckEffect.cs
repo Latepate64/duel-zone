@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             var deckOwner = _searchOpponentsDeck ? game.GetOpponent(player) : player;
             var cards = game.GetAllCards().Where(x => Filter.Applies(x, game, player));
             if (cards.Any())

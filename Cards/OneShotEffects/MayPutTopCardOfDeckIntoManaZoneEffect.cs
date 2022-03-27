@@ -8,10 +8,10 @@ namespace Cards.OneShotEffects
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
+            var player = game.GetPlayer(source.Controller);
             if (player != null)
             {
-                if (player.Choose(new YesNoChoice(source.Owner, ToString()), game).Decision)
+                if (player.Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
                 {
                     player.PutFromTopOfDeckIntoManaZone(game, 1);
                     return true;

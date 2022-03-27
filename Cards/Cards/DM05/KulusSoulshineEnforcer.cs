@@ -25,7 +25,7 @@ namespace Cards.Cards.DM05
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            var player = game.GetPlayer(Owner);
+            var player = game.GetPlayer(Controller);
             if (player != null)
             {
                 var opponent = game.GetOpponent(player);
