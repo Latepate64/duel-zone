@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
                 {
                     player.Look(opponent, game, opponent.Hand.Cards.ToArray());
                     var cards = player.Choose(new BoundedCardSelectionInEffect(player.Id, opponent.Hand.Cards, 1, 1, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
-                    opponent.Discard(cards, game);
+                    opponent.Discard(game, cards);
                     opponent.Unreveal(cards);
                     return cards;
                 }
