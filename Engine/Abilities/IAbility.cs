@@ -22,6 +22,25 @@ namespace Engine.Abilities
         Guid Source { get; set; }
 
         IAbility Copy();
+
+        /// <summary>
+        /// Returns the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        IPlayer GetController(IGame game);
+
+        /// <summary>
+        /// Returns the opponent of the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        IPlayer GetOpponent(IGame game);
+
         string ToString();
     }
 }

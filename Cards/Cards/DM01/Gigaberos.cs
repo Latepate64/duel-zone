@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
 {
     class Gigaberos : Creature
     {
-        public Gigaberos() : base("Gigaberos", 5, 8000, Common.Subtype.Chimera, Common.Civilization.Darkness)
+        public Gigaberos() : base("Gigaberos", 5, 8000, Subtype.Chimera, Civilization.Darkness)
         {
             AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect()), new DoubleBreakerAbility());
         }
@@ -33,10 +33,10 @@ namespace Cards.Cards.DM01
             }
             else
             {
-                var selection = game.GetPlayer(source.Controller).Choose(new BoundedCardSelectionInEffect(source.Controller, creatures, 1, 2, ToString()), game).Decision;
+                var selection = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.Controller, creatures, 1, 2, ToString()), game).Decision;
                 if ((selection.Count() == 1 && selection.Single() == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x != thisCreature.Id)))
                 {
-                    return game .Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());
+                    return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());
                 }
                 else
                 {

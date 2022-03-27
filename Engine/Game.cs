@@ -426,7 +426,12 @@ namespace Engine
         private void Leave(IPlayer player)
         {
             _ = Players.Remove(player);
+
+            // 800.4a When a player leaves the game, all objects (see rule 109) owned by that player leave the game.
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
+
+            // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
+            // TODO: Remove possible pending abilities
         }
 
         public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)

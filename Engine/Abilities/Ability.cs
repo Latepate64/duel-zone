@@ -49,5 +49,29 @@ namespace Engine.Abilities
         {
             return char.ToLower(text[0]) + text[1..];
         }
+
+        /// <summary>
+        /// Returns the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public IPlayer GetController(IGame game)
+        {
+            return game.GetPlayer(Controller);
+        }
+
+        /// <summary>
+        /// Returns the opponent of the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public IPlayer GetOpponent(IGame game)
+        {
+            return game.GetOpponent(GetController(game));
+        }
     }
 }
