@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new CrystalPaladinEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CrystalPaladinEffect()));
         }
     }
 

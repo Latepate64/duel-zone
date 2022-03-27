@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Common.Subtype.BalloonMushroom, Common.Civilization.Nature)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YouMayPutCardFromYourHandIntoYourManaZoneEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayPutCardFromYourHandIntoYourManaZoneEffect()));
         }
     }
 }

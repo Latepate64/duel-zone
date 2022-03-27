@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000, Common.Subtype.Berserker, Common.Civilization.Light)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new SearchSpellEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchSpellEffect()));
         }
     }
 }

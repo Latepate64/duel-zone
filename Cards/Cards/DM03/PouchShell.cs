@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public PouchShell() : base("Pouch Shell", 4, 1000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new PouchShellEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PouchShellEffect()));
         }
     }
 

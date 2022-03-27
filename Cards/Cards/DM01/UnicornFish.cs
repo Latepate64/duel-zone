@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public UnicornFish() : base("Unicorn Fish", 4, 1000, Common.Subtype.Fish, Common.Civilization.Water)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
         }
     }
 }

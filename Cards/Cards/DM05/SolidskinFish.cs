@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public SolidskinFish() : base("Solidskin Fish", 3, 3000, Subtype.Fish, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect()));
         }
     }
 }

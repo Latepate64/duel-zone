@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public AstralWarper() : base("Astral Warper", 6, 5000, Subtype.CyberVirus, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardsEffect(3)));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardsEffect(3)));
         }
     }
 }

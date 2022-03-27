@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
     {
         public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Subtype.Merfolk, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new FranticChieftainEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new FranticChieftainEffect()));
         }
     }
 

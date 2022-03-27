@@ -12,7 +12,7 @@ namespace Cards.Cards.DM10
         public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Civilization.Fire, Civilization.Nature)
         {
             AddSubtypes(Subtype.ArmoredDragon, Subtype.EarthDragon);
-            AddAbilities(new SpeedAttackerAbility(), new DoubleBreakerAbility(), new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
+            AddAbilities(new SpeedAttackerAbility(), new DoubleBreakerAbility(), new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
         }
     }
 

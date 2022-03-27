@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public NiofaHornedProtector() : base("Niofa, Horned Protector", 6, 9000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new NiofaHornedProtectorEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new NiofaHornedProtectorEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 

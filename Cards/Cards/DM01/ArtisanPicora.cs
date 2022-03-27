@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public ArtisanPicora() : base("Artisan Picora", 1, 2000, Common.Subtype.MachineEater, Common.Civilization.Fire)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new PutCardsFromYourManaZoneIntoYourGraveyard(1)));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromYourManaZoneIntoYourGraveyard(1)));
         }
     }
 }

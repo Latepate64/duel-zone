@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public SwampWorm() : base("Swamp Worm", 7, 2000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OpponentSacrificeEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentSacrificeEffect()));
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class KulusSoulshineEnforcerAbility : WhenThisCreatureIsPutIntoTheBattleZoneAbility
+    class KulusSoulshineEnforcerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public KulusSoulshineEnforcerAbility() : base(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1))
         {

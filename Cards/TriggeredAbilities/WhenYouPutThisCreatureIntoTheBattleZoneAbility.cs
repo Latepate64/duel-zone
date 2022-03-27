@@ -5,13 +5,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class WhenThisCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
+    public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
     {
-        public WhenThisCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
-        public WhenThisCreatureIsPutIntoTheBattleZoneAbility(WhenThisCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Cards.TriggeredAbilities
 
         public override IAbility Copy()
         {
-            return new WhenThisCreatureIsPutIntoTheBattleZoneAbility(this);
+            return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
         }
 
         public override string ToString()

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public KingMazelan() : base("King Mazelan", 8, 7000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 }
