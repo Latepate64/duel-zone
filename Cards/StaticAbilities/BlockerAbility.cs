@@ -1,29 +1,11 @@
 ﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
 
 namespace Cards.StaticAbilities
 {
     public class BlockerAbility : StaticAbility
     {
-        public BlockerAbility() : base(new ThisCreatureHasBlockerEffect())
+        public BlockerAbility() : base(new ContinuousEffects.ThisCreatureHasBlockerEffect())
         {
-        }
-    }
-
-    public class ThisCreatureHasBlockerEffect : BlockerEffect
-    {
-        public ThisCreatureHasBlockerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite())
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureHasBlockerEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Blocker";
         }
     }
 }

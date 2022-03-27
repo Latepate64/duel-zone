@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM03
