@@ -286,21 +286,29 @@ namespace Engine
         /// 102.2. In a two-player game, a player’s opponent is the other player.
         /// </summary>
         /// <param name="player"></param>
-        /// <returns>Opponent if they are still in the game, null otherwise.</returns>
+        /// <returns>Opponent if they are still in the game.</returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetOpponent(IPlayer player)
         {
-            return Players.SingleOrDefault(x => x != player);
+            return Players.Single(x => x.Id == GetOpponent(player.Id));
         }
 
         /// <summary>
         /// 102.2. In a two-player game, a player’s opponent is the other player.
         /// </summary>
         /// <param name="player"></param>
-        /// <returns></returns>
+        /// <returns>Opponent if they are still in the game.</returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
         public Guid GetOpponent(Guid player)
         {
-            var opponent = Players.SingleOrDefault(x => x.Id != player);
-            return opponent != null ? opponent.Id : Guid.Empty;
+            try
+            {
+                return Players.Single(x => x.Id != player).Id;
+            }
+            catch
+            {
+                throw new PlayerNotInGameException(player);
+            }
         }
 
         /// <summary>
@@ -308,9 +316,17 @@ namespace Engine
         /// </summary>
         /// <param name="card"></param>
         /// <returns></returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetOwner(ICard card)
         {
-            return Players.SingleOrDefault(x => x.Id == card?.Owner);
+            try 
+            {
+                return Players.Single(x => x.Id == card.Owner);
+            }
+            catch
+            {
+                throw new PlayerNotInGameException(card.Owner);
+            }
         }
 
         public ICard GetCard(Guid id)
@@ -319,10 +335,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Returns a player who is still in the game.
+        /// Player with target id who is still in the game.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Player if they are still in the game, null otherwise</returns>
+        /// <returns>Player with target id who is still in the game.</returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetPlayer(Guid id)
         {
             try
@@ -366,22 +383,28 @@ namespace Engine
                 _ = _continuousEffects.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
                 _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
 
-                ApplyContinuousEffects();
-                var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
-                List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-                foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+                try
                 {
-                    abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
-                    if (ability.TriggersOnlyOnce)
+                    ApplyContinuousEffects();
+                    var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
+                    List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
+                    foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                     {
-                        toBeRemoved.Add(ability);
+                        abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
+                        if (ability.TriggersOnlyOnce)
+                        {
+                            toBeRemoved.Add(ability);
+                        }
+                    }
+                    _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                    CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
+                    foreach (var ability in abilities)
+                    {
+                        Process(new AbilityTriggeredEvent { Ability = ability.Id });
                     }
                 }
-                _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
-                foreach (var ability in abilities)
+                catch (PlayerNotInGameException)
                 {
-                    Process(new AbilityTriggeredEvent { Ability = ability.Id });
                 }
             }
             else

@@ -24,21 +24,19 @@ namespace Engine.Abilities
         IAbility Copy();
 
         /// <summary>
-        /// Returns the player who controls the ability.
-        /// Note that it should be checked that the player actually
-        /// exists as it is possible they have left the game.
+        /// Player who controls the ability.
         /// </summary>
         /// <param name="game"></param>
-        /// <returns></returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
+        /// <returns>Player who controls the ability.</returns>
         IPlayer GetController(IGame game);
 
         /// <summary>
-        /// Returns the opponent of the player who controls the ability.
-        /// Note that it should be checked that the player actually
-        /// exists as it is possible they have left the game.
+        /// Opponent of the player who controls the ability.
         /// </summary>
         /// <param name="game"></param>
-        /// <returns></returns>
+        /// <exception cref="PlayerNotInGameException"></exception>
+        /// <returns>Opponent of the player who controls the ability.</returns>
         IPlayer GetOpponent(IGame game);
 
         string ToString();
