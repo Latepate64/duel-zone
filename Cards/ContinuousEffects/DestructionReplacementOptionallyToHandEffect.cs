@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(Engine.Game game, Engine.IPlayer player)
+        public override bool Apply(Engine.IGame game, Engine.IPlayer player)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {

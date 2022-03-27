@@ -29,7 +29,7 @@ namespace Cards.StaticAbilities
             return new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(this);
         }
 
-        public override bool Apply(Game game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
             return true;

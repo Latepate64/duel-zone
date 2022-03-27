@@ -24,7 +24,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public override bool Apply(Game game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player)
         {
             game.Move(ZoneType.BattleZone, ZoneType.ShieldZone, GetAffectedCards(game).ToArray());
             return true;

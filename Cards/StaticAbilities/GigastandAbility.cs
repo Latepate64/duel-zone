@@ -26,7 +26,7 @@ namespace Cards.StaticAbilities
         {
         }
 
-        public override bool Apply(Game game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
