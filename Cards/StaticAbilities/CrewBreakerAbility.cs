@@ -32,7 +32,7 @@ namespace Cards.StaticAbilities
         public override int GetAmount(Engine.IGame game)
         {
             var ability = game.GetAbility(SourceAbility);
-            return game.BattleZone.GetCreatures(ability.Owner).Where(x => x.Id != ability.Source && x.Subtypes.Contains(_subtype)).Count();
+            return game.BattleZone.GetCreatures(ability.Owner).Count(x => x.Id != ability.Source && x.Subtypes.Contains(_subtype));
         }
 
         public override string ToString()
