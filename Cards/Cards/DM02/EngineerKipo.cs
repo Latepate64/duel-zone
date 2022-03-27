@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public EngineerKipo() : base("Engineer Kipo", 2, 2000, Subtype.Xenoparts, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.MutualManaSacrificeEffect(1)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.MutualManaSacrificeEffect(1)));
         }
     }
 }

@@ -1,23 +1,13 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class SpeedAttackerEffect : ContinuousEffect
+    public abstract class SpeedAttackerEffect : ContinuousEffect
     {
-        public SpeedAttackerEffect(ICardFilter filter) : base(filter)
+        protected SpeedAttackerEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 
-        public SpeedAttackerEffect(SpeedAttackerEffect effect) : base(effect)
+        protected SpeedAttackerEffect(SpeedAttackerEffect effect) : base(effect)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new SpeedAttackerEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Speed attacker";
         }
     }
 }

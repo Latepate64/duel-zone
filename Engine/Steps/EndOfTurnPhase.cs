@@ -1,5 +1,4 @@
 ﻿using Common.GameEvents;
-using Engine.Durations;
 
 namespace Engine.Steps
 {
@@ -26,7 +25,6 @@ namespace Engine.Steps
 
         public void PerformTurnBasedAction(IGame game)
         {
-            game.RemoveRevokedObjects(typeof(UntilTheEndOfTheTurn));
         }
     }
 }

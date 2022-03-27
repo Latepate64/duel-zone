@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new OpponentRandomDiscardEffect(this);
         }

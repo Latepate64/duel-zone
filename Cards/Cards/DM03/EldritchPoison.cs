@@ -19,15 +19,15 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var cards = new SacrificeEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness), false).Apply(game, source);
+            var cards = new EldritchPoisonSacrificeEffect().Apply(game, source);
             if (cards.Any())
             {
-                return new SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneCreatureFilter()).Apply(game, source);
+                return new ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
             }
             return cards;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new EldritchPoisonEffect();
         }
@@ -35,6 +35,23 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may destroy one of your darkness creatures. If you do, return a creature from your mana zone to your hand.";
+        }
+    }
+
+    class EldritchPoisonSacrificeEffect : DestroyEffect
+    {
+        public EldritchPoisonSacrificeEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness), 0, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new EldritchPoisonSacrificeEffect();
+        }
+
+        public override string ToString()
+        {
+            return "You may destroy one of your darkness creatures.";
         }
     }
 }

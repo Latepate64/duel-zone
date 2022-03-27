@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     public abstract class CannotUseShieldTriggerEffect : ContinuousEffect
     {
@@ -8,7 +6,7 @@ namespace Engine.ContinuousEffects
         {
         }
 
-        protected CannotUseShieldTriggerEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotUseShieldTriggerEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
     }

@@ -1,23 +1,13 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class AttacksIfAbleEffect : ContinuousEffect
+    public abstract class AttacksIfAbleEffect : ContinuousEffect
     {
-        public AttacksIfAbleEffect(ICardFilter filter) : base(filter)
+        protected AttacksIfAbleEffect(ICardFilter filter, IDuration duration) : base(filter, duration)
         {
         }
 
-        public AttacksIfAbleEffect(AttacksIfAbleEffect effect) : base(effect)
+        protected AttacksIfAbleEffect(AttacksIfAbleEffect effect) : base(effect)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new AttacksIfAbleEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{Filter} attacks if able{GetDurationAsText()}.";
         }
     }
 }

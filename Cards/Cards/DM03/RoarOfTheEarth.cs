@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
@@ -13,7 +14,12 @@ namespace Cards.Cards.DM03
 
     class RoarOfTheEarthEffect : OneShotEffects.SelfManaRecoveryEffect
     {
-        public RoarOfTheEarthEffect() : base(new OneShotEffects.SelfManaRecoveryEffect(1, 1, true, new CardFilters.OwnersManaZoneMinCostCreatureFilter(6))) { }
+        public RoarOfTheEarthEffect() : base(1, 1, true, new CardFilters.OwnersManaZoneMinCostCreatureFilter(6)) { }
+
+        public override IOneShotEffect Copy()
+        {
+            return new RoarOfTheEarthEffect();
+        }
 
         public override string ToString()
         {

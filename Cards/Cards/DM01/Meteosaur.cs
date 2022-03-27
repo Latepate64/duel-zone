@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public Meteosaur() : base("Meteosaur", 5, 2000, Common.Subtype.RockBeast, Common.Civilization.Fire)
         {
-            AddAbilities(new PutIntoPlayAbility(new YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(2000)));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(2000)));
         }
     }
 }

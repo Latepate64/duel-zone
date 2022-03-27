@@ -1,7 +1,6 @@
 ﻿using Common.GameEvents;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace Engine
         void AddAbility(ICard card, IAbility ability);
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
-        void AddDelayedTriggeredAbility(ITriggeredAbility ability, IDuration duration);
+        void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
         void Battle(Guid attackingCreatureId, Guid defendingCreatureId);
         bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
@@ -50,6 +49,5 @@ namespace Engine
         void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
-        void RemoveRevokedObjects(Type duration);
     }
 }

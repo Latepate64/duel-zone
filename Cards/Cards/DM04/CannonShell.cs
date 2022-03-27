@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
@@ -23,6 +24,11 @@ namespace Cards.Cards.DM04
     {
         public CannonShellEffect() : base(1000, new CardFilters.OwnersShieldZoneCardFilter())
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new CannonShellEffect();
         }
 
         public override string ToString()

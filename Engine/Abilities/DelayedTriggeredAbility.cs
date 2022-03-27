@@ -1,19 +1,27 @@
-﻿using Engine.Durations;
-using System;
+﻿using System;
 
 namespace Engine.Abilities
 {
-    internal class DelayedTriggeredAbility : IDisposable
+    public class DelayedTriggeredAbility : IDisposable, IDurationable
     {
         internal ITriggeredAbility TriggeredAbility { get; private set; }
-        internal IDuration Duration { get; private set; }
+        public IDuration Duration { get; private set; }
 
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, IDuration duration, Guid source, Guid owner)
+        /// <summary>
+        /// 603.7b
+        /// A delayed triggered ability will trigger only once—
+        /// the next time its trigger event occurs—
+        /// unless it has a stated duration, such as “this turn.” 
+        /// </summary>
+        internal bool TriggersOnlyOnce { get; private set; }
+
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, IDuration duration, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
             TriggeredAbility.Owner = owner;
             Duration = duration;
+            TriggersOnlyOnce = triggersOnlyOnce;
         }
 
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)

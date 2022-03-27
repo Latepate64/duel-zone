@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public Cetibols() : base("Cetibols", 3, 2000, Subtype.SeaHacker, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.ControllerMayDrawCardsEffect(1)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayDrawCardsEffect(1)));
         }
     }
 }

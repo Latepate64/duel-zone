@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public CoreCrashLizard() : base("Core-Crash Lizard", 7, 6000, Subtype.MeltWarrior, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.ShieldBurnEffect(new CardFilters.OpponentsShieldZoneCardFilter(), 1, 1, true)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect()));
         }
     }
 }

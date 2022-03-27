@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
     {
         public Marinomancer() : base("Marinomancer", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new MarinomancerEffect()));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new MarinomancerEffect()));
         }
     }
 

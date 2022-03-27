@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public RuthlessSkyterror() : base("Ruthless Skyterror", 4, 6000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Water), new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Water), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

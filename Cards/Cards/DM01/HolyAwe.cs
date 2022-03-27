@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,8 +8,24 @@ namespace Cards.Cards.DM01
         public HolyAwe() : base("Holy Awe", 6, Common.Civilization.Light)
         {
             ShieldTrigger = true;
-            // Tap all your opponent's creatures in the battle zone.
-            AddSpellAbilities(new TapAreaOfEffect(new CardFilters.OpponentsBattleZoneCreatureFilter()));
+            AddSpellAbilities(new HolyAweEffect());
+        }
+    }
+
+    class HolyAweEffect : OneShotEffects.TapAreaOfEffect
+    {
+        public HolyAweEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HolyAweEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Tap all your opponent's creatures in the battle zone.";
         }
     }
 }

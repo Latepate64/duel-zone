@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM04
 {
@@ -25,7 +24,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public PippieKuppieEffect() : base(1000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon), new Indefinite())
+        public PippieKuppieEffect() : base(1000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon), new Durations.Indefinite())
         {
         }
 

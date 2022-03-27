@@ -19,21 +19,46 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new SelfManaRecoveryEffect(Amount, Amount, true, new CardFilters.OwnersManaZoneCardFilter()), new OpponentManaRecoveryEffect(Amount, Amount, false)})
+            foreach (var effect in new OneShotEffect[] { new ReturnCardsFromYourManaZoneToYourHandEffect(Amount), new MutualManaRecovery2Effect(Amount) })
             {
                 effect.Apply(game, source);
             }
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new MutualManaRecoveryEffect(this);
         }
 
         public override string ToString()
         {
-            return $"Return {Amount} cards from your mana zone to your hand. Then your opponent chooses {Amount} cards in his mana zone and returns them to his hand.";
+            var cards = Amount > 1 ? $"{Amount} cards" : "a card";
+            return $"Return {cards} from your mana zone to your hand. Then your opponent chooses {cards} in his mana zone and returns {(Amount > 1 ? "them" : "it")} to his hand.";
+        }
+    }
+
+    class MutualManaRecovery2Effect : OpponentManaRecoveryEffect
+    {
+        public MutualManaRecovery2Effect(MutualManaRecovery2Effect effect) : base(effect)
+        {
+        }
+
+        public MutualManaRecovery2Effect(int amount) : base(amount, amount, false)
+        {
+            Amount = amount;
+        }
+
+        public int Amount { get; }
+
+        public override IOneShotEffect Copy()
+        {
+            return new MutualManaRecovery2Effect(this);
+        }
+
+        public override string ToString()
+        {
+           return $"Your opponent chooses {(Amount > 1 ? $"{Amount} cards" : "a card")} in his mana zone and returns {(Amount > 1 ? "them" : "it")} to his hand.";
         }
     }
 }

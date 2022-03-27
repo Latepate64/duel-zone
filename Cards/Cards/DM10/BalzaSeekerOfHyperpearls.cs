@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
         public BalzaSeekerOfHyperpearls() : base("Balza, Seeker of Hyperpearls", 8, 4000, Common.Subtype.MechaThunder, Common.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddAbilities(new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

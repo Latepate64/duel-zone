@@ -22,7 +22,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GhastlyDrainEffect(this);
         }

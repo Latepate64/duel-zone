@@ -19,7 +19,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new OpponentsBattleZoneUntappedCivilizationCreatureFilter(civilization))
+        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new OpponentsBattleZoneUntappedCivilizationCreatureFilter(civilization), new Durations.Indefinite())
         {
             _civilization = civilization;
         }
@@ -31,7 +31,7 @@ namespace Cards.StaticAbilities
 
         public override string ToString()
         {
-            return $"This creature can attack untapped {_civilization} creatures.";
+            return $"This creature can attack untapped {_civilization.ToString().ToLower()} creatures.";
         }
     }
 }

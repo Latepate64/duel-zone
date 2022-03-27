@@ -2,6 +2,7 @@
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 using Common;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
@@ -10,8 +11,24 @@ namespace Cards.Cards.DM04
         public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
             ShieldTrigger = true;
-            // When you put this creature into the battle zone, destroy all creatures that have power 1000.
-            AddAbilities(new PutIntoPlayAbility(new DestroyAreaOfEffect(new BattleZoneExactPowerCreatureFilter(1000))));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new MagmarexEffect()));
+        }
+    }
+
+    class MagmarexEffect : DestroyAreaOfEffect
+    {
+        public MagmarexEffect() : base(new BattleZoneExactPowerCreatureFilter(1000))
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new MagmarexEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy all creatures that have power 1000.";
         }
     }
 }

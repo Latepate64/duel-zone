@@ -5,8 +5,25 @@ namespace Cards.StaticAbilities
 {
     public class BlockerAbility : StaticAbility
     {
-        public BlockerAbility(params Engine.Condition[] conditions) : base(new BlockerEffect(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), conditions))
+        public BlockerAbility() : base(new ThisCreatureHasBlockerEffect())
         {
+        }
+    }
+
+    public class ThisCreatureHasBlockerEffect : BlockerEffect
+    {
+        public ThisCreatureHasBlockerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ThisCreatureHasBlockerEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Blocker";
         }
     }
 }

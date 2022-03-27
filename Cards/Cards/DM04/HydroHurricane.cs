@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.OneShotEffects;
+using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.OpponentManaRecoveryEffect(0, game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Light)).Count(), true).Apply(game, source);
+            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
+            return new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
@@ -31,11 +33,37 @@ namespace Cards.Cards.DM04
         }
     }
 
+    class HydroHurricaneManaBounceEffect : OpponentManaRecoveryEffect
+    {
+        private readonly int _amount;
+
+        public HydroHurricaneManaBounceEffect(int amount) : base(0, amount, true)
+        {
+            _amount = amount;
+        }
+
+        public HydroHurricaneManaBounceEffect(HydroHurricaneManaBounceEffect effect) : base(effect)
+        {
+            _amount = effect._amount;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HydroHurricaneManaBounceEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Choose up to {(_amount > 1 ? $"{_amount} cards" : "a card")} in your opponent's mana zone and return {(_amount > 1 ? "them" : "it")} to his hand.";
+        }
+    }
+
     class HydroHurricaneSecondEffect : OneShotEffect
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.BounceEffect(0, game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Darkness)).Count(), new CardFilters.OpponentsBattleZoneChoosableCreatureFilter()).Apply(game, source);
+            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Darkness)).Count();
+            return new HydroHurricaneBounceEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
@@ -46,6 +74,31 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "For each darkness creature you have in the battle zone, you may choose one of your opponent's creatures in the battle zone and return it to his hand.";
+        }
+    }
+
+    class HydroHurricaneBounceEffect : BounceEffect
+    {
+        private readonly int _maximum;
+
+        public HydroHurricaneBounceEffect(int maximum) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, maximum)
+        {
+            _maximum = maximum;
+        }
+
+        public HydroHurricaneBounceEffect(HydroHurricaneBounceEffect effect) : base(effect)
+        {
+            _maximum = effect._maximum;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HydroHurricaneBounceEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Choose up to {(_maximum > 1 ? $"{_maximum} cards" : "a card")} of your opponent's creatures in the battle zone and return {(_maximum > 1 ? "them" : "it")} to his hand.";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Engine;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -8,8 +8,14 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public SacrificeEffect(CardFilter filter, bool mandatory) : base(new CardFilters.OwnersBattleZoneCreatureFilter(), mandatory ? 1 : 0, 1, true)
+        public override IOneShotEffect Copy()
         {
+            return new SacrificeEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Destroy one of your creatures.";
         }
     }
 }

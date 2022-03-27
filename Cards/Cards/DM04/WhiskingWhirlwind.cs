@@ -16,7 +16,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCreatureFilter())), new Engine.Durations.Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return null;
         }
 
@@ -28,6 +28,23 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "At the end of the turn, untap all your creatures in the battle zone.";
+        }
+    }
+
+    class WhiskingWhirlwindUntapEffect : OneShotEffects.UntapAreaOfEffect
+    {
+        public WhiskingWhirlwindUntapEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new WhiskingWhirlwindUntapEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Untap all your creatures in the battle zone.";
         }
     }
 }

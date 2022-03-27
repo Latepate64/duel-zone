@@ -1,6 +1,4 @@
-﻿using Engine.Durations;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
     /// <summary>
     /// 613.11. Some continuous effects affect game rules rather than objects.
@@ -8,10 +6,6 @@ namespace Engine.ContinuousEffects
     public abstract class GameRulesEffect : ContinuousEffect
     {
         protected GameRulesEffect(ContinuousEffect effect) : base(effect)
-        {
-        }
-
-        protected GameRulesEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
         {
         }
 

@@ -1,7 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 
 namespace Cards.Cards.DM04
 {
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SupportingTulipEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand), new Indefinite(), new StaticAbilities.PowerAttackerAbility(4000))
+        public SupportingTulipEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(4000))
         {
         }
 

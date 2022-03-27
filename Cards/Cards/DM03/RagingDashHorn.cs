@@ -22,7 +22,7 @@ namespace Cards.Cards.DM03
 
     class RagingDashHornEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public RagingDashHornEffect() : base(new TargetFilter(), new Engine.Durations.Indefinite()) { }
+        public RagingDashHornEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
 
         public RagingDashHornEffect(RagingDashHornEffect effect) : base(effect) { }
 

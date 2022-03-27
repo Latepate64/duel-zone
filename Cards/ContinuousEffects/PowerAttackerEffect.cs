@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -11,12 +10,22 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public PowerAttackerEffect(int power, params Condition[] conditions) : this(power, new TargetFilter(), new Indefinite(), conditions)
+        public PowerAttackerEffect(int power, params Condition[] conditions) : this(power, new TargetFilter(), new Durations.Indefinite(), conditions)
         {
         }
 
         public PowerAttackerEffect(int power, CardFilter filter, Duration duration, params Condition[] conditions) : base(power, filter, duration, conditions.Union(new Condition[] { new Conditions.AttackingCreatureCondition(filter) }).ToArray())
         {
+        }
+
+        public override ContinuousEffect Copy()
+        {
+            return new PowerAttackerEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Power attacker +{_power}";
         }
     }
 }

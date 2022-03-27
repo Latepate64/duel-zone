@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class SwordOfBenevolentLife : Spell
     {
-        public SwordOfBenevolentLife() : base("Sword of Benevolent Life", 2, Civilization.Nature)
+        public SwordOfBenevolentLife() : base("Sword of Benevolent Life", 2, Common.Civilization.Nature)
         {
             AddSpellAbilities(new SwordOfBenevolentLifeEffect());
         }
@@ -18,8 +17,8 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Owner);
-            var power = creatures.Where(x => x.Civilizations.Contains(Civilization.Light)).Count() * 1000;
-            game.AddContinuousEffects(source, new Engine.ContinuousEffects.PowerModifyingEffect(power, new CardFilters.TargetsFilter(creatures.Select(x => x.Id).ToArray()), new Engine.Durations.UntilTheEndOfTheTurn()));
+            var power = creatures.Where(x => x.Civilizations.Contains(Common.Civilization.Light)).Count() * 1000;
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
             return null;
         }
 

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Subtype.LivingDead, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new AttackPlayerAbility(new MarrowOozeTheTwisterEffect()));
+            AddAbilities(new StaticAbilities.BlockerAbility(), new WhenThisCreatureAttacksPlayerAbility(new MarrowOozeTheTwisterEffect()));
         }
     }
 
@@ -17,11 +17,11 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyAreaOfEffect(new TargetFilter()), source.Source), new Engine.Durations.Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyThisCreatureEffect(), source.Source), source.Source, source.Owner, new Durations.Indefinite(), true));
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new MarrowOozeTheTwisterEffect();
         }

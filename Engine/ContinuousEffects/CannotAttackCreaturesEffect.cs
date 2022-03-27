@@ -1,23 +1,13 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class CannotAttackCreaturesEffect : ContinuousEffect
+    public abstract class CannotAttackCreaturesEffect : ContinuousEffect
     {
-        public CannotAttackCreaturesEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotAttackCreaturesEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
 
-        public CannotAttackCreaturesEffect(CannotAttackCreaturesEffect effect) : base(effect)
+        protected CannotAttackCreaturesEffect(CannotAttackCreaturesEffect effect) : base(effect)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new CannotAttackCreaturesEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{Filter} can't attack creatures{GetDurationAsText()}.";
         }
     }
 }

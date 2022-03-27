@@ -19,7 +19,7 @@ namespace Cards.StaticAbilities
             _civilization = effect._civilization;
         }
 
-        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base(increase, new CardFilters.CivilizationFilter(civilization))
+        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base(increase, new CardFilters.CivilizationFilter(civilization), new Durations.Indefinite())
         {
             _civilization = civilization;
         }

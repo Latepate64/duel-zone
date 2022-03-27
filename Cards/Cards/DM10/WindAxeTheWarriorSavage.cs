@@ -11,20 +11,20 @@ namespace Cards.Cards.DM10
         public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, Civilization.Fire, Civilization.Nature)
         {
             AddSubtypes(Subtype.Human, Subtype.BeastFolk);
-            AddAbilities(new PutIntoPlayAbility(new WindAxeTheWarriorSavageEffect()));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect()));
         }
     }
 
     class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new WindAxeTheWarriorSavageEffect();
         }
 
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
+            foreach (var effect in new OneShotEffect[] { new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
             {
                 effect.Apply(game, source);
             }

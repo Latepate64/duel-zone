@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public TowerShell() : base("Tower Shell", 6, 5000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            AddAbilities(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(4000)));
+            AddAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(4000));
         }
     }
 }

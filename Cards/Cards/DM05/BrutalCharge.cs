@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.OneShotEffects;
+using Common;
 using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
@@ -18,7 +19,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), new Engine.Durations.Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return null;
         }
 
@@ -38,7 +39,7 @@ namespace Cards.Cards.DM05
         public override object Apply(IGame game, IAbility source)
         {
             var shieldsBroken = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Sum(x => x.Amount);
-            return new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckCreatureFilter(), true, shieldsBroken).Apply(game, source);
+            return new BrutalChargeSearchEffect(shieldsBroken).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
@@ -49,6 +50,31 @@ namespace Cards.Cards.DM05
         public override string ToString()
         {
             return "Search your deck. For each of your opponent's shields your creatures broke this turn, you may take a creature from your deck, show it to your opponent, and put it into your hand. Then shuffle your deck.";
+        }
+    }
+
+    class BrutalChargeSearchEffect : SearchEffect
+    {
+        private readonly int _amount;
+
+        public BrutalChargeSearchEffect(BrutalChargeSearchEffect effect) : base(effect)
+        {
+            _amount = effect._amount;
+        }
+
+        public BrutalChargeSearchEffect(int amount) : base(new CardFilters.OwnersDeckCreatureFilter(), true, amount)
+        {
+            _amount = amount;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new BrutalChargeSearchEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Search your deck. Take up to {_amount} creatures from your deck, show them to your opponent, and put them into your hand. Then shuffle your deck.";
         }
     }
 }

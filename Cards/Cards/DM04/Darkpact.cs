@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var cards = new PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard().Apply(game, source);
-            new DrawEffect(cards.Count()).Apply(game, source);
+            new DrawCardsEffect(cards.Count()).Apply(game, source);
             return cards;
         }
 

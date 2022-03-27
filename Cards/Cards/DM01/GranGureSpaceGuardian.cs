@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
         public GranGureSpaceGuardian() : base("Gran Gure, Space Guardian", 6, 9000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddAbilities(new CannotAttackPlayersAbility());
+            AddAbilities(new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 }

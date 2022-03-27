@@ -13,17 +13,17 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class RainbowStoneEffect : SearchDeckEffect
+    class RainbowStoneEffect : SearchAnyDeckEffect
     {
         public RainbowStoneEffect() : base(new CardFilters.OwnersDeckCardFilter())
         {
         }
 
-        public RainbowStoneEffect(SearchDeckEffect effect) : base(effect)
+        public RainbowStoneEffect(SearchAnyDeckEffect effect) : base(effect)
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new RainbowStoneEffect(this);
         }

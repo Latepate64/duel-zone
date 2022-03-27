@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public EnergyCharger() : base("Energy Charger", 3, Civilization.Fire)
         {
-            AddSpellAbilities(new OneShotEffects.GrantPowerChoiceEffect(2000));
+            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(2000));
         }
     }
 }

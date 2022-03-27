@@ -17,13 +17,17 @@ namespace Cards.Cards.DM07
         public override object Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(
-                new TriggeredAbilities.AtTheEndOfYourTurnAbility(
-                    new OneShotEffects.UntapAreaOfEffect(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))),
-                new Engine.Durations.Once());
+                new DelayedTriggeredAbility(
+                    new TriggeredAbilities.AtTheEndOfYourTurnAbility(
+                        new GandarSeekerOfExplosionsUntapEffect()),
+                        source.Source,
+                        source.Owner,
+                        new Durations.Indefinite(),
+                        true));
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GandarSeekerOfExplosionsEffect();
         }
@@ -31,6 +35,23 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "At the end of the turn, untap all your light creatures.";
+        }
+    }
+
+    class GandarSeekerOfExplosionsUntapEffect : OneShotEffects.UntapAreaOfEffect
+    {
+        public GandarSeekerOfExplosionsUntapEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new GandarSeekerOfExplosionsUntapEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Untap all your light creatures.";
         }
     }
 }

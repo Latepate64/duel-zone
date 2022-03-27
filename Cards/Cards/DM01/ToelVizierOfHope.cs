@@ -1,6 +1,7 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,8 +9,24 @@ namespace Cards.Cards.DM01
     {
         public ToelVizierOfHope() : base("Toel, Vizier of Hope", 5, 2000, Common.Subtype.Initiate, Common.Civilization.Light)
         {
-            // At the end of each of your turns, you may untap all your creatures in the battle zone.
-            AddAbilities(new AtTheEndOfYourTurnAbility(new ControllerMayUntapCreatureEffect(new OwnersBattleZoneCreatureFilter())));
+            AddAbilities(new AtTheEndOfYourTurnAbility(new ToelVizierOfHopeEffect()));
+        }
+    }
+
+    class ToelVizierOfHopeEffect : ControllerMayUntapCreatureEffect
+    {
+        public ToelVizierOfHopeEffect() : base(new OwnersBattleZoneCreatureFilter())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ToelVizierOfHopeEffect();
+        }
+
+        public override string ToString()
+        {
+            return "You may untap all your creatures in the battle zone.";
         }
     }
 }

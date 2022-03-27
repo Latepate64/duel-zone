@@ -25,7 +25,7 @@ namespace Cards.Cards.DM02
             return true;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new ThoughtProbeEffect();
         }

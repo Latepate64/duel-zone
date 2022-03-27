@@ -9,21 +9,38 @@ namespace Cards.Cards.DM02
     {
         public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
         {
-            AddSpellAbilities(new DiamondCutterEffect());
+            AddSpellAbilities(new DiamondCutterOneShotEffect());
         }
     }
 
-    class DiamondCutterEffect : OneShotEffect
+    class DiamondCutterOneShotEffect : OneShotEffect
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new IgnoreCannotAttackPlayersEffects(new CardFilters.OwnersBattleZoneCreatureFilter(), new Engine.Durations.UntilTheEndOfTheTurn()));
+            game.AddContinuousEffects(source, new DiamondCutterContinuousEffect());
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
-            return new DiamondCutterEffect();
+            return new DiamondCutterOneShotEffect();
+        }
+
+        public override string ToString()
+        {
+            return "This turn, ignore any effects that would prevent your creatures from attacking your opponent.";
+        }
+    }
+
+    class DiamondCutterContinuousEffect : IgnoreCannotAttackPlayersEffects
+    {
+        public DiamondCutterContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new DiamondCutterContinuousEffect();
         }
 
         public override string ToString()

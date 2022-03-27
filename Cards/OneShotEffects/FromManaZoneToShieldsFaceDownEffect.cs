@@ -13,14 +13,14 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new FromManaZoneToShieldsFaceDownEffect(this);
         }
 
         public override string ToString()
         {
-            return $"Add {Filter} from your mana zone to your shields face down.";
+            return "Add a card from your mana zone to your shields face down.";
         }
     }
 }

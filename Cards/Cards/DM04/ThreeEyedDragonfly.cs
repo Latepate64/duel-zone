@@ -3,7 +3,6 @@ using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new ThreeEyedDragonflyOneShotEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect()));
         }
     }
 
@@ -45,7 +44,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), new UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), new Durations.UntilTheEndOfTheTurn())
         {
         }
 
@@ -85,7 +84,7 @@ namespace Cards.Cards.DM04
             return "You may destroy one of your other creatures.";
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
         }

@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Engine
+﻿namespace Engine
 {
     public interface IAttackable
     {

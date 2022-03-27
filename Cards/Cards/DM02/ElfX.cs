@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -18,9 +19,14 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class ElfXEffect : Engine.ContinuousEffects.CostModifyingEffect
+    class ElfXEffect : CostModifyingEffect
     {
-        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter()) { }
+        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ElfXEffect();
+        }
 
         public override string ToString()
         {

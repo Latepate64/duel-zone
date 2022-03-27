@@ -1,24 +1,14 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class CannotAttackPlayersEffect : ContinuousEffect
+    public abstract class CannotAttackPlayersEffect : ContinuousEffect
     {
-        public CannotAttackPlayersEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotAttackPlayersEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
 
         }
 
-        public CannotAttackPlayersEffect(CannotAttackPlayersEffect effect) : base(effect)
+        protected CannotAttackPlayersEffect(CannotAttackPlayersEffect effect) : base(effect)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new CannotAttackPlayersEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{Filter} can't attack players{GetDurationAsText()}.";
         }
     }
 }

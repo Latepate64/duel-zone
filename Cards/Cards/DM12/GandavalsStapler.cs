@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
     {
         public GandavalsStapler() : base("Gandaval's Stapler", 2, 3000, Subtype.Xenoparts, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.TapAreaOfEffect(new Engine.TargetFilter()), new CardFilters.AnotherBattleZoneCreatureFilter()));
+            AddAbilities(new TriggeredAbilities.WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.TapThisCreatureEffect()));
         }
     }
 }

@@ -6,7 +6,7 @@
         {
         }
 
-        protected CannotUseCardEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        protected CannotUseCardEffect(ICardFilter filter, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
         }
     }

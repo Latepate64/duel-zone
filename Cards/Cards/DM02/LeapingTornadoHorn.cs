@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -22,6 +23,11 @@ namespace Cards.Cards.DM02
     {
         public LeapingTornadoHornEffect() : base(1000, new CardFilters.OwnersOtherBattleZoneCreatureFilter())
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new LeapingTornadoHornEffect();
         }
 
         public override string ToString()

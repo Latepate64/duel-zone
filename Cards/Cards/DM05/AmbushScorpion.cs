@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public AmbushScorpion() : base("Ambush Scorpion", 5, 3000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(3000), new TriggeredAbilities.DestroyedAbility(new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(Name)));
+            AddAbilities(new StaticAbilities.PowerAttackerAbility(3000), new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(Name)));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             _power = power;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(this);
         }

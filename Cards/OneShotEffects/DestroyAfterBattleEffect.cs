@@ -1,7 +1,6 @@
 ﻿using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
-using Engine.Durations;
 
 namespace Cards.OneShotEffects
 {
@@ -17,19 +16,18 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var ability = new AfterBattleAbility(new DestroyAreaOfEffect((source as CardTriggeredAbility).Filter));
-            game.AddDelayedTriggeredAbility(ability, new Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new DestroyThisCreatureEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new DestroyAfterBattleEffect(this);
         }
 
         public override string ToString()
         {
-            return $"Destroy it after the battle.";
+            return "Destroy it after the battle.";
         }
     }
 }

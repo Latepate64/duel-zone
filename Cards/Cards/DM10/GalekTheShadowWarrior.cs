@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
         public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Civilization.Darkness, Civilization.Fire)
         {
             AddSubtypes(Subtype.Ghost, Subtype.Human);
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new GalekTheShadowWarriorEffect()));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect()));
         }
     }
 
@@ -17,14 +17,14 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            foreach (OneShotEffect effect in new OneShotEffect[] { new OneShotEffects.DestroyEffect(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true), new OneShotEffects.OpponentRandomDiscardEffect() })
+            foreach (OneShotEffect effect in new OneShotEffect[] { new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new OneShotEffects.OpponentRandomDiscardEffect() })
             {
                 effect.Apply(game, source);
             }
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new GalekTheShadowWarriorEffect();
         }

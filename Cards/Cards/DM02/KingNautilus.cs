@@ -1,6 +1,7 @@
 ﻿using Cards.CardFilters;
 using Common;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -19,10 +20,15 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class KingNautilusEffect : Engine.ContinuousEffects.UnblockableEffect
+    class KingNautilusEffect : UnblockableEffect
     {
-        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new BattleZoneCreatureFilter())
+        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new Durations.Indefinite(), new BattleZoneCreatureFilter())
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new KingNautilusEffect();
         }
 
         public override string ToString()

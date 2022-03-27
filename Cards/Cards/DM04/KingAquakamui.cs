@@ -3,7 +3,6 @@ using Common.Choices;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public KingAquakamui() : base("King Aquakamui", 7, 5000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
         }
     }
 
@@ -52,7 +51,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public KingAquakamuiContinuousEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Indefinite())
+        public KingAquakamuiContinuousEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Durations.Indefinite())
         {
         }
 

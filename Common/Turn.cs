@@ -10,6 +10,7 @@ namespace Common
         /// The number of the turn.
         /// </summary>
         public int Number { get; set; }
+        public Guid ActivePlayerId { get; set; }
 
         public Turn()
         {
@@ -18,6 +19,7 @@ namespace Common
 
         public Turn(ITurn turn)
         {
+            ActivePlayerId = turn.ActivePlayerId;
             Id = turn.Id;
             Number = turn.Number;
         }

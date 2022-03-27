@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public GarkagoDragon() : base("Garkago Dragon", 7, 6000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            AddAbilities(new DoubleBreakerAbility(), new GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Fire), new CanAttackUntappedCreaturesAbility());
+            AddAbilities(new DoubleBreakerAbility(), new GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Fire), new ThisCreatureCanAttackUntappedCreaturesAbility());
         }
     }
 }

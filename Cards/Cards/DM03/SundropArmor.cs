@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public SundropArmor() : base("Sundrop Armor", 4, Civilization.Light)
         {
-            AddSpellAbilities(new OneShotEffects.ShieldAdditionEffect(new CardFilters.OwnersHandCardFilter(), 1, 1, true));
+            AddSpellAbilities(new OneShotEffects.AddCardFromYourHandToYourShieldsFaceDownEffect());
         }
     }
 }

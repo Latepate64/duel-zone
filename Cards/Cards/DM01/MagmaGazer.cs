@@ -1,5 +1,6 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
+using Engine;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,8 +8,29 @@ namespace Cards.Cards.DM01
     {
         public MagmaGazer() : base("Magma Gazer", 3, Common.Civilization.Fire)
         {
-            // One of your creatures gets "power attacker +4000" and "double breaker" until the end of the turn. (A creature that has "power attacker +4000" and "double breaker" gets +4000 power while attacking and breaks 2 shields.)
-            AddSpellAbilities(new GrantAbilityChoiceEffect(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true, new PowerAttackerAbility(4000), new DoubleBreakerAbility()));
+            AddSpellAbilities(new MagmaGazerEffect());
+        }
+    }
+
+    class MagmaGazerEffect : GrantChoiceEffect
+    {
+        public MagmaGazerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new MagmaGazerEffect();
+        }
+
+        public override string ToString()
+        {
+            return "One of your creatures gets \"power attacker +4000\" and \"double breaker\" until the end of the turn.";
+        }
+
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        {
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(cards));
         }
     }
 }

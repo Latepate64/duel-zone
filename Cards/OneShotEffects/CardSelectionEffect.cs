@@ -54,25 +54,5 @@ namespace Cards.OneShotEffects
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
-
-        protected string GetAmountAsText()
-        {
-            if (Minimum == 0)
-            {
-                return $"up to {Maximum}";
-            }
-            else if (Minimum < Maximum)
-            {
-                return $"from {Minimum} up to {Maximum}";
-            }
-            else if (Minimum == 1)
-            {
-                return "one";
-            }
-            else
-            {
-                return Maximum.ToString();
-            }
-        }
     }
 }

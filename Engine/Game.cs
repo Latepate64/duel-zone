@@ -3,7 +3,6 @@ using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
 using Engine.ContinuousEffects;
-using Engine.Durations;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -356,13 +355,17 @@ namespace Engine
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
+
+                _ = _continuousEffects.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
+                _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
+
                 ApplyContinuousEffects();
                 var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
                 List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
                 foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
                     abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
-                    if (ability.Duration is Once)
+                    if (ability.TriggersOnlyOnce)
                     {
                         toBeRemoved.Add(ability);
                     }
@@ -587,12 +590,6 @@ namespace Engine
             return _timestamp++;
         }
 
-        public void RemoveRevokedObjects(Type duration)
-        {
-            _ = _continuousEffects.RemoveAll(x => x.Duration.GetType() == duration);
-            _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.GetType() == duration);
-        }
-
         public void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities)
         {
             _ = _continuousEffects.RemoveAll(x => staticAbilities.Contains(x.SourceAbility));
@@ -627,9 +624,10 @@ namespace Engine
             // TODO: Should check if any characteristics have changed and provide that information as an event.
         }
 
-        public void AddDelayedTriggeredAbility(ITriggeredAbility ability, IDuration duration)
+        public void AddDelayedTriggeredAbility(DelayedTriggeredAbility delayedTriggeredAbility)
         {
-            _delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, duration, ability.Source, ability.Owner));
+            _delayedTriggeredAbilities.Add(delayedTriggeredAbility);
+            //_delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, ability.Source, ability.Owner, duration));
         }
 
         public bool CanEvolve(ICard card)

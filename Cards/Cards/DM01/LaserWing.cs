@@ -1,6 +1,6 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Engine.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,8 +8,24 @@ namespace Cards.Cards.DM01
     {
         public LaserWing() : base("Laser Wing", 5, Common.Civilization.Light)
         {
-            // Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.
-            AddSpellAbilities(new CreateContinuousEffectChoiceEffect(new OwnersBattleZoneCreatureFilter(), 0, 2, true, new UnblockableEffect(null, new Engine.Durations.UntilTheEndOfTheTurn(), new BattleZoneCreatureFilter())));
+            AddSpellAbilities(new LaserWingEffect());
+        }
+    }
+
+    class LaserWingEffect : CreateContinuousEffectChoiceEffect
+    {
+        public LaserWingEffect() : base(new OwnersBattleZoneCreatureFilter(), 0, 2, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new LaserWingEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.";
         }
     }
 }

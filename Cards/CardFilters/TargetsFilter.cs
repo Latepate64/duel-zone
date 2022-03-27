@@ -9,9 +9,9 @@ namespace Cards.CardFilters
     {
         public List<Guid> Cards { get; }
 
-        public TargetsFilter(params Guid[] cards)
+        public TargetsFilter(params ICard[] cards)
         {
-            Cards = cards.ToList();
+            Cards = cards.Select(x => x.Id).ToList();
         }
 
         public TargetsFilter(TargetsFilter filter) : base()

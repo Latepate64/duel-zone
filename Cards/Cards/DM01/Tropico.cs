@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Engine.ContinuousEffects;
 using System;
 using System.Linq;
 
@@ -8,8 +9,7 @@ namespace Cards.Cards.DM01
     {
         public Tropico() : base("Tropico", 5, 3000, Common.Subtype.CyberLord, Common.Civilization.Water)
         {
-            // This creature can't be blocked while you have at least 2 other creatures in the battle zone.
-            AddAbilities(new StaticAbilities.UnblockableAbility(new TropicoCondition()));
+            AddAbilities(new TropicoAbility());
         }
     }
 
@@ -36,6 +36,30 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "While you have at least 2 other creatures in the battle zone";
+        }
+    }
+
+    class TropicoAbility : Engine.Abilities.StaticAbility
+    {
+        public TropicoAbility() : base(new TropicoEffect())
+        {
+        }
+    }
+
+    class TropicoEffect : UnblockableEffect
+    {
+        public TropicoEffect() : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter(), new TropicoCondition())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new TropicoEffect();
+        }
+
+        public override string ToString()
+        {
+            return "This creature can't be blocked while you have at least 2 other creatures in the battle zone.";
         }
     }
 }

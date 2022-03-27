@@ -4,23 +4,18 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class PowerModifyingMultiplierEffect : PowerModifyingEffect
+    abstract class PowerModifyingMultiplierEffect : PowerModifyingEffect
     {
         public ICardFilter Multiplier { get; set; }
 
-        public PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, conditions)
+        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, new Durations.Indefinite(), conditions)
         {
             Multiplier = multiplier;
         }
 
-        public PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
+        protected PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
         {
             Multiplier = effect.Multiplier.Copy();
-        }
-
-        public override string ToString()
-        {
-            return $"{Filter} gets +{_power} power for each {Multiplier}.";
         }
 
         protected override int GetPower(IGame game)
@@ -29,9 +24,9 @@ namespace Cards.ContinuousEffects
         }
     }
 
-    class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
+    abstract class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
     {
-        public PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier, new Conditions.AttackingCreatureCondition(new TargetFilter()))
+        protected PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier, new Conditions.AttackingCreatureCondition(new TargetFilter()))
         {
         }
     }

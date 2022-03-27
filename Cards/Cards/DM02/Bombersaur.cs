@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public Bombersaur() : base("Bombersaur", 5, 5000, Subtype.RockBeast, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.DestroyedAbility(new OneShotEffects.MutualManaSacrificeEffect(2)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.MutualManaSacrificeEffect(2)));
         }
     }
 }

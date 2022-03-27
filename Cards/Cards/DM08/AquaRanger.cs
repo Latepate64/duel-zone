@@ -7,8 +7,7 @@ namespace Cards.Cards.DM08
     {
         public AquaRanger() : base("Aqua Ranger", 6, 3000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new UnblockableAbility());
-            AddAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
+            AddAbilities(new ThisCreatureCannotBeBlockedAbility(), new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
         }
     }
 }

@@ -1,15 +1,11 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
-
-namespace Cards.Cards.DM11
+﻿namespace Cards.Cards.DM11
 {
     class TenTonCrunch : Spell
     {
         public TenTonCrunch() : base("Ten-Ton Crunch", 4, Common.Civilization.Fire)
         {
             ShieldTrigger = true;
-            // Destroy one of your opponent's creatures that has power 3000 or less.
-            AddSpellAbilities(new DestroyEffect(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, 1, true));
+            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(3000));
         }
     }
 }

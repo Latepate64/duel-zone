@@ -12,11 +12,11 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new AfterBattleAbility(new UntapAreaOfEffect(new TargetFilter())), new Engine.Durations.Once());
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), source.Source, source.Owner, new Durations.Indefinite(), true));
             return true;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new UntapItAfterItBattlesEffect();
         }

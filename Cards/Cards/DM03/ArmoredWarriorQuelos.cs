@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.AttackAbility(new ArmoredWarriorQuelosEffect()));
+            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect()));
         }
     }
 
@@ -18,16 +18,14 @@ namespace Cards.Cards.DM03
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var filter1 = new OwnersManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature);
-            var filter2 = new OpponentsManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature);
-            foreach (var effect in new OneShotEffect[] { new ManaBurnEffect(filter1, 1, 1, true), new ManaBurnEffect(filter2, 1, 1, false)})
+            foreach (var effect in new OneShotEffect[] { new ArmoredWarriorQuelosMana1Effect(), new ArmoredWarriorQuelosMana2Effect()})
             {
                 effect.Apply(game, source);
             }
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new ArmoredWarriorQuelosEffect();
         }
@@ -35,6 +33,40 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Put a non-fire card from your mana zone into your graveyard. Then your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
+        }
+    }
+
+    class ArmoredWarriorQuelosMana1Effect : ManaBurnEffect
+    {
+        public ArmoredWarriorQuelosMana1Effect() : base(new OwnersManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature), 1, 1, true)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ArmoredWarriorQuelosMana1Effect();
+        }
+
+        public override string ToString()
+        {
+            return "Put a non-fire card from your mana zone into your graveyard.";
+        }
+    }
+
+    class ArmoredWarriorQuelosMana2Effect : ManaBurnEffect
+    {
+        public ArmoredWarriorQuelosMana2Effect() : base(new OpponentsManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature), 1, 1, false)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ArmoredWarriorQuelosMana2Effect();
+        }
+
+        public override string ToString()
+        {
+            return "Your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
         }
     }
 }

@@ -1,31 +1,21 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public class CanAttackUntappedCreaturesEffect : ContinuousEffect
+    public abstract class CanAttackUntappedCreaturesEffect : ContinuousEffect
     {
         public ICardFilter TargetFilter { get; }
 
-        public CanAttackUntappedCreaturesEffect(CanAttackUntappedCreaturesEffect effect) : base(effect)
+        protected CanAttackUntappedCreaturesEffect(CanAttackUntappedCreaturesEffect effect) : base(effect)
         {
             TargetFilter = effect.TargetFilter.Copy();
         }
 
-        public CanAttackUntappedCreaturesEffect(ICardFilter targetFilter) : this(new TargetFilter(), targetFilter)
+        protected CanAttackUntappedCreaturesEffect(ICardFilter targetFilter, IDuration duration) : this(new TargetFilter(), targetFilter, duration)
         {
         }
 
-        public CanAttackUntappedCreaturesEffect(ICardFilter attackerFilter, ICardFilter targetFilter) : base(attackerFilter)
+        protected CanAttackUntappedCreaturesEffect(ICardFilter attackerFilter, ICardFilter targetFilter, IDuration duration) : base(attackerFilter, duration)
         {
             TargetFilter = targetFilter;
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new CanAttackUntappedCreaturesEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{Filter} can attack {TargetFilter}{GetDurationAsText()}.";
         }
     }
 }

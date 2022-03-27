@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public MadrillonFish() : base("Madrillon Fish", 2, 3000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new CannotAttackCreaturesAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility());
         }
     }
 }

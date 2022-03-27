@@ -15,7 +15,7 @@ namespace Cards.StaticAbilities
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCivilizationCreatureFilter(civilizations))
+        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
         {
             _civilizations = civilizations;
         }

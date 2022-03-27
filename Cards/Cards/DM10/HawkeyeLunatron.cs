@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public HawkeyeLunatron() : base("Hawkeye Lunatron", 8, 6000, Subtype.CyberMoon, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.PutIntoPlayAbility(new OneShotEffects.TutoringEffect(new CardFilters.OwnersDeckCardFilter(), false)));
+            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.SearchCardNoRevealEffect()));
         }
     }
 }

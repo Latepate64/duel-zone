@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             _name = name;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
             return new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(this);
         }

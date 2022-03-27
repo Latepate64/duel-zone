@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.StaticAbilities;
+﻿using Cards.StaticAbilities;
 
 namespace Cards.Cards.DM02
 {
@@ -7,8 +6,7 @@ namespace Cards.Cards.DM02
     {
         public XenoMantis() : base("Xeno Mantis", 7, 6000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            AddAbilities(new UnblockableAbility(new BattleZoneMaxPowerCreatureFilter(5000)));
-            AddAbilities(new DoubleBreakerAbility());
+            AddAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(5000), new DoubleBreakerAbility());
         }
     }
 }

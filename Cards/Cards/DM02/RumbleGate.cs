@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -9,21 +10,38 @@ namespace Cards.Cards.DM02
     {
         public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
         {
-            AddSpellAbilities(new GrantPowerAreaOfEffect(1000), new RumbleGateEffect());
+            AddSpellAbilities(new EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(1000), new RumbleGateOneShotEffect());
         }
     }
 
-    class RumbleGateEffect : OneShotEffect
+    class RumbleGateOneShotEffect : OneShotEffect
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new Engine.ContinuousEffects.CanAttackUntappedCreaturesEffect(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(), new CardFilters.OpponentsBattleZoneUntappedCreatureFilter()));
+            game.AddContinuousEffects(source, new RumbleGateContinuousEffect());
             return null;
         }
 
-        public override OneShotEffect Copy()
+        public override IOneShotEffect Copy()
         {
-            return new RumbleGateEffect();
+            return new RumbleGateOneShotEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Each of your creatures in the battle zone that can attack creatures can attack untapped creatures this turn.";
+        }
+    }
+
+    class RumbleGateContinuousEffect : CanAttackUntappedCreaturesEffect
+    {
+        public RumbleGateContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(), new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new RumbleGateContinuousEffect();
         }
 
         public override string ToString()

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new IocantTheOracleAbility(), new CannotAttackPlayersAbility());
+            AddAbilities(new BlockerAbility(), new IocantTheOracleAbility(), new ThisCreatureCannotAttackPlayersAbility());
         }
     }
 
@@ -22,8 +22,13 @@ namespace Cards.Cards.DM01
 
     class IocantTheOracleEffect : PowerModifyingEffect
     {
-        public IocantTheOracleEffect() : base(2000, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand))
+        public IocantTheOracleEffect() : base(2000, new Durations.Indefinite(), new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(Subtype.AngelCommand))
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new IocantTheOracleEffect();
         }
 
         public override string ToString()

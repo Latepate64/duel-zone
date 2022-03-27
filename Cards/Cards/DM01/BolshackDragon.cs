@@ -2,6 +2,7 @@
 using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -24,6 +25,11 @@ namespace Cards.Cards.DM01
     {
         public BolshackDragonEffect() : base(1000, new OwnersGraveyardCardFilter(Common.Civilization.Fire))
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new BolshackDragonEffect();
         }
 
         public override string ToString()

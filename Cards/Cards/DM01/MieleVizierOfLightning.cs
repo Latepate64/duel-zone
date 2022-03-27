@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public MieleVizierOfLightning() : base("Miele, Vizier of Lightning", 3, 1000, Common.Subtype.Initiate, Common.Civilization.Light)
         {
-            AddAbilities(new PutIntoPlayAbility(new YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
+            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
         }
     }
 }

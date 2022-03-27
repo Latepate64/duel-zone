@@ -1,9 +1,8 @@
-﻿using Engine.Durations;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
-    public class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
+    public abstract class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
     {
         protected readonly int _power;
 
@@ -12,21 +11,11 @@ namespace Engine.ContinuousEffects
             _power = power;
         }
 
-        public PowerModifyingEffect(int power, params Condition[] conditions) : this(power, new TargetFilter(), new Indefinite(), conditions) { }
+        public PowerModifyingEffect(int power, IDuration duration, params Condition[] conditions) : this(power, new TargetFilter(), duration, conditions) { }
 
         public PowerModifyingEffect(PowerModifyingEffect effect) : base(effect)
         {
             _power = effect._power;
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new PowerModifyingEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{ToStringBase()}{Filter} gets +{_power} power{GetDurationAsText()}.";
         }
 
         protected virtual int GetPower(IGame game)
