@@ -16,7 +16,14 @@
 
         public virtual void Resolve(IGame game)
         {
-            OneShotEffect.Apply(game, this);
+            try
+            {
+                // 608.2c The controller of the spell or ability follows its instructions in the order written.
+                OneShotEffect.Apply(game, this);
+            }
+            catch (PlayerNotInGameException)
+            { 
+            }
         }
     }
 }

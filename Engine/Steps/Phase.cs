@@ -52,6 +52,8 @@ namespace Engine.Steps
                         }
                         var ability = abilities.Single(x => x.Id == decision);
                         ability.Resolve(game);
+
+                        // 608.2m As the final part of an ability’s resolution, the ability is removed from the stack and ceases to exist.
                         _ = PendingAbilities.Remove(ability);
                     }
                     else
