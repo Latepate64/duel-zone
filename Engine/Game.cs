@@ -457,10 +457,11 @@ namespace Engine
         {
             // 800.4a When a player leaves the game, all objects (see rule 109) owned by that player leave the game.
             _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
-            _ = Players.Remove(player);
 
             // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
-            // TODO: Remove possible pending abilities
+            _ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
+
+            _ = Players.Remove(player);
         }
 
         public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
@@ -492,12 +493,11 @@ namespace Engine
             foreach (var cardGroup in affectedCardGroups)
             {
                 var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as ICardMovedEvent).CardInSourceZone));
-                var player = GetPlayer(cardGroup.Key);
                 var effectGuid = effectGroups.Count() > 1
-                    ? player.Choose(new ReplacementEffectSelection(player.Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
+                    ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                if (effect.Apply(this, player))
+                if (effect.Apply(this, GetPlayer(cardGroup.Key)))
                 {
                     events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
                 }
@@ -514,9 +514,8 @@ namespace Engine
         {
             if (e.Player != null)
             {
-                var player = GetPlayer(e.Player.Id);
                 var card = GetCard(e.CardInSourceZone);
-                var removed = (e.Source == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Source)).Remove(card, this);
+                var removed = (e.Source == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Source)).Remove(card, this);
                 foreach (var removedCard in removed)
                 {
                     if (e.Destination != ZoneType.Anywhere)
@@ -524,8 +523,12 @@ namespace Engine
                         // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
                         // 613.7d An object receives a timestamp at the time it enters a zone.
                         var newObject = new Card(removedCard, GetTimestamp());
-                        (e.Destination == ZoneType.BattleZone ? BattleZone : player.GetZone(e.Destination)).Add(newObject, this);
-                        e.Card = newObject.Convert();
+                        try 
+                        {
+                            (e.Destination == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Destination)).Add(newObject, this);
+                            e.Card = newObject.Convert();
+                        }
+                        catch (PlayerNotInGameException) { }
                     }
                 }
             }
@@ -567,16 +570,15 @@ namespace Engine
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
-                    var player = GetPlayer(shieldTriggersByPlayer.Key);
-                    var decision = player.Choose(new ShieldTriggerSelection(player.Id, shieldTriggersByPlayer), this);
+                    var decision = GetPlayer(shieldTriggersByPlayer.Key).Choose(new ShieldTriggerSelection(GetPlayer(shieldTriggersByPlayer.Key).Id, shieldTriggersByPlayer), this);
                     if (decision.Decision.Any())
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent { Player = player.Copy(), Card = trigger.Convert() });
+                        Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
                         if (trigger.CanBeUsedRegardlessOfManaCost(this))
                         {
-                            player.UseCard(trigger, this);
+                            GetPlayer(shieldTriggersByPlayer.Key).UseCard(trigger, this);
                         }
                     }
                     else
@@ -677,27 +679,23 @@ namespace Engine
         public IEnumerable<IIdentifiable> GetPossibleAttackTargets(ICard attacker)
         {
             List<IIdentifiable> attackables = new();
-            var opponent = GetOpponent(GetPlayer(attacker.Owner));
-            if (opponent != null)
+            if (attacker.CanAttackPlayers(this))
             {
-                if (attacker.CanAttackPlayers(this))
+                attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));
+            }
+            if (attacker.CanAttackCreatures(this))
+            {
+                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttack(x, this));
+                attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
+                if (GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
                 {
-                    attackables.Add(opponent);
+                    attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped));
                 }
-                if (attacker.CanAttackCreatures(this))
-                {
-                    var opponentsCreatures = BattleZone.GetCreatures(opponent.Id).Where(x => attacker.CanAttack(x, this));
-                    attackables.AddRange(opponentsCreatures.Where(c => c.Tapped));
-                    if (GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker).Any())
-                    {
-                        attackables.AddRange(opponentsCreatures.Where(c => !c.Tapped));
-                    }
-                    attackables.AddRange(opponentsCreatures.Where(creature => GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
-                }
-                if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
-                {
-                    attackables.Add(attacker);
-                }
+                attackables.AddRange(opponentsCreatures.Where(creature => GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(creature).Any()));
+            }
+            if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
+            {
+                attackables.Add(attacker);
             }
             return attackables;
         }

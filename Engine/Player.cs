@@ -241,15 +241,14 @@ namespace Engine
             ZoneType destination;
             try
             {
-                var player = game.GetPlayer(newObject.Owner);
                 if (game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>()).Any())
                 {
-                    player.ManaZone.Add(newObject, game);
+                    game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
                     destination = ZoneType.ManaZone;
                 }
                 else
                 {
-                    player.Graveyard.Add(newObject, game);
+                    game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
                     destination = ZoneType.Graveyard;
                 }
                 game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
