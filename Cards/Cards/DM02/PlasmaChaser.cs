@@ -18,7 +18,7 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Controller);
+            var player = source.GetController(game);
             if (player != null)
             {
                 var amount = game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Count();

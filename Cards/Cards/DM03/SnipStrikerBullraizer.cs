@@ -20,7 +20,7 @@ namespace Cards.Cards.DM03
 
         public SnipStrikerBullraizerCondition(SnipStrikerBullraizerCondition condition) : base(condition) { }
 
-        public override bool Applies(Game game, Guid player)
+        public override bool Applies(IGame game, Guid player)
         {
             return game.BattleZone.GetCreatures(game.GetOpponent(player)).Count() > game.BattleZone.GetCreatures(player).Count();
         }

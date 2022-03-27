@@ -22,12 +22,12 @@ namespace Cards.Cards.DM03
 
         public override object Apply(IGame game, IAbility source)
         {
-            var opponent = game.GetPlayer(game.GetOpponent(source.Controller));
+            var opponent = source.GetOpponent(game);
             var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards);
             if (cards.Any())
             {
                 var revealer = game.GetOwner(cards.First());
-                game.GetPlayer(source.Controller).Look(revealer, game, cards.ToArray());
+                source.GetController(game).Look(revealer, game, cards.ToArray());
                 revealer.Unreveal(cards);
             }
             return null;

@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Controller);
+            var player = source.GetController(game);
             var cards = player.RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.Civilizations.Contains(Civilization.Light) || x.Civilizations.Contains(Civilization.Darkness));
             game.Move(ZoneType.Deck, ZoneType.Hand, toHand.ToArray());

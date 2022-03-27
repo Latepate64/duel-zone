@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Controller);
+            var player = source.GetController(game);
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
                 game.Move(ZoneType.Graveyard, ZoneType.Hand, player.Graveyard.Cards.Where(x => x.Subtypes.Contains(Subtype.AngelCommand) || x.Subtypes.Contains(Subtype.DemonCommand)).ToArray());

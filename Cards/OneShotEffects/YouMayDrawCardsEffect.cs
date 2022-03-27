@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Controller);
+            var player = source.GetController(game);
             if (player != null)
             {
                 var decision = player.Choose(new YesNoChoice(source.Controller, "You may draw a card."), game);

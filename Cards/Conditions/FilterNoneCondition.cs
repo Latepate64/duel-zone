@@ -17,7 +17,7 @@ namespace Cards.Conditions
         {
         }
 
-        public override bool Applies(Game game, Guid player)
+        public override bool Applies(IGame game, Guid player)
         {
             return !game.GetAllCards().Any(card => Filter.Applies(card, game, game.GetPlayer(player)));
         }

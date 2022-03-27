@@ -17,7 +17,7 @@ namespace Cards.Conditions
             Civilization = condition.Civilization;
         }
 
-        public override bool Applies(Game game, System.Guid player)
+        public override bool Applies(IGame game, System.Guid player)
         {
             return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(player))).All(x => x.Civilizations.Contains(Civilization));
         }

@@ -72,12 +72,12 @@ namespace Engine.ContinuousEffects
             _conditions.Select(x => x.Filter).OfType<ITargetFilterable>().ToList().ForEach(x => x.Target = id);
         }
 
-        public bool ConditionsApply(Game game)
+        public bool ConditionsApply(IGame game)
         {
             var source = game.GetAbility(SourceAbility);
             if (source != null)
             {
-                var player = game.GetPlayer(source.Controller);
+                var player = source.GetController(game);
                 if (player != null && _conditions.All(x => x.Applies(game, player.Id)))
                 {
                     return true;
@@ -100,7 +100,7 @@ namespace Engine.ContinuousEffects
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(game.GetAbility(SourceAbility).Controller)));
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetAbility(SourceAbility).GetController(game)));
         }
     }
 }

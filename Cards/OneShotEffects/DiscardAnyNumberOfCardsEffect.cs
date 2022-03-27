@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.GetPlayer(source.Controller).Discard(game, cards);
+            source.GetController(game).Discard(game, cards);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Cards.Conditions
         {
         }
 
-        public override bool Applies(Game game, Guid player)
+        public override bool Applies(IGame game, Guid player)
         {
             return game.GetOpponent(player) == game.CurrentTurn.ActivePlayer.Id;
         }
