@@ -16,11 +16,10 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            var amount = player.Hand.Cards.Count;
-            game.Move(ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
-            player.ShuffleDeck(game);
-            player.DrawCards(amount, game);
+            var amount = source.GetController(game).Hand.Cards.Count;
+            game.Move(ZoneType.Hand, ZoneType.Deck, source.GetController(game).Hand.Cards.ToArray());
+            source.GetController(game).ShuffleDeck(game);
+            source.GetController(game).DrawCards(amount, game);
             return null;
         }
 

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = source.GetController(game).ManaZone.UntappedCards.Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
+            var amount = source.GetController(game).ManaZone.UntappedCards.Count(x => x.Civilizations.Contains(Civilization.Light));
             return new RimuelCloudbreakElementalTapEffect(amount).Apply(game, source);
         }
 

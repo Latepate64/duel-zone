@@ -18,14 +18,10 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            if (player != null)
+            var amount = game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
+            if (amount > 0 && source.GetController(game).Choose(new YesNoChoice(source.Controller, $"You may draw {amount} cards."), game).Decision)
             {
-                var amount = game.BattleZone.GetCreatures(game.GetOpponent(player).Id).Count();
-                if (amount > 0 && player.Choose(new YesNoChoice(source.Controller, $"You may draw {amount} cards."), game).Decision)
-                {
-                    player.DrawCards(amount, game);
-                }
+                source.GetController(game).DrawCards(amount, game);
             }
             return null;
         }

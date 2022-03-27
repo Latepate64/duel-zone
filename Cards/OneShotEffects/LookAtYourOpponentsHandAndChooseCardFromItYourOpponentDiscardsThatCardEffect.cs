@@ -9,20 +9,11 @@ namespace Cards.OneShotEffects
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            if (player != null)
-            {
-                var opponent = game.GetOpponent(player);
-                if (opponent != null)
-                {
-                    player.Look(opponent, game, opponent.Hand.Cards.ToArray());
-                    var cards = player.Choose(new BoundedCardSelectionInEffect(player.Id, opponent.Hand.Cards, 1, 1, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
-                    opponent.Discard(game, cards);
-                    opponent.Unreveal(cards);
-                    return cards;
-                }
-            }
-            return null;
+            source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
+            var cards = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.GetController(game).Id, source.GetOpponent(game).Hand.Cards, 1, 1, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
+            source.GetOpponent(game).Discard(game, cards);
+            source.GetOpponent(game).Unreveal(cards);
+            return cards;
         }
 
         public override IOneShotEffect Copy()

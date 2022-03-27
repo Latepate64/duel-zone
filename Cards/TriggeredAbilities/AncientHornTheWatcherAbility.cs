@@ -21,8 +21,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            // if you have 5 or more shields
-            return GetController(game)?.ShieldZone.Cards.Count >= 5;
+            return GetController(game).ShieldZone.Cards.Count >= 5;
         }
 
         public override string ToString()

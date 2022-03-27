@@ -27,17 +27,13 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            if (player != null)
+            var decision = source.GetController(game).Choose(new YesNoChoice(source.Controller, "You may draw a card."), game);
+            if (decision.Decision)
             {
-                var decision = player.Choose(new YesNoChoice(source.Controller, "You may draw a card."), game);
-                if (decision.Decision)
+                source.GetController(game).DrawCards(1, game);
+                if (++_drawn < Maximum)
                 {
-                    player.DrawCards(1, game);
-                    if (++_drawn < Maximum)
-                    {
-                        Apply(game, source);
-                    }
+                    Apply(game, source);
                 }
             }
             return null;

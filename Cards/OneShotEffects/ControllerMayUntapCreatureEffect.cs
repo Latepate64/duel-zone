@@ -21,10 +21,9 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            if (player.Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
+            if (source.GetController(game).Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
             {
-                player.Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, player)).ToArray());
+                source.GetController(game).Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, source.GetController(game))).ToArray());
                 return true;
             }
             else

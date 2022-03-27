@@ -77,8 +77,7 @@ namespace Engine.ContinuousEffects
             var source = game.GetAbility(SourceAbility);
             if (source != null)
             {
-                var player = source.GetController(game);
-                if (player != null && _conditions.All(x => x.Applies(game, player.Id)))
+                if (_conditions.All(x => x.Applies(game, source.GetController(game).Id)))
                 {
                     return true;
                 }

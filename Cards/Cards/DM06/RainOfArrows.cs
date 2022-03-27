@@ -17,13 +17,12 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var opponent = source.GetOpponent(game);
-            var cards = opponent.Hand.Cards;
+            var cards = source.GetOpponent(game).Hand.Cards;
             if (cards.Any())
             {
-                source.GetController(game).Look(opponent, game, cards.ToArray());
-                opponent.Discard(game, cards.Where(x => x.Civilizations.Contains(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
-                opponent.Unreveal(cards);
+                source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
+                source.GetOpponent(game).Discard(game, cards.Where(x => x.Civilizations.Contains(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
+                source.GetOpponent(game).Unreveal(cards);
             }
             return null;
         }
