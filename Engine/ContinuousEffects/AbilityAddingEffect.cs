@@ -18,6 +18,11 @@ namespace Engine.ContinuousEffects
             Abilities = abilities.ToList();
         }
 
+        protected AbilityAddingEffect(ICardFilter filter, IDuration duration, Condition condition, params IAbility[] abilities) : base(filter, duration, condition)
+        {
+            Abilities = abilities.ToList();
+        }
+
         public void AddAbility(IGame game)
         {
             foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
