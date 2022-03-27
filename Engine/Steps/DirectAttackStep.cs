@@ -42,7 +42,7 @@ namespace Engine.Steps
             var breakerEffects = game.GetContinuousEffects<BreakerEffect>(attackingCreature);
             if (breakerEffects.Any())
             {
-                breakAmount = breakerEffects.Max(x => x.GetAmount());
+                breakAmount = breakerEffects.Max(x => x.GetAmount(game));
             }
 
             return breakAmount;

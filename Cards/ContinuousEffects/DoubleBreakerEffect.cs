@@ -12,12 +12,12 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new DoubleBreakerEffect(this);
         }
 
-        public override int GetAmount()
+        public override int GetAmount(Engine.IGame game)
         {
             return 2;
         }

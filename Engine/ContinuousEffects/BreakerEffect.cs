@@ -10,6 +10,6 @@
         {
         }
 
-        public abstract int GetAmount();
+        public abstract int GetAmount(IGame game);
     }
 }
