@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public AquaDeformer() : base("Aqua Deformer", 8, 3000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.MutualManaRecoveryEffect(2)));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.MutualManaRecoveryEffect(2)));
         }
     }
 }

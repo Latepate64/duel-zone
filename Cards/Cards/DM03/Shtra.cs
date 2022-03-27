@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public Shtra() : base("Shtra", 4, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.MutualManaRecoveryEffect(1)));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.MutualManaRecoveryEffect(1)));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cards.Cards.DM02
     {
         public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
         }
     }
 

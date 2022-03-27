@@ -8,16 +8,21 @@ namespace Engine.Abilities
     public abstract class Ability : IAbility
     {
         /// <summary>
-        /// The source of an ability is the object that generated it. The source of an activated ability on the stack is the object whose ability was activated. The source of a triggered ability (other than a delayed triggered ability) on the stack, or one that has triggered and is waiting to be put on the stack, is the object whose ability triggered.
+        /// 113.7.
+        /// The source of an ability is the object that generated it.
         /// </summary>
         public Guid Source { get; set; }
 
         public Guid Id { get; }
 
         /// <summary>
-        /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
+        /// 113.8.
+        /// The controller of an activated ability on the stack is the player who activated it.
+        /// The controller of a triggered ability on the stack (other than a delayed triggered ability)
+        /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
+        /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        public Guid Owner { get; set; }
+        public Guid Controller { get; set; }
 
         protected Ability()
         {
@@ -27,7 +32,7 @@ namespace Engine.Abilities
         protected Ability(IAbility ability)
         {
             Id = Guid.NewGuid();
-            Owner = ability.Owner;
+            Controller = ability.Controller;
             Source = ability.Source;
         }
 
@@ -43,6 +48,30 @@ namespace Engine.Abilities
         protected static string LowerCaseFirstCharacter(string text)
         {
             return char.ToLower(text[0]) + text[1..];
+        }
+
+        /// <summary>
+        /// Returns the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public IPlayer GetController(IGame game)
+        {
+            return game.GetPlayer(Controller);
+        }
+
+        /// <summary>
+        /// Returns the opponent of the player who controls the ability.
+        /// Note that it should be checked that the player actually
+        /// exists as it is possible they have left the game.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public IPlayer GetOpponent(IGame game)
+        {
+            return game.GetOpponent(GetController(game));
         }
     }
 }

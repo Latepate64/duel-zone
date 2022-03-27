@@ -9,7 +9,7 @@ namespace Cards.Cards.DM12
         {
             ShieldTrigger = true;
             // When you put this creature into the battle zone, your opponent discards a card at random from his hand.
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

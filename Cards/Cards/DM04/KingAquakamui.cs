@@ -11,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public KingAquakamui() : base("King Aquakamui", 7, 5000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
         }
     }
 
@@ -19,10 +19,9 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
-            if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
+            if (source.GetController(game).Choose(new YesNoChoice(source.GetController(game).Id, ToString()), game).Decision)
             {
-                game.Move(ZoneType.Graveyard, ZoneType.Hand, player.Graveyard.Cards.Where(x => x.Subtypes.Contains(Subtype.AngelCommand) || x.Subtypes.Contains(Subtype.DemonCommand)).ToArray());
+                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.Subtypes.Contains(Subtype.AngelCommand) || x.Subtypes.Contains(Subtype.DemonCommand)).ToArray());
             }
             return null;
         }

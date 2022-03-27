@@ -22,17 +22,15 @@ namespace Engine.Steps
         public override void PerformTurnBasedAction(IGame game)
         {
             var attackingCreature = game.GetCard(Phase.AttackingCreature);
-            var controller = game.GetPlayer(attackingCreature.Owner);
-            var opponent = game.GetOpponent(controller);
-            if (opponent.ShieldZone.Cards.Any())
+            if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.Cards.Any())
             {
                 var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
                 attackingCreature.Break(game, breakAmount);
             }
             else
             {
-                game.Process(new DirectAttackEvent { Player = opponent.Copy() });
-                game.Lose(opponent);
+                game.Process(new DirectAttackEvent { Player = game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).Copy() });
+                game.Lose(game.GetOpponent(game.GetPlayer(attackingCreature.Owner)));
             }
         }
 
@@ -42,7 +40,7 @@ namespace Engine.Steps
             var breakerEffects = game.GetContinuousEffects<BreakerEffect>(attackingCreature);
             if (breakerEffects.Any())
             {
-                breakAmount = breakerEffects.Max(x => x.GetAmount());
+                breakAmount = breakerEffects.Max(x => x.GetAmount(game));
             }
 
             return breakAmount;

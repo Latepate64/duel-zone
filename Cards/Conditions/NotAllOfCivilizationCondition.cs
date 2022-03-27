@@ -14,7 +14,7 @@ namespace Cards.Conditions
         {
         }
 
-        public override bool Applies(Game game, Guid player)
+        public override bool Applies(IGame game, Guid player)
         {
             return !base.Applies(game, player);
         }

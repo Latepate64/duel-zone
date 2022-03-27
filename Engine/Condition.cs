@@ -16,7 +16,7 @@ namespace Engine
             Filter = condition.Filter.Copy();
         }
 
-        public abstract bool Applies(Game game, Guid player);
+        public abstract bool Applies(IGame game, Guid player);
 
         public override abstract string ToString();
 

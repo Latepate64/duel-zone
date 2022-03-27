@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public StormShell() : base("Storm Shell", 7, 2000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect()));
         }
     }
 }

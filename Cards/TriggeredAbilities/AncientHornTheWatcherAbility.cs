@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class AncientHornTheWatcherAbility : WhenThisCreatureIsPutIntoTheBattleZoneAbility
+    public class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public AncientHornTheWatcherAbility() : base(new UntapAllTheCardsInYourManaZoneEffect())
         {
         }
 
-        public AncientHornTheWatcherAbility(WhenThisCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
+        public AncientHornTheWatcherAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
         {
         }
 
@@ -21,8 +21,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            // if you have 5 or more shields
-            return game.GetPlayer(Owner)?.ShieldZone.Cards.Count >= 5;
+            return GetController(game).ShieldZone.Cards.Count >= 5;
         }
 
         public override string ToString()

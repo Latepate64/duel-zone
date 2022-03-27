@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Subtype.Guardian, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect()));
         }
     }
 

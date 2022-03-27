@@ -21,6 +21,7 @@
         DemonCommand,
         DevilMask,
         Dragonoid,
+        DuneGecko,
         EarthDragon,
         EarthEater,
         FireBird,

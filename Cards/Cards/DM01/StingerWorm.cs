@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public StingerWorm() : base("Stinger Worm", 3, 5000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new SacrificeEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SacrificeEffect()));
         }
     }
 }

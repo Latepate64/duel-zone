@@ -19,7 +19,7 @@ namespace Engine.Abilities
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
-            TriggeredAbility.Owner = owner;
+            TriggeredAbility.Controller = owner;
             Duration = duration;
             TriggersOnlyOnce = triggersOnlyOnce;
         }

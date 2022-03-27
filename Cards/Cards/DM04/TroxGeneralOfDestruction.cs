@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
     {
         public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Subtype.DemonCommand, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 
@@ -17,8 +17,8 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Id != source.Source && x.Civilizations.Contains(Civilization.Darkness)).Count();
-            game.GetOpponent(game.GetPlayer(source.Owner)).DiscardAtRandom(game, amount);
+            var amount = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Id != source.Source && x.Civilizations.Contains(Civilization.Darkness)).Count();
+            source.GetOpponent(game).DiscardAtRandom(game, amount);
             return null;
         }
 

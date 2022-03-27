@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public AquaSniper() : base("Aqua Sniper", 8, 5000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect()));
         }
     }
 }

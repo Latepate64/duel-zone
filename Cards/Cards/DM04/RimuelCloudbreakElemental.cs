@@ -10,7 +10,7 @@ namespace Cards.Cards.DM04
     {
         public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Subtype.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 
@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.GetPlayer(source.Owner).ManaZone.UntappedCards.Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
+            var amount = source.GetController(game).ManaZone.UntappedCards.Count(x => x.Civilizations.Contains(Civilization.Light));
             return new RimuelCloudbreakElementalTapEffect(amount).Apply(game, source);
         }
 

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class KulusSoulshineEnforcerAbility : WhenThisCreatureIsPutIntoTheBattleZoneAbility
+    class KulusSoulshineEnforcerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public KulusSoulshineEnforcerAbility() : base(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1))
         {
@@ -25,13 +25,7 @@ namespace Cards.Cards.DM05
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            var player = game.GetPlayer(Owner);
-            if (player != null)
-            {
-                var opponent = game.GetOpponent(player);
-                return opponent != null && opponent.ManaZone.Cards.Count > player.ManaZone.Cards.Count;
-            }
-            return false;
+            return GetOpponent(game).ManaZone.Cards.Count > GetController(game).ManaZone.Cards.Count;
         }
 
         public override IAbility Copy()

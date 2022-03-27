@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
     {
         public Marinomancer() : base("Marinomancer", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new MarinomancerEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new MarinomancerEffect()));
         }
     }
 
@@ -17,12 +17,11 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
-            var cards = player.RevealTopCardsOfDeck(3, game);
+            var cards = source.GetController(game).RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.Civilizations.Contains(Civilization.Light) || x.Civilizations.Contains(Civilization.Darkness));
             game.Move(ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
-            player.Unreveal(cards);
+            source.GetController(game).Unreveal(cards);
             return null;
         }
 

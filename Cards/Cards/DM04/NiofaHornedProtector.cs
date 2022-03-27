@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public NiofaHornedProtector() : base("Niofa, Horned Protector", 6, 9000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new NiofaHornedProtectorEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new NiofaHornedProtectorEffect()), new StaticAbilities.DoubleBreakerAbility());
         }
     }
 
@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
 
         public override IOneShotEffect Copy()
         {
-            throw new System.NotImplementedException();
+            return new NiofaHornedProtectorEffect();
         }
 
         public override string ToString()

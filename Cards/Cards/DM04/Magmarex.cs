@@ -11,7 +11,7 @@ namespace Cards.Cards.DM04
         public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
             ShieldTrigger = true;
-            AddAbilities(new WhenThisCreatureIsPutIntoTheBattleZoneAbility(new MagmarexEffect()));
+            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new MagmarexEffect()));
         }
     }
 

@@ -28,15 +28,13 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var player = game.GetPlayer(source.Owner);
-            var deckOwner = _searchOpponentsDeck ? game.GetOpponent(player) : player;
-            var cards = game.GetAllCards().Where(x => Filter.Applies(x, game, player));
+            var cards = game.GetAllCards().Where(x => Filter.Applies(x, game, source.GetController(game)));
             if (cards.Any())
             {
-                var selectedCards = player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, 0, _maximum, ToString()), game).Decision.Select(x => game.GetCard(x));
+                var selectedCards = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.GetController(game).Id, cards, 0, _maximum, ToString()), game).Decision.Select(x => game.GetCard(x));
                 Apply(game, source, selectedCards.ToArray());
             }
-            deckOwner.ShuffleDeck(game);
+            (_searchOpponentsDeck ? source.GetOpponent(game) : source.GetController(game)).ShuffleDeck(game);
             return cards.Any();
         }
 

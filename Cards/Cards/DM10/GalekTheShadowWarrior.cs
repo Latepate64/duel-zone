@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
         public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Civilization.Darkness, Civilization.Fire)
         {
             AddSubtypes(Subtype.Ghost, Subtype.Human);
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsPutIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect()));
+            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect()));
         }
     }
 

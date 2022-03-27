@@ -16,7 +16,7 @@ namespace Cards.Conditions
         {
         }
 
-        public override bool Applies(Game game, System.Guid player)
+        public override bool Applies(IGame game, System.Guid player)
         {
             return game.GetAllCards().Any(card => Filter.Applies(card, game, game.GetPlayer(player)));
         }

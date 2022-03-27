@@ -215,28 +215,47 @@ namespace Engine
             Hand.Remove(spell, game);
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
+            ResolveSpellAbilities(spell, game);
+            FinishCastingSpell(spell, game);
+        }
+
+        private static void ResolveSpellAbilities(ICard spell, IGame game)
+        {
             foreach (var ability in spell.GetAbilities<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
             {
                 ability.Source = spell.Id;
-                ability.Owner = spell.Owner;
+                ability.Controller = spell.Owner;
                 ability.Resolve(game);
             }
-            var effects = game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>());
+        }
 
+        /// <summary>
+        /// 608.2m As the final part of a spell’s resolution, the spell is put into its owner’s graveyard.
+        /// </summary>
+        /// <param name="spell"></param>
+        /// <param name="game"></param>
+        private void FinishCastingSpell(ICard spell, IGame game)
+        {
             // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
             var newObject = new Card(spell, game.GetTimestamp());
             ZoneType destination;
-            if (effects.Any())
+            try
             {
-                game.GetPlayer(newObject.Owner)?.ManaZone.Add(newObject, game);
-                destination = ZoneType.ManaZone;
+                if (game.GetContinuousEffects<ChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<ChargerEffect>()).Any())
+                {
+                    game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
+                    destination = ZoneType.ManaZone;
+                }
+                else
+                {
+                    game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
+                    destination = ZoneType.Graveyard;
+                }
+                game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
             }
-            else
+            catch (PlayerNotInGameException)
             {
-                game.GetPlayer(newObject.Owner)?.Graveyard.Add(newObject, game);
-                destination = ZoneType.Graveyard;
             }
-            game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
         }
 
         public void DiscardAtRandom(IGame game, int amount)
@@ -449,7 +468,7 @@ namespace Engine
             // TODO: Implement reveal information on cards and remove them here.
         }
 
-        public void Discard(ICard[] cards, IGame game)
+        public void Discard(IGame game, params ICard[] cards)
         {
             _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
         }

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM07
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
                         source.Source,
-                        source.Owner,
+                        source.Controller,
                         new Durations.Indefinite(),
                         true));
             return null;

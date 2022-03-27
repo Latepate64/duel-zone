@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
+            var amount = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Civilizations.Contains(Civilization.Light)).Count();
             return new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
         }
 
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Owner).Where(x => x.Civilizations.Contains(Civilization.Darkness)).Count();
+            var amount = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Civilizations.Contains(Civilization.Darkness)).Count();
             return new HydroHurricaneBounceEffect(amount).Apply(game, source);
         }
 
