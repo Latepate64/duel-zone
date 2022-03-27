@@ -18,7 +18,7 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public IList<IPlayer> Players { get; } = new List<IPlayer>();
+        public IList<IPlayer> Players { get; } = new List<IPlayer>(); //TODO: Should be reworked to return players in APNAP order, or make method for that.
 
         public IPlayer Winner { get; private set; }
 
@@ -260,7 +260,7 @@ namespace Engine
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
                 var destroyed = new List<ICard> { loser };
-                if (GetContinuousEffects<SlayerEffect>(loser).ToList().Any())
+                if (GetContinuousEffects<SlayerEffect>(loser).Any(x => x.WorksAgainstFilter.Applies(winner, this, GetPlayer(winner.Owner))))
                 {
                     destroyed.Add(winner);
                 }

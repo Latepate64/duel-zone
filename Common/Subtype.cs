@@ -53,6 +53,7 @@
         SnowFaerie,
         Soltrooper,
         StarlightTree,
+        Survivor,
         TreeFolk,
         Xenoparts,
         ZombieDragon,

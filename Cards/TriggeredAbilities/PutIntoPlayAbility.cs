@@ -33,7 +33,7 @@ namespace Cards.TriggeredAbilities
             return base.CanTrigger(gameEvent, game) && gameEvent is CardMovedEvent e && e.Destination == ZoneType.BattleZone;
         }
 
-        public override Ability Copy()
+        public override IAbility Copy()
         {
             return new PutIntoPlayAbility(this);
         }

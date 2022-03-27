@@ -16,13 +16,14 @@ namespace Engine.Steps
         public override void PerformTurnBasedAction(IGame game)
         {
             var nonActive = game.CurrentTurn.NonActivePlayer;
-            var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any());
+            var attackingCreature = game.GetCard(Phase.AttackingCreature);
+            var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any(x => x.BlockableCreatures.Applies(attackingCreature, game, game.GetOwner(attackingCreature))));
             if (possibleBlockers.Any())
             {
-                var effects = game.GetContinuousEffects<UnblockableEffect>(game.GetCard(Phase.AttackingCreature));
+                var effects = game.GetContinuousEffects<UnblockableEffect>(attackingCreature);
                 possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game, game.GetPlayer(b.Owner))));
             }
-            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(game.GetCard(Phase.AttackingCreature)).Any())
+            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(attackingCreature).Any())
             {
                 ChooseBlocker(game, nonActive, possibleBlockers);
             }

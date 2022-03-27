@@ -23,6 +23,7 @@ namespace Engine
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
         IEnumerable<T> GetAbilities<T>();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
+        void Break(IGame game, int breakAmount);
         void InitializeAbilities();
         void PutOnTopOf(ICard bait);
         void ResetToPrintedValues();

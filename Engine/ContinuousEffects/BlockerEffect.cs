@@ -2,12 +2,16 @@
 {
     public class BlockerEffect : ContinuousEffect
     {
-        public BlockerEffect(ICardFilter filter, params Condition[] conditions) : base(filter, conditions)
+        public ICardFilter BlockableCreatures { get; }
+
+        public BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, params Condition[] conditions) : base(filter, conditions)
         {
+            BlockableCreatures = blockableCreatures;
         }
 
         public BlockerEffect(BlockerEffect effect) : base(effect)
         {
+            BlockableCreatures = effect.BlockableCreatures.Copy();
         }
 
         public override ContinuousEffect Copy()

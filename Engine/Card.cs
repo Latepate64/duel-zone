@@ -1,4 +1,5 @@
 ﻿using Combinatorics.Collections;
+using Common.GameEvents;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
@@ -194,6 +195,13 @@ namespace Engine
         public bool CanAttack(ICard creature, IGame game)
         {
             return !game.GetContinuousEffects<CannotBeAttackedEffect>(creature).Any(x => x.AttackerFilter.Applies(this, game, game.GetOwner(this)));
+        }
+
+        public void Break(IGame game, int breakAmount)
+        {
+            var opponent = game.GetOpponent(game.GetPlayer(Owner));
+            game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
+            game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
     }
 }
