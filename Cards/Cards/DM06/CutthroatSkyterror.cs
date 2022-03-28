@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
         {
             AddSpeedAttackerAbility();
             AddThisCreatureCannotAttackPlayersAbility();
-            AddTriggeredAbility(new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
+            AddAtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect());
         }
     }
 }
