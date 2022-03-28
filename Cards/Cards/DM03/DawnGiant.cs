@@ -1,6 +1,4 @@
-﻿using Cards.StaticAbilities;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     class DawnGiant : Creature
     {

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public ReBilSeekerOfArchery() : base("Re Bil, Seeker of Archery", 7, 6000, Subtype.MechaThunder, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.EachOtherCivilizationCreaturePowerAbility(Civilization.Light, 2000), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new EachOtherCivilizationCreaturePowerEffect(Civilization.Light, 2000));
+            AddDoubleBreakerAbility();
         }
     }
 }

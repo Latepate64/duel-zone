@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public Gigabolver() : base("Gigabolver", 4, 3000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsAbility(Civilization.Light));
+            AddStaticAbilities(new PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization.Light));
         }
     }
 }

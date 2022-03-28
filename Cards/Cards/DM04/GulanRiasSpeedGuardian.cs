@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Subtype.Guardian, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotBeAttackedByCivilizationCreaturesAbility(Civilization.Darkness), new StaticAbilities.ThisCreatureCannotBeBlockedByCivilizationCreaturesAbility(Civilization.Darkness));
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Darkness), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization.Darkness));
         }
     }
 }

@@ -7,14 +7,7 @@ namespace Cards.Cards.DM04
     {
         public PippieKuppie() : base("Pippie Kuppie", 2, 1000, Subtype.FireBird, Civilization.Fire)
         {
-            AddAbilities(new PippieKuppieAbility());
-        }
-    }
-
-    class PippieKuppieAbility : Engine.Abilities.StaticAbility
-    {
-        public PippieKuppieAbility() : base(new PippieKuppieEffect())
-        {
+            AddStaticAbilities(new PippieKuppieEffect());
         }
     }
 

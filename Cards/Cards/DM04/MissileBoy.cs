@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public MissileBoy() : base("Missile Boy", 3, 1000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.EachCivilizationCardCostsMoreAbility(Civilization.Light, 1));
+            AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(Civilization.Light, 1));
         }
     }
 }

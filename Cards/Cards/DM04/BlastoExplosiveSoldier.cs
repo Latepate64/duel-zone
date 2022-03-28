@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public BlastoExplosiveSoldier() : base("Blasto, Explosive Soldier", 3, 2000, Subtype.Dragonoid, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.WhileYouControlCivilizationCreatureThisCreatureGetsPowerAbility(Civilization.Darkness, 2000));
+            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization.Darkness, 2000));
         }
     }
 }
