@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM02
 {
@@ -7,7 +6,8 @@ namespace Cards.Cards.DM02
     {
         public LadiaBaleTheInspirational() : base("Ladia Bale, the Inspirational", 6, 9500, Subtype.Guardian, Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new DoubleBreakerAbility());
+            AddBlockerAbility();
+            AddDoubleBreakerAbility();
         }
     }
 }

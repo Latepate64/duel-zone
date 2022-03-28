@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM02
     {
         public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Subtype.BeastFolk, Civilization.Nature)
         {
-            AddAbilities(new BarkwhipTheSmasherAbility());
-        }
-    }
-
-    class BarkwhipTheSmasherAbility : StaticAbility
-    {
-        public BarkwhipTheSmasherAbility() : base(new BarkwhipTheSmasherEffect())
-        {
+            AddStaticAbilities(new BarkwhipTheSmasherEffect());
         }
     }
 

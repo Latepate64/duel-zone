@@ -1,5 +1,4 @@
-﻿using Cards.TriggeredAbilities;
-using Common;
+﻿using Common;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
@@ -8,7 +7,8 @@ namespace Cards.Cards.DM05
     {
         public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new WheneverThisCreatureAttacksAbility(new BloodwingMantisEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddWheneverThisCreatureAttacksAbility(new BloodwingMantisEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

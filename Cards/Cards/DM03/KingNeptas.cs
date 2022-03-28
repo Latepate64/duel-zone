@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public KingNeptas() : base("King Neptas", 6, 5000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new KingNeptasEffect()));
+            AddWheneverThisCreatureAttacksAbility(new KingNeptasEffect());
         }
     }
 

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public KingPonitas() : base("King Ponitas", 8, 4000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new KingPonitasEffect()));
+            AddWheneverThisCreatureAttacksAbility(new KingPonitasEffect());
         }
     }
 

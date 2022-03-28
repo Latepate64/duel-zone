@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public PropellerMutant() : base("Propeller Mutant", 2, 1000, Subtype.Hedrian, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new OneShotEffects.OpponentRandomDiscardEffect()));
+            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.OpponentRandomDiscardEffect());
         }
     }
 }

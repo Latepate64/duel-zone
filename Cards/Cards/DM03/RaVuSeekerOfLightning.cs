@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Common.Subtype.MechaThunder, Common.Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect()));
+            AddWheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect());
         }
     }
 

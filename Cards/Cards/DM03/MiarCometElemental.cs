@@ -4,7 +4,7 @@
     {
         public MiarCometElemental() : base("Miar, Comet Elemental", 8, 11500, Common.Subtype.AngelCommand, Common.Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility());
+            AddDoubleBreakerAbility();
         }
     }
 }

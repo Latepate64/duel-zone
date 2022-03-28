@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM02
     {
         public ArmoredCannonBalbaro() : base("Armored Cannon Balbaro", 3, 3000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new ArmoredCannonBalbaroAbility());
-        }
-    }
-
-    class ArmoredCannonBalbaroAbility : StaticAbility
-    {
-        public ArmoredCannonBalbaroAbility() : base(new ArmoredCannonBalbaroEffect())
-        {
+            AddStaticAbilities(new ArmoredCannonBalbaroEffect());
         }
     }
 

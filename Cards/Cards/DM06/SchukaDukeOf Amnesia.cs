@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect()));
+            AddWhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect());
         }
     }
 

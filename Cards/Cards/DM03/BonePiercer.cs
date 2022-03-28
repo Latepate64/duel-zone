@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public BonePiercer() : base("Bone Piercer", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new BonePiercerEffect()));
+            AddWhenThisCreatureIsDestroyedAbility(new BonePiercerEffect());
         }
     }
 

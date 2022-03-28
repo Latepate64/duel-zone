@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
     {
         public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect()));
+            AddWhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect());
         }
     }
 

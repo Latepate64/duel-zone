@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public SmileAngler() : base("Smile Angler", 6, 3000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new SmileAnglerEffect()));
+            AddWheneverThisCreatureAttacksAbility(new SmileAnglerEffect());
         }
     }
 

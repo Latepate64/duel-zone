@@ -11,7 +11,7 @@ namespace Cards.Cards.DM03
     {
         public Flametropus() : base("Flametropus", 4, 3000, Subtype.RockBeast, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new FlametropusOneShotEffect()));
+            AddWheneverThisCreatureAttacksAbility(new FlametropusOneShotEffect());
         }
     }
 

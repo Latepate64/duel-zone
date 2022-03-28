@@ -98,6 +98,16 @@ namespace Cards
         {
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(effect));
         }
+
+        protected void AddWheneverThisCreatureAttacksAbility(IOneShotEffect effect)
+        {
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(effect));
+        }
+
+        protected void AddWhenThisCreatureIsDestroyedAbility(IOneShotEffect effect)
+        {
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(effect));
+        }
         #endregion Triggered abilities
     }
 }

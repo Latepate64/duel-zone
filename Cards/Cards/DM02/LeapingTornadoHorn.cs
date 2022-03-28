@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public LeapingTornadoHorn() : base("Leaping Tornado Horn", 3, 2000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.LeapingTornadoHornAbility());
+            AddStaticAbilities(new LeapingTornadoHornEffect());
         }
     }
 }

@@ -6,7 +6,8 @@ namespace Cards.Cards.DM02
     {
         public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new MetalwingSkyterrorEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddWheneverThisCreatureAttacksAbility(new MetalwingSkyterrorEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

@@ -8,7 +8,8 @@ namespace Cards.Cards.DM02
     {
         public SpiralGrass() : base("Spiral Grass", 4, 2500, Subtype.StarlightTree, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new BlockAbility(new UntapItAfterItBattlesEffect()));
+            AddBlockerAbility();
+            AddTriggeredAbility(new BlockAbility(new UntapItAfterItBattlesEffect()));
         }
     }
 }

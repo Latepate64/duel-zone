@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
     {
         public SteamRumblerKain() : base("Steam Rumbler Kain", 4, 5000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
+            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -9,14 +8,8 @@ namespace Cards.Cards.DM02
     {
         public KingNautilus() : base("King Nautilus", 8, 6000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new KingNautilusAbility(), new StaticAbilities.DoubleBreakerAbility());
-        }
-    }
-
-    class KingNautilusAbility : StaticAbility
-    {
-        public KingNautilusAbility() : base(new KingNautilusEffect())
-        {
+            AddStaticAbilities(new KingNautilusEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

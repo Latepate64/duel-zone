@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public Psyshroom() : base("Psyshroom", 4, 2000, Common.Subtype.BalloonMushroom, Common.Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new PsyshroomEffect()));
+            AddWheneverThisCreatureAttacksAbility(new PsyshroomEffect());
         }
     }
 

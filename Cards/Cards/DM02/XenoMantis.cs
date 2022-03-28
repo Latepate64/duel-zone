@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
@@ -6,7 +6,8 @@ namespace Cards.Cards.DM02
     {
         public XenoMantis() : base("Xeno Mantis", 7, 6000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            AddAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(5000), new DoubleBreakerAbility());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));
+            AddDoubleBreakerAbility();
         }
     }
 }

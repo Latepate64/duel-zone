@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM02
     {
         public DogarnTheMarauder() : base("Dogarn, the Marauder", 3, 2000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new DogarnTheMarauderAbility());
-        }
-    }
-
-    class DogarnTheMarauderAbility : StaticAbility
-    {
-        public DogarnTheMarauderAbility() : base(new DogarnTheMarauderEffect())
-        {
+            AddStaticAbilities(new DogarnTheMarauderEffect());
         }
     }
 

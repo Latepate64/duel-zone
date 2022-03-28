@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public Galsaur() : base("Galsaur", 5, 4000, Subtype.RockBeast, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.GalsaurAbility());
+            AddStaticAbilities(new GalsaurEffect());
         }
     }
 }

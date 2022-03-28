@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public PoisonWorm() : base("Poison Worm", 4, 4000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonWormEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonWormEffect());
         }
     }
 
