@@ -9,7 +9,7 @@ namespace Cards.Cards.DM07
     {
         public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new TapAbility(new ArmoredTransportGaliacruseEffect()));
+            AddTapAbility(new ArmoredTransportGaliacruseEffect());
         }
     }
 

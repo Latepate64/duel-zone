@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public ParadiseHorn() : base("Paradise Horn", 4, 3000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(2000));
+            AddPowerAttackerAbility(2000);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,9 @@ namespace Cards.Cards.DM05
     {
         public NocturnalGiant() : base("Nocturnal Giant", 7, 7000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotAttackCreaturesAbility(), new StaticAbilities.PowerAttackerAbility(7000), new StaticAbilities.TripleBreakerAbility());
+            AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
+            AddPowerAttackerAbility(7000);
+            AddTripleBreakerAbility();
         }
     }
 }

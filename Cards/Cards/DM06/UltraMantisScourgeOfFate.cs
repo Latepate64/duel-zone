@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM06
     {
         public UltraMantisScourgeOfFate() : base("Ultra Mantis, Scourge of Fate", 6, 9000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(8000), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(8000));
+            AddDoubleBreakerAbility();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public GrimSoulShadowOfReversal() : base("Grim Soul, Shadow of Reversal", 5, 3000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new TapAbility(new GrimSoulShadowOfReversalEffect()));
+            AddTapAbility(new GrimSoulShadowOfReversalEffect());
         }
     }
 

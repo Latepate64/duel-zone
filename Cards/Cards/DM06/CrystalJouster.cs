@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM06
     {
         public CrystalJouster() : base("Crystal Jouster", 7, 7000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new StaticAbilities.WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadAbility());
+            AddDoubleBreakerAbility();
+            AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }
     }
 }

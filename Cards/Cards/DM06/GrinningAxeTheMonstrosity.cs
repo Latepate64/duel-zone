@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public GrinningAxeTheMonstrosity() : base("Grinning Axe, the Monstrosity", 3, 1000, Subtype.DevilMask, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.SlayerAbility());
+            AddSlayerAbility();
         }
     }
 }

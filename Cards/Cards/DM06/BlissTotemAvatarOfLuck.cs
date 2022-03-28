@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public BlissTotemAvatarOfLuck() : base("Bliss Totem, Avatar of Luck", 6, 5000, Subtype.MysteryTotem, Civilization.Nature)
         {
-            AddAbilities(new TapAbility(new BlissTotemAvatarOfLuckEffect()));
+            AddTapAbility(new BlissTotemAvatarOfLuckEffect());
         }
     }
 

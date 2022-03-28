@@ -114,5 +114,10 @@ namespace Cards
             AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(effect));
         }
         #endregion Triggered abilities
+
+        protected void AddTapAbility(IOneShotEffect effect)
+        {
+            AddAbilities(new TapAbility(effect));
+        }
     }
 }

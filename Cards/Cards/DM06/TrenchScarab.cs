@@ -6,7 +6,8 @@ namespace Cards.Cards.DM06
     {
         public TrenchScarab() : base("Trench Scarab", 3, 4000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotAttackPlayersAbility(), new StaticAbilities.PowerAttackerAbility(4000));
+            AddThisCreatureCannotAttackPlayersAbility();
+            AddPowerAttackerAbility(4000);
         }
     }
 }

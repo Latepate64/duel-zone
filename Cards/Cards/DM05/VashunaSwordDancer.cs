@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM05
     {
         public VashunaSwordDancer() : base("Vashuna, Sword Dancer", 5, 7000, Subtype.DemonCommand, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.WhileYourOpponentHasNoShieldsThisCreatureCannotAttackAbility(), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect());
+            AddDoubleBreakerAbility();
         }
     }
 }

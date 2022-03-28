@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public BroodShell() : base("Brood Shell", 4, 3000, Subtype.ColonyBeetle, Civilization.Nature)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.ReturnCreatureFromYourManaZoneToYourHandEffect()));
+            AddTapAbility(new OneShotEffects.ReturnCreatureFromYourManaZoneToYourHandEffect());
         }
     }
 }

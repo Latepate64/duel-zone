@@ -8,7 +8,8 @@ namespace Cards.Cards.DM07
     {
         public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Subtype.MechaThunder, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new TapAbility(new GandarSeekerOfExplosionsEffect()));
+            AddDoubleBreakerAbility();
+            AddTapAbility(new GandarSeekerOfExplosionsEffect());
         }
     }
 

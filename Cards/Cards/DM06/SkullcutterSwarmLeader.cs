@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public SkullcutterSwarmLeader() : base("Skullcutter, Swarm Leader", 4, 4000, Subtype.DevilMask, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility());
+            AddTriggeredAbility(new TriggeredAbilities.AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility());
         }
     }
 }

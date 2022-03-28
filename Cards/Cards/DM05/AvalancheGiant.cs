@@ -6,7 +6,9 @@ namespace Cards.Cards.DM05
     {
         public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotAttackCreaturesAbility(), new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ItBreaksOneOfYourOpponentsShieldsEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotAttackCreaturesEffect());
+            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ItBreaksOneOfYourOpponentsShieldsEffect()));
+            AddDoubleBreakerAbility();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public PhantasmalHorrorGigazald() : base("Phantasmal Horror Gigazald", 5, 5000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.TapAbilityAddingAbility(Civilization.Darkness, new OneShotEffects.OpponentRandomDiscardEffect()));
+            AddStaticAbilities(new TapAbilityAddingEffect(Civilization.Darkness, new OneShotEffects.OpponentRandomDiscardEffect()));
         }
     }
 }

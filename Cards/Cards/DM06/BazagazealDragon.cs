@@ -1,6 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
-using Cards.TriggeredAbilities;
 using Common;
 
 namespace Cards.Cards.DM06
@@ -9,7 +7,10 @@ namespace Cards.Cards.DM06
     {
         public BazagazealDragon() : base("Bazagazeal Dragon", 8, 8000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            AddAbilities(new SpeedAttackerAbility(), new ThisCreatureCanAttackUntappedCreaturesAbility(), new DoubleBreakerAbility(), new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
+            AddSpeedAttackerAbility();
+            AddThisCreatureCanAttackUntappedCreaturesAbility();
+            AddDoubleBreakerAbility();
+            AddAtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect());
         }
     }
 }

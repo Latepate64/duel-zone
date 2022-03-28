@@ -6,7 +6,8 @@ namespace Cards.Cards.DM06
     {
         public ValiantWarriorExorious() : base("Valiant Warrior Exorious", 6, 4000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(), new StaticAbilities.PowerAttackerAbility(3000));
+            AddThisCreatureCanAttackUntappedCreaturesAbility();
+            AddPowerAttackerAbility(3000);
         }
     }
 }

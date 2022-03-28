@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public CrowWinger() : base("Crow Winger", 2, 1000, Subtype.BeastFolk, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsAbility(1000, Civilization.Water, Civilization.Darkness));
+            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Civilization.Water, Civilization.Darkness));
         }
     }
 }

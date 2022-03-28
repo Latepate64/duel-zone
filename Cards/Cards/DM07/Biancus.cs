@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
         public Biancus() : base("Biancus", 6, 3000, Subtype.SeaHacker, Civilization.Water)
         {
             AddBlockerAbility();
-            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect()));
+            AddTapAbility(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect());
         }
     }
 }

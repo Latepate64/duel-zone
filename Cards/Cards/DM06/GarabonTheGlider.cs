@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public GarabonTheGlider() : base("Garabon, the Glider", 2, 1000, Subtype.SnowFaerie, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(2000));
+            AddPowerAttackerAbility(2000);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public KiposContraption() : base("Kipo's Contraption", 6, 3000, Subtype.Xenoparts, Civilization.Fire)
         {
-            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000)));
+            AddTapAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
         }
     }
 }

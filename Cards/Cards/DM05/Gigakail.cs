@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public Gigakail() : base("Gigakail", 5, 4000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.CivilizationSlayerAbility(Civilization.Nature, Civilization.Light));
+            AddStaticAbilities(new CivilizationSlayerEffect(Civilization.Nature, Civilization.Light));
         }
     }
 }

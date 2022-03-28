@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public MightyBanditAceOfThieves() : base("Mighty Bandit, Ace of Thieves", 3, 2000, Subtype.BeastFolk, Civilization.Nature)
         {
-            AddAbilities(new TapAbility(new MightyBanditAceOfThievesEffect()));
+            AddTapAbility(new MightyBanditAceOfThievesEffect());
         }
     }
 
