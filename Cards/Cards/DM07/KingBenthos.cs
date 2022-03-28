@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Cards.Cards.DM07
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
-                new StaticAbilities.ThisCreatureCannotBeBlockedAbility()));
+                new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
             return null;
         }
 

@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 
@@ -14,7 +13,7 @@ namespace Cards.ContinuousEffects
             _ability = effect._ability.Copy();
         }
 
-        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(ICardFilter filter, IAbility ability) : base(filter, new Durations.UntilTheEndOfTheTurn(), new SpeedAttackerAbility())
+        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(ICardFilter filter, IAbility ability) : base(filter, new Durations.UntilTheEndOfTheTurn(), ability)
         {
             _ability = ability;
         }

@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.StaticAbilities;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM08

@@ -122,12 +122,12 @@ namespace Cards
 
         protected void AddSurvivorAbility(Engine.ContinuousEffects.IContinuousEffect effect)
         {
-            AddAbilities(new StaticAbilities.SurvivorAbility(new StaticAbility(effect)));
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(effect)));
         }
 
         protected void AddSurvivorAbility(ITriggeredAbility ability)
         {
-            AddAbilities(new StaticAbilities.SurvivorAbility(ability));
+            AddStaticAbilities(new SurvivorEffect(ability));
         }
     }
 }

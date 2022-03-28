@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM10
 {

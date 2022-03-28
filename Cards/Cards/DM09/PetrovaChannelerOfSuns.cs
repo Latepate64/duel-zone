@@ -1,8 +1,6 @@
 ﻿using Cards.ContinuousEffects;
-using Cards.StaticAbilities;
 using Common;
 using Common.GameEvents;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
 
