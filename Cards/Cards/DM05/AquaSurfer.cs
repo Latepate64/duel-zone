@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM05
 {
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM05
         public AquaSurfer() : base("Aqua Surfer", 6, 2000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
         {
             ShieldTrigger = true;
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect());
         }
     }
 }

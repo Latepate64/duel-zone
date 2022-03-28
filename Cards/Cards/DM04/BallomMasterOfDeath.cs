@@ -7,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Subtype.DemonCommand, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

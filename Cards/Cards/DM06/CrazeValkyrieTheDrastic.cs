@@ -6,7 +6,8 @@ namespace Cards.Cards.DM06
     {
         public CrazeValkyrieTheDrastic() : base("Craze Valkyrie, the Drastic", 6, 7500, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(2)), new StaticAbilities.DoubleBreakerAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(2));
+            AddDoubleBreakerAbility();
         }
     }
 }

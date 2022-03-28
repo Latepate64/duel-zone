@@ -11,7 +11,8 @@ namespace Cards.Cards.DM04
     {
         public KingAquakamui() : base("King Aquakamui", 7, 5000, Subtype.Leviathan, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()), new KingAquakamuiStaticAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect());
+            AddStaticAbilities(new KingAquakamuiContinuousEffect());
         }
     }
 
@@ -34,13 +35,6 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "You may return all Angel Commands and all Demon Commands from your graveyard to your hand.";
-        }
-    }
-
-    class KingAquakamuiStaticAbility : StaticAbility
-    {
-        public KingAquakamuiStaticAbility() : base(new KingAquakamuiContinuousEffect())
-        {
         }
     }
 

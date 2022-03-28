@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public UliyaTheEntrancer() : base("Uliya, the Entrancer", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCanUseShieldTriggerEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCanUseShieldTriggerEffect());
         }
     }
 }

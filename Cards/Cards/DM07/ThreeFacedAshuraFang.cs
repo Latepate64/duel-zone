@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public ThreeFacedAshuraFang() : base("Three-Faced Ashura Fang", 4, 4000, Subtype.DevilMask, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -7,7 +6,9 @@ namespace Cards.Cards.DM07
     {
         public Gigabuster() : base("Gigabuster", 5, 5000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect()), new ThisCreatureCannotAttackAbility());
+            AddBlockerAbility();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect());
+            AddThisCreatureCannotAttackAbility();
         }
     }
 }

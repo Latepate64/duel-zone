@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
@@ -8,8 +7,7 @@ namespace Cards.Cards.DM04
         public Locomotiver() : base("Locomotiver", 4, 1000, Common.Subtype.Hedrian, Common.Civilization.Darkness)
         {
             ShieldTrigger = true;
-            // When you put this creature into the battle zone, your opponent discards a card at random from his hand.
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect());
         }
     }
 }

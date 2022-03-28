@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public ScissorScarab() : base("Scissor Scarab", 7, 5000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSubtypeCreatureEffect(Subtype.GiantInsect)));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSubtypeCreatureEffect(Subtype.GiantInsect));
         }
     }
 }

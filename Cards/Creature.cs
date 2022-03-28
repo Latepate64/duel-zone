@@ -72,6 +72,11 @@ namespace Cards
             AddStaticAbilities(new DoubleBreakerEffect());
         }
 
+        protected void AddTripleBreakerAbility()
+        {
+            AddStaticAbilities(new TripleBreakerEffect());
+        }
+
         protected void AddThisCreatureCannotAttackPlayersAbility()
         {
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
@@ -80,6 +85,11 @@ namespace Cards
         protected void AddThisCreatureCanAttackUntappedCreaturesAbility()
         {
             AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+        }
+
+        protected void AddSpeedAttackerAbility()
+        {
+            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
         }
         #endregion Static abilities
 

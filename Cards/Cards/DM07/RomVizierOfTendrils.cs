@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public RomVizierOfTendrils() : base("Rom, Vizier of Tendrils", 4, 2000, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect());
         }
     }
 }
