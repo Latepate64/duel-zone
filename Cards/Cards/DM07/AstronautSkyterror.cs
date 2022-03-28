@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public AstronautSkyterror() : base("Astronaut Skyterror", 5, 4000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.GalsaurAbility());
+            AddStaticAbilities(new GalsaurEffect());
         }
     }
 }

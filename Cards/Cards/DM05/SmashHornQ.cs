@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM05
         public SmashHornQ() : base("Smash Horn Q", 3, 2000, Civilization.Nature)
         {
             AddSubtypes(Subtype.Survivor, Subtype.HornedBeast);
-            AddAbilities(new StaticAbilities.SurvivorAbility(new StaticAbilities.ThisCreatureGetsPowerAbility(1000)));
+            AddSurvivorAbility(new ThisCreatureGetsPowerEffect(1000));
         }
     }
 }

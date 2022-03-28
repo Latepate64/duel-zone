@@ -119,5 +119,15 @@ namespace Cards
         {
             AddAbilities(new TapAbility(effect));
         }
+
+        protected void AddSurvivorAbility(Engine.ContinuousEffects.IContinuousEffect effect)
+        {
+            AddAbilities(new StaticAbilities.SurvivorAbility(new StaticAbility(effect)));
+        }
+
+        protected void AddSurvivorAbility(ITriggeredAbility ability)
+        {
+            AddAbilities(new StaticAbilities.SurvivorAbility(ability));
+        }
     }
 }

@@ -6,7 +6,9 @@ namespace Cards.Cards.DM07
     {
         public OtherworldlyWarriorNaglu() : base("Otherworldly Warrior Naglu", 6, 4000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotBeAttackedAbility(), new StaticAbilities.PowerAttackerAbility(3000), new StaticAbilities.DoubleBreakerAbility());
+            AddThisCreatureCannotBeAttackedAbility();
+            AddPowerAttackerAbility(3000);
+            AddDoubleBreakerAbility();
         }
     }
 }

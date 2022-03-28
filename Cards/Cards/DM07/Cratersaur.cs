@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM07
     {
         public Cratersaur() : base("Cratersaur", 3, 2000, Subtype.RockBeast, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.WhileYouHaveNoShieldsAbility(new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(), new StaticAbilities.PowerAttackerAbility(3000)));
+            AddStaticAbilities(new WhileYouHaveNoShieldsEffect(new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility()));
+            AddPowerAttackerAbility(3000);
         }
     }
 }

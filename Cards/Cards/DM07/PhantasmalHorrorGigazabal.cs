@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM07
     {
         public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.StealthAbility(Civilization.Light), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new StealthEffect(Civilization.Light));
+            AddDoubleBreakerAbility();
         }
     }
 }

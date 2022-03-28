@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 using Common.GameEvents;
 using Engine.Abilities;
@@ -11,20 +12,14 @@ namespace Cards.Cards.DM09
     {
         public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, 3500, Subtype.MechaDelSol, Civilization.Light)
         {
-            AddAbilities(new PetrovaChannelerOfSunsAbility(), new OpponentCannotChooseThisCreatureAbility());
+            AddStaticAbilities(new PetrovaChannelerOfSunsEffect(), new OpponentCannotChooseThisCreatureEffect());
         }
     }
 
-    class PetrovaChannelerOfSunsAbility : StaticAbility
-    {
-        public PetrovaChannelerOfSunsAbility() : base(new PetrovaChannelerOfSunsEffect(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }))
-        {
-        }
-    }
-
+    //TODO: Rework
     class PetrovaChannelerOfSunsEffect : ReplacementEffect
     {
-        public PetrovaChannelerOfSunsEffect(GameEvent gameEvent) : base(gameEvent, new Engine.TargetFilter(), new Durations.Indefinite())
+        public PetrovaChannelerOfSunsEffect() : base(new CardMovedEvent { Source = ZoneType.Anywhere, Destination = ZoneType.BattleZone }, new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 

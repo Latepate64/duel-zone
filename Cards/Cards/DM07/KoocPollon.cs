@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public KoocPollon() : base("Kooc Pollon", 2, 1000, Subtype.FireBird, Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotBeAttackedAbility());
+            AddThisCreatureCannotBeAttackedAbility();
         }
     }
 }

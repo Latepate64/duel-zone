@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM07
     {
         public StingerHornTheDelver() : base("Stinger Horn, the Delver", 4, 3000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(1000), new StaticAbilities.StealthAbility(Civilization.Water));
+            AddPowerAttackerAbility(1000);
+            AddStaticAbilities(new StealthEffect(Civilization.Water));
         }
     }
 }

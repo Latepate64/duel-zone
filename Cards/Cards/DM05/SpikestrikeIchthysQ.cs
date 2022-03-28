@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM05
         public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, Civilization.Water)
         {
             AddSubtypes(Subtype.Survivor, Subtype.Fish);
-            AddAbilities(new StaticAbilities.SurvivorAbility(new StaticAbilities.ThisCreatureCannotBeBlockedAbility()));
+            AddSurvivorAbility(new ThisCreatureCannotBeBlockedEffect());
         }
     }
 }

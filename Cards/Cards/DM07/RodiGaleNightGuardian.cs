@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public RodiGaleNightGuardian() : base("Rodi Gale, Night Guardian", 4, 3500, Subtype.Guardian, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.StealthAbility(Civilization.Darkness));
+            AddStaticAbilities(new StealthEffect(Civilization.Darkness));
         }
     }
 }

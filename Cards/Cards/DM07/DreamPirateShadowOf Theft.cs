@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public DreamPirateShadowOfTheft() : base("Dream Pirate, Shadow of Theft", 4, 3000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.GigastandAbility());
+            AddStaticAbilities(new GigastandEffect());
         }
     }
 }
