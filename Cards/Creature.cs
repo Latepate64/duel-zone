@@ -129,5 +129,10 @@ namespace Cards
         {
             AddStaticAbilities(new SurvivorEffect(ability));
         }
+
+        protected void AddTurboRushAbility(ITriggeredAbility ability)
+        {
+            AddStaticAbilities(new TurboRushEffect(ability));
+        }
     }
 }
