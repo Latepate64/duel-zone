@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public MaskedPomegranate() : base("Masked Pomegranate", 5, 1000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Nature), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(4000));
+            AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Civilization.Nature), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
         }
     }
 }

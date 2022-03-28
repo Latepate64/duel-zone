@@ -7,14 +7,7 @@ namespace Cards.Cards.DM03
     {
         public SparkleFlower() : base("Sparkle Flower", 4, 3000, Subtype.StarlightTree, Civilization.Light)
         {
-            AddAbilities(new SparkleFlowerAbility());
-        }
-    }
-
-    class SparkleFlowerAbility : Engine.Abilities.StaticAbility
-    {
-        public SparkleFlowerAbility() : base(new SparkleFlowerEffect())
-        {
+            AddStaticAbilities(new SparkleFlowerEffect());
         }
     }
 

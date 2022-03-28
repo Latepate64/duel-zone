@@ -11,14 +11,8 @@ namespace Cards.Cards.DM03
     {
         public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
         {
-            AddAbilities(new BlazeCannonAbility(), new SpellAbility(new BlazeCannonBuffEffect()));
-        }
-    }
-
-    class BlazeCannonAbility : StaticAbility
-    {
-        public BlazeCannonAbility() : base(new BlazeCannonRestrictionEffect())
-        {
+            AddStaticAbilities(new BlazeCannonRestrictionEffect());
+            AddSpellAbilities(new BlazeCannonBuffEffect());
         }
     }
 

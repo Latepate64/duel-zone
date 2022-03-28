@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM03
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public Mudman() : base("Mudman", 4, 2000, Subtype.Hedrian, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility(Civilization.Darkness, 2000));
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization.Darkness, 2000));
         }
     }
 }

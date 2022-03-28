@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public SwordButterfly() : base("Sword Butterfly", 3, 2000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(3000));
+            AddPowerAttackerAbility(3000);
         }
     }
 }

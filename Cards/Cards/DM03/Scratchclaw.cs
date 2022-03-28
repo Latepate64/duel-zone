@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,8 @@ namespace Cards.Cards.DM03
     {
         public Scratchclaw() : base("Scratchclaw", 4, 1000, Subtype.Hedrian, Civilization.Darkness)
         {
-            AddAbilities(new SlayerAbility(), new GetsPowerForEachOtherCivilizationCreatureYouControlAbility(Civilization.Darkness));
+            AddSlayerAbility();
+            AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Civilization.Darkness));
         }
     }
 }

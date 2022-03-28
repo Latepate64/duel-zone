@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public AlessTheOracle() : base("Aless, the Oracle", 6, 1000, Subtype.LightBringer, Civilization.Light)
         {
-            AddAbilities(new WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadAbility());
+            AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect());
         }
     }
 }

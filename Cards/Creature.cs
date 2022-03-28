@@ -2,7 +2,6 @@
 using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards
 {
@@ -33,15 +32,6 @@ namespace Cards
         }
 
         #region Static abilities
-        /// <summary>
-        /// Creates a static ability for each continuous effect provided and add the abilities to the creature.
-        /// </summary>
-        /// <param name="effects"></param>
-        protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
-        {
-            AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
-        }
-
         protected void AddBlockerAbility()
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
