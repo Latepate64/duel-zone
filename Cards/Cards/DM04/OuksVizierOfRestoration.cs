@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public OuksVizierOfRestoration() : base("Ouks, Vizier of Restoration", 5, 1000, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadAbility());
+            AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public AquaFencer() : base("Aqua Fencer", 7, 3000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect()));
+            AddTapAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect());
         }
     }
 }

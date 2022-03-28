@@ -6,7 +6,8 @@ namespace Cards.Cards.DM06
     {
         public GnarvashMerchantOfBlood() : base("Gnarvash, Merchant of Blood", 6, 8000, Subtype.DemonCommand, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new TriggeredAbilities.AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility());
+            AddDoubleBreakerAbility();
+            AddTriggeredAbility(new TriggeredAbilities.AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility());
         }
     }
 }

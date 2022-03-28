@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM06
     {
         public LavaWalkerExecuto() : base("Lava Walker Executo", 4, 5000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
-            AddAbilities(new StaticAbilities.TapAbilityAddingAbility(Common.Civilization.Fire, new LavaWalkerExecutoEffect(3000)));
+            AddStaticAbilities(new TapAbilityAddingEffect(Common.Civilization.Fire, new LavaWalkerExecutoEffect(3000)));
         }
     }
 

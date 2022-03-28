@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
     {
         public StainedGlass() : base("Stained Glass", 3, 1000, Subtype.CyberVirus, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new StainedGlassEffect()));
+            AddWheneverThisCreatureAttacksAbility(new StainedGlassEffect());
         }
     }
 

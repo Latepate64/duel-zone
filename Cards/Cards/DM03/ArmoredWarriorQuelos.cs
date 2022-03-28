@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect()));
+            AddWheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect());
         }
     }
 

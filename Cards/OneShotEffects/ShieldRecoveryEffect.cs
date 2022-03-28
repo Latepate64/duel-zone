@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
         /// Must choose one of own shields.
         /// </summary>
         /// <param name="canUseShieldTrigger"></param>
-        protected ShieldRecoveryEffect(bool canUseShieldTrigger) : this(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, true, canUseShieldTrigger)
+        protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(new CardFilters.OwnersShieldZoneCardFilter(), amonunt, amonunt, true, canUseShieldTrigger)
         {
         }
 
@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
 
     class ShieldRecoveryCannotUseShieldTriggerEffect : ShieldRecoveryEffect
     {
-        public ShieldRecoveryCannotUseShieldTriggerEffect() : base(false)
+        public ShieldRecoveryCannotUseShieldTriggerEffect(int amount = 1) : base(false, amount)
         {
         }
 
@@ -49,7 +49,7 @@ namespace Cards.OneShotEffects
 
     class ShieldRecoveryCanUseShieldTriggerEffect : ShieldRecoveryEffect
     {
-        public ShieldRecoveryCanUseShieldTriggerEffect() : base(true)
+        public ShieldRecoveryCanUseShieldTriggerEffect() : base(true, 1)
         {
         }
 

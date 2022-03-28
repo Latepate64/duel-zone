@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public RazorpineTree() : base("Razorpine Tree", 5, 1000, Subtype.StarlightTree, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureGetsPowerForEachShieldYouHaveAbility(2000));
+            AddStaticAbilities(new ThisCreatureGetsPowerForEachShieldYouHaveEffect(2000));
         }
     }
 }

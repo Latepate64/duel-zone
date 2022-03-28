@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM01
@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public FatalAttackerHorvath() : base("Fatal Attacker Horvath", 3, 2000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksAbility(Subtype.Armorloid, 2000));
+            AddStaticAbilities(new WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype.Armorloid, 2000));
         }
     }
 }

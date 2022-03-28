@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public CantankerousGiant() : base("Cantankerous Giant", 7, 8000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility());
+            AddDoubleBreakerAbility();
         }
     }
 }

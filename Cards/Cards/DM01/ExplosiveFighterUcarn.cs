@@ -1,6 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -8,7 +6,8 @@ namespace Cards.Cards.DM01
     {
         public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, 9000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromYourManaZoneIntoYourGraveyard(2)), new DoubleBreakerAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromYourManaZoneIntoYourGraveyard(2));
+            AddDoubleBreakerAbility();
         }
     }
 }

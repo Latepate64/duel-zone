@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,8 @@ namespace Cards.Cards.DM02
     {
         public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new ArmoredBlasterValdiosAbility(), new StaticAbilities.DoubleBreakerAbility());
-        }
-    }
-
-    class ArmoredBlasterValdiosAbility : StaticAbility
-    {
-        public ArmoredBlasterValdiosAbility() : base(new ArmoredBlasterValdiosEffect())
-        {
+            AddStaticAbilities(new ArmoredBlasterValdiosEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

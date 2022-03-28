@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM04
@@ -7,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public AncientGiant() : base("Ancient Giant", 8, 9000, Subtype.Giant, Civilization.Nature)
         {
-            AddAbilities(new ThisCreatureCannotBeBlockedByCivilizationCreaturesAbility(Civilization.Darkness), new DoubleBreakerAbility());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization.Darkness));
+            AddDoubleBreakerAbility();
         }
     }
 }

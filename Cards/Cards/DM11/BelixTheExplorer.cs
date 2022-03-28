@@ -1,6 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Cards.TriggeredAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM11
 {
@@ -8,7 +6,9 @@ namespace Cards.Cards.DM11
     {
         public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Subtype.Gladiator, Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect()), new ThisCreatureCannotAttackPlayersAbility());
+            AddBlockerAbility();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());
+            AddThisCreatureCannotAttackPlayersAbility();
         }
     }
 }

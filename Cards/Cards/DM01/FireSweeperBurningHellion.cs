@@ -1,12 +1,10 @@
-﻿using Cards.StaticAbilities;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class FireSweeperBurningHellion : Creature
     {
         public FireSweeperBurningHellion() : base("Fire Sweeper Burning Hellion", 4, 3000, Common.Subtype.Dragonoid, Common.Civilization.Fire)
         {
-            AddAbilities(new PowerAttackerAbility(2000));
+            AddPowerAttackerAbility(2000);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Engine;
+﻿using Engine;
 using System.Linq;
 
 namespace Cards.CardFilters
@@ -12,7 +11,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return base.Applies(card, game, player) && !card.GetAbilities<OpponentCannotChooseThisCreatureAbility>().Any();
+            return base.Applies(card, game, player) && !game.GetContinuousEffects<ContinuousEffects.OpponentCannotChooseThisCreatureEffect>(card).Any();
         }
 
         public override CardFilter Copy()

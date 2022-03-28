@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public TowerShell() : base("Tower Shell", 6, 5000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            AddAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerAbility(4000));
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
         }
     }
 }

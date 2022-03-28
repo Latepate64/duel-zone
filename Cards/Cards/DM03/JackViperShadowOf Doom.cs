@@ -8,14 +8,7 @@ namespace Cards.Cards.DM03
     {
         public JackViperShadowOfDoom() : base("Jack Viper, Shadow of Doom", 3, 4000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new JackViperShadowOfDoomAbility());
-        }
-    }
-
-    class JackViperShadowOfDoomAbility : Engine.Abilities.StaticAbility
-    {
-        public JackViperShadowOfDoomAbility() : base(new JackViperShadowOfDoomEffect())
-        {
+            AddStaticAbilities(new JackViperShadowOfDoomEffect());
         }
     }
 

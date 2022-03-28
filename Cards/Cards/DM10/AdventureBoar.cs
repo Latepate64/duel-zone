@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public AdventureBoar() : base("Adventure Boar", 2, 1000, Subtype.BeastFolk, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(2000));
+            AddPowerAttackerAbility(2000);
         }
     }
 }

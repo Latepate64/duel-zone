@@ -38,7 +38,7 @@ namespace Engine.Abilities
             FunctionZone = ability.FunctionZone;
         }
 
-        public sealed override Ability Copy()
+        public sealed override IAbility Copy()
         {
             return new StaticAbility(this);
         }

@@ -7,13 +7,9 @@ namespace Cards.Cards.DM03
     {
         public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Subtype.ArmoredDragon, Civilization.Fire)
         {
-            AddAbilities(new ÜberdragonJabahaAbility(), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new ÜberdragonJabahaEffect());
+            AddDoubleBreakerAbility();
         }
-    }
-
-    class ÜberdragonJabahaAbility : Engine.Abilities.StaticAbility
-    {
-        public ÜberdragonJabahaAbility() : base(new ÜberdragonJabahaEffect()) { }
     }
 
     class ÜberdragonJabahaEffect : AbilityAddingEffect

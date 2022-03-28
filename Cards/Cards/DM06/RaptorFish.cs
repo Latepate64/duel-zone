@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public RaptorFish() : base("Raptor Fish", 6, 3000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect());
         }
     }
 

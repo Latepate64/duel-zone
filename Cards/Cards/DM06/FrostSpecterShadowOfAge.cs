@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM06
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM06
     {
         public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3, 5000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new FrostSpecterShadowOfAgeAbility());
-        }
-    }
-
-    class FrostSpecterShadowOfAgeAbility : StaticAbility
-    {
-        public FrostSpecterShadowOfAgeAbility() : base(new FrostSpecterShadowOfAgeEffect())
-        {
+            AddStaticAbilities(new FrostSpecterShadowOfAgeEffect());
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
 
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public ThornyMandra() : base("Thorny Mandra", 5, 4000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ThornyMandraEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ThornyMandraEffect());
         }
     }
 

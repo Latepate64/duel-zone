@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public MightyShouter() : base("Mighty Shouter", 3, 2000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            AddAbilities(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility());
+            AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }
     }
 }

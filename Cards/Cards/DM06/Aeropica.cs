@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public Aeropica() : base("Aeropica", 7, 4000, Subtype.SeaHacker, Civilization.Water)
         {
-            AddAbilities(new TapAbility(new OneShotEffects.ChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
+            AddTapAbility(new OneShotEffects.ChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Cards.TriggeredAbilities;
+﻿using Cards.TriggeredAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -12,7 +11,9 @@ namespace Cards.Cards.DM10
         public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Civilization.Fire, Civilization.Nature)
         {
             AddSubtypes(Subtype.ArmoredDragon, Subtype.EarthDragon);
-            AddAbilities(new SpeedAttackerAbility(), new DoubleBreakerAbility(), new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
+            AddSpeedAttackerAbility();
+            AddDoubleBreakerAbility();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect());
         }
     }
 

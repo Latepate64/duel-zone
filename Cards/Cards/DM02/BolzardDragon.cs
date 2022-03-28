@@ -4,7 +4,7 @@
     {
         public BolzardDragon() : base("Bolzard Dragon", 6, 5000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect()));
+            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect());
         }
     }
 }

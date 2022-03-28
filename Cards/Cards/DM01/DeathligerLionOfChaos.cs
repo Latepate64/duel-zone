@@ -1,12 +1,10 @@
-﻿using Cards.StaticAbilities;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class DeathligerLionOfChaos : Creature
     {
         public DeathligerLionOfChaos() : base("Deathliger, Lion of Chaos", 7, 9000, Common.Subtype.DemonCommand, Common.Civilization.Darkness)
         {
-            AddAbilities(new DoubleBreakerAbility());
+            AddDoubleBreakerAbility();
         }
     }
 }

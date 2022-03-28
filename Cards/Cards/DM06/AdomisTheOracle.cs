@@ -9,7 +9,7 @@ namespace Cards.Cards.DM06
     {
         public AdomisTheOracle() : base("Adomis, the Oracle", 3, 2000, Subtype.LightBringer, Civilization.Light)
         {
-            AddAbilities(new TapAbility(new AdomisTheOracleEffect()));
+            AddTapAbility(new AdomisTheOracleEffect());
         }
     }
 

@@ -9,7 +9,8 @@ namespace Cards.Cards.DM06
     {
         public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Subtype.Survivor, Civilization.Water)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect()), new StaticAbilities.DoubleBreakerAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

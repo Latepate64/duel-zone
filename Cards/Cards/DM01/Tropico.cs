@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public Tropico() : base("Tropico", 5, 3000, Common.Subtype.CyberLord, Common.Civilization.Water)
         {
-            AddAbilities(new TropicoAbility());
+            AddStaticAbilities(new TropicoEffect());
         }
     }
 
@@ -36,13 +36,6 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "While you have at least 2 other creatures in the battle zone";
-        }
-    }
-
-    class TropicoAbility : Engine.Abilities.StaticAbility
-    {
-        public TropicoAbility() : base(new TropicoEffect())
-        {
         }
     }
 

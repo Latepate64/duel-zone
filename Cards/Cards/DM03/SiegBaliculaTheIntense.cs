@@ -7,14 +7,7 @@ namespace Cards.Cards.DM03
     {
         public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new SiegBaliculaTheIntenseAbility());
-        }
-    }
-
-    class SiegBaliculaTheIntenseAbility : Engine.Abilities.StaticAbility
-    {
-        public SiegBaliculaTheIntenseAbility() : base(new SiegBaliculaTheIntenseEffect())
-        {
+            AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
         }
     }
 

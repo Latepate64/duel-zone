@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM05
@@ -7,7 +7,8 @@ namespace Cards.Cards.DM05
     {
         public RuthlessSkyterror() : base("Ruthless Skyterror", 4, 6000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Water), new ThisCreatureCannotAttackPlayersAbility());
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization.Water));
+            AddThisCreatureCannotAttackPlayersAbility();
         }
     }
 }

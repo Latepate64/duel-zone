@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, 2000, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            AddAbilities(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new YouMayDrawCardsEffect(1)));
+            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new YouMayDrawCardsEffect(1)));
         }
     }
 }

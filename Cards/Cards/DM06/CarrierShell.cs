@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public CarrierShell() : base("Carrier Shell", 3, 2000, Subtype.ColonyBeetle, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.PowerAttackerAbility(3000));
+            AddPowerAttackerAbility(3000);
         }
     }
 }

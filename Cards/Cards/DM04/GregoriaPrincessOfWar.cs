@@ -9,14 +9,7 @@ namespace Cards.Cards.DM04
     {
         public GregoriaPrincessOfWar() : base("Gregoria, Princess of War", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
         {
-            AddAbilities(new GregoriaPrincessOfWarAbility());
-        }
-    }
-
-    class GregoriaPrincessOfWarAbility : Engine.Abilities.StaticAbility
-    {
-        public GregoriaPrincessOfWarAbility() : base(new GregoriaPrincessOfWarEffect())
-        {
+            AddStaticAbilities(new GregoriaPrincessOfWarEffect());
         }
     }
 

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM05
     {
         public KulusSoulshineEnforcer() : base("Kulus, Soulshine Enforcer", 4, 3500, Subtype.Berserker, Civilization.Light)
         {
-            AddAbilities(new KulusSoulshineEnforcerAbility());
+            AddTriggeredAbility(new KulusSoulshineEnforcerAbility());
         }
     }
 

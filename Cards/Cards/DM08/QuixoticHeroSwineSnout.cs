@@ -8,7 +8,7 @@ namespace Cards.Cards.DM08
     {
         public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
         {
-            AddAbilities(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new QuixoticHeroSwineSnoutEffect()));
+            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new QuixoticHeroSwineSnoutEffect()));
         }
     }
 

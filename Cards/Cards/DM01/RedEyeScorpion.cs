@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public RedEyeScorpion() : base("Red-Eye Scorpion", 5, 4000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            AddAbilities(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadAbility());
+            AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }
     }
 }

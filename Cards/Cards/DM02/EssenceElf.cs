@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM02
     {
         public EssenceElf() : base("Essence Elf", 2, 1000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new EssenceElfAbility());
-        }
-    }
-
-    class EssenceElfAbility : StaticAbility
-    {
-        public EssenceElfAbility() : base(new EssenceElfEffect())
-        {
+            AddStaticAbilities(new EssenceElfEffect());
         }
     }
 

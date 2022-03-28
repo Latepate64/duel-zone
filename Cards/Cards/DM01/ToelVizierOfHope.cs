@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM01
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public ToelVizierOfHope() : base("Toel, Vizier of Hope", 5, 2000, Common.Subtype.Initiate, Common.Civilization.Light)
         {
-            AddAbilities(new AtTheEndOfYourTurnAbility(new ToelVizierOfHopeEffect()));
+            AddAtTheEndOfYourTurnAbility(new ToelVizierOfHopeEffect());
         }
     }
 

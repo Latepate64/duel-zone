@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
 using Common;
 using Common.Choices;
 using Engine;
@@ -12,7 +11,8 @@ namespace Cards.Cards.DM01
     {
         public Gigaberos() : base("Gigaberos", 5, 8000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect()), new DoubleBreakerAbility());
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect());
+            AddDoubleBreakerAbility();
         }
     }
 

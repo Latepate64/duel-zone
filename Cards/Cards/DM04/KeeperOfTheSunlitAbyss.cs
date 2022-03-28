@@ -7,14 +7,7 @@ namespace Cards.Cards.DM04
     {
         public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Subtype.CyberVirus, Civilization.Water)
         {
-            AddAbilities(new KeeperOfTheSunlitAbyssAbility());
-        }
-    }
-
-    class KeeperOfTheSunlitAbyssAbility : Engine.Abilities.StaticAbility
-    {
-        public KeeperOfTheSunlitAbyssAbility() : base(new KeeperOfTheSunlitAbyssEffect())
-        {
+            AddStaticAbilities(new KeeperOfTheSunlitAbyssEffect());
         }
     }
 

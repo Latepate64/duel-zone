@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -7,7 +6,9 @@ namespace Cards.Cards.DM06
     {
         public CutthroatSkyterror() : base("Cutthroat Skyterror", 3, 5000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new SpeedAttackerAbility(), new ThisCreatureCannotAttackPlayersAbility(), new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
+            AddSpeedAttackerAbility();
+            AddThisCreatureCannotAttackPlayersAbility();
+            AddAtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect());
         }
     }
 }

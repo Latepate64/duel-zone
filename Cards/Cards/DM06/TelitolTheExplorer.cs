@@ -9,7 +9,9 @@ namespace Cards.Cards.DM06
     {
         public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Subtype.Gladiator, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect()), new StaticAbilities.ThisCreatureCannotAttackPlayersAbility());
+            AddBlockerAbility();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect());
+            AddThisCreatureCannotAttackPlayersAbility();
         }
     }
 

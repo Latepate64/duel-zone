@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM04
@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public DewMushroom() : base("Dew Mushroom", 3, 1000, Subtype.BalloonMushroom, Civilization.Nature)
         {
-            AddAbilities(new EachCivilizationCardCostsMoreAbility(Civilization.Darkness, 1));
+            AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(Civilization.Darkness, 1));
         }
     }
 }

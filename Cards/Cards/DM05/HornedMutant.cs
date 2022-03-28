@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public HornedMutant() : base("Horned Mutant", 5, 3000, Subtype.Hedrian, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.EachCivilizationCardCostsMoreAbility(Civilization.Nature, 1));
+            AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(Civilization.Nature, 1));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM01
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public ArmoredWalkerUrherion() : base("Armored Walker Urherion", 4, 3000, Subtype.Armorloid, Civilization.Fire)
         {
-            AddAbilities(new WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksAbility(Subtype.Human, 2000));
+            AddStaticAbilities(new ContinuousEffects.WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype.Human, 2000));
         }
     }
 }

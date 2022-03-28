@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public Emeral() : base("Emeral", 2, 1000, Common.Subtype.CyberLord, Common.Civilization.Water)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EmeralEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EmeralEffect());
         }
     }
 

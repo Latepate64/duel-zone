@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
@@ -7,8 +6,7 @@ namespace Cards.Cards.DM02
     {
         public HorridWorm() : base("Horrid Worm", 3, 2000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            // Whenever this creature attacks, your opponent discards a card at random from his hand.
-            AddAbilities(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect()));
+            AddWheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect());
         }
     }
 }

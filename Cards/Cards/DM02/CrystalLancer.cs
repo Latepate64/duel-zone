@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM02
 {
@@ -7,7 +6,8 @@ namespace Cards.Cards.DM02
     {
         public CrystalLancer() : base("Crystal Lancer", 6, 8000, Subtype.LiquidPeople, Civilization.Water)
         {
-            AddAbilities(new ThisCreatureCannotBeBlockedAbility(), new DoubleBreakerAbility());
+            AddThisCreatureCannotBeBlockedAbility();
+            AddDoubleBreakerAbility();
         }
     }
 }

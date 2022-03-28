@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM04
     {
         public SupportingTulip() : base("Supporting Tulip", 5, 4000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new SupportingTulipAbility());
-        }
-    }
-
-    class SupportingTulipAbility : StaticAbility
-    {
-        public SupportingTulipAbility() : base(new SupportingTulipEffect())
-        {
+            AddStaticAbilities(new SupportingTulipEffect());
         }
     }
 

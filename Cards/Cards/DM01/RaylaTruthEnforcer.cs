@@ -1,6 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -8,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000, Common.Subtype.Berserker, Common.Civilization.Light)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchSpellEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchSpellEffect());
         }
     }
 }

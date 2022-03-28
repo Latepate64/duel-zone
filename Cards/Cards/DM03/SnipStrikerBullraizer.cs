@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 using Engine;
 using System;
@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Subtype.Dragonoid, Civilization.Fire)
         {
-            AddAbilities(new ThisCreatureCannotAttackAbility(new SnipStrikerBullraizerCondition()));
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect(new SnipStrikerBullraizerCondition()));
         }
     }
 

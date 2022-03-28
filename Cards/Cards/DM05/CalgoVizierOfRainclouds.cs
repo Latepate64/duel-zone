@@ -8,13 +8,8 @@ namespace Cards.Cards.DM05
     {
         public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new CalgoVizierOfRaincloudsAbility());
+            AddStaticAbilities(new CalgoVizierOfRaincloudsEffect());
         }
-    }
-
-    class CalgoVizierOfRaincloudsAbility : Engine.Abilities.StaticAbility
-    {
-        public CalgoVizierOfRaincloudsAbility() : base(new CalgoVizierOfRaincloudsEffect()) { }
     }
 
     class CalgoVizierOfRaincloudsEffect : UnblockableEffect

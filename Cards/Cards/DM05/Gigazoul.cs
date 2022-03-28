@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public Gigazoul() : base("Gigazoul", 3, 3000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.WhileYourOpponentHasNoShieldsThisCreatureCannotAttackAbility());
+            AddStaticAbilities(new WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect());
         }
     }
 }

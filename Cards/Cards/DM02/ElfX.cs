@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -8,14 +7,7 @@ namespace Cards.Cards.DM02
     {
         public ElfX() : base("Elf-X", 4, 2000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new ElfXAbility());
-        }
-    }
-
-    class ElfXAbility : StaticAbility
-    {
-        public ElfXAbility() : base(new ElfXEffect())
-        {
+            AddStaticAbilities(new ElfXEffect());
         }
     }
 

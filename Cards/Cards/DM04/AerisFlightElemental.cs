@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM04
@@ -7,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public AerisFlightElemental() : base("Aeris, Flight Elemental", 5, 9000, Subtype.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new ThisCreatureCannotAttackPlayersAbility(), new ThisCreatureCanAttackUntappedCivilizationCreaturesAbility(Civilization.Darkness));
+            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization.Darkness));
         }
     }
 }

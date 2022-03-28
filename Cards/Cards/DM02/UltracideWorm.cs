@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public UltracideWorm() : base("Ultracide Worm", 6, 11000, Subtype.ParasiteWorm, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility());
+            AddDoubleBreakerAbility();
         }
     }
 }

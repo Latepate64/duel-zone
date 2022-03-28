@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public FuReilSeekerOfStorms() : base("Fu Reil, Seeker of Storms", 6, 5000, Subtype.MechaThunder, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsAbility(Civilization.Darkness));
+            AddStaticAbilities(new PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization.Darkness));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
 
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM04
         public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
             ShieldTrigger = true;
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new MagmarexEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new MagmarexEffect());
         }
     }
 

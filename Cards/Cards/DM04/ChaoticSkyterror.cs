@@ -7,14 +7,7 @@ namespace Cards.Cards.DM04
     {
         public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new ChaoticSkyterrorAbility());
-        }
-    }
-
-    class ChaoticSkyterrorAbility : Engine.Abilities.StaticAbility
-    {
-        public ChaoticSkyterrorAbility() : base(new ChaoticSkyterrorEffect())
-        {
+            AddStaticAbilities(new ChaoticSkyterrorEffect());
         }
     }
 

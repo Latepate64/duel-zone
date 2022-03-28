@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM02
     {
         public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true));
         }
     }
 

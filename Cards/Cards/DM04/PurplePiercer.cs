@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public PurplePiercer() : base("Purple Piercer", 3, 2000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureCannotBeAttackedByCivilizationCreaturesAbility(Civilization.Light), new StaticAbilities.ThisCreatureCannotBeBlockedByCivilizationCreaturesAbility(Civilization.Light));
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Light), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization.Light));
         }
     }
 }

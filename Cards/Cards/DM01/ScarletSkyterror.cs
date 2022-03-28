@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
 
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ScarletSkyterrorEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ScarletSkyterrorEffect());
         }
     }
 

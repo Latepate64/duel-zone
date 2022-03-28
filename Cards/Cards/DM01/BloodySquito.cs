@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
 using Common;
 
@@ -9,7 +8,9 @@ namespace Cards.Cards.DM01
     {
         public BloodySquito() : base("Bloody Squito", 2, 4000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility(), new WhenThisCreatureWinsBattleAbility(new DestroyThisCreatureEffect()));
+            AddBlockerAbility();
+            AddThisCreatureCannotAttackAbility();
+            AddTriggeredAbility(new WhenThisCreatureWinsBattleAbility(new DestroyThisCreatureEffect()));
         }
     }
 }

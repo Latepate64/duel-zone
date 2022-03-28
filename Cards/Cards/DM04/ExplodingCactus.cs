@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public ExplodingCactus() : base("Exploding Cactus", 3, 2000, Subtype.TreeFolk, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.WhileYouControlCivilizationCreatureThisCreatureGetsPowerAbility(Civilization.Light, 2000));
+            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization.Light, 2000));
         }
     }
 }

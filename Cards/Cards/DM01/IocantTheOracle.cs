@@ -1,6 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
-using Engine.Abilities;
+﻿using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM01
@@ -9,14 +7,9 @@ namespace Cards.Cards.DM01
     {
         public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Common.Subtype.LightBringer, Common.Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new IocantTheOracleAbility(), new ThisCreatureCannotAttackPlayersAbility());
-        }
-    }
-
-    class IocantTheOracleAbility : StaticAbility
-    {
-        public IocantTheOracleAbility() : base(new IocantTheOracleEffect())
-        {
+            AddBlockerAbility();
+            AddStaticAbilities(new IocantTheOracleEffect());
+            AddThisCreatureCannotAttackPlayersAbility();
         }
     }
 

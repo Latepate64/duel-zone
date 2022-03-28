@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public StingerWorm() : base("Stinger Worm", 3, 5000, Common.Subtype.ParasiteWorm, Common.Civilization.Darkness)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SacrificeEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SacrificeEffect());
         }
     }
 }

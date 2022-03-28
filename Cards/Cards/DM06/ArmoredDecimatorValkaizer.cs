@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public ArmoredDecimatorValkaizer() : base("Armored Decimator Valkaizer", 5, 5000, Subtype.Human, Civilization.Fire)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(4000)));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(4000));
         }
     }
 }

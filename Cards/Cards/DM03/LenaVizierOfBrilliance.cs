@@ -4,7 +4,7 @@
     {
         public LenaVizierOfBrilliance() : base("Lena, Vizier of Brilliance", 4, 2000, Common.Subtype.Initiate, Common.Civilization.Light)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect());
         }
     }
 }

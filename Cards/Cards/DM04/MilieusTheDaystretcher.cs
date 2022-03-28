@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Subtype.Berserker, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new StaticAbilities.EachCivilizationCardCostsMoreAbility(Civilization.Darkness, 2));
+            AddBlockerAbility();
+            AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(Civilization.Darkness, 2));
         }
     }
 }

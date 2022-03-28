@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public ArcBineTheAstounding() : base("Arc Bine, the Astounding", 5, 5000, Subtype.Guardian, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.TapAbilityAddingAbility(Civilization.Light, new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
+            AddStaticAbilities(new TapAbilityAddingEffect(Civilization.Light, new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
         }
     }
 }

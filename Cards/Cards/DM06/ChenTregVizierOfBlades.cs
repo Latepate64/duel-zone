@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public ChenTregVizierOfBlades() : base("Chen Treg, Vizier of Blades", 5, 2000, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new Engine.Abilities.TapAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
+            AddTapAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public GamilKnightOfHatred() : base("Gamil, Knight of Hatred", 6, 4000, Common.Subtype.DemonCommand, Common.Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new GamilKnightOfHatredEffect()));
+            AddWheneverThisCreatureAttacksAbility(new GamilKnightOfHatredEffect());
         }
     }
 

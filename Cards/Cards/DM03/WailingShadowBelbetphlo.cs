@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public WailingShadowBelbetphlo() : base("Wailing Shadow Belbetphlo", 3, 1000, Subtype.Ghost, Civilization.Darkness)
         {
-            AddAbilities(new StaticAbilities.SlayerAbility());
+            AddSlayerAbility();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Cards
     {
         protected Charger(string name, int manaCost, params Civilization[] civilizations) : base(name, manaCost, civilizations)
         {
-            AddAbilities(new StaticAbilities.ChargerAbility());
+            AddStaticAbilities(new ContinuousEffects.ThisSpellHasChargerEffect());
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public GajirabuteVileCenturion() : base("Gajirabute, Vile Centurion", 6, 3000, Subtype.DemonCommand, Civilization.Darkness)
     {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect());
         }
     }
 }

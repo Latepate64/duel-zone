@@ -6,7 +6,9 @@ namespace Cards.Cards.DM06
     {
         public ThrashCrawler() : base("Thrash Crawler", 4, 5000, Subtype.EarthEater, Civilization.Water)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(1)), new StaticAbilities.ThisCreatureCannotAttackAbility());
+            AddBlockerAbility();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(1));
+            AddThisCreatureCannotAttackAbility();
         }
     }
 }

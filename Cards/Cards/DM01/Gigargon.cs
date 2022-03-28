@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public Gigargon() : base("Gigargon", 8, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
-            AddAbilities(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigargonEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigargonEffect());
         }
     }
 

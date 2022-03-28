@@ -7,8 +7,6 @@ namespace Cards.Cards.DM01
         public BrainSerum() : base("Brain Serum", 4, Common.Civilization.Water)
         {
             ShieldTrigger = true;
-
-            // Draw up to 2 cards.
             AddSpellAbilities(new YouMayDrawCardsEffect(2));
         }
     }

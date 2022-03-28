@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,15 @@ namespace Cards
         protected void AddSubtypes(params Subtype[] subtypes)
         {
             Subtypes.AddRange(subtypes);
+        }
+
+        /// <summary>
+        /// Creates a static ability for each continuous effect provided and add the abilities to the card.
+        /// </summary>
+        /// <param name="effects"></param>
+        protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
+        {
+            AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
         }
     }
 }

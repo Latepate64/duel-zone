@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
     {
         public HazardHopper() : base("Hazard Hopper", 4, 5000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddAbilities(new TriggeredAbilities.HeartyCapnPolligonAbility());
+            AddTriggeredAbility(new TriggeredAbilities.HeartyCapnPolligonAbility());
         }
     }
 }

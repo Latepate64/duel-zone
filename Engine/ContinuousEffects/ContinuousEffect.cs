@@ -62,11 +62,6 @@ namespace Engine.ContinuousEffects
 
         public override abstract string ToString();
 
-        protected string GetDurationAsText()
-        {
-            return Duration.ToString();
-        }
-
         public void SetupConditionFilters(Guid id)
         {
             _conditions.Select(x => x.Filter).OfType<ITargetFilterable>().ToList().ForEach(x => x.Target = id);
@@ -83,18 +78,6 @@ namespace Engine.ContinuousEffects
                 }
             }
             return false;
-        }
-
-        protected string ToStringBase()
-        {
-            if (_conditions.Any())
-            {
-                return string.Join(" and ", _conditions) + " ,";
-            }
-            else
-            {
-                return string.Empty;
-            }
         }
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game)

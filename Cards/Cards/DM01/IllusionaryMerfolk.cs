@@ -1,4 +1,8 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
+using Engine;
+using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -6,8 +10,34 @@ namespace Cards.Cards.DM01
     {
         public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Common.Subtype.GelFish, Common.Civilization.Water)
         {
-            // When you put this creature into the battle zone, if you have a Cyber Lord in the battle zone, draw up to 3 cards.
-            AddAbilities(new IllusionaryMerfolkAbility());
+            AddTriggeredAbility(new IllusionaryMerfolkAbility());
+        }
+    }
+
+    class IllusionaryMerfolkAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    {
+        public IllusionaryMerfolkAbility() : base(new YouMayDrawCardsEffect(3))
+        {
+        }
+
+        public IllusionaryMerfolkAbility(IllusionaryMerfolkAbility ability) : base(ability)
+        {
+        }
+
+        public override IAbility Copy()
+        {
+            return new IllusionaryMerfolkAbility(this);
+        }
+
+        public override bool CheckInterveningIfClause(IGame game)
+        {
+            // if you have a Cyber Lord in the battle zone
+            return game.BattleZone.GetCreatures(Controller).Any(x => x.Subtypes.Contains(Common.Subtype.CyberLord));
+        }
+
+        public override string ToString()
+        {
+            return "When you put this creature into the battle zone, if you have a Cyber Lord in the battle zone, draw up to 3 cards.";
         }
     }
 }

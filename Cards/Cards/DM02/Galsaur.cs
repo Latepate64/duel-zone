@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM02
@@ -7,8 +7,7 @@ namespace Cards.Cards.DM02
     {
         public Galsaur() : base("Galsaur", 5, 4000, Subtype.RockBeast, Civilization.Fire)
         {
-            var condition = new Conditions.FilterNoneCondition(new CardFilters.OwnersOtherBattleZoneCreatureFilter());
-            AddAbilities(new PowerAttackerAbility(4000, condition), new DoubleBreakerAbility(condition));
+            AddStaticAbilities(new GalsaurEffect());
         }
     }
 }

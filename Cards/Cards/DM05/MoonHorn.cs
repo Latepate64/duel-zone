@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM05
     {
         public MoonHorn() : base("Moon Horn", 6, 6000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddAbilities(new StaticAbilities.ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsAbility(1000, Civilization.Water, Civilization.Darkness), new StaticAbilities.DoubleBreakerAbility());
+            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Civilization.Water, Civilization.Darkness));
+            AddDoubleBreakerAbility();
         }
     }
 }
