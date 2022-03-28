@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM07
     {
         public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Subtype.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.DoubleBreakerAbility(), new StaticAbilities.WhileYouHaveNoShieldsAbility(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect())));
+            AddDoubleBreakerAbility();
+            AddStaticAbilities(new WhileYouHaveNoShieldsEffect(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect())));
         }
     }
 }

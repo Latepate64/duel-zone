@@ -6,7 +6,9 @@ namespace Cards.Cards.DM07
     {
         public TitaniumCluster() : base("Titanium Cluster", 4, 4000, Subtype.CyberCluster, Civilization.Water)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new StaticAbilities.ThisCreatureCannotBeAttackedAbility(), new StaticAbilities.ThisCreatureCannotAttackAbility());
+            AddBlockerAbility();
+            AddThisCreatureCannotBeAttackedAbility();
+            AddThisCreatureCannotAttackAbility();
         }
     }
 }

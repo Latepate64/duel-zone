@@ -91,6 +91,11 @@ namespace Cards
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
         }
+
+        protected void AddThisCreatureCannotBeAttackedAbility()
+        {
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
+        }
         #endregion Static abilities
 
         #region Triggered abilities

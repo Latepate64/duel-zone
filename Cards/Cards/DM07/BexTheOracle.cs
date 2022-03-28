@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public BexTheOracle() : base("Bex, the Oracle", 3, 2500, Subtype.LightBringer, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.WhileYouHaveNoShieldsAbility(new StaticAbilities.BlockerAbility()));
+            AddStaticAbilities(new WhileYouHaveNoShieldsEffect(new StaticAbilities.BlockerAbility()));
         }
     }
 }

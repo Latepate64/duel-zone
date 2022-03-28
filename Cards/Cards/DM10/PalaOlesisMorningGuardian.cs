@@ -1,6 +1,4 @@
 ﻿using Cards.CardFilters;
-using Cards.StaticAbilities;
-using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM10
@@ -9,14 +7,9 @@ namespace Cards.Cards.DM10
     {
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Common.Subtype.Guardian, Common.Civilization.Light)
         {
-            AddAbilities(new BlockerAbility(), new PalaOlesisMorningGuardianAbility(), new ThisCreatureCannotAttackPlayersAbility());
-        }
-    }
-
-    class PalaOlesisMorningGuardianAbility : StaticAbility
-    {
-        public PalaOlesisMorningGuardianAbility() : base(new PalaOlesisMorningGuardianEffect())
-        {
+            AddBlockerAbility();
+            AddStaticAbilities(new PalaOlesisMorningGuardianEffect());
+            AddThisCreatureCannotAttackPlayersAbility();
         }
     }
 

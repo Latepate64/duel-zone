@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 
 namespace Cards.Cards.DM07
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM07
     {
         public KizarBasikuTheOutrageous() : base("Kizar Basiku, the Outrageous", 5, 8500, Subtype.Initiate, Civilization.Light)
         {
-            AddAbilities(new StaticAbilities.BlockerAbility(), new StaticAbilities.StealthAbility(Civilization.Fire), new StaticAbilities.DoubleBreakerAbility());
+            AddBlockerAbility();
+            AddStaticAbilities(new StealthEffect(Civilization.Fire), new DoubleBreakerEffect());
         }
     }
 }

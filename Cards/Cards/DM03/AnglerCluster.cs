@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 using Common;
 
 namespace Cards.Cards.DM03
@@ -7,7 +7,9 @@ namespace Cards.Cards.DM03
     {
         public AnglerCluster() : base("Angler Cluster", 3, 3000, Subtype.CyberCluster, Civilization.Water)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility(), new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerAbility(Civilization.Water, 3000));
+            AddBlockerAbility();
+            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization.Water, 3000));
         }
     }
 }

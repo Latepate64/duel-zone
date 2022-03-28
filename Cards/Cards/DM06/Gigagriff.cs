@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM06
 {
@@ -7,7 +6,9 @@ namespace Cards.Cards.DM06
     {
         public Gigagriff() : base("Gigagriff", 6, 4000, Subtype.Chimera, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new SlayerAbility(), new ThisCreatureCannotAttackAbility());
+            AddBlockerAbility();
+            AddSlayerAbility();
+            AddThisCreatureCannotAttackAbility();
         }
     }
 }

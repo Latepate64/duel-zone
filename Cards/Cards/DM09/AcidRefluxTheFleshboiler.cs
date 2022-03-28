@@ -1,5 +1,4 @@
-﻿using Cards.StaticAbilities;
-using Common;
+﻿using Common;
 
 namespace Cards.Cards.DM09
 {
@@ -7,7 +6,9 @@ namespace Cards.Cards.DM09
     {
         public AcidRefluxTheFleshboiler() : base("Acid Reflux, the Fleshboiler", 5, 3000, Subtype.DevilMask, Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility(), new ThisCreatureCannotAttackAbility(), new SlayerAbility());
+            AddBlockerAbility();
+            AddThisCreatureCannotAttackAbility();
+            AddSlayerAbility();
         }
     }
 }
