@@ -1,6 +1,4 @@
-﻿using Cards.CardFilters;
-using Common;
-using Engine;
+﻿using Common;
 
 namespace Cards.StaticAbilities
 {

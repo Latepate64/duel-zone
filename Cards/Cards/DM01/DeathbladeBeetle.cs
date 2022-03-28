@@ -1,4 +1,4 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DeathbladeBeetle() : base("Deathblade Beetle", 5, 3000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
         {
-            AddAbilities(new PowerAttackerAbility(4000), new DoubleBreakerAbility());
+            AddStaticAbilities(new PowerAttackerEffect(4000), new DoubleBreakerEffect());
         }
     }
 }

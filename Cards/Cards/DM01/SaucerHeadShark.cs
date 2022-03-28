@@ -1,6 +1,5 @@
 ﻿using Cards.CardFilters;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
 
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM01
     {
         public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Subtype.GelFish, Civilization.Water)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect());
         }
     }
 

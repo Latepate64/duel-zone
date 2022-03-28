@@ -1,4 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
+using Common;
+using Engine.Abilities;
+using System.Linq;
 
 namespace Cards
 {
@@ -27,5 +31,73 @@ namespace Cards
         {
             Power = power;
         }
+
+        #region Static abilities
+        /// <summary>
+        /// Creates a static ability for each continuous effect provided and add the abilities to the creature.
+        /// </summary>
+        /// <param name="effects"></param>
+        protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
+        {
+            AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
+        }
+
+        protected void AddBlockerAbility()
+        {
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+        }
+
+        protected void AddThisCreatureCannotAttackAbility()
+        {
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
+        }
+
+        protected void AddSlayerAbility()
+        {
+            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+        }
+
+        protected void AddPowerAttackerAbility(int power)
+        {
+            AddStaticAbilities(new PowerAttackerEffect(power));
+        }
+
+        protected void AddThisCreatureCannotBeBlockedAbility()
+        {
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+        }
+
+        protected void AddDoubleBreakerAbility()
+        {
+            AddStaticAbilities(new DoubleBreakerEffect());
+        }
+
+        protected void AddThisCreatureCannotAttackPlayersAbility()
+        {
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
+        }
+
+        protected void AddThisCreatureCanAttackUntappedCreaturesAbility()
+        {
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+        }
+        #endregion Static abilities
+
+        #region Triggered abilities
+        protected void AddTriggeredAbility(ITriggeredAbility ability)
+        {
+            AddAbilities(ability);
+        }
+
+        protected void AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect)
+        {
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect));
+        }
+
+        protected void AddAtTheEndOfYourTurnAbility(IOneShotEffect effect)
+        {
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(effect));
+        }
+        #endregion Triggered abilities
     }
 }

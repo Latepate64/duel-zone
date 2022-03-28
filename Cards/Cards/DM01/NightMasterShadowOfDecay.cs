@@ -1,12 +1,10 @@
-﻿using Cards.StaticAbilities;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class NightMasterShadowOfDecay : Creature
     {
         public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, 3000, Common.Subtype.Ghost, Common.Civilization.Darkness)
         {
-            AddAbilities(new BlockerAbility());
+            AddBlockerAbility();
         }
     }
 }

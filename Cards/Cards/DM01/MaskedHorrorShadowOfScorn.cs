@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,8 +6,7 @@ namespace Cards.Cards.DM01
     {
         public MaskedHorrorShadowOfScorn() : base("Masked Horror, Shadow of Scorn", 5, 1000, Common.Subtype.Ghost, Common.Civilization.Darkness)
         {
-            // When you put this creature into the battle zone, your opponent discards a card at random from his hand.
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect());
         }
     }
 }

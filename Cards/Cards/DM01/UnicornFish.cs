@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public UnicornFish() : base("Unicorn Fish", 4, 1000, Common.Subtype.Fish, Common.Civilization.Water)
         {
-            AddAbilities(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect());
         }
     }
 }

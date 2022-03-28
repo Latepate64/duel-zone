@@ -1,12 +1,10 @@
-﻿using Cards.StaticAbilities;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class Stonesaur : Creature
     {
         public Stonesaur() : base("Stonesaur", 5, 4000, Common.Subtype.RockBeast, Common.Civilization.Fire)
         {
-            AddAbilities(new PowerAttackerAbility(2000));
+            AddPowerAttackerAbility(2000);
         }
     }
 }

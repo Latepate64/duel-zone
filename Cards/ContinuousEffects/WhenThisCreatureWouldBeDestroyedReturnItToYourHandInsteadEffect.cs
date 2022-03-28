@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(CardFilter filter) : base(filter)
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base(new TargetFilter())
         {
         }
 

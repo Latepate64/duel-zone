@@ -1,6 +1,4 @@
-﻿using Engine;
-
-namespace Cards.StaticAbilities
+﻿namespace Cards.StaticAbilities
 {
     class ThisCreatureCannotBeAttackedAbility : Engine.Abilities.StaticAbility
     {

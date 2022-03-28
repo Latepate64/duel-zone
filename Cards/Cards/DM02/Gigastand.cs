@@ -1,6 +1,4 @@
-﻿using Cards.ContinuousEffects;
-using Cards.TriggeredAbilities;
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class Gigastand : Creature
     {

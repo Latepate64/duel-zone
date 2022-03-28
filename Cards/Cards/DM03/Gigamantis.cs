@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
@@ -22,6 +23,11 @@ namespace Cards.Cards.DM03
     {
         public GigamantisEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Nature))
         {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new GigamantisEffect();
         }
 
         public override string ToString()

@@ -1,5 +1,4 @@
 ﻿using Common;
-using System.Linq;
 
 namespace Cards.StaticAbilities
 {

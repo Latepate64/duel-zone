@@ -5,25 +5,32 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
+    abstract class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
     {
-        public WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(CardFilter filter) : base(filter)
+        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(CardFilter filter) : base(filter)
         {
         }
 
-        public WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
+        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
         {
-        }
-
-        public override ContinuousEffect Copy()
-        {
-            return new WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
         public override bool Apply(IGame game, Engine.IPlayer player)
         {
             game.Move(ZoneType.BattleZone, ZoneType.ManaZone, GetAffectedCards(game).ToArray());
             return true;
+        }
+    }
+
+    class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
+    {
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new TargetFilter())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();
         }
 
         public override string ToString()
