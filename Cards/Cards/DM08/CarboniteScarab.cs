@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM08
 {
-    class CarboniteScarab : Creature
+    class CarboniteScarab : TurboRushCreature
     {
         public CarboniteScarab() : base("Carbonite Scarab", 4, 3000, Subtype.GiantInsect, Civilization.Nature)
         {
