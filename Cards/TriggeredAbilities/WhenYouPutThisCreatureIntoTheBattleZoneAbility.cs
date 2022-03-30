@@ -77,5 +77,26 @@ namespace Cards.TriggeredAbilities
             return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
         }
     }
+
+    public class WhenYouPutAnotherCreatureIntoTheBattleZoneAbility : CardChangesZoneAbility
+    {
+        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(WhenYouPutAnotherCreatureIntoTheBattleZoneAbility ability) : base(ability)
+        {
+        }
+
+        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        {
+        }
+
+        public override IAbility Copy()
+        {
+            return new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(this);
+        }
+
+        public override string ToString()
+        {
+            return $"When you put another creature into the battle zone, {GetEffectText()}";
+        }
+    }
 }
 
