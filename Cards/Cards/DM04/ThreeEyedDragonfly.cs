@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -38,29 +39,19 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    class ThreeEyedDragonflyContinuousEffect : ThisCreatureGetsPowerAndDoubleBreakerEffect
     {
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), new Durations.UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(2000, new Durations.UntilTheEndOfTheTurn())
         {
-        }
-
-        public void AddAbility(IGame game)
-        {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
         }
 
         public override IContinuousEffect Copy()
         {
             return new ThreeEyedDragonflyContinuousEffect(this);
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
