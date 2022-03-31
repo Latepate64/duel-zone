@@ -33,7 +33,7 @@ namespace Cards.Cards.DM08
     {
         public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
         {
-            return base.Applies(card, game, player) && new CardFilters.DragonFilter().Applies(card, game, player);
+            return base.Applies(card, game, player) && card.IsDragon;
         }
 
         public override CardFilter Copy()

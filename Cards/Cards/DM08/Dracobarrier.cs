@@ -19,7 +19,7 @@ namespace Cards.Cards.DM08
         public override object Apply(IGame game, IAbility source)
         {
             var tapped = new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect().Apply(game, source);
-            if (tapped.Any(x => new CardFilters.DragonFilter().Applies(x, game, game.GetOwner(x))))
+            if (tapped.Any(x => x.IsDragon))
             {
                 source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
             }

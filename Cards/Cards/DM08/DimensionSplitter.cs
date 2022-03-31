@@ -19,8 +19,7 @@ namespace Cards.Cards.DM08
         {
             if (source.GetController(game).Choose(new Common.Choices.YesNoChoice(source.GetController(game).Id, $"Take action: \"{ToString()}\"?"), game).Decision)
             {
-                var dragonFilter = new CardFilters.DragonFilter();
-                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => dragonFilter.Applies(x, game, source.GetController(game))).ToArray());
+                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.IsDragon).ToArray());
             }
             return null;
         }

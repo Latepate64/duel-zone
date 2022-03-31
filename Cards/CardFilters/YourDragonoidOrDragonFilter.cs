@@ -10,7 +10,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return base.Applies(card, game, player) && (card.Subtypes.Contains(Common.Subtype.Dragonoid) || new DragonFilter().Applies(card, game, player));
+            return base.Applies(card, game, player) && (card.Subtypes.Contains(Common.Subtype.Dragonoid) || card.IsDragon);
         }
 
         public override CardFilter Copy()

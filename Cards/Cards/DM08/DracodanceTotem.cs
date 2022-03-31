@@ -22,8 +22,7 @@ namespace Cards.Cards.DM08
 
         public override bool Apply(IGame game, Engine.IPlayer player)
         {
-            var filter = new CardFilters.DragonFilter();
-            var manaZoneDragons = player.ManaZone.Creatures.Where(x => filter.Applies(x, game, game.GetOwner(x)));
+            var manaZoneDragons = player.ManaZone.Creatures.Where(x => x.IsDragon);
             if (manaZoneDragons.Any())
             {
                 game.Move(ZoneType.BattleZone, ZoneType.ManaZone, game.GetAllCards(Filter, player.Id).ToArray());
@@ -68,7 +67,7 @@ namespace Cards.Cards.DM08
     {
         public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
         {
-            return base.Applies(card, game, player) && new CardFilters.DragonFilter().Applies(card, game, player);
+            return base.Applies(card, game, player) && card.IsDragon;
         }
 
         public override CardFilter Copy()

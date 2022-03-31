@@ -113,6 +113,8 @@ namespace Engine
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
 
+        public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
+
         public void ResetToPrintedValues()
         {
             Power = PrintedPower;
