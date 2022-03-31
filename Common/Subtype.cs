@@ -56,6 +56,7 @@
         StarlightTree,
         Survivor,
         TreeFolk,
+        VolcanoDragon,
         WildVeggies,
         Xenoparts,
         ZombieDragon,

@@ -30,4 +30,21 @@ namespace Cards.ContinuousEffects
         {
         }
     }
+
+    class DogarnTheMarauderEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    {
+        public DogarnTheMarauderEffect() : base(2000, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new DogarnTheMarauderEffect();
+        }
+
+        public override string ToString()
+        {
+            return "While attacking, this creature gets +2000 power for each other tapped creature you have in the battle zone.";
+        }
+    }
 }

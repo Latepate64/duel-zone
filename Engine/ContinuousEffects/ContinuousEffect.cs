@@ -82,7 +82,7 @@ namespace Engine.ContinuousEffects
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetAbility(SourceAbility).GetController(game)));
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card)));
         }
     }
 }

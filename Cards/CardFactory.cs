@@ -33,7 +33,7 @@ namespace Cards
 
         static public IEnumerable<Card> CreateAll()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
+            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
         }
     }
 }

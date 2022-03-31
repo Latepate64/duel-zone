@@ -9,6 +9,7 @@ namespace Engine
         IList<IAbility> PrintedAbilities { get; }
         IList<IAbility> AddedAbilities { get; }
         int? PrintedPower { get; }
+        bool IsDragon { get; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);

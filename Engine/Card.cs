@@ -57,27 +57,38 @@ namespace Engine
         /// </summary>
         public void InitializeAbilities()
         {
-            foreach (var ability in Abilities)
+            Abilities.ToList().ForEach(x => InitializeAbility(x));
+            SetRulesText();
+        }
+
+        private void InitializeAbility(IAbility ability)
+        {
+            ability.Controller = Owner;
+            ability.Source = Id;
+            if (ability is IStaticAbility staticAbility)
             {
-                ability.Controller = Owner;
-                ability.Source = Id;
-                if (ability is IStaticAbility staticAbility)
-                {
-                    foreach (var effect in staticAbility.ContinuousEffects)
-                    {
-                        if (effect.Filter is ITargetFilterable target)
-                        {
-                            target.Target = Id;
-                        }
-                        effect.SetupConditionFilters(Id);
-                    }
-                }
-                else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
+                InitializeStaticAbility(staticAbility);
+            }
+            else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
+            {
+                target.Target = Id;
+            }
+        }
+
+        private void InitializeStaticAbility(IStaticAbility staticAbility)
+        {
+            foreach (var effect in staticAbility.ContinuousEffects)
+            {
+                if (effect.Filter is ITargetFilterable target)
                 {
                     target.Target = Id;
                 }
+                effect.SetupConditionFilters(Id);
+                if (effect is AbilityAddingEffect add)
+                {
+                    add.Abilities.OfType<IStaticAbility>().ToList().ForEach(x => InitializeAbility(x));
+                }
             }
-            SetRulesText();
         }
 
         public Common.ICard Convert(bool clear = false)
@@ -101,6 +112,8 @@ namespace Engine
         }
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
+
+        public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
 
         public void ResetToPrintedValues()
         {

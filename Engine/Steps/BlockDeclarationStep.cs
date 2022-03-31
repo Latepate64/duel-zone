@@ -15,30 +15,38 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            var nonActive = game.CurrentTurn.NonActivePlayer;
             var attackingCreature = game.GetCard(Phase.AttackingCreature);
-            var possibleBlockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(x => !x.Tapped && game.GetContinuousEffects<BlockerEffect>(x).Any(x => x.BlockableCreatures.Applies(attackingCreature, game, game.GetOwner(attackingCreature))));
-            if (possibleBlockers.Any())
-            {
-                var effects = game.GetContinuousEffects<UnblockableEffect>(attackingCreature);
-                possibleBlockers = possibleBlockers.Where(b => effects.All(e => e.BlockerFilter.Applies(b, game, game.GetPlayer(b.Owner))));
-            }
-            if (possibleBlockers.Any() && !game.GetContinuousEffects<UnblockableEffect>(attackingCreature).Any())
-            {
-                ChooseBlocker(game, nonActive, possibleBlockers);
-            }
+            IEnumerable<ICard> possibleBlockers = GetPossibleBlockers(game, attackingCreature);
+            ChooseBlocker(game, possibleBlockers);
         }
 
-        private void ChooseBlocker(IGame game, IPlayer nonActive, IEnumerable<ICard> possibleBlockers)
+        private static IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
         {
-            var blockers = nonActive.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
+            return game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>
+                CanBlock(game, attackingCreature, blocker));
+        }
+
+        private static bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
+        {
+            return !blocker.Tapped &&
+                game.GetContinuousEffects<BlockerEffect>(blocker).Any(e => e.Applies(attackingCreature, game)) &&
+                game.GetContinuousEffects<UnblockableEffect>(attackingCreature).All(e => !e.Applies(blocker, game));
+        }
+
+        private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
+        {
+            var blockers = game.CurrentTurn.NonActivePlayer.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
             if (blockers.Any())
             {
                 Phase.BlockingCreature = blockers.Single();
                 var blocker = game.GetCard(Phase.BlockingCreature);
-                nonActive.Tap(game, blocker);
+                game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
                 game.Process(new BecomeBlockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert(), Blocker = blocker.Convert() });
+            }
+            else
+            {
+                game.Process(new BecomeUnblockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert() });
             }
         }
 

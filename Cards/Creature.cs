@@ -130,4 +130,21 @@ namespace Cards
             AddStaticAbilities(new SurvivorEffect(ability));
         }
     }
+
+    class TurboRushCreature : Creature
+    {
+        public TurboRushCreature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
+        {
+        }
+
+        protected void AddTurboRushAbility(ITriggeredAbility ability)
+        {
+            AddStaticAbilities(new TurboRushEffect(ability));
+        }
+
+        protected void AddTurboRushAbility(Engine.ContinuousEffects.IContinuousEffect effect)
+        {
+            AddStaticAbilities(new TurboRushEffect(new StaticAbility(effect)));
+        }
+    }
 }

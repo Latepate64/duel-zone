@@ -2,16 +2,21 @@
 {
     public abstract class BlockerEffect : ContinuousEffect
     {
-        public ICardFilter BlockableCreatures { get; }
+        private readonly ICardFilter _blockableCreatures;
 
         protected BlockerEffect(ICardFilter filter, ICardFilter blockableCreatures, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
-            BlockableCreatures = blockableCreatures;
+            _blockableCreatures = blockableCreatures;
         }
 
         protected BlockerEffect(BlockerEffect effect) : base(effect)
         {
-            BlockableCreatures = effect.BlockableCreatures.Copy();
+            _blockableCreatures = effect._blockableCreatures.Copy();
+        }
+
+        internal bool Applies(ICard attacker, IGame game)
+        {
+            return _blockableCreatures.Applies(attacker, game, game.GetOwner(attacker));
         }
     }
 }

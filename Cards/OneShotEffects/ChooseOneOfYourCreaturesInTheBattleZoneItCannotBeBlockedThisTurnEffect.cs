@@ -1,5 +1,5 @@
-﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -17,23 +17,6 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Choose one of your creatures in the battle zone. It can't be blocked this turn.";
-        }
-    }
-
-    class ThisCreatureCannotBeBlockedThisTurnEffect : UnblockableEffect
-    {
-        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(null, new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureCannotBeBlockedThisTurnEffect();
-        }
-
-        public override string ToString()
-        {
-            return "This creature can't be blocked this turn.";
         }
     }
 }

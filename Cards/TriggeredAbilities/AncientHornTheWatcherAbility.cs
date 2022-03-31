@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    public class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public AncientHornTheWatcherAbility() : base(new UntapAllTheCardsInYourManaZoneEffect())
         {

@@ -4,7 +4,7 @@ using Engine;
 using Engine.Abilities;
 using System.Linq;
 
-namespace Cards.Cards.DM03
+namespace Cards.Cards.DM07
 {
     class TrenchdiveShark : Creature
     {
