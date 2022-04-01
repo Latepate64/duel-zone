@@ -18,7 +18,7 @@ namespace Server
         {
         }
 
-        public override Common.Subtype Choose(params Common.Subtype[] excluded)
+        public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)
         {
             return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();
         }

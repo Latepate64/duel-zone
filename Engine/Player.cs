@@ -473,7 +473,7 @@ namespace Engine
             _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
         }
 
-        public abstract Subtype Choose(params Subtype[] excluded);
+        public abstract Subtype ChooseRace(params Subtype[] excluded);
         #endregion Methods
     }
 }

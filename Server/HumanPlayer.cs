@@ -36,7 +36,7 @@ namespace Server
             }
         }
 
-        public override Subtype Choose(params Subtype[] excluded)
+        public override Subtype ChooseRace(params Subtype[] excluded)
         {
             throw new NotImplementedException();
         }
