@@ -39,13 +39,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : ThisCreatureGetsPowerAndDoubleBreakerEffect
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect
     {
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(2000, new Durations.UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), 2000, new Durations.UntilTheEndOfTheTurn())
         {
         }
 
