@@ -35,5 +35,10 @@ namespace Server
                 return null;
             }
         }
+
+        public override Subtype Choose(params Subtype[] excluded)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

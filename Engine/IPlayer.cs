@@ -16,6 +16,7 @@ namespace Engine
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
+        Common.Subtype Choose(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);
