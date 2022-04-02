@@ -26,13 +26,10 @@ namespace Engine.Zones
             {
                 return new List<ICard>();
             }
-            if (!Cards.Any())
+            else
             {
-                var player = game.GetPlayer(card.Owner);
-                game.Process(new Common.GameEvents.DeckoutEvent { Player = player.Copy() });
-                game.Lose(player);
+                return new List<ICard> { card };
             }
-            return new List<ICard> { card };
         }
 
         public void Shuffle()

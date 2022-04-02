@@ -29,8 +29,7 @@ namespace Engine.Steps
             }
             else
             {
-                game.Process(new DirectAttackEvent { Player = game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).Copy() });
-                game.Lose(game.GetOpponent(game.GetPlayer(attackingCreature.Owner)));
+                game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).DirectlyAttacked = true;
             }
         }
 

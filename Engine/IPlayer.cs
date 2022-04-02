@@ -13,6 +13,7 @@ namespace Engine
         IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
+        bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);

@@ -258,12 +258,11 @@ namespace Engine
             void Outcome(ICard winner, ICard loser)
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
-                var destroyed = new List<ICard> { loser };
+                loser.LostInBattle = true;
                 if (GetContinuousEffects<SlayerEffect>(loser).Any(x => x.WorksAgainstFilter.Applies(winner, this, GetPlayer(winner.Owner))))
                 {
-                    destroyed.Add(winner);
+                    winner.LostInBattle = true; // TODO: Not sure if proper way to do
                 }
-                Destroy(destroyed);
             }
         }
 
@@ -433,17 +432,27 @@ namespace Engine
             return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
         }
 
-        public void Lose(IPlayer player)
+        public void Lose(params IPlayer[] players)
         {
-            Losers.Add(player);
-            Process(new LoseEvent { Player = player.Copy() });
-            Leave(player);
-
-            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game. This happens immediately and overrides all effects that would preclude that player from winning the game.
+            foreach (var player in players)
+            {
+                Losers.Add(player);
+                Process(new LoseEvent { Player = player.Copy() });
+                Leave(player);
+            }
+            
+            // 104.2a A player still in the game wins the game if that player’s opponents have all left the game.
+            // This happens immediately and overrides all effects that would preclude that player from winning the game.
             if (Players.Count == 1)
             {
                 Win(Players.Single());
             }
+
+            // 104.4a If all the players remaining in a game lose simultaneously, the game is a draw.
+
+            // 800.4. Unlike two-player games, multiplayer games can 
+            // continue after one or more players have left the game.
+            // TODO: Should check if game still has two or more players even if some players lose.
         }
 
         private void Win(IPlayer player)
@@ -701,6 +710,74 @@ namespace Engine
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
         {
             return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(this) && GetPossibleAttackTargets(c).Any());
+        }
+
+        /// <summary>
+        /// 704.3.
+        /// Whenever a player would get priority, the game checks for any of the listed conditions for state-based actions, then performs all applicable state-based actions simultaneously as a single event.
+        /// If any state-based actions are performed as a result of a check, the check is repeated; otherwise all triggered abilities that are waiting to be put on the stack are put on the stack, then the check is repeated.
+        /// Once no more state-based actions have been performed as the result of a check and no triggered abilities are waiting to be put on the stack, the appropriate player gets priority.
+        /// This process also occurs during the cleanup step (see rule 514), except that if no state-based actions are performed as the result of the step’s first check and no triggered abilities are waiting to be put on the stack, then no player gets priority and the step ends.
+        /// </summary>
+        /// <returns>True if check should be repeated, false otherwise.</returns>
+        public bool CheckStateBasedActions()
+        {
+            var losers = new List<IPlayer>();
+            losers.AddRange(CheckDirectAttack());
+            losers.AddRange(CheckDeckout());
+            var creaturesToDestroy = new List<ICard>();
+            creaturesToDestroy.AddRange(CheckCreaturesWithPowerZeroOrLess());
+            creaturesToDestroy.AddRange(CheckBattleLosses());
+            //bool rearrange = CheckTopCardOfEvolutionCreatures();
+
+            Destroy(creaturesToDestroy.Distinct().ToArray());
+            Lose(losers.Distinct().ToArray());
+
+            return losers.Any() || creaturesToDestroy.Any();// || rearrange;
+        }
+
+        /// <summary>
+        /// DM703.4a If a player was directly attacked while they had no shields and the attack wasn't redirected, that player loses the game. 
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<IPlayer> CheckDirectAttack()
+        {
+            return Players.Where(X => X.DirectlyAttacked);
+        }
+
+        /// <summary>
+        /// DM703.4b If a player has no cards left in their deck, that player loses the game.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<IPlayer> CheckDeckout()
+        {
+            return Players.Where(X => X.Deck.Cards.Count == 0);
+        }
+
+        /// <summary>
+        /// DM703.4c A creature that has power 0 or less is destroyed.
+        /// </summary>
+        private IEnumerable<ICard> CheckCreaturesWithPowerZeroOrLess()
+        {
+            return BattleZone.Creatures.Where(x => x.Power <= 0);
+        }
+
+        /// <summary>
+        /// DM703.4d A creature that lost in a battle is destroyed as a result of the battle.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ICard> CheckBattleLosses()
+        {
+            return BattleZone.Creatures.Where(x => x.LostInBattle);
+        }
+
+        /// <summary>
+        /// DM703.4i When the top card of an Evolution Creature leaves the battle zone, the cards underneath it are reconstructed.
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckTopCardOfEvolutionCreatures()
+        {
+            return false; //TODO
         }
         #endregion Methods
     }

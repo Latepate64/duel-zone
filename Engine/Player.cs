@@ -59,6 +59,8 @@ namespace Engine
         public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
         public Guid AttackableId { get; set; }
+
+        public bool DirectlyAttacked { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
