@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
         public SpiralGrass() : base("Spiral Grass", 4, 2500, Subtype.StarlightTree, Civilization.Light)
         {
             AddBlockerAbility();
-            AddTriggeredAbility(new BlockAbility(new UntapItAfterItBattlesEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new UntapItAfterItBattlesEffect()));
         }
     }
 }

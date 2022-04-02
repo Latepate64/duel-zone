@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
         public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Subtype.MechaThunder, Civilization.Light)
         {
             AddBlockerAbility();
-            AddTriggeredAbility(new TriggeredAbilities.BlockAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
         }
     }
 }
