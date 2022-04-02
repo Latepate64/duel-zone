@@ -55,4 +55,25 @@ namespace Cards.ContinuousEffects
             return $"While attacking, this creature gets +{_power} power for each other tapped creature you have in the battle zone.";
         }
     }
+
+    class ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures : PowerModifyingMultiplierEffect
+    {
+        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures effect) : base(effect)
+        {
+        }
+
+        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power, new CardFilters.OwnersOtherBattleZoneUntappedCreatureFilter())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(this);
+        }
+
+        public override string ToString()
+        {
+            return $"This creature gets +{_power} power for each of your other untapped creatures in the battle zone.";
+        }
+    }
 }
