@@ -24,6 +24,11 @@ namespace Cards
         {
         }
 
+        protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
+        {
+            AddSubtypes(race1, race2);
+        }
+
         /// <summary>
         /// This constructor should be used for multicolored cards. Add subtypes for the card in the constructor of the inheritor.
         /// </summary>
