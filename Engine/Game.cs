@@ -396,7 +396,7 @@ namespace Engine
                         }
                     }
                     _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                    CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
+                    AddPendingAbilities(abilities.ToArray());
                     foreach (var ability in abilities)
                     {
                         Process(new AbilityTriggeredEvent { Ability = ability.Id });
@@ -778,6 +778,11 @@ namespace Engine
         private bool CheckTopCardOfEvolutionCreatures()
         {
             return false; //TODO
+        }
+
+        public void AddPendingAbilities(params IResolvableAbility[] abilities)
+        {
+            CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
         }
         #endregion Methods
     }

@@ -50,5 +50,6 @@ namespace Engine
         void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
+        void AddPendingAbilities(params IResolvableAbility[] abilities);
     }
 }

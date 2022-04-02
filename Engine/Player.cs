@@ -447,7 +447,7 @@ namespace Engine
             Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
-                game.CurrentTurn.CurrentPhase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>());
+                game.AddPendingAbilities(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
             }
             else
             {

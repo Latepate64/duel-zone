@@ -1,4 +1,5 @@
 ﻿using Common.GameEvents;
+using Engine.Abilities;
 using System.Linq;
 
 namespace Engine.Steps
@@ -42,7 +43,16 @@ namespace Engine.Steps
                 }
                 game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
-            player.Untap(game, game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Union(player.ManaZone.Cards).ToArray());
+            var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
+            var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
+            var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);
+
+            // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
+            player.Untap(game, creaturesWithoutSilentSkill.Union(player.ManaZone.Cards).ToArray());
+
+            var keepTapped = player.Choose(new Common.Choices.SilentSkillSelection(player.Id, creaturesWithoutSilentSkill), game).Decision.Select(x => game.GetCard(x));
+            player.Untap(game, creaturesWithSilentSkill.Except(keepTapped).ToArray());
+            game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetAbilities<SilentSkillAbility>()).ToArray());
         }
 
         internal bool SkipDrawStep { get; set; }
