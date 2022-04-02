@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
         {
             AddPowerAttackerAbility(3000);
             AddDoubleBreakerAbility();
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ItBreaksOneOfYourOpponentsShieldsEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldsEffect()));
         }
     }
 }

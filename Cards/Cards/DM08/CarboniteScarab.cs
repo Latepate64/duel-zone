@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public CarboniteScarab() : base("Carbonite Scarab", 4, 3000, Subtype.GiantInsect, Civilization.Nature)
         {
-            AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ItBreaksOneOfYourOpponentsShieldsEffect()));
+            AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldsEffect()));
         }
     }
 }
