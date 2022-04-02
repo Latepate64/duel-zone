@@ -22,14 +22,17 @@ namespace Engine.Steps
         public override void PerformTurnBasedAction(IGame game)
         {
             var attackingCreature = game.GetCard(Phase.AttackingCreature);
-            if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.Cards.Any())
+            if (attackingCreature != null)
             {
-                var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
-                attackingCreature.Break(game, breakAmount);
-            }
-            else
-            {
-                game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).DirectlyAttacked = true;
+                if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.Cards.Any())
+                {
+                    var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
+                    attackingCreature.Break(game, breakAmount);
+                }
+                else
+                {
+                    game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).DirectlyAttacked = true;
+                }
             }
         }
 
