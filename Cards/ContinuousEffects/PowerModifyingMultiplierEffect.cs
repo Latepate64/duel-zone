@@ -76,4 +76,25 @@ namespace Cards.ContinuousEffects
             return $"This creature gets +{_power} power for each of your other untapped creatures in the battle zone.";
         }
     }
+
+    class JigglyTotemEffect : PowerAttackerMultiplierEffect
+    {
+        public JigglyTotemEffect(JigglyTotemEffect effect) : base(effect)
+        {
+        }
+
+        public JigglyTotemEffect(int power) : base(power, new CardFilters.OwnersManaZoneTappedCardFilter())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new JigglyTotemEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"While attacking, this creature gets +{_power} power for each tapped card in your mana zone.";
+        }
+    }
 }
