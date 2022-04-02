@@ -31,12 +31,16 @@ namespace Cards.TriggeredAbilities
 
     class DedreenTheHiddenCorrupterAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
-        public DedreenTheHiddenCorrupterAbility(IOneShotEffect effect) : base(effect)
+        private readonly int _shieldsMaximum;
+
+        public DedreenTheHiddenCorrupterAbility(int shieldsMaximum, IOneShotEffect effect) : base(effect)
         {
+            _shieldsMaximum = shieldsMaximum;
         }
 
         public DedreenTheHiddenCorrupterAbility(DedreenTheHiddenCorrupterAbility ability) : base(ability)
         {
+            _shieldsMaximum = ability._shieldsMaximum;
         }
 
         public override IAbility Copy()
@@ -46,12 +50,12 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return GetOpponent(game).ShieldZone.Cards.Count <= 3;
+            return GetOpponent(game).ShieldZone.Cards.Count <= _shieldsMaximum;
         }
 
         public override string ToString()
         {
-            return $"When you put this creature into the battle zone, if your opponent has 3 or fewer shields, {GetEffectText()}";
+            return $"When you put this creature into the battle zone, if your opponent has {_shieldsMaximum} or fewer shields, {GetEffectText()}";
         }
     }
 }

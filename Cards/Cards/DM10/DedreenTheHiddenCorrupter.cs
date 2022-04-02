@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public DedreenTheHiddenCorrupter() : base("Dedreen, the Hidden Corrupter", 5, 4000, Subtype.PandorasBox, Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.DedreenTheHiddenCorrupterAbility(new OneShotEffects.OpponentRandomDiscardEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.DedreenTheHiddenCorrupterAbility(3, new OneShotEffects.OpponentRandomDiscardEffect()));
         }
     }
 }
