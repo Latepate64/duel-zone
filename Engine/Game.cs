@@ -478,6 +478,11 @@ namespace Engine
             return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
+        public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
+        {
+            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination, EntersTapped = true }).ToList());
+        }
+
         /// <summary>
         /// 400.6.
         /// If an object would move from one zone to another, determine what event is moving the object.
@@ -532,6 +537,10 @@ namespace Engine
                         // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
                         // 613.7d An object receives a timestamp at the time it enters a zone.
                         var newObject = new Card(removedCard, GetTimestamp());
+                        if (e.EntersTapped)
+                        {
+                            newObject.Tapped = true;
+                        }
                         try 
                         {
                             (e.Destination == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Destination)).Add(newObject, this);

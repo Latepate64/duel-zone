@@ -23,6 +23,7 @@ namespace Engine
 
         void AddAbility(ICard card, IAbility ability);
         bool CheckStateBasedActions();
+        IEnumerable<ICardMovedEvent> MoveTapped(Common.ZoneType hand, Common.ZoneType manaZone, params ICard[] cards);
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);

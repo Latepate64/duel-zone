@@ -8,6 +8,7 @@ namespace Common.GameEvents
         ZoneType Destination { get; set; }
         IPlayer Player { get; set; }
         ZoneType Source { get; set; }
+        bool EntersTapped { get; set; }
 
         string ToString();
     }
