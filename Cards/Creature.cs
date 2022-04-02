@@ -172,4 +172,21 @@ namespace Cards
             AddAbilities(new SilentSkillAbility(effect));
         }
     }
+
+    class WaveStrikerCreature : Creature
+    {
+        public WaveStrikerCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        {
+        }
+
+        protected void AddWaveStrikerAbility(Engine.ContinuousEffects.IContinuousEffect effect)
+        {
+            AddAbilities(new WaveStrikerAbility(new StaticAbility(effect)));
+        }
+
+        protected void AddWaveStrikerAbility(ITriggeredAbility ability)
+        {
+            AddAbilities(new WaveStrikerAbility(ability));
+        }
+    }
 }
