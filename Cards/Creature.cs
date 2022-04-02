@@ -151,4 +151,16 @@ namespace Cards
             AddStaticAbilities(new TurboRushEffect(new StaticAbility(effect)));
         }
     }
+
+    class SilentSkillCreature : Creature
+    {
+        public SilentSkillCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        {
+        }
+
+        protected void AddSilentSkillAbility(IOneShotEffect effect)
+        {
+            AddAbilities(new SilentSkillAbility(effect));
+        }
+    }
 }

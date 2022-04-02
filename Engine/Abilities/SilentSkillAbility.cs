@@ -1,6 +1,6 @@
 ﻿namespace Engine.Abilities
 {
-    class SilentSkillAbility : ActivatedAbility
+    public class SilentSkillAbility : ActivatedAbility
     {
         public SilentSkillAbility(IOneShotEffect effect) : base(effect)
         {
