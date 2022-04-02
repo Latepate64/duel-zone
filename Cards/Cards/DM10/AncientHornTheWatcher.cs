@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public AncientHornTheWatcher() : base("Ancient Horn, the Watcher", 5, 5000, Subtype.HornedBeast, Civilization.Nature)
         {
-            AddTriggeredAbility(new TriggeredAbilities.AncientHornTheWatcherAbility());
+            AddTriggeredAbility(new TriggeredAbilities.AncientHornTheWatcherAbility(new OneShotEffects.UntapAllTheCardsInYourManaZoneEffect()));
         }
     }
 }
