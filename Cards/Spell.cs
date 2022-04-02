@@ -5,7 +5,11 @@ namespace Cards
 {
     abstract class Spell : CardImplementation
     {
-        protected Spell(string name, int manaCost, params Civilization[] civilizations) : base(CardType.Spell, name, manaCost, null, civilizations)
+        protected Spell(string name, int manaCost, Civilization civilization) : base(CardType.Spell, name, manaCost, null, civilization)
+        {
+        }
+
+        protected Spell(string name, int manaCost, Civilization civilization1, Civilization civilization2) : base(CardType.Spell, name, manaCost, null, civilization1, civilization2)
         {
         }
 
@@ -21,7 +25,7 @@ namespace Cards
 
     abstract class Charger : Spell
     {
-        protected Charger(string name, int manaCost, params Civilization[] civilizations) : base(name, manaCost, civilizations)
+        protected Charger(string name, int manaCost, Civilization civilization) : base(name, manaCost, civilization)
         {
             AddStaticAbilities(new ContinuousEffects.ThisSpellHasChargerEffect());
         }
