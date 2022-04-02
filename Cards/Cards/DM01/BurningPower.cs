@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(cards));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(2000, cards));
         }
     }
 }

@@ -20,6 +20,15 @@ namespace Cards
             Subtypes.Add(race);
         }
 
+        protected Creature(string name, int manaCost, int power, Subtype race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
+        {
+        }
+
+        protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
+        {
+            AddSubtypes(race1, race2);
+        }
+
         /// <summary>
         /// This constructor should be used for multicolored cards. Add subtypes for the card in the constructor of the inheritor.
         /// </summary>
@@ -145,6 +154,22 @@ namespace Cards
         protected void AddTurboRushAbility(Engine.ContinuousEffects.IContinuousEffect effect)
         {
             AddStaticAbilities(new TurboRushEffect(new StaticAbility(effect)));
+        }
+    }
+
+    class SilentSkillCreature : Creature
+    {
+        public SilentSkillCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        {
+        }
+
+        public SilentSkillCreature(string name, int manaCost, int power, Subtype race, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race, civilization1, civilization2)
+        {
+        }
+
+        protected void AddSilentSkillAbility(IOneShotEffect effect)
+        {
+            AddAbilities(new SilentSkillAbility(effect));
         }
     }
 }

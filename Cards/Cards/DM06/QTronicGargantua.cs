@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public QTronicGargantua() : base("Q-tronic Gargantua", 6, 9000, Subtype.Survivor, Civilization.Fire)
         {
-            AddStaticAbilities(new CrewBreakerEffect(Subtype.Survivor));
+            AddStaticAbilities(new CrewBreakerSubtypeEffect(Subtype.Survivor));
         }
     }
 }

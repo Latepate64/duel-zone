@@ -6,7 +6,7 @@
         {
         }
 
-        public TapAbility(IResolvableAbility ability) : base(ability)
+        public TapAbility(TapAbility ability) : base(ability)
         {
         }
 

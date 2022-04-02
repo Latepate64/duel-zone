@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class ThisCreatureGetsPowerAndDoubleBreakerEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    abstract class GetPowerAndDoubleBreakerEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         private readonly int _power;
 
-        protected ThisCreatureGetsPowerAndDoubleBreakerEffect(ThisCreatureGetsPowerAndDoubleBreakerEffect effect) : base(effect)
+        protected GetPowerAndDoubleBreakerEffect(GetPowerAndDoubleBreakerEffect effect) : base(effect)
         {
             _power = effect._power;
         }
 
-        protected ThisCreatureGetsPowerAndDoubleBreakerEffect(int power, IDuration duration, params Condition[] conditions) : base(new TargetFilter(), duration, conditions)
+        protected GetPowerAndDoubleBreakerEffect(ICardFilter filter, int power, IDuration duration, params Condition[] conditions) : base(filter, duration, conditions)
         {
             _power = power;
         }

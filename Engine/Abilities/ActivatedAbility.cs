@@ -7,7 +7,7 @@ namespace Engine.Abilities
         {
         }
 
-        protected ActivatedAbility(IResolvableAbility ability) : base(ability)
+        protected ActivatedAbility(ActivatedAbility ability) : base(ability)
         {
         }
     }

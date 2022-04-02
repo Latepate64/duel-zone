@@ -13,9 +13,11 @@ namespace Engine
         IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
+        bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
+        Common.Subtype ChooseRace(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);

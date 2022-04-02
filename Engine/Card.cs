@@ -115,6 +115,8 @@ namespace Engine
 
         public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
 
+        public bool LostInBattle { get; set; }
+
         public void ResetToPrintedValues()
         {
             Power = PrintedPower;

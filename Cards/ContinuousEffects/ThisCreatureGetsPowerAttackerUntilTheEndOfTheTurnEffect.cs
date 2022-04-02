@@ -6,12 +6,16 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AbilityAddingEffect
     {
+        private readonly int _power;
+
         public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
+            _power = effect._power;
         }
 
-        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(2000))
+        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(power))
         {
+            _power = power;
         }
 
         public override IContinuousEffect Copy()
@@ -21,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return "This creature has \"power attacker +2000\" until the end of the turn.";
+            return $"This creature has \"power attacker +{_power}\" until the end of the turn.";
         }
     }
 }

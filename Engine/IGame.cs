@@ -22,6 +22,8 @@ namespace Engine
         bool Ended { get; }
 
         void AddAbility(ICard card, IAbility ability);
+        bool CheckStateBasedActions();
+        IEnumerable<ICardMovedEvent> MoveTapped(Common.ZoneType hand, Common.ZoneType manaZone, params ICard[] cards);
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
@@ -43,11 +45,12 @@ namespace Engine
         IPlayer GetPlayer(Guid id);
         IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
-        void Lose(IPlayer player);
+        void Lose(params IPlayer[] players);
         IEnumerable<ICardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
+        void AddPendingAbilities(params IResolvableAbility[] abilities);
     }
 }

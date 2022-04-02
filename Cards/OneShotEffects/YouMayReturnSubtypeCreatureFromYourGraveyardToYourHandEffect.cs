@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
     {
         private readonly Subtype _subtype;
 
-        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype) : base(new CardFilters.OwnersGraveyardSubtypeCreatureFilter(subtype), 0, 1, true)
+        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype, int maximum = 1) : base(new CardFilters.OwnersGraveyardSubtypeCreatureFilter(subtype), 0, maximum, true)
         {
             _subtype = subtype;
         }
@@ -24,7 +24,9 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"You may return a {_subtype} from your graveyard to your hand.";
+            return Maximum == 1 ? 
+                $"You may return a {_subtype} from your graveyard to your hand." : 
+                $"Return up to {Maximum} {_subtype}s from your graveyard to your hand.";
         }
     }
 }

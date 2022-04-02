@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
+    class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base(new TargetFilter())
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 
@@ -20,15 +20,26 @@ namespace Cards.ContinuousEffects
             return new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(this);
         }
 
+        public override string ToString()
+        {
+            return "When this creature would be destroyed, return it to your hand instead.";
+        }
+    }
+
+    abstract class WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
+    {
+        protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect effect) : base(effect)
+        {
+        }
+
+        protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(CardFilter filter, IDuration duration) : base(filter, duration)
+        {
+        }
+
         public override bool Apply(IGame game, Engine.IPlayer player)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
             return true;
-        }
-
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, return it to your hand instead.";
         }
     }
 }

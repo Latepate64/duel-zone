@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -27,7 +28,7 @@ namespace Cards.Cards.DM04
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new FullDefensorContinuousEffect(source.Controller, GetAffectedCards(game, source).ToArray()));
             return null;
         }
 
@@ -39,6 +40,27 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Until the start of your next turn, each of your creatures in the battle zone gets \"Blocker\".";
+        }
+    }
+
+    class FullDefensorContinuousEffect : AbilityAddingEffect
+    {
+        public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
+        {
+        }
+
+        public FullDefensorContinuousEffect(System.Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilStartOfYourNextTurn(player), new StaticAbilities.BlockerAbility())
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new FullDefensorContinuousEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
         }
     }
 }

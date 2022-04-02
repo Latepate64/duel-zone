@@ -4,13 +4,13 @@ using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
-    class BlockAbility : CardTriggeredAbility
+    class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
     {
-        public BlockAbility(OneShotEffect effect) : base(effect)
+        public WheneverThisCreatureBlocksAbility(OneShotEffect effect) : base(effect)
         {
         }
 
-        public BlockAbility(BlockAbility ability) : base(ability)
+        public WheneverThisCreatureBlocksAbility(WheneverThisCreatureBlocksAbility ability) : base(ability)
         {
         }
 
@@ -21,7 +21,7 @@ namespace Cards.TriggeredAbilities
 
         public override Ability Copy()
         {
-            return new BlockAbility(this);
+            return new WheneverThisCreatureBlocksAbility(this);
         }
 
         public override string ToString()

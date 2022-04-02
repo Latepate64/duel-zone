@@ -3,6 +3,7 @@ using Engine.Abilities;
 using Common.Choices;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Engine.Steps
 {
@@ -23,10 +24,17 @@ namespace Engine.Steps
         {
             if (!game.Ended)
             {
-                ResolveAbilities(game);
-                if (!game.Ended && this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
+                if (game.CheckStateBasedActions())
                 {
                     Progress(game);
+                }
+                else
+                {
+                    ResolveAbilities(game);
+                    if (!game.Ended && this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
+                    {
+                        Progress(game);
+                    }
                 }
             }
         }

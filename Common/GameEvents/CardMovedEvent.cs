@@ -13,6 +13,7 @@ namespace Common.GameEvents
         //public Card Card { get; set; }
         public ZoneType Source { get; set; }
         public ZoneType Destination { get; set; }
+        public bool EntersTapped { get; set; }
 
         public CardMovedEvent() : base()
         {
@@ -51,6 +52,7 @@ namespace Common.GameEvents
             }
             Source = e.Source;
             Destination = e.Destination;
+            EntersTapped = e.EntersTapped;
         }
 
         public override IGameEvent Copy()

@@ -17,7 +17,5 @@ namespace Engine
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        public abstract override string ToString();
     }
 }

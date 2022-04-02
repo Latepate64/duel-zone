@@ -20,4 +20,21 @@ namespace Cards.OneShotEffects
             return true;
         }
     }
+
+    class UntapAllTheCardsInYourManaZoneEffect : UntapAreaOfEffect
+    {
+        public UntapAllTheCardsInYourManaZoneEffect() : base(new CardFilters.OwnersManaZoneCardFilter())
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new UntapAllTheCardsInYourManaZoneEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Untap all the cards in your mana zone.";
+        }
+    }
 }

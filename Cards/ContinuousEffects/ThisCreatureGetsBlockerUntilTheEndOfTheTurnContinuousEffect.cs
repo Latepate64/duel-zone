@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect : AbilityAddingEffect
     {
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(AbilityAddingEffect effect) : base(effect)
+        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect effect) : base(effect)
         {
         }
 

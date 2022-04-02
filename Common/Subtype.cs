@@ -53,6 +53,7 @@
         SeaHacker,
         SnowFaerie,
         Soltrooper,
+        SpiritQuartz,
         StarlightTree,
         Survivor,
         TreeFolk,

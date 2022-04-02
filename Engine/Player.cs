@@ -59,6 +59,8 @@ namespace Engine
         public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
         public Guid AttackableId { get; set; }
+
+        public bool DirectlyAttacked { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
@@ -445,7 +447,7 @@ namespace Engine
             Tap(game, attacker);
             if (target.Id == attacker.Id)
             {
-                game.CurrentTurn.CurrentPhase.PendingAbilities.AddRange(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>());
+                game.AddPendingAbilities(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
             }
             else
             {
@@ -472,6 +474,8 @@ namespace Engine
         {
             _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
         }
+
+        public abstract Subtype ChooseRace(params Subtype[] excluded);
         #endregion Methods
     }
 }

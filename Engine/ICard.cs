@@ -10,6 +10,7 @@ namespace Engine
         IList<IAbility> AddedAbilities { get; }
         int? PrintedPower { get; }
         bool IsDragon { get; }
+        bool LostInBattle { get; set; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);

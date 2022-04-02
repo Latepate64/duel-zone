@@ -106,4 +106,29 @@ namespace Cards.OneShotEffects
             return $"When you put this creature into the battle zone, search your deck. You may take a {_subtype} from your deck, show that {_subtype} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
     }
+
+    class SearchCardWithNameEffect : SearchEffect
+    {
+        private readonly string _name;
+
+        public SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
+        {
+            _name = effect._name;
+        }
+
+        public SearchCardWithNameEffect(string name) : base(new CardFilters.OwnersDeckCardWithNameFilter(name), true)
+        {
+            _name = name;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new SearchCardWithNameEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Search your deck. You may take a {_name} from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
+        }
+    }
 }
