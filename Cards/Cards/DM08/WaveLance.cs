@@ -17,7 +17,7 @@ namespace Cards.Cards.DM08
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var creature = new OneShotEffects.ChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect().Apply(game, source);
+            var creature = new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect().Apply(game, source);
             if (creature.Any(x => x.IsDragon))
             {
                 new OneShotEffects.YouMayDrawCardsEffect(1).Apply(game, source);

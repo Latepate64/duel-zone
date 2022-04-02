@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public RiptideCharger() : base("Riptide Charger", 5, Civilization.Water)
         {
-            AddSpellAbilities(new OneShotEffects.ChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect());
+            AddSpellAbilities(new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect());
         }
     }
 }
