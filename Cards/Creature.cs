@@ -181,12 +181,12 @@ namespace Cards
 
         protected void AddWaveStrikerAbility(Engine.ContinuousEffects.IContinuousEffect effect)
         {
-            AddAbilities(new WaveStrikerAbility(new StaticAbility(effect)));
+            AddAbilities(new StaticAbilities.WaveStrikerAbility(new StaticAbility(effect)));
         }
 
         protected void AddWaveStrikerAbility(ITriggeredAbility ability)
         {
-            AddAbilities(new WaveStrikerAbility(ability));
+            AddAbilities(new StaticAbilities.WaveStrikerAbility(ability));
         }
     }
 }

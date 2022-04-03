@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.StaticAbilities;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
@@ -24,13 +25,6 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"Wave striker: {AbilitiesAsText}";
-        }
-    }
-
-    class WaveStrikerAbility : StaticAbility
-    {
-        public WaveStrikerAbility(params IAbility[] abilities) : base(new WaveStrikerEffect(abilities))
-        {
         }
     }
 
