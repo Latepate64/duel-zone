@@ -40,9 +40,9 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class ClonedDeflectorTapEffect : DestroyEffect
+    class ClonedDeflectorTapEffect : TapChoiceEffect
     {
-        public ClonedDeflectorTapEffect(int maximum) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 1, maximum, true)
+        public ClonedDeflectorTapEffect(int maximum) : base(1, maximum, true)
         {
         }
 
