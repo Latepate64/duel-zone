@@ -2,7 +2,6 @@
 using Common;
 using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -10,21 +9,28 @@ namespace Cards.Cards.DM12
     {
         public ClonedBlade() : base("Cloned Blade", 5, Civilization.Fire)
         {
-            AddSpellAbilities(new ClonedBladeEffect());
+            AddSpellAbilities(new ClonedBladeEffect(Name));
         }
     }
 
-    class ClonedBladeEffect : OneShotEffect
+    class ClonedBladeEffect : ClonedEffect
     {
+        public ClonedBladeEffect(string name) : base(name)
+        {
+        }
+
+        public ClonedBladeEffect(ClonedBladeEffect effect) : base(effect)
+        {
+        }
+
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = 1 + game.Players.SelectMany(x => x.Graveyard.Cards.Where(x => x.Name == "Cloned Blade")).Count();
-            return new ClonedBladeDestroyEffect(amount).Apply(game, source);
+            return new ClonedBladeDestroyEffect(GetAmount(game)).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new ClonedBladeEffect();
+            return new ClonedBladeEffect(this);
         }
 
         public override string ToString()
