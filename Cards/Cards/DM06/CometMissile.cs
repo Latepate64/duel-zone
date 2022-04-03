@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public CometMissile() : base("Comet Missile", 1, Common.Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new CometMissileEffect());
         }
     }

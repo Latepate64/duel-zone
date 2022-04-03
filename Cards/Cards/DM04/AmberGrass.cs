@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public AmberGrass() : base("Amber Grass", 4, 3000, Subtype.StarlightTree, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
         }
     }
 }

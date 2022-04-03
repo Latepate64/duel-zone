@@ -4,7 +4,7 @@
     {
         public LogicCube() : base("Logic Cube", 3, Common.Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.SearchSpellEffect());
         }
     }

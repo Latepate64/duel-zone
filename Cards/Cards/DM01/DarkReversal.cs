@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DarkReversal() : base("Dark Reversal", 2, Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnCreatureFromYourGraveyardToYourHandEffect());
         }
     }

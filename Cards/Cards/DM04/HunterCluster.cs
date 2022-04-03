@@ -4,7 +4,7 @@
     {
         public HunterCluster() : base("Hunter Cluster", 4, 1000, Common.Subtype.CyberCluster, Common.Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddBlockerAbility();
         }
     }

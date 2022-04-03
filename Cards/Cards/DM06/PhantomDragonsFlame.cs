@@ -4,7 +4,7 @@
     {
         public PhantomDragonsFlame() : base("Phantom Dragon's Flame", 3, Common.Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
         }
     }

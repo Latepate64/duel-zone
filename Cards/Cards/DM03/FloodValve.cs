@@ -4,7 +4,7 @@
     {
         public FloodValve() : base("Flood Valve", 2, Common.Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(1));
         }
     }

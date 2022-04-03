@@ -22,7 +22,7 @@ namespace Engine.Zones
         public override void Add(ICard card, IGame game)
         {
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
-            if (card.Civilizations.Count > 1)
+            if (card.IsMultiColored)
             {
                 card.Tapped = true;
             }

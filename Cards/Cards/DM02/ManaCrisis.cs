@@ -4,7 +4,7 @@
     {
         public ManaCrisis() : base("Mana Crisis", 4, Common.Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect());
         }
     }

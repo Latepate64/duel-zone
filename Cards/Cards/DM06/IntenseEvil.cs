@@ -9,7 +9,7 @@ namespace Cards.Cards.DM06
     {
         public IntenseEvil() : base("Intense Evil", 3, Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new IntenseEvilEffect());
         }
     }

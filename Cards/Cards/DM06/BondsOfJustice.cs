@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public BondsOfJustice() : base("Bonds of Justice", 4, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new BondsOfJusticeEffect());
         }
     }

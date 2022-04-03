@@ -212,9 +212,10 @@ namespace Engine
             }
         }
 
-        private void Cast(ICard spell, IGame game)
+        public void Cast(ICard spell, IGame game)
         {
-            Hand.Remove(spell, game);
+            // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
+            game.GetZone(spell).Remove(spell, game);
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             ResolveSpellAbilities(spell, game);
@@ -476,6 +477,7 @@ namespace Engine
         }
 
         public abstract Subtype ChooseRace(params Subtype[] excluded);
+        public abstract int ChooseNumber(string text, int minimum, int? maximum);
         #endregion Methods
     }
 }

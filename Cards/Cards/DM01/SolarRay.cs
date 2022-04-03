@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public SolarRay() : base("Solar Ray", 2, Common.Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
         }
     }

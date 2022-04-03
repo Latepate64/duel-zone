@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public Upheaval() : base("Upheaval", 6, Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new UpheavalEffect());
         }
     }

@@ -4,7 +4,7 @@
     {
         public LogicSphere() : base("Logic Sphere", 3, Common.Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());
         }
     }

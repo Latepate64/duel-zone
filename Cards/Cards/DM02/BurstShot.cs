@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public BurstShot() : base("Burst Shot", 6, Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new DestroyMaxPowerAreaOfEffect(2000));
         }
     }

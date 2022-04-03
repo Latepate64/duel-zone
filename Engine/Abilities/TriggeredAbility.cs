@@ -48,7 +48,7 @@ namespace Engine.Abilities
             return true;
         }
 
-        public override void Resolve(IGame game)
+        public sealed override void Resolve(IGame game)
         {
             // 608.2a
             // If a triggered ability has an intervening “if” clause,

@@ -250,7 +250,8 @@ namespace Engine
             }
             else
             {
-                Destroy(new List<ICard> { attackingCreature, defendingCreature });
+                CheckLoseInBattle(attackingCreature, defendingCreature);
+                CheckLoseInBattle(defendingCreature, attackingCreature);
             }
 
             Process(new AfterBattleEvent());
@@ -258,11 +259,19 @@ namespace Engine
             void Outcome(ICard winner, ICard loser)
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
-                loser.LostInBattle = true;
+                CheckLoseInBattle(loser, winner);
                 if (GetContinuousEffects<SlayerEffect>(loser).Any(x => x.WorksAgainstFilter.Applies(winner, this, GetPlayer(winner.Owner))))
                 {
                     winner.LostInBattle = true; // TODO: Not sure if proper way to do
                 }
+            }
+        }
+
+        private void CheckLoseInBattle(ICard target, ICard against)
+        {
+            if (!GetContinuousEffects<INotDestroyedInBattleEffect>(target).Any(x => x.Applies(against)))
+            {
+                target.LostInBattle = true;
             }
         }
 
@@ -792,6 +801,16 @@ namespace Engine
         public void AddPendingAbilities(params IResolvableAbility[] abilities)
         {
             CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
+        }
+
+        public IZone GetZone(ICard card)
+        {
+            return GetZones().Single(x => x.Cards.Contains(card));
+        }
+
+        private IEnumerable<IZone> GetZones()
+        {
+            return Players.SelectMany(x => x.Zones).Union(new IZone[] { BattleZone });
         }
         #endregion Methods
     }

@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
 
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, source.GetController(game)));
+            var cards = GetSelectableCards(game, source.Controller);
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())
@@ -54,5 +54,10 @@ namespace Cards.OneShotEffects
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
+
+        protected IEnumerable<ICard> GetSelectableCards(IGame game, Guid player)
+        {
+            return game.GetAllCards(Filter, player);
+        }
     }
 }

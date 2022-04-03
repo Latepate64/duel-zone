@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public CrystalMemory() : base("Crystal Memory", 4, Common.Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new SearchCardNoRevealEffect());
         }
     }

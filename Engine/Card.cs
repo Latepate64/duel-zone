@@ -116,6 +116,7 @@ namespace Engine
         public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
 
         public bool LostInBattle { get; set; }
+        public bool IsMultiColored => Civilizations.Count > 1;
 
         public void ResetToPrintedValues()
         {
@@ -217,6 +218,16 @@ namespace Engine
             var opponent = game.GetOpponent(game.GetPlayer(Owner));
             game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
             game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
+        }
+
+        public bool HasCivilization(Common.Civilization civilization)
+        {
+            return Civilizations.Contains(civilization);
+        }
+
+        public bool HasSubtype(Common.Subtype subtype)
+        {
+            return Subtypes.Contains(subtype);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
     {
         public ThoughtProbe() : base("Thought Probe", 4, Common.Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new ThoughtProbeEffect());
         }
     }

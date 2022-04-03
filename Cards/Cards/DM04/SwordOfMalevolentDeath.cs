@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
-            var power = creatures.Where(x => x.Civilizations.Contains(Civilization.Darkness)).Count() * 1000;
+            var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
             game.AddContinuousEffects(source, new SwordOfMalevolentDeathContinuousEffect(new CardFilters.TargetsFilter(creatures.ToArray()), power));
             return null;
         }

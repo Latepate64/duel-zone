@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public DimensionGate() : base("Dimension Gate", 3, Common.Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new SearchCreatureEffect());
         }
     }

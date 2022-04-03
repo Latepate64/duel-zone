@@ -1,7 +1,5 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
-using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
@@ -9,25 +7,8 @@ namespace Cards.Cards.DM04
     {
         public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
         {
-            ShieldTrigger = true;
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new MagmarexEffect());
-        }
-    }
-
-    class MagmarexEffect : DestroyAreaOfEffect
-    {
-        public MagmarexEffect() : base(new BattleZoneExactPowerCreatureFilter(1000))
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MagmarexEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy all creatures that have power 1000.";
+            AddShieldTrigger();
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAllCreaturesThatHaveExactPower(1000));
         }
     }
 }

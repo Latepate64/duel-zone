@@ -131,4 +131,29 @@ namespace Cards.OneShotEffects
             return $"Search your deck. You may take a {_name} from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
         }
     }
+
+    class BrutalChargeSearchEffect : SearchEffect
+    {
+        private readonly int _amount;
+
+        public BrutalChargeSearchEffect(BrutalChargeSearchEffect effect) : base(effect)
+        {
+            _amount = effect._amount;
+        }
+
+        public BrutalChargeSearchEffect(int amount) : base(new CardFilters.OwnersDeckCreatureFilter(), true, amount)
+        {
+            _amount = amount;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new BrutalChargeSearchEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Search your deck. Take up to {_amount} creatures from your deck, show them to your opponent, and put them into your hand. Then shuffle your deck.";
+        }
+    }
 }

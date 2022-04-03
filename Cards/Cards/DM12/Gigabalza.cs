@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
     {
         public Gigabalza() : base("Gigabalza", 4, 1000, Common.Subtype.Chimera, Common.Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect());
         }
     }

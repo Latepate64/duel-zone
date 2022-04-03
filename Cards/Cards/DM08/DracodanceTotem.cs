@@ -48,7 +48,7 @@ namespace Cards.Cards.DM08
 
     class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
     {
-        public DracodanceTotemRecoveryEffect() : base(1, 1, true, new DragonInYourManaZoneFilter())
+        public DracodanceTotemRecoveryEffect() : base(1, 1, true, new CardFilters.DragonInYourManaZoneFilter())
         {
         }
 
@@ -60,24 +60,6 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "Return a creature that has Dragon in its race from your mana zone to your hand.";
-        }
-    }
-
-    class DragonInYourManaZoneFilter : CardFilters.OwnersManaZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DragonInYourManaZoneFilter();
-        }
-
-        public override string ToString()
-        {
-            return "a creature that has Dragon in its race from your mana zone";
         }
     }
 }

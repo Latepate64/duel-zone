@@ -2,6 +2,7 @@
 using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards
 {
@@ -170,6 +171,23 @@ namespace Cards
         protected void AddSilentSkillAbility(IOneShotEffect effect)
         {
             AddAbilities(new SilentSkillAbility(effect));
+        }
+    }
+
+    class WaveStrikerCreature : Creature
+    {
+        public WaveStrikerCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        {
+        }
+
+        protected void AddWaveStrikerAbility(params Engine.ContinuousEffects.IContinuousEffect[] effects)
+        {
+            AddAbilities(new StaticAbilities.WaveStrikerAbility(effects.Select(x => new StaticAbility(x)).ToArray()));
+        }
+
+        protected void AddWaveStrikerAbility(ITriggeredAbility ability)
+        {
+            AddAbilities(new StaticAbilities.WaveStrikerAbility(ability));
         }
     }
 }

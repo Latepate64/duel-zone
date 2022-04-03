@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public SirenConcerto() : base("Siren Concerto", 1, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new SirenConcertoEffect());
         }
     }

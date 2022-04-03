@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public RapidReincarnation() : base("Rapid Reincarnation", 3, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new RapidReincarnationEffect());
         }
     }

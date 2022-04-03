@@ -18,6 +18,11 @@ namespace Server
         {
         }
 
+        public override int ChooseNumber(string text, int minimum, int? maximum)
+        {
+            return Rnd.Next(minimum, 6);
+        }
+
         public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)
         {
             return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();

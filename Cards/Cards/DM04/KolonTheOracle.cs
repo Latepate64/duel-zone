@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public KolonTheOracle() : base("Kolon, the Oracle", 4, 1000, Subtype.LightBringer, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect());
         }
     }

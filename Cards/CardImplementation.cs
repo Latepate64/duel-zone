@@ -29,5 +29,10 @@ namespace Cards
         {
             AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
         }
+
+        protected void AddShieldTrigger()
+        {
+            ShieldTrigger = true;
+        }
     }
 }

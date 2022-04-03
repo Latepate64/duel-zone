@@ -17,7 +17,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Civilizations.Contains(Civilization.Water)).Count();
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Water));
             return new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(amount).Apply(game, source);
         }
 

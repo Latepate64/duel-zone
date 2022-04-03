@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
     {
         public CannoneerBargon() : base("Cannoneer Bargon", 4, 4000, Subtype.Armorloid, Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddThisCreatureCannotAttackPlayersAbility();
         }
     }

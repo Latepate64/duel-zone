@@ -52,5 +52,6 @@ namespace Engine
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void AddPendingAbilities(params IResolvableAbility[] abilities);
+        IZone GetZone(ICard card);
     }
 }

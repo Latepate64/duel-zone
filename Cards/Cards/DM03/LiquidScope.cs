@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public LiquidScope() : base("Liquid Scope", 4, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new LiquidScopeEffect());
         }
     }

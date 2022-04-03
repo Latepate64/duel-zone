@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
     {
         public AquaSkydiver() : base("Aqua Skydiver", 4, 1000, Subtype.LiquidPeople, Civilization.Light, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddBlockerAbility();
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }

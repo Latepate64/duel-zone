@@ -10,6 +10,12 @@ namespace Cards
             Supertypes.Add(Supertype.Evolution);
             AddStaticAbilities(new RaceEvolutionEffect(new Engine.TargetFilter(), race));
         }
+
+        public EvolutionCreature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race1, race2, civilization1, civilization2)
+        {
+            Supertypes.Add(Supertype.Evolution);
+            AddStaticAbilities(new RaceEvolutionEffect(new Engine.TargetFilter(), race1, race2));
+        }
     }
 
     class DragonEvolutionCreature : Creature

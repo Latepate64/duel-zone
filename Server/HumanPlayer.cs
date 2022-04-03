@@ -40,5 +40,10 @@ namespace Server
         {
             throw new NotImplementedException();
         }
+
+        public override int ChooseNumber(string text, int minimum, int? maximum)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,11 +11,13 @@ namespace Engine
         int? PrintedPower { get; }
         bool IsDragon { get; }
         bool LostInBattle { get; set; }
+        bool IsMultiColored { get; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
+        bool HasCivilization(Common.Civilization civilization);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);
         bool CanBeUsedRegardlessOfManaCost(IGame game);
@@ -23,6 +25,7 @@ namespace Engine
         Common.ICard Convert(bool clear = false);
         ICard Copy();
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
+        bool HasSubtype(Common.Subtype subtype);
         IEnumerable<T> GetAbilities<T>();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         void Break(IGame game, int breakAmount);
