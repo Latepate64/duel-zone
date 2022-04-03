@@ -18,7 +18,7 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.Subtypes.Contains(Subtype.Survivor)));
+            return new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.HasSubtype(Subtype.Survivor)));
         }
 
         public override IOneShotEffect Copy()

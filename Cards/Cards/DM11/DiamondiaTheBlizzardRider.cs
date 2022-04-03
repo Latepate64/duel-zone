@@ -17,8 +17,8 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.Subtypes.Contains(Subtype.SnowFaerie)).ToArray());
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.Subtypes.Contains(Subtype.SnowFaerie)).ToArray());
+            game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasSubtype(Subtype.SnowFaerie)).ToArray());
+            game.Move(ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.HasSubtype(Subtype.SnowFaerie)).ToArray());
             return null;
         }
 

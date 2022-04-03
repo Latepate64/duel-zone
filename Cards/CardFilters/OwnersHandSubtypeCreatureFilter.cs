@@ -19,7 +19,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
         {
-            return base.Applies(card, game, player) && card.Subtypes.Contains(_subtype);
+            return base.Applies(card, game, player) && card.HasSubtype(_subtype);
         }
 
         public override CardFilter Copy()

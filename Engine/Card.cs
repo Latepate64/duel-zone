@@ -224,5 +224,10 @@ namespace Engine
         {
             return Civilizations.Contains(civilization);
         }
+
+        public bool HasSubtype(Common.Subtype subtype)
+        {
+            return Subtypes.Contains(subtype);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace Engine
         Common.ICard Convert(bool clear = false);
         ICard Copy();
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
+        bool HasSubtype(Common.Subtype subtype);
         IEnumerable<T> GetAbilities<T>();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         void Break(IGame game, int breakAmount);

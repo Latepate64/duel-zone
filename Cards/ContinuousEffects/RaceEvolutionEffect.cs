@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
 
         public override bool CanEvolveFrom(ICard card)
         {
-            return card.Subtypes.Contains(Race);
+            return card.HasSubtype(Race);
         }
 
         public override ContinuousEffect Copy()

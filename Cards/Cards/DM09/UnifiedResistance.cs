@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
         public override object Apply(IGame game, IAbility source)
         {
             var race = source.GetController(game).ChooseRace();
-            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.Subtypes.Contains(race));
+            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasSubtype(race));
             game.AddContinuousEffects(source, new UnifiedResistanceContinuousEffect(source.Controller, creatures.ToArray()));
             return null;
         }

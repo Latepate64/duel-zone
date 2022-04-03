@@ -31,8 +31,7 @@ namespace Cards.Cards.DM01
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            // if you have a Cyber Lord in the battle zone
-            return game.BattleZone.GetCreatures(Controller).Any(x => x.Subtypes.Contains(Common.Subtype.CyberLord));
+            return game.BattleZone.GetCreatures(Controller).Any(x => x.HasSubtype(Common.Subtype.CyberLord));
         }
 
         public override string ToString()
