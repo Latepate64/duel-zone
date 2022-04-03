@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public FaerieLife() : base("Faerie Life", 2, Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1));
         }
     }

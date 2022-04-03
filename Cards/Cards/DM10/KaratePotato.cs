@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public KaratePotato() : base("Karate Potato", 4, 1000, Subtype.WildVeggies, Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(2));
         }
     }

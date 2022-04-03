@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
     {
         public WhipScorpion() : base("Whip Scorpion", 5, 2000, Subtype.GiantInsect, Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddPowerAttackerAbility(3000);
         }
     }

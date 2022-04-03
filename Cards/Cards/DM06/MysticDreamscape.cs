@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public MysticDreamscape() : base("Mystic Dreamscape", 4, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnUpToCardsFromYourManaZoneToYourHandEffect(3));
         }
     }

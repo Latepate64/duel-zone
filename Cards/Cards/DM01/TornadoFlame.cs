@@ -4,7 +4,7 @@
     {
         public TornadoFlame() : base("Tornado Flame", 5, Common.Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(4000));
         }
     }

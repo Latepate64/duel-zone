@@ -10,7 +10,7 @@ namespace Cards.Cards.DM09
     {
         public UnifiedResistance() : base("Unified Resistance", 2, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new UnifiedResistanceOneShotEffect());
         }
     }

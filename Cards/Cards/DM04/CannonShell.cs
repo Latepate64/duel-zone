@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public CannonShell() : base("Cannon Shell", 4, 1000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddStaticAbilities(new ThisCreatureGetsPowerForEachShieldYouHaveEffect(1000));
         }
     }

@@ -4,7 +4,7 @@
     {
         public CriticalBlade() : base("Critical Blade", 2, Common.Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect());
         }
     }

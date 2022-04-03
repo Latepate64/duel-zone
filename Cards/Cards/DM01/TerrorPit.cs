@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public TerrorPit() : base("Terror Pit", 6, Common.Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new DestroyOneOfYourOpponentsCreaturesEffect());
         }
     }

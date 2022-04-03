@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public GregorianWorm() : base("Gregorian Worm", 4, 3000, Subtype.ParasiteWorm, Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
         }
     }
 }

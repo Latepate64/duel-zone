@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public AquaJolter() : base("Aqua Jolter", 3, 2000, Subtype.LiquidPeople, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
         }
     }
 }

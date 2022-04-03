@@ -40,5 +40,10 @@ namespace Server
         {
             throw new NotImplementedException();
         }
+
+        public override int ChooseNumber()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

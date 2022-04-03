@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public FruitOfEternity() : base("Fruit of Eternity", 4, Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect());
         }
     }

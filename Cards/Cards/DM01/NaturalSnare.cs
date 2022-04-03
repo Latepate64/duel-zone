@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public NaturalSnare() : base("Natural Snare", 6, Common.Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new NaturalSnareEffect());
         }
     }

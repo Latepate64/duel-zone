@@ -9,7 +9,7 @@ namespace Cards.Cards.DM11
     {
         public EmergencyTyphoon() : base("Emergency Typhoon", 2, Civilization.Water)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new EmergencyTyphoonEffect());
         }
     }

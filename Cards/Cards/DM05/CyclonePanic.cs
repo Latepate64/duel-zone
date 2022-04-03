@@ -9,7 +9,7 @@ namespace Cards.Cards.DM05
     {
         public CyclonePanic() : base("Cyclone Panic", 3, Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new CyclonePanicEffect());
         }
     }

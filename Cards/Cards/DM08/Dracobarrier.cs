@@ -9,7 +9,7 @@ namespace Cards.Cards.DM08
     {
         public Dracobarrier() : base("Dracobarrier", 3, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new DracobarrierEffect());
         }
     }

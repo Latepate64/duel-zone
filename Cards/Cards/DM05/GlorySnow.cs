@@ -8,7 +8,7 @@ namespace Cards.Cards.DM05
     {
         public GlorySnow() : base("Glory Snow", 4, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new GlorySnowEffect());
         }
     }

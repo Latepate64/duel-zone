@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
     {
         public BradsCutter() : base("Brad's Cutter", 2, 1000, Subtype.Xenoparts, Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
         }
     }
 }

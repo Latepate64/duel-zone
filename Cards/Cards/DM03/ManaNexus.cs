@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public ManaNexus() : base("Mana Nexus", 4, Civilization.Nature)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.FromManaZoneToShieldsFaceDownEffect());
         }
     }

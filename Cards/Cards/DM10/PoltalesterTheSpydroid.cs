@@ -4,7 +4,7 @@
     {
         public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Common.Subtype.Soltrooper, Common.Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();
         }

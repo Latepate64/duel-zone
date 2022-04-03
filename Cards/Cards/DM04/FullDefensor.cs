@@ -11,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public FullDefensor() : base("Full Defensor", 2, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new FullDefensorEffect());
         }
     }

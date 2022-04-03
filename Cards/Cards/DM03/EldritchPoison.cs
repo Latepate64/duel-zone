@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public EldritchPoison() : base("Eldritch Poison", 1, Civilization.Darkness)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new EldritchPoisonEffect());
         }
     }

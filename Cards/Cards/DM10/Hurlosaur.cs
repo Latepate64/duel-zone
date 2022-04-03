@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public Hurlosaur() : base("Hurlosaur", 6, 2000, Subtype.RockBeast, Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(1000));
         }
     }

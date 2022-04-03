@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new ProtectiveForceEffect());
         }
     }

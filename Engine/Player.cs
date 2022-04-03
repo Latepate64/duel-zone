@@ -476,6 +476,7 @@ namespace Engine
         }
 
         public abstract Subtype ChooseRace(params Subtype[] excluded);
+        public abstract int ChooseNumber();
         #endregion Methods
     }
 }

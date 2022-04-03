@@ -4,7 +4,7 @@
     {
         public TenTonCrunch() : base("Ten-Ton Crunch", 4, Common.Civilization.Fire)
         {
-            ShieldTrigger = true;
+            AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(3000));
         }
     }
