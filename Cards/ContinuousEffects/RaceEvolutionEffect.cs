@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -7,19 +8,19 @@ namespace Cards.ContinuousEffects
     {
         public RaceEvolutionEffect(RaceEvolutionEffect effect) : base(effect)
         {
-            Race = effect.Race;
+            Races = effect.Races;
         }
 
-        public RaceEvolutionEffect(ICardFilter filter, Common.Subtype race) : base(filter, new Durations.Indefinite())
+        public RaceEvolutionEffect(ICardFilter filter, params Common.Subtype[] races) : base(filter, new Durations.Indefinite())
         {
-            Race = race;
+            Races = races;
         }
 
-        public Common.Subtype Race { get; }
+        public Common.Subtype[] Races { get; }
 
         public override bool CanEvolveFrom(ICard card)
         {
-            return card.HasSubtype(Race);
+            return card.Subtypes.Intersect(Races).Any();
         }
 
         public override ContinuousEffect Copy()
@@ -29,7 +30,8 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"Evolution - Put on one of your {SplitByCase(Race.ToString())}s.";
+            var raceText = string.Join(" or ", Races.Select(x => $"{SplitByCase(Races.ToString())}s"));
+            return $"Evolution - Put on one of your {raceText}.";
         }
 
         private static string SplitByCase(string text)
