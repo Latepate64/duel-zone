@@ -40,5 +40,6 @@ namespace Engine
         void Untap(IGame game, params ICard[] cards);
         void UseCard(ICard card, IGame game);
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
+        void Cast(ICard spell, IGame game);
     }
 }

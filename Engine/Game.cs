@@ -793,6 +793,16 @@ namespace Engine
         {
             CurrentTurn.CurrentPhase.PendingAbilities.AddRange(abilities);
         }
+
+        public IZone GetZone(ICard card)
+        {
+            return GetZones().Single(x => x.Cards.Contains(card));
+        }
+
+        private IEnumerable<IZone> GetZones()
+        {
+            return Players.SelectMany(x => x.Zones).Union(new IZone[] { BattleZone });
+        }
         #endregion Methods
     }
 }
