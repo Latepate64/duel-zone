@@ -16,7 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeUnblockedEvent e && e.Card.Id == Source;
+            return gameEvent is BecomeUnblockedEvent e && e.Card.Id == Source && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game).Id;
         }
 
         public override IAbility Copy()
