@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public AmberPiercer() : base("Amber Piercer", 4, 2000, Subtype.BrainJacker, Civilization.Darkness)
         {
-            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayReturnCreatureFromYourGraveyardToYourHandEffect());
+            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(1));
         }
     }
 }

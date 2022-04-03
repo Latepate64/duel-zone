@@ -5,5 +5,9 @@
         protected SalvageCreatureEffect(int minimum, int maximum) : base(new CardFilters.OwnersGraveyardCreatureFilter(), minimum, maximum, true)
         {
         }
+
+        protected SalvageCreatureEffect(SalvageCreatureEffect effect) : base(effect)
+        {
+        }
     }
 }
