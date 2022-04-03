@@ -19,7 +19,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
         {
-            return card.CardType == CardType.Spell && !card.Civilizations.Contains(Civilization);
+            return card.CardType == CardType.Spell && !card.HasCivilization(Civilization);
         }
 
         public override ICardFilter Copy()

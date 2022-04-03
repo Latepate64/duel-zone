@@ -219,5 +219,10 @@ namespace Engine
             game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
             game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
+
+        public bool HasCivilization(Common.Civilization civilization)
+        {
+            return Civilizations.Contains(civilization);
+        }
     }
 }
