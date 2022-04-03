@@ -18,9 +18,9 @@ namespace Server
         {
         }
 
-        public override int ChooseNumber()
+        public override int ChooseNumber(string text, int minimum, int? maximum)
         {
-            return Rnd.Next(1, 6);
+            return Rnd.Next(minimum, 6);
         }
 
         public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)

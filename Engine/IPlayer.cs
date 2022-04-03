@@ -16,7 +16,7 @@ namespace Engine
         bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
-        int ChooseNumber();
+        int ChooseNumber(string text, int minimum, int? maximum);
         YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
         Common.Subtype ChooseRace(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
