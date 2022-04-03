@@ -2,6 +2,7 @@
 using Cards.TriggeredAbilities;
 using Common;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards
 {
@@ -179,9 +180,9 @@ namespace Cards
         {
         }
 
-        protected void AddWaveStrikerAbility(Engine.ContinuousEffects.IContinuousEffect effect)
+        protected void AddWaveStrikerAbility(params Engine.ContinuousEffects.IContinuousEffect[] effects)
         {
-            AddAbilities(new StaticAbilities.WaveStrikerAbility(new StaticAbility(effect)));
+            AddAbilities(new StaticAbilities.WaveStrikerAbility(effects.Select(x => new StaticAbility(x)).ToArray()));
         }
 
         protected void AddWaveStrikerAbility(ITriggeredAbility ability)
