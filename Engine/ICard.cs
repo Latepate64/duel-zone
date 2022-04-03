@@ -11,6 +11,7 @@ namespace Engine
         int? PrintedPower { get; }
         bool IsDragon { get; }
         bool LostInBattle { get; set; }
+        bool IsMultiColored { get; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
