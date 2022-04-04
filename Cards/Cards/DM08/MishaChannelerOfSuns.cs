@@ -12,10 +12,15 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class ThisCreatureCannotBeAttackedByDragonsEffect : CannotBeAttackedEffect
+    class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
-        public ThisCreatureCannotBeAttackedByDragonsEffect() : base(new TargetFilter(), new DragonInBattleZoneFilter(), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedByDragonsEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(Engine.ICard attacker)
+        {
+            return attacker.IsDragon;
         }
 
         public override IContinuousEffect Copy()
@@ -26,24 +31,6 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "This creature can't be attacked by any creature that has Dragon in its race.";
-        }
-    }
-
-    class DragonInBattleZoneFilter : CardFilters.BattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DragonInYourHandFilter();
-        }
-
-        public override string ToString()
-        {
-            return "any creature that has Dragon";
         }
     }
 }

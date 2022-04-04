@@ -210,7 +210,7 @@ namespace Engine
 
         public bool CanAttack(ICard creature, IGame game)
         {
-            return !game.GetContinuousEffects<CannotBeAttackedEffect>(creature).Any(x => x.AttackerFilter.Applies(this, game, game.GetOwner(this)));
+            return !game.GetContinuousEffects<ICannotBeAttackedEffect>(creature).Any(x => x.Applies(this));
         }
 
         public void Break(IGame game, int breakAmount)

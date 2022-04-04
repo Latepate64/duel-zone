@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : CannotBeAttackedEffect
+    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
         private readonly Civilization[] _civilizations;
 
@@ -13,9 +13,14 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
             _civilizations = civilizations;
+        }
+
+        public bool Applies(Engine.ICard attacker)
+        {
+            return attacker.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override IContinuousEffect Copy()
