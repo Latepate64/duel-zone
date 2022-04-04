@@ -1,8 +1,9 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCanAttackUntappedCreaturesEffect : CanAttackUntappedCreaturesEffect
+    class ThisCreatureCanAttackUntappedCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
     {
         public ThisCreatureCanAttackUntappedCreaturesEffect(ThisCreatureCanAttackUntappedCreaturesEffect effect) : base(effect)
         {
@@ -20,6 +21,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "This creature can attack untapped creatures.";
+        }
+
+        public bool Applies(ICard targetOfAttack, IGame game)
+        {
+            return true;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class CratersaurEffect : CanAttackUntappedCreaturesEffect, IAbilityAddingEffect
+    class CratersaurEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
         public CratersaurEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite(), new Conditions.FilterNoneCondition(new CardFilters.OwnersShieldZoneCardFilter()))
         {
@@ -22,6 +22,11 @@ namespace Cards.Cards.DM07
         public void AddAbility(IGame game)
         {
             GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000)));
+        }
+
+        public bool Applies(Engine.ICard targetOfAttack, IGame game)
+        {
+            return !game.GetAbility(SourceAbility).GetController(game).ShieldZone.Cards.Any();
         }
 
         public override IContinuousEffect Copy()

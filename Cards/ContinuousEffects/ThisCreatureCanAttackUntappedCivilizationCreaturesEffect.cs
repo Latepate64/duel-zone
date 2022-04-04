@@ -1,10 +1,11 @@
 ﻿using Cards.CardFilters;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : CanAttackUntappedCreaturesEffect
+    class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
     {
         private readonly Civilization _civilization;
 
@@ -13,9 +14,14 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new Engine.TargetFilter(), new OpponentsBattleZoneUntappedCivilizationCreatureFilter(civilization), new Durations.Indefinite())
+        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new Durations.Indefinite())
         {
             _civilization = civilization;
+        }
+
+        public bool Applies(Engine.ICard targetOfAttack, IGame game)
+        {
+            return targetOfAttack.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()
