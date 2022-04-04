@@ -11,13 +11,18 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class ElfXEffect : CostModifyingEffect
+    class ElfXEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
+        public ElfXEffect() : base(new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {
             return new ElfXEffect();
+        }
+
+        public int GetChange()
+        {
+            return -1;
         }
 
         public override string ToString()

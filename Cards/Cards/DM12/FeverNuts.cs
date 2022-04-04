@@ -12,13 +12,18 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class FeverNutsEffect : CostModifyingEffect
+    class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public FeverNutsEffect() : base(-1, new HandCreatureFilter(), new Durations.Indefinite()) { }
+        public FeverNutsEffect() : base(new HandCreatureFilter(), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {
             return new FeverNutsEffect();
+        }
+
+        public int GetChange()
+        {
+            return -1;
         }
 
         public override string ToString()

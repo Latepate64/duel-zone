@@ -11,15 +11,20 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class EssenceElfEffect : CostModifyingEffect
+    class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public EssenceElfEffect() : base(-1, new CardFilters.OwnersHandSpellFilter(), new Durations.Indefinite())
+        public EssenceElfEffect() : base(new CardFilters.OwnersHandSpellFilter(), new Durations.Indefinite())
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new EssenceElfEffect();
+        }
+
+        public int GetChange()
+        {
+            return -1;
         }
 
         public override string ToString()
