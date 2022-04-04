@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect : CannotUseShieldTriggerEffect
+    class PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect : ContinuousEffect, ICannotUseShieldTriggerEffect
     {
         private readonly Civilization _civilization;
 
