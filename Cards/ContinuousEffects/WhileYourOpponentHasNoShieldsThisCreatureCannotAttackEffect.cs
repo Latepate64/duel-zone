@@ -1,13 +1,20 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : CannotAttackEffect
+    class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite(), new Conditions.FilterNoneCondition(new CardFilters.OpponentsShieldZoneCardFilter())) { }
+        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
 
         public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect(WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect effect) : base(effect)
         {
+        }
+
+        public bool Applies(IGame game)
+        {
+            return !game.GetAbility(SourceAbility).GetOpponent(game).ShieldZone.Cards.Any();
         }
 
         public override IContinuousEffect Copy()

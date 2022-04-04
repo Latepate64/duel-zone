@@ -3,10 +3,15 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotAttackEffect : CannotAttackEffect
+    class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public ThisCreatureCannotAttackEffect(params Condition[] conditions) : base(new TargetFilter(), new Durations.Indefinite(), conditions)
+        public ThisCreatureCannotAttackEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM08
@@ -11,10 +12,15 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class NarielTheOracleEffect : CannotAttackEffect
+    class NarielTheOracleEffect : ContinuousEffect, ICannotAttackEffect
     {
         public NarielTheOracleEffect() : base(new CardFilters.BattleZoneMinPowerCreatureFilter(3000), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()
