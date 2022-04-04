@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Engine.ContinuousEffects
 {
-    public abstract class AbilityAddingEffect : CharacteristicModifyingEffect, IAbilityAddingEffect
+    public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffect
     {
         public List<IAbility> Abilities { get; }
 

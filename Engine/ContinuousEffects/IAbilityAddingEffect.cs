@@ -4,7 +4,7 @@
     /// 613.1f
     /// Layer 6: Ability-adding effects are applied.
     /// </summary>
-    public interface IAbilityAddingEffect
+    public interface IAbilityAddingEffect : IContinuousEffect
     {
         /// <summary>
         /// 613.1f

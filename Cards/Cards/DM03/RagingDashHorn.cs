@@ -13,7 +13,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class RagingDashHornEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         public RagingDashHornEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
 

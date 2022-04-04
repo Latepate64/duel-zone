@@ -2,7 +2,7 @@
 
 namespace Engine.ContinuousEffects
 {
-    public abstract class PowerModifyingEffect : CharacteristicModifyingEffect, IPowerModifyingEffect
+    public abstract class PowerModifyingEffect : ContinuousEffect, IPowerModifyingEffect
     {
         protected readonly int _power;
 

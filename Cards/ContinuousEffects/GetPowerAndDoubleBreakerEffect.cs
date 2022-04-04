@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class GetPowerAndDoubleBreakerEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    abstract class GetPowerAndDoubleBreakerEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         private readonly int _power;
 
