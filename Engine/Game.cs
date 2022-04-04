@@ -716,7 +716,7 @@ namespace Engine
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>(attacker);
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     canAttackUntappedCreaturesEffects.Any(e => e.Applies(c, this)) ||
-                    GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(c).Any()));
+                    GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>(c).Any()));
             }
             if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
             {

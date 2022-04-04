@@ -28,7 +28,7 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class ChaosStrikeContinousEffect : CanBeAttackedAsThoughTappedEffect
+    class ChaosStrikeContinousEffect : ContinuousEffect, ICanBeAttackedAsThoughTappedEffect
     {
         public ChaosStrikeContinousEffect() : base(null, new Durations.UntilTheEndOfTheTurn())
         {
