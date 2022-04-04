@@ -194,7 +194,7 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(IGame game)
         {
-            return SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(this).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any());
+            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>(this).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any());
         }
 
         public void MoveTopCardIntoOwnersGraveyard(IGame game)

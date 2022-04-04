@@ -12,7 +12,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class TottoPipicchiEffect : SpeedAttackerEffect
+    class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public TottoPipicchiEffect() : base(new BattleZoneDragonFilter(), new Durations.Indefinite())
         {

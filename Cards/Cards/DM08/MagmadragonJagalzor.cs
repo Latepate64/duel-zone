@@ -12,7 +12,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class MagmadragonJagalzorEffect : SpeedAttackerEffect
+    class MagmadragonJagalzorEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public MagmadragonJagalzorEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.Indefinite())
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureHasSpeedAttackerEffect : SpeedAttackerEffect
+    class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public ThisCreatureHasSpeedAttackerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {

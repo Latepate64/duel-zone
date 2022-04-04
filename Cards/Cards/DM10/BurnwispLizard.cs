@@ -11,7 +11,7 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class BurnwispLizardEffect : SpeedAttackerEffect
+    class BurnwispLizardEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public BurnwispLizardEffect() : base(new CardFilters.OwnersBattleZoneSilentSkillCreatureFilter(), new Durations.Indefinite())
         {
