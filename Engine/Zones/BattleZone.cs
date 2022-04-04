@@ -60,7 +60,7 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
+            return GetCreatures(owner).Where(x => !game.GetContinuousEffects<IUnchoosableEffect>(x).Any());
         }
 
         public override string ToString()

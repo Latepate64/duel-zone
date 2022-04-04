@@ -438,7 +438,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector)
         {
-            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
+            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<IUnchoosableEffect>(x).Any()));
         }
 
         public void Lose(params IPlayer[] players)

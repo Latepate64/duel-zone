@@ -2,7 +2,7 @@
 
 namespace Cards.ContinuousEffects
 {
-    class OpponentCannotChooseThisCreatureEffect : UnchoosableEffect
+    class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IUnchoosableEffect
     {
         public OpponentCannotChooseThisCreatureEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
