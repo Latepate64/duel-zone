@@ -3,13 +3,13 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class DragonEvolutionEffect : EvolutionEffect
+    class DragonEvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
         public DragonEvolutionEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 
-        public override bool CanEvolveFrom(ICard card)
+        public bool CanEvolveFrom(ICard card)
         {
             return card.IsDragon;
         }

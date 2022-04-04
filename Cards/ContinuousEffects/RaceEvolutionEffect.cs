@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    public class RaceEvolutionEffect : EvolutionEffect
+    public class RaceEvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
         public RaceEvolutionEffect(RaceEvolutionEffect effect) : base(effect)
         {
@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
 
         public Common.Subtype[] Races { get; }
 
-        public override bool CanEvolveFrom(ICard card)
+        public bool CanEvolveFrom(ICard card)
         {
             return card.Subtypes.Intersect(Races).Any();
         }
