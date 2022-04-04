@@ -2,9 +2,9 @@
 
 namespace Cards.ContinuousEffects
 {
-    class DoubleBreakerEffect : BreakerEffect
+    class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
     {
-        public DoubleBreakerEffect(params Engine.Condition[] conditions) : base(new Durations.Indefinite(), conditions)
+        public DoubleBreakerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 
@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
             return new DoubleBreakerEffect(this);
         }
 
-        public override int GetAmount(Engine.IGame game)
+        public int GetAmount(Engine.IGame game)
         {
             return 2;
         }

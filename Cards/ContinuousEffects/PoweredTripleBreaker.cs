@@ -3,9 +3,9 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class PoweredTripleBreaker : BreakerEffect
+    class PoweredTripleBreaker : ContinuousEffect, IBreakerEffect
     {
-        public PoweredTripleBreaker() : base(new Durations.Indefinite())
+        public PoweredTripleBreaker() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
         }
 
@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
             return new PoweredTripleBreaker();
         }
 
-        public override int GetAmount(IGame game)
+        public int GetAmount(IGame game)
         {
             var power = game.GetCard(game.GetAbility(SourceAbility).Source).Power;
             return power >= 15000 ?

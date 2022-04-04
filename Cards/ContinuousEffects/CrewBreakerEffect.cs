@@ -1,19 +1,22 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class CrewBreakerEffect : BreakerEffect
+    abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
     {
         protected CrewBreakerEffect(CrewBreakerEffect effect) : base(effect)
         {
         }
 
-        protected CrewBreakerEffect() : base(new Durations.Indefinite())
+        protected CrewBreakerEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
             
         }
+
+        public abstract int GetAmount(IGame game);
     }
 
     class CrewBreakerSubtypeEffect : CrewBreakerEffect
