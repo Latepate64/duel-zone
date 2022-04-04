@@ -2,7 +2,7 @@
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureAttacksEachTurnIfAbleEffect : AttacksIfAbleEffect
+    class ThisCreatureAttacksEachTurnIfAbleEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
         public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {

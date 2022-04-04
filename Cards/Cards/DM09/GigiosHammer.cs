@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class GigiosHammerContinuousEffect : AttacksIfAbleEffect, IAbilityAddingEffect
+    class GigiosHammerContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
     {
         private readonly Subtype _subtype;
 
