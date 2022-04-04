@@ -3,9 +3,9 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    public class ThisCreatureCannotAttackCreaturesEffect : CannotAttackCreaturesEffect
+    public class ThisCreatureCannotAttackCreaturesEffect : ContinuousEffect, ICannotAttackCreaturesEffect
     {
-        public ThisCreatureCannotAttackCreaturesEffect(params Condition[] conditions) : base(new TargetFilter(), new Durations.Indefinite(), conditions)
+        public ThisCreatureCannotAttackCreaturesEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 
