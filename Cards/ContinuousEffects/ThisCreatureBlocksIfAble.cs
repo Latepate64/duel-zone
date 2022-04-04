@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureBlocksIfAble : BlocksIfAbleEffect
+    class ThisCreatureBlocksIfAble : ContinuousEffect, IBlocksIfAbleEffect
     {
         public ThisCreatureBlocksIfAble() : base(new TargetFilter(), new Durations.Indefinite())
         {

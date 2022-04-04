@@ -24,7 +24,7 @@ namespace Engine.Steps
         {
             var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>
                 CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<BlocksIfAbleEffect>(x).Any());
+            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<IBlocksIfAbleEffect>(x).Any());
             if (mustBlockers.Any())
             {
                 return mustBlockers;
