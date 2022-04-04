@@ -38,10 +38,15 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UnblockableEffect
+    class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffect, IUnblockableEffect
     {
-        public YourCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public YourCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
         {
+        }
+
+        public bool Applies(Engine.ICard blocker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

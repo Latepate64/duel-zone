@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
@@ -12,10 +13,15 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class LegendaryBynorEffect : ContinuousEffects.UnblockableEffect
+    class LegendaryBynorEffect : ContinuousEffect, IUnblockableEffect
     {
-        public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
+        public LegendaryBynorEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Water), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(Engine.ICard blocker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

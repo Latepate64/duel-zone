@@ -1,10 +1,9 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect : UnblockableEffect
+    public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect : ContinuousEffect, IUnblockableEffect
     {
         private readonly int _power;
 
@@ -13,9 +12,14 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter(), new Durations.Indefinite(), new BattleZoneMaxPowerCreatureFilter(power))
+        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter(), new Durations.Indefinite())
         {
             _power = power;
+        }
+
+        public bool Applies(ICard blocker, IGame game)
+        {
+            return blocker.Power <= _power;
         }
 
         public override IContinuousEffect Copy()

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM12
@@ -28,10 +29,15 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffects.UnblockableEffect
+    class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
-        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
+        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(Engine.ICard blocker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

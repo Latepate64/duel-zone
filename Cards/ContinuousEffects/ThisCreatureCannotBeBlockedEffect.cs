@@ -4,13 +4,13 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    public class ThisCreatureCannotBeBlockedEffect : UnblockableEffect
+    public class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
     {
         public ThisCreatureCannotBeBlockedEffect(ThisCreatureCannotBeBlockedEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureCannotBeBlockedEffect() : base(new TargetFilter(), new Durations.Indefinite(), new BattleZoneCreatureFilter())
+        public ThisCreatureCannotBeBlockedEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 
@@ -22,6 +22,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "This creature can't be blocked.";
+        }
+
+        public bool Applies(ICard blocker, IGame game)
+        {
+            return true;
         }
     }
 }

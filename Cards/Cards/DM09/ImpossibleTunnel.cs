@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class ImpossibleTunnelContinuousEffect : ContinuousEffects.UnblockableEffect
+    class ImpossibleTunnelContinuousEffect : ContinuousEffect, IUnblockableEffect
     {
         private readonly Subtype _subtype;
 
@@ -41,9 +41,14 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn())
         {
             _subtype = subtype;
+        }
+
+        public bool Applies(Engine.ICard blocker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

@@ -35,10 +35,15 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class YourLightCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UnblockableEffect
+    class YourLightCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffect, IUnblockableEffect
     {
-        public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Light), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Light), new Durations.UntilTheEndOfTheTurn())
         {
+        }
+
+        public bool Applies(ICard blocker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

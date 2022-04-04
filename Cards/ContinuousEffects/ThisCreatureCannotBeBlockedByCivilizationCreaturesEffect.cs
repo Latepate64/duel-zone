@@ -1,9 +1,10 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect : UnblockableEffect
+    class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect : ContinuousEffect, IUnblockableEffect
     {
         private readonly Civilization _civilization;
 
@@ -12,9 +13,14 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base(new Engine.TargetFilter(), new Durations.Indefinite(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilization))
+        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
             _civilization = civilization;
+        }
+
+        public bool Applies(Engine.ICard blocker, IGame game)
+        {
+            return blocker.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()
