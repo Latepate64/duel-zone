@@ -1,14 +1,15 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class CivilizationBlockerEffect : BlockerEffect
+    class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationBlockerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public CivilizationBlockerEffect(params Civilization[] civilizations) : base(new TargetFilter(), new Durations.Indefinite())
         {
             _civilizations = civilizations;
         }
@@ -16,6 +17,11 @@ namespace Cards.ContinuousEffects
         public CivilizationBlockerEffect(CivilizationBlockerEffect effect) : base(effect)
         {
             _civilizations = effect._civilizations;
+        }
+
+        public bool Applies(Engine.ICard attacker, IGame game)
+        {
+            return attacker.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override ContinuousEffect Copy()

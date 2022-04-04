@@ -1,11 +1,17 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    public class ThisCreatureHasBlockerEffect : BlockerEffect
+    public class ThisCreatureHasBlockerEffect : ContinuousEffect, IBlockerEffect
     {
-        public ThisCreatureHasBlockerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite())
+        public ThisCreatureHasBlockerEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
+        }
+
+        public bool Applies(ICard attacker, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

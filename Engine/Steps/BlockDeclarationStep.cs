@@ -38,7 +38,7 @@ namespace Engine.Steps
         private static bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
         {
             return !blocker.Tapped &&
-                game.GetContinuousEffects<BlockerEffect>(blocker).Any(e => e.Applies(attackingCreature, game)) &&
+                game.GetContinuousEffects<IBlockerEffect>(blocker).Any(e => e.Applies(attackingCreature, game)) &&
                 game.GetContinuousEffects<IUnblockableEffect>(attackingCreature).All(e => !e.Applies(blocker, game));
         }
 

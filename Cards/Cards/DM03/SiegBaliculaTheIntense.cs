@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
@@ -11,9 +12,14 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class SiegBaliculaTheIntenseEffect : BlockerEffect
+    class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
     {
-        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite()) { }
+        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new Durations.Indefinite()) { }
+
+        public bool Applies(Engine.ICard attacker, IGame game)
+        {
+            return true;
+        }
 
         public override IContinuousEffect Copy()
         {
