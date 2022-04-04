@@ -2,7 +2,7 @@
 
 namespace Cards.ContinuousEffects
 {
-    class ThisSpellHasChargerEffect : ChargerEffect
+    class ThisSpellHasChargerEffect : ContinuousEffect, IChargerEffect
     {
         public ThisSpellHasChargerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
