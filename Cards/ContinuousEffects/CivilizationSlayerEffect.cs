@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class CivilizationSlayerEffect : SlayerEffect
+    class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new Durations.Indefinite())
         {
             _civilizations = civilizations;
         }
@@ -16,6 +16,11 @@ namespace Cards.ContinuousEffects
         public CivilizationSlayerEffect(CivilizationSlayerEffect effect) : base(effect)
         {
             _civilizations = effect._civilizations;
+        }
+
+        public bool Applies(Engine.ICard against)
+        {
+            return against.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override ContinuousEffect Copy()
