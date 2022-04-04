@@ -13,7 +13,7 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class KingNautilusEffect : UnblockableEffect
+    class KingNautilusEffect : ContinuousEffects.UnblockableEffect
     {
         public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new Durations.Indefinite(), new BattleZoneCreatureFilter())
         {

@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class ImpossibleTunnelContinuousEffect : UnblockableEffect
+    class ImpossibleTunnelContinuousEffect : ContinuousEffects.UnblockableEffect
     {
         private readonly Subtype _subtype;
 

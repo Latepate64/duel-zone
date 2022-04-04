@@ -38,7 +38,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class YourCreaturesCannotBeBlockedThisTurnEffect : UnblockableEffect
+    class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UnblockableEffect
     {
         public YourCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
         {

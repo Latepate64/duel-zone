@@ -35,7 +35,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class YourLightCreaturesCannotBeBlockedThisTurnEffect : UnblockableEffect
+    class YourLightCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UnblockableEffect
     {
         public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Light), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
         {

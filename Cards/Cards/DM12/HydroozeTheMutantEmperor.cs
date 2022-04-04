@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class HydroozeTheMutantEmperorUnblockableEffect : UnblockableEffect
+    class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffects.UnblockableEffect
     {
         public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
         {

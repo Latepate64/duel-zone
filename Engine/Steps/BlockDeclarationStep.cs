@@ -39,7 +39,7 @@ namespace Engine.Steps
         {
             return !blocker.Tapped &&
                 game.GetContinuousEffects<BlockerEffect>(blocker).Any(e => e.Applies(attackingCreature, game)) &&
-                game.GetContinuousEffects<UnblockableEffect>(attackingCreature).All(e => !e.Applies(blocker, game));
+                game.GetContinuousEffects<IUnblockableEffect>(attackingCreature).All(e => !e.Applies(blocker, game));
         }
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)

@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class SilvermoonTrailblazerContinuousEffect : UnblockableEffect
+    class SilvermoonTrailblazerContinuousEffect : ContinuousEffects.UnblockableEffect
     {
         private readonly Subtype _subtype;
 

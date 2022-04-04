@@ -12,7 +12,7 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class CalgoVizierOfRaincloudsEffect : UnblockableEffect
+    class CalgoVizierOfRaincloudsEffect : ContinuousEffects.UnblockableEffect
     {
         public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneMinPowerCreatureFilter(4000))
         {

@@ -1,8 +1,11 @@
-﻿namespace Engine.ContinuousEffects
+﻿using Engine;
+using Engine.ContinuousEffects;
+
+namespace Cards.ContinuousEffects
 {
-    public abstract class UnblockableEffect : ContinuousEffect
+    public abstract class UnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
-        private ICardFilter _creaturesThatCannotBlock;
+        private readonly ICardFilter _creaturesThatCannotBlock;
 
         protected UnblockableEffect(ICardFilter filter, IDuration duration, ICardFilter blockerFilter, params Condition[] conditions) : base(filter, duration, conditions)
         {
@@ -14,7 +17,7 @@
             _creaturesThatCannotBlock = effect._creaturesThatCannotBlock;
         }
 
-        internal bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard blocker, IGame game)
         {
             return _creaturesThatCannotBlock.Applies(blocker, game, game.GetPlayer(blocker.Owner));
         }

@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System;
 using System.Linq;
 
 namespace Cards.Cards.DM01
@@ -13,36 +12,16 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class TropicoCondition : Condition
+    class TropicoEffect : ContinuousEffect, IUnblockableEffect
     {
-        public TropicoCondition() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        public TropicoEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 
-        public TropicoCondition(TropicoCondition condition) : base(condition)
+        public bool Applies(ICard blocker, IGame game)
         {
-        }
-
-        public override bool Applies(IGame game, Guid player)
-        {
-            return game.GetAllCards().Count(card => Filter.Applies(card, game, game.GetPlayer(player))) >= 2;
-        }
-
-        public override Condition Copy()
-        {
-            return new TropicoCondition(this);
-        }
-
-        public override string ToString()
-        {
-            return "While you have at least 2 other creatures in the battle zone";
-        }
-    }
-
-    class TropicoEffect : UnblockableEffect
-    {
-        public TropicoEffect() : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter(), new TropicoCondition())
-        {
+            var ability = game.GetAbility(SourceAbility);
+            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source) >= 2;
         }
 
         public override IContinuousEffect Copy()
