@@ -1,5 +1,6 @@
 ﻿using Cards.CardFilters;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class AlcadeiasLordOfSpiritsEffect : CannotUseCardEffect
+    class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseCardEffect
     {
         public AlcadeiasLordOfSpiritsEffect(AlcadeiasLordOfSpiritsEffect effect) : base(effect)
         {
@@ -31,6 +32,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Players can't cast spells other than light spells.";
+        }
+
+        public bool Applies(IGame game)
+        {
+            return true;
         }
     }
 }

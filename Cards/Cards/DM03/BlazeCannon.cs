@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class BlazeCannonRestrictionEffect : CannotUseCardEffect
+    class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseCardEffect
     {
         public BlazeCannonRestrictionEffect(BlazeCannonRestrictionEffect effect) : base(effect)
         {
@@ -34,6 +34,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You can cast this spell only if all the cards in your mana zone are fire cards.";
+        }
+
+        public bool Applies(IGame game)
+        {
+            return !game.GetAbility(SourceAbility).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }
     }
 
