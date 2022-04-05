@@ -27,7 +27,7 @@ namespace Engine.Abilities
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
             TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
-            Duration = ability.Duration.Copy();
+            Duration = ability.Duration;
         }
 
         public void Dispose()

@@ -31,7 +31,7 @@ namespace Engine.ContinuousEffects
 
         protected ContinuousEffect(ContinuousEffect effect)
         {
-            Duration = effect.Duration.Copy();
+            Duration = effect.Duration;
             Filter = effect.Filter?.Copy();
             SourceAbility = effect.SourceAbility;
         }

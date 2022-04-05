@@ -1,9 +1,11 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -44,19 +46,28 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class FullDefensorContinuousEffect : AbilityAddingEffect
+    class FullDefensorContinuousEffect : AbilityAddingEffect, IDuration
     {
+        private readonly Guid _player;
+
         public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
         {
+            _player = effect._player;
         }
 
-        public FullDefensorContinuousEffect(System.Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilStartOfYourNextTurn(player), new StaticAbilities.BlockerAbility())
+        public FullDefensorContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.BlockerAbility())
         {
+            _player = player;
         }
 
         public override IContinuousEffect Copy()
         {
             return new FullDefensorContinuousEffect(this);
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayerId == _player;
         }
 
         public override string ToString()

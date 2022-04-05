@@ -20,6 +20,11 @@ namespace Cards.ContinuousEffects
             Abilities = abilities.ToList();
         }
 
+        protected AbilityAddingEffect(ICardFilter filter, params IAbility[] abilities) : base(filter, null)
+        {
+            Abilities = abilities.ToList();
+        }
+
         public void AddAbility(IGame game)
         {
             foreach (var card in game.GetAllCards(Filter, game.GetAbility(SourceAbility).Controller))

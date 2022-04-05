@@ -1,8 +1,10 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 using System.Linq;
 
 namespace Cards.Cards.DM09
@@ -37,19 +39,28 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class UnifiedResistanceContinuousEffect : AbilityAddingEffect
+    class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IDuration
     {
+        private readonly Guid _player;
+
         public UnifiedResistanceContinuousEffect(UnifiedResistanceContinuousEffect effect) : base(effect)
         {
+            _player = effect._player;
         }
 
-        public UnifiedResistanceContinuousEffect(System.Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilStartOfYourNextTurn(player), new StaticAbilities.BlockerAbility())
+        public UnifiedResistanceContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.BlockerAbility())
         {
+            _player = player;
         }
 
         public override IContinuousEffect Copy()
         {
             return new UnifiedResistanceContinuousEffect(this);
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayerId == _player;
         }
 
         public override string ToString()
