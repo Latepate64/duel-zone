@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect : GrantChoiceEffect
+    class OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect : CardSelectionEffect
     {
         public int Power { get; }
 

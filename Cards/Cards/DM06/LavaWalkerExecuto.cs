@@ -13,7 +13,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class LavaWalkerExecutoEffect : GrantChoiceEffect
+    class LavaWalkerExecutoEffect : CardSelectionEffect
     {
         public int Power { get; }
 

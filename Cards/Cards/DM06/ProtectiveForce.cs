@@ -13,7 +13,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class ProtectiveForceEffect : OneShotEffects.GrantChoiceEffect
+    class ProtectiveForceEffect : OneShotEffects.CardSelectionEffect
     {
         public ProtectiveForceEffect() : base(new CardFilters.OwnersBattleZoneBlockerCreatureFilter(), 1, 1, true)
         {

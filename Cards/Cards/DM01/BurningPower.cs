@@ -12,7 +12,7 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class BurningPowerEffect : GrantChoiceEffect
+    class BurningPowerEffect : CardSelectionEffect
     {
         public BurningPowerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
         {

@@ -12,7 +12,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class MigasaAdeptOfChaosEffect : OneShotEffects.GrantChoiceEffect
+    class MigasaAdeptOfChaosEffect : OneShotEffects.CardSelectionEffect
     {
         public MigasaAdeptOfChaosEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Fire), 1, 1, true)
         {

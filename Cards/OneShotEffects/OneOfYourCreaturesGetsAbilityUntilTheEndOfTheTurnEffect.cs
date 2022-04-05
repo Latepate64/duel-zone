@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : GrantChoiceEffect
+    class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CardSelectionEffect
     {
         private readonly IAbility _ability;
 

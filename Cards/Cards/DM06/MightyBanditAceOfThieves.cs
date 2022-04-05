@@ -12,7 +12,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class MightyBanditAceOfThievesEffect : OneShotEffects.GrantChoiceEffect
+    class MightyBanditAceOfThievesEffect : OneShotEffects.CardSelectionEffect
     {
         public MightyBanditAceOfThievesEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
         {

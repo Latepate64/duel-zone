@@ -34,7 +34,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class MegaDetonatorBuffEffect : GrantChoiceEffect
+    class MegaDetonatorBuffEffect : CardSelectionEffect
     {
         private readonly int _amount;
 
