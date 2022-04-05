@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base(new TargetFilter())
         {
             _civilization = civilization;
         }

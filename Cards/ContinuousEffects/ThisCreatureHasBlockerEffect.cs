@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     public class ThisCreatureHasBlockerEffect : ContinuousEffect, IBlockerEffect
     {
-        public ThisCreatureHasBlockerEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureHasBlockerEffect() : base(new TargetFilter())
         {
         }
 

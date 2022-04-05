@@ -12,7 +12,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter())
         {
             _power = power;
         }

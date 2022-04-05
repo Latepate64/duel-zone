@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
     {
-        public GalsaurEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public GalsaurEffect() : base(new TargetFilter())
         {
         }
 

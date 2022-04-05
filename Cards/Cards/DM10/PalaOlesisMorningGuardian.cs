@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
 
     class PalaOlesisMorningGuardianEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PalaOlesisMorningGuardianEffect() : base(new OwnersOtherBattleZoneCreatureFilter(), new Durations.Indefinite())
+        public PalaOlesisMorningGuardianEffect() : base(new OwnersOtherBattleZoneCreatureFilter())
         {
         }
 

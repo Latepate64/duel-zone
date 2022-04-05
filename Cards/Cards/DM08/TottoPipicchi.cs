@@ -14,7 +14,7 @@ namespace Cards.Cards.DM08
 
     class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
     {
-        public TottoPipicchiEffect() : base(new BattleZoneDragonFilter(), new Durations.Indefinite())
+        public TottoPipicchiEffect() : base(new BattleZoneDragonFilter())
         {
         }
 

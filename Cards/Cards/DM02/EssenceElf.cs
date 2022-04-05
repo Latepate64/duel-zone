@@ -13,7 +13,7 @@ namespace Cards.Cards.DM02
 
     class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public EssenceElfEffect() : base(new CardFilters.OwnersHandSpellFilter(), new Durations.Indefinite())
+        public EssenceElfEffect() : base(new CardFilters.OwnersHandSpellFilter())
         {
         }
 

@@ -14,7 +14,7 @@ namespace Cards.Cards.DM01
 
     class TropicoEffect : ContinuousEffect, IUnblockableEffect
     {
-        public TropicoEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public TropicoEffect() : base(new TargetFilter())
         {
         }
 

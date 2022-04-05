@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
     {
-        public PoweredDoubleBreaker() : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public PoweredDoubleBreaker() : base(new Engine.TargetFilter())
         {
         }
 

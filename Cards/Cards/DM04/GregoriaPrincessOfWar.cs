@@ -15,7 +15,7 @@ namespace Cards.Cards.DM04
 
     class GregoriaPrincessOfWarEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public GregoriaPrincessOfWarEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new Durations.Indefinite()) { }
+        public GregoriaPrincessOfWarEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand)) { }
 
         public GregoriaPrincessOfWarEffect(GregoriaPrincessOfWarEffect effect) : base(effect)
         {

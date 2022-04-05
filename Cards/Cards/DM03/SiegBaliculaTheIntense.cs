@@ -14,7 +14,7 @@ namespace Cards.Cards.DM03
 
     class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
     {
-        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light), new Durations.Indefinite()) { }
+        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light)) { }
 
         public bool Applies(Engine.ICard attacker, IGame game)
         {

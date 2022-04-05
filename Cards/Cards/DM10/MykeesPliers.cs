@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class MykeesPliersEffect : AbilityAddingEffect
     {
-        public MykeesPliersEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness, Civilization.Nature), new Durations.Indefinite(), new StaticAbilities.SpeedAttackerAbility())
+        public MykeesPliersEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness, Civilization.Nature), new StaticAbilities.SpeedAttackerAbility())
         {
         }
 

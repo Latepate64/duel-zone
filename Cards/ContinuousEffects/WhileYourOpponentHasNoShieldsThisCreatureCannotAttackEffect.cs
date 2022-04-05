@@ -6,7 +6,7 @@ namespace Cards.ContinuousEffects
 {
     class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
+        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new TargetFilter()) { }
 
         public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect(WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect effect) : base(effect)
         {

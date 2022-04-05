@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class LemikVizierOfThoughtEffect : AbilityAddingEffect
     {
-        public LemikVizierOfThoughtEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Nature), new Durations.Indefinite(), new StaticAbilities.BlockerAbility())
+        public LemikVizierOfThoughtEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Nature), new StaticAbilities.BlockerAbility())
         {
         }
 

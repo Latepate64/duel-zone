@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
         private readonly Subtype _subtype;
         private readonly int _power;
 
-        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base(new TargetFilter(), new Durations.Indefinite())
+        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base(new TargetFilter())
         {
             _subtype = subtype;
             _power = power;

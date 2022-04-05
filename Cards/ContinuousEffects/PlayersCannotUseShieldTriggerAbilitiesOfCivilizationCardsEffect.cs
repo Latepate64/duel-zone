@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization civilization) : base(new CardFilters.CivilizationFilter(civilization), new Durations.Indefinite())
+        public PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization civilization) : base(new CardFilters.CivilizationFilter(civilization))
         {
             _civilization = civilization;
         }

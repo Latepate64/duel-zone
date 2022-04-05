@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class FluorogillMantaEffect : ContinuousEffect, IUnblockableEffect
     {
-        public FluorogillMantaEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Durations.Indefinite())
+        public FluorogillMantaEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness))
         {
         }
 

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM02
 
     class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
     {
-        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople), new Durations.Indefinite())
+        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople))
         {
         }
 

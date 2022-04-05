@@ -15,7 +15,7 @@ namespace Cards.Cards.DM07
 
     class CratersaurEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
-        public CratersaurEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
+        public CratersaurEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter())
         {
         }
 

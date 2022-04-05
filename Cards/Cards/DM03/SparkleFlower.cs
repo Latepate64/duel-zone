@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class SparkleFlowerEffect : ContinuousEffect, IBlockerEffect
     {
-        public SparkleFlowerEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public SparkleFlowerEffect() : base(new TargetFilter())
         {
         }
 

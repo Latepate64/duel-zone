@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationBlockerEffect(params Civilization[] civilizations) : base(new TargetFilter(), new Durations.Indefinite())
+        public CivilizationBlockerEffect(params Civilization[] civilizations) : base(new TargetFilter())
         {
             _civilizations = civilizations;
         }

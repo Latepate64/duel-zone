@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class LegacyShellEffect : AbilityAddingEffect
     {
-        public LegacyShellEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Fire), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(3000))
+        public LegacyShellEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Fire), new StaticAbilities.PowerAttackerAbility(3000))
         {
         }
 

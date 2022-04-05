@@ -16,12 +16,7 @@ namespace Cards.ContinuousEffects
             Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
         }
 
-        protected AbilityAddingEffect(ICardFilter filter, IDuration duration, params IAbility[] abilities) : base(filter, duration)
-        {
-            Abilities = abilities.ToList();
-        }
-
-        protected AbilityAddingEffect(ICardFilter filter, params IAbility[] abilities) : base(filter, null)
+        protected AbilityAddingEffect(ICardFilter filter, params IAbility[] abilities) : base(filter)
         {
             Abilities = abilities.ToList();
         }

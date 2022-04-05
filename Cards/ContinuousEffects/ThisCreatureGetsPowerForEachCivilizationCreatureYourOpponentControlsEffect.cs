@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base(new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base(new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations))
         {
             _power = power;
             _civilizations = civilizations;

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PhantomachPowerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite())
+        public PhantomachPowerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid))
         {
         }
 
@@ -38,7 +38,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachDoubleBreakerEffect : AbilityAddingEffect
     {
-        public PhantomachDoubleBreakerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite(), new StaticAbilities.DoubleBreakerAbility())
+        public PhantomachDoubleBreakerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Chimera, Subtype.Armorloid), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

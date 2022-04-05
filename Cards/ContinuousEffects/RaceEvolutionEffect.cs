@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
             Races = effect.Races;
         }
 
-        public RaceEvolutionEffect(ICardFilter filter, params Common.Subtype[] races) : base(filter, new Durations.Indefinite())
+        public RaceEvolutionEffect(ICardFilter filter, params Common.Subtype[] races) : base(filter)
         {
             Races = races;
         }

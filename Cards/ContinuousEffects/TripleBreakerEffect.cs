@@ -4,7 +4,7 @@ namespace Cards.ContinuousEffects
 {
     class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
     {
-        public TripleBreakerEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public TripleBreakerEffect() : base(new Engine.TargetFilter())
         {
         }
 

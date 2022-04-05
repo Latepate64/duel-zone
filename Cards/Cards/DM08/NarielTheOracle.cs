@@ -14,7 +14,7 @@ namespace Cards.Cards.DM08
 
     class NarielTheOracleEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public NarielTheOracleEffect() : base(new CardFilters.BattleZoneMinPowerCreatureFilter(3000), new Durations.Indefinite())
+        public NarielTheOracleEffect() : base(new CardFilters.BattleZoneMinPowerCreatureFilter(3000))
         {
         }
 

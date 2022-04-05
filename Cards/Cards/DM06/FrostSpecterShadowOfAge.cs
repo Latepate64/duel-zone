@@ -14,7 +14,7 @@ namespace Cards.Cards.DM06
 
     class FrostSpecterShadowOfAgeEffect : AbilityAddingEffect
     {
-        public FrostSpecterShadowOfAgeEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Ghost), new Durations.Indefinite(), new StaticAbilities.SlayerAbility())
+        public FrostSpecterShadowOfAgeEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Ghost), new StaticAbilities.SlayerAbility())
         {
         }
 

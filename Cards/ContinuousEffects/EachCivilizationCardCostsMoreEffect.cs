@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
             _increase = effect._increase;
         }
 
-        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base(new CardFilters.CivilizationFilter(civilization), new Durations.Indefinite())
+        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base(new CardFilters.CivilizationFilter(civilization))
         {
             _civilization = civilization;
             _increase = increase;

@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly IAbility _ability;
 
-        public TurboRushEffect(IAbility ability) : base(new TargetFilter(), new Durations.Indefinite())
+        public TurboRushEffect(IAbility ability) : base(new TargetFilter())
         {
             _ability = ability;
         }

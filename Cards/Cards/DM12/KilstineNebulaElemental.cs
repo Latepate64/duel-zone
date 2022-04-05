@@ -15,7 +15,7 @@ namespace Cards.Cards.DM12
 
     class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public KilstineNebulaElementalEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter(), new Durations.Indefinite())
+        public KilstineNebulaElementalEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter())
         {
         }
 

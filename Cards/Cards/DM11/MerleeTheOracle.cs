@@ -15,7 +15,7 @@ namespace Cards.Cards.DM11
 
     class MerleeTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public MerleeTheOracleEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.Indefinite())
+        public MerleeTheOracleEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
         {
         }
 

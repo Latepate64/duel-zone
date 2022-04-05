@@ -13,7 +13,7 @@ namespace Cards.Cards.DM02
 
     class ElfXEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public ElfXEffect() : base(new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
+        public ElfXEffect() : base(new CardFilters.OwnersHandCreatureFilter()) { }
 
         public override IContinuousEffect Copy()
         {

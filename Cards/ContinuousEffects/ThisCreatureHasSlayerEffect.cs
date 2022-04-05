@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureHasSlayerEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureHasSlayerEffect() : base(new TargetFilter())
         {
         }
 

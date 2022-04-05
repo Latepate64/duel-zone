@@ -16,7 +16,7 @@ namespace Cards.Cards.DM02
 
     class ArmoredBlasterValdiosEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public ArmoredBlasterValdiosEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human), new Durations.Indefinite()) { }
+        public ArmoredBlasterValdiosEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human)) { }
 
         public override IContinuousEffect Copy()
         {

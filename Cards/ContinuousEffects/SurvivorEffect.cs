@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public SurvivorEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Common.Subtype.Survivor), new Durations.Indefinite(), ability)
+        public SurvivorEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Common.Subtype.Survivor), ability)
         {
         }
 

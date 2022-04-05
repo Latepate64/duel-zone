@@ -14,7 +14,7 @@ namespace Cards.Cards.DM11
 
     class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public AsraVizierOfSafetyEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
+        public AsraVizierOfSafetyEffect() : base(new TargetFilter()) { }
 
         public AsraVizierOfSafetyEffect(AsraVizierOfSafetyEffect effect) : base(effect)
         {

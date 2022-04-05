@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class SnipStrikerBullraizerEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public SnipStrikerBullraizerEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public SnipStrikerBullraizerEffect() : base(new TargetFilter())
         {
         }
 

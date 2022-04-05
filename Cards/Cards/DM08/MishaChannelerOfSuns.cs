@@ -14,7 +14,7 @@ namespace Cards.Cards.DM08
 
     class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
-        public ThisCreatureCannotBeAttackedByDragonsEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedByDragonsEffect() : base(new TargetFilter())
         {
         }
 

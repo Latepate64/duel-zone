@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureGetsPowerEffect(int power) : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureGetsPowerEffect(int power) : base(new TargetFilter())
         {
             _power = power;
         }

@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter(), new Durations.Indefinite())
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter())
         {
             _civilization = civilization;
             _power = power;

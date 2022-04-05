@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
 
         public ICardFilter Multiplier { get; set; }
 
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base(new TargetFilter(), new Durations.Indefinite())
+        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base(new TargetFilter())
         {
             _power = power;
             Multiplier = multiplier;

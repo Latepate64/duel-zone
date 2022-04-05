@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        protected GetPowerAndDoubleBreakerEffect(ICardFilter filter, int power) : base(filter, null)
+        protected GetPowerAndDoubleBreakerEffect(ICardFilter filter, int power) : base(filter)
         {
             _power = power;
         }

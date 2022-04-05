@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public PippieKuppieEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon), new Durations.Indefinite())
+        public PippieKuppieEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon))
         {
         }
 

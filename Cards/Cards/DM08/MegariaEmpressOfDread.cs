@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
 
     class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
-        public MegariaEmpressOfDreadEffect() : base(new BattleZoneCreatureFilter(), new Durations.Indefinite(), new SlayerAbility())
+        public MegariaEmpressOfDreadEffect() : base(new BattleZoneCreatureFilter(), new SlayerAbility())
         {
         }
 

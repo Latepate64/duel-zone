@@ -17,7 +17,7 @@ namespace Cards.Cards.DM01
 
     class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public IocantTheOracleEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public IocantTheOracleEffect() : base(new TargetFilter())
         {
         }
 

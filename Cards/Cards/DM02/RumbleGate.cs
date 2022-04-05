@@ -35,7 +35,7 @@ namespace Cards.Cards.DM02
 
     class RumbleGateContinuousEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
     {
-        public RumbleGateContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter(), new Durations.Indefinite())
+        public RumbleGateContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter())
         {
         }
 

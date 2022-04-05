@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
         private readonly Civilization _civilization;
         private readonly int _power;
 
-        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter(), new Durations.Indefinite())
+        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter())
         {
             _civilization = civilization;
             _power = power;

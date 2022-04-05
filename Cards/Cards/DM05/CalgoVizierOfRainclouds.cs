@@ -14,7 +14,7 @@ namespace Cards.Cards.DM05
 
     class CalgoVizierOfRaincloudsEffect : ContinuousEffect, IUnblockableEffect
     {
-        public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter())
         {
         }
 

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM12
 
     class HydroozeTheMutantEmperorPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public HydroozeTheMutantEmperorPowerEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
+        public HydroozeTheMutantEmperorPowerEffect() : base(new HydroozeTheMutantEmperorFilter())
         {
         }
 
@@ -37,7 +37,7 @@ namespace Cards.Cards.DM12
 
     class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
-        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
+        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter())
         {
         }
 

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SupportingTulipEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(4000))
+        public SupportingTulipEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand), new StaticAbilities.PowerAttackerAbility(4000))
         {
         }
 

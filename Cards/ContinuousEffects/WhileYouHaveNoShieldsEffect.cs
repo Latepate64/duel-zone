@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly IAbility[] _abilities;
 
-        public WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base(new TargetFilter(), new Durations.Indefinite())
+        public WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base(new TargetFilter())
         {
             _abilities = abilities;
         }

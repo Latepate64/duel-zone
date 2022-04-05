@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class DragonEvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
-        public DragonEvolutionEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public DragonEvolutionEffect() : base(new TargetFilter())
         {
         }
 

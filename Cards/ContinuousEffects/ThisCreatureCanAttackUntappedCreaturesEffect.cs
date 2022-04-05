@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureCanAttackUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
+        public ThisCreatureCanAttackUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter())
         {
         }
 

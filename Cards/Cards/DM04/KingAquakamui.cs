@@ -44,7 +44,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public KingAquakamuiContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Durations.Indefinite())
+        public KingAquakamuiContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand))
         {
         }
 

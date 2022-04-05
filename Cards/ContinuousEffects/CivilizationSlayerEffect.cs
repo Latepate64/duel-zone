@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter())
         {
             _civilizations = civilizations;
         }

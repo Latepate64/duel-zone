@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public StealthEffect(Civilization civilization) : base(new TargetFilter(), new Durations.Indefinite())
+        public StealthEffect(Civilization civilization) : base(new TargetFilter())
         {
             _civilization = civilization;
         }

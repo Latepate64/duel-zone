@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class HourglassMutantEffect : AbilityAddingEffect
     {
-        public HourglassMutantEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Fire), new Durations.Indefinite(), new StaticAbilities.SlayerAbility())
+        public HourglassMutantEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Fire), new StaticAbilities.SlayerAbility())
         {
         }
 

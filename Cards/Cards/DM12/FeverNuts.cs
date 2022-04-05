@@ -14,7 +14,7 @@ namespace Cards.Cards.DM12
 
     class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public FeverNutsEffect() : base(new HandCreatureFilter(), new Durations.Indefinite()) { }
+        public FeverNutsEffect() : base(new HandCreatureFilter()) { }
 
         public override IContinuousEffect Copy()
         {

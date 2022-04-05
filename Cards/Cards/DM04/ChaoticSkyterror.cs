@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ChaoticSkyterrorEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public ChaoticSkyterrorEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

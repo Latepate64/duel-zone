@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected UntilEndOfTurnEffect(ICardFilter filter) : base(filter, null)
+        protected UntilEndOfTurnEffect(ICardFilter filter) : base(filter)
         {
         }
 

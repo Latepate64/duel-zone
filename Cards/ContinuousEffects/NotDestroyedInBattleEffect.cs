@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public NotDestroyedInBattleEffect(Civilization civilization) : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public NotDestroyedInBattleEffect(Civilization civilization) : base(new Engine.TargetFilter())
         {
             _civilization = civilization;
         }

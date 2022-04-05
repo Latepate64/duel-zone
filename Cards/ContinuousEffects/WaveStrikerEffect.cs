@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
             _abilities = effect._abilities;
         }
 
-        public WaveStrikerEffect(params IAbility[] abilities) : base(new TargetFilter(), new Durations.Indefinite())
+        public WaveStrikerEffect(params IAbility[] abilities) : base(new TargetFilter())
         {
             _abilities = abilities;
         }

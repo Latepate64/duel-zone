@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter())
         {
             _civilizations = civilizations;
         }

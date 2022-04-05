@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public PowerAttackerEffect(int power, CardFilter filter, Duration duration) : base(filter, duration)
+        public PowerAttackerEffect(int power, CardFilter filter, Duration duration) : base(filter)
         {
             _power = power;
         }

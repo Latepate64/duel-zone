@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureCannotBeAttackedEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
-        public ThisCreatureCannotBeAttackedEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedEffect() : base(new TargetFilter())
         {
         }
 

@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization), new Durations.Indefinite(), new TapAbility(effect))
+        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization), new TapAbility(effect))
         {
             _civilization = civilization;
         }

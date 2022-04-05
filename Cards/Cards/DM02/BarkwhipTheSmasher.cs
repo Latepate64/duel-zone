@@ -15,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public BarkwhipTheSmasherEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Durations.Indefinite())
+        public BarkwhipTheSmasherEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk))
         {
         }
 

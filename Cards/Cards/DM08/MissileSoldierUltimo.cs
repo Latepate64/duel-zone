@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
 
     class MissileSoldierUltimoEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
-        public MissileSoldierUltimoEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public MissileSoldierUltimoEffect() : base(new TargetFilter())
         {
         }
 

@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected CrewBreakerEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        protected CrewBreakerEffect() : base(new TargetFilter())
         {
             
         }
