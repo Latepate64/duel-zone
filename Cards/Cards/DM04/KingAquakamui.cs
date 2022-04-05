@@ -38,13 +38,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class KingAquakamuiContinuousEffect : PowerModifyingEffect
+    class KingAquakamuiContinuousEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public KingAquakamuiContinuousEffect(KingAquakamuiContinuousEffect effect) : base(effect)
         {
         }
 
-        public KingAquakamuiContinuousEffect() : base(2000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Durations.Indefinite())
+        public KingAquakamuiContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand), new Durations.Indefinite())
         {
         }
 
@@ -56,6 +56,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "You may return all Angel Commands and all Demon Commands from your graveyard to your hand.";
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
         }
     }
 }

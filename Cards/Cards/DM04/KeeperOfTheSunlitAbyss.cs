@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -11,13 +13,18 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class KeeperOfTheSunlitAbyssEffect : PowerModifyingEffect
+    class KeeperOfTheSunlitAbyssEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public KeeperOfTheSunlitAbyssEffect() : base(1000, new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Durations.Indefinite()) { }
+        public KeeperOfTheSunlitAbyssEffect() : base(new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Durations.Indefinite()) { }
 
         public override IContinuousEffect Copy()
         {
             return new KeeperOfTheSunlitAbyssEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            GetAffectedCards(game).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

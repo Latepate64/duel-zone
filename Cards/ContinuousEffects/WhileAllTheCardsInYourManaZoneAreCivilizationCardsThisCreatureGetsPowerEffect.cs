@@ -1,25 +1,38 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : PowerModifyingEffect
+    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
         private readonly Civilization _civilization;
+        private readonly int _power;
 
         public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
         {
             _civilization = effect._civilization;
+            _power = effect._power;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(power, new Durations.Indefinite(), new Conditions.AllOfCivilizationCondition(civilization))
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter(), new Durations.Indefinite())
         {
             _civilization = civilization;
+            _power = power;
         }
 
         public override IContinuousEffect Copy()
         {
             return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            if (game.GetAbility(SourceAbility).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(_civilization)))
+            {
+                GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+            }
         }
 
         public override string ToString()

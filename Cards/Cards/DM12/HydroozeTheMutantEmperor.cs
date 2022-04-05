@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -12,15 +13,20 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class HydroozeTheMutantEmperorPowerEffect : PowerModifyingEffect
+    class HydroozeTheMutantEmperorPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public HydroozeTheMutantEmperorPowerEffect() : base(2000, new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
+        public HydroozeTheMutantEmperorPowerEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new HydroozeTheMutantEmperorPowerEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -11,15 +13,23 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class BarkwhipTheSmasherEffect : PowerModifyingEffect
+    class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public BarkwhipTheSmasherEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Durations.Indefinite(), new Conditions.TappedCondition(new Engine.TargetFilter()))
+        public BarkwhipTheSmasherEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk), new Durations.Indefinite())
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new BarkwhipTheSmasherEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            if (game.GetCard(game.GetAbility(SourceAbility).Source).Tapped)
+            {
+                GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+            }
         }
 
         public override string ToString()

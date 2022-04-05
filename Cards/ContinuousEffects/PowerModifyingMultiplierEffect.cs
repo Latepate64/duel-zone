@@ -4,34 +4,48 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class PowerModifyingMultiplierEffect : PowerModifyingEffect
+    abstract class PowerModifyingMultiplierEffect : ContinuousEffect, IPowerModifyingEffect
     {
+        protected readonly int _power;
+
         public ICardFilter Multiplier { get; set; }
 
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, new Durations.Indefinite(), conditions)
+        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base(new TargetFilter(), new Durations.Indefinite())
         {
+            _power = power;
             Multiplier = multiplier;
         }
 
         protected PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
         {
+            _power = effect._power;
             Multiplier = effect.Multiplier.Copy();
         }
 
-        protected override int GetPower(IGame game)
+        public virtual void ModifyPower(IGame game)
         {
-            return game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
+            var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
+            GetAffectedCards(game).ToList().ForEach(x => x.Power += add);
         }
     }
 
     abstract class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
     {
-        protected PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier, new Conditions.AttackingCreatureCondition(new TargetFilter()))
+        protected PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier)
         {
         }
 
         protected PowerAttackerMultiplierEffect(PowerAttackerMultiplierEffect effect) : base(effect)
         {
+        }
+
+        public override void ModifyPower(IGame game)
+        {
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase)
+            {
+                var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
+                GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += add);
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -11,15 +13,20 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class PhantomachPowerEffect : PowerModifyingEffect
+    class PhantomachPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PhantomachPowerEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite())
+        public PhantomachPowerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite())
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new PhantomachPowerEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
