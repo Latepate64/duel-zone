@@ -7,8 +7,6 @@ namespace Engine.ContinuousEffects
         Guid SourceAbility { get; set; }
         ICardFilter Filter { get; set; }
 
-        bool ConditionsApply(IGame game);
         IContinuousEffect Copy();
-        void SetupConditionFilters(Guid id);
     }
 }

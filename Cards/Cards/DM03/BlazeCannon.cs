@@ -22,7 +22,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public BlazeCannonRestrictionEffect() : base(new TargetFilter(), new Durations.Indefinite(), new Conditions.NotAllOfCivilizationCondition(Civilization.Fire))
+        public BlazeCannonRestrictionEffect() : base(new TargetFilter(), new Durations.Indefinite())
         {
         }
 

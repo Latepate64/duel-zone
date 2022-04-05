@@ -89,7 +89,6 @@ namespace Engine
             {
                 target.Target = Id;
             }
-            effect.SetupConditionFilters(Id);
         }
 
         public Common.ICard Convert(bool clear = false)

@@ -433,7 +433,7 @@ namespace Engine
 
         public IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect
         {
-            return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.ConditionsApply(this));
+            return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)));
         }
 
         public IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector)

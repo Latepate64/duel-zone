@@ -23,18 +23,14 @@ namespace Engine.ContinuousEffects
 
         public int Timestamp { get; set; }
 
-        private readonly List<Condition> _conditions = new();
-
-        protected ContinuousEffect(ICardFilter filter, IDuration duration, params Condition[] conditions)
+        protected ContinuousEffect(ICardFilter filter, IDuration duration)
         {
-            _conditions.AddRange(conditions);
             Duration = duration;
             Filter = filter;
         }
 
         protected ContinuousEffect(ContinuousEffect effect)
         {
-            _conditions = effect._conditions.ToList(); //TODO: Implement copy?
             Duration = effect.Duration.Copy();
             Filter = effect.Filter?.Copy();
             SourceAbility = effect.SourceAbility;
@@ -61,24 +57,6 @@ namespace Engine.ContinuousEffects
         }
 
         public override abstract string ToString();
-
-        public void SetupConditionFilters(Guid id)
-        {
-            _conditions.Select(x => x.Filter).OfType<ITargetFilterable>().ToList().ForEach(x => x.Target = id);
-        }
-
-        public bool ConditionsApply(IGame game)
-        {
-            var source = game.GetAbility(SourceAbility);
-            if (source != null)
-            {
-                if (_conditions.All(x => x.Applies(game, source.GetController(game).Id)))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game)
         {
