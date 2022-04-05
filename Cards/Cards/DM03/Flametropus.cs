@@ -39,13 +39,13 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class FlametropusContinuousEffect : AbilityAddingEffect
+    class FlametropusContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public FlametropusContinuousEffect(FlametropusContinuousEffect effect) : base(effect)
         {
         }
 
-        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 

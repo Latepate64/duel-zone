@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
     {
-        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base(new TargetFilter())
         {
         }
 
@@ -32,7 +32,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(CardFilter filter, IDuration duration) : base(filter, duration)
+        protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(CardFilter filter) : base(filter)
         {
         }
 

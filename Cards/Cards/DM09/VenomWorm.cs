@@ -36,13 +36,13 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VenomWormContinuousEffect : AbilityAddingEffect
+    class VenomWormContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
     {
         public VenomWormContinuousEffect(VenomWormContinuousEffect effect) : base(effect)
         {
         }
 
-        public VenomWormContinuousEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.SlayerAbility())
+        public VenomWormContinuousEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.SlayerAbility())
         {
         }
 

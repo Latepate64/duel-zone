@@ -64,13 +64,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class MegaDetonatorContinuousEffect : AbilityAddingEffect
+    class MegaDetonatorContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
     {
         public MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
         {
         }
 
-        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.DoubleBreakerAbility())
+        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new StaticAbilities.DoubleBreakerAbility())
         {
         }
 

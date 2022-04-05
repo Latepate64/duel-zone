@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Common.GameEvents;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffect
+    abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffect
     {
         public List<IAbility> Abilities { get; }
 
@@ -34,5 +35,21 @@ namespace Cards.ContinuousEffects
         }
 
         protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
+    }
+
+    abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IDuration
+    {
+        protected AddAbilitiesUntilEndOfTurnEffect(AddAbilitiesUntilEndOfTurnEffect effect) : base(effect)
+        {
+        }
+
+        protected AddAbilitiesUntilEndOfTurnEffect(ICardFilter filter, params IAbility[] abilities) : base(filter, abilities)
+        {
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -26,9 +27,9 @@ namespace Cards.OneShotEffects
     }
 
 
-    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
+    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IDuration
     {
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
         {
         }
 
@@ -41,6 +42,11 @@ namespace Cards.OneShotEffects
         public override IContinuousEffect Copy()
         {
             return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

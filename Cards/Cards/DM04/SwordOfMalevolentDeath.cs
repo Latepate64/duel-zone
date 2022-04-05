@@ -36,13 +36,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class SwordOfMalevolentDeathContinuousEffect : AbilityAddingEffect
+    class SwordOfMalevolentDeathContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
     {
         public SwordOfMalevolentDeathContinuousEffect(SwordOfMalevolentDeathContinuousEffect effect) : base(effect)
         {
         }
 
-        public SwordOfMalevolentDeathContinuousEffect(ICardFilter filter, int power) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.PowerAttackerAbility(power))
+        public SwordOfMalevolentDeathContinuousEffect(ICardFilter filter, int power) : base(filter, new StaticAbilities.PowerAttackerAbility(power))
         {
         }
 

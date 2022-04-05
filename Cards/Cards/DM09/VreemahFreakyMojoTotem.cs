@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -32,15 +33,20 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect
+    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IDuration
     {
-        public VreemahFreakyMojoTotemContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.BeastFolk), 2000, new Durations.UntilTheEndOfTheTurn())
+        public VreemahFreakyMojoTotemContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.BeastFolk), 2000)
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new VreemahFreakyMojoTotemContinuousEffect();
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -33,11 +34,11 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
+    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IDuration
     {
         private readonly Subtype _subtype;
 
-        public HokiraContinuousEffect(Subtype subtype) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn())
+        public HokiraContinuousEffect(Subtype subtype) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype))
         {
             _subtype = subtype;
         }
@@ -50,6 +51,11 @@ namespace Cards.Cards.DM09
         public override IContinuousEffect Copy()
         {
             return new HokiraContinuousEffect(this);
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

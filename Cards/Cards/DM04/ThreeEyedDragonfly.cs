@@ -1,6 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -39,13 +40,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IDuration
     {
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), 2000, new Durations.UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), 2000)
         {
         }
 
@@ -57,6 +58,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
     }
 

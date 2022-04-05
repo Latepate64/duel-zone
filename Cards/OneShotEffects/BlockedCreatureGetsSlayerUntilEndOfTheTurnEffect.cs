@@ -32,13 +32,13 @@ namespace Cards.OneShotEffects
         }
     }
 
-    class ThisCreatureGetSlayerUntilEndOfTheTurnEffect : AbilityAddingEffect
+    class ThisCreatureGetSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ThisCreatureGetSlayerUntilEndOfTheTurnEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.SlayerAbility())
+        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new StaticAbilities.SlayerAbility())
         {
         }
 

@@ -39,13 +39,13 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AbilityAddingEffect
+    class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new DoubleBreakerAbility())
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new DoubleBreakerAbility())
         {
         }
 
