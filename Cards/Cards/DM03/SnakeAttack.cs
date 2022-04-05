@@ -41,7 +41,7 @@ namespace Cards.Cards.DM03
 
     class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AbilityAddingEffect
     {
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(AbilityAddingEffect effect) : base(effect)
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
         }
 
@@ -51,7 +51,7 @@ namespace Cards.Cards.DM03
 
         public override IContinuousEffect Copy()
         {
-            return new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect();
+            return new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(this);
         }
 
         public override string ToString()

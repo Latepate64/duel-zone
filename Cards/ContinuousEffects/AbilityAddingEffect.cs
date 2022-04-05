@@ -3,6 +3,7 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Cards.ContinuousEffects
 {
     public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffect
@@ -19,14 +20,9 @@ namespace Cards.ContinuousEffects
             Abilities = abilities.ToList();
         }
 
-        protected AbilityAddingEffect(ICardFilter filter, IDuration duration, Condition condition, params IAbility[] abilities) : base(filter, duration, condition)
-        {
-            Abilities = abilities.ToList();
-        }
-
         public void AddAbility(IGame game)
         {
-            foreach (var card in game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card))))
+            foreach (var card in game.GetAllCards(Filter, game.GetAbility(SourceAbility).Controller))
             {
                 Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
             }
