@@ -33,7 +33,7 @@ namespace Cards.Cards.DM10
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, new Durations.Indefinite(), true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, true));
         }
     }
 

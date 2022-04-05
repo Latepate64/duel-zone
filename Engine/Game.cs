@@ -388,12 +388,14 @@ namespace Engine
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
 
-                var toRemove = _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray();
-                foreach (var remove in toRemove)
+                foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
                 {
                     _continuousEffects.Remove(remove);
                 }
-                _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
+                foreach (var remove in _delayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                {
+                    _delayedTriggeredAbilities.Remove(remove);
+                }
 
                 try
                 {

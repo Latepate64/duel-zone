@@ -21,7 +21,6 @@ namespace Cards.Cards.DM09
                 new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(source.GetController(game).ChooseRace())),
                 source.Id,
                 source.Controller,
-                new Durations.Indefinite(),
                 true));
             return null;
         }

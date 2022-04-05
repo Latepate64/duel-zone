@@ -23,7 +23,6 @@ namespace Cards.Cards.DM07
                         new GandarSeekerOfExplosionsUntapEffect()),
                         source.Source,
                         source.Controller,
-                        new Durations.Indefinite(),
                         true));
             return null;
         }

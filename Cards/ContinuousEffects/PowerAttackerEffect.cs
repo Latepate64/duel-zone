@@ -13,11 +13,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public PowerAttackerEffect(int power) : this(power, new TargetFilter(), new Durations.Indefinite())
-        {
-        }
-
-        public PowerAttackerEffect(int power, CardFilter filter, Duration duration) : base(filter)
+        public PowerAttackerEffect(int power) : base(new TargetFilter())
         {
             _power = power;
         }
