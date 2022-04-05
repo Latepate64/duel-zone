@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : ContinuousEffect, IPowerModifyingEffect
+    class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
     {
         private readonly int _power;
 
@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(new CardFilters.TargetsFilter(cards.ToArray()), new Durations.UntilTheEndOfTheTurn())
+        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(new CardFilters.TargetsFilter(cards.ToArray()))
         {
             _power = power;
         }

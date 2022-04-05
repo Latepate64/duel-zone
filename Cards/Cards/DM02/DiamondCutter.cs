@@ -32,9 +32,9 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class DiamondCutterContinuousEffect : IgnoreCannotAttackPlayersEffects
+    class DiamondCutterContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
     {
-        public DiamondCutterContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
+        public DiamondCutterContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
         {
         }
 

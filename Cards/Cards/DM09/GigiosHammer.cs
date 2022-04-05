@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class GigiosHammerContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
+    class GigiosHammerContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
     {
         private readonly Subtype _subtype;
 
@@ -42,7 +42,7 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public GigiosHammerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn())
+        public GigiosHammerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype))
         {
             _subtype = subtype;
         }

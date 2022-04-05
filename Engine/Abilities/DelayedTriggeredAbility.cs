@@ -43,8 +43,6 @@ namespace Engine.Abilities
                 //TODO: Make abilities disposable
                 //TriggeredAbility.Dispose();
                 TriggeredAbility = null;
-                Duration.Dispose();
-                Duration = null;
             }
         }
     }

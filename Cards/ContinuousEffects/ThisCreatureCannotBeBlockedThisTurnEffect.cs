@@ -3,9 +3,9 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeBlockedThisTurnEffect : ContinuousEffect, IUnblockableEffect
+    class ThisCreatureCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(null, new Durations.UntilTheEndOfTheTurn())
+        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(new TargetFilter())
         {
         }
 

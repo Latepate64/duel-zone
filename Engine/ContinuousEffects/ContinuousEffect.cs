@@ -48,8 +48,6 @@ namespace Engine.ContinuousEffects
         {
             if (disposing)
             {
-                Duration.Dispose();
-                Duration = null;
                 Filter.Dispose();
                 Filter = null;
                 SourceAbility = Guid.Empty;
