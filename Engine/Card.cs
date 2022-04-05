@@ -79,16 +79,17 @@ namespace Engine
         {
             foreach (var effect in staticAbility.ContinuousEffects)
             {
-                if (effect.Filter is ITargetFilterable target)
-                {
-                    target.Target = Id;
-                }
-                effect.SetupConditionFilters(Id);
-                if (effect is AbilityAddingEffect add)
-                {
-                    add.Abilities.OfType<IStaticAbility>().ToList().ForEach(x => InitializeAbility(x));
-                }
+                InitializeContinuousEffect(effect);
             }
+        }
+
+        private void InitializeContinuousEffect(IContinuousEffect effect)
+        {
+            if (effect.Filter is ITargetFilterable target)
+            {
+                target.Target = Id;
+            }
+            effect.SetupConditionFilters(Id);
         }
 
         public Common.ICard Convert(bool clear = false)

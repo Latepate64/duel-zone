@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;

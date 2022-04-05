@@ -1,8 +1,9 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
-
-namespace Engine.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffect
     {
