@@ -40,13 +40,13 @@ namespace Cards.Cards.DM08
 
     class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public YourCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public YourCreaturesCannotBeBlockedThisTurnEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return true;
+            return game.BattleZone.GetCreatures(game.GetAbility(SourceAbility).Controller).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

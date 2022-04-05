@@ -1,4 +1,5 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
@@ -6,6 +7,11 @@ namespace Cards.ContinuousEffects
     {
         public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter())
         {
+        }
+
+        public bool Applies(ICard creature, IGame game)
+        {
+            return creature.Id == game.GetAbility(SourceAbility).Source;
         }
 
         public override IContinuousEffect Copy()

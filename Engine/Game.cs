@@ -721,8 +721,8 @@ namespace Engine
                 var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttack(x, this));
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>(attacker);
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
-                    canAttackUntappedCreaturesEffects.Any(e => e.Applies(c, this)) ||
-                    GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>(c).Any()));
+                    canAttackUntappedCreaturesEffects.Any(e => e.Applies(attacker, c, this)) ||
+                    GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>(c).Any(x => x.Applies(c))));
             }
             if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
             {

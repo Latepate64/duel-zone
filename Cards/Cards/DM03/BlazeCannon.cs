@@ -44,13 +44,14 @@ namespace Cards.Cards.DM03
 
     class BlazeCannonBuffEffect : OneShotAreaOfEffect
     {
-        public BlazeCannonBuffEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public BlazeCannonBuffEffect() : base()
         {
         }
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(GetAffectedCards(game, source).ToArray()));
+            
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

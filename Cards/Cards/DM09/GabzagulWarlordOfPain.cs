@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM09
@@ -15,6 +16,11 @@ namespace Cards.Cards.DM09
     {
         public GabzagulWarlordOfPainEffect() : base(new CardFilters.BattleZoneCreatureFilter())
         {
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

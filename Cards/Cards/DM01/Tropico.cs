@@ -14,14 +14,14 @@ namespace Cards.Cards.DM01
 
     class TropicoEffect : ContinuousEffect, IUnblockableEffect
     {
-        public TropicoEffect() : base(new TargetFilter())
+        public TropicoEffect() : base()
         {
         }
 
-        public bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             var ability = game.GetAbility(SourceAbility);
-            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source) >= 2;
+            return attacker.Id == ability.Source && game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source) >= 2;
         }
 
         public override IContinuousEffect Copy()

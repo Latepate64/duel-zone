@@ -13,14 +13,14 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base(new Engine.TargetFilter())
+        public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base()
         {
             _civilization = civilization;
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return blocker.HasCivilization(_civilization);
+            return attacker.Id == game.GetAbility(SourceAbility).Source && blocker.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()

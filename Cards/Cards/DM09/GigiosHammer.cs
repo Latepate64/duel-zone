@@ -42,7 +42,7 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public GigiosHammerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype))
+        public GigiosHammerContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
@@ -50,6 +50,11 @@ namespace Cards.Cards.DM09
         public void AddAbility(IGame game)
         {
             GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return creature.HasSubtype(_subtype);
         }
 
         public override IContinuousEffect Copy()

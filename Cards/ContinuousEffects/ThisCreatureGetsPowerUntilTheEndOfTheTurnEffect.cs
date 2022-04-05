@@ -7,15 +7,18 @@ namespace Cards.ContinuousEffects
     class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
     {
         private readonly int _power;
+        private readonly ICard[] _cards;
 
         public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
             _power = effect._power;
+            _cards = effect._cards;
         }
 
-        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(new CardFilters.TargetsFilter(cards.ToArray()))
+        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base()
         {
             _power = power;
+            _cards = cards;
         }
 
         public override IContinuousEffect Copy()
@@ -25,7 +28,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+            _cards.ToList().ForEach(x => x.Power += _power);
         }
 
         public override string ToString()

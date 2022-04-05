@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -37,13 +38,13 @@ namespace Cards.Cards.DM11
 
     class YourLightCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Light))
+        public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base()
         {
         }
 
-        public bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return true;
+            return game.BattleZone.GetCreatures(game.GetAbility(SourceAbility).Controller).Contains(attacker) && attacker.HasCivilization(Common.Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

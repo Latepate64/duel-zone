@@ -5,13 +5,13 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(new TargetFilter())
+        public ThisCreatureCannotBeBlockedThisTurnEffect() : base()
         {
         }
 
-        public bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return true;
+            return attacker.Id == game.GetAbility(SourceAbility).Source;
         }
 
         public override IContinuousEffect Copy()

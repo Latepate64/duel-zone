@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public StealthEffect(Civilization civilization) : base(new TargetFilter())
+        public StealthEffect(Civilization civilization) : base()
         {
             _civilization = civilization;
         }
@@ -19,9 +19,10 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return game.GetAbility(SourceAbility).GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));
+            var ability = game.GetAbility(SourceAbility);
+            return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));
         }
 
         public override IContinuousEffect Copy()

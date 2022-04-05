@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -41,14 +42,14 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public SilvermoonTrailblazerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype))
+        public SilvermoonTrailblazerContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return blocker.Power <= 3000;
+            return attacker.HasSubtype(_subtype) && blocker.Power <= 3000;
         }
 
         public override IContinuousEffect Copy()

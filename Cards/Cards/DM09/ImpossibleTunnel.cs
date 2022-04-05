@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -41,14 +42,14 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype))
+        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return true;
+            return game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

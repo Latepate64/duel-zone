@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -19,9 +18,9 @@ namespace Cards.ContinuousEffects
             _civilization = civilization;
         }
 
-        public bool Applies(Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return targetOfAttack.HasCivilization(_civilization);
+            return attacker.Id == game.GetAbility(SourceAbility).Source && targetOfAttack.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()

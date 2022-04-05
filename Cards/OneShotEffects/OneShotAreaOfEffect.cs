@@ -9,6 +9,10 @@ namespace Cards.OneShotEffects
     {
         public ICardFilter Filter { get; }
 
+        protected OneShotAreaOfEffect()
+        {
+        }
+
         protected OneShotAreaOfEffect(ICardFilter filter)
         {
             Filter = filter;
@@ -16,7 +20,7 @@ namespace Cards.OneShotEffects
 
         protected OneShotAreaOfEffect(OneShotAreaOfEffect effect)
         {
-            Filter = effect.Filter.Copy();
+            Filter = effect.Filter?.Copy();
         }
 
         protected IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)

@@ -24,9 +24,9 @@ namespace Cards.Cards.DM07
             GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000)));
         }
 
-        public bool Applies(Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return !game.GetAbility(SourceAbility).GetController(game).ShieldZone.Cards.Any();
+            return !game.GetAbility(SourceAbility).GetController(game).ShieldZone.Cards.Any() && attacker.Id == game.GetAbility(SourceAbility).Source;
         }
 
         public override IContinuousEffect Copy()

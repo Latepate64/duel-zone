@@ -18,13 +18,9 @@ namespace Cards.Cards.DM03
 
     class SnakeAttackEffect : OneShotAreaOfEffect
     {
-        public SnakeAttackEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
-        {
-        }
-
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -24,9 +23,9 @@ namespace Cards.ContinuousEffects
             return "This creature can't be blocked.";
         }
 
-        public bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return true;
+            return attacker.Id == game.GetAbility(SourceAbility).Source;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Cards.Cards.DM07
 
         public override object Apply(IGame game, IAbility source)
         {
+            
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
                 new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility()));

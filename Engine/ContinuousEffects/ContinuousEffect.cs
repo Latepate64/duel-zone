@@ -23,6 +23,10 @@ namespace Engine.ContinuousEffects
             Filter = filter;
         }
 
+        protected ContinuousEffect()
+        {
+        }
+
         protected ContinuousEffect(ContinuousEffect effect)
         {
             Filter = effect.Filter?.Copy();

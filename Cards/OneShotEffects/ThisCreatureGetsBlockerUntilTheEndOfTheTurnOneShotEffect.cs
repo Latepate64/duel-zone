@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -10,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect() : base(new TargetFilter())
+        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect() : base()
         {
         }
 
@@ -26,7 +25,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(game.GetCard(source.Source)));
             return null;
         }
     }

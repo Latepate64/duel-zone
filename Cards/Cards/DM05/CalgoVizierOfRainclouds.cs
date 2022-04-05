@@ -14,13 +14,13 @@ namespace Cards.Cards.DM05
 
     class CalgoVizierOfRaincloudsEffect : ContinuousEffect, IUnblockableEffect
     {
-        public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter())
+        public CalgoVizierOfRaincloudsEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return blocker.Power >= 4000;
+            return attacker.Id == game.GetAbility(SourceAbility).Source && blocker.Power >= 4000;
         }
 
         public override IContinuousEffect Copy()

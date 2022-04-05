@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -16,13 +15,13 @@ namespace Cards.Cards.DM02
 
     class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
     {
-        public KingNautilusEffect() : base(new BattleZoneSubtypeCreatureFilter(Subtype.LiquidPeople))
+        public KingNautilusEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard blocker, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return true;
+            return attacker.HasSubtype(Subtype.LiquidPeople);
         }
 
         public override IContinuousEffect Copy()

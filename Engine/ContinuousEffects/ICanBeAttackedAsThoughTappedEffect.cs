@@ -2,5 +2,6 @@
 {
     public interface ICanBeAttackedAsThoughTappedEffect : IContinuousEffect
     {
+        bool Applies(ICard targetOfAttack);
     }
 }

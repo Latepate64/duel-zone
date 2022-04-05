@@ -2,6 +2,6 @@
 {
     public interface IUnblockableEffect : IContinuousEffect
     {
-        bool Applies(ICard blocker, IGame game);
+        bool Applies(ICard attacker, ICard blocker, IGame game);
     }
 }

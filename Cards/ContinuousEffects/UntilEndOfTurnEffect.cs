@@ -6,11 +6,11 @@ namespace Cards.ContinuousEffects
 {
     abstract class UntilEndOfTurnEffect : ContinuousEffect, IDuration
     {
-        protected UntilEndOfTurnEffect(ContinuousEffect effect) : base(effect)
+        protected UntilEndOfTurnEffect() : base()
         {
         }
 
-        protected UntilEndOfTurnEffect(ICardFilter filter) : base(filter)
+        protected UntilEndOfTurnEffect(UntilEndOfTurnEffect effect) : base(effect)
         {
         }
 

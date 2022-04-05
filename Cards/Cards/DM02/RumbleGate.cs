@@ -33,15 +33,15 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class RumbleGateContinuousEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
+    class RumbleGateContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect
     {
-        public RumbleGateContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureThatCanAttackCreaturesFilter())
+        public RumbleGateContinuousEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            throw new System.NotImplementedException();
+            return attacker.Owner == game.GetAbility(SourceAbility).Controller && attacker.CanAttackCreatures(game);
         }
 
         public override IContinuousEffect Copy()

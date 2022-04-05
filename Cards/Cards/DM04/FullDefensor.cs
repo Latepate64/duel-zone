@@ -21,7 +21,7 @@ namespace Cards.Cards.DM04
 
     class FullDefensorEffect : OneShotAreaOfEffect
     {
-        public FullDefensorEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public FullDefensorEffect() : base()
         {
         }
 
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM04
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new FullDefensorContinuousEffect(source.Controller, GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new FullDefensorContinuousEffect(source.Controller, game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

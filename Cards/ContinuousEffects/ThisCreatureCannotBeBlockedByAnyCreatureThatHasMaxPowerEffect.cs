@@ -12,14 +12,14 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base(new TargetFilter())
+        public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base()
         {
             _power = power;
         }
 
-        public bool Applies(ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return blocker.Power <= _power;
+            return attacker.Id == game.GetAbility(SourceAbility).Source && blocker.Power <= _power;
         }
 
         public override IContinuousEffect Copy()

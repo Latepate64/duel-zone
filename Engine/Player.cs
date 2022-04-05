@@ -430,7 +430,7 @@ namespace Engine
 
         public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
-            var minimum = attackers.Any(x => game.GetContinuousEffects<IAttacksIfAbleEffect>(x).Any()) ? 1 : 0;
+            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>(attacker).Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
             var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
             if (decision.Any())
             {

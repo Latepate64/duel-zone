@@ -23,7 +23,7 @@ namespace Cards.Cards.DM07
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+            game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
             return null;
