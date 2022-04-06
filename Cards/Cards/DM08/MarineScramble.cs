@@ -46,7 +46,7 @@ namespace Cards.Cards.DM08
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(game.GetAbility(SourceAbility).Controller).Contains(attacker);
+            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

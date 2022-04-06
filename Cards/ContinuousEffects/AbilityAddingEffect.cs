@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            foreach (var card in game.GetAllCards(Filter, game.GetAbility(SourceAbility).Controller))
+            foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
             {
                 Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
             }

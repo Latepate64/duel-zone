@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return attacker.Id == game.GetAbility(SourceAbility).Source;
+            return IsSourceOfAbility(attacker, game);
         }
 
         public override IContinuousEffect Copy()

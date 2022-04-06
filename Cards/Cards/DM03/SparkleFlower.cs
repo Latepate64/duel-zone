@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(Engine.ICard attacker, IGame game)
         {
-            return game.GetAbility(SourceAbility).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
+            return GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }
 
         public override IContinuousEffect Copy()

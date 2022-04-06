@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return attacker.Id == game.GetAbility(SourceAbility).Source && targetOfAttack.HasCivilization(_civilization);
+            return IsSourceOfAbility(attacker, game) && targetOfAttack.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()

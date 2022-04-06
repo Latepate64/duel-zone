@@ -53,7 +53,7 @@ namespace Cards.Cards.DM10
 
         public override int GetAmount(IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon);
         }
 

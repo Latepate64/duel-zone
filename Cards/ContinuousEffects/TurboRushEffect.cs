@@ -21,7 +21,7 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var player = game.GetAbility(SourceAbility).Controller;
+            var player = GetSourceAbility(game).Controller;
             var events = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<Common.GameEvents.ShieldsBrokenEvent>();
             if (events.Any(x => Filter.Applies(game.GetCard(x.Attacker.Id), game, game.GetPlayer(player))))
             {

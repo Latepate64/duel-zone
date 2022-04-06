@@ -26,7 +26,7 @@ namespace Cards.Cards.DM02
 
         public void ModifyPower(IGame game)
         {
-            if (game.GetCard(game.GetAbility(SourceAbility).Source).Tapped)
+            if (game.GetCard(GetSourceAbility(game).Source).Tapped)
             {
                 GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
             }

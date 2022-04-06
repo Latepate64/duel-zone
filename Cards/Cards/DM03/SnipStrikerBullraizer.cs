@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             return game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
         }
 

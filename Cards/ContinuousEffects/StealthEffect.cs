@@ -21,7 +21,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));
         }
 

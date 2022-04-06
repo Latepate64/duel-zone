@@ -40,7 +40,7 @@ namespace Cards.ContinuousEffects
 
         public override int GetAmount(Engine.IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype));
         }
 

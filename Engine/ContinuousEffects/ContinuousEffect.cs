@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Abilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,6 +57,16 @@ namespace Engine.ContinuousEffects
         protected IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card)));
+        }
+
+        protected IAbility GetSourceAbility(IGame game)
+        {
+            return game.GetAbility(SourceAbility);
+        }
+
+        protected bool IsSourceOfAbility(ICard card, IGame game)
+        {
+            return card.Id == GetSourceAbility(game).Source;
         }
     }
 }

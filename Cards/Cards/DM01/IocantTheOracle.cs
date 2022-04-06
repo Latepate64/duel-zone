@@ -28,7 +28,7 @@ namespace Cards.Cards.DM01
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(game.GetAbility(SourceAbility).Controller).Any(x => x.HasSubtype(Subtype.AngelCommand)))
+            if (game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Any(x => x.HasSubtype(Subtype.AngelCommand)))
             {
                 GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
             }

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return attacker.Id != game.GetAbility(SourceAbility).Source && attacker.HasCivilization(Civilization.Water);
+            return !IsSourceOfAbility(attacker, game) && attacker.HasCivilization(Civilization.Water);
         }
 
         public override IContinuousEffect Copy()

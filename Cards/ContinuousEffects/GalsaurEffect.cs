@@ -13,10 +13,10 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             if (!game.BattleZone.GetCreatures(ability.Controller).Any(x => x.Id != ability.Source))
             {
-                foreach (var card in game.GetAllCards(Filter, game.GetAbility(SourceAbility).Controller))
+                foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
                 {
                     game.AddAbility(card, new PowerAttackerAbility(4000));
                     game.AddAbility(card, new DoubleBreakerAbility());

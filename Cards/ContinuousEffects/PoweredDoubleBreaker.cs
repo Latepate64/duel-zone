@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public int GetAmount(IGame game)
         {
-            return game.GetCard(game.GetAbility(SourceAbility).Source).Power >= 6000 ? 2 : 1;
+            return game.GetCard(GetSourceAbility(game).Source).Power >= 6000 ? 2 : 1;
         }
 
         public override string ToString()

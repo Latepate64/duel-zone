@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return attacker.Id == game.GetAbility(SourceAbility).Source;
+            return IsSourceOfAbility(attacker, game);
         }
     }
 }

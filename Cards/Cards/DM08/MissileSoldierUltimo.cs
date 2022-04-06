@@ -30,7 +30,7 @@ namespace Cards.Cards.DM08
 
         public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return attacker.Id == game.GetAbility(SourceAbility).Source;
+            return IsSourceOfAbility(attacker, game);
         }
 
         public override IContinuousEffect Copy()

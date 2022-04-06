@@ -28,7 +28,7 @@ namespace Cards.Cards.DM10
 
         public void ModifyPower(IGame game)
         {
-            if (game.GetOpponent(game.GetAbility(SourceAbility).Controller) == game.CurrentTurn.ActivePlayer.Id)
+            if (game.GetOpponent(GetSourceAbility(game).Controller) == game.CurrentTurn.ActivePlayer.Id)
             {
                 GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
             }

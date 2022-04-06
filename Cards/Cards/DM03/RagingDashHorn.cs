@@ -47,7 +47,7 @@ namespace Cards.Cards.DM03
 
         private bool Applies(IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             if (ability != null)
             {
                 return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));

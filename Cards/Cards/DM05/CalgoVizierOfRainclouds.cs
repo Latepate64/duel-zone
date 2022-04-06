@@ -20,7 +20,7 @@ namespace Cards.Cards.DM05
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return attacker.Id == game.GetAbility(SourceAbility).Source && blocker.Power >= 4000;
+            return IsSourceOfAbility(attacker, game) && blocker.Power >= 4000;
         }
 
         public override IContinuousEffect Copy()

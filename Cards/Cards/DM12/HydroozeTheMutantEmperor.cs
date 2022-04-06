@@ -43,7 +43,7 @@ namespace Cards.Cards.DM12
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(game.GetAbility(SourceAbility).Controller).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
+            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
         }
 
         public override IContinuousEffect Copy()

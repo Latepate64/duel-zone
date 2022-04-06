@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard creature, IGame game)
         {
-            return creature.Id == game.GetAbility(SourceAbility).Source;
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

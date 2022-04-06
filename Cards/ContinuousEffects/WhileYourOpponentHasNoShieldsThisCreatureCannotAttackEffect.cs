@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(IGame game)
         {
-            return !game.GetAbility(SourceAbility).GetOpponent(game).ShieldZone.Cards.Any();
+            return !GetSourceAbility(game).GetOpponent(game).ShieldZone.Cards.Any();
         }
 
         public override IContinuousEffect Copy()
