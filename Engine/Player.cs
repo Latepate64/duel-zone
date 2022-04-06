@@ -244,7 +244,7 @@ namespace Engine
             ZoneType destination;
             try
             {
-                if (game.GetContinuousEffects<IChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any())
+                if (game.GetContinuousEffects<IChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any(e => e.Applies(newObject, game)))
                 {
                     game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
                     destination = ZoneType.ManaZone;

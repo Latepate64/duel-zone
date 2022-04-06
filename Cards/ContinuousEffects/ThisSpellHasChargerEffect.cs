@@ -1,11 +1,17 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
     class ThisSpellHasChargerEffect : ContinuousEffect, IChargerEffect
     {
-        public ThisSpellHasChargerEffect() : base(new Engine.TargetFilter())
+        public ThisSpellHasChargerEffect() : base()
         {
+        }
+
+        public bool Applies(ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
 
         public override IContinuousEffect Copy()
