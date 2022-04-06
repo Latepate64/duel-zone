@@ -131,7 +131,7 @@ namespace Engine
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>(this).Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>(this).Any()) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>(this).Any(x => x.Applies(this, game));
+            return (!game.GetContinuousEffects<ICannotAttackEffect>(this).Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>(this).Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>(this).Any(x => x.Applies(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
