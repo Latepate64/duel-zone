@@ -17,7 +17,7 @@ namespace TestEngine
             var game = new Mock<IGame>();
             var bait = new Mock<ICard>();
             var evolutionEffect = new Mock<IEvolutionEffect>();
-            evolutionEffect.Setup(x => x.CanEvolveFrom(bait.Object)).Returns(shouldBeAbleToEvolve);
+            evolutionEffect.Setup(x => x.CanEvolveFrom(bait.Object, card, game.Object)).Returns(shouldBeAbleToEvolve);
             game.Setup(x => x.GetContinuousEffects<IEvolutionEffect>(card)).Returns(new List<IEvolutionEffect> { evolutionEffect.Object });
 
             var canEvolve = card.CanEvolveFrom(game.Object, bait.Object);

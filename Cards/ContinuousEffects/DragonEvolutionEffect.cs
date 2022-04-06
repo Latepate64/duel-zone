@@ -9,9 +9,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CanEvolveFrom(ICard card)
+        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
-            return card.IsDragon;
+            return bait.IsDragon && IsSourceOfAbility(evolutionCard, game);
         }
 
         public override IContinuousEffect Copy()

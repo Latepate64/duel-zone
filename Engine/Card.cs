@@ -136,7 +136,7 @@ namespace Engine
 
         public bool CanEvolveFrom(IGame game, ICard card)
         {
-            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
+            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card, this, game));
         }
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
