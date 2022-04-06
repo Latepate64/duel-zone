@@ -13,7 +13,7 @@ namespace Cards.Cards.DM02
 
     class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public EssenceElfEffect() : base(new CardFilters.OwnersHandSpellFilter())
+        public EssenceElfEffect() : base()
         {
         }
 
@@ -22,9 +22,9 @@ namespace Cards.Cards.DM02
             return new EssenceElfEffect();
         }
 
-        public int GetChange()
+        public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return -1;
+            return card.Owner == GetSourceAbility(game).Controller && card.CardType == CardType.Spell ? -1 : 0;
         }
 
         public override string ToString()

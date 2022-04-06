@@ -5,6 +5,6 @@
     /// </summary>
     public interface ICostModifyingEffect : IContinuousEffect
     {
-        int GetChange();
+        int GetChange(ICard card, IGame game);
     }
 }

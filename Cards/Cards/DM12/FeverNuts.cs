@@ -14,16 +14,16 @@ namespace Cards.Cards.DM12
 
     class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public FeverNutsEffect() : base(new HandCreatureFilter()) { }
+        public FeverNutsEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
             return new FeverNutsEffect();
         }
 
-        public int GetChange()
+        public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return -1;
+            return card.CardType == CardType.Creature ? -1 : 0;
         }
 
         public override string ToString()

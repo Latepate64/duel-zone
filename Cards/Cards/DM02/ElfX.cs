@@ -13,16 +13,16 @@ namespace Cards.Cards.DM02
 
     class ElfXEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public ElfXEffect() : base(new CardFilters.OwnersHandCreatureFilter()) { }
+        public ElfXEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
             return new ElfXEffect();
         }
 
-        public int GetChange()
+        public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return -1;
+            return card.Owner == GetSourceAbility(game).Controller && card.CardType == CardType.Creature ? -1 : 0;
         }
 
         public override string ToString()

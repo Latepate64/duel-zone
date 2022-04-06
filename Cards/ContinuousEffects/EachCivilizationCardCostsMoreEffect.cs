@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
             _increase = effect._increase;
         }
 
-        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base(new CardFilters.CivilizationFilter(civilization))
+        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base()
         {
             _civilization = civilization;
             _increase = increase;
@@ -25,9 +25,9 @@ namespace Cards.ContinuousEffects
             return new EachCivilizationCardCostsMoreEffect(this);
         }
 
-        public int GetChange()
+        public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return _increase;
+            return card.HasCivilization(_civilization) ? _increase : 0;
         }
 
         public override string ToString()
