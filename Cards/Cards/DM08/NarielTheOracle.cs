@@ -14,13 +14,13 @@ namespace Cards.Cards.DM08
 
     class NarielTheOracleEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public NarielTheOracleEffect() : base(new CardFilters.BattleZoneMinPowerCreatureFilter(3000))
+        public NarielTheOracleEffect() : base()
         {
         }
 
-        public bool Applies(IGame game)
+        public bool Applies(Engine.ICard creature, IGame game)
         {
-            return true;
+            return creature.Power >= 3000;
         }
 
         public override IContinuousEffect Copy()

@@ -5,13 +5,13 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public ThisCreatureCannotAttackEffect() : base(new TargetFilter())
+        public ThisCreatureCannotAttackEffect() : base()
         {
         }
 
-        public bool Applies(IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
-            return true;
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

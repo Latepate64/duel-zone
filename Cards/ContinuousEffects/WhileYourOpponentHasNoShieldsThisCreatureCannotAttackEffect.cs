@@ -6,15 +6,15 @@ namespace Cards.ContinuousEffects
 {
     class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base(new TargetFilter()) { }
+        public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect() : base() { }
 
         public WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect(WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect effect) : base(effect)
         {
         }
 
-        public bool Applies(IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
-            return !GetSourceAbility(game).GetOpponent(game).ShieldZone.Cards.Any();
+            return IsSourceOfAbility(creature, game) && !GetSourceAbility(game).GetOpponent(game).ShieldZone.Cards.Any();
         }
 
         public override IContinuousEffect Copy()

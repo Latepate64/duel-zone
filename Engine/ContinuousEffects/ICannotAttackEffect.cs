@@ -2,6 +2,6 @@
 {
     public interface ICannotAttackEffect : IContinuousEffect
     {
-        bool Applies(IGame game);
+        bool Applies(ICard creature, IGame game);
     }
 }

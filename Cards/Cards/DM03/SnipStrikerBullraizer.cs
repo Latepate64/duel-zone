@@ -15,14 +15,14 @@ namespace Cards.Cards.DM03
 
     class SnipStrikerBullraizerEffect : ContinuousEffect, ICannotAttackEffect
     {
-        public SnipStrikerBullraizerEffect() : base(new TargetFilter())
+        public SnipStrikerBullraizerEffect() : base()
         {
         }
 
-        public bool Applies(IGame game)
+        public bool Applies(Engine.ICard creature, IGame game)
         {
             var ability = GetSourceAbility(game);
-            return game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
+            return IsSourceOfAbility(creature, game) && game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
         }
 
         public override IContinuousEffect Copy()
