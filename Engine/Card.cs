@@ -126,7 +126,7 @@ namespace Engine
 
         public bool CanAttackCreatures(IGame game)
         {
-            return !game.GetContinuousEffects<ICannotAttackEffect>(this).Any() && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>(this).Any();
+            return !game.GetContinuousEffects<ICannotAttackEffect>(this).Any() && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>(this).Any(x => x.Applies(this, game));
         }
 
         public bool CanAttackPlayers(IGame game)
