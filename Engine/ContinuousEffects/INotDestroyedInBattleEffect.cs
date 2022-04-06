@@ -2,6 +2,6 @@
 {
     public interface INotDestroyedInBattleEffect : IContinuousEffect
     {
-        bool Applies(ICard against);
+        bool Applies(ICard against, ICard creature, IGame game);
     }
 }

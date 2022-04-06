@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -7,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public NotDestroyedInBattleEffect(Civilization civilization) : base(new Engine.TargetFilter())
+        public NotDestroyedInBattleEffect(Civilization civilization) : base()
         {
             _civilization = civilization;
         }
@@ -17,9 +18,9 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public bool Applies(Engine.ICard against)
+        public bool Applies(Engine.ICard against, Engine.ICard creature, IGame game)
         {
-            return against.HasCivilization(_civilization);
+            return IsSourceOfAbility(creature, game) && against.HasCivilization(_civilization);
         }
 
         public override IContinuousEffect Copy()

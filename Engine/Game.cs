@@ -269,7 +269,7 @@ namespace Engine
 
         private void CheckLoseInBattle(ICard target, ICard against)
         {
-            if (!GetContinuousEffects<INotDestroyedInBattleEffect>(target).Any(x => x.Applies(against)))
+            if (!GetContinuousEffects<INotDestroyedInBattleEffect>(target).Any(x => x.Applies(against, target, this)))
             {
                 target.LostInBattle = true;
             }
