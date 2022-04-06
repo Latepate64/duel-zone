@@ -2,5 +2,6 @@
 {
     public interface IBlocksIfAbleEffect : IContinuousEffect
     {
+        bool Applies(ICard creature, IGame game);
     }
 }
