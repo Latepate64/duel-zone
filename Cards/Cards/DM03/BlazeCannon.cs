@@ -22,7 +22,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public BlazeCannonRestrictionEffect() : base(new TargetFilter())
+        public BlazeCannonRestrictionEffect() : base()
         {
         }
 

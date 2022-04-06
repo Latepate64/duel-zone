@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public AlcadeiasLordOfSpiritsEffect() : base(new NonCivilizationSpellFilter(Civilization.Light))
+        public AlcadeiasLordOfSpiritsEffect() : base()
         {
         }
 

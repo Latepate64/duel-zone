@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -7,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization _civilization;
 
-        public PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization civilization) : base(new CardFilters.CivilizationFilter(civilization))
+        public PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization civilization) : base()
         {
             _civilization = civilization;
         }
@@ -15,6 +16,11 @@ namespace Cards.ContinuousEffects
         public PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect effect) : base(effect)
         {
             _civilization = effect._civilization;
+        }
+
+        public bool Applies(Engine.ICard card, IGame game)
+        {
+            return card.HasCivilization(_civilization);
         }
 
         public override IContinuousEffect Copy()
