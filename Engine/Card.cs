@@ -208,9 +208,9 @@ namespace Engine
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
         }
 
-        public bool CanAttack(ICard creature, IGame game)
+        public bool CanAttack(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<ICannotBeAttackedEffect>(creature).Any(x => x.Applies(this));
+            return !game.GetContinuousEffects<ICannotBeAttackedEffect>(targetOfAttack).Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)

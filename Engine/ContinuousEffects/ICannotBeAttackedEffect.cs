@@ -2,6 +2,6 @@
 {
     public interface ICannotBeAttackedEffect : IContinuousEffect
     {
-        bool Applies(ICard attacker);
+        bool Applies(ICard attacker, ICard targetOfAttack, IGame game);
     }
 }

@@ -14,13 +14,13 @@ namespace Cards.Cards.DM08
 
     class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
-        public ThisCreatureCannotBeAttackedByDragonsEffect() : base(new TargetFilter())
+        public ThisCreatureCannotBeAttackedByDragonsEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard attacker)
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return attacker.IsDragon;
+            return IsSourceOfAbility(targetOfAttack, game) && attacker.IsDragon;
         }
 
         public override IContinuousEffect Copy()

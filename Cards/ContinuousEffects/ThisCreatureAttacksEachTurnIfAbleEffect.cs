@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class ThisCreatureAttacksEachTurnIfAbleEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
-        public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter())
+        public ThisCreatureAttacksEachTurnIfAbleEffect() : base()
         {
         }
 
