@@ -35,7 +35,6 @@ namespace Engine
         IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player);
         Common.IIdentifiable GetAttackable(Guid id);
         ICard GetCard(Guid id);
-        IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector);
         IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card);
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();

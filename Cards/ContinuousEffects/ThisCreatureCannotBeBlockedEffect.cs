@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureCannotBeBlockedEffect() : base(new TargetFilter())
+        public ThisCreatureCannotBeBlockedEffect() : base()
         {
         }
 

@@ -37,7 +37,7 @@ namespace Cards.Cards.DM12
 
     class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
-        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter())
+        public HydroozeTheMutantEmperorUnblockableEffect() : base()
         {
         }
 

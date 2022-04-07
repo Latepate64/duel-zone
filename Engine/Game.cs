@@ -442,11 +442,6 @@ namespace Engine
             return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)));
         }
 
-        public IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector)
-        {
-            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<IUnchoosableEffect>(x).Any()));
-        }
-
         public void Lose(params IPlayer[] players)
         {
             foreach (var player in players)
