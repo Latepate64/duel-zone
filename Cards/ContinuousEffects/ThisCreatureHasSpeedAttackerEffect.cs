@@ -1,11 +1,17 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
     class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttackerEffect
     {
-        public ThisCreatureHasSpeedAttackerEffect() : base(new Engine.TargetFilter())
+        public ThisCreatureHasSpeedAttackerEffect() : base()
         {
+        }
+
+        public bool Applies(ICard creature, IGame game)
+        {
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

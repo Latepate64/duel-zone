@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM08
@@ -14,8 +15,13 @@ namespace Cards.Cards.DM08
 
     class MagmadragonJagalzorEffect : ContinuousEffect, ISpeedAttackerEffect
     {
-        public MagmadragonJagalzorEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public MagmadragonJagalzorEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return creature.Owner == GetSourceAbility(game).Controller;
         }
 
         public override IContinuousEffect Copy()

@@ -14,8 +14,13 @@ namespace Cards.Cards.DM08
 
     class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
     {
-        public TottoPipicchiEffect() : base(new BattleZoneDragonFilter())
+        public TottoPipicchiEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return creature.IsDragon;
         }
 
         public override IContinuousEffect Copy()
@@ -26,24 +31,6 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "Each creature in the battle zone that has Dragon in its race has \"speed attacker.\"";
-        }
-    }
-
-    class BattleZoneDragonFilter : CardFilters.BattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new BattleZoneDragonFilter();
-        }
-
-        public override string ToString()
-        {
-            return "Each creature in the battle zone that has Dragon in its race";
         }
     }
 }
