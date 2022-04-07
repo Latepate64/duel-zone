@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly IAbility _ability;
 
-        public TurboRushEffect(IAbility ability) : base(new TargetFilter())
+        public TurboRushEffect(IAbility ability) : base()
         {
             _ability = ability;
         }
@@ -25,10 +25,7 @@ namespace Cards.ContinuousEffects
             var events = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<Common.GameEvents.ShieldsBrokenEvent>();
             if (events.Any(x => Filter.Applies(game.GetCard(x.Attacker.Id), game, game.GetPlayer(player))))
             {
-                foreach (var card in game.GetAllCards(Filter, player))
-                {
-                    game.AddAbility(card, _ability.Copy());
-                }
+                GetSourceCard(game).AddGrantedAbility(_ability.Copy());
             }
         }
 

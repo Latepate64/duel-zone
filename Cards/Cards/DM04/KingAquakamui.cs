@@ -44,7 +44,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public KingAquakamuiContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand, Subtype.DemonCommand))
+        public KingAquakamuiContinuousEffect() : base()
         {
         }
 
@@ -55,12 +55,12 @@ namespace Cards.Cards.DM04
 
         public override string ToString()
         {
-            return "You may return all Angel Commands and all Demon Commands from your graveyard to your hand.";
+            return "Angel Commands and Demon Commands in the battle zone each get +2000 power.";
         }
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.AngelCommand) || x.HasSubtype(Subtype.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
         }
     }
 }

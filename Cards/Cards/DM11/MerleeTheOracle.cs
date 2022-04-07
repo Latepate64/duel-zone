@@ -15,7 +15,7 @@ namespace Cards.Cards.DM11
 
     class MerleeTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public MerleeTheOracleEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public MerleeTheOracleEffect() : base()
         {
         }
 
@@ -26,7 +26,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

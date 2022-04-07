@@ -14,7 +14,7 @@ namespace Cards.Cards.DM09
 
     class GabzagulWarlordOfPainEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
-        public GabzagulWarlordOfPainEffect() : base(new CardFilters.BattleZoneCreatureFilter())
+        public GabzagulWarlordOfPainEffect() : base()
         {
         }
 

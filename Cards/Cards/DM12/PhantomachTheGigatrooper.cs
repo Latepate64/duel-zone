@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PhantomachPowerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid))
+        public PhantomachPowerEffect() : base()
         {
         }
 
@@ -27,7 +27,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.Chimera) || x.HasSubtype(Subtype.Armorloid))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()

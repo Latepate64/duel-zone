@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
 
     class MissileSoldierUltimoEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
-        public MissileSoldierUltimoEffect() : base(new TargetFilter())
+        public MissileSoldierUltimoEffect() : base()
         {
         }
 
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM08
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }
 
         public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)

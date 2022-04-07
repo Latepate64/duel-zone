@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly IAbility[] _abilities;
 
-        public WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base(new TargetFilter())
+        public WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base()
         {
             _abilities = abilities;
         }
@@ -18,10 +18,7 @@ namespace Cards.ContinuousEffects
         {
             if (!GetSourceAbility(game).GetController(game).ShieldZone.Cards.Any())
             {
-                foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
-                {
-                    _abilities.ToList().ForEach(x => game.AddAbility(card, x.Copy()));
-                }
+                _abilities.ToList().ForEach(x => game.AddAbility(GetSourceCard(game), x.Copy()));
             }
         }
 

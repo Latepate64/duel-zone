@@ -15,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public BarkwhipTheSmasherEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.BeastFolk))
+        public BarkwhipTheSmasherEffect() : base()
         {
         }
 
@@ -28,7 +28,7 @@ namespace Cards.Cards.DM02
         {
             if (game.GetCard(GetSourceAbility(game).Source).Tapped)
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
             _abilities = effect._abilities;
         }
 
-        public WaveStrikerEffect(params IAbility[] abilities) : base(new TargetFilter())
+        public WaveStrikerEffect(params IAbility[] abilities) : base()
         {
             _abilities = abilities;
         }
@@ -24,10 +24,7 @@ namespace Cards.ContinuousEffects
         {
             if (game.BattleZone.Creatures.Count(x => x.GetAbilities<WaveStrikerAbility>().Any()) >= 3)
             {
-                foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
-                {
-                    _abilities.ToList().ForEach(x => game.AddAbility(card, x.Copy()));
-                }
+                _abilities.ToList().ForEach(x => game.AddAbility(GetSourceCard(game), x.Copy()));
             }
         }
 

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM04
 
     class KeeperOfTheSunlitAbyssEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public KeeperOfTheSunlitAbyssEffect() : base(new CardFilters.BattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness)) { }
+        public KeeperOfTheSunlitAbyssEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
@@ -24,7 +24,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

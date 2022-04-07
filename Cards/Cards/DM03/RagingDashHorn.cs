@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public RagingDashHornEffect() : base(new TargetFilter()) { }
+        public RagingDashHornEffect() : base() { }
 
         public RagingDashHornEffect(RagingDashHornEffect effect) : base(effect) { }
 
@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
+                GetSourceCard(game).AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
             }
         }
 
@@ -36,7 +36,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += 3000);
+                GetSourceCard(game).Power += 3000;
             }
         }
 

@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
     {
-        public GalsaurEffect() : base(new TargetFilter())
+        public GalsaurEffect() : base()
         {
         }
 
@@ -16,11 +16,8 @@ namespace Cards.ContinuousEffects
             var ability = GetSourceAbility(game);
             if (!game.BattleZone.GetCreatures(ability.Controller).Any(x => x.Id != ability.Source))
             {
-                foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
-                {
-                    game.AddAbility(card, new PowerAttackerAbility(4000));
-                    game.AddAbility(card, new DoubleBreakerAbility());
-                }
+                GetSourceCard(game).AddGrantedAbility(new PowerAttackerAbility(4000));
+                GetSourceCard(game).AddGrantedAbility(new DoubleBreakerAbility());
             }
         }
 

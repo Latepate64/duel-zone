@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public PippieKuppieEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon))
+        public PippieKuppieEffect() : base()
         {
         }
 
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
         }
     }
 }

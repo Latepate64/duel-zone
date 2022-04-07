@@ -68,5 +68,10 @@ namespace Engine.ContinuousEffects
         {
             return card.Id == GetSourceAbility(game).Source;
         }
+
+        protected ICard GetSourceCard(IGame game)
+        {
+            return game.GetCard(GetSourceAbility(game).Source);
+        }
     }
 }

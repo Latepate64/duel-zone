@@ -16,7 +16,7 @@ namespace Cards.Cards.DM02
 
     class ArmoredBlasterValdiosEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public ArmoredBlasterValdiosEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Human)) { }
+        public ArmoredBlasterValdiosEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM02
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.Human)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

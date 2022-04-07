@@ -17,7 +17,7 @@ namespace Cards.Cards.DM01
 
     class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public IocantTheOracleEffect() : base(new TargetFilter())
+        public IocantTheOracleEffect() : base()
         {
         }
 
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
         {
             if (game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Any(x => x.HasSubtype(Subtype.AngelCommand)))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+                GetSourceCard(game).Power += 2000;
             }
         }
 

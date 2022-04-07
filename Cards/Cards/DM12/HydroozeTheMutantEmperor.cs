@@ -15,7 +15,7 @@ namespace Cards.Cards.DM12
 
     class HydroozeTheMutantEmperorPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public HydroozeTheMutantEmperorPowerEffect() : base(new HydroozeTheMutantEmperorFilter())
+        public HydroozeTheMutantEmperorPowerEffect() : base()
         {
         }
 
@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.CyberLord) || x.HasSubtype(Subtype.Hedrian))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -54,13 +54,6 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Your Cyber Lords or Hedrians can't be blocked.";
-        }
-    }
-
-    class HydroozeTheMutantEmperorFilter : CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter
-    {
-        public HydroozeTheMutantEmperorFilter() : base(Subtype.CyberLord, Subtype.Hedrian)
-        {
         }
     }
 }

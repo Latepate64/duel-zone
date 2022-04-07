@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM12
@@ -15,13 +16,13 @@ namespace Cards.Cards.DM12
 
     class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public KilstineNebulaElementalEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        public KilstineNebulaElementalEffect() : base()
         {
         }
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => { 
+            GetAffectedCards(game).ForEach(x => { 
                 x.AddGrantedAbility(new StaticAbilities.BlockerAbility());
                 x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
                 });
@@ -34,12 +35,17 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 5000);
+            GetAffectedCards(game).ForEach(x => x.Power += 5000);
         }
 
         public override string ToString()
         {
             return "Each of your other creatures in battle zone gets +5000 power and has \"blocker\" and \"double breaker\".";
+        }
+
+        private List<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game)).ToList();
         }
     }
 }

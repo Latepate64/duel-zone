@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class PalaOlesisMorningGuardianEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PalaOlesisMorningGuardianEffect() : base(new OwnersOtherBattleZoneCreatureFilter())
+        public PalaOlesisMorningGuardianEffect() : base()
         {
         }
 
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM10
         {
             if (game.GetOpponent(GetSourceAbility(game).Controller) == game.CurrentTurn.ActivePlayer.Id)
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

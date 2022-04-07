@@ -14,7 +14,7 @@ namespace Cards.Cards.DM11
 
     class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public AsraVizierOfSafetyEffect() : base(new TargetFilter()) { }
+        public AsraVizierOfSafetyEffect() : base() { }
 
         public AsraVizierOfSafetyEffect(AsraVizierOfSafetyEffect effect) : base(effect)
         {
@@ -22,7 +22,7 @@ namespace Cards.Cards.DM11
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.BlockerAbility()));
+            GetSourceCard(game).AddGrantedAbility(new StaticAbilities.BlockerAbility());
         }
 
         public override IContinuousEffect Copy()
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 4000);
+            GetSourceCard(game).Power += 4000;
         }
 
         public override string ToString()
