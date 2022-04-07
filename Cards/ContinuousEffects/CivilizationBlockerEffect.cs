@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationBlockerEffect(params Civilization[] civilizations) : base(new TargetFilter())
+        public CivilizationBlockerEffect(params Civilization[] civilizations) : base()
         {
             _civilizations = civilizations;
         }
@@ -19,9 +19,9 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public bool Applies(Engine.ICard attacker, IGame game)
+        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
         {
-            return attacker.Civilizations.Intersect(_civilizations).Any();
+            return IsSourceOfAbility(blocker, game) && attacker.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override ContinuousEffect Copy()

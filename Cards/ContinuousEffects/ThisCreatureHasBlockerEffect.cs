@@ -5,13 +5,13 @@ namespace Cards.ContinuousEffects
 {
     public class ThisCreatureHasBlockerEffect : ContinuousEffect, IBlockerEffect
     {
-        public ThisCreatureHasBlockerEffect() : base(new TargetFilter())
+        public ThisCreatureHasBlockerEffect() : base()
         {
         }
 
-        public bool Applies(ICard attacker, IGame game)
+        public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
-            return true;
+            return IsSourceOfAbility(blocker, game);
         }
 
         public override IContinuousEffect Copy()

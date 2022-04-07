@@ -14,11 +14,12 @@ namespace Cards.Cards.DM03
 
     class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
     {
-        public SiegBaliculaTheIntenseEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Light)) { }
+        public SiegBaliculaTheIntenseEffect() : base() { }
 
-        public bool Applies(Engine.ICard attacker, IGame game)
+        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
         {
-            return true;
+            var ability = GetSourceAbility(game);
+            return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

@@ -15,13 +15,13 @@ namespace Cards.Cards.DM03
 
     class SparkleFlowerEffect : ContinuousEffect, IBlockerEffect
     {
-        public SparkleFlowerEffect() : base(new TargetFilter())
+        public SparkleFlowerEffect() : base()
         {
         }
 
-        public bool Applies(Engine.ICard attacker, IGame game)
+        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
         {
-            return GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
+            return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }
 
         public override IContinuousEffect Copy()
