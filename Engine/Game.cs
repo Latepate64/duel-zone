@@ -260,7 +260,7 @@ namespace Engine
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
                 CheckLoseInBattle(loser, winner);
-                if (GetContinuousEffects<ISlayerEffect>(loser).Any(x => x.Applies(winner)))
+                if (GetContinuousEffects<ISlayerEffect>(loser).Any(x => x.Applies(loser, winner, this)))
                 {
                     winner.LostInBattle = true; // TODO: Not sure if proper way to do
                 }

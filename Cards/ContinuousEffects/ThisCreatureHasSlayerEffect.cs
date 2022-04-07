@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureHasSlayerEffect() : base(new TargetFilter())
+        public ThisCreatureHasSlayerEffect() : base()
         {
         }
 
@@ -23,9 +23,9 @@ namespace Cards.ContinuousEffects
             return "Slayer";
         }
 
-        public bool Applies(ICard against)
+        public bool Applies(ICard creature, ICard against, IGame game)
         {
-            return true;
+            return IsSourceOfAbility(creature, game);
         }
     }
 }
