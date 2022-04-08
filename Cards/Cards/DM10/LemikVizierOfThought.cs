@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class LemikVizierOfThoughtEffect : AbilityAddingEffect
     {
-        public LemikVizierOfThoughtEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Nature), new StaticAbilities.BlockerAbility())
+        public LemikVizierOfThoughtEffect() : base(new StaticAbilities.BlockerAbility())
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Each of your water creatures and nature creatures in the battle zone has \"blocker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Civilization.Water, Civilization.Nature);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), 2000)
+        public ThreeEyedDragonflyContinuousEffect() : base(2000)
         {
         }
 

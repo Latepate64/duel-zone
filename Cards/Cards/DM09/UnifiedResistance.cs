@@ -5,6 +5,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM09
@@ -50,7 +51,7 @@ namespace Cards.Cards.DM09
             _cards = effect._cards;
         }
 
-        public UnifiedResistanceContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.BlockerAbility())
+        public UnifiedResistanceContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new StaticAbilities.BlockerAbility())
         {
             _player = player;
             _cards = cards;
@@ -69,6 +70,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return $"Until the start of your next turn, {_cards} have \"Blocker\".";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return _cards;
         }
     }
 }

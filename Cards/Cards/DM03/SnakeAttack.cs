@@ -4,6 +4,7 @@ using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM03
@@ -41,7 +42,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new DoubleBreakerAbility())
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new DoubleBreakerAbility(), cards)
         {
         }
 

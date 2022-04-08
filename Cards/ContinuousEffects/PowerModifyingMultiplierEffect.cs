@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
 
         public ICardFilter Multiplier { get; set; }
 
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base(new TargetFilter())
+        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base()
         {
             _power = power;
             Multiplier = multiplier;
@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
         public virtual void ModifyPower(IGame game)
         {
             var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-            //GetAffectedCards(game).ToList().ForEach(x => x.Power += add);
+            GetSourceCard(game).Power += add;
         }
     }
 
@@ -41,10 +41,11 @@ namespace Cards.ContinuousEffects
 
         public override void ModifyPower(IGame game)
         {
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase)
+            var creature = GetSourceCard(game);
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
             {
                 var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-                //GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += add);
+                creature.Power += add;
             }
         }
     }

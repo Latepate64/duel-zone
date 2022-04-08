@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
@@ -18,7 +20,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SupportingTulipEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.AngelCommand), new StaticAbilities.PowerAttackerAbility(4000))
+        public SupportingTulipEffect() : base(new StaticAbilities.PowerAttackerAbility(4000))
         {
         }
 
@@ -30,6 +32,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Each Angel Command in the battle zone has \"power attacker +4000.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Subtype.AngelCommand);
         }
     }
 }

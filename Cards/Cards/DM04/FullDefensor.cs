@@ -6,6 +6,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -49,15 +50,18 @@ namespace Cards.Cards.DM04
     class FullDefensorContinuousEffect : AbilityAddingEffect, IDuration
     {
         private readonly Guid _player;
+        private readonly Engine.ICard[] _cards;
 
         public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
         {
             _player = effect._player;
+            _cards = effect._cards;
         }
 
-        public FullDefensorContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.BlockerAbility())
+        public FullDefensorContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new StaticAbilities.BlockerAbility())
         {
             _player = player;
+            _cards = cards;
         }
 
         public override IContinuousEffect Copy()
@@ -73,6 +77,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return _cards;
         }
     }
 }

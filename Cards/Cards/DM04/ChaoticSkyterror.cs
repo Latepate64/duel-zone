@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
@@ -18,7 +20,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ChaoticSkyterrorEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.DemonCommand), new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
+        public ChaoticSkyterrorEffect() : base(new StaticAbilities.PowerAttackerAbility(4000), new StaticAbilities.DoubleBreakerAbility())
         {
         }
 
@@ -30,6 +32,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Subtype.DemonCommand);
         }
     }
 }

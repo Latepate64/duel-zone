@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
 
     class SeniaOrchardAvengerEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect
     {
-        public SeniaOrchardAvengerEffect() : base(new Engine.TargetFilter(), 5000)
+        public SeniaOrchardAvengerEffect() : base(5000)
         {
         }
 

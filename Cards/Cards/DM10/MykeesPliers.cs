@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class MykeesPliersEffect : AbilityAddingEffect
     {
-        public MykeesPliersEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Darkness, Civilization.Nature), new StaticAbilities.SpeedAttackerAbility())
+        public MykeesPliersEffect() : base(new StaticAbilities.SpeedAttackerAbility())
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Each of your darkness creatures and nature creatures in the battle zone has \"speed attacker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Civilization.Water, Civilization.Nature);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -15,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class ÜberdragonJabahaEffect : AbilityAddingEffect
     {
-        public ÜberdragonJabahaEffect() : base(new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Fire), new StaticAbilities.PowerAttackerAbility(2000)) { }
+        public ÜberdragonJabahaEffect() : base(new StaticAbilities.PowerAttackerAbility(2000)) { }
 
         public override IContinuousEffect Copy()
         {
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Each of your other fire creatures in the battle zone has \"power attacker +2000.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(Engine.IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasCivilization(Civilization.Fire));
         }
     }
 }

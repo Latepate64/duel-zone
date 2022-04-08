@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _ability = effect._ability.Copy();
         }
 
-        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(ICardFilter filter, IAbility ability) : base(filter, ability)
+        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability, params Engine.ICard[] cards) : base(ability, cards)
         {
             _ability = ability;
         }

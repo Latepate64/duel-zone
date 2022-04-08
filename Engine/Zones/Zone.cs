@@ -42,5 +42,10 @@ namespace Engine.Zones
         }
 
         public abstract override string ToString();
+
+        public IEnumerable<ICard> GetCreatures(Common.Subtype subtype)
+        {
+            return Creatures.Where(x => x.HasSubtype(subtype));
+        }
     }
 }

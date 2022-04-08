@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new PowerAttackerAbility(4000), new DoubleBreakerAbility())
+        public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new PowerAttackerAbility(4000), new DoubleBreakerAbility(), cards)
         {
         }
 

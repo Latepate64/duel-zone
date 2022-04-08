@@ -37,7 +37,7 @@ namespace Cards.Cards.DM09
 
     class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IDuration
     {
-        public VreemahFreakyMojoTotemContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.BeastFolk), 2000)
+        public VreemahFreakyMojoTotemContinuousEffect() : base(2000)
         {
         }
 

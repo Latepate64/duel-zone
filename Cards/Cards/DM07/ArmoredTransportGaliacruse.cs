@@ -23,8 +23,8 @@ namespace Cards.Cards.DM07
         {
             
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
-                new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility()));
+                new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
+                GetAffectedCards(game, source).ToArray()));
             return null;
         }
 

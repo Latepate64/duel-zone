@@ -1,5 +1,7 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
 {
@@ -9,7 +11,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public SurvivorEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Common.Subtype.Survivor), ability)
+        public SurvivorEffect(IAbility ability) : base(ability)
         {
         }
 
@@ -21,6 +23,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"Survivor : {AbilitiesAsText}";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Common.Subtype.Survivor);
         }
     }
 }

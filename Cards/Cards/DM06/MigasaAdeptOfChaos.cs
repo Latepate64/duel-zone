@@ -30,7 +30,7 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new CardFilters.TargetsFilter(cards), new StaticAbilities.DoubleBreakerAbility()));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards));
         }
     }
 }

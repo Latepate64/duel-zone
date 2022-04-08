@@ -24,8 +24,8 @@ namespace Cards.Cards.DM07
         public override object Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
-                new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
+                new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
+                GetAffectedCards(game, source).ToArray()));
             return null;
         }
 

@@ -60,7 +60,7 @@ namespace Cards.Cards.DM04
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(new CardFilters.TargetsFilter(cards)));
+            game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(cards));
         }
     }
 
@@ -70,7 +70,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new StaticAbilities.DoubleBreakerAbility())
+        public MegaDetonatorContinuousEffect(params ICard[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
         {
         }
 

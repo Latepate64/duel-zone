@@ -16,7 +16,7 @@ namespace Cards.OneShotEffects
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != System.Guid.Empty)
             {
-                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(new TargetFilter { Target = phase.AttackingCreature }));
+                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(game.GetCard(phase.AttackingCreature)));
             }
             return null;
         }
@@ -38,7 +38,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new StaticAbilities.SlayerAbility())
+        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICard card) : base(card, new StaticAbilities.SlayerAbility())
         {
         }
 

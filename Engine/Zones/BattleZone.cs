@@ -71,5 +71,25 @@ namespace Engine.Zones
         {
             return GetChoosableCreatures(game, owner).Where(x => x.IsEvolutionCreature);
         }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype)
+        {
+            return GetCreatures(controller).Where(x => x.HasSubtype(subtype));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype1, Subtype subtype2)
+        {
+            return GetCreatures(controller).Where(x => x.HasSubtype(subtype1) || x.HasSubtype(subtype2));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization)
+        {
+            return GetCreatures(controller).Where(x => x.HasCivilization(civilization));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2)
+        {
+            return GetCreatures(controller).Where(x => x.HasCivilization(civilization1, civilization2));
+        }
     }
 }

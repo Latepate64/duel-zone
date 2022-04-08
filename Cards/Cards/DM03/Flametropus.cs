@@ -4,6 +4,7 @@ using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM03
@@ -23,7 +24,7 @@ namespace Cards.Cards.DM03
             var cards = new FlametropusManaEffect().Apply(game, source);
             if (cards.Any())
             {
-                game.AddContinuousEffects(source, new FlametropusContinuousEffect(new TargetFilter { Target = source.Source }));                 
+                game.AddContinuousEffects(source, new FlametropusContinuousEffect(game.GetCard(source.Source)));                 
             }
             return null;
         }
@@ -45,7 +46,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(Engine.ICard card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 

@@ -1,6 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
 {
@@ -13,7 +15,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(civilization), new TapAbility(effect))
+        public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new TapAbility(effect))
         {
             _civilization = civilization;
         }
@@ -26,6 +28,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {AbilitiesAsText}";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, _civilization);
         }
     }
 }

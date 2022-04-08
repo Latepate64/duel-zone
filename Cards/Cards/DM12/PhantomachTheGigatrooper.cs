@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM12
@@ -38,7 +39,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachDoubleBreakerEffect : AbilityAddingEffect
     {
-        public PhantomachDoubleBreakerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Chimera, Subtype.Armorloid), new StaticAbilities.DoubleBreakerAbility())
+        public PhantomachDoubleBreakerEffect() : base(new StaticAbilities.DoubleBreakerAbility())
         {
         }
 
@@ -50,6 +51,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Each of your Chimeras and Armorloids in the battle zone has \"double breaker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Subtype.Chimera, Subtype.Armorloid);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM04
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
-            game.AddContinuousEffects(source, new SwordOfMalevolentDeathContinuousEffect(new CardFilters.TargetsFilter(creatures.ToArray()), power));
+            game.AddContinuousEffects(source, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
             return null;
         }
 
@@ -42,7 +42,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SwordOfMalevolentDeathContinuousEffect(ICardFilter filter, int power) : base(filter, new StaticAbilities.PowerAttackerAbility(power))
+        public SwordOfMalevolentDeathContinuousEffect(int power, params Engine.ICard[] cards) : base(new StaticAbilities.PowerAttackerAbility(power), cards)
         {
         }
 
