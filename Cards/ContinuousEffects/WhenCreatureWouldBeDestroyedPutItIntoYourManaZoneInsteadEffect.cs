@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
 
         public override bool Apply(IGame game, Engine.IPlayer player)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.ManaZone, GetAffectedCards(game).ToArray());
+            //game.Move(ZoneType.BattleZone, ZoneType.ManaZone, GetAffectedCards(game).ToArray());
             return true;
         }
     }

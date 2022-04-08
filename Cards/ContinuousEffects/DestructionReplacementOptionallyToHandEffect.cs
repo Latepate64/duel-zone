@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
-                game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
+                //game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
                 return true;
             }
             return false;

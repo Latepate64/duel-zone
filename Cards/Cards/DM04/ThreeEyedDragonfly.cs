@@ -5,6 +5,7 @@ using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -63,6 +64,11 @@ namespace Cards.Cards.DM04
         public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
+
+        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return new List<Engine.ICard> { GetSourceCard(game) };
         }
     }
 

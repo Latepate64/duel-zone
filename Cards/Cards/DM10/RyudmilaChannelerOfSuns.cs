@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
 
         public override bool Apply(IGame game, Engine.IPlayer player)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Deck, GetAffectedCards(game).ToArray());
+            //game.Move(ZoneType.BattleZone, ZoneType.Deck, GetAffectedCards(game).ToArray());
             player.ShuffleDeck(game);
             return true;
         }

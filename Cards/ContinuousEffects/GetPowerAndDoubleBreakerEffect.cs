@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
 {
@@ -20,12 +20,14 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
+            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
         }
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+            GetAffectedCards(game).ForEach(x => x.Power += _power);
         }
+
+        protected abstract List<ICard> GetAffectedCards(IGame game);
     }
 }

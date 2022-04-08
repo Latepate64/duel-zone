@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
         public virtual void ModifyPower(IGame game)
         {
             var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += add);
+            //GetAffectedCards(game).ToList().ForEach(x => x.Power += add);
         }
     }
 
@@ -44,7 +44,7 @@ namespace Cards.ContinuousEffects
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase)
             {
                 var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-                GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += add);
+                //GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += add);
             }
         }
     }

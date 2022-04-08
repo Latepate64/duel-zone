@@ -54,11 +54,6 @@ namespace Engine.ContinuousEffects
 
         public override abstract string ToString();
 
-        protected IEnumerable<ICard> GetAffectedCards(IGame game)
-        {
-            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetOwner(card)));
-        }
-
         protected IAbility GetSourceAbility(IGame game)
         {
             return game.GetAbility(SourceAbility);

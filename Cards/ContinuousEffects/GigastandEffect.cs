@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
-                game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Hand, GetAffectedCards(game).ToArray());
+                //game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Hand, GetAffectedCards(game).ToArray());
                 new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect()).Resolve(game);
                 return true;
             }

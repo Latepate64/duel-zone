@@ -35,7 +35,7 @@ namespace Cards.OneShotEffects
 
         public override bool Apply(IGame game, IPlayer player)
         {
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, GetAffectedCards(game).ToArray());
+            //game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, GetAffectedCards(game).ToArray());
             return true;
         }
 

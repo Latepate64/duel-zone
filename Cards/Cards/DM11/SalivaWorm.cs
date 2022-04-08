@@ -26,7 +26,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += 4000);
+            GetSourceCard(game).Power += 4000;
         }
 
         public override string ToString()
