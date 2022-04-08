@@ -27,7 +27,7 @@ namespace Cards.Cards.Promo
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
+            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
         }
 
         public override string ToString()

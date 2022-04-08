@@ -23,10 +23,10 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            foreach (var card in game.GetAllCards(Filter, GetSourceAbility(game).Controller))
-            {
-                Abilities.ForEach(x => game.AddAbility(card, x.Copy()));
-            }
+            //foreach (var card in game.GetAllCards(Filter, Controller))
+            //{
+            //    Abilities.ForEach(x => card.AddGrantedAbility(x.Copy()));
+            //}
         }
 
         protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));

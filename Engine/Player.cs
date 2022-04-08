@@ -216,6 +216,8 @@ namespace Engine
         {
             // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
             game.GetZone(spell).Remove(spell, game);
+            game.SpellsBeingCast.Push(spell);
+            game.AddContinuousEffects(spell, spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             ResolveSpellAbilities(spell, game);
@@ -244,13 +246,17 @@ namespace Engine
             ZoneType destination;
             try
             {
-                if (game.GetContinuousEffects<IChargerEffect>(spell).Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any(e => e.Applies(newObject, game)))
+                if (game.GetContinuousEffects<IChargerEffect>().Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any(e => e.Applies(spell, game)))
                 {
+                    game.SpellsBeingCast.Pop();
+                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
                     game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
                     destination = ZoneType.ManaZone;
                 }
                 else
                 {
+                    game.SpellsBeingCast.Pop();
+                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
                     game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
                     destination = ZoneType.Graveyard;
                 }
@@ -430,7 +436,7 @@ namespace Engine
 
         public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
-            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>(attacker).Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
+            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
             var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
             if (decision.Any())
             {

@@ -20,6 +20,7 @@ namespace Engine
         /// 104.1. A game ends immediately when a player wins, when the game is a draw, or when the game is restarted.
         /// </summary>
         bool Ended { get; }
+        Stack<ICard> SpellsBeingCast { get; }
 
         void AddAbility(ICard card, IAbility ability);
         bool CheckStateBasedActions();
@@ -35,7 +36,7 @@ namespace Engine
         IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player);
         Common.IIdentifiable GetAttackable(Guid id);
         ICard GetCard(Guid id);
-        IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect;
+        IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card);
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);

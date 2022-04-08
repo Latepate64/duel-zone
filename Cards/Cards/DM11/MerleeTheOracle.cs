@@ -26,7 +26,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.GetCreatures(Controller).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

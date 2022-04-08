@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
+                //return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
             }
             return false;
         }

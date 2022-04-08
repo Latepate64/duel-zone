@@ -10,18 +10,12 @@ namespace Engine.ContinuousEffects
     /// </summary>
     public abstract class ContinuousEffect : ITimestampable, IContinuousEffect
     {
-        /// <summary>
-        /// Filter that can be applied to find cards affected by the effect.
-        /// </summary>
-        public ICardFilter Filter { get; set; }
-
+        public Guid Controller { get; set; }
         public Guid SourceAbility { get; set; }
-
         public int Timestamp { get; set; }
 
         protected ContinuousEffect(ICardFilter filter)
         {
-            Filter = filter;
         }
 
         protected ContinuousEffect()
@@ -30,7 +24,7 @@ namespace Engine.ContinuousEffects
 
         protected ContinuousEffect(ContinuousEffect effect)
         {
-            Filter = effect.Filter?.Copy();
+            Controller = effect.Controller;
             SourceAbility = effect.SourceAbility;
         }
 
@@ -46,8 +40,6 @@ namespace Engine.ContinuousEffects
         {
             if (disposing)
             {
-                Filter.Dispose();
-                Filter = null;
                 SourceAbility = Guid.Empty;
             }
         }
@@ -61,7 +53,8 @@ namespace Engine.ContinuousEffects
 
         protected bool IsSourceOfAbility(ICard card, IGame game)
         {
-            return card.Id == GetSourceAbility(game).Source;
+            var ability = GetSourceAbility(game);
+            return card.Id == ability.Source;
         }
 
         protected ICard GetSourceCard(IGame game)

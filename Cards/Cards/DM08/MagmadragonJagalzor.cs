@@ -21,7 +21,7 @@ namespace Cards.Cards.DM08
 
         public bool Applies(Engine.ICard creature, IGame game)
         {
-            return creature.Owner == GetSourceAbility(game).Controller;
+            return creature.Owner == Controller;
         }
 
         public override IContinuousEffect Copy()

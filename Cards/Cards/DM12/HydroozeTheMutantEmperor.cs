@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.CyberLord) || x.HasSubtype(Subtype.Hedrian))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.CyberLord) || x.HasSubtype(Subtype.Hedrian))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -43,7 +43,7 @@ namespace Cards.Cards.DM12
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
+            return game.BattleZone.GetCreatures(Controller).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
         }
 
         public override IContinuousEffect Copy()

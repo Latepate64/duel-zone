@@ -27,9 +27,9 @@ namespace Cards.Cards.DM10
 
         public void ModifyPower(IGame game)
         {
-            if (game.GetOpponent(GetSourceAbility(game).Controller) == game.CurrentTurn.ActivePlayer.Id)
+            if (game.GetOpponent(Controller) == game.CurrentTurn.ActivePlayer.Id)
             {
-                game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
         {
             var race = source.GetController(game).ChooseRace();
             var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasSubtype(race)).ToArray();
-            game.AddContinuousEffects(source, new VenomWormContinuousEffect(creatures));
+            game.AddContinuousEffects(source, new VenomWormContinuousEffect(race, creatures));
             return null;
         }
 
@@ -36,14 +36,18 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VenomWormContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
+    class VenomWormContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
+        private readonly Subtype _race;
+
         public VenomWormContinuousEffect(VenomWormContinuousEffect effect) : base(effect)
         {
+            _race = effect._race;
         }
 
-        public VenomWormContinuousEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.SlayerAbility())
+        public VenomWormContinuousEffect(Subtype race, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.SlayerAbility())
         {
+            _race = race;
         }
 
         public override IContinuousEffect Copy()
@@ -53,7 +57,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"{Filter} have \"slayer\" until the end of the turn.";
+            return $"{_race} have \"slayer\" until the end of the turn.";
         }
     }
 }

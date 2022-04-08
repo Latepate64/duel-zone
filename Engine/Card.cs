@@ -65,27 +65,7 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
-            if (ability is IStaticAbility staticAbility)
-            {
-                InitializeStaticAbility(staticAbility);
-            }
-            else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
-            {
-                target.Target = Id;
-            }
-        }
-
-        private void InitializeStaticAbility(IStaticAbility staticAbility)
-        {
-            foreach (var effect in staticAbility.ContinuousEffects)
-            {
-                InitializeContinuousEffect(effect);
-            }
-        }
-
-        private void InitializeContinuousEffect(IContinuousEffect effect)
-        {
-            if (effect.Filter is ITargetFilterable target)
+            if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
             {
                 target.Target = Id;
             }
@@ -126,22 +106,22 @@ namespace Engine
 
         public bool CanAttackCreatures(IGame game)
         {
-            return !game.GetContinuousEffects<ICannotAttackEffect>(this).Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>(this).Any(x => x.Applies(this, game));
+            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>(this).Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>(this).Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>(this).Any(x => x.Applies(this, game));
+            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
         {
-            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card, this, game));
+            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>(this).Any(x => x.Applies(this, game));
+            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanBePaid(IPlayer player)
@@ -194,7 +174,7 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(IGame game)
         {
-            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>(this).Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>(this).Any(x => x.Applies(this, game)));
+            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game)));
         }
 
         public void MoveTopCardIntoOwnersGraveyard(IGame game)
@@ -210,7 +190,7 @@ namespace Engine
 
         public bool CanAttack(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<ICannotBeAttackedEffect>(targetOfAttack).Any(x => x.Applies(this, targetOfAttack, game));
+            return !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)

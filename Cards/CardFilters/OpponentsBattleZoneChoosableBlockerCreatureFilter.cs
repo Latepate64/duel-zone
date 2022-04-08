@@ -11,7 +11,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return base.Applies(card, game, player) && !game.GetContinuousEffects<ContinuousEffects.OpponentCannotChooseThisCreatureEffect>(card).Any();
+            return base.Applies(card, game, player) && !game.GetContinuousEffects<ContinuousEffects.OpponentCannotChooseThisCreatureEffect>().Any();
         }
 
         public override CardFilter Copy()

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM02
         {
             if (game.GetCard(GetSourceAbility(game).Source).Tapped)
             {
-                game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

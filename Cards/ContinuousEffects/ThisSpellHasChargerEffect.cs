@@ -9,6 +9,10 @@ namespace Cards.ContinuousEffects
         {
         }
 
+        public ThisSpellHasChargerEffect(ThisSpellHasChargerEffect effect) : base(effect)
+        {
+        }
+
         public bool Applies(ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
@@ -16,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public override IContinuousEffect Copy()
         {
-            return new ThisSpellHasChargerEffect();
+            return new ThisSpellHasChargerEffect(this);
         }
 
         public override string ToString()

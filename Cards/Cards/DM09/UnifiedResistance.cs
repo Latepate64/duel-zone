@@ -42,15 +42,18 @@ namespace Cards.Cards.DM09
     class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IDuration
     {
         private readonly Guid _player;
+        private readonly Engine.ICard[] _cards;
 
         public UnifiedResistanceContinuousEffect(UnifiedResistanceContinuousEffect effect) : base(effect)
         {
             _player = effect._player;
+            _cards = effect._cards;
         }
 
         public UnifiedResistanceContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new StaticAbilities.BlockerAbility())
         {
             _player = player;
+            _cards = cards;
         }
 
         public override IContinuousEffect Copy()
@@ -65,7 +68,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Until the start of your next turn, {Filter} have \"Blocker\".";
+            return $"Until the start of your next turn, {_cards} have \"Blocker\".";
         }
     }
 }

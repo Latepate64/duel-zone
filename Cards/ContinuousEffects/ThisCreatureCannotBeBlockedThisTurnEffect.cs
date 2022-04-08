@@ -9,6 +9,10 @@ namespace Cards.ContinuousEffects
         {
         }
 
+        public ThisCreatureCannotBeBlockedThisTurnEffect(ThisCreatureCannotBeBlockedThisTurnEffect effect) : base(effect)
+        {
+        }
+
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return IsSourceOfAbility(attacker, game);
@@ -16,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public override IContinuousEffect Copy()
         {
-            return new ThisCreatureCannotBeBlockedThisTurnEffect();
+            return new ThisCreatureCannotBeBlockedThisTurnEffect(this);
         }
 
         public override string ToString()

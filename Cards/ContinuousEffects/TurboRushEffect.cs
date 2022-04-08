@@ -21,9 +21,9 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var player = GetSourceAbility(game).Controller;
+            var player = Controller;
             var events = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<Common.GameEvents.ShieldsBrokenEvent>();
-            if (events.Any(x => Filter.Applies(game.GetCard(x.Attacker.Id), game, game.GetPlayer(player))))
+            if (events.Any(e => game.BattleZone.GetCreatures(player).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c, game))))
             {
                 GetSourceCard(game).AddGrantedAbility(_ability.Copy());
             }

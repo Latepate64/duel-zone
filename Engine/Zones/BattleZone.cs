@@ -52,15 +52,14 @@ namespace Engine.Zones
             }
             else
             {
-                var staticAbilities = card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
-                game.RemoveContinuousEffects(staticAbilities);
+                game.RemoveContinuousEffects(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
                 return card.Deconstruct(game, new List<ICard>()).ToList();
             }
         }
 
         public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IUnchoosableEffect>(creature).Any(effect => effect.Applies(creature, game)));
+            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IUnchoosableEffect>().Any(effect => effect.Applies(creature, game)));
         }
 
         public override string ToString()

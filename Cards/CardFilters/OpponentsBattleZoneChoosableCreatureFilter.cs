@@ -12,7 +12,7 @@ namespace Cards.CardFilters
 
         public override bool Applies(ICard card, IGame game, IPlayer player)
         {
-            return base.Applies(card, game, player) && !game.GetContinuousEffects<IUnchoosableEffect>(card).Any(effect => effect.Applies(card, game));
+            return base.Applies(card, game, player) && !game.GetContinuousEffects<IUnchoosableEffect>().Any(effect => effect.Applies(card, game));
         }
 
         public override CardFilter Copy()

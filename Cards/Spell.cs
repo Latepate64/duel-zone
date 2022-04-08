@@ -1,4 +1,6 @@
 ﻿using Common;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards
@@ -27,7 +29,15 @@ namespace Cards
     {
         protected Charger(string name, int manaCost, Civilization civilization) : base(name, manaCost, civilization)
         {
-            AddStaticAbilities(new ContinuousEffects.ThisSpellHasChargerEffect());
+            AddAbilities(new ChargerAbility());
+        }
+    }
+
+    class ChargerAbility : StaticAbility
+    {
+        public ChargerAbility() : base(new ContinuousEffects.ThisSpellHasChargerEffect())
+        {
+            FunctionZone = ZoneType.Anywhere;
         }
     }
 }

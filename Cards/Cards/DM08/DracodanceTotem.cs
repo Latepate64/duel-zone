@@ -25,7 +25,7 @@ namespace Cards.Cards.DM08
             var manaZoneDragons = player.ManaZone.Creatures.Where(x => x.IsDragon);
             if (manaZoneDragons.Any())
             {
-                game.Move(ZoneType.BattleZone, ZoneType.ManaZone, game.GetAllCards(Filter, player.Id).ToArray());
+                //game.Move(ZoneType.BattleZone, ZoneType.ManaZone, game.GetAllCards(Filter, player.Id).ToArray());
                 new DracodanceTotemRecoveryEffect().Apply(game, null);
                 return true;
             }

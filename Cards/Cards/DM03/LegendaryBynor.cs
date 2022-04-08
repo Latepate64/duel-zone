@@ -19,6 +19,10 @@ namespace Cards.Cards.DM03
         {
         }
 
+        public LegendaryBynorEffect(LegendaryBynorEffect effect) : base(effect)
+        {
+        }
+
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
             return !IsSourceOfAbility(attacker, game) && attacker.HasCivilization(Civilization.Water);
@@ -26,7 +30,7 @@ namespace Cards.Cards.DM03
 
         public override IContinuousEffect Copy()
         {
-            return new LegendaryBynorEffect();
+            return new LegendaryBynorEffect(this);
         }
 
         public override string ToString()

@@ -44,7 +44,7 @@ namespace Cards.Cards.DM11
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Contains(attacker) && attacker.HasCivilization(Common.Civilization.Light);
+            return game.BattleZone.GetCreatures(Controller).Contains(attacker) && attacker.HasCivilization(Common.Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

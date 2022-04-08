@@ -24,9 +24,7 @@ namespace Cards.OneShotEffects
         {
             foreach (var effect in ContinuousEffects)
             {
-                var copy = effect.Copy();
-                copy.Filter = new TargetsFilter(cards);
-                game.AddContinuousEffects(source, copy);
+                game.AddContinuousEffects(source, effect.Copy());
             }
         }
     }
