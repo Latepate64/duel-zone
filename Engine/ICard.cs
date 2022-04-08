@@ -17,7 +17,7 @@ namespace Engine
         bool AffectedBySummoningSickness(IGame game);
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
-        bool HasCivilization(Common.Civilization civilization);
+        bool HasCivilization(params Common.Civilization[] civilizations);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);
         bool CanBeUsedRegardlessOfManaCost(IGame game);

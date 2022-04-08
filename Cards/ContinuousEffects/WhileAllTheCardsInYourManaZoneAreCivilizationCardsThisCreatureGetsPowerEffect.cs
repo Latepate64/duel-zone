@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base(new TargetFilter())
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base()
         {
             _civilization = civilization;
             _power = power;
@@ -31,7 +31,7 @@ namespace Cards.ContinuousEffects
         {
             if (GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(_civilization)))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+                GetSourceCard(game).Power += _power;
             }
         }
 

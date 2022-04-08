@@ -10,7 +10,7 @@ namespace Cards.ContinuousEffects
         private readonly Subtype _subtype;
         private readonly int _power;
 
-        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base(new TargetFilter())
+        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base()
         {
             _subtype = subtype;
             _power = power;
@@ -36,7 +36,7 @@ namespace Cards.ContinuousEffects
         {
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(GetSourceAbility(game).Id).Any(x => x.HasSubtype(_subtype)))
             {
-                GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += _power);
+                GetSourceCard(game).Power += _power;
             }
         }
     }

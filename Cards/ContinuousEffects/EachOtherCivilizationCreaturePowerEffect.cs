@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base(new CardFilters.AnotherBattleZoneCivilizationCreatureFilter(civilization))
+        public EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base()
         {
             _civilization = civilization;
             _power = power;
@@ -29,7 +29,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+            game.BattleZone.Creatures.Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += _power);
         }
 
         public override string ToString()

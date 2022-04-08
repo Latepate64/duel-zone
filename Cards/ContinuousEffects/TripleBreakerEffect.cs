@@ -1,10 +1,11 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
     class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
     {
-        public TripleBreakerEffect() : base(new Engine.TargetFilter())
+        public TripleBreakerEffect() : base()
         {
         }
 
@@ -17,9 +18,9 @@ namespace Cards.ContinuousEffects
             return new TripleBreakerEffect(this);
         }
 
-        public int GetAmount(Engine.IGame game)
+        public int GetAmount(IGame game, ICard creature)
         {
-            return 3;
+            return IsSourceOfAbility(creature, game) ? 3 : 1;
         }
 
         public override string ToString()

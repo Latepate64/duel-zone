@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -13,7 +12,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public PowerAttackerEffect(int power) : base(new TargetFilter())
+        public PowerAttackerEffect(int power) : base()
         {
             _power = power;
         }
@@ -25,9 +24,10 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase)
+            var creature = GetSourceCard(game);
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
             {
-                GetAffectedCards(game).Where(x => x.Id == phase.AttackingCreature).ToList().ForEach(x => x.Power += _power);
+                creature.Power += _power;
             }
         }
 

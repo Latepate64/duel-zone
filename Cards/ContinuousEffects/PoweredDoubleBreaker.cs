@@ -5,7 +5,7 @@ namespace Cards.ContinuousEffects
 {
     class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
     {
-        public PoweredDoubleBreaker() : base(new Engine.TargetFilter())
+        public PoweredDoubleBreaker() : base()
         {
         }
 
@@ -14,9 +14,9 @@ namespace Cards.ContinuousEffects
             return new PoweredDoubleBreaker();
         }
 
-        public int GetAmount(IGame game)
+        public int GetAmount(IGame game, ICard creature)
         {
-            return game.GetCard(GetSourceAbility(game).Source).Power >= 6000 ? 2 : 1;
+            return IsSourceOfAbility(creature, game) && GetSourceCard(game).Power >= 6000 ? 2 : 1;
         }
 
         public override string ToString()

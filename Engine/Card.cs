@@ -220,9 +220,9 @@ namespace Engine
             game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
 
-        public bool HasCivilization(Common.Civilization civilization)
+        public bool HasCivilization(params Common.Civilization[] civilizations)
         {
-            return Civilizations.Contains(civilization);
+            return Civilizations.Intersect(civilizations).Any();
         }
 
         public bool HasSubtype(Common.Subtype subtype)

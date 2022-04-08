@@ -16,7 +16,7 @@ namespace Cards.Cards.Promo
 
     class StarCryDragonEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public StarCryDragonEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.ArmoredDragon))
+        public StarCryDragonEffect() : base()
         {
         }
 

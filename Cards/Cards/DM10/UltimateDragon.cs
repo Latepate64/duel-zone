@@ -51,10 +51,10 @@ namespace Cards.Cards.DM10
             return new UltimateDragonBreakerEffect();
         }
 
-        public override int GetAmount(IGame game)
+        public override int GetAmount(IGame game, Engine.ICard creature)
         {
             var ability = GetSourceAbility(game);
-            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon);
+            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon) : 1;
         }
 
         public override string ToString()

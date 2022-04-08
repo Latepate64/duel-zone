@@ -11,12 +11,12 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected CrewBreakerEffect() : base(new TargetFilter())
+        protected CrewBreakerEffect() : base()
         {
             
         }
 
-        public abstract int GetAmount(IGame game);
+        public abstract int GetAmount(IGame game, Engine.ICard creature);
     }
 
     class CrewBreakerSubtypeEffect : CrewBreakerEffect
@@ -38,10 +38,10 @@ namespace Cards.ContinuousEffects
             return $"Crew breaker - {_subtype}";
         }
 
-        public override int GetAmount(Engine.IGame game)
+        public override int GetAmount(IGame game, Engine.ICard creature)
         {
             var ability = GetSourceAbility(game);
-            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype));
+            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype)) : 1;
         }
 
         public override IContinuousEffect Copy()

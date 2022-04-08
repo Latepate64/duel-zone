@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -13,7 +12,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureGetsPowerEffect(int power) : base(new TargetFilter())
+        public ThisCreatureGetsPowerEffect(int power) : base()
         {
             _power = power;
         }
@@ -25,7 +24,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.Power += _power);
+            GetSourceCard(game).Power += _power;
         }
 
         public override string ToString()
