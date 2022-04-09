@@ -196,8 +196,10 @@ namespace Engine
 
         public void Break(IGame game, int breakAmount)
         {
-            var opponent = game.GetOpponent(game.GetPlayer(Owner));
-            game.PutFromShieldZoneToHand(opponent.ShieldZone.Cards.Take(breakAmount), true);
+            var owner = game.GetPlayer(Owner);
+            var opponent = game.GetOpponent(owner);
+            var cards = owner.Choose(new Common.Choices.ShieldBreakSelection(owner.Id, opponent.ShieldZone.Cards, breakAmount), game).Decision.Select(x => game.GetCard(x));
+            game.PutFromShieldZoneToHand(cards, true);
             game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
 
