@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Engine;
+using System;
 
-namespace Engine
+namespace Cards.Conditions
 {
     public abstract class Condition : ICopyable<Condition>
     {
