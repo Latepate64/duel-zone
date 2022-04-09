@@ -33,6 +33,11 @@ namespace Cards.Cards.Promo
         {
             return $"Whenever one of your other creatures that has Dragon in its race attacks, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Owner == Controller && card.Id != Source && card.IsDragon;
+        }
     }
 
     class DolzarkFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter

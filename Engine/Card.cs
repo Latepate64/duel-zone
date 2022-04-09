@@ -65,10 +65,6 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
-            if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
-            {
-                target.Target = Id;
-            }
         }
 
         public Common.ICard Convert(bool clear = false)

@@ -59,5 +59,10 @@ namespace Cards.Cards.DM01
         {
             return "Whenever any of your creatures becomes blocked, it gets \"slayer\" until the end of the turn.";
         }
+
+        protected override bool TriggersFrom(ICard card, IGame game)
+        {
+            return card.Owner == Controller;
+        }
     }
 }

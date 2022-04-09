@@ -23,6 +23,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"Whenever this creature attacks, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(ICard card, IGame game)
+        {
+            return card.Id == Source;
+        }
     }
 
     abstract class WheneverCreatureAttacksAbility : CardTriggeredAbility
@@ -31,7 +36,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected WheneverCreatureAttacksAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
+        protected WheneverCreatureAttacksAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
         {
         }
 
@@ -59,6 +64,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever any of your creatures attacks, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(ICard card, IGame game)
+        {
+            return card.Owner == Controller;
         }
     }
 }

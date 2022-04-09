@@ -1,4 +1,5 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
 
 namespace Cards.TriggeredAbilities
 {
@@ -18,6 +19,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever another creature is destroyed, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Id != Source;
         }
     }
 }

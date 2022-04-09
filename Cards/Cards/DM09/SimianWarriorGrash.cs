@@ -1,4 +1,5 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
@@ -29,6 +30,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return $"Whenever one of your Armorloids is destroyed, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Owner == Controller && card.HasSubtype(Subtype.Armorloid);
         }
     }
 }

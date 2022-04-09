@@ -28,5 +28,10 @@ namespace Cards.TriggeredAbilities
         {
             return $"Whenever this creature blocks, {OneShotEffect}.";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Id == Source;
+        }
     }
 }

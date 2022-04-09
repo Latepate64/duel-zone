@@ -24,6 +24,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"When you put this creature into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source == card.Id;
+        }
     }
 
     class WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
@@ -44,6 +49,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever another creature is put into the battle zone, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source != card.Id;
         }
     }
 
@@ -66,6 +76,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Controller == card.Owner && (card.HasSubtype(Subtype.Dragonoid) || card.IsDragon);
+        }
     }
 
     class WhenYouPutAnotherCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
@@ -86,6 +101,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"When you put another creature into the battle zone, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source != card.Id && Controller == card.Owner;
         }
     }
 
@@ -127,6 +147,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever you put a {_subtype} into the battle zone, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Controller == card.Owner && card.HasSubtype(_subtype);
         }
     }
 }

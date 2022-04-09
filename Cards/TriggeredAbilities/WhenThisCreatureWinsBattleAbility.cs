@@ -28,5 +28,10 @@ namespace Cards.TriggeredAbilities
         {
             return $"When this creature wins a battle, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Id == Source;
+        }
     }
 }
