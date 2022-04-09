@@ -91,5 +91,10 @@ namespace Cards.Cards.DM04
         {
             return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
         }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -17,6 +19,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Choose one of your creatures in the battle zone. It can't be blocked this turn.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

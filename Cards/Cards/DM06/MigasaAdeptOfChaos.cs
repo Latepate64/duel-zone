@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -31,6 +32,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards));
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller, Common.Civilization.Fire);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -20,6 +22,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return Minimum == 1 ? "Choose a creature in the battle zone and return it to its owner's hand." : $"Choose {Minimum} creatures in the battle zone and return them to their owner's hands.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
         }
     }
 }

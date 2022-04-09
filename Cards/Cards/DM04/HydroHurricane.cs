@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -99,6 +100,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return $"Choose up to {(_maximum > 1 ? $"{_maximum} cards" : "a card")} of your opponent's creatures in the battle zone and return {(_maximum > 1 ? "them" : "it")} to his hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 }

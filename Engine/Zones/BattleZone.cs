@@ -57,7 +57,7 @@ namespace Engine.Zones
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
             return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IUnchoosableEffect>().Any(effect => effect.Applies(creature, game)));
         }
@@ -67,9 +67,9 @@ namespace Engine.Zones
             return "battle zone";
         }
 
-        public IEnumerable<ICard> GetChoosableEvolutionCreatures(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            return GetChoosableCreatures(game, owner).Where(x => x.IsEvolutionCreature);
+            return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
         }
 
         public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype)
@@ -127,9 +127,14 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller)
         {
-            return Creatures.Where(x => x.Id != creature);
+            return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => !x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner)
+        {
+            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
         }
     }
 }

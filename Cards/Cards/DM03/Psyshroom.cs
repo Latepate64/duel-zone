@@ -1,5 +1,7 @@
 ﻿using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may put a nature card from your graveyard into your mana zone.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Graveyard.GetCards(Common.Civilization.Nature);
         }
     }
 }

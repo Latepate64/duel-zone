@@ -76,5 +76,10 @@ namespace Cards.Cards.DM03
         {
             return "You may put a card from your mana zone into your graveyard.";
         }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Cards;
+        }
     }
 }

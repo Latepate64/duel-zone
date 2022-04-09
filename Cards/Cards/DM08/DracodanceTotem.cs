@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM08
@@ -65,6 +66,11 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "Return a creature that has Dragon in its race from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

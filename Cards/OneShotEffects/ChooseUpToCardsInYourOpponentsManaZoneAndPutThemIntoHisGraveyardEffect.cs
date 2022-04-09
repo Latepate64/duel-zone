@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -24,6 +26,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Choose up to {_amount} cards in your opponent's mana zone and put them into his graveyard.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ManaZone.Cards;
         }
     }
 }

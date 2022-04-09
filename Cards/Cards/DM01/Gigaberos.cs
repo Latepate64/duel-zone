@@ -3,6 +3,7 @@ using Common;
 using Common.Choices;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM01
@@ -71,6 +72,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Destroy 2 of your other creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }
     }
 }

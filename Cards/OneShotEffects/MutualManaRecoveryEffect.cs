@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -59,6 +60,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
            return $"Your opponent chooses {(Amount > 1 ? $"{Amount} cards" : "a card")} in his mana zone and returns {(Amount > 1 ? "them" : "it")} to his hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ManaZone.Cards;
         }
     }
 }

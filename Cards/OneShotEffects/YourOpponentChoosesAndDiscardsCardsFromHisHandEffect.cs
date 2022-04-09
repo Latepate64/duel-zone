@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -24,6 +26,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Your opponent chooses and discards {(_amount > 1 ? $"{_amount} cards" : "a card")} from his hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).Hand.Cards;
         }
     }
 }

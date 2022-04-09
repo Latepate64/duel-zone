@@ -1,4 +1,7 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -24,6 +27,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may return a light spell from your graveyard to your hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Graveyard.Spells.Where(x => x.HasCivilization(Common.Civilization.Light));
         }
     }
 }

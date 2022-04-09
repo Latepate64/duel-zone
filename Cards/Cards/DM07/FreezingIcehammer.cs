@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM07
 {
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "Choose one of your opponent's water or darkness creatures in the battle zone. Your opponent puts that creature into his mana zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Water, Civilization.Darkness));
         }
     }
 }

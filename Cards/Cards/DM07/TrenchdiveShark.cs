@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM07
@@ -51,6 +52,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "You may add up to 2 cards from your hand to your shields face down.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Hand.Cards;
         }
     }
 }

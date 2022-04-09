@@ -3,6 +3,7 @@ using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -61,6 +62,11 @@ namespace Cards.Cards.DM04
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(cards));
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM12
 {
@@ -27,6 +29,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Your opponent chooses one of his creatures in the battle zone, and returns it to his hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.GetOpponent(game).Id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM12
 {
@@ -58,6 +59,11 @@ namespace Cards.Cards.DM12
         {
             var amount = Maximum == 1 ? "one" : $"1-{Maximum}";
             return $"Choose {amount} creatures in the battle zone and return them to their owner's hands.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
         }
     }
 }

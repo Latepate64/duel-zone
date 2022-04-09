@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -21,6 +23,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Add a card from your mana zone to your shields face down.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Cards;
         }
     }
 }

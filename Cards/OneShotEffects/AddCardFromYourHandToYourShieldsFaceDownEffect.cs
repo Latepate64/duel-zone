@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -16,6 +18,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Add a card from your hand to your shields face down.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).Hand.Cards;
         }
     }
 }

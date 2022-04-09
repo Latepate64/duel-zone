@@ -58,5 +58,10 @@ namespace Engine.Zones
         {
             return Creatures.Where(x => x.HasCivilization(civilization));
         }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        {
+            return Creatures.Where(x => x.Id != creature);
+        }
     }
 }

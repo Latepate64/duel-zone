@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.Promo
 {
@@ -67,6 +69,11 @@ namespace Cards.Cards.Promo
         public override string ToString()
         {
             return "You may choose one of your opponent's creatures in the battle zone that has power 5000 or less and put it into his mana zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 5000);
         }
     }
 }

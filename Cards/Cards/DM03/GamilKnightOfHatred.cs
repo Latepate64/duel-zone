@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -24,6 +26,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may return a darkness creature from your graveyard to your hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Graveyard.GetCreatures(Common.Civilization.Darkness);
         }
     }
 }

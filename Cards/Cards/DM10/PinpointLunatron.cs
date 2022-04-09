@@ -1,6 +1,8 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -35,6 +37,11 @@ namespace Cards.Cards.DM10
                 var sourceZone = game.BattleZone.Cards.Contains(card) ? ZoneType.BattleZone : ZoneType.ManaZone;
                 game.Move(sourceZone, ZoneType.Hand, card);
             }
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(source.Controller));
         }
     }
 

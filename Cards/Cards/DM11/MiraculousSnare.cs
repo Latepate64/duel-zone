@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -27,6 +29,11 @@ namespace Cards.Cards.DM11
         public override string ToString()
         {
             return "Choose a non-evolution creature in the battle zone and add it to its owner's shields face down.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id).Where(x => !x.IsEvolutionCreature);
         }
     }
 

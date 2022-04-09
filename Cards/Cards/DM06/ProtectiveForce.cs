@@ -1,6 +1,9 @@
-﻿using Common;
+﻿using Cards.StaticAbilities;
+using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -32,6 +35,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

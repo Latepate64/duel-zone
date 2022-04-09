@@ -3,6 +3,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM01
@@ -37,6 +38,11 @@ namespace Cards.Cards.DM01
             {
                 game.AddContinuousEffects(source, new ChaosStrikeContinousEffect(cards.Single().Id));
             }
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 

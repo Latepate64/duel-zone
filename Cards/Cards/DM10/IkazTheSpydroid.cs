@@ -36,6 +36,11 @@ namespace Cards.Cards.DM10
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, true));
         }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
+        }
     }
 
     class IkazTheSpydroidUntapEffect : UntapAreaOfEffect

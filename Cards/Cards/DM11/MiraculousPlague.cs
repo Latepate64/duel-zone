@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM11
@@ -35,12 +36,25 @@ namespace Cards.Cards.DM11
             new MiraculousPlagueSecondEffect().Apply(game, source);
             new MiraculousPlagueThirdEffect().Apply(game, source);
         }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
+        }
     }
 
     class MiraculousPlagueSecondEffect : CardSelectionEffect
     {
+        private readonly Engine.ICard[] _cards;
+
         public MiraculousPlagueSecondEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, false)
         {
+            _cards = cards;
+        }
+
+        public MiraculousPlagueSecondEffect(MiraculousPlagueSecondEffect effect) : base(effect)
+        {
+            _cards = effect._cards;
         }
 
         public override IOneShotEffect Copy()
@@ -55,9 +69,14 @@ namespace Cards.Cards.DM11
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            var otherCards = GetSelectableCards(game, source.Controller).Except(cards);
+            var otherCards = GetSelectableCards(game, source).Except(cards);
             game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
             game.Destroy(otherCards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return _cards;
         }
     }
 
@@ -81,12 +100,25 @@ namespace Cards.Cards.DM11
         {
             new MiraculousPlagueFourthEffect().Apply(game, source);
         }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ManaZone.Cards;
+        }
     }
 
     class MiraculousPlagueFourthEffect : CardSelectionEffect
     {
+        private readonly Engine.ICard[] _cards;
+
         public MiraculousPlagueFourthEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, false)
         {
+            _cards = cards;
+        }
+
+        public MiraculousPlagueFourthEffect(MiraculousPlagueFourthEffect effect) : base(effect)
+        {
+            _cards = effect._cards;
         }
 
         public override IOneShotEffect Copy()
@@ -101,9 +133,14 @@ namespace Cards.Cards.DM11
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            var otherCards = GetSelectableCards(game, source.Controller).Except(cards).ToArray();
+            var otherCards = GetSelectableCards(game, source).Except(cards).ToArray();
             game.Move(ZoneType.ManaZone, ZoneType.Hand, cards);
             game.Move(ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return _cards;
         }
     }
 }
