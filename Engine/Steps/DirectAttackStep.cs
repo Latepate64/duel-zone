@@ -44,8 +44,7 @@ namespace Engine.Steps
             {
                 breakAmount = breakerEffects.Max(x => x.GetAmount(game, attackingCreature));
             }
-
-            return breakAmount;
+            return breakAmount + game.GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(x => x.GetAmount(game, attackingCreature));
         }
 
         public override IStep Copy()
