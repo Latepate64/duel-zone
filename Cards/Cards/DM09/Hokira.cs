@@ -4,6 +4,8 @@ using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -38,7 +40,7 @@ namespace Cards.Cards.DM09
     {
         private readonly Subtype _subtype;
 
-        public HokiraContinuousEffect(Subtype subtype) : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype))
+        public HokiraContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
@@ -61,6 +63,16 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return $"Whenever one of your {_subtype}s would be destroyed this turn, return it to your hand instead.";
+        }
+
+        protected override bool Applies(Engine.ICard card, IGame game)
+        {
+            return card.Owner == Controller && card.HasSubtype(_subtype);
+        }
+
+        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, _subtype).ToList();
         }
     }
 }

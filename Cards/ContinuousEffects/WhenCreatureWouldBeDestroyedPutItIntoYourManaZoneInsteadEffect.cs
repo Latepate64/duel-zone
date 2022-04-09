@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     abstract class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
     {
-        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(CardFilter filter) : base(filter)
+        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
         }
 
@@ -15,16 +15,16 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
         {
-            //game.Move(ZoneType.BattleZone, ZoneType.ManaZone, GetAffectedCards(game).ToArray());
+            game.Move(ZoneType.BattleZone, ZoneType.ManaZone, card);
             return true;
         }
     }
 
     class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new TargetFilter())
+        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
         }
 
@@ -36,6 +36,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "When this creature would be destroyed, put it into your mana zone instead.";
+        }
+
+        protected override bool Applies(Engine.ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
     }
 }

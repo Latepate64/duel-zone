@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
 {
     class GigastandEffect : DestructionReplacementEffect
     {
-        public GigastandEffect() : base(new TargetFilter())
+        public GigastandEffect() : base()
         {
         }
 
@@ -16,11 +16,11 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player)
+        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
-                //game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Hand, GetAffectedCards(game).ToArray());
+                game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Hand, card);
                 new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect()).Resolve(game);
                 return true;
             }
@@ -35,6 +35,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "When this creature would be destroyed, you may return it to your hand instead. If you do, discard a card from your hand.";
+        }
+
+        protected override bool Applies(ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
     }
 }

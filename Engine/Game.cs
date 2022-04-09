@@ -522,7 +522,7 @@ namespace Engine
                     ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                if (effect.Apply(this, GetPlayer(cardGroup.Key)))
+                if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
                 {
                     events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
                 }
@@ -568,7 +568,7 @@ namespace Engine
             var replacementEffects = new List<ReplacementEffect>();
             foreach (var moveEvent in events)
             {
-                foreach (var replacementEffect in GetAllCards().SelectMany(x => GetContinuousEffects<ReplacementEffect>()).Where(x => x.Replaceable(moveEvent, this)))
+                foreach (var replacementEffect in GetContinuousEffects<ReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
                 {
                     var effect = replacementEffect.Copy() as ReplacementEffect;
                     effect.EventToReplace = moveEvent.Copy();

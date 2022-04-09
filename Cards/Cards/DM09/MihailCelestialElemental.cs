@@ -14,11 +14,11 @@ namespace Cards.Cards.DM09
 
     class MihailCelestialElementalEffect : ContinuousEffects.DestructionReplacementEffect
     {
-        public MihailCelestialElementalEffect() : base(new CardFilters.AnotherBattleZoneCreatureFilter())
+        public MihailCelestialElementalEffect() : base()
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
         {
             return true;
         }
@@ -31,6 +31,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "Whenever another creature would be destroyed, it stays in the battle zone instead.";
+        }
+
+        protected override bool Applies(Engine.ICard card, IGame game)
+        {
+            return !IsSourceOfAbility(card, game);
         }
     }
 }

@@ -29,13 +29,13 @@ namespace Cards.OneShotEffects
 
     class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IDuration
     {
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player)
+        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
         {
-            //game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, GetAffectedCards(game).ToArray());
+            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, card);
             return true;
         }
 
@@ -52,6 +52,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
+        }
+
+        protected override bool Applies(ICard card, IGame game)
+        {
+            return card.Owner == Controller;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.ContinuousEffects
 {
     abstract class DestructionReplacementEffect : ReplacementEffect
     {
-        protected DestructionReplacementEffect(CardFilter filter) : base(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard }, filter)
+        protected DestructionReplacementEffect() : base(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })
         {
         }
 
@@ -19,9 +19,11 @@ namespace Cards.ContinuousEffects
         {
             if (gameEvent is CardMovedEvent e)
             {
-                //return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Filter.Applies(game.GetCard(e.CardInSourceZone), game, game.GetPlayer(e.Player.Id));
+                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone), game);
             }
             return false;
         }
+
+        protected abstract bool Applies(Engine.ICard card, IGame game);
     }
 }
