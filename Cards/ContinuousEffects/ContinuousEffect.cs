@@ -1,9 +1,9 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Engine.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     /// <summary>
     /// 611.1. A continuous effect modifies characteristics of objects, modifies control of objects, or affects players or the rules of the game, for a fixed or indefinite period.
@@ -13,10 +13,6 @@ namespace Engine.ContinuousEffects
         public Guid Controller { get; set; }
         public Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
-
-        protected ContinuousEffect(ICardFilter filter)
-        {
-        }
 
         protected ContinuousEffect()
         {

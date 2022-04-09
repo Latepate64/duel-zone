@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02

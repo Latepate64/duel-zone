@@ -1,7 +1,9 @@
 ﻿using Common.GameEvents;
+using Engine;
+using Engine.ContinuousEffects;
 using System;
 
-namespace Engine.ContinuousEffects
+namespace Cards.ContinuousEffects
 {
     /// <summary>
     /// 614.1. Some continuous effects are replacement effects.
@@ -9,7 +11,7 @@ namespace Engine.ContinuousEffects
     /// Such effects watch for a particular event that would happen and completely or partially replace that event with a different event.
     /// They act like “shields” around whatever they’re affecting.
     /// </summary>
-    public abstract class ReplacementEffect : ContinuousEffect
+    public abstract class ReplacementEffect : ContinuousEffect, IReplacementEffect
     {
         protected ReplacementEffect(IGameEvent eventToReplace) : base()
         {
@@ -28,6 +30,6 @@ namespace Engine.ContinuousEffects
         public Guid Id { get; }
 
         public abstract bool Replaceable(IGameEvent gameEvent, IGame game);
-        public abstract bool Apply(IGame game, Engine.IPlayer player, Engine.ICard creature);
+        public abstract bool Apply(IGame game, IPlayer player, ICard creature);
     }
 }

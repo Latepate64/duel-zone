@@ -563,14 +563,14 @@ namespace Engine
             }
         }
 
-        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
+        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
         {
-            var replacementEffects = new List<ReplacementEffect>();
+            var replacementEffects = new List<IReplacementEffect>();
             foreach (var moveEvent in events)
             {
-                foreach (var replacementEffect in GetContinuousEffects<ReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
+                foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
                 {
-                    var effect = replacementEffect.Copy() as ReplacementEffect;
+                    var effect = replacementEffect.Copy() as IReplacementEffect;
                     effect.EventToReplace = moveEvent.Copy();
                     replacementEffects.Add(effect);
                 }
