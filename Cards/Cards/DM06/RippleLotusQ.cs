@@ -4,9 +4,8 @@ namespace Cards.Cards.DM06
 {
     class RippleLotusQ : Creature
     {
-        public RippleLotusQ() : base("Ripple Lotus Q", 6, 2000, Civilization.Water)
+        public RippleLotusQ() : base("Ripple Lotus Q", 6, 2000, Subtype.Survivor, Subtype.CyberVirus, Civilization.Water)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.CyberVirus);
             AddSurvivorAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
         }
     }

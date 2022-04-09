@@ -18,7 +18,7 @@ namespace Cards
         /// <param name="civilizations"></param>
         protected Creature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
         {
-            Subtypes.Add(race);
+            SetPrintedSubtypes(race);
         }
 
         protected Creature(string name, int manaCost, int power, Subtype race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
@@ -27,7 +27,7 @@ namespace Cards
 
         protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
         {
-            AddSubtypes(race1, race2);
+            SetPrintedSubtypes(race1, race2);
         }
 
         /// <summary>
@@ -39,6 +39,11 @@ namespace Cards
         protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, power, civilizations)
         {
             Power = power;
+        }
+
+        protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
+        {
+            SetPrintedSubtypes(race1, race2);
         }
 
         #region Static abilities

@@ -4,9 +4,8 @@ namespace Cards.Cards.DM05
 {
     class BlazosaurQ : Creature
     {
-        public BlazosaurQ() : base("Blazosaur Q", 2, 1000, Civilization.Fire)
+        public BlazosaurQ() : base("Blazosaur Q", 2, 1000, Subtype.Survivor, Subtype.RockBeast, Civilization.Fire)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.RockBeast);
             AddSurvivorAbility(new ContinuousEffects.PowerAttackerEffect(1000));
         }
     }

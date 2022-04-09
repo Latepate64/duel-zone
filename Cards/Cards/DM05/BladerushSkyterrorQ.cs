@@ -5,9 +5,8 @@ namespace Cards.Cards.DM05
 {
     class BladerushSkyterrorQ : Creature
     {
-        public BladerushSkyterrorQ() : base("Bladerush Skyterror Q", 7, 5000, Civilization.Fire)
+        public BladerushSkyterrorQ() : base("Bladerush Skyterror Q", 7, 5000, Subtype.Survivor, Subtype.ArmoredWyvern, Civilization.Fire)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.ArmoredWyvern);
             AddSurvivorAbility(new DoubleBreakerEffect());
         }
     }

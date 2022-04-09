@@ -5,9 +5,8 @@ namespace Cards.Cards.DM05
 {
     class SpikestrikeIchthysQ : Creature
     {
-        public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, Civilization.Water)
+        public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, Subtype.Survivor, Subtype.Fish, Civilization.Water)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.Fish);
             AddSurvivorAbility(new ThisCreatureCannotBeBlockedEffect());
         }
     }

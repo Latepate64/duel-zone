@@ -14,6 +14,9 @@ namespace Engine
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
+        private IList<Common.Subtype> _printedSubtypes = new List<Common.Subtype>();
+        private readonly IList<Common.Subtype> _addedSubtypes = new List<Common.Subtype>();
+
         public int? PrintedPower { get; }
 
         public int Timestamp { get; set; }
@@ -98,6 +101,8 @@ namespace Engine
         {
             Power = PrintedPower;
             AddedAbilities.Clear();
+            Subtypes = _printedSubtypes.ToList();
+            _addedSubtypes.Clear();
         }
 
         public bool CanAttackCreatures(IGame game)
@@ -204,6 +209,21 @@ namespace Engine
         public bool HasSubtype(Common.Subtype subtype)
         {
             return Subtypes.Contains(subtype);
+        }
+
+        public void AddGrantedSubtype(Common.Subtype subtype)
+        {
+            _addedSubtypes.Add(subtype);
+            if (!Subtypes.Contains(subtype))
+            {
+                Subtypes.Add(subtype);
+            }
+        }
+
+        protected void SetPrintedSubtypes(params Common.Subtype[] subtypes)
+        {
+            _printedSubtypes = subtypes;
+            Subtypes = subtypes.ToList();
         }
     }
 }

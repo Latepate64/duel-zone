@@ -8,9 +8,8 @@ namespace Cards.Cards.DM10
 {
     class BombazarDragonOfDestiny : Creature
     {
-        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Civilization.Fire, Civilization.Nature)
+        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Subtype.ArmoredDragon, Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
         {
-            AddSubtypes(Subtype.ArmoredDragon, Subtype.EarthDragon);
             AddSpeedAttackerAbility();
             AddDoubleBreakerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect());

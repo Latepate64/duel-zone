@@ -18,6 +18,7 @@ namespace Engine
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
         bool HasCivilization(params Common.Civilization[] civilizations);
+        void AddGrantedSubtype(Common.Subtype subtype);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);
         bool CanBeUsedRegardlessOfManaCost(IGame game);
