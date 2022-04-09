@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect : OneShotAreaOfEffect
+    class ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect : OneShotEffect
     {
         public ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect(ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect effect) : base(effect)
         {

@@ -1,4 +1,7 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -24,6 +27,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Destroy all creatures that have power {_power} or less.";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.Creatures.Where(x => x.Power <= _power);
         }
     }
 }

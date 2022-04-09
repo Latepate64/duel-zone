@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class AuraBlastEffect : OneShotAreaOfEffect
+    class AuraBlastEffect : OneShotEffect
     {
         private readonly int _power;
 

@@ -1,10 +1,12 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class UntapThisCreatureEffect : UntapAreaOfEffect
     {
-        public UntapThisCreatureEffect() : base(new Engine.TargetFilter()) { }
+        public UntapThisCreatureEffect() : base() { }
 
         public override IOneShotEffect Copy()
         {
@@ -14,6 +16,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Untap this creature.";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return new ICard[] { game.GetCard(source.Source) };
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -17,6 +19,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Your opponent discards his hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).Hand.Cards;
         }
     }
 }

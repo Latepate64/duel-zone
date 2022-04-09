@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class SnakeAttackEffect : OneShotAreaOfEffect
+    class SnakeAttackEffect : OneShotEffect
     {
         public override object Apply(IGame game, IAbility source)
         {

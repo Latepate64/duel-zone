@@ -15,17 +15,18 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class KingBenthosEffect : OneShotEffects.OneShotAreaOfEffect
+    class KingBenthosEffect : OneShotEffect
     {
-        public KingBenthosEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water))
+        public KingBenthosEffect() : base()
         {
         }
 
         public override object Apply(IGame game, IAbility source)
         {
+            var creatures = game.BattleZone.GetCreatures(source.Controller, Civilization.Water);
             game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
-                GetAffectedCards(game, source).ToArray()));
+                creatures.ToArray()));
             return null;
         }
 

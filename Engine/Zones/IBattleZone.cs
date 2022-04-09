@@ -15,6 +15,7 @@ namespace Engine.Zones
         IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature, Common.Civilization civilization);
         IEnumerable<ICard> GetOtherCreatures(Guid creature, Common.Civilization civilization);
         IEnumerable<ICard> GetOtherCreatures(Guid creature, Common.Subtype subtype);
+        IEnumerable<ICard> GetOtherCreatures(Guid creature);
         IEnumerable<ICard> GetTappedCreatures(Guid controller);
         IEnumerable<ICard> GetOtherTappedCreatures(Guid controller, Guid creature);
         IEnumerable<ICard> GetOtherUntappedCreatures(Guid controller, Guid creature);

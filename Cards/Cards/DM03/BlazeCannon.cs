@@ -43,7 +43,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class BlazeCannonBuffEffect : OneShotAreaOfEffect
+    class BlazeCannonBuffEffect : OneShotEffect
     {
         public BlazeCannonBuffEffect() : base()
         {

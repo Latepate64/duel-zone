@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Destroy all your opponent's creatures that have power 3000 or less.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Where(x => x.Power <= 3000);
         }
     }
 }

@@ -1,6 +1,10 @@
 ﻿using Cards.OneShotEffects;
+using Cards.StaticAbilities;
 using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -26,6 +30,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Destroy all creatures that have \"blocker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.Creatures.Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "Each player discards his hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.Players.SelectMany(x => x.Hand.Cards);
         }
     }
 }

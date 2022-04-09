@@ -1,12 +1,13 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.OneShotEffects
 {
     abstract class UntapAreaOfEffect : OneShotAreaOfEffect
     {
-        protected UntapAreaOfEffect(CardFilter filter) : base(filter)
+        protected UntapAreaOfEffect() : base()
         {
         }
 
@@ -23,7 +24,7 @@ namespace Cards.OneShotEffects
 
     class UntapAllTheCardsInYourManaZoneEffect : UntapAreaOfEffect
     {
-        public UntapAllTheCardsInYourManaZoneEffect() : base(new CardFilters.OwnersManaZoneCardFilter())
+        public UntapAllTheCardsInYourManaZoneEffect() : base()
         {
         }
 
@@ -35,6 +36,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Untap all the cards in your mana zone.";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Cards;
         }
     }
 }

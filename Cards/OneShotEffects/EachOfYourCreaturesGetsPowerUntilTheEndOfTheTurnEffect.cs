@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotAreaOfEffect
+    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect
     {
         private readonly int _power;
 

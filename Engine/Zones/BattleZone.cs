@@ -114,17 +114,22 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetOtherCreatures(Guid creature, Civilization civilization)
         {
-            return Creatures.Where(x => x.Id != creature && x.HasCivilization(civilization));
+            return GetOtherCreatures(creature).Where(x => x.HasCivilization(civilization));
         }
 
         public IEnumerable<ICard> GetOtherCreatures(Guid creature, Subtype subtype)
         {
-            return Creatures.Where(x => x.Id != creature && x.HasSubtype(subtype));
+            return GetOtherCreatures(creature).Where(x => x.HasSubtype(subtype));
         }
 
         public IEnumerable<ICard> GetTappedCreatures(Guid controller)
         {
             return GetCreatures(controller).Where(x => x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        {
+            return Creatures.Where(x => x.Id != creature);
         }
     }
 }

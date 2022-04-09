@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class FullDefensorEffect : OneShotAreaOfEffect
+    class FullDefensorEffect : OneShotEffect
     {
         public FullDefensorEffect() : base()
         {

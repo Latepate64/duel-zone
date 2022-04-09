@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM12
 {
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Return all your other creatures from the battle zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }
     }
 }

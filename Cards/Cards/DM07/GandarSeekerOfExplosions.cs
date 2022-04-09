@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM07
 {
@@ -40,7 +41,7 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsUntapEffect : OneShotEffects.UntapAreaOfEffect
     {
-        public GandarSeekerOfExplosionsUntapEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light))
+        public GandarSeekerOfExplosionsUntapEffect() : base()
         {
         }
 
@@ -52,6 +53,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "Untap all your light creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller, Civilization.Light);
         }
     }
 }

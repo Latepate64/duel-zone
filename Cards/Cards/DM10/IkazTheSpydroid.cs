@@ -3,6 +3,7 @@ using Cards.TriggeredAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -39,12 +40,16 @@ namespace Cards.Cards.DM10
 
     class IkazTheSpydroidUntapEffect : UntapAreaOfEffect
     {
-        public IkazTheSpydroidUntapEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards))
+        private readonly Engine.ICard[] _cards;
+
+        public IkazTheSpydroidUntapEffect(params Engine.ICard[] cards) : base()
         {
+            _cards = cards;
         }
 
         public IkazTheSpydroidUntapEffect(IkazTheSpydroidUntapEffect effect) : base(effect)
         {
+            _cards = effect._cards;
         }
 
         public override IOneShotEffect Copy()
@@ -54,7 +59,12 @@ namespace Cards.Cards.DM10
 
         public override string ToString()
         {
-            return $"Untap {Filter} after the battle.";
+            return $"Untap {_cards} after the battle.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return _cards;
         }
     }
 }
