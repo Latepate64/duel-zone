@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var cards = game.GetAllCards(Filter, source.Controller).ToArray();
+            var cards =  game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(source.Controller))).ToArray();
             source.GetController(game).Tap(game, cards);
             return cards.Any();
         }

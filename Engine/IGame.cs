@@ -33,7 +33,6 @@ namespace Engine
         void Destroy(IEnumerable<ICard> cards);
         IAbility GetAbility(Guid id);
         IEnumerable<ICard> GetAllCards();
-        IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player);
         Common.IIdentifiable GetAttackable(Guid id);
         ICard GetCard(Guid id);
         IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;

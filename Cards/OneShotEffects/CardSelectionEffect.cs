@@ -57,7 +57,7 @@ namespace Cards.OneShotEffects
 
         protected IEnumerable<ICard> GetSelectableCards(IGame game, Guid player)
         {
-            return game.GetAllCards(Filter, player);
+            return game.GetAllCards().Where(card => Filter.Applies(card, game, game.GetPlayer(player)));
         }
     }
 }
