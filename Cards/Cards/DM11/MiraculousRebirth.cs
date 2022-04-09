@@ -3,6 +3,7 @@ using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM11
@@ -47,7 +48,7 @@ namespace Cards.Cards.DM11
             _cost = effect._cost;
         }
 
-        public MiraculousRebirthSearchEffect(int cost) : base(new OwnersDeckCreatureThatCostsFilter(cost), false)
+        public MiraculousRebirthSearchEffect(int cost) : base(false)
         {
             _cost = cost;
         }
@@ -65,6 +66,11 @@ namespace Cards.Cards.DM11
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.Deck, ZoneType.BattleZone, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Creatures.Where(x => x.ManaCost == _cost);
         }
     }
 

@@ -1,5 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -7,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         public bool Reveal { get; }
 
-        protected SearchEffect(CardFilter filter, bool reveal, int maximum = 1) : base(filter, maximum)
+        protected SearchEffect(bool reveal, int maximum = 1) : base(maximum)
         {
             Reveal = reveal;
         }
@@ -33,7 +35,7 @@ namespace Cards.OneShotEffects
 
     class SearchSpellEffect : SearchEffect
     {
-        public SearchSpellEffect() : base(new CardFilters.OwnersDeckSpellFilter(), true)
+        public SearchSpellEffect() : base(true)
         {
         }
 
@@ -46,11 +48,16 @@ namespace Cards.OneShotEffects
         {
             return "Search your deck. You may take a spell from your deck, show that spell to your opponent, and put it into your hand. Then shuffle your deck.";
         }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Spells;
+        }
     }
 
     class SearchCardNoRevealEffect : SearchEffect
     {
-        public SearchCardNoRevealEffect() : base(new CardFilters.OwnersDeckCardFilter(), false)
+        public SearchCardNoRevealEffect() : base(false)
         {
         }
 
@@ -63,11 +70,16 @@ namespace Cards.OneShotEffects
         {
             return "Search your deck. You may take a card from your deck and put it into your hand. Then shuffle your deck.";
         }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Cards;
+        }
     }
 
     class SearchCreatureEffect : SearchEffect
     {
-        public SearchCreatureEffect() : base(new CardFilters.OwnersDeckCreatureFilter(), true)
+        public SearchCreatureEffect() : base(true)
         {
         }
 
@@ -80,13 +92,18 @@ namespace Cards.OneShotEffects
         {
             return "Search your deck. You may take a creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.";
         }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Creatures;
+        }
     }
 
     class SearchSubtypeCreatureEffect : SearchEffect
     {
         private readonly Common.Subtype _subtype;
 
-        public SearchSubtypeCreatureEffect(Common.Subtype subtype) : base(new CardFilters.OwnersDeckSubtypeCreatureFilter(subtype), true)
+        public SearchSubtypeCreatureEffect(Common.Subtype subtype) : base(true)
         {
             _subtype = subtype;
         }
@@ -105,6 +122,11 @@ namespace Cards.OneShotEffects
         {
             return $"When you put this creature into the battle zone, search your deck. You may take a {_subtype} from your deck, show that {_subtype} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.GetCreatures(_subtype);
+        }
     }
 
     class SearchCardWithNameEffect : SearchEffect
@@ -116,7 +138,7 @@ namespace Cards.OneShotEffects
             _name = effect._name;
         }
 
-        public SearchCardWithNameEffect(string name) : base(new CardFilters.OwnersDeckCardWithNameFilter(name), true)
+        public SearchCardWithNameEffect(string name) : base(true)
         {
             _name = name;
         }
@@ -130,6 +152,11 @@ namespace Cards.OneShotEffects
         {
             return $"Search your deck. You may take a {_name} from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
         }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Cards.Where(x => x.Name == _name);
+        }
     }
 
     class BrutalChargeSearchEffect : SearchEffect
@@ -141,7 +168,7 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public BrutalChargeSearchEffect(int amount) : base(new CardFilters.OwnersDeckCreatureFilter(), true, amount)
+        public BrutalChargeSearchEffect(int amount) : base(true, amount)
         {
             _amount = amount;
         }
@@ -154,6 +181,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Search your deck. Take up to {_amount} creatures from your deck, show them to your opponent, and put them into your hand. Then shuffle your deck.";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Creatures;
         }
     }
 }

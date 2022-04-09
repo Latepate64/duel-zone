@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class FutureSlashEffect : OneShotEffects.SearchAnyDeckEffect
     {
-        public FutureSlashEffect() : base(new CardFilters.OpponentsDeckCardFilter(), 2, true)
+        public FutureSlashEffect() : base(2, true)
         {
         }
 
@@ -31,6 +32,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.Deck, ZoneType.Graveyard, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).Deck.Cards;
         }
     }
 }
