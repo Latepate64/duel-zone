@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class DeathCruzerTheAnnihilatorEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public DeathCruzerTheAnnihilatorEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        public DeathCruzerTheAnnihilatorEffect() : base()
         {
         }
 

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class InvincibleAbyssEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public InvincibleAbyssEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter())
+        public InvincibleAbyssEffect() : base()
         {
         }
 

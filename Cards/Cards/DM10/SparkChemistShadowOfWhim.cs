@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class SparkChemistShadowOfWhimEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public SparkChemistShadowOfWhimEffect() : base(new CardFilters.OwnersManaZoneCardFilter())
+        public SparkChemistShadowOfWhimEffect() : base()
         {
         }
 

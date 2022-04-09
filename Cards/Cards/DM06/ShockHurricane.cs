@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM06
@@ -44,7 +45,7 @@ namespace Cards.Cards.DM06
 
     class ReturnAnyNumberOfYourCreaturesToYourHandEffect : ChooseAnyNumberOfCardsEffect
     {
-        public ReturnAnyNumberOfYourCreaturesToYourHandEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public ReturnAnyNumberOfYourCreaturesToYourHandEffect() : base()
         {
         }
 
@@ -61,6 +62,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 

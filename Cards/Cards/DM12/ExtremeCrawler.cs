@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class ExtremeCrawlerEffect : OneShotEffects.BounceAreaOfEffect
     {
-        public ExtremeCrawlerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public ExtremeCrawlerEffect() : base()
         {
         }
 

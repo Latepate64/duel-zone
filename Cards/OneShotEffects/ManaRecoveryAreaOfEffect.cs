@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ManaRecoveryAreaOfEffect(CardFilter filter) : base(ZoneType.ManaZone, ZoneType.Hand, filter)
+        protected ManaRecoveryAreaOfEffect() : base(ZoneType.ManaZone, ZoneType.Hand)
         {
         }
     }

@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
 
     class BallomMasterOfDeathEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public BallomMasterOfDeathEffect() : base(new CardFilters.BattleZoneNonCivilizationCreatureFilter(Civilization.Darkness))
+        public BallomMasterOfDeathEffect() : base()
         {
         }
 

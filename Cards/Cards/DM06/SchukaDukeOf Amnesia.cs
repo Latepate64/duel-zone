@@ -16,7 +16,7 @@ namespace Cards.Cards.DM06
 
     class SchukaDukeOfAmnesiaEffect : OneShotEffects.CardMovingAreaOfEffect
     {
-        public SchukaDukeOfAmnesiaEffect() : base(ZoneType.Hand, ZoneType.Graveyard, new CardFilters.HandCardFilter())
+        public SchukaDukeOfAmnesiaEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
         {
         }
 

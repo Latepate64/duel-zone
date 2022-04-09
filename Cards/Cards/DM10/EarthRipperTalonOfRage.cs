@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class EarthRipperTalonOfRageEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public EarthRipperTalonOfRageEffect() : base(new CardFilters.OwnersManaZoneTappedCardFilter())
+        public EarthRipperTalonOfRageEffect() : base()
         {
         }
 

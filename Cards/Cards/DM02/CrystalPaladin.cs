@@ -17,7 +17,7 @@ namespace Cards.Cards.DM02
 
     class CrystalPaladinEffect : OneShotEffects.BounceAreaOfEffect
     {
-        public CrystalPaladinEffect() : base(new CardFilters.BattleZoneBlockerCreatureFilter())
+        public CrystalPaladinEffect() : base()
         {
         }
 

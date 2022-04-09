@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
 
     class ScarletSkyterrorEffect : DestroyAreaOfEffect
     {
-        public ScarletSkyterrorEffect() : base(new CardFilters.BattleZoneBlockerCreatureFilter())
+        public ScarletSkyterrorEffect() : base()
         {
         }
 

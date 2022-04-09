@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
 
     class GalklifeDragonEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public GalklifeDragonEffect() : base(new CardFilters.OpponentsBattleZoneMaxPowerCivilizationCreatureFilter(4000, Civilization.Light))
+        public GalklifeDragonEffect() : base()
         {
         }
 

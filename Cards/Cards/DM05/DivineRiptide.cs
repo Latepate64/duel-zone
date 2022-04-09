@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class DivineRiptideEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public DivineRiptideEffect() : base(new CardFilters.ManaZoneCardFilter())
+        public DivineRiptideEffect() : base()
         {
         }
 

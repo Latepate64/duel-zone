@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM09
 {
@@ -35,7 +36,7 @@ namespace Cards.Cards.DM09
     {
         private readonly Subtype _subtype;
 
-        public DanceOfTheSproutlingsSecondEffect(Subtype subtype) : base(new CardFilters.OwnersHandSubtypeCreatureFilter(subtype))
+        public DanceOfTheSproutlingsSecondEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
@@ -57,6 +58,11 @@ namespace Cards.Cards.DM09
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.Hand, ZoneType.ManaZone, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Source).Hand.GetCreatures(_subtype);
         }
     }
 }

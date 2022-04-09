@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,14 @@ namespace Cards.OneShotEffects
     {
         private readonly int _power;
 
-        public DestroyAllCreaturesThatHaveExactPower(int power) : base(new BattleZoneExactPowerCreatureFilter(1000))
+        public DestroyAllCreaturesThatHaveExactPower(int power) : base()
         {
+            _power = power;
         }
 
         public DestroyAllCreaturesThatHaveExactPower(DestroyAllCreaturesThatHaveExactPower effect) : base(effect)
         {
+            _power = effect._power;
         }
 
         public override IOneShotEffect Copy()

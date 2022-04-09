@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class KingTsunamiEffect : OneShotEffects.BounceAreaOfEffect
     {
-        public KingTsunamiEffect() : base(new CardFilters.AnotherBattleZoneCreatureFilter())
+        public KingTsunamiEffect() : base()
         {
         }
 

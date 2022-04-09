@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class SearingWaveEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public SearingWaveEffect() : base(new CardFilters.OpponentsBattleZoneMaxPowerCreatureFilter(3000))
+        public SearingWaveEffect() : base()
         {
         }
 

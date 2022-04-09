@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class DestroyAllCreaturesEffect : DestroyAreaOfEffect
     {
-        public DestroyAllCreaturesEffect() : base(new CardFilters.BattleZoneCreatureFilter())
+        public DestroyAllCreaturesEffect() : base()
         {
         }
 

@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
     {
-        public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard, new CardFilters.OpponentsHandCardFilter())
+        public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
         {
         }
 

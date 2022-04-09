@@ -1,6 +1,7 @@
 ﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class GhastlyDrainEffect : ChooseAnyNumberOfCardsEffect
     {
-        public GhastlyDrainEffect() : base(new CardFilters.OwnersShieldZoneCardFilter())
+        public GhastlyDrainEffect() : base()
         {
         }
 
@@ -35,6 +36,11 @@ namespace Cards.Cards.DM03
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.PutFromShieldZoneToHand(cards, false);
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Source).ShieldZone.Cards;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -36,7 +37,7 @@ namespace Cards.Cards.DM04
 
     class PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard : ChooseAnyNumberOfCardsEffect
     {
-        public PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard() : base(new CardFilters.ManaZoneCardFilter())
+        public PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard() : base()
         {
         }
 
@@ -57,6 +58,11 @@ namespace Cards.Cards.DM04
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.ManaZone, ZoneType.Graveyard, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Source).ManaZone.Cards;
         }
     }
 }

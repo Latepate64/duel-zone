@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class EarthstompGiantEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public EarthstompGiantEffect() : base(new CardFilters.OwnersManaZoneCreatureFilter())
+        public EarthstompGiantEffect() : base()
         {
         }
 

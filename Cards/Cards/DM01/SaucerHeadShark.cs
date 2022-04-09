@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
 
     class SaucerHeadSharkEffect : BounceAreaOfEffect
     {
-        public SaucerHeadSharkEffect() : base(new BattleZoneMaxPowerCreatureFilter(2000))
+        public SaucerHeadSharkEffect() : base()
         {
         }
 

@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class DestroyThisCreatureEffect : DestroyAreaOfEffect
     {
-        public DestroyThisCreatureEffect() : base(new TargetFilter())
+        public DestroyThisCreatureEffect() : base()
         {
         }
 
