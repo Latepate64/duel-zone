@@ -34,17 +34,4 @@ namespace Cards.Cards.DM10
             return game.Players.SelectMany(x => x.ShieldZone.Cards).Count();
         }
     }
-
-    class ShieldZoneCardFilter : CardFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return new CardFilters.OwnersShieldZoneCardFilter().Applies(card, game, player) && new CardFilters.OpponentsShieldZoneCardFilter().Applies(card, game, player);
-        }
-
-        public override ICardFilter Copy()
-        {
-            return new ShieldZoneCardFilter();
-        }
-    }
 }

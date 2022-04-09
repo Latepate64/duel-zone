@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class HolyAweEffect : OneShotEffects.TapAreaOfEffect
     {
-        public HolyAweEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter())
+        public HolyAweEffect() : base()
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Tap all your opponent's creatures in the battle zone.";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(game.GetOpponent(source.Controller));
         }
     }
 }

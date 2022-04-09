@@ -1,6 +1,10 @@
 ﻿using Cards.OneShotEffects;
+using Cards.StaticAbilities;
 using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -15,7 +19,7 @@ namespace Cards.Cards.DM06
 
     class BondsOfJusticeEffect : TapAreaOfEffect
     {
-        public BondsOfJusticeEffect() : base(new CardFilters.BattleZoneNonBlockerCreatureFilter())
+        public BondsOfJusticeEffect() : base()
         {
         }
 
@@ -27,6 +31,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "Tap all creatures in the battle zone that don't have \"blocker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.Creatures.Where(x => !x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }
