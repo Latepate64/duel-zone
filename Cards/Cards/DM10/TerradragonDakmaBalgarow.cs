@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class TerradragonDakmaBalgarowEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TerradragonDakmaBalgarowEffect() : base(2000, new ShieldZoneCardFilter())
+        public TerradragonDakmaBalgarowEffect() : base(2000)
         {
         }
 
@@ -26,6 +27,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "This creature gets +2000 power for each shield you and your opponent have.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.Players.SelectMany(x => x.ShieldZone.Cards).Count();
         }
     }
 

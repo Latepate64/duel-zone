@@ -47,5 +47,15 @@ namespace Engine.Zones
         {
             return Creatures.Where(x => x.HasSubtype(subtype));
         }
+
+        public IEnumerable<ICard> GetCards(Common.Civilization civilization)
+        {
+            return Cards.Where(x => x.HasCivilization(civilization));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Common.Civilization civilization)
+        {
+            return Creatures.Where(x => x.HasCivilization(civilization));
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM09
 
     class MagmadragonOgristVhalEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public MagmadragonOgristVhalEffect() : base(2000, new CardFilters.OwnersHandCardFilter())
+        public MagmadragonOgristVhalEffect() : base(2000)
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "This creature gets +3000 power for each card in your hand.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).Hand.Cards.Count();
         }
     }
 }

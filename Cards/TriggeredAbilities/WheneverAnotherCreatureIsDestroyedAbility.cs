@@ -5,7 +5,7 @@ namespace Cards.TriggeredAbilities
 {
     class WheneverAnotherCreatureIsDestroyedAbility : DestroyedAbility
     {
-        public WheneverAnotherCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect, new CardFilters.AnotherBattleZoneCreatureFilter()) { }
+        public WheneverAnotherCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect) { }
 
         public WheneverAnotherCreatureIsDestroyedAbility(WheneverAnotherCreatureIsDestroyedAbility ability) : base(ability)
         {

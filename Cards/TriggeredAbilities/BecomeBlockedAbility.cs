@@ -10,7 +10,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected BecomeBlockedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
+        protected BecomeBlockedAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Cards.TriggeredAbilities
 
     class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
     {
-        public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect)
         { 
         }
 

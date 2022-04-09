@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -12,7 +14,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public GetsPowerForEachOtherCivilizationCreatureYouControlEffect(int power, Civilization civilization) : base(power, new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(civilization))
+        public GetsPowerForEachOtherCivilizationCreatureYouControlEffect(int power, Civilization civilization) : base(power)
         {
             _civilization = civilization;
         }
@@ -25,6 +27,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"This creature gets +{_power} power for each other {_civilization.ToString().ToLower()} creature you have in the battle zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherCreatures(Controller, GetSourceCard(game).Id, _civilization).Count();
         }
     }
 }

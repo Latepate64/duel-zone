@@ -6,7 +6,7 @@ namespace Cards.TriggeredAbilities
 {
     class WheneverThisCreatureAttacksAbility : WheneverCreatureAttacksAbility
     {
-        public WheneverThisCreatureAttacksAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WheneverThisCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -36,7 +36,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected WheneverCreatureAttacksAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
+        protected WheneverCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -48,7 +48,7 @@ namespace Cards.TriggeredAbilities
 
     class WheneverAnyOfYourCreaturesAttacksAbility : WheneverCreatureAttacksAbility
     {
-        public WheneverAnyOfYourCreaturesAttacksAbility(IOneShotEffect effect) : base(effect, new CardFilters.OwnersBattleZoneCreatureFilter())
+        public WheneverAnyOfYourCreaturesAttacksAbility(IOneShotEffect effect) : base(effect)
         {
         }
 

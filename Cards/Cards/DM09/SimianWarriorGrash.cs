@@ -14,7 +14,7 @@ namespace Cards.Cards.DM09
 
     class SimianWarriorGrashAbility : TriggeredAbilities.DestroyedAbility
     {
-        public SimianWarriorGrashAbility(IOneShotEffect effect) : base(effect, new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Armorloid))
+        public SimianWarriorGrashAbility(IOneShotEffect effect) : base(effect)
         {
         }
 

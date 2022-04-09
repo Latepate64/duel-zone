@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public MarchingMotherboardAbility(IOneShotEffect effect) : base(effect, new MarchingMotherboardFilter())
+        public MarchingMotherboardAbility(IOneShotEffect effect) : base(effect)
         {
         }
 

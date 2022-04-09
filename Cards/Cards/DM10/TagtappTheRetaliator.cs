@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class TagtappTheRetaliatorEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TagtappTheRetaliatorEffect() : base(1000, new CardFilters.OpponentsManaZoneCivilizationCardFilter(Civilization.Water))
+        public TagtappTheRetaliatorEffect() : base(1000)
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "This creature gets +1000 power for each water card in your opponent's mana zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(game.GetOpponent(Controller)).ManaZone.GetCards(Civilization.Water).Count();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM11
 
     class SpinningTerrorTheWretchedEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public SpinningTerrorTheWretchedEffect() : base(2000, new OpponentsBattleZoneTappedCreatureFilter())
+        public SpinningTerrorTheWretchedEffect() : base(2000)
         {
         }
 
@@ -27,6 +28,11 @@ namespace Cards.Cards.DM11
         public override string ToString()
         {
             return "This creature gets +2000 power for each tapped creature your opponent has in the battle zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetTappedCreatures(game.GetOpponent(Controller)).Count();
         }
     }
 

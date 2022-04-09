@@ -16,7 +16,7 @@ namespace Cards.Cards.Promo
 
     class DolzarkAbility : WheneverCreatureAttacksAbility
     {
-        public DolzarkAbility() : base(new DolzarkEffect(), new DolzarkFilter())
+        public DolzarkAbility() : base(new DolzarkEffect())
         {
         }
 

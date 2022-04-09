@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class SuperNecrodragonAbzoDolbaEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public SuperNecrodragonAbzoDolbaEffect() : base(2000, new CardFilters.OwnersGraveyardCreatureFilter())
+        public SuperNecrodragonAbzoDolbaEffect() : base(2000)
         {
         }
 
@@ -27,6 +28,11 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "This creature gets +2000 power for each creature in your graveyard.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).Graveyard.Creatures.Count();
         }
     }
 }

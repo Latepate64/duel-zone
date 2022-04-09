@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class UltimateDragonPowerEffect : PowerModifyingMultiplierEffect
     {
-        public UltimateDragonPowerEffect() : base(5000, new UltimateDragonPowerFilter())
+        public UltimateDragonPowerEffect() : base(5000)
         {
         }
 
@@ -28,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "This creature gets +5000 power for each of your other creatures in the battle zone that has Dragon in its race.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherCreatures(Controller, GetSourceCard(game).Id).Count(x => x.IsDragon);
         }
     }
 

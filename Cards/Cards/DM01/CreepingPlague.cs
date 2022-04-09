@@ -46,7 +46,7 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueTriggeredAbility : TriggeredAbilities.BecomeBlockedAbility
     {
-        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect(), new CardFilters.OwnersBattleZoneCreatureFilter())
+        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect())
         {
         }
 

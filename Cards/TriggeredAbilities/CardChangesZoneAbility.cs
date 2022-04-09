@@ -9,10 +9,6 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected CardChangesZoneAbility(IOneShotEffect effect, ICardFilter filter) : base(effect)
-        {
-        }
-
         protected CardChangesZoneAbility(CardChangesZoneAbility ability) : base(ability)
         {
         }

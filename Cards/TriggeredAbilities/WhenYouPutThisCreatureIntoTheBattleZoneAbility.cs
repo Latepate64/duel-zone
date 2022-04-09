@@ -7,7 +7,7 @@ namespace Cards.TriggeredAbilities
 {
     public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
     {
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.AnotherBattleZoneCreatureFilter())
+        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -63,7 +63,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.YourDragonoidOrDragonFilter())
+        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -89,7 +89,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -115,7 +115,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
+        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -134,7 +134,7 @@ namespace Cards.TriggeredAbilities
             _subtype = ability._subtype;
         }
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect, new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype))
+        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect)
         {
             _subtype = subtype;
         }

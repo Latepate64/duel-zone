@@ -15,7 +15,7 @@ namespace Cards.Cards.DM12
 
     class ClonedSpikeHornEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public ClonedSpikeHornEffect() : base(3000, new ClonedSpikeHornFilter())
+        public ClonedSpikeHornEffect() : base(3000)
         {
         }
 
@@ -27,6 +27,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "This creature gets +3000 power for each Cloned Spike-Horn in each graveyard.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.Players.SelectMany(x => x.Graveyard.Cards).Count(x => x.Name == "Cloned Spike-Horn");
         }
     }
 

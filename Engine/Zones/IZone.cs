@@ -10,6 +10,8 @@ namespace Engine.Zones
 
         void Add(ICard card, IGame game);
         void Dispose();
+        IEnumerable<ICard> GetCards(Common.Civilization civilization);
+        IEnumerable<ICard> GetCreatures(Common.Civilization civilization);
         IEnumerable<ICard> GetCreatures(Guid owner);
         IEnumerable<ICard> GetCreatures(Common.Subtype subtype);
         List<ICard> Remove(ICard card, IGame game);

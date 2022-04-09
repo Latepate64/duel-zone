@@ -8,30 +8,27 @@ namespace Cards.ContinuousEffects
     {
         protected readonly int _power;
 
-        public ICardFilter Multiplier { get; set; }
-
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier) : base()
+        protected PowerModifyingMultiplierEffect(int power) : base()
         {
             _power = power;
-            Multiplier = multiplier;
         }
 
         protected PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
         {
             _power = effect._power;
-            Multiplier = effect.Multiplier.Copy();
         }
 
         public virtual void ModifyPower(IGame game)
         {
-            var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-            GetSourceCard(game).Power += add;
+            GetSourceCard(game).Power += GetMultiplier(game) * _power;
         }
+
+        protected abstract int GetMultiplier(IGame game);
     }
 
     abstract class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
     {
-        protected PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier)
+        protected PowerAttackerMultiplierEffect(int power) : base(power)
         {
         }
 
@@ -44,15 +41,14 @@ namespace Cards.ContinuousEffects
             var creature = GetSourceCard(game);
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
             {
-                var add = game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
-                creature.Power += add;
+                creature.Power += GetMultiplier(game) * _power;
             }
         }
     }
 
     class DogarnTheMarauderEffect : PowerAttackerMultiplierEffect
     {
-        public DogarnTheMarauderEffect(int power) : base(power, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())
+        public DogarnTheMarauderEffect(int power) : base(power)
         {
         }
 
@@ -69,6 +65,11 @@ namespace Cards.ContinuousEffects
         {
             return $"While attacking, this creature gets +{_power} power for each other tapped creature you have in the battle zone.";
         }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherTappedCreatures(Controller, GetSourceCard(game).Id).Count();
+        }
     }
 
     class ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures : PowerModifyingMultiplierEffect
@@ -77,7 +78,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power, new CardFilters.OwnersOtherBattleZoneUntappedCreatureFilter())
+        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power)
         {
         }
 
@@ -90,6 +91,11 @@ namespace Cards.ContinuousEffects
         {
             return $"This creature gets +{_power} power for each of your other untapped creatures in the battle zone.";
         }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherUntappedCreatures(Controller, GetSourceCard(game).Id).Count();
+        }
     }
 
     class JigglyTotemEffect : PowerAttackerMultiplierEffect
@@ -98,7 +104,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public JigglyTotemEffect(int power) : base(power, new CardFilters.OwnersManaZoneTappedCardFilter())
+        public JigglyTotemEffect(int power) : base(power)
         {
         }
 
@@ -110,6 +116,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"While attacking, this creature gets +{_power} power for each tapped card in your mana zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).ManaZone.TappedCards.Count();
         }
     }
 }
