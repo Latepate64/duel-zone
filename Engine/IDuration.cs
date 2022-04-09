@@ -1,12 +1,9 @@
 ﻿using Common.GameEvents;
-using System;
 
 namespace Engine
 {
-    public interface IDuration : IDisposable
+    public interface IDuration
     {
-        IDuration Copy();
-        string ToString();
         bool ShouldExpire(IGameEvent gameEvent);
     }
 }

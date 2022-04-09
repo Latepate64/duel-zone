@@ -1,6 +1,7 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class DeathSmokeEffect : DestroyEffect
     {
-        public DeathSmokeEffect() : base(new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true)
+        public DeathSmokeEffect() : base(1, 1, true)
         {
         }
 
@@ -26,6 +27,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Destroy one of your opponent's untapped creatures.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, game.GetOpponent(source.Controller));
         }
     }
 }

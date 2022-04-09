@@ -1,4 +1,6 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -6,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(int amount) : base(new CardFilters.OpponentsManaZoneCardFilter(), 0, amount, true)
+        public ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(int amount) : base(0, amount, true)
         {
             _amount = amount;
         }
@@ -24,6 +26,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Choose up to {_amount} cards in your opponent's mana zone and put them into his graveyard.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ManaZone.Cards;
         }
     }
 }

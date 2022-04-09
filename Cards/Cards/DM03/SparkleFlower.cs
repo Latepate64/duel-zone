@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -11,10 +14,15 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class SparkleFlowerEffect : BlockerEffect
+    class SparkleFlowerEffect : ContinuousEffect, IBlockerEffect
     {
-        public SparkleFlowerEffect() : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCreatureFilter(), new Durations.Indefinite(), new Conditions.AllOfCivilizationCondition(Civilization.Light))
+        public SparkleFlowerEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
+        {
+            return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }
 
         public override IContinuousEffect Copy()

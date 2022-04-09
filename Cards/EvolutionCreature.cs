@@ -8,13 +8,13 @@ namespace Cards
         public EvolutionCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
         {
             Supertypes.Add(Supertype.Evolution);
-            AddStaticAbilities(new RaceEvolutionEffect(new Engine.TargetFilter(), race));
+            AddStaticAbilities(new RaceEvolutionEffect(race));
         }
 
         public EvolutionCreature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race1, race2, civilization1, civilization2)
         {
             Supertypes.Add(Supertype.Evolution);
-            AddStaticAbilities(new RaceEvolutionEffect(new Engine.TargetFilter(), race1, race2));
+            AddStaticAbilities(new RaceEvolutionEffect(race1, race2));
         }
     }
 

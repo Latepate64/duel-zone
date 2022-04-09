@@ -1,4 +1,4 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -16,13 +16,13 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class BlazeCannonRestrictionEffect : CannotUseCardEffect
+    class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseCardEffect
     {
         public BlazeCannonRestrictionEffect(BlazeCannonRestrictionEffect effect) : base(effect)
         {
         }
 
-        public BlazeCannonRestrictionEffect() : base(new TargetFilter(), new Durations.Indefinite(), new Conditions.NotAllOfCivilizationCondition(Civilization.Fire))
+        public BlazeCannonRestrictionEffect() : base()
         {
         }
 
@@ -35,17 +35,23 @@ namespace Cards.Cards.DM03
         {
             return "You can cast this spell only if all the cards in your mana zone are fire cards.";
         }
+
+        public bool Applies(Engine.ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+        }
     }
 
-    class BlazeCannonBuffEffect : OneShotAreaOfEffect
+    class BlazeCannonBuffEffect : OneShotEffect
     {
-        public BlazeCannonBuffEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public BlazeCannonBuffEffect() : base()
         {
         }
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(GetAffectedCards(game, source).ToArray()));
+            
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

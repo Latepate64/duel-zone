@@ -1,11 +1,17 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class OpponentCannotChooseThisCreatureEffect : UnchoosableEffect
+    class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IUnchoosableEffect
     {
-        public OpponentCannotChooseThisCreatureEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public OpponentCannotChooseThisCreatureEffect() : base()
         {
+        }
+
+        public bool Applies(ICard creature, IGame game)
+        {
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

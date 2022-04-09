@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -12,31 +13,23 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class FeverNutsEffect : CostModifyingEffect
+    class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public FeverNutsEffect() : base(-1, new HandCreatureFilter(), new Durations.Indefinite()) { }
+        public FeverNutsEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
             return new FeverNutsEffect();
         }
 
+        public int GetChange(Engine.ICard card, Engine.IGame game)
+        {
+            return card.CardType == CardType.Creature ? -1 : 0;
+        }
+
         public override string ToString()
         {
             return "Your creatures and your opponent's creatures each cost up to 1 less to summon. They can't cost less than 1.";
-        }
-    }
-
-    class HandCreatureFilter : CardFilters.HandCardFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.CardType == CardType.Creature;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new HandCreatureFilter();
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -13,7 +16,7 @@ namespace Cards.Cards.DM06
 
     class FrostSpecterShadowOfAgeEffect : AbilityAddingEffect
     {
-        public FrostSpecterShadowOfAgeEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Ghost), new Durations.Indefinite(), new StaticAbilities.SlayerAbility())
+        public FrostSpecterShadowOfAgeEffect() : base(new StaticAbilities.SlayerAbility())
         {
         }
 
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "Each of your Ghosts in the battle zone has \"slayer.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Subtype.Ghost);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM12
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class CosmicDartsEffect : OneShotEffects.CardSelectionEffect
     {
-        public CosmicDartsEffect() : base(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, false)
+        public CosmicDartsEffect() : base(1, 1, false)
         {
         }
 
@@ -41,6 +42,11 @@ namespace Cards.Cards.DM12
                 }
                 source.GetController(game).Unreveal(cards);
             }
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ShieldZone.Cards;
         }
     }
 }

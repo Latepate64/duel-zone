@@ -20,7 +20,10 @@
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == System.Guid.Empty ? Phase.AttackTarget : Phase.BlockingCreature);
+            if (Phase.AttackingCreature != System.Guid.Empty)
+            {
+                game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == System.Guid.Empty ? Phase.AttackTarget : Phase.BlockingCreature);
+            }
         }
 
         public override IStep Copy()

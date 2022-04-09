@@ -1,11 +1,13 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
     {
-        public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard, new CardFilters.OpponentsHandCardFilter())
+        public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
         {
         }
 
@@ -17,6 +19,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Your opponent discards his hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).Hand.Cards;
         }
     }
 }

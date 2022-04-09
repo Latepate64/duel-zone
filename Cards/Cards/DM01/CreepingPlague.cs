@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 
@@ -16,7 +17,7 @@ namespace Cards.Cards.DM01
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, new Durations.UntilTheEndOfTheTurn(), false));
+            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(source));
             return null;
         }
 
@@ -31,9 +32,21 @@ namespace Cards.Cards.DM01
         }
     }
 
+    class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IDuration
+    {
+        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, false)
+        {
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
+    }
+
     class CreepingPlagueTriggeredAbility : TriggeredAbilities.BecomeBlockedAbility
     {
-        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect(), new CardFilters.OwnersBattleZoneCreatureFilter())
+        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect())
         {
         }
 
@@ -45,6 +58,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Whenever any of your creatures becomes blocked, it gets \"slayer\" until the end of the turn.";
+        }
+
+        protected override bool TriggersFrom(ICard card, IGame game)
+        {
+            return card.Owner == Controller;
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -13,9 +13,9 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class MissileSoldierUltimoEffect : CanAttackUntappedCreaturesEffect, IAbilityAddingEffect
+    class MissileSoldierUltimoEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
-        public MissileSoldierUltimoEffect() : base(new TargetFilter(), new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
+        public MissileSoldierUltimoEffect() : base()
         {
         }
 
@@ -25,7 +25,12 @@ namespace Cards.Cards.DM08
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        {
+            return IsSourceOfAbility(attacker, game);
         }
 
         public override IContinuousEffect Copy()

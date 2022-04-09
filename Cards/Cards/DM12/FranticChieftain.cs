@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -13,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class FranticChieftainEffect : OneShotEffects.BounceEffect
     {
-        public FranticChieftainEffect() : base(new CardFilters.OwnersBattleZoneMaxCostCreatureFilter(4), 1, 1)
+        public FranticChieftainEffect() : base(1, 1)
         {
         }
 
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Return one of your creatures that costs 4 or less from the battle zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller).Where(x => x.ManaCost <= 4);
         }
     }
 }

@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -41,7 +43,7 @@ namespace Cards.Cards.DM12
 
     class ClonedBladeDestroyEffect : DestroyEffect
     {
-        public ClonedBladeDestroyEffect(int maximum) : base(new CardFilters.OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, maximum, true)
+        public ClonedBladeDestroyEffect(int maximum) : base(1, maximum, true)
         {
         }
 
@@ -58,6 +60,11 @@ namespace Cards.Cards.DM12
         {
             var amount = Maximum == 1 ? "one" : $"1-{Maximum}";
             return $"Destroy {amount} of your opponent's creatures in the battle zone that have power 3000 or less.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 3000);
         }
     }
 }

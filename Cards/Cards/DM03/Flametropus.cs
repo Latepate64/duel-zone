@@ -1,8 +1,10 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM03
@@ -22,7 +24,7 @@ namespace Cards.Cards.DM03
             var cards = new FlametropusManaEffect().Apply(game, source);
             if (cards.Any())
             {
-                game.AddContinuousEffects(source, new FlametropusContinuousEffect(new TargetFilter { Target = source.Source }));                 
+                game.AddContinuousEffects(source, new FlametropusContinuousEffect(game.GetCard(source.Source)));                 
             }
             return null;
         }
@@ -38,13 +40,13 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class FlametropusContinuousEffect : AbilityAddingEffect
+    class FlametropusContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public FlametropusContinuousEffect(FlametropusContinuousEffect effect) : base(effect)
         {
         }
 
-        public FlametropusContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(Engine.ICard card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 
@@ -61,7 +63,7 @@ namespace Cards.Cards.DM03
 
     class FlametropusManaEffect : OneShotEffects.ManaBurnEffect
     {
-        public FlametropusManaEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 0, 1, true)
+        public FlametropusManaEffect() : base(0, 1, true)
         {
         }
 
@@ -73,6 +75,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may put a card from your mana zone into your graveyard.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Cards;
         }
     }
 }

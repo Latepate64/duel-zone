@@ -1,19 +1,22 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class CrewBreakerEffect : BreakerEffect
+    abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
     {
         protected CrewBreakerEffect(CrewBreakerEffect effect) : base(effect)
         {
         }
 
-        protected CrewBreakerEffect() : base(new Durations.Indefinite())
+        protected CrewBreakerEffect() : base()
         {
             
         }
+
+        public abstract int GetAmount(IGame game, Engine.ICard creature);
     }
 
     class CrewBreakerSubtypeEffect : CrewBreakerEffect
@@ -35,10 +38,10 @@ namespace Cards.ContinuousEffects
             return $"Crew breaker - {_subtype}";
         }
 
-        public override int GetAmount(Engine.IGame game)
+        public override int GetAmount(IGame game, Engine.ICard creature)
         {
-            var ability = game.GetAbility(SourceAbility);
-            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype));
+            var ability = GetSourceAbility(game);
+            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype)) : 1;
         }
 
         public override IContinuousEffect Copy()

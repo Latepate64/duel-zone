@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -33,11 +34,11 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class MegaDetonatorBuffEffect : GrantChoiceEffect
+    class MegaDetonatorBuffEffect : CardSelectionEffect
     {
         private readonly int _amount;
 
-        public MegaDetonatorBuffEffect(int amount) : base(new CardFilters.OwnersBattleZoneCreatureFilter(), amount, amount, true)
+        public MegaDetonatorBuffEffect(int amount) : base(amount, amount, true)
         {
             _amount = amount;
         }
@@ -59,17 +60,22 @@ namespace Cards.Cards.DM04
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(new CardFilters.TargetsFilter(cards)));
+            game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(cards));
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 
-    class MegaDetonatorContinuousEffect : AbilityAddingEffect
+    class MegaDetonatorContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
     {
         public MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
         {
         }
 
-        public MegaDetonatorContinuousEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.DoubleBreakerAbility())
+        public MegaDetonatorContinuousEffect(params ICard[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
         {
         }
 

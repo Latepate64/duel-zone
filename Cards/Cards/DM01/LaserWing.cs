@@ -1,7 +1,8 @@
-﻿using Cards.CardFilters;
-using Cards.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM01
 
     class LaserWingEffect : CreateContinuousEffectChoiceEffect
     {
-        public LaserWingEffect() : base(new OwnersBattleZoneCreatureFilter(), 0, 2, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
+        public LaserWingEffect() : base(0, 2, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
         {
         }
 
@@ -27,6 +28,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

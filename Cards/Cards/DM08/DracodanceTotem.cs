@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM08
@@ -16,17 +17,17 @@ namespace Cards.Cards.DM08
 
     class DracodanceTotemEffect : ContinuousEffects.DestructionReplacementEffect
     {
-        public DracodanceTotemEffect() : base(new TargetFilter()) 
+        public DracodanceTotemEffect() : base() 
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
         {
             var manaZoneDragons = player.ManaZone.Creatures.Where(x => x.IsDragon);
             if (manaZoneDragons.Any())
             {
-                game.Move(ZoneType.BattleZone, ZoneType.ManaZone, game.GetAllCards(Filter, player.Id).ToArray());
-                new DracodanceTotemRecoveryEffect().Apply(game, null);
+                game.Move(ZoneType.BattleZone, ZoneType.ManaZone, card);
+                new DracodanceTotemRecoveryEffect().Apply(game, GetSourceAbility(game));
                 return true;
             }
             else
@@ -44,11 +45,16 @@ namespace Cards.Cards.DM08
         {
             return "When this creature would be destroyed, if you have a creature that has Dragon in its race in your mana zone, put this creature into your mana zone instead of destroying it. Then return a creature that has Dragon in its race from your mana zone to your hand.";
         }
+
+        protected override bool Applies(Engine.ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
+        }
     }
 
     class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
     {
-        public DracodanceTotemRecoveryEffect() : base(1, 1, true, new CardFilters.DragonInYourManaZoneFilter())
+        public DracodanceTotemRecoveryEffect() : base(1, 1, true)
         {
         }
 
@@ -60,6 +66,11 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "Return a creature that has Dragon in its race from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ShieldAdditionEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses)
+        protected ShieldAdditionEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses)
         {
         }
 

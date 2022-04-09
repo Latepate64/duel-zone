@@ -1,5 +1,7 @@
-﻿using Cards.CardFilters;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class PoisonWormEffect : OneShotEffects.DestroyEffect
     {
-        public PoisonWormEffect() : base(new OwnersBattleZoneMaxPowerCreatureFilter(3000), 1, 1, true)
+        public PoisonWormEffect() : base(1, 1, true)
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM02
         public override string ToString()
         {
             return "Destroy one of your creatures that has power 3000 or less.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller).Where(x => x.Power <= 3000);
         }
     }
 }

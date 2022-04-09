@@ -4,40 +4,51 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class PowerModifyingMultiplierEffect : PowerModifyingEffect
+    abstract class PowerModifyingMultiplierEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public ICardFilter Multiplier { get; set; }
+        protected readonly int _power;
 
-        protected PowerModifyingMultiplierEffect(int power, ICardFilter multiplier, params Condition[] conditions) : base(power, new Durations.Indefinite(), conditions)
+        protected PowerModifyingMultiplierEffect(int power) : base()
         {
-            Multiplier = multiplier;
+            _power = power;
         }
 
         protected PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
         {
-            Multiplier = effect.Multiplier.Copy();
+            _power = effect._power;
         }
 
-        protected override int GetPower(IGame game)
+        public virtual void ModifyPower(IGame game)
         {
-            return game.GetAllCards().Count(card => Multiplier.Applies(card, game, game.GetPlayer(card.Owner))) * _power;
+            GetSourceCard(game).Power += GetMultiplier(game) * _power;
         }
+
+        protected abstract int GetMultiplier(IGame game);
     }
 
     abstract class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEffect
     {
-        protected PowerAttackerMultiplierEffect(int power, CardFilter multiplier) : base(power, multiplier, new Conditions.AttackingCreatureCondition(new TargetFilter()))
+        protected PowerAttackerMultiplierEffect(int power) : base(power)
         {
         }
 
         protected PowerAttackerMultiplierEffect(PowerAttackerMultiplierEffect effect) : base(effect)
         {
         }
+
+        public override void ModifyPower(IGame game)
+        {
+            var creature = GetSourceCard(game);
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
+            {
+                creature.Power += GetMultiplier(game) * _power;
+            }
+        }
     }
 
     class DogarnTheMarauderEffect : PowerAttackerMultiplierEffect
     {
-        public DogarnTheMarauderEffect(int power) : base(power, new CardFilters.OwnersBattleZoneTappedCreatureExceptFilter())
+        public DogarnTheMarauderEffect(int power) : base(power)
         {
         }
 
@@ -54,6 +65,11 @@ namespace Cards.ContinuousEffects
         {
             return $"While attacking, this creature gets +{_power} power for each other tapped creature you have in the battle zone.";
         }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherTappedCreatures(Controller, GetSourceCard(game).Id).Count();
+        }
     }
 
     class ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures : PowerModifyingMultiplierEffect
@@ -62,7 +78,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power, new CardFilters.OwnersOtherBattleZoneUntappedCreatureFilter())
+        public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power)
         {
         }
 
@@ -75,6 +91,11 @@ namespace Cards.ContinuousEffects
         {
             return $"This creature gets +{_power} power for each of your other untapped creatures in the battle zone.";
         }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherUntappedCreatures(Controller, GetSourceCard(game).Id).Count();
+        }
     }
 
     class JigglyTotemEffect : PowerAttackerMultiplierEffect
@@ -83,7 +104,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public JigglyTotemEffect(int power) : base(power, new CardFilters.OwnersManaZoneTappedCardFilter())
+        public JigglyTotemEffect(int power) : base(power)
         {
         }
 
@@ -95,6 +116,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"While attacking, this creature gets +{_power} power for each tapped card in your mana zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).ManaZone.TappedCards.Count();
         }
     }
 }

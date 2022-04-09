@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class GigiosHammerContinuousEffect : AttacksIfAbleEffect, IAbilityAddingEffect
+    class GigiosHammerContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
     {
         private readonly Subtype _subtype;
 
@@ -42,14 +42,19 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public GigiosHammerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn())
+        public GigiosHammerContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return creature.HasSubtype(_subtype);
         }
 
         public override IContinuousEffect Copy()

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -12,10 +13,15 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class CalgoVizierOfRaincloudsEffect : UnblockableEffect
+    class CalgoVizierOfRaincloudsEffect : ContinuousEffect, IUnblockableEffect
     {
-        public CalgoVizierOfRaincloudsEffect() : base(new TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneMinPowerCreatureFilter(4000))
+        public CalgoVizierOfRaincloudsEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return IsSourceOfAbility(attacker, game) && blocker.Power >= 4000;
         }
 
         public override IContinuousEffect Copy()

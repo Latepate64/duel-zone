@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class UltimateDragonPowerEffect : PowerModifyingMultiplierEffect
     {
-        public UltimateDragonPowerEffect() : base(5000, new UltimateDragonPowerFilter())
+        public UltimateDragonPowerEffect() : base(5000)
         {
         }
 
@@ -29,18 +29,10 @@ namespace Cards.Cards.DM10
         {
             return "This creature gets +5000 power for each of your other creatures in the battle zone that has Dragon in its race.";
         }
-    }
 
-    class UltimateDragonPowerFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override int GetMultiplier(IGame game)
         {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new UltimateDragonPowerFilter();
+            return game.BattleZone.GetOtherCreatures(Controller, GetSourceCard(game).Id).Count(x => x.IsDragon);
         }
     }
 
@@ -51,10 +43,10 @@ namespace Cards.Cards.DM10
             return new UltimateDragonBreakerEffect();
         }
 
-        public override int GetAmount(IGame game)
+        public override int GetAmount(IGame game, Engine.ICard creature)
         {
-            var ability = game.GetAbility(SourceAbility);
-            return game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon);
+            var ability = GetSourceAbility(game);
+            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon) : 1;
         }
 
         public override string ToString()

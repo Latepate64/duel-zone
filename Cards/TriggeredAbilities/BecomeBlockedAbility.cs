@@ -10,7 +10,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected BecomeBlockedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
+        protected BecomeBlockedAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Cards.TriggeredAbilities
 
     class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
     {
-        public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect)
         { 
         }
 
@@ -38,6 +38,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever this creature becomes blocked, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(ICard card, IGame game)
+        {
+            return card.Id == Source;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM06
@@ -19,7 +20,7 @@ namespace Cards.Cards.DM06
         public override object Apply(IGame game, IAbility source)
         {
             var amount = new ReturnAnyNumberOfYourCreaturesToYourHandEffect().Apply(game, source).Count();
-            var choosableAmount = game.BattleZone.GetChoosableCreatures(game, source.GetOpponent(game).Id).Count();
+            var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Count();
             if (amount > 0 && amount <= choosableAmount)
             {
                 var effect = new ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(amount);
@@ -44,7 +45,7 @@ namespace Cards.Cards.DM06
 
     class ReturnAnyNumberOfYourCreaturesToYourHandEffect : ChooseAnyNumberOfCardsEffect
     {
-        public ReturnAnyNumberOfYourCreaturesToYourHandEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public ReturnAnyNumberOfYourCreaturesToYourHandEffect() : base()
         {
         }
 
@@ -62,6 +63,11 @@ namespace Cards.Cards.DM06
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
         }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
+        }
     }
 
     class ChooseOpponentsCreaturesAndReturnThemToHisHandEffect : BounceEffect
@@ -73,7 +79,7 @@ namespace Cards.Cards.DM06
             _amount = effect._amount;
         }
 
-        public ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(int amount) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), amount, amount)
+        public ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(int amount) : base(amount, amount)
         {
             _amount = amount;
         }
@@ -86,6 +92,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return $"Choose {_amount} of your opponent's creatures in the battle zone and return them to your opponent's hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 }

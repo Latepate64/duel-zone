@@ -1,9 +1,11 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -39,13 +41,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IDuration
     {
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(new TargetFilter(), 2000, new Durations.UntilTheEndOfTheTurn())
+        public ThreeEyedDragonflyContinuousEffect() : base(2000)
         {
         }
 
@@ -58,6 +60,16 @@ namespace Cards.Cards.DM04
         {
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
+
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
+
+        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return new List<Engine.ICard> { GetSourceCard(game) };
+        }
     }
 
     class YouMayDestroyOneOfYourOtherCreaturesEffect : DestroyEffect
@@ -66,7 +78,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public YouMayDestroyOneOfYourOtherCreaturesEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter(), 0, 1, true)
+        public YouMayDestroyOneOfYourOtherCreaturesEffect() : base(0, 1, true)
         {
         }
 
@@ -78,6 +90,11 @@ namespace Cards.Cards.DM04
         public override IOneShotEffect Copy()
         {
             return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }
     }
 }

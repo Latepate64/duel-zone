@@ -1,5 +1,6 @@
-﻿using Cards.CardFilters;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -7,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public PutCardsFromYourManaZoneIntoYourGraveyard(int amount) : base(new OwnersManaZoneCardFilter(), amount, amount, true)
+        public PutCardsFromYourManaZoneIntoYourGraveyard(int amount) : base(amount, amount, true)
         {
             _amount = amount;
         }
@@ -25,6 +26,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Put {(_amount > 1 ? $"{_amount} cards" : "a card")} from your mana zone into your graveyard.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Cards;
         }
     }
 }

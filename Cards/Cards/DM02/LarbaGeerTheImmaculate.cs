@@ -1,5 +1,9 @@
-﻿using Common;
+﻿using Cards.StaticAbilities;
+using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -13,7 +17,7 @@ namespace Cards.Cards.DM02
 
     class LarbaGeerTheImmaculateEffect : OneShotEffects.TapAreaOfEffect
     {
-        public LarbaGeerTheImmaculateEffect() : base(new CardFilters.OpponentsBattleZoneBlockerCreatureFilter())
+        public LarbaGeerTheImmaculateEffect() : base()
         {
         }
 
@@ -25,6 +29,11 @@ namespace Cards.Cards.DM02
         public override string ToString()
         {
             return "Tap all your opponent's creatures in the battle zone that have \"blocker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(game.GetOpponent(source.Controller)).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

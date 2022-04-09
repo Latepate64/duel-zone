@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -15,7 +17,7 @@ namespace Cards.Cards.DM06
 
     class AdomisTheOracleEffect : CardSelectionEffect
     {
-        public AdomisTheOracleEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 1, 1, true)
+        public AdomisTheOracleEffect() : base(1, 1, true)
         {
         }
 
@@ -37,6 +39,11 @@ namespace Cards.Cards.DM06
         {
             source.GetController(game).Look(source.GetOpponent(game), game, cards);
             source.GetOpponent(game).Unreveal(cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.Players.SelectMany(x => x.ShieldZone.Cards);
         }
     }
 }

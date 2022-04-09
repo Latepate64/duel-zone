@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
@@ -16,7 +17,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), source.Source, source.Controller, new Durations.Indefinite(), true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), source.Source, source.Controller, true));
             return null;
         }
 
@@ -33,7 +34,7 @@ namespace Cards.Cards.DM04
 
     class WhiskingWhirlwindUntapEffect : OneShotEffects.UntapAreaOfEffect
     {
-        public WhiskingWhirlwindUntapEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public WhiskingWhirlwindUntapEffect() : base()
         {
         }
 
@@ -45,6 +46,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Untap all your creatures in the battle zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

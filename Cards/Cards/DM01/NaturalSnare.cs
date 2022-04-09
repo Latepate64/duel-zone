@@ -1,6 +1,7 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM01
 
     class NaturalSnareEffect : ManaFeedEffect
     {
-        public NaturalSnareEffect() : base(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)
+        public NaturalSnareEffect() : base(1, 1, true)
         {
         }
 
@@ -27,6 +28,11 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Choose one of your opponent's creatures in the battle zone and put it into his mana zone.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 }

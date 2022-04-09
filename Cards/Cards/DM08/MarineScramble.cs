@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Common;
+﻿using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -38,10 +37,15 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class YourCreaturesCannotBeBlockedThisTurnEffect : UnblockableEffect
+    class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public YourCreaturesCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public YourCreaturesCannotBeBlockedThisTurnEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

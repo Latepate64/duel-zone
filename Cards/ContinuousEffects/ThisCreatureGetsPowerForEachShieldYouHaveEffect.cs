@@ -1,10 +1,11 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
     class ThisCreatureGetsPowerForEachShieldYouHaveEffect : PowerModifyingMultiplierEffect
     {
-        public ThisCreatureGetsPowerForEachShieldYouHaveEffect(int power) : base(power, new CardFilters.OwnersShieldZoneCardFilter())
+        public ThisCreatureGetsPowerForEachShieldYouHaveEffect(int power) : base(power)
         {
         }
 
@@ -20,6 +21,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"This creature gets +{_power} power for each shield you have.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).ShieldZone.Cards.Count;
         }
     }
 }

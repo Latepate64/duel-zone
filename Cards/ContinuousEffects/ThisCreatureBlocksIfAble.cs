@@ -3,10 +3,15 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureBlocksIfAble : BlocksIfAbleEffect
+    class ThisCreatureBlocksIfAble : ContinuousEffect, IBlocksIfAbleEffect
     {
-        public ThisCreatureBlocksIfAble() : base(new TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureBlocksIfAble() : base()
         {
+        }
+
+        public bool Applies(ICard creature, IGame game)
+        {
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

@@ -7,7 +7,7 @@ namespace Cards.TriggeredAbilities
 {
     public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
     {
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -24,6 +24,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"When you put this creature into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source == card.Id;
+        }
     }
 
     class WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
@@ -32,7 +37,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.AnotherBattleZoneCreatureFilter())
+        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -45,6 +50,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"Whenever another creature is put into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source != card.Id;
+        }
     }
 
     class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
@@ -53,7 +63,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.YourDragonoidOrDragonFilter())
+        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -66,6 +76,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Controller == card.Owner && (card.HasSubtype(Subtype.Dragonoid) || card.IsDragon);
+        }
     }
 
     class WhenYouPutAnotherCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
@@ -74,7 +89,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect, new CardFilters.OwnersOtherBattleZoneCreatureFilter())
+        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -87,6 +102,11 @@ namespace Cards.TriggeredAbilities
         {
             return $"When you put another creature into the battle zone, {GetEffectText()}";
         }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Source != card.Id && Controller == card.Owner;
+        }
     }
 
     public abstract class WheneverCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
@@ -95,7 +115,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
+        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -114,7 +134,7 @@ namespace Cards.TriggeredAbilities
             _subtype = ability._subtype;
         }
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect, new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(subtype))
+        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect)
         {
             _subtype = subtype;
         }
@@ -127,6 +147,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"Whenever you put a {_subtype} into the battle zone, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return Controller == card.Owner && card.HasSubtype(_subtype);
         }
     }
 }

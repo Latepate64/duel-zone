@@ -1,13 +1,15 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class StealthEffect : UnblockableEffect
+    class StealthEffect : ContinuousEffect, IUnblockableEffect
     {
         private readonly Civilization _civilization;
 
-        public StealthEffect(Civilization civilization) : base(new Engine.TargetFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter(), new Conditions.FilterAnyCondition(new CardFilters.OpponentsManaZoneCivilizationCardFilter(civilization)))
+        public StealthEffect(Civilization civilization) : base()
         {
             _civilization = civilization;
         }
@@ -15,6 +17,12 @@ namespace Cards.ContinuousEffects
         public StealthEffect(StealthEffect effect) : base(effect)
         {
             _civilization = effect._civilization;
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            var ability = GetSourceAbility(game);
+            return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));
         }
 
         public override IContinuousEffect Copy()

@@ -1,6 +1,8 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM11
 
     class RainbowGateEffect : OneShotEffects.SearchEffect
     {
-        public RainbowGateEffect() : base(new RainbowGateFilter(), true)
+        public RainbowGateEffect() : base(true)
         {
         }
 
@@ -27,18 +29,10 @@ namespace Cards.Cards.DM11
         {
             return "Search your deck. You may take a multi-colored creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.";
         }
-    }
 
-    class RainbowGateFilter : CardFilters.OwnersDeckCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return base.Applies(card, game, player) && card.IsMultiColored;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new RainbowGateFilter();
+            return source.GetController(game).Deck.Creatures.Where(x => x.IsMultiColored);
         }
     }
 }

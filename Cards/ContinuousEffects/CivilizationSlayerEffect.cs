@@ -1,14 +1,15 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class CivilizationSlayerEffect : SlayerEffect
+    class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect
     {
         private readonly Civilization[] _civilizations;
 
-        public CivilizationSlayerEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public CivilizationSlayerEffect(params Civilization[] civilizations) : base()
         {
             _civilizations = civilizations;
         }
@@ -16,6 +17,11 @@ namespace Cards.ContinuousEffects
         public CivilizationSlayerEffect(CivilizationSlayerEffect effect) : base(effect)
         {
             _civilizations = effect._civilizations;
+        }
+
+        public bool Applies(Engine.ICard creature, Engine.ICard against, IGame game)
+        {
+            return IsSourceOfAbility(creature, game) && against.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override ContinuousEffect Copy()

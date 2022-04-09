@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class AuraBlastEffect : OneShotAreaOfEffect
+    class AuraBlastEffect : OneShotEffect
     {
         private readonly int _power;
 
-        public AuraBlastEffect(int power) : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public AuraBlastEffect(int power) : base()
         {
             _power = power;
         }
@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(_power, GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(_power, game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

@@ -1,7 +1,8 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM11
 
     class MiraculousSnareEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public MiraculousSnareEffect() : base(new BattleZoneChoosableNonEvolutionCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
+        public MiraculousSnareEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {
         }
 
@@ -28,18 +29,10 @@ namespace Cards.Cards.DM11
         {
             return "Choose a non-evolution creature in the battle zone and add it to its owner's shields face down.";
         }
-    }
 
-    class BattleZoneChoosableNonEvolutionCreatureFilter : BattleZoneChoosableCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return base.Applies(card, game, player) && !card.Supertypes.Contains(Supertype.Evolution);
-        }
-
-        public override CardFilter Copy()
-        {
-            return new BattleZoneChoosableNonEvolutionCreatureFilter();
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id).Where(x => !x.IsEvolutionCreature);
         }
     }
 }

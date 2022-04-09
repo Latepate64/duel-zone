@@ -1,26 +1,34 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class PowerAttackerEffect : PowerModifyingEffect
+    class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PowerAttackerEffect(PowerModifyingEffect effect) : base(effect)
+        private readonly int _power;
+
+        public PowerAttackerEffect(PowerAttackerEffect effect) : base(effect)
         {
+            _power = effect._power;
         }
 
-        public PowerAttackerEffect(int power, params Condition[] conditions) : this(power, new TargetFilter(), new Durations.Indefinite(), conditions)
+        public PowerAttackerEffect(int power) : base()
         {
-        }
-
-        public PowerAttackerEffect(int power, CardFilter filter, Duration duration, params Condition[] conditions) : base(power, filter, duration, conditions.Union(new Condition[] { new Conditions.AttackingCreatureCondition(filter) }).ToArray())
-        {
+            _power = power;
         }
 
         public override ContinuousEffect Copy()
         {
             return new PowerAttackerEffect(this);
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            var creature = GetSourceCard(game);
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
+            {
+                creature.Power += _power;
+            }
         }
 
         public override string ToString()

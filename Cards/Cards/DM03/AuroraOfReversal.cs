@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class AuroraOfReversalEffect : ChooseAnyNumberOfCardsEffect
     {
-        public AuroraOfReversalEffect() : base(new CardFilters.OwnersShieldZoneCardFilter())
+        public AuroraOfReversalEffect() : base()
         {
         }
 
@@ -36,6 +37,11 @@ namespace Cards.Cards.DM03
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.ShieldZone, ZoneType.ManaZone, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Source).ShieldZone.Cards;
         }
     }
 }

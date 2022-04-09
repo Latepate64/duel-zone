@@ -1,5 +1,10 @@
-﻿using Engine.Abilities;
+﻿using Cards.ContinuousEffects;
+using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -11,9 +16,9 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class ChaosStrikeOneShotEffect : OneShotEffects.CreateContinuousEffectChoiceEffect
+    class ChaosStrikeOneShotEffect : OneShotEffects.CardSelectionEffect
     {
-        public ChaosStrikeOneShotEffect() : base(new CardFilters.OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true, new ChaosStrikeContinousEffect())
+        public ChaosStrikeOneShotEffect() : base(1, 1, true)
         {
         }
 
@@ -26,17 +31,43 @@ namespace Cards.Cards.DM01
         {
             return "Choose one of your opponent's untapped creatures in the battle zone. Your creatures can attack it this turn as though it were tapped.";
         }
+
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        {
+            if (cards.Length == 1)
+            {
+                game.AddContinuousEffects(source, new ChaosStrikeContinousEffect(cards.Single().Id));
+            }
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
+        }
     }
 
-    class ChaosStrikeContinousEffect : CanBeAttackedAsThoughTappedEffect
+    class ChaosStrikeContinousEffect : UntilEndOfTurnEffect, ICanBeAttackedAsThoughTappedEffect
     {
-        public ChaosStrikeContinousEffect() : base(null, new Durations.UntilTheEndOfTheTurn())
+        private readonly Guid _targetOfAttack;
+
+        public ChaosStrikeContinousEffect(Guid targetOfAttack) : base()
         {
+            _targetOfAttack = targetOfAttack;
+        }
+
+        public ChaosStrikeContinousEffect(ChaosStrikeContinousEffect effect) : base(effect)
+        {
+            _targetOfAttack = effect._targetOfAttack;
+        }
+
+        public bool Applies(ICard targetOfAttack)
+        {
+            return targetOfAttack.Id == _targetOfAttack;
         }
 
         public override IContinuousEffect Copy()
         {
-            return new ChaosStrikeContinousEffect();
+            return new ChaosStrikeContinousEffect(this);
         }
 
         public override string ToString()

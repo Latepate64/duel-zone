@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -14,7 +17,7 @@ namespace Cards.Cards.DM04
 
     class GalklifeDragonEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public GalklifeDragonEffect() : base(new CardFilters.OpponentsBattleZoneMaxPowerCivilizationCreatureFilter(4000, Civilization.Light))
+        public GalklifeDragonEffect() : base()
         {
         }
 
@@ -26,6 +29,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Destroy all light creatures that have power 4000 or less.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(Civilization.Light).Where(x => x.Power <= 4000);
         }
     }
 }

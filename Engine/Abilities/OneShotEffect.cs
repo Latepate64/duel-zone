@@ -10,6 +10,8 @@ namespace Engine.Abilities
     {
         protected OneShotEffect() { }
 
+        protected OneShotEffect(OneShotEffect effect) { }
+
         /// <summary>
         /// Applies the effect.
         /// </summary>

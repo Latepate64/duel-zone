@@ -2,6 +2,7 @@
 using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class LavaWalkerExecutoEffect : GrantChoiceEffect
+    class LavaWalkerExecutoEffect : CardSelectionEffect
     {
         public int Power { get; }
 
@@ -22,7 +23,7 @@ namespace Cards.Cards.DM06
             Power = effect.Power;
         }
 
-        public LavaWalkerExecutoEffect(int power) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Fire), 1, 1, true)
+        public LavaWalkerExecutoEffect(int power) : base(1, 1, true)
         {
             Power = power;
         }
@@ -40,6 +41,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller, Common.Civilization.Fire);
         }
     }
 }

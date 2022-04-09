@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM11
@@ -16,7 +17,7 @@ namespace Cards.Cards.DM11
 
     class HeavyweightDragonEffect : OneShotEffects.CardSelectionEffect
     {
-        public HeavyweightDragonEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)
+        public HeavyweightDragonEffect() : base(0, 2, true)
         {
         }
 
@@ -36,6 +37,11 @@ namespace Cards.Cards.DM11
             {
                 game.Destroy(cards);
             }
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Tapped);
         }
     }
 }

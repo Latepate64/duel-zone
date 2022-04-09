@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -13,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class HourglassMutantEffect : AbilityAddingEffect
     {
-        public HourglassMutantEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Water, Civilization.Fire), new Durations.Indefinite(), new StaticAbilities.SlayerAbility())
+        public HourglassMutantEffect() : base(new StaticAbilities.SlayerAbility())
         {
         }
 
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Each of your water creatures and fire creatures in the battle zone has \"slayer.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Civilization.Water, Civilization.Fire);
         }
     }
 }

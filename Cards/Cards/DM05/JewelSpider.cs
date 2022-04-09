@@ -1,6 +1,8 @@
 ﻿using Cards.OneShotEffects;
 using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM05
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect : ShieldRecoveryEffect
     {
-        public YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect() : base(new CardFilters.OwnersShieldZoneCardFilter(), 0, 1, true, false)
+        public YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect() : base(0, 1, true, false)
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM05
         public override IOneShotEffect Copy()
         {
             return new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect();
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ShieldZone.Cards;
         }
     }
 }

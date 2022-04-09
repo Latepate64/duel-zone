@@ -1,6 +1,8 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM09
 
     class NecrodragonIzoristVhalEffect : PowerModifyingMultiplierEffect
     {
-        public NecrodragonIzoristVhalEffect() : base(2000, new CardFilters.OwnersGraveyardCivilizationCreatureFilter(Civilization.Darkness))
+        public NecrodragonIzoristVhalEffect() : base(2000)
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "This creature gets +2000 power for each darkness creature in your graveyard.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(Controller).Graveyard.GetCreatures(Civilization.Darkness).Count();
         }
     }
 }

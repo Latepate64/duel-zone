@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -13,7 +16,7 @@ namespace Cards.Cards.DM04
 
     class ScreamingSunburstEffect : OneShotEffects.TapAreaOfEffect
     {
-        public ScreamingSunburstEffect() : base(new CardFilters.BattleZoneNonCivilizationCreatureFilter(Civilization.Light))
+        public ScreamingSunburstEffect() : base()
         {
         }
 
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Tap all creatures in the battle zone except light creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Light));
         }
     }
 }

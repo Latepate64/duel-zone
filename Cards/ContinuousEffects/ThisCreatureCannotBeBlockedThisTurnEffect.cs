@@ -1,16 +1,26 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeBlockedThisTurnEffect : UnblockableEffect
+    class ThisCreatureCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
     {
-        public ThisCreatureCannotBeBlockedThisTurnEffect() : base(null, new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public ThisCreatureCannotBeBlockedThisTurnEffect() : base()
         {
+        }
+
+        public ThisCreatureCannotBeBlockedThisTurnEffect(ThisCreatureCannotBeBlockedThisTurnEffect effect) : base(effect)
+        {
+        }
+
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        {
+            return IsSourceOfAbility(attacker, game);
         }
 
         public override IContinuousEffect Copy()
         {
-            return new ThisCreatureCannotBeBlockedThisTurnEffect();
+            return new ThisCreatureCannotBeBlockedThisTurnEffect(this);
         }
 
         public override string ToString()

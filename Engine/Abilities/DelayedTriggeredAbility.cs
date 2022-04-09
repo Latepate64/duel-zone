@@ -2,10 +2,9 @@
 
 namespace Engine.Abilities
 {
-    public class DelayedTriggeredAbility : IDisposable, IDurationable
+    public class DelayedTriggeredAbility : IDisposable
     {
         internal ITriggeredAbility TriggeredAbility { get; private set; }
-        public IDuration Duration { get; private set; }
 
         /// <summary>
         /// 603.7b
@@ -15,19 +14,17 @@ namespace Engine.Abilities
         /// </summary>
         internal bool TriggersOnlyOnce { get; private set; }
 
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, IDuration duration, bool triggersOnlyOnce)
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
             TriggeredAbility.Controller = owner;
-            Duration = duration;
             TriggersOnlyOnce = triggersOnlyOnce;
         }
 
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
             TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
-            Duration = ability.Duration.Copy();
         }
 
         public void Dispose()
@@ -43,8 +40,6 @@ namespace Engine.Abilities
                 //TODO: Make abilities disposable
                 //TriggeredAbility.Dispose();
                 TriggeredAbility = null;
-                Duration.Dispose();
-                Duration = null;
             }
         }
     }

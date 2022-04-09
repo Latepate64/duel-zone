@@ -1,6 +1,8 @@
-﻿using Cards.CardFilters;
+﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM08
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
-        public MegariaEmpressOfDreadEffect() : base(new BattleZoneCreatureFilter(), new Durations.Indefinite(), new SlayerAbility())
+        public MegariaEmpressOfDreadEffect() : base(new SlayerAbility())
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM08
         public override string ToString()
         {
             return "Each creature in the battle zone has \"slayer.\"";
+        }
+
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.Creatures;
         }
     }
 }

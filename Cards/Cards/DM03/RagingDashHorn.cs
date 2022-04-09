@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class RagingDashHornEffect : CharacteristicModifyingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public RagingDashHornEffect() : base(new TargetFilter(), new Durations.Indefinite()) { }
+        public RagingDashHornEffect() : base() { }
 
         public RagingDashHornEffect(RagingDashHornEffect effect) : base(effect) { }
 
@@ -23,7 +24,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
+                GetSourceCard(game).AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
             }
         }
 
@@ -36,7 +37,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetAffectedCards(game).ToList().ForEach(x => x.Power += 3000);
+                GetSourceCard(game).Power += 3000;
             }
         }
 
@@ -47,7 +48,7 @@ namespace Cards.Cards.DM03
 
         private bool Applies(IGame game)
         {
-            var ability = game.GetAbility(SourceAbility);
+            var ability = GetSourceAbility(game);
             if (ability != null)
             {
                 return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));

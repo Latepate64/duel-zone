@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM07
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM07
 
     class AquaAgentEffect : DestructionReplacementOptionallyToHandEffect
     {
-        public AquaAgentEffect() : base(new Engine.TargetFilter()) { }
+        public AquaAgentEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
@@ -23,6 +24,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "When this creature would be destroyed, you may return it to your hand instead.";
+        }
+
+        protected override bool Applies(ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
     }
 }

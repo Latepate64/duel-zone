@@ -1,8 +1,8 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM11
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM11
             _cost = effect._cost;
         }
 
-        public MiraculousRebirthSearchEffect(int cost) : base(new OwnersDeckCreatureThatCostsFilter(cost), false)
+        public MiraculousRebirthSearchEffect(int cost) : base(false)
         {
             _cost = cost;
         }
@@ -66,30 +66,10 @@ namespace Cards.Cards.DM11
         {
             game.Move(ZoneType.Deck, ZoneType.BattleZone, cards);
         }
-    }
 
-    class OwnersDeckCreatureThatCostsFilter : OwnersDeckCreatureFilter
-    {
-        private readonly int _cost;
-
-        public OwnersDeckCreatureThatCostsFilter(int cost)
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            _cost = cost;
-        }
-
-        public OwnersDeckCreatureThatCostsFilter(OwnersDeckCreatureThatCostsFilter filter) : base(filter)
-        {
-            _cost = filter._cost;
-        }
-
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.ManaCost == _cost;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new OwnersDeckCreatureThatCostsFilter(this);
+            return source.GetController(game).Deck.Creatures.Where(x => x.ManaCost == _cost);
         }
     }
 }

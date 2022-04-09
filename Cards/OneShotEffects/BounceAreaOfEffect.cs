@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine;
 
 namespace Cards.OneShotEffects
 {
@@ -9,7 +8,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected BounceAreaOfEffect(CardFilter filter) : base(ZoneType.BattleZone, ZoneType.Hand, filter)
+        protected BounceAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Hand)
         {
         }
     }

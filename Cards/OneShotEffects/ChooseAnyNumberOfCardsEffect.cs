@@ -8,23 +8,19 @@ namespace Cards.OneShotEffects
 {
     public abstract class ChooseAnyNumberOfCardsEffect : OneShotEffect
     {
-        public ICardFilter Filter { get; }
-
-        protected ChooseAnyNumberOfCardsEffect(CardFilter filter)
+        protected ChooseAnyNumberOfCardsEffect()
         {
-            Filter = filter;
         }
 
-        protected ChooseAnyNumberOfCardsEffect(ChooseAnyNumberOfCardsEffect effect)
+        protected ChooseAnyNumberOfCardsEffect(ChooseAnyNumberOfCardsEffect effect) : base(effect)
         {
-            Filter = effect.Filter.Copy();
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
-            var cards = game.GetAllCards().Where(card => Filter.Applies(card, game, source.GetController(game)));
+            var cards = GetAffectedCards(game, source);
             if (cards.Any())
             {
                 var chosen = source.GetController(game).Choose(new CardSelectionInEffect(source.GetController(game).Id, cards, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
@@ -33,5 +29,7 @@ namespace Cards.OneShotEffects
             }
             return cards;
         }
+
+        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
     }
 }

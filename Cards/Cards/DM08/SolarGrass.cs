@@ -1,6 +1,8 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class SolarGrassEffect : OneShotEffects.UntapAreaOfEffect
     {
-        public SolarGrassEffect() : base(new SolarGrassFilter())
+        public SolarGrassEffect() : base()
         {
         }
 
@@ -27,23 +29,10 @@ namespace Cards.Cards.DM08
         {
             return "Untap all your creatures in the battle zone except Solar Grasses.";
         }
-    }
 
-    class SolarGrassFilter : CardFilters.OwnersBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return base.Applies(card, game, player) && card.Name != "Solar Grass";
-        }
-
-        public override CardFilter Copy()
-        {
-            return new SolarGrassFilter();
-        }
-
-        public override string ToString()
-        {
-            return "all your creatures in the battle zone except Solar Grasses";
+            return game.BattleZone.GetCreatures(source.Controller).Where(x => x.Name != "Solar Grass");
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class InvincibleAbyssEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public InvincibleAbyssEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter())
+        public InvincibleAbyssEffect() : base()
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "Destroy all your opponent's creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.GetOpponent(game).Id);
         }
     }
 }

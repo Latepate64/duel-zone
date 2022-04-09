@@ -1,12 +1,11 @@
 ﻿using Common;
 using Common.Choices;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
     abstract class DestructionReplacementOptionallyToHandEffect : DestructionReplacementEffect
     {
-        public DestructionReplacementOptionallyToHandEffect(Engine.CardFilter filter) : base(filter)
+        public DestructionReplacementOptionallyToHandEffect() : base()
         {
         }
 
@@ -14,11 +13,11 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(Engine.IGame game, Engine.IPlayer player)
+        public override bool Apply(Engine.IGame game, Engine.IPlayer player, Engine.ICard creature)
         {
             if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
             {
-                game.Move(ZoneType.BattleZone, ZoneType.Hand, GetAffectedCards(game).ToArray());
+                game.Move(ZoneType.BattleZone, ZoneType.Hand, creature);
                 return true;
             }
             return false;

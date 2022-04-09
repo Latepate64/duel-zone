@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
@@ -12,9 +13,9 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class MightyBanditAceOfThievesEffect : OneShotEffects.GrantChoiceEffect
+    class MightyBanditAceOfThievesEffect : OneShotEffects.CardSelectionEffect
     {
-        public MightyBanditAceOfThievesEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public MightyBanditAceOfThievesEffect() : base(1, 1, true)
         {
         }
 
@@ -31,6 +32,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(5000, cards));
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

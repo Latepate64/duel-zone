@@ -1,10 +1,9 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect : AbilityAddingEffect
+    class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         private readonly IAbility _ability;
 
@@ -13,7 +12,7 @@ namespace Cards.ContinuousEffects
             _ability = effect._ability.Copy();
         }
 
-        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(ICardFilter filter, IAbility ability) : base(filter, new Durations.UntilTheEndOfTheTurn(), ability)
+        public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability, params Engine.ICard[] cards) : base(ability, cards)
         {
             _ability = ability;
         }

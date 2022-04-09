@@ -1,8 +1,8 @@
 ﻿using Cards.ContinuousEffects;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -26,15 +26,15 @@ namespace Cards.OneShotEffects
     }
 
 
-    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
+    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IDuration
     {
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player)
+        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
         {
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, GetAffectedCards(game).ToArray());
+            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, card);
             return true;
         }
 
@@ -43,9 +43,19 @@ namespace Cards.OneShotEffects
             return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();
         }
 
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
+
         public override string ToString()
         {
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
+        }
+
+        protected override bool Applies(ICard card, IGame game)
+        {
+            return card.Owner == Controller;
         }
     }
 }

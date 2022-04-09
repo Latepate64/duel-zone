@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected FromGraveyardIntoManaZoneEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses, ZoneType.Graveyard, ZoneType.ManaZone)
+        protected FromGraveyardIntoManaZoneEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Graveyard, ZoneType.ManaZone)
         {
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM09
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM09
 
     class YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect : OneShotEffects.DestroyEffect
     {
-        public YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneChoosableUntappedCreatureFilter(), 0, 1, true)
+        public YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect() : base(0, 1, true)
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "You may destroy one of your opponent's untapped creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 }

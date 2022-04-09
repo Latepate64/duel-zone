@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -11,10 +14,15 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class BurnwispLizardEffect : SpeedAttackerEffect
+    class BurnwispLizardEffect : ContinuousEffect, ISpeedAttackerEffect
     {
-        public BurnwispLizardEffect() : base(new CardFilters.OwnersBattleZoneSilentSkillCreatureFilter(), new Durations.Indefinite())
+        public BurnwispLizardEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return creature.Owner == Controller && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
 
         public override IContinuousEffect Copy()

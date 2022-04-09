@@ -1,5 +1,7 @@
-﻿using Cards.CardFilters;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -13,15 +15,23 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class PalaOlesisMorningGuardianEffect : PowerModifyingEffect
+    class PalaOlesisMorningGuardianEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PalaOlesisMorningGuardianEffect() : base(2000, new OwnersOtherBattleZoneCreatureFilter(), new Durations.Indefinite(), new Conditions.ItIsYourOpponentsTurnCondition())
+        public PalaOlesisMorningGuardianEffect() : base()
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new PalaOlesisMorningGuardianEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            if (game.GetOpponent(Controller) == game.CurrentTurn.ActivePlayer.Id)
+            {
+                game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += 2000);
+            }
         }
 
         public override string ToString()

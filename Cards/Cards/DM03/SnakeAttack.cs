@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
@@ -15,15 +16,11 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class SnakeAttackEffect : OneShotAreaOfEffect
+    class SnakeAttackEffect : OneShotEffect
     {
-        public SnakeAttackEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
-        {
-        }
-
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 
@@ -38,19 +35,19 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AbilityAddingEffect
+    class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
     {
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(AbilityAddingEffect effect) : base(effect)
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilTheEndOfTheTurn(), new DoubleBreakerAbility())
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new DoubleBreakerAbility(), cards)
         {
         }
 
         public override IContinuousEffect Copy()
         {
-            return new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect();
+            return new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(this);
         }
 
         public override string ToString()

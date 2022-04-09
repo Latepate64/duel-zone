@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class SparkChemistShadowOfWhimEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public SparkChemistShadowOfWhimEffect() : base(new CardFilters.OwnersManaZoneCardFilter())
+        public SparkChemistShadowOfWhimEffect() : base()
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Return all the cards from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.GetPlayer(source.Controller).ManaZone.Cards;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -13,15 +14,23 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class CratersaurEffect : CanAttackUntappedCreaturesEffect, IAbilityAddingEffect
+    class CratersaurEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
-        public CratersaurEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite(), new Conditions.FilterNoneCondition(new CardFilters.OwnersShieldZoneCardFilter()))
+        public CratersaurEffect() : base()
         {
         }
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000)));
+            if (YouHaveNoShields(game))
+            {
+                GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000));
+            }
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        {
+            return YouHaveNoShields(game) && IsSourceOfAbility(attacker, game);
         }
 
         public override IContinuousEffect Copy()
@@ -32,6 +41,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "While you have no shields, this creature can attack untapped creatures and has \"Power attacker +3000.\"";
+        }
+
+        private bool YouHaveNoShields(IGame game)
+        {
+            return !GetSourceAbility(game).GetController(game).ShieldZone.Cards.Any();
         }
     }
 }

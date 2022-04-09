@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -14,7 +17,7 @@ namespace Cards.Cards.DM04
 
     class BallomMasterOfDeathEffect : OneShotEffects.DestroyAreaOfEffect
     {
-        public BallomMasterOfDeathEffect() : base(new CardFilters.BattleZoneNonCivilizationCreatureFilter(Civilization.Darkness))
+        public BallomMasterOfDeathEffect() : base()
         {
         }
 
@@ -26,6 +29,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Destroy all creatures except darkness creatures.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Darkness));
         }
     }
 }

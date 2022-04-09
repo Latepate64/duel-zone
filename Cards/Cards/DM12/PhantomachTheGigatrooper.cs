@@ -1,5 +1,9 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -11,15 +15,20 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class PhantomachPowerEffect : PowerModifyingEffect
+    class PhantomachPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public PhantomachPowerEffect() : base(2000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite())
+        public PhantomachPowerEffect() : base()
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new PhantomachPowerEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.Chimera) || x.HasSubtype(Subtype.Armorloid))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -30,7 +39,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachDoubleBreakerEffect : AbilityAddingEffect
     {
-        public PhantomachDoubleBreakerEffect() : base(new CardFilters.OwnersBattleZoneSubtypeCreatureFilter(Subtype.Chimera, Subtype.Armorloid), new Durations.Indefinite(), new StaticAbilities.DoubleBreakerAbility())
+        public PhantomachDoubleBreakerEffect() : base(new StaticAbilities.DoubleBreakerAbility())
         {
         }
 
@@ -42,6 +51,11 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Each of your Chimeras and Armorloids in the battle zone has \"double breaker.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Subtype.Chimera, Subtype.Armorloid);
         }
     }
 }

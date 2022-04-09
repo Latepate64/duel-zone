@@ -1,6 +1,8 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class PinpointLunatronEffect : OneShotEffects.CardSelectionEffect
     {
-        public PinpointLunatronEffect() : base(new PinpointLunatronFilter(), 1, 1, true)
+        public PinpointLunatronEffect() : base(1, 1, true)
         {
         }
 
@@ -36,18 +38,10 @@ namespace Cards.Cards.DM10
                 game.Move(sourceZone, ZoneType.Hand, card);
             }
         }
-    }
 
-    class PinpointLunatronFilter : CardFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return new CardFilters.BattleZoneChoosableCreatureFilter().Applies(card, game, player) || new CardFilters.ManaZoneCardFilter().Applies(card, game, player);
-        }
-
-        public override ICardFilter Copy()
-        {
-            return new PinpointLunatronFilter();
+            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(source.Controller));
         }
     }
 }

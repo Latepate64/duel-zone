@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ShieldBurnEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses, ZoneType.ShieldZone, ZoneType.Graveyard)
+        protected ShieldBurnEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.ShieldZone, ZoneType.Graveyard)
         {
         }
     }

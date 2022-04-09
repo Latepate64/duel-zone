@@ -1,10 +1,12 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class YouMayDestroyCreatureEffect : DestroyEffect
     {
-        public YouMayDestroyCreatureEffect() : base(new CardFilters.BattleZoneChoosableCreatureFilter(), 0, 1, true)
+        public YouMayDestroyCreatureEffect() : base(0, 1, true)
         {
         }
 
@@ -16,6 +18,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "You may destroy a creature.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -37,7 +38,7 @@ namespace Cards.Cards.DM10
 
     class PutCardFromYourHandIntoYourManaZone : OneShotEffects.CardMovingChoiceEffect
     {
-        public PutCardFromYourHandIntoYourManaZone() : base(new CardFilters.OwnersHandCardFilter(), 1, 1, true, ZoneType.Hand, ZoneType.ManaZone)
+        public PutCardFromYourHandIntoYourManaZone() : base(1, 1, true, ZoneType.Hand, ZoneType.ManaZone)
         {
         }
 
@@ -49,6 +50,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Put a card from your hand into your mana zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Hand.Cards;
         }
     }
 }

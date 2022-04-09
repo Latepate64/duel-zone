@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class KingPonitasEffect : OneShotEffects.SearchEffect
     {
-        public KingPonitasEffect() : base(new CardFilters.OwnersDeckCivilizationCardFilter(Civilization.Water), true)
+        public KingPonitasEffect() : base(true)
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Search your deck. You may take a water card from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.GetCards(Civilization.Water);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class EarthRipperTalonOfRageEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public EarthRipperTalonOfRageEffect() : base(new CardFilters.OwnersManaZoneTappedCardFilter())
+        public EarthRipperTalonOfRageEffect() : base()
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Return all tapped cards from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.TappedCards;
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -14,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class RoarOfTheEarthEffect : OneShotEffects.SelfManaRecoveryEffect
     {
-        public RoarOfTheEarthEffect() : base(1, 1, true, new CardFilters.OwnersManaZoneMinCostCreatureFilter(6)) { }
+        public RoarOfTheEarthEffect() : base(1, 1, true) { }
 
         public override IOneShotEffect Copy()
         {
@@ -24,6 +27,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Return a creature that costs 6 or more from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Creatures.Where(x => x.ManaCost >= 6);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public MarchingMotherboardAbility(IOneShotEffect effect) : base(effect, new MarchingMotherboardFilter())
+        public MarchingMotherboardAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -33,23 +33,10 @@ namespace Cards.Cards.DM09
         {
             return $"Whenever you put another creature that has Cyber in its race into the battle zone, {GetEffectText()}";
         }
-    }
 
-    class MarchingMotherboardFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
         {
-            return base.Applies(card, game, player) && card.Subtypes.Intersect(new Subtype[] { Subtype.CyberCluster, Subtype.CyberLord, Subtype.CyberMoon, Subtype.CyberVirus }).Any();
-        }
-
-        public override CardFilter Copy()
-        {
-            return new MarchingMotherboardFilter();
-        }
-
-        public override string ToString()
-        {
-            return "another creature that has Cyber in its race";
+            return card.Owner == Controller && card.Id != Source && card.Subtypes.Intersect(new Subtype[] { Subtype.CyberCluster, Subtype.CyberLord, Subtype.CyberMoon, Subtype.CyberVirus }).Any();
         }
     }
 }

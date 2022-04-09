@@ -1,10 +1,11 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : CannotBeAttackedEffect
+    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
         private readonly Civilization[] _civilizations;
 
@@ -13,9 +14,14 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base(new Engine.TargetFilter(), new CardFilters.OpponentsBattleZoneCivilizationCreatureFilter(civilizations), new Durations.Indefinite())
+        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base()
         {
             _civilizations = civilizations;
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        {
+            return IsSourceOfAbility(targetOfAttack, game) && attacker.Civilizations.Intersect(_civilizations).Any();
         }
 
         public override IContinuousEffect Copy()

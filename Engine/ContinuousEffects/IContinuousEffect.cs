@@ -2,13 +2,11 @@
 
 namespace Engine.ContinuousEffects
 {
-    public interface IContinuousEffect : ITimestampable, IDisposable, IDurationable
+    public interface IContinuousEffect : ITimestampable, IDisposable
     {
+        Guid Controller { get; set; }
         Guid SourceAbility { get; set; }
-        ICardFilter Filter { get; set; }
 
-        bool ConditionsApply(IGame game);
         IContinuousEffect Copy();
-        void SetupConditionFilters(Guid id);
     }
 }

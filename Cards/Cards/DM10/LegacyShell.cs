@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -13,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class LegacyShellEffect : AbilityAddingEffect
     {
-        public LegacyShellEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Fire), new Durations.Indefinite(), new StaticAbilities.PowerAttackerAbility(3000))
+        public LegacyShellEffect() : base(new StaticAbilities.PowerAttackerAbility(3000))
         {
         }
 
@@ -25,6 +28,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "Each of your light creatures and fire creatures has \"power attacker +3000.\"";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller, Civilization.Light, Civilization.Fire);
         }
     }
 }

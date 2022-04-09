@@ -1,12 +1,10 @@
 ﻿using Engine;
-using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
     class WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect : DestructionReplacementEffect
     {
-        public WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect() : base(new TargetFilter())
+        public WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect() : base()
         {
         }
 
@@ -14,9 +12,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player)
+        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
         {
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ShieldZone, GetAffectedCards(game).ToArray());
+            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ShieldZone, card);
             return true;
         }
 
@@ -28,6 +26,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "When this creature would be destroyed, add it to your shields face down instead.";
+        }
+
+        protected override bool Applies(ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
     }
 }

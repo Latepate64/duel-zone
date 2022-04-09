@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -32,7 +33,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class ImpossibleTunnelContinuousEffect : UnblockableEffect
+    class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
         private readonly Subtype _subtype;
 
@@ -41,9 +42,14 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneCreatureFilter())
+        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

@@ -1,4 +1,6 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM09
@@ -11,10 +13,15 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class GabzagulWarlordOfPainEffect : AttacksIfAbleEffect
+    class GabzagulWarlordOfPainEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
-        public GabzagulWarlordOfPainEffect() : base(new CardFilters.BattleZoneCreatureFilter(), new Durations.Indefinite())
+        public GabzagulWarlordOfPainEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard creature, IGame game)
+        {
+            return true;
         }
 
         public override IContinuousEffect Copy()

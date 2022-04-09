@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Steps;
@@ -15,7 +16,7 @@ namespace Cards.OneShotEffects
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != System.Guid.Empty)
             {
-                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(new TargetFilter { Target = phase.AttackingCreature }));
+                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(game.GetCard(phase.AttackingCreature)));
             }
             return null;
         }
@@ -31,13 +32,13 @@ namespace Cards.OneShotEffects
         }
     }
 
-    class ThisCreatureGetSlayerUntilEndOfTheTurnEffect : AbilityAddingEffect
+    class ThisCreatureGetSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ThisCreatureGetSlayerUntilEndOfTheTurnEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICardFilter filter) : base(filter, new Durations.UntilTheEndOfTheTurn(), new StaticAbilities.SlayerAbility())
+        public ThisCreatureGetSlayerUntilEndOfTheTurnEffect(ICard card) : base(card, new StaticAbilities.SlayerAbility())
         {
         }
 

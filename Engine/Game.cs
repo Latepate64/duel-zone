@@ -87,6 +87,7 @@ namespace Engine
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public IBattleZone BattleZone { get; set; } = new BattleZone();
+        public Stack<ICard> SpellsBeingCast { get; } = new Stack<ICard>();
 
         public delegate void GameEventHandler(IGameEvent gameEvent);
 
@@ -260,7 +261,7 @@ namespace Engine
             {
                 Process(new WinBattleEvent { Card = winner.Convert() });
                 CheckLoseInBattle(loser, winner);
-                if (GetContinuousEffects<SlayerEffect>(loser).Any(x => x.WorksAgainstFilter.Applies(winner, this, GetPlayer(winner.Owner))))
+                if (GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, this)))
                 {
                     winner.LostInBattle = true; // TODO: Not sure if proper way to do
                 }
@@ -269,7 +270,7 @@ namespace Engine
 
         private void CheckLoseInBattle(ICard target, ICard against)
         {
-            if (!GetContinuousEffects<INotDestroyedInBattleEffect>(target).Any(x => x.Applies(against)))
+            if (!GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, this)))
             {
                 target.LostInBattle = true;
             }
@@ -277,12 +278,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetAllCards()
         {
-            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards);
-        }
-
-        public IEnumerable<ICard> GetAllCards(ICardFilter filter, Guid player)
-        {
-            return GetAllCards().Where(card => filter.Applies(card, this, GetPlayer(player)));
+            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellsBeingCast);
         }
 
         public void Destroy(IEnumerable<ICard> cards)
@@ -388,8 +384,14 @@ namespace Engine
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
 
-                _ = _continuousEffects.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
-                _ = _delayedTriggeredAbilities.RemoveAll(x => x.Duration.ShouldExpire(gameEvent));
+                foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                {
+                    _continuousEffects.Remove(remove);
+                }
+                foreach (var remove in _delayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                {
+                    _delayedTriggeredAbilities.Remove(remove);
+                }
 
                 try
                 {
@@ -431,14 +433,9 @@ namespace Engine
             return abilities;
         }
 
-        public IEnumerable<T> GetContinuousEffects<T>(ICard card) where T : IContinuousEffect
+        public IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect
         {
-            return _continuousEffects.OfType<T>().Where(x => x.Filter.Applies(card, this, GetPlayer(card.Owner)) && x.ConditionsApply(this));
-        }
-
-        public IEnumerable<ICard> GetChoosableBattleZoneCreatures(IPlayer selector)
-        {
-            return BattleZone.GetCreatures(selector.Id).Union(BattleZone.GetCreatures(GetOpponent(selector.Id)).Where(x => !GetContinuousEffects<UnchoosableEffect>(x).Any()));
+            return _continuousEffects.OfType<T>();
         }
 
         public void Lose(params IPlayer[] players)
@@ -520,7 +517,7 @@ namespace Engine
                     ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
                     : effectGroups.Select(x => x.Id).Single();
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
-                if (effect.Apply(this, GetPlayer(cardGroup.Key)))
+                if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
                 {
                     events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
                 }
@@ -561,14 +558,14 @@ namespace Engine
             }
         }
 
-        private List<ReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
+        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
         {
-            var replacementEffects = new List<ReplacementEffect>();
+            var replacementEffects = new List<IReplacementEffect>();
             foreach (var moveEvent in events)
             {
-                foreach (var replacementEffect in GetAllCards().SelectMany(x => GetContinuousEffects<ReplacementEffect>(x)).Where(x => x.Replaceable(moveEvent, this)))
+                foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
                 {
-                    var effect = replacementEffect.Copy() as ReplacementEffect;
+                    var effect = replacementEffect.Copy() as IReplacementEffect;
                     effect.EventToReplace = moveEvent.Copy();
                     replacementEffects.Add(effect);
                 }
@@ -661,7 +658,7 @@ namespace Engine
         public void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects)
         {
             // 613.7b A continuous effect generated by the resolution of a spell or ability receives a timestamp at the time it’s created.
-            continuousEffects.ToList().ForEach(x => { x.Timestamp = GetTimestamp(); x.SourceAbility = source.Id; });
+            continuousEffects.ToList().ForEach(x => { x.Timestamp = GetTimestamp(); });
             _continuousEffects.AddRange(continuousEffects);
         }
 
@@ -713,10 +710,10 @@ namespace Engine
             if (attacker.CanAttackCreatures(this))
             {
                 var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttack(x, this));
-                var canAttackUntappedCreaturesEffects = GetContinuousEffects<CanAttackUntappedCreaturesEffect>(attacker);
+                var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
-                    canAttackUntappedCreaturesEffects.Any(e => e.Applies(c, this)) ||
-                    GetContinuousEffects<CanBeAttackedAsThoughTappedEffect>(c).Any()));
+                    canAttackUntappedCreaturesEffects.Any(e => e.Applies(attacker, c, this)) ||
+                    GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>().Any(x => x.Applies(c))));
             }
             if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
             {

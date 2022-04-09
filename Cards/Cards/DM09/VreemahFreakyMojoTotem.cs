@@ -1,7 +1,10 @@
 ﻿using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -32,9 +35,9 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect
+    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IDuration
     {
-        public VreemahFreakyMojoTotemContinuousEffect() : base(new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.BeastFolk), 2000, new Durations.UntilTheEndOfTheTurn())
+        public VreemahFreakyMojoTotemContinuousEffect() : base(2000)
         {
         }
 
@@ -43,9 +46,19 @@ namespace Cards.Cards.DM09
             return new VreemahFreakyMojoTotemContinuousEffect();
         }
 
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+        }
+
         public override string ToString()
         {
             return "Each Beast Folk in the battle zone gets +2000 power and \"double breaker\" until the end of the turn.";
+        }
+
+        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.BeastFolk)).ToList();
         }
     }
 }

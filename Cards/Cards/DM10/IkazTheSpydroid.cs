@@ -3,6 +3,7 @@ using Cards.TriggeredAbilities;
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -17,7 +18,7 @@ namespace Cards.Cards.DM10
 
     class IkazTheSpydroidEffect : CardSelectionEffect
     {
-        public IkazTheSpydroidEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public IkazTheSpydroidEffect() : base(1, 1, true)
         {
         }
 
@@ -33,18 +34,27 @@ namespace Cards.Cards.DM10
 
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, new Durations.Indefinite(), true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, true));
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 
     class IkazTheSpydroidUntapEffect : UntapAreaOfEffect
     {
-        public IkazTheSpydroidUntapEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards))
+        private readonly Engine.ICard[] _cards;
+
+        public IkazTheSpydroidUntapEffect(params Engine.ICard[] cards) : base()
         {
+            _cards = cards;
         }
 
         public IkazTheSpydroidUntapEffect(IkazTheSpydroidUntapEffect effect) : base(effect)
         {
+            _cards = effect._cards;
         }
 
         public override IOneShotEffect Copy()
@@ -54,7 +64,12 @@ namespace Cards.Cards.DM10
 
         public override string ToString()
         {
-            return $"Untap {Filter} after the battle.";
+            return $"Untap {_cards} after the battle.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return _cards;
         }
     }
 }

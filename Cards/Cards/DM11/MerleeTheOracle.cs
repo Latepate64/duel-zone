@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -11,15 +14,20 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class MerleeTheOracleEffect : PowerModifyingEffect
+    class MerleeTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public MerleeTheOracleEffect() : base(1000, new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.Indefinite())
+        public MerleeTheOracleEffect() : base()
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new MerleeTheOracleEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            game.BattleZone.GetCreatures(Controller).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

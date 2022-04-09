@@ -1,5 +1,4 @@
 ﻿using Common;
-using Engine;
 
 namespace Cards.OneShotEffects
 {
@@ -9,7 +8,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected DestroyAreaOfEffect(ICardFilter filter) : base(ZoneType.BattleZone, ZoneType.Graveyard, filter)
+        protected DestroyAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Graveyard)
         {
         }
     }

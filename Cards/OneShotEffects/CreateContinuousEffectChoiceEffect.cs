@@ -1,7 +1,6 @@
-﻿using Cards.CardFilters;
+﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
@@ -15,7 +14,7 @@ namespace Cards.OneShotEffects
             ContinuousEffects = effect.ContinuousEffects;
         }
 
-        protected CreateContinuousEffectChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(filter, minimum, maximum, controllerChooses)
+        protected CreateContinuousEffectChoiceEffect(int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(minimum, maximum, controllerChooses)
         {
             ContinuousEffects = effects;
         }
@@ -24,9 +23,7 @@ namespace Cards.OneShotEffects
         {
             foreach (var effect in ContinuousEffects)
             {
-                var copy = effect.Copy();
-                copy.Filter = new TargetsFilter(cards);
-                game.AddContinuousEffects(source, copy);
+                game.AddContinuousEffects(source, effect.Copy());
             }
         }
     }

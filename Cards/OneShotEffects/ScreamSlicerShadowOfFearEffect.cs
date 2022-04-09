@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -25,18 +26,31 @@ namespace Cards.OneShotEffects
 
     class ScreamSlicerShadowOfFearDestroyEffect : OneShotEffects.DestroyEffect
     {
-        public ScreamSlicerShadowOfFearDestroyEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, true)
+        private readonly ICard[] _cards;
+
+        public ScreamSlicerShadowOfFearDestroyEffect(params Engine.ICard[] cards) : base(1, 1, true)
         {
+            _cards = cards;
+        }
+
+        public ScreamSlicerShadowOfFearDestroyEffect(ScreamSlicerShadowOfFearDestroyEffect effect) : base(effect)
+        {
+            _cards = effect._cards;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new ScreamSlicerShadowOfFearDestroyEffect();
+            return new ScreamSlicerShadowOfFearDestroyEffect(this);
         }
 
         public override string ToString()
         {
             return "Destroy a creature.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return _cards;
         }
     }
 }

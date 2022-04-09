@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -13,7 +15,7 @@ namespace Cards.Cards.DM09
 
     class TerradragonAnristVhalEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TerradragonAnristVhalEffect() : base(2000, new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Nature))
+        public TerradragonAnristVhalEffect() : base(2000)
         {
         }
 
@@ -25,6 +27,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "This creature gets +2000 power for each of your other nature creatures in the battle zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherCreatures(Controller, GetSourceCard(game).Id, Civilization.Nature).Count();
         }
     }
 }

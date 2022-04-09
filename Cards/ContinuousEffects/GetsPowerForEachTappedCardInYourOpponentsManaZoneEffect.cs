@@ -1,10 +1,12 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
     class GetsPowerForEachTappedCardInYourOpponentsManaZoneEffect : PowerModifyingMultiplierEffect
     {
-        public GetsPowerForEachTappedCardInYourOpponentsManaZoneEffect(int power) : base(power, new CardFilters.OpponentsManaZoneTappedCardFilter())
+        public GetsPowerForEachTappedCardInYourOpponentsManaZoneEffect(int power) : base(power)
         {
         }
 
@@ -20,6 +22,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"This creature gets +{_power} power for each tapped card in your opponent's mana zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.GetPlayer(game.GetOpponent(Controller)).ManaZone.TappedCards.Count();
         }
     }
 }

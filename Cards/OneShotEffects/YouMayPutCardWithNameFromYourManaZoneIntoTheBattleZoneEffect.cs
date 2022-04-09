@@ -1,5 +1,8 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -12,7 +15,7 @@ namespace Cards.OneShotEffects
             _name = effect._name;
         }
 
-        public YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(new CardFilters.OwnersManaZoneNamedCardFilter(name), 0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        public YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
             _name = name;
         }
@@ -25,6 +28,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"You may choose an {_name} in your mana zone and put it into the battle zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Cards.Where(x => x.Name == _name);
         }
     }
 }

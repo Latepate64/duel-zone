@@ -1,11 +1,17 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureAttacksEachTurnIfAbleEffect : AttacksIfAbleEffect
+    class ThisCreatureAttacksEachTurnIfAbleEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
-        public ThisCreatureAttacksEachTurnIfAbleEffect() : base(new Engine.TargetFilter(), new Durations.Indefinite())
+        public ThisCreatureAttacksEachTurnIfAbleEffect() : base()
         {
+        }
+
+        public bool Applies(ICard creature, IGame game)
+        {
+            return IsSourceOfAbility(creature, game);
         }
 
         public override IContinuousEffect Copy()

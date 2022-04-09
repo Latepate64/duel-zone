@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class EarthstompGiantEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
-        public EarthstompGiantEffect() : base(new CardFilters.OwnersManaZoneCreatureFilter())
+        public EarthstompGiantEffect() : base()
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Return all creatures from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Creatures;
         }
     }
 }

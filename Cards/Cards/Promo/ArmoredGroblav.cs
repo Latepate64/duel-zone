@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.Promo
 {
@@ -14,7 +16,7 @@ namespace Cards.Cards.Promo
 
     class ArmoredGroblavEffect : ContinuousEffects.PowerAttackerMultiplierEffect
     {
-        public ArmoredGroblavEffect() : base(1000, new CardFilters.OwnersBattleZoneAnotherCivilizationCreatureFilter(Civilization.Fire))
+        public ArmoredGroblavEffect() : base(1000)
         {
         }
 
@@ -26,6 +28,11 @@ namespace Cards.Cards.Promo
         public override string ToString()
         {
             return "While attacking, this creature gets +1000 power for each other fire creature in the battle zone.";
+        }
+
+        protected override int GetMultiplier(IGame game)
+        {
+            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Civilization.Fire).Count();
         }
     }
 }

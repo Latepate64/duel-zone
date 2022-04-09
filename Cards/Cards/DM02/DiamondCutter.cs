@@ -32,10 +32,15 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class DiamondCutterContinuousEffect : IgnoreCannotAttackPlayersEffects
+    class DiamondCutterContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
     {
-        public DiamondCutterContinuousEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), new Durations.UntilTheEndOfTheTurn())
+        public DiamondCutterContinuousEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard attacker, IGame game)
+        {
+            return attacker.Owner == Controller;
         }
 
         public override IContinuousEffect Copy()

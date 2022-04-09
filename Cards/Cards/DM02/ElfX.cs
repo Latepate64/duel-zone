@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -11,13 +12,18 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class ElfXEffect : CostModifyingEffect
+    class ElfXEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public ElfXEffect() : base(-1, new CardFilters.OwnersHandCreatureFilter(), new Durations.Indefinite()) { }
+        public ElfXEffect() : base() { }
 
         public override IContinuousEffect Copy()
         {
             return new ElfXEffect();
+        }
+
+        public int GetChange(Engine.ICard card, Engine.IGame game)
+        {
+            return card.Owner == Controller && card.CardType == CardType.Creature ? -1 : 0;
         }
 
         public override string ToString()

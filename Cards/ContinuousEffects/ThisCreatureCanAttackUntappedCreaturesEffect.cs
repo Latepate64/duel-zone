@@ -1,14 +1,15 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCanAttackUntappedCreaturesEffect : CanAttackUntappedCreaturesEffect
+    class ThisCreatureCanAttackUntappedCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
     {
         public ThisCreatureCanAttackUntappedCreaturesEffect(ThisCreatureCanAttackUntappedCreaturesEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureCanAttackUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCreatureFilter(), new Durations.Indefinite())
+        public ThisCreatureCanAttackUntappedCreaturesEffect() : base()
         {
         }
 
@@ -20,6 +21,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "This creature can attack untapped creatures.";
+        }
+
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
+        {
+            return IsSourceOfAbility(attacker, game);
         }
     }
 }

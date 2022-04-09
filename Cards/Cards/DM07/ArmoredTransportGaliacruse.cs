@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM07
@@ -15,15 +16,16 @@ namespace Cards.Cards.DM07
 
     class ArmoredTransportGaliacruseEffect : OneShotEffects.OneShotAreaOfEffect
     {
-        public ArmoredTransportGaliacruseEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Fire))
+        public ArmoredTransportGaliacruseEffect() : base()
         {
         }
 
         public override object Apply(IGame game, IAbility source)
         {
+            
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                new CardFilters.TargetsFilter(GetAffectedCards(game, source).ToArray()),
-                new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility()));
+                new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
+                GetAffectedCards(game, source).ToArray()));
             return null;
         }
 
@@ -35,6 +37,11 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "Each of your fire creatures gets \"This creature can attack untapped creatures\" until the end of the turn.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
         }
     }
 }

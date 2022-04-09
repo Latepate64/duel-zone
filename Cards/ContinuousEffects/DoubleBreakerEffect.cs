@@ -1,10 +1,11 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class DoubleBreakerEffect : BreakerEffect
+    class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
     {
-        public DoubleBreakerEffect(params Engine.Condition[] conditions) : base(new Durations.Indefinite(), conditions)
+        public DoubleBreakerEffect() : base()
         {
         }
 
@@ -17,9 +18,9 @@ namespace Cards.ContinuousEffects
             return new DoubleBreakerEffect(this);
         }
 
-        public override int GetAmount(Engine.IGame game)
+        public int GetAmount(IGame game, ICard creature)
         {
-            return 2;
+            return IsSourceOfAbility(creature, game) ? 2 : 1;
         }
 
         public override string ToString()

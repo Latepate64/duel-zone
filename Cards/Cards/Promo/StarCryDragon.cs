@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.Promo
 {
@@ -12,15 +15,20 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class StarCryDragonEffect : PowerModifyingEffect
+    class StarCryDragonEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public StarCryDragonEffect() : base(3000, new CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter(Subtype.ArmoredDragon), new Durations.Indefinite())
+        public StarCryDragonEffect() : base()
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new StarCryDragonEffect();
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
         }
 
         public override string ToString()

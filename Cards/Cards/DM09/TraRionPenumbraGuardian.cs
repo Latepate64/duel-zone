@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM09
 {
@@ -21,7 +22,6 @@ namespace Cards.Cards.DM09
                 new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(source.GetController(game).ChooseRace())),
                 source.Id,
                 source.Controller,
-                new Durations.Indefinite(),
                 true));
             return null;
         }
@@ -41,7 +41,7 @@ namespace Cards.Cards.DM09
     {
         private readonly Subtype _subtype;
 
-        public TraRionPenumbraGuardianUntapEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype))
+        public TraRionPenumbraGuardianUntapEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
         }
@@ -59,6 +59,11 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return $"Untap all ${_subtype}s in the battle zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(_subtype);
         }
     }
 }

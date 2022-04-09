@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -15,7 +17,7 @@ namespace Cards.Cards.DM08
 
     class KyrstronLairDelverEffect : CardMovingChoiceEffect
     {
-        public KyrstronLairDelverEffect() : base(new DragonInYourHandFilter(), 0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
+        public KyrstronLairDelverEffect() : base(0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
         {
         }
 
@@ -28,23 +30,10 @@ namespace Cards.Cards.DM08
         {
             return "You may put a creature that has Dragon in its race from your hand into the battle zone.";
         }
-    }
 
-    class DragonInYourHandFilter : CardFilters.OwnersHandCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DragonInYourHandFilter();
-        }
-
-        public override string ToString()
-        {
-            return "a creature that has Dragon in its race from your hand";
+            return source.GetController(game).Hand.Cards.Where(x => x.IsDragon);
         }
     }
 }

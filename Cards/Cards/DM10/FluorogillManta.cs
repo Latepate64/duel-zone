@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -11,10 +14,15 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class FluorogillMantaEffect : UnblockableEffect
+    class FluorogillMantaEffect : ContinuousEffect, IUnblockableEffect
     {
-        public FluorogillMantaEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Light, Civilization.Darkness), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
+        public FluorogillMantaEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller).Contains(attacker) && (attacker.HasCivilization(Civilization.Light) || attacker.HasCivilization(Civilization.Darkness));
         }
 
         public override IContinuousEffect Copy()

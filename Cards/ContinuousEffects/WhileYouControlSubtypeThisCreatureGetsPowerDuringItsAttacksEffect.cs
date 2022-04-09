@@ -1,20 +1,25 @@
 ﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect : PowerAttackerEffect
+    class WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect : ContinuousEffect, IPowerModifyingEffect
     {
         private readonly Subtype _subtype;
+        private readonly int _power;
 
-        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base(new PowerAttackerEffect(power, new Conditions.HaveAtLeastOneSubtypeCreatureInTheBattleZoneCondition(subtype)))
+        public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(Subtype subtype, int power) : base()
         {
             _subtype = subtype;
+            _power = power;
         }
 
         public WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect effect) : base(effect)
         {
             _subtype = effect._subtype;
+            _power = effect._power;
         }
 
         public override string ToString()
@@ -25,6 +30,14 @@ namespace Cards.ContinuousEffects
         public override ContinuousEffect Copy()
         {
             return new WhileYouControlSubtypeThisCreatureGetsPowerDuringItsAttacksEffect(this);
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(GetSourceAbility(game).Id).Any(x => x.HasSubtype(_subtype)))
+            {
+                GetSourceCard(game).Power += _power;
+            }
         }
     }
 }

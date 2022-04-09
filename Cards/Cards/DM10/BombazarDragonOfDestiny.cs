@@ -26,7 +26,7 @@ namespace Cards.Cards.DM10
             // then take an extra turn after this one.
             var turn = new OneShotEffects.TakeExtraTurnAfterThisOneEffect().Apply(game, source);
             // You lose the game at the end of the extra turn.
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Controller, new Durations.Indefinite(), true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Controller, true));
             return true;
         }
 

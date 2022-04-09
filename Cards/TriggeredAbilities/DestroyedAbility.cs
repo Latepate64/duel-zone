@@ -7,7 +7,7 @@ namespace Cards.TriggeredAbilities
 {
     public abstract class DestroyedAbility : CardChangesZoneAbility
     {
-        protected DestroyedAbility(IOneShotEffect effect, ICardFilter filter) : base(effect, filter)
+        protected DestroyedAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public WhenThisCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect, new TargetFilter())
+        public WhenThisCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect)
         {
         }
 
@@ -39,6 +39,11 @@ namespace Cards.TriggeredAbilities
         public override string ToString()
         {
             return $"When this creature is destroyed, {GetEffectText()}";
+        }
+
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        {
+            return card.Id == Source;
         }
     }
 }

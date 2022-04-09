@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM06
@@ -35,7 +36,7 @@ namespace Cards.Cards.DM06
 
     class DestroyAnyNumberOfYourCreatures : OneShotEffects.ChooseAnyNumberOfCardsEffect
     {
-        public DestroyAnyNumberOfYourCreatures() : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public DestroyAnyNumberOfYourCreatures() : base()
         {
         }
 
@@ -52,6 +53,11 @@ namespace Cards.Cards.DM06
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Graveyard, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

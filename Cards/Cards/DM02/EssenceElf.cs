@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -11,15 +12,20 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class EssenceElfEffect : CostModifyingEffect
+    class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect
     {
-        public EssenceElfEffect() : base(-1, new CardFilters.OwnersHandSpellFilter(), new Durations.Indefinite())
+        public EssenceElfEffect() : base()
         {
         }
 
         public override IContinuousEffect Copy()
         {
             return new EssenceElfEffect();
+        }
+
+        public int GetChange(Engine.ICard card, Engine.IGame game)
+        {
+            return card.Owner == Controller && card.CardType == CardType.Spell ? -1 : 0;
         }
 
         public override string ToString()

@@ -1,10 +1,12 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
     {
-        public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1)
+        public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(0, 1)
         {
         }
 
@@ -17,11 +19,16 @@ namespace Cards.OneShotEffects
         {
             return "You may look at one of your opponent's shields. Then put it back where it was.";
         }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ShieldZone.Cards;
+        }
     }
 
     class LookAtOneOfYourOpponentsShieldsEffect : LookEffect
     {
-        public LookAtOneOfYourOpponentsShieldsEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 1, 1)
+        public LookAtOneOfYourOpponentsShieldsEffect() : base(1, 1)
         {
         }
 
@@ -33,6 +40,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Look at one of your opponent's shields.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetOpponent(game).ShieldZone.Cards;
         }
     }
 }

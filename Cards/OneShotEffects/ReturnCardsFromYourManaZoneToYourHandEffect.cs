@@ -1,10 +1,12 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class ReturnCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
-        public ReturnCardsFromYourManaZoneToYourHandEffect(int amount) : base(amount, amount, true, new CardFilters.OwnersManaZoneCardFilter())
+        public ReturnCardsFromYourManaZoneToYourHandEffect(int amount) : base(amount, amount, true)
         {
             Amount = amount;
         }
@@ -24,6 +26,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Return {(Amount > 1 ? $"{Amount} cards" : "a card")} from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Cards;
         }
     }
 }

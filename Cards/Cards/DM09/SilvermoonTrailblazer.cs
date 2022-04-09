@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class SilvermoonTrailblazerContinuousEffect : UnblockableEffect
+    class SilvermoonTrailblazerContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
         private readonly Subtype _subtype;
 
@@ -41,9 +41,14 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
-        public SilvermoonTrailblazerContinuousEffect(Subtype subtype) : base(new CardFilters.BattleZoneSubtypeCreatureFilter(subtype), new Durations.UntilTheEndOfTheTurn(), new CardFilters.BattleZoneMaxPowerCreatureFilter(3000))
+        public SilvermoonTrailblazerContinuousEffect(Subtype subtype) : base()
         {
             _subtype = subtype;
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return attacker.HasSubtype(_subtype) && blocker.Power <= 3000;
         }
 
         public override IContinuousEffect Copy()

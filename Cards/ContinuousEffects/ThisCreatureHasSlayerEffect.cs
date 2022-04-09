@@ -1,14 +1,15 @@
-﻿using Engine.ContinuousEffects;
+﻿using Engine;
+using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureHasSlayerEffect : SlayerEffect
+    class ThisCreatureHasSlayerEffect : ContinuousEffect, ISlayerEffect
     {
-        public ThisCreatureHasSlayerEffect(SlayerEffect effect) : base(effect)
+        public ThisCreatureHasSlayerEffect(ThisCreatureHasSlayerEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureHasSlayerEffect() : base(new Engine.TargetFilter(), new CardFilters.BattleZoneCreatureFilter(), new Durations.Indefinite())
+        public ThisCreatureHasSlayerEffect() : base()
         {
         }
 
@@ -20,6 +21,11 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return "Slayer";
+        }
+
+        public bool Applies(ICard creature, ICard against, IGame game)
+        {
+            return IsSourceOfAbility(creature, game);
         }
     }
 }

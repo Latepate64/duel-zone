@@ -52,15 +52,14 @@ namespace Engine.Zones
             }
             else
             {
-                var staticAbilities = card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id);
-                game.RemoveContinuousEffects(staticAbilities);
+                game.RemoveContinuousEffects(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
                 return card.Deconstruct(game, new List<ICard>()).ToList();
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreatures(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Where(x => !game.GetContinuousEffects<UnchoosableEffect>(x).Any());
+            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IUnchoosableEffect>().Any(effect => effect.Applies(creature, game)));
         }
 
         public override string ToString()
@@ -68,9 +67,74 @@ namespace Engine.Zones
             return "battle zone";
         }
 
-        public IEnumerable<ICard> GetChoosableEvolutionCreatures(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            return GetChoosableCreatures(game, owner).Where(x => x.IsEvolutionCreature);
+            return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype)
+        {
+            return GetCreatures(controller).Where(x => x.HasSubtype(subtype));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype1, Subtype subtype2)
+        {
+            return GetCreatures(controller).Where(x => x.HasSubtype(subtype1) || x.HasSubtype(subtype2));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization)
+        {
+            return GetCreatures(controller).Where(x => x.HasCivilization(civilization));
+        }
+
+        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2)
+        {
+            return GetCreatures(controller).Where(x => x.HasCivilization(civilization1, civilization2));
+        }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature)
+        {
+            return GetCreatures(controller).Where(x => x.Id != creature);
+        }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature, Civilization civilization)
+        {
+            return GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization));
+        }
+
+        public IEnumerable<ICard> GetOtherTappedCreatures(Guid controller, Guid creature)
+        {
+            return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetOtherUntappedCreatures(Guid controller, Guid creature)
+        {
+            return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Civilization civilization)
+        {
+            return GetOtherCreatures(creature).Where(x => x.HasCivilization(civilization));
+        }
+
+        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Subtype subtype)
+        {
+            return GetOtherCreatures(creature).Where(x => x.HasSubtype(subtype));
+        }
+
+        public IEnumerable<ICard> GetTappedCreatures(Guid controller)
+        {
+            return GetCreatures(controller).Where(x => x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller)
+        {
+            return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => !x.Tapped);
+        }
+
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner)
+        {
+            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
         }
     }
 }

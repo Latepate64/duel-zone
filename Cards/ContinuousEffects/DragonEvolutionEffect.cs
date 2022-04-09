@@ -3,15 +3,15 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class DragonEvolutionEffect : EvolutionEffect
+    class DragonEvolutionEffect : ContinuousEffect, IEvolutionEffect
     {
-        public DragonEvolutionEffect() : base(new TargetFilter(), new Durations.Indefinite())
+        public DragonEvolutionEffect() : base()
         {
         }
 
-        public override bool CanEvolveFrom(ICard card)
+        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
-            return card.IsDragon;
+            return bait.IsDragon && IsSourceOfAbility(evolutionCard, game);
         }
 
         public override IContinuousEffect Copy()

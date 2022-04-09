@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM02
 {
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM02
 
     class RainbowStoneEffect : SearchAnyDeckEffect
     {
-        public RainbowStoneEffect() : base(new CardFilters.OwnersDeckCardFilter())
+        public RainbowStoneEffect() : base()
         {
         }
 
@@ -36,6 +37,11 @@ namespace Cards.Cards.DM02
         protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
         {
             game.Move(ZoneType.Deck, ZoneType.ManaZone, cards);
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Deck.Cards;
         }
     }
 }

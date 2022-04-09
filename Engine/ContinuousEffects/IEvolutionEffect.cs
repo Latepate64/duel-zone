@@ -2,6 +2,6 @@
 {
     public interface IEvolutionEffect : IContinuousEffect
     {
-        bool CanEvolveFrom(ICard card);
+        bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game);
     }
 }

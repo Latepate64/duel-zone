@@ -65,30 +65,6 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
-            if (ability is IStaticAbility staticAbility)
-            {
-                InitializeStaticAbility(staticAbility);
-            }
-            else if (ability is CardTriggeredAbility triggeredAbility && triggeredAbility.Filter is TargetFilter target)
-            {
-                target.Target = Id;
-            }
-        }
-
-        private void InitializeStaticAbility(IStaticAbility staticAbility)
-        {
-            foreach (var effect in staticAbility.ContinuousEffects)
-            {
-                if (effect.Filter is ITargetFilterable target)
-                {
-                    target.Target = Id;
-                }
-                effect.SetupConditionFilters(Id);
-                if (effect is AbilityAddingEffect add)
-                {
-                    add.Abilities.OfType<IStaticAbility>().ToList().ForEach(x => InitializeAbility(x));
-                }
-            }
         }
 
         public Common.ICard Convert(bool clear = false)
@@ -126,22 +102,22 @@ namespace Engine
 
         public bool CanAttackCreatures(IGame game)
         {
-            return !game.GetContinuousEffects<CannotAttackEffect>(this).Any() && !game.GetContinuousEffects<CannotAttackCreaturesEffect>(this).Any();
+            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<CannotAttackEffect>(this).Any() && !game.GetContinuousEffects<CannotAttackPlayersEffect>(this).Any()) || game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any();
+            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
         {
-            return game.GetContinuousEffects<IEvolutionEffect>(this).Any(x => x.CanEvolveFrom(card));
+            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<CannotUseCardEffect>(this).Any();
+            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanBePaid(IPlayer player)
@@ -194,7 +170,7 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(IGame game)
         {
-            return SummoningSickness && (!game.GetContinuousEffects<SpeedAttackerEffect>(this).Any() || !game.GetContinuousEffects<IgnoreCannotAttackPlayersEffects>(this).Any());
+            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game)));
         }
 
         public void MoveTopCardIntoOwnersGraveyard(IGame game)
@@ -208,9 +184,9 @@ namespace Engine
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
         }
 
-        public bool CanAttack(ICard creature, IGame game)
+        public bool CanAttack(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<CannotBeAttackedEffect>(creature).Any(x => x.AttackerFilter.Applies(this, game, game.GetOwner(this)));
+            return !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)
@@ -220,9 +196,9 @@ namespace Engine
             game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
 
-        public bool HasCivilization(Common.Civilization civilization)
+        public bool HasCivilization(params Common.Civilization[] civilizations)
         {
-            return Civilizations.Contains(civilization);
+            return Civilizations.Intersect(civilizations).Any();
         }
 
         public bool HasSubtype(Common.Subtype subtype)

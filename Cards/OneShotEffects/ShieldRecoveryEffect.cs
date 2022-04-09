@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -11,7 +12,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ShieldRecoveryEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, bool canUseShieldTrigger) : base(filter, minimum, maximum, controllerChooses)
+        protected ShieldRecoveryEffect(int minimum, int maximum, bool controllerChooses, bool canUseShieldTrigger) : base(minimum, maximum, controllerChooses)
         {
             CanUseShieldTrigger = canUseShieldTrigger;
         }
@@ -20,7 +21,7 @@ namespace Cards.OneShotEffects
         /// Must choose one of own shields.
         /// </summary>
         /// <param name="canUseShieldTrigger"></param>
-        protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(new CardFilters.OwnersShieldZoneCardFilter(), amonunt, amonunt, true, canUseShieldTrigger)
+        protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(amonunt, amonunt, true, canUseShieldTrigger)
         {
         }
 
@@ -45,6 +46,11 @@ namespace Cards.OneShotEffects
         {
             return "Choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
         }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ShieldZone.Cards;
+        }
     }
 
     class ShieldRecoveryCanUseShieldTriggerEffect : ShieldRecoveryEffect
@@ -61,6 +67,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "Choose one of your shields and put it into your hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ShieldZone.Cards;
         }
     }
 }

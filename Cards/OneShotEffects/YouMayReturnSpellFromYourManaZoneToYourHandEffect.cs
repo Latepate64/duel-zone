@@ -1,10 +1,12 @@
-﻿using Engine.Abilities;
+﻿using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     class YouMayReturnSpellFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
-        public YouMayReturnSpellFromYourManaZoneToYourHandEffect() : base(0, 1, true, new CardFilters.OwnersManaZoneSpellFilter())
+        public YouMayReturnSpellFromYourManaZoneToYourHandEffect() : base(0, 1, true)
         {
         }
 
@@ -16,6 +18,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "You may return a spell from your mana zone to your hand.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).ManaZone.Spells;
         }
     }
 }

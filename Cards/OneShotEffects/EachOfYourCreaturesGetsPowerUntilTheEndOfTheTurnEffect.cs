@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotAreaOfEffect
+    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect
     {
         private readonly int _power;
 
-        public EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(int power) : base(new CardFilters.OwnersBattleZoneCreatureFilter())
+        public EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(int power) : base()
         {
             _power = power;
         }
@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, GetAffectedCards(game, source).ToArray()));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, game.BattleZone.GetCreatures(source.Controller).ToArray()));
             return null;
         }
 

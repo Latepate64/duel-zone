@@ -9,14 +9,12 @@ namespace Cards.OneShotEffects
 {
     public abstract class CardSelectionEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
         public int Minimum { get; }
         public int Maximum { get; }
         public bool ControllerChooses { get; }
 
-        protected CardSelectionEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses)
+        protected CardSelectionEffect(int minimum, int maximum, bool controllerChooses)
         {
-            Filter = filter;
             Minimum = minimum;
             Maximum = maximum;
             ControllerChooses = controllerChooses;
@@ -24,7 +22,6 @@ namespace Cards.OneShotEffects
 
         protected CardSelectionEffect(CardSelectionEffect effect)
         {
-            Filter = effect.Filter;
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
             ControllerChooses = effect.ControllerChooses;
@@ -32,7 +29,7 @@ namespace Cards.OneShotEffects
 
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
-            var cards = GetSelectableCards(game, source.Controller);
+            var cards = GetSelectableCards(game, source);
             if (cards.Any())
             {
                 if (Minimum >= cards.Count())
@@ -55,9 +52,6 @@ namespace Cards.OneShotEffects
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
-        protected IEnumerable<ICard> GetSelectableCards(IGame game, Guid player)
-        {
-            return game.GetAllCards(Filter, player);
-        }
+        protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
     }
 }

@@ -1,5 +1,6 @@
-﻿using Cards.CardFilters;
+﻿using Cards.ContinuousEffects;
 using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
@@ -13,13 +14,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class AlcadeiasLordOfSpiritsEffect : CannotUseCardEffect
+    class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseCardEffect
     {
         public AlcadeiasLordOfSpiritsEffect(AlcadeiasLordOfSpiritsEffect effect) : base(effect)
         {
         }
 
-        public AlcadeiasLordOfSpiritsEffect() : base(new NonCivilizationSpellFilter(Civilization.Light), new Durations.Indefinite())
+        public AlcadeiasLordOfSpiritsEffect() : base()
         {
         }
 
@@ -31,6 +32,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Players can't cast spells other than light spells.";
+        }
+
+        public bool Applies(Engine.ICard card, IGame game)
+        {
+            return card.CardType == CardType.Spell && !card.HasCivilization(Civilization.Light);
         }
     }
 }

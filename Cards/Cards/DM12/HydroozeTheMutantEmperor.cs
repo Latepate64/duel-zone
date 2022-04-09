@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -11,9 +14,9 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class HydroozeTheMutantEmperorPowerEffect : PowerModifyingEffect
+    class HydroozeTheMutantEmperorPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
-        public HydroozeTheMutantEmperorPowerEffect() : base(2000, new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite())
+        public HydroozeTheMutantEmperorPowerEffect() : base()
         {
         }
 
@@ -22,16 +25,26 @@ namespace Cards.Cards.DM12
             return new HydroozeTheMutantEmperorPowerEffect();
         }
 
+        public void ModifyPower(IGame game)
+        {
+            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.CyberLord) || x.HasSubtype(Subtype.Hedrian))).ToList().ForEach(x => x.Power += 2000);
+        }
+
         public override string ToString()
         {
             return "Each of your other Cyber Lords and Hedrians in the battle zone gets +2000 power.";
         }
     }
 
-    class HydroozeTheMutantEmperorUnblockableEffect : UnblockableEffect
+    class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
-        public HydroozeTheMutantEmperorUnblockableEffect() : base(new HydroozeTheMutantEmperorFilter(), new Durations.Indefinite(), new CardFilters.BattleZoneCreatureFilter())
+        public HydroozeTheMutantEmperorUnblockableEffect() : base()
         {
+        }
+
+        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        {
+            return game.BattleZone.GetCreatures(Controller).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
         }
 
         public override IContinuousEffect Copy()
@@ -42,13 +55,6 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Your Cyber Lords or Hedrians can't be blocked.";
-        }
-    }
-
-    class HydroozeTheMutantEmperorFilter : CardFilters.OwnersBattleZoneSubtypeCreatureExceptFilter
-    {
-        public HydroozeTheMutantEmperorFilter() : base(Subtype.CyberLord, Subtype.Hedrian)
-        {
         }
     }
 }

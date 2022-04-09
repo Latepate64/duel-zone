@@ -1,7 +1,11 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM09
@@ -36,14 +40,21 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class UnifiedResistanceContinuousEffect : AbilityAddingEffect
+    class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IDuration
     {
+        private readonly Guid _player;
+        private readonly Engine.ICard[] _cards;
+
         public UnifiedResistanceContinuousEffect(UnifiedResistanceContinuousEffect effect) : base(effect)
         {
+            _player = effect._player;
+            _cards = effect._cards;
         }
 
-        public UnifiedResistanceContinuousEffect(System.Guid player, params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), new Durations.UntilStartOfYourNextTurn(player), new StaticAbilities.BlockerAbility())
+        public UnifiedResistanceContinuousEffect(Guid player, params Engine.ICard[] cards) : base(new StaticAbilities.BlockerAbility())
         {
+            _player = player;
+            _cards = cards;
         }
 
         public override IContinuousEffect Copy()
@@ -51,9 +62,19 @@ namespace Cards.Cards.DM09
             return new UnifiedResistanceContinuousEffect(this);
         }
 
+        public bool ShouldExpire(IGameEvent gameEvent)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayerId == _player;
+        }
+
         public override string ToString()
         {
-            return $"Until the start of your next turn, {Filter} have \"Blocker\".";
+            return $"Until the start of your next turn, {_cards} have \"Blocker\".";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        {
+            return _cards;
         }
     }
 }

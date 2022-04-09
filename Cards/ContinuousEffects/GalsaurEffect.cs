@@ -1,13 +1,24 @@
 ﻿using Cards.StaticAbilities;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class GalsaurEffect : AbilityAddingEffect
+    class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
     {
-        public GalsaurEffect() : base(new TargetFilter(), new Durations.Indefinite(), new Conditions.FilterNoneCondition(new CardFilters.OwnersOtherBattleZoneCreatureFilter()), new PowerAttackerAbility(4000), new DoubleBreakerAbility())
+        public GalsaurEffect() : base()
         {
+        }
+
+        public void AddAbility(IGame game)
+        {
+            var ability = GetSourceAbility(game);
+            if (!game.BattleZone.GetCreatures(ability.Controller).Any(x => x.Id != ability.Source))
+            {
+                GetSourceCard(game).AddGrantedAbility(new PowerAttackerAbility(4000));
+                GetSourceCard(game).AddGrantedAbility(new DoubleBreakerAbility());
+            }
         }
 
         public override IContinuousEffect Copy()

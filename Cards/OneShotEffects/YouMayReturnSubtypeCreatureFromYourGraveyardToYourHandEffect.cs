@@ -1,5 +1,7 @@
 ﻿using Common;
+using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -7,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         private readonly Subtype _subtype;
 
-        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype, int maximum = 1) : base(new CardFilters.OwnersGraveyardSubtypeCreatureFilter(subtype), 0, maximum, true)
+        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype, int maximum = 1) : base(0, maximum, true)
         {
             _subtype = subtype;
         }
@@ -27,6 +29,11 @@ namespace Cards.OneShotEffects
             return Maximum == 1 ? 
                 $"You may return a {_subtype} from your graveyard to your hand." : 
                 $"Return up to {Maximum} {_subtype}s from your graveyard to your hand.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Graveyard.GetCreatures(_subtype);
         }
     }
 }

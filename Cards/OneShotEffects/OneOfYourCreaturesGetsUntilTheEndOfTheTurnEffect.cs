@@ -1,10 +1,10 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect : GrantChoiceEffect
+    class OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect : CardSelectionEffect
     {
         public int Power { get; }
 
@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
             Power = effect.Power;
         }
 
-        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(int power) : base(new OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(int power) : base(1, 1, true)
         {
             Power = power;
         }
@@ -31,6 +31,11 @@ namespace Cards.OneShotEffects
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 }

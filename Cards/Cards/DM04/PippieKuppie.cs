@@ -1,5 +1,8 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -11,13 +14,13 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class PippieKuppieEffect : PowerModifyingEffect
+    class PippieKuppieEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public PippieKuppieEffect(PippieKuppieEffect effect) : base(effect)
         {
         }
 
-        public PippieKuppieEffect() : base(1000, new CardFilters.BattleZoneSubtypeCreatureFilter(Subtype.ArmoredDragon), new Durations.Indefinite())
+        public PippieKuppieEffect() : base()
         {
         }
 
@@ -29,6 +32,11 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "Each Armored Dragon in the battle zone gets +1000 power.";
+        }
+
+        public void ModifyPower(IGame game)
+        {
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
         }
     }
 }

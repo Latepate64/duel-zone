@@ -4,7 +4,7 @@
     /// 613.4c
     /// Layer 7c: Effects that modify power (but don’t set power to a specific number or value) are applied.
     /// </summary>
-    public interface IPowerModifyingEffect
+    public interface IPowerModifyingEffect : IContinuousEffect
     {
         /// <summary>
         /// 613.4c

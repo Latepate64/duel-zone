@@ -1,7 +1,6 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -15,13 +14,13 @@ namespace Cards.Cards.DM10
 
     class RyudmilaChannelerOfSunsEffect : ContinuousEffects.DestructionReplacementEffect
     {
-        public RyudmilaChannelerOfSunsEffect() : base(new TargetFilter())
+        public RyudmilaChannelerOfSunsEffect() : base()
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player)
+        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Deck, GetAffectedCards(game).ToArray());
+            game.Move(ZoneType.BattleZone, ZoneType.Deck, card);
             player.ShuffleDeck(game);
             return true;
         }
@@ -34,6 +33,11 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "When this creature would be destroyed, shuffle it into your deck instead.";
+        }
+
+        protected override bool Applies(Engine.ICard card, IGame game)
+        {
+            return IsSourceOfAbility(card, game);
         }
     }
 }

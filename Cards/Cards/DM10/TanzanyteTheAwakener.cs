@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM10
@@ -16,7 +17,7 @@ namespace Cards.Cards.DM10
 
     class TanzanyteTheAwakenerEffect : OneShotEffects.CardSelectionEffect
     {
-        public TanzanyteTheAwakenerEffect() : base(new CardFilters.OwnersGraveyardCreatureFilter(), 1, 1, true)
+        public TanzanyteTheAwakenerEffect() : base(1, 1, true)
         {
         }
 
@@ -35,6 +36,11 @@ namespace Cards.Cards.DM10
             var names = cards.Select(x => x.Name).Distinct();
             var creatures = source.GetController(game).Graveyard.Creatures.Where(x => names.Contains(x.Name));
             game.Move(ZoneType.Graveyard, ZoneType.Hand, creatures.ToArray());
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return source.GetController(game).Graveyard.Creatures;
         }
     }
 }

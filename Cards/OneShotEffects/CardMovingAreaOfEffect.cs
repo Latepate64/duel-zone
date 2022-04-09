@@ -16,7 +16,7 @@ namespace Cards.OneShotEffects
             DestinationZone = effect.DestinationZone;
         }
 
-        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination, ICardFilter filter) : base(filter)
+        public CardMovingAreaOfEffect(ZoneType source, ZoneType destination) : base()
         {
             SourceZone = source;
             DestinationZone = destination;

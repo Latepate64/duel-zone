@@ -2,6 +2,8 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.Promo
 {
@@ -16,7 +18,7 @@ namespace Cards.Cards.Promo
 
     class DolzarkAbility : WheneverCreatureAttacksAbility
     {
-        public DolzarkAbility() : base(new DolzarkEffect(), new DolzarkFilter())
+        public DolzarkAbility() : base(new DolzarkEffect())
         {
         }
 
@@ -33,24 +35,16 @@ namespace Cards.Cards.Promo
         {
             return $"Whenever one of your other creatures that has Dragon in its race attacks, {GetEffectText()}";
         }
-    }
 
-    class DolzarkFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
+        protected override bool TriggersFrom(Engine.ICard card, IGame game)
         {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DolzarkFilter();
+            return card.Owner == Controller && card.Id != Source && card.IsDragon;
         }
     }
 
     class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public DolzarkEffect() : base(new CardFilters.OpponentsBattleZoneChoosableMaxPowerCreatureFilter(5000), 0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
+        public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
         {
         }
 
@@ -62,6 +56,11 @@ namespace Cards.Cards.Promo
         public override string ToString()
         {
             return "You may choose one of your opponent's creatures in the battle zone that has power 5000 or less and put it into his mana zone.";
+        }
+
+        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 5000);
         }
     }
 }
