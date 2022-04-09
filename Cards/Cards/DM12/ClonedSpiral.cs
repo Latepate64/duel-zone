@@ -42,7 +42,7 @@ namespace Cards.Cards.DM12
 
     class ClonedSpiralBounceEffect : BounceEffect
     {
-        public ClonedSpiralBounceEffect(int maximum) : base(new CardFilters.BattleZoneChoosableCreatureFilter(), 1, maximum)
+        public ClonedSpiralBounceEffect(int maximum) : base(1, maximum)
         {
         }
 

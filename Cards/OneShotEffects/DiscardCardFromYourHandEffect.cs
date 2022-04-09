@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class DiscardCardFromYourHandEffect : DiscardEffect
     {
-        public DiscardCardFromYourHandEffect() : base(new CardFilters.OwnersHandCardFilter(), 1, 1, true)
+        public DiscardCardFromYourHandEffect() : base(1, 1, true)
         {
         }
 

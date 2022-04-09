@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(int amount) : base(new CardFilters.OpponentsManaZoneCardFilter(), 0, amount, true)
+        public ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(int amount) : base(0, amount, true)
         {
             _amount = amount;
         }

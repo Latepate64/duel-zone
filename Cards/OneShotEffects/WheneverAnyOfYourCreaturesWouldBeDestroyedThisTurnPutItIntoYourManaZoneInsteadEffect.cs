@@ -3,7 +3,6 @@ using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {

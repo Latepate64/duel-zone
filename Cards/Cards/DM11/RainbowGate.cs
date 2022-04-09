@@ -35,17 +35,4 @@ namespace Cards.Cards.DM11
             return source.GetController(game).Deck.Creatures.Where(x => x.IsMultiColored);
         }
     }
-
-    class RainbowGateFilter : CardFilters.OwnersDeckCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsMultiColored;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new RainbowGateFilter();
-        }
-    }
 }

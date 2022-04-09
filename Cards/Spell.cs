@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Cards

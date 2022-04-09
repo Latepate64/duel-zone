@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class BlissTotemAvatarOfLuckEffect : OneShotEffects.FromGraveyardIntoManaZoneEffect
     {
-        public BlissTotemAvatarOfLuckEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 0, 3, true)
+        public BlissTotemAvatarOfLuckEffect() : base(0, 3, true)
         {
         }
 

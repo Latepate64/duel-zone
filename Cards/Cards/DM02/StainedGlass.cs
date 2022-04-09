@@ -17,7 +17,7 @@ namespace Cards.Cards.DM02
 
     class StainedGlassEffect : BounceEffect
     {
-        public StainedGlassEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCivilizationCreatureFilter(Civilization.Fire, Civilization.Nature), 0, 1)
+        public StainedGlassEffect() : base(0, 1)
         {
         }
 

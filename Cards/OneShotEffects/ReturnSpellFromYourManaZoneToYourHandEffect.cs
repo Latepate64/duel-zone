@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ReturnSpellFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
-        public ReturnSpellFromYourManaZoneToYourHandEffect() : base(1, 1, true, new CardFilters.OwnersManaZoneSpellFilter())
+        public ReturnSpellFromYourManaZoneToYourHandEffect() : base(1, 1, true)
         {
         }
 

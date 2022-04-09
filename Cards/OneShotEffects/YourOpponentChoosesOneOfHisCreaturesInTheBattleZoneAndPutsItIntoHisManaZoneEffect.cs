@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect : ManaFeedEffect
     {
-        public YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter(), 1, 1, false)
+        public YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect() : base(1, 1, false)
         {
         }
 

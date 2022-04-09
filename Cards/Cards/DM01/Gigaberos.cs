@@ -60,7 +60,7 @@ namespace Cards.Cards.DM01
 
     class GigaberosDestroyEffect : DestroyEffect
     {
-        public GigaberosDestroyEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 2, 2, true)
+        public GigaberosDestroyEffect() : base(2, 2, true)
         {
         }
 

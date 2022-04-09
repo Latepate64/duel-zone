@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class RoarOfTheEarthEffect : OneShotEffects.SelfManaRecoveryEffect
     {
-        public RoarOfTheEarthEffect() : base(1, 1, true, new CardFilters.OwnersManaZoneMinCostCreatureFilter(6)) { }
+        public RoarOfTheEarthEffect() : base(1, 1, true) { }
 
         public override IOneShotEffect Copy()
         {

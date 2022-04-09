@@ -39,22 +39,4 @@ namespace Cards.Cards.DM09
             return card.Owner == Controller && card.Id != Source && card.Subtypes.Intersect(new Subtype[] { Subtype.CyberCluster, Subtype.CyberLord, Subtype.CyberMoon, Subtype.CyberVirus }).Any();
         }
     }
-
-    class MarchingMotherboardFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.Subtypes.Intersect(new Subtype[] { Subtype.CyberCluster, Subtype.CyberLord, Subtype.CyberMoon, Subtype.CyberVirus }).Any();
-        }
-
-        public override CardFilter Copy()
-        {
-            return new MarchingMotherboardFilter();
-        }
-
-        public override string ToString()
-        {
-            return "another creature that has Cyber in its race";
-        }
-    }
 }

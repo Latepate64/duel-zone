@@ -40,7 +40,7 @@ namespace Cards.Cards.DM10
 
     class YouMayDestroyOneOfYourCreaturesEffect : OneShotEffects.DestroyEffect
     {
-        public YouMayDestroyOneOfYourCreaturesEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 0, 1, true)
+        public YouMayDestroyOneOfYourCreaturesEffect() : base(0, 1, true)
         {
         }
 
@@ -79,19 +79,6 @@ namespace Cards.Cards.DM10
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.Creatures.Where(x => x.ManaCost <= source.GetController(game).ManaZone.Cards.Count);
-        }
-    }
-
-    class RapidReincarnationFilter : CardFilters.OwnersHandCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.ManaCost <= player.ManaZone.Cards.Count;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new RapidReincarnationFilter();
         }
     }
 }

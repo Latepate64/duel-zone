@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;

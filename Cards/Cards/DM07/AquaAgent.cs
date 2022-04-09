@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM07
 {

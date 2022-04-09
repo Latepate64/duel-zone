@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class InvincibleCataclysmEffect : OneShotEffects.ShieldBurnEffect
     {
-        public InvincibleCataclysmEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 3, true)
+        public InvincibleCataclysmEffect() : base(0, 3, true)
         {
         }
 

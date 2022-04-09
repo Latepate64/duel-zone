@@ -54,7 +54,7 @@ namespace Cards.Cards.DM08
 
     class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
     {
-        public DracodanceTotemRecoveryEffect() : base(1, 1, true, new CardFilters.DragonInYourManaZoneFilter())
+        public DracodanceTotemRecoveryEffect() : base(1, 1, true)
         {
         }
 

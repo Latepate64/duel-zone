@@ -42,19 +42,6 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class DolzarkFilter : CardFilters.OwnersOtherBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DolzarkFilter();
-        }
-    }
-
     class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect
     {
         public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)

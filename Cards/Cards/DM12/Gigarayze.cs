@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class GigarayzeEffect : OneShotEffects.SalvageCivilizationCreatureEffect
     {
-        public GigarayzeEffect() : base(0, 1, Civilization.Water, Civilization.Fire)
+        public GigarayzeEffect() : base(0, 1)
         {
         }
 

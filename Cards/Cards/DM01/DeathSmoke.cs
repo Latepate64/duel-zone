@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class DeathSmokeEffect : DestroyEffect
     {
-        public DeathSmokeEffect() : base(new OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true)
+        public DeathSmokeEffect() : base(1, 1, true)
         {
         }
 

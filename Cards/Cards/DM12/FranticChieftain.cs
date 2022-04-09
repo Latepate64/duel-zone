@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class FranticChieftainEffect : OneShotEffects.BounceEffect
     {
-        public FranticChieftainEffect() : base(new CardFilters.OwnersBattleZoneMaxCostCreatureFilter(4), 1, 1)
+        public FranticChieftainEffect() : base(1, 1)
         {
         }
 

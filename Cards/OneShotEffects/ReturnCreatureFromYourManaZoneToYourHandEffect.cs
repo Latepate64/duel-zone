@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ReturnCreatureFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
-        public ReturnCreatureFromYourManaZoneToYourHandEffect() : base(1, 1, true, new CardFilters.OwnersManaZoneCreatureFilter())
+        public ReturnCreatureFromYourManaZoneToYourHandEffect() : base(1, 1, true)
         {
         }
 

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM09
 
     class YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect : OneShotEffects.DestroyEffect
     {
-        public YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneChoosableUntappedCreatureFilter(), 0, 1, true)
+        public YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect() : base(0, 1, true)
         {
         }
 

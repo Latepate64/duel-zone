@@ -17,7 +17,7 @@ namespace Cards.Cards.DM11
 
     class BonfireLizardEffect : OneShotEffects.DestroyEffect
     {
-        public BonfireLizardEffect() : base(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 0, 2, true)
+        public BonfireLizardEffect() : base(0, 2, true)
         {
         }
 

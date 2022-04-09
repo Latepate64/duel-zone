@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;

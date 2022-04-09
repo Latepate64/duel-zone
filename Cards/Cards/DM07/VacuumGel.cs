@@ -17,7 +17,7 @@ namespace Cards.Cards.DM07
 
     class VacuumGelEffect : DestroyEffect
     {
-        public VacuumGelEffect() : base(new CardFilters.OpponentsBattleZoneUntappedCivilizationCreatureFilter(Civilization.Light, Civilization.Nature), 1, 1, true)
+        public VacuumGelEffect() : base(1, 1, true)
         {
         }
 

@@ -1,6 +1,5 @@
 ﻿using Common.GameEvents;
 using Engine;
-using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {

@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -9,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public PutCardsFromYourManaZoneIntoYourGraveyard(int amount) : base(new OwnersManaZoneCardFilter(), amount, amount, true)
+        public PutCardsFromYourManaZoneIntoYourGraveyard(int amount) : base(amount, amount, true)
         {
             _amount = amount;
         }

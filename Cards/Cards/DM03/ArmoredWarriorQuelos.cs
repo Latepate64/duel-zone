@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -40,7 +39,7 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosMana1Effect : ManaBurnEffect
     {
-        public ArmoredWarriorQuelosMana1Effect() : base(new OwnersManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature), 1, 1, true)
+        public ArmoredWarriorQuelosMana1Effect() : base(1, 1, true)
         {
         }
 
@@ -62,7 +61,7 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosMana2Effect : ManaBurnEffect
     {
-        public ArmoredWarriorQuelosMana2Effect() : base(new OpponentsManaZoneCivilizationCardFilter(Civilization.Light, Civilization.Water, Civilization.Darkness, Civilization.Nature), 1, 1, false)
+        public ArmoredWarriorQuelosMana2Effect() : base(1, 1, false)
         {
         }
 

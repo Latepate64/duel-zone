@@ -1,6 +1,4 @@
-﻿using Engine.Abilities;
-
-namespace Cards.Cards.DM01
+﻿namespace Cards.Cards.DM01
 {
     class Gigargon : Creature
     {

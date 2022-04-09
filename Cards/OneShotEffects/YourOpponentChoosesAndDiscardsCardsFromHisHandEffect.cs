@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(new CardFilters.OpponentsHandCardFilter(), amount, amount, false)
+        public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
         {
             _amount = amount;
         }

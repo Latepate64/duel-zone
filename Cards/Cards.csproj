@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CardFilters\**" />
+    <Compile Remove="Conditions\**" />
+    <EmbeddedResource Remove="CardFilters\**" />
+    <EmbeddedResource Remove="Conditions\**" />
+    <None Remove="CardFilters\**" />
+    <None Remove="Conditions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Combinatorics" Version="2.0.0" />
   </ItemGroup>
 

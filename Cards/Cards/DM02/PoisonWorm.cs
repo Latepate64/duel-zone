@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class PoisonWormEffect : OneShotEffects.DestroyEffect
     {
-        public PoisonWormEffect() : base(new OwnersBattleZoneMaxPowerCreatureFilter(3000), 1, 1, true)
+        public PoisonWormEffect() : base(1, 1, true)
         {
         }
 

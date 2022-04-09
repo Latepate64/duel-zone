@@ -82,7 +82,7 @@ namespace Cards.Cards.DM04
     {
         private readonly int _maximum;
 
-        public HydroHurricaneBounceEffect(int maximum) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, maximum)
+        public HydroHurricaneBounceEffect(int maximum) : base(0, maximum)
         {
             _maximum = maximum;
         }

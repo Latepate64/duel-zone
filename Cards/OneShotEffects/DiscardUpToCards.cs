@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class DiscardUpToCards : DiscardEffect
     {
-        public DiscardUpToCards(int maximum) : base(new CardFilters.OwnersHandCardFilter(), 0, maximum, true)
+        public DiscardUpToCards(int maximum) : base(0, maximum, true)
         {
         }
 

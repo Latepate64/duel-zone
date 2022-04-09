@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM04
 
     class ChainsOfSacrificeEffect : DestroyEffect
     {
-        public ChainsOfSacrificeEffect() : base(new OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)
+        public ChainsOfSacrificeEffect() : base(0, 2, true)
         {
         }
 

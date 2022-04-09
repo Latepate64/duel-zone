@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _amount;
 
-        public ReturnUpToCardsFromYourManaZoneToYourHandEffect(int amount) : base(0, amount, true, new CardFilters.OwnersManaZoneCardFilter())
+        public ReturnUpToCardsFromYourManaZoneToYourHandEffect(int amount) : base(0, amount, true)
         {
             _amount = amount;
         }

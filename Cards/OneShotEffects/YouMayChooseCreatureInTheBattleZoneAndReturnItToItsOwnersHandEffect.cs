@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect : BounceEffect
     {
-        public YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect() : base(new CardFilters.BattleZoneChoosableCreatureFilter(), 0, 1)
+        public YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect() : base(0, 1)
         {
         }
 

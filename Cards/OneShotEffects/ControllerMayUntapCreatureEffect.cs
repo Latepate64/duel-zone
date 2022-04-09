@@ -2,28 +2,25 @@
 using Engine.Abilities;
 using Common.Choices;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
     abstract class ControllerMayUntapCreatureEffect : OneShotEffect
     {
-        public CardFilter Filter { get; }
-
-        protected ControllerMayUntapCreatureEffect(CardFilter filter)
+        protected ControllerMayUntapCreatureEffect()
         {
-            Filter = filter;
         }
 
-        protected ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect)
+        protected ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
         {
-            Filter = effect.Filter;
         }
 
         public override object Apply(IGame game, IAbility source)
         {
             if (source.GetController(game).Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
             {
-                source.GetController(game).Untap(game, game.GetAllCards().Where(x => Filter.Applies(x, game, source.GetController(game))).ToArray());
+                source.GetController(game).Untap(game, GetSelectableCards(game, source).ToArray());
                 return true;
             }
             else
@@ -31,11 +28,13 @@ namespace Cards.OneShotEffects
                 return false;
             }
         }
+
+        protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
     }
 
     class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
     {
-        public YouMayUntapThisCreatureEffect() : base(new TargetFilter())
+        public YouMayUntapThisCreatureEffect() : base()
         {
         }
 
@@ -47,6 +46,11 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return "You may untap this creature.";
+        }
+
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        {
+            return new ICard[] { game.GetCard(source.Source) };
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
     /// </summary>
     abstract class SalvageEffect : CardMovingChoiceEffect
     {
-        protected SalvageEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Graveyard, ZoneType.Hand)
+        protected SalvageEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Graveyard, ZoneType.Hand)
         {
         }
 

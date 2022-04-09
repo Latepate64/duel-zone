@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _power;
 
-        public DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(new CardFilters.OpponentsBattleZoneChoosableMaxPowerCreatureFilter(power), 1, 1, true)
+        public DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(1, 1, true)
         {
             _power = power;
         }

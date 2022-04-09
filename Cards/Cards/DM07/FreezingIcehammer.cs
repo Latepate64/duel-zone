@@ -16,7 +16,7 @@ namespace Cards.Cards.DM07
 
     class FreezingIcehammerEffect : OneShotEffects.ManaFeedEffect
     {
-        public FreezingIcehammerEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCivilizationCreatureFilter(Civilization.Water, Civilization.Darkness), 1, 1, true)
+        public FreezingIcehammerEffect() : base(1, 1, true)
         {
         }
 

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class BloodwingMantisEffect : OneShotEffects.SelfManaRecoveryEffect
     {
-        public BloodwingMantisEffect() : base(2, 2, true, new CardFilters.OwnersManaZoneCreatureFilter())
+        public BloodwingMantisEffect() : base(2, 2, true)
         {
         }
 

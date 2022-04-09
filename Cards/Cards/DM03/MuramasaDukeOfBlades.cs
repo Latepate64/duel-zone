@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class MuramasaDukeOfBladesEffect : OneShotEffects.DestroyEffect
     {
-        public MuramasaDukeOfBladesEffect() : base(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(2000), 0, 1, true)
+        public MuramasaDukeOfBladesEffect() : base(0, 1, true)
         {
         }
 

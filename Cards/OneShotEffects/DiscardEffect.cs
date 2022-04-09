@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected DiscardEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Hand, ZoneType.Graveyard)
+        protected DiscardEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Hand, ZoneType.Graveyard)
         {
         }
     }

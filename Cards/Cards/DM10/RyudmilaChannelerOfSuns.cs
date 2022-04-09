@@ -1,7 +1,6 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM10
 {

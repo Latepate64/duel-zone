@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         private readonly Subtype _subtype;
 
-        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype, int maximum = 1) : base(new CardFilters.OwnersGraveyardSubtypeCreatureFilter(subtype), 0, maximum, true)
+        public YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(Subtype subtype, int maximum = 1) : base(0, maximum, true)
         {
             _subtype = subtype;
         }

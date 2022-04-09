@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM01
 
     class NaturalSnareEffect : ManaFeedEffect
     {
-        public NaturalSnareEffect() : base(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)
+        public NaturalSnareEffect() : base(1, 1, true)
         {
         }
 

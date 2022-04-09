@@ -14,7 +14,7 @@ namespace Cards.Cards.DM03
 
     class GamilKnightOfHatredEffect : OneShotEffects.SalvageCivilizationCreatureEffect
     {
-        public GamilKnightOfHatredEffect() : base(0, 1, Common.Civilization.Darkness)
+        public GamilKnightOfHatredEffect() : base(0, 1)
         {
         }
 

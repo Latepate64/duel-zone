@@ -15,7 +15,7 @@ namespace Cards.Cards.DM09
 
     class BatDoctorShadowOfUndeathEffect : OneShotEffects.SalvageEffect
     {
-        public BatDoctorShadowOfUndeathEffect() : base(new CardFilters.AnotherGraveyardCardFilter(), 0, 1, true)
+        public BatDoctorShadowOfUndeathEffect() : base(0, 1, true)
         {
         }
 

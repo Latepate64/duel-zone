@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class DestroyOneOfYourOpponentsCreaturesEffect : DestroyEffect
     {
-        public DestroyOneOfYourOpponentsCreaturesEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true)
+        public DestroyOneOfYourOpponentsCreaturesEffect() : base(1, 1, true)
         {
         }
 

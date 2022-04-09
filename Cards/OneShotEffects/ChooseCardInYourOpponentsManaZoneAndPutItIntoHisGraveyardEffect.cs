@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect : ManaBurnEffect
     {
-        public ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect() : base(new CardFilters.OpponentsManaZoneCardFilter(), 1, 1, true)
+        public ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect() : base(1, 1, true)
         {
         }
 

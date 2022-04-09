@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM06
 
     class CometMissileEffect : DestroyEffect
     {
-        public CometMissileEffect() : base(new OpponentsBattleZoneChoosableMaxPowerBlockerCreatureFilter(6000), 1, 1, true)
+        public CometMissileEffect() : base(1, 1, true)
         {
         }
 

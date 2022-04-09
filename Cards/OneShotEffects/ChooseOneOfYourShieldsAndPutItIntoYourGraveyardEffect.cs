@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect : ShieldBurnEffect
     {
-        public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect() : base(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, true) { }
+        public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect() : base(1, 1, true) { }
 
         public override IOneShotEffect Copy()
         {

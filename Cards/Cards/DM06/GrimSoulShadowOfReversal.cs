@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class GrimSoulShadowOfReversalEffect : OneShotEffects.SalvageCivilizationCreatureEffect
     {
-        public GrimSoulShadowOfReversalEffect() : base(1, 1, Civilization.Darkness)
+        public GrimSoulShadowOfReversalEffect() : base(1, 1)
         {
         }
 

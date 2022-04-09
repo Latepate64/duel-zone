@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
 
     class KingNeptasEffect : OneShotEffects.BounceEffect
     {
-        public KingNeptasEffect() : base(new CardFilters.BattleZoneChoosableMaxPowerCreatureFilter(2000), 0, 1)
+        public KingNeptasEffect() : base(0, 1)
         {
         }
 

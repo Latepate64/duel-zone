@@ -15,7 +15,7 @@ namespace Cards.Cards.DM05
 
     class EnchantedSoilEffect : OneShotEffects.FromGraveyardIntoManaZoneEffect
     {
-        public EnchantedSoilEffect() : base(new CardFilters.OwnersGraveyardCreatureFilter(), 0, 2, true)
+        public EnchantedSoilEffect() : base(0, 2, true)
         {
         }
 

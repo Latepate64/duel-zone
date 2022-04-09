@@ -1,6 +1,4 @@
 ﻿using Engine;
-using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {

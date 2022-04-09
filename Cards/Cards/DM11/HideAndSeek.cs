@@ -39,7 +39,7 @@ namespace Cards.Cards.DM11
 
     class HideAndSeekBounceEffect : BounceEffect
     {
-        public HideAndSeekBounceEffect() : base(new CardFilters.OpponentsBattleZoneChoosableNonEvolutionCreatureFilter(), 1, 1)
+        public HideAndSeekBounceEffect() : base(1, 1)
         {
         }
 

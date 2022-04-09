@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class YouMayReturnSpellFromYourGraveyardToYourHandEffect : SalvageEffect
     {
-        public YouMayReturnSpellFromYourGraveyardToYourHandEffect() : base(new CardFilters.OwnersGraveyardSpellFilter(), 0, 1, true)
+        public YouMayReturnSpellFromYourGraveyardToYourHandEffect() : base(0, 1, true)
         {
         }
 

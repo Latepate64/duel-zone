@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class BonePiercerEffect : OneShotEffects.SelfManaRecoveryEffect
     {
-        public BonePiercerEffect() : base(0, 1, true, new CardFilters.OwnersManaZoneCreatureFilter())
+        public BonePiercerEffect() : base(0, 1, true)
         {
         }
 

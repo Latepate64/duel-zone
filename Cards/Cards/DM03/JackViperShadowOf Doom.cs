@@ -2,8 +2,6 @@
 using Common;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {

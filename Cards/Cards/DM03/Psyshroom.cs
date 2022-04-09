@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class PsyshroomEffect : FromGraveyardIntoManaZoneEffect
     {
-        public PsyshroomEffect() : base(new CardFilters.OwnersGraveyardCardFilter(Common.Civilization.Nature), 0, 1, true)
+        public PsyshroomEffect() : base(0, 1, true)
         {
         }
 

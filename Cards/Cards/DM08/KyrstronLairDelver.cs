@@ -36,22 +36,4 @@ namespace Cards.Cards.DM08
             return source.GetController(game).Hand.Cards.Where(x => x.IsDragon);
         }
     }
-
-    class DragonInYourHandFilter : CardFilters.OwnersHandCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.IsDragon;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new DragonInYourHandFilter();
-        }
-
-        public override string ToString()
-        {
-            return "a creature that has Dragon in its race from your hand";
-        }
-    }
 }

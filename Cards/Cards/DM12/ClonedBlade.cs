@@ -43,7 +43,7 @@ namespace Cards.Cards.DM12
 
     class ClonedBladeDestroyEffect : DestroyEffect
     {
-        public ClonedBladeDestroyEffect(int maximum) : base(new CardFilters.OpponentsBattleZoneChoosableMaxPowerCreatureFilter(3000), 1, maximum, true)
+        public ClonedBladeDestroyEffect(int maximum) : base(1, maximum, true)
         {
         }
 

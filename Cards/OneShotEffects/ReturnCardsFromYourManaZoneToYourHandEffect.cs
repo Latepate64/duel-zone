@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ReturnCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
-        public ReturnCardsFromYourManaZoneToYourHandEffect(int amount) : base(amount, amount, true, new CardFilters.OwnersManaZoneCardFilter())
+        public ReturnCardsFromYourManaZoneToYourHandEffect(int amount) : base(amount, amount, true)
         {
             Amount = amount;
         }

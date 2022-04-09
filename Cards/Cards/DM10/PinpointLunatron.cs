@@ -44,17 +44,4 @@ namespace Cards.Cards.DM10
             return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(source.Controller));
         }
     }
-
-    class PinpointLunatronFilter : CardFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return new CardFilters.BattleZoneChoosableCreatureFilter().Applies(card, game, player) || new CardFilters.ManaZoneCardFilter().Applies(card, game, player);
-        }
-
-        public override ICardFilter Copy()
-        {
-            return new PinpointLunatronFilter();
-        }
-    }
 }

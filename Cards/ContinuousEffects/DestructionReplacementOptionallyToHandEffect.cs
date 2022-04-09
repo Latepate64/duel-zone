@@ -1,8 +1,5 @@
 ﻿using Common;
 using Common.Choices;
-using Engine;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {

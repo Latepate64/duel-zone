@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
 {
     class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : DestroyEffect
     {
-        public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect() : base(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 1, 1, true)
+        public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect() : base(1, 1, true)
         {
         }
 

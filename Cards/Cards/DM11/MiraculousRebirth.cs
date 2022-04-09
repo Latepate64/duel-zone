@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -71,31 +70,6 @@ namespace Cards.Cards.DM11
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Deck.Creatures.Where(x => x.ManaCost == _cost);
-        }
-    }
-
-    class OwnersDeckCreatureThatCostsFilter : OwnersDeckCreatureFilter
-    {
-        private readonly int _cost;
-
-        public OwnersDeckCreatureThatCostsFilter(int cost)
-        {
-            _cost = cost;
-        }
-
-        public OwnersDeckCreatureThatCostsFilter(OwnersDeckCreatureThatCostsFilter filter) : base(filter)
-        {
-            _cost = filter._cost;
-        }
-
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.ManaCost == _cost;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new OwnersDeckCreatureThatCostsFilter(this);
         }
     }
 }

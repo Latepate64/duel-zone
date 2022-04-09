@@ -78,7 +78,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public YouMayDestroyOneOfYourOtherCreaturesEffect() : base(new CardFilters.OwnersOtherBattleZoneCreatureFilter(), 0, 1, true)
+        public YouMayDestroyOneOfYourOtherCreaturesEffect() : base(0, 1, true)
         {
         }
 

@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM02
     {
         public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(new OpponentsBattleZoneChoosableCreatureFilter(), 1, 1, true));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(1, 1, true));
         }
     }
 
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public CorileEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Deck)
+        public CorileEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Deck)
         {
         }
 

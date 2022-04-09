@@ -1,8 +1,6 @@
-﻿using Cards.CardFilters;
-using Cards.ContinuousEffects;
+﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
 namespace Cards.OneShotEffects

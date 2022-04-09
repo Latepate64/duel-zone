@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect : BounceEffect
     {
-        public ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect() : base(new CardFilters.BattleZoneCreatureFilter(), 0, 2)
+        public ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect() : base(0, 2)
         {
         }
 

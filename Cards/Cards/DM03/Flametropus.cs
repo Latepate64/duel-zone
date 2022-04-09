@@ -63,7 +63,7 @@ namespace Cards.Cards.DM03
 
     class FlametropusManaEffect : OneShotEffects.ManaBurnEffect
     {
-        public FlametropusManaEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 0, 1, true)
+        public FlametropusManaEffect() : base(0, 1, true)
         {
         }
 

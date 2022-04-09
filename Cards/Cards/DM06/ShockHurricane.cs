@@ -79,7 +79,7 @@ namespace Cards.Cards.DM06
             _amount = effect._amount;
         }
 
-        public ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(int amount) : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), amount, amount)
+        public ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(int amount) : base(amount, amount)
         {
             _amount = amount;
         }

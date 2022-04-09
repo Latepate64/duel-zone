@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class RaVuSeekerOfLightningEffect : OneShotEffects.SalvageEffect
     {
-        public RaVuSeekerOfLightningEffect() : base(new CardFilters.OwnersGraveyardCivilizationSpellFilter(Common.Civilization.Light), 0, 1, true)
+        public RaVuSeekerOfLightningEffect() : base(0, 1, true)
         {
         }
 

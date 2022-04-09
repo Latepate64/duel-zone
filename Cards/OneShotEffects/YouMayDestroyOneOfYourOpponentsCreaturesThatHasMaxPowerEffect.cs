@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace Cards.OneShotEffects
             _power = effect._power;
         }
 
-        public YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(new OpponentsBattleZoneChoosableMaxPowerCreatureFilter(power), 0, 1, true)
+        public YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(0, 1, true)
         {
             _power = power;
         }

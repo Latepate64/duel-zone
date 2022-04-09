@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM01
 
     class ThornyMandraEffect : FromGraveyardIntoManaZoneEffect
     {
-        public ThornyMandraEffect() : base(new OwnersGraveyardCreatureFilter(), 0, 1, true)
+        public ThornyMandraEffect() : base(0, 1, true)
         {
         }
 

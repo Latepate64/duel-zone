@@ -17,7 +17,7 @@ namespace Cards.Cards.DM02
 
     class MetalwingSkyterrorEffect : OneShotEffects.DestroyEffect
     {
-        public MetalwingSkyterrorEffect() : base(new CardFilters.OpponentsBattleZoneChoosableBlockerCreatureFilter(), 0, 1, true)
+        public MetalwingSkyterrorEffect() : base(0, 1, true)
         {
         }
 

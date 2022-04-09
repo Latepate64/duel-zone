@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
     {
         private readonly ICard[] _cards;
 
-        public ScreamSlicerShadowOfFearDestroyEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, true)
+        public ScreamSlicerShadowOfFearDestroyEffect(params Engine.ICard[] cards) : base(1, 1, true)
         {
             _cards = cards;
         }

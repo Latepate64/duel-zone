@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ManaRecoveryEffect(int minimum, int maximum, bool controllerChooses, CardFilter filter) : base(minimum, maximum, controllerChooses, ZoneType.ManaZone, ZoneType.Hand)
+        protected ManaRecoveryEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.ManaZone, ZoneType.Hand)
         {
         }
     }

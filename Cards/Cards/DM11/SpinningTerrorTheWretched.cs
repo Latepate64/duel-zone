@@ -1,5 +1,4 @@
-﻿using Cards.CardFilters;
-using Common;
+﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -33,19 +32,6 @@ namespace Cards.Cards.DM11
         protected override int GetMultiplier(IGame game)
         {
             return game.BattleZone.GetTappedCreatures(game.GetOpponent(Controller)).Count();
-        }
-    }
-
-    class OpponentsBattleZoneTappedCreatureFilter : OpponentsBattleZoneCreatureFilter
-    {
-        public override bool Applies(Engine.ICard card, IGame game, Engine.IPlayer player)
-        {
-            return base.Applies(card, game, player) && card.Tapped;
-        }
-
-        public override CardFilter Copy()
-        {
-            return new OpponentsBattleZoneTappedCreatureFilter();
         }
     }
 }
