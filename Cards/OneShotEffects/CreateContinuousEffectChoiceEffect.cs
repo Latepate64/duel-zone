@@ -16,7 +16,7 @@ namespace Cards.OneShotEffects
             ContinuousEffects = effect.ContinuousEffects;
         }
 
-        protected CreateContinuousEffectChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(filter, minimum, maximum, controllerChooses)
+        protected CreateContinuousEffectChoiceEffect(int minimum, int maximum, bool controllerChooses, params ContinuousEffect[] effects) : base(minimum, maximum, controllerChooses)
         {
             ContinuousEffects = effects;
         }

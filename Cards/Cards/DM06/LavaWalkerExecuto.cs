@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
             Power = effect.Power;
         }
 
-        public LavaWalkerExecutoEffect(int power) : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Common.Civilization.Fire), 1, 1, true)
+        public LavaWalkerExecutoEffect(int power) : base(1, 1, true)
         {
             Power = power;
         }

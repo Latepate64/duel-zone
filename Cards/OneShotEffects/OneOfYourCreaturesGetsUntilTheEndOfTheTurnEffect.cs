@@ -14,7 +14,7 @@ namespace Cards.OneShotEffects
             Power = effect.Power;
         }
 
-        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(int power) : base(new OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(int power) : base(1, 1, true)
         {
             Power = power;
         }

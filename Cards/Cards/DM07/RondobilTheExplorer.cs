@@ -15,7 +15,7 @@ namespace Cards.Cards.DM07
 
     class RondobilTheExplorerEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public RondobilTheExplorerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
+        public RondobilTheExplorerEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {
         }
 

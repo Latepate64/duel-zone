@@ -18,7 +18,7 @@ namespace Cards.Cards.DM06
 
     class ProtectiveForceEffect : OneShotEffects.CardSelectionEffect
     {
-        public ProtectiveForceEffect() : base(new CardFilters.OwnersBattleZoneBlockerCreatureFilter(), 1, 1, true)
+        public ProtectiveForceEffect() : base(1, 1, true)
         {
         }
 

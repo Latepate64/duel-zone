@@ -62,7 +62,7 @@ namespace Cards.Cards.DM10
 
     class RapidReincarnationSecondEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public RapidReincarnationSecondEffect() : base(new RapidReincarnationFilter(), 1, 1, true, ZoneType.Hand, ZoneType.BattleZone)
+        public RapidReincarnationSecondEffect() : base(1, 1, true, ZoneType.Hand, ZoneType.BattleZone)
         {
         }
 

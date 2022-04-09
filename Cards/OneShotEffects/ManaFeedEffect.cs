@@ -12,7 +12,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ManaFeedEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.ManaZone)
+        protected ManaFeedEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.ManaZone)
         {
         }
     }

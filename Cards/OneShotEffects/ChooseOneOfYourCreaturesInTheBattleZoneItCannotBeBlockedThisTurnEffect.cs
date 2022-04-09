@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     class ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect : CreateContinuousEffectChoiceEffect
     {
-        public ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
+        public ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() : base(1, 1, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
         {
         }
 

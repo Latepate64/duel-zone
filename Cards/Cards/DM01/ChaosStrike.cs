@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
 
     class ChaosStrikeOneShotEffect : OneShotEffects.CardSelectionEffect
     {
-        public ChaosStrikeOneShotEffect() : base(new CardFilters.OpponentsBattleZoneChoosableUntappedCreatureFilter(), 1, 1, true)
+        public ChaosStrikeOneShotEffect() : base(1, 1, true)
         {
         }
 

@@ -12,7 +12,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected ShieldRecoveryEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, bool canUseShieldTrigger) : base(filter, minimum, maximum, controllerChooses)
+        protected ShieldRecoveryEffect(int minimum, int maximum, bool controllerChooses, bool canUseShieldTrigger) : base(minimum, maximum, controllerChooses)
         {
             CanUseShieldTrigger = canUseShieldTrigger;
         }
@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
         /// Must choose one of own shields.
         /// </summary>
         /// <param name="canUseShieldTrigger"></param>
-        protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(new CardFilters.OwnersShieldZoneCardFilter(), amonunt, amonunt, true, canUseShieldTrigger)
+        protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(amonunt, amonunt, true, canUseShieldTrigger)
         {
         }
 

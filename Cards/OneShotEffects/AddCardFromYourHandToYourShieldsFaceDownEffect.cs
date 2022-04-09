@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class AddCardFromYourHandToYourShieldsFaceDownEffect : ShieldAdditionEffect
     {
-        public AddCardFromYourHandToYourShieldsFaceDownEffect() : base(new CardFilters.OwnersHandCardFilter(), 1, 1, true)
+        public AddCardFromYourHandToYourShieldsFaceDownEffect() : base(1, 1, true)
         {
         }
 

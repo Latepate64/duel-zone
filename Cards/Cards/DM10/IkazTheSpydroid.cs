@@ -18,7 +18,7 @@ namespace Cards.Cards.DM10
 
     class IkazTheSpydroidEffect : CardSelectionEffect
     {
-        public IkazTheSpydroidEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public IkazTheSpydroidEffect() : base(1, 1, true)
         {
         }
 

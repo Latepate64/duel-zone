@@ -15,7 +15,7 @@ namespace Cards.Cards.DM02
 
     class ReconOperationEffect : OneShotEffects.LookEffect
     {
-        public ReconOperationEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 3)
+        public ReconOperationEffect() : base(0, 3)
         {
         }
 

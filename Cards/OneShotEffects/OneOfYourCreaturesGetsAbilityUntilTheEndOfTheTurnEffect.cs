@@ -8,7 +8,7 @@ namespace Cards.OneShotEffects
     {
         private readonly IAbility _ability;
 
-        public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability) : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability) : base(1, 1, true)
         {
             _ability = ability;
         }

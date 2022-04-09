@@ -11,7 +11,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public FromManaZoneToShieldsFaceDownEffect() : base(new CardFilters.OwnersManaZoneCardFilter(), 1, 1, true, ZoneType.ManaZone, ZoneType.ShieldZone)
+        public FromManaZoneToShieldsFaceDownEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.ShieldZone)
         {
         }
 

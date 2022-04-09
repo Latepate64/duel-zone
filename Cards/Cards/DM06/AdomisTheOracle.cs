@@ -17,7 +17,7 @@ namespace Cards.Cards.DM06
 
     class AdomisTheOracleEffect : CardSelectionEffect
     {
-        public AdomisTheOracleEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 1, 1, true)
+        public AdomisTheOracleEffect() : base(1, 1, true)
         {
         }
 

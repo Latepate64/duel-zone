@@ -7,7 +7,7 @@ namespace Cards.OneShotEffects
 {
     class YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect : TapChoiceEffect
     {
-        public YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect() : base(0, 1, true, new CardFilters.BattleZoneCivilizationCreatureFilter(Common.Civilization.Darkness, Common.Civilization.Fire))
+        public YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect() : base(0, 1, true)
         {
         }
 

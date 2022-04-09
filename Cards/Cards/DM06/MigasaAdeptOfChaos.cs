@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class MigasaAdeptOfChaosEffect : OneShotEffects.CardSelectionEffect
     {
-        public MigasaAdeptOfChaosEffect() : base(new CardFilters.OwnersBattleZoneCivilizationCreatureFilter(Civilization.Fire), 1, 1, true)
+        public MigasaAdeptOfChaosEffect() : base(1, 1, true)
         {
         }
 

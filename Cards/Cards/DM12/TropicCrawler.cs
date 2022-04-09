@@ -17,7 +17,7 @@ namespace Cards.Cards.DM12
 
     class TropicCrawlerEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public TropicCrawlerEffect() : base(new CardFilters.OpponentsBattleZoneCreatureFilter(), 1, 1, false, ZoneType.BattleZone, ZoneType.Hand)
+        public TropicCrawlerEffect() : base(1, 1, false, ZoneType.BattleZone, ZoneType.Hand)
         {
         }
 

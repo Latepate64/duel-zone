@@ -39,7 +39,7 @@ namespace Cards.Cards.DM04
     {
         private readonly int _amount;
 
-        public MegaDetonatorBuffEffect(int amount) : base(new CardFilters.OwnersBattleZoneCreatureFilter(), amount, amount, true)
+        public MegaDetonatorBuffEffect(int amount) : base(amount, amount, true)
         {
             _amount = amount;
         }

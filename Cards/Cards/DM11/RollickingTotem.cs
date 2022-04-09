@@ -16,7 +16,7 @@ namespace Cards.Cards.DM11
 
     class RollickingTotemEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public RollickingTotemEffect() : base(new CardFilters.DragonInYourManaZoneFilter(), 1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        public RollickingTotemEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
         }
 

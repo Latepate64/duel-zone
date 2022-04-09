@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
     {
         private readonly int _maximum;
 
-        public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(new CardFilters.OwnersHandCardFilter(), 0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
+        public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
         {
             _maximum = maximum;
         }

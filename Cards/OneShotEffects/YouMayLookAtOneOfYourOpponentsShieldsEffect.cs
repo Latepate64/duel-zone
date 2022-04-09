@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
     {
-        public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 1)
+        public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(0, 1)
         {
         }
 
@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
 
     class LookAtOneOfYourOpponentsShieldsEffect : LookEffect
     {
-        public LookAtOneOfYourOpponentsShieldsEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 1, 1)
+        public LookAtOneOfYourOpponentsShieldsEffect() : base(1, 1)
         {
         }
 

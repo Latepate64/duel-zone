@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class PinpointLunatronEffect : OneShotEffects.CardSelectionEffect
     {
-        public PinpointLunatronEffect() : base(new PinpointLunatronFilter(), 1, 1, true)
+        public PinpointLunatronEffect() : base(1, 1, true)
         {
         }
 

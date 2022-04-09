@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
 
     class EmeralShieldAdditionEffect : ShieldAdditionEffect
     {
-        public EmeralShieldAdditionEffect() : base(new CardFilters.OwnersHandCardFilter(), 0, 1, true)
+        public EmeralShieldAdditionEffect() : base(0, 1, true)
         {
         }
 

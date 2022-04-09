@@ -38,7 +38,7 @@ namespace Cards.Cards.DM10
 
     class PutCardFromYourHandIntoYourManaZone : OneShotEffects.CardMovingChoiceEffect
     {
-        public PutCardFromYourHandIntoYourManaZone() : base(new CardFilters.OwnersHandCardFilter(), 1, 1, true, ZoneType.Hand, ZoneType.ManaZone)
+        public PutCardFromYourHandIntoYourManaZone() : base(1, 1, true, ZoneType.Hand, ZoneType.ManaZone)
         {
         }
 

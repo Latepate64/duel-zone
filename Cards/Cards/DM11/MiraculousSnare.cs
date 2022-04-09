@@ -17,7 +17,7 @@ namespace Cards.Cards.DM11
 
     class MiraculousSnareEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public MiraculousSnareEffect() : base(new BattleZoneChoosableNonEvolutionCreatureFilter(), 1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
+        public MiraculousSnareEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {
         }
 

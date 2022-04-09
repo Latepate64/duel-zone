@@ -17,7 +17,7 @@ namespace Cards.Cards.DM11
 
     class MiraculousPlagueFirstEffect : CardSelectionEffect
     {
-        public MiraculousPlagueFirstEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 2, 2, true)
+        public MiraculousPlagueFirstEffect() : base(2, 2, true)
         {
         }
 
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM11
     {
         private readonly Engine.ICard[] _cards;
 
-        public MiraculousPlagueSecondEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, false)
+        public MiraculousPlagueSecondEffect(params Engine.ICard[] cards) : base(1, 1, false)
         {
             _cards = cards;
         }
@@ -82,7 +82,7 @@ namespace Cards.Cards.DM11
 
     class MiraculousPlagueThirdEffect : CardSelectionEffect
     {
-        public MiraculousPlagueThirdEffect() : base(new CardFilters.OpponentsManaZoneCardFilter(), 2, 2, true)
+        public MiraculousPlagueThirdEffect() : base(2, 2, true)
         {
         }
 
@@ -111,7 +111,7 @@ namespace Cards.Cards.DM11
     {
         private readonly Engine.ICard[] _cards;
 
-        public MiraculousPlagueFourthEffect(params Engine.ICard[] cards) : base(new CardFilters.TargetsFilter(cards), 1, 1, false)
+        public MiraculousPlagueFourthEffect(params Engine.ICard[] cards) : base(1, 1, false)
         {
             _cards = cards;
         }

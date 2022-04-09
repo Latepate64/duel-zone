@@ -10,7 +10,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected LookEffect(CardFilter filter, int minimum, int maximum) : base(filter, minimum, maximum, true)
+        protected LookEffect(int minimum, int maximum) : base(minimum, maximum, true)
         {
         }
 

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
 
     class PouchShellEffect : OneShotEffects.CardSelectionEffect
     {
-        public PouchShellEffect() : base(new CardFilters.OpponentsBattleZoneChoosableEvolutionCreatureFilter(), 0, 1, true)
+        public PouchShellEffect() : base(0, 1, true)
         {
         }
 

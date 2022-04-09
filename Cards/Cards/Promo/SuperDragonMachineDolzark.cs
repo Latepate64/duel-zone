@@ -57,7 +57,7 @@ namespace Cards.Cards.Promo
 
     class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public DolzarkEffect() : base(new CardFilters.OpponentsBattleZoneChoosableMaxPowerCreatureFilter(5000), 0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
+        public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
         {
         }
 

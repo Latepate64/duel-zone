@@ -15,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class MagmaGazerEffect : CardSelectionEffect
     {
-        public MagmaGazerEffect() : base(new CardFilters.OwnersBattleZoneCreatureFilter(), 1, 1, true)
+        public MagmaGazerEffect() : base(1, 1, true)
         {
         }
 

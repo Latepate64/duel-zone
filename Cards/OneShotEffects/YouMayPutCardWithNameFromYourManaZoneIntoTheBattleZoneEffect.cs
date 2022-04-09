@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
             _name = effect._name;
         }
 
-        public YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(new CardFilters.OwnersManaZoneNamedCardFilter(name), 0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        public YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
             _name = name;
         }

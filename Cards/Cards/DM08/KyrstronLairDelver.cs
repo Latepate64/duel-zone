@@ -17,7 +17,7 @@ namespace Cards.Cards.DM08
 
     class KyrstronLairDelverEffect : CardMovingChoiceEffect
     {
-        public KyrstronLairDelverEffect() : base(new DragonInYourHandFilter(), 0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
+        public KyrstronLairDelverEffect() : base(0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
         {
         }
 

@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
 
     class TanzanyteTheAwakenerEffect : OneShotEffects.CardSelectionEffect
     {
-        public TanzanyteTheAwakenerEffect() : base(new CardFilters.OwnersGraveyardCreatureFilter(), 1, 1, true)
+        public TanzanyteTheAwakenerEffect() : base(1, 1, true)
         {
         }
 

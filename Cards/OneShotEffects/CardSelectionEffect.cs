@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         public int Maximum { get; }
         public bool ControllerChooses { get; }
 
-        protected CardSelectionEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses)
+        protected CardSelectionEffect(int minimum, int maximum, bool controllerChooses)
         {
             Minimum = minimum;
             Maximum = maximum;

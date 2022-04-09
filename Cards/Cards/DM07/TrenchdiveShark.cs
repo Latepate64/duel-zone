@@ -40,7 +40,7 @@ namespace Cards.Cards.DM07
 
     class TrenchdiveSharkShieldAdditionEffect : ShieldAdditionEffect
     {
-        public TrenchdiveSharkShieldAdditionEffect() : base(new CardFilters.OwnersHandCardFilter(), 0, 2, true)
+        public TrenchdiveSharkShieldAdditionEffect() : base(0, 2, true)
         {
         }
 

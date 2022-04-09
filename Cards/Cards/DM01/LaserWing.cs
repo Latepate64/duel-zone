@@ -17,7 +17,7 @@ namespace Cards.Cards.DM01
 
     class LaserWingEffect : CreateContinuousEffectChoiceEffect
     {
-        public LaserWingEffect() : base(new OwnersBattleZoneCreatureFilter(), 0, 2, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
+        public LaserWingEffect() : base(0, 2, true, new ThisCreatureCannotBeBlockedThisTurnEffect())
         {
         }
 

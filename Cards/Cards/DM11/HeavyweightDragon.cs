@@ -17,7 +17,7 @@ namespace Cards.Cards.DM11
 
     class HeavyweightDragonEffect : OneShotEffects.CardSelectionEffect
     {
-        public HeavyweightDragonEffect() : base(new CardFilters.OpponentsBattleZoneChoosableCreatureFilter(), 0, 2, true)
+        public HeavyweightDragonEffect() : base(0, 2, true)
         {
         }
 

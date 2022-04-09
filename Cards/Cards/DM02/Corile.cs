@@ -21,7 +21,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public CorileEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(filter, minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Deck)
+        public CorileEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Deck)
         {
         }
 

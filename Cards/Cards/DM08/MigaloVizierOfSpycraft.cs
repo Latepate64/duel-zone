@@ -16,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class MigaloVizierOfSpycraftEffect : LookEffect
     {
-        public MigaloVizierOfSpycraftEffect() : base(new CardFilters.OpponentsShieldZoneCardFilter(), 0, 2)
+        public MigaloVizierOfSpycraftEffect() : base(0, 2)
         {
         }
 

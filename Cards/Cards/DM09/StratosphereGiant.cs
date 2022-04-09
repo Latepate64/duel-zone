@@ -16,7 +16,7 @@ namespace Cards.Cards.DM09
 
     class StratosphereGiantEffect : OneShotEffects.CardMovingChoiceEffect
     {
-        public StratosphereGiantEffect() : base(new CardFilters.OpponentsHandCreatureFilter(), 0, 2, false, ZoneType.Hand, ZoneType.BattleZone)
+        public StratosphereGiantEffect() : base(0, 2, false, ZoneType.Hand, ZoneType.BattleZone)
         {
         }
 

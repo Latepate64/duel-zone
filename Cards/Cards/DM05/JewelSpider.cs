@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
 
     class YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect : ShieldRecoveryEffect
     {
-        public YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect() : base(new CardFilters.OwnersShieldZoneCardFilter(), 0, 1, true, false)
+        public YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect() : base(0, 1, true, false)
         {
         }
 

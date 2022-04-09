@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
 
-        public CardMovingChoiceEffect(CardFilter filter, int minimum, int maximum, bool controllerChooses, ZoneType source, ZoneType destination) : base(filter, minimum, maximum, controllerChooses)
+        public CardMovingChoiceEffect(int minimum, int maximum, bool controllerChooses, ZoneType source, ZoneType destination) : base(minimum, maximum, controllerChooses)
         {
             SourceZone = source;
             DestinationZone = destination;

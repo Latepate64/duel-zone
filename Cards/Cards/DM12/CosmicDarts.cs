@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class CosmicDartsEffect : OneShotEffects.CardSelectionEffect
     {
-        public CosmicDartsEffect() : base(new CardFilters.OwnersShieldZoneCardFilter(), 1, 1, false)
+        public CosmicDartsEffect() : base(1, 1, false)
         {
         }
 
