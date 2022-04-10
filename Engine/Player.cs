@@ -211,7 +211,7 @@ namespace Engine
             game.SpellsBeingCast.Push(spell);
             game.AddContinuousEffects(spell, spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
-            throw new System.NotImplementedException();
+            //TODO: Event
             //game.Process(new SpellCastEvent(Convert(), spell.Convert()));
             ResolveSpellAbilities(spell, game);
             FinishCastingSpell(spell, game);
@@ -459,7 +459,7 @@ namespace Engine
                 var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
                 phase.SetAttackingCreature(attacker, game);
                 phase.AttackTarget = target.Id;
-                throw new System.NotImplementedException();
+                //TODO: Event
                 //game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
             }
         }

@@ -1,6 +1,6 @@
 ﻿namespace Engine.GameEvents
 {
-    abstract class GameEvent : IGameEvent
+    public abstract class GameEvent : IGameEvent
     {
         public System.Guid Id { get; }
 

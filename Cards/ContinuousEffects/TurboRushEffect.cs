@@ -21,13 +21,11 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var player = Controller;
-            throw new System.NotImplementedException();
-            //var events = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>();
-            //if (events.Any(e => game.BattleZone.GetCreatures(player).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c, game))))
-            //{
-            //    GetSourceCard(game).AddGrantedAbility(_ability.Copy());
-            //}
+            var events = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<Engine.GameEvents.ShieldsBrokenEvent>();
+            if (events.Any(e => game.BattleZone.GetCreatures(Controller).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c, game))))
+            {
+                GetSourceCard(game).AddGrantedAbility(_ability.Copy());
+            }
         }
 
         public override IContinuousEffect Copy()
