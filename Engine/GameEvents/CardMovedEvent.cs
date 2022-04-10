@@ -25,7 +25,7 @@ namespace Engine.GameEvents
             if (Player != null)
             {
                 var card = game.GetCard(CardInSourceZone);
-                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Source)).Remove(card, game);
+                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : Source == ZoneType.SpellStack ? game.SpellStack : game.GetPlayer(Player.Id).GetZone(Source)).Remove(card, game);
                 foreach (var removedCard in removed)
                 {
                     if (Destination != ZoneType.Anywhere)

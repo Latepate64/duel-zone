@@ -340,9 +340,8 @@ namespace Engine
 
         private void PrivateProcess(IGameEvent gameEvent)
         {
-            OnGameEvent?.Invoke(gameEvent);
-            //TODO: Consider replacement effects
             gameEvent.Happen(this);
+            OnGameEvent?.Invoke(gameEvent);
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);

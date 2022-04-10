@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
+using System.Linq;
 
 namespace Cards.TriggeredAbilities
 {
@@ -16,8 +17,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return base.CanTrigger(gameEvent, game) && gameEvent is WinBattleEvent;
+            return gameEvent is BattleEvent e && (TriggersFrom(e.AttackingCreature, game) || TriggersFrom(e.DefendingCreature, game)) && e.Winners.Any(x => x.Id == Source);
         }
 
         public override IAbility Copy()
@@ -30,7 +30,7 @@ namespace Cards.TriggeredAbilities
             return $"When this creature wins a battle, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return card.Id == Source;
         }

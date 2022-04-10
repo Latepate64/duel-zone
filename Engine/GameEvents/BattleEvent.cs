@@ -13,13 +13,10 @@ namespace Engine.GameEvents
 
         public ICard AttackingCreature { get; }
         public ICard DefendingCreature { get; }
+        public ICard[] Winners { get; private set; }
 
         public override void Happen(IGame game)
         {
-            // Battle event must be processed relative to both creatures.
-            //Process(new BattleEvent { Card = attackingCreature.Convert(), OtherCard = defendingCreature.Convert() });
-            //Process(new BattleEvent { Card = defendingCreature.Convert(), OtherCard = attackingCreature.Convert() });
-
             if (AttackingCreature.Power.Value > DefendingCreature.Power.Value)
             {
                 Outcome(AttackingCreature, DefendingCreature);
@@ -38,7 +35,7 @@ namespace Engine.GameEvents
 
             void Outcome(ICard winner, ICard loser)
             {
-                //Process(new WinBattleEvent { Card = winner.Convert() });
+                Winners = new ICard[] { winner };
                 CheckLoseInBattle(loser, winner, game);
                 if (game.GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, game)))
                 {
