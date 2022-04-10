@@ -65,7 +65,7 @@ namespace Engine.Steps
             {
                 var attacker = game.GetCard(AttackingCreature);
                 AttackingCreature = Guid.Empty;
-                throw new System.NotImplementedException();
+                //TODO: Event
                 //game.Process(new CreatureStoppedAttackingEvent { Attacker = attacker.Convert() });
             }
         }

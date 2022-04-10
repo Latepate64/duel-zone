@@ -87,7 +87,7 @@ namespace Engine
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public IBattleZone BattleZone { get; set; } = new BattleZone();
-        public Stack<ICard> SpellsBeingCast { get; } = new Stack<ICard>();
+        public SpellStack SpellStack { get; } = new SpellStack();
 
         public delegate void GameEventHandler(IGameEvent gameEvent);
 
@@ -239,7 +239,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetAllCards()
         {
-            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellsBeingCast);
+            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellStack.Cards);
         }
 
         public void Destroy(IEnumerable<ICard> cards)

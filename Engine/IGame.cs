@@ -20,7 +20,7 @@ namespace Engine
         /// 104.1. A game ends immediately when a player wins, when the game is a draw, or when the game is restarted.
         /// </summary>
         bool Ended { get; }
-        Stack<ICard> SpellsBeingCast { get; }
+        SpellStack SpellStack { get; }
 
         void AddAbility(ICard card, IAbility ability);
         bool CheckStateBasedActions();
