@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Engine.GameEvents;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Engine.Steps
 {
     public class AttackPhase : Phase
     {
-        public Guid AttackingCreature { get; protected set; }
+        public Guid AttackingCreature { get; internal set; }
         public Guid AttackTarget { get; set; }
         public Guid BlockingCreature { get; set; }
 
@@ -63,10 +64,7 @@ namespace Engine.Steps
         {
             if (AttackingCreature != Guid.Empty)
             {
-                var attacker = game.GetCard(AttackingCreature);
-                AttackingCreature = Guid.Empty;
-                //TODO: Event
-                //game.Process(new CreatureStoppedAttackingEvent { Attacker = attacker.Convert() });
+                game.ProcessEvents(new CreatureStoppedAttackingEvent(game.GetCard(AttackingCreature), this));
             }
         }
 

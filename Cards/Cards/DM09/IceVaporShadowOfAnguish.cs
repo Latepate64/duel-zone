@@ -25,8 +25,7 @@ namespace Cards.Cards.DM09
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
+            return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
         }
 
         public override IAbility Copy()

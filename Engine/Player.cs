@@ -364,7 +364,7 @@ namespace Engine
         /// <param name="game"></param>
         private void Concede(IGame game)
         {
-            throw new System.NotImplementedException();
+            //TODO: event
             //game.Process(new ConcedeEvent { Player = Convert() });
             game.Lose(this);
         }

@@ -21,8 +21,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is CreatureStoppedAttackingEvent e && e.Attacker.Id == Attacker;
+            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
         }
 
         public override Ability Copy()

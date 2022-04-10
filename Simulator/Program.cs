@@ -37,9 +37,17 @@ namespace Simulator
                 p.Id = Guid.NewGuid();
             }
             List<MatchUp> matchUps = GetMatchUps(conf.Players);
+            var exceptions = new List<Exception>();
             for (int i = 0; i < 999999; ++i)
             {
-                PlayRoundOfGames(simulator, conf, matchUps);
+                try
+                {
+                    PlayRoundOfGames(simulator, conf, matchUps);
+                }
+                catch (Exception e)
+                {
+                    exceptions.Add(e);
+                }
             }
         }
 

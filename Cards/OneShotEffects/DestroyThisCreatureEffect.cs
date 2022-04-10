@@ -22,7 +22,15 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return new ICard[] { game.GetCard(source.Source) };
+            var creature = game.GetCard(source.Source);
+            if (creature != null)
+            {
+                return new ICard[] { creature };
+            }
+            else
+            {
+                return System.Array.Empty<ICard>();
+            }
         }
     }
 }

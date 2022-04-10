@@ -18,7 +18,7 @@ namespace Common
 
         public Card(ICard card, bool clear)
         {
-            Id = card.Id;
+            Id = Guid.NewGuid();
             Owner = card.Owner;
             KnownTo = card.KnownTo.ToList();
             if (!clear)

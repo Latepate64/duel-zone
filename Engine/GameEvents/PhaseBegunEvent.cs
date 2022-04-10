@@ -39,7 +39,7 @@ namespace Engine.GameEvents
                 PhaseOrStep.DirectAttack => $"Direct attack step",
                 PhaseOrStep.EndOfAttack => $"End of attack step",
                 PhaseOrStep.EndOfTurn => $"End of turn phase",
-                _ => throw new System.NotImplementedException(),
+                _ => throw new System.InvalidOperationException(),
             };
         }
     }

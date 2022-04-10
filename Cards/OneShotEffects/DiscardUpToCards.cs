@@ -12,7 +12,7 @@ namespace Cards.OneShotEffects
 
         public override IOneShotEffect Copy()
         {
-            throw new System.NotImplementedException();
+            return new DiscardUpToCards(Maximum);
         }
 
         public override string ToString()

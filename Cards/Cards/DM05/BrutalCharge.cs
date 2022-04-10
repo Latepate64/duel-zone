@@ -2,6 +2,7 @@
 using Common;
 using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 using System.Linq;
 
 namespace Cards.Cards.DM05
@@ -37,9 +38,8 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            throw new System.NotImplementedException();
-            //var shieldsBroken = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Sum(x => x.Amount);
-            //return new BrutalChargeSearchEffect(shieldsBroken).Apply(game, source);
+            var shieldsBroken = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Sum(x => x.BreakAmount);
+            return new BrutalChargeSearchEffect(shieldsBroken).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

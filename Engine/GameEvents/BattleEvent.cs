@@ -13,7 +13,7 @@ namespace Engine.GameEvents
 
         public ICard AttackingCreature { get; }
         public ICard DefendingCreature { get; }
-        public ICard[] Winners { get; private set; }
+        public ICard[] Winners { get; private set; } = System.Array.Empty<ICard>();
 
         public override void Happen(IGame game)
         {

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities
@@ -14,8 +15,7 @@ namespace Cards.TriggeredAbilities
         public override bool CheckInterveningIfClause(IGame game)
         {
             // if this creature broke any shields that turn
-            throw new System.NotImplementedException();
-            //return game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Any(x => x.Attacker.Id == Source);
+            return game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Any(x => x.Attacker.Id == Source);
         }
     }
 
