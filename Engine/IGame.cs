@@ -45,7 +45,7 @@ namespace Engine
         IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
         void Lose(params IPlayer[] players);
-        IEnumerable<ICardMovedEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
+        IEnumerable<IGameEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         void Process(IGameEvent gameEvent);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);

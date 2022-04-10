@@ -449,10 +449,9 @@ namespace Engine
             _ = Players.Remove(player);
         }
 
-        public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            throw new System.NotImplementedException();
-            //return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
+            return Process(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id)));
         }
 
         public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
@@ -475,7 +474,7 @@ namespace Engine
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        private IEnumerable<ICardMovedEvent> Move(List<ICardMovedEvent> events)
+        private IEnumerable<IGameEvent> Process(IEnumerable<IGameEvent> events)
         {
             //TODO: Refactor based on summary.
 
@@ -491,46 +490,17 @@ namespace Engine
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
                 if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
                 {
-                    events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
+                    events = events.Where(x => x.Id != effect.EventToReplace.Id);
                 }
             }
             foreach (var e in events)
             {
-                Move(e);
                 Process(e);
             }
             return events;
         }
 
-        private void Move(ICardMovedEvent e)
-        {
-            if (e.Player != null)
-            {
-                var card = GetCard(e.CardInSourceZone);
-                var removed = (e.Source == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Source)).Remove(card, this);
-                foreach (var removedCard in removed)
-                {
-                    if (e.Destination != ZoneType.Anywhere)
-                    {
-                        // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-                        // 613.7d An object receives a timestamp at the time it enters a zone.
-                        var newObject = new Card(removedCard, GetTimestamp());
-                        if (e.EntersTapped)
-                        {
-                            newObject.Tapped = true;
-                        }
-                        try 
-                        {
-                            (e.Destination == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Destination)).Add(newObject, this);
-                            e.Card = newObject.Convert();
-                        }
-                        catch (PlayerNotInGameException) { }
-                    }
-                }
-            }
-        }
-
-        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
+        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<IGameEvent> events)
         {
             var replacementEffects = new List<IReplacementEffect>();
             foreach (var moveEvent in events)
@@ -559,9 +529,9 @@ namespace Engine
         /// TODO: Refactor and consider CannotUseShieldTriggerEffect
         /// </summary>
         /// <param name="events"></param>
-        private void CheckShieldTriggers(IEnumerable<ICardMovedEvent> events)
+        private void CheckShieldTriggers(IEnumerable<IGameEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
