@@ -56,8 +56,7 @@ namespace Engine.Steps
             }
             else
             {
-                //TODO: Event
-                //game.Process(new BecomeUnblockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert() });
+                game.ProcessEvents(new BecomeUnblockedEvent(game.GetCard(Phase.AttackingCreature)));
             }
         }
 

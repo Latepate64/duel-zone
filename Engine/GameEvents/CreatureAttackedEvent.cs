@@ -23,7 +23,7 @@ namespace Engine.GameEvents
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"{Attacker} attacked {_id}.";
         }
     }
 }

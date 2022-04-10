@@ -59,6 +59,7 @@ namespace Engine.GameEvents
                 ZoneType.ManaZone => "their mana zone",
                 ZoneType.ShieldZone => "their shields",
                 ZoneType.Anywhere => "anywhere",
+                ZoneType.SpellStack => "stack",
                 _ => throw new InvalidOperationException(),
             };
         }

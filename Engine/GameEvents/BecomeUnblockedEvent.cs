@@ -1,15 +1,13 @@
 ﻿namespace Engine.GameEvents
 {
-    public class BecomeBlockedEvent : GameEvent
+    public class BecomeUnblockedEvent : GameEvent
     {
-        public BecomeBlockedEvent(ICard attacker, ICard blocker)
+        public BecomeUnblockedEvent(ICard attacker)
         {
             Attacker = attacker;
-            Blocker = blocker;
         }
 
         public ICard Attacker { get; }
-        public ICard Blocker { get; }
 
         public override void Happen(IGame game)
         {
@@ -17,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"{Attacker} was blocked by {Blocker}.";
+            return $"{Attacker} was not blocked.";
         }
     }
 }

@@ -6,7 +6,6 @@ using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.Steps;
 using Engine.GameEvents;
 
 namespace Engine
