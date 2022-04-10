@@ -48,9 +48,24 @@ namespace Engine.GameEvents
             }
         }
 
+        public static string ToString(ZoneType zone)
+        {
+            return zone switch
+            {
+                ZoneType.BattleZone => "the battle zone",
+                ZoneType.Deck => "their deck",
+                ZoneType.Graveyard => "their graveyard",
+                ZoneType.Hand => "their hand",
+                ZoneType.ManaZone => "their mana zone",
+                ZoneType.ShieldZone => "their shields",
+                ZoneType.Anywhere => "anywhere",
+                _ => throw new InvalidOperationException(),
+            };
+        }
+
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"{Player} put {Card} from {ToString(Source)} into {ToString(Destination)}.";
         }
     }
 }

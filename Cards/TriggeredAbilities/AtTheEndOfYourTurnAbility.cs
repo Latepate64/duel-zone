@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
+using Engine.Steps;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities
@@ -17,8 +18,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is PhaseBegunEvent e && e.PhaseOrStep == PhaseOrStep.EndOfTurn && game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer.Id == Controller && CheckInterveningIfClause(game);
+            return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer.Id == Controller && CheckInterveningIfClause(game);
         }
 
         public override IAbility Copy()

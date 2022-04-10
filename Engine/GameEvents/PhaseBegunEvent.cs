@@ -21,7 +21,26 @@ namespace Engine.GameEvents
 
         public override string ToString()
         {
-            throw new System.NotImplementedException();
+            return $"{Turn}: {ToString(Phase.Type)} begun.";
+        }
+
+        private static string ToString(PhaseOrStep phase)
+        {
+            return phase switch
+            {
+                PhaseOrStep.StartOfTurn => $"Start of turn phase",
+                PhaseOrStep.Draw => $"Draw phase",
+                PhaseOrStep.Charge => $"Charge phase",
+                PhaseOrStep.Main => $"Main phase",
+                PhaseOrStep.Attack => $"Attack phase",
+                PhaseOrStep.AttackDeclaration => $"Attack declaration step",
+                PhaseOrStep.BlockDeclaration => $"Block declaration step",
+                PhaseOrStep.Battle => $"Battle step",
+                PhaseOrStep.DirectAttack => $"Direct attack step",
+                PhaseOrStep.EndOfAttack => $"End of attack step",
+                PhaseOrStep.EndOfTurn => $"End of turn phase",
+                _ => throw new System.NotImplementedException(),
+            };
         }
     }
 }
