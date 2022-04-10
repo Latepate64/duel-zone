@@ -18,7 +18,7 @@ namespace Engine.GameEvents
         public ZoneType Source { get; }
         public ZoneType Destination { get; }
         public bool EntersTapped { get; }
-        public Common.ICard Card { get; set; }
+        public ICard Card { get; set; }
 
         public override void Happen(IGame game)
         {
@@ -40,7 +40,7 @@ namespace Engine.GameEvents
                         try
                         {
                             (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
-                            Card = newObject.Convert();
+                            Card = newObject;
                         }
                         catch (PlayerNotInGameException) { }
                     }

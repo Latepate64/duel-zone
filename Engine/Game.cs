@@ -234,11 +234,7 @@ namespace Engine
 
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            var attackingCreature = GetCard(attackingCreatureId);
-            var defendingCreature = GetCard(defendingCreatureId);
-
-            var battleEvent = new BattleEvent();
-            battleEvent.Happen(this);
+            ProcessEvents(new BattleEvent(GetCard(attackingCreatureId), GetCard(defendingCreatureId)));
         }
 
         public IEnumerable<ICard> GetAllCards()
@@ -377,7 +373,7 @@ namespace Engine
                     AddPendingAbilities(abilities.ToArray());
                     foreach (var ability in abilities)
                     {
-                        throw new NotImplementedException();
+                        //TODO: Event
                         //Process(new AbilityTriggeredEvent { Ability = ability.Id });
                     }
                 }

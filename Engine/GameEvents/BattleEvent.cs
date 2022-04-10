@@ -5,8 +5,14 @@ namespace Engine.GameEvents
 {
     public class BattleEvent : GameEvent
     {
-        private readonly ICard _attackingCreature;
-        private readonly ICard _defendingCreature;
+        public BattleEvent(ICard attackingCreature, ICard defendingCreature)
+        {
+            AttackingCreature = attackingCreature;
+            DefendingCreature = defendingCreature;
+        }
+
+        public ICard AttackingCreature { get; }
+        public ICard DefendingCreature { get; }
 
         public override void Happen(IGame game)
         {
@@ -14,18 +20,18 @@ namespace Engine.GameEvents
             //Process(new BattleEvent { Card = attackingCreature.Convert(), OtherCard = defendingCreature.Convert() });
             //Process(new BattleEvent { Card = defendingCreature.Convert(), OtherCard = attackingCreature.Convert() });
 
-            if (_attackingCreature.Power.Value > _defendingCreature.Power.Value)
+            if (AttackingCreature.Power.Value > DefendingCreature.Power.Value)
             {
-                Outcome(_attackingCreature, _defendingCreature);
+                Outcome(AttackingCreature, DefendingCreature);
             }
-            else if (_attackingCreature.Power.Value < _defendingCreature.Power.Value)
+            else if (AttackingCreature.Power.Value < DefendingCreature.Power.Value)
             {
-                Outcome(_defendingCreature, _attackingCreature);
+                Outcome(DefendingCreature, AttackingCreature);
             }
             else
             {
-                CheckLoseInBattle(_attackingCreature, _defendingCreature, game);
-                CheckLoseInBattle(_defendingCreature, _attackingCreature, game);
+                CheckLoseInBattle(AttackingCreature, DefendingCreature, game);
+                CheckLoseInBattle(DefendingCreature, AttackingCreature, game);
             }
 
             //Process(new AfterBattleEvent());
@@ -43,7 +49,7 @@ namespace Engine.GameEvents
 
         public override string ToString()
         {
-            return $"{_attackingCreature} battled {_defendingCreature}.";
+            return $"{AttackingCreature} battled {DefendingCreature}.";
         }
 
         private void CheckLoseInBattle(ICard target, ICard against, IGame game)

@@ -42,7 +42,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent;
+            return gameEvent is CreatureAttackedEvent e && TriggersFrom(e.Attacker, game);
         }
     }
 

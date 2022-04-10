@@ -10,6 +10,6 @@ namespace Engine.GameEvents
         ZoneType Source { get; }
         ZoneType Destination { get; }
         bool EntersTapped { get; }
-        Common.ICard Card { get; set; }
+        ICard Card { get; set; }
     }
 }
