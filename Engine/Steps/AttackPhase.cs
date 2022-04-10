@@ -29,7 +29,7 @@ namespace Engine.Steps
             {
                 var target = game.GetAttackable(AttackTarget);
                 AttackTarget = Guid.Empty;
-                throw new NotImplementedException();
+                //TODO: Event
                 //var e = new AttackTargetRemovedEvent();
                 //if (target is ICard card)
                 //{
@@ -49,7 +49,7 @@ namespace Engine.Steps
             {
                 var blocker = game.GetCard(BlockingCreature);
                 BlockingCreature = Guid.Empty;
-                throw new System.NotImplementedException();
+                //TODO: Event
                 //game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
             }
         }

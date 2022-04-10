@@ -537,7 +537,7 @@ namespace Engine
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        throw new System.NotImplementedException();
+                        //TODO: Event
                         //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
                         if (trigger.CanBeUsedRegardlessOfManaCost(this))
                         {

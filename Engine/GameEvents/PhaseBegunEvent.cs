@@ -2,21 +2,21 @@
 
 namespace Engine.GameEvents
 {
-    class PhaseBegunEvent : GameEvent
+    public class PhaseBegunEvent : GameEvent
     {
-        private readonly ITurn _currentTurn;
-        private readonly IPhase _nextPhase;
+        public ITurn Turn { get; }
+        public IPhase Phase { get; }
 
         public PhaseBegunEvent(IPhase nextPhase, ITurn currentTurn)
         {
-            _nextPhase = nextPhase;
-            _currentTurn = currentTurn;
+            Phase = nextPhase;
+            Turn = currentTurn;
         }
 
         public override void Happen(IGame game)
         {
-            _currentTurn.Phases.Add(_nextPhase);
-            _currentTurn.StartCurrentPhase(game);
+            Turn.Phases.Add(Phase);
+            Turn.StartCurrentPhase(game);
         }
 
         public override string ToString()
