@@ -16,12 +16,11 @@ namespace Cards.ContinuousEffects
 
         public override bool Replaceable(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //if (gameEvent is CardMovedEvent e)
-            //{
-            //    return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone), game);
-            //}
-            //return false;
+            if (gameEvent is CardMovedEvent e)
+            {
+                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone), game);
+            }
+            return false;
         }
 
         protected abstract bool Applies(Engine.ICard card, IGame game);

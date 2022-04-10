@@ -16,8 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return base.CanTrigger(gameEvent, game) && gameEvent is BlockEvent;
+            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
         }
 
         public override Ability Copy()
@@ -30,7 +29,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature blocks, {OneShotEffect}.";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return card.Id == Source;
         }

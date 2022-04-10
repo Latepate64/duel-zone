@@ -2,6 +2,7 @@
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
+using Engine.Steps;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,10 +24,10 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            //foreach (var card in game.GetAllCards(Filter, Controller))
-            //{
-            //    Abilities.ForEach(x => card.AddGrantedAbility(x.Copy()));
-            //}
+            foreach (var card in GetAffectedCards(game))
+            {
+                Abilities.ForEach(x => card.AddGrantedAbility(x.Copy()));
+            }
         }
 
         protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
@@ -60,8 +61,7 @@ namespace Cards.ContinuousEffects
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)

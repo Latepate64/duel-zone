@@ -446,13 +446,12 @@ namespace Engine
 
         public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false)).ToArray());
         }
 
-        public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            throw new System.NotImplementedException();
-            //return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination, EntersTapped = true }).ToList());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true)).ToArray());
         }
 
         /// <summary>

@@ -16,8 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is SpellCastEvent;
+            return gameEvent is SpellCastEvent;
         }
 
         public override IAbility Copy()

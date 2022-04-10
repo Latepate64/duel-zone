@@ -5,12 +5,13 @@ namespace Engine.GameEvents
 {
     public class CardMovedEvent : GameEvent, ICardMovedEvent
     {
-        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone)
+        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped)
         {
             Player = player;
             Source = source;
             Destination = destination;
             CardInSourceZone = cardInSourceZone;
+            EntersTapped = tapped;
         }
 
         public IPlayer Player { get; }

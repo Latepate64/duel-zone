@@ -205,41 +205,7 @@ namespace Engine
 
         public void Cast(ICard spell, IGame game)
         {
-            // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
-            game.GetZone(spell).Remove(spell, game);
-            game.SpellStack.Add(spell, game);
-            game.AddContinuousEffects(spell, spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
-            spell.KnownTo = game.Players.Select(x => x.Id).ToList();
-            //TODO: Event
-            //game.Process(new SpellCastEvent(Convert(), spell.Convert()));
-            ResolveSpellAbilities(spell, game);
-            FinishCastingSpell(spell, game);
-        }
-
-        private static void ResolveSpellAbilities(ICard spell, IGame game)
-        {
-            foreach (var ability in spell.GetAbilities<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
-            {
-                ability.Source = spell.Id;
-                ability.Controller = spell.Owner;
-                ability.Resolve(game);
-            }
-        }
-
-        /// <summary>
-        /// 608.2m As the final part of a spell’s resolution, the spell is put into its owner’s graveyard.
-        /// </summary>
-        /// <param name="spell"></param>
-        /// <param name="game"></param>
-        private void FinishCastingSpell(ICard spell, IGame game)
-        {
-            try
-            {
-                game.ProcessEvents(new CardMovedEvent(this, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id));
-            }
-            catch (PlayerNotInGameException)
-            {
-            }
+            game.ProcessEvents(new SpellCastEvent(this, spell));
         }
 
         public void DiscardAtRandom(IGame game, int amount)

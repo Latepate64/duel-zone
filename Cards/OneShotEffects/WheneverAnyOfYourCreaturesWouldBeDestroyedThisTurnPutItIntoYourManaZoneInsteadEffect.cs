@@ -3,6 +3,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
+using Engine.Steps;
 
 namespace Cards.OneShotEffects
 {
@@ -32,7 +33,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
+        public override bool Apply(IGame game, IPlayer player, ICard card)
         {
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, card);
             return true;
@@ -45,8 +46,7 @@ namespace Cards.OneShotEffects
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            throw new System.NotImplementedException();
-            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()
