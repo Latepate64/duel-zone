@@ -16,8 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Attackable == game.GetOpponent(Controller);
+            return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target == game.GetOpponent(Controller);
         }
 
         public override IAbility Copy()

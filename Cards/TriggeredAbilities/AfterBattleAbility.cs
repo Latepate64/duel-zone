@@ -16,8 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
-            //return CheckInterveningIfClause(game) && gameEvent is AfterBattleEvent;
+            return CheckInterveningIfClause(game) && gameEvent is BattleEvent;
         }
 
         public override Ability Copy()

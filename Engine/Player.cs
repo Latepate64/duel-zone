@@ -163,9 +163,7 @@ namespace Engine
 
         private void Summon(ICard card, IGame game)
         {
-            //TODO: event
-            //game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
-            _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
+            game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
 
         public void DrawCards(int amount, IGame game)

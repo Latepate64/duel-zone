@@ -31,8 +31,6 @@ namespace Engine.GameEvents
                 CheckLoseInBattle(DefendingCreature, AttackingCreature, game);
             }
 
-            //Process(new AfterBattleEvent());
-
             void Outcome(ICard winner, ICard loser)
             {
                 Winners = new ICard[] { winner };
@@ -49,7 +47,7 @@ namespace Engine.GameEvents
             return $"{AttackingCreature} battled {DefendingCreature}.";
         }
 
-        private void CheckLoseInBattle(ICard target, ICard against, IGame game)
+        private static void CheckLoseInBattle(ICard target, ICard against, IGame game)
         {
             if (!game.GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, game)))
             {
