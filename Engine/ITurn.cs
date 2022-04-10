@@ -13,5 +13,6 @@ namespace Engine
         Common.ITurn Convert();
         void Dispose();
         void Play(IGame game, int number);
+        void StartCurrentPhase(IGame game);
     }
 }

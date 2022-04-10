@@ -342,7 +342,7 @@ namespace Engine
             }
         }
 
-        public void Process(IGameEvent gameEvent)
+        private void PrivateProcess(IGameEvent gameEvent)
         {
             OnGameEvent?.Invoke(gameEvent);
             //TODO: Consider replacement effects
@@ -451,7 +451,7 @@ namespace Engine
 
         public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return Process(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id)));
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id)).ToArray());
         }
 
         public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
@@ -474,7 +474,7 @@ namespace Engine
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        private IEnumerable<IGameEvent> Process(IEnumerable<IGameEvent> events)
+        public IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] events)
         {
             //TODO: Refactor based on summary.
 
@@ -490,12 +490,12 @@ namespace Engine
                 var effect = effectGroups.Single(x => x.Id == effectGuid);
                 if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
                 {
-                    events = events.Where(x => x.Id != effect.EventToReplace.Id);
+                    events = events.Where(x => x.Id != effect.EventToReplace.Id).ToArray();
                 }
             }
             foreach (var e in events)
             {
-                Process(e);
+                PrivateProcess(e);
             }
             return events;
         }

@@ -47,7 +47,7 @@ namespace Engine
         void Lose(params IPlayer[] players);
         IEnumerable<IGameEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
-        void Process(IGameEvent gameEvent);
+        IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void AddPendingAbilities(params IResolvableAbility[] abilities);

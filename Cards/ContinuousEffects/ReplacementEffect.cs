@@ -27,8 +27,7 @@ namespace Cards.ContinuousEffects
         protected ReplacementEffect(ReplacementEffect effect) : base(effect)
         {
             Id = effect.Id;
-            throw new System.NotImplementedException();
-            //EventToReplace = effect.EventToReplace.Copy();
+            EventToReplace = effect.EventToReplace; //TODO: Copy-method?
         }
 
         public IGameEvent EventToReplace { get; set; }

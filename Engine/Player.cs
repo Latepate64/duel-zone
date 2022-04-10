@@ -148,7 +148,7 @@ namespace Engine
 
         public void ShuffleDeck(IGame game)
         {
-            game.Process(new ShuffleDeckEvent(this));
+            game.ProcessEvents(new ShuffleDeckEvent(this));
         }
 
         public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
@@ -164,7 +164,7 @@ namespace Engine
 
         private void Summon(ICard card, IGame game)
         {
-            throw new System.NotImplementedException();
+            //TODO: event
             //game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
             _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
         }
@@ -392,7 +392,7 @@ namespace Engine
             }
             if (untappedCards.Any())
             {
-                throw new System.NotImplementedException();
+                //TODO: event
                 //game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
             }
         }
@@ -406,7 +406,7 @@ namespace Engine
             }
             if (tappedCards.Any())
             {
-                throw new System.NotImplementedException();
+                //TODO: event
                 //game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
             }
         }

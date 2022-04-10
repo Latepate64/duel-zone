@@ -81,7 +81,7 @@ namespace Engine.Steps
             while (step != null && !game.Ended)
             {
                 _steps.Add(step);
-                throw new System.NotImplementedException();
+                //TODO: Create separate event for changing step?
                 //game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));
                 (step as ITurnBasedActionable).PerformTurnBasedAction(game);
                 Progress(game);

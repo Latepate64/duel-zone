@@ -40,7 +40,7 @@ namespace Engine.Steps
                 {
                     creature.SummoningSickness = false;
                 }
-                throw new System.NotImplementedException();
+                //TODO: event
                 //game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
             var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
