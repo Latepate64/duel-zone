@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -16,7 +16,8 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeUnblockedEvent e && e.Card.Id == Source && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game).Id;
+            throw new System.NotImplementedException();
+            //return gameEvent is BecomeUnblockedEvent e && e.Card.Id == Source && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game).Id;
         }
 
         public override IAbility Copy()

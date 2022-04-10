@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -17,7 +17,8 @@ namespace Cards.TriggeredAbilities
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             var opponent = game.GetOpponent(Controller);
-            return gameEvent is CreatureSummonedEvent summon && summon.Player.Id == opponent || gameEvent is SpellCastEvent cast && cast.Player.Id == opponent;
+            throw new System.NotImplementedException();
+            //return gameEvent is CreatureSummonedEvent summon && summon.Player.Id == opponent || gameEvent is SpellCastEvent cast && cast.Player.Id == opponent;
         }
 
         public override IAbility Copy()

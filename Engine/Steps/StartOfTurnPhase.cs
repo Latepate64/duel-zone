@@ -1,5 +1,4 @@
-﻿using Common.GameEvents;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using System.Linq;
 
 namespace Engine.Steps
@@ -41,7 +40,8 @@ namespace Engine.Steps
                 {
                     creature.SummoningSickness = false;
                 }
-                game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
+                throw new System.NotImplementedException();
+                //game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
             var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
             var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());

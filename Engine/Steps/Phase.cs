@@ -1,9 +1,8 @@
-﻿using Common.GameEvents;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Common.Choices;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using Engine.GameEvents;
 
 namespace Engine.Steps
 {

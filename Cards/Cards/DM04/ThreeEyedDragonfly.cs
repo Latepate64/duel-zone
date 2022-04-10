@@ -1,10 +1,10 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,7 +63,8 @@ namespace Cards.Cards.DM04
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            throw new System.NotImplementedException();
+            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         protected override List<Engine.ICard> GetAffectedCards(IGame game)

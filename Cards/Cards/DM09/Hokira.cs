@@ -1,9 +1,9 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,7 +57,8 @@ namespace Cards.Cards.DM09
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            throw new System.NotImplementedException();
+            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

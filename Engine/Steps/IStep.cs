@@ -1,6 +1,4 @@
-﻿using Common.GameEvents;
-
-namespace Engine.Steps
+﻿namespace Engine.Steps
 {
     public interface IStep
     {

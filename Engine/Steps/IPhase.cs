@@ -1,9 +1,24 @@
-﻿using Common.GameEvents;
-using Engine.Abilities;
+﻿using Engine.Abilities;
+using Engine.GameEvents;
 using System.Collections.Generic;
 
 namespace Engine.Steps
 {
+    public enum PhaseOrStep
+    {
+        StartOfTurn,
+        Draw,
+        Charge,
+        Main,
+        Attack,
+        AttackDeclaration,
+        BlockDeclaration,
+        Battle,
+        DirectAttack,
+        EndOfAttack,
+        EndOfTurn,
+    }
+
     public interface IPhase
     {
         Queue<IGameEvent> GameEvents { get; }

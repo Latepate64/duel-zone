@@ -1,8 +1,8 @@
 ﻿using Cards.ContinuousEffects;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.OneShotEffects
 {
@@ -45,7 +45,8 @@ namespace Cards.OneShotEffects
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            throw new System.NotImplementedException();
+            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

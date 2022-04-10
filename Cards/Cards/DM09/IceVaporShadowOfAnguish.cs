@@ -1,7 +1,7 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.Cards.DM09
 {
@@ -25,7 +25,8 @@ namespace Cards.Cards.DM09
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
+            throw new System.NotImplementedException();
+            //return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
         }
 
         public override IAbility Copy()

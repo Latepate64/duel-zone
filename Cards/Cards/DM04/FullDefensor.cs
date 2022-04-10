@@ -1,9 +1,9 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +70,8 @@ namespace Cards.Cards.DM04
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayerId == _player;
+            throw new System.NotImplementedException();
+            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayerId == _player;
         }
 
         public override string ToString()

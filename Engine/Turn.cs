@@ -1,5 +1,4 @@
-﻿using Common.GameEvents;
-using Engine.Steps;
+﻿using Engine.Steps;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -65,7 +64,8 @@ namespace Engine
                 if (nextPhase != null)
                 {
                     Phases.Add(nextPhase);
-                    game.Process(new PhaseBegunEvent(nextPhase.Type, game.CurrentTurn.Convert()));
+                    throw new System.NotImplementedException();
+                    //game.Process(new PhaseBegunEvent(nextPhase.Type, game.CurrentTurn.Convert()));
                     StartCurrentPhase(game);
                 }
             }

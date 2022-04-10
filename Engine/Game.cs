@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
 using Engine.ContinuousEffects;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Engine.GameEvents;
 
 namespace Engine
 {
@@ -237,43 +237,8 @@ namespace Engine
             var attackingCreature = GetCard(attackingCreatureId);
             var defendingCreature = GetCard(defendingCreatureId);
 
-            // Battle event must be processed relative to both creatures.
-            Process(new BattleEvent { Card = attackingCreature.Convert(), OtherCard = defendingCreature.Convert() });
-            Process(new BattleEvent { Card = defendingCreature.Convert(), OtherCard = attackingCreature.Convert() });
-
-            if (attackingCreature.Power.Value > defendingCreature.Power.Value)
-            {
-                Outcome(attackingCreature, defendingCreature);
-            }
-            else if (attackingCreature.Power.Value < defendingCreature.Power.Value)
-            {
-                Outcome(defendingCreature, attackingCreature);
-            }
-            else
-            {
-                CheckLoseInBattle(attackingCreature, defendingCreature);
-                CheckLoseInBattle(defendingCreature, attackingCreature);
-            }
-
-            Process(new AfterBattleEvent());
-
-            void Outcome(ICard winner, ICard loser)
-            {
-                Process(new WinBattleEvent { Card = winner.Convert() });
-                CheckLoseInBattle(loser, winner);
-                if (GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, this)))
-                {
-                    winner.LostInBattle = true; // TODO: Not sure if proper way to do
-                }
-            }
-        }
-
-        private void CheckLoseInBattle(ICard target, ICard against)
-        {
-            if (!GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, this)))
-            {
-                target.LostInBattle = true;
-            }
+            var battleEvent = new BattleEvent();
+            battleEvent.Happen(this);
         }
 
         public IEnumerable<ICard> GetAllCards()
@@ -380,6 +345,8 @@ namespace Engine
         public void Process(IGameEvent gameEvent)
         {
             OnGameEvent?.Invoke(gameEvent);
+            //TODO: Consider replacement effects
+            gameEvent.Happen(this);
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
@@ -410,7 +377,8 @@ namespace Engine
                     AddPendingAbilities(abilities.ToArray());
                     foreach (var ability in abilities)
                     {
-                        Process(new AbilityTriggeredEvent { Ability = ability.Id });
+                        throw new NotImplementedException();
+                        //Process(new AbilityTriggeredEvent { Ability = ability.Id });
                     }
                 }
                 catch (PlayerNotInGameException)
@@ -443,7 +411,8 @@ namespace Engine
             foreach (var player in players)
             {
                 Losers.Add(player);
-                Process(new LoseEvent { Player = player.Copy() });
+                throw new System.NotImplementedException();
+                //Process(new LoseEvent { Player = player.Copy() });
                 Leave(player);
             }
             
@@ -464,7 +433,8 @@ namespace Engine
         private void Win(IPlayer player)
         {
             Winner = player;
-            Process(new WinEvent { Player = player.Copy() });
+            throw new System.NotImplementedException();
+            //Process(new WinEvent { Player = player.Copy() });
             Leave(player);
         }
 
@@ -481,12 +451,14 @@ namespace Engine
 
         public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
+            throw new System.NotImplementedException();
+            //return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
         }
 
         public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination, EntersTapped = true }).ToList());
+            throw new System.NotImplementedException();
+            //return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination, EntersTapped = true }).ToList());
         }
 
         /// <summary>
@@ -503,7 +475,7 @@ namespace Engine
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        private IEnumerable<ICardMovedEvent> Move(List<CardMovedEvent> events)
+        private IEnumerable<ICardMovedEvent> Move(List<ICardMovedEvent> events)
         {
             //TODO: Refactor based on summary.
 
@@ -566,7 +538,8 @@ namespace Engine
                 foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
                 {
                     var effect = replacementEffect.Copy() as IReplacementEffect;
-                    effect.EventToReplace = moveEvent.Copy();
+                    throw new NotImplementedException();
+                    //effect.EventToReplace = moveEvent.Copy();
                     replacementEffects.Add(effect);
                 }
             }
@@ -599,7 +572,8 @@ namespace Engine
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
+                        throw new System.NotImplementedException();
+                        //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
                         if (trigger.CanBeUsedRegardlessOfManaCost(this))
                         {
                             GetPlayer(shieldTriggersByPlayer.Key).UseCard(trigger, this);

@@ -1,5 +1,4 @@
-﻿using Common.GameEvents;
-using Engine.ContinuousEffects;
+﻿using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Engine.Steps

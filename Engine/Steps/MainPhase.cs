@@ -7,7 +7,7 @@ namespace Engine.Steps
     /// </summary>
     public class MainPhase : PriorityPhase
     {
-        public MainPhase() : base(Common.GameEvents.PhaseOrStep.Main)
+        public MainPhase() : base(PhaseOrStep.Main)
         {
         }
 

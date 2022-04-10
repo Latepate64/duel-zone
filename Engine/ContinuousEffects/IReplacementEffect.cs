@@ -1,4 +1,4 @@
-﻿using Common.GameEvents;
+﻿using Engine.GameEvents;
 using System;
 
 namespace Engine.ContinuousEffects

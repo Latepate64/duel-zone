@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 using System;
 
 namespace Cards.TriggeredAbilities
@@ -21,7 +21,8 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureStoppedAttackingEvent e && e.Attacker.Id == Attacker;
+            throw new System.NotImplementedException();
+            //return gameEvent is CreatureStoppedAttackingEvent e && e.Attacker.Id == Attacker;
         }
 
         public override Ability Copy()

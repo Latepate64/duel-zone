@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -16,7 +16,8 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return CheckInterveningIfClause(game) && gameEvent is AfterBattleEvent;
+            throw new System.NotImplementedException();
+            //return CheckInterveningIfClause(game) && gameEvent is AfterBattleEvent;
         }
 
         public override Ability Copy()

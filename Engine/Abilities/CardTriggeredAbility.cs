@@ -1,4 +1,4 @@
-﻿using Common.GameEvents;
+﻿using Engine.GameEvents;
 
 namespace Engine.Abilities
 {
@@ -16,7 +16,8 @@ namespace Engine.Abilities
         {
             if (CheckInterveningIfClause(game))
             {
-                return gameEvent is CardEvent e && e.Card != null && TriggersFrom(game.GetCard(e.Card.Id), game);
+                throw new System.NotImplementedException();
+                //return gameEvent is CardEvent e && e.Card != null && TriggersFrom(game.GetCard(e.Card.Id), game);
             }
             return false;
         }

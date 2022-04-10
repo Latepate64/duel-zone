@@ -1,5 +1,5 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -15,7 +15,8 @@ namespace Cards.ContinuousEffects
 
         public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
+            throw new System.NotImplementedException();
+            //return gameEvent is PhaseBegunEvent phase && phase.PhaseOrStep == PhaseOrStep.EndOfTurn;
         }
     }
 }

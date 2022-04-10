@@ -1,5 +1,4 @@
 ﻿using Combinatorics.Collections;
-using Common.GameEvents;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
@@ -200,7 +199,8 @@ namespace Engine
             var opponent = game.GetOpponent(owner);
             var cards = owner.Choose(new Common.Choices.ShieldBreakSelection(owner.Id, opponent.ShieldZone.Cards, breakAmount), game).Decision.Select(x => game.GetCard(x));
             game.PutFromShieldZoneToHand(cards, true);
-            game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
+            throw new System.NotImplementedException();
+            //game.Process(new ShieldsBrokenEvent { Attacker = Convert(), Target = opponent.Copy(), Amount = breakAmount });
         }
 
         public bool HasCivilization(params Common.Civilization[] civilizations)
