@@ -44,19 +44,20 @@ namespace Engine.Steps
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
         {
             var blockers = game.CurrentTurn.NonActivePlayer.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
-            throw new NotImplementedException();
-            //if (blockers.Any())
-            //{
-            //    Phase.BlockingCreature = blockers.Single();
-            //    var blocker = game.GetCard(Phase.BlockingCreature);
-            //    game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
-            //    game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
-            //    game.Process(new BecomeBlockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert(), Blocker = blocker.Convert() });
-            //}
-            //else
-            //{
-            //    game.Process(new BecomeUnblockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert() });
-            //}
+            if (blockers.Any())
+            {
+                Phase.BlockingCreature = blockers.Single();
+                var blocker = game.GetCard(Phase.BlockingCreature);
+                game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
+                //TODO: Event
+                //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
+                //game.Process(new BecomeBlockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert(), Blocker = blocker.Convert() });
+            }
+            else
+            {
+                //TODO: Event
+                //game.Process(new BecomeUnblockedEvent { Card = game.GetCard(Phase.AttackingCreature).Convert() });
+            }
         }
 
         public override IStep GetNextStep(IGame game)

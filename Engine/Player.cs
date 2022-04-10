@@ -253,8 +253,7 @@ namespace Engine
                     game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
                     destination = ZoneType.Graveyard;
                 }
-                throw new System.NotImplementedException();
-                //game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
+                game.ProcessEvents(new CardMovedEvent(this, ZoneType.Anywhere, destination, spell.Id));
             }
             catch (PlayerNotInGameException)
             {
@@ -456,11 +455,7 @@ namespace Engine
             }
             else
             {
-                var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
-                phase.SetAttackingCreature(attacker, game);
-                phase.AttackTarget = target.Id;
-                //TODO: Event
-                //game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
+                game.ProcessEvents(new CreatureAttackedEvent(attacker, target.Id));
             }
         }
 

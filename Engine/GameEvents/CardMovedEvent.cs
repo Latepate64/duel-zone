@@ -3,7 +3,7 @@ using System;
 
 namespace Engine.GameEvents
 {
-    class CardMovedEvent : GameEvent, ICardMovedEvent
+    public class CardMovedEvent : GameEvent, ICardMovedEvent
     {
         public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone)
         {

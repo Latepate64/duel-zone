@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Engine.GameEvents
 {
-    class BattleEvent : GameEvent
+    public class BattleEvent : GameEvent
     {
         private readonly ICard _attackingCreature;
         private readonly ICard _defendingCreature;
