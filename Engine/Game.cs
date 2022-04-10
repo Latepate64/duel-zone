@@ -406,7 +406,7 @@ namespace Engine
             foreach (var player in players)
             {
                 Losers.Add(player);
-                throw new System.NotImplementedException();
+                //TODO: Event
                 //Process(new LoseEvent { Player = player.Copy() });
                 Leave(player);
             }
@@ -428,7 +428,7 @@ namespace Engine
         private void Win(IPlayer player)
         {
             Winner = player;
-            throw new System.NotImplementedException();
+            //TODO: Event
             //Process(new WinEvent { Player = player.Copy() });
             Leave(player);
         }
@@ -503,8 +503,7 @@ namespace Engine
                 foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
                 {
                     var effect = replacementEffect.Copy() as IReplacementEffect;
-                    throw new NotImplementedException();
-                    //effect.EventToReplace = moveEvent.Copy();
+                    effect.EventToReplace = moveEvent; //TODO: Copy-method?
                     replacementEffects.Add(effect);
                 }
             }

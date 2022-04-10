@@ -208,7 +208,7 @@ namespace Engine
         {
             // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
             game.GetZone(spell).Remove(spell, game);
-            game.SpellStack.Remove(spell, game);
+            game.SpellStack.Add(spell, game);
             game.AddContinuousEffects(spell, spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
             spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             //TODO: Event
@@ -234,26 +234,9 @@ namespace Engine
         /// <param name="game"></param>
         private void FinishCastingSpell(ICard spell, IGame game)
         {
-            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(spell, game.GetTimestamp());
-            ZoneType destination;
             try
             {
-                if (game.GetContinuousEffects<IChargerEffect>().Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any(e => e.Applies(spell, game)))
-                {
-                    game.SpellStack.Remove(spell, game);
-                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
-                    game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
-                    destination = ZoneType.ManaZone;
-                }
-                else
-                {
-                    game.SpellStack.Remove(spell, game);
-                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
-                    game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
-                    destination = ZoneType.Graveyard;
-                }
-                game.ProcessEvents(new CardMovedEvent(this, ZoneType.SpellStack, destination, spell.Id));
+                game.ProcessEvents(new CardMovedEvent(this, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id));
             }
             catch (PlayerNotInGameException)
             {
@@ -284,7 +267,7 @@ namespace Engine
         {
             // TODO: Implement reveal information on cards and add them here.
             cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
-            throw new System.NotImplementedException();
+            //TODO: Event
             //game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
         }
 

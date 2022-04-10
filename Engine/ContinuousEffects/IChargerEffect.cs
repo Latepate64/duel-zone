@@ -1,6 +1,6 @@
 ﻿namespace Engine.ContinuousEffects
 {
-    public interface IChargerEffect : IContinuousEffect
+    public interface IChargerEffect : IReplacementEffect
     {
         bool Applies(ICard card, IGame game);
     }
