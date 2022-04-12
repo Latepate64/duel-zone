@@ -39,6 +39,11 @@ namespace Cards.OneShotEffects
             return true;
         }
 
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override IContinuousEffect Copy()
         {
             return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();

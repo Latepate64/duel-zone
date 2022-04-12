@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,6 +35,11 @@ namespace Cards.Cards.DM08
             {
                 return false;
             }
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

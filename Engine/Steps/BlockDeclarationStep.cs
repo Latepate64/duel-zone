@@ -52,7 +52,7 @@ namespace Engine.Steps
                 game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
-                game.ProcessEvents(new BecomeBlockedEvent(game.GetCard(Phase.AttackingCreature), blocker)); //{ Card = game.GetCard(Phase.AttackingCreature).Convert(), Blocker = blocker.Convert() });
+                game.ProcessEvents(new BecomeBlockedEvent(game.GetCard(Phase.AttackingCreature), blocker));
             }
             else
             {

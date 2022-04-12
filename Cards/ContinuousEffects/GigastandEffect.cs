@@ -2,6 +2,7 @@
 using Common.Choices;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -24,6 +25,11 @@ namespace Cards.ContinuousEffects
                 return true;
             }
             return false;
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

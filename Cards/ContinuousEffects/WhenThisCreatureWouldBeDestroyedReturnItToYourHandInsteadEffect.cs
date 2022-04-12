@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine;
+using Engine.GameEvents;
 using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
@@ -12,6 +13,11 @@ namespace Cards.ContinuousEffects
 
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect effect) : base(effect)
         {
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override ContinuousEffect Copy()

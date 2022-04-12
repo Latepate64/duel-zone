@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.Cards.DM09
 {
@@ -21,6 +22,11 @@ namespace Cards.Cards.DM09
         public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
         {
             return true;
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

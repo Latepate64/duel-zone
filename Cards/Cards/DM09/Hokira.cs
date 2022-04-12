@@ -51,6 +51,11 @@ namespace Cards.Cards.DM09
             _subtype = effect._subtype;
         }
 
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override IContinuousEffect Copy()
         {
             return new HokiraContinuousEffect(this);

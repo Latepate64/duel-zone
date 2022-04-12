@@ -15,26 +15,18 @@ namespace Cards.ContinuousEffects
     {
         protected ReplacementEffect() : base()
         {
-            //TODO: Remove this constructor after refactorings.
-        }
-
-        protected ReplacementEffect(IGameEvent eventToReplace) : base()
-        {
             Id = Guid.NewGuid();
-            EventToReplace = eventToReplace;
         }
 
         protected ReplacementEffect(ReplacementEffect effect) : base(effect)
         {
             Id = effect.Id;
-            EventToReplace = effect.EventToReplace; //TODO: Copy-method?
         }
-
-        public IGameEvent EventToReplace { get; set; }
 
         public Guid Id { get; }
 
-        public abstract bool Replaceable(IGameEvent gameEvent, IGame game);
+        public abstract bool CanBeApplied(IGameEvent gameEvent, IGame game);
         public abstract bool Apply(IGame game, IPlayer player, ICard creature);
+        public abstract IGameEvent Apply(IGameEvent gameEvent, IGame game);
     }
 }

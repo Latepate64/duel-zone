@@ -9,7 +9,7 @@ namespace Common.Choices
         {
         }
 
-        public ReplacementEffectSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player, options, minimumSelection, maximumSelection)
+        public ReplacementEffectSelection(Guid player, IEnumerable<Guid> options) : base(player, options, 1, 1)
         {
         }
 

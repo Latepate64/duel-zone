@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -16,6 +17,11 @@ namespace Cards.ContinuousEffects
         {
             game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ShieldZone, card);
             return true;
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override ContinuousEffect Copy()

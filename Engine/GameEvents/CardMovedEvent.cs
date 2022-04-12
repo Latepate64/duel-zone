@@ -69,5 +69,10 @@ namespace Engine.GameEvents
         {
             return $"{Player} put {Card} from {ToString(Source)} into {ToString(Destination)}.";
         }
+
+        public override IPlayer GetApplier(IGame game)
+        {
+            return Player;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -25,6 +26,11 @@ namespace Cards.ContinuousEffects
     {
         public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

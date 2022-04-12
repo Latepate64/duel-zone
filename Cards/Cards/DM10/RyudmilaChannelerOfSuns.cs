@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.Cards.DM10
 {
@@ -23,6 +24,11 @@ namespace Cards.Cards.DM10
             game.Move(ZoneType.BattleZone, ZoneType.Deck, card);
             player.ShuffleDeck(game);
             return true;
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

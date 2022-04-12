@@ -454,61 +454,53 @@ namespace Engine
             return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true)).ToArray());
         }
 
-        /// <summary>
-        /// 400.6.
-        /// If an object would move from one zone to another, determine what event is moving the object.
-        /// If the object is moving to a public zone and its owner will be able to look at it in that zone,
-        /// its owner looks at it to see if it has any abilities that would affect the move.
-        /// If the object is moving to the battlefield, each other player who will be able to look at it in that zone does so.
-        /// Then any appropriate replacement effects, whether they come from that object or from elsewhere, are applied to that event.
-        /// If any effects or rules try to do two or more contradictory or mutually exclusive things to a particular object,
-        /// that object’s controller—or its owner if it has no controller—chooses which effect to apply, and what that effect does.
-        /// (Note that multiple instances of the same thing may be mutually exclusive; for example, two simultaneous “destroy” effects.)
-        /// Then the event moves the object.
-        /// </summary>
-        /// <param name="events"></param>
-        /// <returns></returns>
         public IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] events)
         {
-            //TODO: Refactor based on summary.
+            var effectsByEvent = events.GroupBy(gameEvent => gameEvent, gameEvent => GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent, this)));
+            var toChoose = effectsByEvent.Where(x => x.Count() > 1);
+            var choices = toChoose.Select(group => new ReplacementEffectSelection(
+                group.Key.GetApplier(this).Id,
+                group.SelectMany(effects => effects.Select(effect => effect.Id))));
+            var decisions = MakeChoices(choices);
+            //TODO: Apply replacement effects based on decisions
+            foreach (var e in effectsByEvent)
+            {
+                PrivateProcess(e.Key);
+            }
+            return effectsByEvent.Select(x => x.Key);
 
             // TODO: Sort players by turn order
-            var replacementEffects = GetReplacementEffects(events);
-            var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<ICardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
-            foreach (var cardGroup in affectedCardGroups)
-            {
-                var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as ICardMovedEvent).CardInSourceZone));
-                var effectGuid = effectGroups.Count() > 1
-                    ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
-                    : effectGroups.Select(x => x.Id).Single();
-                var effect = effectGroups.Single(x => x.Id == effectGuid);
-                if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
-                {
-                    events = events.Where(x => x.Id != effect.EventToReplace.Id).ToArray();
-                }
-            }
-            foreach (var e in events)
-            {
-                PrivateProcess(e);
-            }
-            return events;
+            //var replacementEffects = GetReplacementEffects(events);
+            //var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<ICardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
+            //foreach (var cardGroup in affectedCardGroups)
+            //{
+            //    var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as ICardMovedEvent).CardInSourceZone));
+            //    var effectGuid = effectGroups.Count() > 1
+            //        ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id)), this).Decision.Single()
+            //        : effectGroups.Select(x => x.Id).Single();
+            //    var effect = effectGroups.Single(x => x.Id == effectGuid);
+            //    if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
+            //    {
+            //        events = events.Where(x => x.Id != effect.EventToReplace.Id).ToArray();
+            //    }
+            //}
+            //foreach (var e in events)
+            //{
+            //    PrivateProcess(e);
+            //}
+            //return events;
         }
 
-        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<IGameEvent> events)
+        private IEnumerable<IGuidDecision> MakeChoices(IEnumerable<GuidSelection> choices)
         {
-            var replacementEffects = new List<IReplacementEffect>();
-            foreach (var moveEvent in events)
-            {
-                foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
-                {
-                    var effect = replacementEffect.Copy() as IReplacementEffect;
-                    effect.EventToReplace = moveEvent; //TODO: Copy-method?
-                    replacementEffects.Add(effect);
-                }
-            }
-            return replacementEffects;
+            return choices.Select(choice => GetPlayer(choice.Player).Choose(choice, this));
         }
 
+        /// <summary>
+        /// TODO: Consider design independent of events returned by Move
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="canUseShieldTrigger"></param>
         public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger)
         {
             var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
