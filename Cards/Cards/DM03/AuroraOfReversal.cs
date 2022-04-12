@@ -41,7 +41,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Source).ShieldZone.Cards;
+            return source.GetController(game).ShieldZone.Cards;
         }
     }
 }

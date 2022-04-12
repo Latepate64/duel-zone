@@ -18,7 +18,7 @@ namespace Cards.Cards.Promo
     {
         public void AddSubtype(IGame game)
         {
-            game.BattleZone.GetCreatures(Controller).ToList().ForEach(x => x.AddGrantedSubtype(Subtype.Survivor));
+            game.BattleZone.GetCreatures(GetController(game).Id).ToList().ForEach(x => x.AddGrantedSubtype(Subtype.Survivor));
         }
 
         public override IContinuousEffect Copy()

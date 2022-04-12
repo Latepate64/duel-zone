@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(game.GetOpponent(Controller)).Hand.Cards.Count();
+            return game.GetPlayer(game.GetOpponent(GetController(game).Id)).Hand.Cards.Count();
         }
     }
 }

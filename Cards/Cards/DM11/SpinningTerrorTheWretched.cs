@@ -31,7 +31,7 @@ namespace Cards.Cards.DM11
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetTappedCreatures(game.GetOpponent(Controller)).Count();
+            return game.BattleZone.GetTappedCreatures(game.GetOpponent(GetController(game).Id)).Count();
         }
     }
 }

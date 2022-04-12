@@ -27,7 +27,7 @@ namespace Cards.ContinuousEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller, Common.Subtype.Survivor);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Common.Subtype.Survivor);
         }
     }
 }

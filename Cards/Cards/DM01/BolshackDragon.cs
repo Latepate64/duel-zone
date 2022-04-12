@@ -31,7 +31,7 @@ namespace Cards.Cards.DM01
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(Controller).Graveyard.GetCards(Common.Civilization.Fire).Count();
+            return GetController(game).Graveyard.GetCards(Common.Civilization.Fire).Count();
         }
     }
 }

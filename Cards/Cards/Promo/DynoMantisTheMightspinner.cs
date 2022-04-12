@@ -22,7 +22,7 @@ namespace Cards.Cards.Promo
 
         public int GetAmount(IGame game, Engine.ICard creature)
         {
-            return creature.Owner == Controller && !IsSourceOfAbility(creature, game) && creature.Power >= 5000 ? 1 : 0;
+            return creature.Owner == GetController(game).Id && !IsSourceOfAbility(creature, game) && creature.Power >= 5000 ? 1 : 0;
         }
 
         public override string ToString()

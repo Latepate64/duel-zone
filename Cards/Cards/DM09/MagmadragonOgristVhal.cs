@@ -31,7 +31,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(Controller).Hand.Cards.Count();
+            return GetController(game).Hand.Cards.Count();
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Cards.Cards.DM09
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Source).Hand.GetCreatures(_subtype);
+            return source.GetController(game).Hand.GetCreatures(_subtype);
         }
     }
 }

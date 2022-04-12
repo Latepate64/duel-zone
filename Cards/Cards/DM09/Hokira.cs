@@ -73,12 +73,12 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(Engine.ICard card, IGame game)
         {
-            return card.Owner == Controller && card.HasSubtype(_subtype);
+            return card.Owner == GetController(game).Id && card.HasSubtype(_subtype);
         }
 
         protected override List<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller, _subtype).ToList();
+            return game.BattleZone.GetCreatures(GetController(game).Id, _subtype).ToList();
         }
     }
 }

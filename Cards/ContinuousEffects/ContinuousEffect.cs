@@ -10,7 +10,6 @@ namespace Cards.ContinuousEffects
     /// </summary>
     public abstract class ContinuousEffect : ITimestampable, IContinuousEffect
     {
-        public Guid Controller { get; set; }
         public Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
 
@@ -20,7 +19,6 @@ namespace Cards.ContinuousEffects
 
         protected ContinuousEffect(ContinuousEffect effect)
         {
-            Controller = effect.Controller;
             SourceAbility = effect.SourceAbility;
         }
 
@@ -56,6 +54,11 @@ namespace Cards.ContinuousEffects
         protected ICard GetSourceCard(IGame game)
         {
             return game.GetCard(GetSourceAbility(game).Source);
+        }
+
+        protected IPlayer GetController(IGame game)
+        {
+            return GetSourceAbility(game).GetController(game);
         }
     }
 }

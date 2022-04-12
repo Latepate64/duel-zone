@@ -32,7 +32,7 @@ namespace Cards.Cards.DM08
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(Controller).Graveyard.Creatures.Count();
+            return GetController(game).Graveyard.Creatures.Count();
         }
     }
 }

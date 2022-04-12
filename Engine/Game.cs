@@ -342,6 +342,10 @@ namespace Engine
         {
             gameEvent.Happen(this);
             OnGameEvent?.Invoke(gameEvent);
+            if (Ended) 
+            { 
+                return; //TODO: Consider better design
+            }
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
@@ -430,16 +434,19 @@ namespace Engine
             Winner = player;
             //TODO: Event
             //Process(new WinEvent { Player = player.Copy() });
+
             Leave(player);
         }
 
         private void Leave(IPlayer player)
         {
             // 800.4a When a player leaves the game, all objects (see rule 109) owned by that player leave the game.
-            _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
+            // TODO: Commented for time being, consider alternative design to avoid exceptions
+            //_ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
 
             // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
-            _ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
+            // TODO: Commented for time being, consider alternative design to avoid exceptions
+            //_ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
 
             _ = Players.Remove(player);
         }
