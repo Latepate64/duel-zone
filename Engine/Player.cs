@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
 using Engine.ContinuousEffects;
@@ -7,7 +6,7 @@ using Engine.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.Steps;
+using Engine.GameEvents;
 
 namespace Engine
 {
@@ -148,16 +147,7 @@ namespace Engine
 
         public void ShuffleDeck(IGame game)
         {
-            Deck.Shuffle();
-            var eve = new DeckShuffledEvent { Player = Copy() };
-            if (game.Turns.Any())
-            {
-                game.Process(eve);
-            }
-            else
-            {
-                game.PreGameEvents.Enqueue(eve);
-            }
+            game.ProcessEvents(new ShuffleDeckEvent(this));
         }
 
         public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
@@ -173,8 +163,7 @@ namespace Engine
 
         private void Summon(ICard card, IGame game)
         {
-            game.Process(new CreatureSummonedEvent { Player = Copy(), Creature = card.Convert() });
-            _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, card);
+            game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
 
         public void DrawCards(int amount, IGame game)
@@ -214,57 +203,7 @@ namespace Engine
 
         public void Cast(ICard spell, IGame game)
         {
-            // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
-            game.GetZone(spell).Remove(spell, game);
-            game.SpellsBeingCast.Push(spell);
-            game.AddContinuousEffects(spell, spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
-            spell.KnownTo = game.Players.Select(x => x.Id).ToList();
-            game.Process(new SpellCastEvent(Convert(), spell.Convert()));
-            ResolveSpellAbilities(spell, game);
-            FinishCastingSpell(spell, game);
-        }
-
-        private static void ResolveSpellAbilities(ICard spell, IGame game)
-        {
-            foreach (var ability in spell.GetAbilities<SpellAbility>().Select(x => x.Copy()).Cast<SpellAbility>())
-            {
-                ability.Source = spell.Id;
-                ability.Controller = spell.Owner;
-                ability.Resolve(game);
-            }
-        }
-
-        /// <summary>
-        /// 608.2m As the final part of a spell’s resolution, the spell is put into its owner’s graveyard.
-        /// </summary>
-        /// <param name="spell"></param>
-        /// <param name="game"></param>
-        private void FinishCastingSpell(ICard spell, IGame game)
-        {
-            // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-            var newObject = new Card(spell, game.GetTimestamp());
-            ZoneType destination;
-            try
-            {
-                if (game.GetContinuousEffects<IChargerEffect>().Union(spell.GetAbilities<IStaticAbility>().SelectMany(x => x.ContinuousEffects).OfType<IChargerEffect>()).Any(e => e.Applies(spell, game)))
-                {
-                    game.SpellsBeingCast.Pop();
-                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
-                    game.GetPlayer(newObject.Owner).ManaZone.Add(newObject, game);
-                    destination = ZoneType.ManaZone;
-                }
-                else
-                {
-                    game.SpellsBeingCast.Pop();
-                    game.RemoveContinuousEffects(spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).Select(x => x.Id));
-                    game.GetPlayer(newObject.Owner).Graveyard.Add(newObject, game);
-                    destination = ZoneType.Graveyard;
-                }
-                game.Process(new CardMovedEvent { Card = newObject.Convert(), CardInSourceZone = spell.Id, Destination = destination, Player = Convert(), Source = ZoneType.Anywhere });
-            }
-            catch (PlayerNotInGameException)
-            {
-            }
+            game.ProcessEvents(new SpellCastEvent(this, spell));
         }
 
         public void DiscardAtRandom(IGame game, int amount)
@@ -291,7 +230,8 @@ namespace Engine
         {
             // TODO: Implement reveal information on cards and add them here.
             cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
-            game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
+            //TODO: Event
+            //game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
         }
 
         public IZone GetZone(ZoneType zone)
@@ -397,7 +337,8 @@ namespace Engine
             }
             if (untappedCards.Any())
             {
-                game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
+                //TODO: event
+                //game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
             }
         }
 
@@ -410,7 +351,8 @@ namespace Engine
             }
             if (tappedCards.Any())
             {
-                game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
+                //TODO: event
+                //game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
             }
         }
 
@@ -422,7 +364,8 @@ namespace Engine
         /// <param name="game"></param>
         private void Concede(IGame game)
         {
-            game.Process(new ConcedeEvent { Player = Convert() });
+            //TODO: event
+            //game.Process(new ConcedeEvent { Player = Convert() });
             game.Lose(this);
         }
 
@@ -458,10 +401,7 @@ namespace Engine
             }
             else
             {
-                var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
-                phase.SetAttackingCreature(attacker, game);
-                phase.AttackTarget = target.Id;
-                game.Process(new CreatureAttackedEvent { Card = attacker.Convert(), Attackable = game.GetAttackable(phase.AttackTarget).Id });
+                game.ProcessEvents(new CreatureAttackedEvent(attacker, target.Id));
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using Common.GameEvents;
+﻿using Engine.GameEvents;
 using Engine.Steps;
 using System;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace Engine
             }
         }
 
-        private void StartCurrentPhase(IGame game)
+        public void StartCurrentPhase(IGame game)
         {
             CurrentPhase.Play(game);
             if (!game.Ended)
@@ -64,13 +64,10 @@ namespace Engine
                 IPhase nextPhase = CurrentPhase.GetNextPhase(game);
                 if (nextPhase != null)
                 {
-                    Phases.Add(nextPhase);
-                    game.Process(new PhaseBegunEvent(nextPhase.Type, game.CurrentTurn.Convert()));
-                    StartCurrentPhase(game);
+                    game.ProcessEvents(new PhaseBegunEvent(nextPhase, game.CurrentTurn));
                 }
             }
         }
-
 
         public override string ToString()
         {

@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System;
 
 namespace Cards.ContinuousEffects
@@ -13,23 +13,19 @@ namespace Cards.ContinuousEffects
     /// </summary>
     public abstract class ReplacementEffect : ContinuousEffect, IReplacementEffect
     {
-        protected ReplacementEffect(IGameEvent eventToReplace) : base()
+        protected ReplacementEffect() : base()
         {
             Id = Guid.NewGuid();
-            EventToReplace = eventToReplace;
         }
 
         protected ReplacementEffect(ReplacementEffect effect) : base(effect)
         {
             Id = effect.Id;
-            EventToReplace = effect.EventToReplace.Copy();
         }
-
-        public IGameEvent EventToReplace { get; set; }
 
         public Guid Id { get; }
 
-        public abstract bool Replaceable(IGameEvent gameEvent, IGame game);
-        public abstract bool Apply(IGame game, IPlayer player, ICard creature);
+        public abstract bool CanBeApplied(IGameEvent gameEvent, IGame game);
+        public abstract IGameEvent Apply(IGameEvent gameEvent, IGame game);
     }
 }

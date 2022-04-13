@@ -22,7 +22,7 @@ namespace Cards.Cards.DM08
 
         public bool Applies(Engine.ICard creature, IGame game)
         {
-            return creature.Owner == Controller;
+            return creature.Owner == GetController(game).Id;
         }
 
         public override IContinuousEffect Copy()

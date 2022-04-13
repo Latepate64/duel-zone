@@ -1,7 +1,7 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.Cards.DM09
 {

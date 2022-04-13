@@ -1,9 +1,11 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisSpellHasChargerEffect : ContinuousEffect, IChargerEffect
+    class ThisSpellHasChargerEffect : ReplacementEffect, IChargerEffect
     {
         public ThisSpellHasChargerEffect() : base()
         {
@@ -13,7 +15,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(Engine.ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
         }
@@ -23,9 +25,22 @@ namespace Cards.ContinuousEffects
             return new ThisSpellHasChargerEffect(this);
         }
 
+        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        {
+            return gameEvent is ICardMovedEvent e && e.Source == Common.ZoneType.SpellStack && e.Destination == Common.ZoneType.Graveyard && e.CardInSourceZone == GetSourceCard(game).Id;
+        }
+
         public override string ToString()
         {
             return "Charger";
+        }
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.ManaZone
+            };
         }
     }
 }

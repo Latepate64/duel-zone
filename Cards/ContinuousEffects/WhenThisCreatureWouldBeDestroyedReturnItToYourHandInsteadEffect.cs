@@ -1,5 +1,6 @@
 ﻿using Common;
 using Engine;
+using Engine.GameEvents;
 using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
@@ -45,12 +46,14 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
-        {
-            game.Move(ZoneType.BattleZone, ZoneType.Hand, card);
-            return true;
-        }
-
         protected abstract List<Engine.ICard> GetAffectedCards(IGame game);
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.Hand
+            };
+        }
     }
 }

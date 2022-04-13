@@ -6,9 +6,8 @@ namespace Cards.Cards.DM10
 {
     class GalekTheShadowWarrior : Creature
     {
-        public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Civilization.Darkness, Civilization.Fire)
+        public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Subtype.Ghost, Subtype.Human, Civilization.Darkness, Civilization.Fire)
         {
-            AddSubtypes(Subtype.Ghost, Subtype.Human);
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect());
         }
     }

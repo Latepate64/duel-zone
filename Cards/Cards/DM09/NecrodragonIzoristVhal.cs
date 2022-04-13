@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(Controller).Graveyard.GetCreatures(Civilization.Darkness).Count();
+            return GetController(game).Graveyard.GetCreatures(Civilization.Darkness).Count();
         }
     }
 }

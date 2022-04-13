@@ -23,7 +23,7 @@ namespace Cards.Cards.DM02
 
         public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return card.Owner == Controller && card.CardType == CardType.Creature ? -1 : 0;
+            return card.Owner == GetController(game).Id && card.CardType == CardType.Creature ? -1 : 0;
         }
 
         public override string ToString()

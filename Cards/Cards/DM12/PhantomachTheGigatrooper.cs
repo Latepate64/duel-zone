@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(Controller).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.Chimera) || x.HasSubtype(Subtype.Armorloid))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.Chimera) || x.HasSubtype(Subtype.Armorloid))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller, Subtype.Chimera, Subtype.Armorloid);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Subtype.Chimera, Subtype.Armorloid);
         }
     }
 }

@@ -4,9 +4,8 @@ namespace Cards.Cards.DM05
 {
     class GalliaZohlIronGuardianQ : Creature
     {
-        public GalliaZohlIronGuardianQ() : base("Gallia Zohl, Iron Guardian Q", 5, 2000, Civilization.Light)
+        public GalliaZohlIronGuardianQ() : base("Gallia Zohl, Iron Guardian Q", 5, 2000, Subtype.Survivor, Subtype.Guardian, Civilization.Light)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.Guardian);
             AddSurvivorAbility(new ContinuousEffects.ThisCreatureHasBlockerEffect());
         }
     }

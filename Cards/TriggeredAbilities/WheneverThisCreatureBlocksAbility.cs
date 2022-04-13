@@ -1,6 +1,6 @@
-﻿using Common.GameEvents;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
@@ -16,7 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return base.CanTrigger(gameEvent, game) && gameEvent is BlockEvent;
+            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
         }
 
         public override Ability Copy()
@@ -29,7 +29,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature blocks, {OneShotEffect}.";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return card.Id == Source;
         }

@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Source).Hand.Cards;
+            return source.GetController(game).Hand.Cards;
         }
     }
 }

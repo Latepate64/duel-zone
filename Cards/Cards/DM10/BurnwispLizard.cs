@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
 
         public bool Applies(Engine.ICard creature, IGame game)
         {
-            return creature.Owner == Controller && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return creature.Owner == GetController(game).Id && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
 
         public override IContinuousEffect Copy()

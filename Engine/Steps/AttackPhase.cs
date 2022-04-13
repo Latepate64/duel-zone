@@ -1,4 +1,4 @@
-﻿using Common.GameEvents;
+﻿using Engine.GameEvents;
 using System;
 using System.Collections.ObjectModel;
 
@@ -6,7 +6,7 @@ namespace Engine.Steps
 {
     public class AttackPhase : Phase
     {
-        public Guid AttackingCreature { get; protected set; }
+        public Guid AttackingCreature { get; internal set; }
         public Guid AttackTarget { get; set; }
         public Guid BlockingCreature { get; set; }
 
@@ -30,16 +30,17 @@ namespace Engine.Steps
             {
                 var target = game.GetAttackable(AttackTarget);
                 AttackTarget = Guid.Empty;
-                var e = new AttackTargetRemovedEvent();
-                if (target is ICard card)
-                {
-                    e.TargetCard = card.Convert();
-                }
-                else if (target is Player player)
-                {
-                    e.TargetPlayer = player.Convert();
-                }
-                game.Process(e);
+                //TODO: Event
+                //var e = new AttackTargetRemovedEvent();
+                //if (target is ICard card)
+                //{
+                //    e.TargetCard = card.Convert();
+                //}
+                //else if (target is Player player)
+                //{
+                //    e.TargetPlayer = player.Convert();
+                //}
+                //game.Process(e);
             }
         }
 
@@ -49,7 +50,8 @@ namespace Engine.Steps
             {
                 var blocker = game.GetCard(BlockingCreature);
                 BlockingCreature = Guid.Empty;
-                game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
+                //TODO: Event
+                //game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
             }
         }
 
@@ -62,9 +64,7 @@ namespace Engine.Steps
         {
             if (AttackingCreature != Guid.Empty)
             {
-                var attacker = game.GetCard(AttackingCreature);
-                AttackingCreature = Guid.Empty;
-                game.Process(new CreatureStoppedAttackingEvent { Attacker = attacker.Convert() });
+                game.ProcessEvents(new CreatureStoppedAttackingEvent(game.GetCard(AttackingCreature), this));
             }
         }
 
@@ -79,7 +79,8 @@ namespace Engine.Steps
             while (step != null && !game.Ended)
             {
                 _steps.Add(step);
-                game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));
+                //TODO: Create separate event for changing step?
+                //game.Process(new PhaseBegunEvent(step.Type, game.CurrentTurn.Convert()));
                 (step as ITurnBasedActionable).PerformTurnBasedAction(game);
                 Progress(game);
                 step = step.GetNextStep(game);

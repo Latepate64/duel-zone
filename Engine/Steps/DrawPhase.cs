@@ -5,7 +5,7 @@
     /// </summary>
     public class DrawPhase : Phase, ITurnBasedActionable
     {
-        public DrawPhase() : base(Common.GameEvents.PhaseOrStep.Draw)
+        public DrawPhase() : base(PhaseOrStep.Draw)
         {
         }
 

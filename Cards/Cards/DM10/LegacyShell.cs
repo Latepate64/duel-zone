@@ -32,7 +32,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller, Civilization.Light, Civilization.Fire);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Light, Civilization.Fire);
         }
     }
 }

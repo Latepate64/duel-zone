@@ -1,4 +1,4 @@
 ﻿namespace Common
 {
-    public enum ZoneType { Anywhere, BattleZone, Deck, Graveyard, Hand, ManaZone, ShieldZone };
+    public enum ZoneType { Anywhere, BattleZone, Deck, Graveyard, Hand, ManaZone, ShieldZone, SpellStack };
 }

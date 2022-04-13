@@ -40,7 +40,7 @@ namespace Cards.Cards.DM02
 
         public bool Applies(Engine.ICard attacker, IGame game)
         {
-            return attacker.Owner == Controller;
+            return attacker.Owner == GetController(game).Id;
         }
 
         public override IContinuousEffect Copy()

@@ -62,7 +62,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Source).ManaZone.Cards;
+            return source.GetController(game).ManaZone.Cards;
         }
     }
 }

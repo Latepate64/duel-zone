@@ -7,9 +7,8 @@ namespace Cards.Cards.Promo
 {
     class BrigadeShellQ : Creature
     {
-        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Civilization.Nature)
+        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Subtype.Survivor, Subtype.ColonyBeetle, Civilization.Nature)
         {
-            AddSubtypes(Subtype.Survivor, Subtype.ColonyBeetle);
             AddSurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new BrigadeShellQEffect()));
         }
     }

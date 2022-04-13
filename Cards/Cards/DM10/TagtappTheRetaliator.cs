@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(game.GetOpponent(Controller)).ManaZone.GetCards(Civilization.Water).Count();
+            return game.GetPlayer(game.GetOpponent(GetController(game).Id)).ManaZone.GetCards(Civilization.Water).Count();
         }
     }
 }

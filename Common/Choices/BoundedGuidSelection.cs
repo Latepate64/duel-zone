@@ -21,8 +21,8 @@ namespace Common.Choices
         /// <param name="maximumSelection"></param>
         protected BoundedGuidSelection(Guid player, IEnumerable<Guid> options, int minimumSelection, int maximumSelection) : base(player, options)
         {
-            MinimumSelection = minimumSelection;
-            MaximumSelection = maximumSelection;
+            MinimumSelection = Math.Min(minimumSelection, options.Count());
+            MaximumSelection = Math.Min(maximumSelection, options.Count());
         }
 
         public override bool IsLegal(IEnumerable<Guid> decision)

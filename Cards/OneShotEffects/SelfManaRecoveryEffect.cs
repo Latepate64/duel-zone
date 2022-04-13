@@ -1,6 +1,4 @@
-﻿using Engine;
-
-namespace Cards.OneShotEffects
+﻿namespace Cards.OneShotEffects
 {
     abstract class SelfManaRecoveryEffect : ManaRecoveryEffect
     {

@@ -1,4 +1,4 @@
-﻿using Common.GameEvents;
+﻿using Engine.GameEvents;
 using System;
 
 namespace Engine.Abilities
@@ -7,7 +7,6 @@ namespace Engine.Abilities
     {
         bool CanTrigger(IGameEvent gameEvent, IGame game);
         bool CheckInterveningIfClause(IGame game);
-        void Resolve(IGame game);
         ITriggeredAbility Trigger(Guid source, Guid owner);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine;
 using Engine.Abilities;
+using Engine.GameEvents;
 using System.Linq;
 
 namespace Cards.TriggeredAbilities

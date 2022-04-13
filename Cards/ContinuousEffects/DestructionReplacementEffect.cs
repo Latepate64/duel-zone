@@ -1,12 +1,12 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
     abstract class DestructionReplacementEffect : ReplacementEffect
     {
-        protected DestructionReplacementEffect() : base(new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })
+        protected DestructionReplacementEffect() : base()
         {
         }
 
@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Replaceable(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
             if (gameEvent is CardMovedEvent e)
             {

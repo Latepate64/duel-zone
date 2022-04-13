@@ -36,7 +36,7 @@ namespace Cards
     {
         public ChargerAbility() : base(new ContinuousEffects.ThisSpellHasChargerEffect())
         {
-            FunctionZone = ZoneType.Anywhere;
+            FunctionZone = ZoneType.SpellStack;
         }
     }
 }

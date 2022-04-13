@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.GameEvents;
 using Engine.Abilities;
 using Common.Choices;
 using Engine.ContinuousEffects;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Engine.GameEvents;
 
 namespace Engine
 {
@@ -76,6 +76,7 @@ namespace Engine
         /// A delayed triggered ability will contain “when,” “whenever,” or “at,” although that word won’t usually begin the ability.
         /// </summary>
         private readonly List<DelayedTriggeredAbility> _delayedTriggeredAbilities = new();
+        private readonly List<IResolvableAbility> _reflexiveTriggeredAbilities = new();
 
         public int MaximumNumberOfTurns { get; set; } = 100;
         #endregion Properties
@@ -87,7 +88,7 @@ namespace Engine
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public IBattleZone BattleZone { get; set; } = new BattleZone();
-        public Stack<ICard> SpellsBeingCast { get; } = new Stack<ICard>();
+        public SpellStack SpellStack { get; } = new SpellStack();
 
         public delegate void GameEventHandler(IGameEvent gameEvent);
 
@@ -234,51 +235,12 @@ namespace Engine
 
         public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
         {
-            var attackingCreature = GetCard(attackingCreatureId);
-            var defendingCreature = GetCard(defendingCreatureId);
-
-            // Battle event must be processed relative to both creatures.
-            Process(new BattleEvent { Card = attackingCreature.Convert(), OtherCard = defendingCreature.Convert() });
-            Process(new BattleEvent { Card = defendingCreature.Convert(), OtherCard = attackingCreature.Convert() });
-
-            if (attackingCreature.Power.Value > defendingCreature.Power.Value)
-            {
-                Outcome(attackingCreature, defendingCreature);
-            }
-            else if (attackingCreature.Power.Value < defendingCreature.Power.Value)
-            {
-                Outcome(defendingCreature, attackingCreature);
-            }
-            else
-            {
-                CheckLoseInBattle(attackingCreature, defendingCreature);
-                CheckLoseInBattle(defendingCreature, attackingCreature);
-            }
-
-            Process(new AfterBattleEvent());
-
-            void Outcome(ICard winner, ICard loser)
-            {
-                Process(new WinBattleEvent { Card = winner.Convert() });
-                CheckLoseInBattle(loser, winner);
-                if (GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, this)))
-                {
-                    winner.LostInBattle = true; // TODO: Not sure if proper way to do
-                }
-            }
-        }
-
-        private void CheckLoseInBattle(ICard target, ICard against)
-        {
-            if (!GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, this)))
-            {
-                target.LostInBattle = true;
-            }
+            ProcessEvents(new BattleEvent(GetCard(attackingCreatureId), GetCard(defendingCreatureId)));
         }
 
         public IEnumerable<ICard> GetAllCards()
         {
-            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellsBeingCast);
+            return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellStack.Cards);
         }
 
         public void Destroy(IEnumerable<ICard> cards)
@@ -377,9 +339,14 @@ namespace Engine
             }
         }
 
-        public void Process(IGameEvent gameEvent)
+        private void ProcessEvent(IGameEvent gameEvent)
         {
+            gameEvent.Happen(this);
             OnGameEvent?.Invoke(gameEvent);
+            if (Ended) 
+            { 
+                return; //TODO: Consider better design
+            }
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
@@ -410,7 +377,8 @@ namespace Engine
                     AddPendingAbilities(abilities.ToArray());
                     foreach (var ability in abilities)
                     {
-                        Process(new AbilityTriggeredEvent { Ability = ability.Id });
+                        //TODO: Event
+                        //Process(new AbilityTriggeredEvent { Ability = ability.Id });
                     }
                 }
                 catch (PlayerNotInGameException)
@@ -443,7 +411,8 @@ namespace Engine
             foreach (var player in players)
             {
                 Losers.Add(player);
-                Process(new LoseEvent { Player = player.Copy() });
+                //TODO: Event
+                //Process(new LoseEvent { Player = player.Copy() });
                 Leave(player);
             }
             
@@ -464,115 +433,92 @@ namespace Engine
         private void Win(IPlayer player)
         {
             Winner = player;
-            Process(new WinEvent { Player = player.Copy() });
+            //TODO: Event
+            //Process(new WinEvent { Player = player.Copy() });
+
             Leave(player);
         }
 
         private void Leave(IPlayer player)
         {
             // 800.4a When a player leaves the game, all objects (see rule 109) owned by that player leave the game.
-            _ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
+            // TODO: Commented for time being, consider alternative design to avoid exceptions
+            //_ = Move(ZoneType.BattleZone, ZoneType.Anywhere, BattleZone.Cards.Where(x => x.Owner == player.Id).ToArray());
 
             // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
-            _ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
+            // TODO: Commented for time being, consider alternative design to avoid exceptions
+            //_ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
 
             _ = Players.Remove(player);
         }
 
-        public IEnumerable<ICardMovedEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination }).ToList());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false)).ToArray());
         }
 
-        public IEnumerable<ICardMovedEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return Move(cards.Select(x => new CardMovedEvent { Player = GetPlayer(x.Owner)?.Convert(), CardInSourceZone = x.Id, Source = source, Destination = destination, EntersTapped = true }).ToList());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true)).ToArray());
+        }
+
+        public IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] events)
+        {
+            var effectsByEvent = GetReplacementEffectsByEvents(events);
+
+            // TODO: Continue developing this logic so that player can choose between multiple continuous effects which one to apply, see mtg rule 616.1.
+            //var toChoose = effectsByEvent.Where(x => x.Count() > 1);
+            //var choices = toChoose.Select(group => new ReplacementEffectSelection(
+            //    group.Key.GetApplier(this).Id,
+            //    group.SelectMany(effects => effects.Select(effect => effect.Id))));
+            //var decisions = MakeChoices(choices);
+
+            // TODO: See above comment. Current implementation defaults to first replacement effect for each event that can be replaced by more than one effect.
+            var finalEvents = effectsByEvent.Select(group =>
+                group.Any(effects => effects.Any()) ?
+                    group.SelectMany(effects => effects).First().Apply(group.Key, this) :
+                    group.Key
+            );
+            finalEvents.ToList().ForEach(x => ProcessEvent(x));
+            return finalEvents;
         }
 
         /// <summary>
-        /// 400.6.
-        /// If an object would move from one zone to another, determine what event is moving the object.
-        /// If the object is moving to a public zone and its owner will be able to look at it in that zone,
-        /// its owner looks at it to see if it has any abilities that would affect the move.
-        /// If the object is moving to the battlefield, each other player who will be able to look at it in that zone does so.
-        /// Then any appropriate replacement effects, whether they come from that object or from elsewhere, are applied to that event.
-        /// If any effects or rules try to do two or more contradictory or mutually exclusive things to a particular object,
-        /// that object’s controller—or its owner if it has no controller—chooses which effect to apply, and what that effect does.
-        /// (Note that multiple instances of the same thing may be mutually exclusive; for example, two simultaneous “destroy” effects.)
-        /// Then the event moves the object.
+        /// Groups all applicable replacement effects for each simultaneous event.
+        /// Example: If Mihail, Aqua Hulcus and Aqua Soldier controlled by the same player would be destroyed at the same time,
+        /// the replacement effects for each destruction event would be as follows:
+        /// none for Mihail, one for Hulcus (generated by Mihail), and two for Soldier (generated by Mihail and by itself).
         /// </summary>
         /// <param name="events"></param>
         /// <returns></returns>
-        private IEnumerable<ICardMovedEvent> Move(List<CardMovedEvent> events)
+        private IEnumerable<IGrouping<IGameEvent, IEnumerable<IReplacementEffect>>> GetReplacementEffectsByEvents(IGameEvent[] events)
         {
-            //TODO: Refactor based on summary.
-
-            // TODO: Sort players by turn order
-            var replacementEffects = GetReplacementEffects(events);
-            var affectedCardGroups = replacementEffects.Select(x => x.EventToReplace).Cast<ICardMovedEvent>().Select(x => x.CardInSourceZone).GroupBy(x => GetCard(x).Owner);
-            foreach (var cardGroup in affectedCardGroups)
-            {
-                var effectGroups = replacementEffects.Where(x => cardGroup.Contains((x.EventToReplace as ICardMovedEvent).CardInSourceZone));
-                var effectGuid = effectGroups.Count() > 1
-                    ? GetPlayer(cardGroup.Key).Choose(new ReplacementEffectSelection(GetPlayer(cardGroup.Key).Id, replacementEffects.Select(x => x.Id), 1, 1), this).Decision.Single()
-                    : effectGroups.Select(x => x.Id).Single();
-                var effect = effectGroups.Single(x => x.Id == effectGuid);
-                if (effect.Apply(this, GetPlayer(cardGroup.Key), GetCard(cardGroup.Single())))
-                {
-                    events.RemoveAll(x => x.Id == effect.EventToReplace.Id);
-                }
-            }
-            foreach (var e in events)
-            {
-                Move(e);
-                Process(e);
-            }
-            return events;
+            return events.GroupBy(
+                gameEvent => gameEvent,
+                gameEvent => GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent, this)));
         }
 
-        private void Move(ICardMovedEvent e)
+        public void ResolveReflexiveTriggeredAbilities()
         {
-            if (e.Player != null)
+            while (_reflexiveTriggeredAbilities.Any())
             {
-                var card = GetCard(e.CardInSourceZone);
-                var removed = (e.Source == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Source)).Remove(card, this);
-                foreach (var removedCard in removed)
-                {
-                    if (e.Destination != ZoneType.Anywhere)
-                    {
-                        // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
-                        // 613.7d An object receives a timestamp at the time it enters a zone.
-                        var newObject = new Card(removedCard, GetTimestamp());
-                        if (e.EntersTapped)
-                        {
-                            newObject.Tapped = true;
-                        }
-                        try 
-                        {
-                            (e.Destination == ZoneType.BattleZone ? BattleZone : GetPlayer(e.Player.Id).GetZone(e.Destination)).Add(newObject, this);
-                            e.Card = newObject.Convert();
-                        }
-                        catch (PlayerNotInGameException) { }
-                    }
-                }
+                //TODO: In rare cases there could be multiple reflexive triggered abilities, in that case those should be resolved in APNAP order
+                var ability = _reflexiveTriggeredAbilities.First();
+                _reflexiveTriggeredAbilities.RemoveAt(0);
+                ability.Resolve(this);
             }
         }
 
-        private List<IReplacementEffect> GetReplacementEffects(IEnumerable<ICardMovedEvent> events)
+        private IEnumerable<IGuidDecision> MakeChoices(IEnumerable<GuidSelection> choices)
         {
-            var replacementEffects = new List<IReplacementEffect>();
-            foreach (var moveEvent in events)
-            {
-                foreach (var replacementEffect in GetContinuousEffects<IReplacementEffect>().Where(x => x.Replaceable(moveEvent, this)))
-                {
-                    var effect = replacementEffect.Copy() as IReplacementEffect;
-                    effect.EventToReplace = moveEvent.Copy();
-                    replacementEffects.Add(effect);
-                }
-            }
-            return replacementEffects;
+            return choices.Select(choice => GetPlayer(choice.Player).Choose(choice, this));
         }
 
+        /// <summary>
+        /// TODO: Consider design independent of events returned by Move
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <param name="canUseShieldTrigger"></param>
         public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger)
         {
             var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
@@ -586,9 +532,9 @@ namespace Engine
         /// TODO: Refactor and consider CannotUseShieldTriggerEffect
         /// </summary>
         /// <param name="events"></param>
-        private void CheckShieldTriggers(IEnumerable<ICardMovedEvent> events)
+        private void CheckShieldTriggers(IEnumerable<IGameEvent> events)
         {
-            var allShieldTriggers = events.Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
@@ -599,7 +545,8 @@ namespace Engine
                     {
                         var trigger = GetCard(decision.Decision.Single());
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
+                        //TODO: Event
+                        //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
                         if (trigger.CanBeUsedRegardlessOfManaCost(this))
                         {
                             GetPlayer(shieldTriggersByPlayer.Key).UseCard(trigger, this);
@@ -673,6 +620,7 @@ namespace Engine
             var orderedEffects = _continuousEffects.OrderBy(x => x.Timestamp);
 
             // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, subtype, and / or supertype.
+            orderedEffects.OfType<ISubtypeAddingEffect>().ToList().ForEach(x => x.AddSubtype(this));
 
             // 613.1f Layer 6: Ability-adding effects, ability-removing effects, and effects that say an object can’t have an ability are applied.
             orderedEffects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility(this));
@@ -783,7 +731,9 @@ namespace Engine
         /// <returns></returns>
         private IEnumerable<ICard> CheckBattleLosses()
         {
-            return BattleZone.Creatures.Where(x => x.LostInBattle);
+            var creatures = BattleZone.Creatures.Where(x => x.LostInBattle).ToList();
+            creatures.ForEach(x => x.LostInBattle = false);
+            return creatures;
         }
 
         /// <summary>
@@ -808,6 +758,11 @@ namespace Engine
         private IEnumerable<IZone> GetZones()
         {
             return Players.SelectMany(x => x.Zones).Union(new IZone[] { BattleZone });
+        }
+
+        public void AddReflexiveTriggeredAbility(IResolvableAbility ability)
+        {
+            _reflexiveTriggeredAbilities.Add(ability);
         }
         #endregion Methods
     }

@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -12,10 +13,12 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ShieldZone, card);
-            return true;
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = Common.ZoneType.ShieldZone
+            };
         }
 
         public override ContinuousEffect Copy()

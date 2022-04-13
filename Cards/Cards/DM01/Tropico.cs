@@ -22,7 +22,7 @@ namespace Cards.Cards.DM01
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             var ability = GetSourceAbility(game);
-            return attacker.Id == ability.Source && game.BattleZone.GetCreatures(Controller).Count(x => x.Id != ability.Source) >= 2;
+            return attacker.Id == ability.Source && game.BattleZone.GetCreatures(GetController(game).Id).Count(x => x.Id != ability.Source) >= 2;
         }
 
         public override IContinuousEffect Copy()

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 
 namespace Cards.Cards.DM10
 {
@@ -18,11 +19,9 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Deck, card);
-            player.ShuffleDeck(game);
-            return true;
+            return new RyudmilaEvent(GetSourceCard(game));
         }
 
         public override IContinuousEffect Copy()
@@ -38,6 +37,27 @@ namespace Cards.Cards.DM10
         protected override bool Applies(Engine.ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
+        }
+    }
+
+    class RyudmilaEvent : GameEvent
+    {
+        private readonly Engine.ICard _card;
+
+        public RyudmilaEvent(Engine.ICard card)
+        {
+            _card = card;
+        }
+
+        public override void Happen(IGame game)
+        {
+            game.Move(ZoneType.BattleZone, ZoneType.Deck, _card);
+            game.GetPlayer(_card.Owner).ShuffleDeck(game);
+        }
+
+        public override string ToString()
+        {
+            return "Shuffle it into your deck instead.";
         }
     }
 }
