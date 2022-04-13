@@ -1,5 +1,7 @@
 ﻿using Common;
 using Common.Choices;
+using Engine;
+using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
@@ -13,14 +15,19 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(Engine.IGame game, Engine.IPlayer player, Engine.ICard creature)
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
+            if (GetController(game).Choose(new YesNoChoice(GetController(game).Id, ToString()), game).Decision)
             {
-                game.Move(ZoneType.BattleZone, ZoneType.Hand, creature);
-                return true;
+                return new CardMovedEvent(gameEvent as ICardMovedEvent)
+                {
+                    Destination = ZoneType.Hand
+                };
             }
-            return false;
+            else
+            {
+                return gameEvent;
+            }
         }
     }
 }

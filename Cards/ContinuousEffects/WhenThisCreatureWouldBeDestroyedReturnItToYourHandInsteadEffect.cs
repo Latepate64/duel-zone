@@ -15,11 +15,6 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override ContinuousEffect Copy()
         {
             return new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(this);
@@ -51,12 +46,14 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
-        {
-            game.Move(ZoneType.BattleZone, ZoneType.Hand, card);
-            return true;
-        }
-
         protected abstract List<Engine.ICard> GetAffectedCards(IGame game);
+
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        {
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.Hand
+            };
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -33,15 +34,12 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player, ICard card)
-        {
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.ManaZone, card);
-            return true;
-        }
-
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.ManaZone
+            };
         }
 
         public override IContinuousEffect Copy()
@@ -59,7 +57,7 @@ namespace Cards.OneShotEffects
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(Engine.ICard card, IGame game)
         {
             return card.Owner == GetController(game).Id;
         }

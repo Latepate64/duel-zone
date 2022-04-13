@@ -15,10 +15,12 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
+        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.ManaZone, card);
-            return true;
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.ManaZone
+            };
         }
     }
 
@@ -26,11 +28,6 @@ namespace Cards.ContinuousEffects
     {
         public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
-        }
-
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            throw new System.NotImplementedException();
         }
 
         public override IContinuousEffect Copy()

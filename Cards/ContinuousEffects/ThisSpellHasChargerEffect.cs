@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Common;
+using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -14,15 +15,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(Engine.ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
-        }
-
-        public override bool Apply(IGame game, IPlayer player, ICard creature)
-        {
-            game.Move(Common.ZoneType.SpellStack, Common.ZoneType.ManaZone, creature);
-            return true;
         }
 
         public override IContinuousEffect Copy()
@@ -42,7 +37,10 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.ManaZone
+            };
         }
     }
 }

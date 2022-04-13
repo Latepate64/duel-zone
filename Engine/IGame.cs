@@ -28,6 +28,7 @@ namespace Engine
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
         void Battle(Guid attackingCreatureId, Guid defendingCreatureId);
+        void AddReflexiveTriggeredAbility(IResolvableAbility ability);
         bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
         IAbility GetAbility(Guid id);
@@ -52,5 +53,6 @@ namespace Engine
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void AddPendingAbilities(params IResolvableAbility[] abilities);
         IZone GetZone(ICard card);
+        void ResolveReflexiveTriggeredAbilities();
     }
 }

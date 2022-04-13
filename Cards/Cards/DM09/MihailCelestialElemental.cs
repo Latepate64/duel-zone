@@ -19,14 +19,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
-        {
-            return true;
-        }
-
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
+            return new MihailEvent();
         }
 
         public override IContinuousEffect Copy()
@@ -42,6 +37,19 @@ namespace Cards.Cards.DM09
         protected override bool Applies(Engine.ICard card, IGame game)
         {
             return !IsSourceOfAbility(card, game);
+        }
+    }
+
+    class MihailEvent : GameEvent
+    {
+        public override void Happen(IGame game)
+        {
+            // Do nothing
+        }
+
+        public override string ToString()
+        {
+            return "It stays in the battle zone instead.";
         }
     }
 }

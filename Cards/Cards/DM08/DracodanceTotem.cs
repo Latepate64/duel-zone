@@ -22,24 +22,13 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override bool Apply(IGame game, Engine.IPlayer player, Engine.ICard card)
-        {
-            var manaZoneDragons = player.ManaZone.Creatures.Where(x => x.IsDragon);
-            if (manaZoneDragons.Any())
-            {
-                game.Move(ZoneType.BattleZone, ZoneType.ManaZone, card);
-                new DracodanceTotemRecoveryEffect().Apply(game, GetSourceAbility(game));
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
+            game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), GetSourceAbility(game)));
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
+            {
+                Destination = ZoneType.Hand
+            };
         }
 
         public override IContinuousEffect Copy()
@@ -54,7 +43,7 @@ namespace Cards.Cards.DM08
 
         protected override bool Applies(Engine.ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game);
+            return IsSourceOfAbility(card, game) && GetController(game).ManaZone.Creatures.Any(x => x.IsDragon);
         }
     }
 

@@ -1,5 +1,4 @@
-﻿using Cards.TriggeredAbilities;
-using Common.Choices;
+﻿using Common.Choices;
 using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
@@ -16,20 +15,20 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool Apply(IGame game, IPlayer player, Engine.ICard card)
-        {
-            if (player.Choose(new YesNoChoice(player.Id, ToString()), game).Decision)
-            {
-                game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Hand, card);
-                new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect()).Resolve(game);
-                return true;
-            }
-            return false;
-        }
-
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            throw new System.NotImplementedException();
+            if (GetController(game).Choose(new YesNoChoice(GetController(game).Id, ToString()), game).Decision)
+            {
+                game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), GetSourceAbility(game)));
+                return new CardMovedEvent(gameEvent as ICardMovedEvent)
+                {
+                    Destination = Common.ZoneType.Hand
+                };
+            }
+            else
+            {
+                return gameEvent;
+            }
         }
 
         public override IContinuousEffect Copy()

@@ -17,10 +17,6 @@ namespace Cards.Cards.DM07
     {
         public AquaAgentEffect() : base() { }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public override IContinuousEffect Copy()
         {

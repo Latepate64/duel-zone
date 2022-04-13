@@ -14,12 +14,22 @@ namespace Engine.GameEvents
             EntersTapped = tapped;
         }
 
-        public IPlayer Player { get; }
-        public Guid CardInSourceZone { get; }
-        public ZoneType Source { get; }
-        public ZoneType Destination { get; }
-        public bool EntersTapped { get; }
+        public CardMovedEvent(ICardMovedEvent e)
+        {
+            Card = e.Card?.Copy();
+            CardInSourceZone = e.CardInSourceZone;
+            Destination = e.Destination;
+            EntersTapped = e.EntersTapped;
+            Player = e.Player;
+            Source = e.Source;
+        }
+
         public ICard Card { get; set; }
+        public Guid CardInSourceZone { get; }
+        public ZoneType Destination { get; set; }
+        public bool EntersTapped { get; }
+        public IPlayer Player { get; }
+        public ZoneType Source { get; }
 
         public override void Happen(IGame game)
         {

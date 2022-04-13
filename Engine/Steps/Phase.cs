@@ -23,6 +23,7 @@ namespace Engine.Steps
         {
             if (!game.Ended)
             {
+                game.ResolveReflexiveTriggeredAbilities();
                 if (game.CheckStateBasedActions())
                 {
                     Progress(game);

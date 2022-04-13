@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -22,7 +23,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return new ICard[] { game.GetCard(source.Source) };
+            return new List<ICard> { game.GetCard(source.Source) }.Where(x => x != null);
         }
     }
 }

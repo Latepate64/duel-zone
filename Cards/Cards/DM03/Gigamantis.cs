@@ -20,11 +20,6 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override IContinuousEffect Copy()
         {
             return new GigamantisEffect();

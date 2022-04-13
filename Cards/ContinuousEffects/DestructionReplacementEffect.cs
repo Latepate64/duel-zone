@@ -6,8 +6,8 @@ namespace Cards.ContinuousEffects
 {
     abstract class DestructionReplacementEffect : ReplacementEffect
     {
-        protected DestructionReplacementEffect() : base()//new CardMovedEvent { Source = ZoneType.BattleZone, Destination = ZoneType.Graveyard })
-        {//TODO: Add event in base call
+        protected DestructionReplacementEffect() : base()
+        {
         }
 
         protected DestructionReplacementEffect(DestructionReplacementEffect effect) : base(effect)
