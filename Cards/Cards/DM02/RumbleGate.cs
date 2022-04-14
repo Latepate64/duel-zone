@@ -1,8 +1,10 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 
 namespace Cards.Cards.DM02
 {
@@ -18,7 +20,7 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new RumbleGateContinuousEffect());
+            game.AddContinuousEffects(source, new RumbleGateContinuousEffect(source.Controller));
             return null;
         }
 
@@ -33,20 +35,28 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class RumbleGateContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect
+    class RumbleGateContinuousEffect : UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect
     {
-        public RumbleGateContinuousEffect() : base()
+        private readonly Guid _controller;
+
+        public RumbleGateContinuousEffect(System.Guid controller) : base()
         {
+            _controller = controller;
+        }
+
+        public RumbleGateContinuousEffect(RumbleGateContinuousEffect effect) : base(effect)
+        {
+            _controller = effect._controller;
         }
 
         public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
         {
-            return attacker.Owner == GetController(game).Id && attacker.CanAttackCreatures(game);
+            return attacker.Owner == _controller && attacker.CanAttackCreatures(game);
         }
 
         public override IContinuousEffect Copy()
         {
-            return new RumbleGateContinuousEffect();
+            return new RumbleGateContinuousEffect(this);
         }
 
         public override string ToString()

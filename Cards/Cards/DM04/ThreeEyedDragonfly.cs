@@ -26,7 +26,7 @@ namespace Cards.Cards.DM04
             var destroyed = new YouMayDestroyOneOfYourOtherCreaturesEffect().Apply(game, source);
             if (destroyed.Any())
             {
-                game.AddContinuousEffects(source, new ThreeEyedDragonflyContinuousEffect());
+                game.AddContinuousEffects(source, new ThreeEyedDragonflyContinuousEffect(game.GetCard(source.Source)));
             }
             return destroyed;
         }
@@ -44,12 +44,16 @@ namespace Cards.Cards.DM04
 
     class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IDuration
     {
+        private readonly Engine.ICard _card;
+
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
+            _card = effect._card;
         }
 
-        public ThreeEyedDragonflyContinuousEffect() : base(2000)
+        public ThreeEyedDragonflyContinuousEffect(Engine.ICard card) : base(2000)
         {
+            _card = card;
         }
 
         public override IContinuousEffect Copy()
@@ -69,7 +73,7 @@ namespace Cards.Cards.DM04
 
         protected override List<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return new List<Engine.ICard> { GetSourceCard(game) };
+            return new List<Engine.ICard> { _card };
         }
     }
 

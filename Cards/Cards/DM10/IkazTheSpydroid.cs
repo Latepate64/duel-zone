@@ -59,7 +59,7 @@ namespace Cards.Cards.DM10
 
         public override IOneShotEffect Copy()
         {
-            return new IkazTheSpydroidUntapEffect();
+            return new IkazTheSpydroidUntapEffect(this);
         }
 
         public override string ToString()

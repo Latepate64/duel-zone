@@ -1,7 +1,9 @@
-﻿using Common;
+﻿using Cards.ContinuousEffects;
+using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using System;
 
 namespace Cards.Cards.DM02
 {
@@ -17,7 +19,7 @@ namespace Cards.Cards.DM02
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new DiamondCutterContinuousEffect());
+            game.AddContinuousEffects(source, new DiamondCutterContinuousEffect(source.Controller));
             return null;
         }
 
@@ -32,20 +34,28 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class DiamondCutterContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
+    class DiamondCutterContinuousEffect : UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
     {
-        public DiamondCutterContinuousEffect() : base()
+        private readonly Guid _controller;
+
+        public DiamondCutterContinuousEffect(System.Guid controller) : base()
         {
+            _controller = controller;
+        }
+
+        public DiamondCutterContinuousEffect(DiamondCutterContinuousEffect effect) : base(effect)
+        {
+            _controller = effect._controller;
         }
 
         public bool Applies(Engine.ICard attacker, IGame game)
         {
-            return attacker.Owner == GetController(game).Id;
+            return attacker.Owner == _controller;
         }
 
         public override IContinuousEffect Copy()
         {
-            return new DiamondCutterContinuousEffect();
+            return new DiamondCutterContinuousEffect(this);
         }
 
         public override string ToString()
