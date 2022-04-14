@@ -267,14 +267,7 @@ namespace Engine
         /// <exception cref="PlayerNotInGameException"></exception>
         public Guid GetOpponent(Guid player)
         {
-            try
-            {
-                return Players.Single(x => x.Id != player).Id;
-            }
-            catch
-            {
-                throw new PlayerNotInGameException(player);
-            }
+            return Players.Single(x => x.Id != player).Id;
         }
 
         /// <summary>
@@ -285,14 +278,7 @@ namespace Engine
         /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetOwner(ICard card)
         {
-            try 
-            {
-                return Players.Single(x => x.Id == card.Owner);
-            }
-            catch
-            {
-                throw new PlayerNotInGameException(card.Owner);
-            }
+            return Players.Single(x => x.Id == card.Owner);
         }
 
         public ICard GetCard(Guid id)
@@ -308,14 +294,7 @@ namespace Engine
         /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetPlayer(Guid id)
         {
-            try
-            {
-                return Players.Single(x => x.Id == id);
-            }
-            catch
-            {
-                throw new PlayerNotInGameException(id);
-            }
+            return Players.Single(x => x.Id == id);
         }
 
         /// <summary>
@@ -359,30 +338,23 @@ namespace Engine
                 {
                     _delayedTriggeredAbilities.Remove(remove);
                 }
-
-                try
+                ApplyContinuousEffects();
+                var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
+                List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
+                foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
-                    ApplyContinuousEffects();
-                    var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
-                    List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-                    foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+                    abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
+                    if (ability.TriggersOnlyOnce)
                     {
-                        abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
-                        if (ability.TriggersOnlyOnce)
-                        {
-                            toBeRemoved.Add(ability);
-                        }
-                    }
-                    _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                    AddPendingAbilities(abilities.ToArray());
-                    foreach (var ability in abilities)
-                    {
-                        //TODO: Event
-                        //Process(new AbilityTriggeredEvent { Ability = ability.Id });
+                        toBeRemoved.Add(ability);
                     }
                 }
-                catch (PlayerNotInGameException)
+                _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                AddPendingAbilities(abilities.ToArray());
+                foreach (var ability in abilities)
                 {
+                    //TODO: Event
+                    //Process(new AbilityTriggeredEvent { Ability = ability.Id });
                 }
             }
             else

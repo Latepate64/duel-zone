@@ -48,13 +48,7 @@ namespace Engine.GameEvents
         /// <param name="game"></param>
         private void FinishCastingSpell(ICard spell, IGame game)
         {
-            try
-            {
-                game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false));
-            }
-            catch (PlayerNotInGameException)
-            {
-            }
+            game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false));
         }
     }
 }
