@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Engine.GameEvents;
+using Engine.Choices;
 
 namespace Engine
 {
@@ -420,6 +421,23 @@ namespace Engine
         public abstract Subtype ChooseRace(params Subtype[] excluded);
         public abstract int ChooseNumber(string text, int minimum, int? maximum);
         public abstract IPlayer Copy();
+
+        public T Choose<T>(T choice) where T : Choices.Choice
+        {
+            T choiceMade; 
+            do
+            {
+                choiceMade = ChooseAbstractly(choice);
+            } while (!choiceMade.IsValid());
+            return choiceMade;
+        }
+
+        public abstract T ChooseAbstractly<T>(T choice) where T : Choices.Choice;
+
+        public bool ChooseToTakeAction(string description)
+        {
+            return Choose(new BooleanChoice(this, description)).Choice.Value;
+        }
         #endregion Methods
     }
 }

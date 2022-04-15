@@ -470,9 +470,19 @@ namespace Engine
             }
         }
 
-        private IEnumerable<IGuidDecision> MakeChoices(IEnumerable<GuidSelection> choices)
+        /// <summary>
+        /// 101.4. If multiple players would make choices and/or take actions at the same time, the active player
+        /// (the player whose turn it is) makes any choices required, then the next player in turn order (usually
+        /// the player seated to the active player’s left) makes any choices required, followed by the remaining
+        /// nonactive players in turn order.Then the actions happen simultaneously. This rule is often referred
+        /// to as the “Active Player, Nonactive Player (APNAP) order” rule.
+        /// </summary>
+        /// <param name="choices"></param>
+        /// <returns></returns>
+        private static IEnumerable<Choices.IChoice> MakeChoices(IEnumerable<Choices.Choice> choices)
         {
-            return choices.Select(choice => GetPlayer(choice.Player).Choose(choice, this));
+            //TODO: Choose in APNAP order
+            return choices.Select(choice => choice.Maker.Choose(choice));
         }
 
         /// <summary>

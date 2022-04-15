@@ -2,6 +2,7 @@
 using Common.Choices;
 using System;
 using System.Linq;
+using Engine.Choices;
 
 namespace Simulator
 {
@@ -46,6 +47,19 @@ namespace Simulator
         public override IPlayer Copy()
         {
             return new SimulationPlayer(this);
+        }
+
+        public override T ChooseAbstractly<T>(T choice)
+        {
+            if (choice is BooleanChoice boolean)
+            {
+                boolean.Choice = true;
+                return boolean as T;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
