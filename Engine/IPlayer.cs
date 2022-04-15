@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    public interface IPlayer : Common.IPlayer, IAttackable, ICopyable<IPlayer>
+    public interface IPlayer : IAttackable, ICopyable<IPlayer>
     {
         IDeck Deck { get; }
         IEnumerable<ICard> CardsInNonsharedZones { get; }
@@ -15,12 +15,13 @@ namespace Engine
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
         bool DirectlyAttacked { get; set; }
+        string Name { get; set; }
+        System.Guid Id { get; set; }
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
-        Common.IPlayer Convert();
         void DiscardAtRandom(IGame game, int amount);
         void Unreveal(IEnumerable<ICard> cards);
         void Dispose();

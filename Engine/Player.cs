@@ -12,7 +12,7 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : Common.Player, IDisposable, IPlayer
+    public abstract class Player : IPlayer, IDisposable
     {
         #region Properties
         /// <summary>
@@ -59,6 +59,10 @@ namespace Engine
         public Guid AttackableId { get; set; }
 
         public bool DirectlyAttacked { get; set; }
+
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
@@ -66,15 +70,18 @@ namespace Engine
         #region Methods
         protected Player()
         {
+            Id = Guid.NewGuid();
         }
 
-        protected Player(IPlayer player) : base(player)
+        protected Player(IPlayer player)
         {
             Deck = new Deck(player.Deck);
             Graveyard = new Graveyard(player.Graveyard);
             Hand = new Hand(player.Hand);
             ManaZone = new ManaZone(player.ManaZone);
             ShieldZone = new ShieldZone(player.ShieldZone);
+            Id = player.Id;
+            Name = player?.Name;
         }
 
         public override string ToString()
@@ -274,11 +281,6 @@ namespace Engine
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
             var bait = ChooseCard(baits, "Choose a creature to evolve from.");
             card.PutOnTopOf(bait);
-        }
-
-        public Common.IPlayer Convert()
-        {
-            return new Common.Player(this);
         }
 
         public void Tap(IGame game, params ICard[] cards)
