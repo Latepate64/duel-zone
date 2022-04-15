@@ -456,6 +456,18 @@ namespace Engine
         {
             return ChooseCards(cards, 1, 1, description).SingleOrDefault();
         }
+
+        public IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities)
+        {
+            if (abilities.Count() == 1)
+            {
+                return abilities.Single();
+            }
+            else
+            {
+                return Choose(new AbilityChoice(this, abilities)).Choice;
+            }
+        }
         #endregion Methods
     }
 }

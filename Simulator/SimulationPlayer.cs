@@ -64,6 +64,11 @@ namespace Simulator
                 number.Choice = Rnd.Next(0, 6);
                 return number as T;
             }
+            else if (choice is AbilityChoice ability)
+            {
+                ability.Choice = ability.Abilities.OrderBy(x => Rnd.Next()).First();
+                return ability as T;
+            }
             else
             {
                 throw new NotImplementedException();

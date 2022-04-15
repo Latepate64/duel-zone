@@ -1,4 +1,5 @@
 ﻿using Common.Choices;
+using Engine.Abilities;
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
@@ -45,5 +46,6 @@ namespace Engine
         IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
         ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
         ICard ChooseCard(IEnumerable<ICard> cards, string description);
+        IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
     }
 }
