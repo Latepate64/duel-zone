@@ -8,7 +8,7 @@ namespace Cards.Cards.Promo
 {
     class NeveTheLeveler : Creature
     {
-        public NeveTheLeveler() : base("Neve, the Leveler", 6, 4000, Subtype.SnowFaerie, Civilization.Nature)
+        public NeveTheLeveler() : base("Neve, the Leveler", 6, 4000, Engine.Subtype.SnowFaerie, Civilization.Nature)
         {
             AddTriggeredAbility(new NeveTheLevelerAbility(new NeveTheLevelerEffect()));
         }

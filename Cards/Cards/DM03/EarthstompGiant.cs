@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class EarthstompGiant : Creature
     {
-        public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Subtype.Giant, Civilization.Nature)
+        public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Engine.Subtype.Giant, Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddWheneverThisCreatureAttacksAbility(new EarthstompGiantEffect());

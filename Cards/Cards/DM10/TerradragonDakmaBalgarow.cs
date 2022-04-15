@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class TerradragonDakmaBalgarow : Creature
     {
-        public TerradragonDakmaBalgarow() : base("Terradragon Dakma Balgarow", 7, 1000, Subtype.EarthDragon, Civilization.Nature)
+        public TerradragonDakmaBalgarow() : base("Terradragon Dakma Balgarow", 7, 1000, Engine.Subtype.EarthDragon, Civilization.Nature)
         {
             AddStaticAbilities(new TerradragonDakmaBalgarowEffect(), new ContinuousEffects.PoweredTripleBreaker());
         }

@@ -2,7 +2,7 @@
 {
     class CandyDrop : Creature
     {
-        public CandyDrop() : base("Candy Drop", 3, 1000, Common.Subtype.CyberVirus, Common.Civilization.Water)
+        public CandyDrop() : base("Candy Drop", 3, 1000, Engine.Subtype.CyberVirus, Common.Civilization.Water)
         {
             AddThisCreatureCannotBeBlockedAbility();
         }

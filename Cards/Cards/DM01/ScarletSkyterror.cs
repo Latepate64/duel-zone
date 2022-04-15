@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
 {
     class ScarletSkyterror : Creature
     {
-        public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Subtype.ArmoredWyvern, Civilization.Fire)
+        public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Engine.Subtype.ArmoredWyvern, Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ScarletSkyterrorEffect());
         }

@@ -14,14 +14,19 @@ namespace Engine
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
-        private IList<Common.Subtype> _printedSubtypes = new List<Common.Subtype>();
-        private readonly IList<Common.Subtype> _addedSubtypes = new List<Common.Subtype>();
+        private IList<Subtype> _printedSubtypes = new List<Subtype>();
+        private readonly IList<Subtype> _addedSubtypes = new List<Subtype>();
 
         public int? PrintedPower { get; }
 
         public int Timestamp { get; set; }
 
         internal bool CountsAsIfExists => Underneath != Guid.Empty;
+
+        /// <summary>
+        /// Also known as race for creatures.
+        /// </summary>
+        public List<Subtype> Subtypes { get; set; } = new();
 
         public IEnumerable<T> GetAbilities<T>()
         {
@@ -41,6 +46,7 @@ namespace Engine
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
+            Subtypes = card.Subtypes?.ToList();
             InitializeAbilities();
         }
 
@@ -92,7 +98,7 @@ namespace Engine
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
 
-        public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
+        public bool IsDragon => Subtypes.Intersect(new Subtype[] { Subtype.ArmoredDragon, Subtype.EarthDragon, Subtype.VolcanoDragon, Subtype.ZombieDragon }).Any();
 
         public bool LostInBattle { get; set; }
         public bool IsMultiColored => Civilizations.Count > 1;
@@ -204,12 +210,12 @@ namespace Engine
             return Civilizations.Intersect(civilizations).Any();
         }
 
-        public bool HasSubtype(Common.Subtype subtype)
+        public bool HasSubtype(Subtype subtype)
         {
             return Subtypes.Contains(subtype);
         }
 
-        public void AddGrantedSubtype(Common.Subtype subtype)
+        public void AddGrantedSubtype(Subtype subtype)
         {
             _addedSubtypes.Add(subtype);
             if (!Subtypes.Contains(subtype))
@@ -218,7 +224,7 @@ namespace Engine
             }
         }
 
-        protected void SetPrintedSubtypes(params Common.Subtype[] subtypes)
+        protected void SetPrintedSubtypes(params Subtype[] subtypes)
         {
             _printedSubtypes = subtypes;
             Subtypes = subtypes.ToList();

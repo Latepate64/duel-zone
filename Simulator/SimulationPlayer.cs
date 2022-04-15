@@ -38,7 +38,7 @@ namespace Simulator
             }
             else if (choice is SubtypeChoice subtype)
             {
-                subtype.Choice = Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
+                subtype.Choice = Enum.GetValues(typeof(Subtype)).Cast<Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
                 return subtype as T;
             }
             else if (choice is NumberChoice number)

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM11
 {
     class BonfireLizard : WaveStrikerCreature
     {
-        public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Subtype.MeltWarrior, Civilization.Fire)
+        public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Engine.Subtype.MeltWarrior, Civilization.Fire)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
         }

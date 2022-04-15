@@ -101,9 +101,9 @@ namespace Cards.OneShotEffects
 
     class SearchSubtypeCreatureEffect : SearchEffect
     {
-        private readonly Common.Subtype _subtype;
+        private readonly Subtype _subtype;
 
-        public SearchSubtypeCreatureEffect(Common.Subtype subtype) : base(true)
+        public SearchSubtypeCreatureEffect(Subtype subtype) : base(true)
         {
             _subtype = subtype;
         }

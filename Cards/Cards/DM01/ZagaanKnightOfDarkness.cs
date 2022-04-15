@@ -2,7 +2,7 @@
 {
     class ZagaanKnightOfDarkness : Creature
     {
-        public ZagaanKnightOfDarkness() : base("Zagaan, Knight of Darkness", 6, 7000, Common.Subtype.DemonCommand, Common.Civilization.Darkness)
+        public ZagaanKnightOfDarkness() : base("Zagaan, Knight of Darkness", 6, 7000, Engine.Subtype.DemonCommand, Common.Civilization.Darkness)
         {
             AddDoubleBreakerAbility();
         }

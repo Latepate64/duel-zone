@@ -9,7 +9,7 @@ namespace Cards.Cards.DM11
 {
     class GankloakRogueCommando : SilentSkillCreature
     {
-        public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Subtype.Human, Civilization.Fire)
+        public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Engine.Subtype.Human, Civilization.Fire)
         {
             AddSilentSkillAbility(new GankloakRogueCommandoOneShotEffect());
         }

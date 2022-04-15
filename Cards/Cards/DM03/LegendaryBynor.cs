@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class LegendaryBynor : EvolutionCreature
     {
-        public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Subtype.Leviathan, Civilization.Water)
+        public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Engine.Subtype.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new LegendaryBynorEffect());
             AddDoubleBreakerAbility();

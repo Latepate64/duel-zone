@@ -2,7 +2,7 @@
 {
     class AquaSoldier : Creature
     {
-        public AquaSoldier() : base("Aqua Soldier", 3, 1000, Common.Subtype.LiquidPeople, Common.Civilization.Water)
+        public AquaSoldier() : base("Aqua Soldier", 3, 1000, Engine.Subtype.LiquidPeople, Common.Civilization.Water)
         {
             AddStaticAbilities(new ContinuousEffects.WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }

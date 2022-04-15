@@ -8,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class FranticChieftain : Creature
     {
-        public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Subtype.Merfolk, Civilization.Water)
+        public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Engine.Subtype.Merfolk, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FranticChieftainEffect());
         }

@@ -2,7 +2,7 @@
 {
     class PoltalesterTheSpydroid : Creature
     {
-        public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Common.Subtype.Soltrooper, Common.Civilization.Light)
+        public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Engine.Subtype.Soltrooper, Common.Civilization.Light)
         {
             AddShieldTrigger();
             AddBlockerAbility();

@@ -12,13 +12,14 @@ namespace Engine
         bool IsDragon { get; }
         bool LostInBattle { get; set; }
         bool IsMultiColored { get; }
+        List<Subtype> Subtypes { get; set; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
         bool HasCivilization(params Common.Civilization[] civilizations);
-        void AddGrantedSubtype(Common.Subtype subtype);
+        void AddGrantedSubtype(Subtype subtype);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);
         bool CanBeUsedRegardlessOfManaCost(IGame game);
@@ -26,7 +27,7 @@ namespace Engine
         Common.ICard Convert(bool clear = false);
         ICard Copy();
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
-        bool HasSubtype(Common.Subtype subtype);
+        bool HasSubtype(Subtype subtype);
         IEnumerable<T> GetAbilities<T>();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         void Break(IGame game, int breakAmount);

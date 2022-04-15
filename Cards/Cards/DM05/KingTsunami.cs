@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class KingTsunami : Creature
     {
-        public KingTsunami() : base("King Tsunami", 12, 12000, Subtype.Leviathan, Civilization.Water)
+        public KingTsunami() : base("King Tsunami", 12, 12000, Engine.Subtype.Leviathan, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingTsunamiEffect());
             AddTripleBreakerAbility();

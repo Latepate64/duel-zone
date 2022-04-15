@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class BloodwingMantis : Creature
     {
-        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Subtype.GiantInsect, Civilization.Nature)
+        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Engine.Subtype.GiantInsect, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new BloodwingMantisEffect());
             AddDoubleBreakerAbility();

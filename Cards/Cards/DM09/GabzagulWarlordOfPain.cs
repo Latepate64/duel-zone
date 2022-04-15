@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class GabzagulWarlordOfPain : Creature
     {
-        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
+        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
         {
             AddStaticAbilities(new GabzagulWarlordOfPainEffect());
         }

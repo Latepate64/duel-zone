@@ -4,7 +4,7 @@ namespace Cards.Cards.DM06
 {
     class SplinterclawWasp : Creature
     {
-        public SplinterclawWasp() : base("Splinterclaw Wasp", 7, 4000, Subtype.GiantInsect, Civilization.Nature)
+        public SplinterclawWasp() : base("Splinterclaw Wasp", 7, 4000, Engine.Subtype.GiantInsect, Civilization.Nature)
         {
             AddPowerAttackerAbility(3000);
             AddDoubleBreakerAbility();

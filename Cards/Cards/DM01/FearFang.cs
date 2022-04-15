@@ -2,7 +2,7 @@
 {
     class FearFang : Creature
     {
-        public FearFang() : base("Fear Fang", 3, 3000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
+        public FearFang() : base("Fear Fang", 3, 3000, Engine.Subtype.BeastFolk, Common.Civilization.Nature)
         {
         }
     }

@@ -12,7 +12,7 @@ namespace Cards.Cards.DM09
 {
     class Hokira : Creature
     {
-        public Hokira() : base("Hokira", 4, 3000, Subtype.CyberLord, Civilization.Water)
+        public Hokira() : base("Hokira", 4, 3000, Engine.Subtype.CyberLord, Civilization.Water)
         {
             AddTapAbility(new HokiraOneShotEffect());
         }

@@ -31,7 +31,6 @@ namespace Common
                 Power = card.Power;
                 RulesText = card.RulesText;
                 ShieldTrigger = card.ShieldTrigger;
-                Subtypes = card.Subtypes?.ToList();
                 SummoningSickness = card.SummoningSickness;
                 Supertypes = card.Supertypes?.ToList();
                 Tapped = card.Tapped;
@@ -54,11 +53,6 @@ namespace Common
         public string Name { get; set; }
 
         public CardType CardType { get; set; }
-
-        /// <summary>
-        /// Also known as race for creatures.
-        /// </summary>
-        public List<Subtype> Subtypes { get; set; } = new();
 
         public int? Power { get; set; }
 

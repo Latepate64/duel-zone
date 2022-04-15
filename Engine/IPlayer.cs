@@ -39,7 +39,7 @@ namespace Engine
         void Cast(ICard spell, IGame game);
         T Choose<T>(T choice) where T : Choices.Choice;
         int ChooseNumber(NumberChoice choice);
-        Common.Subtype ChooseRace(string description, params Common.Subtype[] excluded);
+        Subtype ChooseRace(string description, params Subtype[] excluded);
         bool ChooseToTakeAction(string description);
         IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
         ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);

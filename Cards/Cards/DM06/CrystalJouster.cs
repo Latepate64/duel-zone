@@ -5,7 +5,7 @@ namespace Cards.Cards.DM06
 {
     class CrystalJouster : EvolutionCreature
     {
-        public CrystalJouster() : base("Crystal Jouster", 7, 7000, Subtype.LiquidPeople, Civilization.Water)
+        public CrystalJouster() : base("Crystal Jouster", 7, 7000, Engine.Subtype.LiquidPeople, Civilization.Water)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());

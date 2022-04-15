@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
 {
     class SaucerHeadShark : Creature
     {
-        public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Subtype.GelFish, Civilization.Water)
+        public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Engine.Subtype.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect());
         }

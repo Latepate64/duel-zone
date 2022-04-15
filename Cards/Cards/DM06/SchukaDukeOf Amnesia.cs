@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class SchukaDukeOfAmnesia : Creature
     {
-        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
+        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect());
         }

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class Corile : Creature
     {
-        public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
+        public Corile() : base("Corile", 5, 2000, Engine.Subtype.CyberLord, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(1, 1, true));
         }

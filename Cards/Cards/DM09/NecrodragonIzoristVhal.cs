@@ -8,7 +8,7 @@ namespace Cards.Cards.DM09
 {
     class NecrodragonIzoristVhal : Creature
     {
-        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Engine.Subtype.ZombieDragon, Civilization.Darkness)
         {
             AddStaticAbilities(new NecrodragonIzoristVhalEffect(), new PoweredDoubleBreaker());
         }

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
 {
     class HourglassMutant : Creature
     {
-        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Subtype.Hedrian, Civilization.Darkness)
+        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Engine.Subtype.Hedrian, Civilization.Darkness)
         {
             AddStaticAbilities(new HourglassMutantEffect());
         }

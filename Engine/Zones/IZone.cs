@@ -14,7 +14,7 @@ namespace Engine.Zones
         IEnumerable<ICard> GetCards(Common.Civilization civilization);
         IEnumerable<ICard> GetCreatures(Common.Civilization civilization);
         IEnumerable<ICard> GetCreatures(Guid owner);
-        IEnumerable<ICard> GetCreatures(Common.Subtype subtype);
+        IEnumerable<ICard> GetCreatures(Subtype subtype);
         IEnumerable<ICard> GetOtherCreatures(Guid creature);
         List<ICard> Remove(ICard card, IGame game);
         string ToString();

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class SnipStrikerBullraizer : Creature
     {
-        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Subtype.Dragonoid, Civilization.Fire)
+        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Engine.Subtype.Dragonoid, Civilization.Fire)
         {
             AddStaticAbilities(new SnipStrikerBullraizerEffect());
         }

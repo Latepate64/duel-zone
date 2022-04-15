@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class SeniaOrchardAvenger : TurboRushCreature
     {
-        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Subtype.TreeFolk, Civilization.Nature)
+        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Engine.Subtype.TreeFolk, Civilization.Nature)
         {
             AddTurboRushAbility(new SeniaOrchardAvengerEffect());
         }

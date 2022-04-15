@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class MummyWrapShadowOfFatigue : Creature
     {
-        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Subtype.Ghost, Civilization.Darkness)
+        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Engine.Subtype.Ghost, Civilization.Darkness)
         {
             AddTapAbility(new MummyWrapShadowOfFatigueEffect());
         }

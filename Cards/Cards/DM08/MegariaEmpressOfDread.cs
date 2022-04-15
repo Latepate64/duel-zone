@@ -8,7 +8,7 @@ namespace Cards.Cards.DM08
 {
     class MegariaEmpressOfDread : Creature
     {
-        public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Common.Subtype.DarkLord, Common.Civilization.Darkness)
+        public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Engine.Subtype.DarkLord, Common.Civilization.Darkness)
         {
             AddStaticAbilities(new MegariaEmpressOfDreadEffect());
         }

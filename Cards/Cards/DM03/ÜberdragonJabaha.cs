@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class ÜberdragonJabaha : EvolutionCreature
     {
-        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Subtype.ArmoredDragon, Civilization.Fire)
+        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Engine.Subtype.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new ÜberdragonJabahaEffect());
             AddDoubleBreakerAbility();

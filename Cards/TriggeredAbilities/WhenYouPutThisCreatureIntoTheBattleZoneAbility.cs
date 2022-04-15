@@ -79,7 +79,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(Engine.ICard card, IGame game)
         {
-            return Controller == card.Owner && (card.HasSubtype(Subtype.Dragonoid) || card.IsDragon);
+            return Controller == card.Owner && (card.HasSubtype(Engine.Subtype.Dragonoid) || card.IsDragon);
         }
     }
 

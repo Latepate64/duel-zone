@@ -2,7 +2,7 @@
 {
     class KingDepthcon : Creature
     {
-        public KingDepthcon() : base("King Depthcon", 7, 6000, Common.Subtype.Leviathan, Common.Civilization.Water)
+        public KingDepthcon() : base("King Depthcon", 7, 6000, Engine.Subtype.Leviathan, Common.Civilization.Water)
         {
             AddDoubleBreakerAbility();
             AddThisCreatureCannotBeBlockedAbility();

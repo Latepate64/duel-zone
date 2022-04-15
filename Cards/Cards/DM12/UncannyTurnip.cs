@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class UncannyTurnip : WaveStrikerCreature
     {
-        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Subtype.WildVeggies, Civilization.Nature)
+        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Engine.Subtype.WildVeggies, Civilization.Nature)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UncannyTurnipEffect()));
         }

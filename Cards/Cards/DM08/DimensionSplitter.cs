@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class DimensionSplitter : Creature
     {
-        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Subtype.BrainJacker, Civilization.Darkness)
+        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Engine.Subtype.BrainJacker, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DimensionSplitterEffect());
         }

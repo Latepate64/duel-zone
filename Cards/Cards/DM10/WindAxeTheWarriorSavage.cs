@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class WindAxeTheWarriorSavage : Creature
     {
-        public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, Subtype.Human, Subtype.BeastFolk, Civilization.Fire, Civilization.Nature)
+        public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, Engine.Subtype.Human, Engine.Subtype.BeastFolk, Civilization.Fire, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect());
         }

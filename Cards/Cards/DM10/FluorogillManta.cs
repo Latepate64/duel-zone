@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
 {
     class FluorogillManta : Creature
     {
-        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Subtype.GelFish, Civilization.Water)
+        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Engine.Subtype.GelFish, Civilization.Water)
         {
             AddStaticAbilities(new FluorogillMantaEffect());
         }

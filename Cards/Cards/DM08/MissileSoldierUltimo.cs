@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MissileSoldierUltimo : TurboRushCreature
     {
-        public MissileSoldierUltimo() : base("Missile Soldier Ultimo", 3, 2000, Subtype.Dragonoid, Civilization.Fire)
+        public MissileSoldierUltimo() : base("Missile Soldier Ultimo", 3, 2000, Engine.Subtype.Dragonoid, Civilization.Fire)
         {
             AddTurboRushAbility(new MissileSoldierUltimoEffect());
         }

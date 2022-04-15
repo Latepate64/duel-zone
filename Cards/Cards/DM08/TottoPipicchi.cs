@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class TottoPipicchi : Creature
     {
-        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Subtype.FireBird, Civilization.Fire)
+        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Engine.Subtype.FireBird, Civilization.Fire)
         {
             AddStaticAbilities(new TottoPipicchiEffect());
         }

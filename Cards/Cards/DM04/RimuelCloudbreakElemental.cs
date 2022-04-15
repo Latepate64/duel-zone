@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
 {
     class RimuelCloudbreakElemental : Creature
     {
-        public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Subtype.AngelCommand, Civilization.Light)
+        public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Engine.Subtype.AngelCommand, Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect());
             AddDoubleBreakerAbility();

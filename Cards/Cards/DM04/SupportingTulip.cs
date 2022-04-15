@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class SupportingTulip : Creature
     {
-        public SupportingTulip() : base("Supporting Tulip", 5, 4000, Subtype.TreeFolk, Civilization.Nature)
+        public SupportingTulip() : base("Supporting Tulip", 5, 4000, Engine.Subtype.TreeFolk, Civilization.Nature)
         {
             AddStaticAbilities(new SupportingTulipEffect());
         }
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Subtype.AngelCommand);
+            return game.BattleZone.GetCreatures(Engine.Subtype.AngelCommand);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM01
 {
     class Gigaberos : Creature
     {
-        public Gigaberos() : base("Gigaberos", 5, 8000, Subtype.Chimera, Civilization.Darkness)
+        public Gigaberos() : base("Gigaberos", 5, 8000, Engine.Subtype.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect());
             AddDoubleBreakerAbility();

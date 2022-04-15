@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MagmadragonJagalzor : TurboRushCreature
     {
-        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Subtype.VolcanoDragon, Civilization.Fire)
+        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Engine.Subtype.VolcanoDragon, Civilization.Fire)
         {
             AddDoubleBreakerAbility();
             AddTurboRushAbility(new MagmadragonJagalzorEffect());

@@ -2,7 +2,7 @@
 {
     class HunterFish : Creature
     {
-        public HunterFish() : base("Hunter Fish", 2, 3000, Common.Subtype.Fish, Common.Civilization.Water)
+        public HunterFish() : base("Hunter Fish", 2, 3000, Engine.Subtype.Fish, Common.Civilization.Water)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

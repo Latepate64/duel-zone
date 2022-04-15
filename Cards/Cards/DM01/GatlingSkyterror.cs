@@ -2,7 +2,7 @@
 {
     class GatlingSkyterror : Creature
     {
-        public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
+        public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Engine.Subtype.ArmoredWyvern, Common.Civilization.Fire)
         {
             AddThisCreatureCanAttackUntappedCreaturesAbility();
             AddDoubleBreakerAbility();

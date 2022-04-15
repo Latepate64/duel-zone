@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class ArmoredCannonBalbaro : EvolutionCreature
     {
-        public ArmoredCannonBalbaro() : base("Armored Cannon Balbaro", 3, 3000, Subtype.Human, Civilization.Fire)
+        public ArmoredCannonBalbaro() : base("Armored Cannon Balbaro", 3, 3000, Engine.Subtype.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredCannonBalbaroEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM02
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Subtype.Human).Count();
+            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Engine.Subtype.Human).Count();
         }
     }
 }

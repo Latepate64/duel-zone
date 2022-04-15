@@ -2,7 +2,7 @@
 {
     class ProwlingElephish : Creature
     {
-        public ProwlingElephish() : base("Prowling Elephish", 4, 2000, Common.Subtype.GelFish, Common.Civilization.Water)
+        public ProwlingElephish() : base("Prowling Elephish", 4, 2000, Engine.Subtype.GelFish, Common.Civilization.Water)
         {
             AddBlockerAbility();
         }

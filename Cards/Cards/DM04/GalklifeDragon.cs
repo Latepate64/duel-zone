@@ -8,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class GalklifeDragon : Creature
     {
-        public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Subtype.ArmoredDragon, Civilization.Fire)
+        public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Engine.Subtype.ArmoredDragon, Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalklifeDragonEffect());
             AddDoubleBreakerAbility();

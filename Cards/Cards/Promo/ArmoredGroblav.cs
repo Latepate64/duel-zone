@@ -7,7 +7,7 @@ namespace Cards.Cards.Promo
 {
     class ArmoredGroblav : EvolutionCreature
     {
-        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Subtype.Human, Civilization.Fire)
+        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Engine.Subtype.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredGroblavEffect());
             AddDoubleBreakerAbility();

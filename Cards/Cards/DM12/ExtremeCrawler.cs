@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ExtremeCrawler : Creature
     {
-        public ExtremeCrawler() : base("Extreme Crawler", 5, 7000, Subtype.EarthEater, Civilization.Water)
+        public ExtremeCrawler() : base("Extreme Crawler", 5, 7000, Engine.Subtype.EarthEater, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ExtremeCrawlerEffect());
             AddDoubleBreakerAbility();

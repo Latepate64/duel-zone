@@ -5,7 +5,7 @@ namespace Cards.Cards.DM01
 {
     class BoneSpider : Creature
     {
-        public BoneSpider() : base("Bone Spider", 3, 5000, Subtype.LivingDead, Civilization.Darkness)
+        public BoneSpider() : base("Bone Spider", 3, 5000, Engine.Subtype.LivingDead, Civilization.Darkness)
         {
             AddTriggeredAbility(new WhenThisCreatureWinsBattleAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }

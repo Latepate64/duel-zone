@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class BatDoctorShadowOfUndeath : Creature
     {
-        public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Subtype.Ghost, Civilization.Darkness)
+        public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Engine.Subtype.Ghost, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect());
         }

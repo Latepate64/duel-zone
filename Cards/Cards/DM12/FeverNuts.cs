@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class FeverNuts : Creature
     {
-        public FeverNuts() : base("Fever Nuts", 3, 1000, Subtype.WildVeggies, Civilization.Nature)
+        public FeverNuts() : base("Fever Nuts", 3, 1000, Engine.Subtype.WildVeggies, Civilization.Nature)
         {
             AddStaticAbilities(new FeverNutsEffect());
         }

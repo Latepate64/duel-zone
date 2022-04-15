@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class MigasaAdeptOfChaos : Creature
     {
-        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Subtype.Human, Civilization.Fire)
+        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Engine.Subtype.Human, Civilization.Fire)
         {
             AddTapAbility(new MigasaAdeptOfChaosEffect());
         }

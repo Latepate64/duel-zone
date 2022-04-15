@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class BairaTheHiddenLunatic : Creature
     {
-        public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Subtype.PandorasBox, Civilization.Darkness)
+        public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Engine.Subtype.PandorasBox, Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

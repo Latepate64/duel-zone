@@ -9,7 +9,7 @@ namespace Cards.Cards.Promo
 {
     class SuperDragonMachineDolzark : Creature
     {
-        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Subtype.ArmoredDragon, Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
+        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Engine.Subtype.ArmoredDragon, Engine.Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
         {
             AddTriggeredAbility(new DolzarkAbility());
             AddDoubleBreakerAbility();

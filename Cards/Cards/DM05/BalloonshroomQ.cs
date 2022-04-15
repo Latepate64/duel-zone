@@ -5,7 +5,7 @@ namespace Cards.Cards.DM05
 {
     class BalloonshroomQ : Creature
     {
-        public BalloonshroomQ() : base("Balloonshroom Q", 4, 2000, Subtype.Survivor, Subtype.BalloonMushroom, Civilization.Nature)
+        public BalloonshroomQ() : base("Balloonshroom Q", 4, 2000, Engine.Subtype.Survivor, Engine.Subtype.BalloonMushroom, Civilization.Nature)
         {
             AddSurvivorAbility(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }

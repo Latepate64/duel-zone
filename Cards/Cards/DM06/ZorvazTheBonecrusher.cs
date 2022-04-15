@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class ZorvazTheBonecrusher : Creature
     {
-        public ZorvazTheBonecrusher() : base("Zorvaz, the Bonecrusher", 5, 8000, Subtype.DemonCommand, Civilization.Darkness)
+        public ZorvazTheBonecrusher() : base("Zorvaz, the Bonecrusher", 5, 8000, Engine.Subtype.DemonCommand, Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

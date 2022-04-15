@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
 {
     class MykeesPliers : Creature
     {
-        public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Subtype.Xenoparts, Civilization.Fire)
+        public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Engine.Subtype.Xenoparts, Civilization.Fire)
         {
             AddStaticAbilities(new MykeesPliersEffect());
         }

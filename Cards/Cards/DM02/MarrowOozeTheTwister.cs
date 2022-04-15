@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class MarrowOozeTheTwister : Creature
     {
-        public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Subtype.LivingDead, Civilization.Darkness)
+        public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Engine.Subtype.LivingDead, Civilization.Darkness)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new WhenThisCreatureAttacksPlayerAbility(new MarrowOozeTheTwisterEffect()));

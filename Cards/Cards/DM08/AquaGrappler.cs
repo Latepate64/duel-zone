@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class AquaGrappler : Creature
     {
-        public AquaGrappler() : base("Aqua Grappler", 5, 3000, Subtype.LiquidPeople, Civilization.Water)
+        public AquaGrappler() : base("Aqua Grappler", 5, 3000, Engine.Subtype.LiquidPeople, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new AquaGrapplerEffect());
         }

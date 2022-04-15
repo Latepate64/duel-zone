@@ -2,7 +2,7 @@
 {
     class NightMasterShadowOfDecay : Creature
     {
-        public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, 3000, Common.Subtype.Ghost, Common.Civilization.Darkness)
+        public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, 3000, Engine.Subtype.Ghost, Common.Civilization.Darkness)
         {
             AddBlockerAbility();
         }

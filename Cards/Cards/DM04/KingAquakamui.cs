@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
 {
     class KingAquakamui : Creature
     {
-        public KingAquakamui() : base("King Aquakamui", 7, 5000, Subtype.Leviathan, Civilization.Water)
+        public KingAquakamui() : base("King Aquakamui", 7, 5000, Engine.Subtype.Leviathan, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect());
             AddStaticAbilities(new KingAquakamuiContinuousEffect());
@@ -22,7 +22,7 @@ namespace Cards.Cards.DM04
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
-                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasSubtype(Subtype.AngelCommand) || x.HasSubtype(Subtype.DemonCommand)).ToArray());
+                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasSubtype(Engine.Subtype.AngelCommand) || x.HasSubtype(Engine.Subtype.DemonCommand)).ToArray());
             }
             return null;
         }
@@ -60,7 +60,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.AngelCommand) || x.HasSubtype(Subtype.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(Engine.Subtype.AngelCommand) || x.HasSubtype(Engine.Subtype.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class KingNautilus : Creature
     {
-        public KingNautilus() : base("King Nautilus", 8, 6000, Subtype.Leviathan, Civilization.Water)
+        public KingNautilus() : base("King Nautilus", 8, 6000, Engine.Subtype.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new KingNautilusEffect());
             AddDoubleBreakerAbility();
@@ -22,7 +22,7 @@ namespace Cards.Cards.DM02
 
         public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
         {
-            return attacker.HasSubtype(Subtype.LiquidPeople);
+            return attacker.HasSubtype(Engine.Subtype.LiquidPeople);
         }
 
         public override IContinuousEffect Copy()

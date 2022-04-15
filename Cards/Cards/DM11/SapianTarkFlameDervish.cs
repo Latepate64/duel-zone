@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class SapianTarkFlameDervish : WaveStrikerCreature
     {
-        public SapianTarkFlameDervish() : base("Sapian Tark, Flame Dervish", 3, 2000, Subtype.Dragonoid, Civilization.Fire)
+        public SapianTarkFlameDervish() : base("Sapian Tark, Flame Dervish", 3, 2000, Engine.Subtype.Dragonoid, Civilization.Fire)
         {
             AddWaveStrikerAbility(new SapianTarkFlameDervishEffect());
         }

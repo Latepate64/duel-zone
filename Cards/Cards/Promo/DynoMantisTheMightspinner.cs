@@ -6,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class DynoMantisTheMightspinner : EvolutionCreature
     {
-        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Subtype.GiantInsect, Civilization.Nature)
+        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Engine.Subtype.GiantInsect, Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new DynoMantisEffect());

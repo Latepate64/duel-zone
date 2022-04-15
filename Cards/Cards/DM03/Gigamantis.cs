@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class Gigamantis : EvolutionCreature
     {
-        public Gigamantis() : base("Gigamantis", 4, 5000, Subtype.GiantInsect, Civilization.Nature)
+        public Gigamantis() : base("Gigamantis", 4, 5000, Engine.Subtype.GiantInsect, Civilization.Nature)
         {
             AddStaticAbilities(new GigamantisEffect());
         }

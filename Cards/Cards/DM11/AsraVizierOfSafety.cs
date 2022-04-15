@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class AsraVizierOfSafety : WaveStrikerCreature
     {
-        public AsraVizierOfSafety() : base("Asra, Vizier of Safety", 3, 2000, Common.Subtype.Initiate, Common.Civilization.Light)
+        public AsraVizierOfSafety() : base("Asra, Vizier of Safety", 3, 2000, Engine.Subtype.Initiate, Common.Civilization.Light)
         {
             AddWaveStrikerAbility(new AsraVizierOfSafetyEffect());
         }

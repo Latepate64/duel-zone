@@ -5,7 +5,7 @@ namespace Cards.Cards.DM04
 {
     class Gigabolver : Creature
     {
-        public Gigabolver() : base("Gigabolver", 4, 3000, Subtype.Chimera, Civilization.Darkness)
+        public Gigabolver() : base("Gigabolver", 4, 3000, Engine.Subtype.Chimera, Civilization.Darkness)
         {
             AddStaticAbilities(new PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Civilization.Light));
         }

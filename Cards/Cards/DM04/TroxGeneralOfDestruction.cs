@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class TroxGeneralOfDestruction : Creature
     {
-        public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Subtype.DemonCommand, Civilization.Darkness)
+        public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Engine.Subtype.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect());
             AddDoubleBreakerAbility();

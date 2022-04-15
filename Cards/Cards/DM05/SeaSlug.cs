@@ -4,7 +4,7 @@ namespace Cards.Cards.DM05
 {
     class SeaSlug : Creature
     {
-        public SeaSlug() : base("Sea Slug", 8, 6000, Subtype.GelFish, Civilization.Water)
+        public SeaSlug() : base("Sea Slug", 8, 6000, Engine.Subtype.GelFish, Civilization.Water)
         {
             AddBlockerAbility();
             AddThisCreatureCannotBeBlockedAbility();

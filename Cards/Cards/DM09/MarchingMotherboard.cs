@@ -8,7 +8,7 @@ namespace Cards.Cards.DM09
 {
     class MarchingMotherboard : Creature
     {
-        public MarchingMotherboard() : base("Marching Motherboard", 6, 2000, Subtype.CyberVirus, Civilization.Water)
+        public MarchingMotherboard() : base("Marching Motherboard", 6, 2000, Engine.Subtype.CyberVirus, Civilization.Water)
         {
             AddTriggeredAbility(new MarchingMotherboardAbility(new OneShotEffects.YouMayDrawCardsEffect(1)));
         }
@@ -36,7 +36,7 @@ namespace Cards.Cards.DM09
 
         protected override bool TriggersFrom(Engine.ICard card, IGame game)
         {
-            return card.Owner == Controller && card.Id != Source && card.Subtypes.Intersect(new Subtype[] { Subtype.CyberCluster, Subtype.CyberLord, Subtype.CyberMoon, Subtype.CyberVirus }).Any();
+            return card.Owner == Controller && card.Id != Source && card.Subtypes.Intersect(new Subtype[] { Engine.Subtype.CyberCluster, Engine.Subtype.CyberLord, Engine.Subtype.CyberMoon, Engine.Subtype.CyberVirus }).Any();
         }
     }
 }

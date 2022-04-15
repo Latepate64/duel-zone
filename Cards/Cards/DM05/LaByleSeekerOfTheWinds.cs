@@ -4,7 +4,7 @@ namespace Cards.Cards.DM05
 {
     class LaByleSeekerOfTheWinds : Creature
     {
-        public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Subtype.MechaThunder, Civilization.Light)
+        public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Engine.Subtype.MechaThunder, Civilization.Light)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));

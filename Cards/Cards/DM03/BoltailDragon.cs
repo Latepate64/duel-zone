@@ -2,7 +2,7 @@
 {
     class BoltailDragon : Creature
     {
-        public BoltailDragon() : base("Boltail Dragon", 7, 9000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
+        public BoltailDragon() : base("Boltail Dragon", 7, 9000, Engine.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
             AddDoubleBreakerAbility();
         }

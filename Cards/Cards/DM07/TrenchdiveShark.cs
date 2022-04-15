@@ -9,7 +9,7 @@ namespace Cards.Cards.DM07
 {
     class TrenchdiveShark : Creature
     {
-        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Subtype.GelFish, Civilization.Water)
+        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Engine.Subtype.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TrenchdiveSharkEffect());
         }

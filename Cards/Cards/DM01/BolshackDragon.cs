@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class BolshackDragon : Creature
     {
-        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Common.Subtype.ArmoredDragon, Common.Civilization.Fire)
+        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Engine.Subtype.ArmoredDragon, Common.Civilization.Fire)
         {
             AddStaticAbilities(new BolshackDragonEffect(), new DoubleBreakerEffect());
         }

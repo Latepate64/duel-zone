@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class CalgoVizierOfRainclouds : Creature
     {
-        public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Subtype.Initiate, Civilization.Light)
+        public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Engine.Subtype.Initiate, Civilization.Light)
         {
             AddStaticAbilities(new CalgoVizierOfRaincloudsEffect());
         }

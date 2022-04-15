@@ -2,7 +2,7 @@
 {
     class RumblingTerahorn : Creature
     {
-        public RumblingTerahorn() : base("Rumbling Terahorn", 5, 3000, Common.Subtype.HornedBeast, Common.Civilization.Nature)
+        public RumblingTerahorn() : base("Rumbling Terahorn", 5, 3000, Engine.Subtype.HornedBeast, Common.Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchCreatureEffect());
         }

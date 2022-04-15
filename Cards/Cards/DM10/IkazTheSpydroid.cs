@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
 {
     class IkazTheSpydroid : Creature
     {
-        public IkazTheSpydroid() : base("Ikaz, the Spydroid", 4, 4000, Subtype.Soltrooper, Civilization.Light)
+        public IkazTheSpydroid() : base("Ikaz, the Spydroid", 4, 4000, Engine.Subtype.Soltrooper, Civilization.Light)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new IkazTheSpydroidEffect()));

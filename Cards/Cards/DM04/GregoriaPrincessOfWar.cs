@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
 {
     class GregoriaPrincessOfWar : Creature
     {
-        public GregoriaPrincessOfWar() : base("Gregoria, Princess of War", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
+        public GregoriaPrincessOfWar() : base("Gregoria, Princess of War", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
         {
             AddStaticAbilities(new GregoriaPrincessOfWarEffect());
         }
@@ -45,7 +45,7 @@ namespace Cards.Cards.DM04
 
         private static List<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.DemonCommand)).ToList();
+            return game.BattleZone.Creatures.Where(x => x.HasSubtype(Engine.Subtype.DemonCommand)).ToList();
         }
     }
 }
