@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Soulswap : Spell
     {
-        public Soulswap() : base("Soulswap", 3, Engine.Civilization.Nature)
+        public Soulswap() : base("Soulswap", 3, Civilization.Nature)
         {
             AddShieldTrigger();
             AddSpellAbilities(new SoulswapEffect());

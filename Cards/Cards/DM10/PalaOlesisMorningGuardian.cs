@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class PalaOlesisMorningGuardian : Creature
     {
-        public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Engine.Subtype.Guardian, Engine.Civilization.Light)
+        public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Subtype.Guardian, Civilization.Light)
         {
             AddBlockerAbility();
             AddStaticAbilities(new PalaOlesisMorningGuardianEffect());

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class MightyBanditAceOfThieves : Creature
     {
-        public MightyBanditAceOfThieves() : base("Mighty Bandit, Ace of Thieves", 3, 2000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
+        public MightyBanditAceOfThieves() : base("Mighty Bandit, Ace of Thieves", 3, 2000, Subtype.BeastFolk, Civilization.Nature)
         {
             AddTapAbility(new MightyBanditAceOfThievesEffect());
         }

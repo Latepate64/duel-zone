@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class FluorogillManta : Creature
     {
-        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Engine.Subtype.GelFish, Engine.Civilization.Water)
+        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Subtype.GelFish, Civilization.Water)
         {
             AddStaticAbilities(new FluorogillMantaEffect());
         }
@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasCivilization(Engine.Civilization.Light) || attacker.HasCivilization(Engine.Civilization.Darkness));
+            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasCivilization(Civilization.Light) || attacker.HasCivilization(Civilization.Darkness));
         }
 
         public override IContinuousEffect Copy()

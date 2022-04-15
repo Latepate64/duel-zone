@@ -5,7 +5,7 @@ namespace Cards.Cards.DM11
 {
     class SalivaWorm : WaveStrikerCreature
     {
-        public SalivaWorm() : base("Saliva Worm", 3, 2000, Engine.Subtype.ParasiteWorm, Engine.Civilization.Darkness)
+        public SalivaWorm() : base("Saliva Worm", 3, 2000, Subtype.ParasiteWorm, Civilization.Darkness)
         {
             AddWaveStrikerAbility(new SalivaWormEffect());
         }
@@ -13,7 +13,7 @@ namespace Cards.Cards.DM11
 
     class SalivaWormEffect : ContinuousEffects.StealthEffect, IPowerModifyingEffect
     {
-        public SalivaWormEffect() : base(Engine.Civilization.Darkness)
+        public SalivaWormEffect() : base(Civilization.Darkness)
         {
         }
 

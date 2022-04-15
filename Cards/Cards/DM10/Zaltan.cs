@@ -6,9 +6,9 @@ namespace Cards.Cards.DM10
 {
     class Zaltan : Creature
     {
-        public Zaltan() : base("Zaltan", 5, 3000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
+        public Zaltan() : base("Zaltan", 5, 3000, Subtype.CyberLord, Civilization.Water)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Engine.Subtype.CyberVirus, new ZaltanEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype.CyberVirus, new ZaltanEffect()));
         }
     }
 

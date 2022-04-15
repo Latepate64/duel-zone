@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class SwordOfBenevolentLife : Spell
     {
-        public SwordOfBenevolentLife() : base("Sword of Benevolent Life", 2, Engine.Civilization.Nature)
+        public SwordOfBenevolentLife() : base("Sword of Benevolent Life", 2, Civilization.Nature)
         {
             AddSpellAbilities(new SwordOfBenevolentLifeEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
-            var power = creatures.Count(x => x.HasCivilization(Engine.Civilization.Light)) * 1000;
+            var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
             return null;
         }

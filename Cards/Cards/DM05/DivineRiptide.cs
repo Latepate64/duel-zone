@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class DivineRiptide : Spell
     {
-        public DivineRiptide() : base("Divine Riptide", 9, Engine.Civilization.Water)
+        public DivineRiptide() : base("Divine Riptide", 9, Civilization.Water)
         {
             AddSpellAbilities(new DivineRiptideEffect());
         }

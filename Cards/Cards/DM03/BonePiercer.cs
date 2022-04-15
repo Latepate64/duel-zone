@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class BonePiercer : Creature
     {
-        public BonePiercer() : base("Bone Piercer", 2, 1000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
+        public BonePiercer() : base("Bone Piercer", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new BonePiercerEffect());
         }

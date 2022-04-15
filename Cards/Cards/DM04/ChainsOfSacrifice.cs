@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class ChainsOfSacrifice : Spell
     {
-        public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Engine.Civilization.Darkness)
+        public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
         {
             AddSpellAbilities(new ChainsOfSacrificeEffect(), new SacrificeEffect());
         }

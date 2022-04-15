@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class EarthRipperTalonOfRage : EvolutionCreature
     {
-        public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4, 6000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
+        public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4, 6000, Subtype.BeastFolk, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EarthRipperTalonOfRageEffect());
             AddDoubleBreakerAbility();

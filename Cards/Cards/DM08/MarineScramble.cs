@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MarineScramble : Spell
     {
-        public MarineScramble() : base("Marine Scramble", 7, Engine.Civilization.Water)
+        public MarineScramble() : base("Marine Scramble", 7, Civilization.Water)
         {
             AddSpellAbilities(new MarineScrambleEffect());
         }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class BallomMasterOfDeath : EvolutionCreature
     {
-        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
+        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Subtype.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect());
             AddDoubleBreakerAbility();
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Engine.Civilization.Darkness));
+            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Darkness));
         }
     }
 }

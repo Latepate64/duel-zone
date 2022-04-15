@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class MykeesPliers : Creature
     {
-        public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Engine.Subtype.Xenoparts, Engine.Civilization.Fire)
+        public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Subtype.Xenoparts, Civilization.Fire)
         {
             AddStaticAbilities(new MykeesPliersEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Civilization.Water, Engine.Civilization.Nature);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Water, Civilization.Nature);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class MigasaAdeptOfChaos : Creature
     {
-        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Engine.Subtype.Human, Engine.Civilization.Fire)
+        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Subtype.Human, Civilization.Fire)
         {
             AddTapAbility(new MigasaAdeptOfChaosEffect());
         }
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
+            return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
         }
     }
 }

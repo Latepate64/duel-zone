@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class PinpointLunatron : SilentSkillCreature
     {
-        public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Engine.Subtype.CyberMoon, Engine.Civilization.Water)
+        public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Subtype.CyberMoon, Civilization.Water)
         {
             AddSilentSkillAbility(new PinpointLunatronEffect());
         }

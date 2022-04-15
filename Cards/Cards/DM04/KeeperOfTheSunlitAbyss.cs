@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class KeeperOfTheSunlitAbyss : Creature
     {
-        public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
+        public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Subtype.CyberVirus, Civilization.Water)
         {
             AddStaticAbilities(new KeeperOfTheSunlitAbyssEffect());
         }
@@ -24,7 +24,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasCivilization(Engine.Civilization.Light) || x.HasCivilization(Engine.Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

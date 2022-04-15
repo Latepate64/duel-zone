@@ -7,7 +7,7 @@ namespace Cards.Cards.Promo
 {
     class StarCryDragon : Creature
     {
-        public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
+        public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Subtype.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new StarCryDragonEffect());
             AddDoubleBreakerAbility();
@@ -27,7 +27,7 @@ namespace Cards.Cards.Promo
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Engine.Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
+            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
         }
 
         public override string ToString()

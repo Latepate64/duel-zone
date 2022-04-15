@@ -10,7 +10,7 @@ namespace Cards.Cards.DM08
 {
     class FuriousOnslaught : Spell
     {
-        public FuriousOnslaught() : base("Furious Onslaught", 4, Engine.Civilization.Fire)
+        public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
         {
             AddSpellAbilities(new FuriousOnslaughtOneShotEffect());
         }
@@ -20,7 +20,7 @@ namespace Cards.Cards.DM08
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(source.Controller, Engine.Subtype.Dragonoid).ToList()));
+            game.AddContinuousEffects(source, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(source.Controller, Subtype.Dragonoid).ToList()));
             return null;
         }
 
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM08
 
         public void AddSubtype(IGame game)
         {
-            _cards.ForEach(x => x.AddGrantedSubtype(Engine.Subtype.ArmoredDragon));
+            _cards.ForEach(x => x.AddGrantedSubtype(Subtype.ArmoredDragon));
         }
 
         public override IContinuousEffect Copy()

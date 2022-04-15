@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class SirenConcerto : Spell
     {
-        public SirenConcerto() : base("Siren Concerto", 1, Engine.Civilization.Water)
+        public SirenConcerto() : base("Siren Concerto", 1, Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new SirenConcertoEffect());

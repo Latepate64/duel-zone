@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<ICard>, ITimestampable, ICard
+    public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
@@ -34,20 +34,70 @@ namespace Engine
 
         public List<Supertype> Supertypes { get; set; } = new();
 
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
+        /// </summary>
+        public Guid Owner { get; set; }
+
+        public string Name { get; set; }
+
+        public int? Power { get; set; }
+
+        public int ManaCost { get; set; }
+
+        public bool Tapped { get; set; }
+
+        public bool ShieldTrigger { get; set; }
+
+        public List<Guid> KnownTo { get; set; } = new();
+
+        public bool SummoningSickness { get; set; }
+
+        public string RulesText { get; set; }
+
+        /// <summary>
+        /// Id of the card this card is on top of.
+        /// </summary>
+        public Guid OnTopOf { get; set; }
+
+        /// <summary>
+        /// Id of the card this card is underneath of.
+        /// </summary>
+        public Guid Underneath { get; set; }
+
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
         }
 
-        public Card() { }
+        public Card()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        public Card(int? power)
+        public Card(int? power) : this()
         {
             PrintedPower = power;
         }
 
-        internal Card(ICard card, int timeStamp) : base(card, false)
+        internal Card(ICard card, int timeStamp)
         {
+            Id = Guid.NewGuid();
+            Owner = card.Owner;
+            KnownTo = card.KnownTo.ToList();
+            ManaCost = card.ManaCost;
+            Name = card.Name;
+            OnTopOf = card.OnTopOf;
+            Power = card.Power;
+            RulesText = card.RulesText;
+            ShieldTrigger = card.ShieldTrigger;
+            SummoningSickness = card.SummoningSickness;
+            Tapped = card.Tapped;
+            Underneath = card.Underneath;
+
+
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
             CardType = card.CardType;
@@ -83,11 +133,6 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
-        }
-
-        public Common.ICard Convert(bool clear = false)
-        {
-            return new Common.Card(this, clear);
         }
 
         private void SetRulesText()

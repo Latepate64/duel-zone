@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class Psyshroom : Creature
     {
-        public Psyshroom() : base("Psyshroom", 4, 2000, Engine.Subtype.BalloonMushroom, Engine.Civilization.Nature)
+        public Psyshroom() : base("Psyshroom", 4, 2000, Subtype.BalloonMushroom, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new PsyshroomEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.GetCards(Engine.Civilization.Nature);
+            return source.GetController(game).Graveyard.GetCards(Civilization.Nature);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class ArmoredWarriorQuelos : Creature
     {
-        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
+        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Subtype.Armorloid, Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect());
         }
@@ -54,7 +54,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Controller).ManaZone.Cards.Where(x => !x.HasCivilization(Engine.Civilization.Fire));
+            return game.GetPlayer(source.Controller).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
         }
     }
 
@@ -76,7 +76,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.GetOpponent(game).Id).ManaZone.Cards.Where(x => !x.HasCivilization(Engine.Civilization.Fire));
+            return game.GetPlayer(source.GetOpponent(game).Id).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class LaserWhip : Spell
     {
-        public LaserWhip() : base("Laser Whip", 4, Engine.Civilization.Light)
+        public LaserWhip() : base("Laser Whip", 4, Civilization.Light)
         {
             AddSpellAbilities(new LaserWhipEffect());
         }

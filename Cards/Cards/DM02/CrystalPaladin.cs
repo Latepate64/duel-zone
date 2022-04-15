@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class CrystalPaladin : EvolutionCreature
     {
-        public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Engine.Subtype.LiquidPeople, Engine.Civilization.Water)
+        public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Subtype.LiquidPeople, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CrystalPaladinEffect());
         }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class TroxGeneralOfDestruction : Creature
     {
-        public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
+        public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Subtype.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect());
             AddDoubleBreakerAbility();
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.Id != source.Source && x.HasCivilization(Engine.Civilization.Darkness));
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.Id != source.Source && x.HasCivilization(Civilization.Darkness));
             source.GetOpponent(game).DiscardAtRandom(game, amount);
             return null;
         }

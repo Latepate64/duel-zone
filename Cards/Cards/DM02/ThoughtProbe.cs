@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class ThoughtProbe : Spell
     {
-        public ThoughtProbe() : base("Thought Probe", 4, Engine.Civilization.Water)
+        public ThoughtProbe() : base("Thought Probe", 4, Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new ThoughtProbeEffect());

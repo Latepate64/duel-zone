@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class Dracobarrier : Spell
     {
-        public Dracobarrier() : base("Dracobarrier", 3, Engine.Civilization.Light)
+        public Dracobarrier() : base("Dracobarrier", 3, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new DracobarrierEffect());

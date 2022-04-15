@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class EnigmaticCascade : Spell
     {
-        public EnigmaticCascade() : base("Enigmatic Cascade", 4, Engine.Civilization.Water)
+        public EnigmaticCascade() : base("Enigmatic Cascade", 4, Civilization.Water)
         {
             AddSpellAbilities(new EnigmaticCascadeEffect());
         }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class DolmarksTheShadowWarrior : Creature
     {
-        public DolmarksTheShadowWarrior() : base("Dolmarks, the Shadow Warrior", 4, 4000, Engine.Subtype.Ghost, Engine.Subtype.Human, Engine.Civilization.Darkness, Engine.Civilization.Fire)
+        public DolmarksTheShadowWarrior() : base("Dolmarks, the Shadow Warrior", 4, 4000, Subtype.Ghost, Subtype.Human, Civilization.Darkness, Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DolmarksTheShadowWarriorEffect());
         }

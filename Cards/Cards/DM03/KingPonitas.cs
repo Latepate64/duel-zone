@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class KingPonitas : Creature
     {
-        public KingPonitas() : base("King Ponitas", 8, 4000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
+        public KingPonitas() : base("King Ponitas", 8, 4000, Subtype.Leviathan, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new KingPonitasEffect());
         }
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.GetCards(Engine.Civilization.Water);
+            return source.GetController(game).Deck.GetCards(Civilization.Water);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Cards.Cards.DM10
 {
     class EstolVizierOfAqua : Creature
     {
-        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Engine.Subtype.Initiate, Engine.Subtype.LiquidPeople, Engine.Civilization.Light, Engine.Civilization.Water)
+        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Subtype.Initiate, Subtype.LiquidPeople, Civilization.Light, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect());
         }

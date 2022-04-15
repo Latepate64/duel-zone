@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class IocantTheOracle : Creature
     {
-        public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Engine.Subtype.LightBringer, Engine.Civilization.Light)
+        public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Subtype.LightBringer, Civilization.Light)
         {
             AddBlockerAbility();
             AddStaticAbilities(new IocantTheOracleEffect());
@@ -28,7 +28,7 @@ namespace Cards.Cards.DM01
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(GetController(game).Id).Any(x => x.HasSubtype(Engine.Subtype.AngelCommand)))
+            if (game.BattleZone.GetCreatures(GetController(game).Id).Any(x => x.HasSubtype(Subtype.AngelCommand)))
             {
                 GetSourceCard(game).Power += 2000;
             }

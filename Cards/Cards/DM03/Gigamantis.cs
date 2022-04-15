@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class Gigamantis : EvolutionCreature
     {
-        public Gigamantis() : base("Gigamantis", 4, 5000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
+        public Gigamantis() : base("Gigamantis", 4, 5000, Subtype.GiantInsect, Civilization.Nature)
         {
             AddStaticAbilities(new GigamantisEffect());
         }
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return !IsSourceOfAbility(card, game) && card.Owner == GetController(game).Id && card.HasCivilization(Engine.Civilization.Nature);
+            return !IsSourceOfAbility(card, game) && card.Owner == GetController(game).Id && card.HasCivilization(Civilization.Nature);
         }
     }
 }

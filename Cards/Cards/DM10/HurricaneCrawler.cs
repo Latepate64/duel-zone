@@ -5,7 +5,7 @@ namespace Cards.Cards.DM10
 {
     class HurricaneCrawler : Creature
     {
-        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Engine.Subtype.EarthEater, Engine.Civilization.Water)
+        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Subtype.EarthEater, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new HurricaneCrawlerEffect());
         }

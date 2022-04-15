@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class TerradragonGamiratar : Creature
     {
-        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Engine.Subtype.EarthDragon, Engine.Civilization.Nature)
+        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Subtype.EarthDragon, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect());
             AddDoubleBreakerAbility();

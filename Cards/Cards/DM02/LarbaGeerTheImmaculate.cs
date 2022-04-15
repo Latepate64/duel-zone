@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class LarbaGeerTheImmaculate : EvolutionCreature
     {
-        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Engine.Subtype.Guardian, Engine.Civilization.Light)
+        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Subtype.Guardian, Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect());
         }

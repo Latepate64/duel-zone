@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class SwordOfMalevolentDeath : Spell
     {
-        public SwordOfMalevolentDeath() : base("Sword of Malevolent Death", 4, Engine.Civilization.Darkness)
+        public SwordOfMalevolentDeath() : base("Sword of Malevolent Death", 4, Civilization.Darkness)
         {
             AddSpellAbilities(new SwordOfMalevolentDeathOneShotEffect());
         }
@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
-            var power = creatures.Count(x => x.HasCivilization(Engine.Civilization.Darkness)) * 1000;
+            var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
             game.AddContinuousEffects(source, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
             return null;
         }

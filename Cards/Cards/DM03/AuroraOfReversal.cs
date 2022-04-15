@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class AuroraOfReversal : Spell
     {
-        public AuroraOfReversal() : base("Aurora of Reversal", 5, Engine.Civilization.Nature)
+        public AuroraOfReversal() : base("Aurora of Reversal", 5, Civilization.Nature)
         {
             AddSpellAbilities(new AuroraOfReversalEffect());
         }

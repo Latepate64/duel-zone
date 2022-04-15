@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class Klujadras : WaveStrikerCreature
     {
-        public Klujadras() : base("Klujadras", 7, 4000, Engine.Subtype.SeaHacker, Engine.Civilization.Water)
+        public Klujadras() : base("Klujadras", 7, 4000, Subtype.SeaHacker, Civilization.Water)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KlujadrasEffect()));
         }

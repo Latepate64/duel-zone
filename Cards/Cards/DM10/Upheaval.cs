@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Upheaval : Spell
     {
-        public Upheaval() : base("Upheaval", 6, Engine.Civilization.Darkness)
+        public Upheaval() : base("Upheaval", 6, Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new UpheavalEffect());

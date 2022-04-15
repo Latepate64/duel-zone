@@ -5,7 +5,7 @@ namespace Cards.Cards.DM09
 {
     class ZombieCarnival : Spell
     {
-        public ZombieCarnival() : base("Zombie Carnival", 5, Engine.Civilization.Darkness)
+        public ZombieCarnival() : base("Zombie Carnival", 5, Civilization.Darkness)
         {
             AddSpellAbilities(new ZombieCarnivalEffect());
         }

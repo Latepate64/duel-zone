@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class DeathCruzerTheAnnihilator : Creature
     {
-        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
+        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Subtype.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect());
             AddTripleBreakerAbility();

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class WhiskingWhirlwind : Spell
     {
-        public WhiskingWhirlwind() : base("Whisking Whirlwind", 1, Engine.Civilization.Light)
+        public WhiskingWhirlwind() : base("Whisking Whirlwind", 1, Civilization.Light)
         {
             AddSpellAbilities(new WhiskingWhirlwindEffect());
         }

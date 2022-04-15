@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class Cratersaur : Creature
     {
-        public Cratersaur() : base("Cratersaur", 3, 2000, Engine.Subtype.RockBeast, Engine.Civilization.Fire)
+        public Cratersaur() : base("Cratersaur", 3, 2000, Subtype.RockBeast, Civilization.Fire)
         {
             AddStaticAbilities(new CratersaurEffect());
         }

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM09
 {
     class VenomWorm : Creature
     {
-        public VenomWorm() : base("Venom Worm", 3, 1000, Engine.Subtype.ParasiteWorm, Engine.Civilization.Darkness)
+        public VenomWorm() : base("Venom Worm", 3, 1000, Subtype.ParasiteWorm, Civilization.Darkness)
         {
             AddTapAbility(new VenomWormOneShotEffect());
         }

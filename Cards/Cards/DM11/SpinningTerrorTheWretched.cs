@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class SpinningTerrorTheWretched : Creature
     {
-        public SpinningTerrorTheWretched() : base("Spinning Terror, the Wretched", 2, 1000, Engine.Subtype.DevilMask, Engine.Civilization.Darkness)
+        public SpinningTerrorTheWretched() : base("Spinning Terror, the Wretched", 2, 1000, Subtype.DevilMask, Civilization.Darkness)
         {
             AddStaticAbilities(new SpinningTerrorTheWretchedEffect());
         }

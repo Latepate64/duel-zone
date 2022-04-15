@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class GrimSoulShadowOfReversal : Creature
     {
-        public GrimSoulShadowOfReversal() : base("Grim Soul, Shadow of Reversal", 5, 3000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
+        public GrimSoulShadowOfReversal() : base("Grim Soul, Shadow of Reversal", 5, 3000, Subtype.Ghost, Civilization.Darkness)
         {
             AddTapAbility(new GrimSoulShadowOfReversalEffect());
         }
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.GetCreatures(Engine.Civilization.Darkness);
+            return source.GetController(game).Graveyard.GetCreatures(Civilization.Darkness);
         }
     }
 }

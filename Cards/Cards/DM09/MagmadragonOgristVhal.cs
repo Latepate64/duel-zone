@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class MagmadragonOgristVhal : Creature
     {
-        public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Engine.Subtype.VolcanoDragon, Engine.Civilization.Fire)
+        public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Subtype.VolcanoDragon, Civilization.Fire)
         {
             AddStaticAbilities(new MagmadragonOgristVhalEffect(), new ContinuousEffects.PoweredTripleBreaker());
         }

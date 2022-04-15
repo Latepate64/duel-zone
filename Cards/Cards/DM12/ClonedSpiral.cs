@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedSpiral : Spell
     {
-        public ClonedSpiral() : base("Cloned Spiral", 4, Engine.Civilization.Water)
+        public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
         {
             AddSpellAbilities(new ClonedSpiralEffect(Name));
         }

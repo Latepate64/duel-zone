@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
 {
     class SnakeAttack : Spell
     {
-        public SnakeAttack() : base("Snake Attack", 4, Engine.Civilization.Darkness)
+        public SnakeAttack() : base("Snake Attack", 4, Civilization.Darkness)
         {
             AddSpellAbilities(new SnakeAttackEffect(), new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
         }

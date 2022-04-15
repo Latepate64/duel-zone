@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class FutureSlash : Spell
     {
-        public FutureSlash() : base("Future Slash", 7, Engine.Civilization.Darkness)
+        public FutureSlash() : base("Future Slash", 7, Civilization.Darkness)
         {
             AddSpellAbilities(new FutureSlashEffect());
         }

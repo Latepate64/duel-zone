@@ -5,7 +5,7 @@ namespace Cards.Cards.DM12
 {
     class NecrodragonZalva : Creature
     {
-        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Engine.Subtype.ZombieDragon, Engine.Civilization.Darkness)
+        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Subtype.ZombieDragon, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonZalvaEffect());
         }

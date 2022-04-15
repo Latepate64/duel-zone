@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class GhastlyDrain : Spell
     {
-        public GhastlyDrain() : base("Ghastly Drain", 3, Engine.Civilization.Darkness)
+        public GhastlyDrain() : base("Ghastly Drain", 3, Civilization.Darkness)
         {
             AddSpellAbilities(new GhastlyDrainEffect());
         }

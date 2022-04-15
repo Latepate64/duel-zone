@@ -12,7 +12,7 @@ namespace Cards.Cards.DM09
 {
     class UnifiedResistance : Spell
     {
-        public UnifiedResistance() : base("Unified Resistance", 2, Engine.Civilization.Light)
+        public UnifiedResistance() : base("Unified Resistance", 2, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new UnifiedResistanceOneShotEffect());

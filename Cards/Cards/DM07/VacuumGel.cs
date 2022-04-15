@@ -8,7 +8,7 @@ namespace Cards.Cards.DM07
 {
     class VacuumGel : Spell
     {
-        public VacuumGel() : base("Vacuum Gel", 4, Engine.Civilization.Darkness)
+        public VacuumGel() : base("Vacuum Gel", 4, Civilization.Darkness)
         {
             AddSpellAbilities(new VacuumGelEffect());
         }
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Engine.Civilization.Light, Engine.Civilization.Nature));
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Light, Civilization.Nature));
         }
     }
 }

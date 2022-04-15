@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class FrostSpecterShadowOfAge : EvolutionCreature
     {
-        public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3, 5000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
+        public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3, 5000, Subtype.Ghost, Civilization.Darkness)
         {
             AddStaticAbilities(new FrostSpecterShadowOfAgeEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Subtype.Ghost);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Subtype.Ghost);
         }
     }
 }

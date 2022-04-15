@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
 {
     class RondobilTheExplorer : Creature
     {
-        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Engine.Subtype.Gladiator, Engine.Civilization.Light)
+        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Subtype.Gladiator, Civilization.Light)
         {
             AddTapAbility(new RondobilTheExplorerEffect());
         }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class GigiosHammer : Creature
     {
-        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Engine.Subtype.Xenoparts, Engine.Civilization.Fire)
+        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Subtype.Xenoparts, Civilization.Fire)
         {
             AddTapAbility(new GigiosHammerOneShotEffect());
         }

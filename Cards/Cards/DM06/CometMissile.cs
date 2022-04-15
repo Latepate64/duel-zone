@@ -9,7 +9,7 @@ namespace Cards.Cards.DM06
 {
     class CometMissile : Spell
     {
-        public CometMissile() : base("Comet Missile", 1, Engine.Civilization.Fire)
+        public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
         {
             AddShieldTrigger();
             AddSpellAbilities(new CometMissileEffect());

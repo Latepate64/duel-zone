@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class LegacyShell : Creature
     {
-        public LegacyShell() : base("Legacy Shell", 5, 4000, Engine.Subtype.ColonyBeetle, Engine.Civilization.Nature)
+        public LegacyShell() : base("Legacy Shell", 5, 4000, Subtype.ColonyBeetle, Civilization.Nature)
         {
             AddStaticAbilities(new LegacyShellEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Civilization.Light, Engine.Civilization.Fire);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Light, Civilization.Fire);
         }
     }
 }

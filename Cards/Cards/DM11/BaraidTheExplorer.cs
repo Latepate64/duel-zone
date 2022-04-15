@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class BaraidTheExplorer : SilentSkillCreature
     {
-        public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000, Engine.Subtype.Gladiator, Engine.Civilization.Light)
+        public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000, Subtype.Gladiator, Civilization.Light)
         {
             AddSilentSkillAbility(new BaraidTheExplorerEffect());
         }
@@ -44,7 +44,7 @@ namespace Cards.Cards.DM11
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && attacker.HasCivilization(Engine.Civilization.Light);
+            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && attacker.HasCivilization(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

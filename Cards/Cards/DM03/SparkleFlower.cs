@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class SparkleFlower : Creature
     {
-        public SparkleFlower() : base("Sparkle Flower", 4, 3000, Engine.Subtype.StarlightTree, Engine.Civilization.Light)
+        public SparkleFlower() : base("Sparkle Flower", 4, 3000, Subtype.StarlightTree, Civilization.Light)
         {
             AddStaticAbilities(new SparkleFlowerEffect());
         }
@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
-            return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Engine.Civilization.Light));
+            return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }
 
         public override IContinuousEffect Copy()

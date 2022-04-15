@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
 {
     class GandarSeekerOfExplosions : Creature
     {
-        public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Engine.Subtype.MechaThunder, Engine.Civilization.Light)
+        public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Subtype.MechaThunder, Civilization.Light)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new GandarSeekerOfExplosionsEffect());
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Light);
+            return game.BattleZone.GetCreatures(source.Controller, Civilization.Light);
         }
     }
 }

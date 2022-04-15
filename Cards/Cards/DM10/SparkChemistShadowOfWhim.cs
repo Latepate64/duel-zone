@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class SparkChemistShadowOfWhim : Creature
     {
-        public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
+        public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Subtype.Ghost, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SparkChemistShadowOfWhimEffect());
         }

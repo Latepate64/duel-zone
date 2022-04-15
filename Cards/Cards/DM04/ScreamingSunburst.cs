@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class ScreamingSunburst : Spell
     {
-        public ScreamingSunburst() : base("Screaming Sunburst", 3, Engine.Civilization.Light)
+        public ScreamingSunburst() : base("Screaming Sunburst", 3, Civilization.Light)
         {
             AddSpellAbilities(new ScreamingSunburstEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Engine.Civilization.Light));
+            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Light));
         }
     }
 }

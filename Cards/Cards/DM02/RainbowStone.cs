@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class RainbowStone : Spell
     {
-        public RainbowStone() : base("Rainbow Stone", 4, Engine.Civilization.Nature)
+        public RainbowStone() : base("Rainbow Stone", 4, Civilization.Nature)
         {
             AddSpellAbilities(new RainbowStoneEffect());
         }

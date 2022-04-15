@@ -12,7 +12,7 @@ namespace Cards.Cards.DM04
 {
     class FullDefensor : Spell
     {
-        public FullDefensor() : base("Full Defensor", 2, Engine.Civilization.Light)
+        public FullDefensor() : base("Full Defensor", 2, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new FullDefensorEffect());

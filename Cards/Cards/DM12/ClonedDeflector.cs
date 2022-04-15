@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedDeflector : Spell
     {
-        public ClonedDeflector() : base("Cloned Deflector", 3, Engine.Civilization.Light)
+        public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new ClonedDeflectorEffect(Name));

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class ThornyMandra : Creature
     {
-        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
+        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Subtype.TreeFolk, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ThornyMandraEffect());
         }

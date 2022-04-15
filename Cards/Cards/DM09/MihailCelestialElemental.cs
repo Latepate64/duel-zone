@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class MihailCelestialElemental : Creature
     {
-        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
+        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Subtype.AngelCommand, Civilization.Light)
         {
             AddStaticAbilities(new MihailCelestialElementalEffect());
         }

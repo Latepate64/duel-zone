@@ -5,7 +5,7 @@ namespace Cards.Cards.DM09
 {
     class SimianWarriorGrash : Creature
     {
-        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
+        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Subtype.Armorloid, Civilization.Fire)
         {
             AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1)));
         }
@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.HasSubtype(Engine.Subtype.Armorloid);
+            return card.Owner == Controller && card.HasSubtype(Subtype.Armorloid);
         }
     }
 }

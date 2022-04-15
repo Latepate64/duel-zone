@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class TraRionPenumbraGuardian : Creature
     {
-        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Engine.Subtype.Guardian, Engine.Civilization.Light)
+        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Subtype.Guardian, Civilization.Light)
         {
             AddTapAbility(new TraRionPenumbraGuardianEffect());
         }

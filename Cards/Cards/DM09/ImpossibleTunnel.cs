@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class ImpossibleTunnel : Spell
     {
-        public ImpossibleTunnel() : base("Impossible Tunnel", 5, Engine.Civilization.Water)
+        public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
         {
             AddSpellAbilities(new ImpossibleTunnelOneShotEffect());
         }

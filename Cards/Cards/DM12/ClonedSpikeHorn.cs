@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedSpikeHorn : Creature
     {
-        public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Engine.Subtype.HornedBeast, Engine.Civilization.Nature)
+        public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Subtype.HornedBeast, Civilization.Nature)
         {
             AddStaticAbilities(new ClonedSpikeHornEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }

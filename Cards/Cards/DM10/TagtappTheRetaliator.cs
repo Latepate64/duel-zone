@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class TagtappTheRetaliator : Creature
     {
-        public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Engine.Subtype.SpiritQuartz, Engine.Civilization.Fire, Engine.Civilization.Nature)
+        public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Subtype.SpiritQuartz, Civilization.Fire, Civilization.Nature)
         {
             AddStaticAbilities(new TagtappTheRetaliatorEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM10
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(game.GetOpponent(GetController(game).Id)).ManaZone.GetCards(Engine.Civilization.Water).Count();
+            return game.GetPlayer(game.GetOpponent(GetController(game).Id)).ManaZone.GetCards(Civilization.Water).Count();
         }
     }
 }

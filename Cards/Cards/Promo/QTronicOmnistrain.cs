@@ -6,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class QTronicOmnistrain : EvolutionCreature
     {
-        public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Engine.Subtype.Survivor, Engine.Civilization.Nature)
+        public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Subtype.Survivor, Civilization.Nature)
         {
             AddShieldTrigger();
             AddStaticAbilities(new QTronicOmnistrainEffect());
@@ -17,7 +17,7 @@ namespace Cards.Cards.Promo
     {
         public void AddSubtype(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).ToList().ForEach(x => x.AddGrantedSubtype(Engine.Subtype.Survivor));
+            game.BattleZone.GetCreatures(GetController(game).Id).ToList().ForEach(x => x.AddGrantedSubtype(Subtype.Survivor));
         }
 
         public override IContinuousEffect Copy()

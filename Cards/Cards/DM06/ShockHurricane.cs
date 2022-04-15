@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class ShockHurricane : Spell
     {
-        public ShockHurricane() : base("Shock Hurricane", 5, Engine.Civilization.Water)
+        public ShockHurricane() : base("Shock Hurricane", 5, Civilization.Water)
         {
             AddSpellAbilities(new ShockHurricaneEffect());
         }

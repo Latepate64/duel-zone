@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
 {
     class HolyAwe : Spell
     {
-        public HolyAwe() : base("Holy Awe", 6, Engine.Civilization.Light)
+        public HolyAwe() : base("Holy Awe", 6, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new HolyAweEffect());

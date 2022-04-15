@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class TanzanyteTheAwakener : Creature
     {
-        public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Engine.Subtype.SpiritQuartz, Engine.Civilization.Water, Engine.Civilization.Darkness)
+        public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Subtype.SpiritQuartz, Civilization.Water, Civilization.Darkness)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new TanzanyteTheAwakenerEffect());

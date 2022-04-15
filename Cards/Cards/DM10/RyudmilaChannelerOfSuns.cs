@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class RyudmilaChannelerOfSuns : Creature
     {
-        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Engine.Subtype.MechaDelSol, Engine.Civilization.Light)
+        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Subtype.MechaDelSol, Civilization.Light)
         {
             AddStaticAbilities(new ContinuousEffects.ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(2000), new RyudmilaChannelerOfSunsEffect());
         }

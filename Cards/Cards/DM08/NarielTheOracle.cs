@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class NarielTheOracle : Creature
     {
-        public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Engine.Subtype.LightBringer, Engine.Civilization.Light)
+        public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Subtype.LightBringer, Civilization.Light)
         {
             AddStaticAbilities(new NarielTheOracleEffect());
         }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class Gigarayze : Creature
     {
-        public Gigarayze() : base("Gigarayze", 4, 2000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
+        public Gigarayze() : base("Gigarayze", 4, 2000, Subtype.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigarayzeEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Creatures.Where(x => x.HasCivilization(Engine.Civilization.Water, Engine.Civilization.Fire));
+            return source.GetController(game).Graveyard.Creatures.Where(x => x.HasCivilization(Civilization.Water, Civilization.Fire));
         }
     }
 }

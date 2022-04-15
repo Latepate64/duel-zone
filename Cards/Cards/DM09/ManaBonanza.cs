@@ -5,7 +5,7 @@ namespace Cards.Cards.DM09
 {
     class ManaBonanza : Spell
     {
-        public ManaBonanza() : base("Mana Bonanza", 8, Engine.Civilization.Nature)
+        public ManaBonanza() : base("Mana Bonanza", 8, Civilization.Nature)
         {
             AddSpellAbilities(new ManaBonanzaEffect());
         }

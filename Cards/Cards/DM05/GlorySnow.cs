@@ -5,7 +5,7 @@ namespace Cards.Cards.DM05
 {
     class GlorySnow : Spell
     {
-        public GlorySnow() : base("Glory Snow", 4, Engine.Civilization.Light)
+        public GlorySnow() : base("Glory Snow", 4, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new GlorySnowEffect());

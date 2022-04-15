@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class CataclysmicEruption : Spell
     {
-        public CataclysmicEruption() : base("Cataclysmic Eruption", 8, Engine.Civilization.Fire)
+        public CataclysmicEruption() : base("Cataclysmic Eruption", 8, Civilization.Fire)
         {
             AddSpellAbilities(new CataclysmicEruptionEffect());
         }
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Engine.Civilization.Nature));
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Nature));
             return new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(amount).Apply(game, source);
         }
 

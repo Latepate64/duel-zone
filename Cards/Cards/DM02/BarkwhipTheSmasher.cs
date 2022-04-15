@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class BarkwhipTheSmasher : EvolutionCreature
     {
-        public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
+        public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Subtype.BeastFolk, Civilization.Nature)
         {
             AddStaticAbilities(new BarkwhipTheSmasherEffect());
         }
@@ -28,7 +28,7 @@ namespace Cards.Cards.DM02
         {
             if (game.GetCard(GetSourceAbility(game).Source).Tapped)
             {
-                game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Engine.Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

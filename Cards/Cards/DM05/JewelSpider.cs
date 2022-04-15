@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class JewelSpider : Creature
     {
-        public JewelSpider() : base("Jewel Spider", 2, 1000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
+        public JewelSpider() : base("Jewel Spider", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect());
         }

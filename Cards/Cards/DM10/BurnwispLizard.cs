@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class BurnwispLizard : Creature
     {
-        public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Engine.Subtype.MeltWarrior, Engine.Civilization.Fire)
+        public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Subtype.MeltWarrior, Civilization.Fire)
         {
             AddStaticAbilities(new BurnwispLizardEffect());
         }

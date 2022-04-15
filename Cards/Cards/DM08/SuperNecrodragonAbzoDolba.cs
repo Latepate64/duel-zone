@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class SuperNecrodragonAbzoDolba : DragonEvolutionCreature
     {
-        public SuperNecrodragonAbzoDolba() : base("Super Necrodragon Abzo Dolba", 6, 11000, Engine.Subtype.ZombieDragon, Engine.Civilization.Darkness)
+        public SuperNecrodragonAbzoDolba() : base("Super Necrodragon Abzo Dolba", 6, 11000, Subtype.ZombieDragon, Civilization.Darkness)
         {
             AddStaticAbilities(new SuperNecrodragonAbzoDolbaEffect());
             AddTripleBreakerAbility();

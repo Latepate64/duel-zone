@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class SiegBaliculaTheIntense : EvolutionCreature
     {
-        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Engine.Subtype.Initiate, Engine.Civilization.Light)
+        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Subtype.Initiate, Civilization.Light)
         {
             AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
         }
@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
         public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
             var ability = GetSourceAbility(game);
-            return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Engine.Civilization.Light);
+            return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

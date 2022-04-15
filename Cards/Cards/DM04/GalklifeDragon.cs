@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class GalklifeDragon : Creature
     {
-        public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
+        public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Subtype.ArmoredDragon, Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalklifeDragonEffect());
             AddDoubleBreakerAbility();
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Engine.Civilization.Light).Where(x => x.Power <= 4000);
+            return game.BattleZone.GetCreatures(Civilization.Light).Where(x => x.Power <= 4000);
         }
     }
 }

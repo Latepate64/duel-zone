@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class LiquidScope : Spell
     {
-        public LiquidScope() : base("Liquid Scope", 4, Engine.Civilization.Water)
+        public LiquidScope() : base("Liquid Scope", 4, Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new LiquidScopeEffect());

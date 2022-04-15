@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class BlazeCannon : Spell
     {
-        public BlazeCannon() : base("Blaze Cannon", 7, Engine.Civilization.Fire)
+        public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
         {
             AddStaticAbilities(new BlazeCannonRestrictionEffect());
             AddSpellAbilities(new BlazeCannonBuffEffect());
@@ -37,7 +37,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Engine.Civilization.Fire));
+            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }
     }
 

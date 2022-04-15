@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class MiraculousSnare : Spell
     {
-        public MiraculousSnare() : base("Miraculous Snare", 3, Engine.Civilization.Light, Engine.Civilization.Water)
+        public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
         {
             AddSpellAbilities(new MiraculousSnareEffect());
         }

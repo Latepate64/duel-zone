@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class RainbowGate : Spell
     {
-        public RainbowGate() : base("Rainbow Gate", 2, Engine.Civilization.Nature)
+        public RainbowGate() : base("Rainbow Gate", 2, Civilization.Nature)
         {
             AddSpellAbilities(new RainbowGateEffect());
         }

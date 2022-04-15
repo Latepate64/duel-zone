@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedNightmare : Spell
     {
-        public ClonedNightmare() : base("Cloned Nightmare", 3, Engine.Civilization.Darkness)
+        public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
         {
             AddSpellAbilities(new ClonedNightmareEffect(Name));
         }

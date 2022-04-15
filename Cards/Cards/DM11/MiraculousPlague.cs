@@ -8,7 +8,7 @@ namespace Cards.Cards.DM11
 {
     class MiraculousPlague : Spell
     {
-        public MiraculousPlague() : base("Miraculous Plague", 7, Engine.Civilization.Water, Engine.Civilization.Darkness)
+        public MiraculousPlague() : base("Miraculous Plague", 7, Civilization.Water, Civilization.Darkness)
         {
             AddSpellAbilities(new MiraculousPlagueFirstEffect());
         }

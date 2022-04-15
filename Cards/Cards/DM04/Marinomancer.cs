@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class Marinomancer : Creature
     {
-        public Marinomancer() : base("Marinomancer", 5, 2000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
+        public Marinomancer() : base("Marinomancer", 5, 2000, Subtype.CyberLord, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new MarinomancerEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
         public override object Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(3, game);
-            var toHand = cards.Where(x => x.HasCivilization(Engine.Civilization.Light) || x.HasCivilization(Engine.Civilization.Darkness));
+            var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
             game.Move(ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
             source.GetController(game).Unreveal(cards);

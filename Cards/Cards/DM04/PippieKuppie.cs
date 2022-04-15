@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class PippieKuppie : Creature
     {
-        public PippieKuppie() : base("Pippie Kuppie", 2, 1000, Engine.Subtype.FireBird, Engine.Civilization.Fire)
+        public PippieKuppie() : base("Pippie Kuppie", 2, 1000, Subtype.FireBird, Civilization.Fire)
         {
             AddStaticAbilities(new PippieKuppieEffect());
         }
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasSubtype(Engine.Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
         }
     }
 }

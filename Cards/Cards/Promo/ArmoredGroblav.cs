@@ -6,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class ArmoredGroblav : EvolutionCreature
     {
-        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Engine.Subtype.Human, Engine.Civilization.Fire)
+        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Subtype.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredGroblavEffect());
             AddDoubleBreakerAbility();
@@ -31,7 +31,7 @@ namespace Cards.Cards.Promo
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Engine.Civilization.Fire).Count();
+            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Civilization.Fire).Count();
         }
     }
 }

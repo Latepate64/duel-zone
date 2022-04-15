@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class ArmoredTransportGaliacruse : Creature
     {
-        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
+        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Subtype.Armorloid, Civilization.Fire)
         {
             AddTapAbility(new ArmoredTransportGaliacruseEffect());
         }
@@ -40,7 +40,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
+            return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
         }
     }
 }

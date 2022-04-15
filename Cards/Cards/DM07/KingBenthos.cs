@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class KingBenthos : Creature
     {
-        public KingBenthos() : base("King Benthos", 8, 6000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
+        public KingBenthos() : base("King Benthos", 8, 6000, Subtype.Leviathan, Civilization.Water)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new KingBenthosEffect());
@@ -22,7 +22,7 @@ namespace Cards.Cards.DM07
 
         public override object Apply(IGame game, IAbility source)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Water);
+            var creatures = game.BattleZone.GetCreatures(source.Controller, Civilization.Water);
             game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
                 creatures.ToArray()));

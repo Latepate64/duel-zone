@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class RouletteOfRuin : Spell
     {
-        public RouletteOfRuin() : base("Roulette of Ruin", 5, Engine.Civilization.Darkness)
+        public RouletteOfRuin() : base("Roulette of Ruin", 5, Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new RouletteOfRuinEffect());

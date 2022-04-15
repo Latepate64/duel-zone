@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
 {
     class RumbleGate : Spell
     {
-        public RumbleGate() : base("Rumble Gate", 4, Engine.Civilization.Fire)
+        public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
         {
             AddSpellAbilities(new EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(1000), new RumbleGateOneShotEffect());
         }

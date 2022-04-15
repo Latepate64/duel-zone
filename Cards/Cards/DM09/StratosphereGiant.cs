@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class StratosphereGiant : Creature
     {
-        public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Engine.Subtype.Giant, Engine.Civilization.Nature)
+        public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Subtype.Giant, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new StratosphereGiantEffect());
             AddTripleBreakerAbility();

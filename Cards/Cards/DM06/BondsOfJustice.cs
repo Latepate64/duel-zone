@@ -9,7 +9,7 @@ namespace Cards.Cards.DM06
 {
     class BondsOfJustice : Spell
     {
-        public BondsOfJustice() : base("Bonds of Justice", 4, Engine.Civilization.Light)
+        public BondsOfJustice() : base("Bonds of Justice", 4, Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new BondsOfJusticeEffect());

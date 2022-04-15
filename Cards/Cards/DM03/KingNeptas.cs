@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class KingNeptas : Creature
     {
-        public KingNeptas() : base("King Neptas", 6, 5000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
+        public KingNeptas() : base("King Neptas", 6, 5000, Subtype.Leviathan, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new KingNeptasEffect());
         }

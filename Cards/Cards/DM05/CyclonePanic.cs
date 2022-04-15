@@ -6,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class CyclonePanic : Spell
     {
-        public CyclonePanic() : base("Cyclone Panic", 3, Engine.Civilization.Fire)
+        public CyclonePanic() : base("Cyclone Panic", 3, Civilization.Fire)
         {
             AddShieldTrigger();
             AddSpellAbilities(new CyclonePanicEffect());

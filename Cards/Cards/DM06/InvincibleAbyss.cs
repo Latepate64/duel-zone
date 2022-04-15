@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class InvincibleAbyss : Spell
     {
-        public InvincibleAbyss() : base("Invincible Abyss", 13, Engine.Civilization.Darkness)
+        public InvincibleAbyss() : base("Invincible Abyss", 13, Civilization.Darkness)
         {
             AddSpellAbilities(new InvincibleAbyssEffect());
         }

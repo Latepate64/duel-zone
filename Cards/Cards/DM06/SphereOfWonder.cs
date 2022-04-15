@@ -5,7 +5,7 @@ namespace Cards.Cards.DM06
 {
     class SphereOfWonder : Spell
     {
-        public SphereOfWonder() : base("Sphere of Wonder", 4, Engine.Civilization.Light)
+        public SphereOfWonder() : base("Sphere of Wonder", 4, Civilization.Light)
         {
             AddSpellAbilities(new SphereOfWonderEffect());
         }

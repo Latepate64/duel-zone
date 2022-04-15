@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class StainedGlass : Creature
     {
-        public StainedGlass() : base("Stained Glass", 3, 1000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
+        public StainedGlass() : base("Stained Glass", 3, 1000, Subtype.CyberVirus, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new StainedGlassEffect());
         }
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM02
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Engine.Civilization.Fire, Engine.Civilization.Nature));
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Fire, Civilization.Nature));
         }
     }
 }

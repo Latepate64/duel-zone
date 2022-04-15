@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class ChaoticSkyterror : Creature
     {
-        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
+        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Subtype.ArmoredWyvern, Civilization.Fire)
         {
             AddStaticAbilities(new ChaoticSkyterrorEffect());
         }
@@ -34,7 +34,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Engine.Subtype.DemonCommand);
+            return game.BattleZone.GetCreatures(Subtype.DemonCommand);
         }
     }
 }

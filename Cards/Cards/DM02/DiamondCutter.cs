@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class DiamondCutter : Spell
     {
-        public DiamondCutter() : base("Diamond Cutter", 5, Engine.Civilization.Light)
+        public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
         {
             AddSpellAbilities(new DiamondCutterOneShotEffect());
         }

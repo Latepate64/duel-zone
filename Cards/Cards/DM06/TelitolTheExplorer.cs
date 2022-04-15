@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class TelitolTheExplorer : Creature
     {
-        public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Engine.Subtype.Gladiator, Engine.Civilization.Light)
+        public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Subtype.Gladiator, Civilization.Light)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect());

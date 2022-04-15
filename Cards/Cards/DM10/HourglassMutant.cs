@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class HourglassMutant : Creature
     {
-        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Engine.Subtype.Hedrian, Engine.Civilization.Darkness)
+        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Subtype.Hedrian, Civilization.Darkness)
         {
             AddStaticAbilities(new HourglassMutantEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Civilization.Water, Engine.Civilization.Fire);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Water, Civilization.Fire);
         }
     }
 }

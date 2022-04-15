@@ -6,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class OlgateNightmareSamurai : Creature
     {
-        public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
+        public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Subtype.DemonCommand, Civilization.Darkness)
         {
             AddDoubleBreakerAbility();
             AddTriggeredAbility(new OlgateAbility());

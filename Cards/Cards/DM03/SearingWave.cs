@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class SearingWave : Spell
     {
-        public SearingWave() : base("Searing Wave", 5, Engine.Civilization.Fire)
+        public SearingWave() : base("Searing Wave", 5, Civilization.Fire)
         {
             AddSpellAbilities(new SearingWaveEffect(), new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
         }

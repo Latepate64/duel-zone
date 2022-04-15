@@ -8,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class HydroHurricane : Spell
     {
-        public HydroHurricane() : base("Hydro Hurricane", 6, Engine.Civilization.Water)
+        public HydroHurricane() : base("Hydro Hurricane", 6, Civilization.Water)
         {
             AddSpellAbilities(new HydroHurricaneFirstEffect(), new HydroHurricaneSecondEffect());
         }
@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Engine.Civilization.Light));
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Light));
             return new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
         }
 
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Engine.Civilization.Darkness));
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Darkness));
             return new HydroHurricaneBounceEffect(amount).Apply(game, source);
         }
 

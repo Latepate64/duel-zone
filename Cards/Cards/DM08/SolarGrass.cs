@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class SolarGrass : TurboRushCreature
     {
-        public SolarGrass() : base("Solar Grass", 5, 3000, Engine.Subtype.StarlightTree, Engine.Civilization.Light)
+        public SolarGrass() : base("Solar Grass", 5, 3000, Subtype.StarlightTree, Civilization.Light)
         {
             AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new SolarGrassEffect()));
         }

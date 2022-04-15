@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Gigandura : Creature
     {
-        public Gigandura() : base("Gigandura", 5, 3000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
+        public Gigandura() : base("Gigandura", 5, 3000, Subtype.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GiganduraEffect());
         }
