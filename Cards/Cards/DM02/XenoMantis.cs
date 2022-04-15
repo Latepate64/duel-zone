@@ -4,7 +4,7 @@ namespace Cards.Cards.DM02
 {
     class XenoMantis : Creature
     {
-        public XenoMantis() : base("Xeno Mantis", 7, 6000, Engine.Subtype.GiantInsect, Common.Civilization.Nature)
+        public XenoMantis() : base("Xeno Mantis", 7, 6000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));
             AddDoubleBreakerAbility();

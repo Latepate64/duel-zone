@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
     class SimianWarriorGrash : Creature
     {
-        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Engine.Subtype.Armorloid, Civilization.Fire)
+        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
         {
             AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1)));
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class GigiosHammer : Creature
     {
-        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Engine.Subtype.Xenoparts, Civilization.Fire)
+        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Engine.Subtype.Xenoparts, Engine.Civilization.Fire)
         {
             AddTapAbility(new GigiosHammerOneShotEffect());
         }

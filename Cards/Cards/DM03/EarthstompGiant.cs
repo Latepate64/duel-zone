@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class EarthstompGiant : Creature
     {
-        public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Engine.Subtype.Giant, Civilization.Nature)
+        public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Engine.Subtype.Giant, Engine.Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddWheneverThisCreatureAttacksAbility(new EarthstompGiantEffect());

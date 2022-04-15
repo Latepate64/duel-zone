@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.Choices;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedNightmare : Spell
     {
-        public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
+        public ClonedNightmare() : base("Cloned Nightmare", 3, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new ClonedNightmareEffect(Name));
         }

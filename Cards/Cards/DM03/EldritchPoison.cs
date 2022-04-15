@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class EldritchPoison : Spell
     {
-        public EldritchPoison() : base("Eldritch Poison", 1, Civilization.Darkness)
+        public EldritchPoison() : base("Eldritch Poison", 1, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new EldritchPoisonEffect());
@@ -57,7 +56,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Civilization.Darkness);
+            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Darkness);
         }
     }
 }

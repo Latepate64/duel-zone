@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM07
 {
     class TrenchdiveShark : Creature
     {
-        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Engine.Subtype.GelFish, Civilization.Water)
+        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Engine.Subtype.GelFish, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TrenchdiveSharkEffect());
         }

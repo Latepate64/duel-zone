@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class AuroraOfReversal : Spell
     {
-        public AuroraOfReversal() : base("Aurora of Reversal", 5, Civilization.Nature)
+        public AuroraOfReversal() : base("Aurora of Reversal", 5, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new AuroraOfReversalEffect());
         }

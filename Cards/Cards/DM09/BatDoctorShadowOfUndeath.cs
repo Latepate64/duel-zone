@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class BatDoctorShadowOfUndeath : Creature
     {
-        public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect());
         }

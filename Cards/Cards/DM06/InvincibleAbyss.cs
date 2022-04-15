@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class InvincibleAbyss : Spell
     {
-        public InvincibleAbyss() : base("Invincible Abyss", 13, Civilization.Darkness)
+        public InvincibleAbyss() : base("Invincible Abyss", 13, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new InvincibleAbyssEffect());
         }

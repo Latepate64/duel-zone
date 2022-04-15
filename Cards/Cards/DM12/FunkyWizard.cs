@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class FunkyWizard : Creature
     {
-        public FunkyWizard() : base("Funky Wizard", 4, 2000, Engine.Subtype.Merfolk, Civilization.Water)
+        public FunkyWizard() : base("Funky Wizard", 4, 2000, Engine.Subtype.Merfolk, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FunkyWizardEffect());

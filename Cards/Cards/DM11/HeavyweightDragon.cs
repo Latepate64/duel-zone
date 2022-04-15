@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class HeavyweightDragon : Creature
     {
-        public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Engine.Subtype.ArmoredDragon, Civilization.Fire)
+        public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new HeavyweightDragonEffect());

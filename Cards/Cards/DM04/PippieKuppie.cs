@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class PippieKuppie : Creature
     {
-        public PippieKuppie() : base("Pippie Kuppie", 2, 1000, Engine.Subtype.FireBird, Civilization.Fire)
+        public PippieKuppie() : base("Pippie Kuppie", 2, 1000, Engine.Subtype.FireBird, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new PippieKuppieEffect());
         }

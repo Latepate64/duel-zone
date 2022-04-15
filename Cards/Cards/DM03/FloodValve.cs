@@ -2,7 +2,7 @@
 {
     class FloodValve : Spell
     {
-        public FloodValve() : base("Flood Valve", 2, Common.Civilization.Water)
+        public FloodValve() : base("Flood Valve", 2, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(1));

@@ -4,7 +4,7 @@ namespace Cards.Cards.DM01
 {
     class GhostTouch : Spell
     {
-        public GhostTouch() : base("Ghost Touch", 2, Common.Civilization.Darkness)
+        public GhostTouch() : base("Ghost Touch", 2, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OpponentRandomDiscardEffect());

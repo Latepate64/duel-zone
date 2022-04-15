@@ -2,7 +2,7 @@
 {
     class PangaeasSong : Spell
     {
-        public PangaeasSong() : base("Pangaea's Song", 1, Common.Civilization.Nature)
+        public PangaeasSong() : base("Pangaea's Song", 1, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new OneShotEffects.PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect());
         }

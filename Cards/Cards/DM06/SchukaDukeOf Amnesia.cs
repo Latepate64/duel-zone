@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class SchukaDukeOfAmnesia : Creature
     {
-        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
+        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Engine.Subtype.DarkLord, Engine.Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect());
         }

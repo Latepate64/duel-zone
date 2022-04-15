@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class CreepingPlague : Spell
     {
-        public CreepingPlague() : base("Creeping Plague", 1, Common.Civilization.Darkness)
+        public CreepingPlague() : base("Creeping Plague", 1, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new CreepingPlagueEffect());
         }

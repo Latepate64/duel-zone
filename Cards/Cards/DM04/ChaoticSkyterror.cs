@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class ChaoticSkyterror : Creature
     {
-        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Engine.Subtype.ArmoredWyvern, Civilization.Fire)
+        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ChaoticSkyterrorEffect());
         }

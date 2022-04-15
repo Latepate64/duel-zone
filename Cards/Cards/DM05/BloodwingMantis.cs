@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class BloodwingMantis : Creature
     {
-        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Engine.Subtype.GiantInsect, Civilization.Nature)
+        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new BloodwingMantisEffect());
             AddDoubleBreakerAbility();

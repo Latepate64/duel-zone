@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class UltimateDragon : Creature
     {
-        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Engine.Subtype.ArmoredDragon, Civilization.Fire)
+        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new UltimateDragonPowerEffect(), new UltimateDragonBreakerEffect());
         }

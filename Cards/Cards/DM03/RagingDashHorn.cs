@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class RagingDashHorn : Creature
     {
-        public RagingDashHorn() : base("Raging Dash-Horn", 5, 4000, Engine.Subtype.HornedBeast, Civilization.Nature)
+        public RagingDashHorn() : base("Raging Dash-Horn", 5, 4000, Engine.Subtype.HornedBeast, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new RagingDashHornEffect());
         }
@@ -51,7 +50,7 @@ namespace Cards.Cards.DM03
             var ability = GetSourceAbility(game);
             if (ability != null)
             {
-                return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
+                return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Engine.Civilization.Nature));
             }
             return false;
         }

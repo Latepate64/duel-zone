@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MagmadragonJagalzor : TurboRushCreature
     {
-        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Engine.Subtype.VolcanoDragon, Civilization.Fire)
+        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Engine.Subtype.VolcanoDragon, Engine.Civilization.Fire)
         {
             AddDoubleBreakerAbility();
             AddTurboRushAbility(new MagmadragonJagalzorEffect());

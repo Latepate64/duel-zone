@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM11
 {
     class MiraculousPlague : Spell
     {
-        public MiraculousPlague() : base("Miraculous Plague", 7, Civilization.Water, Civilization.Darkness)
+        public MiraculousPlague() : base("Miraculous Plague", 7, Engine.Civilization.Water, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new MiraculousPlagueFirstEffect());
         }

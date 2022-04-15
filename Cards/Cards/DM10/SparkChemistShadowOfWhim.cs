@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class SparkChemistShadowOfWhim : Creature
     {
-        public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SparkChemistShadowOfWhimEffect());
         }

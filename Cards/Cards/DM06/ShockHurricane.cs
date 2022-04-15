@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class ShockHurricane : Spell
     {
-        public ShockHurricane() : base("Shock Hurricane", 5, Civilization.Water)
+        public ShockHurricane() : base("Shock Hurricane", 5, Engine.Civilization.Water)
         {
             AddSpellAbilities(new ShockHurricaneEffect());
         }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class ElfX : Creature
     {
-        public ElfX() : base("Elf-X", 4, 2000, Engine.Subtype.TreeFolk, Civilization.Nature)
+        public ElfX() : base("Elf-X", 4, 2000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ElfXEffect());
         }

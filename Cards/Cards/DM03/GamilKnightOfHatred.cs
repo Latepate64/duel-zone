@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class GamilKnightOfHatred : Creature
     {
-        public GamilKnightOfHatred() : base("Gamil, Knight of Hatred", 6, 4000, Engine.Subtype.DemonCommand, Common.Civilization.Darkness)
+        public GamilKnightOfHatred() : base("Gamil, Knight of Hatred", 6, 4000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
         {
             AddWheneverThisCreatureAttacksAbility(new GamilKnightOfHatredEffect());
         }
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.GetCreatures(Common.Civilization.Darkness);
+            return source.GetController(game).Graveyard.GetCreatures(Engine.Civilization.Darkness);
         }
     }
 }

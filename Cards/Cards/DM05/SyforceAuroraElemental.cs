@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM05
+﻿namespace Cards.Cards.DM05
 {
     class SyforceAuroraElemental : Creature
     {
-        public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Engine.Subtype.AngelCommand, Civilization.Light)
+        public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect());

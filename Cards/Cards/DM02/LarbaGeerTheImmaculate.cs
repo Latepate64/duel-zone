@@ -1,5 +1,4 @@
 ﻿using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class LarbaGeerTheImmaculate : EvolutionCreature
     {
-        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Engine.Subtype.Guardian, Civilization.Light)
+        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Engine.Subtype.Guardian, Engine.Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect());
         }

@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM10
+﻿namespace Cards.Cards.DM10
 {
     class ArdentLunatron : Creature
     {
-        public ArdentLunatron() : base("Ardent Lunatron", 3, 5000, Engine.Subtype.CyberMoon, Civilization.Water)
+        public ArdentLunatron() : base("Ardent Lunatron", 3, 5000, Engine.Subtype.CyberMoon, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddStaticAbilities(new ContinuousEffects.ThisCreatureBlocksIfAble());

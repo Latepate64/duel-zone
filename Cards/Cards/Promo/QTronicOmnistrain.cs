@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class QTronicOmnistrain : EvolutionCreature
     {
-        public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Engine.Subtype.Survivor, Civilization.Nature)
+        public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Engine.Subtype.Survivor, Engine.Civilization.Nature)
         {
             AddShieldTrigger();
             AddStaticAbilities(new QTronicOmnistrainEffect());

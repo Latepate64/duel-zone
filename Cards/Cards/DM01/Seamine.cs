@@ -2,7 +2,7 @@
 {
     class Seamine : Creature
     {
-        public Seamine() : base("Seamine", 6, 4000, Engine.Subtype.Fish, Common.Civilization.Water)
+        public Seamine() : base("Seamine", 6, 4000, Engine.Subtype.Fish, Engine.Civilization.Water)
         {
             AddBlockerAbility();
         }

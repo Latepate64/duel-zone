@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.Promo
 {
     class SuperDragonMachineDolzark : Creature
     {
-        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Engine.Subtype.ArmoredDragon, Engine.Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
+        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Engine.Subtype.ArmoredDragon, Engine.Subtype.EarthDragon, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
             AddTriggeredAbility(new DolzarkAbility());
             AddDoubleBreakerAbility();

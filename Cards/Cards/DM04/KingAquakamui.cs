@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class KingAquakamui : Creature
     {
-        public KingAquakamui() : base("King Aquakamui", 7, 5000, Engine.Subtype.Leviathan, Civilization.Water)
+        public KingAquakamui() : base("King Aquakamui", 7, 5000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect());
             AddStaticAbilities(new KingAquakamuiContinuousEffect());

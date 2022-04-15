@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class RapidReincarnation : Spell
     {
-        public RapidReincarnation() : base("Rapid Reincarnation", 3, Civilization.Light)
+        public RapidReincarnation() : base("Rapid Reincarnation", 3, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new RapidReincarnationEffect());

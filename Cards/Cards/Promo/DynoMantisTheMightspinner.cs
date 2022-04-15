@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.Promo
 {
     class DynoMantisTheMightspinner : EvolutionCreature
     {
-        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Engine.Subtype.GiantInsect, Civilization.Nature)
+        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new DynoMantisEffect());

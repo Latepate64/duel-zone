@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class ArmoredBlasterValdios : EvolutionCreature
     {
-        public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Engine.Subtype.Human, Civilization.Fire)
+        public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Engine.Subtype.Human, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredBlasterValdiosEffect());
             AddDoubleBreakerAbility();

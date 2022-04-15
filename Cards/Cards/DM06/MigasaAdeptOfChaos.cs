@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class MigasaAdeptOfChaos : Creature
     {
-        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Engine.Subtype.Human, Civilization.Fire)
+        public MigasaAdeptOfChaos() : base("Migasa, Adept of Chaos", 3, 2000, Engine.Subtype.Human, Engine.Civilization.Fire)
         {
             AddTapAbility(new MigasaAdeptOfChaosEffect());
         }
@@ -36,7 +35,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Common.Civilization.Fire);
+            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
         }
     }
 }

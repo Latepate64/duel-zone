@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class TanzanyteTheAwakener : Creature
     {
-        public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Engine.Subtype.SpiritQuartz, Civilization.Water, Civilization.Darkness)
+        public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Engine.Subtype.SpiritQuartz, Engine.Civilization.Water, Engine.Civilization.Darkness)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new TanzanyteTheAwakenerEffect());

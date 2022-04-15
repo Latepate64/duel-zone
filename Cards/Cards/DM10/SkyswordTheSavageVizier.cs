@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class SkyswordTheSavageVizier : Creature
     {
-        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Engine.Subtype.BeastFolk, Engine.Subtype.Initiate, Civilization.Light, Civilization.Nature)
+        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Engine.Subtype.BeastFolk, Engine.Subtype.Initiate, Engine.Civilization.Light, Engine.Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SkyswordTheSavageVizierEffect());
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class StratosphereGiant : Creature
     {
-        public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Engine.Subtype.Giant, Civilization.Nature)
+        public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Engine.Subtype.Giant, Engine.Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new StratosphereGiantEffect());
             AddTripleBreakerAbility();

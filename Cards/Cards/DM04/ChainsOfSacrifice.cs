@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class ChainsOfSacrifice : Spell
     {
-        public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
+        public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new ChainsOfSacrificeEffect(), new SacrificeEffect());
         }

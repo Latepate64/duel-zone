@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class IllusionaryMerfolk : Creature
     {
-        public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Engine.Subtype.GelFish, Common.Civilization.Water)
+        public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Engine.Subtype.GelFish, Engine.Civilization.Water)
         {
             AddTriggeredAbility(new IllusionaryMerfolkAbility());
         }

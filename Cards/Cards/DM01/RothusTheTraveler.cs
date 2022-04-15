@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
 {
     class RothusTheTraveler : Creature
     {
-        public RothusTheTraveler() : base("Rothus, the Traveler", 4, 4000, Engine.Subtype.Armorloid, Common.Civilization.Fire)
+        public RothusTheTraveler() : base("Rothus, the Traveler", 4, 4000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RothusTheTravelerEffect());
         }

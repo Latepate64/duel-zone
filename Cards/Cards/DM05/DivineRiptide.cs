@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class DivineRiptide : Spell
     {
-        public DivineRiptide() : base("Divine Riptide", 9, Civilization.Water)
+        public DivineRiptide() : base("Divine Riptide", 9, Engine.Civilization.Water)
         {
             AddSpellAbilities(new DivineRiptideEffect());
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class GregoriaPrincessOfWar : Creature
     {
-        public GregoriaPrincessOfWar() : base("Gregoria, Princess of War", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
+        public GregoriaPrincessOfWar() : base("Gregoria, Princess of War", 6, 5000, Engine.Subtype.DarkLord, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new GregoriaPrincessOfWarEffect());
         }

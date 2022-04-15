@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM10
+﻿namespace Cards.Cards.DM10
 {
     class BulglufTheSpydroid : SilentSkillCreature
     {
-        public BulglufTheSpydroid() : base("Bulgluf, the Spydroid", 6, 4000, Engine.Subtype.Soltrooper, Civilization.Light)
+        public BulglufTheSpydroid() : base("Bulgluf, the Spydroid", 6, 4000, Engine.Subtype.Soltrooper, Engine.Civilization.Light)
         {
             AddSilentSkillAbility(new OneShotEffects.AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect());
         }

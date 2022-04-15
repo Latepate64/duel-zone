@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class BombazarDragonOfDestiny : Creature
     {
-        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Engine.Subtype.ArmoredDragon, Engine.Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
+        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Engine.Subtype.ArmoredDragon, Engine.Subtype.EarthDragon, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
             AddSpeedAttackerAbility();
             AddDoubleBreakerAbility();

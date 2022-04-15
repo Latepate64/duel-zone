@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class TraRionPenumbraGuardian : Creature
     {
-        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Engine.Subtype.Guardian, Civilization.Light)
+        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Engine.Subtype.Guardian, Engine.Civilization.Light)
         {
             AddTapAbility(new TraRionPenumbraGuardianEffect());
         }

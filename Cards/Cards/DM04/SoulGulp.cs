@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class SoulGulp : Spell
     {
-        public SoulGulp() : base("Soul Gulp", 4, Civilization.Darkness)
+        public SoulGulp() : base("Soul Gulp", 4, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new SoulGulpEffect());
         }
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            int amount = game.BattleZone.GetCreatures(game.GetOpponent(source.Controller)).Count(x => x.HasCivilization(Civilization.Light));
+            int amount = game.BattleZone.GetCreatures(game.GetOpponent(source.Controller)).Count(x => x.HasCivilization(Engine.Civilization.Light));
             return new OneShotEffects.YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(amount).Apply(game, source);
         }
 

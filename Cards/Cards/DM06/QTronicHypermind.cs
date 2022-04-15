@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class QTronicHypermind : EvolutionCreature
     {
-        public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Engine.Subtype.Survivor, Civilization.Water)
+        public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Engine.Subtype.Survivor, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect());
             AddDoubleBreakerAbility();

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class DiamondCutter : Spell
     {
-        public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
+        public DiamondCutter() : base("Diamond Cutter", 5, Engine.Civilization.Light)
         {
             AddSpellAbilities(new DiamondCutterOneShotEffect());
         }

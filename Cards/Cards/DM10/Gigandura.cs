@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Gigandura : Creature
     {
-        public Gigandura() : base("Gigandura", 5, 3000, Engine.Subtype.Chimera, Civilization.Darkness)
+        public Gigandura() : base("Gigandura", 5, 3000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GiganduraEffect());
         }

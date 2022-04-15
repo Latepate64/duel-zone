@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class RyudmilaChannelerOfSuns : Creature
     {
-        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Engine.Subtype.MechaDelSol, Civilization.Light)
+        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Engine.Subtype.MechaDelSol, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ContinuousEffects.ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(2000), new RyudmilaChannelerOfSunsEffect());
         }

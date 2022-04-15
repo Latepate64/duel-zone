@@ -2,7 +2,7 @@
 {
     class CriticalBlade : Spell
     {
-        public CriticalBlade() : base("Critical Blade", 2, Common.Civilization.Darkness)
+        public CriticalBlade() : base("Critical Blade", 2, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect());

@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM05
 {
     class JewelSpider : Creature
     {
-        public JewelSpider() : base("Jewel Spider", 2, 1000, Engine.Subtype.BrainJacker, Civilization.Darkness)
+        public JewelSpider() : base("Jewel Spider", 2, 1000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect());
         }

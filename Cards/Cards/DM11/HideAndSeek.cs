@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM11
 {
     class HideAndSeek : Spell
     {
-        public HideAndSeek() : base("Hide and Seek", 4, Civilization.Water, Civilization.Darkness)
+        public HideAndSeek() : base("Hide and Seek", 4, Engine.Civilization.Water, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new HideAndSeekEffect());
         }

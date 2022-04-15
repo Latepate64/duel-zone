@@ -6,7 +6,6 @@ namespace Common
     public interface ICard : IIdentifiable
     {
         CardType CardType { get; set; }
-        List<Civilization> Civilizations { get; set; }
         Guid Id { get; set; }
         List<Guid> KnownTo { get; set; }
         int ManaCost { get; set; }

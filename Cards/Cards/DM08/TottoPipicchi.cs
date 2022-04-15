@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class TottoPipicchi : Creature
     {
-        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Engine.Subtype.FireBird, Civilization.Fire)
+        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Engine.Subtype.FireBird, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new TottoPipicchiEffect());
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class OlgateNightmareSamurai : Creature
     {
-        public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Engine.Subtype.DemonCommand, Civilization.Darkness)
+        public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
         {
             AddDoubleBreakerAbility();
             AddTriggeredAbility(new OlgateAbility());

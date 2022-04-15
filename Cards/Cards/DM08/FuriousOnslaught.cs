@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM08
 {
     class FuriousOnslaught : Spell
     {
-        public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
+        public FuriousOnslaught() : base("Furious Onslaught", 4, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new FuriousOnslaughtOneShotEffect());
         }

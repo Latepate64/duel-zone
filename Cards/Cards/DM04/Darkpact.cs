@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class Darkpact : Spell
     {
-        public Darkpact() : base("Darkpact", 2, Civilization.Darkness)
+        public Darkpact() : base("Darkpact", 2, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new DarkpactEffect());
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class GabzagulWarlordOfPain : Creature
     {
-        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Engine.Subtype.DarkLord, Civilization.Darkness)
+        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Engine.Subtype.DarkLord, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new GabzagulWarlordOfPainEffect());
         }

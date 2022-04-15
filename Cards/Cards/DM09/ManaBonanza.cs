@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
     class ManaBonanza : Spell
     {
-        public ManaBonanza() : base("Mana Bonanza", 8, Civilization.Nature)
+        public ManaBonanza() : base("Mana Bonanza", 8, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new ManaBonanzaEffect());
         }

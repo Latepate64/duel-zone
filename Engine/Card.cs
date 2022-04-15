@@ -28,6 +28,8 @@ namespace Engine
         /// </summary>
         public List<Subtype> Subtypes { get; set; } = new();
 
+        public List<Civilization> Civilizations { get; set; } = new();
+
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
@@ -44,6 +46,7 @@ namespace Engine
         {
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
             Subtypes = card.Subtypes?.ToList();
@@ -141,7 +144,7 @@ namespace Engine
             return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
-        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Common.Civilization> civs)
+        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
         {
             if (!civs.Any())
             {
@@ -205,7 +208,7 @@ namespace Engine
             game.ProcessEvents(new ShieldsBrokenEvent(this, breakAmount));
         }
 
-        public bool HasCivilization(params Common.Civilization[] civilizations)
+        public bool HasCivilization(params Civilization[] civilizations)
         {
             return Civilizations.Intersect(civilizations).Any();
         }

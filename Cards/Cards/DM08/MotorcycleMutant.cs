@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM08
+﻿namespace Cards.Cards.DM08
 {
     class MotorcycleMutant : Creature
     {
-        public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Engine.Subtype.Hedrian, Civilization.Darkness)
+        public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Engine.Subtype.Hedrian, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

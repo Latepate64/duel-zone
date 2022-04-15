@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class DeathCruzerTheAnnihilator : Creature
     {
-        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Engine.Subtype.DemonCommand, Civilization.Darkness)
+        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect());
             AddTripleBreakerAbility();

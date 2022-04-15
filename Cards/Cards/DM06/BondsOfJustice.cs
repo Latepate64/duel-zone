@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM06
 {
     class BondsOfJustice : Spell
     {
-        public BondsOfJustice() : base("Bonds of Justice", 4, Civilization.Light)
+        public BondsOfJustice() : base("Bonds of Justice", 4, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new BondsOfJusticeEffect());

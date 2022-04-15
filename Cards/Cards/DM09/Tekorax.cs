@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class Tekorax : Creature
     {
-        public Tekorax() : base("Tekorax", 5, 3000, Engine.Subtype.SeaHacker, Civilization.Water)
+        public Tekorax() : base("Tekorax", 5, 3000, Engine.Subtype.SeaHacker, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TekoraxEffect());
         }

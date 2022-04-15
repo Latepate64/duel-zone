@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class InvincibleCataclysm : Spell
     {
-        public InvincibleCataclysm() : base("Invincible Cataclysm", 13, Civilization.Fire)
+        public InvincibleCataclysm() : base("Invincible Cataclysm", 13, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new InvincibleCataclysmEffect());
         }

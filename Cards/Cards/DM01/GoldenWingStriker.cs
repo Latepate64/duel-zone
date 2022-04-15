@@ -2,7 +2,7 @@
 {
     class GoldenWingStriker : Creature
     {
-        public GoldenWingStriker() : base("Golden Wing Striker", 3, 2000, Engine.Subtype.BeastFolk, Common.Civilization.Nature)
+        public GoldenWingStriker() : base("Golden Wing Striker", 3, 2000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
         {
             AddPowerAttackerAbility(2000);
         }

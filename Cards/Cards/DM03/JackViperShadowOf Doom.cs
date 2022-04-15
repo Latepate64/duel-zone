@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class JackViperShadowOfDoom : EvolutionCreature
     {
-        public JackViperShadowOfDoom() : base("Jack Viper, Shadow of Doom", 3, 4000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public JackViperShadowOfDoom() : base("Jack Viper, Shadow of Doom", 3, 4000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new JackViperShadowOfDoomEffect());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override bool Applies(Engine.ICard card, IGame game)
         {
-            return !IsSourceOfAbility(card, game) && card.Owner == GetController(game).Id && card.HasCivilization(Civilization.Darkness);
+            return !IsSourceOfAbility(card, game) && card.Owner == GetController(game).Id && card.HasCivilization(Engine.Civilization.Darkness);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class KulusSoulshineEnforcer : Creature
     {
-        public KulusSoulshineEnforcer() : base("Kulus, Soulshine Enforcer", 4, 3500, Engine.Subtype.Berserker, Civilization.Light)
+        public KulusSoulshineEnforcer() : base("Kulus, Soulshine Enforcer", 4, 3500, Engine.Subtype.Berserker, Engine.Civilization.Light)
         {
             AddTriggeredAbility(new KulusSoulshineEnforcerAbility());
         }

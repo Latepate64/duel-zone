@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class PsychicShaper : Spell
     {
-        public PsychicShaper() : base("Psychic Shaper", 6, Civilization.Water)
+        public PsychicShaper() : base("Psychic Shaper", 6, Engine.Civilization.Water)
         {
             AddSpellAbilities(new PsychicShaperEffect());
         }
@@ -22,8 +21,8 @@ namespace Cards.Cards.DM03
         public override object Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(4, game);
-            game.Move(ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Civilization.Water)).ToArray());
-            game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Civilization.Water)).ToArray());
+            game.Move(ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Engine.Civilization.Water)).ToArray());
+            game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Engine.Civilization.Water)).ToArray());
             source.GetController(game).Unreveal(cards);
             return null;
         }

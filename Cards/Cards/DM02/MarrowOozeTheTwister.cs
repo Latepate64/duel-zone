@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class MarrowOozeTheTwister : Creature
     {
-        public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Engine.Subtype.LivingDead, Civilization.Darkness)
+        public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Engine.Subtype.LivingDead, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new WhenThisCreatureAttacksPlayerAbility(new MarrowOozeTheTwisterEffect()));

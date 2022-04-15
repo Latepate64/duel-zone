@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -13,7 +12,7 @@ namespace Cards.Cards.DM04
 {
     class FullDefensor : Spell
     {
-        public FullDefensor() : base("Full Defensor", 2, Civilization.Light)
+        public FullDefensor() : base("Full Defensor", 2, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new FullDefensorEffect());

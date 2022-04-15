@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class BrigadeShellQ : Creature
     {
-        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Engine.Subtype.Survivor, Engine.Subtype.ColonyBeetle, Civilization.Nature)
+        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Engine.Subtype.Survivor, Engine.Subtype.ColonyBeetle, Engine.Civilization.Nature)
         {
             AddSurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new BrigadeShellQEffect()));
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class TropicCrawler : Creature
     {
-        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Engine.Subtype.EarthEater, Civilization.Water)
+        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Engine.Subtype.EarthEater, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new TropicCrawlerEffect()));

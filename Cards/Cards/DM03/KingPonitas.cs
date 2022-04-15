@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class KingPonitas : Creature
     {
-        public KingPonitas() : base("King Ponitas", 8, 4000, Engine.Subtype.Leviathan, Civilization.Water)
+        public KingPonitas() : base("King Ponitas", 8, 4000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new KingPonitasEffect());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.GetCards(Civilization.Water);
+            return source.GetController(game).Deck.GetCards(Engine.Civilization.Water);
         }
     }
 }

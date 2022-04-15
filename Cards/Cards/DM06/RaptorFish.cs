@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
     class RaptorFish : Creature
     {
-        public RaptorFish() : base("Raptor Fish", 6, 3000, Engine.Subtype.GelFish, Civilization.Water)
+        public RaptorFish() : base("Raptor Fish", 6, 3000, Engine.Subtype.GelFish, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect());
         }

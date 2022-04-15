@@ -8,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class CosmicDarts : Spell
     {
-        public CosmicDarts() : base("Cosmic Darts", 1, Civilization.Light)
+        public CosmicDarts() : base("Cosmic Darts", 1, Engine.Civilization.Light)
         {
             AddSpellAbilities(new CosmicDartsEffect());
         }

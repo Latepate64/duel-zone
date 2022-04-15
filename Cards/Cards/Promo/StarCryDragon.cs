@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.Promo
 {
     class StarCryDragon : Creature
     {
-        public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Engine.Subtype.ArmoredDragon, Civilization.Fire)
+        public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new StarCryDragonEffect());
             AddDoubleBreakerAbility();

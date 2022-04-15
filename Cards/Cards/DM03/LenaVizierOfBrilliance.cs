@@ -2,7 +2,7 @@
 {
     class LenaVizierOfBrilliance : Creature
     {
-        public LenaVizierOfBrilliance() : base("Lena, Vizier of Brilliance", 4, 2000, Engine.Subtype.Initiate, Common.Civilization.Light)
+        public LenaVizierOfBrilliance() : base("Lena, Vizier of Brilliance", 4, 2000, Engine.Subtype.Initiate, Engine.Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect());
         }

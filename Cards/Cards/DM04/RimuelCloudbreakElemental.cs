@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM04
 {
     class RimuelCloudbreakElemental : Creature
     {
-        public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Engine.Subtype.AngelCommand, Civilization.Light)
+        public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect());
             AddDoubleBreakerAbility();
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = source.GetController(game).ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
+            var amount = source.GetController(game).ManaZone.UntappedCards.Count(x => x.HasCivilization(Engine.Civilization.Light));
             return new RimuelCloudbreakElementalTapEffect(amount).Apply(game, source);
         }
 

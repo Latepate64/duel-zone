@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.Choices;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class MechadragonsBreath : Spell
     {
-        public MechadragonsBreath() : base("Mechadragon's Breath", 6, Civilization.Fire)
+        public MechadragonsBreath() : base("Mechadragon's Breath", 6, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new MechadragonsBreathEffect());
         }

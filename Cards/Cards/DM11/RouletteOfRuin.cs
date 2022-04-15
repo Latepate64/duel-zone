@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class RouletteOfRuin : Spell
     {
-        public RouletteOfRuin() : base("Roulette of Ruin", 5, Civilization.Darkness)
+        public RouletteOfRuin() : base("Roulette of Ruin", 5, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new RouletteOfRuinEffect());

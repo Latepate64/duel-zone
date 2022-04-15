@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class MightyBanditAceOfThieves : Creature
     {
-        public MightyBanditAceOfThieves() : base("Mighty Bandit, Ace of Thieves", 3, 2000, Engine.Subtype.BeastFolk, Civilization.Nature)
+        public MightyBanditAceOfThieves() : base("Mighty Bandit, Ace of Thieves", 3, 2000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
         {
             AddTapAbility(new MightyBanditAceOfThievesEffect());
         }

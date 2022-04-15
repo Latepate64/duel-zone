@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM03
+﻿namespace Cards.Cards.DM03
 {
     class WailingShadowBelbetphlo : Creature
     {
-        public WailingShadowBelbetphlo() : base("Wailing Shadow Belbetphlo", 3, 1000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public WailingShadowBelbetphlo() : base("Wailing Shadow Belbetphlo", 3, 1000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

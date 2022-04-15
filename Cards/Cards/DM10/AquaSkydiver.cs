@@ -1,11 +1,10 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM10
 {
     class AquaSkydiver : Creature
     {
-        public AquaSkydiver() : base("Aqua Skydiver", 4, 1000, Engine.Subtype.LiquidPeople, Civilization.Light, Civilization.Water)
+        public AquaSkydiver() : base("Aqua Skydiver", 4, 1000, Engine.Subtype.LiquidPeople, Engine.Civilization.Light, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddBlockerAbility();

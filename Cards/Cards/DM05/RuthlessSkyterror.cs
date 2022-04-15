@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM05
 {
     class RuthlessSkyterror : Creature
     {
-        public RuthlessSkyterror() : base("Ruthless Skyterror", 4, 6000, Engine.Subtype.ArmoredWyvern, Civilization.Fire)
+        public RuthlessSkyterror() : base("Ruthless Skyterror", 4, 6000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization.Water));
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Engine.Civilization.Water));
             AddThisCreatureCannotAttackPlayersAbility();
         }
     }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class BonePiercer : Creature
     {
-        public BonePiercer() : base("Bone Piercer", 2, 1000, Engine.Subtype.BrainJacker, Civilization.Darkness)
+        public BonePiercer() : base("Bone Piercer", 2, 1000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new BonePiercerEffect());
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class DimensionSplitter : Creature
     {
-        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Engine.Subtype.BrainJacker, Civilization.Darkness)
+        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DimensionSplitterEffect());
         }

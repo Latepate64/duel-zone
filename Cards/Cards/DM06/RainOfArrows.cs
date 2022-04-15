@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class RainOfArrows : Spell
     {
-        public RainOfArrows() : base("Rain of Arrows", 2, Civilization.Light)
+        public RainOfArrows() : base("Rain of Arrows", 2, Engine.Civilization.Light)
         {
             AddSpellAbilities(new RainOfArrowsEffect());
         }
@@ -21,7 +21,7 @@ namespace Cards.Cards.DM06
             if (cards.Any())
             {
                 source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Discard(game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
+                source.GetOpponent(game).Discard(game, cards.Where(x => x.HasCivilization(Engine.Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
                 source.GetOpponent(game).Unreveal(cards);
             }
             return null;

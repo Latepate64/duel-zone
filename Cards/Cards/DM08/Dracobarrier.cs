@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class Dracobarrier : Spell
     {
-        public Dracobarrier() : base("Dracobarrier", 3, Civilization.Light)
+        public Dracobarrier() : base("Dracobarrier", 3, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new DracobarrierEffect());

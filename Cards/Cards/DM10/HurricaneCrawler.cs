@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class HurricaneCrawler : Creature
     {
-        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Engine.Subtype.EarthEater, Civilization.Water)
+        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Engine.Subtype.EarthEater, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new HurricaneCrawlerEffect());
         }

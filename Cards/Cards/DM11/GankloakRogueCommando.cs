@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM11
 {
     class GankloakRogueCommando : SilentSkillCreature
     {
-        public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Engine.Subtype.Human, Civilization.Fire)
+        public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Engine.Subtype.Human, Engine.Civilization.Fire)
         {
             AddSilentSkillAbility(new GankloakRogueCommandoOneShotEffect());
         }

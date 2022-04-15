@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM04
 {
     class BlastoExplosiveSoldier : Creature
     {
-        public BlastoExplosiveSoldier() : base("Blasto, Explosive Soldier", 3, 2000, Engine.Subtype.Dragonoid, Civilization.Fire)
+        public BlastoExplosiveSoldier() : base("Blasto, Explosive Soldier", 3, 2000, Engine.Subtype.Dragonoid, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Civilization.Darkness, 2000));
+            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Engine.Civilization.Darkness, 2000));
         }
     }
 }

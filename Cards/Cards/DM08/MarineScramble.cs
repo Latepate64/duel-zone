@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MarineScramble : Spell
     {
-        public MarineScramble() : base("Marine Scramble", 7, Civilization.Water)
+        public MarineScramble() : base("Marine Scramble", 7, Engine.Civilization.Water)
         {
             AddSpellAbilities(new MarineScrambleEffect());
         }

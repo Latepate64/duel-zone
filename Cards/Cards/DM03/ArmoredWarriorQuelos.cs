@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class ArmoredWarriorQuelos : Creature
     {
-        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Engine.Subtype.Armorloid, Civilization.Fire)
+        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect());
         }
@@ -55,7 +54,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Controller).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
+            return game.GetPlayer(source.Controller).ManaZone.Cards.Where(x => !x.HasCivilization(Engine.Civilization.Fire));
         }
     }
 
@@ -77,7 +76,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.GetOpponent(game).Id).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
+            return game.GetPlayer(source.GetOpponent(game).Id).ManaZone.Cards.Where(x => !x.HasCivilization(Engine.Civilization.Fire));
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
     class ReapAndSow : Spell
     {
-        public ReapAndSow() : base("Reap and Sow", 5, Civilization.Fire, Civilization.Nature)
+        public ReapAndSow() : base("Reap and Sow", 5, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new ReapAndSowEffect());
         }

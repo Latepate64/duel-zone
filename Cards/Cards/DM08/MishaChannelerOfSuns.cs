@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MishaChannelerOfSuns : Creature
     {
-        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Engine.Subtype.MechaDelSol, Civilization.Light)
+        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Engine.Subtype.MechaDelSol, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedByDragonsEffect());
         }

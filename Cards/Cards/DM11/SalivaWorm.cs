@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM11
 {
     class SalivaWorm : WaveStrikerCreature
     {
-        public SalivaWorm() : base("Saliva Worm", 3, 2000, Engine.Subtype.ParasiteWorm, Civilization.Darkness)
+        public SalivaWorm() : base("Saliva Worm", 3, 2000, Engine.Subtype.ParasiteWorm, Engine.Civilization.Darkness)
         {
             AddWaveStrikerAbility(new SalivaWormEffect());
         }
@@ -14,7 +13,7 @@ namespace Cards.Cards.DM11
 
     class SalivaWormEffect : ContinuousEffects.StealthEffect, IPowerModifyingEffect
     {
-        public SalivaWormEffect() : base(Civilization.Darkness)
+        public SalivaWormEffect() : base(Engine.Civilization.Darkness)
         {
         }
 

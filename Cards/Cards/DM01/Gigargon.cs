@@ -2,7 +2,7 @@
 {
     class Gigargon : Creature
     {
-        public Gigargon() : base("Gigargon", 8, 3000, Engine.Subtype.Chimera, Common.Civilization.Darkness)
+        public Gigargon() : base("Gigargon", 8, 3000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(2));
         }

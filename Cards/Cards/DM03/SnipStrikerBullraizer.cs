@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class SnipStrikerBullraizer : Creature
     {
-        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Engine.Subtype.Dragonoid, Civilization.Fire)
+        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Engine.Subtype.Dragonoid, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new SnipStrikerBullraizerEffect());
         }

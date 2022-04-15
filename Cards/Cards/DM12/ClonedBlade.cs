@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedBlade : Spell
     {
-        public ClonedBlade() : base("Cloned Blade", 5, Civilization.Fire)
+        public ClonedBlade() : base("Cloned Blade", 5, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new ClonedBladeEffect(Name));
         }

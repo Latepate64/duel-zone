@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class Cratersaur : Creature
     {
-        public Cratersaur() : base("Cratersaur", 3, 2000, Engine.Subtype.RockBeast, Civilization.Fire)
+        public Cratersaur() : base("Cratersaur", 3, 2000, Engine.Subtype.RockBeast, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new CratersaurEffect());
         }

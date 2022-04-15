@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class ThornyMandra : Creature
     {
-        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Engine.Subtype.TreeFolk, Civilization.Nature)
+        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ThornyMandraEffect());
         }

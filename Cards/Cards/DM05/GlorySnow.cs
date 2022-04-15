@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
     class GlorySnow : Spell
     {
-        public GlorySnow() : base("Glory Snow", 4, Civilization.Light)
+        public GlorySnow() : base("Glory Snow", 4, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new GlorySnowEffect());

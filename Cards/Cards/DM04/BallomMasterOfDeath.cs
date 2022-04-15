@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class BallomMasterOfDeath : EvolutionCreature
     {
-        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Engine.Subtype.DemonCommand, Civilization.Darkness)
+        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect());
             AddDoubleBreakerAbility();
@@ -33,7 +32,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Darkness));
+            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Engine.Civilization.Darkness));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class SilvermoonTrailblazer : Creature
     {
-        public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Engine.Subtype.BeastFolk, Civilization.Nature)
+        public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
         {
             AddTapAbility(new SilvermoonTrailblazerOneShotEffect());
         }

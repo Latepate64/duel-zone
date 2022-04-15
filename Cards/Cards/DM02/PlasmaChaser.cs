@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class PlasmaChaser : Creature
     {
-        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Engine.Subtype.GelFish, Civilization.Water)
+        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Engine.Subtype.GelFish, Engine.Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new PlasmaChaserEffect());
         }

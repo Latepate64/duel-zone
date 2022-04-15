@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class WaveLance : Spell
     {
-        public WaveLance() : base("Wave Lance", 3, Civilization.Water)
+        public WaveLance() : base("Wave Lance", 3, Engine.Civilization.Water)
         {
             AddSpellAbilities(new WaveLanceEffect());
         }

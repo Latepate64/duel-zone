@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM10
 {
     class IkazTheSpydroid : Creature
     {
-        public IkazTheSpydroid() : base("Ikaz, the Spydroid", 4, 4000, Engine.Subtype.Soltrooper, Civilization.Light)
+        public IkazTheSpydroid() : base("Ikaz, the Spydroid", 4, 4000, Engine.Subtype.Soltrooper, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new IkazTheSpydroidEffect()));

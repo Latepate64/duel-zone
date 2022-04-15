@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
     class SphereOfWonder : Spell
     {
-        public SphereOfWonder() : base("Sphere of Wonder", 4, Civilization.Light)
+        public SphereOfWonder() : base("Sphere of Wonder", 4, Engine.Civilization.Light)
         {
             AddSpellAbilities(new SphereOfWonderEffect());
         }

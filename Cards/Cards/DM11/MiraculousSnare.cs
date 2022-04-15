@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class MiraculousSnare : Spell
     {
-        public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
+        public MiraculousSnare() : base("Miraculous Snare", 3, Engine.Civilization.Light, Engine.Civilization.Water)
         {
             AddSpellAbilities(new MiraculousSnareEffect());
         }

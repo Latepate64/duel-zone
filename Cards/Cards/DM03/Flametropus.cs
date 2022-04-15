@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM03
 {
     class Flametropus : Creature
     {
-        public Flametropus() : base("Flametropus", 4, 3000, Engine.Subtype.RockBeast, Civilization.Fire)
+        public Flametropus() : base("Flametropus", 4, 3000, Engine.Subtype.RockBeast, Engine.Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new FlametropusOneShotEffect());
         }

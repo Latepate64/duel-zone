@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class EnchantedSoil : Spell
     {
-        public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
+        public EnchantedSoil() : base("Enchanted Soil", 4, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new EnchantedSoilEffect());
         }

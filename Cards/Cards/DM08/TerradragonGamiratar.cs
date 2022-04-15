@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class TerradragonGamiratar : Creature
     {
-        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Engine.Subtype.EarthDragon, Civilization.Nature)
+        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Engine.Subtype.EarthDragon, Engine.Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect());
             AddDoubleBreakerAbility();

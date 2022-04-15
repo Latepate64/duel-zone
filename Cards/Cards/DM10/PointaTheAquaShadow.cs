@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class PointaTheAquaShadow : Creature
     {
-        public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, Engine.Subtype.LiquidPeople, Engine.Subtype.Ghost, Civilization.Water, Civilization.Darkness)
+        public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, Engine.Subtype.LiquidPeople, Engine.Subtype.Ghost, Engine.Civilization.Water, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PointaTheAquaShadowEffect());
         }

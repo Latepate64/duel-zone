@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.Promo
 {
     class NeveTheLeveler : Creature
     {
-        public NeveTheLeveler() : base("Neve, the Leveler", 6, 4000, Engine.Subtype.SnowFaerie, Civilization.Nature)
+        public NeveTheLeveler() : base("Neve, the Leveler", 6, 4000, Engine.Subtype.SnowFaerie, Engine.Civilization.Nature)
         {
             AddTriggeredAbility(new NeveTheLevelerAbility(new NeveTheLevelerEffect()));
         }

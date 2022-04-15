@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class BlazeCannon : Spell
     {
-        public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
+        public BlazeCannon() : base("Blaze Cannon", 7, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new BlazeCannonRestrictionEffect());
             AddSpellAbilities(new BlazeCannonBuffEffect());
@@ -38,7 +37,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(Engine.ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Engine.Civilization.Fire));
         }
     }
 

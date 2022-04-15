@@ -2,7 +2,7 @@
 {
     class WanderingBraineater : Creature
     {
-        public WanderingBraineater() : base("Wandering Braineater", 2, 2000, Engine.Subtype.LivingDead, Common.Civilization.Darkness)
+        public WanderingBraineater() : base("Wandering Braineater", 2, 2000, Engine.Subtype.LivingDead, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class BurningPower : Spell
     {
-        public BurningPower() : base("Burning Power", 1, Common.Civilization.Fire)
+        public BurningPower() : base("Burning Power", 1, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new BurningPowerEffect());
         }

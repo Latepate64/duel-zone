@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM09
 {
     class Hokira : Creature
     {
-        public Hokira() : base("Hokira", 4, 3000, Engine.Subtype.CyberLord, Civilization.Water)
+        public Hokira() : base("Hokira", 4, 3000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
         {
             AddTapAbility(new HokiraOneShotEffect());
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class DanceOfTheSproutlings : Spell
     {
-        public DanceOfTheSproutlings() : base("Dance of the Sproutlings", 3, Civilization.Nature)
+        public DanceOfTheSproutlings() : base("Dance of the Sproutlings", 3, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new DanceOfTheSproutlingsEffect());
         }

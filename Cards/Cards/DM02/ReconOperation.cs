@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class ReconOperation : Spell
     {
-        public ReconOperation() : base("Recon Operation", 2, Civilization.Water)
+        public ReconOperation() : base("Recon Operation", 2, Engine.Civilization.Water)
         {
             AddSpellAbilities(new ReconOperationEffect());
         }

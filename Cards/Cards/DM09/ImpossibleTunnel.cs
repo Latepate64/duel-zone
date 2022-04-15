@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class ImpossibleTunnel : Spell
     {
-        public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
+        public ImpossibleTunnel() : base("Impossible Tunnel", 5, Engine.Civilization.Water)
         {
             AddSpellAbilities(new ImpossibleTunnelOneShotEffect());
         }

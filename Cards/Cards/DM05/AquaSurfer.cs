@@ -4,7 +4,7 @@ namespace Cards.Cards.DM05
 {
     class AquaSurfer : Creature
     {
-        public AquaSurfer() : base("Aqua Surfer", 6, 2000, Engine.Subtype.LiquidPeople, Common.Civilization.Water)
+        public AquaSurfer() : base("Aqua Surfer", 6, 2000, Engine.Subtype.LiquidPeople, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect());

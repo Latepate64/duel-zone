@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class IocantTheOracle : Creature
     {
-        public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Engine.Subtype.LightBringer, Common.Civilization.Light)
+        public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Engine.Subtype.LightBringer, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddStaticAbilities(new IocantTheOracleEffect());

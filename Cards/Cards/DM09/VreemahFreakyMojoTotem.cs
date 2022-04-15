@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
@@ -11,7 +10,7 @@ namespace Cards.Cards.DM09
 {
     class VreemahFreakyMojoTotem : Creature
     {
-        public VreemahFreakyMojoTotem() : base("Vreemah, Freaky Mojo Totem", 5, 4000, Engine.Subtype.MysteryTotem, Civilization.Nature)
+        public VreemahFreakyMojoTotem() : base("Vreemah, Freaky Mojo Totem", 5, 4000, Engine.Subtype.MysteryTotem, Engine.Civilization.Nature)
         {
             AddTriggeredAbility(new TriggeredAbilities.WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new VreemahFreakyMojoTotemOneShotEffect()));
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class DeklowazTheTerminator : Creature
     {
-        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Engine.Subtype.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
+        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Engine.Subtype.SpiritQuartz, Engine.Civilization.Darkness, Engine.Civilization.Fire)
         {
             AddTapAbility(new DeklowazTheTerminatorEffect());
         }

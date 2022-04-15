@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class EnigmaticCascade : Spell
     {
-        public EnigmaticCascade() : base("Enigmatic Cascade", 4, Civilization.Water)
+        public EnigmaticCascade() : base("Enigmatic Cascade", 4, Engine.Civilization.Water)
         {
             AddSpellAbilities(new EnigmaticCascadeEffect());
         }

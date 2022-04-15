@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class Gigaberos : Creature
     {
-        public Gigaberos() : base("Gigaberos", 5, 8000, Engine.Subtype.Chimera, Civilization.Darkness)
+        public Gigaberos() : base("Gigaberos", 5, 8000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect());
             AddDoubleBreakerAbility();

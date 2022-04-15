@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class BurnwispLizard : Creature
     {
-        public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Engine.Subtype.MeltWarrior, Civilization.Fire)
+        public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Engine.Subtype.MeltWarrior, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new BurnwispLizardEffect());
         }

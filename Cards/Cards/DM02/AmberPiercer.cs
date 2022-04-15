@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM02
+﻿namespace Cards.Cards.DM02
 {
     class AmberPiercer : Creature
     {
-        public AmberPiercer() : base("Amber Piercer", 4, 2000, Engine.Subtype.BrainJacker, Civilization.Darkness)
+        public AmberPiercer() : base("Amber Piercer", 4, 2000, Engine.Subtype.BrainJacker, Engine.Civilization.Darkness)
         {
             AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(1));
         }

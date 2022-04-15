@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedSpiral : Spell
     {
-        public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
+        public ClonedSpiral() : base("Cloned Spiral", 4, Engine.Civilization.Water)
         {
             AddSpellAbilities(new ClonedSpiralEffect(Name));
         }

@@ -13,12 +13,13 @@ namespace Engine
         bool LostInBattle { get; set; }
         bool IsMultiColored { get; }
         List<Subtype> Subtypes { get; set; }
+        List<Civilization> Civilizations { get; set; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
-        bool HasCivilization(params Common.Civilization[] civilizations);
+        bool HasCivilization(params Civilization[] civilizations);
         void AddGrantedSubtype(Subtype subtype);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);

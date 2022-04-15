@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class KingNeptas : Creature
     {
-        public KingNeptas() : base("King Neptas", 6, 5000, Engine.Subtype.Leviathan, Civilization.Water)
+        public KingNeptas() : base("King Neptas", 6, 5000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new KingNeptasEffect());
         }

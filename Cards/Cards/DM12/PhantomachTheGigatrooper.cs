@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class PhantomachTheGigatrooper : EvolutionCreature
     {
-        public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Engine.Subtype.Chimera, Engine.Subtype.Armorloid, Civilization.Darkness, Civilization.Fire)
+        public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Engine.Subtype.Chimera, Engine.Subtype.Armorloid, Engine.Civilization.Darkness, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new PhantomachPowerEffect(), new PhantomachDoubleBreakerEffect());
         }

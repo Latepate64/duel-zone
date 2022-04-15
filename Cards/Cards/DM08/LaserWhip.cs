@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class LaserWhip : Spell
     {
-        public LaserWhip() : base("Laser Whip", 4, Civilization.Light)
+        public LaserWhip() : base("Laser Whip", 4, Engine.Civilization.Light)
         {
             AddSpellAbilities(new LaserWhipEffect());
         }

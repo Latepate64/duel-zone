@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM11
 {
     class MiraculousRebirth : Spell
     {
-        public MiraculousRebirth() : base("Miraculous Rebirth", 6, Civilization.Fire, Civilization.Nature)
+        public MiraculousRebirth() : base("Miraculous Rebirth", 6, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new MiraculousRebirthEffect());
         }

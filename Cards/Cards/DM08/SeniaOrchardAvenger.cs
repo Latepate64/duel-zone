@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class SeniaOrchardAvenger : TurboRushCreature
     {
-        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Engine.Subtype.TreeFolk, Civilization.Nature)
+        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
         {
             AddTurboRushAbility(new SeniaOrchardAvengerEffect());
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class HourglassMutant : Creature
     {
-        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Engine.Subtype.Hedrian, Civilization.Darkness)
+        public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Engine.Subtype.Hedrian, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new HourglassMutantEffect());
         }
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Water, Civilization.Fire);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Civilization.Water, Engine.Civilization.Fire);
         }
     }
 }

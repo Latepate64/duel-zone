@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM02
 {
     class RumbleGate : Spell
     {
-        public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
+        public RumbleGate() : base("Rumble Gate", 4, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(1000), new RumbleGateOneShotEffect());
         }

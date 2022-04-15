@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class EstolVizierOfAqua : Creature
     {
-        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Engine.Subtype.Initiate, Engine.Subtype.LiquidPeople, Civilization.Light, Civilization.Water)
+        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Engine.Subtype.Initiate, Engine.Subtype.LiquidPeople, Engine.Civilization.Light, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect());
         }

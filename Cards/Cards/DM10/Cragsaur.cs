@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM10
+﻿namespace Cards.Cards.DM10
 {
     class Cragsaur : Creature
     {
-        public Cragsaur() : base("Cragsaur", 3, 3000, Engine.Subtype.RockBeast, Civilization.Fire)
+        public Cragsaur() : base("Cragsaur", 3, 3000, Engine.Subtype.RockBeast, Engine.Civilization.Fire)
         {
         }
     }

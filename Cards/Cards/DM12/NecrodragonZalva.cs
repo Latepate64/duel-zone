@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class NecrodragonZalva : Creature
     {
-        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Engine.Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Engine.Subtype.ZombieDragon, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonZalvaEffect());
         }

@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class GalekTheShadowWarrior : Creature
     {
-        public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Engine.Subtype.Ghost, Engine.Subtype.Human, Civilization.Darkness, Civilization.Fire)
+        public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Engine.Subtype.Ghost, Engine.Subtype.Human, Engine.Civilization.Darkness, Engine.Civilization.Fire)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect());
         }

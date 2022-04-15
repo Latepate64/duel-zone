@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Upheaval : Spell
     {
-        public Upheaval() : base("Upheaval", 6, Civilization.Darkness)
+        public Upheaval() : base("Upheaval", 6, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new UpheavalEffect());

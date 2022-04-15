@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class CarnivalTotem : Creature
     {
-        public CarnivalTotem() : base("Carnival Totem", 6, 7000, Engine.Subtype.MysteryTotem, Civilization.Nature)
+        public CarnivalTotem() : base("Carnival Totem", 6, 7000, Engine.Subtype.MysteryTotem, Engine.Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CarnivalTotemEffect());

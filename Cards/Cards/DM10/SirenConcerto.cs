@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class SirenConcerto : Spell
     {
-        public SirenConcerto() : base("Siren Concerto", 1, Civilization.Water)
+        public SirenConcerto() : base("Siren Concerto", 1, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new SirenConcertoEffect());

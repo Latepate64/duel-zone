@@ -6,9 +6,9 @@ namespace Cards.Cards.DM07
 {
     class AquaAgent : Creature
     {
-        public AquaAgent() : base("Aqua Agent", 6, 2000, Engine.Subtype.LiquidPeople, Common.Civilization.Water)
+        public AquaAgent() : base("Aqua Agent", 6, 2000, Engine.Subtype.LiquidPeople, Engine.Civilization.Water)
         {
-            AddStaticAbilities(new StealthEffect(Common.Civilization.Water), new AquaAgentEffect());
+            AddStaticAbilities(new StealthEffect(Engine.Civilization.Water), new AquaAgentEffect());
         }
     }
 

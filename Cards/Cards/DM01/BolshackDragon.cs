@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class BolshackDragon : Creature
     {
-        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Engine.Subtype.ArmoredDragon, Common.Civilization.Fire)
+        public BolshackDragon() : base("Bolshack Dragon", 6, 6000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new BolshackDragonEffect(), new DoubleBreakerEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM01
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetController(game).Graveyard.GetCards(Common.Civilization.Fire).Count();
+            return GetController(game).Graveyard.GetCards(Engine.Civilization.Fire).Count();
         }
     }
 }

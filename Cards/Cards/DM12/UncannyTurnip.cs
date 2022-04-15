@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class UncannyTurnip : WaveStrikerCreature
     {
-        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Engine.Subtype.WildVeggies, Civilization.Nature)
+        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Engine.Subtype.WildVeggies, Engine.Civilization.Nature)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UncannyTurnipEffect()));
         }

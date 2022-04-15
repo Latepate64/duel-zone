@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class KingNautilus : Creature
     {
-        public KingNautilus() : base("King Nautilus", 8, 6000, Engine.Subtype.Leviathan, Civilization.Water)
+        public KingNautilus() : base("King Nautilus", 8, 6000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
         {
             AddStaticAbilities(new KingNautilusEffect());
             AddDoubleBreakerAbility();

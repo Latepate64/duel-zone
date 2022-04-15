@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM05
 {
     class SteelTurretCluster : Creature
     {
-        public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Engine.Subtype.CyberCluster, Civilization.Water)
+        public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Engine.Subtype.CyberCluster, Engine.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Fire, Civilization.Nature));
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Engine.Civilization.Fire, Engine.Civilization.Nature));
         }
     }
 }

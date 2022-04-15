@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class AlcadeiasLordOfSpirits : EvolutionCreature
     {
-        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Engine.Subtype.AngelCommand, Civilization.Light)
+        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new AlcadeiasLordOfSpiritsEffect());
@@ -36,7 +36,7 @@ namespace Cards.Cards.DM04
 
         public bool Applies(Engine.ICard card, IGame game)
         {
-            return card.CardType == CardType.Spell && !card.HasCivilization(Civilization.Light);
+            return card.CardType == CardType.Spell && !card.HasCivilization(Engine.Civilization.Light);
         }
     }
 }

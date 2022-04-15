@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class MummyWrapShadowOfFatigue : Creature
     {
-        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
             AddTapAbility(new MummyWrapShadowOfFatigueEffect());
         }

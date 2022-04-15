@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class KilstineNebulaElemental : WaveStrikerCreature
     {
-        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Engine.Subtype.AngelCommand, Civilization.Light)
+        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
         {
             AddWaveStrikerAbility(new KilstineNebulaElementalEffect());
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class ThunderNet : Spell
     {
-        public ThunderNet() : base("Thunder Net", 2, Civilization.Water)
+        public ThunderNet() : base("Thunder Net", 2, Engine.Civilization.Water)
         {
             AddSpellAbilities(new ThunderNetEffect());
         }
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Water));
+            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Engine.Civilization.Water));
             return new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(amount).Apply(game, source);
         }
 

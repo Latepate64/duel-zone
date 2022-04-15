@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class RainbowStone : Spell
     {
-        public RainbowStone() : base("Rainbow Stone", 4, Civilization.Nature)
+        public RainbowStone() : base("Rainbow Stone", 4, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new RainbowStoneEffect());
         }

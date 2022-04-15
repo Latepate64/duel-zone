@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class Gigarayze : Creature
     {
-        public Gigarayze() : base("Gigarayze", 4, 2000, Engine.Subtype.Chimera, Civilization.Darkness)
+        public Gigarayze() : base("Gigarayze", 4, 2000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigarayzeEffect());
         }
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Creatures.Where(x => x.HasCivilization(Civilization.Water, Civilization.Fire));
+            return source.GetController(game).Graveyard.Creatures.Where(x => x.HasCivilization(Engine.Civilization.Water, Engine.Civilization.Fire));
         }
     }
 }

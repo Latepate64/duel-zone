@@ -8,9 +8,9 @@ namespace Cards.Cards.DM06
 {
     class LavaWalkerExecuto : EvolutionCreature
     {
-        public LavaWalkerExecuto() : base("Lava Walker Executo", 4, 5000, Engine.Subtype.Dragonoid, Common.Civilization.Fire)
+        public LavaWalkerExecuto() : base("Lava Walker Executo", 4, 5000, Engine.Subtype.Dragonoid, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new TapAbilityAddingEffect(Common.Civilization.Fire, new LavaWalkerExecutoEffect(3000)));
+            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Fire, new LavaWalkerExecutoEffect(3000)));
         }
     }
 
@@ -45,7 +45,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Common.Civilization.Fire);
+            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
         }
     }
 }

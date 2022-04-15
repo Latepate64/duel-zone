@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM08
 {
     class KyrstronLairDelver : Creature
     {
-        public KyrstronLairDelver() : base("Kyrstron, Lair Delver", 5, 1000, Engine.Subtype.Dragonoid, Civilization.Fire)
+        public KyrstronLairDelver() : base("Kyrstron, Lair Delver", 5, 1000, Engine.Subtype.Dragonoid, Engine.Civilization.Fire)
         {
             AddWhenThisCreatureIsDestroyedAbility(new KyrstronLairDelverEffect());
         }

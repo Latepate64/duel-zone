@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class HydroozeTheMutantEmperor : EvolutionCreature
     {
-        public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Engine.Subtype.CyberLord, Engine.Subtype.Hedrian, Civilization.Water, Civilization.Darkness)
+        public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Engine.Subtype.CyberLord, Engine.Subtype.Hedrian, Engine.Civilization.Water, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new HydroozeTheMutantEmperorPowerEffect(), new HydroozeTheMutantEmperorUnblockableEffect());
         }

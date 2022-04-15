@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
@@ -10,7 +9,7 @@ namespace Cards.Cards.DM08
 {
     class DracodanceTotem : Creature
     {
-        public DracodanceTotem() : base("Dracodance Totem", 2, 1000, Engine.Subtype.MysteryTotem, Civilization.Nature)
+        public DracodanceTotem() : base("Dracodance Totem", 2, 1000, Engine.Subtype.MysteryTotem, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new DracodanceTotemEffect());
         }

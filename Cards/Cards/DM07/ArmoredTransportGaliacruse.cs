@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class ArmoredTransportGaliacruse : Creature
     {
-        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Engine.Subtype.Armorloid, Civilization.Fire)
+        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
         {
             AddTapAbility(new ArmoredTransportGaliacruseEffect());
         }
@@ -41,7 +40,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
+            return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
         }
     }
 }

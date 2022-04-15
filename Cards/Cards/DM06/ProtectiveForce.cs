@@ -1,5 +1,4 @@
 ﻿using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class ProtectiveForce : Spell
     {
-        public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
+        public ProtectiveForce() : base("Protective Force", 1, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new ProtectiveForceEffect());

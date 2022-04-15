@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Zaltan : Creature
     {
-        public Zaltan() : base("Zaltan", 5, 3000, Engine.Subtype.CyberLord, Civilization.Water)
+        public Zaltan() : base("Zaltan", 5, 3000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
         {
             AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Engine.Subtype.CyberVirus, new ZaltanEffect()));
         }

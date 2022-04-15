@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class TerradragonAnristVhal : Creature
     {
-        public TerradragonAnristVhal() : base("Terradragon Anrist Vhal", 6, 0, Engine.Subtype.EarthDragon, Civilization.Nature)
+        public TerradragonAnristVhal() : base("Terradragon Anrist Vhal", 6, 0, Engine.Subtype.EarthDragon, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new TerradragonAnristVhalEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(GetController(game).Id, GetSourceCard(game).Id, Civilization.Nature).Count();
+            return game.BattleZone.GetOtherCreatures(GetController(game).Id, GetSourceCard(game).Id, Engine.Civilization.Nature).Count();
         }
     }
 }

@@ -24,7 +24,6 @@ namespace Common
             if (!clear)
             {
                 CardType = card.CardType;
-                Civilizations = card.Civilizations.ToList();
                 ManaCost = card.ManaCost;
                 Name = card.Name;
                 OnTopOf = card.OnTopOf;
@@ -55,8 +54,6 @@ namespace Common
         public CardType CardType { get; set; }
 
         public int? Power { get; set; }
-
-        public List<Civilization> Civilizations { get; set; } = new();
 
         public int ManaCost { get; set; }
 

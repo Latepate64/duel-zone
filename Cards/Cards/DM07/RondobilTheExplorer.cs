@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM07
 {
     class RondobilTheExplorer : Creature
     {
-        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Engine.Subtype.Gladiator, Civilization.Light)
+        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Engine.Subtype.Gladiator, Engine.Civilization.Light)
         {
             AddTapAbility(new RondobilTheExplorerEffect());
         }

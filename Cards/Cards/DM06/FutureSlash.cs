@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class FutureSlash : Spell
     {
-        public FutureSlash() : base("Future Slash", 7, Civilization.Darkness)
+        public FutureSlash() : base("Future Slash", 7, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new FutureSlashEffect());
         }

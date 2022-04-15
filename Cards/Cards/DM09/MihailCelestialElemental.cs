@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class MihailCelestialElemental : Creature
     {
-        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Engine.Subtype.AngelCommand, Civilization.Light)
+        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Engine.Subtype.AngelCommand, Engine.Civilization.Light)
         {
             AddStaticAbilities(new MihailCelestialElementalEffect());
         }

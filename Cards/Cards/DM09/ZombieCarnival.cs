@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
     class ZombieCarnival : Spell
     {
-        public ZombieCarnival() : base("Zombie Carnival", 5, Civilization.Darkness)
+        public ZombieCarnival() : base("Zombie Carnival", 5, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new ZombieCarnivalEffect());
         }

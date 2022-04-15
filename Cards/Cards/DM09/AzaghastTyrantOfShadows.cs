@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class AzaghastTyrantOfShadows : EvolutionCreature
     {
-        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Engine.Subtype.DarkLord, Civilization.Darkness)
+        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Engine.Subtype.DarkLord, Engine.Civilization.Darkness)
         {
             AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Engine.Subtype.Ghost, new YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect()));
             AddDoubleBreakerAbility();

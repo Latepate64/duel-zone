@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class AdomisTheOracle : Creature
     {
-        public AdomisTheOracle() : base("Adomis, the Oracle", 3, 2000, Engine.Subtype.LightBringer, Civilization.Light)
+        public AdomisTheOracle() : base("Adomis, the Oracle", 3, 2000, Engine.Subtype.LightBringer, Engine.Civilization.Light)
         {
             AddTapAbility(new AdomisTheOracleEffect());
         }

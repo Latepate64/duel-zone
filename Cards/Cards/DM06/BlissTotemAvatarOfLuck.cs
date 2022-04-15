@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class BlissTotemAvatarOfLuck : Creature
     {
-        public BlissTotemAvatarOfLuck() : base("Bliss Totem, Avatar of Luck", 6, 5000, Engine.Subtype.MysteryTotem, Civilization.Nature)
+        public BlissTotemAvatarOfLuck() : base("Bliss Totem, Avatar of Luck", 6, 5000, Engine.Subtype.MysteryTotem, Engine.Civilization.Nature)
         {
             AddTapAbility(new BlissTotemAvatarOfLuckEffect());
         }

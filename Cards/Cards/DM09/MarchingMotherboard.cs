@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class MarchingMotherboard : Creature
     {
-        public MarchingMotherboard() : base("Marching Motherboard", 6, 2000, Engine.Subtype.CyberVirus, Civilization.Water)
+        public MarchingMotherboard() : base("Marching Motherboard", 6, 2000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
         {
             AddTriggeredAbility(new MarchingMotherboardAbility(new OneShotEffects.YouMayDrawCardsEffect(1)));
         }

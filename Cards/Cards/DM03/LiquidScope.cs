@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class LiquidScope : Spell
     {
-        public LiquidScope() : base("Liquid Scope", 4, Civilization.Water)
+        public LiquidScope() : base("Liquid Scope", 4, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new LiquidScopeEffect());

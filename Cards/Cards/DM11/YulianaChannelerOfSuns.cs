@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM11
+﻿namespace Cards.Cards.DM11
 {
     class YulianaChannelerOfSuns : Creature
     {
-        public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Engine.Subtype.MechaDelSol, Civilization.Light)
+        public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Engine.Subtype.MechaDelSol, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

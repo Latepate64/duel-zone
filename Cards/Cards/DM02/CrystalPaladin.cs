@@ -1,5 +1,4 @@
 ﻿using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class CrystalPaladin : EvolutionCreature
     {
-        public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Engine.Subtype.LiquidPeople, Civilization.Water)
+        public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Engine.Subtype.LiquidPeople, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CrystalPaladinEffect());
         }

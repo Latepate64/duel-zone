@@ -2,7 +2,7 @@
 {
     class PoisonousDahlia : Creature
     {
-        public PoisonousDahlia() : base("Poisonous Dahlia", 4, 5000, Engine.Subtype.TreeFolk, Common.Civilization.Nature)
+        public PoisonousDahlia() : base("Poisonous Dahlia", 4, 5000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
         {
             AddThisCreatureCannotAttackPlayersAbility();
         }

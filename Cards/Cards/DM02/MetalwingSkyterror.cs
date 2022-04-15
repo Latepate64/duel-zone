@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class MetalwingSkyterror : Creature
     {
-        public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Engine.Subtype.ArmoredWyvern, Common.Civilization.Fire)
+        public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new MetalwingSkyterrorEffect());
             AddDoubleBreakerAbility();

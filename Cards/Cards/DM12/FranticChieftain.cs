@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class FranticChieftain : Creature
     {
-        public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Engine.Subtype.Merfolk, Civilization.Water)
+        public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Engine.Subtype.Merfolk, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FranticChieftainEffect());
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class GrapeGlobbo : Creature
     {
-        public GrapeGlobbo() : base("Grape Globbo", 2, 1000, Engine.Subtype.CyberVirus, Civilization.Water)
+        public GrapeGlobbo() : base("Grape Globbo", 2, 1000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LookAtYourOpponentsHandEffect());
         }

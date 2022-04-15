@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MigaloVizierOfSpycraft : TurboRushCreature
     {
-        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Engine.Subtype.Initiate, Civilization.Light)
+        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Engine.Subtype.Initiate, Engine.Civilization.Light)
         {
             AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new MigaloVizierOfSpycraftEffect()));
         }

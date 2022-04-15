@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class IntenseEvil : Spell
     {
-        public IntenseEvil() : base("Intense Evil", 3, Civilization.Darkness)
+        public IntenseEvil() : base("Intense Evil", 3, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
             AddSpellAbilities(new IntenseEvilEffect());

@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM05
 {
     class WispHowlerShadowOfTears : Creature
     {
-        public WispHowlerShadowOfTears() : base("Wisp Howler, Shadow of Tears", 3, 2000, Engine.Subtype.Ghost, Civilization.Darkness)
+        public WispHowlerShadowOfTears() : base("Wisp Howler, Shadow of Tears", 3, 2000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new CivilizationSlayerEffect(Civilization.Nature, Civilization.Light));
+            AddStaticAbilities(new CivilizationSlayerEffect(Engine.Civilization.Nature, Engine.Civilization.Light));
         }
     }
 }

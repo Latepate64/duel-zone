@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -13,7 +12,7 @@ namespace Cards.Cards.DM09
 {
     class UnifiedResistance : Spell
     {
-        public UnifiedResistance() : base("Unified Resistance", 2, Civilization.Light)
+        public UnifiedResistance() : base("Unified Resistance", 2, Engine.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new UnifiedResistanceOneShotEffect());

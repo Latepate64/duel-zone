@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class Corile : Creature
     {
-        public Corile() : base("Corile", 5, 2000, Engine.Subtype.CyberLord, Civilization.Water)
+        public Corile() : base("Corile", 5, 2000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(1, 1, true));
         }

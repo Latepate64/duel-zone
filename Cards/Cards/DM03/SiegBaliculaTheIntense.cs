@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class SiegBaliculaTheIntense : EvolutionCreature
     {
-        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Engine.Subtype.Initiate, Civilization.Light)
+        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Engine.Subtype.Initiate, Engine.Civilization.Light)
         {
             AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
         }
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM03
         public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
         {
             var ability = GetSourceAbility(game);
-            return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Civilization.Light);
+            return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Engine.Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

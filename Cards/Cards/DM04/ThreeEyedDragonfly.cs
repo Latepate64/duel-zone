@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -13,7 +12,7 @@ namespace Cards.Cards.DM04
 {
     class ThreeEyedDragonfly : Creature
     {
-        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Engine.Subtype.GiantInsect, Civilization.Nature)
+        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect());
         }

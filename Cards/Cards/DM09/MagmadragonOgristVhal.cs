@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class MagmadragonOgristVhal : Creature
     {
-        public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Engine.Subtype.VolcanoDragon, Civilization.Fire)
+        public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Engine.Subtype.VolcanoDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new MagmadragonOgristVhalEffect(), new ContinuousEffects.PoweredTripleBreaker());
         }

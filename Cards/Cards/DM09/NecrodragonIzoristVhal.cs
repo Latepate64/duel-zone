@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class NecrodragonIzoristVhal : Creature
     {
-        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Engine.Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Engine.Subtype.ZombieDragon, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new NecrodragonIzoristVhalEffect(), new PoweredDoubleBreaker());
         }
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetController(game).Graveyard.GetCreatures(Civilization.Darkness).Count();
+            return GetController(game).Graveyard.GetCreatures(Engine.Civilization.Darkness).Count();
         }
     }
 }

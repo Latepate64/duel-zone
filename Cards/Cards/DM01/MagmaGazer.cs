@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class MagmaGazer : Spell
     {
-        public MagmaGazer() : base("Magma Gazer", 3, Common.Civilization.Fire)
+        public MagmaGazer() : base("Magma Gazer", 3, Engine.Civilization.Fire)
         {
             AddSpellAbilities(new MagmaGazerEffect());
         }

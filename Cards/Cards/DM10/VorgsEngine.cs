@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM10
+﻿namespace Cards.Cards.DM10
 {
     class VorgsEngine : SilentSkillCreature
     {
-        public VorgsEngine() : base("Vorg's Engine", 2, 2000, Engine.Subtype.Xenoparts, Civilization.Fire)
+        public VorgsEngine() : base("Vorg's Engine", 2, 2000, Engine.Subtype.Xenoparts, Engine.Civilization.Fire)
         {
             AddSilentSkillAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(2000));
         }

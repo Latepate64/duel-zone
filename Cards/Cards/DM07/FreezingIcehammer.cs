@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class FreezingIcehammer : Spell
     {
-        public FreezingIcehammer() : base("Freezing Icehammer", 3, Civilization.Nature)
+        public FreezingIcehammer() : base("Freezing Icehammer", 3, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new FreezingIcehammerEffect());
         }
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Water, Civilization.Darkness));
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Engine.Civilization.Water, Engine.Civilization.Darkness));
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class NecrodragonBryzenaga : Creature
     {
-        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Engine.Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Engine.Subtype.ZombieDragon, Engine.Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect());
             AddDoubleBreakerAbility();
