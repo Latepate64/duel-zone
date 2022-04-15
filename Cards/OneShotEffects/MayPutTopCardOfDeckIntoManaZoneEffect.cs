@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
@@ -8,7 +7,7 @@ namespace Cards.OneShotEffects
     {
         public override object Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
+            if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
                 return true;

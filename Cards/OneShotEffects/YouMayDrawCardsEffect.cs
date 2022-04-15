@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Common.Choices;
 
 namespace Cards.OneShotEffects
 {
@@ -27,8 +26,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            var decision = source.GetController(game).Choose(new YesNoChoice(source.Controller, "You may draw a card."), game);
-            if (decision.Decision)
+            if (source.GetController(game).ChooseToTakeAction("You may draw a card."))
             {
                 source.GetController(game).DrawCards(1, game);
                 if (++_drawn < Maximum)

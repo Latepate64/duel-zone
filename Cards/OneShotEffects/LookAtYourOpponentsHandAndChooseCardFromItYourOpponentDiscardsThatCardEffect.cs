@@ -1,7 +1,6 @@
-﻿using Common.Choices;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -10,10 +9,10 @@ namespace Cards.OneShotEffects
         public override object Apply(IGame game, IAbility source)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var cards = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.GetController(game).Id, source.GetOpponent(game).Hand.Cards, 1, 1, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
-            source.GetOpponent(game).Discard(game, cards);
-            source.GetOpponent(game).Unreveal(cards);
-            return cards;
+            var card = source.GetController(game).ChooseCard(source.GetOpponent(game).Hand.Cards, ToString());
+            source.GetOpponent(game).Discard(game, card);
+            source.GetOpponent(game).Unreveal(new List<ICard>() { card });
+            return card;
         }
 
         public override IOneShotEffect Copy()

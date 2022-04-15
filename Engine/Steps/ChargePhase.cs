@@ -1,5 +1,4 @@
-﻿using Common.Choices;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Engine.Steps
 {
@@ -19,11 +18,10 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(IGame game)
         {
-            var dec = game.CurrentTurn.ActivePlayer.Choose(new ChargeManaSelection(game.CurrentTurn.ActivePlayer.Id, game.CurrentTurn.ActivePlayer.Hand.Cards), game);
-            var cards = dec.Decision;
-            if (cards.Any())
+            var card = game.CurrentTurn.ActivePlayer.ChooseCardOptionally(game.CurrentTurn.ActivePlayer.Hand.Cards, "You may put a card from your hand into your mana zone.");
+            if (card != null)
             {
-                _ = game.Move(Common.ZoneType.Hand, Common.ZoneType.ManaZone, cards.Select(x => game.GetCard(x)).ToArray());
+                _ = game.Move(Common.ZoneType.Hand, Common.ZoneType.ManaZone, card);
             }
             return true;
         }

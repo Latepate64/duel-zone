@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
     /// <summary>
     /// 611.1. A continuous effect modifies characteristics of objects, modifies control of objects, or affects players or the rules of the game, for a fixed or indefinite period.
     /// </summary>
-    public abstract class ContinuousEffect : ITimestampable, IContinuousEffect
+    public abstract class ContinuousEffect : IContinuousEffect, ITimestampable
     {
         public Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected ContinuousEffect(ContinuousEffect effect)
+        protected ContinuousEffect(IContinuousEffect effect)
         {
             SourceAbility = effect.SourceAbility;
         }
@@ -42,7 +42,8 @@ namespace Cards.ContinuousEffects
 
         protected IAbility GetSourceAbility(IGame game)
         {
-            return game.GetAbility(SourceAbility);
+            IAbility ability = game.GetAbility(SourceAbility);
+            return ability;
         }
 
         protected bool IsSourceOfAbility(ICard card, IGame game)

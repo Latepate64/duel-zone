@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Common;
-using Common.Choices;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -34,10 +33,10 @@ namespace Cards.Cards.DM01
             }
             else
             {
-                var selection = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.Controller, creatures, 1, 2, ToString()), game).Decision;
-                if ((selection.Count() == 1 && selection.Single() == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x != thisCreature.Id)))
+                var selection = source.GetController(game).ChooseCards(creatures, 1, 2, ToString());
+                if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
-                    return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.Select(x => game.GetCard(x)).ToArray());
+                    return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
                 }
                 else
                 {

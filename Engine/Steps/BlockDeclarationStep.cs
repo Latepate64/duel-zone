@@ -1,5 +1,4 @@
-﻿using Common.Choices;
-using Engine.ContinuousEffects;
+﻿using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
@@ -44,11 +43,10 @@ namespace Engine.Steps
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
         {
-            var blockers = game.CurrentTurn.NonActivePlayer.Choose(new BlockerSelection(game.CurrentTurn.NonActivePlayer.Id, possibleBlockers), game).Decision;
-            if (blockers.Any())
+            var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
+            if (blocker != null)
             {
-                Phase.BlockingCreature = blockers.Single();
-                var blocker = game.GetCard(Phase.BlockingCreature);
+                Phase.BlockingCreature = blocker.Id;
                 game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });

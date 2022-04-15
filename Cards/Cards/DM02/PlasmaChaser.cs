@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Choices;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -19,7 +18,8 @@ namespace Cards.Cards.DM02
         public override object Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
-            if (amount > 0 && source.GetController(game).Choose(new YesNoChoice(source.Controller, $"You may draw {amount} cards."), game).Decision)
+
+            if (amount > 0 && source.GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
             {
                 source.GetController(game).DrawCards(amount, game);
             }

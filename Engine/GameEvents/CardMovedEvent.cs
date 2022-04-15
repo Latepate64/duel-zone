@@ -48,12 +48,8 @@ namespace Engine.GameEvents
                         {
                             newObject.Tapped = true;
                         }
-                        try
-                        {
-                            (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
-                            Card = newObject;
-                        }
-                        catch (PlayerNotInGameException) { }
+                        (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
+                        Card = newObject;
                     }
                 }
             }

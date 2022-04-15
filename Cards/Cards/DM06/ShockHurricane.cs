@@ -24,7 +24,7 @@ namespace Cards.Cards.DM06
             if (amount > 0 && amount <= choosableAmount)
             {
                 var effect = new ChooseOpponentsCreaturesAndReturnThemToHisHandEffect(amount);
-                if (source.GetController(game).Choose(new Common.Choices.YesNoChoice(source.GetController(game).Id, $"Take action: \"{effect}\"?"), game).Decision)
+                if (source.GetController(game).ChooseToTakeAction($"You may {effect.ToString().ToLower()}"))
                 {
                     effect.Apply(game, source);
                 }

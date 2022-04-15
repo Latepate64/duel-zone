@@ -14,16 +14,13 @@
             OneShotEffect = ability.OneShotEffect.Copy();
         }
 
+        /// <summary>
+        /// 608.2c The controller of the ability follows its instructions in the order written.
+        /// </summary>
+        /// <param name="game"></param>
         public virtual void Resolve(IGame game)
         {
-            try
-            {
-                // 608.2c The controller of the spell or ability follows its instructions in the order written.
-                OneShotEffect.Apply(game, this);
-            }
-            catch (PlayerNotInGameException)
-            { 
-            }
+            OneShotEffect.Apply(game, this);
         }
     }
 }

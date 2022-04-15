@@ -1,8 +1,7 @@
 ﻿using Common;
-using Common.Choices;
 using Engine;
 using Engine.Abilities;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -19,14 +18,14 @@ namespace Cards.Cards.DM10
         public override object Apply(IGame game, IAbility source)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var cards = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.GetController(game).Id, source.GetOpponent(game).Hand.Cards, 0, 1, ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
-            if (cards.Any())
+            var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
+            if (card != null)
             {
-                game.Move(ZoneType.Hand, ZoneType.ManaZone, cards.ToArray());
+                game.Move(ZoneType.Hand, ZoneType.ManaZone, card);
                 new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
             }
-            source.GetOpponent(game).Unreveal(cards);
-            return cards;
+            source.GetOpponent(game).Unreveal(new List<Engine.ICard> { card });
+            return card;
         }
 
         public override IOneShotEffect Copy()

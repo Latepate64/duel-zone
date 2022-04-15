@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Engine.GameEvents;
+using Engine.Choices;
 
 namespace Engine
 {
@@ -105,22 +106,6 @@ namespace Engine
                 ShieldZone = null;
             }
         }
-
-        public YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game)
-        {
-            var decision = ClientChoose(yesNoChoice);
-            if (decision != null)
-            {
-                return decision;
-            }
-            else
-            {
-                Concede(game);
-                return new YesNoDecision();
-            }
-        }
-
-        public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
 
         public IGuidDecision Choose(GuidSelection selection, IGame game)
         {
@@ -247,14 +232,9 @@ namespace Engine
             };
         }
 
-        public Common.IPlayer Copy()
-        {
-            return Convert();
-        }
-
         private void ChooseCardsToPayManaCost(IGame game, ICard toUse)
         {
-            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
+            var manaDecision = ChooseCards(ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost, "Choose cards to pay the mana cost with.");
             if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
@@ -273,11 +253,9 @@ namespace Engine
 
         public bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards)
         {
-            var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
-            if (decision.Any())
+            var toUse = ChooseCardOptionally(usableCards, "You may use a card from your hand.");
+            if (toUse != null)
             {
-                var id = decision.Single();
-                var toUse = usableCards.Single(x => x.Id == id);
                 var manaCombinations = toUse.GetManaCombinations(this);
                 if (manaCombinations.Count() > 1)
                 {
@@ -319,7 +297,7 @@ namespace Engine
         private void Evolve(ICard card, IGame game)
         {
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
-            var bait = game.GetCard(Choose(new EvolutionBaitSelection(Id, baits), game).Decision.Single());
+            var bait = ChooseCard(baits, "Choose a creature to evolve from.");
             card.PutOnTopOf(bait);
         }
 
@@ -380,10 +358,10 @@ namespace Engine
         public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
-            var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
+            var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
-                ChooseAttackTarget(game, attackers, decision.Single());
+                ChooseAttackTarget(game, attackers, decision.Single().Id);
             }
         }
 
@@ -422,8 +400,62 @@ namespace Engine
             _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
         }
 
-        public abstract Subtype ChooseRace(params Subtype[] excluded);
-        public abstract int ChooseNumber(string text, int minimum, int? maximum);
+        
+        public abstract IPlayer Copy();
+
+        public T Choose<T>(T choice) where T : Choices.Choice
+        {
+            T choiceMade; 
+            do
+            {
+                choiceMade = ChooseAbstractly(choice);
+            } while (!choiceMade.IsValid());
+            return choiceMade;
+        }
+
+        public abstract T ChooseAbstractly<T>(T choice) where T : Choices.Choice;
+
+        public bool ChooseToTakeAction(string description)
+        {
+            return Choose(new BooleanChoice(this, description)).Choice.Value;
+        }
+
+        public int ChooseNumber(NumberChoice choice)
+        {
+            return Choose(choice).Choice.Value;
+        }
+
+        public Subtype ChooseRace(string description, params Subtype[] excluded)
+        {
+            return Choose(new SubtypeChoice(this, description, excluded)).Choice.Value;
+        }
+
+        public IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description)
+        {
+            return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), cards.ToArray()));
+        }
+
+        private IEnumerable<ICard> ChooseCards(CardChoice choice)
+        {
+            if (choice.CanBeChosenAutomatically)
+            {
+                return choice.ChooseAutomatically();
+            }
+            else
+            {
+                return Choose(choice).Choice;
+            }
+        }
+
+        public ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(cards, 0, 1, description).SingleOrDefault();
+        }
+
+        public ICard ChooseCard(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(cards, 1, 1, description).SingleOrDefault();
+        }
         #endregion Methods
     }
 }

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new GigiosHammerContinuousEffect(source.GetController(game).ChooseRace()));
+            game.AddContinuousEffects(source, new GigiosHammerContinuousEffect(source.GetController(game).ChooseRace(ToString())));
             return null;
         }
 

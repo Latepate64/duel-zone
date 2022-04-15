@@ -1,10 +1,11 @@
 ﻿using Common.Choices;
+using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
 
 namespace Engine
 {
-    public interface IPlayer : Common.IPlayer, IAttackable
+    public interface IPlayer : Common.IPlayer, IAttackable, ICopyable<IPlayer>
     {
         IDeck Deck { get; }
         IEnumerable<ICard> CardsInNonsharedZones { get; }
@@ -16,15 +17,11 @@ namespace Engine
         bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
-        int ChooseNumber(string text, int minimum, int? maximum);
-        YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game);
-        Common.Subtype ChooseRace(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
         Common.IPlayer Convert();
-        Common.IPlayer Copy();
         void DiscardAtRandom(IGame game, int amount);
         void Unreveal(IEnumerable<ICard> cards);
         void Dispose();
@@ -41,5 +38,12 @@ namespace Engine
         void UseCard(ICard card, IGame game);
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
         void Cast(ICard spell, IGame game);
+        T Choose<T>(T choice) where T : Choices.Choice;
+        int ChooseNumber(NumberChoice choice);
+        Common.Subtype ChooseRace(string description, params Common.Subtype[] excluded);
+        bool ChooseToTakeAction(string description);
+        IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
+        ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
+        ICard ChooseCard(IEnumerable<ICard> cards, string description);
     }
 }

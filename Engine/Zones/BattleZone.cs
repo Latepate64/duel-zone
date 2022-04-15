@@ -136,5 +136,10 @@ namespace Engine.Zones
         {
             return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
         }
+
+        public IBattleZone Copy()
+        {
+            return new BattleZone(this);
+        }
     }
 }

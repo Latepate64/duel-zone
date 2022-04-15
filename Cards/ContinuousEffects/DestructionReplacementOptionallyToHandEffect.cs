@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Choices;
 using Engine;
 using Engine.GameEvents;
 
@@ -17,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (GetController(game).Choose(new YesNoChoice(GetController(game).Id, ToString()), game).Decision)
+            if (GetController(game).ChooseToTakeAction(ToString()))
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {

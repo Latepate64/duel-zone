@@ -1,5 +1,4 @@
 ﻿using Common;
-using Common.Choices;
 using Engine;
 using Engine.Abilities;
 
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM12
         {
             foreach (var player in game.Players)
             {
-                if (player.Choose(new YesNoChoice(player.Id, "You may draw a card."), game).Decision)
+                if (player.ChooseToTakeAction("You may draw a card."))
                 {
                     player.DrawCards(1, game);
                 }

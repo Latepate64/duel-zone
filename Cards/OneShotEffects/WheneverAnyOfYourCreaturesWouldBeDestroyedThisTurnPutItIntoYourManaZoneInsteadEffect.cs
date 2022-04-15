@@ -5,6 +5,7 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
+using System;
 
 namespace Cards.OneShotEffects
 {
@@ -12,7 +13,7 @@ namespace Cards.OneShotEffects
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
+            game.AddContinuousEffects(source, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(source.Controller));
             return null;
         }
 
@@ -30,8 +31,16 @@ namespace Cards.OneShotEffects
 
     class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IDuration
     {
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
+        private readonly Guid _controller;
+
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(System.Guid controller) : base()
         {
+            _controller = controller;
+        }
+
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
+        {
+            _controller = effect._controller;
         }
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
@@ -44,7 +53,7 @@ namespace Cards.OneShotEffects
 
         public override IContinuousEffect Copy()
         {
-            return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();
+            return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
         public bool ShouldExpire(IGameEvent gameEvent)
@@ -59,7 +68,7 @@ namespace Cards.OneShotEffects
 
         protected override bool Applies(Engine.ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id;
+            return card.Owner == _controller;
         }
     }
 }

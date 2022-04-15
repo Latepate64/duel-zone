@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Engine.GameEvents
+﻿namespace Engine.GameEvents
 {
     public class ShieldsBrokenEvent : GameEvent
     {
@@ -17,7 +15,7 @@ namespace Engine.GameEvents
         {
             var owner = game.GetPlayer(Attacker.Owner);
             var opponent = game.GetOpponent(owner);
-            var cards = owner.Choose(new Common.Choices.ShieldBreakSelection(owner.Id, opponent.ShieldZone.Cards, BreakAmount), game).Decision.Select(x => game.GetCard(x));
+            var cards = owner.ChooseCards(opponent.ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
             game.PutFromShieldZoneToHand(cards, true);
         }
 

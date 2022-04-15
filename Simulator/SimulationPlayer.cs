@@ -2,6 +2,7 @@
 using Common.Choices;
 using System;
 using System.Linq;
+using Engine.Choices;
 
 namespace Simulator
 {
@@ -28,19 +29,45 @@ namespace Simulator
             return new GuidDecision(selected);
         }
 
-        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
+        public override IPlayer Copy()
         {
-            return new YesNoDecision(true);
+            return new SimulationPlayer(this);
         }
 
-        public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)
+        public override T ChooseAbstractly<T>(T choice)
         {
-            return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();
-        }
-
-        public override int ChooseNumber(string text, int minimum, int? maximum)
-        {
-            return Rnd.Next(minimum, 6);
+            if (choice is CardChoice card)
+            {
+                if (card.Mode is BoundedCardChoiceMode bounded)
+                {
+                    var amount = Rnd.Next(bounded.Min, bounded.Max + 1);
+                    card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
+                    return card as T;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            else if (choice is BooleanChoice boolean)
+            {
+                boolean.Choice = true;
+                return boolean as T;
+            }
+            else if (choice is SubtypeChoice subtype)
+            {
+                subtype.Choice = Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
+                return subtype as T;
+            }
+            else if (choice is NumberChoice number)
+            {
+                number.Choice = Rnd.Next(0, 6);
+                return number as T;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Common.Choices;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -17,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (GetController(game).Choose(new YesNoChoice(GetController(game).Id, ToString()), game).Decision)
+            if (GetController(game).ChooseToTakeAction(ToString()))
             {
                 game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), GetSourceAbility(game)));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)

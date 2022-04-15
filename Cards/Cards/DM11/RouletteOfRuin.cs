@@ -18,7 +18,7 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var number = source.GetController(game).ChooseNumber(ToString(), 0, null);
+            var number = source.GetController(game).ChooseNumber(new Engine.Choices.NumberChoice(source.GetController(game), ToString()));
             foreach (var player in new System.Guid[] { source.Controller, game.GetOpponent(source.Controller) })
             {
                 game.GetPlayer(player).Reveal(game, game.GetPlayer(player).Hand.Cards.ToArray());

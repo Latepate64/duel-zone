@@ -2,11 +2,24 @@
 
 namespace Engine.Zones
 {
-    public class SpellStack : Zone
+    public class SpellStack : Zone, ICopyable<SpellStack>
     {
+        public SpellStack()
+        {
+        }
+
+        public SpellStack(IZone zone) : base(zone)
+        {
+        }
+
         public override void Add(ICard card, IGame game)
         {
             Cards.Add(card);
+        }
+
+        public SpellStack Copy()
+        {
+            return new SpellStack(this);
         }
 
         public override List<ICard> Remove(ICard card, IGame game)
