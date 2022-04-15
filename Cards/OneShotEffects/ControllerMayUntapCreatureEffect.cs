@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Common.Choices;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -18,7 +17,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).Choose(new YesNoChoice(source.Controller, ToString()), game).Decision)
+            if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 source.GetController(game).Untap(game, GetSelectableCards(game, source).ToArray());
                 return true;

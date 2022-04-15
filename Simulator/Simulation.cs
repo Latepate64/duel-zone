@@ -29,10 +29,6 @@ namespace Simulator
             {
                 return ChooseGuid(game, numberOfChoicesMade, decisions, selection);
             }
-            else if (choice is YesNoChoice yesNo)
-            {
-                return ChooseYesOrNo(game, numberOfChoicesMade, decisions, yesNo);
-            }
             else if (choice is EnumChoice enumChoice)
             {
                 return ChooseEnum(game, numberOfChoicesMade, decisions, enumChoice);
@@ -53,19 +49,6 @@ namespace Simulator
             }
 
             return result;
-        }
-
-        private Tuple<Decision, int> ChooseYesOrNo(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, YesNoChoice yesNo)
-        {
-            var options = new List<bool> { true, false };
-            foreach (var option in options)
-            {
-                var currentChoice = new YesNoDecision(option);
-                using var duelCopy = new Game(game);
-                _optionsRemaining -= options.Count;
-                decisions.Add(new Tuple<Decision, int>(currentChoice, Choose(null, duelCopy, currentChoice, numberOfChoicesMade + 1).Item2));
-            }
-            return Choose(yesNo, decisions);
         }
 
         private Tuple<Decision, int> ChooseEnum(Game game, int numberOfChoicesMade, List<Tuple<Decision, int>> decisions, EnumChoice choice)

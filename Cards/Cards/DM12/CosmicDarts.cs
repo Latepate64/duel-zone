@@ -36,7 +36,7 @@ namespace Cards.Cards.DM12
             {
                 source.GetController(game).Look(source.GetController(game), game, cards);
                 var card = cards.Single();
-                if (card.CardType == CardType.Spell && source.GetController(game).Choose(new Common.Choices.YesNoChoice(source.Controller, $"You may cast {card.Name} for no cost."), game).Decision)
+                if (card.CardType == CardType.Spell && source.GetController(game).ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
                     source.GetController(game).Cast(card, game);
                 }

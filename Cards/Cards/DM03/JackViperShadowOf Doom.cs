@@ -2,7 +2,6 @@
 using Common;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 
 namespace Cards.Cards.DM03
 {

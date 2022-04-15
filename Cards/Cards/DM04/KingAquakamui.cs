@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Common;
-using Common.Choices;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM04
     {
         public override object Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).Choose(new YesNoChoice(source.GetController(game).Id, ToString()), game).Decision)
+            if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasSubtype(Subtype.AngelCommand) || x.HasSubtype(Subtype.DemonCommand)).ToArray());
             }

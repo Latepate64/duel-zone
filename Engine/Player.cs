@@ -107,22 +107,6 @@ namespace Engine
             }
         }
 
-        public YesNoDecision Choose(YesNoChoice yesNoChoice, IGame game)
-        {
-            var decision = ClientChoose(yesNoChoice);
-            if (decision != null)
-            {
-                return decision;
-            }
-            else
-            {
-                Concede(game);
-                return new YesNoDecision();
-            }
-        }
-
-        public abstract YesNoDecision ClientChoose(YesNoChoice yesNoChoice);
-
         public IGuidDecision Choose(GuidSelection selection, IGame game)
         {
             var legal = false;

@@ -19,7 +19,7 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).ShieldZone.Cards.Any() && source.GetController(game).Choose(new Common.Choices.YesNoChoice(source.GetController(game).Id, $"Take action: {ToString()}?"), game).Decision)
+            if (source.GetController(game).ShieldZone.Cards.Any() && source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 source.GetController(game).Look(source.GetController(game), game, source.GetController(game).ShieldZone.Cards.ToArray());
                 source.GetController(game).Unreveal(source.GetController(game).ShieldZone.Cards);
