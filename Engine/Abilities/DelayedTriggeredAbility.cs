@@ -2,7 +2,7 @@
 
 namespace Engine.Abilities
 {
-    public class DelayedTriggeredAbility : IDisposable
+    public class DelayedTriggeredAbility : IDisposable, ICopyable<DelayedTriggeredAbility>
     {
         internal ITriggeredAbility TriggeredAbility { get; private set; }
 
@@ -25,6 +25,7 @@ namespace Engine.Abilities
         internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
             TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
+            TriggersOnlyOnce = ability.TriggersOnlyOnce;
         }
 
         public void Dispose()
@@ -41,6 +42,11 @@ namespace Engine.Abilities
                 //TriggeredAbility.Dispose();
                 TriggeredAbility = null;
             }
+        }
+
+        public DelayedTriggeredAbility Copy()
+        {
+            return new DelayedTriggeredAbility(this);
         }
     }
 }

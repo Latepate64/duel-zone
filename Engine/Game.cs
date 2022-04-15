@@ -18,7 +18,7 @@ namespace Engine
         /// Players who are still in the game.
         /// </summary>
         //TODO: Should be reworked to return players in APNAP order, or make method for that.
-        public IEnumerable<IPlayer> Players => State.Players;
+        public IEnumerable<IPlayer> Players => _state.Players;
 
         public IPlayer Winner { get; private set; }
 
@@ -72,11 +72,6 @@ namespace Engine
         /// </summary>
         public bool Ended => !Players.Any();
 
-        /// <summary>
-        /// 603.7. An effect may create a delayed triggered ability that can do something at a later time.
-        /// A delayed triggered ability will contain “when,” “whenever,” or “at,” although that word won’t usually begin the ability.
-        /// </summary>
-        private readonly List<DelayedTriggeredAbility> _delayedTriggeredAbilities = new();
         private readonly List<IResolvableAbility> _reflexiveTriggeredAbilities = new();
 
         public int MaximumNumberOfTurns { get; set; } = 100;
@@ -88,9 +83,9 @@ namespace Engine
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public IBattleZone BattleZone => State.BattleZone;
-        public SpellStack SpellStack => State.SpellStack;
-        public IGameState State { get; set; }
+        public IBattleZone BattleZone => _state.BattleZone;
+        public SpellStack SpellStack => _state.SpellStack;
+        private IGameState _state;
         public Queue<IGameState> States { get; } = new();
 
         public delegate void GameEventHandler(IGameEvent gameEvent);
@@ -102,7 +97,6 @@ namespace Engine
 
         public Game(Game game)
         {
-            _delayedTriggeredAbilities = game._delayedTriggeredAbilities.Select(x => new DelayedTriggeredAbility(x)).ToList();
             ExtraTurns = new Stack<ITurn>(game.ExtraTurns.Select(x => new Turn(x)));
             StartingHandSize = game.StartingHandSize;
             StartingNumberOfShields = game.StartingNumberOfShields;
@@ -114,7 +108,7 @@ namespace Engine
             //}
             Turns = game.Turns.Select(x => new Turn(x)).Cast<ITurn>().ToList();
             _continuousEffects = game._continuousEffects.Select(x => x.Copy()).ToList();
-            State = State.Copy();
+            _state = _state.Copy();
             States = new Queue<IGameState>(States.Select(x => x.Copy()));
         }
 
@@ -142,11 +136,6 @@ namespace Engine
                 {
                     x.Dispose();
                 }
-                foreach (var x in _delayedTriggeredAbilities)
-                {
-                    x.Dispose();
-                }
-                _delayedTriggeredAbilities.Clear();
                 foreach (var x in Turns)
                 {
                     x.Dispose();
@@ -167,7 +156,7 @@ namespace Engine
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
             // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
-            State = new GameState(startingPlayer, otherPlayer);
+            _state = new GameState(startingPlayer, otherPlayer);
 
             foreach (var card in GetAllCards())
             {
@@ -334,14 +323,14 @@ namespace Engine
                 {
                     _continuousEffects.Remove(remove);
                 }
-                foreach (var remove in _delayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
                 {
-                    _delayedTriggeredAbilities.Remove(remove);
+                    _state.DelayedTriggeredAbilities.Remove(remove);
                 }
                 ApplyContinuousEffects();
                 var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
-                List<DelayedTriggeredAbility> toBeRemoved = new List<DelayedTriggeredAbility>();
-                foreach (var ability in _delayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+                List<DelayedTriggeredAbility> toBeRemoved = new();
+                foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
                 {
                     abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
                     if (ability.TriggersOnlyOnce)
@@ -349,7 +338,7 @@ namespace Engine
                         toBeRemoved.Add(ability);
                     }
                 }
-                _ = _delayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+                _ = _state.DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
                 AddPendingAbilities(abilities.ToArray());
                 foreach (var ability in abilities)
                 {
@@ -420,7 +409,7 @@ namespace Engine
             // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
             // TODO: Commented for time being, consider alternative design to avoid exceptions
             //_ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
-            State.Players.Remove(player);
+            _state.Players.Remove(player);
         }
 
         public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
@@ -451,7 +440,7 @@ namespace Engine
                     group.Key
             );
             finalEvents.ToList().ForEach(x => ProcessEvent(x));
-            States.Enqueue(State.Copy());
+            States.Enqueue(_state.Copy());
             return finalEvents;
         }
 
@@ -606,8 +595,7 @@ namespace Engine
 
         public void AddDelayedTriggeredAbility(DelayedTriggeredAbility delayedTriggeredAbility)
         {
-            _delayedTriggeredAbilities.Add(delayedTriggeredAbility);
-            //_delayedTriggeredAbilities.Add(new DelayedTriggeredAbility(ability, ability.Source, ability.Owner, duration));
+            _state.DelayedTriggeredAbilities.Add(delayedTriggeredAbility);
         }
 
         public bool CanEvolve(ICard card)

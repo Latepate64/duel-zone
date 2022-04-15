@@ -15,7 +15,6 @@ namespace Engine
         ITurn CurrentTurn { get; }
         Queue<IGameEvent> PreGameEvents { get; }
         Stack<ITurn> ExtraTurns { get; }
-        IGameState State { get; }
         Queue<IGameState> States { get; }
 
         /// <summary>
