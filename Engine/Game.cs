@@ -511,10 +511,10 @@ namespace Engine
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
-                    var decision = GetPlayer(shieldTriggersByPlayer.Key).Choose(new ShieldTriggerSelection(GetPlayer(shieldTriggersByPlayer.Key).Id, shieldTriggersByPlayer), this);
-                    if (decision.Decision.Any())
+                    var triggers = GetPlayer(shieldTriggersByPlayer.Key).ChooseCards(shieldTriggersByPlayer, 0, 1, "You may use a shield trigger.");
+                    if (triggers.Any())
                     {
-                        var trigger = GetCard(decision.Decision.Single());
+                        var trigger = triggers.Single();
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
                         //TODO: Event
                         //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });

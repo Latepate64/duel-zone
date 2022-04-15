@@ -234,7 +234,7 @@ namespace Engine
 
         private void ChooseCardsToPayManaCost(IGame game, ICard toUse)
         {
-            var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
+            var manaDecision = ChooseCards(ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost, "Choose cards to pay the mana cost with.");
             if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
             {
                 PayManaCostAndUseCard(game, manaDecision, toUse);
@@ -298,8 +298,8 @@ namespace Engine
         private void Evolve(ICard card, IGame game)
         {
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
-            var bait = game.GetCard(Choose(new EvolutionBaitSelection(Id, baits), game).Decision.Single());
-            card.PutOnTopOf(bait);
+            var bait = ChooseCards(baits, 1, 1, "Choose a creature to evolve from.");
+            card.PutOnTopOf(bait.Single());
         }
 
         public Common.IPlayer Convert()
@@ -359,10 +359,10 @@ namespace Engine
         public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
-            var decision = Choose(new AttackerSelection(Id, attackers, minimum), game).Decision;
+            var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
-                ChooseAttackTarget(game, attackers, decision.Single());
+                ChooseAttackTarget(game, attackers, decision.Single().Id);
             }
         }
 
