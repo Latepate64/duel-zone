@@ -38,16 +38,9 @@ namespace Simulator
         {
             if (choice is CardChoice card)
             {
-                if (card.Mode is BoundedCardChoiceMode bounded)
-                {
-                    var amount = Rnd.Next(bounded.Min, bounded.Max + 1);
-                    card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
-                    return card as T;
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                int amount = GetAmountOfCardsToChooseFrom(card);
+                card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
+                return card as T;
             }
             else if (choice is BooleanChoice boolean)
             {
@@ -68,6 +61,22 @@ namespace Simulator
             {
                 ability.Choice = ability.Abilities.OrderBy(x => Rnd.Next()).First();
                 return ability as T;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private static int GetAmountOfCardsToChooseFrom(CardChoice card)
+        {
+            if (card.Mode is BoundedCardChoiceMode bounded)
+            {
+                return Rnd.Next(bounded.Min, bounded.Max + 1);
+            }
+            else if (card.Mode is AnyNumberOfCardsChoiceMode)
+            {
+                return Rnd.Next(0, card.Cards.Count() + 1);
             }
             else
             {

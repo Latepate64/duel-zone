@@ -468,6 +468,11 @@ namespace Engine
                 return Choose(new AbilityChoice(this, abilities)).Choice;
             }
         }
+
+        public IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), cards.ToArray()));
+        }
         #endregion Methods
     }
 }

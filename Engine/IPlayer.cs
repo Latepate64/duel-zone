@@ -47,5 +47,6 @@ namespace Engine
         ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
         ICard ChooseCard(IEnumerable<ICard> cards, string description);
         IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
+        IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
     }
 }
