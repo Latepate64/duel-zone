@@ -8,11 +8,13 @@ namespace Engine
     {
         public IBattleZone BattleZone { get; } = new BattleZone();
         public IList<IPlayer> Players { get; }
+        public SpellStack SpellStack { get; } = new SpellStack();
 
         public GameState(IGameState state)
         {
             BattleZone = state.BattleZone.Copy();
             Players = state.Players.Select(x => x.Copy()).ToList();
+            SpellStack = state.SpellStack.Copy();
         }
         public GameState(params IPlayer[] players)
         {

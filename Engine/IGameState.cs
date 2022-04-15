@@ -7,5 +7,6 @@ namespace Engine
     {
         IBattleZone BattleZone { get; }
         IList<IPlayer> Players { get; }
+        SpellStack SpellStack { get; }
     }
 }

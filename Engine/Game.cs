@@ -89,7 +89,7 @@ namespace Engine
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
         public IBattleZone BattleZone => State.BattleZone;
-        public SpellStack SpellStack { get; } = new SpellStack();
+        public SpellStack SpellStack => State.SpellStack;
         public IGameState State { get; set; }
         public Queue<IGameState> States { get; } = new();
 
