@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;

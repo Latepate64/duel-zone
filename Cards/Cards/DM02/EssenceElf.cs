@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -25,7 +24,7 @@ namespace Cards.Cards.DM02
 
         public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return card.Owner == GetController(game).Id && card.CardType == CardType.Spell ? -1 : 0;
+            return card.Owner == GetController(game).Id && card.CardType == Engine.CardType.Spell ? -1 : 0;
         }
 
         public override string ToString()

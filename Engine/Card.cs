@@ -30,6 +30,7 @@ namespace Engine
 
         public List<Civilization> Civilizations { get; set; } = new();
 
+        public CardType CardType { get; set; }
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
@@ -46,6 +47,7 @@ namespace Engine
         {
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            CardType = card.CardType;
             Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;

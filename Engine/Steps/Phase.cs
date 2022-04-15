@@ -1,8 +1,7 @@
 ﻿using Engine.Abilities;
-using Common.Choices;
+using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.GameEvents;
 
 namespace Engine.Steps
 {
@@ -53,11 +52,6 @@ namespace Engine.Steps
                     _ = PendingAbilities.Remove(ability);
                 }
             }
-        }
-
-        private static AbilityText Convert(IResolvableAbility x)
-        {
-            return new AbilityText(x.Id, x.ToString());
         }
 
         protected Phase(IPhase phase)

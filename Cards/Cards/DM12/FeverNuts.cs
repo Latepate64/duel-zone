@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM12
@@ -23,7 +22,7 @@ namespace Cards.Cards.DM12
 
         public int GetChange(Engine.ICard card, Engine.IGame game)
         {
-            return card.CardType == CardType.Creature ? -1 : 0;
+            return card.CardType == Engine.CardType.Creature ? -1 : 0;
         }
 
         public override string ToString()

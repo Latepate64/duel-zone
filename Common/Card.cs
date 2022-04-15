@@ -23,7 +23,6 @@ namespace Common
             KnownTo = card.KnownTo.ToList();
             if (!clear)
             {
-                CardType = card.CardType;
                 ManaCost = card.ManaCost;
                 Name = card.Name;
                 OnTopOf = card.OnTopOf;
@@ -50,8 +49,6 @@ namespace Common
         public Guid Owner { get; set; }
 
         public string Name { get; set; }
-
-        public CardType CardType { get; set; }
 
         public int? Power { get; set; }
 
