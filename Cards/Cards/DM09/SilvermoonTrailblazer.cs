@@ -17,7 +17,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new SilvermoonTrailblazerContinuousEffect(source.GetController(game).ChooseRace()));
+            game.AddContinuousEffects(source, new SilvermoonTrailblazerContinuousEffect(source.GetController(game).ChooseRace(ToString())));
             return null;
         }
 

@@ -19,7 +19,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var race = source.GetController(game).ChooseRace();
+            var race = source.GetController(game).ChooseRace(ToString());
             var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasSubtype(race)).ToArray();
             game.AddContinuousEffects(source, new VenomWormContinuousEffect(race, creatures));
             return null;

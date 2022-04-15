@@ -18,7 +18,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new DanceOfTheSproutlingsSecondEffect(source.GetController(game).ChooseRace()).Apply(game, source);
+            return new DanceOfTheSproutlingsSecondEffect(source.GetController(game).ChooseRace(ToString())).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

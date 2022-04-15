@@ -29,11 +29,6 @@ namespace Simulator
             return new GuidDecision(selected);
         }
 
-        public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)
-        {
-            return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();
-        }
-
         public override IPlayer Copy()
         {
             return new SimulationPlayer(this);
@@ -45,6 +40,11 @@ namespace Simulator
             {
                 boolean.Choice = true;
                 return boolean as T;
+            }
+            else if (choice is SubtypeChoice subtype)
+            {
+                subtype.Choice = Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
+                return subtype as T;
             }
             else if (choice is NumberChoice number)
             {

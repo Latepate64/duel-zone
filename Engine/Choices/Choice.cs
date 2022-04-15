@@ -18,5 +18,10 @@
         public IPlayer Maker { get; }
 
         public abstract bool IsValid();
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }

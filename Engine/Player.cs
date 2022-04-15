@@ -402,7 +402,7 @@ namespace Engine
             _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
         }
 
-        public abstract Subtype ChooseRace(params Subtype[] excluded);
+        
         public abstract IPlayer Copy();
 
         public T Choose<T>(T choice) where T : Choices.Choice
@@ -425,6 +425,11 @@ namespace Engine
         public int ChooseNumber(NumberChoice choice)
         {
             return Choose(choice).Choice.Value;
+        }
+
+        public Subtype ChooseRace(string description, params Subtype[] excluded)
+        {
+            return Choose(new SubtypeChoice(this, description, excluded)).Choice.Value;
         }
         #endregion Methods
     }

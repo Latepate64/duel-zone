@@ -17,7 +17,6 @@ namespace Engine
         bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
-        Common.Subtype ChooseRace(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);
@@ -40,7 +39,8 @@ namespace Engine
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
         void Cast(ICard spell, IGame game);
         T Choose<T>(T choice) where T : Choices.Choice;
-        bool ChooseToTakeAction(string description);
         int ChooseNumber(NumberChoice choice);
+        Common.Subtype ChooseRace(string description, params Common.Subtype[] excluded);
+        bool ChooseToTakeAction(string description);
     }
 }
