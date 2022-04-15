@@ -43,11 +43,10 @@ namespace Engine.Steps
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
         {
-            var blockers = game.CurrentTurn.NonActivePlayer.ChooseCards(possibleBlockers, 0, 1, "You may choose a creature to block the attack with.");
-            if (blockers.Any())
+            var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
+            if (blocker != null)
             {
-                Phase.BlockingCreature = blockers.Single().Id;
-                var blocker = game.GetCard(Phase.BlockingCreature);
+                Phase.BlockingCreature = blocker.Id;
                 game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });

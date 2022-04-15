@@ -43,5 +43,6 @@ namespace Engine
         Common.Subtype ChooseRace(string description, params Common.Subtype[] excluded);
         bool ChooseToTakeAction(string description);
         IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
+        ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
     }
 }

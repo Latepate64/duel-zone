@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Common.Choices;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -30,22 +29,12 @@ namespace Cards.OneShotEffects
         public override IEnumerable<ICard> Apply(IGame game, IAbility source)
         {
             var cards = GetSelectableCards(game, source);
-            if (cards.Any())
+            var player = ControllerChooses ? source.GetController(game) : source.GetOpponent(game);
+            if (player != null)
             {
-                if (Minimum >= cards.Count())
-                {
-                    Apply(game, source, cards.ToArray());
-                }
-                else
-                {
-                    var player = ControllerChooses ? source.GetController(game) : source.GetOpponent(game);
-                    if (player != null)
-                    {
-                        var chosen = player.Choose(new BoundedCardSelectionInEffect(player.Id, cards, Minimum, Math.Min(Maximum, cards.Count()), ToString()), game).Decision.Select(x => game.GetCard(x)).ToArray();
-                        Apply(game, source, chosen);
-                        return chosen;
-                    }
-                }
+                var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
+                Apply(game, source, chosen.ToArray());
+                return chosen;
             }
             return cards;
         }

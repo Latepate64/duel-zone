@@ -18,10 +18,10 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(IGame game)
         {
-            var cards = game.CurrentTurn.ActivePlayer.ChooseCards(game.CurrentTurn.ActivePlayer.Hand.Cards, 0, 1, "You may put a card from your hand into your mana zone.");
-            if (cards.Any())
+            var card = game.CurrentTurn.ActivePlayer.ChooseCardOptionally(game.CurrentTurn.ActivePlayer.Hand.Cards, "You may put a card from your hand into your mana zone.");
+            if (card != null)
             {
-                _ = game.Move(Common.ZoneType.Hand, Common.ZoneType.ManaZone, cards.ToArray());
+                _ = game.Move(Common.ZoneType.Hand, Common.ZoneType.ManaZone, card);
             }
             return true;
         }

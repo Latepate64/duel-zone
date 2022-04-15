@@ -253,10 +253,9 @@ namespace Engine
 
         public bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards)
         {
-            var cards = ChooseCards(usableCards, 0, 1, "You may use a card from your hand.");
-            if (cards.Any())
+            var toUse = ChooseCardOptionally(usableCards, "You may use a card from your hand.");
+            if (toUse != null)
             {
-                var toUse = cards.Single();
                 var manaCombinations = toUse.GetManaCombinations(this);
                 if (manaCombinations.Count() > 1)
                 {
@@ -446,6 +445,11 @@ namespace Engine
             {
                 return Choose(choice).Choice;
             }
+        }
+
+        public ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(cards, 0, 1, description).SingleOrDefault();
         }
         #endregion Methods
     }

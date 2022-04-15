@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Common.Choices;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -28,7 +27,7 @@ namespace Cards.OneShotEffects
             var cards = GetAffectedCards(game, source);
             if (cards.Any())
             {
-                var selectedCards = source.GetController(game).Choose(new BoundedCardSelectionInEffect(source.GetController(game).Id, cards, 0, _maximum, ToString()), game).Decision.Select(x => game.GetCard(x));
+                var selectedCards = source.GetController(game).ChooseCards(cards, 0, _maximum, ToString());
                 Apply(game, source, selectedCards.ToArray());
             }
             (_searchOpponentsDeck ? source.GetOpponent(game) : source.GetController(game)).ShuffleDeck(game);
