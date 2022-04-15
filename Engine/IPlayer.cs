@@ -1,5 +1,4 @@
-﻿using Common.Choices;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
@@ -17,9 +16,8 @@ namespace Engine
         Hand Hand { get; }
         bool DirectlyAttacked { get; set; }
 
-        IGuidDecision Choose(GuidSelection selection, IGame game);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
-        void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
+        bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
         Common.IPlayer Convert();
@@ -48,5 +46,6 @@ namespace Engine
         ICard ChooseCard(IEnumerable<ICard> cards, string description);
         IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
         IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
+        IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
     }
 }

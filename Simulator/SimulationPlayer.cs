@@ -1,5 +1,4 @@
 ﻿using Engine;
-using Common.Choices;
 using System;
 using System.Linq;
 using Engine.Choices;
@@ -14,21 +13,6 @@ namespace Simulator
 
         static readonly Random Rnd = new();
 
-        public override GuidDecision ClientChoose(GuidSelection guidSelection)
-        {
-            var amount = 0;
-            if (guidSelection is BoundedGuidSelection bounded)
-            {
-                amount = Rnd.Next(bounded.MinimumSelection, bounded.MaximumSelection + 1);
-            }
-            else
-            {
-                amount = Rnd.Next(0, guidSelection.Options.Count + 1);
-            }
-            var selected = guidSelection.Options.OrderBy(x => Rnd.Next()).Take(amount);
-            return new GuidDecision(selected);
-        }
-
         public override IPlayer Copy()
         {
             return new SimulationPlayer(this);
@@ -41,6 +25,11 @@ namespace Simulator
                 int amount = GetAmountOfCardsToChooseFrom(card);
                 card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
                 return card as T;
+            }
+            else if (choice is AttackTargetChoice attack)
+            {
+                attack.Choice = attack.Targets.OrderBy(x => Rnd.Next()).First();
+                return attack as T;
             }
             else if (choice is BooleanChoice boolean)
             {

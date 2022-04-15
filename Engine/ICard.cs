@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    public interface ICard : Common.ICard, ITimestampable
+    public interface ICard : Common.ICard, ITimestampable, IAttackable
     {
         bool IsEvolutionCreature { get; }
         IList<IAbility> PrintedAbilities { get; }

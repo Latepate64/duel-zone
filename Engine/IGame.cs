@@ -28,13 +28,13 @@ namespace Engine
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
-        void Battle(Guid attackingCreatureId, Guid defendingCreatureId);
+        void Battle(ICard attackingCreature, ICard defendingCreature);
         void AddReflexiveTriggeredAbility(IResolvableAbility ability);
         bool CanEvolve(ICard card);
         void Destroy(IEnumerable<ICard> cards);
         IAbility GetAbility(Guid id);
         IEnumerable<ICard> GetAllCards();
-        Common.IIdentifiable GetAttackable(Guid id);
+        IAttackable GetAttackable(Guid id);
         ICard GetCard(Guid id);
         IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card);
@@ -43,7 +43,7 @@ namespace Engine
         Guid GetOpponent(Guid player);
         IPlayer GetOwner(ICard card);
         IPlayer GetPlayer(Guid id);
-        IEnumerable<Common.IIdentifiable> GetPossibleAttackTargets(ICard attacker);
+        IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
         void Lose(params IPlayer[] players);
         IEnumerable<IGameEvent> Move(Common.ZoneType source, Common.ZoneType destination, params ICard[] cards);

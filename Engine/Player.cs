@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.Abilities;
-using Common.Choices;
 using Engine.ContinuousEffects;
 using Engine.Zones;
 using System;
@@ -106,29 +105,6 @@ namespace Engine
                 ShieldZone = null;
             }
         }
-
-        public IGuidDecision Choose(GuidSelection selection, IGame game)
-        {
-            var legal = false;
-            IGuidDecision decision = null;
-            while (!legal)
-            {
-                decision = ClientChoose(selection);
-                if (decision != null)
-                {
-                    var dist = decision.Decision.Distinct();
-                    legal = selection.IsLegal(dist);
-                }
-                else
-                {
-                    Concede(game);
-                    return new GuidDecision();
-                }
-            }
-            return decision;
-        }
-
-        public abstract IGuidDecision ClientChoose(GuidSelection guidSelection);
 
         public void ShuffleDeck(IGame game)
         {
@@ -355,31 +331,34 @@ namespace Engine
             owner.Reveal(game, new List<IPlayer> { this }, cards);
         }
 
-        public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
+        public bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
             var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
-                ChooseAttackTarget(game, attackers, decision.Single().Id);
+                return ChooseAttackTarget(game, attackers, decision.Single().Id);
             }
+            return false;
         }
 
-        private void ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
+        private bool ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
         {
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = game.GetPossibleAttackTargets(attacker);
-            Common.IIdentifiable target = possibleTargets.Count() > 1
-                ? game.GetAttackable(Choose(new AttackTargetSelection(Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
+            IAttackable target = possibleTargets.Count() > 1
+                ? ChooseAttackTarget(possibleTargets)
                 : possibleTargets.Single();
             Tap(game, attacker);
-            if (target.Id == attacker.Id)
+            if (target is ICard card && card.Id == attacker.Id)
             {
                 game.AddPendingAbilities(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
+                return true;
             }
             else
             {
-                game.ProcessEvents(new CreatureAttackedEvent(attacker, target.Id));
+                game.ProcessEvents(new CreatureAttackedEvent(attacker, target));
+                return false;
             }
         }
 
@@ -472,6 +451,11 @@ namespace Engine
         public IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description)
         {
             return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), cards.ToArray()));
+        }
+
+        public IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets)
+        {
+            return Choose(new AttackTargetChoice(this, targets)).Choice;
         }
         #endregion Methods
     }

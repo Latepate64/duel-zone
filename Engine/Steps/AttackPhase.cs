@@ -6,9 +6,9 @@ namespace Engine.Steps
 {
     public class AttackPhase : Phase
     {
-        public Guid AttackingCreature { get; internal set; }
-        public Guid AttackTarget { get; set; }
-        public Guid BlockingCreature { get; set; }
+        public ICard AttackingCreature { get; internal set; }
+        public IAttackable AttackTarget { get; set; }
+        public ICard BlockingCreature { get; set; }
 
         public AttackPhase() : base(PhaseOrStep.Attack)
         {
@@ -26,10 +26,10 @@ namespace Engine.Steps
 
         internal void RemoveAttackTarget(IGame game)
         {
-            if (AttackTarget != Guid.Empty)
+            if (AttackTarget != null)
             {
-                var target = game.GetAttackable(AttackTarget);
-                AttackTarget = Guid.Empty;
+                var target = AttackTarget;
+                AttackTarget = null;
                 //TODO: Event
                 //var e = new AttackTargetRemovedEvent();
                 //if (target is ICard card)
@@ -46,10 +46,9 @@ namespace Engine.Steps
 
         internal void RemoveBlockingCreature(IGame game)
         {
-            if (BlockingCreature != Guid.Empty)
+            if (BlockingCreature != null)
             {
-                var blocker = game.GetCard(BlockingCreature);
-                BlockingCreature = Guid.Empty;
+                BlockingCreature = null;
                 //TODO: Event
                 //game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
             }
@@ -62,15 +61,15 @@ namespace Engine.Steps
 
         internal void RemoveAttackingCreature(IGame game)
         {
-            if (AttackingCreature != Guid.Empty)
+            if (AttackingCreature != null)
             {
-                game.ProcessEvents(new CreatureStoppedAttackingEvent(game.GetCard(AttackingCreature), this));
+                game.ProcessEvents(new CreatureStoppedAttackingEvent(AttackingCreature, this));
             }
         }
 
-        internal void SetAttackingCreature(ICard attacker, IGame game)
+        internal void SetAttackingCreature(ICard attacker)
         {
-            AttackingCreature = attacker.Id;
+            AttackingCreature = attacker;
         }
 
         public override void Play(IGame game)

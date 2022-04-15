@@ -14,9 +14,9 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != System.Guid.Empty)
+            if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != null)
             {
-                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(game.GetCard(phase.AttackingCreature)));
+                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
             }
             return null;
         }

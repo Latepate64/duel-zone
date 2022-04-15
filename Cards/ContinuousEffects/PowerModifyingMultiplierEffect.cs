@@ -39,7 +39,7 @@ namespace Cards.ContinuousEffects
         public override void ModifyPower(IGame game)
         {
             var creature = GetSourceCard(game);
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature.Id)
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
                 creature.Power += GetMultiplier(game) * _power;
             }

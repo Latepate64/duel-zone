@@ -1,6 +1,5 @@
 ﻿using Common;
 using Engine.Abilities;
-using Common.Choices;
 using Engine.ContinuousEffects;
 using Engine.Zones;
 using System;
@@ -222,9 +221,9 @@ namespace Engine
             Turns.Last().Play(this, Turns.Count);
         }
 
-        public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
+        public void Battle(ICard attackingCreature, ICard defendingCreature)
         {
-            ProcessEvents(new BattleEvent(GetCard(attackingCreatureId), GetCard(defendingCreatureId)));
+            ProcessEvents(new BattleEvent(attackingCreature, defendingCreature));
         }
 
         public IEnumerable<ICard> GetAllCards()
@@ -291,20 +290,20 @@ namespace Engine
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IIdentifiable GetAttackable(Guid id)
+        public IAttackable GetAttackable(Guid id)
         {
             if (Players.Any(x => x.Id == id))
             {
                 return GetPlayer(id);
             }
-            else if (BattleZone.Creatures.Any(x => x.Id == id))
+            else// if (BattleZone.Creatures.Any(x => x.Id == id))
             {
                 return GetCard(id);
             }
-            else
-            {
-                return null; // It is possible that the player/card no longers exists.
-            }
+            //else
+            //{
+            //    return null; // It is possible that the player/card no longers exists.
+            //}
         }
 
         private void ProcessEvent(IGameEvent gameEvent)
@@ -617,9 +616,9 @@ namespace Engine
             return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
         }
 
-        public IEnumerable<IIdentifiable> GetPossibleAttackTargets(ICard attacker)
+        public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
         {
-            List<IIdentifiable> attackables = new();
+            List<IAttackable> attackables = new();
             if (attacker.CanAttackPlayers(this))
             {
                 attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));

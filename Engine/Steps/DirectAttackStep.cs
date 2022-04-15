@@ -20,7 +20,7 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            var attackingCreature = game.GetCard(Phase.AttackingCreature);
+            var attackingCreature = Phase.AttackingCreature;
             if (attackingCreature != null)
             {
                 if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.Cards.Any())
