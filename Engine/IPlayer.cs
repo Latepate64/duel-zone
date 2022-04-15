@@ -44,5 +44,6 @@ namespace Engine
         bool ChooseToTakeAction(string description);
         IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
         ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
+        ICard ChooseCard(IEnumerable<ICard> cards, string description);
     }
 }

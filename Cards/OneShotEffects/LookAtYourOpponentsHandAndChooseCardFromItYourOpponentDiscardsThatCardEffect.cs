@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -9,10 +9,10 @@ namespace Cards.OneShotEffects
         public override object Apply(IGame game, IAbility source)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var cards = source.GetController(game).ChooseCards(source.GetOpponent(game).Hand.Cards, 1, 1, ToString());
-            source.GetOpponent(game).Discard(game, cards.ToArray());
-            source.GetOpponent(game).Unreveal(cards);
-            return cards;
+            var card = source.GetController(game).ChooseCard(source.GetOpponent(game).Hand.Cards, ToString());
+            source.GetOpponent(game).Discard(game, card);
+            source.GetOpponent(game).Unreveal(new List<ICard>() { card });
+            return card;
         }
 
         public override IOneShotEffect Copy()

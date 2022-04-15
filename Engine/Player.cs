@@ -297,8 +297,8 @@ namespace Engine
         private void Evolve(ICard card, IGame game)
         {
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
-            var bait = ChooseCards(baits, 1, 1, "Choose a creature to evolve from.");
-            card.PutOnTopOf(bait.Single());
+            var bait = ChooseCard(baits, "Choose a creature to evolve from.");
+            card.PutOnTopOf(bait);
         }
 
         public Common.IPlayer Convert()
@@ -450,6 +450,11 @@ namespace Engine
         public ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description)
         {
             return ChooseCards(cards, 0, 1, description).SingleOrDefault();
+        }
+
+        public ICard ChooseCard(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(cards, 1, 1, description).SingleOrDefault();
         }
         #endregion Methods
     }
