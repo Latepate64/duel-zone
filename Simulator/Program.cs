@@ -56,7 +56,7 @@ namespace Simulator
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
             player1.Deck.Setup(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath), player1.Id);
             player2.Deck.Setup(GetCards(player2.Id, matchUp.Opponent.DeckPath), player2.Id);
-            using var game = simulator.PlayDuel(player1, player2, simulationDepth);
+            using var game = simulator.PlayDuel(player1, player2);
 
             var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);
             if (game.Winner != null)
