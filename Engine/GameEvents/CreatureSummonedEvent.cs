@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Engine.GameEvents
+﻿namespace Engine.GameEvents
 {
     public class CreatureSummonedEvent : GameEvent
     {

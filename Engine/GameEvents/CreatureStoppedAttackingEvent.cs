@@ -1,5 +1,4 @@
 ﻿using Engine.Steps;
-using System;
 
 namespace Engine.GameEvents
 {

@@ -21,7 +21,7 @@ namespace Cards.ContinuousEffects
                 game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), GetSourceAbility(game)));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
-                    Destination = Common.ZoneType.Hand
+                    Destination = ZoneType.Hand
                 };
             }
             else

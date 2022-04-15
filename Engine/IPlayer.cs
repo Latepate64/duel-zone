@@ -26,7 +26,7 @@ namespace Engine
         void Dispose();
         void DrawCards(int amount, IGame game);
         IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game);
-        IZone GetZone(Common.ZoneType zone);
+        IZone GetZone(ZoneType zone);
         void Look(IPlayer owner, IGame game, params ICard[] cards);
         void PutFromTopOfDeckIntoManaZone(IGame game, int amount);
         void PutFromTopOfDeckIntoShieldZone(int amount, IGame game);

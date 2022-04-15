@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
             {
                 source.GetController(game).Reveal(game, cards);
             }
-            game.Move(Common.ZoneType.Deck, Common.ZoneType.Hand, cards);
+            game.Move(ZoneType.Deck, ZoneType.Hand, cards);
             if (Reveal)
             {
                 source.GetController(game)?.Unreveal(cards);

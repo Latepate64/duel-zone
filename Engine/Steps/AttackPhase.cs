@@ -1,5 +1,4 @@
 ﻿using Engine.GameEvents;
-using System;
 using System.Collections.ObjectModel;
 
 namespace Engine.Steps

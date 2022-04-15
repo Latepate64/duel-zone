@@ -1,4 +1,3 @@
-using Common.Choices;
 using Engine;
 using Engine.Zones;
 using Moq;
@@ -43,8 +42,6 @@ namespace TestEngine
             manaZone.Setup(x => x.Cards).Returns(new List<ICard>());
             player.SetupGet(x => x.ManaZone).Returns(manaZone.Object);
             player.SetupGet(x => x.Hand).Returns(Mock.Of<Hand>());
-            var decision = new Mock<IGuidDecision>();
-            decision.Setup(x => x.Decision).Returns(new List<Guid>());
             var deck = new Mock<IDeck>();
             deck.Setup(x => x.Cards).Returns(cards);
             player.SetupGet(x => x.Deck).Returns(deck.Object);

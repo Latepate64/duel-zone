@@ -186,7 +186,7 @@ namespace Engine
                 OnTopOf = Guid.Empty;
                 card.Underneath = Guid.Empty;
             }
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
+            game.Move(ZoneType.BattleZone, ZoneType.Graveyard, this);
         }
 
         public bool CanAttack(ICard targetOfAttack, IGame game)

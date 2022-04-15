@@ -14,7 +14,7 @@ namespace TestCards.TriggeredAbilities
         {
             var e = new Mock<ICardMovedEvent>();
             e.SetupGet(x => x.Card).Returns(Mock.Of<ICard>());
-            e.SetupGet(x => x.Destination).Returns(Common.ZoneType.BattleZone);
+            e.SetupGet(x => x.Destination).Returns(ZoneType.BattleZone);
             var ability = new WhenYouPutThisCreatureIntoTheBattleZoneAbility(Mock.Of<IOneShotEffect>());
             Assert.True(ability.CanTrigger(e.Object, Mock.Of<IGame>()));
         }

@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
-                Destination = Common.ZoneType.ShieldZone
+                Destination = ZoneType.ShieldZone
             };
         }
 
