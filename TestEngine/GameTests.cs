@@ -28,10 +28,10 @@ namespace TestEngine
         public void Play_NonEmptyDeck_Pass()
         {
             var game = new Game();
-            game.Play(GetPlayerMock(game), GetPlayerMock(game));
+            game.Play(GetPlayerMock(), GetPlayerMock());
         }
 
-        private static IPlayer GetPlayerMock(IGame game)
+        private static IPlayer GetPlayerMock()
         {
             List<ICard> cards = new();
             for (int i = 0; i < 40; ++i)
@@ -45,11 +45,9 @@ namespace TestEngine
             player.SetupGet(x => x.Hand).Returns(Mock.Of<Hand>());
             var decision = new Mock<IGuidDecision>();
             decision.Setup(x => x.Decision).Returns(new List<Guid>());
-            player.Setup(x => x.Choose(It.IsAny<GuidSelection>(), game)).Returns(decision.Object);
             var deck = new Mock<IDeck>();
             deck.Setup(x => x.Cards).Returns(cards);
             player.SetupGet(x => x.Deck).Returns(deck.Object);
-            //player.Object.Deck.Setup(cards, player.Object.Id);
             return player.Object;
         }
     }
