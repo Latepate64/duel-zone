@@ -1,4 +1,5 @@
 ﻿using Common.Choices;
+using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
 
@@ -16,7 +17,6 @@ namespace Engine
         bool DirectlyAttacked { get; set; }
 
         IGuidDecision Choose(GuidSelection selection, IGame game);
-        int ChooseNumber(string text, int minimum, int? maximum);
         Common.Subtype ChooseRace(params Common.Subtype[] excluded);
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         void ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
@@ -41,5 +41,6 @@ namespace Engine
         void Cast(ICard spell, IGame game);
         T Choose<T>(T choice) where T : Choices.Choice;
         bool ChooseToTakeAction(string description);
+        int ChooseNumber(NumberChoice choice);
     }
 }

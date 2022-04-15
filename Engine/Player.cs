@@ -403,7 +403,6 @@ namespace Engine
         }
 
         public abstract Subtype ChooseRace(params Subtype[] excluded);
-        public abstract int ChooseNumber(string text, int minimum, int? maximum);
         public abstract IPlayer Copy();
 
         public T Choose<T>(T choice) where T : Choices.Choice
@@ -421,6 +420,11 @@ namespace Engine
         public bool ChooseToTakeAction(string description)
         {
             return Choose(new BooleanChoice(this, description)).Choice.Value;
+        }
+
+        public int ChooseNumber(NumberChoice choice)
+        {
+            return Choose(choice).Choice.Value;
         }
         #endregion Methods
     }

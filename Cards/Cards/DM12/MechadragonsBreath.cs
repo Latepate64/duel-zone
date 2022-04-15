@@ -1,6 +1,7 @@
 ﻿using Common;
 using Engine;
 using Engine.Abilities;
+using Engine.Choices;
 
 namespace Cards.Cards.DM12
 {
@@ -16,7 +17,7 @@ namespace Cards.Cards.DM12
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var power = source.GetController(game).ChooseNumber(ToString(), 0, 6000);
+            var power = source.GetController(game).ChooseNumber(new MechadragonsBreathChoice(source.GetController(game), ToString()));
             return new OneShotEffects.DestroyAllCreaturesThatHaveExactPower(power).Apply(game, source);
         }
 
@@ -28,6 +29,22 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Choose a number less than or equal to 6000. Destroy all creatures that have that power.";
+        }
+    }
+
+    class MechadragonsBreathChoice : NumberChoice
+    {
+        public MechadragonsBreathChoice(NumberChoice choice) : base(choice)
+        {
+        }
+
+        public MechadragonsBreathChoice(Engine.IPlayer maker, string description) : base(maker, description)
+        {
+        }
+
+        public override bool IsValid()
+        {
+            return base.IsValid() && Choice <= 6000;
         }
     }
 }

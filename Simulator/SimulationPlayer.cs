@@ -34,11 +34,6 @@ namespace Simulator
             return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();
         }
 
-        public override int ChooseNumber(string text, int minimum, int? maximum)
-        {
-            return Rnd.Next(minimum, 6);
-        }
-
         public override IPlayer Copy()
         {
             return new SimulationPlayer(this);
@@ -50,6 +45,11 @@ namespace Simulator
             {
                 boolean.Choice = true;
                 return boolean as T;
+            }
+            else if (choice is NumberChoice number)
+            {
+                number.Choice = Rnd.Next(0, 6);
+                return number as T;
             }
             else
             {
