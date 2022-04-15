@@ -15,6 +15,7 @@ namespace Engine
         List<Subtype> Subtypes { get; set; }
         List<Civilization> Civilizations { get; set; }
         CardType CardType { get; set; }
+        List<Supertype> Supertypes { get; set; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);

@@ -31,6 +31,9 @@ namespace Engine
         public List<Civilization> Civilizations { get; set; } = new();
 
         public CardType CardType { get; set; }
+
+        public List<Supertype> Supertypes { get; set; } = new();
+
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
@@ -52,6 +55,7 @@ namespace Engine
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
             Subtypes = card.Subtypes?.ToList();
+            Supertypes = card.Supertypes?.ToList();
             InitializeAbilities();
         }
 
@@ -101,7 +105,7 @@ namespace Engine
             abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
         }
 
-        public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
+        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
 
         public bool IsDragon => Subtypes.Intersect(new Subtype[] { Subtype.ArmoredDragon, Subtype.EarthDragon, Subtype.VolcanoDragon, Subtype.ZombieDragon }).Any();
 
@@ -133,7 +137,7 @@ namespace Engine
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
+            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanBePaid(IPlayer player)

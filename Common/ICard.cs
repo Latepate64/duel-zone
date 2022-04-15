@@ -15,7 +15,6 @@ namespace Common
         string RulesText { get; set; }
         bool ShieldTrigger { get; set; }
         bool SummoningSickness { get; set; }
-        List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
         Guid Underneath { get; set; }
     }

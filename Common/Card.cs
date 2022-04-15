@@ -4,11 +4,6 @@ using System.Linq;
 
 namespace Common
 {
-    public enum Supertype
-    {
-        Evolution
-    }
-
     public class Card : ICard
     {
         public Card()
@@ -30,7 +25,6 @@ namespace Common
                 RulesText = card.RulesText;
                 ShieldTrigger = card.ShieldTrigger;
                 SummoningSickness = card.SummoningSickness;
-                Supertypes = card.Supertypes?.ToList();
                 Tapped = card.Tapped;
                 Underneath = card.Underneath;
             }
@@ -63,8 +57,6 @@ namespace Common
         public bool SummoningSickness { get; set; }
 
         public string RulesText { get; set; }
-
-        public List<Supertype> Supertypes { get; set; } = new();
 
         /// <summary>
         /// Id of the card this card is on top of.
