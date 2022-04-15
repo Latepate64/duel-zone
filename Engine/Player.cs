@@ -253,11 +253,10 @@ namespace Engine
 
         public bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards)
         {
-            var decision = Choose(new UseCardSelection(Id, usableCards), game).Decision;
-            if (decision.Any())
+            var cards = ChooseCards(usableCards, 0, 1, "You may use a card from your hand.");
+            if (cards.Any())
             {
-                var id = decision.Single();
-                var toUse = usableCards.Single(x => x.Id == id);
+                var toUse = cards.Single();
                 var manaCombinations = toUse.GetManaCombinations(this);
                 if (manaCombinations.Count() > 1)
                 {
@@ -430,6 +429,23 @@ namespace Engine
         public Subtype ChooseRace(string description, params Subtype[] excluded)
         {
             return Choose(new SubtypeChoice(this, description, excluded)).Choice.Value;
+        }
+
+        public IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description)
+        {
+            return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), cards.ToArray()));
+        }
+
+        private IEnumerable<ICard> ChooseCards(CardChoice choice)
+        {
+            if (choice.CanBeChosenAutomatically)
+            {
+                return choice.ChooseAutomatically();
+            }
+            else
+            {
+                return Choose(choice).Choice;
+            }
         }
         #endregion Methods
     }

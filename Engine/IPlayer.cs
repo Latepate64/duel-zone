@@ -42,5 +42,6 @@ namespace Engine
         int ChooseNumber(NumberChoice choice);
         Common.Subtype ChooseRace(string description, params Common.Subtype[] excluded);
         bool ChooseToTakeAction(string description);
+        IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
     }
 }

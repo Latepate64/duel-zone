@@ -36,7 +36,20 @@ namespace Simulator
 
         public override T ChooseAbstractly<T>(T choice)
         {
-            if (choice is BooleanChoice boolean)
+            if (choice is CardChoice card)
+            {
+                if (card.Mode is BoundedCardChoiceMode bounded)
+                {
+                    var amount = Rnd.Next(bounded.Min, bounded.Max + 1);
+                    card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
+                    return card as T;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            else if (choice is BooleanChoice boolean)
             {
                 boolean.Choice = true;
                 return boolean as T;
