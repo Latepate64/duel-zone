@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return attacker.HasSubtype(Engine.Subtype.LiquidPeople);
         }

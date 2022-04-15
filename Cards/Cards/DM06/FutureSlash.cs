@@ -28,12 +28,12 @@ namespace Cards.Cards.DM06
             return "Search your opponent's deck. Take up to 2 cards from his deck and put them into his graveyard. Then your opponent shuffles his deck.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.Move(ZoneType.Deck, ZoneType.Graveyard, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetOpponent(game).Deck.Cards;
         }

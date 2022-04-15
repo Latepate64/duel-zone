@@ -8,7 +8,7 @@ namespace Cards.ContinuousEffects
     {
         private readonly ICard[] _cards;
 
-        public ChosenCreaturesCannotBeBlockedThisTurnEffect(params Engine.ICard[] cards) : base()
+        public ChosenCreaturesCannotBeBlockedThisTurnEffect(params ICard[] cards) : base()
         {
             _cards = cards;
         }

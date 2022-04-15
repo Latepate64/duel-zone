@@ -51,7 +51,7 @@ namespace Cards.Cards.DM10
             return "Put a card from your hand into your mana zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.Cards;
         }

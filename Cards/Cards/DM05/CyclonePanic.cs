@@ -21,7 +21,7 @@ namespace Cards.Cards.DM05
             return null;
         }
 
-        private static void Apply(Engine.IPlayer player, IGame game)
+        private static void Apply(IPlayer player, IGame game)
         {
             var amount = player.Hand.Cards.Count;
             game.Move(ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());

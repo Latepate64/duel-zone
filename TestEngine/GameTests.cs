@@ -17,7 +17,7 @@ namespace TestEngine
             for (int i = 0; i < 2; ++i)
             {
                 var player = new Mock<IPlayer>();
-                player.SetupGet(x => x.Deck).Returns(new Engine.Zones.Deck());
+                player.SetupGet(x => x.Deck).Returns(new Deck());
                 players.Add(player.Object);
             }
             Assert.Throws<InvalidOperationException>(() => new Game().Play(players.First(), players.Last()));

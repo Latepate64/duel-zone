@@ -29,7 +29,7 @@ namespace Cards.Cards.DM08
             return "Untap all your creatures in the battle zone except Solar Grasses.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller).Where(x => x.Name != "Solar Grass");
         }

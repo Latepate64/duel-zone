@@ -28,7 +28,7 @@ namespace Cards.Cards.DM06
             return "Destroy all your opponent's creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.GetOpponent(game).Id);
         }

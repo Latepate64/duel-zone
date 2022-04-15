@@ -29,7 +29,7 @@ namespace Cards.Cards.DM04
             return "When you put this creature into the battle zone, search your deck. You may take a nature creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Deck.GetCreatures(Engine.Civilization.Nature);
         }

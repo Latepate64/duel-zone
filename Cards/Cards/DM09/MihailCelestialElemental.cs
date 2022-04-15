@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
             return "Whenever another creature would be destroyed, it stays in the battle zone instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return !IsSourceOfAbility(card, game);
         }

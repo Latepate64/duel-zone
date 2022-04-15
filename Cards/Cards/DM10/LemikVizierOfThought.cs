@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             return "Each of your water creatures and nature creatures in the battle zone has \"blocker.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id, Engine.Civilization.Water, Engine.Civilization.Nature);
         }

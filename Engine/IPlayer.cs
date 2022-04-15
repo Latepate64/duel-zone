@@ -37,7 +37,7 @@ namespace Engine
         void UseCard(ICard card, IGame game);
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
         void Cast(ICard spell, IGame game);
-        T Choose<T>(T choice) where T : Choices.Choice;
+        T Choose<T>(T choice) where T : Choice;
         int ChooseNumber(NumberChoice choice);
         Subtype ChooseRace(string description, params Subtype[] excluded);
         bool ChooseToTakeAction(string description);

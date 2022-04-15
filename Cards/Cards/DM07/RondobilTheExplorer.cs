@@ -28,7 +28,7 @@ namespace Cards.Cards.DM07
             return "Add one of your creatures from the battle zone to your shields face down.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller);
         }

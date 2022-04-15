@@ -58,12 +58,12 @@ namespace Cards.Cards.DM06
             return "Return any number of your creatures from the battle zone to your hand.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller);
         }
@@ -93,7 +93,7 @@ namespace Cards.Cards.DM06
             return $"Choose {_amount} of your opponent's creatures in the battle zone and return them to your opponent's hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return creature.IsDragon;
         }

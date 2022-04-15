@@ -29,7 +29,7 @@ namespace Cards.Cards.DM08
             return "Your opponent may choose a creature in his hand and put it into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetOpponent(game).Hand.Creatures;
         }

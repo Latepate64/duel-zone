@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
             return $"{(_maximum == 1 ? "You may put a card" : $"Put up to {_maximum}")} from your hand into your mana zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.Cards;
         }

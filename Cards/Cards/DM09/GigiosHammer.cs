@@ -51,7 +51,7 @@ namespace Cards.Cards.DM09
             game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return creature.HasSubtype(_subtype);
         }

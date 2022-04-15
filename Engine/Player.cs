@@ -381,7 +381,7 @@ namespace Engine
         
         public abstract IPlayer Copy();
 
-        public T Choose<T>(T choice) where T : Choices.Choice
+        public T Choose<T>(T choice) where T : Choice
         {
             T choiceMade; 
             do
@@ -391,7 +391,7 @@ namespace Engine
             return choiceMade;
         }
 
-        public abstract T ChooseAbstractly<T>(T choice) where T : Choices.Choice;
+        public abstract T ChooseAbstractly<T>(T choice) where T : Choice;
 
         public bool ChooseToTakeAction(string description)
         {

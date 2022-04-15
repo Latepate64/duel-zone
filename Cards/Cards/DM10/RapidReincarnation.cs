@@ -53,7 +53,7 @@ namespace Cards.Cards.DM10
             return "You may destroy one of your creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller);
         }
@@ -75,7 +75,7 @@ namespace Cards.Cards.DM10
             return "Choose a creature in your hand that costs the same as or less than the number of cards in your mana zone and put it into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.Creatures.Where(x => x.ManaCost <= source.GetController(game).ManaZone.Cards.Count);
         }

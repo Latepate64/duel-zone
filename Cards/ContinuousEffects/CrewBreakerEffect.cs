@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
             
         }
 
-        public abstract int GetAmount(IGame game, Engine.ICard creature);
+        public abstract int GetAmount(IGame game, ICard creature);
     }
 
     class CrewBreakerSubtypeEffect : CrewBreakerEffect
@@ -37,7 +37,7 @@ namespace Cards.ContinuousEffects
             return $"Crew breaker - {_subtype}";
         }
 
-        public override int GetAmount(IGame game, Engine.ICard creature)
+        public override int GetAmount(IGame game, ICard creature)
         {
             var ability = GetSourceAbility(game);
             return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype)) : 1;

@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             return "Return all tapped cards from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).ManaZone.TappedCards;
         }

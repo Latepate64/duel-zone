@@ -24,11 +24,11 @@ namespace Cards.OneShotEffects
         }
     }
 
-    class ScreamSlicerShadowOfFearDestroyEffect : OneShotEffects.DestroyEffect
+    class ScreamSlicerShadowOfFearDestroyEffect : DestroyEffect
     {
         private readonly ICard[] _cards;
 
-        public ScreamSlicerShadowOfFearDestroyEffect(params Engine.ICard[] cards) : base(1, 1, true)
+        public ScreamSlicerShadowOfFearDestroyEffect(params ICard[] cards) : base(1, 1, true)
         {
             _cards = cards;
         }

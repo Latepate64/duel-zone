@@ -38,7 +38,7 @@ namespace Cards.Cards.DM02
     {
         private readonly Guid _controller;
 
-        public RumbleGateContinuousEffect(System.Guid controller) : base()
+        public RumbleGateContinuousEffect(Guid controller) : base()
         {
             _controller = controller;
         }
@@ -48,7 +48,7 @@ namespace Cards.Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return attacker.Owner == _controller && attacker.CanAttackCreatures(game);
         }

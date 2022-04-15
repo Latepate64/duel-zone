@@ -23,7 +23,7 @@ namespace Cards.Cards.DM10
                 game.Move(ZoneType.Hand, ZoneType.ManaZone, card);
                 new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
             }
-            source.GetOpponent(game).Unreveal(new List<Engine.ICard> { card });
+            source.GetOpponent(game).Unreveal(new List<ICard> { card });
             return card;
         }
 

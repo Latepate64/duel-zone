@@ -72,7 +72,7 @@ namespace Cards.Cards.DM01
             return "Destroy 2 of your other creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }

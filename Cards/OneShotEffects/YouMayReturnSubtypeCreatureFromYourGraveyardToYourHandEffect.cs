@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
                 $"Return up to {Maximum} {_subtype}s from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Graveyard.GetCreatures(_subtype);
         }

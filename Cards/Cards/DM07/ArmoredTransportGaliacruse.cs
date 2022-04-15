@@ -38,7 +38,7 @@ namespace Cards.Cards.DM07
             return "Each of your fire creatures gets \"This creature can attack untapped creatures\" until the end of the turn.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller, Engine.Civilization.Fire);
         }

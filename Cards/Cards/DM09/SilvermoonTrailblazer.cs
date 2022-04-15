@@ -45,7 +45,7 @@ namespace Cards.Cards.DM09
             _subtype = subtype;
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return attacker.HasSubtype(_subtype) && blocker.Power <= 3000;
         }

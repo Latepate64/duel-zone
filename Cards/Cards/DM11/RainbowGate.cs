@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
             return "Search your deck. You may take a multi-colored creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Deck.Creatures.Where(x => x.IsMultiColored);
         }

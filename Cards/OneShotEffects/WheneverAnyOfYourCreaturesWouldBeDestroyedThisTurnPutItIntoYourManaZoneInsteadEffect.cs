@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
     {
         private readonly Guid _controller;
 
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(System.Guid controller) : base()
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(Guid controller) : base()
         {
             _controller = controller;
         }
@@ -65,7 +65,7 @@ namespace Cards.OneShotEffects
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return card.Owner == _controller;
         }

@@ -29,7 +29,7 @@ namespace Cards.Cards.DM12
             return "You may return a water or fire creature from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Graveyard.Creatures.Where(x => x.HasCivilization(Engine.Civilization.Water, Engine.Civilization.Fire));
         }

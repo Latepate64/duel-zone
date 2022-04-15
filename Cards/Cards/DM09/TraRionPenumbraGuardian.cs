@@ -60,7 +60,7 @@ namespace Cards.Cards.DM09
             return $"Untap all ${_subtype}s in the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(_subtype);
         }

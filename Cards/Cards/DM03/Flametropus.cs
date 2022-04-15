@@ -45,7 +45,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public FlametropusContinuousEffect(Engine.ICard card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(ICard card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 
@@ -76,7 +76,7 @@ namespace Cards.Cards.DM03
             return "You may put a card from your mana zone into your graveyard.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.GetPlayer(source.Controller).ManaZone.Cards;
         }

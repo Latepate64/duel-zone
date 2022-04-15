@@ -61,7 +61,7 @@ namespace Cards.Cards.DM12
             return $"Destroy {amount} of your opponent's creatures in the battle zone that have power 3000 or less.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 3000);
         }

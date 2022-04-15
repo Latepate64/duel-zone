@@ -29,7 +29,7 @@ namespace Cards.Cards.DM12
             return "Return all your other creatures from the battle zone to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }

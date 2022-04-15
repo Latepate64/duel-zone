@@ -28,9 +28,9 @@ namespace Cards.Cards.DM08
             return "This creature gets +5000 power and has \"double breaker\".";
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return new List<Engine.ICard> { GetSourceCard(game) };
+            return new List<ICard> { GetSourceCard(game) };
         }
     }
 }

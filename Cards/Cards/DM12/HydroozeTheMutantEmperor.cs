@@ -41,7 +41,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasSubtype(Engine.Subtype.CyberLord) || attacker.HasSubtype(Engine.Subtype.Hedrian));
         }

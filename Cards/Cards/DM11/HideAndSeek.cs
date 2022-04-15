@@ -52,7 +52,7 @@ namespace Cards.Cards.DM11
             return "Choose one of your opponent's non-evolution creatures in the battle zone and return it to his hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => !x.IsEvolutionCreature);
         }

@@ -54,12 +54,12 @@ namespace Cards.Cards.DM09
             return $"You may put any number of {_subtype}s from your hand into your mana zone.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             game.Move(ZoneType.Hand, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.GetCreatures(_subtype);
         }

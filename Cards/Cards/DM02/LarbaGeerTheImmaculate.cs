@@ -30,7 +30,7 @@ namespace Cards.Cards.DM02
             return "Tap all your opponent's creatures in the battle zone that have \"blocker.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(game.GetOpponent(source.Controller)).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }

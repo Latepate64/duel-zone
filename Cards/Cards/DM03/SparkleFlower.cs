@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
+        public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
             return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Engine.Civilization.Light));
         }

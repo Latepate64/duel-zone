@@ -65,12 +65,12 @@ namespace Cards.Cards.DM09
             return $"Whenever one of your {_subtype}s would be destroyed this turn, return it to your hand instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return card.Owner == GetController(game).Id && card.HasSubtype(_subtype);
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id, _subtype).ToList();
         }

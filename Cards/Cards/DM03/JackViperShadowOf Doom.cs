@@ -28,7 +28,7 @@ namespace Cards.Cards.DM03
             return "Whenever another of your darkness creatures would be put into your graveyard from the battle zone, you may return it to your hand instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return !IsSourceOfAbility(card, game) && card.Owner == GetController(game).Id && card.HasCivilization(Engine.Civilization.Darkness);
         }

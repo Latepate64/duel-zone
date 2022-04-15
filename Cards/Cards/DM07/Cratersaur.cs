@@ -27,7 +27,7 @@ namespace Cards.Cards.DM07
             }
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return YouHaveNoShields(game) && IsSourceOfAbility(attacker, game);
         }
