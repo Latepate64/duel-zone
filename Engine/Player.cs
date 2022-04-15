@@ -247,11 +247,6 @@ namespace Engine
             };
         }
 
-        public Common.IPlayer Copy()
-        {
-            return Convert();
-        }
-
         private void ChooseCardsToPayManaCost(IGame game, ICard toUse)
         {
             var manaDecision = Choose(new PaymentSelection(Id, ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost), game).Decision.Select(x => game.GetCard(x));
@@ -424,6 +419,7 @@ namespace Engine
 
         public abstract Subtype ChooseRace(params Subtype[] excluded);
         public abstract int ChooseNumber(string text, int minimum, int? maximum);
+        public abstract IPlayer Copy();
         #endregion Methods
     }
 }

@@ -17,7 +17,8 @@ namespace Engine
         /// <summary>
         /// Players who are still in the game.
         /// </summary>
-        public IList<IPlayer> Players { get; } = new List<IPlayer>(); //TODO: Should be reworked to return players in APNAP order, or make method for that.
+        //TODO: Should be reworked to return players in APNAP order, or make method for that.
+        public IEnumerable<IPlayer> Players => State.Players;
 
         public IPlayer Winner { get; private set; }
 
@@ -87,8 +88,10 @@ namespace Engine
         /// <summary>
         /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
         /// </summary>
-        public IBattleZone BattleZone { get; set; } = new BattleZone();
+        public IBattleZone BattleZone => State.BattleZone;
         public SpellStack SpellStack { get; } = new SpellStack();
+        public IGameState State { get; set; }
+        public Queue<IGameState> States { get; } = new();
 
         public delegate void GameEventHandler(IGameEvent gameEvent);
 
@@ -111,7 +114,8 @@ namespace Engine
             //}
             Turns = game.Turns.Select(x => new Turn(x)).Cast<ITurn>().ToList();
             _continuousEffects = game._continuousEffects.Select(x => x.Copy()).ToList();
-            BattleZone = new BattleZone(game.BattleZone);
+            State = State.Copy();
+            States = new Queue<IGameState>(States.Select(x => x.Copy()));
         }
 
         public override string ToString()
@@ -138,7 +142,6 @@ namespace Engine
                 {
                     x.Dispose();
                 }
-                Players.Clear();
                 foreach (var x in _delayedTriggeredAbilities)
                 {
                     x.Dispose();
@@ -154,8 +157,6 @@ namespace Engine
                     x.Dispose();
                 }
                 _continuousEffects.Clear();
-                BattleZone?.Dispose();
-                BattleZone = null;
             }
         }
 
@@ -166,8 +167,7 @@ namespace Engine
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
             // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
-            Players.Add(startingPlayer);
-            Players.Add(otherPlayer);
+            State = new GameState(startingPlayer, otherPlayer);
 
             foreach (var card in GetAllCards())
             {
@@ -390,7 +390,7 @@ namespace Engine
             
             // 104.2a A player still in the game wins the game if that player’s opponents have all left the game.
             // This happens immediately and overrides all effects that would preclude that player from winning the game.
-            if (Players.Count == 1)
+            if (Players.Count() == 1)
             {
                 Win(Players.Single());
             }
@@ -408,7 +408,7 @@ namespace Engine
             //TODO: Event
             //Process(new WinEvent { Player = player.Copy() });
 
-            Leave(player);
+            Leave(player); //TODO: Winner shouldn't leave?
         }
 
         private void Leave(IPlayer player)
@@ -420,8 +420,7 @@ namespace Engine
             // 800.4a If that player controlled any objects on the stack not represented by cards, those objects cease to exist.
             // TODO: Commented for time being, consider alternative design to avoid exceptions
             //_ = CurrentTurn.CurrentPhase.PendingAbilities.RemoveAll(x => x.Controller == player.Id);
-
-            _ = Players.Remove(player);
+            State.Players.Remove(player);
         }
 
         public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
@@ -452,6 +451,7 @@ namespace Engine
                     group.Key
             );
             finalEvents.ToList().ForEach(x => ProcessEvent(x));
+            States.Enqueue(State.Copy());
             return finalEvents;
         }
 

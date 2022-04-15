@@ -9,12 +9,14 @@ namespace Engine
 {
     public interface IGame
     {
-        IList<IPlayer> Players { get; }
-        IBattleZone BattleZone { get; set; }
+        IEnumerable<IPlayer> Players { get; }
+        IBattleZone BattleZone { get; }
         IList<ITurn> Turns { get; }
         ITurn CurrentTurn { get; }
         Queue<IGameEvent> PreGameEvents { get; }
         Stack<ITurn> ExtraTurns { get; }
+        IGameState State { get; }
+        Queue<IGameState> States { get; }
 
         /// <summary>
         /// 104.1. A game ends immediately when a player wins, when the game is a draw, or when the game is restarted.

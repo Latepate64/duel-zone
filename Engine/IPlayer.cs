@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    public interface IPlayer : Common.IPlayer, IAttackable
+    public interface IPlayer : Common.IPlayer, IAttackable, ICopyable<IPlayer>
     {
         IDeck Deck { get; }
         IEnumerable<ICard> CardsInNonsharedZones { get; }
@@ -24,7 +24,6 @@ namespace Engine
         void Discard(IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
         Common.IPlayer Convert();
-        Common.IPlayer Copy();
         void DiscardAtRandom(IGame game, int amount);
         void Unreveal(IEnumerable<ICard> cards);
         void Dispose();

@@ -128,7 +128,7 @@ namespace Simulator
         private static int GetPointsForGameOver(Game game, Engine.Player player, Engine.Player opponent, int numberOfChoicesMade)
         {
             const int GameOverPoints = 9999999;
-            if (game.Players.Count < 2)
+            if (game.Players.Count() < 2)
             {
                 return (game.Losers.Select(x => x.Id).Contains(opponent.Id) ? 1 : -1) * GameOverPoints / numberOfChoicesMade;
             }

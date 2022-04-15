@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Engine.Zones
 {
-    public interface IBattleZone : IZone
+    public interface IBattleZone : IZone, ICopyable<IBattleZone>
     {
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner);
         IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);

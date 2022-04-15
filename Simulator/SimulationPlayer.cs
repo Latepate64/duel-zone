@@ -42,5 +42,10 @@ namespace Simulator
         {
             return Rnd.Next(minimum, 6);
         }
+
+        public override IPlayer Copy()
+        {
+            return new SimulationPlayer(this);
+        }
     }
 }
