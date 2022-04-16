@@ -1,6 +1,6 @@
 ﻿namespace Engine.GameEvents
 {
-    public sealed class BreakShieldsEvent : MightBreakShieldsEvents
+    public sealed class BreakShieldsEvent : MightBreakShieldsEvent
     {
         public BreakShieldsEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
         {
@@ -19,12 +19,12 @@
         }
     }
 
-    public abstract class MightBreakShieldsEvents : GameEvent
+    public abstract class MightBreakShieldsEvent : GameEvent
     {
         public ICard Attacker { get; }
         public int BreakAmount { get; }
 
-        protected MightBreakShieldsEvents(ICard attacker, int breakAmount)
+        protected MightBreakShieldsEvent(ICard attacker, int breakAmount)
         {
             Attacker = attacker;
             BreakAmount = breakAmount;

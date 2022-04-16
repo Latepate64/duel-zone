@@ -47,7 +47,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class BolmeteusEvent : MightBreakShieldsEvents
+    class BolmeteusEvent : MightBreakShieldsEvent
     {
         public BolmeteusEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
         {
