@@ -60,7 +60,14 @@ namespace Engine.Steps
         {
             if (Phase.BlockingCreature != null)
             {
-                return new BattleStep(Phase);
+                if (!game.GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(Phase.AttackingCreature, Phase.BlockingCreature, game)))
+                {
+                    return new BattleStep(Phase);
+                }
+                else
+                {
+                    return new EndOfAttackStep(Phase);
+                }
             }
             else if (Phase.AttackTarget is ICard)
             {
