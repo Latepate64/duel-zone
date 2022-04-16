@@ -24,7 +24,7 @@ namespace Engine.GameEvents
         }
 
         public ICard Card { get; set; }
-        public Guid CardInSourceZone { get; }
+        public Guid CardInSourceZone { get; set; }
         public ZoneType Destination { get; set; }
         public bool EntersTapped { get; set; }
         public IPlayer Player { get; }
