@@ -8,7 +8,7 @@ namespace Engine.GameEvents
         Guid CardInSourceZone { get; }
         ZoneType Source { get; }
         ZoneType Destination { get; }
-        bool EntersTapped { get; }
+        bool EntersTapped { get; set; }
         ICard Card { get; set; }
     }
 }
