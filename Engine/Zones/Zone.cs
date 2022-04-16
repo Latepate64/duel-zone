@@ -14,8 +14,11 @@ namespace Engine.Zones
         public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
         public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
 
-        protected Zone()
+        public ZoneType Type { get; }
+
+        protected Zone(ZoneType type)
         {
+            Type = type;
         }
 
         protected Zone(IZone zone)

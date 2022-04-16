@@ -12,7 +12,7 @@ namespace Engine.Zones
     /// </summary>
     public class BattleZone : Zone, IBattleZone
     {
-        public BattleZone() : base()
+        public BattleZone() : base(ZoneType.BattleZone)
         {
         }
 

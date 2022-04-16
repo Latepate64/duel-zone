@@ -8,6 +8,7 @@ namespace Engine.Zones
         List<ICard> Cards { get; }
         IEnumerable<ICard> Creatures { get; }
         IEnumerable<ICard> Spells { get; }
+        ZoneType Type { get; }
 
         void Add(ICard card, IGame game);
         void Dispose();

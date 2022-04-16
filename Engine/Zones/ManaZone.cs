@@ -9,7 +9,7 @@ namespace Engine.Zones
     /// </summary>
     public class ManaZone : Zone, IManaZone
     {
-        public ManaZone() : base() { }
+        public ManaZone() : base(ZoneType.ManaZone) { }
 
         public ManaZone(IManaZone zone) : base(zone)
         {

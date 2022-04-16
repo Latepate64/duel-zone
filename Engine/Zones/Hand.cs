@@ -8,7 +8,7 @@ namespace Engine.Zones
     /// </summary>
     public class Hand : Zone
     {
-        public Hand() : base() { }
+        public Hand() : base(ZoneType.Hand) { }
 
         public Hand(Zone zone) : base(zone)
         {

@@ -9,7 +9,7 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
-        public Deck() : base() { }
+        public Deck() : base(ZoneType.Deck) { }
 
         public Deck(IDeck zone) : base(zone)
         {
