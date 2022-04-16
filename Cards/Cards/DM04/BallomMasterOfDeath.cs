@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class BallomMasterOfDeath : EvolutionCreature
     {
-        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Subtype.DemonCommand, Civilization.Darkness)
+        public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Race.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect());
             AddDoubleBreakerAbility();

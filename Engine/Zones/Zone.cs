@@ -44,9 +44,9 @@ namespace Engine.Zones
 
         public abstract override string ToString();
 
-        public IEnumerable<ICard> GetCreatures(Subtype subtype)
+        public IEnumerable<ICard> GetCreatures(Race race)
         {
-            return Creatures.Where(x => x.HasSubtype(subtype));
+            return Creatures.Where(x => x.HasRace(race));
         }
 
         public IEnumerable<ICard> GetCards(Civilization civilization)

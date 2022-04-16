@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class LavaWalkerExecuto : EvolutionCreature
     {
-        public LavaWalkerExecuto() : base("Lava Walker Executo", 4, 5000, Subtype.Dragonoid, Civilization.Fire)
+        public LavaWalkerExecuto() : base("Lava Walker Executo", 4, 5000, Race.Dragonoid, Civilization.Fire)
         {
             AddStaticAbilities(new TapAbilityAddingEffect(Civilization.Fire, new LavaWalkerExecutoEffect(3000)));
         }

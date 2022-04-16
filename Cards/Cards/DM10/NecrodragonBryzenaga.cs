@@ -5,7 +5,7 @@ namespace Cards.Cards.DM10
 {
     class NecrodragonBryzenaga : Creature
     {
-        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Race.ZombieDragon, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect());
             AddDoubleBreakerAbility();

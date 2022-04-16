@@ -6,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class BrigadeShellQ : Creature
     {
-        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Subtype.Survivor, Subtype.ColonyBeetle, Civilization.Nature)
+        public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, Race.Survivor, Race.ColonyBeetle, Civilization.Nature)
         {
             AddSurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new BrigadeShellQEffect()));
         }
@@ -19,7 +19,7 @@ namespace Cards.Cards.Promo
             var cards = source.GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
             if (cards.Length == 1)
             {
-                if (cards.Single().HasSubtype(Subtype.Survivor))
+                if (cards.Single().HasRace(Race.Survivor))
                 {
                     game.Move(ZoneType.Deck, ZoneType.Hand, cards);
                 }

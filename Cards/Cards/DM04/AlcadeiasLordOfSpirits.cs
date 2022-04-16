@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class AlcadeiasLordOfSpirits : EvolutionCreature
     {
-        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Subtype.AngelCommand, Civilization.Light)
+        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Race.AngelCommand, Civilization.Light)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new AlcadeiasLordOfSpiritsEffect());

@@ -2,7 +2,7 @@
 {
     class Gigabuster : Creature
     {
-        public Gigabuster() : base("Gigabuster", 5, 5000, Engine.Subtype.Chimera, Engine.Civilization.Darkness)
+        public Gigabuster() : base("Gigabuster", 5, 5000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect());

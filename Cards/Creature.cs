@@ -9,29 +9,29 @@ namespace Cards
     abstract class Creature : CardImplementation
     {
         /// <summary>
-        /// This constructor should be used for cards with one subtype.
+        /// This constructor should be used for cards with one race.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
         /// <param name="power"></param>
         /// <param name="race"></param>
         /// <param name="civilizations"></param>
-        protected Creature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
+        protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
         {
-            SetPrintedSubtypes(race);
+            SetPrintedRaces(race);
         }
 
-        protected Creature(string name, int manaCost, int power, Subtype race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
+        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
         {
-            SetPrintedSubtypes(race1, race2);
+            SetPrintedRaces(race1, race2);
         }
 
         /// <summary>
-        /// This constructor should be used for multicolored cards. Add subtypes for the card in the constructor of the inheritor.
+        /// This constructor should be used for multicolored cards. Add races for the card in the constructor of the inheritor.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
@@ -41,9 +41,9 @@ namespace Cards
             Power = power;
         }
 
-        protected Creature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
         {
-            SetPrintedSubtypes(race1, race2);
+            SetPrintedRaces(race1, race2);
         }
 
         #region Static abilities
@@ -148,7 +148,7 @@ namespace Cards
 
     class TurboRushCreature : Creature
     {
-        public TurboRushCreature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
+        public TurboRushCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
         {
         }
 
@@ -165,11 +165,11 @@ namespace Cards
 
     class SilentSkillCreature : Creature
     {
-        public SilentSkillCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        public SilentSkillCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
         {
         }
 
-        public SilentSkillCreature(string name, int manaCost, int power, Subtype race, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race, civilization1, civilization2)
+        public SilentSkillCreature(string name, int manaCost, int power, Race race, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race, civilization1, civilization2)
         {
         }
 
@@ -181,7 +181,7 @@ namespace Cards
 
     class WaveStrikerCreature : Creature
     {
-        public WaveStrikerCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        public WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
         {
         }
 

@@ -2,7 +2,7 @@
 {
     class CandyCluster : Creature
     {
-        public CandyCluster() : base("Candy Cluster", 3, 1000, Engine.Subtype.CyberCluster, Engine.Civilization.Water)
+        public CandyCluster() : base("Candy Cluster", 3, 1000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
             AddThisCreatureCannotBeBlockedAbility();
         }

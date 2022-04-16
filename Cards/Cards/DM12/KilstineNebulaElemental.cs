@@ -8,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class KilstineNebulaElemental : WaveStrikerCreature
     {
-        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Subtype.AngelCommand, Civilization.Light)
+        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Race.AngelCommand, Civilization.Light)
         {
             AddWaveStrikerAbility(new KilstineNebulaElementalEffect());
         }

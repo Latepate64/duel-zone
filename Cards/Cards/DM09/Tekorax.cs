@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class Tekorax : Creature
     {
-        public Tekorax() : base("Tekorax", 5, 3000, Subtype.SeaHacker, Civilization.Water)
+        public Tekorax() : base("Tekorax", 5, 3000, Race.SeaHacker, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TekoraxEffect());
         }

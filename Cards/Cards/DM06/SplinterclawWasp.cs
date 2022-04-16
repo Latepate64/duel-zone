@@ -2,7 +2,7 @@
 {
     class SplinterclawWasp : Creature
     {
-        public SplinterclawWasp() : base("Splinterclaw Wasp", 7, 4000, Engine.Subtype.GiantInsect, Engine.Civilization.Nature)
+        public SplinterclawWasp() : base("Splinterclaw Wasp", 7, 4000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
             AddPowerAttackerAbility(3000);
             AddDoubleBreakerAbility();

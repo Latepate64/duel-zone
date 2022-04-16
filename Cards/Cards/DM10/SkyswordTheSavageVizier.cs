@@ -5,7 +5,7 @@ namespace Cards.Cards.DM10
 {
     class SkyswordTheSavageVizier : Creature
     {
-        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Subtype.BeastFolk, Subtype.Initiate, Civilization.Light, Civilization.Nature)
+        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Race.BeastFolk, Race.Initiate, Civilization.Light, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SkyswordTheSavageVizierEffect());
         }

@@ -2,7 +2,7 @@
 {
     class Aeropica : Creature
     {
-        public Aeropica() : base("Aeropica", 7, 4000, Engine.Subtype.SeaHacker, Engine.Civilization.Water)
+        public Aeropica() : base("Aeropica", 7, 4000, Engine.Race.SeaHacker, Engine.Civilization.Water)
         {
             AddTapAbility(new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect());
         }

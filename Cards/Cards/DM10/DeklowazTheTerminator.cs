@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class DeklowazTheTerminator : Creature
     {
-        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Subtype.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
+        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
         {
             AddTapAbility(new DeklowazTheTerminatorEffect());
         }

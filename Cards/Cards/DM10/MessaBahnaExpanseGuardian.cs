@@ -2,7 +2,7 @@
 {
     class MessaBahnaExpanseGuardian : Creature
     {
-        public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Engine.Subtype.Guardian, Engine.Civilization.Light)
+        public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddStaticAbilities(new ContinuousEffects.ThisCreatureBlocksIfAble());

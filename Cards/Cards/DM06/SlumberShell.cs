@@ -2,7 +2,7 @@
 {
     class SlumberShell : Creature
     {
-        public SlumberShell() : base("Slumber Shell", 2, 2000, Engine.Subtype.ColonyBeetle, Engine.Civilization.Nature)
+        public SlumberShell() : base("Slumber Shell", 2, 2000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {
         }
     }

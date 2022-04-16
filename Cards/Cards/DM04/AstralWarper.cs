@@ -2,7 +2,7 @@
 {
     class AstralWarper : EvolutionCreature
     {
-        public AstralWarper() : base("Astral Warper", 6, 5000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
+        public AstralWarper() : base("Astral Warper", 6, 5000, Engine.Race.CyberVirus, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardsEffect(3));
         }

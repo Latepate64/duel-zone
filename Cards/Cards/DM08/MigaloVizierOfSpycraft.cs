@@ -7,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MigaloVizierOfSpycraft : TurboRushCreature
     {
-        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Subtype.Initiate, Civilization.Light)
+        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Race.Initiate, Civilization.Light)
         {
             AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new MigaloVizierOfSpycraftEffect()));
         }

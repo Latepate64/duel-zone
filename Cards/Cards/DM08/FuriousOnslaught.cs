@@ -20,7 +20,7 @@ namespace Cards.Cards.DM08
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(source.Controller, Subtype.Dragonoid).ToList()));
+            game.AddContinuousEffects(source, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(source.Controller, Race.Dragonoid).ToList()));
             return null;
         }
 
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, ISubtypeAddingEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRaceAddingEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         private readonly List<ICard> _cards;
 
@@ -54,9 +54,9 @@ namespace Cards.Cards.DM08
             _cards.ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
         }
 
-        public void AddSubtype(IGame game)
+        public void AddRace(IGame game)
         {
-            _cards.ForEach(x => x.AddGrantedSubtype(Subtype.ArmoredDragon));
+            _cards.ForEach(x => x.AddGrantedRace(Race.ArmoredDragon));
         }
 
         public override IContinuousEffect Copy()

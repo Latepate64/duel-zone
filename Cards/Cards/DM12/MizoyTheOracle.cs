@@ -2,7 +2,7 @@
 {
     class MizoyTheOracle : Creature
     {
-        public MizoyTheOracle() : base("Mizoy, the Oracle", 3, 2500, Engine.Subtype.LightBringer, Engine.Civilization.Light)
+        public MizoyTheOracle() : base("Mizoy, the Oracle", 3, 2500, Engine.Race.LightBringer, Engine.Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect());
         }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class ArmoredBlasterValdios : EvolutionCreature
     {
-        public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Subtype.Human, Civilization.Fire)
+        public ArmoredBlasterValdios() : base("Armored Blaster Valdios", 4, 6000, Race.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredBlasterValdiosEffect());
             AddDoubleBreakerAbility();
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM02
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.Human)).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasRace(Race.Human)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

@@ -4,7 +4,7 @@ namespace Cards.Cards.DM06
 {
     class VileMulderWingOfTheVoid : Creature
     {
-        public VileMulderWingOfTheVoid() : base("Vile Mulder, Wing of the Void", 4, 7000, Engine.Subtype.DemonCommand, Engine.Civilization.Darkness)
+        public VileMulderWingOfTheVoid() : base("Vile Mulder, Wing of the Void", 4, 7000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
             AddDoubleBreakerAbility();

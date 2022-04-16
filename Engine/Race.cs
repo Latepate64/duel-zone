@@ -1,6 +1,6 @@
 ﻿namespace Engine
 {
-    public enum Subtype
+    public enum Race
     {
         AngelCommand,
         ArmoredDragon,

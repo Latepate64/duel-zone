@@ -2,7 +2,7 @@
 {
     class AcidRefluxTheFleshboiler : Creature
     {
-        public AcidRefluxTheFleshboiler() : base("Acid Reflux, the Fleshboiler", 5, 3000, Engine.Subtype.DevilMask, Engine.Civilization.Darkness)
+        public AcidRefluxTheFleshboiler() : base("Acid Reflux, the Fleshboiler", 5, 3000, Engine.Race.DevilMask, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

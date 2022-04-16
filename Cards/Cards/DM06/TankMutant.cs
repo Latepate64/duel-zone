@@ -2,7 +2,7 @@
 {
     class TankMutant : Creature
     {
-        public TankMutant() : base("Tank Mutant", 9, 6000, Engine.Subtype.Hedrian, Engine.Civilization.Darkness)
+        public TankMutant() : base("Tank Mutant", 9, 6000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
             AddTapAbility(new OneShotEffects.OpponentSacrificeEffect());
         }

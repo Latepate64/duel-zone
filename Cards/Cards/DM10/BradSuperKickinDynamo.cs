@@ -2,7 +2,7 @@
 {
     class BradSuperKickinDynamo : SilentSkillCreature
     {
-        public BradSuperKickinDynamo() : base("Brad, Super Kickin' Dynamo", 3, 2000, Engine.Subtype.Human, Engine.Civilization.Fire)
+        public BradSuperKickinDynamo() : base("Brad, Super Kickin' Dynamo", 3, 2000, Engine.Race.Human, Engine.Civilization.Fire)
         {
             AddSilentSkillAbility(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect());
         }

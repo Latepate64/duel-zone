@@ -15,7 +15,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.YouMayReturnSubtypeCreatureFromYourGraveyardToYourHandEffect(source.GetController(game).ChooseRace(ToString()), 3).Apply(game, source);
+            return new OneShotEffects.YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(source.GetController(game).ChooseRace(ToString()), 3).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

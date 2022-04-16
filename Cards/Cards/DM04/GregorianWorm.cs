@@ -2,7 +2,7 @@
 {
     class GregorianWorm : Creature
     {
-        public GregorianWorm() : base("Gregorian Worm", 4, 3000, Engine.Subtype.ParasiteWorm, Engine.Civilization.Darkness)
+        public GregorianWorm() : base("Gregorian Worm", 4, 3000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
         }

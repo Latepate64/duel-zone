@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class TerradragonAnristVhal : Creature
     {
-        public TerradragonAnristVhal() : base("Terradragon Anrist Vhal", 6, 0, Subtype.EarthDragon, Civilization.Nature)
+        public TerradragonAnristVhal() : base("Terradragon Anrist Vhal", 6, 0, Race.EarthDragon, Civilization.Nature)
         {
             AddStaticAbilities(new TerradragonAnristVhalEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }

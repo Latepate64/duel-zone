@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class BaraidTheExplorer : SilentSkillCreature
     {
-        public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000, Subtype.Gladiator, Civilization.Light)
+        public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000, Race.Gladiator, Civilization.Light)
         {
             AddSilentSkillAbility(new BaraidTheExplorerEffect());
         }

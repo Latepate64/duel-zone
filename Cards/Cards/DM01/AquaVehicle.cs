@@ -2,7 +2,7 @@
 {
     class AquaVehicle : Creature
     {
-        public AquaVehicle() : base("Aqua Vehicle", 2, 1000, Engine.Subtype.LiquidPeople, Engine.Civilization.Water)
+        public AquaVehicle() : base("Aqua Vehicle", 2, 1000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {
         }
     }

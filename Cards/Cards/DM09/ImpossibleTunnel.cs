@@ -34,21 +34,21 @@ namespace Cards.Cards.DM09
 
     class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
         public ImpossibleTunnelContinuousEffect(ImpossibleTunnelContinuousEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
-        public ImpossibleTunnelContinuousEffect(Subtype subtype) : base()
+        public ImpossibleTunnelContinuousEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).Contains(attacker);
+            return game.BattleZone.Creatures.Where(x => x.HasRace(_race)).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()
@@ -58,7 +58,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"{_subtype}s can't be blocked this turn.";
+            return $"{_race}s can't be blocked this turn.";
         }
     }
 }

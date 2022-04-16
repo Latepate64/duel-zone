@@ -78,7 +78,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner && (card.HasSubtype(Subtype.Dragonoid) || card.IsDragon);
+            return Controller == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
         }
     }
 
@@ -124,33 +124,33 @@ namespace Cards.TriggeredAbilities
         }
     }
 
-    class WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility ability) : base(ability)
+        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
         {
-            _subtype = ability._subtype;
+            _race = ability._race;
         }
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect)
+        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race race, IOneShotEffect effect) : base(effect)
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public override IAbility Copy()
         {
-            return new WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(this);
+            return new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(this);
         }
 
         public override string ToString()
         {
-            return $"Whenever you put a {_subtype} into the battle zone, {GetEffectText()}";
+            return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
         }
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner && card.HasSubtype(_subtype);
+            return Controller == card.Owner && card.HasRace(_race);
         }
     }
 }

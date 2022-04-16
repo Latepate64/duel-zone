@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class IllusionaryMerfolk : Creature
     {
-        public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Subtype.GelFish, Civilization.Water)
+        public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Race.GelFish, Civilization.Water)
         {
             AddTriggeredAbility(new IllusionaryMerfolkAbility());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM01
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller).Any(x => x.HasSubtype(Subtype.CyberLord));
+            return game.BattleZone.GetCreatures(Controller).Any(x => x.HasRace(Race.CyberLord));
         }
 
         public override string ToString()

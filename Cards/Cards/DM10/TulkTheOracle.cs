@@ -2,7 +2,7 @@
 {
     class TulkTheOracle : Creature
     {
-        public TulkTheOracle() : base("Tulk, the Oracle", 1, 500, Engine.Subtype.LightBringer, Engine.Civilization.Light)
+        public TulkTheOracle() : base("Tulk, the Oracle", 1, 500, Engine.Race.LightBringer, Engine.Civilization.Light)
         {
         }
     }

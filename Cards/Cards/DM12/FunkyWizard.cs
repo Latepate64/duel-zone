@@ -5,7 +5,7 @@ namespace Cards.Cards.DM12
 {
     class FunkyWizard : Creature
     {
-        public FunkyWizard() : base("Funky Wizard", 4, 2000, Subtype.Merfolk, Civilization.Water)
+        public FunkyWizard() : base("Funky Wizard", 4, 2000, Race.Merfolk, Civilization.Water)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FunkyWizardEffect());

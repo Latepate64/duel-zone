@@ -2,7 +2,7 @@
 {
     class KingTriumphant : Creature
     {
-        public KingTriumphant() : base("King Triumphant", 8, 7000, Engine.Subtype.Leviathan, Engine.Civilization.Water)
+        public KingTriumphant() : base("King Triumphant", 8, 7000, Engine.Race.Leviathan, Engine.Civilization.Water)
         {
             AddTriggeredAbility(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
             AddDoubleBreakerAbility();

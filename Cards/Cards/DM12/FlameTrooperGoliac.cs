@@ -2,7 +2,7 @@
 {
     class FlameTrooperGoliac : WaveStrikerCreature
     {
-        public FlameTrooperGoliac() : base("Flame Trooper Goliac", 5, 4000, Engine.Subtype.Armorloid, Engine.Civilization.Fire)
+        public FlameTrooperGoliac() : base("Flame Trooper Goliac", 5, 4000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(5000)));
         }

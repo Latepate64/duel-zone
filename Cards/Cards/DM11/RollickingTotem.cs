@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class RollickingTotem : SilentSkillCreature
     {
-        public RollickingTotem() : base("Rollicking Totem", 5, 4000, Subtype.MysteryTotem, Civilization.Nature)
+        public RollickingTotem() : base("Rollicking Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
             AddSilentSkillAbility(new RollickingTotemEffect());
         }

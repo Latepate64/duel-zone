@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class Gigarayze : Creature
     {
-        public Gigarayze() : base("Gigarayze", 4, 2000, Subtype.Chimera, Civilization.Darkness)
+        public Gigarayze() : base("Gigarayze", 4, 2000, Race.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigarayzeEffect());
         }

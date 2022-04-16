@@ -2,7 +2,7 @@
 {
     class BelixTheExplorer : Creature
     {
-        public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Engine.Subtype.Gladiator, Engine.Civilization.Light)
+        public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Engine.Race.Gladiator, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());

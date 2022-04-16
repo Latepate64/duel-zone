@@ -405,9 +405,9 @@ namespace Engine
             return Choose(choice).Choice.Value;
         }
 
-        public Subtype ChooseRace(string description, params Subtype[] excluded)
+        public Race ChooseRace(string description, params Race[] excluded)
         {
-            return Choose(new SubtypeChoice(this, description, excluded)).Choice.Value;
+            return Choose(new RaceChoice(this, description, excluded)).Choice.Value;
         }
 
         public IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description)

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class Marinomancer : Creature
     {
-        public Marinomancer() : base("Marinomancer", 5, 2000, Subtype.CyberLord, Civilization.Water)
+        public Marinomancer() : base("Marinomancer", 5, 2000, Race.CyberLord, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new MarinomancerEffect());
         }

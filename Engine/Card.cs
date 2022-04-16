@@ -14,8 +14,8 @@ namespace Engine
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
-        private IList<Subtype> _printedSubtypes = new List<Subtype>();
-        private readonly IList<Subtype> _addedSubtypes = new List<Subtype>();
+        private IList<Race> _printedRaces = new List<Race>();
+        private readonly IList<Race> _addedRaces = new List<Race>();
 
         public int? PrintedPower { get; }
 
@@ -26,7 +26,7 @@ namespace Engine
         /// <summary>
         /// Also known as race for creatures.
         /// </summary>
-        public List<Subtype> Subtypes { get; set; } = new();
+        public List<Race> Races { get; set; } = new();
 
         public List<Civilization> Civilizations { get; set; } = new();
 
@@ -104,7 +104,7 @@ namespace Engine
             Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
-            Subtypes = card.Subtypes?.ToList();
+            Races = card.Races?.ToList();
             Supertypes = card.Supertypes?.ToList();
             InitializeAbilities();
         }
@@ -152,7 +152,7 @@ namespace Engine
 
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
 
-        public bool IsDragon => Subtypes.Intersect(new Subtype[] { Subtype.ArmoredDragon, Subtype.EarthDragon, Subtype.VolcanoDragon, Subtype.ZombieDragon }).Any();
+        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
 
         public bool LostInBattle { get; set; }
         public bool IsMultiColored => Civilizations.Count > 1;
@@ -161,8 +161,8 @@ namespace Engine
         {
             Power = PrintedPower;
             AddedAbilities.Clear();
-            Subtypes = _printedSubtypes.ToList();
-            _addedSubtypes.Clear();
+            Races = _printedRaces.ToList();
+            _addedRaces.Clear();
         }
 
         public bool CanAttackCreatures(IGame game)
@@ -264,24 +264,24 @@ namespace Engine
             return Civilizations.Intersect(civilizations).Any();
         }
 
-        public bool HasSubtype(Subtype subtype)
+        public bool HasRace(Race race)
         {
-            return Subtypes.Contains(subtype);
+            return Races.Contains(race);
         }
 
-        public void AddGrantedSubtype(Subtype subtype)
+        public void AddGrantedRace(Race race)
         {
-            _addedSubtypes.Add(subtype);
-            if (!Subtypes.Contains(subtype))
+            _addedRaces.Add(race);
+            if (!Races.Contains(race))
             {
-                Subtypes.Add(subtype);
+                Races.Add(race);
             }
         }
 
-        protected void SetPrintedSubtypes(params Subtype[] subtypes)
+        protected void SetPrintedRaces(params Race[] races)
         {
-            _printedSubtypes = subtypes;
-            Subtypes = subtypes.ToList();
+            _printedRaces = races;
+            Races = races.ToList();
         }
     }
 }

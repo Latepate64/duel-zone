@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class TagtappTheRetaliator : Creature
     {
-        public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Subtype.SpiritQuartz, Civilization.Fire, Civilization.Nature)
+        public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Race.SpiritQuartz, Civilization.Fire, Civilization.Nature)
         {
             AddStaticAbilities(new TagtappTheRetaliatorEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }

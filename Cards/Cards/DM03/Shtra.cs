@@ -2,7 +2,7 @@
 {
     class Shtra : Creature
     {
-        public Shtra() : base("Shtra", 4, 2000, Engine.Subtype.CyberLord, Engine.Civilization.Water)
+        public Shtra() : base("Shtra", 4, 2000, Engine.Race.CyberLord, Engine.Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.MutualManaRecoveryEffect(1));
         }

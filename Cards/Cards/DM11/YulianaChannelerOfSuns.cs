@@ -2,7 +2,7 @@
 {
     class YulianaChannelerOfSuns : Creature
     {
-        public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Engine.Subtype.MechaDelSol, Engine.Civilization.Light)
+        public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Engine.Race.MechaDelSol, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

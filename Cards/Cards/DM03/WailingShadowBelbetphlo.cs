@@ -2,7 +2,7 @@
 {
     class WailingShadowBelbetphlo : Creature
     {
-        public WailingShadowBelbetphlo() : base("Wailing Shadow Belbetphlo", 3, 1000, Engine.Subtype.Ghost, Engine.Civilization.Darkness)
+        public WailingShadowBelbetphlo() : base("Wailing Shadow Belbetphlo", 3, 1000, Engine.Race.Ghost, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

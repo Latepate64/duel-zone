@@ -8,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class PhantomachTheGigatrooper : EvolutionCreature
     {
-        public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Subtype.Chimera, Subtype.Armorloid, Civilization.Darkness, Civilization.Fire)
+        public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Race.Chimera, Race.Armorloid, Civilization.Darkness, Civilization.Fire)
         {
             AddStaticAbilities(new PhantomachPowerEffect(), new PhantomachDoubleBreakerEffect());
         }
@@ -27,7 +27,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.Chimera) || x.HasSubtype(Subtype.Armorloid))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasRace(Race.Chimera) || x.HasRace(Race.Armorloid))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -54,7 +54,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Subtype.Chimera, Subtype.Armorloid);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Race.Chimera, Race.Armorloid);
         }
     }
 }

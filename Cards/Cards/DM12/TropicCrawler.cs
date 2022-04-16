@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class TropicCrawler : Creature
     {
-        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Subtype.EarthEater, Civilization.Water)
+        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Race.EarthEater, Civilization.Water)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new TropicCrawlerEffect()));

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class StainedGlass : Creature
     {
-        public StainedGlass() : base("Stained Glass", 3, 1000, Subtype.CyberVirus, Civilization.Water)
+        public StainedGlass() : base("Stained Glass", 3, 1000, Race.CyberVirus, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new StainedGlassEffect());
         }

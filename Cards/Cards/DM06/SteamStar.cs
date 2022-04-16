@@ -2,7 +2,7 @@
 {
     class SteamStar : Creature
     {
-        public SteamStar() : base("Steam Star", 2, 1000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
+        public SteamStar() : base("Steam Star", 2, 1000, Engine.Race.CyberVirus, Engine.Civilization.Water)
         {
         }
     }

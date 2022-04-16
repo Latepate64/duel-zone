@@ -2,7 +2,7 @@
 {
     class DawnGiant : Creature
     {
-        public DawnGiant() : base("Dawn Giant", 7, 11000, Engine.Subtype.Giant, Engine.Civilization.Nature)
+        public DawnGiant() : base("Dawn Giant", 7, 11000, Engine.Race.Giant, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotAttackCreaturesEffect());
             AddDoubleBreakerAbility();

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class UltimateDragon : Creature
     {
-        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Subtype.ArmoredDragon, Civilization.Fire)
+        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new UltimateDragonPowerEffect(), new UltimateDragonBreakerEffect());
         }

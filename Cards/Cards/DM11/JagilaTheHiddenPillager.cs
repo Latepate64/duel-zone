@@ -2,7 +2,7 @@
 {
     class JagilaTheHiddenPillager : WaveStrikerCreature
     {
-        public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Engine.Subtype.PandorasBox, Engine.Civilization.Darkness)
+        public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.OpponentRandomDiscardEffect(3)));
         }

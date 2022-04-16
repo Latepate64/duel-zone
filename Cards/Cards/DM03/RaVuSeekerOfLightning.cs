@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class RaVuSeekerOfLightning : Creature
     {
-        public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Subtype.MechaThunder, Civilization.Light)
+        public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Race.MechaThunder, Civilization.Light)
         {
             AddWheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect());
         }

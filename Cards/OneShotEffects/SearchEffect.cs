@@ -99,33 +99,33 @@ namespace Cards.OneShotEffects
         }
     }
 
-    class SearchSubtypeCreatureEffect : SearchEffect
+    class SearchRaceCreatureEffect : SearchEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public SearchSubtypeCreatureEffect(Subtype subtype) : base(true)
+        public SearchRaceCreatureEffect(Race race) : base(true)
         {
-            _subtype = subtype;
+            _race = race;
         }
 
-        public SearchSubtypeCreatureEffect(SearchSubtypeCreatureEffect effect) : base(effect)
+        public SearchRaceCreatureEffect(SearchRaceCreatureEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new SearchSubtypeCreatureEffect(this);
+            return new SearchRaceCreatureEffect(this);
         }
 
         public override string ToString()
         {
-            return $"When you put this creature into the battle zone, search your deck. You may take a {_subtype} from your deck, show that {_subtype} to your opponent, and put it into your hand. Then shuffle your deck.";
+            return $"When you put this creature into the battle zone, search your deck. You may take a {_race} from your deck, show that {_race} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.GetCreatures(_subtype);
+            return source.GetController(game).Deck.GetCreatures(_race);
         }
     }
 

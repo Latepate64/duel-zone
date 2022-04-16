@@ -2,7 +2,7 @@
 {
     class FaerieChild : Creature
     {
-        public FaerieChild() : base("Faerie Child", 4, 2000, Engine.Subtype.CyberVirus, Engine.Civilization.Water)
+        public FaerieChild() : base("Faerie Child", 4, 2000, Engine.Race.CyberVirus, Engine.Civilization.Water)
         {
             AddThisCreatureCannotBeBlockedAbility();
         }

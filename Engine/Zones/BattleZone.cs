@@ -71,14 +71,14 @@ namespace Engine.Zones
             return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype)
+        public IEnumerable<ICard> GetCreatures(Guid controller, Race race)
         {
-            return GetCreatures(controller).Where(x => x.HasSubtype(subtype));
+            return GetCreatures(controller).Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Subtype subtype1, Subtype subtype2)
+        public IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2)
         {
-            return GetCreatures(controller).Where(x => x.HasSubtype(subtype1) || x.HasSubtype(subtype2));
+            return GetCreatures(controller).Where(x => x.HasRace(race1) || x.HasRace(race2));
         }
 
         public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization)
@@ -116,9 +116,9 @@ namespace Engine.Zones
             return GetOtherCreatures(creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Subtype subtype)
+        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Race race)
         {
-            return GetOtherCreatures(creature).Where(x => x.HasSubtype(subtype));
+            return GetOtherCreatures(creature).Where(x => x.HasRace(race));
         }
 
         public IEnumerable<ICard> GetTappedCreatures(Guid controller)

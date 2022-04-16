@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class KingPonitas : Creature
     {
-        public KingPonitas() : base("King Ponitas", 8, 4000, Subtype.Leviathan, Civilization.Water)
+        public KingPonitas() : base("King Ponitas", 8, 4000, Race.Leviathan, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new KingPonitasEffect());
         }

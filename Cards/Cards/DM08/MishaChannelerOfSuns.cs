@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MishaChannelerOfSuns : Creature
     {
-        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Subtype.MechaDelSol, Civilization.Light)
+        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Race.MechaDelSol, Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedByDragonsEffect());
         }

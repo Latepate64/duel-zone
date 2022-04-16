@@ -2,7 +2,7 @@
 {
     class BuzzBetocchi : Creature
     {
-        public BuzzBetocchi() : base("Buzz Betocchi", 3, 4000, Engine.Subtype.FireBird, Engine.Subtype.GiantInsect, Engine.Civilization.Fire, Engine.Civilization.Nature)
+        public BuzzBetocchi() : base("Buzz Betocchi", 3, 4000, Engine.Race.FireBird, Engine.Race.GiantInsect, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
         }
     }

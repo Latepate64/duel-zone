@@ -2,7 +2,7 @@
 {
     class RocketdiveSkyterror : Creature
     {
-        public RocketdiveSkyterror() : base("Rocketdive Skyterror", 4, 5000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
+        public RocketdiveSkyterror() : base("Rocketdive Skyterror", 4, 5000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddThisCreatureCannotBeAttackedAbility();
             AddThisCreatureCannotAttackPlayersAbility();

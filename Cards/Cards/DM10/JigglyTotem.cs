@@ -2,7 +2,7 @@
 {
     class JigglyTotem : Creature
     {
-        public JigglyTotem() : base("Jiggly Totem", 4, 1000, Engine.Subtype.MysteryTotem, Engine.Civilization.Nature)
+        public JigglyTotem() : base("Jiggly Totem", 4, 1000, Engine.Race.MysteryTotem, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ContinuousEffects.JigglyTotemEffect(1000));
         }

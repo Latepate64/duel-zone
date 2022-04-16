@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class HeavyweightDragon : Creature
     {
-        public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Subtype.ArmoredDragon, Civilization.Fire)
+        public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Race.ArmoredDragon, Civilization.Fire)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new HeavyweightDragonEffect());

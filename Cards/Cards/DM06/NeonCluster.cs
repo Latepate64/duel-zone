@@ -2,7 +2,7 @@
 {
     class NeonCluster : Creature
     {
-        public NeonCluster() : base("Neon Cluster", 7, 4000, Engine.Subtype.CyberCluster, Engine.Civilization.Water)
+        public NeonCluster() : base("Neon Cluster", 7, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
             AddTapAbility(new OneShotEffects.DrawCardsEffect(2));
         }

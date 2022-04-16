@@ -2,7 +2,7 @@
 {
     class MadrillonFish : Creature
     {
-        public MadrillonFish() : base("Madrillon Fish", 2, 3000, Engine.Subtype.GelFish, Engine.Civilization.Water)
+        public MadrillonFish() : base("Madrillon Fish", 2, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

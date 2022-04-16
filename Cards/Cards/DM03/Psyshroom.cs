@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class Psyshroom : Creature
     {
-        public Psyshroom() : base("Psyshroom", 4, 2000, Subtype.BalloonMushroom, Civilization.Nature)
+        public Psyshroom() : base("Psyshroom", 4, 2000, Race.BalloonMushroom, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new PsyshroomEffect());
         }

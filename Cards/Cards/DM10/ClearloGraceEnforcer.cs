@@ -2,7 +2,7 @@
 {
     class ClearloGraceEnforcer : Creature
     {
-        public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000, Engine.Subtype.Berserker, Engine.Civilization.Light)
+        public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000, Engine.Race.Berserker, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ContinuousEffects.ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(1000));
         }

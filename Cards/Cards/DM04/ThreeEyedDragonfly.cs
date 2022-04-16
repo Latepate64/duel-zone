@@ -12,7 +12,7 @@ namespace Cards.Cards.DM04
 {
     class ThreeEyedDragonfly : Creature
     {
-        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Subtype.GiantInsect, Civilization.Nature)
+        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Race.GiantInsect, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect());
         }

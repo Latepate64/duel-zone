@@ -6,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class PincerScarab : Creature
     {
-        public PincerScarab() : base("Pincer Scarab", 4, 1000, Subtype.GiantInsect, Civilization.Nature)
+        public PincerScarab() : base("Pincer Scarab", 4, 1000, Race.GiantInsect, Civilization.Nature)
         {
             AddStaticAbilities(new PincerScarabEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }

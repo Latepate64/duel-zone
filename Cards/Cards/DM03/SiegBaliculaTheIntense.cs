@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class SiegBaliculaTheIntense : EvolutionCreature
     {
-        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Subtype.Initiate, Civilization.Light)
+        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Race.Initiate, Civilization.Light)
         {
             AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
         }

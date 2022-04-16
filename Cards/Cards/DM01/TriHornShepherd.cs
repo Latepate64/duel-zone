@@ -2,7 +2,7 @@
 {
     class TriHornShepherd : Creature
     {
-        public TriHornShepherd() : base("Tri-Horn Shepherd", 5, 5000, Engine.Subtype.BeastFolk, Engine.Civilization.Nature)
+        public TriHornShepherd() : base("Tri-Horn Shepherd", 5, 5000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
         }
     }

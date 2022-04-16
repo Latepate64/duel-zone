@@ -2,7 +2,7 @@
 {
     class BillionDegreeDragon : Creature
     {
-        public BillionDegreeDragon() : base("Billion-Degree Dragon", 10, 15000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
+        public BillionDegreeDragon() : base("Billion-Degree Dragon", 10, 15000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddTripleBreakerAbility();
         }

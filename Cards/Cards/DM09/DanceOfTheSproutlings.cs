@@ -33,11 +33,11 @@ namespace Cards.Cards.DM09
 
     class DanceOfTheSproutlingsSecondEffect : ChooseAnyNumberOfCardsEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public DanceOfTheSproutlingsSecondEffect(Subtype subtype) : base()
+        public DanceOfTheSproutlingsSecondEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public DanceOfTheSproutlingsSecondEffect(DanceOfTheSproutlingsSecondEffect effect) : base(effect)
@@ -51,7 +51,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"You may put any number of {_subtype}s from your hand into your mana zone.";
+            return $"You may put any number of {_race}s from your hand into your mana zone.";
         }
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
@@ -61,7 +61,7 @@ namespace Cards.Cards.DM09
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Hand.GetCreatures(_subtype);
+            return source.GetController(game).Hand.GetCreatures(_race);
         }
     }
 }

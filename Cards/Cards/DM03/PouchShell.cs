@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class PouchShell : Creature
     {
-        public PouchShell() : base("Pouch Shell", 4, 1000, Subtype.ColonyBeetle, Civilization.Nature)
+        public PouchShell() : base("Pouch Shell", 4, 1000, Race.ColonyBeetle, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PouchShellEffect());
         }

@@ -2,7 +2,7 @@
 {
     class LupaPoisonTippedDoll : Creature
     {
-        public LupaPoisonTippedDoll() : base("Lupa, Poison-Tipped Doll", 2, 1000, Engine.Subtype.DeathPuppet, Engine.Civilization.Darkness)
+        public LupaPoisonTippedDoll() : base("Lupa, Poison-Tipped Doll", 2, 1000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
         {
             AddTapAbility(new OneShotEffects.OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.SlayerAbility()));
         }

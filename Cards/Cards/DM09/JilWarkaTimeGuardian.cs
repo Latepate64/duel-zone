@@ -2,7 +2,7 @@
 {
     class JilWarkaTimeGuardian : Creature
     {
-        public JilWarkaTimeGuardian() : base("Jil Warka, Time Guardian", 3, 2000, Engine.Subtype.Guardian, Engine.Civilization.Light)
+        public JilWarkaTimeGuardian() : base("Jil Warka, Time Guardian", 3, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

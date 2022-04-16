@@ -2,7 +2,7 @@
 {
     class RikabuTheDismantler : Creature
     {
-        public RikabuTheDismantler() : base("Rikabu, the Dismantler", 3, 1000, Engine.Subtype.MachineEater, Engine.Civilization.Fire)
+        public RikabuTheDismantler() : base("Rikabu, the Dismantler", 3, 1000, Engine.Race.MachineEater, Engine.Civilization.Fire)
         {
             AddSpeedAttackerAbility();
         }

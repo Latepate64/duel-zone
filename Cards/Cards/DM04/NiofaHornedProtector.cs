@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class NiofaHornedProtector : EvolutionCreature
     {
-        public NiofaHornedProtector() : base("Niofa, Horned Protector", 6, 9000, Subtype.HornedBeast, Civilization.Nature)
+        public NiofaHornedProtector() : base("Niofa, Horned Protector", 6, 9000, Race.HornedBeast, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NiofaHornedProtectorEffect());
             AddDoubleBreakerAbility();

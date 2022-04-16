@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class ChaosFish : Creature
     {
-        public ChaosFish() : base("Chaos Fish", 7, 1000, Subtype.GelFish, Civilization.Water)
+        public ChaosFish() : base("Chaos Fish", 7, 1000, Race.GelFish, Civilization.Water)
         {
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Civilization.Water));
             AddWheneverThisCreatureAttacksAbility(new ChaosFishEffect());

@@ -2,7 +2,7 @@
 {
     class IllusoryBerry : Creature
     {
-        public IllusoryBerry() : base("Illusory Berry", 3, 3000, Engine.Subtype.TreeFolk, Engine.Civilization.Nature)
+        public IllusoryBerry() : base("Illusory Berry", 3, 3000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
         {
         }
     }

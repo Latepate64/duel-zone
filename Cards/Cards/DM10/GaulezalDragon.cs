@@ -2,7 +2,7 @@
 {
     class GaulezalDragon : Creature
     {
-        public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
+        public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddDoubleBreakerAbility();
         }

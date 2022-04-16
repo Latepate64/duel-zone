@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
 {
     class GandarSeekerOfExplosions : Creature
     {
-        public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Subtype.MechaThunder, Civilization.Light)
+        public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new GandarSeekerOfExplosionsEffect());

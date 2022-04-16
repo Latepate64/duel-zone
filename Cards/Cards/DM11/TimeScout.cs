@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class TimeScout : Creature
     {
-        public TimeScout() : base("Time Scout", 2, 1000, Subtype.Merfolk, Civilization.Water)
+        public TimeScout() : base("Time Scout", 2, 1000, Race.Merfolk, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TimeScoutEffect());
         }

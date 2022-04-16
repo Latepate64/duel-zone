@@ -6,9 +6,9 @@ namespace Cards.Cards.DM09
 {
     class AzaghastTyrantOfShadows : EvolutionCreature
     {
-        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Subtype.DarkLord, Civilization.Darkness)
+        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Race.DarkLord, Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype.Ghost, new YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race.Ghost, new YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect()));
             AddDoubleBreakerAbility();
         }
     }

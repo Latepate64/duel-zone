@@ -2,7 +2,7 @@
 {
     class CantankerousGiant : Creature
     {
-        public CantankerousGiant() : base("Cantankerous Giant", 7, 8000, Engine.Subtype.Giant, Engine.Civilization.Nature)
+        public CantankerousGiant() : base("Cantankerous Giant", 7, 8000, Engine.Race.Giant, Engine.Civilization.Nature)
         {
             AddDoubleBreakerAbility();
         }

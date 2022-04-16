@@ -5,7 +5,7 @@ namespace Cards.Cards.DM06
 {
     class RaptorFish : Creature
     {
-        public RaptorFish() : base("Raptor Fish", 6, 3000, Subtype.GelFish, Civilization.Water)
+        public RaptorFish() : base("Raptor Fish", 6, 3000, Race.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect());
         }

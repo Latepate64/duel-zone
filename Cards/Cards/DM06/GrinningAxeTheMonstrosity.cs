@@ -2,7 +2,7 @@
 {
     class GrinningAxeTheMonstrosity : Creature
     {
-        public GrinningAxeTheMonstrosity() : base("Grinning Axe, the Monstrosity", 3, 1000, Engine.Subtype.DevilMask, Engine.Civilization.Darkness)
+        public GrinningAxeTheMonstrosity() : base("Grinning Axe, the Monstrosity", 3, 1000, Engine.Race.DevilMask, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

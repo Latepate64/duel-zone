@@ -2,9 +2,9 @@
 {
     class FactoryShellQ : Creature
     {
-        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, Engine.Subtype.Survivor, Engine.Subtype.ColonyBeetle, Engine.Civilization.Nature)
+        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, Engine.Race.Survivor, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {
-            AddSurvivorAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSubtypeCreatureEffect(Engine.Subtype.Survivor)));
+            AddSurvivorAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchRaceCreatureEffect(Engine.Race.Survivor)));
         }
     }
 }

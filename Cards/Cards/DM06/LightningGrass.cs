@@ -2,7 +2,7 @@
 {
     class LightningGrass : Creature
     {
-        public LightningGrass() : base("Lightning Grass", 3, 3000, Engine.Subtype.StarlightTree, Engine.Civilization.Light)
+        public LightningGrass() : base("Lightning Grass", 3, 3000, Engine.Race.StarlightTree, Engine.Civilization.Light)
         {
         }
     }

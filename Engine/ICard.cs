@@ -13,7 +13,7 @@ namespace Engine
         bool IsDragon { get; }
         bool LostInBattle { get; set; }
         bool IsMultiColored { get; }
-        List<Subtype> Subtypes { get; set; }
+        List<Race> Races { get; set; }
         List<Civilization> Civilizations { get; set; }
         CardType CardType { get; set; }
         List<Supertype> Supertypes { get; set; }
@@ -35,14 +35,14 @@ namespace Engine
         bool CanAttack(ICard creature, IGame game);
         bool CanAttackCreatures(IGame game);
         bool HasCivilization(params Civilization[] civilizations);
-        void AddGrantedSubtype(Subtype subtype);
+        void AddGrantedRace(Race race);
         bool CanAttackPlayers(IGame game);
         bool CanBePaid(IPlayer player);
         bool CanBeUsedRegardlessOfManaCost(IGame game);
         bool CanEvolveFrom(IGame game, ICard card);
         ICard Copy();
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
-        bool HasSubtype(Subtype subtype);
+        bool HasRace(Race race);
         IEnumerable<T> GetAbilities<T>();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         void Break(IGame game, int breakAmount);

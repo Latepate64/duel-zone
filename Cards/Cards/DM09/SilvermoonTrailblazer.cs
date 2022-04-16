@@ -6,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class SilvermoonTrailblazer : Creature
     {
-        public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Subtype.BeastFolk, Civilization.Nature)
+        public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Race.BeastFolk, Civilization.Nature)
         {
             AddTapAbility(new SilvermoonTrailblazerOneShotEffect());
         }
@@ -33,21 +33,21 @@ namespace Cards.Cards.DM09
 
     class SilvermoonTrailblazerContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
         public SilvermoonTrailblazerContinuousEffect(SilvermoonTrailblazerContinuousEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
-        public SilvermoonTrailblazerContinuousEffect(Subtype subtype) : base()
+        public SilvermoonTrailblazerContinuousEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return attacker.HasSubtype(_subtype) && blocker.Power <= 3000;
+            return attacker.HasRace(_race) && blocker.Power <= 3000;
         }
 
         public override IContinuousEffect Copy()
@@ -57,7 +57,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"{_subtype}s can't be blocked by creatures that have power 3000 or less this turn.";
+            return $"{_race}s can't be blocked by creatures that have power 3000 or less this turn.";
         }
     }
 }

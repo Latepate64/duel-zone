@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class GrapeGlobbo : Creature
     {
-        public GrapeGlobbo() : base("Grape Globbo", 2, 1000, Subtype.CyberVirus, Civilization.Water)
+        public GrapeGlobbo() : base("Grape Globbo", 2, 1000, Race.CyberVirus, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LookAtYourOpponentsHandEffect());
         }

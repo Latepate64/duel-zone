@@ -2,7 +2,7 @@
 {
     class TidePatroller : Creature
     {
-        public TidePatroller() : base("Tide Patroller", 4, 2000, Engine.Subtype.Merfolk, Engine.Civilization.Water)
+        public TidePatroller() : base("Tide Patroller", 4, 2000, Engine.Race.Merfolk, Engine.Civilization.Water)
         {
             AddBlockerAbility();
         }

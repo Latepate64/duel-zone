@@ -7,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class LemikVizierOfThought : Creature
     {
-        public LemikVizierOfThought() : base("Lemik, Vizier of Thought", 5, 3000, Subtype.Initiate, Civilization.Light)
+        public LemikVizierOfThought() : base("Lemik, Vizier of Thought", 5, 3000, Race.Initiate, Civilization.Light)
         {
             AddStaticAbilities(new LemikVizierOfThoughtEffect());
         }

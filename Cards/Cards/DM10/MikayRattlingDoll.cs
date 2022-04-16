@@ -2,7 +2,7 @@
 {
     class MikayRattlingDoll : Creature
     {
-        public MikayRattlingDoll() : base("Mikay, Rattling Doll", 2, 2000, Engine.Subtype.DeathPuppet, Engine.Civilization.Darkness)
+        public MikayRattlingDoll() : base("Mikay, Rattling Doll", 2, 2000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

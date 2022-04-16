@@ -2,7 +2,7 @@
 {
     class GeoshineSpectralKnight : Creature
     {
-        public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Engine.Subtype.RainbowPhantom, Engine.Civilization.Light)
+        public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Engine.Race.RainbowPhantom, Engine.Civilization.Light)
         {
             AddWheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect());
         }

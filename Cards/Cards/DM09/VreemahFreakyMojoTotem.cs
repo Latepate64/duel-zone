@@ -10,7 +10,7 @@ namespace Cards.Cards.DM09
 {
     class VreemahFreakyMojoTotem : Creature
     {
-        public VreemahFreakyMojoTotem() : base("Vreemah, Freaky Mojo Totem", 5, 4000, Subtype.MysteryTotem, Civilization.Nature)
+        public VreemahFreakyMojoTotem() : base("Vreemah, Freaky Mojo Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
             AddTriggeredAbility(new TriggeredAbilities.WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new VreemahFreakyMojoTotemOneShotEffect()));
         }
@@ -58,7 +58,7 @@ namespace Cards.Cards.DM09
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasSubtype(Subtype.BeastFolk)).ToList();
+            return game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk)).ToList();
         }
     }
 }

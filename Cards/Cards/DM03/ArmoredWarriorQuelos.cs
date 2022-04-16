@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
 {
     class ArmoredWarriorQuelos : Creature
     {
-        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Subtype.Armorloid, Civilization.Fire)
+        public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Race.Armorloid, Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect());
         }

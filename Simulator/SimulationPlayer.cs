@@ -32,9 +32,9 @@ namespace Simulator
             {
                 return ChooseToTakeAction<T>(boolean);
             }
-            else if (choice is SubtypeChoice subtype)
+            else if (choice is RaceChoice race)
             {
-                return ChooseSubtype<T>(subtype);
+                return ChooseRace<T>(race);
             }
             else if (choice is NumberChoice number)
             {
@@ -62,10 +62,10 @@ namespace Simulator
             return number as T;
         }
 
-        private static T ChooseSubtype<T>(SubtypeChoice subtype) where T : Choice
+        private static T ChooseRace<T>(RaceChoice race) where T : Choice
         {
-            subtype.Choice = Enum.GetValues(typeof(Subtype)).Cast<Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
-            return subtype as T;
+            race.Choice = Enum.GetValues(typeof(Race)).Cast<Race>().Except(race.Excluded).OrderBy(x => Rnd.Next()).First();
+            return race as T;
         }
 
         private static T ChooseToTakeAction<T>(BooleanChoice boolean) where T : Choice

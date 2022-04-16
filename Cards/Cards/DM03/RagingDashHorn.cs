@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class RagingDashHorn : Creature
     {
-        public RagingDashHorn() : base("Raging Dash-Horn", 5, 4000, Subtype.HornedBeast, Civilization.Nature)
+        public RagingDashHorn() : base("Raging Dash-Horn", 5, 4000, Race.HornedBeast, Civilization.Nature)
         {
             AddStaticAbilities(new RagingDashHornEffect());
         }

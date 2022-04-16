@@ -2,7 +2,7 @@
 {
     class MuramasasKnife : Creature
     {
-        public MuramasasKnife() : base("Muramasa's Knife", 3, 2000, Engine.Subtype.Xenoparts, Engine.Civilization.Fire)
+        public MuramasasKnife() : base("Muramasa's Knife", 3, 2000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
         {
             AddThisCreatureCanAttackUntappedCreaturesAbility();
         }

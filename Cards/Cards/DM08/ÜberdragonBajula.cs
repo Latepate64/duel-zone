@@ -2,7 +2,7 @@
 {
     class ÜberdragonBajula : DragonEvolutionCreature
     {
-        public ÜberdragonBajula() : base("Überdragon Bajula", 7, 13000, Engine.Subtype.ArmoredDragon, Engine.Civilization.Fire)
+        public ÜberdragonBajula() : base("Überdragon Bajula", 7, 13000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(2));
         }

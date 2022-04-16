@@ -11,7 +11,7 @@ namespace Cards.Cards.DM09
 {
     class Hokira : Creature
     {
-        public Hokira() : base("Hokira", 4, 3000, Subtype.CyberLord, Civilization.Water)
+        public Hokira() : base("Hokira", 4, 3000, Race.CyberLord, Civilization.Water)
         {
             AddTapAbility(new HokiraOneShotEffect());
         }
@@ -38,16 +38,16 @@ namespace Cards.Cards.DM09
 
     class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IDuration
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public HokiraContinuousEffect(Subtype subtype) : base()
+        public HokiraContinuousEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public HokiraContinuousEffect(HokiraContinuousEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
         public override IContinuousEffect Copy()
@@ -62,17 +62,17 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Whenever one of your {_subtype}s would be destroyed this turn, return it to your hand instead.";
+            return $"Whenever one of your {_race}s would be destroyed this turn, return it to your hand instead.";
         }
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.HasSubtype(_subtype);
+            return card.Owner == GetController(game).Id && card.HasRace(_race);
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, _subtype).ToList();
+            return game.BattleZone.GetCreatures(GetController(game).Id, _race).ToList();
         }
     }
 }

@@ -570,8 +570,8 @@ namespace Engine
             GetAllCards().ToList().ForEach(x => x.ResetToPrintedValues());
             var orderedEffects = _continuousEffects.OrderBy(x => x.Timestamp);
 
-            // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, subtype, and / or supertype.
-            orderedEffects.OfType<ISubtypeAddingEffect>().ToList().ForEach(x => x.AddSubtype(this));
+            // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, race, and / or supertype.
+            orderedEffects.OfType<IRaceAddingEffect>().ToList().ForEach(x => x.AddRace(this));
 
             // 613.1f Layer 6: Ability-adding effects, ability-removing effects, and effects that say an object can’t have an ability are applied.
             orderedEffects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility(this));

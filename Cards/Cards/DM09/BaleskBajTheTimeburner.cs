@@ -2,7 +2,7 @@
 {
     class BaleskBajTheTimeburner : EvolutionCreature
     {
-        public BaleskBajTheTimeburner() : base("Balesk Baj, the Timeburner", 9, 8000, Engine.Subtype.ArmoredWyvern, Engine.Civilization.Fire)
+        public BaleskBajTheTimeburner() : base("Balesk Baj, the Timeburner", 9, 8000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.TakeExtraTurnAfterThisOneEffect()));
             AddDoubleBreakerAbility();

@@ -18,34 +18,34 @@ namespace Cards.ContinuousEffects
         public abstract int GetAmount(IGame game, ICard creature);
     }
 
-    class CrewBreakerSubtypeEffect : CrewBreakerEffect
+    class CrewBreakerRaceEffect : CrewBreakerEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public CrewBreakerSubtypeEffect(CrewBreakerSubtypeEffect effect) : base(effect)
+        public CrewBreakerRaceEffect(CrewBreakerRaceEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
-        public CrewBreakerSubtypeEffect(Subtype subtype) : base()
+        public CrewBreakerRaceEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public override string ToString()
         {
-            return $"Crew breaker - {_subtype}";
+            return $"Crew breaker - {_race}";
         }
 
         public override int GetAmount(IGame game, ICard creature)
         {
             var ability = GetSourceAbility(game);
-            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasSubtype(_subtype)) : 1;
+            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasRace(_race)) : 1;
         }
 
         public override IContinuousEffect Copy()
         {
-            return new CrewBreakerSubtypeEffect(this);
+            return new CrewBreakerRaceEffect(this);
         }
     }
 }

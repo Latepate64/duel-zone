@@ -2,7 +2,7 @@
 {
     class JunkatzRabidDoll : Creature
     {
-        public JunkatzRabidDoll() : base("Junkatz, Rabid Doll", 2, 2000, Engine.Subtype.DeathPuppet, Engine.Civilization.Darkness)
+        public JunkatzRabidDoll() : base("Junkatz, Rabid Doll", 2, 2000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
         {
         }
     }

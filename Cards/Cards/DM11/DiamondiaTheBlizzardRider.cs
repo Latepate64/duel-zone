@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
 {
     class DiamondiaTheBlizzardRider : EvolutionCreature
     {
-        public DiamondiaTheBlizzardRider() : base("Diamondia, the Blizzard Rider", 3, 5000, Subtype.SnowFaerie, Civilization.Nature)
+        public DiamondiaTheBlizzardRider() : base("Diamondia, the Blizzard Rider", 3, 5000, Race.SnowFaerie, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DiamondiaTheBlizzardRiderEffect());
         }
@@ -16,8 +16,8 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasSubtype(Subtype.SnowFaerie)).ToArray());
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.HasSubtype(Subtype.SnowFaerie)).ToArray());
+            game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            game.Move(ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
             return null;
         }
 

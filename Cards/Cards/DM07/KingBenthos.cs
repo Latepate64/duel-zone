@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class KingBenthos : Creature
     {
-        public KingBenthos() : base("King Benthos", 8, 6000, Subtype.Leviathan, Civilization.Water)
+        public KingBenthos() : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
         {
             AddDoubleBreakerAbility();
             AddTapAbility(new KingBenthosEffect());

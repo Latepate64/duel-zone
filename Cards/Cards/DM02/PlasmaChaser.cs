@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class PlasmaChaser : Creature
     {
-        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Subtype.GelFish, Civilization.Water)
+        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Race.GelFish, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new PlasmaChaserEffect());
         }
