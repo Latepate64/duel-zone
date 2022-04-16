@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class ElfXEffect : ContinuousEffect, ICostModifyingEffect
+    class ElfXEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
     {
         public ElfXEffect() : base() { }
 
@@ -20,9 +21,14 @@ namespace Cards.Cards.DM02
             return new ElfXEffect();
         }
 
-        public int GetChange(Engine.ICard card, Engine.IGame game)
+        public int GetChange(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.CardType == Engine.CardType.Creature ? -1 : 0;
+            return card.Owner == GetController(game).Id && card.CardType == CardType.Creature ? -1 : 0;
+        }
+
+        public int GetMinimumCost(ICard card, IGame game)
+        {
+            return card.Owner == GetController(game).Id && card.CardType == CardType.Creature ? 1 : 0;
         }
 
         public override string ToString()
