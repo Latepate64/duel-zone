@@ -50,7 +50,7 @@ namespace Cards.Cards.DM02
 
         public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return attacker.Owner == _controller && attacker.CanAttackCreatures(game);
+            return attacker.Owner == _controller && attacker.CanAttackAtLeastOneCreature(game);
         }
 
         public override IContinuousEffect Copy()

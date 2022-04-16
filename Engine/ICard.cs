@@ -32,8 +32,8 @@ namespace Engine
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);
-        bool CanAttack(ICard creature, IGame game);
-        bool CanAttackCreatures(IGame game);
+        bool CanAttackCreature(ICard creature, IGame game);
+        bool CanAttackAtLeastOneCreature(IGame game);
         bool HasCivilization(params Civilization[] civilizations);
         void AddGrantedRace(Race race);
         bool CanAttackPlayers(IGame game);

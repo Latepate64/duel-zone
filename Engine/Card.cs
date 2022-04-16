@@ -165,9 +165,11 @@ namespace Engine
             _addedRaces.Clear();
         }
 
-        public bool CanAttackCreatures(IGame game)
+        public bool CanAttackAtLeastOneCreature(IGame game)
         {
-            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, game));
+            var canAttack = !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game));
+            var opponentsCreatures = game.BattleZone.GetCreatures(game.GetOpponent(game.GetPlayer(Owner)).Id);
+            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(x, game));
         }
 
         public bool CanAttackPlayers(IGame game)
@@ -249,9 +251,9 @@ namespace Engine
             game.Move(ZoneType.BattleZone, ZoneType.Graveyard, this);
         }
 
-        public bool CanAttack(ICard targetOfAttack, IGame game)
+        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
+            return !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, targetOfAttack, game)) && !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)

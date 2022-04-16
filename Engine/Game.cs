@@ -612,9 +612,9 @@ namespace Engine
             {
                 attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));
             }
-            if (attacker.CanAttackCreatures(this))
+            if (attacker.CanAttackAtLeastOneCreature(this))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttack(x, this));
+                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttackCreature(x, this));
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     canAttackUntappedCreaturesEffects.Any(e => e.Applies(attacker, c, this)) ||
