@@ -37,7 +37,7 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var shieldsBroken = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<ShieldsBrokenEvent>().Sum(x => x.BreakAmount);
+            var shieldsBroken = game.CurrentTurn.Phases.SelectMany(x => x.GameEvents).OfType<BreakShieldsEvent>().Sum(x => x.BreakAmount);
             return new BrutalChargeSearchEffect(shieldsBroken).Apply(game, source);
         }
 
