@@ -48,5 +48,6 @@ namespace Engine
         IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
         IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
         IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
+        IEnumerable<ICard> ChooseCards(CardChoice choice);
     }
 }

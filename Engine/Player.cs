@@ -415,7 +415,7 @@ namespace Engine
             return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), cards.ToArray()));
         }
 
-        private IEnumerable<ICard> ChooseCards(CardChoice choice)
+        public IEnumerable<ICard> ChooseCards(CardChoice choice)
         {
             if (choice.CanBeChosenAutomatically)
             {

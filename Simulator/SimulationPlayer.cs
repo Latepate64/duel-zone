@@ -1,7 +1,7 @@
 ﻿using Engine;
+using Engine.Choices;
 using System;
 using System.Linq;
-using Engine.Choices;
 
 namespace Simulator
 {
@@ -93,13 +93,10 @@ namespace Simulator
             {
                 return Rnd.Next(bounded.Min, bounded.Max + 1);
             }
-            else if (card.Mode is AnyNumberOfCardsChoiceMode)
-            {
-                return Rnd.Next(0, card.Cards.Count() + 1);
-            }
             else
             {
-                throw new NotImplementedException();
+                // Could be AnyNumberOfCardsChoiceMode or something else
+                return Rnd.Next(0, card.Cards.Count() + 1);
             }
         }
     }
