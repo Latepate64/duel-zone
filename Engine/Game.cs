@@ -288,49 +288,56 @@ namespace Engine
             //}
         }
 
+        /// <summary>
+        /// Note: Only call this method from ProcessEvents as it considers replacement effects.
+        /// </summary>
+        /// <param name="gameEvent"></param>
         private void ProcessEvent(IGameEvent gameEvent)
         {
             gameEvent.Happen(this);
             OnGameEvent?.Invoke(gameEvent);
-            if (Ended) 
-            { 
-                return; //TODO: Consider better design
-            }
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
-
-                foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                if (!Ended) //TODO: Consider better design
                 {
-                    _continuousEffects.Remove(remove);
-                }
-                foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
-                {
-                    _state.DelayedTriggeredAbilities.Remove(remove);
-                }
-                ApplyContinuousEffects();
-                var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
-                List<DelayedTriggeredAbility> toBeRemoved = new();
-                foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
-                {
-                    abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
-                    if (ability.TriggersOnlyOnce)
-                    {
-                        toBeRemoved.Add(ability);
-                    }
-                }
-                _ = _state.DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                AddPendingAbilities(abilities.ToArray());
-                foreach (var ability in abilities)
-                {
-                    //TODO: Event
-                    //Process(new AbilityTriggeredEvent { Ability = ability.Id });
+                    CheckExpirations(gameEvent);
+                    ApplyContinuousEffects();
+                    TriggerAbilities(gameEvent);
                 }
             }
             else
             {
                 PreGameEvents.Enqueue(gameEvent);
             }
+        }
+
+        private void CheckExpirations(IGameEvent gameEvent)
+        {
+            foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+            {
+                _continuousEffects.Remove(remove);
+            }
+            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+            {
+                _state.DelayedTriggeredAbilities.Remove(remove);
+            }
+        }
+
+        private void TriggerAbilities(IGameEvent gameEvent)
+        {
+            var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
+            List<DelayedTriggeredAbility> toBeRemoved = new();
+            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            {
+                abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
+                if (ability.TriggersOnlyOnce)
+                {
+                    toBeRemoved.Add(ability);
+                }
+            }
+            _ = _state.DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+            AddPendingAbilities(abilities.ToArray());
         }
 
         public IEnumerable<ITriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(IGameEvent gameEvent)
