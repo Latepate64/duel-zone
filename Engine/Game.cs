@@ -139,10 +139,6 @@ namespace Engine
                     x.Dispose();
                 }
                 Turns.Clear();
-                foreach (var x in _continuousEffects)
-                {
-                    x.Dispose();
-                }
                 _continuousEffects.Clear();
             }
         }
