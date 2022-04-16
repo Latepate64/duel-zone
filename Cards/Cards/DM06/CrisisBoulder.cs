@@ -21,8 +21,7 @@ namespace Cards.Cards.DM06
             var card = source.GetOpponent(game).ChooseCard(cards, ToString());
             if (card != null)
             {
-                var zone = game.GetZone(card);
-                game.Move(zone.Type, ZoneType.Graveyard, card);
+                game.Move(game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
             return card;
         }

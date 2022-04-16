@@ -25,7 +25,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public bool Applies(ICard attacker, ICard target, IGame game)
+        public bool CannotAttackCreature(ICard attacker, ICard target, IGame game)
         {
             return IsSourceOfAbility(attacker, game) && !target.GetAbilities<BlockerAbility>().Any();
         }

@@ -174,7 +174,7 @@ namespace Engine
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
+            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
@@ -253,7 +253,9 @@ namespace Engine
 
         public bool CanAttackCreature(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, targetOfAttack, game)) && !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
+            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) &&
+                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
+                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)
