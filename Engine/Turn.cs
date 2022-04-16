@@ -33,6 +33,7 @@ namespace Engine
         public int Number { get; set; }
 
         public Guid Id { get; set; }
+        public IEnumerable<IGameEvent> GameEvents => Phases.SelectMany(x => x.GameEvents);
         #endregion Properties
 
         public Turn() : base()

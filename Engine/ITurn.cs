@@ -1,4 +1,5 @@
-﻿using Engine.Steps;
+﻿using Engine.GameEvents;
+using Engine.Steps;
 using System.Collections.Generic;
 
 namespace Engine
@@ -11,6 +12,7 @@ namespace Engine
         IPlayer NonActivePlayer { get; set; }
         int Number { get; set; }
         IList<IPhase> Phases { get; }
+        IEnumerable<IGameEvent> GameEvents { get; }
 
         void Dispose();
         void Play(IGame game, int number);
