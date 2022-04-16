@@ -240,7 +240,7 @@ namespace Engine
             return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game)));
         }
 
-        public void MoveTopCardIntoOwnersGraveyard(IGame game)
+        public void MoveTopCard(IGame game, ZoneType destination)
         {
             if (OnTopOf != Guid.Empty)
             {
@@ -248,7 +248,7 @@ namespace Engine
                 OnTopOf = Guid.Empty;
                 card.Underneath = Guid.Empty;
             }
-            game.Move(ZoneType.BattleZone, ZoneType.Graveyard, this);
+            game.Move(ZoneType.BattleZone, destination, this);
         }
 
         public bool CanAttackCreature(ICard targetOfAttack, IGame game)
