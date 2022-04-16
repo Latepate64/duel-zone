@@ -33,7 +33,7 @@ namespace TestEngine
     {
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
-        private bool _shouldBeAbleToEvolve;
+        private readonly bool _shouldBeAbleToEvolve;
 
         public EvolutionEffectMock(bool shouldBeAbleToEvolve)
         {
