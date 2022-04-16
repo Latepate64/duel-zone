@@ -22,39 +22,69 @@ namespace Simulator
         {
             if (choice is CardChoice card)
             {
-                int amount = GetAmountOfCardsToChooseFrom(card);
-                card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
-                return card as T;
+                return ChooseCard<T>(card);
             }
             else if (choice is AttackTargetChoice attack)
             {
-                attack.Choice = attack.Targets.OrderBy(x => Rnd.Next()).First();
-                return attack as T;
+                return ChooseAttackTarget<T>(attack);
             }
             else if (choice is BooleanChoice boolean)
             {
-                boolean.Choice = true;
-                return boolean as T;
+                return ChooseToTakeAction<T>(boolean);
             }
             else if (choice is SubtypeChoice subtype)
             {
-                subtype.Choice = Enum.GetValues(typeof(Subtype)).Cast<Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
-                return subtype as T;
+                return ChooseSubtype<T>(subtype);
             }
             else if (choice is NumberChoice number)
             {
-                number.Choice = Rnd.Next(0, 6);
-                return number as T;
+                return ChooseNumber<T>(number);
             }
             else if (choice is AbilityChoice ability)
             {
-                ability.Choice = ability.Abilities.OrderBy(x => Rnd.Next()).First();
-                return ability as T;
+                return ChooseAbility<T>(ability);
             }
             else
             {
                 throw new NotImplementedException();
             }
+        }
+
+        private static T ChooseAbility<T>(AbilityChoice ability) where T : Choice
+        {
+            ability.Choice = ability.Abilities.OrderBy(x => Rnd.Next()).First();
+            return ability as T;
+        }
+
+        private static T ChooseNumber<T>(NumberChoice number) where T : Choice
+        {
+            number.Choice = Rnd.Next(0, 6);
+            return number as T;
+        }
+
+        private static T ChooseSubtype<T>(SubtypeChoice subtype) where T : Choice
+        {
+            subtype.Choice = Enum.GetValues(typeof(Subtype)).Cast<Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
+            return subtype as T;
+        }
+
+        private static T ChooseToTakeAction<T>(BooleanChoice boolean) where T : Choice
+        {
+            boolean.Choice = true;
+            return boolean as T;
+        }
+
+        private static T ChooseAttackTarget<T>(AttackTargetChoice attack) where T : Choice
+        {
+            attack.Choice = attack.Targets.OrderBy(x => Rnd.Next()).First();
+            return attack as T;
+        }
+
+        private static T ChooseCard<T>(CardChoice card) where T : Choice
+        {
+            int amount = GetAmountOfCardsToChooseFrom(card);
+            card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
+            return card as T;
         }
 
         private static int GetAmountOfCardsToChooseFrom(CardChoice card)
