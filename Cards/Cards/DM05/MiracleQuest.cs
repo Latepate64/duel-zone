@@ -77,7 +77,7 @@ namespace Cards.Cards.DM05
         {
             var attacker = game.GetCard(source.Source);
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
-            var amount = game.CurrentTurn.GameEvents.OfType<BreakShieldsEvent>().Where(x => x.Attacker == attacker).Sum(x => x.BreakAmount);
+            var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == attacker).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
                 if (source.GetController(game).ChooseToTakeAction("You may draw 2 cards."))

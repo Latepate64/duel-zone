@@ -27,13 +27,13 @@ namespace Cards.Cards.DM06
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            var e = gameEvent as BreakShieldsEvent;
+            var e = gameEvent as CreatureBreaksShieldsEvent;
             return new BolmeteusEvent(e.Attacker, e.BreakAmount);
         }
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BreakShieldsEvent e && e.Attacker == GetSourceCard(game);
+            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker == GetSourceCard(game);
         }
 
         public override IContinuousEffect Copy()
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class BolmeteusEvent : MightBreakShieldsEvent
+    class BolmeteusEvent : CreatureMightBreakShieldsEvent
     {
         public BolmeteusEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
         {

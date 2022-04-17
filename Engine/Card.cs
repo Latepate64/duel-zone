@@ -260,7 +260,7 @@ namespace Engine
 
         public void Break(IGame game, int breakAmount)
         {
-            game.ProcessEvents(new BreakShieldsEvent(this, breakAmount));
+            game.ProcessEvents(new CreatureBreaksShieldsEvent(this, breakAmount));
         }
 
         public bool HasCivilization(params Civilization[] civilizations)
