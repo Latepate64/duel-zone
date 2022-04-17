@@ -503,12 +503,7 @@ namespace Engine
                     if (trigger != null)
                     {
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        //TODO: Event
-                        //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
-                        if (trigger.CanBeUsedRegardlessOfManaCost(this))
-                        {
-                            GetPlayer(shieldTriggersByPlayer.Key).UseCard(trigger, this);
-                        }
+                        ProcessEvents(new ShieldTriggerEvent(GetPlayer(shieldTriggersByPlayer.Key), trigger));
                     }
                     else
                     {

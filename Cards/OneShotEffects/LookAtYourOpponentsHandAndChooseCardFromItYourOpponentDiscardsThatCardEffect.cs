@@ -10,8 +10,11 @@ namespace Cards.OneShotEffects
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
             var card = source.GetController(game).ChooseCard(source.GetOpponent(game).Hand.Cards, ToString());
-            source.GetOpponent(game).Discard(source, game, card);
-            source.GetOpponent(game).Unreveal(new List<ICard>() { card });
+            if (card != null)
+            {
+                source.GetOpponent(game).Discard(source, game, card);
+                source.GetOpponent(game).Unreveal(new List<ICard>() { card });
+            }
             return card;
         }
 
