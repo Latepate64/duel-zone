@@ -96,6 +96,7 @@ namespace Engine
             SummoningSickness = card.SummoningSickness;
             Tapped = card.Tapped;
             Underneath = card.Underneath;
+            FaceDown = card.FaceDown;
 
 
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
@@ -156,6 +157,11 @@ namespace Engine
 
         public bool LostInBattle { get; set; }
         public bool IsMultiColored => Civilizations.Count > 1;
+
+        /// <summary>
+        /// TODO: Apply in logic
+        /// </summary>
+        public bool FaceDown { get; set; }
 
         public void ResetToPrintedValues()
         {
