@@ -492,6 +492,11 @@ namespace Engine
                 game.GetOpponent(this).Unreveal(cards);
             }
         }
+
+        public IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
+        {
+            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description);
+        }
         #endregion Methods
     }
 }

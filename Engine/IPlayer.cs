@@ -15,6 +15,7 @@ namespace Engine
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
 
+        IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
         void LookAtOpponentsHand(IGame game);
         ICard ChooseControlledCreature(IGame game, string description);
 
