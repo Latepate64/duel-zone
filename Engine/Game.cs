@@ -314,11 +314,11 @@ namespace Engine
 
         private void CheckExpirations(IGameEvent gameEvent)
         {
-            foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
             {
                 _continuousEffects.Remove(remove);
             }
-            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
             {
                 _state.DelayedTriggeredAbilities.Remove(remove);
             }

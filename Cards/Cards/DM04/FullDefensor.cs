@@ -46,7 +46,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class FullDefensorContinuousEffect : AbilityAddingEffect, IDuration
+    class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
     {
         private readonly Guid _player;
         private readonly ICard[] _cards;
@@ -68,7 +68,7 @@ namespace Cards.Cards.DM04
             return new FullDefensorContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer.Id == _player;
         }

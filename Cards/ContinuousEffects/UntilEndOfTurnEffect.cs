@@ -4,7 +4,7 @@ using Engine.Steps;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class UntilEndOfTurnEffect : ContinuousEffect, IDuration
+    abstract class UntilEndOfTurnEffect : ContinuousEffect, IExpirable
     {
         protected UntilEndOfTurnEffect() : base()
         {
@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

@@ -35,7 +35,7 @@ namespace Cards.ContinuousEffects
         protected abstract IEnumerable<ICard> GetAffectedCards(IGame game);
     }
 
-    abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IDuration
+    abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IExpirable
     {
         private readonly ICard[] _cards;
 
@@ -59,7 +59,7 @@ namespace Cards.ContinuousEffects
             _cards = new ICard[] { card };
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

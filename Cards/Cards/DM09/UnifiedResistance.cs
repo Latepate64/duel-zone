@@ -40,7 +40,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IDuration
+    class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IExpirable
     {
         private readonly Guid _player;
         private readonly ICard[] _cards;
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM09
             return new UnifiedResistanceContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer.Id == _player;
         }

@@ -35,7 +35,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IDuration
+    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IExpirable
     {
         public VreemahFreakyMojoTotemContinuousEffect() : base(2000)
         {
@@ -46,7 +46,7 @@ namespace Cards.Cards.DM09
             return new VreemahFreakyMojoTotemContinuousEffect();
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

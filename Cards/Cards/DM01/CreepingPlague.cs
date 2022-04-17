@@ -33,13 +33,13 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IDuration
+    class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
         public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, false)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

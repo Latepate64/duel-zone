@@ -36,7 +36,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IDuration
+    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IExpirable
     {
         private readonly Race _race;
 
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM09
             return new HokiraContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
