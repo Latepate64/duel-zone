@@ -7,9 +7,9 @@ namespace Engine.Zones
     /// </summary>
     public class ShieldZone : Zone
     {
-        public ShieldZone() : base() { }
+        public ShieldZone() : base(ZoneType.ShieldZone) { }
 
-        public ShieldZone(Zone zone) : base(zone)
+        public ShieldZone(ShieldZone zone) : base(zone)
         {
         }
 

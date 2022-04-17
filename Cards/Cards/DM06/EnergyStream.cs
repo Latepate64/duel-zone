@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM06
+﻿namespace Cards.Cards.DM06
 {
     class EnergyStream : Spell
     {
-        public EnergyStream() : base("Energy Stream", 3, Civilization.Water)
+        public EnergyStream() : base("Energy Stream", 3, Engine.Civilization.Water)
         {
             AddSpellAbilities(new OneShotEffects.DrawCardsEffect(2));
         }

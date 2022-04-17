@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM12
+﻿namespace Cards.Cards.DM12
 {
     class BuzzBetocchi : Creature
     {
-        public BuzzBetocchi() : base("Buzz Betocchi", 3, 4000, Subtype.FireBird, Subtype.GiantInsect, Civilization.Fire, Civilization.Nature)
+        public BuzzBetocchi() : base("Buzz Betocchi", 3, 4000, Engine.Race.FireBird, Engine.Race.GiantInsect, Engine.Civilization.Fire, Engine.Civilization.Nature)
         {
         }
     }

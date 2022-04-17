@@ -1,17 +1,17 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
+using Engine;
 
 namespace Cards
 {
     class EvolutionCreature : Creature
     {
-        public EvolutionCreature(string name, int manaCost, int power, Subtype race, Civilization civilization) : base(name, manaCost, power, race, civilization)
+        public EvolutionCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
         {
             Supertypes.Add(Supertype.Evolution);
             AddStaticAbilities(new RaceEvolutionEffect(race));
         }
 
-        public EvolutionCreature(string name, int manaCost, int power, Subtype race1, Subtype race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race1, race2, civilization1, civilization2)
+        public EvolutionCreature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race1, race2, civilization1, civilization2)
         {
             Supertypes.Add(Supertype.Evolution);
             AddStaticAbilities(new RaceEvolutionEffect(race1, race2));
@@ -20,7 +20,7 @@ namespace Cards
 
     class DragonEvolutionCreature : Creature
     {
-        public DragonEvolutionCreature(string name, int manaCost, int power, Subtype race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
+        public DragonEvolutionCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
         {
             Supertypes.Add(Supertype.Evolution);
             AddStaticAbilities(new DragonEvolutionEffect());

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class SolarGrass : TurboRushCreature
     {
-        public SolarGrass() : base("Solar Grass", 5, 3000, Subtype.StarlightTree, Civilization.Light)
+        public SolarGrass() : base("Solar Grass", 5, 3000, Race.StarlightTree, Civilization.Light)
         {
             AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new SolarGrassEffect()));
         }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM08
             return "Untap all your creatures in the battle zone except Solar Grasses.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller).Where(x => x.Name != "Solar Grass");
         }

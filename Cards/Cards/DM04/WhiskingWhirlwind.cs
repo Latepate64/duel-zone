@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -48,7 +47,7 @@ namespace Cards.Cards.DM04
             return "Untap all your creatures in the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller);
         }

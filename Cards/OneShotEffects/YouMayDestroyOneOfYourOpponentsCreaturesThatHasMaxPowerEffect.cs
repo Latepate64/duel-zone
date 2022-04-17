@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect : OneShotEffects.DestroyEffect
+    class YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect : DestroyEffect
     {
         private readonly int _power;
 

@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -31,13 +30,13 @@ namespace Cards.Cards.DM11
             return "Choose 2 of your opponent's creatures in the battle zone. Your opponent chooses one of them, puts it into his hand, and destroys the other one. Then choose 2 cards in your opponent's mana zone. Your opponent chooses one of them, puts it into his hand, and puts the other one into his graveyard.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             new MiraculousPlagueSecondEffect().Apply(game, source);
             new MiraculousPlagueThirdEffect().Apply(game, source);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
@@ -45,9 +44,9 @@ namespace Cards.Cards.DM11
 
     class MiraculousPlagueSecondEffect : CardSelectionEffect
     {
-        private readonly Engine.ICard[] _cards;
+        private readonly ICard[] _cards;
 
-        public MiraculousPlagueSecondEffect(params Engine.ICard[] cards) : base(1, 1, false)
+        public MiraculousPlagueSecondEffect(params ICard[] cards) : base(1, 1, false)
         {
             _cards = cards;
         }
@@ -67,14 +66,14 @@ namespace Cards.Cards.DM11
             return "Choose a card and put it into your hand, and destroy the other one.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             var otherCards = GetSelectableCards(game, source).Except(cards);
-            game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
-            game.Destroy(otherCards);
+            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, cards);
+            game.Destroy(source, otherCards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return _cards;
         }
@@ -96,12 +95,12 @@ namespace Cards.Cards.DM11
             return "Choose 2 cards in your opponent's mana zone. Your opponent chooses one of them, puts it into his hand, and puts the other one into his graveyard.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             new MiraculousPlagueFourthEffect().Apply(game, source);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetOpponent(game).ManaZone.Cards;
         }
@@ -109,9 +108,9 @@ namespace Cards.Cards.DM11
 
     class MiraculousPlagueFourthEffect : CardSelectionEffect
     {
-        private readonly Engine.ICard[] _cards;
+        private readonly ICard[] _cards;
 
-        public MiraculousPlagueFourthEffect(params Engine.ICard[] cards) : base(1, 1, false)
+        public MiraculousPlagueFourthEffect(params ICard[] cards) : base(1, 1, false)
         {
             _cards = cards;
         }
@@ -131,14 +130,14 @@ namespace Cards.Cards.DM11
             return "Choose a card and put it into your hand, and put the other one into your graveyard.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             var otherCards = GetSelectableCards(game, source).Except(cards).ToArray();
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, cards);
-            game.Move(ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards);
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return _cards;
         }

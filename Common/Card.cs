@@ -4,11 +4,6 @@ using System.Linq;
 
 namespace Common
 {
-    public enum Supertype
-    {
-        Evolution
-    }
-
     public class Card : ICard
     {
         public Card()
@@ -23,17 +18,13 @@ namespace Common
             KnownTo = card.KnownTo.ToList();
             if (!clear)
             {
-                CardType = card.CardType;
-                Civilizations = card.Civilizations.ToList();
                 ManaCost = card.ManaCost;
                 Name = card.Name;
                 OnTopOf = card.OnTopOf;
                 Power = card.Power;
                 RulesText = card.RulesText;
                 ShieldTrigger = card.ShieldTrigger;
-                Subtypes = card.Subtypes?.ToList();
                 SummoningSickness = card.SummoningSickness;
-                Supertypes = card.Supertypes?.ToList();
                 Tapped = card.Tapped;
                 Underneath = card.Underneath;
             }
@@ -53,16 +44,7 @@ namespace Common
 
         public string Name { get; set; }
 
-        public CardType CardType { get; set; }
-
-        /// <summary>
-        /// Also known as race for creatures.
-        /// </summary>
-        public List<Subtype> Subtypes { get; set; } = new();
-
         public int? Power { get; set; }
-
-        public List<Civilization> Civilizations { get; set; } = new();
 
         public int ManaCost { get; set; }
 
@@ -75,8 +57,6 @@ namespace Common
         public bool SummoningSickness { get; set; }
 
         public string RulesText { get; set; }
-
-        public List<Supertype> Supertypes { get; set; } = new();
 
         /// <summary>
         /// Id of the card this card is on top of.

@@ -2,7 +2,7 @@
 
 namespace Engine.ContinuousEffects
 {
-    public interface IContinuousEffect : ITimestampable, IDisposable
+    public interface IContinuousEffect : ITimestampable
     {
         Guid SourceAbility { get; set; }
 

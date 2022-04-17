@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class DeathCruzerTheAnnihilator : Creature
     {
-        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Subtype.DemonCommand, Civilization.Darkness)
+        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Race.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect());
             AddTripleBreakerAbility();
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM05
             return "Destroy all your other creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }

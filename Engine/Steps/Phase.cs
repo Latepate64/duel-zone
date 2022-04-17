@@ -1,8 +1,7 @@
 ﻿using Engine.Abilities;
-using Common.Choices;
+using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.GameEvents;
 
 namespace Engine.Steps
 {
@@ -46,27 +45,13 @@ namespace Engine.Steps
                 var abilityGroups = PendingAbilities.GroupBy(x => x.Controller);
                 foreach (var abilities in abilityGroups)
                 {
-                    System.Guid decision;
-                    if (abilities.Count() > 1)
-                    {
-                        decision = game.GetPlayer(abilities.Key).Choose(new AbilitySelection(game.GetPlayer(abilities.Key).Id, abilities.Select(x => Convert(x)), 1, 1), game).Decision.Single();
-                    }
-                    else
-                    {
-                        decision = abilities.First().Id;
-                    }
-                    var ability = abilities.Single(x => x.Id == decision);
+                    var ability = game.GetPlayer(abilities.Key).ChooseAbility(abilities);
                     ability.Resolve(game);
 
                     // 608.2m As the final part of an ability’s resolution, the ability is removed from the stack and ceases to exist.
                     _ = PendingAbilities.Remove(ability);
                 }
             }
-        }
-
-        private static AbilityText Convert(IResolvableAbility x)
-        {
-            return new AbilityText(x.Id, x.ToString());
         }
 
         protected Phase(IPhase phase)

@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM04
+﻿namespace Cards.Cards.DM04
 {
     class MysticInscription : Spell
     {
-        public MysticInscription() : base("Mystic Inscription", 6, Civilization.Nature)
+        public MysticInscription() : base("Mystic Inscription", 6, Engine.Civilization.Nature)
         {
             AddSpellAbilities(new OneShotEffects.AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect());
         }

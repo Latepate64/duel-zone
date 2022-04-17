@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class RaVuSeekerOfLightning : Creature
     {
-        public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Common.Subtype.MechaThunder, Common.Civilization.Light)
+        public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Race.MechaThunder, Civilization.Light)
         {
             AddWheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Spells.Where(x => x.HasCivilization(Common.Civilization.Light));
+            return source.GetController(game).Graveyard.Spells.Where(x => x.HasCivilization(Civilization.Light));
         }
     }
 }

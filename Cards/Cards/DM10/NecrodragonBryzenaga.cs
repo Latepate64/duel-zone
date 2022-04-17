@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class NecrodragonBryzenaga : Creature
     {
-        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Race.ZombieDragon, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect());
             AddDoubleBreakerAbility();
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.PutFromShieldZoneToHand(source.GetController(game).ShieldZone.Cards, true);
+            game.PutFromShieldZoneToHand(source.GetController(game).ShieldZone.Cards, true, source);
             return null;
         }
 

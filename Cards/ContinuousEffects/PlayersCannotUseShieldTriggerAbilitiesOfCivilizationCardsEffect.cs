@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -18,7 +17,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public bool Applies(Engine.ICard card, IGame game)
+        public bool Applies(ICard card, IGame game)
         {
             return card.HasCivilization(_civilization);
         }

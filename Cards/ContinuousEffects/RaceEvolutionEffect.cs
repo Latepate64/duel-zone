@@ -11,12 +11,12 @@ namespace Cards.ContinuousEffects
             Races = effect.Races;
         }
 
-        public RaceEvolutionEffect(params Common.Subtype[] races) : base()
+        public RaceEvolutionEffect(params Race[] races) : base()
         {
             Races = races;
         }
 
-        public Common.Subtype[] Races { get; }
+        public Race[] Races { get; }
 
         public override ContinuousEffect Copy()
         {
@@ -36,7 +36,7 @@ namespace Cards.ContinuousEffects
 
         public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
-            return bait.Subtypes.Intersect(Races).Any() && IsSourceOfAbility(evolutionCard, game);
+            return bait.Races.Intersect(Races).Any() && IsSourceOfAbility(evolutionCard, game);
         }
     }
 }

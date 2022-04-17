@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
@@ -23,6 +22,6 @@ namespace Cards.ContinuousEffects
             return false;
         }
 
-        protected abstract bool Applies(Engine.ICard card, IGame game);
+        protected abstract bool Applies(ICard card, IGame game);
     }
 }

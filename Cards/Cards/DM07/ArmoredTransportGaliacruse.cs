@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class ArmoredTransportGaliacruse : Creature
     {
-        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Subtype.Armorloid, Civilization.Fire)
+        public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse", 6, 5000, Race.Armorloid, Civilization.Fire)
         {
             AddTapAbility(new ArmoredTransportGaliacruseEffect());
         }
@@ -39,7 +38,7 @@ namespace Cards.Cards.DM07
             return "Each of your fire creatures gets \"This creature can attack untapped creatures\" until the end of the turn.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
         }

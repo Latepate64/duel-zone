@@ -2,7 +2,7 @@
 {
     class Stonesaur : Creature
     {
-        public Stonesaur() : base("Stonesaur", 5, 4000, Common.Subtype.RockBeast, Common.Civilization.Fire)
+        public Stonesaur() : base("Stonesaur", 5, 4000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
             AddPowerAttackerAbility(2000);
         }

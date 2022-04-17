@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -19,7 +18,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             var ability = GetSourceAbility(game);
             return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));

@@ -2,7 +2,7 @@
 {
     class CosmicWing : Spell
     {
-        public CosmicWing() : base("Cosmic Wing", 3, Common.Civilization.Light)
+        public CosmicWing() : base("Cosmic Wing", 3, Engine.Civilization.Light)
         {
             AddSpellAbilities(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect());
         }

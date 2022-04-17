@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM07
+﻿namespace Cards.Cards.DM07
 {
     class HopelessVortex : Spell
     {
-        public HopelessVortex() : base("Hopeless Vortex", 5, Civilization.Darkness)
+        public HopelessVortex() : base("Hopeless Vortex", 5, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesEffect());
         }

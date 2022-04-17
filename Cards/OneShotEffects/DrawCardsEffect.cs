@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).DrawCards(_amount, game);
+            source.GetController(game).DrawCards(_amount, game, source);
             return null;
         }
 

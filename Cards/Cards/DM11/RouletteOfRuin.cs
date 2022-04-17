@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -22,7 +21,7 @@ namespace Cards.Cards.DM11
             foreach (var player in new System.Guid[] { source.Controller, game.GetOpponent(source.Controller) })
             {
                 game.GetPlayer(player).Reveal(game, game.GetPlayer(player).Hand.Cards.ToArray());
-                game.Move(ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
+                game.Move(source, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
                 game.GetPlayer(player).Unreveal(game.GetPlayer(player).Hand.Cards.ToArray());
             }
             return null;

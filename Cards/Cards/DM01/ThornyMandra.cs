@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class ThornyMandra : Creature
     {
-        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Subtype.TreeFolk, Civilization.Nature)
+        public ThornyMandra() : base("Thorny Mandra", 5, 4000, Race.TreeFolk, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ThornyMandraEffect());
         }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM01
             return "You may put a creature from your graveyard into your mana zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Graveyard.Creatures;
         }

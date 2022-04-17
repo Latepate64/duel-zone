@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM08
+﻿namespace Cards.Cards.DM08
 {
     class TyrantWorm : Creature
     {
-        public TyrantWorm() : base("Tyrant Worm", 1, 2000, Subtype.ParasiteWorm, Civilization.Darkness)
+        public TyrantWorm() : base("Tyrant Worm", 1, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
             AddTriggeredAbility(new TriggeredAbilities.WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }

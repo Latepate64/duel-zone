@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class LegendaryBynor : EvolutionCreature
     {
-        public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Subtype.Leviathan, Civilization.Water)
+        public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Race.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new LegendaryBynorEffect());
             AddDoubleBreakerAbility();
@@ -24,7 +23,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return !IsSourceOfAbility(attacker, game) && attacker.HasCivilization(Civilization.Water);
         }

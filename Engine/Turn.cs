@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Turn : Common.Turn, IDisposable, ITurn
+    public class Turn : ITurn, IDisposable
     {
         #region Properties
         /// <summary>
@@ -29,17 +29,25 @@ namespace Engine
         /// 102.1. The other players are nonactive players.
         /// </summary>
         public IPlayer NonActivePlayer { get; set; }
+
+        public int Number { get; set; }
+
+        public Guid Id { get; set; }
+        public IEnumerable<IGameEvent> GameEvents => Phases.SelectMany(x => x.GameEvents);
         #endregion Properties
 
         public Turn() : base()
         {
+            Id = Guid.NewGuid();
         }
 
-        public Turn(ITurn turn) : base(turn)
+        public Turn(ITurn turn)
         {
             Phases = turn.Phases.Select(x => x.Copy()).ToList();
             ActivePlayer = turn.ActivePlayer;
             NonActivePlayer = turn.NonActivePlayer;
+            Number = turn.Number;
+            Id = turn.Id;
         }
 
         public void Play(IGame game, int number)
@@ -86,11 +94,6 @@ namespace Engine
             {
                 Phases = null;
             }
-        }
-
-        public Common.ITurn Convert()
-        {
-            return new Common.Turn(this);
         }
     }
 }

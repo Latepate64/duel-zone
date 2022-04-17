@@ -1,6 +1,4 @@
-﻿using Common;
-using Engine.Abilities;
-using Common.Choices;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Zones;
 using System;
@@ -14,7 +12,7 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : Common.Player, IDisposable, IPlayer
+    public abstract class Player : IPlayer, IDisposable
     {
         #region Properties
         /// <summary>
@@ -61,6 +59,10 @@ namespace Engine
         public Guid AttackableId { get; set; }
 
         public bool DirectlyAttacked { get; set; }
+
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
         #endregion Properties
 
         private static readonly Random Random = new();
@@ -68,15 +70,18 @@ namespace Engine
         #region Methods
         protected Player()
         {
+            Id = Guid.NewGuid();
         }
 
-        protected Player(IPlayer player) : base(player)
+        protected Player(IPlayer player)
         {
             Deck = new Deck(player.Deck);
             Graveyard = new Graveyard(player.Graveyard);
             Hand = new Hand(player.Hand);
             ManaZone = new ManaZone(player.ManaZone);
             ShieldZone = new ShieldZone(player.ShieldZone);
+            Id = player.Id;
+            Name = player?.Name;
         }
 
         public override string ToString()
@@ -107,41 +112,18 @@ namespace Engine
             }
         }
 
-        public IGuidDecision Choose(GuidSelection selection, IGame game)
-        {
-            var legal = false;
-            IGuidDecision decision = null;
-            while (!legal)
-            {
-                decision = ClientChoose(selection);
-                if (decision != null)
-                {
-                    var dist = decision.Decision.Distinct();
-                    legal = selection.IsLegal(dist);
-                }
-                else
-                {
-                    Concede(game);
-                    return new GuidDecision();
-                }
-            }
-            return decision;
-        }
-
-        public abstract IGuidDecision ClientChoose(GuidSelection guidSelection);
-
         public void ShuffleDeck(IGame game)
         {
             game.ProcessEvents(new ShuffleDeckEvent(this));
         }
 
-        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability)
         {
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
                 }
             }
         }
@@ -151,7 +133,7 @@ namespace Engine
             game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
 
-        public void DrawCards(int amount, IGame game)
+        public void DrawCards(int amount, IGame game, IAbility ability)
         {
             // 121.2. Cards may only be drawn one at a time.
             // If a player is instructed to draw multiple cards,
@@ -160,7 +142,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
                 }
             }
         }
@@ -175,13 +157,13 @@ namespace Engine
             return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
 
-        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount)
+        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability)
         {
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
                 }
             }
         }
@@ -191,11 +173,11 @@ namespace Engine
             game.ProcessEvents(new SpellCastEvent(this, spell));
         }
 
-        public void DiscardAtRandom(IGame game, int amount)
+        public void DiscardAtRandom(IGame game, int amount, IAbility ability)
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
+                _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
             }
         }
 
@@ -301,11 +283,6 @@ namespace Engine
             card.PutOnTopOf(bait);
         }
 
-        public Common.IPlayer Convert()
-        {
-            return new Common.Player(this);
-        }
-
         public void Tap(IGame game, params ICard[] cards)
         {
             var untappedCards = cards.Where(x => !x.Tapped).ToList();
@@ -355,31 +332,34 @@ namespace Engine
             owner.Reveal(game, new List<IPlayer> { this }, cards);
         }
 
-        public void ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
+        public bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
             var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
             var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
-                ChooseAttackTarget(game, attackers, decision.Single().Id);
+                return ChooseAttackTarget(game, attackers, decision.Single().Id);
             }
+            return false;
         }
 
-        private void ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
+        private bool ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
         {
             var attacker = attackers.Single(x => x.Id == id);
             var possibleTargets = game.GetPossibleAttackTargets(attacker);
-            Common.IIdentifiable target = possibleTargets.Count() > 1
-                ? game.GetAttackable(Choose(new AttackTargetSelection(Id, possibleTargets.Select(x => x.Id), 1, 1), game).Decision.Single())
+            IAttackable target = possibleTargets.Count() > 1
+                ? ChooseAttackTarget(possibleTargets)
                 : possibleTargets.Single();
             Tap(game, attacker);
-            if (target.Id == attacker.Id)
+            if (target is ICard card && card.Id == attacker.Id)
             {
                 game.AddPendingAbilities(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
+                return true;
             }
             else
             {
-                game.ProcessEvents(new CreatureAttackedEvent(attacker, target.Id));
+                game.ProcessEvents(new CreatureAttackedEvent(attacker, target));
+                return false;
             }
         }
 
@@ -395,15 +375,15 @@ namespace Engine
             // TODO: Implement reveal information on cards and remove them here.
         }
 
-        public void Discard(IGame game, params ICard[] cards)
+        public void Discard(IAbility ability, IGame game, params ICard[] cards)
         {
-            _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
+            _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, cards);
         }
 
         
         public abstract IPlayer Copy();
 
-        public T Choose<T>(T choice) where T : Choices.Choice
+        public T Choose<T>(T choice) where T : Choice
         {
             T choiceMade; 
             do
@@ -413,7 +393,7 @@ namespace Engine
             return choiceMade;
         }
 
-        public abstract T ChooseAbstractly<T>(T choice) where T : Choices.Choice;
+        public abstract T ChooseAbstractly<T>(T choice) where T : Choice;
 
         public bool ChooseToTakeAction(string description)
         {
@@ -425,9 +405,9 @@ namespace Engine
             return Choose(choice).Choice.Value;
         }
 
-        public Subtype ChooseRace(string description, params Subtype[] excluded)
+        public Race ChooseRace(string description, params Race[] excluded)
         {
-            return Choose(new SubtypeChoice(this, description, excluded)).Choice.Value;
+            return Choose(new RaceChoice(this, description, excluded)).Choice.Value;
         }
 
         public IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description)
@@ -435,7 +415,7 @@ namespace Engine
             return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), cards.ToArray()));
         }
 
-        private IEnumerable<ICard> ChooseCards(CardChoice choice)
+        public IEnumerable<ICard> ChooseCards(CardChoice choice)
         {
             if (choice.CanBeChosenAutomatically)
             {
@@ -455,6 +435,28 @@ namespace Engine
         public ICard ChooseCard(IEnumerable<ICard> cards, string description)
         {
             return ChooseCards(cards, 1, 1, description).SingleOrDefault();
+        }
+
+        public IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities)
+        {
+            if (abilities.Count() == 1)
+            {
+                return abilities.Single();
+            }
+            else
+            {
+                return Choose(new AbilityChoice(this, abilities)).Choice;
+            }
+        }
+
+        public IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description)
+        {
+            return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), cards.ToArray()));
+        }
+
+        public IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets)
+        {
+            return Choose(new AttackTargetChoice(this, targets)).Choice;
         }
         #endregion Methods
     }

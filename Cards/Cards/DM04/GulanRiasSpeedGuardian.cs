@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM04
 {
     class GulanRiasSpeedGuardian : Creature
     {
-        public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Subtype.Guardian, Civilization.Light)
+        public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Darkness), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization.Darkness));
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Engine.Civilization.Darkness), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Engine.Civilization.Darkness));
         }
     }
 }

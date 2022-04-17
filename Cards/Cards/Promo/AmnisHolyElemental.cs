@@ -1,12 +1,10 @@
-﻿using Common;
-
-namespace Cards.Cards.Promo
+﻿namespace Cards.Cards.Promo
 {
     class AmnisHolyElemental : Creature
     {
-        public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Subtype.AngelCommand, Civilization.Light)
+        public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {
-            AddStaticAbilities(new ContinuousEffects.CivilizationBlockerEffect(Civilization.Darkness), new ContinuousEffects.NotDestroyedInBattleEffect(Civilization.Darkness));
+            AddStaticAbilities(new ContinuousEffects.CivilizationBlockerEffect(Engine.Civilization.Darkness), new ContinuousEffects.NotDestroyedInBattleEffect(Engine.Civilization.Darkness));
         }
     }
 }

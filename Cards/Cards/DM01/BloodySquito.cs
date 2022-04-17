@@ -1,12 +1,11 @@
 ﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
-using Common;
 
 namespace Cards.Cards.DM01
 {
     class BloodySquito : Creature
     {
-        public BloodySquito() : base("Bloody Squito", 2, 4000, Subtype.BrainJacker, Civilization.Darkness)
+        public BloodySquito() : base("Bloody Squito", 2, 4000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

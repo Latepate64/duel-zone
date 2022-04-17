@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM05
 {
     class BloodwingMantis : Creature
     {
-        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Subtype.GiantInsect, Civilization.Nature)
+        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Race.GiantInsect, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new BloodwingMantisEffect());
             AddDoubleBreakerAbility();
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM05
             return "Return 2 creatures from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.GetPlayer(source.Controller).ManaZone.Creatures;
         }

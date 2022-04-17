@@ -1,12 +1,10 @@
-﻿using Common;
-
-namespace Cards.Cards.DM12
+﻿namespace Cards.Cards.DM12
 {
     class TyphoonCrawler : Creature
     {
-        public TyphoonCrawler() : base("Typhoon Crawler", 6, 5000, Subtype.EarthEater, Civilization.Water)
+        public TyphoonCrawler() : base("Typhoon Crawler", 6, 5000, Engine.Race.EarthEater, Engine.Civilization.Water)
         {
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Fire, Civilization.Nature));
+            AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Engine.Civilization.Fire, Engine.Civilization.Nature));
         }
     }
 }

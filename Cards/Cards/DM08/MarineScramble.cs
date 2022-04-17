@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -43,7 +42,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker);
         }

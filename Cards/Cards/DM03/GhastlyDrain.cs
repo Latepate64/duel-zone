@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class GhastlyDrain : Spell
     {
-        public GhastlyDrain() : base("Ghastly Drain", 3, Common.Civilization.Darkness)
+        public GhastlyDrain() : base("Ghastly Drain", 3, Civilization.Darkness)
         {
             AddSpellAbilities(new GhastlyDrainEffect());
         }
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM03
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.PutFromShieldZoneToHand(cards, false);
+            game.PutFromShieldZoneToHand(cards, false, source);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -40,7 +39,7 @@ namespace Cards.ContinuousEffects
             return "When this creature would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
         }

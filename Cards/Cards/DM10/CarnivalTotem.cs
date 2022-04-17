@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class CarnivalTotem : Creature
     {
-        public CarnivalTotem() : base("Carnival Totem", 6, 7000, Subtype.MysteryTotem, Civilization.Nature)
+        public CarnivalTotem() : base("Carnival Totem", 6, 7000, Race.MysteryTotem, Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CarnivalTotemEffect());
@@ -19,8 +18,8 @@ namespace Cards.Cards.DM10
         {
             var mana = source.GetController(game).ManaZone.Cards;
             var hand = source.GetController(game).Hand.Cards;
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             return null;
         }
 

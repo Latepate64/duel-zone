@@ -8,9 +8,9 @@ namespace Engine.Zones
     /// </summary>
     public class Graveyard : Zone
     {
-        public Graveyard() : base() { }
+        public Graveyard() : base(ZoneType.Graveyard) { }
 
-        public Graveyard(Zone zone) : base(zone)
+        public Graveyard(Graveyard zone) : base(zone)
         {
         }
 

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class MihailCelestialElemental : Creature
     {
-        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Subtype.AngelCommand, Civilization.Light)
+        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Race.AngelCommand, Civilization.Light)
         {
             AddStaticAbilities(new MihailCelestialElementalEffect());
         }
@@ -34,7 +33,7 @@ namespace Cards.Cards.DM09
             return "Whenever another creature would be destroyed, it stays in the battle zone instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return !IsSourceOfAbility(card, game);
         }

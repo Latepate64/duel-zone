@@ -2,7 +2,7 @@
 {
     class SzubsKinTwilightGuardian : Creature
     {
-        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, 6000, Common.Subtype.Guardian, Common.Civilization.Light)
+        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, 6000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

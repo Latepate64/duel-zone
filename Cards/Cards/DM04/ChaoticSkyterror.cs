@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class ChaoticSkyterror : Creature
     {
-        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Subtype.ArmoredWyvern, Civilization.Fire)
+        public ChaoticSkyterror() : base("Chaotic Skyterror", 5, 4000, Race.ArmoredWyvern, Civilization.Fire)
         {
             AddStaticAbilities(new ChaoticSkyterrorEffect());
         }
@@ -33,9 +32,9 @@ namespace Cards.Cards.DM04
             return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Subtype.DemonCommand);
+            return game.BattleZone.GetCreatures(Race.DemonCommand);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Engine.Steps;
-using System;
 
 namespace Engine.GameEvents
 {
@@ -16,7 +15,7 @@ namespace Engine.GameEvents
 
         public override void Happen(IGame game)
         {
-            AttackPhase.AttackingCreature = Guid.Empty;
+            AttackPhase.AttackingCreature = null;
         }
 
         public override string ToString()

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class PouchShell : Creature
     {
-        public PouchShell() : base("Pouch Shell", 4, 1000, Common.Subtype.ColonyBeetle, Common.Civilization.Nature)
+        public PouchShell() : base("Pouch Shell", 4, 1000, Race.ColonyBeetle, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PouchShellEffect());
         }
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            cards.ToList().ForEach(x => x.MoveTopCardIntoOwnersGraveyard(game));
+            cards.ToList().ForEach(x => x.MoveTopCard(game, ZoneType.Graveyard, source));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

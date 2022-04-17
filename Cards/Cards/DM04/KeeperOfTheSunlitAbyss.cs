@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM04
 {
     class KeeperOfTheSunlitAbyss : Creature
     {
-        public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Subtype.CyberVirus, Civilization.Water)
+        public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Race.CyberVirus, Civilization.Water)
         {
             AddStaticAbilities(new KeeperOfTheSunlitAbyssEffect());
         }

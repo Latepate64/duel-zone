@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MagmadragonJagalzor : TurboRushCreature
     {
-        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Subtype.VolcanoDragon, Civilization.Fire)
+        public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Race.VolcanoDragon, Civilization.Fire)
         {
             AddDoubleBreakerAbility();
             AddTurboRushAbility(new MagmadragonJagalzorEffect());
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return creature.Owner == GetController(game).Id;
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class TropicCrawler : Creature
     {
-        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Subtype.EarthEater, Civilization.Water)
+        public TropicCrawler() : base("Tropic Crawler", 4, 3000, Race.EarthEater, Civilization.Water)
         {
             AddBlockerAbility();
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new TropicCrawlerEffect()));
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM12
             return "Your opponent chooses one of his creatures in the battle zone, and returns it to his hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.GetOpponent(game).Id);
         }

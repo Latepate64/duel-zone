@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class RyudmilaChannelerOfSuns : Creature
     {
-        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Subtype.MechaDelSol, Civilization.Light)
+        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Race.MechaDelSol, Civilization.Light)
         {
             AddStaticAbilities(new ContinuousEffects.ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(2000), new RyudmilaChannelerOfSunsEffect());
         }
@@ -34,7 +33,7 @@ namespace Cards.Cards.DM10
             return "When this creature would be destroyed, shuffle it into your deck instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
         }
@@ -42,16 +41,16 @@ namespace Cards.Cards.DM10
 
     class RyudmilaEvent : GameEvent
     {
-        private readonly Engine.ICard _card;
+        private readonly ICard _card;
 
-        public RyudmilaEvent(Engine.ICard card)
+        public RyudmilaEvent(ICard card)
         {
             _card = card;
         }
 
         public override void Happen(IGame game)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Deck, _card);
+            game.Move(null, ZoneType.BattleZone, ZoneType.Deck, _card);
             game.GetPlayer(_card.Owner).ShuffleDeck(game);
         }
 

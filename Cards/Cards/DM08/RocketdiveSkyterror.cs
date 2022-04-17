@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM08
+﻿namespace Cards.Cards.DM08
 {
     class RocketdiveSkyterror : Creature
     {
-        public RocketdiveSkyterror() : base("Rocketdive Skyterror", 4, 5000, Subtype.ArmoredWyvern, Civilization.Fire)
+        public RocketdiveSkyterror() : base("Rocketdive Skyterror", 4, 5000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddThisCreatureCannotBeAttackedAbility();
             AddThisCreatureCannotAttackPlayersAbility();

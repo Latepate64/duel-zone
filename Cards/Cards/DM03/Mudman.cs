@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM03
 {
     class Mudman : Creature
     {
-        public Mudman() : base("Mudman", 4, 2000, Subtype.Hedrian, Civilization.Darkness)
+        public Mudman() : base("Mudman", 4, 2000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization.Darkness, 2000));
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Engine.Civilization.Darkness, 2000));
         }
     }
 }

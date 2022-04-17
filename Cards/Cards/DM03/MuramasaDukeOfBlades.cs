@@ -7,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class MuramasaDukeOfBlades : Creature
     {
-        public MuramasaDukeOfBlades() : base("Muramasa, Duke of Blades", 6, 3000, Common.Subtype.Human, Common.Civilization.Fire)
+        public MuramasaDukeOfBlades() : base("Muramasa, Duke of Blades", 6, 3000, Race.Human, Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new MuramasaDukeOfBladesEffect());
         }

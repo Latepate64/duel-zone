@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,9 +6,9 @@ namespace Cards.Cards.DM09
 {
     class AzaghastTyrantOfShadows : EvolutionCreature
     {
-        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Subtype.DarkLord, Civilization.Darkness)
+        public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Race.DarkLord, Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype.Ghost, new YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect()));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race.Ghost, new YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect()));
             AddDoubleBreakerAbility();
         }
     }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM09
             return "You may destroy one of your opponent's untapped creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }

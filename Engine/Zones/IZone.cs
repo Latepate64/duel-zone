@@ -8,13 +8,14 @@ namespace Engine.Zones
         List<ICard> Cards { get; }
         IEnumerable<ICard> Creatures { get; }
         IEnumerable<ICard> Spells { get; }
+        ZoneType Type { get; }
 
         void Add(ICard card, IGame game);
         void Dispose();
-        IEnumerable<ICard> GetCards(Common.Civilization civilization);
-        IEnumerable<ICard> GetCreatures(Common.Civilization civilization);
+        IEnumerable<ICard> GetCards(Civilization civilization);
+        IEnumerable<ICard> GetCreatures(Civilization civilization);
         IEnumerable<ICard> GetCreatures(Guid owner);
-        IEnumerable<ICard> GetCreatures(Common.Subtype subtype);
+        IEnumerable<ICard> GetCreatures(Race race);
         IEnumerable<ICard> GetOtherCreatures(Guid creature);
         List<ICard> Remove(ICard card, IGame game);
         string ToString();

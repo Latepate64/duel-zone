@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM11
+﻿namespace Cards.Cards.DM11
 {
     class HazariaDukeOfThorns : WaveStrikerCreature
     {
-        public HazariaDukeOfThorns() : base("Hazaria, Duke of Thorns", 4, 2000, Subtype.DarkLord, Civilization.Darkness)
+        public HazariaDukeOfThorns() : base("Hazaria, Duke of Thorns", 4, 2000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.OpponentSacrificeEffect()));
         }

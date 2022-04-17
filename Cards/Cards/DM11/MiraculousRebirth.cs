@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -62,12 +61,12 @@ namespace Cards.Cards.DM11
             return $"Search your deck. You may take a creature from your deck that costs {_cost} and put it into the battle zone. Then shuffle your deck.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(ZoneType.Deck, ZoneType.BattleZone, cards);
+            game.Move(source, ZoneType.Deck, ZoneType.BattleZone, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Deck.Creatures.Where(x => x.ManaCost == _cost);
         }

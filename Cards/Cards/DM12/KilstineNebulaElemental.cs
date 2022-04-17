@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM12
 {
     class KilstineNebulaElemental : WaveStrikerCreature
     {
-        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Subtype.AngelCommand, Civilization.Light)
+        public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Race.AngelCommand, Civilization.Light)
         {
             AddWaveStrikerAbility(new KilstineNebulaElementalEffect());
         }
@@ -44,7 +43,7 @@ namespace Cards.Cards.DM12
             return "Each of your other creatures in battle zone gets +5000 power and has \"blocker\" and \"double breaker\".";
         }
 
-        private List<Engine.ICard> GetAffectedCards(IGame game)
+        private List<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game)).ToList();
         }

@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM04
+﻿namespace Cards.Cards.DM04
 {
     class GregorianWorm : Creature
     {
-        public GregorianWorm() : base("Gregorian Worm", 4, 3000, Subtype.ParasiteWorm, Civilization.Darkness)
+        public GregorianWorm() : base("Gregorian Worm", 4, 3000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
         }

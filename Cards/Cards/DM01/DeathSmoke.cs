@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class DeathSmoke : Spell
     {
-        public DeathSmoke() : base("Death Smoke", 4, Common.Civilization.Darkness)
+        public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
         {
             AddSpellAbilities(new DeathSmokeEffect());
         }

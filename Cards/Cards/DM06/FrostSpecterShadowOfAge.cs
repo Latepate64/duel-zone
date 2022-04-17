@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class FrostSpecterShadowOfAge : EvolutionCreature
     {
-        public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3, 5000, Subtype.Ghost, Civilization.Darkness)
+        public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3, 5000, Race.Ghost, Civilization.Darkness)
         {
             AddStaticAbilities(new FrostSpecterShadowOfAgeEffect());
         }
@@ -30,9 +29,9 @@ namespace Cards.Cards.DM06
             return "Each of your Ghosts in the battle zone has \"slayer.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Subtype.Ghost);
+            return game.BattleZone.GetCreatures(GetController(game).Id, Race.Ghost);
         }
     }
 }

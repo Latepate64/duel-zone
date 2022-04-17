@@ -1,14 +1,13 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM03
 {
     class AlekSolidityEnforcer : Creature
     {
-        public AlekSolidityEnforcer() : base("Alek, Solidity Enforcer", 7, 4000, Subtype.Berserker, Civilization.Light)
+        public AlekSolidityEnforcer() : base("Alek, Solidity Enforcer", 7, 4000, Engine.Race.Berserker, Engine.Civilization.Light)
         {
             AddBlockerAbility();
-            AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Civilization.Light));
+            AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Engine.Civilization.Light));
         }
     }
 }

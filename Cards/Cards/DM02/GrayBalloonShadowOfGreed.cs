@@ -2,7 +2,7 @@
 {
     class GrayBalloonShadowOfGreed : Creature
     {
-        public GrayBalloonShadowOfGreed() : base("Gray Balloon, Shadow of Greed", 3, 3000, Common.Subtype.Ghost, Common.Civilization.Darkness)
+        public GrayBalloonShadowOfGreed() : base("Gray Balloon, Shadow of Greed", 3, 3000, Engine.Race.Ghost, Engine.Civilization.Darkness)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

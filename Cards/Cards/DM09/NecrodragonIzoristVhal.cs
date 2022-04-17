@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class NecrodragonIzoristVhal : Creature
     {
-        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Race.ZombieDragon, Civilization.Darkness)
         {
             AddStaticAbilities(new NecrodragonIzoristVhalEffect(), new PoweredDoubleBreaker());
         }

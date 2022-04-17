@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM02
 {
     class PlasmaChaser : Creature
     {
-        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Subtype.GelFish, Civilization.Water)
+        public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Race.GelFish, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new PlasmaChaserEffect());
         }
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM02
 
             if (amount > 0 && source.GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                source.GetController(game).DrawCards(amount, game);
+                source.GetController(game).DrawCards(amount, game, source);
             }
             return null;
         }

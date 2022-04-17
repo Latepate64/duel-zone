@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM05
             return "Each player returns all cards from his mana zone to his hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.ManaZone.Cards);
         }

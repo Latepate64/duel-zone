@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class TottoPipicchi : Creature
     {
-        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Subtype.FireBird, Civilization.Fire)
+        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Race.FireBird, Civilization.Fire)
         {
             AddStaticAbilities(new TottoPipicchiEffect());
         }
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return creature.IsDragon;
         }

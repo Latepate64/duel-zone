@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class Gigaberos : Creature
     {
-        public Gigaberos() : base("Gigaberos", 5, 8000, Subtype.Chimera, Civilization.Darkness)
+        public Gigaberos() : base("Gigaberos", 5, 8000, Race.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect());
             AddDoubleBreakerAbility();
@@ -29,14 +28,14 @@ namespace Cards.Cards.DM01
             }
             else if (creatures.Where(x => x.Id != source.Source).Count() < 2)
             {
-                return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
+                return game.Move(source, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
             }
             else
             {
                 var selection = source.GetController(game).ChooseCards(creatures, 1, 2, ToString());
                 if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
-                    return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
+                    return game.Move(source, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
                 }
                 else
                 {
@@ -73,7 +72,7 @@ namespace Cards.Cards.DM01
             return "Destroy 2 of your other creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }

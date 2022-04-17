@@ -2,7 +2,7 @@
 {
     class CraniumClamp : Spell
     {
-        public CraniumClamp() : base("Cranium Clamp", 4, Common.Civilization.Darkness)
+        public CraniumClamp() : base("Cranium Clamp", 4, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(2));
         }

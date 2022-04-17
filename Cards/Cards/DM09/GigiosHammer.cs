@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class GigiosHammer : Creature
     {
-        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Subtype.Xenoparts, Civilization.Fire)
+        public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Race.Xenoparts, Civilization.Fire)
         {
             AddTapAbility(new GigiosHammerOneShotEffect());
         }
@@ -35,26 +34,26 @@ namespace Cards.Cards.DM09
 
     class GigiosHammerContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
         public GigiosHammerContinuousEffect(GigiosHammerContinuousEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
-        public GigiosHammerContinuousEffect(Subtype subtype) : base()
+        public GigiosHammerContinuousEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public void AddAbility(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasSubtype(_subtype)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            game.BattleZone.Creatures.Where(x => x.HasRace(_race)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
-            return creature.HasSubtype(_subtype);
+            return creature.HasRace(_race);
         }
 
         public override IContinuousEffect Copy()
@@ -64,7 +63,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Each {_subtype} of that race attacks this turn if able and gets \"power attacker +4000\" until the end of the turn.";
+            return $"Each {_race} of that race attacks this turn if able and gets \"power attacker +4000\" until the end of the turn.";
         }
     }
 }

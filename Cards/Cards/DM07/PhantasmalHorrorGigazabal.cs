@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM07
 {
     class PhantasmalHorrorGigazabal : EvolutionCreature
     {
-        public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Subtype.Chimera, Civilization.Darkness)
+        public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new StealthEffect(Civilization.Light));
+            AddStaticAbilities(new StealthEffect(Engine.Civilization.Light));
             AddDoubleBreakerAbility();
         }
     }

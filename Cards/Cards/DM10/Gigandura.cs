@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class Gigandura : Creature
     {
-        public Gigandura() : base("Gigandura", 5, 3000, Subtype.Chimera, Civilization.Darkness)
+        public Gigandura() : base("Gigandura", 5, 3000, Race.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GiganduraEffect());
         }
@@ -21,10 +20,10 @@ namespace Cards.Cards.DM10
             var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(ZoneType.Hand, ZoneType.ManaZone, card);
+                game.Move(source, ZoneType.Hand, ZoneType.ManaZone, card);
                 new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
             }
-            source.GetOpponent(game).Unreveal(new List<Engine.ICard> { card });
+            source.GetOpponent(game).Unreveal(new List<ICard> { card });
             return card;
         }
 

@@ -1,12 +1,10 @@
-﻿using Common;
-
-namespace Cards.Cards.DM06
+﻿namespace Cards.Cards.DM06
 {
     class FactoryShellQ : Creature
     {
-        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, Subtype.Survivor, Subtype.ColonyBeetle, Civilization.Nature)
+        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, Engine.Race.Survivor, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {
-            AddSurvivorAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSubtypeCreatureEffect(Subtype.Survivor)));
+            AddSurvivorAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchRaceCreatureEffect(Engine.Race.Survivor)));
         }
     }
 }

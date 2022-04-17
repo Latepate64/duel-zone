@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class Tropico : Creature
     {
-        public Tropico() : base("Tropico", 5, 3000, Common.Subtype.CyberLord, Common.Civilization.Water)
+        public Tropico() : base("Tropico", 5, 3000, Race.CyberLord, Civilization.Water)
         {
             AddStaticAbilities(new TropicoEffect());
         }

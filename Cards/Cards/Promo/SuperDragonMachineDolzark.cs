@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.Promo
 {
     class SuperDragonMachineDolzark : Creature
     {
-        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Subtype.ArmoredDragon, Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
+        public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, Race.ArmoredDragon, Race.EarthDragon, Civilization.Fire, Civilization.Nature)
         {
             AddTriggeredAbility(new DolzarkAbility());
             AddDoubleBreakerAbility();
@@ -36,7 +35,7 @@ namespace Cards.Cards.Promo
             return $"Whenever one of your other creatures that has Dragon in its race attacks, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return card.Owner == Controller && card.Id != Source && card.IsDragon;
         }
@@ -58,7 +57,7 @@ namespace Cards.Cards.Promo
             return "You may choose one of your opponent's creatures in the battle zone that has power 5000 or less and put it into his mana zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 5000);
         }

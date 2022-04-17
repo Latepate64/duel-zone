@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM06
 {
     class AdomisTheOracle : Creature
     {
-        public AdomisTheOracle() : base("Adomis, the Oracle", 3, 2000, Subtype.LightBringer, Civilization.Light)
+        public AdomisTheOracle() : base("Adomis, the Oracle", 3, 2000, Race.LightBringer, Civilization.Light)
         {
             AddTapAbility(new AdomisTheOracleEffect());
         }
@@ -35,13 +34,13 @@ namespace Cards.Cards.DM06
             return "Choose a shield and look at it. Then put it back where it was.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, cards);
             source.GetOpponent(game).Unreveal(cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.ShieldZone.Cards);
         }

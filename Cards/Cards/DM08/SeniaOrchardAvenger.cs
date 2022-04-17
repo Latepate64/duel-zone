@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class SeniaOrchardAvenger : TurboRushCreature
     {
-        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Subtype.TreeFolk, Civilization.Nature)
+        public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Race.TreeFolk, Civilization.Nature)
         {
             AddTurboRushAbility(new SeniaOrchardAvengerEffect());
         }
@@ -29,9 +28,9 @@ namespace Cards.Cards.DM08
             return "This creature gets +5000 power and has \"double breaker\".";
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return new List<Engine.ICard> { GetSourceCard(game) };
+            return new List<ICard> { GetSourceCard(game) };
         }
     }
 }

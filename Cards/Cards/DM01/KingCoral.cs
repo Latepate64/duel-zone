@@ -2,7 +2,7 @@
 {
     class KingCoral : Creature
     {
-        public KingCoral() : base("King Coral", 3, 1000, Common.Subtype.Leviathan, Common.Civilization.Water)
+        public KingCoral() : base("King Coral", 3, 1000, Engine.Race.Leviathan, Engine.Civilization.Water)
         {
             AddBlockerAbility();
         }

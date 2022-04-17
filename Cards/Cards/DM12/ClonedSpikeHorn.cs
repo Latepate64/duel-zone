@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM12
 {
     class ClonedSpikeHorn : Creature
     {
-        public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Subtype.HornedBeast, Civilization.Nature)
+        public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Race.HornedBeast, Civilization.Nature)
         {
             AddStaticAbilities(new ClonedSpikeHornEffect(), new ContinuousEffects.PoweredDoubleBreaker());
         }

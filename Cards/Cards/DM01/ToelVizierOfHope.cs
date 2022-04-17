@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
 {
     class ToelVizierOfHope : Creature
     {
-        public ToelVizierOfHope() : base("Toel, Vizier of Hope", 5, 2000, Common.Subtype.Initiate, Common.Civilization.Light)
+        public ToelVizierOfHope() : base("Toel, Vizier of Hope", 5, 2000, Race.Initiate, Civilization.Light)
         {
             AddAtTheEndOfYourTurnAbility(new ToelVizierOfHopeEffect());
         }

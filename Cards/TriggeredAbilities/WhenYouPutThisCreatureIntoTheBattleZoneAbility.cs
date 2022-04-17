@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 
@@ -25,7 +24,7 @@ namespace Cards.TriggeredAbilities
             return $"When you put this creature into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return Source == card.Id;
         }
@@ -51,7 +50,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever another creature is put into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return Source != card.Id;
         }
@@ -77,9 +76,9 @@ namespace Cards.TriggeredAbilities
             return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner && (card.HasSubtype(Subtype.Dragonoid) || card.IsDragon);
+            return Controller == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
         }
     }
 
@@ -103,7 +102,7 @@ namespace Cards.TriggeredAbilities
             return $"When you put another creature into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return Source != card.Id && Controller == card.Owner;
         }
@@ -121,37 +120,37 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.Card, game);
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.CardInDestinationZone, game);
         }
     }
 
-    class WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility ability) : base(ability)
+        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
         {
-            _subtype = ability._subtype;
+            _race = ability._race;
         }
 
-        public WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(Subtype subtype, IOneShotEffect effect) : base(effect)
+        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race race, IOneShotEffect effect) : base(effect)
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public override IAbility Copy()
         {
-            return new WheneverYouPutSubtypeCreatureIntoTheBattleZoneAbility(this);
+            return new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(this);
         }
 
         public override string ToString()
         {
-            return $"Whenever you put a {_subtype} into the battle zone, {GetEffectText()}";
+            return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner && card.HasSubtype(_subtype);
+            return Controller == card.Owner && card.HasRace(_race);
         }
     }
 }

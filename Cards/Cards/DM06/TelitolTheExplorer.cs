@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class TelitolTheExplorer : Creature
     {
-        public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Subtype.Gladiator, Civilization.Light)
+        public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Race.Gladiator, Civilization.Light)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect());

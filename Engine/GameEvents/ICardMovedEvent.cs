@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Engine.Abilities;
 using System;
 
 namespace Engine.GameEvents
@@ -9,7 +9,8 @@ namespace Engine.GameEvents
         Guid CardInSourceZone { get; }
         ZoneType Source { get; }
         ZoneType Destination { get; }
-        bool EntersTapped { get; }
-        ICard Card { get; set; }
+        bool EntersTapped { get; set; }
+        ICard CardInDestinationZone { get; set; }
+        IAbility Ability { get; }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Engine.Abilities;
-using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Engine.Steps
 {
     public class AttackDeclarationStep : Step
     {
+        bool _tapAbilityUsed;
+
         public AttackDeclarationStep(AttackPhase phase) : base(phase, PhaseOrStep.AttackDeclaration)
         {
         }
@@ -15,16 +15,15 @@ namespace Engine.Steps
             var attackers = game.GetCreaturesThatHaveAttackTargets();
             if (attackers.Any())
             {
-                game.CurrentTurn.ActivePlayer.ChooseAttacker(game, attackers);
+                _tapAbilityUsed = game.CurrentTurn.ActivePlayer.ChooseAttacker(game, attackers);
             }
         }
 
         public override IStep GetNextStep(IGame game)
         {
-            if (Phase.AttackingCreature != Guid.Empty)
+            if (Phase.AttackingCreature != null)
             {
-                var tapAbilities = game.GetCard(Phase.AttackingCreature).GetAbilities<TapAbility>();
-                if (tapAbilities.Select(y => y.Id).Contains(Phase.AttackTarget))
+                if (_tapAbilityUsed)
                 {
                     return new AttackDeclarationStep(Phase);
                 }

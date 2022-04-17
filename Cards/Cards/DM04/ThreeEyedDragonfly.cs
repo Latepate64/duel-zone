@@ -1,6 +1,5 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -13,7 +12,7 @@ namespace Cards.Cards.DM04
 {
     class ThreeEyedDragonfly : Creature
     {
-        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Subtype.GiantInsect, Civilization.Nature)
+        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Race.GiantInsect, Civilization.Nature)
         {
             AddWheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect());
         }
@@ -42,16 +41,16 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IDuration
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IExpirable
     {
-        private readonly Engine.ICard _card;
+        private readonly ICard _card;
 
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
             _card = effect._card;
         }
 
-        public ThreeEyedDragonflyContinuousEffect(Engine.ICard card) : base(2000)
+        public ThreeEyedDragonflyContinuousEffect(ICard card) : base(2000)
         {
             _card = card;
         }
@@ -66,14 +65,14 @@ namespace Cards.Cards.DM04
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return new List<Engine.ICard> { _card };
+            return new List<ICard> { _card };
         }
     }
 
@@ -97,7 +96,7 @@ namespace Cards.Cards.DM04
             return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }

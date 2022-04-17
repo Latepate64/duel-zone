@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.Promo
 {
     class ArmoredGroblav : EvolutionCreature
     {
-        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Subtype.Human, Civilization.Fire)
+        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Race.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredGroblavEffect());
             AddDoubleBreakerAbility();

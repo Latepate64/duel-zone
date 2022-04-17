@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM11
 {
     class NinjaPumpkin : WaveStrikerCreature
     {
-        public NinjaPumpkin() : base("Ninja Pumpkin", 3, 2000, Subtype.WildVeggies, Civilization.Nature)
+        public NinjaPumpkin() : base("Ninja Pumpkin", 3, 2000, Race.WildVeggies, Civilization.Nature)
         {
             AddWaveStrikerAbility(new NinjaPumpkinEffect());
         }

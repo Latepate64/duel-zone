@@ -2,7 +2,7 @@
 {
     class SteelSmasher : Creature
     {
-        public SteelSmasher() : base("Steel Smasher", 2, 3000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
+        public SteelSmasher() : base("Steel Smasher", 2, 3000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
             AddThisCreatureCannotAttackPlayersAbility();
         }

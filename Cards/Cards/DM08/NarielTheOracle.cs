@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class NarielTheOracle : Creature
     {
-        public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Subtype.LightBringer, Civilization.Light)
+        public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Race.LightBringer, Civilization.Light)
         {
             AddStaticAbilities(new NarielTheOracleEffect());
         }
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return creature.Power >= 3000;
         }

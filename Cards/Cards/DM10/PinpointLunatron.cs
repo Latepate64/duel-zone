@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class PinpointLunatron : SilentSkillCreature
     {
-        public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Subtype.CyberMoon, Civilization.Water)
+        public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Race.CyberMoon, Civilization.Water)
         {
             AddSilentSkillAbility(new PinpointLunatronEffect());
         }
@@ -30,16 +29,16 @@ namespace Cards.Cards.DM10
             return "Choose a creature in the battle zone or a card in either player's mana zone and return it to its owner's hand.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             foreach (var card in cards)
             {
                 var sourceZone = game.BattleZone.Cards.Contains(card) ? ZoneType.BattleZone : ZoneType.ManaZone;
-                game.Move(sourceZone, ZoneType.Hand, card);
+                game.Move(source, sourceZone, ZoneType.Hand, card);
             }
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(source.Controller));
         }

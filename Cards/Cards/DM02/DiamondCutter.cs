@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -38,7 +37,7 @@ namespace Cards.Cards.DM02
     {
         private readonly Guid _controller;
 
-        public DiamondCutterContinuousEffect(System.Guid controller) : base()
+        public DiamondCutterContinuousEffect(Guid controller) : base()
         {
             _controller = controller;
         }
@@ -48,7 +47,7 @@ namespace Cards.Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool Applies(Engine.ICard attacker, IGame game)
+        public bool Applies(ICard attacker, IGame game)
         {
             return attacker.Owner == _controller;
         }

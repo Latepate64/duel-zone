@@ -9,7 +9,7 @@ namespace Cards.OneShotEffects
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
+                source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
                 return true;
             }
             else

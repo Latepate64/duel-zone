@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class HurricaneCrawler : Creature
     {
-        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Subtype.EarthEater, Civilization.Water)
+        public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Race.EarthEater, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new HurricaneCrawlerEffect());
         }
@@ -18,7 +17,7 @@ namespace Cards.Cards.DM10
         {
             var hand = source.GetController(game).Hand.Cards;
             var amount = hand.Count;
-            game.Move(ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             return new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
         }
 

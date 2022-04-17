@@ -1,12 +1,10 @@
-﻿using Common;
-
-namespace Cards.Cards.Promo
+﻿namespace Cards.Cards.Promo
 {
     class GiliamTheTormentor : Creature
     {
-        public GiliamTheTormentor() : base("Giliam, the Tormentor", 7, 5000, Subtype.DemonCommand, Civilization.Darkness)
+        public GiliamTheTormentor() : base("Giliam, the Tormentor", 7, 5000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new ContinuousEffects.CivilizationBlockerEffect(Civilization.Light), new ContinuousEffects.NotDestroyedInBattleEffect(Civilization.Light));
+            AddStaticAbilities(new ContinuousEffects.CivilizationBlockerEffect(Engine.Civilization.Light), new ContinuousEffects.NotDestroyedInBattleEffect(Engine.Civilization.Light));
         }
     }
 }

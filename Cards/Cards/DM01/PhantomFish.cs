@@ -2,7 +2,7 @@
 {
     class PhantomFish : Creature
     {
-        public PhantomFish() : base("Phantom Fish", 3, 4000, Common.Subtype.GelFish, Common.Civilization.Water)
+        public PhantomFish() : base("Phantom Fish", 3, 4000, Engine.Race.GelFish, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

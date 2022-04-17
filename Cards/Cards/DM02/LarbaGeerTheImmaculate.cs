@@ -1,5 +1,4 @@
 ﻿using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class LarbaGeerTheImmaculate : EvolutionCreature
     {
-        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Subtype.Guardian, Civilization.Light)
+        public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Race.Guardian, Civilization.Light)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM02
             return "Tap all your opponent's creatures in the battle zone that have \"blocker.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(game.GetOpponent(source.Controller)).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }

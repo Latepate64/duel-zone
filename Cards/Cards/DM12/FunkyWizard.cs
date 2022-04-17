@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class FunkyWizard : Creature
     {
-        public FunkyWizard() : base("Funky Wizard", 4, 2000, Subtype.Merfolk, Civilization.Water)
+        public FunkyWizard() : base("Funky Wizard", 4, 2000, Race.Merfolk, Civilization.Water)
         {
             AddBlockerAbility();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FunkyWizardEffect());
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM12
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {
-                    player.DrawCards(1, game);
+                    player.DrawCards(1, game, source);
                 }
             }
             return null;

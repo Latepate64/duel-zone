@@ -2,7 +2,7 @@
 {
     class BoneAssassinTheRipper : Creature
     {
-        public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Common.Subtype.LivingDead, Common.Civilization.Darkness)
+        public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

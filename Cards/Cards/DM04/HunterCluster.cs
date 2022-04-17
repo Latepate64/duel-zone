@@ -2,7 +2,7 @@
 {
     class HunterCluster : Creature
     {
-        public HunterCluster() : base("Hunter Cluster", 4, 1000, Common.Subtype.CyberCluster, Common.Civilization.Water)
+        public HunterCluster() : base("Hunter Cluster", 4, 1000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
             AddShieldTrigger();
             AddBlockerAbility();

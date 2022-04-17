@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM06
+﻿namespace Cards.Cards.DM06
 {
     class TentacleWorm : Creature
     {
-        public TentacleWorm() : base("Tentacle Worm", 4, 3000, Subtype.ParasiteWorm, Civilization.Darkness)
+        public TentacleWorm() : base("Tentacle Worm", 4, 3000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
         }
     }

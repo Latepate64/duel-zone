@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
             return new EachCivilizationCardCostsMoreEffect(this);
         }
 
-        public int GetChange(Engine.ICard card, Engine.IGame game)
+        public int GetChange(ICard card, IGame game)
         {
             return card.HasCivilization(_civilization) ? _increase : 0;
         }

@@ -1,18 +1,18 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM12
 {
     class FeverNuts : Creature
     {
-        public FeverNuts() : base("Fever Nuts", 3, 1000, Subtype.WildVeggies, Civilization.Nature)
+        public FeverNuts() : base("Fever Nuts", 3, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new FeverNutsEffect());
         }
     }
 
-    class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect
+    class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
     {
         public FeverNutsEffect() : base() { }
 
@@ -21,9 +21,14 @@ namespace Cards.Cards.DM12
             return new FeverNutsEffect();
         }
 
-        public int GetChange(Engine.ICard card, Engine.IGame game)
+        public int GetChange(ICard card, IGame game)
         {
             return card.CardType == CardType.Creature ? -1 : 0;
+        }
+
+        public int GetMinimumCost(ICard card, IGame game)
+        {
+            return card.CardType == CardType.Creature ? 1 : 0;
         }
 
         public override string ToString()

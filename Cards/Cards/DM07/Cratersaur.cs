@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM07
 {
     class Cratersaur : Creature
     {
-        public Cratersaur() : base("Cratersaur", 3, 2000, Subtype.RockBeast, Civilization.Fire)
+        public Cratersaur() : base("Cratersaur", 3, 2000, Race.RockBeast, Civilization.Fire)
         {
             AddStaticAbilities(new CratersaurEffect());
         }
@@ -28,7 +27,7 @@ namespace Cards.Cards.DM07
             }
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return YouHaveNoShields(game) && IsSourceOfAbility(attacker, game);
         }

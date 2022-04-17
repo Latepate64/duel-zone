@@ -1,11 +1,10 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 
 namespace Cards.Cards.DM04
 {
     class Magmarex : Creature
     {
-        public Magmarex() : base("Magmarex", 5, 3000, Subtype.RockBeast, Civilization.Fire)
+        public Magmarex() : base("Magmarex", 5, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
             AddShieldTrigger();
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAllCreaturesThatHaveExactPower(1000));

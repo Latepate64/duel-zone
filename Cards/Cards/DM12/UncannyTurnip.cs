@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class UncannyTurnip : WaveStrikerCreature
     {
-        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Subtype.WildVeggies, Civilization.Nature)
+        public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Race.WildVeggies, Civilization.Nature)
         {
             AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UncannyTurnipEffect()));
         }
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM12
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
+            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
             return new OneShotEffects.ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
         }
 

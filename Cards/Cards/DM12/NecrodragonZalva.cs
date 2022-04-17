@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
     class NecrodragonZalva : Creature
     {
-        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Subtype.ZombieDragon, Civilization.Darkness)
+        public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Race.ZombieDragon, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonZalvaEffect());
         }
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM12
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetOpponent(game).DrawCards(1, game);
+            source.GetOpponent(game).DrawCards(1, game, source);
             return null;
         }
 

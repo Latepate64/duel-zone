@@ -4,7 +4,7 @@ namespace Engine.Zones
 {
     public class SpellStack : Zone, ICopyable<SpellStack>
     {
-        public SpellStack()
+        public SpellStack() : base(ZoneType.SpellStack)
         {
         }
 

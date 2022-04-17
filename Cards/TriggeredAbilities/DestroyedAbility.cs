@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 
@@ -17,7 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && TriggersFrom(e.Card, game);
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && TriggersFrom(e.CardInDestinationZone, game);
         }
     }
 
@@ -41,7 +40,7 @@ namespace Cards.TriggeredAbilities
             return $"When this creature is destroyed, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
             return card.Id == Source;
         }

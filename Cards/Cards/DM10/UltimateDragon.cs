@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class UltimateDragon : Creature
     {
-        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Subtype.ArmoredDragon, Civilization.Fire)
+        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new UltimateDragonPowerEffect(), new UltimateDragonBreakerEffect());
         }
@@ -43,7 +42,7 @@ namespace Cards.Cards.DM10
             return new UltimateDragonBreakerEffect();
         }
 
-        public override int GetAmount(IGame game, Engine.ICard creature)
+        public override int GetAmount(IGame game, ICard creature)
         {
             var ability = GetSourceAbility(game);
             return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.IsDragon) : 1;

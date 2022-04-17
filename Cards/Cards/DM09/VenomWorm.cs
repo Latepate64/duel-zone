@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM09
 {
     class VenomWorm : Creature
     {
-        public VenomWorm() : base("Venom Worm", 3, 1000, Subtype.ParasiteWorm, Civilization.Darkness)
+        public VenomWorm() : base("Venom Worm", 3, 1000, Race.ParasiteWorm, Civilization.Darkness)
         {
             AddTapAbility(new VenomWormOneShotEffect());
         }
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM09
         public override object Apply(IGame game, IAbility source)
         {
             var race = source.GetController(game).ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasSubtype(race)).ToArray();
+            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasRace(race)).ToArray();
             game.AddContinuousEffects(source, new VenomWormContinuousEffect(race, creatures));
             return null;
         }
@@ -38,14 +37,14 @@ namespace Cards.Cards.DM09
 
     class VenomWormContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
-        private readonly Subtype _race;
+        private readonly Race _race;
 
         public VenomWormContinuousEffect(VenomWormContinuousEffect effect) : base(effect)
         {
             _race = effect._race;
         }
 
-        public VenomWormContinuousEffect(Subtype race, params Engine.ICard[] cards) : base(new StaticAbilities.SlayerAbility(), cards)
+        public VenomWormContinuousEffect(Race race, params ICard[] cards) : base(new StaticAbilities.SlayerAbility(), cards)
         {
             _race = race;
         }

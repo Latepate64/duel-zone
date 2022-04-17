@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
     class SimianWarriorGrash : Creature
     {
-        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Subtype.Armorloid, Civilization.Fire)
+        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Race.Armorloid, Civilization.Fire)
         {
             AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1)));
         }
@@ -32,9 +31,9 @@ namespace Cards.Cards.DM09
             return $"Whenever one of your Armorloids is destroyed, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.HasSubtype(Subtype.Armorloid);
+            return card.Owner == Controller && card.HasRace(Race.Armorloid);
         }
     }
 }

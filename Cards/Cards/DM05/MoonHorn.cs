@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM05
 {
     class MoonHorn : Creature
     {
-        public MoonHorn() : base("Moon Horn", 6, 6000, Subtype.HornedBeast, Civilization.Nature)
+        public MoonHorn() : base("Moon Horn", 6, 6000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {
-            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Civilization.Water, Civilization.Darkness));
+            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Engine.Civilization.Water, Engine.Civilization.Darkness));
             AddDoubleBreakerAbility();
         }
     }

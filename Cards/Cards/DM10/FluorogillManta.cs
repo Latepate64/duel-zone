@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class FluorogillManta : Creature
     {
-        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Subtype.GelFish, Civilization.Water)
+        public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Race.GelFish, Civilization.Water)
         {
             AddStaticAbilities(new FluorogillMantaEffect());
         }
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasCivilization(Civilization.Light) || attacker.HasCivilization(Civilization.Darkness));
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.GameEvents;
 using System.Collections.Generic;
 
@@ -25,14 +24,14 @@ namespace Cards.ContinuousEffects
             return "When this creature would be destroyed, return it to your hand instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return new List<Engine.ICard> { GetSourceCard(game) };
+            return new List<ICard> { GetSourceCard(game) };
         }
     }
 
@@ -46,7 +45,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        protected abstract List<Engine.ICard> GetAffectedCards(IGame game);
+        protected abstract List<ICard> GetAffectedCards(IGame game);
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {

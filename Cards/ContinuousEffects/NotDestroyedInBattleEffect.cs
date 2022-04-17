@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -18,7 +17,7 @@ namespace Cards.ContinuousEffects
             _civilization = effect._civilization;
         }
 
-        public bool Applies(Engine.ICard against, Engine.ICard creature, IGame game)
+        public bool Applies(ICard against, ICard creature, IGame game)
         {
             return IsSourceOfAbility(creature, game) && against.HasCivilization(_civilization);
         }

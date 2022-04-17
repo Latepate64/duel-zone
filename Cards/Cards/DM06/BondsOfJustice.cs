@@ -1,6 +1,5 @@
 ﻿using Cards.OneShotEffects;
 using Cards.StaticAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ namespace Cards.Cards.DM06
             return "Tap all creatures in the battle zone that don't have \"blocker.\"";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.Creatures.Where(x => !x.GetAbilities<BlockerAbility>().Any());
         }

@@ -2,7 +2,7 @@
 {
     class TwinCannonSkyterror : Creature
     {
-        public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Common.Subtype.ArmoredWyvern, Common.Civilization.Fire)
+        public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {
             AddSpeedAttackerAbility();
             AddDoubleBreakerAbility();

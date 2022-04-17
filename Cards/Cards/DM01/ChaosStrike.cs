@@ -10,7 +10,7 @@ namespace Cards.Cards.DM01
 {
     class ChaosStrike : Spell
     {
-        public ChaosStrike() : base("Chaos Strike", 2, Common.Civilization.Fire)
+        public ChaosStrike() : base("Chaos Strike", 2, Civilization.Fire)
         {
             AddSpellAbilities(new ChaosStrikeOneShotEffect());
         }

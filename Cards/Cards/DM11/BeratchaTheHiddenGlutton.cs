@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM11
+﻿namespace Cards.Cards.DM11
 {
     class BeratchaTheHiddenGlutton : Creature
     {
-        public BeratchaTheHiddenGlutton() : base("Beratcha, the Hidden Glutton", 5, 3000, Subtype.PandorasBox, Civilization.Darkness)
+        public BeratchaTheHiddenGlutton() : base("Beratcha, the Hidden Glutton", 5, 3000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

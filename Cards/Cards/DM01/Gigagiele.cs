@@ -2,7 +2,7 @@
 {
     class Gigagiele : Creature
     {
-        public Gigagiele() : base("Gigagiele", 5, 3000, Common.Subtype.Chimera, Common.Civilization.Darkness)
+        public Gigagiele() : base("Gigagiele", 5, 3000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
             AddSlayerAbility();
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class IceVaporShadowOfAnguish : Creature
     {
-        public IceVaporShadowOfAnguish() : base("Ice Vapor, Shadow of Anguish", 5, 1000, Subtype.Ghost, Civilization.Darkness)
+        public IceVaporShadowOfAnguish() : base("Ice Vapor, Shadow of Anguish", 5, 1000, Race.Ghost, Civilization.Darkness)
         {
             AddTriggeredAbility(new WheneverYourOpponentCastsSpellAbility(new IceVaporShadowOfAnguishEffect()));
         }

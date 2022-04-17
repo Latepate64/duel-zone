@@ -1,6 +1,4 @@
-﻿using Common;
-using Engine.Abilities;
-using Common.Choices;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.Zones;
 using System;
@@ -141,18 +139,12 @@ namespace Engine
                     x.Dispose();
                 }
                 Turns.Clear();
-                foreach (var x in _continuousEffects)
-                {
-                    x.Dispose();
-                }
                 _continuousEffects.Clear();
             }
         }
 
         public void Play(IPlayer startingPlayer, IPlayer otherPlayer)
         {
-            ValidateDeckNotEmpty(startingPlayer, otherPlayer);
-
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.
 
             // 103.1. The player chosen to take the first turn is the starting player. The game’s default turn order begins with the starting player and proceeds clockwise.
@@ -167,10 +159,10 @@ namespace Engine
             Players.ToList().ForEach(x => x.ShuffleDeck(this));
 
             // Each player puts five card from to the top of their deck into their shield zone.
-            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this));
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this, null));
 
             // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
-            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this));
+            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this, null));
 
             // 103.7. The starting player takes their first turn.
             LoopTurns(startingPlayer, otherPlayer, MaximumNumberOfTurns);
@@ -198,17 +190,6 @@ namespace Engine
             }
         }
 
-        private static void ValidateDeckNotEmpty(params IPlayer[] players)
-        {
-            foreach (var player in players)
-            {
-                if (!player.Deck.Cards.Any())
-                {
-                    throw new InvalidOperationException("Deck may not be empty.");
-                }
-            }
-        }
-
         private void StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer)
         {
             if (ExtraTurns.Any())
@@ -222,9 +203,9 @@ namespace Engine
             Turns.Last().Play(this, Turns.Count);
         }
 
-        public void Battle(Guid attackingCreatureId, Guid defendingCreatureId)
+        public void Battle(ICard attackingCreature, ICard defendingCreature)
         {
-            ProcessEvents(new BattleEvent(GetCard(attackingCreatureId), GetCard(defendingCreatureId)));
+            ProcessEvents(new BattleEvent(attackingCreature, defendingCreature));
         }
 
         public IEnumerable<ICard> GetAllCards()
@@ -232,9 +213,9 @@ namespace Engine
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellStack.Cards);
         }
 
-        public void Destroy(IEnumerable<ICard> cards)
+        public void Destroy(IAbility ability, IEnumerable<ICard> cards)
         {
-            _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
+            _ = Move(ability, ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         /// <summary>
@@ -291,59 +272,38 @@ namespace Engine
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IIdentifiable GetAttackable(Guid id)
+        public IAttackable GetAttackable(Guid id)
         {
             if (Players.Any(x => x.Id == id))
             {
                 return GetPlayer(id);
             }
-            else if (BattleZone.Creatures.Any(x => x.Id == id))
+            else// if (BattleZone.Creatures.Any(x => x.Id == id))
             {
                 return GetCard(id);
             }
-            else
-            {
-                return null; // It is possible that the player/card no longers exists.
-            }
+            //else
+            //{
+            //    return null; // It is possible that the player/card no longers exists.
+            //}
         }
 
+        /// <summary>
+        /// Note: Only call this method from ProcessEvents as it considers replacement effects.
+        /// </summary>
+        /// <param name="gameEvent"></param>
         private void ProcessEvent(IGameEvent gameEvent)
         {
             gameEvent.Happen(this);
             OnGameEvent?.Invoke(gameEvent);
-            if (Ended) 
-            { 
-                return; //TODO: Consider better design
-            }
             if (Turns.Any())
             {
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
-
-                foreach (var remove in _continuousEffects.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
+                if (!Ended) //TODO: Consider better design
                 {
-                    _continuousEffects.Remove(remove);
-                }
-                foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IDuration d && d.ShouldExpire(gameEvent)).ToArray())
-                {
-                    _state.DelayedTriggeredAbilities.Remove(remove);
-                }
-                ApplyContinuousEffects();
-                var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
-                List<DelayedTriggeredAbility> toBeRemoved = new();
-                foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
-                {
-                    abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
-                    if (ability.TriggersOnlyOnce)
-                    {
-                        toBeRemoved.Add(ability);
-                    }
-                }
-                _ = _state.DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
-                AddPendingAbilities(abilities.ToArray());
-                foreach (var ability in abilities)
-                {
-                    //TODO: Event
-                    //Process(new AbilityTriggeredEvent { Ability = ability.Id });
+                    CheckExpirations(gameEvent);
+                    ApplyContinuousEffects();
+                    TriggerAbilities(gameEvent);
                 }
             }
             else
@@ -352,12 +312,40 @@ namespace Engine
             }
         }
 
+        private void CheckExpirations(IGameEvent gameEvent)
+        {
+            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
+            {
+                _continuousEffects.Remove(remove);
+            }
+            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
+            {
+                _state.DelayedTriggeredAbilities.Remove(remove);
+            }
+        }
+
+        private void TriggerAbilities(IGameEvent gameEvent)
+        {
+            var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
+            List<DelayedTriggeredAbility> toBeRemoved = new();
+            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            {
+                abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
+                if (ability.TriggersOnlyOnce)
+                {
+                    toBeRemoved.Add(ability);
+                }
+            }
+            _ = _state.DelayedTriggeredAbilities.RemoveAll(x => toBeRemoved.Contains(x));
+            AddPendingAbilities(abilities.ToArray());
+        }
+
         public IEnumerable<ITriggeredAbility> GetAbilitiesThatTriggerFromCardsInBattleZone(IGameEvent gameEvent)
         {
             var abilities = new List<ITriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
+                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner, gameEvent)));
             }
             return abilities;
         }
@@ -412,14 +400,14 @@ namespace Engine
             _state.Players.Remove(player);
         }
 
-        public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false, ability)).ToArray());
         }
 
-        public IEnumerable<IGameEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true, ability)).ToArray());
         }
 
         public IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] events)
@@ -490,9 +478,9 @@ namespace Engine
         /// </summary>
         /// <param name="cards"></param>
         /// <param name="canUseShieldTrigger"></param>
-        public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger)
+        public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability)
         {
-            var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
+            var events = Move(ability, ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
             if (canUseShieldTrigger)
             {
                 CheckShieldTriggers(events);
@@ -505,7 +493,7 @@ namespace Engine
         /// <param name="events"></param>
         private void CheckShieldTriggers(IEnumerable<IGameEvent> events)
         {
-            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
@@ -515,12 +503,7 @@ namespace Engine
                     if (trigger != null)
                     {
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        //TODO: Event
-                        //Process(new ShieldTriggerEvent { Player = GetPlayer(shieldTriggersByPlayer.Key).Copy(), Card = trigger.Convert() });
-                        if (trigger.CanBeUsedRegardlessOfManaCost(this))
-                        {
-                            GetPlayer(shieldTriggersByPlayer.Key).UseCard(trigger, this);
-                        }
+                        ProcessEvents(new ShieldTriggerEvent(GetPlayer(shieldTriggersByPlayer.Key), trigger));
                     }
                     else
                     {
@@ -589,8 +572,8 @@ namespace Engine
             GetAllCards().ToList().ForEach(x => x.ResetToPrintedValues());
             var orderedEffects = _continuousEffects.OrderBy(x => x.Timestamp);
 
-            // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, subtype, and / or supertype.
-            orderedEffects.OfType<ISubtypeAddingEffect>().ToList().ForEach(x => x.AddSubtype(this));
+            // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, race, and / or supertype.
+            orderedEffects.OfType<IRaceAddingEffect>().ToList().ForEach(x => x.AddRace(this));
 
             // 613.1f Layer 6: Ability-adding effects, ability-removing effects, and effects that say an object can’t have an ability are applied.
             orderedEffects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility(this));
@@ -617,16 +600,16 @@ namespace Engine
             return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
         }
 
-        public IEnumerable<IIdentifiable> GetPossibleAttackTargets(ICard attacker)
+        public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
         {
-            List<IIdentifiable> attackables = new();
+            List<IAttackable> attackables = new();
             if (attacker.CanAttackPlayers(this))
             {
                 attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));
             }
-            if (attacker.CanAttackCreatures(this))
+            if (attacker.CanAttackAtLeastOneCreature(this))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttack(x, this));
+                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttackCreature(x, this));
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     canAttackUntappedCreaturesEffects.Any(e => e.Applies(attacker, c, this)) ||
@@ -662,7 +645,7 @@ namespace Engine
             creaturesToDestroy.AddRange(CheckBattleLosses());
             //bool rearrange = CheckTopCardOfEvolutionCreatures();
 
-            Destroy(creaturesToDestroy.Distinct().ToArray());
+            Destroy(null, creaturesToDestroy.Distinct().ToArray());
             Lose(losers.Distinct().ToArray());
 
             return losers.Any() || creaturesToDestroy.Any();// || rearrange;

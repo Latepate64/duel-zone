@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM08
+﻿namespace Cards.Cards.DM08
 {
     class IllusionFish : TurboRushCreature
     {
-        public IllusionFish() : base("Illusion Fish", 4, 3000, Subtype.GelFish, Civilization.Water)
+        public IllusionFish() : base("Illusion Fish", 4, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
         {
             AddTurboRushAbility(new ContinuousEffects.ThisCreatureCannotBeBlockedEffect());
         }

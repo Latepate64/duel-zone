@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM08
 {
     class MigaloVizierOfSpycraft : TurboRushCreature
     {
-        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Subtype.Initiate, Civilization.Light)
+        public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Race.Initiate, Civilization.Light)
         {
             AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new MigaloVizierOfSpycraftEffect()));
         }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM08
             return "You may look at 2 of your opponent's shields. Then put them back where they were.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetOpponent(game).ShieldZone.Cards;
         }

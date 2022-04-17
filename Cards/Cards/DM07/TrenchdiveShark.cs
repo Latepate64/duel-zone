@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM07
 {
     class TrenchdiveShark : Creature
     {
-        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Subtype.GelFish, Civilization.Water)
+        public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Race.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TrenchdiveSharkEffect());
         }
@@ -54,7 +53,7 @@ namespace Cards.Cards.DM07
             return "You may add up to 2 cards from your hand to your shields face down.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).Hand.Cards;
         }

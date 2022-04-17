@@ -23,12 +23,9 @@ namespace Engine.Abilities
         /// <param name="source"></param>
         /// <param name="owner"></param>
         /// <returns></returns>
-        public ITriggeredAbility Trigger(Guid source, Guid owner)
+        public virtual ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
         {
-            var copy = Copy() as ITriggeredAbility;
-            copy.Source = source;
-            copy.Controller = owner;
-            return copy;
+            return Copy() as ITriggeredAbility;
         }
 
         public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);

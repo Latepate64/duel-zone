@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM04
             return "Tap all creatures in the battle zone except light creatures.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Light));
         }

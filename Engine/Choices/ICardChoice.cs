@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine.Choices
 {
@@ -39,7 +40,7 @@ namespace Engine.Choices
 
         public override bool IsValid()
         {
-            return Mode.IsValid(Choice);
+            return Mode.IsValid(Choice) && Choice.All(chosen => Cards.Contains(chosen));
         }
     }
 }

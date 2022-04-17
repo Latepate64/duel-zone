@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.Promo
 {
     class DynoMantisTheMightspinner : EvolutionCreature
     {
-        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Subtype.GiantInsect, Civilization.Nature)
+        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Race.GiantInsect, Civilization.Nature)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new DynoMantisEffect());
@@ -20,7 +19,7 @@ namespace Cards.Cards.Promo
             return new DynoMantisEffect();
         }
 
-        public int GetAmount(IGame game, Engine.ICard creature)
+        public int GetAmount(IGame game, ICard creature)
         {
             return creature.Owner == GetController(game).Id && !IsSourceOfAbility(creature, game) && creature.Power >= 5000 ? 1 : 0;
         }

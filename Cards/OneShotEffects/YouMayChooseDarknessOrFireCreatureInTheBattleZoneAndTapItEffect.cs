@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Common.Civilization.Darkness, Common.Civilization.Fire));
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Darkness, Civilization.Fire));
         }
     }
 }

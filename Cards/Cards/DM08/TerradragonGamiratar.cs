@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class TerradragonGamiratar : Creature
     {
-        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Subtype.EarthDragon, Civilization.Nature)
+        public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Race.EarthDragon, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect());
             AddDoubleBreakerAbility();
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM08
             return "Your opponent may choose a creature in his hand and put it into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetOpponent(game).Hand.Creatures;
         }

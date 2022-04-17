@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class SuperNecrodragonAbzoDolba : DragonEvolutionCreature
     {
-        public SuperNecrodragonAbzoDolba() : base("Super Necrodragon Abzo Dolba", 6, 11000, Subtype.ZombieDragon, Civilization.Darkness)
+        public SuperNecrodragonAbzoDolba() : base("Super Necrodragon Abzo Dolba", 6, 11000, Race.ZombieDragon, Civilization.Darkness)
         {
             AddStaticAbilities(new SuperNecrodragonAbzoDolbaEffect());
             AddTripleBreakerAbility();

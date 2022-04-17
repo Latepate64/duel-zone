@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM09
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, source.GetController(game).ManaZone.Cards.Count);
+            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, source.GetController(game).ManaZone.Cards.Count, source);
             return null;
         }
 

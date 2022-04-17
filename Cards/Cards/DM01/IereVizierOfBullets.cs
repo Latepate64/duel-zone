@@ -2,7 +2,7 @@
 {
     class IereVizierOfBullets : Creature
     {
-        public IereVizierOfBullets() : base("Iere, Vizier of Bullets", 3, 3000, Common.Subtype.Initiate, Common.Civilization.Light)
+        public IereVizierOfBullets() : base("Iere, Vizier of Bullets", 3, 3000, Engine.Race.Initiate, Engine.Civilization.Light)
         {
         }
     }

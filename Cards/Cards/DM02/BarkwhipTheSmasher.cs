@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class BarkwhipTheSmasher : EvolutionCreature
     {
-        public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Subtype.BeastFolk, Civilization.Nature)
+        public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Race.BeastFolk, Civilization.Nature)
         {
             AddStaticAbilities(new BarkwhipTheSmasherEffect());
         }
@@ -29,7 +28,7 @@ namespace Cards.Cards.DM02
         {
             if (game.GetCard(GetSourceAbility(game).Source).Tapped)
             {
-                game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasSubtype(Subtype.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

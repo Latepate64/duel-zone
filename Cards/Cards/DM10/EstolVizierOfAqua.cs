@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class EstolVizierOfAqua : Creature
     {
-        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Subtype.Initiate, Subtype.LiquidPeople, Civilization.Light, Civilization.Water)
+        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, Race.Initiate, Race.LiquidPeople, Civilization.Light, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect());
         }
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             return new OneShotEffects.LookAtOneOfYourOpponentsShieldsEffect().Apply(game, source);
         }
 

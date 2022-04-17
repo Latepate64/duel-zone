@@ -2,7 +2,7 @@
 {
     class KanesillTheExplorer : Creature
     {
-        public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, 4000, Common.Subtype.Gladiator, Common.Civilization.Light)
+        public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, 4000, Engine.Race.Gladiator, Engine.Civilization.Light)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();

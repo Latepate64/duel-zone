@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class RollickingTotem : SilentSkillCreature
     {
-        public RollickingTotem() : base("Rollicking Totem", 5, 4000, Subtype.MysteryTotem, Civilization.Nature)
+        public RollickingTotem() : base("Rollicking Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
             AddSilentSkillAbility(new RollickingTotemEffect());
         }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM11
             return "Put a creature that has Dragon in its race from your mana zone into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return source.GetController(game).ManaZone.Creatures.Where(x => x.IsDragon);
         }

@@ -2,7 +2,7 @@
 {
     class RevolverFish : Creature
     {
-        public RevolverFish() : base("Revolver Fish", 4, 5000, Common.Subtype.GelFish, Common.Civilization.Water)
+        public RevolverFish() : base("Revolver Fish", 4, 5000, Engine.Race.GelFish, Engine.Civilization.Water)
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();

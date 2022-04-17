@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class DeklowazTheTerminator : Creature
     {
-        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Subtype.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
+        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
         {
             AddTapAbility(new DeklowazTheTerminatorEffect());
         }
@@ -22,7 +21,7 @@ namespace Cards.Cards.DM10
             if (cards.Any())
             {
                 source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Discard(game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
+                source.GetOpponent(game).Discard(source, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
                 source.GetOpponent(game).Unreveal(cards);
             }
             return null;

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class SparkleFlower : Creature
     {
-        public SparkleFlower() : base("Sparkle Flower", 4, 3000, Subtype.StarlightTree, Civilization.Light)
+        public SparkleFlower() : base("Sparkle Flower", 4, 3000, Race.StarlightTree, Civilization.Light)
         {
             AddStaticAbilities(new SparkleFlowerEffect());
         }
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
+        public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
             return IsSourceOfAbility(blocker, game) && GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }

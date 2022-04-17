@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class PointaTheAquaShadow : Creature
     {
-        public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, Subtype.LiquidPeople, Subtype.Ghost, Civilization.Water, Civilization.Darkness)
+        public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, Race.LiquidPeople, Race.Ghost, Civilization.Water, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PointaTheAquaShadowEffect());
         }
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM10
         public override object Apply(IGame game, IAbility source)
         {
             new OneShotEffects.LookAtOneOfYourOpponentsShieldsEffect().Apply(game, source);
-            source.GetController(game).DiscardAtRandom(game, 1);
+            source.GetController(game).DiscardAtRandom(game, 1, source);
             return null;
         }
 

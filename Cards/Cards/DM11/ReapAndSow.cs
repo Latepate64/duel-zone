@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM11
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM11
         public override object Apply(IGame game, IAbility source)
         {
             new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect().Apply(game, source);
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
+            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
             return null;
         }
 

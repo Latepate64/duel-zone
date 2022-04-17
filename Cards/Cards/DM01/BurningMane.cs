@@ -2,7 +2,7 @@
 {
     class BurningMane : Creature
     {
-        public BurningMane() : base("Burning Mane", 2, 2000, Common.Subtype.BeastFolk, Common.Civilization.Nature)
+        public BurningMane() : base("Burning Mane", 2, 2000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
         }
     }

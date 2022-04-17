@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -29,11 +28,11 @@ namespace Cards.OneShotEffects
     }
 
 
-    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IDuration
+    class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IExpirable
     {
         private readonly Guid _controller;
 
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(System.Guid controller) : base()
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(Guid controller) : base()
         {
             _controller = controller;
         }
@@ -56,7 +55,7 @@ namespace Cards.OneShotEffects
             return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -66,7 +65,7 @@ namespace Cards.OneShotEffects
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
             return card.Owner == _controller;
         }

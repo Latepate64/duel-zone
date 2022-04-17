@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM12
 {
     class HydroozeTheMutantEmperor : EvolutionCreature
     {
-        public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Subtype.CyberLord, Subtype.Hedrian, Civilization.Water, Civilization.Darkness)
+        public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Race.CyberLord, Race.Hedrian, Civilization.Water, Civilization.Darkness)
         {
             AddStaticAbilities(new HydroozeTheMutantEmperorPowerEffect(), new HydroozeTheMutantEmperorUnblockableEffect());
         }
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasSubtype(Subtype.CyberLord) || x.HasSubtype(Subtype.Hedrian))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasRace(Race.CyberLord) || x.HasRace(Race.Hedrian))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -42,9 +41,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasSubtype(Subtype.CyberLord) || attacker.HasSubtype(Subtype.Hedrian));
+            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
         }
 
         public override IContinuousEffect Copy()

@@ -1,18 +1,18 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM02
 {
     class EssenceElf : Creature
     {
-        public EssenceElf() : base("Essence Elf", 2, 1000, Subtype.TreeFolk, Civilization.Nature)
+        public EssenceElf() : base("Essence Elf", 2, 1000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new EssenceElfEffect());
         }
     }
 
-    class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect
+    class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
     {
         public EssenceElfEffect() : base()
         {
@@ -23,9 +23,14 @@ namespace Cards.Cards.DM02
             return new EssenceElfEffect();
         }
 
-        public int GetChange(Engine.ICard card, Engine.IGame game)
+        public int GetChange(ICard card, IGame game)
         {
             return card.Owner == GetController(game).Id && card.CardType == CardType.Spell ? -1 : 0;
+        }
+
+        public int GetMinimumCost(ICard card, IGame game)
+        {
+            return card.Owner == GetController(game).Id && card.CardType == CardType.Spell ? 1 : 0;
         }
 
         public override string ToString()

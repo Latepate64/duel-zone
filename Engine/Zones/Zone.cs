@@ -11,11 +11,14 @@ namespace Engine.Zones
     {
         public List<ICard> Cards { get; private set; } = new List<ICard>();
 
-        public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == Common.CardType.Creature);
-        public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == Common.CardType.Spell);
+        public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
+        public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
 
-        protected Zone()
+        public ZoneType Type { get; }
+
+        protected Zone(ZoneType type)
         {
+            Type = type;
         }
 
         protected Zone(IZone zone)
@@ -44,17 +47,17 @@ namespace Engine.Zones
 
         public abstract override string ToString();
 
-        public IEnumerable<ICard> GetCreatures(Common.Subtype subtype)
+        public IEnumerable<ICard> GetCreatures(Race race)
         {
-            return Creatures.Where(x => x.HasSubtype(subtype));
+            return Creatures.Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetCards(Common.Civilization civilization)
+        public IEnumerable<ICard> GetCards(Civilization civilization)
         {
             return Cards.Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetCreatures(Common.Civilization civilization)
+        public IEnumerable<ICard> GetCreatures(Civilization civilization)
         {
             return Creatures.Where(x => x.HasCivilization(civilization));
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
 {
     class AlcadeiasLordOfSpirits : EvolutionCreature
     {
-        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Subtype.AngelCommand, Civilization.Light)
+        public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Race.AngelCommand, Civilization.Light)
         {
             AddDoubleBreakerAbility();
             AddStaticAbilities(new AlcadeiasLordOfSpiritsEffect());
@@ -34,7 +33,7 @@ namespace Cards.Cards.DM04
             return "Players can't cast spells other than light spells.";
         }
 
-        public bool Applies(Engine.ICard card, IGame game)
+        public bool Applies(ICard card, IGame game)
         {
             return card.CardType == CardType.Spell && !card.HasCivilization(Civilization.Light);
         }

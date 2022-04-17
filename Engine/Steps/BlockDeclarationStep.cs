@@ -1,6 +1,5 @@
 ﻿using Engine.ContinuousEffects;
 using Engine.GameEvents;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,8 +13,7 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            var attackingCreature = game.GetCard(Phase.AttackingCreature);
-            IEnumerable<ICard> possibleBlockers = GetPossibleBlockers(game, attackingCreature);
+            IEnumerable<ICard> possibleBlockers = GetPossibleBlockers(game, Phase.AttackingCreature);
             ChooseBlocker(game, possibleBlockers);
         }
 
@@ -46,25 +44,32 @@ namespace Engine.Steps
             var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
             if (blocker != null)
             {
-                Phase.BlockingCreature = blocker.Id;
+                Phase.BlockingCreature = blocker;
                 game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
-                game.ProcessEvents(new BecomeBlockedEvent(game.GetCard(Phase.AttackingCreature), blocker));
+                game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));
             }
             else
             {
-                game.ProcessEvents(new BecomeUnblockedEvent(game.GetCard(Phase.AttackingCreature)));
+                game.ProcessEvents(new BecomeUnblockedEvent(Phase.AttackingCreature));
             }
         }
 
         public override IStep GetNextStep(IGame game)
         {
-            if (Phase.BlockingCreature != Guid.Empty)
+            if (Phase.BlockingCreature != null)
             {
-                return new BattleStep(Phase);
+                if (!game.GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(Phase.AttackingCreature, Phase.BlockingCreature, game)))
+                {
+                    return new BattleStep(Phase);
+                }
+                else
+                {
+                    return new EndOfAttackStep(Phase);
+                }
             }
-            else if (game.GetAttackable(Phase.AttackTarget) is Card)
+            else if (Phase.AttackTarget is ICard)
             {
                 return new BattleStep(Phase);
             }

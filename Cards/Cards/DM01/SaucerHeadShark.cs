@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class SaucerHeadShark : Creature
     {
-        public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Subtype.GelFish, Civilization.Water)
+        public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Race.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM01
             return "Return each creature in the battle zone that has power 2000 or less to its owner's hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.Creatures.Where(x => x.Power <= 2000);
         }

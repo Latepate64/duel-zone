@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM06
 {
     class QTronicHypermind : EvolutionCreature
     {
-        public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Subtype.Survivor, Civilization.Water)
+        public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Race.Survivor, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect());
             AddDoubleBreakerAbility();
@@ -18,7 +17,7 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.HasSubtype(Subtype.Survivor)));
+            return new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.HasRace(Race.Survivor)));
         }
 
         public override IOneShotEffect Copy()

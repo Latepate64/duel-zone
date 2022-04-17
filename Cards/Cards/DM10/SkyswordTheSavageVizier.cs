@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
     class SkyswordTheSavageVizier : Creature
     {
-        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Subtype.BeastFolk, Subtype.Initiate, Civilization.Light, Civilization.Nature)
+        public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, Race.BeastFolk, Race.Initiate, Civilization.Light, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SkyswordTheSavageVizierEffect());
         }
@@ -16,8 +15,8 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
-            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
+            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             return null;
         }
 

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -25,7 +24,7 @@ namespace Cards.OneShotEffects
         public override object Apply(IGame game, IAbility source)
         {
             var cards = GetAffectedCards(game, source).ToArray();
-            _ = game.Move(SourceZone, DestinationZone, cards);
+            _ = game.Move(source, SourceZone, DestinationZone, cards);
             return cards.Any();
         }
     }

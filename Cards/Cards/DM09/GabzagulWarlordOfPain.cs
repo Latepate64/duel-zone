@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM09
 {
     class GabzagulWarlordOfPain : Creature
     {
-        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
+        public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Race.DarkLord, Civilization.Darkness)
         {
             AddStaticAbilities(new GabzagulWarlordOfPainEffect());
         }
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             return true;
         }

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.Choices;
 
@@ -38,7 +37,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public MechadragonsBreathChoice(Engine.IPlayer maker, string description) : base(maker, description)
+        public MechadragonsBreathChoice(IPlayer maker, string description) : base(maker, description)
         {
         }
 

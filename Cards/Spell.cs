@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -18,9 +18,9 @@ namespace Cards
         /// Adds a spell ability for each one-shot effect provided.
         /// </summary>
         /// <param name="oneShotEffects"></param>
-        protected void AddSpellAbilities(params Engine.Abilities.IOneShotEffect[] oneShotEffects)
+        protected void AddSpellAbilities(params IOneShotEffect[] oneShotEffects)
         {
-            AddAbilities(oneShotEffects.Select(x => new Engine.Abilities.SpellAbility(x)).ToArray());
+            AddAbilities(oneShotEffects.Select(x => new SpellAbility(x)).ToArray());
         }
     }
 

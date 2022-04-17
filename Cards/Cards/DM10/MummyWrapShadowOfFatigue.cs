@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM10
 {
     class MummyWrapShadowOfFatigue : Creature
     {
-        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Subtype.Ghost, Civilization.Darkness)
+        public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Race.Ghost, Civilization.Darkness)
         {
             AddTapAbility(new MummyWrapShadowOfFatigueEffect());
         }
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1));
+            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, source));
             return null;
         }
 

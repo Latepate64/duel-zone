@@ -1,13 +1,12 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 
 namespace Cards.Cards.DM05
 {
     class Gigakail : Creature
     {
-        public Gigakail() : base("Gigakail", 5, 4000, Subtype.Chimera, Civilization.Darkness)
+        public Gigakail() : base("Gigakail", 5, 4000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new CivilizationSlayerEffect(Civilization.Nature, Civilization.Light));
+            AddStaticAbilities(new CivilizationSlayerEffect(Engine.Civilization.Nature, Engine.Civilization.Light));
         }
     }
 }

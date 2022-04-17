@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM10
 {
     class BombazarDragonOfDestiny : Creature
     {
-        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Subtype.ArmoredDragon, Subtype.EarthDragon, Civilization.Fire, Civilization.Nature)
+        public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, Race.ArmoredDragon, Race.EarthDragon, Civilization.Fire, Civilization.Nature)
         {
             AddSpeedAttackerAbility();
             AddDoubleBreakerAbility();
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM10
         public override object Apply(IGame game, IAbility source)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            game.Destroy(game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToList());
+            game.Destroy(source, game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToList());
             // then take an extra turn after this one.
             var turn = new OneShotEffects.TakeExtraTurnAfterThisOneEffect().Apply(game, source);
             // You lose the game at the end of the extra turn.

@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM03
 {
     class BonePiercer : Creature
     {
-        public BonePiercer() : base("Bone Piercer", 2, 1000, Subtype.BrainJacker, Civilization.Darkness)
+        public BonePiercer() : base("Bone Piercer", 2, 1000, Race.BrainJacker, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new BonePiercerEffect());
         }
@@ -29,7 +28,7 @@ namespace Cards.Cards.DM03
             return "You may return a creature from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.GetPlayer(source.Controller).ManaZone.Creatures;
         }

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MissileSoldierUltimo : TurboRushCreature
     {
-        public MissileSoldierUltimo() : base("Missile Soldier Ultimo", 3, 2000, Subtype.Dragonoid, Civilization.Fire)
+        public MissileSoldierUltimo() : base("Missile Soldier Ultimo", 3, 2000, Race.Dragonoid, Civilization.Fire)
         {
             AddTurboRushAbility(new MissileSoldierUltimoEffect());
         }
@@ -28,7 +27,7 @@ namespace Cards.Cards.DM08
             GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker, game);
         }

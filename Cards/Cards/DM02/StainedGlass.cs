@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ namespace Cards.Cards.DM02
 {
     class StainedGlass : Creature
     {
-        public StainedGlass() : base("Stained Glass", 3, 1000, Subtype.CyberVirus, Civilization.Water)
+        public StainedGlass() : base("Stained Glass", 3, 1000, Race.CyberVirus, Civilization.Water)
         {
             AddWheneverThisCreatureAttacksAbility(new StainedGlassEffect());
         }
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM02
             return "You may choose one of your opponent's fire or nature creatures in the battle zone and return it to its owner's hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Fire, Civilization.Nature));
         }

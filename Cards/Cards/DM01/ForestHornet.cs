@@ -2,7 +2,7 @@
 {
     class ForestHornet : Creature
     {
-        public ForestHornet() : base("Forest Hornet", 4, 4000, Common.Subtype.GiantInsect, Common.Civilization.Nature)
+        public ForestHornet() : base("Forest Hornet", 4, 4000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
         }
     }

@@ -20,9 +20,9 @@
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            if (Phase.AttackingCreature != System.Guid.Empty)
+            if (Phase.AttackingCreature != null)
             {
-                game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == System.Guid.Empty ? Phase.AttackTarget : Phase.BlockingCreature);
+                game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == null ? Phase.AttackTarget as ICard : Phase.BlockingCreature);
             }
         }
 

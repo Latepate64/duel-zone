@@ -37,7 +37,7 @@ namespace Simulator
 
         public override string ToString()
         {
-            return $"{Name} wins: {Wins} losses {Losses} winrate: {Program.GetWinrate(Wins, Losses)}";
+            return $"{Name} wins: {Wins} losses {Losses} winrate: {Simulator.GetWinrate(Wins, Losses)}";
         }
     }
 

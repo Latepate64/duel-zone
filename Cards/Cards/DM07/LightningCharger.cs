@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM07
+﻿namespace Cards.Cards.DM07
 {
     class LightningCharger : Charger
     {
-        public LightningCharger() : base("Lightning Charger", 4, Civilization.Light)
+        public LightningCharger() : base("Lightning Charger", 4, Engine.Civilization.Light)
         {
             AddSpellAbilities(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
         }

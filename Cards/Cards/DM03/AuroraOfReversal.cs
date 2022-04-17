@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -34,12 +33,12 @@ namespace Cards.Cards.DM03
             return "Choose any number of your shields and put them into your mana zone.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(ZoneType.ShieldZone, ZoneType.ManaZone, cards);
+            game.Move(source, ZoneType.ShieldZone, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).ShieldZone.Cards;
         }

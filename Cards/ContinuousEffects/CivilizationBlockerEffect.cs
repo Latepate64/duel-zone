@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -19,7 +18,7 @@ namespace Cards.ContinuousEffects
             _civilizations = effect._civilizations;
         }
 
-        public bool Applies(Engine.ICard blocker, Engine.ICard attacker, IGame game)
+        public bool Applies(ICard blocker, ICard attacker, IGame game)
         {
             return IsSourceOfAbility(blocker, game) && attacker.Civilizations.Intersect(_civilizations).Any();
         }

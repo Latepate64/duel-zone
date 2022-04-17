@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class DimensionSplitter : Creature
     {
-        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Subtype.BrainJacker, Civilization.Darkness)
+        public DimensionSplitter() : base("Dimension Splitter", 3, 1000, Race.BrainJacker, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DimensionSplitterEffect());
         }
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM08
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
-                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.IsDragon).ToArray());
+                game.Move(source, ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.IsDragon).ToArray());
             }
             return null;
         }

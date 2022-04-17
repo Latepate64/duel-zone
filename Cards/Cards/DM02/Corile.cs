@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM02
 {
     class Corile : Creature
     {
-        public Corile() : base("Corile", 5, 2000, Subtype.CyberLord, Civilization.Water)
+        public Corile() : base("Corile", 5, 2000, Race.CyberLord, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(1, 1, true));
         }
@@ -34,7 +33,7 @@ namespace Cards.Cards.DM02
             return "Choose one of your opponent's creatures in the battle zone and put it on top of his deck.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }

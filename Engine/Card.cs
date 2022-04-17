@@ -8,14 +8,14 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : Common.Card, ICopyable<ICard>, ITimestampable, ICard
+    public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
 
-        private IList<Common.Subtype> _printedSubtypes = new List<Common.Subtype>();
-        private readonly IList<Common.Subtype> _addedSubtypes = new List<Common.Subtype>();
+        private IList<Race> _printedRaces = new List<Race>();
+        private readonly IList<Race> _addedRaces = new List<Race>();
 
         public int? PrintedPower { get; }
 
@@ -23,24 +23,89 @@ namespace Engine
 
         internal bool CountsAsIfExists => Underneath != Guid.Empty;
 
+        /// <summary>
+        /// Also known as race for creatures.
+        /// </summary>
+        public List<Race> Races { get; set; } = new();
+
+        public List<Civilization> Civilizations { get; set; } = new();
+
+        public CardType CardType { get; set; }
+
+        public List<Supertype> Supertypes { get; set; } = new();
+
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
+        /// </summary>
+        public Guid Owner { get; set; }
+
+        public string Name { get; set; }
+
+        public int? Power { get; set; }
+
+        public int ManaCost { get; set; }
+
+        public bool Tapped { get; set; }
+
+        public bool ShieldTrigger { get; set; }
+
+        public List<Guid> KnownTo { get; set; } = new();
+
+        public bool SummoningSickness { get; set; }
+
+        public string RulesText { get; set; }
+
+        /// <summary>
+        /// Id of the card this card is on top of.
+        /// </summary>
+        public Guid OnTopOf { get; set; }
+
+        /// <summary>
+        /// Id of the card this card is underneath of.
+        /// </summary>
+        public Guid Underneath { get; set; }
+
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
         }
 
-        public Card() { }
+        public Card()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        public Card(int? power)
+        public Card(int? power) : this()
         {
             PrintedPower = power;
         }
 
-        internal Card(ICard card, int timeStamp) : base(card, false)
+        internal Card(ICard card, int timeStamp)
         {
+            Id = Guid.NewGuid();
+            Owner = card.Owner;
+            KnownTo = card.KnownTo.ToList();
+            ManaCost = card.ManaCost;
+            Name = card.Name;
+            OnTopOf = card.OnTopOf;
+            Power = card.Power;
+            RulesText = card.RulesText;
+            ShieldTrigger = card.ShieldTrigger;
+            SummoningSickness = card.SummoningSickness;
+            Tapped = card.Tapped;
+            Underneath = card.Underneath;
+
+
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            CardType = card.CardType;
+            Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
+            Races = card.Races?.ToList();
+            Supertypes = card.Supertypes?.ToList();
             InitializeAbilities();
         }
 
@@ -70,11 +135,6 @@ namespace Engine
             ability.Source = Id;
         }
 
-        public Common.ICard Convert(bool clear = false)
-        {
-            return new Common.Card(this, clear);
-        }
-
         private void SetRulesText()
         {
             RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
@@ -90,9 +150,9 @@ namespace Engine
             abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
         }
 
-        public bool IsEvolutionCreature => Supertypes.Any(x => x == Common.Supertype.Evolution);
+        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
 
-        public bool IsDragon => Subtypes.Intersect(new Common.Subtype[] { Common.Subtype.ArmoredDragon, Common.Subtype.EarthDragon, Common.Subtype.VolcanoDragon, Common.Subtype.ZombieDragon }).Any();
+        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
 
         public bool LostInBattle { get; set; }
         public bool IsMultiColored => Civilizations.Count > 1;
@@ -101,18 +161,20 @@ namespace Engine
         {
             Power = PrintedPower;
             AddedAbilities.Clear();
-            Subtypes = _printedSubtypes.ToList();
-            _addedSubtypes.Clear();
+            Races = _printedRaces.ToList();
+            _addedRaces.Clear();
         }
 
-        public bool CanAttackCreatures(IGame game)
+        public bool CanAttackAtLeastOneCreature(IGame game)
         {
-            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.Applies(this, game));
+            var canAttack = !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game));
+            var opponentsCreatures = game.BattleZone.GetCreatures(game.GetOpponent(game.GetPlayer(Owner)).Id);
+            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(x, game));
         }
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.Applies(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
+            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
@@ -122,7 +184,7 @@ namespace Engine
 
         public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return (!Supertypes.Contains(Common.Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
+            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanBePaid(IPlayer player)
@@ -135,7 +197,7 @@ namespace Engine
             return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
-        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Common.Civilization> civs)
+        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
         {
             if (!civs.Any())
             {
@@ -178,7 +240,7 @@ namespace Engine
             return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game)));
         }
 
-        public void MoveTopCardIntoOwnersGraveyard(IGame game)
+        public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
         {
             if (OnTopOf != Guid.Empty)
             {
@@ -186,42 +248,44 @@ namespace Engine
                 OnTopOf = Guid.Empty;
                 card.Underneath = Guid.Empty;
             }
-            game.Move(Common.ZoneType.BattleZone, Common.ZoneType.Graveyard, this);
+            game.Move(ability, ZoneType.BattleZone, destination, this);
         }
 
-        public bool CanAttack(ICard targetOfAttack, IGame game)
+        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
         {
-            return !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
+            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.Applies(this, game)) &&
+                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
+                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
         }
 
         public void Break(IGame game, int breakAmount)
         {
-            game.ProcessEvents(new ShieldsBrokenEvent(this, breakAmount));
+            game.ProcessEvents(new BreakShieldsEvent(this, breakAmount));
         }
 
-        public bool HasCivilization(params Common.Civilization[] civilizations)
+        public bool HasCivilization(params Civilization[] civilizations)
         {
             return Civilizations.Intersect(civilizations).Any();
         }
 
-        public bool HasSubtype(Common.Subtype subtype)
+        public bool HasRace(Race race)
         {
-            return Subtypes.Contains(subtype);
+            return Races.Contains(race);
         }
 
-        public void AddGrantedSubtype(Common.Subtype subtype)
+        public void AddGrantedRace(Race race)
         {
-            _addedSubtypes.Add(subtype);
-            if (!Subtypes.Contains(subtype))
+            _addedRaces.Add(race);
+            if (!Races.Contains(race))
             {
-                Subtypes.Add(subtype);
+                Races.Add(race);
             }
         }
 
-        protected void SetPrintedSubtypes(params Common.Subtype[] subtypes)
+        protected void SetPrintedRaces(params Race[] races)
         {
-            _printedSubtypes = subtypes;
-            Subtypes = subtypes.ToList();
+            _printedRaces = races;
+            Races = races.ToList();
         }
     }
 }

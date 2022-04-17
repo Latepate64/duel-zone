@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM09
 {
     class TraRionPenumbraGuardian : Creature
     {
-        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Subtype.Guardian, Civilization.Light)
+        public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Race.Guardian, Civilization.Light)
         {
             AddTapAbility(new TraRionPenumbraGuardianEffect());
         }
@@ -39,16 +38,16 @@ namespace Cards.Cards.DM09
 
     class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public TraRionPenumbraGuardianUntapEffect(Subtype subtype) : base()
+        public TraRionPenumbraGuardianUntapEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public TraRionPenumbraGuardianUntapEffect(TraRionPenumbraGuardianUntapEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
         public override IOneShotEffect Copy()
@@ -58,12 +57,12 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Untap all ${_subtype}s in the battle zone.";
+            return $"Untap all ${_race}s in the battle zone.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(_subtype);
+            return game.BattleZone.GetCreatures(_race);
         }
     }
 }

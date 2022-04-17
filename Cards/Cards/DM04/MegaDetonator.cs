@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
 {
     class MegaDetonator : Spell
     {
-        public MegaDetonator() : base("Mega Detonator", 2, Common.Civilization.Fire)
+        public MegaDetonator() : base("Mega Detonator", 2, Civilization.Fire)
         {
             AddSpellAbilities(new MegaDetonatorDiscardEffect());
         }

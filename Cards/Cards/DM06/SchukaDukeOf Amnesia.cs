@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM06
 {
     class SchukaDukeOfAmnesia : Creature
     {
-        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Subtype.DarkLord, Civilization.Darkness)
+        public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Race.DarkLord, Civilization.Darkness)
         {
             AddWhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect());
         }
@@ -30,7 +29,7 @@ namespace Cards.Cards.DM06
             return "Each player discards his hand.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.Hand.Cards);
         }

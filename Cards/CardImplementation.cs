@@ -1,10 +1,10 @@
-﻿using Common;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
 namespace Cards
 {
-    abstract class CardImplementation : Engine.Card
+    abstract class CardImplementation : Card
     {
         protected CardImplementation(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : base(power)
         {

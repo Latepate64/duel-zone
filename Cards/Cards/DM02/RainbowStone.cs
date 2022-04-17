@@ -1,5 +1,4 @@
 ﻿using Cards.OneShotEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -34,12 +33,12 @@ namespace Cards.Cards.DM02
             return "Search your deck. You may take a card from your deck and put it into your mana zone. Then shuffle your deck.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(ZoneType.Deck, ZoneType.ManaZone, cards);
+            game.Move(source, ZoneType.Deck, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<Engine.ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return source.GetController(game).Deck.Cards;
         }

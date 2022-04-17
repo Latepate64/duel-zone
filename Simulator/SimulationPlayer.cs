@@ -1,8 +1,7 @@
 ﻿using Engine;
-using Common.Choices;
+using Engine.Choices;
 using System;
 using System.Linq;
-using Engine.Choices;
 
 namespace Simulator
 {
@@ -14,21 +13,6 @@ namespace Simulator
 
         static readonly Random Rnd = new();
 
-        public override GuidDecision ClientChoose(GuidSelection guidSelection)
-        {
-            var amount = 0;
-            if (guidSelection is BoundedGuidSelection bounded)
-            {
-                amount = Rnd.Next(bounded.MinimumSelection, bounded.MaximumSelection + 1);
-            }
-            else
-            {
-                amount = Rnd.Next(0, guidSelection.Options.Count + 1);
-            }
-            var selected = guidSelection.Options.OrderBy(x => Rnd.Next()).Take(amount);
-            return new GuidDecision(selected);
-        }
-
         public override IPlayer Copy()
         {
             return new SimulationPlayer(this);
@@ -38,35 +22,81 @@ namespace Simulator
         {
             if (choice is CardChoice card)
             {
-                if (card.Mode is BoundedCardChoiceMode bounded)
-                {
-                    var amount = Rnd.Next(bounded.Min, bounded.Max + 1);
-                    card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
-                    return card as T;
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                return ChooseCard<T>(card);
+            }
+            else if (choice is AttackTargetChoice attack)
+            {
+                return ChooseAttackTarget<T>(attack);
             }
             else if (choice is BooleanChoice boolean)
             {
-                boolean.Choice = true;
-                return boolean as T;
+                return ChooseToTakeAction<T>(boolean);
             }
-            else if (choice is SubtypeChoice subtype)
+            else if (choice is RaceChoice race)
             {
-                subtype.Choice = Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(subtype.Excluded).OrderBy(x => Rnd.Next()).First();
-                return subtype as T;
+                return ChooseRace<T>(race);
             }
             else if (choice is NumberChoice number)
             {
-                number.Choice = Rnd.Next(0, 6);
-                return number as T;
+                return ChooseNumber<T>(number);
+            }
+            else if (choice is AbilityChoice ability)
+            {
+                return ChooseAbility<T>(ability);
             }
             else
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        private static T ChooseAbility<T>(AbilityChoice ability) where T : Choice
+        {
+            ability.Choice = ability.Abilities.OrderBy(x => Rnd.Next()).First();
+            return ability as T;
+        }
+
+        private static T ChooseNumber<T>(NumberChoice number) where T : Choice
+        {
+            number.Choice = Rnd.Next(0, 6);
+            return number as T;
+        }
+
+        private static T ChooseRace<T>(RaceChoice race) where T : Choice
+        {
+            race.Choice = Enum.GetValues(typeof(Race)).Cast<Race>().Except(race.Excluded).OrderBy(x => Rnd.Next()).First();
+            return race as T;
+        }
+
+        private static T ChooseToTakeAction<T>(BooleanChoice boolean) where T : Choice
+        {
+            boolean.Choice = true;
+            return boolean as T;
+        }
+
+        private static T ChooseAttackTarget<T>(AttackTargetChoice attack) where T : Choice
+        {
+            attack.Choice = attack.Targets.OrderBy(x => Rnd.Next()).First();
+            return attack as T;
+        }
+
+        private static T ChooseCard<T>(CardChoice card) where T : Choice
+        {
+            int amount = GetAmountOfCardsToChooseFrom(card);
+            card.Choice = card.Cards.OrderBy(x => Rnd.Next()).Take(amount);
+            return card as T;
+        }
+
+        private static int GetAmountOfCardsToChooseFrom(CardChoice card)
+        {
+            if (card.Mode is BoundedCardChoiceMode bounded)
+            {
+                return Rnd.Next(bounded.Min, bounded.Max + 1);
+            }
+            else
+            {
+                // Could be AnyNumberOfCardsChoiceMode or something else
+                return Rnd.Next(0, card.Cards.Count() + 1);
             }
         }
     }

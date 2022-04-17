@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -15,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(Engine.ICard card, IGame game)
+        public bool Applies(ICard card, IGame game)
         {
             return IsSourceOfAbility(card, game);
         }
@@ -27,7 +26,7 @@ namespace Cards.ContinuousEffects
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ICardMovedEvent e && e.Source == Common.ZoneType.SpellStack && e.Destination == Common.ZoneType.Graveyard && e.CardInSourceZone == GetSourceCard(game).Id;
+            return gameEvent is ICardMovedEvent e && e.Source == ZoneType.SpellStack && e.Destination == ZoneType.Graveyard && e.CardInSourceZone == GetSourceCard(game).Id;
         }
 
         public override string ToString()

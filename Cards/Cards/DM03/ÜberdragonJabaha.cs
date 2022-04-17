@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class ÜberdragonJabaha : EvolutionCreature
     {
-        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Subtype.ArmoredDragon, Civilization.Fire)
+        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ÜberdragonJabahaEffect());
             AddDoubleBreakerAbility();
@@ -31,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(Engine.IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasCivilization(Civilization.Fire));
+            return game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasCivilization(Engine.Civilization.Fire));
         }
     }
 }

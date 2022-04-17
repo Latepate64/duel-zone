@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM11
+﻿namespace Cards.Cards.DM11
 {
     class MorbidMedicine : Spell
     {
-        public MorbidMedicine() : base("Morbid Medicine", 4, Civilization.Darkness)
+        public MorbidMedicine() : base("Morbid Medicine", 4, Engine.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(2));
         }

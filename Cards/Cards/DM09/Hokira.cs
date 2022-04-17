@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM09
 {
     class Hokira : Creature
     {
-        public Hokira() : base("Hokira", 4, 3000, Subtype.CyberLord, Civilization.Water)
+        public Hokira() : base("Hokira", 4, 3000, Race.CyberLord, Civilization.Water)
         {
             AddTapAbility(new HokiraOneShotEffect());
         }
@@ -37,18 +36,18 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IDuration
+    class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IExpirable
     {
-        private readonly Subtype _subtype;
+        private readonly Race _race;
 
-        public HokiraContinuousEffect(Subtype subtype) : base()
+        public HokiraContinuousEffect(Race race) : base()
         {
-            _subtype = subtype;
+            _race = race;
         }
 
         public HokiraContinuousEffect(HokiraContinuousEffect effect) : base(effect)
         {
-            _subtype = effect._subtype;
+            _race = effect._race;
         }
 
         public override IContinuousEffect Copy()
@@ -56,24 +55,24 @@ namespace Cards.Cards.DM09
             return new HokiraContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent)
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()
         {
-            return $"Whenever one of your {_subtype}s would be destroyed this turn, return it to your hand instead.";
+            return $"Whenever one of your {_race}s would be destroyed this turn, return it to your hand instead.";
         }
 
-        protected override bool Applies(Engine.ICard card, IGame game)
+        protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.HasSubtype(_subtype);
+            return card.Owner == GetController(game).Id && card.HasRace(_race);
         }
 
-        protected override List<Engine.ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, _subtype).ToList();
+            return game.BattleZone.GetCreatures(GetController(game).Id, _race).ToList();
         }
     }
 }

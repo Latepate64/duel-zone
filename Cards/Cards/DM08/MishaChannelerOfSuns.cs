@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM08
 {
     class MishaChannelerOfSuns : Creature
     {
-        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Subtype.MechaDelSol, Civilization.Light)
+        public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Race.MechaDelSol, Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedByDragonsEffect());
         }
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.ICard attacker, Engine.ICard targetOfAttack, IGame game)
+        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(targetOfAttack, game) && attacker.IsDragon;
         }

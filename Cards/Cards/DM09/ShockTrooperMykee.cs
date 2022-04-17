@@ -1,10 +1,8 @@
-﻿using Common;
-
-namespace Cards.Cards.DM09
+﻿namespace Cards.Cards.DM09
 {
     class ShockTrooperMykee : Creature
     {
-        public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000, Subtype.Human, Civilization.Fire)
+        public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000, Engine.Race.Human, Engine.Civilization.Fire)
         {
             AddSpeedAttackerAbility();
             AddWheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(3000));

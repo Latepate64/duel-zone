@@ -1,5 +1,4 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM07
 {
     class RondobilTheExplorer : Creature
     {
-        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Subtype.Gladiator, Civilization.Light)
+        public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Race.Gladiator, Civilization.Light)
         {
             AddTapAbility(new RondobilTheExplorerEffect());
         }
@@ -29,7 +28,7 @@ namespace Cards.Cards.DM07
             return "Add one of your creatures from the battle zone to your shields face down.";
         }
 
-        protected override IEnumerable<Engine.ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(source.Controller);
         }

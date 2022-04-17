@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM03
 {
     class SnipStrikerBullraizer : Creature
     {
-        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Subtype.Dragonoid, Civilization.Fire)
+        public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Race.Dragonoid, Civilization.Fire)
         {
             AddStaticAbilities(new SnipStrikerBullraizerEffect());
         }
@@ -20,7 +19,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool Applies(Engine.ICard creature, IGame game)
+        public bool Applies(ICard creature, IGame game)
         {
             var ability = GetSourceAbility(game);
             return IsSourceOfAbility(creature, game) && game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();

@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Common;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace Cards.Cards.DM11
 {
     class MerleeTheOracle : WaveStrikerCreature
     {
-        public MerleeTheOracle() : base("Merlee, the Oracle", 2, 1500, Subtype.LightBringer, Civilization.Light)
+        public MerleeTheOracle() : base("Merlee, the Oracle", 2, 1500, Race.LightBringer, Civilization.Light)
         {
             AddWaveStrikerAbility(new MerleeTheOracleEffect());
         }

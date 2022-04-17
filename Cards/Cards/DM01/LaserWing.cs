@@ -8,7 +8,7 @@ namespace Cards.Cards.DM01
 {
     class LaserWing : Spell
     {
-        public LaserWing() : base("Laser Wing", 5, Common.Civilization.Light)
+        public LaserWing() : base("Laser Wing", 5, Civilization.Light)
         {
             AddSpellAbilities(new LaserWingEffect());
         }

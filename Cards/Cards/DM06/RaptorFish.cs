@@ -1,12 +1,11 @@
-﻿using Common;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
     class RaptorFish : Creature
     {
-        public RaptorFish() : base("Raptor Fish", 6, 3000, Subtype.GelFish, Civilization.Water)
+        public RaptorFish() : base("Raptor Fish", 6, 3000, Race.GelFish, Civilization.Water)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect());
         }
@@ -17,9 +16,9 @@ namespace Cards.Cards.DM06
         public override object Apply(IGame game, IAbility source)
         {
             var amount = source.GetController(game).Hand.Cards.Count;
-            game.Move(ZoneType.Hand, ZoneType.Deck, source.GetController(game).Hand.Cards.ToArray());
+            game.Move(source, ZoneType.Hand, ZoneType.Deck, source.GetController(game).Hand.Cards.ToArray());
             source.GetController(game).ShuffleDeck(game);
-            source.GetController(game).DrawCards(amount, game);
+            source.GetController(game).DrawCards(amount, game, source);
             return null;
         }
 
