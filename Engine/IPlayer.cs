@@ -16,6 +16,7 @@ namespace Engine
         Hand Hand { get; }
 
         IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
+        void PutOnTheBottomOfDeckInAnyOrder(ICard[] cards);
         void LookAtOpponentsHand(IGame game);
         ICard ChooseControlledCreature(IGame game, string description);
 

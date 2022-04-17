@@ -497,6 +497,13 @@ namespace Engine
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description);
         }
+
+        public void PutOnTheBottomOfDeckInAnyOrder(ICard[] cards)
+        {
+            var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
+            Deck.Cards.RemoveAll(x => arranged.Contains(x));
+            Deck.PutOnBottom(arranged);
+        }
         #endregion Methods
     }
 }
