@@ -463,6 +463,11 @@ namespace Engine
         {
             return Choose(new CivilizationChoice(this, description, excluded)).Choice.Value;
         }
+
+        public ICard ChooseControlledCreature(IGame game, string description)
+        {
+            return ChooseCard(game.BattleZone.GetCreatures(Id), description);
+        }
         #endregion Methods
     }
 }

@@ -42,7 +42,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IGame game)
         {
             return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && attacker.HasCivilization(Civilization.Light);
         }

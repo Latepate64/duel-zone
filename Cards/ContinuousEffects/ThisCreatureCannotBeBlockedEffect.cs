@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
             return "This creature can't be blocked.";
         }
 
-        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IGame game)
         {
             return IsSourceOfAbility(attacker, game);
         }

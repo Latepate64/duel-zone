@@ -47,7 +47,7 @@ namespace Cards.Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool Applies(ICard attacker, IGame game)
+        public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
         {
             return attacker.Owner == _controller;
         }

@@ -14,6 +14,9 @@ namespace Engine
         IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
+
+        ICard ChooseControlledCreature(IGame game, string description);
+
         bool DirectlyAttacked { get; set; }
         string Name { get; set; }
         System.Guid Id { get; set; }

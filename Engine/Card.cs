@@ -174,7 +174,7 @@ namespace Engine
 
         public bool CanAttackPlayers(IGame game)
         {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game));
+            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game));
         }
 
         public bool CanEvolveFrom(IGame game, ICard card)
@@ -237,7 +237,7 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(IGame game)
         {
-            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.Applies(this, game)));
+            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game)));
         }
 
         public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
