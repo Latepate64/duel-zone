@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
         {
             if (source.GetController(game).ChooseToTakeAction("You may draw a card."))
             {
-                source.GetController(game).DrawCards(1, game);
+                source.GetController(game).DrawCards(1, game, source);
                 if (++_drawn < Maximum)
                 {
                     Apply(game, source);

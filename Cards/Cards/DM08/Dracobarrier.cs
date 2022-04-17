@@ -20,7 +20,7 @@ namespace Cards.Cards.DM08
             var tapped = new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect().Apply(game, source);
             if (tapped.Any(x => x.IsDragon))
             {
-                source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+                source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             }
             return tapped;
         }

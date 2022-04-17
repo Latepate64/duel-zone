@@ -30,7 +30,7 @@ namespace Cards.Cards.DM12
             {
                 number = source.GetController(game).ChooseNumber(new ClonedNightmareChoice(source.GetController(game), "Choose how many cards your opponent will discard at random from their hand.", number));
             }
-            source.GetOpponent(game).DiscardAtRandom(game, number);
+            source.GetOpponent(game).DiscardAtRandom(game, number, source);
             return null;
         }
 

@@ -27,7 +27,7 @@ namespace Cards.Cards.DM06
             {
                 if (source.GetController(game).ChooseToTakeAction("You may add the top card of your deck to your shields face down."))
                 {
-                    source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+                    source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
                 }
                 else
                 {

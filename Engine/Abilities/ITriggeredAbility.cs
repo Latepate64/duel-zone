@@ -7,6 +7,6 @@ namespace Engine.Abilities
     {
         bool CanTrigger(IGameEvent gameEvent, IGame game);
         bool CheckInterveningIfClause(IGame game);
-        ITriggeredAbility Trigger(Guid source, Guid owner);
+        ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);
     }
 }

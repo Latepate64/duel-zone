@@ -50,7 +50,7 @@ namespace Cards.Cards.DM10
 
         public override void Happen(IGame game)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Deck, _card);
+            game.Move(null, ZoneType.BattleZone, ZoneType.Deck, _card);
             game.GetPlayer(_card.Owner).ShuffleDeck(game);
         }
 

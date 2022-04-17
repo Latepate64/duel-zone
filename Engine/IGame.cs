@@ -31,7 +31,7 @@ namespace Engine
         void Battle(ICard attackingCreature, ICard defendingCreature);
         void AddReflexiveTriggeredAbility(IResolvableAbility ability);
         bool CanEvolve(ICard card);
-        void Destroy(IEnumerable<ICard> cards);
+        void Destroy(IAbility ability, IEnumerable<ICard> cards);
         IAbility GetAbility(Guid id);
         IEnumerable<ICard> GetAllCards();
         IAttackable GetAttackable(Guid id);
@@ -46,11 +46,11 @@ namespace Engine
         IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
         void Lose(params IPlayer[] players);
-        IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards);
-        IEnumerable<IGameEvent> MoveTapped(ZoneType hand, ZoneType manaZone, params ICard[] cards);
+        IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards);
+        IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType hand, ZoneType manaZone, params ICard[] cards);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
-        void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger);
+        void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void AddPendingAbilities(params IResolvableAbility[] abilities);
         IZone GetZone(ICard card);

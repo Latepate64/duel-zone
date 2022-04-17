@@ -18,8 +18,8 @@ namespace Cards.Cards.DM04
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
-            game.Move(ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
-            game.Move(ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
+            game.Move(source, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
+            game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
             source.GetController(game).Unreveal(cards);
             return null;
         }

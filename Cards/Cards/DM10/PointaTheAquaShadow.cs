@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
         public override object Apply(IGame game, IAbility source)
         {
             new OneShotEffects.LookAtOneOfYourOpponentsShieldsEffect().Apply(game, source);
-            source.GetController(game).DiscardAtRandom(game, 1);
+            source.GetController(game).DiscardAtRandom(game, 1, source);
             return null;
         }
 

@@ -17,16 +17,16 @@ namespace Cards.Cards.DM05
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Players.ToList().ForEach(x => Apply(x, game));
+            game.Players.ToList().ForEach(x => Apply(x, game, source));
             return null;
         }
 
-        private static void Apply(IPlayer player, IGame game)
+        private static void Apply(IPlayer player, IGame game, IAbility source)
         {
             var amount = player.Hand.Cards.Count;
-            game.Move(ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
+            game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
             player.ShuffleDeck(game);
-            player.DrawCards(amount, game);
+            player.DrawCards(amount, game, source);
         }
 
         public override IOneShotEffect Copy()

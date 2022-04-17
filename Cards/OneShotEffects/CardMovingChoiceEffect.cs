@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(SourceZone, DestinationZone, cards);
+            game.Move(source, SourceZone, DestinationZone, cards);
         }
     }
 }

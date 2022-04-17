@@ -13,7 +13,7 @@
 
         public override void Happen(IGame game)
         {
-            _ = game.Move(ZoneType.Hand, ZoneType.BattleZone, Creature);
+            _ = game.Move(null, ZoneType.Hand, ZoneType.BattleZone, Creature);
         }
 
         public override string ToString()

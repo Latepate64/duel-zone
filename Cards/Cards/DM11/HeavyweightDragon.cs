@@ -34,7 +34,7 @@ namespace Cards.Cards.DM11
         {
             if (cards.Sum(x => x.Power) < game.GetCard(source.Source).Power)
             {
-                game.Destroy(cards);
+                game.Destroy(source, cards);
             }
         }
 

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
             if (cards.Any())
             {
                 source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Discard(game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
+                source.GetOpponent(game).Discard(source, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
                 source.GetOpponent(game).Unreveal(cards);
             }
             return null;

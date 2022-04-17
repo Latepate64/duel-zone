@@ -19,7 +19,7 @@
             var card = game.CurrentTurn.ActivePlayer.ChooseCardOptionally(game.CurrentTurn.ActivePlayer.Hand.Cards, "You may put a card from your hand into your mana zone.");
             if (card != null)
             {
-                _ = game.Move(ZoneType.Hand, ZoneType.ManaZone, card);
+                _ = game.Move(null, ZoneType.Hand, ZoneType.ManaZone, card);
             }
             return true;
         }

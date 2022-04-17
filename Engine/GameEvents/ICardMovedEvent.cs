@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Abilities;
+using System;
 
 namespace Engine.GameEvents
 {
@@ -9,6 +10,7 @@ namespace Engine.GameEvents
         ZoneType Source { get; }
         ZoneType Destination { get; }
         bool EntersTapped { get; set; }
-        ICard Card { get; set; }
+        ICard CardInDestinationZone { get; set; }
+        IAbility Ability { get; }
     }
 }

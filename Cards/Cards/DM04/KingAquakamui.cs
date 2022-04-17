@@ -21,7 +21,7 @@ namespace Cards.Cards.DM04
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
-                game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
+                game.Move(source, ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
             }
             return null;
         }

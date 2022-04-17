@@ -27,7 +27,7 @@ namespace Cards.TriggeredAbilities
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.Move(ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
+            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
             return null;
         }
 

@@ -55,7 +55,7 @@ namespace Cards.Cards.DM06
         {
             var opponent = game.GetOpponent(game.GetPlayer(Attacker.Owner));
             var cards = opponent.ChooseCards(opponent.ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
-            game.PutFromShieldZoneToHand(cards, true);
+            game.PutFromShieldZoneToHand(cards, true, null);
         }
 
         public override string ToString()

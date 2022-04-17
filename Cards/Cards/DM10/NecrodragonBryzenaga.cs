@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.PutFromShieldZoneToHand(source.GetController(game).ShieldZone.Cards, true);
+            game.PutFromShieldZoneToHand(source.GetController(game).ShieldZone.Cards, true, source);
             return null;
         }
 

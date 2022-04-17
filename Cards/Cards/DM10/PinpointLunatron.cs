@@ -34,7 +34,7 @@ namespace Cards.Cards.DM10
             foreach (var card in cards)
             {
                 var sourceZone = game.BattleZone.Cards.Contains(card) ? ZoneType.BattleZone : ZoneType.ManaZone;
-                game.Move(sourceZone, ZoneType.Hand, card);
+                game.Move(source, sourceZone, ZoneType.Hand, card);
             }
         }
 

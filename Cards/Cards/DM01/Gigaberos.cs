@@ -28,14 +28,14 @@ namespace Cards.Cards.DM01
             }
             else if (creatures.Where(x => x.Id != source.Source).Count() < 2)
             {
-                return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
+                return game.Move(source, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
             }
             else
             {
                 var selection = source.GetController(game).ChooseCards(creatures, 1, 2, ToString());
                 if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
-                    return game.Move(ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
+                    return game.Move(source, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
                 }
                 else
                 {

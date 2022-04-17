@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
             var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(ZoneType.Hand, ZoneType.ManaZone, card);
+                game.Move(source, ZoneType.Hand, ZoneType.ManaZone, card);
                 new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
             }
             source.GetOpponent(game).Unreveal(new List<ICard> { card });

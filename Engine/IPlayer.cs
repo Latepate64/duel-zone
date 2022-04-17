@@ -20,17 +20,17 @@ namespace Engine
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
-        void Discard(IGame game, params ICard[] cards);
+        void Discard(IAbility ability, IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
-        void DiscardAtRandom(IGame game, int amount);
+        void DiscardAtRandom(IGame game, int amount, IAbility ability);
         void Unreveal(IEnumerable<ICard> cards);
         void Dispose();
-        void DrawCards(int amount, IGame game);
+        void DrawCards(int amount, IGame game, IAbility ability);
         IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game);
         IZone GetZone(ZoneType zone);
         void Look(IPlayer owner, IGame game, params ICard[] cards);
-        void PutFromTopOfDeckIntoManaZone(IGame game, int amount);
-        void PutFromTopOfDeckIntoShieldZone(int amount, IGame game);
+        void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability);
+        void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability);
         void Reveal(IGame game, params ICard[] cards);
         void ShuffleDeck(IGame game);
         void Tap(IGame game, params ICard[] cards);

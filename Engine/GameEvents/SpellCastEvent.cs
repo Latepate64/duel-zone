@@ -47,7 +47,7 @@ namespace Engine.GameEvents
         /// <param name="game"></param>
         private void FinishCastingSpell(ICard spell, IGame game)
         {
-            game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false));
+            game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false, null));
         }
     }
 }

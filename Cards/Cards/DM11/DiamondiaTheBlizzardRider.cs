@@ -16,8 +16,8 @@ namespace Cards.Cards.DM11
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Move(ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            game.Move(source, ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, source.GetController(game).ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
             return null;
         }
 

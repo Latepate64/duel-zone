@@ -18,8 +18,8 @@ namespace Cards.Cards.DM10
         {
             var mana = source.GetController(game).ManaZone.Cards;
             var hand = source.GetController(game).Hand.Cards;
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             return null;
         }
 

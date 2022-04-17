@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
         {
             if (game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count() >= 3)
             {
-                source.GetController(game).DrawCards(3, game);
+                source.GetController(game).DrawCards(3, game, source);
             }
             return true;
         }

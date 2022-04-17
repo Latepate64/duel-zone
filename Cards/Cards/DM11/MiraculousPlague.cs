@@ -69,8 +69,8 @@ namespace Cards.Cards.DM11
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             var otherCards = GetSelectableCards(game, source).Except(cards);
-            game.Move(ZoneType.BattleZone, ZoneType.Hand, cards);
-            game.Destroy(otherCards);
+            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, cards);
+            game.Destroy(source, otherCards);
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
@@ -133,8 +133,8 @@ namespace Cards.Cards.DM11
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             var otherCards = GetSelectableCards(game, source).Except(cards).ToArray();
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, cards);
-            game.Move(ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards);
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

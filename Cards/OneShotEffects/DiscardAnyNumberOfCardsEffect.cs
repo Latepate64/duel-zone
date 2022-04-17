@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            source.GetController(game).Discard(game, cards);
+            source.GetController(game).Discard(source, game, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)

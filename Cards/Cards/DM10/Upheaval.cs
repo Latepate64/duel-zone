@@ -19,8 +19,8 @@ namespace Cards.Cards.DM10
         {
             var mana = game.Players.SelectMany(x => x.ManaZone.Cards);
             var hand = game.Players.SelectMany(x => x.Hand.Cards);
-            game.Move(ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             return null;
         }
 

@@ -82,7 +82,7 @@ namespace Cards.Cards.DM05
             {
                 if (source.GetController(game).ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    source.GetController(game).DrawCards(2, game);
+                    source.GetController(game).DrawCards(2, game, source);
                 }
                 else
                 {

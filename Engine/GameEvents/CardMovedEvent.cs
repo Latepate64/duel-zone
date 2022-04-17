@@ -1,34 +1,38 @@
-﻿using System;
+﻿using Engine.Abilities;
+using System;
 
 namespace Engine.GameEvents
 {
     public class CardMovedEvent : GameEvent, ICardMovedEvent
     {
-        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped)
+        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped, IAbility ability)
         {
             Player = player;
             Source = source;
             Destination = destination;
             CardInSourceZone = cardInSourceZone;
             EntersTapped = tapped;
+            Ability = ability;
         }
 
         public CardMovedEvent(ICardMovedEvent e)
         {
-            Card = e.Card?.Copy();
+            CardInDestinationZone = e.CardInDestinationZone?.Copy();
             CardInSourceZone = e.CardInSourceZone;
             Destination = e.Destination;
             EntersTapped = e.EntersTapped;
             Player = e.Player;
             Source = e.Source;
+            Ability = e.Ability?.Copy();
         }
 
-        public ICard Card { get; set; }
+        public ICard CardInDestinationZone { get; set; }
         public Guid CardInSourceZone { get; set; }
         public ZoneType Destination { get; set; }
         public bool EntersTapped { get; set; }
         public IPlayer Player { get; }
         public ZoneType Source { get; }
+        public IAbility Ability { get; }
 
         public override void Happen(IGame game)
         {
@@ -48,7 +52,7 @@ namespace Engine.GameEvents
                             newObject.Tapped = true;
                         }
                         (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
-                        Card = newObject;
+                        CardInDestinationZone = newObject;
                     }
                 }
             }
@@ -72,7 +76,7 @@ namespace Engine.GameEvents
 
         public override string ToString()
         {
-            return $"{Player} put {Card} from {ToString(Source)} into {ToString(Destination)}.";
+            return $"{Player} put {CardInDestinationZone} from {ToString(Source)} into {ToString(Destination)}.";
         }
 
         public override IPlayer GetApplier(IGame game)

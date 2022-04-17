@@ -48,7 +48,7 @@ namespace Cards.Cards.DM11
             var amount = source.GetController(game).ShieldZone.Cards.Count;
             var chosen = source.GetOpponent(game).ChooseCards(source.GetOpponent(game).ShieldZone.Cards, amount, amount, ToString());
             var toHand = source.GetOpponent(game).ShieldZone.Cards.Except(chosen);
-            game.PutFromShieldZoneToHand(toHand, true);
+            game.PutFromShieldZoneToHand(toHand, true, source);
             return toHand;
         }
 

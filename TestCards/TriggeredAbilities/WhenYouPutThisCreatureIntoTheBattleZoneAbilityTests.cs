@@ -20,7 +20,7 @@ namespace TestCards.TriggeredAbilities
                 }.CanTrigger(
                     new CardMovedEventMock(ZoneType.BattleZone)
                     {
-                        Card = card
+                        CardInDestinationZone = card
                     },
                     new Game()));
         }
@@ -32,9 +32,10 @@ namespace TestCards.TriggeredAbilities
         public Guid CardInSourceZone { get; }
         public ZoneType Source { get; }
         public ZoneType Destination { get; }
-        public bool EntersTapped { get; }
-        public ICard Card { get; set; }
+        public ICard CardInDestinationZone { get; set; }
         public Guid Id { get; }
+        bool ICardMovedEvent.EntersTapped { get; set; }
+        public IAbility Ability { get; }
 
         public IPlayer GetApplier(IGame game)
         {

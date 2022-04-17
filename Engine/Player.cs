@@ -117,13 +117,13 @@ namespace Engine
             game.ProcessEvents(new ShuffleDeckEvent(this));
         }
 
-        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game)
+        public void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability)
         {
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Engine
             game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
 
-        public void DrawCards(int amount, IGame game)
+        public void DrawCards(int amount, IGame game, IAbility ability)
         {
             // 121.2. Cards may only be drawn one at a time.
             // If a player is instructed to draw multiple cards,
@@ -142,7 +142,7 @@ namespace Engine
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
                 }
             }
         }
@@ -157,13 +157,13 @@ namespace Engine
             return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
         }
 
-        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount)
+        public void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability)
         {
             for (int i = 0; i < amount; ++i)
             {
                 if (Deck.Cards.Any())
                 {
-                    game.Move(ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
+                    game.Move(ability, ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
                 }
             }
         }
@@ -173,11 +173,11 @@ namespace Engine
             game.ProcessEvents(new SpellCastEvent(this, spell));
         }
 
-        public void DiscardAtRandom(IGame game, int amount)
+        public void DiscardAtRandom(IGame game, int amount, IAbility ability)
         {
             if (Hand.Cards.Any())
             {
-                _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
+                _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
             }
         }
 
@@ -375,9 +375,9 @@ namespace Engine
             // TODO: Implement reveal information on cards and remove them here.
         }
 
-        public void Discard(IGame game, params ICard[] cards)
+        public void Discard(IAbility ability, IGame game, params ICard[] cards)
         {
-            _ = game.Move(ZoneType.Hand, ZoneType.Graveyard, cards);
+            _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, cards);
         }
 
         

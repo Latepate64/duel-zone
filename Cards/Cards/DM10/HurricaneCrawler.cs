@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
         {
             var hand = source.GetController(game).Hand.Cards;
             var amount = hand.Count;
-            game.Move(ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             return new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
         }
 

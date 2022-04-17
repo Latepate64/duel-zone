@@ -20,7 +20,7 @@ namespace Cards.Cards.DM02
 
             if (amount > 0 && source.GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                source.GetController(game).DrawCards(amount, game);
+                source.GetController(game).DrawCards(amount, game, source);
             }
             return null;
         }

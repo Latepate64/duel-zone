@@ -159,10 +159,10 @@ namespace Engine
             Players.ToList().ForEach(x => x.ShuffleDeck(this));
 
             // Each player puts five card from to the top of their deck into their shield zone.
-            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this));
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this, null));
 
             // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
-            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this));
+            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this, null));
 
             // 103.7. The starting player takes their first turn.
             LoopTurns(startingPlayer, otherPlayer, MaximumNumberOfTurns);
@@ -213,9 +213,9 @@ namespace Engine
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellStack.Cards);
         }
 
-        public void Destroy(IEnumerable<ICard> cards)
+        public void Destroy(IAbility ability, IEnumerable<ICard> cards)
         {
-            _ = Move(ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
+            _ = Move(ability, ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace Engine
             var abilities = new List<ITriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner)));
+                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner, gameEvent)));
             }
             return abilities;
         }
@@ -400,14 +400,14 @@ namespace Engine
             _state.Players.Remove(player);
         }
 
-        public IEnumerable<IGameEvent> Move(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false, ability)).ToArray());
         }
 
-        public IEnumerable<IGameEvent> MoveTapped(ZoneType source, ZoneType destination, params ICard[] cards)
+        public IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true, ability)).ToArray());
         }
 
         public IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] events)
@@ -478,9 +478,9 @@ namespace Engine
         /// </summary>
         /// <param name="cards"></param>
         /// <param name="canUseShieldTrigger"></param>
-        public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger)
+        public void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability)
         {
-            var events = Move(ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
+            var events = Move(ability, ZoneType.ShieldZone, ZoneType.Hand, cards.ToArray());
             if (canUseShieldTrigger)
             {
                 CheckShieldTriggers(events);
@@ -493,7 +493,7 @@ namespace Engine
         /// <param name="events"></param>
         private void CheckShieldTriggers(IEnumerable<IGameEvent> events)
         {
-            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.Card.Id)).Where(x => x != null && x.ShieldTrigger);
+            var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
                 var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
@@ -650,7 +650,7 @@ namespace Engine
             creaturesToDestroy.AddRange(CheckBattleLosses());
             //bool rearrange = CheckTopCardOfEvolutionCreatures();
 
-            Destroy(creaturesToDestroy.Distinct().ToArray());
+            Destroy(null, creaturesToDestroy.Distinct().ToArray());
             Lose(losers.Distinct().ToArray());
 
             return losers.Any() || creaturesToDestroy.Any();// || rearrange;

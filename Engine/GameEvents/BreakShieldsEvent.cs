@@ -10,7 +10,7 @@
         {
             var owner = game.GetPlayer(Attacker.Owner);
             var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
-            game.PutFromShieldZoneToHand(cards, true);
+            game.PutFromShieldZoneToHand(cards, true, null);
         }
 
         public override string ToString()

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             return new OneShotEffects.LookAtOneOfYourOpponentsShieldsEffect().Apply(game, source);
         }
 

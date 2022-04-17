@@ -49,6 +49,6 @@ namespace Engine
         void InitializeAbilities();
         void PutOnTopOf(ICard bait);
         void ResetToPrintedValues();
-        void MoveTopCard(IGame game, ZoneType destination);
+        void MoveTopCard(IGame game, ZoneType destination, IAbility ability);
     }
 }

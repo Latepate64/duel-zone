@@ -17,7 +17,7 @@ namespace Cards.Cards.DM12
         public override object Apply(IGame game, IAbility source)
         {
             var cards = new OneShotEffects.DiscardAnyNumberOfCardsEffect().Apply(game, source);
-            source.GetController(game).DrawCards(cards.Count(), game);
+            source.GetController(game).DrawCards(cards.Count(), game, source);
             return null;
         }
 

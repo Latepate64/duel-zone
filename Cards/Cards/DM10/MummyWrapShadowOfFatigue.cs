@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1));
+            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, source));
             return null;
         }
 

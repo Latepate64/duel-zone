@@ -15,8 +15,8 @@ namespace Cards.Cards.DM10
     {
         public override object Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1);
-            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game);
+            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
+            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             return null;
         }
 

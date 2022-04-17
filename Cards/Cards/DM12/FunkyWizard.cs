@@ -20,7 +20,7 @@ namespace Cards.Cards.DM12
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {
-                    player.DrawCards(1, game);
+                    player.DrawCards(1, game, source);
                 }
             }
             return null;
