@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using Engine.Steps;
 
 namespace Cards.ContinuousEffects
 {
@@ -14,9 +13,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && game.CurrentTurn.CurrentPhase is AttackPhase a && a.AttackTarget is ICard;
+            return IsSourceOfAbility(attacker, game) && targetOfAttack is ICard;
         }
 
         public override IContinuousEffect Copy()

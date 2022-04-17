@@ -55,7 +55,7 @@ namespace Cards.Cards.DM07
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker == _creature;
         }
