@@ -15,6 +15,7 @@ namespace Engine
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
 
+        void LookAtOpponentsHand(IGame game);
         ICard ChooseControlledCreature(IGame game, string description);
 
         bool DirectlyAttacked { get; set; }

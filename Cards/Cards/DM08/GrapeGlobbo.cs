@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -16,12 +15,7 @@ namespace Cards.Cards.DM08
     {
         public override object Apply(IGame game, IAbility source)
         {
-            var cards = source.GetOpponent(game).Hand.Cards;
-            if (cards.Any())
-            {
-                source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Unreveal(cards);
-            }
+            source.GetController(game).LookAtOpponentsHand(game);
             return null;
         }
 

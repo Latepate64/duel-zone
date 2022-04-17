@@ -482,6 +482,16 @@ namespace Engine
             Deck.Cards.RemoveAll(x => arranged.Contains(x));
             arranged.ToList().ForEach(x => Deck.Cards.Add(x));
         }
+
+        public void LookAtOpponentsHand(IGame game)
+        {
+            var cards = game.GetOpponent(this).Hand.Cards;
+            if (cards.Any())
+            {
+                Look(game.GetOpponent(this), game, cards.ToArray());
+                game.GetOpponent(this).Unreveal(cards);
+            }
+        }
         #endregion Methods
     }
 }
