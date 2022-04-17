@@ -45,6 +45,7 @@ namespace Simulator
                 catch (Exception e)
                 {
                     exceptions.Add(e);
+                    System.IO.File.AppendAllText("exceptions.txt", e.ToString() + Environment.NewLine);
                 }
             }
         }
