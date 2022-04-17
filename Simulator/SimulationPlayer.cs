@@ -54,6 +54,11 @@ namespace Simulator
                 arrange.Rearranged = arrange.Cards.OrderBy(x => Rnd.Next()).ToArray();
                 return arrange as T;
             }
+            else if (choice is PlayerChoice player)
+            {
+                player.Choice = player.Options.OrderBy(x => Rnd.Next()).First();
+                return player as T;
+            }
             else
             {
                 throw new NotImplementedException();

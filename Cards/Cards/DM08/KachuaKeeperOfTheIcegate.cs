@@ -32,7 +32,10 @@ namespace Cards.Cards.DM08
         {
             var cards = source.GetController(game).Deck.Creatures.Where(x => x.IsDragon);
             var dragon = source.GetController(game).ChooseCardOptionally(cards, ToString());
-            game.Move(source, ZoneType.Deck, ZoneType.Hand, dragon);
+            if (dragon != null)
+            {
+                game.Move(source, ZoneType.Deck, ZoneType.Hand, dragon);
+            }
             source.GetController(game).ShuffleDeck(game);
             if (dragon != null)
             {

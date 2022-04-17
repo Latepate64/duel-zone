@@ -504,6 +504,11 @@ namespace Engine
             Deck.Cards.RemoveAll(x => arranged.Contains(x));
             Deck.PutOnBottom(arranged);
         }
+
+        public IPlayer ChoosePlayer(IGame game, string description)
+        {
+            return Choose(new PlayerChoice(this, description, game.Players)).Choice;
+        }
         #endregion Methods
     }
 }
