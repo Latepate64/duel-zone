@@ -46,14 +46,22 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class SpinningTotemTriggeredAbility : BecomeBlockedAbility
+    class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
     {
-        public SpinningTotemTriggeredAbility() : base(new OneShotEffects.TargetCreatureBreaksOpponentsShieldsEffect(1, null))
+        private readonly ICard _breaker;
+
+        public SpinningTotemTriggeredAbility() : base()
         {
+        }
+
+        public SpinningTotemTriggeredAbility(ICard breaker) : base()
+        {
+            _breaker = breaker;
         }
 
         public SpinningTotemTriggeredAbility(SpinningTotemTriggeredAbility ability) : base(ability)
         {
+            _breaker = ability._breaker;
         }
 
         public override IAbility Copy()
@@ -66,16 +74,19 @@ namespace Cards.Cards.DM07
             return "Whenever any of your nature creatures is attacking your opponent and becomes blocked, it breaks one of his shields.";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
-        {
-            return card.Owner == GetController(game).Id && card.HasCivilization(Civilization.Nature);
-        }
-
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
         {
-            var ability = base.Trigger(source, owner, gameEvent);
-            ability.OneShotEffect = new OneShotEffects.TargetCreatureBreaksOpponentsShieldsEffect(1, (gameEvent as BecomeBlockedEvent).Attacker);
-            return ability;
+            return new SpinningTotemTriggeredAbility((gameEvent as BecomeBlockedEvent).Attacker);
+        }
+
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        {
+            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == GetController(game).Id && e.Attacker.HasCivilization(Civilization.Nature);
+        }
+
+        public override void Resolve(IGame game)
+        {
+            _breaker.Break(game, 1);
         }
     }
 }
