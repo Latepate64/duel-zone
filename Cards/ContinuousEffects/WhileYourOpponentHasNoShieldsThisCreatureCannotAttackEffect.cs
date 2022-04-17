@@ -12,7 +12,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool CannotAttack(ICard creature, IGame game)
         {
             return IsSourceOfAbility(creature, game) && !GetSourceAbility(game).GetOpponent(game).ShieldZone.Cards.Any();
         }

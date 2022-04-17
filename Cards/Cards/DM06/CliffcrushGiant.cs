@@ -24,7 +24,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool CannotAttack(ICard creature, IGame game)
         {
             return IsSourceOfAbility(creature, game) && game.BattleZone.GetOtherUntappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Any();
         }

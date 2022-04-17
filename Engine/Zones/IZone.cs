@@ -7,6 +7,7 @@ namespace Engine.Zones
     {
         List<ICard> Cards { get; }
         IEnumerable<ICard> Creatures { get; }
+        bool HasCards { get; }
         IEnumerable<ICard> Spells { get; }
         ZoneType Type { get; }
 
