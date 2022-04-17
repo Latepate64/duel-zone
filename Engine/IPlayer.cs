@@ -49,5 +49,6 @@ namespace Engine
         IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
         IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
         IEnumerable<ICard> ChooseCards(CardChoice choice);
+        Civilization ChooseCivilization(string description, params Civilization[] excluded);
     }
 }

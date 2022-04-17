@@ -44,6 +44,11 @@ namespace Simulator
             {
                 return ChooseAbility<T>(ability);
             }
+            else if (choice is CivilizationChoice civilization)
+            {
+                civilization.Choice = Enum.GetValues(typeof(Civilization)).Cast<Civilization>().Except(civilization.Excluded).OrderBy(x => Rnd.Next()).First();
+                return civilization as T;
+            }
             else
             {
                 throw new NotImplementedException();

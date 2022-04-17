@@ -458,6 +458,11 @@ namespace Engine
         {
             return Choose(new AttackTargetChoice(this, targets)).Choice;
         }
+
+        public Civilization ChooseCivilization(string description, params Civilization[] excluded)
+        {
+            return Choose(new CivilizationChoice(this, description, excluded)).Choice.Value;
+        }
         #endregion Methods
     }
 }
