@@ -468,6 +468,20 @@ namespace Engine
         {
             return ChooseCard(game.BattleZone.GetCreatures(Id), description);
         }
+
+        public IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game)
+        {
+            var cards = Deck.GetTopCards(amount).ToArray();
+            Look(this, game, cards);
+            return cards;
+        }
+
+        public void ArrangeTopCardsOfDeck(params ICard[] cards)
+        {
+            var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
+            Deck.Cards.RemoveAll(x => arranged.Contains(x));
+            arranged.ToList().ForEach(x => Deck.Cards.Add(x));
+        }
         #endregion Methods
     }
 }

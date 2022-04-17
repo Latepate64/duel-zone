@@ -61,39 +61,4 @@ namespace Cards.Cards.DM05
             return new SnorkLaAbility((gameEvent as CardMovedEvent).CardInDestinationZone);
         }
     }
-
-    //class SnorkLaEffect : OneShotEffect
-    //{
-    //    private readonly ICard _card;
-
-    //    public SnorkLaEffect()
-    //    {
-    //    }
-
-    //    public SnorkLaEffect(ICard card)
-    //    {
-    //        _card = card;
-    //    }
-
-    //    public SnorkLaEffect(SnorkLaEffect effect) : base(effect)
-    //    {
-    //        _card = effect._card?.Copy();
-    //    }
-
-    //    public override object Apply(IGame game, IAbility source)
-    //    {
-            
-    //        return null;
-    //    }
-
-    //    public override IOneShotEffect Copy()
-    //    {
-    //        return new SnorkLaEffect(this);
-    //    }
-
-    //    public override string ToString()
-    //    {
-    //        return $"You may return {_card} to your mana zone.";
-    //    }
-    //}
 }

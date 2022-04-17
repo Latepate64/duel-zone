@@ -22,6 +22,8 @@ namespace Engine
         System.Guid Id { get; set; }
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
+        IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
+        void ArrangeTopCardsOfDeck(params ICard[] cards);
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IAbility ability, IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);

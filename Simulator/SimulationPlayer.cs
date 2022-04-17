@@ -49,6 +49,11 @@ namespace Simulator
                 civilization.Choice = Enum.GetValues(typeof(Civilization)).Cast<Civilization>().Except(civilization.Excluded).OrderBy(x => Rnd.Next()).First();
                 return civilization as T;
             }
+            else if (choice is ArrangeChoice arrange)
+            {
+                arrange.Rearranged = arrange.Cards.OrderBy(x => Rnd.Next()).ToArray();
+                return arrange as T;
+            }
             else
             {
                 throw new NotImplementedException();
