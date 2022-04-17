@@ -1,4 +1,5 @@
 ﻿using Engine.GameEvents;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Engine.Steps
@@ -50,6 +51,33 @@ namespace Engine.Steps
                 BlockingCreature = null;
                 //TODO: Event
                 //game.Process(new CreatureStoppedBlockingEvent { Blocker = blocker.Convert() });
+            }
+        }
+
+        public ICard GetCreatureBattlingAgainst(ICard card)
+        {
+            if (card == AttackingCreature)
+            {
+                if (BlockingCreature != null)
+                {
+                    return BlockingCreature;
+                }
+                else if (AttackTarget is ICard target)
+                {
+                    return target;
+                }
+                else
+                { 
+                    return null;
+                }
+            }
+            else if (card == BlockingCreature || card == AttackTarget)
+            {
+                return AttackingCreature;
+            }
+            else
+            {
+                return null;
             }
         }
 
