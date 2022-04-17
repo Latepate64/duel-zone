@@ -2,7 +2,6 @@
 using Cards.StaticAbilities;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM07
 {
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM07
 
         public void AddAbility(IGame game)
         {
-            if (!GetController(game).ShieldZone.Cards.Any())
+            if (!GetController(game).ShieldZone.HasCards)
             {
                 GetSourceCard(game).AddGrantedAbility(new DoubleBreakerAbility());
             }
@@ -39,7 +38,7 @@ namespace Cards.Cards.DM07
 
         public void ModifyPower(IGame game)
         {
-            if (!GetController(game).ShieldZone.Cards.Any())
+            if (!GetController(game).ShieldZone.HasCards)
             {
                 GetSourceCard(game).Power += 4000;
             }

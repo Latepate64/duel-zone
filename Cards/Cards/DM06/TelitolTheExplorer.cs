@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -18,7 +17,7 @@ namespace Cards.Cards.DM06
     {
         public override object Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).ShieldZone.Cards.Any() && source.GetController(game).ChooseToTakeAction(ToString()))
+            if (source.GetController(game).ShieldZone.HasCards && source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 source.GetController(game).Look(source.GetController(game), game, source.GetController(game).ShieldZone.Cards.ToArray());
                 source.GetController(game).Unreveal(source.GetController(game).ShieldZone.Cards);

@@ -121,7 +121,7 @@ namespace Engine
         {
             for (int i = 0; i < amount; ++i)
             {
-                if (Deck.Cards.Any())
+                if (Deck.HasCards)
                 {
                     game.Move(ability, ZoneType.Deck, ZoneType.ShieldZone, Deck.Cards.Last());
                 }
@@ -140,7 +140,7 @@ namespace Engine
             // that player performs that many individual card draws.
             for (int i = 0; i < amount; ++i)
             {
-                if (Deck.Cards.Any())
+                if (Deck.HasCards)
                 {
                     game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
                 }
@@ -161,7 +161,7 @@ namespace Engine
         {
             for (int i = 0; i < amount; ++i)
             {
-                if (Deck.Cards.Any())
+                if (Deck.HasCards)
                 {
                     game.Move(ability, ZoneType.Deck, ZoneType.ManaZone, Deck.Cards.Last());
                 }
@@ -175,7 +175,7 @@ namespace Engine
 
         public void DiscardAtRandom(IGame game, int amount, IAbility ability)
         {
-            if (Hand.Cards.Any())
+            if (Hand.HasCards)
             {
                 _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
             }

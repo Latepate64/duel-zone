@@ -23,7 +23,7 @@ namespace Engine.Steps
             var attackingCreature = Phase.AttackingCreature;
             if (attackingCreature != null)
             {
-                if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.Cards.Any())
+                if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.HasCards)
                 {
                     var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
                     attackingCreature.Break(game, breakAmount);
