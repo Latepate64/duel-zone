@@ -509,6 +509,11 @@ namespace Engine
         {
             return Choose(new PlayerChoice(this, description, game.Players)).Choice;
         }
+
+        public ICard ChooseOpponentsCreature(IGame game, string description)
+        {
+            return ChooseCard(game.BattleZone.GetCreatures(game.GetOpponent(Id)), description);
+        }
         #endregion Methods
     }
 }
