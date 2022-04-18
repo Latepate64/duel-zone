@@ -44,7 +44,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature, IGame game)
         {
             return creature.Owner == game.GetOpponent(GetController(game)).Id;
         }

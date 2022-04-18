@@ -334,7 +334,7 @@ namespace Engine
 
         public bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
-            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.Applies(attacker, game))) ? 1 : 0;
+            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(attacker, game))) ? 1 : 0;
             var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
