@@ -9,9 +9,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool BlocksIfAble(ICard blocker, ICard attacker, IGame game)
         {
-            return IsSourceOfAbility(creature, game);
+            return IsSourceOfAbility(blocker, game);
         }
 
         public override IContinuousEffect Copy()
