@@ -162,6 +162,7 @@ namespace Engine
         /// TODO: Apply in logic
         /// </summary>
         public bool FaceDown { get; set; }
+        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
 
         public void ResetToPrintedValues()
         {

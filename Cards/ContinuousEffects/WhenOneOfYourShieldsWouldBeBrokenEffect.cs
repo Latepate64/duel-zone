@@ -70,7 +70,7 @@ namespace Cards.ContinuousEffects
 
         public override void Happen(IGame game)
         {
-            game.Destroy(null, new List<ICard> { _creature });
+            game.Destroy(null, _creature);
             game.PutFromShieldZoneToHand(_remainingShields, true, null);
         }
 

@@ -122,7 +122,7 @@ namespace Cards.Cards.DM07
 
         public override void Resolve(IGame game)
         {
-            game.Destroy(this, new List<ICard> { _toDestroy });
+            game.Destroy(this, _toDestroy);
         }
 
         public override string ToString()

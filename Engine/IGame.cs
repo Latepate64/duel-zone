@@ -31,7 +31,7 @@ namespace Engine
         void Battle(ICard attackingCreature, ICard defendingCreature);
         void AddReflexiveTriggeredAbility(IResolvableAbility ability);
         bool CanEvolve(ICard card);
-        void Destroy(IAbility ability, IEnumerable<ICard> cards);
+        void Destroy(IAbility ability, params ICard[] cards);
         IAbility GetAbility(Guid id);
         IEnumerable<ICard> GetAllCards();
         IAttackable GetAttackable(Guid id);

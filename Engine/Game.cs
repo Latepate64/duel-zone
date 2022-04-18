@@ -93,6 +93,11 @@ namespace Engine
         #region Methods
         public Game() { }
 
+        public Game(IGameState state)
+        {
+            _state = state;
+        }
+
         public Game(Game game)
         {
             ExtraTurns = new Stack<ITurn>(game.ExtraTurns.Select(x => new Turn(x)));
@@ -213,9 +218,9 @@ namespace Engine
             return Players.SelectMany(x => x.CardsInNonsharedZones).Union(BattleZone.Cards).Union(SpellStack.Cards);
         }
 
-        public void Destroy(IAbility ability, IEnumerable<ICard> cards)
+        public void Destroy(IAbility ability, params ICard[] cards)
         {
-            _ = Move(ability, ZoneType.BattleZone, ZoneType.Graveyard, cards.ToArray());
+            _ = Move(ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
         }
 
         /// <summary>

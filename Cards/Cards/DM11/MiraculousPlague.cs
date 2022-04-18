@@ -70,7 +70,7 @@ namespace Cards.Cards.DM11
         {
             var otherCards = GetSelectableCards(game, source).Except(cards);
             game.Move(source, ZoneType.BattleZone, ZoneType.Hand, cards);
-            game.Destroy(source, otherCards);
+            game.Destroy(source, otherCards.ToArray());
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

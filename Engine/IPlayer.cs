@@ -25,6 +25,7 @@ namespace Engine
         bool DirectlyAttacked { get; set; }
         string Name { get; set; }
         System.Guid Id { get; set; }
+        List<ICard> DeckCards => Deck.Cards;
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
         IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);

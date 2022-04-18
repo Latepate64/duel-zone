@@ -20,7 +20,9 @@ namespace Cards.Cards.DM07
         {
             game.Destroy(
                 source,
-                source.GetController(game).ChooseCards(new CardChoice(source.GetController(game), ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).ToArray())));
+                source.GetController(game).ChooseCards(
+                    new CardChoice(source.GetController(game), ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).ToArray())
+                    ).ToArray());
             return null;
         }
 

@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
         public override object Apply(IGame game, IAbility source)
         {
             // When you put this creature into the battle zone, destroy all other creatures that have power 6000,
-            game.Destroy(source, game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToList());
+            game.Destroy(source, game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToArray());
             // then take an extra turn after this one.
             var turn = new OneShotEffects.TakeExtraTurnAfterThisOneEffect().Apply(game, source);
             // You lose the game at the end of the extra turn.
