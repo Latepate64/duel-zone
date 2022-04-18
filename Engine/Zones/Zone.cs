@@ -15,6 +15,7 @@ namespace Engine.Zones
         public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
 
         public ZoneType Type { get; }
+        public bool HasCards => Cards.Any();
 
         protected Zone(ZoneType type)
         {

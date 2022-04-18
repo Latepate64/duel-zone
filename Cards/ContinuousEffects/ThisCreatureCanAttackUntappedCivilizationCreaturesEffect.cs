@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
             _civilization = civilization;
         }
 
-        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker, game) && targetOfAttack.HasCivilization(_civilization);
         }

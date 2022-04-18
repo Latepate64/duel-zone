@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM07
 {
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM07
             }
         }
 
-        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
             return YouHaveNoShields(game) && IsSourceOfAbility(attacker, game);
         }
@@ -44,7 +43,7 @@ namespace Cards.Cards.DM07
 
         private bool YouHaveNoShields(IGame game)
         {
-            return !GetSourceAbility(game).GetController(game).ShieldZone.Cards.Any();
+            return !GetSourceAbility(game).GetController(game).ShieldZone.HasCards;
         }
     }
 }

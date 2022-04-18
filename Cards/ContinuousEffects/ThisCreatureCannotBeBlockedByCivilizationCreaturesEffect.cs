@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
             _civilization = civilization;
         }
 
-        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker, game) && blocker.HasCivilization(_civilization);
         }

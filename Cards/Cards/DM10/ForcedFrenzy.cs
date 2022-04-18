@@ -1,0 +1,72 @@
+﻿using Cards.ContinuousEffects;
+using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
+using Engine.GameEvents;
+using Engine.Steps;
+
+namespace Cards.Cards.DM10
+{
+    class ForcedFrenzy : Spell
+    {
+        public ForcedFrenzy() : base("Forced Frenzy", 3, Civilization.Fire)
+        {
+            AddShieldTrigger();
+            AddSpellAbilities(new ForcedFrenzyEffect());
+        }
+    }
+
+    class ForcedFrenzyEffect : OneShotEffect
+    {
+        public override object Apply(IGame game, IAbility source)
+        {
+            game.AddContinuousEffects(source, new ForcedFrenzyContinuousEffect(source.GetOpponent(game)));
+            return null;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ForcedFrenzyEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Each of your opponent's creatures gets \"This creature attacks if able\" until the start of your next turn.";
+        }
+    }
+
+    class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+    {
+        private readonly IPlayer _opponent;
+
+        public ForcedFrenzyContinuousEffect(IPlayer opponent)
+        {
+            _opponent = opponent;
+        }
+
+        public ForcedFrenzyContinuousEffect(ForcedFrenzyContinuousEffect effect) : base(effect)
+        {
+            _opponent = effect._opponent;
+        }
+
+        public bool AttacksIfAble(ICard creature, IGame game)
+        {
+            return creature.Owner == _opponent.Id;
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ForcedFrenzyContinuousEffect(this);
+        }
+
+        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        {
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == GetController(game);
+        }
+
+        public override string ToString()
+        {
+            return $"Each of {_opponent}'s creatures attacks if able until the start of your next turn.";
+        }
+    }
+}

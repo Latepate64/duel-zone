@@ -67,5 +67,10 @@ namespace Engine.Zones
         {
             return Cards.TakeLast(amount);
         }
+
+        public void PutOnBottom(ICard[] cards)
+        {
+            Cards.InsertRange(0, cards);
+        }
     }
 }

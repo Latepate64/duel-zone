@@ -10,7 +10,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility(ITriggeredAbility ability) : base(ability)
+        public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility(AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility ability) : base(ability)
         {
         }
 

@@ -12,7 +12,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public AtTheEndOfYourTurnAbility(ITriggeredAbility ability) : base(ability)
+        public AtTheEndOfYourTurnAbility(AtTheEndOfYourTurnAbility ability) : base(ability)
         {
         }
 

@@ -51,7 +51,7 @@ namespace Cards.Cards.DM09
             game.BattleZone.Creatures.Where(x => x.HasRace(_race)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature, IGame game)
         {
             return creature.HasRace(_race);
         }

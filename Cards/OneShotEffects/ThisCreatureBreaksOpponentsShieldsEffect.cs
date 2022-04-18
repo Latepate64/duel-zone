@@ -3,24 +3,14 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class ThisCreatureBreaksOpponentsShieldsEffect : OneShotEffect
+    class ThisCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
     {
-        private readonly int _amount;
-
-        public ThisCreatureBreaksOpponentsShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect)
+        public ThisCreatureBreaksOpponentsShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
         {
-            _amount = effect._amount;
         }
 
-        public ThisCreatureBreaksOpponentsShieldsEffect(int amount = 1)
+        public ThisCreatureBreaksOpponentsShieldsEffect(int amount = 1) : base(amount)
         {
-            _amount = amount;
-        }
-
-        public override object Apply(IGame game, IAbility source)
-        {
-            game.GetCard(source.Source).Break(game, _amount);
-            return null;
         }
 
         public override IOneShotEffect Copy()
@@ -31,6 +21,64 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"This creature breaks {_amount} of your opponent's shields.";
+        }
+
+        protected override ICard GetBreaker(IGame game, IAbility source)
+        {
+            return game.GetCard(source.Source);
+        }
+    }
+
+    abstract class BreaksOpponentsShieldsEffect : OneShotEffect
+    {
+        protected readonly int _amount;
+
+        protected BreaksOpponentsShieldsEffect(BreaksOpponentsShieldsEffect effect)
+        {
+            _amount = effect._amount;
+        }
+
+        protected BreaksOpponentsShieldsEffect(int amount = 1)
+        {
+            _amount = amount;
+        }
+
+        public override object Apply(IGame game, IAbility source)
+        {
+            GetBreaker(game, source).Break(game, _amount);
+            return null;
+        }
+
+        protected abstract ICard GetBreaker(IGame game, IAbility source);
+    }
+
+    class TargetCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
+    {
+        private readonly ICard _breaker;
+
+        public TargetCreatureBreaksOpponentsShieldsEffect(TargetCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
+        {
+            _breaker = effect._breaker.Copy();
+        }
+
+        public TargetCreatureBreaksOpponentsShieldsEffect(int amount, ICard breaker) : base(amount)
+        {
+            _breaker = breaker;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new TargetCreatureBreaksOpponentsShieldsEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return $"{_breaker} breaks {_amount} of your opponent's shields.";
+        }
+
+        protected override ICard GetBreaker(IGame game, IAbility source)
+        {
+            return _breaker;
         }
     }
 }

@@ -14,11 +14,22 @@ namespace Engine
         IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
         Hand Hand { get; }
+
+        IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
+        ICard ChooseOpponentsCreature(IGame game, string description);
+        IPlayer ChoosePlayer(IGame game, string description);
+        void PutOnTheBottomOfDeckInAnyOrder(ICard[] cards);
+        void LookAtOpponentsHand(IGame game);
+        ICard ChooseControlledCreature(IGame game, string description);
+
         bool DirectlyAttacked { get; set; }
         string Name { get; set; }
         System.Guid Id { get; set; }
+        List<ICard> DeckCards => Deck.Cards;
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
+        IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
+        void ArrangeTopCardsOfDeck(params ICard[] cards);
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
         void Discard(IAbility ability, IGame game, params ICard[] cards);
         bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
@@ -49,5 +60,6 @@ namespace Engine
         IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
         IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
         IEnumerable<ICard> ChooseCards(CardChoice choice);
+        Civilization ChooseCivilization(string description, params Civilization[] excluded);
     }
 }

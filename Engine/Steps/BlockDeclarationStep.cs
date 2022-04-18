@@ -17,11 +17,11 @@ namespace Engine.Steps
             ChooseBlocker(game, possibleBlockers);
         }
 
-        private static IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
+        private IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
         {
             var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>
                 CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.Applies(x, game)));
+            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(x, attackingCreature, game)));
             if (mustBlockers.Any())
             {
                 return mustBlockers;
@@ -32,11 +32,11 @@ namespace Engine.Steps
             }
         }
 
-        private static bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
+        private bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
         {
             return !blocker.Tapped &&
-                game.GetContinuousEffects<IBlockerEffect>().Any(e => e.Applies(blocker, attackingCreature, game)) &&
-                game.GetContinuousEffects<IUnblockableEffect>().All(e => !e.Applies(attackingCreature, blocker, game));
+                game.GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature, game)) &&
+                game.GetContinuousEffects<IUnblockableEffect>().All(e => !e.CannotBeBlocked(attackingCreature, blocker, Phase.AttackTarget, game));
         }
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)

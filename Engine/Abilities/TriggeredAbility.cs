@@ -12,7 +12,7 @@ namespace Engine.Abilities
         {
         }
 
-        protected TriggeredAbility(ITriggeredAbility ability) : base(ability)
+        protected TriggeredAbility(TriggeredAbility ability) : base(ability)
         {
         }
 
@@ -45,7 +45,7 @@ namespace Engine.Abilities
             return true;
         }
 
-        public sealed override void Resolve(IGame game)
+        public override void Resolve(IGame game)
         {
             // 608.2a
             // If a triggered ability has an intervening “if” clause,
@@ -62,5 +62,32 @@ namespace Engine.Abilities
         {
             return LowerCaseFirstCharacter(OneShotEffect.ToString());
         }
+    }
+
+    /// <summary>
+    /// Triggered ability whose effect is tightly coupled with the trigger condition.
+    /// </summary>
+    public abstract class LinkedTriggeredAbility : Ability, ITriggeredAbility
+    {
+        protected LinkedTriggeredAbility()
+        {
+        }
+
+        protected LinkedTriggeredAbility(LinkedTriggeredAbility ability) : base(ability)
+        {
+        }
+
+        public IOneShotEffect OneShotEffect { get; set; }
+
+        public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
+
+        public bool CheckInterveningIfClause(IGame game)
+        {
+            throw new NotImplementedException();
+        }
+
+        public abstract void Resolve(IGame game);
+
+        public abstract ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);
     }
 }

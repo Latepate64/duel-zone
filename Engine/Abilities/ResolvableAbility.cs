@@ -9,7 +9,7 @@
             OneShotEffect = effect;
         }
 
-        protected ResolvableAbility(IResolvableAbility ability) : base(ability)
+        protected ResolvableAbility(ResolvableAbility ability) : base(ability)
         {
             OneShotEffect = ability.OneShotEffect.Copy();
         }

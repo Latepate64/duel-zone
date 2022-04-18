@@ -15,14 +15,22 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class SnorkLaAbility : TriggeredAbility
+    class SnorkLaAbility : LinkedTriggeredAbility
     {
-        public SnorkLaAbility() : base(new SnorkLaEffect())
+        private readonly ICard _card;
+
+        public SnorkLaAbility() : base()
         {
+        }
+
+        public SnorkLaAbility(ICard card) : base()
+        {
+            _card = card;
         }
 
         public SnorkLaAbility(SnorkLaAbility ability) : base(ability)
         {
+            _card = ability._card;
         }
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -35,6 +43,14 @@ namespace Cards.Cards.DM05
             return new SnorkLaAbility(this);
         }
 
+        public override void Resolve(IGame game)
+        {
+            if (GetController(game).ChooseToTakeAction(ToString()))
+            {
+                game.Move(this, ZoneType.Graveyard, ZoneType.ManaZone, _card);
+            }
+        }
+
         public override string ToString()
         {
             return "Whenever your opponent causes a card to be put into your graveyard from your mana zone, you may return that card to your mana zone.";
@@ -42,47 +58,7 @@ namespace Cards.Cards.DM05
 
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
         {
-            var ability = base.Trigger(source, owner, gameEvent);
-            ability.OneShotEffect = new SnorkLaEffect((gameEvent as CardMovedEvent).CardInDestinationZone);
-            return ability;
-        }
-    }
-
-    class SnorkLaEffect : OneShotEffect
-    {
-        private readonly ICard _card;
-
-        public SnorkLaEffect()
-        {
-        }
-
-        public SnorkLaEffect(ICard card)
-        {
-            _card = card;
-        }
-
-        public SnorkLaEffect(SnorkLaEffect effect) : base(effect)
-        {
-            _card = effect._card?.Copy();
-        }
-
-        public override object Apply(IGame game, IAbility source)
-        {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
-            {
-                game.Move(source, ZoneType.Graveyard, ZoneType.ManaZone, _card);
-            }
-            return null;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SnorkLaEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"You may return {_card} to your mana zone.";
+            return new SnorkLaAbility((gameEvent as CardMovedEvent).CardInDestinationZone);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool CannotAttack(ICard creature, IGame game)
         {
             var ability = GetSourceAbility(game);
             return IsSourceOfAbility(creature, game) && game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
