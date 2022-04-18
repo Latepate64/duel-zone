@@ -5,14 +5,26 @@ namespace Cards.OneShotEffects
 {
     class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect
     {
+        private readonly int _power;
+
+        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power)
+        {
+            _power = power;
+        }
+
+        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
+        {
+            _power = effect._power;
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect();
+            return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
         public override object Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000, game.GetCard(source.Source)));
+            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, game.GetCard(source.Source)));
             return null;
         }
 
