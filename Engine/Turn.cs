@@ -9,33 +9,6 @@ namespace Engine
 {
     public class Turn : ITurn, IDisposable
     {
-        #region Properties
-        /// <summary>
-        /// The phase that is currently being processed.
-        /// </summary>
-        public IPhase CurrentPhase => Phases.Last();
-
-        /// <summary>
-        /// All the phases in the turn that have been or are processed, in order.
-        /// </summary>
-        public IList<IPhase> Phases { get; private set; } = new Collection<IPhase>();
-
-        /// <summary>
-        /// 102.1. The active player is the player whose turn it is.
-        /// </summary>
-        public IPlayer ActivePlayer { get; set; }
-
-        /// <summary>
-        /// 102.1. The other players are nonactive players.
-        /// </summary>
-        public IPlayer NonActivePlayer { get; set; }
-
-        public int Number { get; set; }
-
-        public Guid Id { get; set; }
-        public IEnumerable<IGameEvent> GameEvents => Phases.SelectMany(x => x.GameEvents);
-        #endregion Properties
-
         public Turn() : base()
         {
             Id = Guid.NewGuid();
@@ -48,6 +21,38 @@ namespace Engine
             NonActivePlayer = turn.NonActivePlayer;
             Number = turn.Number;
             Id = turn.Id;
+        }
+
+        /// <summary>
+        /// 102.1. The active player is the player whose turn it is.
+        /// </summary>
+        public IPlayer ActivePlayer { get; set; }
+
+        /// <summary>
+        /// The phase that is currently being processed.
+        /// </summary>
+        public IPhase CurrentPhase => Phases.Last();
+
+        public IEnumerable<IGameEvent> GameEvents => Phases.SelectMany(x => x.GameEvents);
+
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// 102.1. The other players are nonactive players.
+        /// </summary>
+        public IPlayer NonActivePlayer { get; set; }
+
+        public int Number { get; set; }
+
+        /// <summary>
+        /// All the phases in the turn that have been or are processed, in order.
+        /// </summary>
+        public IList<IPhase> Phases { get; private set; } = new Collection<IPhase>();
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void Play(IGame game, int number)
@@ -80,12 +85,6 @@ namespace Engine
         public override string ToString()
         {
             return $"Turn {Number}";
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)

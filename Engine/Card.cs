@@ -10,68 +10,8 @@ namespace Engine
 {
     public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
-        private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
-        public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
-        public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
-
-        private IList<Race> _printedRaces = new List<Race>();
         private readonly IList<Race> _addedRaces = new List<Race>();
-
-        public int? PrintedPower { get; }
-
-        public int Timestamp { get; set; }
-
-        internal bool CountsAsIfExists => Underneath != Guid.Empty;
-
-        /// <summary>
-        /// Also known as race for creatures.
-        /// </summary>
-        public List<Race> Races { get; set; } = new();
-
-        public List<Civilization> Civilizations { get; set; } = new();
-
-        public CardType CardType { get; set; }
-
-        public List<Supertype> Supertypes { get; set; } = new();
-
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
-        /// </summary>
-        public Guid Owner { get; set; }
-
-        public string Name { get; set; }
-
-        public int? Power { get; set; }
-
-        public int ManaCost { get; set; }
-
-        public bool Tapped { get; set; }
-
-        public bool ShieldTrigger { get; set; }
-
-        public List<Guid> KnownTo { get; set; } = new();
-
-        public bool SummoningSickness { get; set; }
-
-        public string RulesText { get; set; }
-
-        /// <summary>
-        /// Id of the card this card is on top of.
-        /// </summary>
-        public Guid OnTopOf { get; set; }
-
-        /// <summary>
-        /// Id of the card this card is underneath of.
-        /// </summary>
-        public Guid Underneath { get; set; }
-
-        public IEnumerable<T> GetAbilities<T>()
-        {
-            return Abilities.OfType<T>();
-        }
-
+        private IList<Race> _printedRaces = new List<Race>();
         public Card()
         {
             Id = Guid.NewGuid();
@@ -98,7 +38,6 @@ namespace Engine
             Underneath = card.Underneath;
             FaceDown = card.FaceDown;
 
-
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
             CardType = card.CardType;
@@ -110,66 +49,76 @@ namespace Engine
             InitializeAbilities();
         }
 
-        public virtual ICard Copy()
-        {
-            return new Card(this, Timestamp);
-        }
+        public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
+        public CardType CardType { get; set; }
+        public List<Civilization> Civilizations { get; set; } = new();
+        /// <summary>
+        /// TODO: Apply in logic
+        /// </summary>
+        public bool FaceDown { get; set; }
 
-        public override string ToString()
-        {
-            return Name;
-            //return Name + " " + Id.ToString();
-        }
+        public Guid Id { get; set; }
+        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
+        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
+        public bool IsMultiColored => Civilizations.Count > 1;
+        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
+        public List<Guid> KnownTo { get; set; } = new();
+        public bool LostInBattle { get; set; }
+        public int ManaCost { get; set; }
+        public string Name { get; set; }
+        /// <summary>
+        /// Id of the card this card is on top of.
+        /// </summary>
+        public Guid OnTopOf { get; set; }
 
         /// <summary>
-        /// Initializes the sources and controllers of all abilities and related abstractions of the card.
+        /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
-        public void InitializeAbilities()
-        {
-            Abilities.ToList().ForEach(x => InitializeAbility(x));
-            SetRulesText();
-        }
+        public Guid Owner { get; set; }
 
-        private void InitializeAbility(IAbility ability)
-        {
-            ability.Controller = Owner;
-            ability.Source = Id;
-        }
+        public int? Power { get; set; }
+        public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
+        public int? PrintedPower { get; }
+        /// <summary>
+        /// Also known as race for creatures.
+        /// </summary>
+        public List<Race> Races { get; set; } = new();
 
-        private void SetRulesText()
-        {
-            RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
-        }
+        public string RulesText { get; set; }
+        public bool ShieldTrigger { get; set; }
+        public bool SummoningSickness { get; set; }
+        public List<Supertype> Supertypes { get; set; } = new();
+        public bool Tapped { get; set; }
+        public int Timestamp { get; set; }
+        /// <summary>
+        /// Id of the card this card is underneath of.
+        /// </summary>
+        public Guid Underneath { get; set; }
 
+        internal bool CountsAsIfExists => Underneath != Guid.Empty;
+        private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
         }
 
-        protected void AddAbilities(params IAbility[] abilities)
+        public void AddGrantedRace(Race race)
         {
-            abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
+            _addedRaces.Add(race);
+            if (!Races.Contains(race))
+            {
+                Races.Add(race);
+            }
         }
 
-        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
-
-        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
-
-        public bool LostInBattle { get; set; }
-        public bool IsMultiColored => Civilizations.Count > 1;
-
-        /// <summary>
-        /// TODO: Apply in logic
-        /// </summary>
-        public bool FaceDown { get; set; }
-        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
-
-        public void ResetToPrintedValues()
+        public bool AffectedBySummoningSickness(IGame game)
         {
-            Power = PrintedPower;
-            AddedAbilities.Clear();
-            Races = _printedRaces.ToList();
-            _addedRaces.Clear();
+            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game)));
+        }
+
+        public void Break(IGame game, int breakAmount)
+        {
+            game.ProcessEvents(new CreatureBreaksShieldsEvent(this, breakAmount));
         }
 
         public bool CanAttackAtLeastOneCreature(IGame game)
@@ -179,19 +128,16 @@ namespace Engine
             return canAttack && opponentsCreatures.Any(x => CanAttackCreature(x, game));
         }
 
+        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
+        {
+            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) &&
+                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
+                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
+        }
+
         public bool CanAttackPlayers(IGame game)
         {
             return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game));
-        }
-
-        public bool CanEvolveFrom(IGame game, ICard card)
-        {
-            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
-        }
-
-        public bool CanBeUsedRegardlessOfManaCost(IGame game)
-        {
-            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
         public bool CanBePaid(IPlayer player)
@@ -199,31 +145,19 @@ namespace Engine
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
         }
 
-        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player)
+        public bool CanBeUsedRegardlessOfManaCost(IGame game)
         {
-            return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
+            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
         }
 
-        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
+        public bool CanEvolveFrom(IGame game, ICard card)
         {
-            if (!civs.Any())
-            {
-                return true;
-            }
-            else if (!manas.Any())
-            {
-                return false;
-            }
-            else
-            {
-                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
-            }
+            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
-        public void PutOnTopOf(ICard bait)
+        public virtual ICard Copy()
         {
-            OnTopOf = bait.Id;
-            bait.Underneath = Id;
+            return new Card(this, Timestamp);
         }
 
         public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
@@ -242,9 +176,32 @@ namespace Engine
             }
         }
 
-        public bool AffectedBySummoningSickness(IGame game)
+        public IEnumerable<T> GetAbilities<T>()
         {
-            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game)));
+            return Abilities.OfType<T>();
+        }
+        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player)
+        {
+            return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
+        }
+
+        public bool HasCivilization(params Civilization[] civilizations)
+        {
+            return Civilizations.Intersect(civilizations).Any();
+        }
+
+        public bool HasRace(Race race)
+        {
+            return Races.Contains(race);
+        }
+
+        /// <summary>
+        /// Initializes the sources and controllers of all abilities and related abstractions of the card.
+        /// </summary>
+        public void InitializeAbilities()
+        {
+            Abilities.ToList().ForEach(x => InitializeAbility(x));
+            SetRulesText();
         }
 
         public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
@@ -258,41 +215,61 @@ namespace Engine
             game.Move(ability, ZoneType.BattleZone, destination, this);
         }
 
-        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
+        public void PutOnTopOf(ICard bait)
         {
-            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) &&
-                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
-                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
+            OnTopOf = bait.Id;
+            bait.Underneath = Id;
         }
 
-        public void Break(IGame game, int breakAmount)
+        public void ResetToPrintedValues()
         {
-            game.ProcessEvents(new CreatureBreaksShieldsEvent(this, breakAmount));
+            Power = PrintedPower;
+            AddedAbilities.Clear();
+            Races = _printedRaces.ToList();
+            _addedRaces.Clear();
         }
 
-        public bool HasCivilization(params Civilization[] civilizations)
+        public override string ToString()
         {
-            return Civilizations.Intersect(civilizations).Any();
+            return Name;
+            //return Name + " " + Id.ToString();
         }
-
-        public bool HasRace(Race race)
+        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
         {
-            return Races.Contains(race);
-        }
-
-        public void AddGrantedRace(Race race)
-        {
-            _addedRaces.Add(race);
-            if (!Races.Contains(race))
+            if (!civs.Any())
             {
-                Races.Add(race);
+                return true;
             }
+            else if (!manas.Any())
+            {
+                return false;
+            }
+            else
+            {
+                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
+            }
+        }
+
+        protected void AddAbilities(params IAbility[] abilities)
+        {
+            abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
         }
 
         protected void SetPrintedRaces(params Race[] races)
         {
             _printedRaces = races;
             Races = races.ToList();
+        }
+
+        private void InitializeAbility(IAbility ability)
+        {
+            ability.Controller = Owner;
+            ability.Source = Id;
+        }
+
+        private void SetRulesText()
+        {
+            RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
     }
 }
