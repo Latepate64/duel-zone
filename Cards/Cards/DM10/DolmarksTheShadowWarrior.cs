@@ -1,6 +1,6 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -16,10 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new PutCardsFromYourManaZoneIntoYourGraveyard(1), new OpponentSacrificeEffect(), new YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1) })
-            {
-                effect.Apply(game, source);
-            }
+            new List<IPlayer> { source.GetController(game), source.GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, source); x.BurnOwnMana(game, source); });
         }
 
         public override IOneShotEffect Copy()

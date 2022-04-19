@@ -18,6 +18,7 @@ namespace Engine
         IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
         int DiscardAnyNumberOfCards(IGame game, IAbility ability);
         ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
+        void Sacrifice(IGame game, IAbility source);
         ICard ChooseControlledCreatureOptionally(IGame game, string description);
         ICard ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization);
         ICard ChooseOpponentsCreature(IGame game, string description);

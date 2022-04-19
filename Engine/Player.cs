@@ -554,5 +554,11 @@ namespace Engine
         {
             return ChooseCard(Hand.Cards, ability.ToString());
         }
+
+        public void Sacrifice(IGame game, IAbility ability)
+        {
+            var creature = ChooseControlledCreature(game, ability.ToString());
+            game.Destroy(ability, creature);
+        }
     }
 }
