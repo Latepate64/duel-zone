@@ -17,10 +17,9 @@ namespace Cards.Cards.DM05
 
     class SlimeVeilOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new SlimeVeilContinuousEffect());
-            return null;
         }
 
         public override IOneShotEffect Copy()

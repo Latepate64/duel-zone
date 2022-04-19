@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return new YouMayDrawCardsEffect(this);
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             if (source.GetController(game).ChooseToTakeAction("You may draw a card."))
             {
@@ -34,7 +34,6 @@ namespace Cards.OneShotEffects
                     Apply(game, source);
                 }
             }
-            return null;
         }
 
         public override string ToString()

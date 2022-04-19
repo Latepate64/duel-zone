@@ -16,13 +16,12 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new ArmoredWarriorQuelosMana1Effect(), new ArmoredWarriorQuelosMana2Effect()})
             {
                 effect.Apply(game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

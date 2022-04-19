@@ -13,10 +13,9 @@ namespace Cards.Cards.DM08
 
     class LookAtYourOpponentsHandEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             source.GetController(game).LookAtOpponentsHand(game);
-            return null;
         }
 
         public override IOneShotEffect Copy()

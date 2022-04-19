@@ -15,7 +15,7 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(
                 new DelayedTriggeredAbility(
@@ -24,7 +24,6 @@ namespace Cards.Cards.DM07
                         source.Source,
                         source.Controller,
                         true));
-            return null;
         }
 
         public override IOneShotEffect Copy()

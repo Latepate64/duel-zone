@@ -55,17 +55,17 @@ namespace TestCards.TriggeredAbilities
 
     class OneShotEffectMock : IOneShotEffect
     {
-        public object Apply(IGame game, IAbility source)
-        {
-            throw new NotImplementedException();
-        }
-
         public IOneShotEffect Copy()
         {
             throw new NotImplementedException();
         }
 
         public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IOneShotEffect.Apply(IGame game, IAbility source)
         {
             throw new NotImplementedException();
         }

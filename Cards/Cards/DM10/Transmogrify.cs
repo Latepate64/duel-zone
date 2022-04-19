@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
 
     public class TransmogrifyEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var controller = source.GetController(game);
             var card = controller.ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, controller.Id), ToString());
@@ -24,7 +24,6 @@ namespace Cards.Cards.DM10
                 game.Destroy(source, card);
                 ApplyAfterDestroy(game, source, game.GetOwner(card));
             }
-            return null;
         }
 
         public static void ApplyAfterDestroy(IGame game, IAbility source, IPlayer player)

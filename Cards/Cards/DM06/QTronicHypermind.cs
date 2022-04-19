@@ -15,9 +15,9 @@ namespace Cards.Cards.DM06
 
     class QTronicHypermindEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.HasRace(Race.Survivor)));
+            new OneShotEffects.YouMayDrawCardsEffect(game.BattleZone.Creatures.Count(x => x.HasRace(Race.Survivor)));
         }
 
         public override IOneShotEffect Copy()

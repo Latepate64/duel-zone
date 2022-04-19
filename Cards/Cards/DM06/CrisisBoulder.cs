@@ -15,7 +15,7 @@ namespace Cards.Cards.DM06
 
     class CrisisBoulderEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetOpponent(game).ManaZone.Cards.Union(game.BattleZone.GetCreatures(source.GetOpponent(game).Id));
             var card = source.GetOpponent(game).ChooseCard(cards, ToString());
@@ -23,7 +23,6 @@ namespace Cards.Cards.DM06
             {
                 game.Move(source, game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
-            return card;
         }
 
         public override IOneShotEffect Copy()

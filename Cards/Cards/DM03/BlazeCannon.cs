@@ -47,11 +47,10 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             
             game.AddContinuousEffects(source, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
-            return null;
         }
 
         public override IOneShotEffect Copy()

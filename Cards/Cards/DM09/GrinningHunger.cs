@@ -14,7 +14,7 @@ namespace Cards.Cards.DM09
 
     class GrinningHungerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var opponent = source.GetOpponent(game);
             var card = opponent.ChooseCard(game.BattleZone.GetCreatures(opponent.Id).Union(opponent.ShieldZone.Cards), ToString());
@@ -22,7 +22,6 @@ namespace Cards.Cards.DM09
             {
                 game.Move(source, game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -16,10 +16,9 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(source));
-            return null;
         }
 
         public override IOneShotEffect Copy()
@@ -73,7 +72,7 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDrawEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var attacker = game.GetCard(source.Source);
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
@@ -89,7 +88,6 @@ namespace Cards.Cards.DM05
                     break;
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

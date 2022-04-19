@@ -16,14 +16,13 @@ namespace Cards.Cards.DM07
 
     class ApocalypseViseEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.Destroy(
                 source,
                 source.GetController(game).ChooseCards(
                     new CardChoice(source.GetController(game), ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).ToArray())
                     ).ToArray());
-            return null;
         }
 
         public override IOneShotEffect Copy()

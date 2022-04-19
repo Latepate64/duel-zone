@@ -15,16 +15,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
                 source.GetController(game).Untap(game, GetSelectableCards(game, source).ToArray());
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 

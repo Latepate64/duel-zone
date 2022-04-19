@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
             var card = source.GetController(game).ChooseCard(source.GetOpponent(game).Hand.Cards, ToString());
@@ -15,7 +15,6 @@ namespace Cards.OneShotEffects
                 source.GetOpponent(game).Discard(source, game, card);
                 source.GetOpponent(game).Unreveal(new List<ICard>() { card });
             }
-            return card;
         }
 
         public override IOneShotEffect Copy()

@@ -16,10 +16,11 @@ namespace Cards.Cards.DM06
 
     class IntenseEvilEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var cards = new DestroyAnyNumberOfYourCreatures().Apply(game, source);
-            return new OneShotEffects.DrawCardsEffect(cards.Count()).Apply(game, source);
+            var player = source.GetController(game);
+            var cards = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString());
+            new OneShotEffects.DrawCardsEffect(cards.Count()).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

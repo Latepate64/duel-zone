@@ -4,7 +4,6 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -18,14 +17,15 @@ namespace Cards.Cards.DM03
 
     class FlametropusOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var cards = new FlametropusManaEffect().Apply(game, source);
-            if (cards.Any())
+            var player = source.GetController(game);
+            var card = player.ChooseCardOptionally(player.ManaZone.Cards, ToString());
+            if (card != null)
             {
+                game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, card);
                 game.AddContinuousEffects(source, new FlametropusContinuousEffect(game.GetCard(source.Source)));                 
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
@@ -57,28 +57,6 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "This creature gets \"power attacker +3000\" and \"double breaker\" until the end of the turn.";
-        }
-    }
-
-    class FlametropusManaEffect : OneShotEffects.ManaBurnEffect
-    {
-        public FlametropusManaEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new FlametropusManaEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may put a card from your mana zone into your graveyard.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.GetPlayer(source.Controller).ManaZone.Cards;
         }
     }
 }

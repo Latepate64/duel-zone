@@ -23,7 +23,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var number = GetAmount(game);
             if (number > 1)
@@ -31,7 +31,6 @@ namespace Cards.Cards.DM12
                 number = source.GetController(game).ChooseNumber(new ClonedNightmareChoice(source.GetController(game), "Choose how many cards your opponent will discard at random from their hand.", number));
             }
             source.GetOpponent(game).DiscardAtRandom(game, number, source);
-            return null;
         }
 
         public override IOneShotEffect Copy()

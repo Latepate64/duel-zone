@@ -14,10 +14,9 @@ namespace Cards.Cards.DM08
 
     class LaserWhipEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             (new IOneShotEffect[] { new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect(), new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() }).ToList().ForEach(x => x.Apply(game, source));
-            return null;
         }
 
         public override IOneShotEffect Copy()

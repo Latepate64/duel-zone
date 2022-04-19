@@ -3,7 +3,6 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -17,10 +16,10 @@ namespace Cards.Cards.DM04
 
     class MegaDetonatorDiscardEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var discarded = new DiscardAnyNumberOfCardsEffect().Apply(game, source);
-            return new MegaDetonatorBuffEffect(discarded.Count()).Apply(game, source);
+            var amount = source.GetController(game).DiscardAnyNumberOfCards(game, source);
+            new MegaDetonatorBuffEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

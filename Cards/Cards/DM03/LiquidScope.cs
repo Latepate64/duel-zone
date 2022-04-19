@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var opponent = source.GetOpponent(game);
             var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards);
@@ -29,7 +29,6 @@ namespace Cards.Cards.DM03
                 source.GetController(game).Look(revealer, game, cards.ToArray());
                 revealer.Unreveal(cards);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

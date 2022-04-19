@@ -14,7 +14,7 @@ namespace Cards.Cards.DM12
 
     class FunkyWizardEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var player in game.Players)
             {
@@ -23,7 +23,6 @@ namespace Cards.Cards.DM12
                     player.DrawCards(1, game, source);
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

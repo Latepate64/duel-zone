@@ -6,7 +6,6 @@ using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -20,14 +19,14 @@ namespace Cards.Cards.DM04
 
     class ThreeEyedDragonflyOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var destroyed = new YouMayDestroyOneOfYourOtherCreaturesEffect().Apply(game, source);
-            if (destroyed.Any())
+            var creature = source.GetController(game).ChooseCardOptionally(game.BattleZone.GetOtherCreatures(source.Controller, source.Source), ToString());
+            if (creature != null)
             {
+                game.Destroy(source, creature);
                 game.AddContinuousEffects(source, new ThreeEyedDragonflyContinuousEffect(game.GetCard(source.Source)));
             }
-            return destroyed;
         }
 
         public override IOneShotEffect Copy()
@@ -73,32 +72,6 @@ namespace Cards.Cards.DM04
         protected override List<ICard> GetAffectedCards(IGame game)
         {
             return new List<ICard> { _card };
-        }
-    }
-
-    class YouMayDestroyOneOfYourOtherCreaturesEffect : DestroyEffect
-    {
-        public YouMayDestroyOneOfYourOtherCreaturesEffect(YouMayDestroyOneOfYourOtherCreaturesEffect effect) : base(effect)
-        {
-        }
-
-        public YouMayDestroyOneOfYourOtherCreaturesEffect() : base(0, 1, true)
-        {
-        }
-
-        public override string ToString()
-        {
-            return "You may destroy one of your other creatures.";
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayDestroyOneOfYourOtherCreaturesEffect(this);
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM09
 
     class SlashChargerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var controller = source.GetController(game);
             var player = controller.ChoosePlayer(game, ToString());
@@ -23,7 +23,6 @@ namespace Cards.Cards.DM09
                 game.Move(source, ZoneType.Deck, ZoneType.Graveyard, card);
             }
             player.ShuffleDeck(game);
-            return null;
         }
 
         public override IOneShotEffect Copy()

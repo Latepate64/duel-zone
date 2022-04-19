@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class DeklowazTheTerminatorEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000).Apply(game, source);
             var cards = source.GetOpponent(game).Hand.Cards;
@@ -24,7 +24,6 @@ namespace Cards.Cards.DM10
                 source.GetOpponent(game).Discard(source, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
                 source.GetOpponent(game).Unreveal(cards);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
             _searchOpponentsDeck = effect._searchOpponentsDeck;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = GetAffectedCards(game, source);
             if (cards.Any())
@@ -31,7 +31,6 @@ namespace Cards.OneShotEffects
                 Apply(game, source, selectedCards.ToArray());
             }
             (_searchOpponentsDeck ? source.GetOpponent(game) : source.GetController(game)).ShuffleDeck(game);
-            return cards.Any();
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

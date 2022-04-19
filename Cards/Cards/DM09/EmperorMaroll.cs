@@ -15,10 +15,9 @@ namespace Cards.Cards.DM09
 
     class EmperorMarollEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.Move(source, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).Deck.Creatures.Where(x => x.IsDragon);
             var dragon = source.GetController(game).ChooseCardOptionally(cards, ToString());
@@ -42,7 +42,6 @@ namespace Cards.Cards.DM08
                 game.AddContinuousEffects(source, new KachuaContinuousEffect(dragon));
                 game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(source, dragon, game.CurrentTurn.Id));
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

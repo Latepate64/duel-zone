@@ -9,10 +9,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
-            return null;
         }
 
         public override IOneShotEffect Copy()

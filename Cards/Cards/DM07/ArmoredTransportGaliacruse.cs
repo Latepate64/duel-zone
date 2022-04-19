@@ -19,13 +19,11 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
                 GetAffectedCards(game, source).ToArray()));
-            return null;
         }
 
         public override IOneShotEffect Copy()

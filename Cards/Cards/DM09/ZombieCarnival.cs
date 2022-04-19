@@ -13,9 +13,9 @@ namespace Cards.Cards.DM09
 
     class ZombieCarnivalEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            return new OneShotEffects.YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(source.GetController(game).ChooseRace(ToString()), 3).Apply(game, source);
+            new OneShotEffects.YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(source.GetController(game).ChooseRace(ToString()), 3).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

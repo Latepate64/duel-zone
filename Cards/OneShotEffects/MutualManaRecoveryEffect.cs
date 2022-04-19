@@ -18,13 +18,12 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new ReturnCardsFromYourManaZoneToYourHandEffect(Amount), new MutualManaRecovery2Effect(Amount) })
             {
                 effect.Apply(game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

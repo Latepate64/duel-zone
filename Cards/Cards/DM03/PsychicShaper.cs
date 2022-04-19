@@ -18,13 +18,12 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(4, game);
             game.Move(source, ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Civilization.Water)).ToArray());
             game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Civilization.Water)).ToArray());
             source.GetController(game).Unreveal(cards);
-            return null;
         }
 
         public override IOneShotEffect Copy()

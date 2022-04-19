@@ -16,9 +16,10 @@ namespace Cards.Cards.DM06
 
     class ShockHurricaneEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var amount = new ReturnAnyNumberOfYourCreaturesToYourHandEffect().Apply(game, source).Count();
+            var player = source.GetController(game);
+            var amount = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).Count();
             var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Count();
             if (amount > 0 && amount <= choosableAmount)
             {
@@ -28,7 +29,6 @@ namespace Cards.Cards.DM06
                     effect.Apply(game, source);
                 }
             }
-            return amount;
         }
 
         public override IOneShotEffect Copy()
@@ -39,33 +39,6 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "Return any number of your creatures from the battle zone to your hand. Then you may choose that many of your opponent's creatures in the battle zone and return them to your opponent's hand.";
-        }
-    }
-
-    class ReturnAnyNumberOfYourCreaturesToYourHandEffect : ChooseAnyNumberOfCardsEffect
-    {
-        public ReturnAnyNumberOfYourCreaturesToYourHandEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnAnyNumberOfYourCreaturesToYourHandEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Return any number of your creatures from the battle zone to your hand.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, cards);
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 

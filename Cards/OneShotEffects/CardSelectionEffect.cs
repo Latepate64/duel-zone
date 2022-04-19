@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override IEnumerable<ICard> Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = GetSelectableCards(game, source);
             var player = ControllerChooses ? source.GetController(game) : source.GetOpponent(game);
@@ -34,9 +34,7 @@ namespace Cards.OneShotEffects
             {
                 var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
                 Apply(game, source, chosen.ToArray());
-                return chosen;
             }
-            return cards;
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

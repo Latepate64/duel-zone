@@ -510,5 +510,27 @@ namespace Engine
         {
             game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
+
+        public ICard ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
+        {
+            return ChooseCards(game.BattleZone.GetCreatures(Id, civilization), 0, 1, description).SingleOrDefault();
+        }
+
+        public int DiscardAnyNumberOfCards(IGame game, IAbility ability)
+        {
+            var cards = ChooseAnyNumberOfCards(Hand.Cards, ability.ToString()).ToArray();
+            Discard(ability, game, cards);
+            return cards.Length;
+        }
+
+        public ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description)
+        {
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.Power <= power), description);
+        }
+
+        public ICard ChooseControlledCreatureOptionally(IGame game, string description)
+        {
+            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault();
+        }
     }
 }

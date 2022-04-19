@@ -14,14 +14,13 @@ namespace Cards.Cards.DM04
 
     class MarinomancerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
             game.Move(source, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
             source.GetController(game).Unreveal(cards);
-            return null;
         }
 
         public override IOneShotEffect Copy()

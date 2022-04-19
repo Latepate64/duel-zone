@@ -14,11 +14,10 @@ namespace Cards.Cards.DM10
 
     class StaticWarpEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var chosen = game.Players.Select(x => x.ChooseCard(game.BattleZone.GetCreatures(x.Id), ToString()));
             source.GetController(game).Tap(game, game.BattleZone.Creatures.Where(x => !chosen.Contains(x)).ToArray());
-            return null;
         }
 
         public override IOneShotEffect Copy()

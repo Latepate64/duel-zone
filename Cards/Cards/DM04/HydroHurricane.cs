@@ -16,10 +16,10 @@ namespace Cards.Cards.DM04
 
     class HydroHurricaneFirstEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Light));
-            return new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
+            new HydroHurricaneManaBounceEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()
@@ -60,10 +60,10 @@ namespace Cards.Cards.DM04
 
     class HydroHurricaneSecondEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Darkness));
-            return new HydroHurricaneBounceEffect(amount).Apply(game, source);
+            new HydroHurricaneBounceEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

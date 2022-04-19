@@ -15,13 +15,12 @@ namespace Cards.Cards.DM10
 
     class SirenConcertoEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var effect in new IOneShotEffect[] { new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect(), new PutCardFromYourHandIntoYourManaZone() })
             {
                 effect.Apply(game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -16,14 +16,13 @@ namespace Cards.Cards.DM11
 
     class MiraculousRebirthEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var destroyed = new DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(5000).Apply(game, source);
-            if (destroyed.Count() == 1)
+            ICard destroyed = source.GetController(game).DestroyOpponentsCreatureWithMaxPower(5000, game, ToString());
+            if (destroyed != null)
             {
-                new MiraculousRebirthSearchEffect(destroyed.Single().ManaCost).Apply(game, source);
+                new MiraculousRebirthSearchEffect(destroyed.ManaCost).Apply(game, source);
             }
-            return destroyed;
         }
 
         public override IOneShotEffect Copy()

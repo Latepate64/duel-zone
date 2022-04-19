@@ -13,11 +13,10 @@ namespace Cards.Cards.DM11
 
     class ReapAndSowEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect().Apply(game, source);
             source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -14,7 +14,7 @@ namespace Cards.Cards.DM06
 
     class RainOfArrowsEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetOpponent(game).Hand.Cards;
             if (cards.Any())
@@ -23,7 +23,6 @@ namespace Cards.Cards.DM06
                 source.GetOpponent(game).Discard(source, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
                 source.GetOpponent(game).Unreveal(cards);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

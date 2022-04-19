@@ -17,16 +17,14 @@ namespace Cards.OneShotEffects
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
-        public override IEnumerable<ICard> Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = GetAffectedCards(game, source);
             if (cards.Any())
             {
                 var chosen = source.GetController(game).ChooseAnyNumberOfCards(cards, ToString());
                 Apply(game, source, chosen.ToArray());
-                return chosen;
             }
-            return cards;
         }
 
         protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);

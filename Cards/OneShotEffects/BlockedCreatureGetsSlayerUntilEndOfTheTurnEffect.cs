@@ -12,13 +12,12 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != null)
             {
                 game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

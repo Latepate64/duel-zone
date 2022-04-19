@@ -13,13 +13,12 @@ namespace Cards.Cards.DM06
 
     class SphereOfWonderEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             if (source.GetOpponent(game).ShieldZone.Cards.Count > source.GetController(game).ShieldZone.Cards.Count)
             {
                 source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

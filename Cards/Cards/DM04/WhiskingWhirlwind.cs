@@ -14,10 +14,9 @@ namespace Cards.Cards.DM04
 
     class WhiskingWhirlwindEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), source.Source, source.Controller, true));
-            return null;
         }
 
         public override IOneShotEffect Copy()

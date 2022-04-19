@@ -14,7 +14,7 @@ namespace Cards.Cards.DM08
 
     class LaliciousEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             if (source.GetController(game).ChooseToTakeAction(ToString()))
             {
@@ -26,7 +26,6 @@ namespace Cards.Cards.DM08
                     source.GetOpponent(game).Unreveal(cards);
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

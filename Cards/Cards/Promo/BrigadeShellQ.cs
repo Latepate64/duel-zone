@@ -14,7 +14,7 @@ namespace Cards.Cards.Promo
 
     class BrigadeShellQEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
             if (cards.Length == 1)
@@ -29,7 +29,6 @@ namespace Cards.Cards.Promo
                 }
             }
             source.GetController(game).Unreveal(cards);
-            return null;
         }
 
         public override IOneShotEffect Copy()

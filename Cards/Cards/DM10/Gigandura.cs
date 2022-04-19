@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class GiganduraEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
             var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
@@ -24,7 +24,6 @@ namespace Cards.Cards.DM10
                 new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
             }
             source.GetOpponent(game).Unreveal(new List<ICard> { card });
-            return card;
         }
 
         public override IOneShotEffect Copy()

@@ -14,12 +14,11 @@ namespace Cards.Cards.DM04
 
     class SwordOfBenevolentLifeEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
-            return null;
         }
 
         public override IOneShotEffect Copy()

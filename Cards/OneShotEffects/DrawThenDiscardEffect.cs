@@ -17,13 +17,12 @@ namespace Cards.OneShotEffects
             _discard = discard;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new YouMayDrawCardsEffect(2), new DiscardCardFromYourHandEffect() })
             {
                 effect.Apply(game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

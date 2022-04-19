@@ -22,10 +22,9 @@ namespace Cards.OneShotEffects
             return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, game.GetCard(source.Source)));
-            return null;
         }
 
         public override string ToString()

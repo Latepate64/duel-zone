@@ -22,14 +22,13 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var card = source.GetController(game).ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, source.GetOpponent(game).Id), ToString());
             if (card != null)
             {
                 card.MoveTopCard(game, ZoneType.ManaZone, source);
             }
-            return card;
         }
 
         public override IOneShotEffect Copy()

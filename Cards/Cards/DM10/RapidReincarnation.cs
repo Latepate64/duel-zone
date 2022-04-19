@@ -16,14 +16,14 @@ namespace Cards.Cards.DM10
 
     class RapidReincarnationEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var cards = new YouMayDestroyOneOfYourCreaturesEffect().Apply(game, source);
-            if (cards.Any())
+            var creature = source.GetController(game).ChooseControlledCreatureOptionally(game, ToString());
+            if (creature != null)
             {
-
+                game.Destroy(source, creature);
+                new RapidReincarnationSecondEffect().Apply(game, source);
             }
-            return cards;
         }
 
         public override IOneShotEffect Copy()
@@ -34,28 +34,6 @@ namespace Cards.Cards.DM10
         public override string ToString()
         {
             return "You may destroy one of your creatures. If you do, choose a creature in your hand that costs the same as or less than the number of cards in your mana zone and put it into the battle zone.";
-        }
-    }
-
-    class YouMayDestroyOneOfYourCreaturesEffect : OneShotEffects.DestroyEffect
-    {
-        public YouMayDestroyOneOfYourCreaturesEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayDestroyOneOfYourCreaturesEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may destroy one of your creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(source.Controller);
         }
     }
 

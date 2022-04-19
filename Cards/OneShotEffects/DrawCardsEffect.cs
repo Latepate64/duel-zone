@@ -17,10 +17,9 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             source.GetController(game).DrawCards(_amount, game, source);
-            return null;
         }
 
         public override IOneShotEffect Copy()

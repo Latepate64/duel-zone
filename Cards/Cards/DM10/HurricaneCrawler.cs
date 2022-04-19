@@ -13,12 +13,12 @@ namespace Cards.Cards.DM10
 
     class HurricaneCrawlerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var hand = source.GetController(game).Hand.Cards;
             var amount = hand.Count;
             game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
-            return new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
+            new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

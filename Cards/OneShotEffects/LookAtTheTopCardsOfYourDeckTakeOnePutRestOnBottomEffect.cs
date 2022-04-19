@@ -6,13 +6,12 @@ namespace Cards.OneShotEffects
 {
     class LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var cards = source.GetController(game).LookAtTheTopCardsOfYourDeck(4, game);
             var card = source.GetController(game).ChooseCard(cards, ToString());
             game.Move(source, ZoneType.Deck, ZoneType.Hand, card);
             source.GetController(game).PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
-            return null;
         }
 
         public override IOneShotEffect Copy()

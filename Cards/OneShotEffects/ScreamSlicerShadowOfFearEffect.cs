@@ -7,10 +7,10 @@ namespace Cards.OneShotEffects
 {
     class ScreamSlicerShadowOfFearEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.Creatures.Where(x => x.Power == game.BattleZone.Creatures.Min(x => x.Power.Value));
-            return new ScreamSlicerShadowOfFearDestroyEffect(creatures.ToArray()).Apply(game, source);
+            new ScreamSlicerShadowOfFearDestroyEffect(creatures.ToArray()).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

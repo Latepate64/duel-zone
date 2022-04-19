@@ -18,7 +18,7 @@ namespace Cards.Cards.DM09
 
     class StormWranglerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
             var creature = source.GetController(game).ChooseCardOptionally(creatures, ToString());
@@ -26,7 +26,6 @@ namespace Cards.Cards.DM09
             {
                 game.AddContinuousEffects(source, new StormWranglerContinuousEffect(creature));
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

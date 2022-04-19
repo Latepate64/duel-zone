@@ -41,10 +41,10 @@ namespace Cards.Cards.Promo
 
     class NeveTheLevelerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var diff = game.BattleZone.GetCreatures(source.Controller).Count() - game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
-            return new OneShotEffects.BrutalChargeSearchEffect(diff).Apply(game, source);
+            new OneShotEffects.BrutalChargeSearchEffect(diff).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

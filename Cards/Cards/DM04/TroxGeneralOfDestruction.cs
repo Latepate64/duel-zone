@@ -15,11 +15,10 @@ namespace Cards.Cards.DM04
 
     class TroxGeneralOfDestructionEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.Id != source.Source && x.HasCivilization(Civilization.Darkness));
             source.GetOpponent(game).DiscardAtRandom(game, amount, source);
-            return null;
         }
 
         public override IOneShotEffect Copy()

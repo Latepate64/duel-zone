@@ -17,10 +17,10 @@ namespace Cards.Cards.DM04
 
     class RimuelCloudbreakElementalEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var amount = source.GetController(game).ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            return new RimuelCloudbreakElementalTapEffect(amount).Apply(game, source);
+            new RimuelCloudbreakElementalTapEffect(amount).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

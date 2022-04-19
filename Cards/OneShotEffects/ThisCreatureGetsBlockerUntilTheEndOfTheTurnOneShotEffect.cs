@@ -23,10 +23,9 @@ namespace Cards.OneShotEffects
             return "This creature gets \"blocker\" until the end of the turn.";
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(game.GetCard(source.Source)));
-            return null;
         }
     }
 }

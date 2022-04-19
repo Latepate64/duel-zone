@@ -14,10 +14,12 @@ namespace Cards.Cards.DM10
 
     class ZaltanEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            var cards = new OneShotEffects.DiscardUpToCards(2).Apply(game, source);
-            return new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect(cards.Count()).Apply(game, source);
+            var player = source.GetController(game);
+            var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
+            game.Move(source, ZoneType.Hand, ZoneType.Graveyard, cards.ToArray());
+            new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect(cards.Count()).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             for (int i = 0; i < 3; ++i)
             {
@@ -34,7 +34,6 @@ namespace Cards.Cards.DM06
                     break;
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -2,7 +2,7 @@
 {
     public interface IOneShotEffect
     {
-        object Apply(IGame game, IAbility source);
+        void Apply(IGame game, IAbility source);
         IOneShotEffect Copy();
         void Dispose();
         string ToString();

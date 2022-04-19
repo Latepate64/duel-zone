@@ -14,7 +14,7 @@ namespace Cards.Cards.DM02
 
     class PlasmaChaserEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             var amount = game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
 
@@ -22,7 +22,6 @@ namespace Cards.Cards.DM02
             {
                 source.GetController(game).DrawCards(amount, game, source);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

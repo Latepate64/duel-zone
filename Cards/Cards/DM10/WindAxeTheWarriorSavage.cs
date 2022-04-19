@@ -19,13 +19,12 @@ namespace Cards.Cards.DM10
             return new WindAxeTheWarriorSavageEffect();
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             foreach (var effect in new OneShotEffect[] { new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
             {
                 effect.Apply(game, source);
             }
-            return null;
         }
 
         public override string ToString()

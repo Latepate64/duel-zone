@@ -24,9 +24,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            return new ClonedBladeDestroyEffect(GetAmount(game)).Apply(game, source);
+            new ClonedBladeDestroyEffect(GetAmount(game)).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

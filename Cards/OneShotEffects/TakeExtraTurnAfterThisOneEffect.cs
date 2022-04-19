@@ -5,11 +5,10 @@ namespace Cards.OneShotEffects
 {
     class TakeExtraTurnAfterThisOneEffect : OneShotEffect
     {
-        public override Turn Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             Turn turn = new() { ActivePlayer = source.GetController(game), NonActivePlayer = source.GetOpponent(game) };
             game.ExtraTurns.Push(turn);
-            return turn;
         }
 
         public override IOneShotEffect Copy()

@@ -19,7 +19,7 @@ namespace Cards.Cards.DM10
                 return new SoulswapEffect();
             }
 
-            public override object Apply(IGame game, IAbility source)
+            public override void Apply(IGame game, IAbility source)
             {
                 // You may choose a creature in the battle zone and put it into its owner's mana zone.
                 var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.Controller);
@@ -37,16 +37,7 @@ namespace Cards.Cards.DM10
                             var mana = source.GetController(game).ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
                             game.Move(source, ZoneType.ManaZone, ZoneType.BattleZone, mana);
                         }
-                        return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
                 }
             }
 

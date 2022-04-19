@@ -23,9 +23,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
-            return new ClonedSpiralBounceEffect(GetAmount(game)).Apply(game, source);
+            new ClonedSpiralBounceEffect(GetAmount(game)).Apply(game, source);
         }
 
         public override IOneShotEffect Copy()

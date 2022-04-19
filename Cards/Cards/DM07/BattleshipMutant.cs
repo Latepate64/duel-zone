@@ -28,11 +28,10 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new BattleshipMutantContinuousEffect());
             game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(source, game.BattleZone.GetCreatures(source.GetController(game).Id, Civilization.Darkness)));
-            return null;
         }
 
         public override IOneShotEffect Copy()
