@@ -32,6 +32,8 @@ namespace Engine
         List<ICard> DeckCards => Deck.Cards;
 
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
+        void BurnOwnMana(IGame game, IAbility ability);
+        void DiscardOwnCard(IGame game, IAbility ability);
         IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
         void ArrangeTopCardsOfDeck(params ICard[] cards);
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);

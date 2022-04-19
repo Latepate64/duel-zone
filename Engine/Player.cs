@@ -532,5 +532,27 @@ namespace Engine
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault();
         }
+
+        public void BurnOwnMana(IGame game, IAbility ability)
+        {
+            var card = ChooseOwnMana(ability);
+            game.Move(ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
+        }
+
+        private ICard ChooseOwnMana(IAbility ability)
+        {
+            return ChooseCard(ManaZone.Cards, ability.ToString());
+        }
+
+        public void DiscardOwnCard(IGame game, IAbility ability)
+        {
+            var card = ChooseOwnHandCard(ability);
+            game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, card);
+        }
+
+        private ICard ChooseOwnHandCard(IAbility ability)
+        {
+            return ChooseCard(Hand.Cards, ability.ToString());
+        }
     }
 }
