@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -19,10 +20,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new PutCardsFromYourManaZoneIntoYourGraveyard(Amount), new YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(Amount) })
-            {
-                effect.Apply(game, source);
-            }
+            var cards = game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()
