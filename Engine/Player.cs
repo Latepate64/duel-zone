@@ -620,5 +620,16 @@ namespace Engine
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description);
         }
+
+        public void LookAtOneOfOpponentsShields(IGame game, IAbility source)
+        {
+            var opponent = game.GetOpponent(this);
+            var cards = opponent.ShieldZone.Cards;
+            if (cards.Any())
+            {
+                Look(opponent, game, cards.ToArray());
+                opponent.Unreveal(cards);
+            }
+        }
     }
 }

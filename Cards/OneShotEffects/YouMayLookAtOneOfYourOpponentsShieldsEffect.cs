@@ -25,26 +25,4 @@ namespace Cards.OneShotEffects
             return source.GetOpponent(game).ShieldZone.Cards;
         }
     }
-
-    class LookAtOneOfYourOpponentsShieldsEffect : LookEffect
-    {
-        public LookAtOneOfYourOpponentsShieldsEffect() : base(1, 1)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new LookAtOneOfYourOpponentsShieldsEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Look at one of your opponent's shields.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return source.GetOpponent(game).ShieldZone.Cards;
-        }
-    }
 }

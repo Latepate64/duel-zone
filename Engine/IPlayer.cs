@@ -18,6 +18,7 @@ namespace Engine
         IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
         ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description);
         IEnumerable<ICard> ChooseControlledCreatures(IGame game, string description, int amount);
+        void LookAtOneOfOpponentsShields(IGame game, IAbility source);
         void ReturnOwnManaCards(IGame game, IAbility source, int amount);
         void DiscardOwnCards(IGame game, IAbility source, int discard);
         void ReturnOwnManaCreature(IGame game, IAbility source);
