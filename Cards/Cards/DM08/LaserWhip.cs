@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -16,7 +16,13 @@ namespace Cards.Cards.DM08
     {
         public override void Apply(IGame game, IAbility source)
         {
-            (new IOneShotEffect[] { new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect(), new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() }).ToList().ForEach(x => x.Apply(game, source));
+            var controller = source.GetController(game);
+            controller.TapOpponentsCreature(game);
+            var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
+            if (creature != null)
+            {
+                game.AddContinuousEffects(source, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
+            }
         }
 
         public override IOneShotEffect Copy()

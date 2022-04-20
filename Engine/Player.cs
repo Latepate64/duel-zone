@@ -560,5 +560,10 @@ namespace Engine
             var creature = ChooseControlledCreature(game, ability.ToString());
             game.Destroy(ability, creature);
         }
+
+        public void TapOpponentsCreature(IGame game)
+        {
+            Tap(game, ChooseOpponentsCreature(game, "Tap one of your opponent's creatures."));
+        }
     }
 }

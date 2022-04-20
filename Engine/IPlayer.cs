@@ -16,6 +16,7 @@ namespace Engine
         Hand Hand { get; }
 
         IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
+        void TapOpponentsCreature(IGame game);
         int DiscardAnyNumberOfCards(IGame game, IAbility ability);
         ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
         void Sacrifice(IGame game, IAbility source);
