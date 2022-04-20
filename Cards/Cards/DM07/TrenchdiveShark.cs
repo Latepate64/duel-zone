@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -22,7 +21,8 @@ namespace Cards.Cards.DM07
             if (cards.Any())
             {
                 game.Move(source, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
-                new ShieldRecoveryCannotUseShieldTriggerEffect(cards.Count()).Apply(game, source);
+                var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
+                game.Move(source, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
             }
         }
 

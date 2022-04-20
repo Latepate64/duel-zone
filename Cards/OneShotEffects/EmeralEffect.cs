@@ -12,11 +12,13 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            var card = source.GetController(game).ChooseCardOptionally(source.GetController(game).Hand.Cards, ToString());
+            var player = source.GetController(game);
+            var card = player.ChooseCardOptionally(source.GetController(game).Hand.Cards, ToString());
             if (card != null)
             {
                 game.Move(source, ZoneType.Hand, ZoneType.ShieldZone, card);
-                new ShieldRecoveryCannotUseShieldTriggerEffect().Apply(game, source);
+                var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
+                game.Move(source, ZoneType.ShieldZone, ZoneType.Hand, shield);
             }
         }
 
