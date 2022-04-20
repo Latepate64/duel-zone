@@ -15,8 +15,10 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game, IAbility source)
         {
-            new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect().Apply(game, source);
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
+            var player = source.GetController(game);
+            var card = player.ChooseCard(game.GetOpponent(player).ManaZone.Cards, ToString());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, card);
+            player.PutFromTopOfDeckIntoManaZone(game, 1, source);
         }
 
         public override IOneShotEffect Copy()
