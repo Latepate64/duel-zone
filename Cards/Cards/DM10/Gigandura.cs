@@ -16,14 +16,17 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
+            var controller = source.GetController(game);
+            var opponent = source.GetOpponent(game);
+            controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
+            var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
                 game.Move(source, ZoneType.Hand, ZoneType.ManaZone, card);
-                new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
+                var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
+                game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
-            source.GetOpponent(game).Unreveal(new List<ICard> { card });
+            opponent.Unreveal(new List<ICard> { card });
         }
 
         public override IOneShotEffect Copy()
