@@ -565,5 +565,15 @@ namespace Engine
         {
             Tap(game, ChooseOpponentsCreature(game, "Tap one of your opponent's creatures."));
         }
+
+        public void ReturnOwnMana(IGame game, IAbility source)
+        {
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, ChooseCard(ManaZone.Cards, source.ToString()));
+        }
+
+        public void PutOwnHandCardIntoMana(IGame game, IAbility source)
+        {
+            game.Move(source, ZoneType.Hand, ZoneType.ManaZone, ChooseCard(Hand.Cards, source.ToString()));
+        }
     }
 }
