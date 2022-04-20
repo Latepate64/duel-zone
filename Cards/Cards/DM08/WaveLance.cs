@@ -19,7 +19,7 @@ namespace Cards.Cards.DM08
             game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
             if (creature.IsDragon)
             {
-                new OneShotEffects.YouMayDrawCardsEffect(1).Apply(game, source);
+                source.GetController(game).DrawCardsOptionally(game, source, 1);
             }
         }
 

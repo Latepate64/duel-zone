@@ -44,7 +44,12 @@ namespace Cards.Cards.Promo
         public override void Apply(IGame game, IAbility source)
         {
             var diff = game.BattleZone.GetCreatures(source.Controller).Count() - game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
-            new OneShotEffects.BrutalChargeSearchEffect(diff).Apply(game, source);
+            var controller = source.GetController(game);
+            var creatures = controller.ChooseCards(controller.Deck.Creatures, 0, diff, ToString()).ToArray();
+            controller.Reveal(game, creatures);
+            game.Move(source, ZoneType.Deck, ZoneType.Hand, creatures);
+            controller.ShuffleDeck(game);
+            controller.Unreveal(creatures);
         }
 
         public override IOneShotEffect Copy()

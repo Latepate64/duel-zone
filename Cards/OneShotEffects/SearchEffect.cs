@@ -158,34 +158,4 @@ namespace Cards.OneShotEffects
             return source.GetController(game).Deck.Cards.Where(x => x.Name == _name);
         }
     }
-
-    class BrutalChargeSearchEffect : SearchEffect
-    {
-        private readonly int _amount;
-
-        public BrutalChargeSearchEffect(BrutalChargeSearchEffect effect) : base(effect)
-        {
-            _amount = effect._amount;
-        }
-
-        public BrutalChargeSearchEffect(int amount) : base(true, amount)
-        {
-            _amount = amount;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BrutalChargeSearchEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Search your deck. Take up to {_amount} creatures from your deck, show them to your opponent, and put them into your hand. Then shuffle your deck.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).Deck.Creatures;
-        }
-    }
 }

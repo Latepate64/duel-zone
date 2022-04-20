@@ -37,7 +37,12 @@ namespace Cards.Cards.DM05
         public override void Apply(IGame game, IAbility source)
         {
             var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
-            new BrutalChargeSearchEffect(shieldsBroken).Apply(game, source);
+            var controller = source.GetController(game);
+            var creatures = controller.ChooseCards(controller.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
+            controller.Reveal(game, creatures);
+            game.Move(source, ZoneType.Deck, ZoneType.Hand, creatures);
+            controller.ShuffleDeck(game);
+            controller.Unreveal(creatures);
         }
 
         public override IOneShotEffect Copy()
