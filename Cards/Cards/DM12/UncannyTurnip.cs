@@ -15,8 +15,9 @@ namespace Cards.Cards.DM12
     {
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
-            new OneShotEffects.ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
+            var controller = source.GetController(game);
+            controller.PutFromTopOfDeckIntoManaZone(game, 1, source);
+            controller.ReturnOwnManaCreature(game, source);
         }
 
         public override IOneShotEffect Copy()

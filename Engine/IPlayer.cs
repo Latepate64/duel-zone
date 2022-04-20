@@ -19,6 +19,7 @@ namespace Engine
         ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description);
         void ReturnOwnManaCards(IGame game, IAbility source, int amount);
         void DiscardOwnCards(IGame game, IAbility source, int discard);
+        void ReturnOwnManaCreature(IGame game, IAbility source);
         void ReturnOwnMana(IGame game, IAbility source);
         void DrawCardsOptionally(IGame game, IAbility source, int maximum);
         void PutOwnHandCardIntoMana(IGame game, IAbility source);

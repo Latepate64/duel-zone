@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
@@ -17,11 +16,12 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var creature = source.GetController(game).ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
+            var controller = source.GetController(game);
+            var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
             if (creature != null)
             {
                 game.Destroy(source, creature);
-                new ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
+                controller.ReturnOwnManaCreature(game, source);
             }
         }
 

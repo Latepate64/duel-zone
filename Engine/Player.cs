@@ -610,5 +610,10 @@ namespace Engine
         {
             game.Move(source, ZoneType.ManaZone, ZoneType.Hand, ChooseCards(ManaZone.Cards, amount, amount, source.ToString()).ToArray());
         }
+
+        public void ReturnOwnManaCreature(IGame game, IAbility source)
+        {
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, ChooseCard(ManaZone.Creatures, source.ToString()));
+        }
     }
 }
