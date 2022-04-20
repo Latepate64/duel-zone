@@ -575,5 +575,10 @@ namespace Engine
         {
             game.Move(source, ZoneType.Hand, ZoneType.ManaZone, ChooseCard(Hand.Cards, source.ToString()));
         }
+
+        public ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description)
+        {
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
+        }
     }
 }
