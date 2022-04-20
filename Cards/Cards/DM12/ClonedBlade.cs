@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
         public override void Apply(IGame game, IAbility source)
         {
             var creatures = source.GetController(game).ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
-            game.Destroy(source, creatures.ToArray);
+            game.Destroy(source, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

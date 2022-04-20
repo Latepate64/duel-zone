@@ -1,7 +1,7 @@
 ﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -26,7 +26,9 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game, IAbility source)
         {
-            new ClonedDeflectorTapEffect(GetAmount(game)).Apply(game, source);
+            var player = source.GetController(game);
+            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id), 1, GetAmount(game), ToString());
+            player.Tap(game, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
@@ -37,33 +39,6 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Choose one of your opponent's creatures in the battle zone. Then, for each Cloned Deflector in each graveyard, you may choose another of your opponent's creatures in the battle zone. Tap all those creatures.";
-        }
-    }
-
-    class ClonedDeflectorTapEffect : TapChoiceEffect
-    {
-        public ClonedDeflectorTapEffect(int maximum) : base(1, maximum, true)
-        {
-        }
-
-        public ClonedDeflectorTapEffect(ClonedDeflectorTapEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ClonedDeflectorTapEffect(this);
-        }
-
-        public override string ToString()
-        {
-            var amount = Maximum == 1 ? "one" : $"1-{Maximum}";
-            return $"Tap {amount} of your opponent's creatures in the battle zone.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
         }
     }
 }
