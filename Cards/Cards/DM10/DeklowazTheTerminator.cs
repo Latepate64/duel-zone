@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000).Apply(game, source);
+            game.Destroy(source, game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
             var cards = source.GetOpponent(game).Hand.Cards;
             if (cards.Any())
             {
