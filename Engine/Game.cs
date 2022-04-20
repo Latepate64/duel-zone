@@ -371,7 +371,7 @@ namespace Engine
 
         public IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false, ability)).ToArray());
+            return ProcessEvents(cards.Where(x => x != null).Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false, ability)).ToArray());
         }
 
         public IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)

@@ -631,5 +631,10 @@ namespace Engine
                 opponent.Unreveal(cards);
             }
         }
+
+        public bool CanChoose(ICard card, IGame game)
+        {
+            return !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, Id, game));
+        }
     }
 }

@@ -13,6 +13,9 @@ namespace Engine
         IManaZone ManaZone { get; }
         IEnumerable<IZone> Zones { get; }
         ShieldZone ShieldZone { get; }
+
+        bool CanChoose(ICard card, IGame game);
+
         Hand Hand { get; }
 
         IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);

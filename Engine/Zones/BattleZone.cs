@@ -58,7 +58,7 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IUnchoosableEffect>().Any(effect => effect.Applies(creature, game)));
+            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(effect => effect.PlayerCannotChooseCreature(creature, game.GetOpponent(owner), game)));
         }
 
         public override string ToString()
