@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -15,10 +16,12 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var hand = source.GetController(game).Hand.Cards;
+            var player = source.GetController(game);
+            var hand = player.Hand.Cards;
             var amount = hand.Count;
             game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
-            new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
+            var cards = player.ChooseCards(player.ManaZone.Cards, amount, amount, ToString());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()
