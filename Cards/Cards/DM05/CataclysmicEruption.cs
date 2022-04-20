@@ -16,8 +16,9 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Nature));
-            new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(amount).Apply(game, source);
+            var controller = source.GetController(game);
+            var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Nature));
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(source.GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()
