@@ -19,7 +19,8 @@ namespace Cards.Cards.DM10
             var player = source.GetController(game);
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             game.Move(source, ZoneType.Hand, ZoneType.Graveyard, cards.ToArray());
-            new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect(cards.Count()).Apply(game, source);
+            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id), cards.Count(), cards.Count(), ToString());
+            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
