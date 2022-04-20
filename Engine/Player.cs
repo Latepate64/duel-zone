@@ -580,5 +580,30 @@ namespace Engine
         {
             return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
         }
+
+        public void DrawCardsOptionally(IGame game, IAbility source, int maximum)
+        {
+            for (int i = 0; i < maximum; ++i)
+            {
+                if (ChooseToTakeAction("You may draw a card."))
+                {
+                    DrawCards(1, game, source);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        public void DiscardOwnCards(IGame game, IAbility ability, int amount)
+        {
+            Discard(ability, game, ChooseOwnHandCards(amount, ability.ToString()).ToArray());
+        }
+
+        private IEnumerable<ICard> ChooseOwnHandCards(int amount, string description)
+        {
+            return ChooseCards(Hand.Cards, amount, amount, description);
+        }
     }
 }

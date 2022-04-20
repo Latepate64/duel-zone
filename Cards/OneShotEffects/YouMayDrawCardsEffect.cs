@@ -7,8 +7,6 @@ namespace Cards.OneShotEffects
     {
         public int Maximum { get; }
 
-        private int _drawn;
-
         public YouMayDrawCardsEffect(int maximum) : base()
         {
             Maximum = maximum;
@@ -26,14 +24,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).ChooseToTakeAction("You may draw a card."))
-            {
-                source.GetController(game).DrawCards(1, game, source);
-                if (++_drawn < Maximum)
-                {
-                    Apply(game, source);
-                }
-            }
+            source.GetController(game).DrawCardsOptionally(game, source, Maximum);
         }
 
         public override string ToString()
