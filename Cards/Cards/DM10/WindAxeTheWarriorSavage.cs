@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -21,10 +20,9 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game, IAbility source)
         {
-            foreach (var effect in new OneShotEffect[] { new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
-            {
-                effect.Apply(game, source);
-            }
+            var player = source.GetController(game);
+            player.DestroyOpponentsBlocker(game, source);
+            player.PutFromTopOfDeckIntoManaZone(game, 1, source);
         }
 
         public override string ToString()

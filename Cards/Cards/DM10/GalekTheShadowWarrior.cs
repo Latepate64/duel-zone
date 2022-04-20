@@ -15,10 +15,9 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            foreach (OneShotEffect effect in new OneShotEffect[] { new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new OneShotEffects.OpponentRandomDiscardEffect() })
-            {
-                effect.Apply(game, source);
-            }
+            var player = source.GetController(game);
+            player.DestroyOpponentsBlocker(game, source);
+            game.GetOpponent(player).DiscardAtRandom(game, 1, source);
         }
 
         public override IOneShotEffect Copy()

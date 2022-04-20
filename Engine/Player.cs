@@ -209,7 +209,7 @@ namespace Engine
 
         public ICard ChooseOpponentsCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetCreatures(game.GetOpponent(Id)), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)), description);
         }
 
         public IPlayer ChoosePlayer(IGame game, string description)
