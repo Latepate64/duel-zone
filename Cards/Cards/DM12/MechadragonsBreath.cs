@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.Choices;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -17,7 +18,7 @@ namespace Cards.Cards.DM12
         public override void Apply(IGame game, IAbility source)
         {
             var power = source.GetController(game).ChooseNumber(new MechadragonsBreathChoice(source.GetController(game), ToString()));
-            new OneShotEffects.DestroyAllCreaturesThatHaveExactPower(power).Apply(game, source);
+            game.Destroy(source, game.BattleZone.Creatures.Where(x => x.Power == power).ToArray());
         }
 
         public override IOneShotEffect Copy()
