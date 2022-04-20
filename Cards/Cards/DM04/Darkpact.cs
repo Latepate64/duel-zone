@@ -1,7 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -18,9 +16,10 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).ChooseAnyNumberOfCards(source.GetController(game).ManaZone.Cards, ToString()).ToArray();
+            var player = source.GetController(game);
+            var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
             game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, cards);
-            new DrawCardsEffect(cards.Length).Apply(game, source);
+            player.DrawCards(cards.Length, game, source);
         }
 
         public override IOneShotEffect Copy()
