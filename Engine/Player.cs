@@ -615,5 +615,10 @@ namespace Engine
         {
             game.Move(source, ZoneType.ManaZone, ZoneType.Hand, ChooseCard(ManaZone.Creatures, source.ToString()));
         }
+
+        public IEnumerable<ICard> ChooseControlledCreatures(IGame game, string description, int amount)
+        {
+            return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description);
+        }
     }
 }
