@@ -55,6 +55,8 @@ namespace TestCards.TriggeredAbilities
 
     class OneShotEffectMock : IOneShotEffect
     {
+        public Guid SourceAbility { get; set; }
+
         public IOneShotEffect Copy()
         {
             throw new NotImplementedException();

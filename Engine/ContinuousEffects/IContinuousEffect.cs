@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace Engine.ContinuousEffects
+﻿namespace Engine.ContinuousEffects
 {
-    public interface IContinuousEffect : ITimestampable
+    public interface IContinuousEffect : IEffect, ITimestampable
     {
-        Guid SourceAbility { get; set; }
-
         IContinuousEffect Copy();
     }
 }

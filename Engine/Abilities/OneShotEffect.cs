@@ -6,11 +6,13 @@ namespace Engine.Abilities
     /// 610.1. A one-shot effect does something just once and doesn’t have a duration.
     /// Examples include moving an object from one zone to another.
     /// </summary>
-    public abstract class OneShotEffect : IOneShotEffect, IDisposable
+    public abstract class OneShotEffect : Effect, IOneShotEffect, IDisposable
     {
         protected OneShotEffect() { }
 
-        protected OneShotEffect(OneShotEffect effect) { }
+        protected OneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
 
         /// <summary>
         /// Applies the effect.
@@ -21,17 +23,5 @@ namespace Engine.Abilities
         public abstract void Apply(IGame game, IAbility source);
 
         public abstract IOneShotEffect Copy();
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-        }
-
-        public override abstract string ToString();
     }
 }
