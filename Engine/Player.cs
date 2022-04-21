@@ -368,7 +368,7 @@ namespace Engine
 
         public void Tap(IGame game, params ICard[] cards)
         {
-            var untappedCards = cards.Where(x => !x.Tapped && !game.GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(this, x, game))).ToList();
+            var untappedCards = cards.Where(x => x != null && !x.Tapped && !game.GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(this, x, game))).ToList();
             foreach (var card in untappedCards)
             {
                 card.Tapped = true;

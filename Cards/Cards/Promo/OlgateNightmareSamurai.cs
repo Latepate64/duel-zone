@@ -25,7 +25,7 @@ namespace Cards.Cards.Promo
 
         public override IAbility Copy()
         {
-            return new OlgateAbility();
+            return new OlgateAbility(this);
         }
 
         public override string ToString()

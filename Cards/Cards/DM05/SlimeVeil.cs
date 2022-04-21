@@ -19,7 +19,7 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new SlimeVeilContinuousEffect());
+            game.AddContinuousEffects(source, new SlimeVeilContinuousEffect(source.GetOpponent(game)));
         }
 
         public override IOneShotEffect Copy()
@@ -35,17 +35,21 @@ namespace Cards.Cards.DM05
 
     class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        public SlimeVeilContinuousEffect()
+        private readonly IPlayer _player;
+
+        public SlimeVeilContinuousEffect(IPlayer player)
         {
+            _player = player;
         }
 
         public SlimeVeilContinuousEffect(SlimeVeilContinuousEffect effect) : base(effect)
         {
+            _player = effect._player;
         }
 
         public bool AttacksIfAble(ICard creature, IGame game)
         {
-            return creature.Owner == game.GetOpponent(GetController(game)).Id;
+            return creature.Owner == _player.Id;
         }
 
         public override IContinuousEffect Copy()
@@ -55,12 +59,12 @@ namespace Cards.Cards.DM05
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn && phase.Turn.ActivePlayer == game.GetOpponent(GetController(game));
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn && phase.Turn.ActivePlayer == _player;
         }
 
         public override string ToString()
         {
-            return "Each of your opponent's creatures attacks if able.";
+            return $"During {_player}'s next turn, each of his creatures attacks if able.";
         }
     }
 }

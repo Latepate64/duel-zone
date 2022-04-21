@@ -16,10 +16,13 @@ namespace Cards.Cards.DM08
         public override void Apply(IGame game, IAbility source)
         {
             var creature = source.GetController(game).ChooseCard(game.BattleZone.Creatures, ToString());
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
-            if (creature.IsDragon)
+            if (creature != null)
             {
-                source.GetController(game).DrawCardsOptionally(game, source, 1);
+                game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
+                if (creature.IsDragon)
+                {
+                    source.GetController(game).DrawCardsOptionally(game, source, 1);
+                }
             }
         }
 
