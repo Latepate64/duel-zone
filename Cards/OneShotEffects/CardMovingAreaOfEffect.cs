@@ -21,10 +21,10 @@ namespace Cards.OneShotEffects
             DestinationZone = destination;
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, source).ToArray();
-            _ = game.Move(source, SourceZone, DestinationZone, cards);
+            var cards = GetAffectedCards(game, GetSourceAbility(game)).ToArray();
+            _ = game.Move(GetSourceAbility(game), SourceZone, DestinationZone, cards);
         }
     }
 }

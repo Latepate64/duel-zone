@@ -14,7 +14,7 @@ namespace Cards.Cards.DM11
 
     class TimeScoutEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetOpponent(game).Deck.GetTopCards(1);
             if (cards.Any())

@@ -21,11 +21,11 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
-            controller.PutFromTopOfDeckIntoManaZone(game, 1, source);
-            controller.ReturnOwnManaCreature(game, source);
+            controller.PutFromTopOfDeckIntoManaZone(game, 1, GetSourceAbility(game));
+            controller.ReturnOwnManaCreature(game, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

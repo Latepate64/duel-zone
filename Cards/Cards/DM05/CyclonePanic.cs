@@ -15,9 +15,9 @@ namespace Cards.Cards.DM05
 
     class CyclonePanicEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.Players.ToList().ForEach(x => Apply(x, game, source));
+            game.Players.ToList().ForEach(x => Apply(x, game, GetSourceAbility(game)));
         }
 
         private static void Apply(IPlayer player, IGame game, IAbility source)

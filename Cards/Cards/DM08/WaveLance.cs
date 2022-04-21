@@ -21,15 +21,15 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var creature = GetController(game).ChooseCard(game.BattleZone.Creatures, ToString());
             if (creature != null)
             {
-                game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
+                game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creature);
                 if (creature.IsDragon)
                 {
-                    GetController(game).DrawCardsOptionally(game, source, 1);
+                    GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), 1);
                 }
             }
         }

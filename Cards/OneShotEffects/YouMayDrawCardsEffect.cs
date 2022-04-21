@@ -22,9 +22,9 @@ namespace Cards.OneShotEffects
             return new YouMayDrawCardsEffect(this);
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            GetController(game).DrawCardsOptionally(game, source, Maximum);
+            GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), Maximum);
         }
 
         public override string ToString()

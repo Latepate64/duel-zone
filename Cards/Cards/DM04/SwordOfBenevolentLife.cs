@@ -22,11 +22,11 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller);
+            var creatures = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
+            game.AddContinuousEffects(GetSourceAbility(game), new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

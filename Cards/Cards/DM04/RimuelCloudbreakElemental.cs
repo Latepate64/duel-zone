@@ -15,7 +15,7 @@ namespace Cards.Cards.DM04
 
     class RimuelCloudbreakElementalEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));

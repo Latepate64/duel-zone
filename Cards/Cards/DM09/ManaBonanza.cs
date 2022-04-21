@@ -21,9 +21,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            GetController(game).PutFromTopOfDeckIntoManaZone(game, GetController(game).ManaZone.Cards.Count, source);
+            GetController(game).PutFromTopOfDeckIntoManaZone(game, GetController(game).ManaZone.Cards.Count, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

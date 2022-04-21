@@ -22,13 +22,13 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetOpponent(game).Hand.Cards;
             if (cards.Any())
             {
                 GetController(game).Look(GetOpponent(game), game, cards.ToArray());
-                GetOpponent(game).Discard(source, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
+                GetOpponent(game).Discard(GetSourceAbility(game), game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
                 GetOpponent(game).Unreveal(cards);
             }
         }

@@ -22,13 +22,13 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var player = GetController(game);
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
-            game.Move(source, ZoneType.Hand, ZoneType.Graveyard, cards.ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.Graveyard, cards.ToArray());
             var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id), cards.Count(), cards.Count(), ToString());
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

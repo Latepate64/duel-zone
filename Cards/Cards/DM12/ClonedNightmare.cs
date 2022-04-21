@@ -23,14 +23,14 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var number = GetAmount(game);
             if (number > 1)
             {
                 number = GetController(game).ChooseNumber(new ClonedNightmareChoice(GetController(game), "Choose how many cards your opponent will discard at random from their hand.", number));
             }
-            GetOpponent(game).DiscardAtRandom(game, number, source);
+            GetOpponent(game).DiscardAtRandom(game, number, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

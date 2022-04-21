@@ -14,11 +14,11 @@ namespace Cards.Cards.DM05
 
     class GlorySnowEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetOpponent(game).ManaZone.Cards.Count > GetController(game).ManaZone.Cards.Count)
             {
-                GetController(game).PutFromTopOfDeckIntoManaZone(game, 2, source);
+                GetController(game).PutFromTopOfDeckIntoManaZone(game, 2, GetSourceAbility(game));
             }
         }
 

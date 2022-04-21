@@ -18,9 +18,9 @@ namespace Cards.Cards.DM10
 
     class ForcedFrenzyEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new ForcedFrenzyContinuousEffect(GetOpponent(game)));
+            game.AddContinuousEffects(GetSourceAbility(game), new ForcedFrenzyContinuousEffect(GetOpponent(game)));
         }
 
         public override IOneShotEffect Copy()

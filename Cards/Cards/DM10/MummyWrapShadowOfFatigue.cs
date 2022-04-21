@@ -22,9 +22,9 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, source));
+            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, GetSourceAbility(game)));
         }
 
         public override IOneShotEffect Copy()

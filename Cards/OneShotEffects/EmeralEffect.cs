@@ -18,15 +18,15 @@ namespace Cards.OneShotEffects
             return new EmeralEffect(this);
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var player = GetController(game);
             var card = player.ChooseCardOptionally(GetController(game).Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(source, ZoneType.Hand, ZoneType.ShieldZone, card);
+                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ShieldZone, card);
                 var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
-                game.Move(source, ZoneType.ShieldZone, ZoneType.Hand, shield);
+                game.Move(GetSourceAbility(game), ZoneType.ShieldZone, ZoneType.Hand, shield);
             }
         }
 

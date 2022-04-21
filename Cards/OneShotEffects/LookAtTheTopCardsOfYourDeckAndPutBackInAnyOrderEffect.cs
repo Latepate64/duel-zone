@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetController(game).LookAtTheTopCardsOfYourDeck(_amount, game);
             GetController(game).ArrangeTopCardsOfDeck(cards.ToArray());

@@ -22,13 +22,13 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var opponent = GetOpponent(game);
             var card = opponent.ChooseCard(game.BattleZone.GetCreatures(opponent.Id).Union(opponent.ShieldZone.Cards), ToString());
             if (card != null)
             {
-                game.Move(source, game.GetZone(card).Type, ZoneType.Graveyard, card);
+                game.Move(GetSourceAbility(game), game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
         }
 

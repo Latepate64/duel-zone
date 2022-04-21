@@ -22,9 +22,9 @@ namespace Cards.OneShotEffects
             return new OpponentRandomDiscardEffect(this);
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            GetOpponent(game).DiscardAtRandom(game, Amount, source);
+            GetOpponent(game).DiscardAtRandom(game, Amount, GetSourceAbility(game));
         }
 
         public override string ToString()

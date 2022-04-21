@@ -15,9 +15,9 @@ namespace Cards.Cards.DM02
 
     class MarrowOozeTheTwisterEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyThisCreatureEffect(), source.Source), source.Source, source.Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterAttackAbility(new OneShotEffects.DestroyThisCreatureEffect(), GetSourceAbility(game).Source), GetSourceAbility(game).Source, GetSourceAbility(game).Controller, true));
         }
 
         public override IOneShotEffect Copy()

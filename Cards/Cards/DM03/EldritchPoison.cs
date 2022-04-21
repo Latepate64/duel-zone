@@ -14,14 +14,14 @@ namespace Cards.Cards.DM03
 
     class EldritchPoisonEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
             if (creature != null)
             {
-                game.Destroy(source, creature);
-                controller.ReturnOwnManaCreature(game, source);
+                game.Destroy(GetSourceAbility(game), creature);
+                controller.ReturnOwnManaCreature(game, GetSourceAbility(game));
             }
         }
 

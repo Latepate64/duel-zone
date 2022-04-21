@@ -33,12 +33,12 @@ namespace Cards.Cards.DM10
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), source.Source, source.Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards)), GetSourceAbility(game).Source, GetSourceAbility(game).Controller, true));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller);
+            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller);
         }
     }
 

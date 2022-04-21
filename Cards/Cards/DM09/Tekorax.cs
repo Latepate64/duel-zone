@@ -22,7 +22,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetOpponent(game).ShieldZone.Cards;
             if (cards.Any())

@@ -51,12 +51,12 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var amount = GetController(game).ShieldZone.Cards.Count;
             var chosen = GetOpponent(game).ChooseCards(GetOpponent(game).ShieldZone.Cards, amount, amount, ToString());
             var toHand = GetOpponent(game).ShieldZone.Cards.Except(chosen);
-            game.PutFromShieldZoneToHand(toHand, true, source);
+            game.PutFromShieldZoneToHand(toHand, true, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

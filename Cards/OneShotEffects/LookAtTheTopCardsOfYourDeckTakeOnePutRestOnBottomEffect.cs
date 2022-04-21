@@ -14,11 +14,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetController(game).LookAtTheTopCardsOfYourDeck(4, game);
             var card = GetController(game).ChooseCard(cards, ToString());
-            game.Move(source, ZoneType.Deck, ZoneType.Hand, card);
+            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, card);
             GetController(game).PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
         }
 

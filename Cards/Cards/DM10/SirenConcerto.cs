@@ -14,11 +14,11 @@ namespace Cards.Cards.DM10
 
     class SirenConcertoEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
-            controller.ReturnOwnMana(game, source);
-            controller.PutOwnHandCardIntoMana(game, source);
+            controller.ReturnOwnMana(game, GetSourceAbility(game));
+            controller.PutOwnHandCardIntoMana(game, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

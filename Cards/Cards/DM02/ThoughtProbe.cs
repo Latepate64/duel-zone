@@ -15,11 +15,11 @@ namespace Cards.Cards.DM02
 
     class ThoughtProbeEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (game.BattleZone.GetCreatures(GetOpponent(game).Id).Count() >= 3)
             {
-                GetController(game).DrawCards(3, game, source);
+                GetController(game).DrawCards(3, game, GetSourceAbility(game));
             }
         }
 

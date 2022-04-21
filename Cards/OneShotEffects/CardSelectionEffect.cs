@@ -26,14 +26,14 @@ namespace Cards.OneShotEffects
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = GetSelectableCards(game, source);
+            var cards = GetSelectableCards(game, GetSourceAbility(game));
             var player = ControllerChooses ? GetController(game) : GetOpponent(game);
             if (player != null)
             {
                 var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
-                Apply(game, source, chosen.ToArray());
+                Apply(game, GetSourceAbility(game), chosen.ToArray());
             }
         }
 

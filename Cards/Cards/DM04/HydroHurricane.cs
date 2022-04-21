@@ -22,12 +22,12 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Light));
             var cards = controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray();
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards);
+            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, cards);
         }
 
         public override IOneShotEffect Copy()
@@ -51,12 +51,12 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Darkness));
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 0, amount, ToString()).ToArray();
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, creatures);
+            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 
         public override IOneShotEffect Copy()

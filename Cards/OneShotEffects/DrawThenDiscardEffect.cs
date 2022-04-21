@@ -17,11 +17,11 @@ namespace Cards.OneShotEffects
             _discard = discard;
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
-            controller.DrawCardsOptionally(game, source, 2);
-            controller.DiscardOwnCards(game, source, _discard);
+            controller.DrawCardsOptionally(game, GetSourceAbility(game), 2);
+            controller.DiscardOwnCards(game, GetSourceAbility(game), _discard);
         }
 
         public override IOneShotEffect Copy()

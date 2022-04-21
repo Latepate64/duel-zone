@@ -18,9 +18,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(source.Controller));
+            game.AddContinuousEffects(GetSourceAbility(game), new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(GetSourceAbility(game).Controller));
         }
 
         public override IOneShotEffect Copy()

@@ -17,11 +17,11 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
-            controller.ReturnOwnManaCards(game, source, Amount);
-            game.GetOpponent(controller).ReturnOwnManaCards(game, source, Amount);
+            controller.ReturnOwnManaCards(game, GetSourceAbility(game), Amount);
+            game.GetOpponent(controller).ReturnOwnManaCards(game, GetSourceAbility(game), Amount);
         }
 
         public override IOneShotEffect Copy()

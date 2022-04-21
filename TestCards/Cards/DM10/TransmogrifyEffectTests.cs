@@ -25,11 +25,12 @@ namespace TestCards.Cards.DM10
             var game = new Mock<IGame>();
             game.Setup(x => x.BattleZone).Returns(battleZone.Object);
             game.Setup(x => x.GetOwner(toDestroy)).Returns(controller.Object);
+            game.Setup(x => x.GetAbility(ability.Object.Id)).Returns(ability.Object);
 
             battleZone.Setup(x => x.GetChoosableCreaturesControlledByAnyone(game.Object, controller.Object.Id));
             ability.Setup(x => x.GetController(game.Object)).Returns(controller.Object);
 
-            new TransmogrifyEffect().Apply(game.Object, ability.Object);
+            new TransmogrifyEffect().Apply(game.Object);
 
             game.Verify(x => x.Destroy(ability.Object, toDestroy), Times.Once);
         }

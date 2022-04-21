@@ -21,13 +21,13 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             for (int i = 0; i < 3; ++i)
             {
                 if (GetController(game).ChooseToTakeAction("You may add the top card of your deck to your shields face down."))
                 {
-                    GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                    GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
                 }
                 else
                 {

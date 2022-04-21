@@ -22,7 +22,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetController(game).ChooseToTakeAction(ToString()))
             {

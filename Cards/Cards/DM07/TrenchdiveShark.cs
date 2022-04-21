@@ -14,15 +14,15 @@ namespace Cards.Cards.DM07
 
     class TrenchdiveSharkEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var player = GetController(game);
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {
-                game.Move(source, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
+                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
                 var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
-                game.Move(source, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
+                game.Move(GetSourceAbility(game), ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
             }
         }
 

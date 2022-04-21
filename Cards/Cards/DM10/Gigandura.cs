@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var opponent = GetOpponent(game);
@@ -30,9 +30,9 @@ namespace Cards.Cards.DM10
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(source, ZoneType.Hand, ZoneType.ManaZone, card);
+                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ManaZone, card);
                 var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
-                game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana);
+                game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, mana);
             }
             opponent.Unreveal(new List<ICard> { card });
         }

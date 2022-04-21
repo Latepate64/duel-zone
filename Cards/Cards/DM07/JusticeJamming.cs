@@ -22,7 +22,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var civilization = GetController(game).ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
             GetController(game).Tap(game, game.BattleZone.GetCreatures(civilization).ToArray());

@@ -22,10 +22,10 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.Id != source.Source && x.Tapped == true);
-            GetController(game).DrawCardsOptionally(game, source, amount);
+            var amount = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Count(x => x.Id != GetSourceAbility(game).Source && x.Tapped == true);
+            GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), amount);
         }
 
         public override IOneShotEffect Copy()

@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetController(game).ShieldZone.HasCards && GetController(game).ChooseToTakeAction(ToString()))
             {

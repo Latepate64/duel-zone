@@ -22,7 +22,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var player = GetController(game);
             var amount = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).Count();
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM06
                 if (GetController(game).ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
                 {
                     var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
-                    game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
+                    game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
                 }
             }
         }

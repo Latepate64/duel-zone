@@ -14,9 +14,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), source.Source, source.Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), GetSourceAbility(game).Source, GetSourceAbility(game).Controller, true));
         }
 
         public override IOneShotEffect Copy()

@@ -14,14 +14,14 @@ namespace Cards.Cards.DM10
 
     class DeklowazTheTerminatorEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.Destroy(source, game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
+            game.Destroy(GetSourceAbility(game), game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
             var cards = GetOpponent(game).Hand.Cards;
             if (cards.Any())
             {
                 GetController(game).Look(GetOpponent(game), game, cards.ToArray());
-                GetOpponent(game).Discard(source, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
+                GetOpponent(game).Discard(GetSourceAbility(game), game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
                 GetOpponent(game).Unreveal(cards);
             }
         }

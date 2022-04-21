@@ -18,20 +18,20 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var opponent = GetOpponent(game);
 
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, opponent.Id), 2, 2, ToString());
             var toHand = opponent.ChooseCard(creatures, ToString());
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, toHand);
-            game.Destroy(source, creatures.Where(x => x != toHand).ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, toHand);
+            game.Destroy(GetSourceAbility(game), creatures.Where(x => x != toHand).ToArray());
 
             var cards = controller.ChooseCards(opponent.ManaZone.Cards, 2, 2, ToString());
             var manaToHand = opponent.ChooseCard(cards, ToString());
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, manaToHand);
-            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, manaToHand);
+            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
         }
 
         public override IOneShotEffect Copy()

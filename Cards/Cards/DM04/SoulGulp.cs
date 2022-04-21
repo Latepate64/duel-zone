@@ -22,11 +22,11 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var opponent = game.GetOpponent(GetController(game));
             int amount = game.BattleZone.GetCreatures(opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
-            opponent.DiscardOwnCards(game, source, amount);
+            opponent.DiscardOwnCards(game, GetSourceAbility(game), amount);
         }
 
         public override IOneShotEffect Copy()

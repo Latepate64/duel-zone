@@ -16,10 +16,10 @@ namespace Cards.Cards.DM03
 
     class ChaosFishEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller, Civilization.Water).Count(x => x.Id != source.Source);
-            GetController(game).DrawCardsOptionally(game, source, amount);
+            var amount = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Civilization.Water).Count(x => x.Id != GetSourceAbility(game).Source);
+            GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), amount);
         }
 
         public override IOneShotEffect Copy()

@@ -22,11 +22,11 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var cards = GetController(game).RevealTopCardsOfDeck(4, game);
-            game.Move(source, ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Civilization.Water)).ToArray());
-            game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Civilization.Water)).ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Civilization.Water)).ToArray());
+            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Civilization.Water)).ToArray());
             GetController(game).Unreveal(cards);
         }
 

@@ -19,23 +19,23 @@ namespace Cards.Cards.DM10
                 return new SoulswapEffect();
             }
 
-            public override void Apply(IGame game, IAbility source)
+            public override void Apply(IGame game)
             {
                 // You may choose a creature in the battle zone and put it into its owner's mana zone.
-                var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.Controller);
+                var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetSourceAbility(game).Controller);
                 if (creatures.Any())
                 {
                     var creature = GetController(game).ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
                     if (creature != null)
                     {
-                        game.Move(source, ZoneType.BattleZone, ZoneType.ManaZone, creature);
+                        game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.ManaZone, creature);
 
                         // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
                         var manas = game.GetPlayer(creature.Owner).ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= game.GetPlayer(creature.Owner).ManaZone.Cards.Count);
                         if (manas.Any())
                         {
                             var mana = GetController(game).ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
-                            game.Move(source, ZoneType.ManaZone, ZoneType.BattleZone, mana);
+                            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.BattleZone, mana);
                         }
                     }
                 }

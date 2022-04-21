@@ -14,9 +14,9 @@ namespace Cards.Cards.DM10
 
     class DolmarksTheShadowWarriorEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, source); x.BurnOwnMana(game, source); });
+            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, GetSourceAbility(game)); x.BurnOwnMana(game, GetSourceAbility(game)); });
         }
 
         public override IOneShotEffect Copy()

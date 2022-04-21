@@ -13,11 +13,11 @@ namespace Cards.Cards.DM10
 
     class EstolVizierOfAquaEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
-            controller.PutFromTopOfDeckIntoShieldZone(1, game, source);
-            controller.LookAtOneOfOpponentsShields(game, source);
+            controller.PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
+            controller.LookAtOneOfOpponentsShields(game, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

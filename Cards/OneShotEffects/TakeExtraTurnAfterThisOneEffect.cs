@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             Turn turn = new() { ActivePlayer = GetController(game), NonActivePlayer = GetOpponent(game) };
             game.ExtraTurns.Push(turn);

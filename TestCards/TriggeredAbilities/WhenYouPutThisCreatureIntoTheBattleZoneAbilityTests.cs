@@ -67,7 +67,7 @@ namespace TestCards.TriggeredAbilities
             throw new NotImplementedException();
         }
 
-        void IOneShotEffect.Apply(IGame game, IAbility source)
+        void IOneShotEffect.Apply(IGame game)
         {
             throw new NotImplementedException();
         }

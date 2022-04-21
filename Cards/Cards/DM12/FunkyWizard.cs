@@ -22,13 +22,13 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             foreach (var player in game.Players)
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {
-                    player.DrawCards(1, game, source);
+                    player.DrawCards(1, game, GetSourceAbility(game));
                 }
             }
         }

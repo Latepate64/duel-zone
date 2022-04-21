@@ -16,9 +16,9 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(source));
+            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(GetSourceAbility(game)));
         }
 
         public override IOneShotEffect Copy()

@@ -14,11 +14,11 @@ namespace Cards.Cards.DM12
 
     class EnigmaticCascadeEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var player = GetController(game);
-            int amount = player.DiscardAnyNumberOfCards(game, source);
-            player.DrawCards(amount, game, source);
+            int amount = player.DiscardAnyNumberOfCards(game, GetSourceAbility(game));
+            player.DrawCards(amount, game, GetSourceAbility(game));
         }
 
         public override IOneShotEffect Copy()

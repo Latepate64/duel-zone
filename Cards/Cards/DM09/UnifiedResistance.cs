@@ -21,11 +21,11 @@ namespace Cards.Cards.DM09
 
     class UnifiedResistanceOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var race = GetController(game).ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasRace(race));
-            game.AddContinuousEffects(source, new UnifiedResistanceContinuousEffect(source.Controller, creatures.ToArray()));
+            var creatures = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => x.HasRace(race));
+            game.AddContinuousEffects(GetSourceAbility(game), new UnifiedResistanceContinuousEffect(GetSourceAbility(game).Controller, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

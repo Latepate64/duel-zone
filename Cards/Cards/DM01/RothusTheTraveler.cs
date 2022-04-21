@@ -22,9 +22,9 @@ namespace Cards.Cards.DM01
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => x.Sacrifice(game, source));
+            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => x.Sacrifice(game, GetSourceAbility(game)));
         }
 
         public override IOneShotEffect Copy()

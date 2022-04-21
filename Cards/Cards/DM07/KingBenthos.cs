@@ -24,10 +24,10 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller, Civilization.Water);
-            game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+            var creatures = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Civilization.Water);
+            game.AddContinuousEffects(GetSourceAbility(game), new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
                 creatures.ToArray()));
         }

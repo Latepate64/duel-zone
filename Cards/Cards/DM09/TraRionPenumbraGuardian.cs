@@ -15,12 +15,12 @@ namespace Cards.Cards.DM09
 
     class TraRionPenumbraGuardianEffect : OneShotEffect
     {
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(GetController(game).ChooseRace(ToString()))),
-                source.Id,
-                source.Controller,
+                GetSourceAbility(game).Id,
+                GetSourceAbility(game).Controller,
                 true));
         }
 

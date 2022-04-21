@@ -22,11 +22,11 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetController(game).ChooseToTakeAction(ToString()))
             {
-                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
             }
         }
 

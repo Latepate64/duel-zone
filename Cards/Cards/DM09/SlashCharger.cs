@@ -21,14 +21,14 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var controller = GetController(game);
             var player = controller.ChoosePlayer(game, ToString());
             var card = controller.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)
             {
-                game.Move(source, ZoneType.Deck, ZoneType.Graveyard, card);
+                game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Graveyard, card);
             }
             player.ShuffleDeck(game);
         }

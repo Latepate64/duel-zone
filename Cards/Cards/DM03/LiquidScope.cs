@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var opponent = GetOpponent(game);
             var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards);

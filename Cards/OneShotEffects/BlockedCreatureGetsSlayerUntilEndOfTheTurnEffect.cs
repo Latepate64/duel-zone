@@ -16,11 +16,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != null)
             {
-                game.AddContinuousEffects(source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
+                game.AddContinuousEffects(GetSourceAbility(game), new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
             }
         }
 

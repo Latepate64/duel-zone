@@ -13,11 +13,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetController(game).ChooseToTakeAction(ToString()))
             {
-                GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
+                GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, GetSourceAbility(game));
             }
         }
 

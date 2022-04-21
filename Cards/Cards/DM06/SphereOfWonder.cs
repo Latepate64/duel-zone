@@ -21,11 +21,11 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             if (GetOpponent(game).ShieldZone.Cards.Count > GetController(game).ShieldZone.Cards.Count)
             {
-                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
             }
         }
 

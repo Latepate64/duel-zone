@@ -40,12 +40,12 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
+            game.AddContinuousEffects(GetSourceAbility(game), new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Civilization.Fire);
+            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Civilization.Fire);
         }
     }
 }
