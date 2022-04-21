@@ -43,28 +43,27 @@ namespace Engine
 
         protected IAbility GetSourceAbility(IGame game)
         {
-            return game.GetAbility(SourceAbility);
+            return Source;
         }
 
         protected bool IsSourceOfAbility(ICard card, IGame game)
         {
-            return card.Id == GetSourceAbility(game).Source;
+            return card.Id == Source.Source;
         }
 
         protected ICard GetSourceCard(IGame game)
         {
-            return game.GetCard(GetSourceAbility(game).Source);
+            return game.GetCard(Source.Source);
         }
 
         protected IPlayer GetController(IGame game)
         {
-            IAbility ability = GetSourceAbility(game);
-            return ability.GetController(game);
+            return Controller;
         }
 
         protected IPlayer GetOpponent(IGame game)
         {
-            return game.GetOpponent(GetController(game));
+            return game.GetOpponent(Controller);
         }
     }
 }
