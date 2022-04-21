@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public OpponentSacrificeEffect(DestroyEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new OpponentSacrificeEffect();
+            return new OpponentSacrificeEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.GetOpponent(game).Id);
+            return game.BattleZone.GetCreatures(GetOpponent(game).Id);
         }
     }
 }

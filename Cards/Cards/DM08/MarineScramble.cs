@@ -19,6 +19,10 @@ namespace Cards.Cards.DM08
         {
         }
 
+        public MarineScrambleEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.AddContinuousEffects(source, new YourCreaturesCannotBeBlockedThisTurnEffect());
@@ -26,7 +30,7 @@ namespace Cards.Cards.DM08
 
         public override IOneShotEffect Copy()
         {
-            return new MarineScrambleEffect();
+            return new MarineScrambleEffect(this);
         }
 
         public override string ToString()

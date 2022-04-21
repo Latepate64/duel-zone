@@ -19,9 +19,9 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game, IAbility source)
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+            if (GetController(game).ChooseToTakeAction(ToString()))
             {
-                game.Move(source, ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
+                game.Move(source, ZoneType.Graveyard, ZoneType.Hand, GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
             }
         }
 

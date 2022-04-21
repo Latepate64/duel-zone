@@ -17,15 +17,23 @@ namespace Cards.Cards.DM09
 
     class FistsOfForeverEffect : OneShotEffect
     {
+        public FistsOfForeverEffect()
+        {
+        }
+
+        public FistsOfForeverEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var creature = source.GetController(game).ChooseControlledCreature(game, ToString());
+            var creature = GetController(game).ChooseControlledCreature(game, ToString());
             game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, source));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new FistsOfForeverEffect();
+            return new FistsOfForeverEffect(this);
         }
 
         public override string ToString()

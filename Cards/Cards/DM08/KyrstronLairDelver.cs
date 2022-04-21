@@ -32,7 +32,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Hand.Cards.Where(x => x.IsDragon);
+            return GetController(game).Hand.Cards.Where(x => x.IsDragon);
         }
     }
 }

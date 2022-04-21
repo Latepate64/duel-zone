@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public DestroyAllCreaturesEffect(DestroyAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new DestroyAllCreaturesEffect();
+            return new DestroyAllCreaturesEffect(this);
         }
 
         public override string ToString()

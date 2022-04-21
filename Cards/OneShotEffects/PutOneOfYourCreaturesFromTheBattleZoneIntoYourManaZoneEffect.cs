@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(CardMovingChoiceEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect();
+            return new PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(this);
         }
 
         public override string ToString()

@@ -12,6 +12,10 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != null)
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         public override IOneShotEffect Copy()
         {
-            return new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect();
+            return new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect(this);
         }
 
         public override string ToString()

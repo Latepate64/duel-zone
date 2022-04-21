@@ -20,8 +20,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).LookAtTheTopCardsOfYourDeck(_amount, game);
-            source.GetController(game).ArrangeTopCardsOfDeck(cards.ToArray());
+            var cards = GetController(game).LookAtTheTopCardsOfYourDeck(_amount, game);
+            GetController(game).ArrangeTopCardsOfDeck(cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

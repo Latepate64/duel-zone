@@ -15,9 +15,17 @@ namespace Cards.Cards.DM10
 
     public class TransmogrifyEffect : OneShotEffect
     {
+        public TransmogrifyEffect()
+        {
+        }
+
+        public TransmogrifyEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var card = controller.ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, controller.Id), ToString());
             if (card != null)
             {
@@ -42,7 +50,7 @@ namespace Cards.Cards.DM10
 
         public override IOneShotEffect Copy()
         {
-            return new TransmogrifyEffect();
+            return new TransmogrifyEffect(this);
         }
 
         public override string ToString()

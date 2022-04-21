@@ -43,17 +43,25 @@ namespace Cards.Cards.DM11
 
     class MiraculousMeltdownOneShotEffect : OneShotEffect
     {
+        public MiraculousMeltdownOneShotEffect()
+        {
+        }
+
+        public MiraculousMeltdownOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var amount = source.GetController(game).ShieldZone.Cards.Count;
-            var chosen = source.GetOpponent(game).ChooseCards(source.GetOpponent(game).ShieldZone.Cards, amount, amount, ToString());
-            var toHand = source.GetOpponent(game).ShieldZone.Cards.Except(chosen);
+            var amount = GetController(game).ShieldZone.Cards.Count;
+            var chosen = GetOpponent(game).ChooseCards(GetOpponent(game).ShieldZone.Cards, amount, amount, ToString());
+            var toHand = GetOpponent(game).ShieldZone.Cards.Except(chosen);
             game.PutFromShieldZoneToHand(toHand, true, source);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MiraculousMeltdownOneShotEffect();
+            return new MiraculousMeltdownOneShotEffect(this);
         }
 
         public override string ToString()

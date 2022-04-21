@@ -14,6 +14,14 @@ namespace Cards.Cards.DM04
 
     class SwordOfBenevolentLifeEffect : OneShotEffect
     {
+        public SwordOfBenevolentLifeEffect()
+        {
+        }
+
+        public SwordOfBenevolentLifeEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller);
@@ -23,7 +31,7 @@ namespace Cards.Cards.DM04
 
         public override IOneShotEffect Copy()
         {
-            return new SwordOfBenevolentLifeEffect();
+            return new SwordOfBenevolentLifeEffect(this);
         }
 
         public override string ToString()

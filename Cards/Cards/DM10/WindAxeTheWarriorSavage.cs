@@ -13,14 +13,22 @@ namespace Cards.Cards.DM10
 
     class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
+        public WindAxeTheWarriorSavageEffect()
+        {
+        }
+
+        public WindAxeTheWarriorSavageEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new WindAxeTheWarriorSavageEffect();
+            return new WindAxeTheWarriorSavageEffect(this);
         }
 
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             player.DestroyOpponentsBlocker(game, source);
             player.PutFromTopOfDeckIntoManaZone(game, 1, source);
         }

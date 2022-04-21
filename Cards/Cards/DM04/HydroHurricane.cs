@@ -14,17 +14,25 @@ namespace Cards.Cards.DM04
 
     class HydroHurricaneFirstEffect : OneShotEffect
     {
+        public HydroHurricaneFirstEffect()
+        {
+        }
+
+        public HydroHurricaneFirstEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Light));
-            var cards = controller.ChooseCards(source.GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray();
+            var cards = controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray();
             game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new HydroHurricaneFirstEffect();
+            return new HydroHurricaneFirstEffect(this);
         }
 
         public override string ToString()
@@ -35,17 +43,25 @@ namespace Cards.Cards.DM04
 
     class HydroHurricaneSecondEffect : OneShotEffect
     {
+        public HydroHurricaneSecondEffect()
+        {
+        }
+
+        public HydroHurricaneSecondEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Darkness));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id), 0, amount, ToString()).ToArray();
+            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 0, amount, ToString()).ToArray();
             game.Move(source, ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new HydroHurricaneSecondEffect();
+            return new HydroHurricaneSecondEffect(this);
         }
 
         public override string ToString()

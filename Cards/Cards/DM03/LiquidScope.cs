@@ -19,21 +19,25 @@ namespace Cards.Cards.DM03
         {
         }
 
+        public LiquidScopeEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var opponent = source.GetOpponent(game);
+            var opponent = GetOpponent(game);
             var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards);
             if (cards.Any())
             {
                 var revealer = game.GetOwner(cards.First());
-                source.GetController(game).Look(revealer, game, cards.ToArray());
+                GetController(game).Look(revealer, game, cards.ToArray());
                 revealer.Unreveal(cards);
             }
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LiquidScopeEffect();
+            return new LiquidScopeEffect(this);
         }
 
         public override string ToString()

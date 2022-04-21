@@ -47,6 +47,10 @@ namespace Cards.Cards.DM03
         {
         }
 
+        public BlazeCannonBuffEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             
@@ -55,7 +59,7 @@ namespace Cards.Cards.DM03
 
         public override IOneShotEffect Copy()
         {
-            return new BlazeCannonBuffEffect();
+            return new BlazeCannonBuffEffect(this);
         }
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var race = controller.ChooseRace(ToString());
             var creatures = controller.Graveyard.GetCreatures(race);
             game.Move(source, ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());

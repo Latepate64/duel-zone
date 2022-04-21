@@ -54,7 +54,13 @@ namespace Engine
 
         protected IPlayer GetController(IGame game)
         {
-            return GetSourceAbility(game).GetController(game);
+            IAbility ability = GetSourceAbility(game);
+            return ability.GetController(game);
+        }
+
+        protected IPlayer GetOpponent(IGame game)
+        {
+            return game.GetOpponent(GetController(game));
         }
     }
 }

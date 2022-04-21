@@ -14,9 +14,17 @@ namespace Cards.Cards.DM04
 
     class DarkpactEffect : OneShotEffect
     {
+        public DarkpactEffect()
+        {
+        }
+
+        public DarkpactEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
             game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, cards);
             player.DrawCards(cards.Length, game, source);
@@ -24,7 +32,7 @@ namespace Cards.Cards.DM04
 
         public override IOneShotEffect Copy()
         {
-            return new DarkpactEffect();
+            return new DarkpactEffect(this);
         }
 
         public override string ToString()

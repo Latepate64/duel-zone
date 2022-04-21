@@ -14,14 +14,22 @@ namespace Cards.Cards.DM09
 
     class SilvermoonTrailblazerOneShotEffect : OneShotEffect
     {
+        public SilvermoonTrailblazerOneShotEffect()
+        {
+        }
+
+        public SilvermoonTrailblazerOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new SilvermoonTrailblazerContinuousEffect(source.GetController(game).ChooseRace(ToString())));
+            game.AddContinuousEffects(source, new SilvermoonTrailblazerContinuousEffect(GetController(game).ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new SilvermoonTrailblazerOneShotEffect();
+            return new SilvermoonTrailblazerOneShotEffect(this);
         }
 
         public override string ToString()

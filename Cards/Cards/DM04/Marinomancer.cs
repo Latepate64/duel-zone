@@ -14,18 +14,26 @@ namespace Cards.Cards.DM04
 
     class MarinomancerEffect : OneShotEffect
     {
+        public MarinomancerEffect()
+        {
+        }
+
+        public MarinomancerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).RevealTopCardsOfDeck(3, game);
+            var cards = GetController(game).RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
             game.Move(source, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
-            source.GetController(game).Unreveal(cards);
+            GetController(game).Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MarinomancerEffect();
+            return new MarinomancerEffect(this);
         }
 
         public override string ToString()

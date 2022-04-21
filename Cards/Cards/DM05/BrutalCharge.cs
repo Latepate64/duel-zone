@@ -34,10 +34,18 @@ namespace Cards.Cards.DM05
 
     class BrutalChargeDelayedEffect : OneShotEffect
     {
+        public BrutalChargeDelayedEffect()
+        {
+        }
+
+        public BrutalChargeDelayedEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var creatures = controller.ChooseCards(controller.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
             controller.Reveal(game, creatures);
             game.Move(source, ZoneType.Deck, ZoneType.Hand, creatures);
@@ -47,7 +55,7 @@ namespace Cards.Cards.DM05
 
         public override IOneShotEffect Copy()
         {
-            return new BrutalChargeDelayedEffect();
+            return new BrutalChargeDelayedEffect(this);
         }
 
         public override string ToString()

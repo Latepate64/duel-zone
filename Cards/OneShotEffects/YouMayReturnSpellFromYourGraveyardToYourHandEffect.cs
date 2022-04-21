@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public YouMayReturnSpellFromYourGraveyardToYourHandEffect(SalvageEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new YouMayReturnSpellFromYourGraveyardToYourHandEffect();
+            return new YouMayReturnSpellFromYourGraveyardToYourHandEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Spells;
+            return GetController(game).Graveyard.Spells;
         }
     }
 }

@@ -13,9 +13,17 @@ namespace Cards.Cards.DM11
 
     class ReapAndSowEffect : OneShotEffect
     {
+        public ReapAndSowEffect()
+        {
+        }
+
+        public ReapAndSowEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var card = player.ChooseCard(game.GetOpponent(player).ManaZone.Cards, ToString());
             game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, card);
             player.PutFromTopOfDeckIntoManaZone(game, 1, source);
@@ -23,7 +31,7 @@ namespace Cards.Cards.DM11
 
         public override IOneShotEffect Copy()
         {
-            return new ReapAndSowEffect();
+            return new ReapAndSowEffect(this);
         }
 
         public override string ToString()

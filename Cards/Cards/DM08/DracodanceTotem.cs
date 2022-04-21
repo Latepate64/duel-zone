@@ -64,7 +64,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Controller).ManaZone.Creatures.Where(x => x.IsDragon);
+            return GetController(game).ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

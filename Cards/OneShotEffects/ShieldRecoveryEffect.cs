@@ -37,9 +37,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public ShieldRecoveryCannotUseShieldTriggerEffect(ShieldRecoveryEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ShieldRecoveryCannotUseShieldTriggerEffect();
+            return new ShieldRecoveryCannotUseShieldTriggerEffect(this);
         }
 
         public override string ToString()
@@ -49,7 +53,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ShieldZone.Cards;
+            return GetController(game).ShieldZone.Cards;
         }
     }
 
@@ -59,9 +63,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public ShieldRecoveryCanUseShieldTriggerEffect(ShieldRecoveryEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ShieldRecoveryCanUseShieldTriggerEffect();
+            return new ShieldRecoveryCanUseShieldTriggerEffect(this);
         }
 
         public override string ToString()
@@ -71,7 +79,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ShieldZone.Cards;
+            return GetController(game).ShieldZone.Cards;
         }
     }
 }

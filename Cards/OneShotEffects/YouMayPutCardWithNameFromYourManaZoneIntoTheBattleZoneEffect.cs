@@ -31,7 +31,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ManaZone.Cards.Where(x => x.Name == _name);
+            return GetController(game).ManaZone.Cards.Where(x => x.Name == _name);
         }
     }
 }

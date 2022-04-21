@@ -14,14 +14,22 @@ namespace Cards.Cards.DM01
 
     class RothusTheTravelerEffect : OneShotEffect
     {
+        public RothusTheTravelerEffect()
+        {
+        }
+
+        public RothusTheTravelerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            new List<IPlayer> { source.GetController(game), source.GetOpponent(game) }.ForEach(x => x.Sacrifice(game, source));
+            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => x.Sacrifice(game, source));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new RothusTheTravelerEffect();
+            return new RothusTheTravelerEffect(this);
         }
 
         public override string ToString()

@@ -20,6 +20,10 @@ namespace Cards.Cards.DM07
         {
         }
 
+        public KingBenthosEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             var creatures = game.BattleZone.GetCreatures(source.Controller, Civilization.Water);
@@ -30,7 +34,7 @@ namespace Cards.Cards.DM07
 
         public override IOneShotEffect Copy()
         {
-            return new KingBenthosEffect();
+            return new KingBenthosEffect(this);
         }
 
         public override string ToString()

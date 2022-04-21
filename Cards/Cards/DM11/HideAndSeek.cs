@@ -13,9 +13,17 @@ namespace Cards.Cards.DM11
 
     class HideAndSeekEffect : OneShotEffect
     {
+        public HideAndSeekEffect()
+        {
+        }
+
+        public HideAndSeekEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var creature = controller.ChooseOpponentsNonEvolutionCreature(game, ToString());
             game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
             game.GetOpponent(controller).DiscardAtRandom(game, 1, source);
@@ -23,7 +31,7 @@ namespace Cards.Cards.DM11
 
         public override IOneShotEffect Copy()
         {
-            return new HideAndSeekEffect();
+            return new HideAndSeekEffect(this);
         }
 
         public override string ToString()

@@ -14,15 +14,23 @@ namespace Cards.Cards.DM07
 
     class JusticeJammingEffect : OneShotEffect
     {
+        public JusticeJammingEffect()
+        {
+        }
+
+        public JusticeJammingEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var civilization = source.GetController(game).ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
-            source.GetController(game).Tap(game, game.BattleZone.GetCreatures(civilization).ToArray());
+            var civilization = GetController(game).ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
+            GetController(game).Tap(game, game.BattleZone.GetCreatures(civilization).ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new JusticeJammingEffect();
+            return new JusticeJammingEffect(this);
         }
 
         public override string ToString()

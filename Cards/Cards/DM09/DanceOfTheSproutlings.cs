@@ -14,9 +14,17 @@ namespace Cards.Cards.DM09
 
     class DanceOfTheSproutlingsEffect : OneShotEffect
     {
+        public DanceOfTheSproutlingsEffect()
+        {
+        }
+
+        public DanceOfTheSproutlingsEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var race = controller.ChooseRace(ToString());
             var creatures = controller.ChooseAnyNumberOfCards(controller.Hand.GetCreatures(race), ToString());
             game.Move(source, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
@@ -24,7 +32,7 @@ namespace Cards.Cards.DM09
 
         public override IOneShotEffect Copy()
         {
-            return new DanceOfTheSproutlingsEffect();
+            return new DanceOfTheSproutlingsEffect(this);
         }
 
         public override string ToString()

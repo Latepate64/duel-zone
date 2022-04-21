@@ -17,17 +17,25 @@ namespace Cards.Cards.DM10
 
     class BombazarDragonOfDestinyEffect : OneShotEffect
     {
+        public BombazarDragonOfDestinyEffect()
+        {
+        }
+
+        public BombazarDragonOfDestinyEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.Destroy(source, game.BattleZone.Creatures.Where(p => p.Id != source.Source && p.Power.Value == 6000).ToArray());
-            Turn turn = new() { ActivePlayer = source.GetController(game), NonActivePlayer = source.GetOpponent(game) };
+            Turn turn = new() { ActivePlayer = GetController(game), NonActivePlayer = GetOpponent(game) };
             game.ExtraTurns.Push(turn);
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), source.Source, source.Controller, true));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new BombazarDragonOfDestinyEffect();
+            return new BombazarDragonOfDestinyEffect(this);
         }
 
         public override string ToString()
@@ -40,7 +48,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            game.Lose(source.GetController(game));
+            game.Lose(GetController(game));
         }
 
         public override IOneShotEffect Copy()

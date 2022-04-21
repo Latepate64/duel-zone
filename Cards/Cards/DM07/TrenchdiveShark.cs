@@ -16,7 +16,7 @@ namespace Cards.Cards.DM07
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {

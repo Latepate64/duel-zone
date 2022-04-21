@@ -14,10 +14,18 @@ namespace Cards.Cards.DM10
 
     class GiganduraEffect : OneShotEffect
     {
+        public GiganduraEffect()
+        {
+        }
+
+        public GiganduraEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
-            var opponent = source.GetOpponent(game);
+            var controller = GetController(game);
+            var opponent = GetOpponent(game);
             controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
@@ -31,7 +39,7 @@ namespace Cards.Cards.DM10
 
         public override IOneShotEffect Copy()
         {
-            return new GiganduraEffect();
+            return new GiganduraEffect(this);
         }
 
         public override string ToString()

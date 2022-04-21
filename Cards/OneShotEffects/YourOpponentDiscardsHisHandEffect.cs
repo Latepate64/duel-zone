@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public YourOpponentDiscardsHisHandEffect(CardMovingAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new YourOpponentDiscardsHisHandEffect();
+            return new YourOpponentDiscardsHisHandEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetOpponent(game).Hand.Cards;
+            return GetOpponent(game).Hand.Cards;
         }
     }
 }

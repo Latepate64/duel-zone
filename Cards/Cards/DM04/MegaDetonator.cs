@@ -15,9 +15,17 @@ namespace Cards.Cards.DM04
 
     class MegaDetonatorDiscardEffect : OneShotEffect
     {
+        public MegaDetonatorDiscardEffect()
+        {
+        }
+
+        public MegaDetonatorDiscardEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var amount = player.DiscardAnyNumberOfCards(game, source);
             var creatures = player.ChooseControlledCreatures(game, ToString(), amount);
             game.AddContinuousEffects(source, new MegaDetonatorContinuousEffect(creatures.ToArray()));
@@ -25,7 +33,7 @@ namespace Cards.Cards.DM04
 
         public override IOneShotEffect Copy()
         {
-            return new MegaDetonatorDiscardEffect();
+            return new MegaDetonatorDiscardEffect(this);
         }
 
         public override string ToString()

@@ -25,7 +25,7 @@ namespace Cards.Cards.DM10
                 var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.Controller);
                 if (creatures.Any())
                 {
-                    var creature = source.GetController(game).ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
+                    var creature = GetController(game).ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
                     if (creature != null)
                     {
                         game.Move(source, ZoneType.BattleZone, ZoneType.ManaZone, creature);
@@ -34,7 +34,7 @@ namespace Cards.Cards.DM10
                         var manas = game.GetPlayer(creature.Owner).ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= game.GetPlayer(creature.Owner).ManaZone.Cards.Count);
                         if (manas.Any())
                         {
-                            var mana = source.GetController(game).ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
+                            var mana = GetController(game).ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
                             game.Move(source, ZoneType.ManaZone, ZoneType.BattleZone, mana);
                         }
                     }

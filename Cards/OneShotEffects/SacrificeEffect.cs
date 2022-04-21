@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SacrificeEffect(DestroyEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SacrificeEffect();
+            return new SacrificeEffect(this);
         }
 
         public override string ToString()

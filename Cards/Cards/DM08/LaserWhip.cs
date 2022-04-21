@@ -14,9 +14,17 @@ namespace Cards.Cards.DM08
 
     class LaserWhipEffect : OneShotEffect
     {
+        public LaserWhipEffect()
+        {
+        }
+
+        public LaserWhipEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             controller.TapOpponentsCreature(game);
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
             if (creature != null)
@@ -27,7 +35,7 @@ namespace Cards.Cards.DM08
 
         public override IOneShotEffect Copy()
         {
-            return new LaserWhipEffect();
+            return new LaserWhipEffect(this);
         }
 
         public override string ToString()

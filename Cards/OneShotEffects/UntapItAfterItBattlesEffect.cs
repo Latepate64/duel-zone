@@ -10,6 +10,10 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public UntapItAfterItBattlesEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), source.Source, source.Controller, true));
@@ -17,7 +21,7 @@ namespace Cards.OneShotEffects
 
         public override IOneShotEffect Copy()
         {
-            return new UntapItAfterItBattlesEffect();
+            return new UntapItAfterItBattlesEffect(this);
         }
 
         public override string ToString()

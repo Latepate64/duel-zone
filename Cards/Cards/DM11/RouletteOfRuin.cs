@@ -15,9 +15,17 @@ namespace Cards.Cards.DM11
 
     class RouletteOfRuinEffect : OneShotEffect
     {
+        public RouletteOfRuinEffect()
+        {
+        }
+
+        public RouletteOfRuinEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var number = source.GetController(game).ChooseNumber(new Engine.Choices.NumberChoice(source.GetController(game), ToString()));
+            var number = GetController(game).ChooseNumber(new Engine.Choices.NumberChoice(GetController(game), ToString()));
             foreach (var player in new System.Guid[] { source.Controller, game.GetOpponent(source.Controller) })
             {
                 game.GetPlayer(player).Reveal(game, game.GetPlayer(player).Hand.Cards.ToArray());
@@ -28,7 +36,7 @@ namespace Cards.Cards.DM11
 
         public override IOneShotEffect Copy()
         {
-            return new RouletteOfRuinEffect();
+            return new RouletteOfRuinEffect(this);
         }
 
         public override string ToString()

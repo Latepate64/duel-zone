@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new HokiraContinuousEffect(source.GetController(game).ChooseRace(ToString())));
+            game.AddContinuousEffects(source, new HokiraContinuousEffect(GetController(game).ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()

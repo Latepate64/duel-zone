@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             controller.ReturnOwnMana(game, source);
             controller.PutOwnHandCardIntoMana(game, source);
         }

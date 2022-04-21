@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             controller.LookAtOneOfOpponentsShields(game, source);
             game.GetOpponent(controller).DiscardAtRandom(game, 1, source);
         }

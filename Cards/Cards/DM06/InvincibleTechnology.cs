@@ -16,11 +16,11 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).Deck.Cards;
-            var selectedCards = source.GetController(game).ChooseAnyNumberOfCards(cards, ToString()).ToArray();
-            source.GetController(game).Reveal(game, selectedCards);
+            var cards = GetController(game).Deck.Cards;
+            var selectedCards = GetController(game).ChooseAnyNumberOfCards(cards, ToString()).ToArray();
+            GetController(game).Reveal(game, selectedCards);
             game.Move(source, ZoneType.Deck, ZoneType.Hand, selectedCards);
-            source.GetController(game).ShuffleDeck(game);
+            GetController(game).ShuffleDeck(game);
         }
 
         public override IOneShotEffect Copy()

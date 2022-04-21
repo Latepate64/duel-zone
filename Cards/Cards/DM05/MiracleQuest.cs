@@ -16,6 +16,14 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestEffect : OneShotEffect
     {
+        public MiracleQuestEffect()
+        {
+        }
+
+        public MiracleQuestEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(source));
@@ -23,7 +31,7 @@ namespace Cards.Cards.DM05
 
         public override IOneShotEffect Copy()
         {
-            return new MiracleQuestEffect();
+            return new MiracleQuestEffect(this);
         }
 
         public override string ToString()
@@ -72,6 +80,14 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDrawEffect : OneShotEffect
     {
+        public MiracleQuestDrawEffect()
+        {
+        }
+
+        public MiracleQuestDrawEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             var attacker = game.GetCard(source.Source);
@@ -79,9 +95,9 @@ namespace Cards.Cards.DM05
             var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == attacker).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
-                if (source.GetController(game).ChooseToTakeAction("You may draw 2 cards."))
+                if (GetController(game).ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    source.GetController(game).DrawCards(2, game, source);
+                    GetController(game).DrawCards(2, game, source);
                 }
                 else
                 {
@@ -92,7 +108,7 @@ namespace Cards.Cards.DM05
 
         public override IOneShotEffect Copy()
         {
-            return new MiracleQuestDrawEffect();
+            return new MiracleQuestDrawEffect(this);
         }
 
         public override string ToString()

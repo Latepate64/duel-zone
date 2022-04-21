@@ -23,12 +23,12 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                source.GetController(game).Reveal(game, cards);
+                GetController(game).Reveal(game, cards);
             }
             game.Move(source, ZoneType.Deck, ZoneType.Hand, cards);
             if (Reveal)
             {
-                source.GetController(game)?.Unreveal(cards);
+                GetController(game)?.Unreveal(cards);
             }
         }
     }
@@ -39,9 +39,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchSpellEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchSpellEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchSpellEffect();
+            return new SearchSpellEffect(this);
         }
 
         public override string ToString()
@@ -51,7 +59,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Spells;
+            return GetController(game).Deck.Spells;
         }
     }
 
@@ -61,9 +69,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchCardNoRevealEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchCardNoRevealEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchCardNoRevealEffect();
+            return new SearchCardNoRevealEffect(this);
         }
 
         public override string ToString()
@@ -73,7 +89,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Cards;
+            return GetController(game).Deck.Cards;
         }
     }
 
@@ -83,9 +99,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchCreatureEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchCreatureEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchCreatureEffect();
+            return new SearchCreatureEffect(this);
         }
 
         public override string ToString()
@@ -95,7 +119,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Creatures;
+            return GetController(game).Deck.Creatures;
         }
     }
 
@@ -125,7 +149,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.GetCreatures(_race);
+            return GetController(game).Deck.GetCreatures(_race);
         }
     }
 
@@ -155,7 +179,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Cards.Where(x => x.Name == _name);
+            return GetController(game).Deck.Cards.Where(x => x.Name == _name);
         }
     }
 }

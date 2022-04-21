@@ -17,14 +17,22 @@ namespace Cards.Cards.DM05
 
     class SlimeVeilOneShotEffect : OneShotEffect
     {
+        public SlimeVeilOneShotEffect()
+        {
+        }
+
+        public SlimeVeilOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new SlimeVeilContinuousEffect(source.GetOpponent(game)));
+            game.AddContinuousEffects(source, new SlimeVeilContinuousEffect(GetOpponent(game)));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new SlimeVeilOneShotEffect();
+            return new SlimeVeilOneShotEffect(this);
         }
 
         public override string ToString()

@@ -15,6 +15,14 @@ namespace Cards.Cards.DM09
 
     class EmperorMarollEffect : OneShotEffect
     {
+        public EmperorMarollEffect()
+        {
+        }
+
+        public EmperorMarollEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.Move(source, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
@@ -22,7 +30,7 @@ namespace Cards.Cards.DM09
 
         public override IOneShotEffect Copy()
         {
-            return new EmperorMarollEffect();
+            return new EmperorMarollEffect(this);
         }
 
         public override string ToString()

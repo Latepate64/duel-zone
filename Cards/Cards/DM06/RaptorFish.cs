@@ -13,17 +13,25 @@ namespace Cards.Cards.DM06
 
     class RaptorFishEffect : OneShotEffect
     {
+        public RaptorFishEffect()
+        {
+        }
+
+        public RaptorFishEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var amount = source.GetController(game).Hand.Cards.Count;
-            game.Move(source, ZoneType.Hand, ZoneType.Deck, source.GetController(game).Hand.Cards.ToArray());
-            source.GetController(game).ShuffleDeck(game);
-            source.GetController(game).DrawCards(amount, game, source);
+            var amount = GetController(game).Hand.Cards.Count;
+            game.Move(source, ZoneType.Hand, ZoneType.Deck, GetController(game).Hand.Cards.ToArray());
+            GetController(game).ShuffleDeck(game);
+            GetController(game).DrawCards(amount, game, source);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new RaptorFishEffect();
+            return new RaptorFishEffect(this);
         }
 
         public override string ToString()

@@ -11,9 +11,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public TapThisCreatureEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new TapThisCreatureEffect();
+            return new TapThisCreatureEffect(this);
         }
 
         public override string ToString()

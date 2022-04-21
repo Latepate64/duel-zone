@@ -15,9 +15,17 @@ namespace Cards.Cards.DM07
 
     class MiraclePortalOneShotEffect : OneShotEffect
     {
+        public MiraclePortalOneShotEffect()
+        {
+        }
+
+        public MiraclePortalOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var creature = source.GetController(game).ChooseControlledCreature(game, ToString());
+            var creature = GetController(game).ChooseControlledCreature(game, ToString());
             if (creature != null)
             {
                 game.AddContinuousEffects(source, new MiraclePortalContinuousEffect(creature));
@@ -26,7 +34,7 @@ namespace Cards.Cards.DM07
 
         public override IOneShotEffect Copy()
         {
-            return new MiraclePortalOneShotEffect();
+            return new MiraclePortalOneShotEffect(this);
         }
 
         public override string ToString()

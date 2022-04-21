@@ -16,11 +16,11 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetOpponent(game).Deck.GetTopCards(1);
+            var cards = GetOpponent(game).Deck.GetTopCards(1);
             if (cards.Any())
             {
-                source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Unreveal(cards);
+                GetController(game).Look(GetOpponent(game), game, cards.ToArray());
+                GetOpponent(game).Unreveal(cards);
             }
         }
 

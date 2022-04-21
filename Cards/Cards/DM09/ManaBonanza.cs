@@ -13,14 +13,22 @@ namespace Cards.Cards.DM09
 
     class ManaBonanzaEffect : OneShotEffect
     {
+        public ManaBonanzaEffect()
+        {
+        }
+
+        public ManaBonanzaEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, source.GetController(game).ManaZone.Cards.Count, source);
+            GetController(game).PutFromTopOfDeckIntoManaZone(game, GetController(game).ManaZone.Cards.Count, source);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new ManaBonanzaEffect();
+            return new ManaBonanzaEffect(this);
         }
 
         public override string ToString()

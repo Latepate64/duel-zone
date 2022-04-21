@@ -6,20 +6,28 @@ namespace Cards.OneShotEffects
 {
     class LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect : OneShotEffect
     {
+        public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect()
+        {
+        }
+
+        public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var card = source.GetController(game).ChooseCard(source.GetOpponent(game).Hand.Cards, ToString());
+            GetController(game).Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
+            var card = GetController(game).ChooseCard(GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
-                source.GetOpponent(game).Discard(source, game, card);
-                source.GetOpponent(game).Unreveal(new List<ICard>() { card });
+                GetOpponent(game).Discard(source, game, card);
+                GetOpponent(game).Unreveal(new List<ICard>() { card });
             }
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect();
+            return new LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(this);
         }
 
         public override string ToString()

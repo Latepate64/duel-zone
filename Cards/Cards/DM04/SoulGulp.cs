@@ -14,16 +14,24 @@ namespace Cards.Cards.DM04
 
     class SoulGulpEffect : OneShotEffect
     {
+        public SoulGulpEffect()
+        {
+        }
+
+        public SoulGulpEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var opponent = game.GetOpponent(source.GetController(game));
+            var opponent = game.GetOpponent(GetController(game));
             int amount = game.BattleZone.GetCreatures(opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
             opponent.DiscardOwnCards(game, source, amount);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new SoulGulpEffect();
+            return new SoulGulpEffect(this);
         }
 
         public override string ToString()

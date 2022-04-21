@@ -18,7 +18,7 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game, IAbility source)
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
-                new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(source.GetController(game).ChooseRace(ToString()))),
+                new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(GetController(game).ChooseRace(ToString()))),
                 source.Id,
                 source.Controller,
                 true));

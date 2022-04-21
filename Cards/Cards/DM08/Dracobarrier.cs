@@ -14,9 +14,17 @@ namespace Cards.Cards.DM08
 
     class DracobarrierEffect : OneShotEffect
     {
+        public DracobarrierEffect()
+        {
+        }
+
+        public DracobarrierEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var tapped = controller.ChooseOpponentsCreature(game, ToString());
             controller.Tap(game, tapped);
             if (tapped.IsDragon)
@@ -27,7 +35,7 @@ namespace Cards.Cards.DM08
 
         public override IOneShotEffect Copy()
         {
-            return new DracobarrierEffect();
+            return new DracobarrierEffect(this);
         }
 
         public override string ToString()

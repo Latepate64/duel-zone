@@ -13,22 +13,30 @@ namespace Cards.Cards.DM08
 
     class WaveLanceEffect : OneShotEffect
     {
+        public WaveLanceEffect()
+        {
+        }
+
+        public WaveLanceEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var creature = source.GetController(game).ChooseCard(game.BattleZone.Creatures, ToString());
+            var creature = GetController(game).ChooseCard(game.BattleZone.Creatures, ToString());
             if (creature != null)
             {
                 game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creature);
                 if (creature.IsDragon)
                 {
-                    source.GetController(game).DrawCardsOptionally(game, source, 1);
+                    GetController(game).DrawCardsOptionally(game, source, 1);
                 }
             }
         }
 
         public override IOneShotEffect Copy()
         {
-            return new WaveLanceEffect();
+            return new WaveLanceEffect(this);
         }
 
         public override string ToString()

@@ -3,7 +3,6 @@ using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
@@ -17,9 +16,17 @@ namespace Cards.Cards.DM03
 
     class FlametropusOneShotEffect : OneShotEffect
     {
+        public FlametropusOneShotEffect()
+        {
+        }
+
+        public FlametropusOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var card = player.ChooseCardOptionally(player.ManaZone.Cards, ToString());
             if (card != null)
             {
@@ -30,7 +37,7 @@ namespace Cards.Cards.DM03
 
         public override IOneShotEffect Copy()
         {
-            return new FlametropusOneShotEffect();
+            return new FlametropusOneShotEffect(this);
         }
 
         public override string ToString()

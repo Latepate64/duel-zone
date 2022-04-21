@@ -10,7 +10,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public DestroyAfterBattleEffect(DestroyAfterBattleEffect effect)
+        public DestroyAfterBattleEffect(IOneShotEffect effect) : base(effect)
         {
         }
 

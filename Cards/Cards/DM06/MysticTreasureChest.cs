@@ -41,7 +41,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
+            return GetController(game).Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
         }
     }
 }

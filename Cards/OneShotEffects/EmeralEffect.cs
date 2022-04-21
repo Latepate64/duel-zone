@@ -5,15 +5,23 @@ namespace Cards.OneShotEffects
 {
     class EmeralEffect : OneShotEffect
     {
+        public EmeralEffect()
+        {
+        }
+
+        public EmeralEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new EmeralEffect();
+            return new EmeralEffect(this);
         }
 
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
-            var card = player.ChooseCardOptionally(source.GetController(game).Hand.Cards, ToString());
+            var player = GetController(game);
+            var card = player.ChooseCardOptionally(GetController(game).Hand.Cards, ToString());
             if (card != null)
             {
                 game.Move(source, ZoneType.Hand, ZoneType.ShieldZone, card);

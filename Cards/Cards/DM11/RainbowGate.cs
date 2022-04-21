@@ -31,7 +31,7 @@ namespace Cards.Cards.DM11
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Creatures.Where(x => x.IsMultiColored);
+            return GetController(game).Deck.Creatures.Where(x => x.IsMultiColored);
         }
     }
 }

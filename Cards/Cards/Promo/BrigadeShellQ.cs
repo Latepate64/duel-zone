@@ -16,7 +16,7 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
+            var cards = GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
             if (cards.Length == 1)
             {
                 if (cards.Single().HasRace(Race.Survivor))
@@ -28,7 +28,7 @@ namespace Cards.Cards.Promo
                     game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards);
                 }
             }
-            source.GetController(game).Unreveal(cards);
+            GetController(game).Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()

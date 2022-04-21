@@ -9,9 +9,13 @@ namespace Cards.OneShotEffects
     {
         public UntapThisCreatureEffect() : base() { }
 
+        public UntapThisCreatureEffect(UntapAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new UntapThisCreatureEffect();
+            return new UntapThisCreatureEffect(this);
         }
 
         public override string ToString()

@@ -16,11 +16,11 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var amount = game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
+            var amount = game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
 
-            if (amount > 0 && source.GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
+            if (amount > 0 && GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                source.GetController(game).DrawCards(amount, game, source);
+                GetController(game).DrawCards(amount, game, source);
             }
         }
 

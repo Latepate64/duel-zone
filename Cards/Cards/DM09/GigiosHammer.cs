@@ -15,14 +15,22 @@ namespace Cards.Cards.DM09
 
     class GigiosHammerOneShotEffect : OneShotEffect
     {
+        public GigiosHammerOneShotEffect()
+        {
+        }
+
+        public GigiosHammerOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new GigiosHammerContinuousEffect(source.GetController(game).ChooseRace(ToString())));
+            game.AddContinuousEffects(source, new GigiosHammerContinuousEffect(GetController(game).ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new GigiosHammerOneShotEffect();
+            return new GigiosHammerOneShotEffect(this);
         }
 
         public override string ToString()

@@ -219,7 +219,7 @@ namespace Engine
 
         public IAbility GetAbility(Guid id)
         {
-            var abilities = GetAllCards().SelectMany(x => x.GetAbilities<IAbility>());
+            var abilities = GetAllCards().SelectMany(x => x.GetAbilities<IAbility>()).Union(CurrentTurn.CurrentPhase.PendingAbilities).Union(_reflexiveTriggeredAbilities);
             var foo = abilities.Where(x => x.Id == id).ToList();
             return foo.SingleOrDefault();
         }

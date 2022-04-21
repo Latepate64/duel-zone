@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).Untap(game, GetAffectedCards(game, source).ToArray());
+            GetController(game).Untap(game, GetAffectedCards(game, source).ToArray());
         }
     }
 
@@ -27,9 +27,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public UntapAllTheCardsInYourManaZoneEffect(UntapAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new UntapAllTheCardsInYourManaZoneEffect();
+            return new UntapAllTheCardsInYourManaZoneEffect(this);
         }
 
         public override string ToString()
@@ -39,7 +43,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Controller).ManaZone.Cards;
+            return GetController(game).ManaZone.Cards;
         }
     }
 }

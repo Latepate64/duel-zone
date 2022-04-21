@@ -18,7 +18,7 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCard(controller.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
             var opponent = game.GetOpponent(controller);
             game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, opponent.ChooseCard(opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));

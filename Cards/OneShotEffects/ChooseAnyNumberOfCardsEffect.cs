@@ -22,7 +22,7 @@ namespace Cards.OneShotEffects
             var cards = GetAffectedCards(game, source);
             if (cards.Any())
             {
-                var chosen = source.GetController(game).ChooseAnyNumberOfCards(cards, ToString());
+                var chosen = GetController(game).ChooseAnyNumberOfCards(cards, ToString());
                 Apply(game, source, chosen.ToArray());
             }
         }

@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
             }
             else
             {
-                var selection = source.GetController(game).ChooseCards(creatures, 1, 2, ToString());
+                var selection = GetController(game).ChooseCards(creatures, 1, 2, ToString());
                 if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
                     game.Move(source, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());

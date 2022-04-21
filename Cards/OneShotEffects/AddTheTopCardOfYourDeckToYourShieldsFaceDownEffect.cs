@@ -9,14 +9,18 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+            GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect();
+            return new AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(this);
         }
 
         public override string ToString()

@@ -6,17 +6,25 @@ namespace Cards.OneShotEffects
 {
     class LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect : OneShotEffect
     {
+        public LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect()
+        {
+        }
+
+        public LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var cards = source.GetController(game).LookAtTheTopCardsOfYourDeck(4, game);
-            var card = source.GetController(game).ChooseCard(cards, ToString());
+            var cards = GetController(game).LookAtTheTopCardsOfYourDeck(4, game);
+            var card = GetController(game).ChooseCard(cards, ToString());
             game.Move(source, ZoneType.Deck, ZoneType.Hand, card);
-            source.GetController(game).PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
+            GetController(game).PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect();
+            return new LookAtTheTopCardsOfYourDeckTakeOnePutRestOnBottomEffect(this);
         }
 
         public override string ToString()

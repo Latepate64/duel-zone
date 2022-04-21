@@ -17,9 +17,9 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game, IAbility source)
         {
-            if (game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count() >= 3)
+            if (game.BattleZone.GetCreatures(GetOpponent(game).Id).Count() >= 3)
             {
-                source.GetController(game).DrawCards(3, game, source);
+                GetController(game).DrawCards(3, game, source);
             }
         }
 

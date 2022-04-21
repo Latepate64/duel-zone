@@ -14,9 +14,17 @@ namespace Cards.Cards.DM10
 
     class HurricaneCrawlerEffect : OneShotEffect
     {
+        public HurricaneCrawlerEffect()
+        {
+        }
+
+        public HurricaneCrawlerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var hand = player.Hand.Cards;
             var amount = hand.Count;
             game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
@@ -26,7 +34,7 @@ namespace Cards.Cards.DM10
 
         public override IOneShotEffect Copy()
         {
-            return new HurricaneCrawlerEffect();
+            return new HurricaneCrawlerEffect(this);
         }
 
         public override string ToString()

@@ -14,16 +14,24 @@ namespace Cards.Cards.DM06
 
     class ShockHurricaneEffect : OneShotEffect
     {
+        public ShockHurricaneEffect()
+        {
+        }
+
+        public ShockHurricaneEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             var amount = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).Count();
-            var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Count();
+            var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Count();
             if (amount > 0 && amount <= choosableAmount)
             {
-                if (source.GetController(game).ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
+                if (GetController(game).ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
                 {
-                    var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id), amount, amount, ToString());
+                    var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
                     game.Move(source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
                 }
             }
@@ -31,7 +39,7 @@ namespace Cards.Cards.DM06
 
         public override IOneShotEffect Copy()
         {
-            return new ShockHurricaneEffect();
+            return new ShockHurricaneEffect(this);
         }
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var player = source.GetController(game);
+            var player = GetController(game);
             int amount = player.DiscardAnyNumberOfCards(game, source);
             player.DrawCards(amount, game, source);
         }

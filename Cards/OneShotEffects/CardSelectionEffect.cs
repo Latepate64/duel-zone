@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             ControllerChooses = controllerChooses;
         }
 
-        protected CardSelectionEffect(CardSelectionEffect effect)
+        protected CardSelectionEffect(CardSelectionEffect effect) : base(effect)
         {
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
@@ -29,7 +29,7 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game, IAbility source)
         {
             var cards = GetSelectableCards(game, source);
-            var player = ControllerChooses ? source.GetController(game) : source.GetOpponent(game);
+            var player = ControllerChooses ? GetController(game) : GetOpponent(game);
             if (player != null)
             {
                 var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());

@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game, IAbility source)
         {
-            source.GetController(game).DrawCardsOptionally(game, source, Maximum);
+            GetController(game).DrawCardsOptionally(game, source, Maximum);
         }
 
         public override string ToString()

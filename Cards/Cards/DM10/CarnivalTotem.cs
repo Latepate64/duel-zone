@@ -14,17 +14,25 @@ namespace Cards.Cards.DM10
 
     class CarnivalTotemEffect : OneShotEffect
     {
+        public CarnivalTotemEffect()
+        {
+        }
+
+        public CarnivalTotemEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var mana = source.GetController(game).ManaZone.Cards;
-            var hand = source.GetController(game).Hand.Cards;
+            var mana = GetController(game).ManaZone.Cards;
+            var hand = GetController(game).Hand.Cards;
             game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
             game.MoveTapped(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new CarnivalTotemEffect();
+            return new CarnivalTotemEffect(this);
         }
 
         public override string ToString()

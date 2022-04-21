@@ -14,16 +14,24 @@ namespace Cards.Cards.DM05
 
     class CataclysmicEruptionEffect : OneShotEffect
     {
+        public CataclysmicEruptionEffect()
+        {
+        }
+
+        public CataclysmicEruptionEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Nature));
-            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(source.GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new CataclysmicEruptionEffect();
+            return new CataclysmicEruptionEffect(this);
         }
 
         public override string ToString()

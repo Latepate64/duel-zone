@@ -14,9 +14,17 @@ namespace Cards.Cards.DM11
 
     class MiraculousRebirthEffect : OneShotEffect
     {
+        public MiraculousRebirthEffect()
+        {
+        }
+
+        public MiraculousRebirthEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var destroyed = controller.DestroyOpponentsCreatureWithMaxPower(5000, game, ToString());
             if (destroyed != null)
             {
@@ -28,7 +36,7 @@ namespace Cards.Cards.DM11
 
         public override IOneShotEffect Copy()
         {
-            return new MiraculousRebirthEffect();
+            return new MiraculousRebirthEffect(this);
         }
 
         public override string ToString()

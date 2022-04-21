@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,13 @@ namespace Cards.Cards.DM03
     {
         public RoarOfTheEarthEffect() : base(1, 1, true) { }
 
+        public RoarOfTheEarthEffect(SelfManaRecoveryEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new RoarOfTheEarthEffect();
+            return new RoarOfTheEarthEffect(this);
         }
 
         public override string ToString()
@@ -30,7 +35,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ManaZone.Creatures.Where(x => x.ManaCost >= 6);
+            return GetController(game).ManaZone.Creatures.Where(x => x.ManaCost >= 6);
         }
     }
 }

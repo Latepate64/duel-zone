@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var creature = source.GetController(game).ChooseOpponentsCreature(game, ToString());
+            var creature = GetController(game).ChooseOpponentsCreature(game, ToString());
             game.AddContinuousEffects(source, new InfernalCommandContinuousEffect(creature));
         }
 

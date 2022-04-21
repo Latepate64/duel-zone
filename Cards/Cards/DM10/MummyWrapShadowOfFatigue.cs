@@ -14,6 +14,14 @@ namespace Cards.Cards.DM10
 
     class MummyWrapShadowOfFatigueEffect : OneShotEffect
     {
+        public MummyWrapShadowOfFatigueEffect()
+        {
+        }
+
+        public MummyWrapShadowOfFatigueEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
             game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, source));
@@ -21,7 +29,7 @@ namespace Cards.Cards.DM10
 
         public override IOneShotEffect Copy()
         {
-            return new MummyWrapShadowOfFatigueEffect();
+            return new MummyWrapShadowOfFatigueEffect(this);
         }
 
         public override string ToString()

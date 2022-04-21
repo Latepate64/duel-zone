@@ -33,13 +33,13 @@ namespace Cards.Cards.DM10
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
             var names = cards.Select(x => x.Name).Distinct();
-            var creatures = source.GetController(game).Graveyard.Creatures.Where(x => names.Contains(x.Name));
+            var creatures = GetController(game).Graveyard.Creatures.Where(x => names.Contains(x.Name));
             game.Move(source, ZoneType.Graveyard, ZoneType.Hand, creatures.ToArray());
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Creatures;
+            return GetController(game).Graveyard.Creatures;
         }
     }
 }

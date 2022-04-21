@@ -15,14 +15,22 @@ namespace Cards.Cards.DM09
 
     class ImpossibleTunnelOneShotEffect : OneShotEffect
     {
+        public ImpossibleTunnelOneShotEffect()
+        {
+        }
+
+        public ImpossibleTunnelOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override void Apply(IGame game, IAbility source)
         {
-            game.AddContinuousEffects(source, new ImpossibleTunnelContinuousEffect(source.GetController(game).ChooseRace(ToString())));
+            game.AddContinuousEffects(source, new ImpossibleTunnelContinuousEffect(GetController(game).ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new ImpossibleTunnelOneShotEffect();
+            return new ImpossibleTunnelOneShotEffect(this);
         }
 
         public override string ToString()

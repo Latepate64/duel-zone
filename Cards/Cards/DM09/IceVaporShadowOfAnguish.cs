@@ -42,7 +42,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var opponent = source.GetOpponent(game);
+            var opponent = GetOpponent(game);
             opponent.DiscardOwnCard(game, source);
             opponent.BurnOwnMana(game, source);
         }

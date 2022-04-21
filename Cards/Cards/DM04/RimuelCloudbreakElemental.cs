@@ -17,9 +17,9 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game, IAbility source)
         {
-            var controller = source.GetController(game);
+            var controller = GetController(game);
             var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id), amount, amount, ToString());
+            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
             controller.Tap(game, creatures.ToArray());
         }
 
