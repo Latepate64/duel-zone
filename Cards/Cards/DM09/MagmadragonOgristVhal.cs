@@ -30,7 +30,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetController(game).Hand.Cards.Count();
+            return Controller.Hand.Cards.Count();
         }
     }
 }

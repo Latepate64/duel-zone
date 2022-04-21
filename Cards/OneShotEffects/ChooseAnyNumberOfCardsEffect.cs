@@ -19,11 +19,11 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, GetSourceAbility(game));
+            var cards = GetAffectedCards(game, Source);
             if (cards.Any())
             {
-                var chosen = GetController(game).ChooseAnyNumberOfCards(cards, ToString());
-                Apply(game, GetSourceAbility(game), chosen.ToArray());
+                var chosen = Controller.ChooseAnyNumberOfCards(cards, ToString());
+                Apply(game, Source, chosen.ToArray());
             }
         }
 

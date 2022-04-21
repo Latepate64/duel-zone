@@ -28,7 +28,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += game.BattleZone.GetCreatures(GetSourceAbility(game).GetOpponent(game).Id).Count(x => x.HasCivilization(_civilizations)) * _power;
+            GetSourceCard(game).Power += game.BattleZone.GetCreatures(Source.GetOpponent(game).Id).Count(x => x.HasCivilization(_civilizations)) * _power;
         }
 
         public override string ToString()

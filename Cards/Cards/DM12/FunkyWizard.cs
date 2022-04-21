@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {
-                    player.DrawCards(1, game, GetSourceAbility(game));
+                    player.DrawCards(1, game, Source);
                 }
             }
         }

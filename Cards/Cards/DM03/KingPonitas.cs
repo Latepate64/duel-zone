@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.GetCards(Civilization.Water);
+            return Controller.Deck.GetCards(Civilization.Water);
         }
     }
 }

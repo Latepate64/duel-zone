@@ -16,19 +16,19 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            var cards = GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
+            var cards = Controller.RevealTopCardsOfDeck(1, game).ToArray();
             if (cards.Length == 1)
             {
                 if (cards.Single().HasRace(Race.Survivor))
                 {
-                    game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, cards);
+                    game.Move(Source, ZoneType.Deck, ZoneType.Hand, cards);
                 }
                 else
                 {
-                    game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Graveyard, cards);
+                    game.Move(Source, ZoneType.Deck, ZoneType.Graveyard, cards);
                 }
             }
-            GetController(game).Unreveal(cards);
+            Controller.Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()

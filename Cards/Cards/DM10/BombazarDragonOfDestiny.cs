@@ -27,10 +27,10 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            game.Destroy(GetSourceAbility(game), game.BattleZone.Creatures.Where(p => p.Id != GetSourceAbility(game).Source && p.Power.Value == 6000).ToArray());
-            Turn turn = new() { ActivePlayer = GetController(game), NonActivePlayer = GetOpponent(game) };
+            game.Destroy(Source, game.BattleZone.Creatures.Where(p => p.Id != Source.Source && p.Power.Value == 6000).ToArray());
+            Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
             game.ExtraTurns.Push(turn);
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), GetSourceAbility(game).Source, GetSourceAbility(game).Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), Source.Source, Source.Controller, true));
         }
 
         public override IOneShotEffect Copy()
@@ -48,7 +48,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            game.Lose(GetController(game));
+            game.Lose(Controller);
         }
 
         public override IOneShotEffect Copy()

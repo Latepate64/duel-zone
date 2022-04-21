@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).ManaZone.TappedCards;
+            return Controller.ManaZone.TappedCards;
         }
     }
 }

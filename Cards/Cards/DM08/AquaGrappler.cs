@@ -24,8 +24,8 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Count(x => x.Id != GetSourceAbility(game).Source && x.Tapped == true);
-            GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), amount);
+            var amount = game.BattleZone.GetCreatures(Source.Controller).Count(x => x.Id != Source.Source && x.Tapped == true);
+            Controller.DrawCardsOptionally(game, Source, amount);
         }
 
         public override IOneShotEffect Copy()

@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {

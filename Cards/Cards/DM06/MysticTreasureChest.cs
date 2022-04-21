@@ -36,12 +36,12 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.ManaZone, cards);
+            game.Move(Source, ZoneType.Deck, ZoneType.ManaZone, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
+            return Controller.Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasRace(Race.CyberLord) || x.HasRace(Race.Hedrian))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x, game) && (x.HasRace(Race.CyberLord) || x.HasRace(Race.Hedrian))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -43,7 +43,7 @@ namespace Cards.Cards.DM12
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker) && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
+            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker) && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
         }
 
         public override IContinuousEffect Copy()

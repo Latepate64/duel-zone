@@ -24,15 +24,15 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var opponent = GetOpponent(game);
             controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ManaZone, card);
+                game.Move(Source, ZoneType.Hand, ZoneType.ManaZone, card);
                 var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
-                game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, mana);
+                game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
             opponent.Unreveal(new List<ICard> { card });
         }

@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var ability = GetSourceAbility(game);
+            var ability = Source;
             if (!game.BattleZone.GetCreatures(ability.Controller).Any(x => x.Id != ability.Source))
             {
                 GetSourceCard(game).AddGrantedAbility(new PowerAttackerAbility(4000));

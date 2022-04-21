@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
             if (cards.Any())
             {
                 var revealer = game.GetOwner(cards.First());
-                GetController(game).Look(revealer, game, cards.ToArray());
+                Controller.Look(revealer, game, cards.ToArray());
                 revealer.Unreveal(cards);
             }
         }

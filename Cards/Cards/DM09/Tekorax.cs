@@ -27,7 +27,7 @@ namespace Cards.Cards.DM09
             var cards = GetOpponent(game).ShieldZone.Cards;
             if (cards.Any())
             {
-                GetController(game).Look(GetOpponent(game), game, cards.ToArray());
+                Controller.Look(GetOpponent(game), game, cards.ToArray());
                 GetOpponent(game).Unreveal(cards);
             }
         }

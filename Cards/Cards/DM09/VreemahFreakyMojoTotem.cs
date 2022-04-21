@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new VreemahFreakyMojoTotemContinuousEffect());
+            game.AddContinuousEffects(Source, new VreemahFreakyMojoTotemContinuousEffect());
         }
 
         public override IOneShotEffect Copy()

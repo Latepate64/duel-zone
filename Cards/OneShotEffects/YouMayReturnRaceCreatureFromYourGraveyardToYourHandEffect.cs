@@ -32,7 +32,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return GetController(game).Graveyard.GetCreatures(_race);
+            return Controller.Graveyard.GetCreatures(_race);
         }
     }
 }

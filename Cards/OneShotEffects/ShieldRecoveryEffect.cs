@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, GetSourceAbility(game));
+            game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Source);
         }
     }
 
@@ -53,7 +53,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 
@@ -79,7 +79,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 }

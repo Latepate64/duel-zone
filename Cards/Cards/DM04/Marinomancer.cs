@@ -24,11 +24,11 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var cards = GetController(game).RevealTopCardsOfDeck(3, game);
+            var cards = Controller.RevealTopCardsOfDeck(3, game);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
-            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
-            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
-            GetController(game).Unreveal(cards);
+            game.Move(Source, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
+            game.Move(Source, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
+            Controller.Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()

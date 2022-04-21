@@ -17,8 +17,8 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Count(x => x.Id != GetSourceAbility(game).Source && x.HasCivilization(Civilization.Darkness));
-            GetOpponent(game).DiscardAtRandom(game, amount, GetSourceAbility(game));
+            var amount = game.BattleZone.GetCreatures(Source.Controller).Count(x => x.Id != Source.Source && x.HasCivilization(Civilization.Darkness));
+            GetOpponent(game).DiscardAtRandom(game, amount, Source);
         }
 
         public override IOneShotEffect Copy()

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM09
             var card = opponent.ChooseCard(game.BattleZone.GetCreatures(opponent.Id).Union(opponent.ShieldZone.Cards), ToString());
             if (card != null)
             {
-                game.Move(GetSourceAbility(game), game.GetZone(card).Type, ZoneType.Graveyard, card);
+                game.Move(Source, game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
         }
 

@@ -23,12 +23,12 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var player = controller.ChoosePlayer(game, ToString());
             var card = controller.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)
             {
-                game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Graveyard, card);
+                game.Move(Source, ZoneType.Deck, ZoneType.Graveyard, card);
             }
             player.ShuffleDeck(game);
         }

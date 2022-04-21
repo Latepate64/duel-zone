@@ -23,7 +23,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            GetController(game).PutFromTopOfDeckIntoManaZone(game, GetController(game).ManaZone.Cards.Count, GetSourceAbility(game));
+            Controller.PutFromTopOfDeckIntoManaZone(game, Controller.ManaZone.Cards.Count, Source);
         }
 
         public override IOneShotEffect Copy()

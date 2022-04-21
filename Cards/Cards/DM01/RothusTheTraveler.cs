@@ -24,7 +24,7 @@ namespace Cards.Cards.DM01
 
         public override void Apply(IGame game)
         {
-            new List<IPlayer> { GetController(game), GetOpponent(game) }.ForEach(x => x.Sacrifice(game, GetSourceAbility(game)));
+            new List<IPlayer> { Controller, GetOpponent(game) }.ForEach(x => x.Sacrifice(game, Source));
         }
 
         public override IOneShotEffect Copy()

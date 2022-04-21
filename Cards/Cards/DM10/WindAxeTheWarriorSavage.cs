@@ -28,9 +28,9 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
-            player.DestroyOpponentsBlocker(game, GetSourceAbility(game));
-            player.PutFromTopOfDeckIntoManaZone(game, 1, GetSourceAbility(game));
+            var player = Controller;
+            player.DestroyOpponentsBlocker(game, Source);
+            player.PutFromTopOfDeckIntoManaZone(game, 1, Source);
         }
 
         public override string ToString()

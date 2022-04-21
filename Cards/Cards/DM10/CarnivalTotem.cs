@@ -24,10 +24,10 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var mana = GetController(game).ManaZone.Cards;
-            var hand = GetController(game).Hand.Cards;
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(GetSourceAbility(game), ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            var mana = Controller.ManaZone.Cards;
+            var hand = Controller.Hand.Cards;
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(Source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()

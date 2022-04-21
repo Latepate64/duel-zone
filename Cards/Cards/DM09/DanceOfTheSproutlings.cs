@@ -24,10 +24,10 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var race = controller.ChooseRace(ToString());
             var creatures = controller.ChooseAnyNumberOfCards(controller.Hand.GetCreatures(race), ToString());
-            game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
+            game.Move(Source, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -24,10 +24,10 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Graveyard, cards);
-            player.DrawCards(cards.Length, game, GetSourceAbility(game));
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, cards);
+            player.DrawCards(cards.Length, game, Source);
         }
 
         public override IOneShotEffect Copy()

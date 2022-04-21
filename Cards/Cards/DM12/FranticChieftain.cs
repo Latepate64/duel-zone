@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => x.ManaCost <= 4);
+            return game.BattleZone.GetCreatures(Source.Controller).Where(x => x.ManaCost <= 4);
         }
     }
 }

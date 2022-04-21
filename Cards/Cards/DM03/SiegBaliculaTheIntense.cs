@@ -18,7 +18,7 @@ namespace Cards.Cards.DM03
 
         public bool CanBlock(ICard blocker, ICard attacker, IGame game)
         {
-            var ability = GetSourceAbility(game);
+            var ability = Source;
             return blocker.Owner == ability.Controller && blocker.Id != ability.Source && blocker.HasCivilization(Civilization.Light);
         }
 

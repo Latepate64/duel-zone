@@ -22,7 +22,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherTappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherTappedCreatures(Controller.Id, GetSourceCard(game).Id).Count();
         }
     }
 }

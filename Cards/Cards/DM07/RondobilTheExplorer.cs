@@ -30,7 +30,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller);
+            return game.BattleZone.GetCreatures(Source.Controller);
         }
     }
 }

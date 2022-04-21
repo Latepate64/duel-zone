@@ -19,7 +19,7 @@ namespace Cards.Cards.DM11
             var cards = GetOpponent(game).Deck.GetTopCards(1);
             if (cards.Any())
             {
-                GetController(game).Look(GetOpponent(game), game, cards.ToArray());
+                Controller.Look(GetOpponent(game), game, cards.ToArray());
                 GetOpponent(game).Unreveal(cards);
             }
         }

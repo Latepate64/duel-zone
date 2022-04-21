@@ -23,10 +23,10 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var card = player.ChooseCard(game.GetOpponent(player).ManaZone.Cards, ToString());
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Graveyard, card);
-            player.PutFromTopOfDeckIntoManaZone(game, 1, GetSourceAbility(game));
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, card);
+            player.PutFromTopOfDeckIntoManaZone(game, 1, Source);
         }
 
         public override IOneShotEffect Copy()

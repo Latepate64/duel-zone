@@ -34,13 +34,13 @@ namespace Cards.Cards.DM10
             foreach (var card in cards)
             {
                 var sourceZone = game.BattleZone.Cards.Contains(card) ? ZoneType.BattleZone : ZoneType.ManaZone;
-                game.Move(GetSourceAbility(game), sourceZone, ZoneType.Hand, card);
+                game.Move(Source, sourceZone, ZoneType.Hand, card);
             }
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(GetSourceAbility(game).Controller));
+            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(Source.Controller));
         }
     }
 }

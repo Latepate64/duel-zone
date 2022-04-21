@@ -24,12 +24,12 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             controller.TapOpponentsCreature(game);
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(GetSourceAbility(game), new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
+                game.AddContinuousEffects(Source, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
             }
         }
 

@@ -43,8 +43,8 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var opponent = GetOpponent(game);
-            opponent.DiscardOwnCard(game, GetSourceAbility(game));
-            opponent.BurnOwnMana(game, GetSourceAbility(game));
+            opponent.DiscardOwnCard(game, Source);
+            opponent.BurnOwnMana(game, Source);
         }
 
         public override IOneShotEffect Copy()

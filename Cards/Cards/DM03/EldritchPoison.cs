@@ -16,12 +16,12 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
             if (creature != null)
             {
-                game.Destroy(GetSourceAbility(game), creature);
-                controller.ReturnOwnManaCreature(game, GetSourceAbility(game));
+                game.Destroy(Source, creature);
+                controller.ReturnOwnManaCreature(game, Source);
             }
         }
 

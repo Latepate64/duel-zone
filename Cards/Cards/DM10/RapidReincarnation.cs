@@ -17,13 +17,13 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
             if (creature != null)
             {
-                game.Destroy(GetSourceAbility(game), creature);
+                game.Destroy(Source, creature);
                 var card = controller.ChooseCard(controller.Hand.Creatures.Where(x => x.ManaCost <= controller.ManaZone.Cards.Count), ToString());
-                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.BattleZone, card);
+                game.Move(Source, ZoneType.Hand, ZoneType.BattleZone, card);
             }
         }
 

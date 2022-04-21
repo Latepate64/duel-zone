@@ -26,7 +26,7 @@ namespace Cards.Cards.DM09
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            var race = GetController(game).ChooseRace(ToString(), Race.MechaDelSol);
+            var race = Controller.ChooseRace(ToString(), Race.MechaDelSol);
             return new PetrovaEvent(gameEvent as CardMovedEvent, race);
         }
 

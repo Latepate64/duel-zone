@@ -26,7 +26,7 @@ namespace Cards.Cards.DM07
 
         public bool CannotAttack(ICard attacker, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && !GetController(game).Hand.HasCards;
+            return IsSourceOfAbility(attacker, game) && !Controller.Hand.HasCards;
         }
 
         public override IContinuousEffect Copy()

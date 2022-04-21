@@ -25,7 +25,7 @@ namespace Cards.Cards.DM02
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).Where(x => !IsSourceOfAbility(x, game) && x.HasRace(Race.Human)).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x, game) && x.HasRace(Race.Human)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

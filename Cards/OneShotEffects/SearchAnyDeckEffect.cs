@@ -24,13 +24,13 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, GetSourceAbility(game));
+            var cards = GetAffectedCards(game, Source);
             if (cards.Any())
             {
-                var selectedCards = GetController(game).ChooseCards(cards, 0, _maximum, ToString());
-                Apply(game, GetSourceAbility(game), selectedCards.ToArray());
+                var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
+                Apply(game, Source, selectedCards.ToArray());
             }
-            (_searchOpponentsDeck ? GetOpponent(game) : GetController(game)).ShuffleDeck(game);
+            (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleDeck(game);
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

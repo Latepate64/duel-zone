@@ -20,7 +20,7 @@ namespace Cards.Cards.DM08
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Race.Dragonoid).ToList()));
+            game.AddContinuousEffects(Source, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(Source.Controller, Race.Dragonoid).ToList()));
         }
 
         public override IOneShotEffect Copy()

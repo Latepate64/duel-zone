@@ -16,10 +16,10 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = GetController(game).LookAtTheTopCardsOfYourDeck(4, game);
-            var card = GetController(game).ChooseCard(cards, ToString());
-            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, card);
-            GetController(game).PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
+            var cards = Controller.LookAtTheTopCardsOfYourDeck(4, game);
+            var card = Controller.ChooseCard(cards, ToString());
+            game.Move(Source, ZoneType.Deck, ZoneType.Hand, card);
+            Controller.PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
         }
 
         public override IOneShotEffect Copy()

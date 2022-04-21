@@ -16,8 +16,8 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game)
         {
-            game.Move(GetSourceAbility(game), ZoneType.Graveyard, ZoneType.Hand, GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, GetController(game).ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            game.Move(Source, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, Controller.ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
         }
 
         public override IOneShotEffect Copy()

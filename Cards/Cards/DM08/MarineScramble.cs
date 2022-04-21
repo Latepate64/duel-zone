@@ -25,7 +25,7 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new YourCreaturesCannotBeBlockedThisTurnEffect());
+            game.AddContinuousEffects(Source, new YourCreaturesCannotBeBlockedThisTurnEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM08
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker);
+            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

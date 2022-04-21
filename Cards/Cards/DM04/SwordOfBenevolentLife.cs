@@ -24,9 +24,9 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller);
+            var creatures = game.BattleZone.GetCreatures(Source.Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
-            game.AddContinuousEffects(GetSourceAbility(game), new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
+            game.AddContinuousEffects(Source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(power, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

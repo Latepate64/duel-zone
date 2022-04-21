@@ -27,7 +27,7 @@ namespace Cards.Cards.DM06
         public void AddAbility(IGame game)
         {
             var creature = GetSourceCard(game);
-            if (!game.BattleZone.GetOtherCreatures(GetController(game).Id, creature.Id, Civilization.Fire).Any())
+            if (!game.BattleZone.GetOtherCreatures(Controller.Id, creature.Id, Civilization.Fire).Any())
             {
                 creature.AddGrantedAbility(new PowerAttackerAbility(3000));
                 creature.AddGrantedAbility(new DoubleBreakerAbility());

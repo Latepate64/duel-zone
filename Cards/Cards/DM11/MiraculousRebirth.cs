@@ -24,12 +24,12 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var destroyed = controller.DestroyOpponentsCreatureWithMaxPower(5000, game, ToString());
             if (destroyed != null)
             {
                 var creature = controller.ChooseCard(controller.Deck.Creatures.Where(x => x.ManaCost == destroyed.ManaCost), ToString());
-                game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.BattleZone, creature);
+                game.Move(Source, ZoneType.Deck, ZoneType.BattleZone, creature);
                 controller.ShuffleDeck(game);
             }
         }

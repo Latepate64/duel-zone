@@ -33,19 +33,19 @@ namespace Cards.Cards.DM12
         {
             if (cards.Length == 1)
             {
-                GetController(game).Look(GetController(game), game, cards);
+                Controller.Look(Controller, game, cards);
                 var card = cards.Single();
-                if (card.CardType == CardType.Spell && GetController(game).ChooseToTakeAction($"You may cast {card.Name} for no cost."))
+                if (card.CardType == CardType.Spell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
-                    GetController(game).Cast(card, game);
+                    Controller.Cast(card, game);
                 }
-                GetController(game).Unreveal(cards);
+                Controller.Unreveal(cards);
             }
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 }

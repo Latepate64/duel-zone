@@ -35,7 +35,7 @@ namespace Cards.Cards.DM10
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetController(game).ManaZone.Cards.SelectMany(x => x.Civilizations).Distinct().Count();
+            return Controller.ManaZone.Cards.SelectMany(x => x.Civilizations).Distinct().Count();
         }
     }
 }

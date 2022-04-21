@@ -24,15 +24,15 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var amount = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).Count();
             var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Count();
             if (amount > 0 && amount <= choosableAmount)
             {
-                if (GetController(game).ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
+                if (Controller.ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
                 {
                     var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
-                    game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
+                    game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
                 }
             }
         }

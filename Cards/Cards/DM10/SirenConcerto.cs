@@ -16,9 +16,9 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
-            controller.ReturnOwnMana(game, GetSourceAbility(game));
-            controller.PutOwnHandCardIntoMana(game, GetSourceAbility(game));
+            var controller = Controller;
+            controller.ReturnOwnMana(game, Source);
+            controller.PutOwnHandCardIntoMana(game, Source);
         }
 
         public override IOneShotEffect Copy()

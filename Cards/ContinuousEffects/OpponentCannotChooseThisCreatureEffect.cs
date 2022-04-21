@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
 
         public bool PlayerCannotChooseCreature(ICard creature, System.Guid player, IGame game)
         {
-            return IsSourceOfAbility(creature, game) && player == game.GetOpponent(GetController(game)).Id;
+            return IsSourceOfAbility(creature, game) && player == game.GetOpponent(Controller).Id;
         }
 
         public override IContinuousEffect Copy()

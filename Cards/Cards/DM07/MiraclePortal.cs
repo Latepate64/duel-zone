@@ -25,10 +25,10 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            var creature = GetController(game).ChooseControlledCreature(game, ToString());
+            var creature = Controller.ChooseControlledCreature(game, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(GetSourceAbility(game), new MiraclePortalContinuousEffect(creature));
+                game.AddContinuousEffects(Source, new MiraclePortalContinuousEffect(creature));
             }
         }
 

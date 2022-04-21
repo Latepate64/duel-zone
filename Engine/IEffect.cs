@@ -5,7 +5,6 @@ namespace Engine
 {
     public interface IEffect
     {
-        Guid SourceAbility { get; set; }
         IPlayer Controller { get; set; }
         IAbility Source { get; set; }
     }
@@ -18,10 +17,8 @@ namespace Engine
 
         protected Effect(IEffect effect)
         {
-            SourceAbility = effect.SourceAbility;
         }
 
-        public Guid SourceAbility { get; set; }
         public IPlayer Controller { get; set; }
         public IAbility Source { get; set; }
 
@@ -35,16 +32,10 @@ namespace Engine
         {
             if (disposing)
             {
-                SourceAbility = Guid.Empty;
             }
         }
 
         public override abstract string ToString();
-
-        protected IAbility GetSourceAbility(IGame game)
-        {
-            return Source;
-        }
 
         protected bool IsSourceOfAbility(ICard card, IGame game)
         {
@@ -54,11 +45,6 @@ namespace Engine
         protected ICard GetSourceCard(IGame game)
         {
             return game.GetCard(Source.Source);
-        }
-
-        protected IPlayer GetController(IGame game)
-        {
-            return Controller;
         }
 
         protected IPlayer GetOpponent(IGame game)

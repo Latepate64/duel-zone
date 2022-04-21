@@ -27,8 +27,8 @@ namespace Cards.Cards.DM10
         {
             var mana = game.Players.SelectMany(x => x.ManaZone.Cards);
             var hand = game.Players.SelectMany(x => x.Hand.Cards);
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(GetSourceAbility(game), ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(Source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()

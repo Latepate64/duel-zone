@@ -26,7 +26,7 @@ namespace Cards.Cards.DM05
 
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(GetSourceAbility(game)));
+            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(Source));
         }
 
         public override IOneShotEffect Copy()
@@ -90,14 +90,14 @@ namespace Cards.Cards.DM05
 
         public override void Apply(IGame game)
         {
-            var attacker = game.GetCard(GetSourceAbility(game).Source);
+            var attacker = game.GetCard(Source.Source);
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
             var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == attacker).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
-                if (GetController(game).ChooseToTakeAction("You may draw 2 cards."))
+                if (Controller.ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    GetController(game).DrawCards(2, game, GetSourceAbility(game));
+                    Controller.DrawCards(2, game, Source);
                 }
                 else
                 {

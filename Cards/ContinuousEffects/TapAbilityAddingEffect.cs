@@ -31,7 +31,7 @@ namespace Cards.ContinuousEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, _civilization);
+            return game.BattleZone.GetCreatures(Controller.Id, _civilization);
         }
     }
 }

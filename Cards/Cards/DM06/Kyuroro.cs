@@ -31,7 +31,7 @@ namespace Cards.Cards.DM06
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == game.GetOpponent(GetController(game)).Id;
+            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == game.GetOpponent(Controller).Id;
         }
 
         public override IContinuousEffect Copy()

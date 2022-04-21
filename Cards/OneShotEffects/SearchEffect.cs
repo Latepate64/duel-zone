@@ -23,12 +23,12 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                GetController(game).Reveal(game, cards);
+                Controller.Reveal(game, cards);
             }
-            game.Move(GetSourceAbility(game), ZoneType.Deck, ZoneType.Hand, cards);
+            game.Move(Source, ZoneType.Deck, ZoneType.Hand, cards);
             if (Reveal)
             {
-                GetController(game)?.Unreveal(cards);
+                Controller?.Unreveal(cards);
             }
         }
     }
@@ -59,7 +59,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.Spells;
+            return Controller.Deck.Spells;
         }
     }
 
@@ -89,7 +89,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.Cards;
+            return Controller.Deck.Cards;
         }
     }
 
@@ -119,7 +119,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.Creatures;
+            return Controller.Deck.Creatures;
         }
     }
 
@@ -149,7 +149,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.GetCreatures(_race);
+            return Controller.Deck.GetCreatures(_race);
         }
     }
 
@@ -179,7 +179,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetController(game).Deck.Cards.Where(x => x.Name == _name);
+            return Controller.Deck.Cards.Where(x => x.Name == _name);
         }
     }
 }

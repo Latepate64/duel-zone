@@ -18,9 +18,9 @@ namespace Cards.Cards.DM02
         {
             var amount = game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
 
-            if (amount > 0 && GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
+            if (amount > 0 && Controller.ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                GetController(game).DrawCards(amount, game, GetSourceAbility(game));
+                Controller.DrawCards(amount, game, Source);
             }
         }
 

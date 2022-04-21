@@ -16,10 +16,10 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var race = controller.ChooseRace(ToString());
             var creatures = controller.Graveyard.GetCreatures(race);
-            game.Move(GetSourceAbility(game), ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());
+            game.Move(Source, ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()

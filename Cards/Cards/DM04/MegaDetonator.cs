@@ -25,10 +25,10 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
-            var amount = player.DiscardAnyNumberOfCards(game, GetSourceAbility(game));
+            var player = Controller;
+            var amount = player.DiscardAnyNumberOfCards(game, Source);
             var creatures = player.ChooseControlledCreatures(game, ToString(), amount);
-            game.AddContinuousEffects(GetSourceAbility(game), new MegaDetonatorContinuousEffect(creatures.ToArray()));
+            game.AddContinuousEffects(Source, new MegaDetonatorContinuousEffect(creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

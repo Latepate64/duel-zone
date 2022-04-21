@@ -21,8 +21,8 @@ namespace Cards.Cards.DM07
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
-                        GetSourceAbility(game).Source,
-                        GetSourceAbility(game).Controller,
+                        Source.Source,
+                        Source.Controller,
                         true));
         }
 
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Civilization.Light);
+            return game.BattleZone.GetCreatures(Source.Controller, Civilization.Light);
         }
     }
 }

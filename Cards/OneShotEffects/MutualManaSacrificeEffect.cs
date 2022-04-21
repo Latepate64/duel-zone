@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var cards = game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
-            game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
+            game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -23,10 +23,10 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var amount = GetController(game).Hand.Cards.Count;
-            game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.Deck, GetController(game).Hand.Cards.ToArray());
-            GetController(game).ShuffleDeck(game);
-            GetController(game).DrawCards(amount, game, GetSourceAbility(game));
+            var amount = Controller.Hand.Cards.Count;
+            game.Move(Source, ZoneType.Hand, ZoneType.Deck, Controller.Hand.Cards.ToArray());
+            Controller.ShuffleDeck(game);
+            Controller.DrawCards(amount, game, Source);
         }
 
         public override IOneShotEffect Copy()

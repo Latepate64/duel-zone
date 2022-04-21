@@ -26,7 +26,7 @@ namespace Cards.Cards.DM06
 
         public bool CannotAttack(ICard creature, IGame game)
         {
-            return IsSourceOfAbility(creature, game) && game.BattleZone.GetOtherUntappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Any();
+            return IsSourceOfAbility(creature, game) && game.BattleZone.GetOtherUntappedCreatures(Controller.Id, GetSourceCard(game).Id).Any();
         }
 
         public override IContinuousEffect Copy()

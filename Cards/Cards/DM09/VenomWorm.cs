@@ -18,9 +18,9 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            var race = GetController(game).ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => x.HasRace(race)).ToArray();
-            game.AddContinuousEffects(GetSourceAbility(game), new VenomWormContinuousEffect(race, creatures));
+            var race = Controller.ChooseRace(ToString());
+            var creatures = game.BattleZone.GetCreatures(Source.Controller).Where(x => x.HasRace(race)).ToArray();
+            game.AddContinuousEffects(Source, new VenomWormContinuousEffect(race, creatures));
         }
 
         public override IOneShotEffect Copy()

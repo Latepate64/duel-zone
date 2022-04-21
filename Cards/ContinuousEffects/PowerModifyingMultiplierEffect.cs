@@ -68,7 +68,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherTappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherTappedCreatures(Controller.Id, GetSourceCard(game).Id).Count();
         }
     }
 
@@ -94,7 +94,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherUntappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherUntappedCreatures(Controller.Id, GetSourceCard(game).Id).Count();
         }
     }
 
@@ -120,7 +120,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetSourceAbility(game).GetController(game).ManaZone.TappedCards.Count();
+            return Source.GetController(game).ManaZone.TappedCards.Count();
         }
     }
 }

@@ -26,12 +26,12 @@ namespace Cards.Cards.DM03
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var card = player.ChooseCardOptionally(player.ManaZone.Cards, ToString());
             if (card != null)
             {
-                game.Move(GetSourceAbility(game), ZoneType.ManaZone, ZoneType.Graveyard, card);
-                game.AddContinuousEffects(GetSourceAbility(game), new FlametropusContinuousEffect(game.GetCard(GetSourceAbility(game).Source)));                 
+                game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, card);
+                game.AddContinuousEffects(Source, new FlametropusContinuousEffect(game.GetCard(Source.Source)));                 
             }
         }
 

@@ -23,8 +23,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, GetSourceAbility(game)).ToArray();
-            _ = game.Move(GetSourceAbility(game), SourceZone, DestinationZone, cards);
+            var cards = GetAffectedCards(game, Source).ToArray();
+            _ = game.Move(Source, SourceZone, DestinationZone, cards);
         }
     }
 }

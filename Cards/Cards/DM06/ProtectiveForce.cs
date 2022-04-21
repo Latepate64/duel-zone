@@ -33,12 +33,12 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
+            game.AddContinuousEffects(Source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(GetSourceAbility(game).Controller).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.GetCreatures(Source.Controller).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

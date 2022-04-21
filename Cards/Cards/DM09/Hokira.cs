@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new HokiraContinuousEffect(GetController(game).ChooseRace(ToString())));
+            game.AddContinuousEffects(Source, new HokiraContinuousEffect(Controller.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -66,12 +66,12 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.HasRace(_race);
+            return card.Owner == Controller.Id && card.HasRace(_race);
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, _race).ToList();
+            return game.BattleZone.GetCreatures(Controller.Id, _race).ToList();
         }
     }
 }

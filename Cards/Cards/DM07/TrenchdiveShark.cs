@@ -16,13 +16,13 @@ namespace Cards.Cards.DM07
     {
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {
-                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
+                game.Move(Source, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
                 var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
-                game.Move(GetSourceAbility(game), ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
+                game.Move(Source, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
             }
         }
 

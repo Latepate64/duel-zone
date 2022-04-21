@@ -16,11 +16,11 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            GetController(game).Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
-            var card = GetController(game).ChooseCard(GetOpponent(game).Hand.Cards, ToString());
+            Controller.Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
+            var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
-                GetOpponent(game).Discard(GetSourceAbility(game), game, card);
+                GetOpponent(game).Discard(Source, game, card);
                 GetOpponent(game).Unreveal(new List<ICard>() { card });
             }
         }

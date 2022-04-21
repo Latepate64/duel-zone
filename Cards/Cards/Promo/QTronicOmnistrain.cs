@@ -17,7 +17,7 @@ namespace Cards.Cards.Promo
     {
         public void AddRace(IGame game)
         {
-            game.BattleZone.GetCreatures(GetController(game).Id).ToList().ForEach(x => x.AddGrantedRace(Race.Survivor));
+            game.BattleZone.GetCreatures(Controller.Id).ToList().ForEach(x => x.AddGrantedRace(Race.Survivor));
         }
 
         public override IContinuousEffect Copy()

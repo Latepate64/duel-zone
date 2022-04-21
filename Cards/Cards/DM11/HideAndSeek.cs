@@ -23,10 +23,10 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
+            var controller = Controller;
             var creature = controller.ChooseOpponentsNonEvolutionCreature(game, ToString());
-            game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creature);
-            game.GetOpponent(controller).DiscardAtRandom(game, 1, GetSourceAbility(game));
+            game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creature);
+            game.GetOpponent(controller).DiscardAtRandom(game, 1, Source);
         }
 
         public override IOneShotEffect Copy()

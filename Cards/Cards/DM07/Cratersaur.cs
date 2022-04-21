@@ -43,7 +43,7 @@ namespace Cards.Cards.DM07
 
         private bool YouHaveNoShields(IGame game)
         {
-            return !GetSourceAbility(game).GetController(game).ShieldZone.HasCards;
+            return !Source.GetController(game).ShieldZone.HasCards;
         }
     }
 }

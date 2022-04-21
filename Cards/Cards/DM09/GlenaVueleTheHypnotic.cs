@@ -24,9 +24,9 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            if (GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
+                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Source);
             }
         }
 

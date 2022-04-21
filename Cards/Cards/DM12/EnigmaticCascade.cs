@@ -16,9 +16,9 @@ namespace Cards.Cards.DM12
     {
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
-            int amount = player.DiscardAnyNumberOfCards(game, GetSourceAbility(game));
-            player.DrawCards(amount, game, GetSourceAbility(game));
+            var player = Controller;
+            int amount = player.DiscardAnyNumberOfCards(game, Source);
+            player.DrawCards(amount, game, Source);
         }
 
         public override IOneShotEffect Copy()

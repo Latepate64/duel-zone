@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Water, Civilization.Fire);
+            return game.BattleZone.GetCreatures(Controller.Id, Civilization.Water, Civilization.Fire);
         }
     }
 }

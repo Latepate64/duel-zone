@@ -20,8 +20,8 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            var creature = GetController(game).ChooseOpponentsCreature(game, ToString());
-            game.AddContinuousEffects(GetSourceAbility(game), new InfernalCommandContinuousEffect(creature));
+            var creature = Controller.ChooseOpponentsCreature(game, ToString());
+            game.AddContinuousEffects(Source, new InfernalCommandContinuousEffect(creature));
         }
 
         public override IOneShotEffect Copy()
@@ -61,7 +61,7 @@ namespace Cards.Cards.DM10
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == GetController(game);
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Controller;
         }
 
         public override string ToString()

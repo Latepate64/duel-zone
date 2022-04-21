@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(GetSourceAbility(game), new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(game.GetCard(GetSourceAbility(game).Source)));
+            game.AddContinuousEffects(Source, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(game.GetCard(Source.Source)));
         }
     }
 }

@@ -18,8 +18,8 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(GetSourceAbility(game).Controller, Civilization.Water).Count(x => x.Id != GetSourceAbility(game).Source);
-            GetController(game).DrawCardsOptionally(game, GetSourceAbility(game), amount);
+            var amount = game.BattleZone.GetCreatures(Source.Controller, Civilization.Water).Count(x => x.Id != Source.Source);
+            Controller.DrawCardsOptionally(game, Source, amount);
         }
 
         public override IOneShotEffect Copy()

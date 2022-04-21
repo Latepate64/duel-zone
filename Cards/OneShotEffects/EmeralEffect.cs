@@ -20,13 +20,13 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
-            var card = player.ChooseCardOptionally(GetController(game).Hand.Cards, ToString());
+            var player = Controller;
+            var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(GetSourceAbility(game), ZoneType.Hand, ZoneType.ShieldZone, card);
+                game.Move(Source, ZoneType.Hand, ZoneType.ShieldZone, card);
                 var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
-                game.Move(GetSourceAbility(game), ZoneType.ShieldZone, ZoneType.Hand, shield);
+                game.Move(Source, ZoneType.ShieldZone, ZoneType.Hand, shield);
             }
         }
 

@@ -25,9 +25,9 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var player = GetController(game);
+            var player = Controller;
             var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id), 1, GetAmount(game), ToString());
-            game.Move(GetSourceAbility(game), ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
+            game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

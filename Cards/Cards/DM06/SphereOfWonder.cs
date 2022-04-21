@@ -23,9 +23,9 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            if (GetOpponent(game).ShieldZone.Cards.Count > GetController(game).ShieldZone.Cards.Count)
+            if (GetOpponent(game).ShieldZone.Cards.Count > Controller.ShieldZone.Cards.Count)
             {
-                GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, GetSourceAbility(game));
+                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Source);
             }
         }
 

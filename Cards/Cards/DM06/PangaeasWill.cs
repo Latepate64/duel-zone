@@ -24,10 +24,10 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var card = GetController(game).ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, GetOpponent(game).Id), ToString());
+            var card = Controller.ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, GetOpponent(game).Id), ToString());
             if (card != null)
             {
-                card.MoveTopCard(game, ZoneType.ManaZone, GetSourceAbility(game));
+                card.MoveTopCard(game, ZoneType.ManaZone, Source);
             }
         }
 
