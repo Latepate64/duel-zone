@@ -25,11 +25,9 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var controller = GetController(game);
-            var card = controller.ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, controller.Id), ToString());
+            var card = GetController(game).DestroyCreatureOptionally(game, GetSourceAbility(game));
             if (card != null)
             {
-                game.Destroy(GetSourceAbility(game), card);
                 ApplyAfterDestroy(game, GetSourceAbility(game), game.GetOwner(card));
             }
         }

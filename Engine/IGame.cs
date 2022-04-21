@@ -23,6 +23,7 @@ namespace Engine
         bool Ended { get; }
         SpellStack SpellStack { get; }
 
+        IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
         void AddAbility(ICard card, IAbility ability);
         bool CheckStateBasedActions();
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);

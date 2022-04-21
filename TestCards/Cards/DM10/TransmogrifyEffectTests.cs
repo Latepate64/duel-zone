@@ -1,7 +1,6 @@
 ﻿using Cards.Cards.DM10;
 using Engine;
 using Engine.Abilities;
-using Engine.Zones;
 using Moq;
 using System.Collections.Generic;
 using Xunit;
@@ -11,28 +10,19 @@ namespace TestCards.Cards.DM10
     public class TransmogrifyEffectTests
     {
         [Fact]
-        public void Apply_CreatureChosen_CreatureDestroyed()
+        public void Apply_CreatureNotDestroyed_RevealNotCalled()
         {
-            var toDestroy = Mock.Of<ICard>();
-
-            var controller = new Mock<IPlayer>();
-            controller.Setup(x => x.ChooseCardOptionally(It.IsAny<IEnumerable<ICard>>(), It.IsAny<string>())).Returns(toDestroy);
-            controller.SetupGet(x => x.DeckCards).Returns(new List<ICard>());
-
             var ability = new Mock<IAbility>();
-            var battleZone = new Mock<IBattleZone>();
 
             var game = new Mock<IGame>();
-            game.Setup(x => x.BattleZone).Returns(battleZone.Object);
-            game.Setup(x => x.GetOwner(toDestroy)).Returns(controller.Object);
             game.Setup(x => x.GetAbility(ability.Object.Id)).Returns(ability.Object);
 
-            battleZone.Setup(x => x.GetChoosableCreaturesControlledByAnyone(game.Object, controller.Object.Id));
+            var controller = new Mock<IPlayer>();
             ability.Setup(x => x.GetController(game.Object)).Returns(controller.Object);
 
             new TransmogrifyEffect().Apply(game.Object);
 
-            game.Verify(x => x.Destroy(ability.Object, toDestroy), Times.Once);
+            controller.Verify(x => x.Reveal(game.Object), Times.Never);
         }
 
         [Fact]

@@ -636,5 +636,12 @@ namespace Engine
         {
             return !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, Id, game));
         }
+
+        public ICard DestroyCreatureOptionally(IGame game, IAbility ability)
+        {
+            var card = ChooseCardOptionally(game.GetChoosableCreaturesControlledByAnyone(game, Id), ability.ToString());
+            game.Destroy(ability, card);
+            return card;
+        }
     }
 }
