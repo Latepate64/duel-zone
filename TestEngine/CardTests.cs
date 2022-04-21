@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Moq;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ namespace TestEngine
     {
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
+        public IPlayer Controller { get; set; }
+        public IAbility Source { get; set; }
+
         private readonly bool _shouldBeAbleToEvolve;
 
         public EvolutionEffectMock(bool shouldBeAbleToEvolve)

@@ -97,6 +97,9 @@ namespace Engine
 
         internal bool CountsAsIfExists => Underneath != Guid.Empty;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
+
+        public IPlayer OwnerPlayer { get; }
+
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);

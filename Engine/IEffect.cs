@@ -6,6 +6,8 @@ namespace Engine
     public interface IEffect
     {
         Guid SourceAbility { get; set; }
+        IPlayer Controller { get; set; }
+        IAbility Source { get; set; }
     }
 
     public abstract class Effect : IEffect
@@ -20,6 +22,8 @@ namespace Engine
         }
 
         public Guid SourceAbility { get; set; }
+        public IPlayer Controller { get; set; }
+        public IAbility Source { get; set; }
 
         public void Dispose()
         {

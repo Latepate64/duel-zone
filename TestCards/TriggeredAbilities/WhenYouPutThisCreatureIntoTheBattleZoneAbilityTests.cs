@@ -56,6 +56,8 @@ namespace TestCards.TriggeredAbilities
     class OneShotEffectMock : IOneShotEffect
     {
         public Guid SourceAbility { get; set; }
+        public IPlayer Controller { get; set; }
+        public IAbility Source { get; set; }
 
         public IOneShotEffect Copy()
         {

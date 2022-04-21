@@ -22,6 +22,7 @@ namespace Engine
         ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description);
         ICard DestroyCreatureOptionally(IGame game, IAbility ability);
         IEnumerable<ICard> ChooseControlledCreatures(IGame game, string description, int amount);
+        void RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(IGame game, IAbility source);
         void LookAtOneOfOpponentsShields(IGame game, IAbility source);
         void ReturnOwnManaCards(IGame game, IAbility source, int amount);
         void DiscardOwnCards(IGame game, IAbility source, int discard);

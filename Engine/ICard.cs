@@ -31,6 +31,7 @@ namespace Engine
         Guid Id { get; set; }
         bool FaceDown { get; set; }
         bool IsNonEvolutionCreature { get; }
+        IPlayer OwnerPlayer { get; }
 
         void AddGrantedAbility(IAbility ability);
         bool AffectedBySummoningSickness(IGame game);

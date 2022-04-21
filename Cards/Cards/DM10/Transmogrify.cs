@@ -25,25 +25,11 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var card = GetController(game).DestroyCreatureOptionally(game, GetSourceAbility(game));
-            if (card != null)
+            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Source);
+            if (destroyedCreature != null)
             {
-                ApplyAfterDestroy(game, GetSourceAbility(game), game.GetOwner(card));
+                destroyedCreature.OwnerPlayer.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Source);
             }
-        }
-
-        public static void ApplyAfterDestroy(IGame game, IAbility source, IPlayer player)
-        {
-            var index = player.DeckCards.FindLastIndex(x => x.IsNonEvolutionCreature);
-            var revealed = player.DeckCards.Skip(index).ToArray();
-            player.Reveal(game, revealed);
-            var creature = index != -1 ? revealed.FirstOrDefault() : null;
-            var toGraveyard = revealed.Where(x => x != creature).ToArray();
-            if (creature != null)
-            {
-                game.Move(source, ZoneType.Deck, ZoneType.BattleZone, creature);
-            }
-            game.Move(source, ZoneType.Deck, ZoneType.Graveyard, toGraveyard);
         }
 
         public override IOneShotEffect Copy()

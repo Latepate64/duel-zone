@@ -643,5 +643,19 @@ namespace Engine
             game.Destroy(ability, card);
             return card;
         }
+
+        public void RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(IGame game, IAbility source)
+        {
+            var index = Deck.Cards.FindLastIndex(x => x.IsNonEvolutionCreature);
+            var revealed = Deck.Cards.Skip(index).ToArray();
+            Reveal(game, revealed);
+            var creature = index != -1 ? revealed.FirstOrDefault() : null;
+            var toGraveyard = revealed.Where(x => x != creature).ToArray();
+            if (creature != null)
+            {
+                game.Move(source, ZoneType.Deck, ZoneType.BattleZone, creature);
+            }
+            game.Move(source, ZoneType.Deck, ZoneType.Graveyard, toGraveyard);
+        }
     }
 }
