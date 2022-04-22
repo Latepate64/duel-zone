@@ -4,19 +4,19 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class GetsPowerForEachOtherCivilizationCreatureYouControlEffect : PowerModifyingMultiplierEffect
+    class GetsPowerForEachOtherCivilizationCreatureYouControlEffect : PowerModifyingMultiplierEffect, ICivilizationable
     {
-        private readonly Civilization _civilization;
-
         public GetsPowerForEachOtherCivilizationCreatureYouControlEffect(GetsPowerForEachOtherCivilizationCreatureYouControlEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
+            Civilization = effect.Civilization;
         }
 
         public GetsPowerForEachOtherCivilizationCreatureYouControlEffect(int power, Civilization civilization) : base(power)
         {
-            _civilization = civilization;
+            Civilization = civilization;
         }
+
+        public Civilization Civilization { get; }
 
         public override IContinuousEffect Copy()
         {
@@ -25,12 +25,12 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature gets +{_power} power for each other {_civilization.ToString().ToLower()} creature you have in the battle zone.";
+            return $"This creature gets +{Power} power for each other {Civilization.ToString().ToLower()} creature you have in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id, _civilization).Count();
+            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id, Civilization).Count();
         }
     }
 }

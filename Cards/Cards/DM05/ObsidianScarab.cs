@@ -19,7 +19,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public ObsidianScarabEffect() : base("Ambush Scorpion")
+        public ObsidianScarabEffect() : base("Obsidian Scarab")
         {
         }
 

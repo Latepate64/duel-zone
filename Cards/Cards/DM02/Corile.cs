@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public Corile() : base("Corile", 5, 2000, Race.CyberLord, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect(1, 1, true));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CorileEffect());
         }
     }
 
@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public CorileEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Deck)
+        public CorileEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.Deck)
         {
         }
 

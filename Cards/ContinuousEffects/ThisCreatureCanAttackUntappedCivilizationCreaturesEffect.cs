@@ -3,23 +3,23 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
+    class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, ICivilizationable
     {
-        private readonly Civilization _civilization;
-
         public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(ThisCreatureCanAttackUntappedCivilizationCreaturesEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
+            Civilization = effect.Civilization;
         }
 
         public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base()
         {
-            _civilization = civilization;
+            Civilization = civilization;
         }
+
+        public Civilization Civilization { get; }
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(_civilization);
+            return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(Civilization);
         }
 
         public override ContinuousEffect Copy()
@@ -29,7 +29,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature can attack untapped {_civilization.ToString().ToLower()} creatures.";
+            return $"This creature can attack untapped {Civilization.ToString().ToLower()} creatures.";
         }
     }
 }

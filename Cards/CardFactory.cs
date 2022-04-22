@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Cards.OneShotEffects;
 using Engine;
 using System;
 using System.Collections.Generic;
@@ -47,21 +46,33 @@ namespace Cards
         static private IEffect CreateEffect(Type type)
         {
             var interfaces = type.GetInterfaces();
-            if (type.IsAbstract || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect))
+            if (type.IsAbstract || interfaces.Contains(typeof(IExpirable)) || interfaces.Contains(typeof(ICardAffectable)) || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect) || type == typeof(SurvivorEffect) || type == typeof(TapAbilityAddingEffect) || type == typeof(TurboRushEffect) || type == typeof(WaveStrikerEffect))
             {
                 return null;
             }
-            else if (interfaces.Contains(typeof(IPowerable)))
-            {
-                return Activator.CreateInstance(type, 1000) as IEffect;
-            }
-            else if (interfaces.Contains(typeof(IRaceable)))
-            {
-                return Activator.CreateInstance(type, Race.AngelCommand) as IEffect;
-            }
             else
             {
-                return Activator.CreateInstance(type) as IEffect;
+                var arguments = new List<object>();
+                if (interfaces.Contains(typeof(IPowerable)))
+                {
+                    arguments.Add(1000);
+                }
+                if (interfaces.Contains(typeof(IRaceable)) || interfaces.Contains(typeof(IMultiRaceable)))
+                {
+                    arguments.Add(Race.AngelCommand);
+                }
+                if (interfaces.Contains(typeof(ICivilizationable)) || interfaces.Contains(typeof(IMultiCivilizationable)))
+                {
+                    arguments.Add(Civilization.Light);
+                }
+                if (arguments.Any())
+                {
+                    return Activator.CreateInstance(type, arguments.ToArray()) as IEffect;
+                }
+                else
+                {
+                    return Activator.CreateInstance(type) as IEffect;
+                }
             }
         }
     }

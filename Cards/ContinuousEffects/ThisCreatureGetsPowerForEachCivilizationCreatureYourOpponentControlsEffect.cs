@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect : ContinuousEffect, IPowerModifyingEffect
+    class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IMultiCivilizationable
     {
-        private readonly int _power;
-        private readonly Civilization[] _civilizations;
-
         public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect effect) : base(effect)
         {
-            _power = effect._power;
-            _civilizations = effect._civilizations;
+            Power = effect.Power;
+            Civilizations = effect.Civilizations;
         }
 
         public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base()
         {
-            _power = power;
-            _civilizations = civilizations;
+            Power = power;
+            Civilizations = civilizations;
         }
+
+        public int Power { get; }
+        public Civilization[] Civilizations { get; }
 
         public override ContinuousEffect Copy()
         {
@@ -28,13 +28,13 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            Source.Power += game.BattleZone.GetCreatures(Ability.GetOpponent(game).Id).Count(x => x.HasCivilization(_civilizations)) * _power;
+            Source.Power += game.BattleZone.GetCreatures(Ability.GetOpponent(game).Id).Count(x => x.HasCivilization(Civilizations)) * Power;
         }
 
         public override string ToString()
         {
-            var joined = string.Join(" and ", _civilizations.Select(x => $"{x.ToString().ToLower()} creature"));
-            return $"This creature gets +{_power} power for each {joined} your opponent has in the battle zone.";
+            var joined = string.Join(" and ", Civilizations.Select(x => $"{x.ToString().ToLower()} creature"));
+            return $"This creature gets +{Power} power for each {joined} your opponent has in the battle zone.";
         }
     }
 }

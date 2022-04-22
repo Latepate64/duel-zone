@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect
+    class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiCivilizationable
     {
-        private readonly Civilization[] _civilizations;
-
         public CivilizationSlayerEffect(params Civilization[] civilizations) : base()
         {
-            _civilizations = civilizations;
+            Civilizations = civilizations;
         }
 
         public CivilizationSlayerEffect(CivilizationSlayerEffect effect) : base(effect)
         {
-            _civilizations = effect._civilizations;
+            Civilizations = effect.Civilizations;
         }
+
+        public Civilization[] Civilizations { get; }
 
         public bool Applies(ICard creature, ICard against, IGame game)
         {
-            return IsSourceOfAbility(creature) && against.Civilizations.Intersect(_civilizations).Any();
+            return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
         }
 
         public override ContinuousEffect Copy()
@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"{string.Join(" and ", _civilizations.Select(x => x.ToString().ToLower()))} slayer";
+            return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} slayer";
         }
     }
 }

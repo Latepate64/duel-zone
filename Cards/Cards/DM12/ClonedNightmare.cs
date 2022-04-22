@@ -9,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
         {
-            AddSpellAbilities(new ClonedNightmareEffect(Name));
+            AddSpellAbilities(new ClonedNightmareEffect());
         }
     }
 
     class ClonedNightmareEffect : ClonedEffect
     {
-        public ClonedNightmareEffect(string name) : base(name)
+        public ClonedNightmareEffect() : base("Cloned Nightmare")
         {
         }
 

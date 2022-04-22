@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class TerradragonDakmaBalgarowEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TerradragonDakmaBalgarowEffect() : base(2000)
+        public TerradragonDakmaBalgarowEffect(int power = 2000) : base(power)
         {
         }
 
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM10
 
         public override string ToString()
         {
-            return "This creature gets +2000 power for each shield you and your opponent have.";
+            return $"This creature gets +{Power} power for each shield you and your opponent have.";
         }
 
         protected override int GetMultiplier(IGame game)

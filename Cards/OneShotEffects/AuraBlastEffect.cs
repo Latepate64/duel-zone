@@ -33,9 +33,4 @@ namespace Cards.OneShotEffects
             return $"Each of your creatures in the battle zone gets \"power attacker +{Power}\" until the end of the turn.";
         }
     }
-
-    interface IPowerable
-    {
-        int Power { get; }
-    }
 }

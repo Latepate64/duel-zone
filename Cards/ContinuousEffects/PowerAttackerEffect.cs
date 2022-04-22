@@ -3,19 +3,19 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect
+    class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
     {
-        private readonly int _power;
-
         public PowerAttackerEffect(PowerAttackerEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
 
         public PowerAttackerEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
+
+        public int Power { get; }
 
         public override ContinuousEffect Copy()
         {
@@ -27,13 +27,13 @@ namespace Cards.ContinuousEffects
             var creature = Source;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
-                creature.Power += _power;
+                creature.Power += Power;
             }
         }
 
         public override string ToString()
         {
-            return $"Power attacker +{_power}";
+            return $"Power attacker +{Power}";
         }
     }
 }

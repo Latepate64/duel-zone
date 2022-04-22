@@ -18,29 +18,29 @@ namespace Cards.ContinuousEffects
         public abstract int GetAmount(IGame game, ICard creature);
     }
 
-    class CrewBreakerRaceEffect : CrewBreakerEffect
+    class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
     {
-        private readonly Race _race;
+        public Race Race { get; }
 
         public CrewBreakerRaceEffect(CrewBreakerRaceEffect effect) : base(effect)
         {
-            _race = effect._race;
+            Race = effect.Race;
         }
 
         public CrewBreakerRaceEffect(Race race) : base()
         {
-            _race = race;
+            Race = race;
         }
 
         public override string ToString()
         {
-            return $"Crew breaker - {_race}";
+            return $"Crew breaker - {Race}";
         }
 
         public override int GetAmount(IGame game, ICard creature)
         {
             var ability = Ability;
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasRace(_race)) : 1;
+            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasRace(Race)) : 1;
         }
 
         public override IContinuousEffect Copy()

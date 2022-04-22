@@ -35,19 +35,19 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect
+    class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect, IRaceable
     {
-        private readonly Race _race;
-
         public TraRionPenumbraGuardianUntapEffect(Race race) : base()
         {
-            _race = race;
+            Race = race;
         }
 
         public TraRionPenumbraGuardianUntapEffect(TraRionPenumbraGuardianUntapEffect effect) : base(effect)
         {
-            _race = effect._race;
+            Race = effect.Race;
         }
+
+        public Race Race { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -56,12 +56,12 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Untap all ${_race}s in the battle zone.";
+            return $"Untap all ${Race}s in the battle zone.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(_race);
+            return game.BattleZone.GetCreatures(Race);
         }
     }
 }

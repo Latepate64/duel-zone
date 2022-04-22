@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public FatalAttackerHorvath() : base("Fatal Attacker Horvath", 3, 2000, Engine.Race.Human, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect(Engine.Race.Armorloid, 2000));
+            AddStaticAbilities(new WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect(2000, Engine.Race.Armorloid));
         }
     }
 }

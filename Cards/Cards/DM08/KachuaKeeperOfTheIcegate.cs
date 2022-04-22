@@ -55,23 +55,23 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect
+    class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
     {
-        private readonly ICard _card;
-
         public KachuaContinuousEffect(ICard card)
         {
-            _card = card;
+            Card = card;
         }
 
         public KachuaContinuousEffect(KachuaContinuousEffect effect) : base(effect)
         {
-            _card = effect._card;
+            Card = effect.Card;
         }
+
+        public ICard Card { get; }
 
         public bool Applies(ICard creature, IGame game)
         {
-            return creature == _card;
+            return creature == Card;
         }
 
         public override IContinuousEffect Copy()
@@ -81,7 +81,7 @@ namespace Cards.Cards.DM08
 
         public override string ToString()
         {
-            return $"{_card} has \"speed attacker.\"";
+            return $"{Card} has \"speed attacker.\"";
         }
     }
 

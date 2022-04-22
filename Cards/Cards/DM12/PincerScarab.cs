@@ -14,7 +14,7 @@ namespace Cards.Cards.DM12
 
     class PincerScarabEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public PincerScarabEffect() : base(2000)
+        public PincerScarabEffect(int power = 2000) : base(power)
         {
         }
 
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM12
 
         public override string ToString()
         {
-            return "This creature gets +2000 power for each card in your opponent's hand.";
+            return $"This creature gets +{Power} power for each card in your opponent's hand.";
         }
 
         protected override int GetMultiplier(IGame game)

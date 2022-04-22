@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature gets +{_power} power for each shield you have.";
+            return $"This creature gets +{Power} power for each shield you have.";
         }
 
         protected override int GetMultiplier(IGame game)

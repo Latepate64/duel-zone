@@ -10,13 +10,13 @@ namespace Cards.Cards.DM12
         public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
         {
             AddShieldTrigger();
-            AddSpellAbilities(new ClonedDeflectorEffect(Name));
+            AddSpellAbilities(new ClonedDeflectorEffect());
         }
     }
 
     class ClonedDeflectorEffect : ClonedEffect
     {
-        public ClonedDeflectorEffect(string name) : base(name)
+        public ClonedDeflectorEffect() : base("Cloned Deflector")
         {
         }
 

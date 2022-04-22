@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class TagtappTheRetaliatorEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TagtappTheRetaliatorEffect() : base(1000)
+        public TagtappTheRetaliatorEffect(int power = 1000) : base(power)
         {
         }
 
@@ -25,7 +25,7 @@ namespace Cards.Cards.DM10
 
         public override string ToString()
         {
-            return "This creature gets +1000 power for each water card in your opponent's mana zone.";
+            return $"This creature gets +{Power} power for each water card in your opponent's mana zone.";
         }
 
         protected override int GetMultiplier(IGame game)

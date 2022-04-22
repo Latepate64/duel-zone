@@ -21,7 +21,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature gets +{_power} power for each tapped card in your opponent's mana zone.";
+            return $"This creature gets +{Power} power for each tapped card in your opponent's mana zone.";
         }
 
         protected override int GetMultiplier(IGame game)

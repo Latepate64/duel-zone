@@ -5,13 +5,17 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileYouHaveNoShieldsEffect : ContinuousEffect, IAbilityAddingEffect
+    abstract class WhileYouHaveNoShieldsEffect : ContinuousEffect, IAbilityAddingEffect
     {
         private readonly IAbility[] _abilities;
 
-        public WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base()
+        protected WhileYouHaveNoShieldsEffect(params IAbility[] abilities) : base()
         {
             _abilities = abilities;
+        }
+
+        protected WhileYouHaveNoShieldsEffect(IContinuousEffect effect) : base(effect)
+        {
         }
 
         public void AddAbility(IGame game)
@@ -20,11 +24,6 @@ namespace Cards.ContinuousEffects
             {
                 _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
             }
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new WhileYouHaveNoShieldsEffect();
         }
 
         public override string ToString()

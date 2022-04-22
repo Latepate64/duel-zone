@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,23 @@ namespace Cards.Cards.DM04
     {
         public DewMushroom() : base("Dew Mushroom", 3, 1000, Engine.Race.BalloonMushroom, Engine.Civilization.Nature)
         {
-            AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(Engine.Civilization.Darkness, 1));
+            AddStaticAbilities(new DewMushroomEffect());
+        }
+    }
+
+    class DewMushroomEffect : EachCivilizationCardCostsMoreEffect
+    {
+        public DewMushroomEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
+        {
+        }
+
+        public DewMushroomEffect(Engine.Civilization civilization = Engine.Civilization.Darkness) : base(1, civilization)
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new DewMushroomEffect(this);
         }
     }
 }

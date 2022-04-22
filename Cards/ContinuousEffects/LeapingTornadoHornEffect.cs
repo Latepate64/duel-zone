@@ -6,18 +6,22 @@ namespace Cards.ContinuousEffects
 {
     class LeapingTornadoHornEffect : PowerAttackerMultiplierEffect
     {
-        public LeapingTornadoHornEffect() : base(1000)
+        public LeapingTornadoHornEffect(int power = 1000) : base(power)
+        {
+        }
+
+        public LeapingTornadoHornEffect(PowerAttackerMultiplierEffect effect) : base(effect)
         {
         }
 
         public override IContinuousEffect Copy()
         {
-            return new LeapingTornadoHornEffect();
+            return new LeapingTornadoHornEffect(this);
         }
 
         public override string ToString()
         {
-            return "While attacking, this creature gets +1000 power for each other creature you have in the battle zone.";
+            return $"While attacking, this creature gets +{Power} power for each other creature you have in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)

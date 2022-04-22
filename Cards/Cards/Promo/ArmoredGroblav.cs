@@ -15,7 +15,7 @@ namespace Cards.Cards.Promo
 
     class ArmoredGroblavEffect : ContinuousEffects.PowerAttackerMultiplierEffect
     {
-        public ArmoredGroblavEffect() : base(1000)
+        public ArmoredGroblavEffect(int power = 1000) : base(power)
         {
         }
 
@@ -26,7 +26,7 @@ namespace Cards.Cards.Promo
 
         public override string ToString()
         {
-            return "While attacking, this creature gets +1000 power for each other fire creature in the battle zone.";
+            return $"While attacking, this creature gets +{Power} power for each other fire creature in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)

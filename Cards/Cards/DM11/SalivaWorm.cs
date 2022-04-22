@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM11
@@ -13,13 +14,17 @@ namespace Cards.Cards.DM11
 
     class SalivaWormEffect : ContinuousEffects.StealthEffect, IPowerModifyingEffect
     {
-        public SalivaWormEffect() : base(Civilization.Darkness)
+        public SalivaWormEffect(Civilization civilization = Civilization.Darkness) : base(civilization)
+        {
+        }
+
+        public SalivaWormEffect(StealthEffect effect) : base(effect)
         {
         }
 
         public override IContinuousEffect Copy()
         {
-            return new SalivaWormEffect();
+            return new SalivaWormEffect(this);
         }
 
         public void ModifyPower(IGame game)
@@ -29,7 +34,7 @@ namespace Cards.Cards.DM11
 
         public override string ToString()
         {
-            return "This creature gets +4000 power and has \"Darkness stealth\"";
+            return $"This creature gets +4000 power and has \"{Civilization} stealth\"";
         }
     }
 }

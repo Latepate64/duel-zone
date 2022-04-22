@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    public class RaceEvolutionEffect : ContinuousEffect, IEvolutionEffect
+    public class RaceEvolutionEffect : ContinuousEffect, IEvolutionEffect, IMultiRaceable
     {
         public RaceEvolutionEffect(RaceEvolutionEffect effect) : base(effect)
         {

@@ -14,7 +14,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class LavaWalkerExecutoEffect : CardSelectionEffect
+    class LavaWalkerExecutoEffect : CardSelectionEffect, IPowerable
     {
         public int Power { get; }
 

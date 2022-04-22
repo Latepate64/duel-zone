@@ -3,23 +3,23 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect : ContinuousEffect, IUnblockableEffect
+    public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect : ContinuousEffect, IUnblockableEffect, IPowerable
     {
-        private readonly int _power;
-
         public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
 
         public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
+
+        public int Power { get; }
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker) && blocker.Power <= _power;
+            return IsSourceOfAbility(attacker) && blocker.Power <= Power;
         }
 
         public override IContinuousEffect Copy()
@@ -29,7 +29,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature can't be blocked by any creature that has power {_power} or less.";
+            return $"This creature can't be blocked by any creature that has power {Power} or less.";
         }
     }
 }

@@ -20,9 +20,17 @@ namespace Cards.TriggeredAbilities
 
     class HeartyCapnPolligonEffect : OneShotEffect
     {
+        public HeartyCapnPolligonEffect()
+        {
+        }
+
+        public HeartyCapnPolligonEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new HeartyCapnPolligonEffect();
+            return new HeartyCapnPolligonEffect(this);
         }
 
         public override void Apply(IGame game)

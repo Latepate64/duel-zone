@@ -9,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedBlade() : base("Cloned Blade", 5, Civilization.Fire)
         {
-            AddSpellAbilities(new ClonedBladeEffect(Name));
+            AddSpellAbilities(new ClonedBladeEffect());
         }
     }
 
     class ClonedBladeEffect : ClonedEffect
     {
-        public ClonedBladeEffect(string name) : base(name)
+        public ClonedBladeEffect() : base("Cloned Blade")
         {
         }
 

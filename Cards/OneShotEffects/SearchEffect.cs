@@ -153,11 +153,6 @@ namespace Cards.OneShotEffects
         }
     }
 
-    interface IRaceable
-    {
-        Race Race { get; }
-    }
-
     abstract class SearchCardWithNameEffect : SearchEffect
     {
         private readonly string _name;

@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class ElixiaEffect : PowerModifyingMultiplierEffect
     {
-        public ElixiaEffect() : base(3000)
+        public ElixiaEffect(int power = 3000) : base(power)
         {
         }
 
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM10
 
         public override string ToString()
         {
-            return "This creature gets +3000 power for each civilization in your mana zone.";
+            return $"This creature gets +{Power} power for each civilization in your mana zone.";
         }
 
         protected override int GetMultiplier(IGame game)

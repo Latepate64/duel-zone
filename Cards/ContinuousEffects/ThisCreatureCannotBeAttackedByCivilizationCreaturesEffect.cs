@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect
+    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect, IMultiCivilizationable
     {
-        private readonly Civilization[] _civilizations;
-
         public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect effect) : base(effect)
         {
-            _civilizations = effect._civilizations;
+            Civilizations = effect.Civilizations;
         }
 
         public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base()
         {
-            _civilizations = civilizations;
+            Civilizations = civilizations;
         }
+
+        public Civilization[] Civilizations { get; }
 
         public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(_civilizations).Any();
+            return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(Civilizations).Any();
         }
 
         public override IContinuousEffect Copy()
@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature can't be attacked by {string.Join(" or ", _civilizations.Select(x => x.ToString().ToLower()))} creatures.";
+            return $"This creature can't be attacked by {string.Join(" or ", Civilizations.Select(x => x.ToString().ToLower()))} creatures.";
         }
     }
 }

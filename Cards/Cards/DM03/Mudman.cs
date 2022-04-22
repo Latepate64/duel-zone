@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public Mudman() : base("Mudman", 4, 2000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Engine.Civilization.Darkness, 2000));
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(2000, Engine.Civilization.Darkness));
         }
     }
 }

@@ -9,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
         {
-            AddSpellAbilities(new ClonedSpiralEffect(Name));
+            AddSpellAbilities(new ClonedSpiralEffect());
         }
     }
 
     class ClonedSpiralEffect : ClonedEffect
     {
-        public ClonedSpiralEffect(string name) : base(name)
+        public ClonedSpiralEffect() : base("Cloned Spiral")
         {
         }
 

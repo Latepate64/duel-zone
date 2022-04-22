@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM07
 {
@@ -7,7 +8,23 @@ namespace Cards.Cards.DM07
         public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {
             AddDoubleBreakerAbility();
-            AddStaticAbilities(new WhileYouHaveNoShieldsEffect(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect())));
+            AddStaticAbilities(new SiriEffect());
+        }
+    }
+
+    class SiriEffect : WhileYouHaveNoShieldsEffect
+    {
+        public SiriEffect() : base(new StaticAbilities.BlockerAbility(), new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()))
+        {
+        }
+
+        public SiriEffect(IContinuousEffect effect) : base(effect)
+        {
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new SiriEffect(this);
         }
     }
 }

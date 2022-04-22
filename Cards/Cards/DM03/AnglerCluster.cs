@@ -8,7 +8,7 @@ namespace Cards.Cards.DM03
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackAbility();
-            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Engine.Civilization.Water, 3000));
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(3000, Engine.Civilization.Water));
         }
     }
 }
