@@ -56,7 +56,7 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return $"Untap all ${Race}s in the battle zone.";
+            return $"Untap all {Race}s in the battle zone.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
