@@ -4,7 +4,7 @@
     {
         public CrazeValkyrieTheDrastic() : base("Craze Valkyrie, the Drastic", 6, 7500, Engine.Race.Initiate, Engine.Civilization.Light)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(2));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect());
             AddDoubleBreakerAbility();
         }
     }

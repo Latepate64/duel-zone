@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public MongrelMan() : base("Mongrel Man", 5, 2000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverAnotherCreatureIsDestroyedAbility(new YouMayDrawCardsEffect(1)));
+            AddTriggeredAbility(new TriggeredAbilities.WheneverAnotherCreatureIsDestroyedAbility(new YouMayDrawCardEffect()));
         }
     }
 }

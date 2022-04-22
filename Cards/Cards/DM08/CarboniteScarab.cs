@@ -4,7 +4,7 @@
     {
         public CarboniteScarab() : base("Carbonite Scarab", 4, 3000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
-            AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldsEffect()));
+            AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
         }
     }
 }

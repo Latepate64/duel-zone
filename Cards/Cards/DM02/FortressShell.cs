@@ -4,7 +4,7 @@
     {
         public FortressShell() : base("Fortress Shell", 9, 5000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(2));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToTwoCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect());
         }
     }
 }

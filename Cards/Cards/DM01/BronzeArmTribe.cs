@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, 1000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutTopCardsOfDeckIntoManaZoneEffect(1));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutTopCardOfDeckIntoManaZoneEffect());
         }
     }
 }

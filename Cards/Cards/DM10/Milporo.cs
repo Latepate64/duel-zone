@@ -4,7 +4,7 @@
     {
         public Milporo() : base("Milporo", 4, 3000, Engine.Race.CyberLord, Engine.Civilization.Water)
         {
-            AddSilentSkillAbility(new OneShotEffects.DrawCardsEffect(1));
+            AddSilentSkillAbility(new OneShotEffects.DrawCardEffect());
         }
     }
 }

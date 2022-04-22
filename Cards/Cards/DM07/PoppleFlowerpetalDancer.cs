@@ -4,7 +4,7 @@
     {
         public PoppleFlowerpetalDancer() : base("Popple, Flowerpetal Dancer", 4, 2000, Engine.Race.SnowFaerie, Engine.Civilization.Nature)
         {
-            AddTapAbility(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1));
+            AddTapAbility(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect());
         }
     }
 }

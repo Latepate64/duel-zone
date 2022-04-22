@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class MutualManaSacrificeEffect : OneShotEffect
+    abstract class MutualManaSacrificeEffect : OneShotEffect
     {
         public int Amount { get; }
 
-        public MutualManaSacrificeEffect(int amount)
+        protected MutualManaSacrificeEffect(int amount)
         {
             Amount = amount;
         }
 
-        public MutualManaSacrificeEffect(MutualManaSacrificeEffect effect)
+        protected MutualManaSacrificeEffect(MutualManaSacrificeEffect effect) : base(effect)
         {
             Amount = effect.Amount;
         }
@@ -24,14 +24,25 @@ namespace Cards.OneShotEffects
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
         }
 
-        public override IOneShotEffect Copy()
-        {
-            return new MutualManaSacrificeEffect(this);
-        }
-
         public override string ToString()
         {
             return $"Each player chooses {(Amount > 1 ? $"{Amount} cards" : "a card")} in his mana zone and puts {(Amount > 1 ? "them" : "it")} into his graveyard.";
+        }
+    }
+
+    class MutualSingleManaSacrificeEffect : MutualManaSacrificeEffect
+    {
+        public MutualSingleManaSacrificeEffect() : base(1)
+        {
+        }
+
+        public MutualSingleManaSacrificeEffect(MutualManaSacrificeEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new MutualSingleManaSacrificeEffect(this);
         }
     }
 }

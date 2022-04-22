@@ -41,7 +41,7 @@ namespace Cards.Cards.DM07
 
         public override void Resolve(IGame game)
         {
-            game.AddContinuousEffects(this, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(game.GetCard(Source)));
+            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(game.GetCard(Source)));
         }
 
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

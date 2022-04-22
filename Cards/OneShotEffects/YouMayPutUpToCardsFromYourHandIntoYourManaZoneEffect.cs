@@ -4,23 +4,18 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect
+    abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect
     {
         private readonly int _maximum;
 
-        public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
+        protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
         {
             _maximum = maximum;
         }
 
-        public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
+        protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
         {
             _maximum = effect._maximum;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(this);
         }
 
         public override string ToString()

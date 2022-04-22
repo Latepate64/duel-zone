@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, 3000, Engine.Race.Initiate, Engine.Civilization.Light)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardsEffect(1));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardEffect());
         }
     }
 }

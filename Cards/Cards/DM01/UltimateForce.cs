@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public UltimateForce() : base("Ultimate Force", 5, Engine.Civilization.Nature)
         {
-            AddSpellAbilities(new PutTopCardsOfDeckIntoManaZoneEffect(2));
+            AddSpellAbilities(new PutTopTwoCardOfDeckIntoManaZoneEffect());
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
+using Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,33 @@ namespace Cards
         static public IEnumerable<Card> CreateAll()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
+        }
+
+        static public IEnumerable<IEffect> CreateEffects()
+        {
+            var types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Name.EndsWith("Effect"));
+            return types.Select(x => CreateEffect(x)).Where(x => x != null);
+        }
+
+        static private IEffect CreateEffect(Type type)
+        {
+            var interfaces = type.GetInterfaces();
+            if (type.IsAbstract || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect))
+            {
+                return null;
+            }
+            else if (interfaces.Contains(typeof(IPowerable)))
+            {
+                return Activator.CreateInstance(type, 1000) as IEffect;
+            }
+            else if (interfaces.Contains(typeof(IRaceable)))
+            {
+                return Activator.CreateInstance(type, Race.AngelCommand) as IEffect;
+            }
+            else
+            {
+                return Activator.CreateInstance(type) as IEffect;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Cards.Cards.DM07
 
     class CosmicNebulaAbility : TriggeredAbility
     {
-        public CosmicNebulaAbility() : base(new OneShotEffects.YouMayDrawCardsEffect(1))
+        public CosmicNebulaAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
         {
         }
 

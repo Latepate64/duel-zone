@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class MutualManaRecoveryEffect : OneShotEffect
+    abstract class MutualManaRecoveryEffect : OneShotEffect
     {
         public int Amount { get; }
 
@@ -19,20 +19,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
-            controller.ReturnOwnManaCards(game, Ability, Amount);
-            game.GetOpponent(controller).ReturnOwnManaCards(game, Ability, Amount);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MutualManaRecoveryEffect(this);
-        }
-
-        public override string ToString()
-        {
-            var cards = Amount > 1 ? $"{Amount} cards" : "a card";
-            return $"Return {cards} from your mana zone to your hand. Then your opponent chooses {cards} in his mana zone and returns {(Amount > 1 ? "them" : "it")} to his hand.";
+            Controller.ReturnOwnManaCards(game, Ability, Amount);
+            game.GetOpponent(Controller).ReturnOwnManaCards(game, Ability, Amount);
         }
     }
 }

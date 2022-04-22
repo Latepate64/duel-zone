@@ -4,23 +4,18 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
+    abstract class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
     {
         private readonly int _amount;
 
-        public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
+        protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
         {
             _amount = amount;
         }
 
-        public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
+        protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
         {
             _amount = effect._amount;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(this);
         }
 
         public override string ToString()

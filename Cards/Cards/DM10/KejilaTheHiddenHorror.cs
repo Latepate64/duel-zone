@@ -4,7 +4,7 @@
     {
         public KejilaTheHiddenHorror() : base("Kejila, the Hidden Horror", 6, 6000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
         {
-            AddSilentSkillAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldsEffect(2));
+            AddSilentSkillAbility(new OneShotEffects.ThisCreatureBreaksOpponentsTwoShieldsEffect());
         }
     }
 }

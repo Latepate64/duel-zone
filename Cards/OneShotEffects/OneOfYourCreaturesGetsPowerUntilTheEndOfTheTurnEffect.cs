@@ -4,23 +4,23 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect : CardSelectionEffect
+    class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CardSelectionEffect, IPowerable
     {
         public int Power { get; }
 
-        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect effect) : base(effect)
+        public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
             Power = effect.Power;
         }
 
-        public OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(int power) : base(1, 1, true)
+        public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(int power) : base(1, 1, true)
         {
             Power = power;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(this);
+            return new OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
         public override string ToString()

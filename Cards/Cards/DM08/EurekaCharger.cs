@@ -4,7 +4,7 @@
     {
         public EurekaCharger() : base("Eureka Charger", 4, Engine.Civilization.Water)
         {
-            AddSpellAbilities(new OneShotEffects.DrawCardsEffect(1));
+            AddSpellAbilities(new OneShotEffects.DrawCardEffect());
         }
     }
 }

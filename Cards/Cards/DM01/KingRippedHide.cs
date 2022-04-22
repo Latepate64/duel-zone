@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public KingRippedHide() : base("King Ripped-Hide", 7, 5000, Engine.Race.Leviathan, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardsEffect(2));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawUpToTwoCardsEffect());
         }
     }
 }

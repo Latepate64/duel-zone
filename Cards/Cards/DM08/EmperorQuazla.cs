@@ -8,7 +8,7 @@ namespace Cards.Cards.DM08
         public EmperorQuazla() : base("Emperor Quazla", 6, 5000, Race.CyberLord, Civilization.Water)
         {
             AddBlockerAbility();
-            AddTriggeredAbility(new WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new OneShotEffects.YouMayDrawCardsEffect(2)));
+            AddTriggeredAbility(new WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new OneShotEffects.YouMayDrawUpToTwoCardsEffect()));
         }
     }
 }

@@ -123,19 +123,19 @@ namespace Cards.OneShotEffects
         }
     }
 
-    class SearchRaceCreatureEffect : SearchEffect
+    class SearchRaceCreatureEffect : SearchEffect, IRaceable
     {
-        private readonly Race _race;
-
         public SearchRaceCreatureEffect(Race race) : base(true)
         {
-            _race = race;
+            Race = race;
         }
 
         public SearchRaceCreatureEffect(SearchRaceCreatureEffect effect) : base(effect)
         {
-            _race = effect._race;
+            Race = effect.Race;
         }
+
+        public Race Race { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -144,32 +144,32 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"When you put this creature into the battle zone, search your deck. You may take a {_race} from your deck, show that {_race} to your opponent, and put it into your hand. Then shuffle your deck.";
+            return $"When you put this creature into the battle zone, search your deck. You may take a {Race} from your deck, show that {Race} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.Deck.GetCreatures(_race);
+            return Controller.Deck.GetCreatures(Race);
         }
     }
 
-    class SearchCardWithNameEffect : SearchEffect
+    interface IRaceable
+    {
+        Race Race { get; }
+    }
+
+    abstract class SearchCardWithNameEffect : SearchEffect
     {
         private readonly string _name;
 
-        public SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
+        protected SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
         {
             _name = effect._name;
         }
 
-        public SearchCardWithNameEffect(string name) : base(true)
+        protected SearchCardWithNameEffect(string name) : base(true)
         {
             _name = name;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SearchCardWithNameEffect(this);
         }
 
         public override string ToString()

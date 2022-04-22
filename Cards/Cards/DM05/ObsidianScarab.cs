@@ -1,4 +1,7 @@
-﻿namespace Cards.Cards.DM05
+﻿using Cards.OneShotEffects;
+using Engine.Abilities;
+
+namespace Cards.Cards.DM05
 {
     class ObsidianScarab : Creature
     {
@@ -6,7 +9,23 @@
         {
             AddPowerAttackerAbility(3000);
             AddDoubleBreakerAbility();
-            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(Name));
+            AddWhenThisCreatureIsDestroyedAbility(new ObsidianScarabEffect());
+        }
+    }
+
+    class ObsidianScarabEffect : YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect
+    {
+        public ObsidianScarabEffect(YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect effect) : base(effect)
+        {
+        }
+
+        public ObsidianScarabEffect() : base("Ambush Scorpion")
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new AmbushScorpionEffect(this);
         }
     }
 }

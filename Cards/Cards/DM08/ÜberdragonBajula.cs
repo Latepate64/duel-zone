@@ -4,7 +4,7 @@
     {
         public ÜberdragonBajula() : base("Überdragon Bajula", 7, 13000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
-            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(2));
+            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseUpToTwoCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect());
         }
     }
 }

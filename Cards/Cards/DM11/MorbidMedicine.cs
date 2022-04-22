@@ -4,7 +4,7 @@
     {
         public MorbidMedicine() : base("Morbid Medicine", 4, Engine.Civilization.Darkness)
         {
-            AddSpellAbilities(new OneShotEffects.ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(2));
+            AddSpellAbilities(new OneShotEffects.ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect());
         }
     }
 }

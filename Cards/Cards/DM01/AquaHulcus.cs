@@ -4,7 +4,7 @@
     {
         public AquaHulcus() : base("Aqua Hulcus", 3, 2000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardsEffect(1));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardEffect());
         }
     }
 }

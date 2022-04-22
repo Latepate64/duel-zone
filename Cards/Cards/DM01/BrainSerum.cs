@@ -7,7 +7,7 @@ namespace Cards.Cards.DM01
         public BrainSerum() : base("Brain Serum", 4, Engine.Civilization.Water)
         {
             AddShieldTrigger();
-            AddSpellAbilities(new YouMayDrawCardsEffect(2));
+            AddSpellAbilities(new YouMayDrawUpToTwoCardsEffect());
         }
     }
 }

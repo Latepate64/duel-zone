@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class ReturnUpToCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+    abstract class ReturnUpToCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
     {
         private readonly int _amount;
 
@@ -18,11 +18,6 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnUpToCardsFromYourManaZoneToYourHandEffect(this);
-        }
-
         public override string ToString()
         {
             return $"Return up to {_amount} cards from your mana zone to your hand.";
@@ -31,6 +26,38 @@ namespace Cards.OneShotEffects
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.ManaZone.Cards;
+        }
+    }
+
+    class ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
+    {
+        public ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect() : base(2)
+        {
+        }
+
+        public ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect(this);
+        }
+    }
+
+    class ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
+    {
+        public ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect() : base(3)
+        {
+        }
+
+        public ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect(this);
         }
     }
 }

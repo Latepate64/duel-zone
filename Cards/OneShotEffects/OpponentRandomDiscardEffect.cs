@@ -3,23 +3,18 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class OpponentRandomDiscardEffect : OneShotEffect
+    abstract class OpponentRandomDiscardEffect : OneShotEffect
     {
         public int Amount { get; set; }
 
-        public OpponentRandomDiscardEffect(int amount = 1)
+        protected OpponentRandomDiscardEffect(int amount)
         {
             Amount = amount;
         }
 
-        public OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
+        protected OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
         {
             Amount = effect.Amount;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new OpponentRandomDiscardEffect(this);
         }
 
         public override void Apply(IGame game)
@@ -30,6 +25,22 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return $"Your opponent discards {(Amount == 1 ? "a card" : $"{Amount} cards")} at random from his hand.";
+        }
+    }
+
+    class OpponentDiscardsCardAtRandomEffect : OpponentRandomDiscardEffect
+    {
+        public OpponentDiscardsCardAtRandomEffect() : base(1)
+        {
+        }
+
+        public OpponentDiscardsCardAtRandomEffect(OpponentRandomDiscardEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new OpponentDiscardsCardAtRandomEffect(this);
         }
     }
 }

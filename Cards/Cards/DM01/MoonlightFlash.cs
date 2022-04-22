@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public MoonlightFlash() : base("Moonlight Flash", 4, Engine.Civilization.Light)
         {
-            AddSpellAbilities(new ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(2));
+            AddSpellAbilities(new ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect());
         }
     }
 }

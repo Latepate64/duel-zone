@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public PhantasmalHorrorGigazald() : base("Phantasmal Horror Gigazald", 5, 5000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
-            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Darkness, new OneShotEffects.OpponentRandomDiscardEffect()));
+            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Darkness, new OneShotEffects.OpponentDiscardsCardAtRandomEffect()));
         }
     }
 }

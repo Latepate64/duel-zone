@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class AuraBlastEffect : OneShotEffect
+    class AuraBlastEffect : OneShotEffect, IPowerable
     {
-        private readonly int _power;
-
         public AuraBlastEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
 
         public AuraBlastEffect(AuraBlastEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
+
+        public int Power { get; }
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(_power, game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(Power, game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -30,7 +30,12 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"Each of your creatures in the battle zone gets \"power attacker +{_power}\" until the end of the turn.";
+            return $"Each of your creatures in the battle zone gets \"power attacker +{Power}\" until the end of the turn.";
         }
+    }
+
+    interface IPowerable
+    {
+        int Power { get; }
     }
 }

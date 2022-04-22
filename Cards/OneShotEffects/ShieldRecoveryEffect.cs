@@ -33,7 +33,7 @@ namespace Cards.OneShotEffects
 
     class ShieldRecoveryCannotUseShieldTriggerEffect : ShieldRecoveryEffect
     {
-        public ShieldRecoveryCannotUseShieldTriggerEffect(int amount = 1) : base(false, amount)
+        public ShieldRecoveryCannotUseShieldTriggerEffect() : base(false, 1)
         {
         }
 

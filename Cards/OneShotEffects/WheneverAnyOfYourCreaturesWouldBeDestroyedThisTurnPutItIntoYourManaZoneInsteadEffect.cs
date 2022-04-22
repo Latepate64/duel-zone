@@ -4,7 +4,6 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
-using System;
 
 namespace Cards.OneShotEffects
 {
@@ -20,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(Ability.Controller));
+            game.AddContinuousEffects(Ability, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -37,16 +36,13 @@ namespace Cards.OneShotEffects
 
     class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IExpirable
     {
-        private readonly Guid _controller;
 
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(Guid controller) : base()
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
-            _controller = controller;
         }
 
         public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
         {
-            _controller = effect._controller;
         }
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
@@ -74,7 +70,7 @@ namespace Cards.OneShotEffects
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == _controller;
+            return card.OwnerPlayer == Controller;
         }
     }
 }
