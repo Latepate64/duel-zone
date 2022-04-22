@@ -23,6 +23,7 @@ namespace Engine.Abilities
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
         public Guid Controller { get; set; }
+        public ICard SourceCard { get; set; }
 
         protected Ability()
         {

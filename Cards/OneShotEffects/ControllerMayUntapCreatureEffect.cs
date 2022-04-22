@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                Controller.Untap(game, GetSelectableCards(game, Source).ToArray());
+                Controller.Untap(game, GetSelectableCards(game, Ability).ToArray());
             }
         }
 
@@ -48,7 +48,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return new ICard[] { game.GetCard(Source.Source) };
+            return new ICard[] { game.GetCard(Ability.Source) };
         }
     }
 }

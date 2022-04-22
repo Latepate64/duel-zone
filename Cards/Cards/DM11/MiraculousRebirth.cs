@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
             if (destroyed != null)
             {
                 var creature = controller.ChooseCard(controller.Deck.Creatures.Where(x => x.ManaCost == destroyed.ManaCost), ToString());
-                game.Move(Source, ZoneType.Deck, ZoneType.BattleZone, creature);
+                game.Move(Ability, ZoneType.Deck, ZoneType.BattleZone, creature);
                 controller.ShuffleDeck(game);
             }
         }

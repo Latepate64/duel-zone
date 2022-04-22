@@ -27,7 +27,7 @@ namespace Cards.Cards.DM11
 
         public bool Applies(ICard card, IGame game)
         {
-            return card == GetSourceCard(game) && Controller.ShieldZone.Cards.Count >= game.GetOpponent(Controller).ShieldZone.Cards.Count;
+            return card == Source && Controller.ShieldZone.Cards.Count >= game.GetOpponent(Controller).ShieldZone.Cards.Count;
         }
 
         public override IContinuousEffect Copy()
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM11
             var amount = Controller.ShieldZone.Cards.Count;
             var chosen = GetOpponent(game).ChooseCards(GetOpponent(game).ShieldZone.Cards, amount, amount, ToString());
             var toHand = GetOpponent(game).ShieldZone.Cards.Except(chosen);
-            game.PutFromShieldZoneToHand(toHand, true, Source);
+            game.PutFromShieldZoneToHand(toHand, true, Ability);
         }
 
         public override IOneShotEffect Copy()

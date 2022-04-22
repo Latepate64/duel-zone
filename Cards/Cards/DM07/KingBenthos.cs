@@ -26,8 +26,8 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(Source.Controller, Civilization.Water);
-            game.AddContinuousEffects(Source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller, Civilization.Water);
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
                 creatures.ToArray()));
         }

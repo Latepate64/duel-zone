@@ -39,8 +39,8 @@ namespace Cards.ContinuousEffects
 
         public override int GetAmount(IGame game, ICard creature)
         {
-            var ability = Source;
-            return IsSourceOfAbility(creature, game) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasRace(_race)) : 1;
+            var ability = Ability;
+            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller).Count(x => x.Id != ability.Source && x.HasRace(_race)) : 1;
         }
 
         public override IContinuousEffect Copy()

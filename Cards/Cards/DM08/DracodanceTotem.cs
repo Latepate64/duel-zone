@@ -23,7 +23,7 @@ namespace Cards.Cards.DM08
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Source));
+            game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
                 Destination = ZoneType.Hand
@@ -42,7 +42,7 @@ namespace Cards.Cards.DM08
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
+            return IsSourceOfAbility(card) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
         }
     }
 

@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new RumbleGateContinuousEffect(Source.Controller));
+            game.AddContinuousEffects(Ability, new RumbleGateContinuousEffect(Ability.Controller));
         }
 
         public override IOneShotEffect Copy()

@@ -35,7 +35,8 @@ namespace TestEngine
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
         public IPlayer Controller { get; set; }
-        public IAbility Source { get; set; }
+        public IAbility Ability { get; set; }
+        public ICard Source { get; }
 
         private readonly bool _shouldBeAbleToEvolve;
 

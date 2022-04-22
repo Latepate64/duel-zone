@@ -36,7 +36,7 @@ namespace Cards.Cards.DM01
         {
             if (cards.Length == 1)
             {
-                game.AddContinuousEffects(Source, new ChaosStrikeContinousEffect(cards.Single().Id));
+                game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards.Single().Id));
             }
         }
 

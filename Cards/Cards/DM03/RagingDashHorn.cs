@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetSourceCard(game).AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
+                Source.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
             }
         }
 
@@ -36,7 +36,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                GetSourceCard(game).Power += 3000;
+                Source.Power += 3000;
             }
         }
 
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM03
 
         private bool Applies(IGame game)
         {
-            var ability = Source;
+            var ability = Ability;
             if (ability != null)
             {
                 return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));

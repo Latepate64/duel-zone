@@ -21,7 +21,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new YourLightCreaturesCannotBeBlockedThisTurnEffect());
+            game.AddContinuousEffects(Ability, new YourLightCreaturesCannotBeBlockedThisTurnEffect());
         }
 
         public override IOneShotEffect Copy()

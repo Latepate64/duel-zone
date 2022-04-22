@@ -32,7 +32,7 @@ namespace Cards.Cards.DM09
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ICardMovedEvent e && GetSourceCard(game).Id == e.CardInSourceZone && e.Destination == ZoneType.BattleZone;
+            return gameEvent is ICardMovedEvent e && Source.Id == e.CardInSourceZone && e.Destination == ZoneType.BattleZone;
         }
 
         public override IContinuousEffect Copy()
@@ -98,7 +98,7 @@ namespace Cards.Cards.DM09
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
-            var sourceCard = GetSourceCard(game);
+            var sourceCard = Source;
             return gameEvent is CardMovedEvent e && e.CardInSourceZone == sourceCard.Id && e.Source == ZoneType.BattleZone;
         }
 

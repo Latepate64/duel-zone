@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public virtual void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += GetMultiplier(game) * _power;
+            Source.Power += GetMultiplier(game) * _power;
         }
 
         protected abstract int GetMultiplier(IGame game);
@@ -38,7 +38,7 @@ namespace Cards.ContinuousEffects
 
         public override void ModifyPower(IGame game)
         {
-            var creature = GetSourceCard(game);
+            var creature = Source;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
                 creature.Power += GetMultiplier(game) * _power;
@@ -68,7 +68,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherTappedCreatures(Controller.Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherTappedCreatures(Controller.Id, Source.Id).Count();
         }
     }
 
@@ -94,7 +94,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherUntappedCreatures(Controller.Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherUntappedCreatures(Controller.Id, Source.Id).Count();
         }
     }
 
@@ -120,7 +120,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return Source.GetController(game).ManaZone.TappedCards.Count();
+            return Ability.GetController(game).ManaZone.TappedCards.Count();
         }
     }
 }

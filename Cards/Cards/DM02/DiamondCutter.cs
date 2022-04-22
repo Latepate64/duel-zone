@@ -26,7 +26,7 @@ namespace Cards.Cards.DM02
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new DiamondCutterContinuousEffect(Source.Controller));
+            game.AddContinuousEffects(Ability, new DiamondCutterContinuousEffect(Ability.Controller));
         }
 
         public override IOneShotEffect Copy()

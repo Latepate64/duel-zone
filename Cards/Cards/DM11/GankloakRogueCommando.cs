@@ -18,8 +18,8 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(Source.Controller);
-            game.AddContinuousEffects(Source, new GankloakRogueCommandoContinuousEffect(creatures.ToArray()));
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
+            game.AddContinuousEffects(Ability, new GankloakRogueCommandoContinuousEffect(creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

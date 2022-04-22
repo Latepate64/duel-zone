@@ -25,7 +25,7 @@ namespace Cards.Cards.DM06
 
         public bool Applies(ICard attacker, ICard blocker, IGame game)
         {
-            return blocker == GetSourceCard(game);
+            return blocker == Source;
         }
 
         public override IContinuousEffect Copy()

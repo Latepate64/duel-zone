@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
         {
             var controller = Controller;
             var creatures = game.BattleZone.Creatures.Where(x => x.Power == game.BattleZone.Creatures.Min(x => x.Power.Value) && controller.CanChoose(x, game));
-            game.Destroy(Source, controller.ChooseCard(creatures, ToString()));
+            game.Destroy(Ability, controller.ChooseCard(creatures, ToString()));
         }
 
         public override IOneShotEffect Copy()

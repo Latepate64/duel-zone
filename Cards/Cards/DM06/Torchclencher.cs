@@ -26,7 +26,7 @@ namespace Cards.Cards.DM06
 
         public void AddAbility(IGame game)
         {
-            var creature = GetSourceCard(game);
+            var creature = Source;
             if (game.BattleZone.GetOtherCreatures(Controller.Id, creature.Id, Civilization.Fire).Any())
             {
                 creature.AddGrantedAbility(new PowerAttackerAbility(3000));

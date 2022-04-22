@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game);
+            return IsSourceOfAbility(card);
         }
 
         public override IContinuousEffect Copy()
@@ -26,7 +26,7 @@ namespace Cards.ContinuousEffects
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ICardMovedEvent e && e.Source == ZoneType.SpellStack && e.Destination == ZoneType.Graveyard && e.CardInSourceZone == GetSourceCard(game).Id;
+            return gameEvent is ICardMovedEvent e && e.Source == ZoneType.SpellStack && e.Destination == ZoneType.Graveyard && e.CardInSourceZone == Source.Id;
         }
 
         public override string ToString()

@@ -57,7 +57,8 @@ namespace TestCards.TriggeredAbilities
     {
         public Guid SourceAbility { get; set; }
         public IPlayer Controller { get; set; }
-        public IAbility Source { get; set; }
+        public IAbility Ability { get; set; }
+        public ICard Source { get; }
 
         public IOneShotEffect Copy()
         {

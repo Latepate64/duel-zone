@@ -31,7 +31,7 @@ namespace Cards.Cards.DM08
                 controller.Tap(game, tapped);
                 if (tapped.IsDragon)
                 {
-                    controller.PutFromTopOfDeckIntoShieldZone(1, game, Source);
+                    controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
                 }
             }
         }

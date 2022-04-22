@@ -35,7 +35,7 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return !IsSourceOfAbility(card, game);
+            return !IsSourceOfAbility(card);
         }
     }
 

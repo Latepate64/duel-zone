@@ -21,11 +21,11 @@ namespace Cards.Cards.Promo
             {
                 if (cards.Single().HasRace(Race.Survivor))
                 {
-                    game.Move(Source, ZoneType.Deck, ZoneType.Hand, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards);
                 }
                 else
                 {
-                    game.Move(Source, ZoneType.Deck, ZoneType.Graveyard, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards);
                 }
             }
             Controller.Unreveal(cards);

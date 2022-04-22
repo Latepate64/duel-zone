@@ -20,9 +20,9 @@ namespace Cards.Cards.DM07
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {
-                game.Move(Source, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
+                game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
                 var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
-                game.Move(Source, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
+                game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
             }
         }
 

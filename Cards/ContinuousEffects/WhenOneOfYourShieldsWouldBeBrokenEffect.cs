@@ -38,7 +38,7 @@ namespace Cards.ContinuousEffects
             var shield = Controller.ChooseCardOptionally(e.Shields, ToString());
             if (shield != null)
             {
-                return new WheOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(GetSourceCard(game), e.Shields.Where(x => x != shield));
+                return new WheOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source, e.Shields.Where(x => x != shield));
             }
             else
             {

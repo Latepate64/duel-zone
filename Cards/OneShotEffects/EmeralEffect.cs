@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(Source, ZoneType.Hand, ZoneType.ShieldZone, card);
+                game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, card);
                 var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
-                game.Move(Source, ZoneType.ShieldZone, ZoneType.Hand, shield);
+                game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shield);
             }
         }
 

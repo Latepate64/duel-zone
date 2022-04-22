@@ -21,9 +21,9 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
-                GetAffectedCards(game, Source).ToArray()));
+                GetAffectedCards(game, Ability).ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -38,7 +38,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Source.Controller, Civilization.Fire);
+            return game.BattleZone.GetCreatures(Ability.Controller, Civilization.Fire);
         }
     }
 }

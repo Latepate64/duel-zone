@@ -26,8 +26,8 @@ namespace Cards.Cards.DM04
         {
             var player = Controller;
             var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
-            game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, cards);
-            player.DrawCards(cards.Length, game, Source);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards);
+            player.DrawCards(cards.Length, game, Ability);
         }
 
         public override IOneShotEffect Copy()

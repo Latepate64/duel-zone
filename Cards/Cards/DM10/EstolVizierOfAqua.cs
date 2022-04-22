@@ -16,8 +16,8 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             var controller = Controller;
-            controller.PutFromTopOfDeckIntoShieldZone(1, game, Source);
-            controller.LookAtOneOfOpponentsShields(game, Source);
+            controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+            controller.LookAtOneOfOpponentsShields(game, Ability);
         }
 
         public override IOneShotEffect Copy()

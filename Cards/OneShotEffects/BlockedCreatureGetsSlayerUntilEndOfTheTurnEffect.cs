@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature != null)
             {
-                game.AddContinuousEffects(Source, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
+                game.AddContinuousEffects(Ability, new ThisCreatureGetSlayerUntilEndOfTheTurnEffect(phase.AttackingCreature));
             }
         }
 

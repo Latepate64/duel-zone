@@ -28,7 +28,7 @@ namespace Cards.Cards.DM07
             var creature = Controller.ChooseControlledCreature(game, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Source, new MiraclePortalContinuousEffect(creature));
+                game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
             }
         }
 

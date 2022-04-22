@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            game.PutFromShieldZoneToHand(Controller.ShieldZone.Cards, true, Source);
+            game.PutFromShieldZoneToHand(Controller.ShieldZone.Cards, true, Ability);
         }
 
         public override IOneShotEffect Copy()

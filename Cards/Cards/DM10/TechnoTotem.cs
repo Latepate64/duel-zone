@@ -27,9 +27,9 @@ namespace Cards.Cards.DM10
 
         public void AddAbility(IGame game)
         {
-            if (GetSourceCard(game).Tapped)
+            if (Source.Tapped)
             {
-                game.BattleZone.GetOtherCreatures(Controller.Id, GetSourceCard(game).Id).ToList().ForEach(x => x.AddGrantedAbility(new PowerAttackerAbility(1500)));
+                game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id).ToList().ForEach(x => x.AddGrantedAbility(new PowerAttackerAbility(1500)));
             }
         }
 

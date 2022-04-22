@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && targetOfAttack.HasCivilization(_civilization);
+            return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()

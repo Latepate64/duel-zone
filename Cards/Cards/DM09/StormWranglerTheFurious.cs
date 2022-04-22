@@ -24,7 +24,7 @@ namespace Cards.Cards.DM09
             var creature = Controller.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Source, new StormWranglerContinuousEffect(creature));
+                game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
             }
         }
 
@@ -55,12 +55,12 @@ namespace Cards.Cards.DM09
 
         public bool BlocksIfAble(ICard blocker, ICard attacker, IGame game)
         {
-            return blocker == _blocker && IsSourceOfAbility(attacker, game);
+            return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && blocker != _blocker;
+            return IsSourceOfAbility(attacker) && blocker != _blocker;
         }
 
         public override IContinuousEffect Copy()

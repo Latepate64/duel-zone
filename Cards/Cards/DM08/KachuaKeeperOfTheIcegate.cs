@@ -34,13 +34,13 @@ namespace Cards.Cards.DM08
             var dragon = Controller.ChooseCardOptionally(cards, ToString());
             if (dragon != null)
             {
-                game.Move(Source, ZoneType.Deck, ZoneType.Hand, dragon);
+                game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
             Controller.ShuffleDeck(game);
             if (dragon != null)
             {
-                game.AddContinuousEffects(Source, new KachuaContinuousEffect(dragon));
-                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Source, dragon, game.CurrentTurn.Id));
+                game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
+                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
             }
         }
 

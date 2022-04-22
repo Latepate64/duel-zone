@@ -20,8 +20,8 @@ namespace Cards.Cards.DM03
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
             if (creature != null)
             {
-                game.Destroy(Source, creature);
-                controller.ReturnOwnManaCreature(game, Source);
+                game.Destroy(Ability, creature);
+                controller.ReturnOwnManaCreature(game, Ability);
             }
         }
 

@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         protected override ICard GetBreaker(IGame game, IAbility source)
         {
-            return game.GetCard(Source.Source);
+            return game.GetCard(Ability.Source);
         }
     }
 
@@ -45,7 +45,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            GetBreaker(game, Source).Break(game, _amount);
+            GetBreaker(game, Ability).Break(game, _amount);
         }
 
         protected abstract ICard GetBreaker(IGame game, IAbility source);

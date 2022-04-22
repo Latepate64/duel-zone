@@ -27,9 +27,9 @@ namespace Cards.Cards.DM10
             var player = Controller;
             var hand = player.Hand.Cards;
             var amount = hand.Count;
-            game.Move(Source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
             var cards = player.ChooseCards(player.ManaZone.Cards, amount, amount, ToString());
-            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, cards.ToArray());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

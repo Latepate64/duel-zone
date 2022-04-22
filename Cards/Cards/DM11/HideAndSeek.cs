@@ -25,8 +25,8 @@ namespace Cards.Cards.DM11
         {
             var controller = Controller;
             var creature = controller.ChooseOpponentsNonEvolutionCreature(game, ToString());
-            game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creature);
-            game.GetOpponent(controller).DiscardAtRandom(game, 1, Source);
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
+            game.GetOpponent(controller).DiscardAtRandom(game, 1, Ability);
         }
 
         public override IOneShotEffect Copy()

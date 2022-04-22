@@ -28,7 +28,7 @@ namespace Cards.Cards.DM09
             var card = controller.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)
             {
-                game.Move(Source, ZoneType.Deck, ZoneType.Graveyard, card);
+                game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
             }
             player.ShuffleDeck(game);
         }

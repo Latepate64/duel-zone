@@ -20,8 +20,8 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var controller = Controller;
-            controller.DrawCardsOptionally(game, Source, 2);
-            controller.DiscardOwnCards(game, Source, _discard);
+            controller.DrawCardsOptionally(game, Ability, 2);
+            controller.DiscardOwnCards(game, Ability, _discard);
         }
 
         public override IOneShotEffect Copy()

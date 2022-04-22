@@ -35,7 +35,7 @@ namespace Cards.Cards.DM03
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.PutFromShieldZoneToHand(cards, false, Source);
+            game.PutFromShieldZoneToHand(cards, false, Ability);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)

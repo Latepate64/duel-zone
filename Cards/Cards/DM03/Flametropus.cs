@@ -30,8 +30,8 @@ namespace Cards.Cards.DM03
             var card = player.ChooseCardOptionally(player.ManaZone.Cards, ToString());
             if (card != null)
             {
-                game.Move(Source, ZoneType.ManaZone, ZoneType.Graveyard, card);
-                game.AddContinuousEffects(Source, new FlametropusContinuousEffect(game.GetCard(Source.Source)));                 
+                game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
+                game.AddContinuousEffects(Ability, new FlametropusContinuousEffect(game.GetCard(Ability.Source)));                 
             }
         }
 

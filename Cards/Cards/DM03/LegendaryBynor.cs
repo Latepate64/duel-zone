@@ -25,7 +25,7 @@ namespace Cards.Cards.DM03
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return !IsSourceOfAbility(attacker, game) && attacker.HasCivilization(Civilization.Water);
+            return !IsSourceOfAbility(attacker) && attacker.HasCivilization(Civilization.Water);
         }
 
         public override IContinuousEffect Copy()

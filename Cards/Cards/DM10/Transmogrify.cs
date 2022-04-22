@@ -24,10 +24,10 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Source);
+            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
             if (destroyedCreature != null)
             {
-                destroyedCreature.OwnerPlayer.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Source);
+                destroyedCreature.OwnerPlayer.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
             }
         }
 

@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && blocker.Power <= _power;
+            return IsSourceOfAbility(attacker) && blocker.Power <= _power;
         }
 
         public override IContinuousEffect Copy()

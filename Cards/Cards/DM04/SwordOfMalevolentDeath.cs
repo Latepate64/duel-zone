@@ -17,9 +17,9 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(Source.Controller);
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
-            game.AddContinuousEffects(Source, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
+            game.AddContinuousEffects(Ability, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

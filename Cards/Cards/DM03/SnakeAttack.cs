@@ -20,7 +20,7 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Source.Controller).ToArray()));
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
         }
 
         public override IOneShotEffect Copy()

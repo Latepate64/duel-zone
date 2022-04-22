@@ -26,10 +26,10 @@ namespace Cards.Cards.DM08
             var creature = Controller.ChooseCard(game.BattleZone.Creatures, ToString());
             if (creature != null)
             {
-                game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creature);
+                game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
                 if (creature.IsDragon)
                 {
-                    Controller.DrawCardsOptionally(game, Source, 1);
+                    Controller.DrawCardsOptionally(game, Ability, 1);
                 }
             }
         }

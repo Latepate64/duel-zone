@@ -268,6 +268,7 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
+            ability.SourceCard = this;
         }
 
         private void SetRulesText()

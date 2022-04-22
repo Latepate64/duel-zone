@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard creature, ICard against, IGame game)
         {
-            return IsSourceOfAbility(creature, game);
+            return IsSourceOfAbility(creature);
         }
     }
 }

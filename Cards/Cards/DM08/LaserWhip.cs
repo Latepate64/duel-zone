@@ -29,7 +29,7 @@ namespace Cards.Cards.DM08
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Source, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
+                game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
             }
         }
 

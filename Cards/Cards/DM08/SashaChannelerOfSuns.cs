@@ -51,10 +51,10 @@ namespace Cards.Cards.DM08
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase a)
             {
-                var against = a.GetCreatureBattlingAgainst(GetSourceCard(game));
+                var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.IsDragon)
                 {
-                    GetSourceCard(game).Power += 6000;
+                    Source.Power += 6000;
                 }
             }
         }

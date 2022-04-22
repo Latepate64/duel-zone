@@ -36,7 +36,7 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(Source, ZoneType.Deck, ZoneType.ManaZone, cards);
+            game.Move(Ability, ZoneType.Deck, ZoneType.ManaZone, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)

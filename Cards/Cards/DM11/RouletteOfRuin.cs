@@ -26,10 +26,10 @@ namespace Cards.Cards.DM11
         public override void Apply(IGame game)
         {
             var number = Controller.ChooseNumber(new Engine.Choices.NumberChoice(Controller, ToString()));
-            foreach (var player in new System.Guid[] { Source.Controller, game.GetOpponent(Source.Controller) })
+            foreach (var player in new System.Guid[] { Ability.Controller, game.GetOpponent(Ability.Controller) })
             {
                 game.GetPlayer(player).Reveal(game, game.GetPlayer(player).Hand.Cards.ToArray());
-                game.Move(Source, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
+                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
                 game.GetPlayer(player).Unreveal(game.GetPlayer(player).Hand.Cards.ToArray());
             }
         }

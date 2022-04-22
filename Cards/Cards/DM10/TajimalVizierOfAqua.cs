@@ -34,10 +34,10 @@ namespace Cards.Cards.DM10
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase a)
             {
-                var against = a.GetCreatureBattlingAgainst(GetSourceCard(game));
+                var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.HasCivilization(Civilization.Fire))
                 {
-                    GetSourceCard(game).Power += 4000;
+                    Source.Power += 4000;
                 }
             }
         }

@@ -36,12 +36,12 @@ namespace Cards.Cards.DM01
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(Source, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
+            game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Source.Controller);
+            return game.BattleZone.GetCreatures(Ability.Controller);
         }
     }
 }

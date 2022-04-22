@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
             var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
-                GetOpponent(game).Discard(Source, game, card);
+                GetOpponent(game).Discard(Ability, game, card);
                 GetOpponent(game).Unreveal(new List<ICard>() { card });
             }
         }

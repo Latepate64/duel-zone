@@ -18,7 +18,7 @@ namespace Cards.Cards.DM08
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.Move(Source, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.IsDragon).ToArray());
+                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.IsDragon).ToArray());
             }
         }
 

@@ -27,7 +27,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Source);
+            game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Ability);
         }
     }
 

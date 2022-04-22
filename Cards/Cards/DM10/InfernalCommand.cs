@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             var creature = Controller.ChooseOpponentsCreature(game, ToString());
-            game.AddContinuousEffects(Source, new InfernalCommandContinuousEffect(creature));
+            game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
         }
 
         public override IOneShotEffect Copy()

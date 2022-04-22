@@ -21,8 +21,8 @@ namespace Cards.Cards.DM03
 
         public bool CannotAttack(ICard creature, IGame game)
         {
-            var ability = Source;
-            return IsSourceOfAbility(creature, game) && game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
+            var ability = Ability;
+            return IsSourceOfAbility(creature) && game.BattleZone.GetCreatures(ability.GetOpponent(game).Id).Count() > game.BattleZone.GetCreatures(ability.Controller).Count();
         }
 
         public override IContinuousEffect Copy()

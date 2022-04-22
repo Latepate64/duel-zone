@@ -16,9 +16,9 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            if (!Source.GetController(game).ShieldZone.HasCards)
+            if (!Ability.GetController(game).ShieldZone.HasCards)
             {
-                _abilities.ToList().ForEach(x => game.AddAbility(GetSourceCard(game), x.Copy()));
+                _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
             }
         }
 

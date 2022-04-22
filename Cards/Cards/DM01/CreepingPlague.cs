@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(Source));
+            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()

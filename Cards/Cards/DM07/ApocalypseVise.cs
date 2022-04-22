@@ -27,7 +27,7 @@ namespace Cards.Cards.DM07
         public override void Apply(IGame game)
         {
             game.Destroy(
-                Source,
+                Ability,
                 Controller.ChooseCards(
                     new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).ToArray())
                     ).ToArray());

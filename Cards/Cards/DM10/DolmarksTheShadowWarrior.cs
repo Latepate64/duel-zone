@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            new List<IPlayer> { Controller, GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, Source); x.BurnOwnMana(game, Source); });
+            new List<IPlayer> { Controller, GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, Ability); x.BurnOwnMana(game, Ability); });
         }
 
         public override IOneShotEffect Copy()

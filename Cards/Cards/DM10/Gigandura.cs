@@ -30,9 +30,9 @@ namespace Cards.Cards.DM10
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(Source, ZoneType.Hand, ZoneType.ManaZone, card);
+                game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, card);
                 var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
-                game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, mana);
+                game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
             opponent.Unreveal(new List<ICard> { card });
         }

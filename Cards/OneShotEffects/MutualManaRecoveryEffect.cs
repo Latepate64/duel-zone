@@ -20,8 +20,8 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var controller = Controller;
-            controller.ReturnOwnManaCards(game, Source, Amount);
-            game.GetOpponent(controller).ReturnOwnManaCards(game, Source, Amount);
+            controller.ReturnOwnManaCards(game, Ability, Amount);
+            game.GetOpponent(controller).ReturnOwnManaCards(game, Ability, Amount);
         }
 
         public override IOneShotEffect Copy()

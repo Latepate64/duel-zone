@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Source));
+                game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
                     Destination = ZoneType.Hand
@@ -42,7 +42,7 @@ namespace Cards.ContinuousEffects
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game);
+            return IsSourceOfAbility(card);
         }
     }
 }

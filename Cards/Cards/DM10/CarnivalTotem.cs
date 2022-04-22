@@ -26,8 +26,8 @@ namespace Cards.Cards.DM10
         {
             var mana = Controller.ManaZone.Cards;
             var hand = Controller.Hand.Cards;
-            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(Source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()

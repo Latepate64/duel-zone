@@ -26,7 +26,7 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var race = Controller.ChooseRace(ToString());
-            game.AddContinuousEffects(Source, new RelentlessBlitzContinuousEffect(race));
+            game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
         }
 
         public override IOneShotEffect Copy()

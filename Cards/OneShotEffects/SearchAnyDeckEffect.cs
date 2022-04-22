@@ -24,11 +24,11 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, Source);
+            var cards = GetAffectedCards(game, Ability);
             if (cards.Any())
             {
                 var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
-                Apply(game, Source, selectedCards.ToArray());
+                Apply(game, Ability, selectedCards.ToArray());
             }
             (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleDeck(game);
         }

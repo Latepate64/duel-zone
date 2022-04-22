@@ -27,7 +27,7 @@ namespace Cards.Cards.DM09
             var controller = Controller;
             var race = controller.ChooseRace(ToString());
             var creatures = controller.ChooseAnyNumberOfCards(controller.Hand.GetCreatures(race), ToString());
-            game.Move(Source, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
+            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

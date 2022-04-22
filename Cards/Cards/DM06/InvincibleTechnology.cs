@@ -19,7 +19,7 @@ namespace Cards.Cards.DM06
             var cards = Controller.Deck.Cards;
             var selectedCards = Controller.ChooseAnyNumberOfCards(cards, ToString()).ToArray();
             Controller.Reveal(game, selectedCards);
-            game.Move(Source, ZoneType.Deck, ZoneType.Hand, selectedCards);
+            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, selectedCards);
             Controller.ShuffleDeck(game);
         }
 

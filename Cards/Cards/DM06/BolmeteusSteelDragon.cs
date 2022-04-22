@@ -33,7 +33,7 @@ namespace Cards.Cards.DM06
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker == GetSourceCard(game);
+            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker == Source;
         }
 
         public override IContinuousEffect Copy()

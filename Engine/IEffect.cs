@@ -5,8 +5,9 @@ namespace Engine
 {
     public interface IEffect
     {
+        IAbility Ability { get; set; }
         IPlayer Controller { get; set; }
-        IAbility Source { get; set; }
+        ICard Source { get; }
     }
 
     public abstract class Effect : IEffect
@@ -17,10 +18,13 @@ namespace Engine
 
         protected Effect(IEffect effect)
         {
+            Ability = effect.Ability;
+            Controller = effect.Controller;
         }
 
         public IPlayer Controller { get; set; }
-        public IAbility Source { get; set; }
+        public IAbility Ability { get; set; }
+        public ICard Source => Ability.SourceCard;
 
         public void Dispose()
         {
@@ -37,14 +41,9 @@ namespace Engine
 
         public override abstract string ToString();
 
-        protected bool IsSourceOfAbility(ICard card, IGame game)
+        protected bool IsSourceOfAbility(ICard card)
         {
-            return card.Id == Source.Source;
-        }
-
-        protected ICard GetSourceCard(IGame game)
-        {
-            return game.GetCard(Source.Source);
+            return card == Ability.SourceCard;
         }
 
         protected IPlayer GetOpponent(IGame game)

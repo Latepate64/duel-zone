@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game);
+            return IsSourceOfAbility(attacker);
         }
     }
 }

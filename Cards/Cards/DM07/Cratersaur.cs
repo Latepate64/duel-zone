@@ -22,13 +22,13 @@ namespace Cards.Cards.DM07
         {
             if (YouHaveNoShields(game))
             {
-                GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000));
+                Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000));
             }
         }
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return YouHaveNoShields(game) && IsSourceOfAbility(attacker, game);
+            return YouHaveNoShields(game) && IsSourceOfAbility(attacker);
         }
 
         public override IContinuousEffect Copy()
@@ -43,7 +43,7 @@ namespace Cards.Cards.DM07
 
         private bool YouHaveNoShields(IGame game)
         {
-            return !Source.GetController(game).ShieldZone.HasCards;
+            return !Ability.GetController(game).ShieldZone.HasCards;
         }
     }
 }

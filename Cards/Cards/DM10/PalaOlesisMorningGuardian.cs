@@ -30,7 +30,7 @@ namespace Cards.Cards.DM10
         {
             if (game.GetOpponent(Controller.Id) == game.CurrentTurn.ActivePlayer.Id)
             {
-                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x, game)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

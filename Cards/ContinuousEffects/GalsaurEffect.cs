@@ -13,11 +13,11 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            var ability = Source;
+            var ability = Ability;
             if (!game.BattleZone.GetCreatures(ability.Controller).Any(x => x.Id != ability.Source))
             {
-                GetSourceCard(game).AddGrantedAbility(new PowerAttackerAbility(4000));
-                GetSourceCard(game).AddGrantedAbility(new DoubleBreakerAbility());
+                Source.AddGrantedAbility(new PowerAttackerAbility(4000));
+                Source.AddGrantedAbility(new DoubleBreakerAbility());
             }
         }
 

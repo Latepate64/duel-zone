@@ -17,7 +17,7 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game)
         {
-            game.Players.ToList().ForEach(x => Apply(x, game, Source));
+            game.Players.ToList().ForEach(x => Apply(x, game, Ability));
         }
 
         private static void Apply(IPlayer player, IGame game, IAbility source)

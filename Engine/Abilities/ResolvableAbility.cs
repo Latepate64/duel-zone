@@ -21,7 +21,7 @@
         public virtual void Resolve(IGame game)
         {
             OneShotEffect.Controller = GetController(game);
-            OneShotEffect.Source = this;
+            OneShotEffect.Ability = this;
             OneShotEffect.Apply(game);
         }
     }

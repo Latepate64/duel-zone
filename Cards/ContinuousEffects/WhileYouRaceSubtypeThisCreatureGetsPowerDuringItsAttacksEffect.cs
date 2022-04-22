@@ -33,9 +33,9 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Source.Id).Any(x => x.HasRace(_race)))
+            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(_race)))
             {
-                GetSourceCard(game).Power += _power;
+                Source.Power += _power;
             }
         }
     }

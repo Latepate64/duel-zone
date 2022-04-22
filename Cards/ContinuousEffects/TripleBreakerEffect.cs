@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public int GetAmount(IGame game, ICard creature)
         {
-            return IsSourceOfAbility(creature, game) ? 3 : 1;
+            return IsSourceOfAbility(creature) ? 3 : 1;
         }
 
         public override string ToString()

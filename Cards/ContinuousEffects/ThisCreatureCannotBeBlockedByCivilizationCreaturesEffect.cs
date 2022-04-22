@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && blocker.HasCivilization(_civilization);
+            return IsSourceOfAbility(attacker) && blocker.HasCivilization(_civilization);
         }
 
         public override ContinuousEffect Copy()

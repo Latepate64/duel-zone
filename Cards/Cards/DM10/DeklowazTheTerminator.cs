@@ -16,12 +16,12 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            game.Destroy(Source, game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
+            game.Destroy(Ability, game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
             var cards = GetOpponent(game).Hand.Cards;
             if (cards.Any())
             {
                 Controller.Look(GetOpponent(game), game, cards.ToArray());
-                GetOpponent(game).Discard(Source, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
+                GetOpponent(game).Discard(Ability, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
                 GetOpponent(game).Unreveal(cards);
             }
         }

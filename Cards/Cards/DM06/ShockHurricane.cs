@@ -32,7 +32,7 @@ namespace Cards.Cards.DM06
                 if (Controller.ChooseToTakeAction($"You may choose {amount} of your opponent's creatures in the battle zone and return them to your opponent's hand."))
                 {
                     var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
-                    game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
+                    game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
                 }
             }
         }

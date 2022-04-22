@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Source, new ForcedFrenzyContinuousEffect(GetOpponent(game)));
+            game.AddContinuousEffects(Ability, new ForcedFrenzyContinuousEffect(GetOpponent(game)));
         }
 
         public override IOneShotEffect Copy()

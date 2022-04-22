@@ -21,9 +21,9 @@ namespace Cards.Cards.DM10
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
             if (creature != null)
             {
-                game.Destroy(Source, creature);
+                game.Destroy(Ability, creature);
                 var card = controller.ChooseCard(controller.Hand.Creatures.Where(x => x.ManaCost <= controller.ManaZone.Cards.Count), ToString());
-                game.Move(Source, ZoneType.Hand, ZoneType.BattleZone, card);
+                game.Move(Ability, ZoneType.Hand, ZoneType.BattleZone, card);
             }
         }
 

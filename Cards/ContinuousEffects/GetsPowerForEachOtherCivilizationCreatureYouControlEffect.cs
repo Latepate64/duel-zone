@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Controller.Id, GetSourceCard(game).Id, _civilization).Count();
+            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id, _civilization).Count();
         }
     }
 }

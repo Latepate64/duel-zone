@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
         {
             if (game.BattleZone.GetCreatures(Controller.Id).Any(x => x.HasRace(Race.AngelCommand)))
             {
-                GetSourceCard(game).Power += 2000;
+                Source.Power += 2000;
             }
         }
 

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += 4000;
+            Source.Power += 4000;
         }
 
         public override string ToString()

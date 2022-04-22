@@ -25,7 +25,7 @@ namespace Cards.Cards.DM06
         {
             if (GetOpponent(game).ShieldZone.Cards.Count > Controller.ShieldZone.Cards.Count)
             {
-                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Source);
+                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
             }
         }
 

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, Source));
+            game.Players.ToList().ForEach(x => x.DiscardAtRandom(game, 1, Ability));
         }
 
         public override IOneShotEffect Copy()

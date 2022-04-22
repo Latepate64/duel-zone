@@ -27,7 +27,7 @@ namespace Cards.Cards.DM04
             var controller = Controller;
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Light));
             var cards = controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray();
-            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, cards);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards);
         }
 
         public override IOneShotEffect Copy()
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM04
             var controller = Controller;
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Darkness));
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 0, amount, ToString()).ToArray();
-            game.Move(Source, ZoneType.ManaZone, ZoneType.Hand, creatures);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 
         public override IOneShotEffect Copy()

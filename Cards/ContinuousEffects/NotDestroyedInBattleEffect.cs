@@ -19,7 +19,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard against, ICard creature, IGame game)
         {
-            return IsSourceOfAbility(creature, game) && against.HasCivilization(_civilization);
+            return IsSourceOfAbility(creature) && against.HasCivilization(_civilization);
         }
 
         public override IContinuousEffect Copy()

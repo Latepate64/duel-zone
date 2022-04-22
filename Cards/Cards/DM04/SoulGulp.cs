@@ -26,7 +26,7 @@ namespace Cards.Cards.DM04
         {
             var opponent = game.GetOpponent(Controller);
             int amount = game.BattleZone.GetCreatures(opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
-            opponent.DiscardOwnCards(game, Source, amount);
+            opponent.DiscardOwnCards(game, Ability, amount);
         }
 
         public override IOneShotEffect Copy()

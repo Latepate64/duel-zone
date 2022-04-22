@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public int GetAmount(IGame game, ICard creature)
         {
-            return IsSourceOfAbility(creature, game) && GetSourceCard(game).Power >= 6000 ? 2 : 1;
+            return IsSourceOfAbility(creature) && Source.Power >= 6000 ? 2 : 1;
         }
 
         public override string ToString()

@@ -16,9 +16,9 @@ namespace Cards.ContinuousEffects
 
         public int GetAmount(IGame game, ICard creature)
         {
-            if (IsSourceOfAbility(creature, game))
+            if (IsSourceOfAbility(creature))
             {
-                var power = GetSourceCard(game).Power;
+                var power = Source.Power;
                 return power >= 15000 ?
                     3 :
                     power >= 6000 ?

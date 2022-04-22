@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
         {
             var cards = Controller.LookAtTheTopCardsOfYourDeck(4, game);
             var card = Controller.ChooseCard(cards, ToString());
-            game.Move(Source, ZoneType.Deck, ZoneType.Hand, card);
+            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, card);
             Controller.PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != card).ToArray());
         }
 

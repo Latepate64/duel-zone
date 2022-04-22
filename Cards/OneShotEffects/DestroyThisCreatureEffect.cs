@@ -26,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            var creature = game.GetCard(Source.Source);
+            var creature = game.GetCard(Ability.Source);
             if (creature != null)
             {
                 return new ICard[] { creature };

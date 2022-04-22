@@ -25,7 +25,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            game.Move(Source, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
         }
 
         public override IOneShotEffect Copy()

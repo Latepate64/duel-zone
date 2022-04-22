@@ -29,7 +29,7 @@ namespace Cards.Cards.DM05
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
-                    CardInSourceZone = GetSourceCard(game).Id
+                    CardInSourceZone = Source.Id
                 };
             }
             else
