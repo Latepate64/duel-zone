@@ -16,9 +16,17 @@ namespace TestEngine
         {
             Assert.Equal(
                 shouldBeAbleToEvolve,
-                new Card().CanEvolveFrom(
+                new CardMock().CanEvolveFrom(
                     new GameMock(shouldBeAbleToEvolve).Object,
-                    new Card()));
+                    new CardMock()));
+        }
+    }
+
+    class CardMock : Card
+    {
+        public override ICard Copy()
+        {
+            throw new System.NotImplementedException();
         }
     }
 

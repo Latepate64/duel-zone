@@ -14,8 +14,9 @@ namespace Cards.ContinuousEffects
             _abilities = abilities;
         }
 
-        protected WhileYouHaveNoShieldsEffect(IContinuousEffect effect) : base(effect)
+        protected WhileYouHaveNoShieldsEffect(WhileYouHaveNoShieldsEffect effect) : base(effect)
         {
+            _abilities = effect._abilities;
         }
 
         public void AddAbility(IGame game)

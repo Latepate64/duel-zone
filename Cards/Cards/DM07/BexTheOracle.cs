@@ -17,7 +17,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public BexEffect(IContinuousEffect effect) : base(effect)
+        public BexEffect(WhileYouHaveNoShieldsEffect effect) : base(effect)
         {
         }
 

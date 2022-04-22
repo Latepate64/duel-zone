@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards
 {
-    abstract class Creature : CardImplementation
+    class Creature : CardImplementation
     {
         /// <summary>
         /// This constructor should be used for cards with one race.
@@ -44,6 +44,10 @@ namespace Cards
         protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
         {
             SetPrintedRaces(race1, race2);
+        }
+
+        public Creature(ICard card) : base(card)
+        {
         }
 
         #region Static abilities
@@ -143,6 +147,11 @@ namespace Cards
         protected void AddSurvivorAbility(ITriggeredAbility ability)
         {
             AddStaticAbilities(new SurvivorEffect(ability));
+        }
+
+        public override ICard Copy()
+        {
+            return new Creature(this);
         }
     }
 

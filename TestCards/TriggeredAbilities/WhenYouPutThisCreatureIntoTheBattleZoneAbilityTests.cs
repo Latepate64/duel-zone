@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
+using Moq;
 using System;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace TestCards.TriggeredAbilities
         [Fact]
         public void CanTrigger_CardMovesToBattleZone_ReturnTrue()
         {
-            var card = new Card();
+            var card = Mock.Of<ICard>();
             Assert.True(
                 new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffectMock())
                 {

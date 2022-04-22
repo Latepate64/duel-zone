@@ -4,14 +4,23 @@ using System.Linq;
 
 namespace Cards
 {
-    abstract class Spell : CardImplementation
+    class Spell : CardImplementation
     {
+        public Spell(ICard card) : base(card)
+        {
+        }
+
         protected Spell(string name, int manaCost, Civilization civilization) : base(CardType.Spell, name, manaCost, null, civilization)
         {
         }
 
         protected Spell(string name, int manaCost, Civilization civilization1, Civilization civilization2) : base(CardType.Spell, name, manaCost, null, civilization1, civilization2)
         {
+        }
+
+        public override ICard Copy()
+        {
+            return new Spell(this);
         }
 
         /// <summary>

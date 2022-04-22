@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : ICard, ICopyable<ICard>, ITimestampable
+    abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
         private readonly IList<Race> _addedRaces = new List<Race>();
         private IList<Race> _printedRaces = new List<Race>();
@@ -22,7 +22,7 @@ namespace Engine
             PrintedPower = power;
         }
 
-        internal Card(ICard card, int timeStamp)
+        protected Card(ICard card, int timeStamp)
         {
             Id = Guid.NewGuid();
             Owner = card.Owner;
@@ -158,10 +158,7 @@ namespace Engine
             return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
-        public virtual ICard Copy()
-        {
-            return new Card(this, Timestamp);
-        }
+        public abstract ICard Copy();
 
         public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
         {

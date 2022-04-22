@@ -14,6 +14,10 @@ namespace Cards
             Name = name;
         }
 
+        protected CardImplementation(ICard card) : base(card, 0)
+        {
+        }
+
         /// <summary>
         /// Creates a static ability for each continuous effect provided and add the abilities to the card.
         /// </summary>

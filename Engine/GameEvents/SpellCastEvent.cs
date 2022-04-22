@@ -18,7 +18,8 @@ namespace Engine.GameEvents
         {
             // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
             game.GetZone(Spell).Remove(Spell, game);
-            Spell = new Card(Spell, game.GetTimestamp());
+            Spell = Spell.Copy();
+            Spell.Timestamp = game.GetTimestamp();
             game.SpellStack.Add(Spell, game);
             game.AddContinuousEffects(Spell, Spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
             Spell.KnownTo = game.Players.Select(x => x.Id).ToList();

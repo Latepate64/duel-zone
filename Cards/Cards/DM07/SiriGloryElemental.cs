@@ -18,7 +18,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public SiriEffect(IContinuousEffect effect) : base(effect)
+        public SiriEffect(WhileYouHaveNoShieldsEffect effect) : base(effect)
         {
         }
 

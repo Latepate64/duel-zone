@@ -46,10 +46,8 @@ namespace Engine.GameEvents
                     {
                         // 400.7. An object that moves from one zone to another becomes a new object with no memory of, or relation to, its previous existence.
                         // 613.7d An object receives a timestamp at the time it enters a zone.
-                        var newObject = new Card(removedCard, game.GetTimestamp())
-                        {
-                            OwnerPlayer = Player
-                        };
+                        var newObject = removedCard.Copy();
+                        newObject.Timestamp = game.GetTimestamp();
                         if (EntersTapped)
                         {
                             newObject.Tapped = true;
