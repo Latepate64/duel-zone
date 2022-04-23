@@ -367,7 +367,7 @@ namespace Engine
                     canAttackUntappedCreaturesEffects.Any(e => e.CanAttackUntappedCreature(attacker, c, this)) ||
                     GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>().Any(x => x.Applies(c))));
             }
-            if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any())
+            if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any() && !GetContinuousEffects<IPlayersCannotUseTapAbilities>().Any())
             {
                 attackables.Add(attacker);
             }
