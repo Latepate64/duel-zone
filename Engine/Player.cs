@@ -644,7 +644,7 @@ namespace Engine
         {
             var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
             var bait = ChooseCard(baits, "Choose a creature to evolve from.");
-            card.PutOnTopOf(bait);
+            game.ProcessEvents(new EvolutionEvent(this, card, bait));
         }
 
         private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)
