@@ -23,7 +23,7 @@ namespace Cards.Cards.DM02
                         new OneShotEffects.DestroyThisCreatureEffect(),
                         Ability.Source.Id),
                     Ability.Source,
-                    Ability.ControllerPlayer,
+                    Ability.Controller,
                     true));
         }
 

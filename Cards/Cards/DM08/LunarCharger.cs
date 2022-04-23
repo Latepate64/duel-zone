@@ -45,7 +45,7 @@ namespace Cards.Cards.DM08
 
     class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbility
     {
-        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards, Guid turnId) : base(new LunarChargerAbility(cards, turnId), source.Source, source.ControllerPlayer, true)
+        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards, Guid turnId) : base(new LunarChargerAbility(cards, turnId), source.Source, source.Controller, true)
         {
         }
     }
@@ -79,8 +79,8 @@ namespace Cards.Cards.DM08
 
         public override void Resolve(IGame game)
         {
-            var cards = ControllerPlayer.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
-            ControllerPlayer.Untap(game, cards.ToArray());
+            var cards = Controller.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
+            Controller.Untap(game, cards.ToArray());
         }
 
         public override string ToString()

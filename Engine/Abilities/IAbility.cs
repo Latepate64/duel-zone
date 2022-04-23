@@ -15,7 +15,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        IPlayer ControllerPlayer { get; set; }
+        IPlayer Controller { get; set; }
 
         IAbility Copy();
 

@@ -22,7 +22,7 @@ namespace Cards.Cards.DM07
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
                         Ability.Source,
-                        Ability.ControllerPlayer,
+                        Ability.Controller,
                         true));
         }
 
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id, Civilization.Light);
+            return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Light);
         }
     }
 }

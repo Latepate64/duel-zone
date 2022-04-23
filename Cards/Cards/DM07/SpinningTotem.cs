@@ -43,7 +43,7 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.ControllerPlayer, false)
+        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.Controller, false)
         {
         }
 
@@ -88,7 +88,7 @@ namespace Cards.Cards.DM07
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == ControllerPlayer && e.Attacker.HasCivilization(Civilization.Nature);
+            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == Controller && e.Attacker.HasCivilization(Civilization.Nature);
         }
 
         public override void Resolve(IGame game)

@@ -9,7 +9,7 @@ namespace Cards.TriggeredAbilities
     {
         public ReflexiveTriggeredAbility(IOneShotEffect effect, IAbility ability) : base(effect)
         {
-            ControllerPlayer = ability.ControllerPlayer;
+            Controller = ability.Controller;
             Source = ability.Source;
         }
 

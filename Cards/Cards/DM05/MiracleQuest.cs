@@ -42,7 +42,7 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.ControllerPlayer, false)
+        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.Controller, false)
         {
         }
 
@@ -64,7 +64,7 @@ namespace Cards.Cards.DM05
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == ControllerPlayer;
+            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == Controller;
         }
 
         public override IAbility Copy()

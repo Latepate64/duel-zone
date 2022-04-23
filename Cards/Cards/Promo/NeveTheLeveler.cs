@@ -25,7 +25,7 @@ namespace Cards.Cards.Promo
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return game.BattleZone.GetCreatures(ControllerPlayer.Id).Count() > game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
+            return game.BattleZone.GetCreatures(Controller.Id).Count() > game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
         }
 
         public override IAbility Copy()
@@ -43,7 +43,7 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            var diff = game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id).Count() - game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
+            var diff = game.BattleZone.GetCreatures(Ability.Controller.Id).Count() - game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
             var controller = Controller;
             var creatures = controller.ChooseCards(controller.Deck.Creatures, 0, diff, ToString()).ToArray();
             controller.Reveal(game, creatures);

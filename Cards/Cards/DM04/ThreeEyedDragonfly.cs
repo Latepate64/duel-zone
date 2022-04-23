@@ -21,7 +21,7 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.ControllerPlayer.Id, Ability.Source.Id), ToString());
+            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id), ToString());
             if (creature != null)
             {
                 game.Destroy(Ability, creature);

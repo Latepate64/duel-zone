@@ -35,7 +35,7 @@ namespace Cards.Cards.Promo
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Owner == ControllerPlayer && card != Source;
+            return card.Owner == Controller && card != Source;
         }
     }
 }

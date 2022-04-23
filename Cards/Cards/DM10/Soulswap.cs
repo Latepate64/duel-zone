@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
             public override void Apply(IGame game)
             {
                 // You may choose a creature in the battle zone and put it into its owner's mana zone.
-                var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Ability.ControllerPlayer.Id);
+                var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Ability.Controller.Id);
                 if (creatures.Any())
                 {
                     var creature = Controller.ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");

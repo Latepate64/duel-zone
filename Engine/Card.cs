@@ -214,7 +214,7 @@ namespace Engine
 
         private void InitializeAbility(IAbility ability)
         {
-            ability.ControllerPlayer = Owner;
+            ability.Controller = Owner;
             ability.Source = this;
         }
 

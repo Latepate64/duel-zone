@@ -18,7 +18,7 @@ namespace Engine.Abilities
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;
-            TriggeredAbility.ControllerPlayer = owner;
+            TriggeredAbility.Controller = owner;
             TriggersOnlyOnce = triggersOnlyOnce;
         }
 

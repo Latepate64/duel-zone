@@ -22,7 +22,7 @@ namespace Engine
         }
 
         public IAbility Ability { get; set; }
-        public IPlayer Controller => Ability.ControllerPlayer;
+        public IPlayer Controller => Ability.Controller;
         public ICard Source => Ability.Source;
 
         public void Dispose()
@@ -42,7 +42,7 @@ namespace Engine
 
         protected bool IsSourceOfAbility(ICard card)
         {
-            return card == Ability.Source;
+            return card == Source;
         }
 
         protected IPlayer GetOpponent(IGame game)

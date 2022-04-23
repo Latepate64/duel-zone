@@ -18,7 +18,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        public IPlayer ControllerPlayer { get; set; }
+        public IPlayer Controller { get; set; }
 
         protected Ability()
         {
@@ -28,7 +28,7 @@ namespace Engine.Abilities
         protected Ability(IAbility ability)
         {
             Id = Guid.NewGuid();
-            ControllerPlayer = ability.ControllerPlayer;
+            Controller = ability.Controller;
             Source = ability.Source;
         }
 
@@ -55,7 +55,7 @@ namespace Engine.Abilities
         /// <returns></returns>
         public IPlayer GetOpponent(IGame game)
         {
-            return game.GetOpponent(ControllerPlayer);
+            return game.GetOpponent(Controller);
         }
     }
 }

@@ -34,12 +34,12 @@ namespace Cards.Cards.DM10
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), Ability.Source, Ability.ControllerPlayer, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), Ability.Source, Ability.Controller, true));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id);
+            return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }
     }
 

@@ -35,7 +35,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id, Civilization.Fire);
+            return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Fire);
         }
     }
 }
