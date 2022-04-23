@@ -2,7 +2,6 @@
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -10,29 +9,7 @@ namespace Cards.Cards.DM12
     {
         public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Race.Chimera, Race.Armorloid, Civilization.Darkness, Civilization.Fire)
         {
-            AddStaticAbilities(new PhantomachPowerEffect(), new PhantomachDoubleBreakerEffect());
-        }
-    }
-
-    class PhantomachPowerEffect : ContinuousEffect, IPowerModifyingEffect
-    {
-        public PhantomachPowerEffect() : base()
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new PhantomachPowerEffect();
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && (x.HasRace(Race.Chimera) || x.HasRace(Race.Armorloid))).ToList().ForEach(x => x.Power += 2000);
-        }
-
-        public override string ToString()
-        {
-            return "Each of your other Chimeras and Armorloids in the battle zone gain +2000 power.";
+            AddStaticAbilities(new EachOfYourOtherRacesGetsPowerEffect(Race.Chimera, Race.Armorloid), new PhantomachDoubleBreakerEffect());
         }
     }
 
