@@ -215,7 +215,6 @@ namespace Engine
         private void InitializeAbility(IAbility ability)
         {
             ability.Controller = Owner.Id;
-            ability.Source = Id;
             ability.SourceCard = this;
         }
 

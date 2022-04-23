@@ -20,8 +20,7 @@ namespace Cards.ContinuousEffects
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            var ability = Ability;
-            return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
+            return attacker == Ability.SourceCard && Ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
         }
 
         public override IContinuousEffect Copy()

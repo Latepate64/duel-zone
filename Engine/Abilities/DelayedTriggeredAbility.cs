@@ -14,10 +14,10 @@ namespace Engine.Abilities
         /// </summary>
         internal bool TriggersOnlyOnce { get; private set; }
 
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Guid source, Guid owner, bool triggersOnlyOnce)
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, ICard source, Guid owner, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
-            TriggeredAbility.Source = source;
+            TriggeredAbility.SourceCard = source;
             TriggeredAbility.Controller = owner;
             TriggersOnlyOnce = triggersOnlyOnce;
         }

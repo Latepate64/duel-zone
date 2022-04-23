@@ -35,7 +35,7 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, false)
+        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.SourceCard, source.Controller, false)
         {
         }
 

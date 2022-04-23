@@ -44,7 +44,7 @@ namespace Cards.Cards.DM09
 
     class FistsOfForeverDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public FistsOfForeverDelayedTriggeredAbility(ICard creature, IAbility source) : base(new FistsOfForeverAbility(creature), source.Source, source.Controller, false)
+        public FistsOfForeverDelayedTriggeredAbility(ICard creature, IAbility source) : base(new FistsOfForeverAbility(creature), source.SourceCard, source.Controller, false)
         {
         }
 

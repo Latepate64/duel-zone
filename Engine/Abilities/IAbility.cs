@@ -15,11 +15,6 @@ namespace Engine.Abilities
         /// </summary>
         Guid Controller { get; set; }
 
-        /// <summary>
-        /// 113.7.
-        /// The source of an ability is the object that generated it.
-        /// </summary>
-        Guid Source { get; set; }
         ICard SourceCard { get; set; }
 
         IAbility Copy();

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(Ability.Controller).Count(x => x.Id != Ability.Source && x.Tapped == true);
+            var amount = game.BattleZone.GetCreatures(Ability.Controller).Count(x => x != Ability.SourceCard && x.Tapped == true);
             Controller.DrawCardsOptionally(game, Ability, amount);
         }
 

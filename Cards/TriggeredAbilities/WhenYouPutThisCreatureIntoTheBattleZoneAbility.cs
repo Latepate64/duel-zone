@@ -26,7 +26,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Source == card.Id;
+            return SourceCard == card;
         }
     }
 
@@ -52,7 +52,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Source != card.Id;
+            return SourceCard != card;
         }
     }
 
@@ -104,7 +104,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Source != card.Id && Controller == card.Owner.Id;
+            return SourceCard != card && Controller == card.Owner.Id;
         }
     }
 

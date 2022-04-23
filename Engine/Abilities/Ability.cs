@@ -7,12 +7,6 @@ namespace Engine.Abilities
     /// </summary>
     public abstract class Ability : IAbility
     {
-        /// <summary>
-        /// 113.7.
-        /// The source of an ability is the object that generated it.
-        /// </summary>
-        public Guid Source { get; set; }
-
         public Guid Id { get; }
 
         /// <summary>
@@ -34,7 +28,7 @@ namespace Engine.Abilities
         {
             Id = Guid.NewGuid();
             Controller = ability.Controller;
-            Source = ability.Source;
+            SourceCard = ability.SourceCard;
         }
 
         public abstract IAbility Copy();

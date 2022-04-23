@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         protected override ICard GetBreaker(IGame game, IAbility source)
         {
-            return game.GetCard(Ability.Source);
+            return Ability.SourceCard;
         }
     }
 

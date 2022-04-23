@@ -18,7 +18,7 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(Ability.Controller, Civilization.Water).Count(x => x.Id != Ability.Source);
+            var amount = game.BattleZone.GetCreatures(Ability.Controller, Civilization.Water).Count(x => x != Ability.SourceCard);
             Controller.DrawCardsOptionally(game, Ability, amount);
         }
 
