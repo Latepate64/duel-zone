@@ -6,6 +6,8 @@ namespace Engine.Abilities
     {
         Guid Id { get; }
 
+        ICard Source { get; set; }
+
         /// <summary>
         /// 113.8.
         /// The controller of an activated ability on the stack is the player who activated it.
@@ -13,9 +15,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        Guid Controller { get; set; }
-
-        ICard Source { get; set; }
+        IPlayer ControllerPlayer { get; set; }
 
         IAbility Copy();
 

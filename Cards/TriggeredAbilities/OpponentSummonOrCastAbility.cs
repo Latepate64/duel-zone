@@ -16,8 +16,8 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            var opponent = game.GetOpponent(Controller);
-            return gameEvent is CreatureSummonedEvent summon && summon.Player.Id == opponent || gameEvent is SpellCastEvent cast && cast.Player.Id == opponent;
+            var opponent = game.GetOpponent(ControllerPlayer);
+            return gameEvent is CreatureSummonedEvent summon && summon.Player == opponent || gameEvent is SpellCastEvent cast && cast.Player == opponent;
         }
 
         public override IAbility Copy()

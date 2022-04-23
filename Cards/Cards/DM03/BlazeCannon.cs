@@ -54,7 +54,7 @@ namespace Cards.Cards.DM03
         public override void Apply(IGame game)
         {
             
-            game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id).ToArray()));
         }
 
         public override IOneShotEffect Copy()

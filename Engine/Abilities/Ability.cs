@@ -9,6 +9,8 @@ namespace Engine.Abilities
     {
         public Guid Id { get; }
 
+        public ICard Source { get; set; }
+
         /// <summary>
         /// 113.8.
         /// The controller of an activated ability on the stack is the player who activated it.
@@ -16,8 +18,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        public Guid Controller { get; set; }
-        public ICard Source { get; set; }
+        public IPlayer ControllerPlayer { get; set; }
 
         protected Ability()
         {
@@ -27,7 +28,7 @@ namespace Engine.Abilities
         protected Ability(IAbility ability)
         {
             Id = Guid.NewGuid();
-            Controller = ability.Controller;
+            ControllerPlayer = ability.ControllerPlayer;
             Source = ability.Source;
         }
 
@@ -54,7 +55,7 @@ namespace Engine.Abilities
         /// <returns></returns>
         public IPlayer GetController(IGame game)
         {
-            return game.GetPlayer(Controller);
+            return ControllerPlayer;
         }
 
         /// <summary>

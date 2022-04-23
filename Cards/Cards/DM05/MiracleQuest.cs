@@ -42,7 +42,7 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.Controller, false)
+        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.ControllerPlayer, false)
         {
         }
 

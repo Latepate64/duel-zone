@@ -6,7 +6,7 @@ namespace Engine
     public interface IEffect
     {
         IAbility Ability { get; set; }
-        IPlayer Controller { get; set; }
+        IPlayer Controller { get; }
         ICard Source { get; }
     }
 
@@ -19,11 +19,10 @@ namespace Engine
         protected Effect(IEffect effect)
         {
             Ability = effect.Ability;
-            Controller = effect.Controller;
         }
 
-        public IPlayer Controller { get; set; }
         public IAbility Ability { get; set; }
+        public IPlayer Controller => Ability.ControllerPlayer;
         public ICard Source => Ability.Source;
 
         public void Dispose()

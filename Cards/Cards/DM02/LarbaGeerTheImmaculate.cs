@@ -32,7 +32,7 @@ namespace Cards.Cards.DM02
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(game.GetOpponent(Ability.Controller)).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.GetCreatures(game.GetOpponent(Ability.ControllerPlayer.Id)).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

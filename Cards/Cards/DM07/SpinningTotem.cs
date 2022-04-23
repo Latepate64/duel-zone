@@ -43,7 +43,7 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.Controller, false)
+        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.ControllerPlayer, false)
         {
         }
 

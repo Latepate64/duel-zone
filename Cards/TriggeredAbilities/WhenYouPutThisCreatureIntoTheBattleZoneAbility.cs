@@ -78,7 +78,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner.Id && (card.HasRace(Race.Dragonoid) || card.IsDragon);
+            return ControllerPlayer == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
         }
     }
 
@@ -104,7 +104,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Source != card && Controller == card.Owner.Id;
+            return Source != card && ControllerPlayer == card.Owner;
         }
     }
 
@@ -150,7 +150,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return Controller == card.Owner.Id && card.HasRace(_race);
+            return ControllerPlayer == card.Owner && card.HasRace(_race);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Owner.Id == Controller && card.HasRace(Race.Armorloid);
+            return card.Owner == ControllerPlayer && card.HasRace(Race.Armorloid);
         }
     }
 }

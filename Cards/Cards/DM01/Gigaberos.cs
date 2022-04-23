@@ -18,11 +18,11 @@ namespace Cards.Cards.DM01
         public override void Apply(IGame game)
         {
             // Destroy 2 of your other creatures or destroy this creature.
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
+            var creatures = game.BattleZone.GetCreatures(Ability.ControllerPlayer.Id);
             var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
             if (thisCreature == null)
             {
-                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.Controller, Ability.Source.Id).ToArray());
+                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.ControllerPlayer.Id, Ability.Source.Id).ToArray());
             }
             else if (creatures.Where(x => x != Ability.Source).Count() < 2)
             {

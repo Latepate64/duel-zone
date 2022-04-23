@@ -35,7 +35,7 @@ namespace Cards.Cards.DM05
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Ability?.Controller == GetController(game).Id && e.Source == ZoneType.ManaZone && e.Destination == ZoneType.Graveyard;
+            return gameEvent is CardMovedEvent e && e.Ability?.ControllerPlayer == GetController(game) && e.Source == ZoneType.ManaZone && e.Destination == ZoneType.Graveyard;
         }
 
         public override IAbility Copy()

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), Ability.Source, Ability.Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), Ability.Source, Ability.ControllerPlayer, true));
         }
 
         public override IOneShotEffect Copy()

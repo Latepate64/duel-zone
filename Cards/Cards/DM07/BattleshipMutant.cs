@@ -78,7 +78,7 @@ namespace Cards.Cards.DM07
 
     class BattleshipMutantDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public BattleshipMutantDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards) : base(new BattleshipMutantAbility(cards), source.Source, source.Controller, false)
+        public BattleshipMutantDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards) : base(new BattleshipMutantAbility(cards), source.Source, source.ControllerPlayer, false)
         {
         }
 
