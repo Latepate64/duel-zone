@@ -19,7 +19,7 @@ namespace Engine
         bool LostInBattle { get; set; }
         int ManaCost { get; set; }
         string Name { get; set; }
-        Guid OnTopOf { get; set; }
+        ICard OnTopOf { get; set; }
         Guid Owner { get; set; }
         IPlayer OwnerPlayer { get; }
         int? Power { get; set; }
@@ -31,13 +31,13 @@ namespace Engine
         bool SummoningSickness { get; set; }
         List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
-        Guid Underneath { get; set; }
+        ICard Underneath { get; set; }
         void AddGrantedAbility(IAbility ability);
         void AddGrantedRace(Race race);
         bool CanBePaid(IPlayer player);
         ICard Copy();
 
-        IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
+        IList<ICard> Deconstruct(IList<ICard> deconstructred);
 
         IEnumerable<T> GetAbilities<T>();
 

@@ -69,7 +69,7 @@ namespace Engine
         /// <summary>
         /// Id of the card this card is on top of.
         /// </summary>
-        public Guid OnTopOf { get; set; }
+        public ICard OnTopOf { get; set; }
 
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
@@ -92,11 +92,11 @@ namespace Engine
         public bool Tapped { get; set; }
         public int Timestamp { get; set; }
         /// <summary>
-        /// Id of the card this card is underneath of.
+        /// The card this card is underneath of.
         /// </summary>
-        public Guid Underneath { get; set; }
+        public ICard Underneath { get; set; }
 
-        internal bool CountsAsIfExists => Underneath != Guid.Empty;
+        internal bool CountsAsIfExists => Underneath != null;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
         public void AddGrantedAbility(IAbility ability)
         {
@@ -119,18 +119,18 @@ namespace Engine
 
         public abstract ICard Copy();
 
-        public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
+        public IList<ICard> Deconstruct(IList<ICard> deconstructred)
         {
-            if (Underneath != Guid.Empty)
+            if (Underneath != null)
             {
                 var list = deconstructred.ToList();
-                list.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
-                Underneath = Guid.Empty;
+                list.AddRange(Underneath.Deconstruct(deconstructred));
+                Underneath = null;
                 return list;
             }
             else
             {
-                OnTopOf = Guid.Empty;
+                OnTopOf = null;
                 return new List<ICard> { this };
             }
         }
@@ -165,19 +165,19 @@ namespace Engine
 
         public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
         {
-            if (OnTopOf != Guid.Empty)
+            if (OnTopOf != null)
             {
-                var card = game.GetCard(OnTopOf);
-                OnTopOf = Guid.Empty;
-                card.Underneath = Guid.Empty;
+                var card = OnTopOf;
+                OnTopOf = null;
+                card.Underneath = null;
             }
             game.Move(ability, ZoneType.BattleZone, destination, this);
         }
 
         public void PutOnTopOf(ICard bait)
         {
-            OnTopOf = bait.Id;
-            bait.Underneath = Id;
+            OnTopOf = bait;
+            bait.Underneath = this;
         }
 
         public void ResetToPrintedValues()
