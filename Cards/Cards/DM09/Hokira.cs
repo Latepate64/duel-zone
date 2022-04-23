@@ -66,7 +66,7 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == Controller.Id && card.HasRace(_race);
+            return card.OwnerPlayer == Controller && card.HasRace(_race);
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)

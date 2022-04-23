@@ -55,7 +55,7 @@ namespace Cards.Cards.DM06
 
         public override void Happen(IGame game)
         {
-            var owner = game.GetPlayer(Attacker.Owner);
+            var owner = Attacker.OwnerPlayer;
             var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields. Your opponent puts those shields into his graveyard.");
             game.Move(null, ZoneType.ShieldZone, ZoneType.Graveyard, cards.ToArray());
         }

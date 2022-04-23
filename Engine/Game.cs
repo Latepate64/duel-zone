@@ -181,7 +181,7 @@ namespace Engine
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
             var canAttack = !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
-            var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(creature.Owner)).Id);
+            var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(creature.OwnerPlayer).Id);
             return canAttack && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
         }
 
@@ -204,7 +204,7 @@ namespace Engine
 
         public bool CanEvolve(ICard toEvolve)
         {
-            return BattleZone.GetCreatures(toEvolve.Owner).Any(x => CanEvolveFrom(toEvolve, x));
+            return BattleZone.GetCreatures(toEvolve.OwnerPlayer.Id).Any(x => CanEvolveFrom(toEvolve, x));
         }
 
         public bool CanEvolveFrom(ICard toEvolve, ICard bait)
@@ -252,7 +252,7 @@ namespace Engine
             var abilities = new List<ITriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner, gameEvent)));
+                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.OwnerPlayer.Id, gameEvent)));
             }
             return abilities;
         }
@@ -301,7 +301,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard toEvolve)
         {
-            return BattleZone.GetCreatures(toEvolve.Owner).Where(x => CanEvolveFrom(toEvolve, x));
+            return BattleZone.GetCreatures(toEvolve.OwnerPlayer.Id).Where(x => CanEvolveFrom(toEvolve, x));
         }
 
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
@@ -339,7 +339,7 @@ namespace Engine
         /// <exception cref="PlayerNotInGameException"></exception>
         public IPlayer GetOwner(ICard card)
         {
-            return Players.Single(x => x.Id == card.Owner);
+            return Players.Single(x => x.Id == card.OwnerPlayer.Id);
         }
 
         /// <summary>
@@ -358,11 +358,11 @@ namespace Engine
             List<IAttackable> attackables = new();
             if (CanAttackPlayers(attacker))
             {
-                attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));
+                attackables.Add(GetOpponent(attacker.OwnerPlayer));
             }
             if (CanAttackAtLeastOneCreature(attacker))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => CanAttackCreature(attacker, x));
+                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(attacker.OwnerPlayer).Id).Where(x => CanAttackCreature(attacker, x));
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     canAttackUntappedCreaturesEffects.Any(e => e.CanAttackUntappedCreature(attacker, c, this)) ||
@@ -411,12 +411,12 @@ namespace Engine
 
         public IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Where(x => x != null).Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, false, ability)).ToArray());
+            return ProcessEvents(cards.Where(x => x != null).Select(x => new CardMovedEvent(x.OwnerPlayer, source, destination, x.Id, false, ability)).ToArray());
         }
 
         public IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards)
         {
-            return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true, ability)).ToArray());
+            return ProcessEvents(cards.Select(x => new CardMovedEvent(x.OwnerPlayer, source, destination, x.Id, true, ability)).ToArray());
         }
 
         public void MoveTopCard(ICard card, ZoneType destination, IAbility ability)
@@ -625,7 +625,7 @@ namespace Engine
             var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
-                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
+                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.OwnerPlayer.Id);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
                     var trigger = GetPlayer(shieldTriggersByPlayer.Key).ChooseCardOptionally(shieldTriggersByPlayer, "You may use a shield trigger.");

@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
 
         public bool Applies(ICard creature, IGame game)
         {
-            return creature.Owner == Controller.Id && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return creature.OwnerPlayer == Controller && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
 
         public override IContinuousEffect Copy()

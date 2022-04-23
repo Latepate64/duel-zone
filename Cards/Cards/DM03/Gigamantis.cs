@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return !IsSourceOfAbility(card) && card.Owner == Controller.Id && card.HasCivilization(Civilization.Nature);
+            return !IsSourceOfAbility(card) && card.OwnerPlayer == Controller && card.HasCivilization(Civilization.Nature);
         }
     }
 }

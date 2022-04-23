@@ -57,7 +57,7 @@ namespace Cards.Cards.DM05
 
         public bool AttacksIfAble(ICard creature, IGame game)
         {
-            return creature.Owner == _player.Id;
+            return creature.OwnerPlayer == _player;
         }
 
         public override IContinuousEffect Copy()

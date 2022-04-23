@@ -10,7 +10,7 @@ namespace Engine.GameEvents
 
         public override void Happen(IGame game)
         {
-            var owner = game.GetPlayer(Attacker.Owner);
+            var owner = Attacker.OwnerPlayer;
             var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
             game.ProcessEvents(new ShieldsBreakEvent(cards));
         }

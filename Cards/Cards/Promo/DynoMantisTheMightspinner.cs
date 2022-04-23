@@ -21,7 +21,7 @@ namespace Cards.Cards.Promo
 
         public int GetAmount(IGame game, ICard creature)
         {
-            return creature.Owner == Controller.Id && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
+            return creature.OwnerPlayer == Controller && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
         }
 
         public override string ToString()

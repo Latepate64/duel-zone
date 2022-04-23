@@ -56,7 +56,7 @@ namespace Cards.Cards.DM02
 
         public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
         {
-            return attacker.Owner == _controller;
+            return attacker.OwnerPlayer.Id == _controller;
         }
 
         public override IContinuousEffect Copy()

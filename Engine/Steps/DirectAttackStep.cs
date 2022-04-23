@@ -23,14 +23,14 @@ namespace Engine.Steps
             var attackingCreature = Phase.AttackingCreature;
             if (attackingCreature != null)
             {
-                if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.HasCards)
+                if (game.GetOpponent(attackingCreature.OwnerPlayer).ShieldZone.HasCards)
                 {
                     var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
                     game.Break(attackingCreature, breakAmount);
                 }
                 else
                 {
-                    game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).DirectlyAttacked = true;
+                    game.GetOpponent(attackingCreature.OwnerPlayer).DirectlyAttacked = true;
                 }
             }
         }
