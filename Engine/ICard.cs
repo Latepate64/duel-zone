@@ -1,6 +1,7 @@
 ﻿using Engine.Abilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -11,10 +12,10 @@ namespace Engine
         List<Civilization> Civilizations { get; set; }
         bool FaceDown { get; set; }
         Guid Id { get; set; }
-        bool IsDragon { get; }
-        bool IsEvolutionCreature { get; }
-        bool IsMultiColored { get; }
-        bool IsNonEvolutionCreature { get; }
+        bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
+        bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
+        bool IsMultiColored => Civilizations.Count > 1;
+        bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
         List<Guid> KnownTo { get; set; }
         bool LostInBattle { get; set; }
         int ManaCost { get; set; }

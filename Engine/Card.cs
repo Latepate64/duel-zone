@@ -57,10 +57,6 @@ namespace Engine
         public bool FaceDown { get; set; }
 
         public Guid Id { get; set; }
-        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
-        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
-        public bool IsMultiColored => Civilizations.Count > 1;
-        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
         public List<Guid> KnownTo { get; set; } = new();
         public bool LostInBattle { get; set; }
         public int ManaCost { get; set; }
