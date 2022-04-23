@@ -215,7 +215,7 @@ namespace Engine
         private void InitializeAbility(IAbility ability)
         {
             ability.Controller = Owner.Id;
-            ability.SourceCard = this;
+            ability.Source = this;
         }
 
         private void SetRulesText()

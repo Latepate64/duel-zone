@@ -26,7 +26,7 @@ namespace Cards.Cards.DM02
 
         public void ModifyPower(IGame game)
         {
-            if (Ability.SourceCard.Tapped)
+            if (Ability.Source.Tapped)
             {
                 game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }

@@ -32,7 +32,7 @@ namespace Cards.Cards.DM11
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            if (cards.Sum(x => x.Power) < Ability.SourceCard.Power)
+            if (cards.Sum(x => x.Power) < Ability.Source.Power)
             {
                 game.Destroy(source, cards);
             }

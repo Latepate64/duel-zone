@@ -19,12 +19,12 @@ namespace Cards.Cards.DM01
         {
             // Destroy 2 of your other creatures or destroy this creature.
             var creatures = game.BattleZone.GetCreatures(Ability.Controller);
-            var thisCreature = creatures.SingleOrDefault(x => x == Ability.SourceCard);
+            var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
             if (thisCreature == null)
             {
-                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.Controller, Ability.SourceCard.Id).ToArray());
+                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.Controller, Ability.Source.Id).ToArray());
             }
-            else if (creatures.Where(x => x != Ability.SourceCard).Count() < 2)
+            else if (creatures.Where(x => x != Ability.Source).Count() < 2)
             {
                 game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
             }

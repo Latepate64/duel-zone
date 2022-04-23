@@ -34,7 +34,7 @@ namespace Cards.Cards.DM10
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), Ability.SourceCard, Ability.Controller, true));
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), Ability.Source, Ability.Controller, true));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

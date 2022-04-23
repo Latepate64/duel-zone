@@ -26,7 +26,7 @@ namespace Cards.Cards.DM07
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureAttackedEvent e && e.Target == SourceCard;
+            return gameEvent is CreatureAttackedEvent e && e.Target == Source;
         }
 
         public override IAbility Copy()
@@ -41,7 +41,7 @@ namespace Cards.Cards.DM07
 
         public override void Resolve(IGame game)
         {
-            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(SourceCard));
+            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(Source));
         }
 
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

@@ -26,9 +26,9 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            if (Ability.SourceCard != null)
+            if (Ability.Source != null)
             {
-                return new ICard[] { Ability.SourceCard };
+                return new ICard[] { Ability.Source };
             }
             else
             {

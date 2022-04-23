@@ -17,7 +17,7 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(Ability.Controller).Count(x => x != Ability.SourceCard && x.HasCivilization(Civilization.Darkness));
+            var amount = game.BattleZone.GetCreatures(Ability.Controller).Count(x => x != Ability.Source && x.HasCivilization(Civilization.Darkness));
             GetOpponent(game).DiscardAtRandom(game, amount, Ability);
         }
 

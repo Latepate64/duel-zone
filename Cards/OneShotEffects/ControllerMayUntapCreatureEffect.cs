@@ -48,7 +48,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return new ICard[] { Ability.SourceCard };
+            return new ICard[] { Ability.Source };
         }
     }
 }

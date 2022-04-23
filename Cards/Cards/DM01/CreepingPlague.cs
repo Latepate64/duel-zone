@@ -35,7 +35,7 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.SourceCard, source.Controller, false)
+        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, false)
         {
         }
 
@@ -60,7 +60,7 @@ namespace Cards.Cards.DM01
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeBlockedEvent e && e.Attacker == SourceCard && Controller == SourceCard.Owner.Id;
+            return gameEvent is BecomeBlockedEvent e && e.Attacker == Source && Controller == Source.Owner.Id;
         }
 
         public override IAbility Copy()

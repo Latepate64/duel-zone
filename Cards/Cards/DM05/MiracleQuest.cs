@@ -42,7 +42,7 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.SourceCard, source.Controller, false)
+        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.Controller, false)
         {
         }
 
@@ -91,7 +91,7 @@ namespace Cards.Cards.DM05
         public override void Apply(IGame game)
         {
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
-            var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == Ability.SourceCard).Sum(x => x.BreakAmount);
+            var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == Ability.Source).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
                 if (Controller.ChooseToTakeAction("You may draw 2 cards."))

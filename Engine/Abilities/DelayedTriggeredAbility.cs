@@ -17,7 +17,7 @@ namespace Engine.Abilities
         public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, ICard source, Guid owner, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
-            TriggeredAbility.SourceCard = source;
+            TriggeredAbility.Source = source;
             TriggeredAbility.Controller = owner;
             TriggersOnlyOnce = triggersOnlyOnce;
         }

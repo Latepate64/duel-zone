@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
             if (card != null)
             {
                 game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
-                game.AddContinuousEffects(Ability, new FlametropusContinuousEffect(Ability.SourceCard));                 
+                game.AddContinuousEffects(Ability, new FlametropusContinuousEffect(Ability.Source));                 
             }
         }
 

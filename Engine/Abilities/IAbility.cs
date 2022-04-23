@@ -15,7 +15,7 @@ namespace Engine.Abilities
         /// </summary>
         Guid Controller { get; set; }
 
-        ICard SourceCard { get; set; }
+        ICard Source { get; set; }
 
         IAbility Copy();
 

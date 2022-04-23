@@ -17,7 +17,7 @@ namespace Engine.Abilities
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
         public Guid Controller { get; set; }
-        public ICard SourceCard { get; set; }
+        public ICard Source { get; set; }
 
         protected Ability()
         {
@@ -28,7 +28,7 @@ namespace Engine.Abilities
         {
             Id = Guid.NewGuid();
             Controller = ability.Controller;
-            SourceCard = ability.SourceCard;
+            Source = ability.Source;
         }
 
         public abstract IAbility Copy();
