@@ -76,6 +76,7 @@ namespace Engine
         /// </summary>
         public Guid Owner { get; set; }
 
+        public IPlayer OwnerPlayer { get; internal set; }
         public int? Power { get; set; }
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public int? PrintedPower { get; }
@@ -97,9 +98,6 @@ namespace Engine
 
         internal bool CountsAsIfExists => Underneath != Guid.Empty;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
-
-        public IPlayer OwnerPlayer { get; internal set; }
-
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
