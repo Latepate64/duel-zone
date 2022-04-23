@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ShieldsBreakEvent e && e.Shields.First().OwnerPlayer == Controller;
+            return gameEvent is ShieldsBreakEvent e && e.Shields.First().Owner == Controller;
         }
     }
 

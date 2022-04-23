@@ -20,7 +20,7 @@ namespace Engine
         int ManaCost { get; set; }
         string Name { get; set; }
         ICard OnTopOf { get; set; }
-        IPlayer OwnerPlayer { get; set; }
+        IPlayer Owner { get; set; }
         int? Power { get; set; }
         IList<IAbility> PrintedAbilities { get; }
         int? PrintedPower { get; }

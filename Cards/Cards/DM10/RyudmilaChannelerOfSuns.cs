@@ -51,7 +51,7 @@ namespace Cards.Cards.DM10
         public override void Happen(IGame game)
         {
             game.Move(null, ZoneType.BattleZone, ZoneType.Deck, _card);
-            _card.OwnerPlayer.ShuffleDeck(game);
+            _card.Owner.ShuffleDeck(game);
         }
 
         public override string ToString()

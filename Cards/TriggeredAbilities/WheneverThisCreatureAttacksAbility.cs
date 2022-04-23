@@ -68,7 +68,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.OwnerPlayer.Id == Controller;
+            return card.Owner.Id == Controller;
         }
     }
 }

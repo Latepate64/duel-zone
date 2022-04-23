@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
             var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
             if (destroyedCreature != null)
             {
-                destroyedCreature.OwnerPlayer.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
+                destroyedCreature.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
             }
         }
 

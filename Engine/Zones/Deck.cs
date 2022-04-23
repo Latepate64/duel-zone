@@ -59,7 +59,7 @@ namespace Engine.Zones
 
         public void Setup(IEnumerable<ICard> cards, IPlayer owner)
         {
-            cards.ToList().ForEach(x => x.OwnerPlayer = owner);
+            cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);
         }
 

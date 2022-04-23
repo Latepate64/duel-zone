@@ -49,7 +49,7 @@ namespace Cards.Cards.DM02
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return attacker.OwnerPlayer.Id == _controller && game.CanAttackAtLeastOneCreature(attacker);
+            return attacker.Owner.Id == _controller && game.CanAttackAtLeastOneCreature(attacker);
         }
 
         public override IContinuousEffect Copy()

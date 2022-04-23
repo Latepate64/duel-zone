@@ -90,7 +90,7 @@ namespace Simulator
             var cards = allCards.Take(40).ToList();
             foreach (var card in cards)
             {
-                card.OwnerPlayer = player;
+                card.Owner = player;
             }
             return cards;
         }
@@ -119,7 +119,7 @@ namespace Simulator
         static Card CreateCard(string name, IPlayer player)
         {
             var card = CardFactory.Create(name);
-            card.OwnerPlayer = player;
+            card.Owner = player;
             return card;
         }
 

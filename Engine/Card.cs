@@ -33,7 +33,7 @@ namespace Engine
             ManaCost = card.ManaCost;
             Name = card.Name;
             OnTopOf = card.OnTopOf;
-            OwnerPlayer = card.OwnerPlayer;
+            Owner = card.Owner;
             Power = card.Power;
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
@@ -73,7 +73,7 @@ namespace Engine
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
-        public IPlayer OwnerPlayer { get; set; }
+        public IPlayer Owner { get; set; }
         public int? Power { get; set; }
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public int? PrintedPower { get; }
@@ -218,7 +218,7 @@ namespace Engine
 
         private void InitializeAbility(IAbility ability)
         {
-            ability.Controller = OwnerPlayer.Id;
+            ability.Controller = Owner.Id;
             ability.Source = Id;
             ability.SourceCard = this;
         }
