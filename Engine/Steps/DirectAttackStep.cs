@@ -26,7 +26,7 @@ namespace Engine.Steps
                 if (game.GetOpponent(game.GetPlayer(attackingCreature.Owner)).ShieldZone.HasCards)
                 {
                     var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
-                    attackingCreature.Break(game, breakAmount);
+                    game.Break(attackingCreature, breakAmount);
                 }
                 else
                 {

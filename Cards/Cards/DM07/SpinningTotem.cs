@@ -93,7 +93,7 @@ namespace Cards.Cards.DM07
 
         public override void Resolve(IGame game)
         {
-            _breaker.Break(game, 1);
+            game.Break(_breaker, 1);
         }
     }
 }

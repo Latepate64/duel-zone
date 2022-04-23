@@ -340,7 +340,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game)
         {
-            return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
+            return GetCardsThatCanBePaid().Where(x => game.CanBeUsedRegardlessOfManaCost(x));
         }
 
         public IZone GetZone(ZoneType zone)

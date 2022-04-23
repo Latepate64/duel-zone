@@ -34,21 +34,7 @@ namespace Engine
         Guid Underneath { get; set; }
         void AddGrantedAbility(IAbility ability);
         void AddGrantedRace(Race race);
-
-        bool AffectedBySummoningSickness(IGame game);
-        void Break(IGame game, int breakAmount);
-
-        bool CanAttackAtLeastOneCreature(IGame game);
-
-        bool CanAttackCreature(ICard creature, IGame game);
-        bool CanAttackPlayers(IGame game);
-
         bool CanBePaid(IPlayer player);
-
-        bool CanBeUsedRegardlessOfManaCost(IGame game);
-
-        bool CanEvolveFrom(IGame game, ICard card);
-
         ICard Copy();
 
         IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);

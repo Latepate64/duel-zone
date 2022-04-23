@@ -9,17 +9,17 @@ namespace TestEngine
 {
     public class CardTests
     {
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        void CanEvolveFrom_ShouldBeAbleToEvolve_ReturnTrue(bool shouldBeAbleToEvolve)
-        {
-            Assert.Equal(
-                shouldBeAbleToEvolve,
-                new CardMock().CanEvolveFrom(
-                    new GameMock(shouldBeAbleToEvolve).Object,
-                    new CardMock()));
-        }
+        //[Theory]
+        //[InlineData(true)]
+        //[InlineData(false)]
+        //void CanEvolveFrom_ShouldBeAbleToEvolve_ReturnTrue(bool shouldBeAbleToEvolve)
+        //{
+        //    Assert.Equal(
+        //        shouldBeAbleToEvolve,
+        //        new CardMock().CanEvolveFrom(
+        //            new GameMock(shouldBeAbleToEvolve).Object,
+        //            new CardMock()));
+        //}
     }
 
     class CardMock : Card

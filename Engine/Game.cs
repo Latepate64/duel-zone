@@ -163,14 +163,53 @@ namespace Engine
             _reflexiveTriggeredAbilities.Add(ability);
         }
 
+        public bool AffectedBySummoningSickness(ICard creature)
+        {
+            return creature.SummoningSickness && (!GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature, this)) || !GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this)));
+        }
+
         public void Battle(ICard attackingCreature, ICard defendingCreature)
         {
             ProcessEvents(new BattleEvent(attackingCreature, defendingCreature));
         }
 
-        public bool CanEvolve(ICard card)
+        public void Break(ICard creature, int breakAmount)
         {
-            return BattleZone.GetCreatures(card.Owner).Any(x => card.CanEvolveFrom(this, x));
+            ProcessEvents(new CreatureBreaksShieldsEvent(creature, breakAmount));
+        }
+
+        public bool CanAttackAtLeastOneCreature(ICard creature)
+        {
+            var canAttack = !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
+            var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(creature.Owner)).Id);
+            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+        }
+
+        public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
+        {
+            return !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(attacker, this)) &&
+                !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, this)) &&
+                !GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, this));
+        }
+
+        public bool CanAttackPlayers(ICard creature)
+        {
+            return (!GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this)) && !GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(creature, this))) || GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this));
+        }
+
+        public bool CanBeUsedRegardlessOfManaCost(ICard card)
+        {
+            return (!card.Supertypes.Contains(Supertype.Evolution) || CanEvolve(card)) && !GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(card, this));
+        }
+
+        public bool CanEvolve(ICard toEvolve)
+        {
+            return BattleZone.GetCreatures(toEvolve.Owner).Any(x => CanEvolveFrom(toEvolve, x));
+        }
+
+        public bool CanEvolveFrom(ICard toEvolve, ICard bait)
+        {
+            return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(bait, toEvolve, this));
         }
 
         /// <summary>
@@ -260,14 +299,14 @@ namespace Engine
             return _continuousEffects.OfType<T>();
         }
 
-        public IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card)
+        public IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard toEvolve)
         {
-            return BattleZone.GetCreatures(card.Owner).Where(x => card.CanEvolveFrom(this, x));
+            return BattleZone.GetCreatures(toEvolve.Owner).Where(x => CanEvolveFrom(toEvolve, x));
         }
 
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
         {
-            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !c.AffectedBySummoningSickness(this) && GetPossibleAttackTargets(c).Any());
+            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
         }
 
         /// <summary>
@@ -317,13 +356,13 @@ namespace Engine
         public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
         {
             List<IAttackable> attackables = new();
-            if (attacker.CanAttackPlayers(this))
+            if (CanAttackPlayers(attacker))
             {
                 attackables.Add(GetOpponent(GetPlayer(attacker.Owner)));
             }
-            if (attacker.CanAttackAtLeastOneCreature(this))
+            if (CanAttackAtLeastOneCreature(attacker))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => attacker.CanAttackCreature(x, this));
+                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(GetPlayer(attacker.Owner)).Id).Where(x => CanAttackCreature(attacker, x));
                 var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     canAttackUntappedCreaturesEffects.Any(e => e.CanAttackUntappedCreature(attacker, c, this)) ||

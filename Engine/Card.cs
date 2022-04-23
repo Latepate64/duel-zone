@@ -112,48 +112,9 @@ namespace Engine
             }
         }
 
-        public bool AffectedBySummoningSickness(IGame game)
-        {
-            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game)));
-        }
-
-        public void Break(IGame game, int breakAmount)
-        {
-            game.ProcessEvents(new CreatureBreaksShieldsEvent(this, breakAmount));
-        }
-
-        public bool CanAttackAtLeastOneCreature(IGame game)
-        {
-            var canAttack = !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game));
-            var opponentsCreatures = game.BattleZone.GetCreatures(game.GetOpponent(game.GetPlayer(Owner)).Id);
-            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(x, game));
-        }
-
-        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
-        {
-            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) &&
-                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
-                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
-        }
-
-        public bool CanAttackPlayers(IGame game)
-        {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game));
-        }
-
         public bool CanBePaid(IPlayer player)
         {
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
-        }
-
-        public bool CanBeUsedRegardlessOfManaCost(IGame game)
-        {
-            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
-        }
-
-        public bool CanEvolveFrom(IGame game, ICard card)
-        {
-            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
         public abstract ICard Copy();
