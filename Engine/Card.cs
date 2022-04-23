@@ -24,28 +24,28 @@ namespace Engine
 
         protected Card(ICard card, int timeStamp)
         {
+            AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            CardType = card.CardType;
+            Civilizations = card.Civilizations.ToList();
+            FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
-            Owner = card.Owner;
             KnownTo = card.KnownTo.ToList();
             ManaCost = card.ManaCost;
             Name = card.Name;
             OnTopOf = card.OnTopOf;
+            Owner = card.Owner;
+            OwnerPlayer = card.OwnerPlayer;
             Power = card.Power;
-            RulesText = card.RulesText;
-            ShieldTrigger = card.ShieldTrigger;
-            SummoningSickness = card.SummoningSickness;
-            Tapped = card.Tapped;
-            Underneath = card.Underneath;
-            FaceDown = card.FaceDown;
-
-            Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
-            AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
-            CardType = card.CardType;
-            Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
             Races = card.Races?.ToList();
+            RulesText = card.RulesText;
+            ShieldTrigger = card.ShieldTrigger;
+            SummoningSickness = card.SummoningSickness;
             Supertypes = card.Supertypes?.ToList();
+            Tapped = card.Tapped;
+            Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
+            Underneath = card.Underneath;
             InitializeAbilities();
         }
 
