@@ -3,23 +3,23 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class NotDestroyedInBattleEffect : ContinuousEffect, INotDestroyedInBattleEffect
+    class NotDestroyedInBattleEffect : ContinuousEffect, INotDestroyedInBattleEffect, ICivilizationable
     {
-        private readonly Civilization _civilization;
-
         public NotDestroyedInBattleEffect(Civilization civilization) : base()
         {
-            _civilization = civilization;
+            Civilization = civilization;
         }
 
         public NotDestroyedInBattleEffect(NotDestroyedInBattleEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
+            Civilization = effect.Civilization;
         }
+
+        public Civilization Civilization { get; }
 
         public bool Applies(ICard against, ICard creature, IGame game)
         {
-            return IsSourceOfAbility(creature, game) && against.HasCivilization(_civilization);
+            return IsSourceOfAbility(creature) && against.HasCivilization(Civilization);
         }
 
         public override IContinuousEffect Copy()
@@ -29,7 +29,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"When this creature loses a battle against a {_civilization.ToString().ToLower()} creature, this creature isn't destroyed.";
+            return $"When this creature loses a battle against a {Civilization.ToString().ToLower()} creature, this creature isn't destroyed.";
         }
     }
 }

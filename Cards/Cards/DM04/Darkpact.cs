@@ -1,7 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM04
@@ -16,52 +14,30 @@ namespace Cards.Cards.DM04
 
     class DarkpactEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public DarkpactEffect()
         {
-            var cards = new PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard().Apply(game, source);
-            new DrawCardsEffect(cards.Count()).Apply(game, source);
-            return cards;
+        }
+
+        public DarkpactEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var player = Controller;
+            var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards);
+            player.DrawCards(cards.Length, game, Ability);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new DarkpactEffect();
+            return new DarkpactEffect(this);
         }
 
         public override string ToString()
         {
             return "Put any number of cards from your mana zone into your graveyard. Then draw that many cards.";
-        }
-    }
-
-    class PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard : ChooseAnyNumberOfCardsEffect
-    {
-        public PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard() : base()
-        {
-        }
-
-        public PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard(PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new PutAnyNumberOfCardsFromYourManaZoneIntoYourGraveyard(this);
-        }
-
-        public override string ToString()
-        {
-            return "Put any number of cards from your mana zone into your graveyard.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, cards);
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).ManaZone.Cards;
         }
     }
 }

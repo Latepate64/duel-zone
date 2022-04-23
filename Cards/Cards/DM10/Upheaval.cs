@@ -15,18 +15,25 @@ namespace Cards.Cards.DM10
 
     class UpheavalEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public UpheavalEffect()
+        {
+        }
+
+        public UpheavalEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
         {
             var mana = game.Players.SelectMany(x => x.ManaZone.Cards);
             var hand = game.Players.SelectMany(x => x.Hand.Cards);
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
-            return null;
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            game.MoveTapped(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new UpheavalEffect();
+            return new UpheavalEffect(this);
         }
 
         public override string ToString()

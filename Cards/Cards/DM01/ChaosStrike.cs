@@ -36,13 +36,13 @@ namespace Cards.Cards.DM01
         {
             if (cards.Length == 1)
             {
-                game.AddContinuousEffects(source, new ChaosStrikeContinousEffect(cards.Single().Id));
+                game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards.Single().Id));
             }
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
+            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id);
         }
     }
 

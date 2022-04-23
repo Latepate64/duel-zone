@@ -44,7 +44,7 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game) && game.BattleZone.GetOtherCreatures(card.Id).Any(x => x.Name == "Kalute, Vizier of Eternity");
+            return IsSourceOfAbility(card) && game.BattleZone.GetOtherCreatures(card.Id).Any(x => x.Name == "Kalute, Vizier of Eternity");
         }
     }
 }

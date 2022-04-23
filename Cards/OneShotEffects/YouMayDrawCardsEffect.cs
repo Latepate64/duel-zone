@@ -3,43 +3,76 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class YouMayDrawCardsEffect : OneShotEffect
+    abstract class YouMayDrawCardsEffect : OneShotEffect
     {
         public int Maximum { get; }
 
-        private int _drawn;
-
-        public YouMayDrawCardsEffect(int maximum) : base()
+        protected YouMayDrawCardsEffect(int maximum) : base()
         {
             Maximum = maximum;
         }
 
-        public YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
+        protected YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
         {
             Maximum = effect.Maximum;
         }
 
-        public override IOneShotEffect Copy()
+        public override void Apply(IGame game)
         {
-            return new YouMayDrawCardsEffect(this);
-        }
-
-        public override object Apply(IGame game, IAbility source)
-        {
-            if (source.GetController(game).ChooseToTakeAction("You may draw a card."))
-            {
-                source.GetController(game).DrawCards(1, game, source);
-                if (++_drawn < Maximum)
-                {
-                    Apply(game, source);
-                }
-            }
-            return null;
+            Controller.DrawCardsOptionally(game, Ability, Maximum);
         }
 
         public override string ToString()
         {
             return Maximum == 1 ? "You may draw a card." : $"You may draw up to {Maximum} cards.";
+        }
+    }
+
+    class YouMayDrawCardEffect : YouMayDrawCardsEffect
+    {
+        public YouMayDrawCardEffect() : base(1)
+        {
+        }
+
+        public YouMayDrawCardEffect(YouMayDrawCardsEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new YouMayDrawCardEffect(this);
+        }
+    }
+
+    class YouMayDrawUpToTwoCardsEffect : YouMayDrawCardsEffect
+    {
+        public YouMayDrawUpToTwoCardsEffect() : base(2)
+        {
+        }
+
+        public YouMayDrawUpToTwoCardsEffect(YouMayDrawUpToTwoCardsEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new YouMayDrawUpToTwoCardsEffect(this);
+        }
+    }
+
+    class YouMayDrawUpToThreeCardsEffect : YouMayDrawCardsEffect
+    {
+        public YouMayDrawUpToThreeCardsEffect() : base(3)
+        {
+        }
+
+        public YouMayDrawUpToThreeCardsEffect(YouMayDrawUpToThreeCardsEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new YouMayDrawUpToThreeCardsEffect(this);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Cards.Cards.DM11
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            if (cards.Sum(x => x.Power) < game.GetCard(source.Source).Power)
+            if (cards.Sum(x => x.Power) < game.GetCard(Ability.Source).Power)
             {
                 game.Destroy(source, cards);
             }
@@ -40,7 +40,7 @@ namespace Cards.Cards.DM11
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Tapped);
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Tapped);
         }
     }
 }

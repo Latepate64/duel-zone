@@ -13,19 +13,26 @@ namespace Cards.Cards.DM09
 
     class AquaMasterEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public AquaMasterEffect()
         {
-            var shield = source.GetController(game).ChooseCard(source.GetOpponent(game).ShieldZone.Cards, ToString());
+        }
+
+        public AquaMasterEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var shield = Controller.ChooseCard(GetOpponent(game).ShieldZone.Cards, ToString());
             if (shield != null)
             {
                 shield.FaceDown = false;
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new AquaMasterEffect();
+            return new AquaMasterEffect(this);
         }
 
         public override string ToString()

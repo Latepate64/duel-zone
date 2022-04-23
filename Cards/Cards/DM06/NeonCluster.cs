@@ -4,7 +4,7 @@
     {
         public NeonCluster() : base("Neon Cluster", 7, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
-            AddTapAbility(new OneShotEffects.DrawCardsEffect(2));
+            AddTapAbility(new OneShotEffects.DrawTwoCardsEffect());
         }
     }
 }

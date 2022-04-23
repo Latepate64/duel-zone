@@ -20,15 +20,22 @@ namespace Cards.TriggeredAbilities
 
     class HeartyCapnPolligonEffect : OneShotEffect
     {
-        public override IOneShotEffect Copy()
+        public HeartyCapnPolligonEffect()
         {
-            return new HeartyCapnPolligonEffect();
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public HeartyCapnPolligonEffect(IOneShotEffect effect) : base(effect)
         {
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, game.GetCard(source.Source));
-            return null;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new HeartyCapnPolligonEffect(this);
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, game.GetCard(Ability.Source));
         }
 
         public override string ToString()

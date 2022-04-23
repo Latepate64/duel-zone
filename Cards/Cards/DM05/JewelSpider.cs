@@ -31,7 +31,7 @@ namespace Cards.Cards.DM05
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 }

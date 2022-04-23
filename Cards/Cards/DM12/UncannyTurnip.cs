@@ -13,15 +13,24 @@ namespace Cards.Cards.DM12
 
     class UncannyTurnipEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public UncannyTurnipEffect()
         {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
-            return new OneShotEffects.ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
+        }
+
+        public UncannyTurnipEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+            controller.ReturnOwnManaCreature(game, Ability);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new UncannyTurnipEffect();
+            return new UncannyTurnipEffect(this);
         }
 
         public override string ToString()

@@ -16,13 +16,12 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            foreach (var effect in new OneShotEffect[] { new ArmoredWarriorQuelosMana1Effect(), new ArmoredWarriorQuelosMana2Effect()})
-            {
-                effect.Apply(game, source);
-            }
-            return null;
+            var controller = Controller;
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCard(controller.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
+            var opponent = game.GetOpponent(controller);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, opponent.ChooseCard(opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
         }
 
         public override IOneShotEffect Copy()
@@ -33,50 +32,6 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "Put a non-fire card from your mana zone into your graveyard. Then your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
-        }
-    }
-
-    class ArmoredWarriorQuelosMana1Effect : ManaBurnEffect
-    {
-        public ArmoredWarriorQuelosMana1Effect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ArmoredWarriorQuelosMana1Effect();
-        }
-
-        public override string ToString()
-        {
-            return "Put a non-fire card from your mana zone into your graveyard.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.GetPlayer(source.Controller).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
-        }
-    }
-
-    class ArmoredWarriorQuelosMana2Effect : ManaBurnEffect
-    {
-        public ArmoredWarriorQuelosMana2Effect() : base(1, 1, false)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ArmoredWarriorQuelosMana2Effect();
-        }
-
-        public override string ToString()
-        {
-            return "Your opponent chooses a non-fire card in his mana zone and puts it into his graveyard.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.GetPlayer(source.GetOpponent(game).Id).ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire));
         }
     }
 }

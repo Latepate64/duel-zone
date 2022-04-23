@@ -5,7 +5,7 @@
         public FaerieLife() : base("Faerie Life", 2, Engine.Civilization.Nature)
         {
             AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1));
+            AddSpellAbilities(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect());
         }
     }
 }

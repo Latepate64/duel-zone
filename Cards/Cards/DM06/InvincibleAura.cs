@@ -21,20 +21,19 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             for (int i = 0; i < 3; ++i)
             {
-                if (source.GetController(game).ChooseToTakeAction("You may add the top card of your deck to your shields face down."))
+                if (Controller.ChooseToTakeAction("You may add the top card of your deck to your shields face down."))
                 {
-                    source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                    Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
                 }
                 else
                 {
                     break;
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

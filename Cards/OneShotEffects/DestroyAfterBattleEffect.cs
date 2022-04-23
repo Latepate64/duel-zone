@@ -10,14 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public DestroyAfterBattleEffect(DestroyAfterBattleEffect effect)
+        public DestroyAfterBattleEffect(IOneShotEffect effect) : base(effect)
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new DestroyThisCreatureEffect()), source.Source, source.Controller, true));
-            return null;
+            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new DestroyThisCreatureEffect()), Ability.Source, Ability.Controller, true));
         }
 
         public override IOneShotEffect Copy()

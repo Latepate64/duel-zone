@@ -25,11 +25,11 @@ namespace Cards.Cards.DM05
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
-                    CardInSourceZone = GetSourceCard(game).Id
+                    CardInSourceZone = Source.Id
                 };
             }
             else
@@ -50,7 +50,7 @@ namespace Cards.Cards.DM05
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.HasRace(Race.ArmoredDragon);
+            return card.Owner == Controller.Id && card.HasRace(Race.ArmoredDragon);
         }
     }
 }

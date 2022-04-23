@@ -4,19 +4,14 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class ReturnUpToCreaturesFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
+    abstract class ReturnUpToCreaturesFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
     {
-        public ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(int maximum) : base(0, maximum)
+        protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(int maximum) : base(0, maximum)
         {
         }
 
-        public ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
+        protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
         {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(this);
         }
 
         public override string ToString()
@@ -26,7 +21,39 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.Creatures;
+            return Controller.Graveyard.Creatures;
+        }
+    }
+
+    class YouMayReturnCreatureFromYourGraveyardToYourHandEffect : ReturnUpToCreaturesFromYourGraveyardToYourHandEffect
+    {
+        public YouMayReturnCreatureFromYourGraveyardToYourHandEffect() : base(1)
+        {
+        }
+
+        public YouMayReturnCreatureFromYourGraveyardToYourHandEffect(ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new YouMayReturnCreatureFromYourGraveyardToYourHandEffect(this);
+        }
+    }
+
+    class ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect : ReturnUpToCreaturesFromYourGraveyardToYourHandEffect
+    {
+        public ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect() : base(2)
+        {
+        }
+
+        public ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect(ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM11
@@ -13,23 +14,27 @@ namespace Cards.Cards.DM11
 
     class NinjaPumpkinEffect : ContinuousEffects.ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect, IPowerModifyingEffect
     {
-        public NinjaPumpkinEffect() : base(5000)
+        public NinjaPumpkinEffect(int blockerMaxPower = 5000) : base(blockerMaxPower)
+        {
+        }
+
+        public NinjaPumpkinEffect(ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect effect) : base(effect)
         {
         }
 
         public override IContinuousEffect Copy()
         {
-            return new NinjaPumpkinEffect();
+            return new NinjaPumpkinEffect(this);
         }
 
         public void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += 4000;
+            Source.Power += 4000;
         }
 
         public override string ToString()
         {
-            return "This creature gets +4000 power and can't be blocked by any creature that has power 5000 or less.";
+            return $"This creature gets +4000 power and can't be blocked by any creature that has power {Power} or less.";
         }
     }
 }

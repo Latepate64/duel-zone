@@ -3,6 +3,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
+using System;
 
 namespace Cards.Cards.DM01
 {
@@ -16,10 +17,9 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(source));
-            return null;
+            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -45,15 +45,32 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class CreepingPlagueTriggeredAbility : TriggeredAbilities.BecomeBlockedAbility
+    class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
     {
-        public CreepingPlagueTriggeredAbility() : base(new BlockedCreatureGetsSlayerUntilEndOfTheTurnEffect())
+        private ICard _creature;
+
+        public CreepingPlagueTriggeredAbility()
         {
+        }
+
+        public CreepingPlagueTriggeredAbility(CreepingPlagueTriggeredAbility ability) : base(ability)
+        {
+            _creature = ability._creature;
+        }
+
+        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        {
+            return gameEvent is BecomeBlockedEvent e && e.Attacker == SourceCard && Controller == SourceCard.Owner;
         }
 
         public override IAbility Copy()
         {
-            return new CreepingPlagueTriggeredAbility();
+            return new CreepingPlagueTriggeredAbility(this);
+        }
+
+        public override void Resolve(IGame game)
+        {
+            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(_creature));
         }
 
         public override string ToString()
@@ -61,9 +78,10 @@ namespace Cards.Cards.DM01
             return "Whenever any of your creatures becomes blocked, it gets \"slayer\" until the end of the turn.";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
         {
-            return card.Owner == Controller;
+            _creature = (gameEvent as BecomeBlockedEvent).Attacker;
+            return Copy() as ITriggeredAbility;
         }
     }
 }

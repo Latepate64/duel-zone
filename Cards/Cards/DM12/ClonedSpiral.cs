@@ -1,7 +1,7 @@
 ﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -9,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
         {
-            AddSpellAbilities(new ClonedSpiralEffect(Name));
+            AddSpellAbilities(new ClonedSpiralEffect());
         }
     }
 
     class ClonedSpiralEffect : ClonedEffect
     {
-        public ClonedSpiralEffect(string name) : base(name)
+        public ClonedSpiralEffect() : base("Cloned Spiral")
         {
         }
 
@@ -23,9 +23,11 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            return new ClonedSpiralBounceEffect(GetAmount(game)).Apply(game, source);
+            var player = Controller;
+            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id), 1, GetAmount(game), ToString());
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
@@ -36,33 +38,6 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Choose a creature in battle zone. Then, for each Cloned Spiral in each graveyard, you may choose another creature in the battle zone. Return all those creature to their owner's hands.";
-        }
-    }
-
-    class ClonedSpiralBounceEffect : BounceEffect
-    {
-        public ClonedSpiralBounceEffect(int maximum) : base(1, maximum)
-        {
-        }
-
-        public ClonedSpiralBounceEffect(ClonedSpiralBounceEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ClonedSpiralBounceEffect(this);
-        }
-
-        public override string ToString()
-        {
-            var amount = Maximum == 1 ? "one" : $"1-{Maximum}";
-            return $"Choose {amount} creatures in the battle zone and return them to their owner's hands.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
         }
     }
 }

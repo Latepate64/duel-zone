@@ -15,16 +15,15 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             game.AddDelayedTriggeredAbility(
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
-                        source.Source,
-                        source.Controller,
+                        Ability.Source,
+                        Ability.Controller,
                         true));
-            return null;
         }
 
         public override IOneShotEffect Copy()
@@ -56,7 +55,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(source.Controller, Civilization.Light);
+            return game.BattleZone.GetCreatures(Ability.Controller, Civilization.Light);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM11
@@ -10,136 +8,40 @@ namespace Cards.Cards.DM11
     {
         public MiraculousPlague() : base("Miraculous Plague", 7, Civilization.Water, Civilization.Darkness)
         {
-            AddSpellAbilities(new MiraculousPlagueFirstEffect());
+            AddSpellAbilities(new MiraculousPlagueEffect());
         }
     }
 
-    class MiraculousPlagueFirstEffect : CardSelectionEffect
+    class MiraculousPlagueEffect : OneShotEffect
     {
-        public MiraculousPlagueFirstEffect() : base(2, 2, true)
+        public MiraculousPlagueEffect()
         {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            var opponent = GetOpponent(game);
+
+            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, opponent.Id), 2, 2, ToString());
+            var toHand = opponent.ChooseCard(creatures, ToString());
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, toHand);
+            game.Destroy(Ability, creatures.Where(x => x != toHand).ToArray());
+
+            var cards = controller.ChooseCards(opponent.ManaZone.Cards, 2, 2, ToString());
+            var manaToHand = opponent.ChooseCard(cards, ToString());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, manaToHand);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MiraculousPlagueFirstEffect();
+            return new MiraculousPlagueEffect();
         }
 
         public override string ToString()
         {
             return "Choose 2 of your opponent's creatures in the battle zone. Your opponent chooses one of them, puts it into his hand, and destroys the other one. Then choose 2 cards in your opponent's mana zone. Your opponent chooses one of them, puts it into his hand, and puts the other one into his graveyard.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            new MiraculousPlagueSecondEffect().Apply(game, source);
-            new MiraculousPlagueThirdEffect().Apply(game, source);
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id);
-        }
-    }
-
-    class MiraculousPlagueSecondEffect : CardSelectionEffect
-    {
-        private readonly ICard[] _cards;
-
-        public MiraculousPlagueSecondEffect(params ICard[] cards) : base(1, 1, false)
-        {
-            _cards = cards;
-        }
-
-        public MiraculousPlagueSecondEffect(MiraculousPlagueSecondEffect effect) : base(effect)
-        {
-            _cards = effect._cards;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MiraculousPlagueSecondEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Choose a card and put it into your hand, and destroy the other one.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            var otherCards = GetSelectableCards(game, source).Except(cards);
-            game.Move(source, ZoneType.BattleZone, ZoneType.Hand, cards);
-            game.Destroy(source, otherCards.ToArray());
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return _cards;
-        }
-    }
-
-    class MiraculousPlagueThirdEffect : CardSelectionEffect
-    {
-        public MiraculousPlagueThirdEffect() : base(2, 2, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MiraculousPlagueThirdEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Choose 2 cards in your opponent's mana zone. Your opponent chooses one of them, puts it into his hand, and puts the other one into his graveyard.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            new MiraculousPlagueFourthEffect().Apply(game, source);
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return source.GetOpponent(game).ManaZone.Cards;
-        }
-    }
-
-    class MiraculousPlagueFourthEffect : CardSelectionEffect
-    {
-        private readonly ICard[] _cards;
-
-        public MiraculousPlagueFourthEffect(params ICard[] cards) : base(1, 1, false)
-        {
-            _cards = cards;
-        }
-
-        public MiraculousPlagueFourthEffect(MiraculousPlagueFourthEffect effect) : base(effect)
-        {
-            _cards = effect._cards;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MiraculousPlagueFourthEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Choose a card and put it into your hand, and put the other one into your graveyard.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            var otherCards = GetSelectableCards(game, source).Except(cards).ToArray();
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, cards);
-            game.Move(source, ZoneType.ManaZone, ZoneType.Graveyard, otherCards);
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return _cards;
         }
     }
 }

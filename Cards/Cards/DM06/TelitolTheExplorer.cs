@@ -15,19 +15,26 @@ namespace Cards.Cards.DM06
 
     class TelitolTheExplorerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public TelitolTheExplorerEffect()
         {
-            if (source.GetController(game).ShieldZone.HasCards && source.GetController(game).ChooseToTakeAction(ToString()))
+        }
+
+        public TelitolTheExplorerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            if (Controller.ShieldZone.HasCards && Controller.ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).Look(source.GetController(game), game, source.GetController(game).ShieldZone.Cards.ToArray());
-                source.GetController(game).Unreveal(source.GetController(game).ShieldZone.Cards);
+                Controller.Look(Controller, game, Controller.ShieldZone.Cards.ToArray());
+                Controller.Unreveal(Controller.ShieldZone.Cards);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new TelitolTheExplorerEffect();
+            return new TelitolTheExplorerEffect(this);
         }
 
         public override string ToString()

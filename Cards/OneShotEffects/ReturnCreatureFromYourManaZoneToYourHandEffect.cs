@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public ReturnCreatureFromYourManaZoneToYourHandEffect(SelfManaRecoveryEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ReturnCreatureFromYourManaZoneToYourHandEffect();
+            return new ReturnCreatureFromYourManaZoneToYourHandEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ManaZone.Creatures;
+            return Controller.ManaZone.Creatures;
         }
     }
 }

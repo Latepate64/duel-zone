@@ -13,15 +13,22 @@ namespace Cards.Cards.DM12
 
     class NecrodragonZalvaEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public NecrodragonZalvaEffect()
         {
-            source.GetOpponent(game).DrawCards(1, game, source);
-            return null;
+        }
+
+        public NecrodragonZalvaEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            GetOpponent(game).DrawCards(1, game, Ability);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new NecrodragonZalvaEffect();
+            return new NecrodragonZalvaEffect(this);
         }
 
         public override string ToString()

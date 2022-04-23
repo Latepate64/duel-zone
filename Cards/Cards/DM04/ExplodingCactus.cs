@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public ExplodingCactus() : base("Exploding Cactus", 3, 2000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
         {
-            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(Engine.Civilization.Light, 2000));
+            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(2000, Engine.Civilization.Light));
         }
     }
 }

@@ -3,36 +3,32 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class EachCivilizationCardCostsMoreEffect : ContinuousEffect, ICostModifyingEffect
+    abstract class EachCivilizationCardCostsMoreEffect : ContinuousEffect, ICostModifyingEffect, ICivilizationable
     {
-        private readonly Civilization _civilization;
         private readonly int _increase;
 
-        public EachCivilizationCardCostsMoreEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
+        protected EachCivilizationCardCostsMoreEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
+            Civilization = effect.Civilization;
             _increase = effect._increase;
         }
 
-        public EachCivilizationCardCostsMoreEffect(Civilization civilization, int increase) : base()
+        protected EachCivilizationCardCostsMoreEffect(int increase, Civilization civilization) : base()
         {
-            _civilization = civilization;
+            Civilization = civilization;
             _increase = increase;
         }
 
-        public override ContinuousEffect Copy()
-        {
-            return new EachCivilizationCardCostsMoreEffect(this);
-        }
+        public Civilization Civilization { get; }
 
         public int GetChange(ICard card, IGame game)
         {
-            return card.HasCivilization(_civilization) ? _increase : 0;
+            return card.HasCivilization(Civilization) ? _increase : 0;
         }
 
         public override string ToString()
         {
-            return $"Each {_civilization} creature costs {_increase} more to summon, and each {_civilization} spell costs {_increase} more to cast.";
+            return $"Each {Civilization} creature costs {_increase} more to summon, and each {Civilization} spell costs {_increase} more to cast.";
         }
     }
 }

@@ -3,15 +3,15 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IUnchoosableEffect
+    class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IPlayerCannotChooseCreatureEffect
     {
         public OpponentCannotChooseThisCreatureEffect() : base()
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool PlayerCannotChooseCreature(ICard creature, System.Guid player, IGame game)
         {
-            return IsSourceOfAbility(creature, game);
+            return IsSourceOfAbility(creature) && player == game.GetOpponent(Controller).Id;
         }
 
         public override IContinuousEffect Copy()

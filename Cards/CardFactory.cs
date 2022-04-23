@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace Cards
 {
     public static class CardFactory
     {
+        private static readonly Random Random = new();
+
         static public Card Create(string name)
         {
             string set = "DM08"; //TODO: improve
@@ -34,6 +37,61 @@ namespace Cards
         static public IEnumerable<Card> CreateAll()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
+        }
+
+        static public IEnumerable<Type> EffectTypes => System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Name.EndsWith("Effect"));
+
+        static public IEnumerable<IEffect> CreateEffects()
+        {
+            return EffectTypes.Select(x => CreateEffect(x)).Where(x => x != null);
+        }
+
+        static private IEffect CreateEffect(Type type)
+        {
+            var interfaces = type.GetInterfaces();
+            if (type.IsAbstract || interfaces.Contains(typeof(IExpirable)) || interfaces.Contains(typeof(ICardAffectable)) || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect) || type == typeof(SurvivorEffect) || type == typeof(TapAbilityAddingEffect) || type == typeof(TurboRushEffect) || type == typeof(WaveStrikerEffect))
+            {
+                return null;
+            }
+            else
+            {
+                List<object> arguments = GetArguments(interfaces);
+                if (arguments.Any())
+                {
+                    return Activator.CreateInstance(type, arguments.ToArray()) as IEffect;
+                }
+                else
+                {
+                    return Activator.CreateInstance(type) as IEffect;
+                }
+            }
+        }
+
+        private static List<object> GetArguments(Type[] interfaces)
+        {
+            var arguments = new List<object>();
+            if (interfaces.Contains(typeof(IPowerable)))
+            {
+                arguments.Add(Random.Next(1, 30) * 500);
+            }
+            if (interfaces.Contains(typeof(IRaceable)))
+            {
+                arguments.Add(Enum.GetValues(typeof(Race)).Cast<Race>().OrderBy(x => Random.Next()).First());
+            }
+            else if (interfaces.Contains(typeof(IMultiRaceable)))
+            {
+                arguments.Add(Enum.GetValues(typeof(Race)).Cast<Race>().OrderBy(x => Random.Next()).Take(2).ToArray());
+            }
+            if (interfaces.Contains(typeof(ICivilizationable)))
+            {
+                arguments.Add(Enum.GetValues(typeof(Civilization)).Cast<Civilization>().OrderBy(x => Random.Next()).First());
+            }
+            else if (interfaces.Contains(typeof(IMultiCivilizationable)))
+            {
+                arguments.Add(Enum.GetValues(typeof(Civilization)).Cast<Civilization>().OrderBy(x => Random.Next()).Take(2).ToArray());
+            }
+
+            return arguments;
         }
     }
 }

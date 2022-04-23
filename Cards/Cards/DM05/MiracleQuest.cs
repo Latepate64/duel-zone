@@ -16,15 +16,22 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public MiracleQuestEffect()
         {
-            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(source));
-            return null;
+        }
+
+        public MiracleQuestEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MiracleQuestEffect();
+            return new MiracleQuestEffect(this);
         }
 
         public override string ToString()
@@ -73,28 +80,35 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDrawEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public MiracleQuestDrawEffect()
         {
-            var attacker = game.GetCard(source.Source);
+        }
+
+        public MiracleQuestDrawEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var attacker = game.GetCard(Ability.Source);
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
             var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == attacker).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
-                if (source.GetController(game).ChooseToTakeAction("You may draw 2 cards."))
+                if (Controller.ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    source.GetController(game).DrawCards(2, game, source);
+                    Controller.DrawCards(2, game, Ability);
                 }
                 else
                 {
                     break;
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MiracleQuestDrawEffect();
+            return new MiracleQuestDrawEffect(this);
         }
 
         public override string ToString()

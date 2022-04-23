@@ -9,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
         {
-            AddSpellAbilities(new ClonedNightmareEffect(Name));
+            AddSpellAbilities(new ClonedNightmareEffect());
         }
     }
 
     class ClonedNightmareEffect : ClonedEffect
     {
-        public ClonedNightmareEffect(string name) : base(name)
+        public ClonedNightmareEffect() : base("Cloned Nightmare")
         {
         }
 
@@ -23,15 +23,14 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
             var number = GetAmount(game);
             if (number > 1)
             {
-                number = source.GetController(game).ChooseNumber(new ClonedNightmareChoice(source.GetController(game), "Choose how many cards your opponent will discard at random from their hand.", number));
+                number = Controller.ChooseNumber(new ClonedNightmareChoice(Controller, "Choose how many cards your opponent will discard at random from their hand.", number));
             }
-            source.GetOpponent(game).DiscardAtRandom(game, number, source);
-            return null;
+            GetOpponent(game).DiscardAtRandom(game, number, Ability);
         }
 
         public override IOneShotEffect Copy()

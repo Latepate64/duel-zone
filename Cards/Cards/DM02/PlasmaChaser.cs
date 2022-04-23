@@ -14,15 +14,14 @@ namespace Cards.Cards.DM02
 
     class PlasmaChaserEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(source.GetOpponent(game).Id).Count();
+            var amount = game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
 
-            if (amount > 0 && source.GetController(game).ChooseToTakeAction($"You may draw {amount} cards."))
+            if (amount > 0 && Controller.ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                source.GetController(game).DrawCards(amount, game, source);
+                Controller.DrawCards(amount, game, Ability);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

@@ -14,24 +14,31 @@ namespace Cards.Cards.DM08
 
     class LaliciousEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public LaliciousEffect()
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+        }
+
+        public LaliciousEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).LookAtOpponentsHand(game);
-                var cards = source.GetOpponent(game).Deck.GetTopCards(1);
+                Controller.LookAtOpponentsHand(game);
+                var cards = GetOpponent(game).Deck.GetTopCards(1);
                 if (cards.Any())
                 {
-                    source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                    source.GetOpponent(game).Unreveal(cards);
+                    Controller.Look(GetOpponent(game), game, cards.ToArray());
+                    GetOpponent(game).Unreveal(cards);
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LaliciousEffect();
+            return new LaliciousEffect(this);
         }
 
         public override string ToString()

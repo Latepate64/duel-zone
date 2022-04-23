@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect
+    class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect, IPowerable
     {
-        private readonly int _power;
-
         public EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
 
         public EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
+            Power = effect.Power;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public int Power { get; }
+
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, game.BattleZone.GetCreatures(source.Controller).ToArray()));
-            return null;
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"Each of your creatures in the battle zone gets +{_power} power until the end of the turn.";
+            return $"Each of your creatures in the battle zone gets +{Power} power until the end of the turn.";
         }
     }
 }

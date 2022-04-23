@@ -14,18 +14,25 @@ namespace Cards.Cards.DM09
 
     class GlenaVueleTheHypnoticEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public GlenaVueleTheHypnoticEffect()
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+        }
+
+        public GlenaVueleTheHypnoticEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new GlenaVueleTheHypnoticEffect();
+            return new GlenaVueleTheHypnoticEffect(this);
         }
 
         public override string ToString()

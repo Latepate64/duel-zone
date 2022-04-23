@@ -29,10 +29,9 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new FullDefensorContinuousEffect(source.Controller, game.BattleZone.GetCreatures(source.Controller).ToArray()));
-            return null;
+            game.AddContinuousEffects(Ability, new FullDefensorContinuousEffect(Ability.Controller, game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
         }
 
         public override IOneShotEffect Copy()

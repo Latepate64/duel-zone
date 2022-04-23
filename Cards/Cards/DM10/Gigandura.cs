@@ -14,22 +14,32 @@ namespace Cards.Cards.DM10
 
     class GiganduraEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public GiganduraEffect()
         {
-            source.GetController(game).Look(source.GetOpponent(game), game, source.GetOpponent(game).Hand.Cards.ToArray());
-            var card = source.GetController(game).ChooseCardOptionally(source.GetOpponent(game).Hand.Cards, ToString());
+        }
+
+        public GiganduraEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            var opponent = GetOpponent(game);
+            controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
+            var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(source, ZoneType.Hand, ZoneType.ManaZone, card);
-                new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect().Apply(game, source);
+                game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, card);
+                var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
+                game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
-            source.GetOpponent(game).Unreveal(new List<ICard> { card });
-            return card;
+            opponent.Unreveal(new List<ICard> { card });
         }
 
         public override IOneShotEffect Copy()
         {
-            return new GiganduraEffect();
+            return new GiganduraEffect(this);
         }
 
         public override string ToString()

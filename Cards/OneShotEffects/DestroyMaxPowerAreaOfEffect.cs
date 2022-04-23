@@ -5,19 +5,19 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class DestroyMaxPowerAreaOfEffect : DestroyAreaOfEffect
+    class DestroyMaxPowerAreaOfEffect : DestroyAreaOfEffect, IPowerable
     {
-        private readonly int _power;
-
         public DestroyMaxPowerAreaOfEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
 
         public DestroyMaxPowerAreaOfEffect(DestroyMaxPowerAreaOfEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
+
+        public int Power { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -26,12 +26,12 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"Destroy all creatures that have power {_power} or less.";
+            return $"Destroy all creatures that have power {Power} or less.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => x.Power <= _power);
+            return game.BattleZone.Creatures.Where(x => x.Power <= Power);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
 
         public bool CannotAttackCreature(ICard attacker, ICard target, IGame game)
         {
-            return IsSourceOfAbility(attacker, game);
+            return IsSourceOfAbility(attacker);
         }
 
         public override ContinuousEffect Copy()

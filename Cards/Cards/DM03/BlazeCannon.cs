@@ -37,7 +37,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game) && !GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+            return IsSourceOfAbility(card) && !Ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }
     }
 
@@ -47,16 +47,19 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public BlazeCannonBuffEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
         {
             
-            game.AddContinuousEffects(source, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(source.Controller).ToArray()));
-            return null;
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Ability.Controller).ToArray()));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new BlazeCannonBuffEffect();
+            return new BlazeCannonBuffEffect(this);
         }
 
         public override string ToString()

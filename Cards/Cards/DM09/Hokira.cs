@@ -19,10 +19,9 @@ namespace Cards.Cards.DM09
 
     class HokiraOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new HokiraContinuousEffect(source.GetController(game).ChooseRace(ToString())));
-            return null;
+            game.AddContinuousEffects(Ability, new HokiraContinuousEffect(Controller.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -67,12 +66,12 @@ namespace Cards.Cards.DM09
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == GetController(game).Id && card.HasRace(_race);
+            return card.Owner == Controller.Id && card.HasRace(_race);
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, _race).ToList();
+            return game.BattleZone.GetCreatures(Controller.Id, _race).ToList();
         }
     }
 }

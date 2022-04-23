@@ -16,7 +16,7 @@ namespace Cards.Cards.DM06
     {
         public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
-            return bait == GetSourceCard(game);
+            return bait == Source;
         }
 
         public override IContinuousEffect Copy()

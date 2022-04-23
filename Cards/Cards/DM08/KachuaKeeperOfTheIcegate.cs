@@ -28,21 +28,20 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = source.GetController(game).Deck.Creatures.Where(x => x.IsDragon);
-            var dragon = source.GetController(game).ChooseCardOptionally(cards, ToString());
+            var cards = Controller.Deck.Creatures.Where(x => x.IsDragon);
+            var dragon = Controller.ChooseCardOptionally(cards, ToString());
             if (dragon != null)
             {
-                game.Move(source, ZoneType.Deck, ZoneType.Hand, dragon);
+                game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
-            source.GetController(game).ShuffleDeck(game);
+            Controller.ShuffleDeck(game);
             if (dragon != null)
             {
-                game.AddContinuousEffects(source, new KachuaContinuousEffect(dragon));
-                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(source, dragon, game.CurrentTurn.Id));
+                game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
+                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
@@ -56,23 +55,23 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect
+    class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
     {
-        private readonly ICard _card;
-
         public KachuaContinuousEffect(ICard card)
         {
-            _card = card;
+            Card = card;
         }
 
         public KachuaContinuousEffect(KachuaContinuousEffect effect) : base(effect)
         {
-            _card = effect._card;
+            Card = effect.Card;
         }
+
+        public ICard Card { get; }
 
         public bool Applies(ICard creature, IGame game)
         {
-            return creature == _card;
+            return creature == Card;
         }
 
         public override IContinuousEffect Copy()
@@ -82,7 +81,7 @@ namespace Cards.Cards.DM08
 
         public override string ToString()
         {
-            return $"{_card} has \"speed attacker.\"";
+            return $"{Card} has \"speed attacker.\"";
         }
     }
 

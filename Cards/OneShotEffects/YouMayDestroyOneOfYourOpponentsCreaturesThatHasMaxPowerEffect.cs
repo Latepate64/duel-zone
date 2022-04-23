@@ -5,19 +5,20 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect : DestroyEffect
+    class YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect : DestroyEffect, IPowerable
     {
-        private readonly int _power;
 
         public YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
 
         public YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(0, 1, true)
         {
-            _power = power;
+            Power = power;
         }
+
+        public int Power { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -26,12 +27,12 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"You may destroy one of your opponent's creatures that has power {_power} or less.";
+            return $"You may destroy one of your opponent's creatures that has power {Power} or less.";
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= _power);
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Power <= Power);
         }
     }
 }

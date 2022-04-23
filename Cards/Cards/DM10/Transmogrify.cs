@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -15,35 +14,26 @@ namespace Cards.Cards.DM10
 
     public class TransmogrifyEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public TransmogrifyEffect()
         {
-            var controller = source.GetController(game);
-            var card = controller.ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, controller.Id), ToString());
-            if (card != null)
-            {
-                game.Destroy(source, card);
-                ApplyAfterDestroy(game, source, game.GetOwner(card));
-            }
-            return null;
         }
 
-        public static void ApplyAfterDestroy(IGame game, IAbility source, IPlayer player)
+        public TransmogrifyEffect(IOneShotEffect effect) : base(effect)
         {
-            var index = player.DeckCards.FindLastIndex(x => x.IsNonEvolutionCreature);
-            var revealed = player.DeckCards.Skip(index).ToArray();
-            player.Reveal(game, revealed);
-            var creature = index != -1 ? revealed.FirstOrDefault() : null;
-            var toGraveyard = revealed.Where(x => x != creature).ToArray();
-            if (creature != null)
+        }
+
+        public override void Apply(IGame game)
+        {
+            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
+            if (destroyedCreature != null)
             {
-                game.Move(source, ZoneType.Deck, ZoneType.BattleZone, creature);
+                destroyedCreature.OwnerPlayer.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
             }
-            game.Move(source, ZoneType.Deck, ZoneType.Graveyard, toGraveyard);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new TransmogrifyEffect();
+            return new TransmogrifyEffect(this);
         }
 
         public override string ToString()

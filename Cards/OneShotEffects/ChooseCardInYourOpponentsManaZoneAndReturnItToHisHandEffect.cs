@@ -8,9 +8,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect(OpponentManaRecoveryEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect();
+            return new ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect(this);
         }
 
         public override string ToString()

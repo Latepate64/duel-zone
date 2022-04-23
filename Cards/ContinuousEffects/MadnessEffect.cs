@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.Hand && e.Destination == ZoneType.Graveyard && GetSourceCard(game).Id == e.CardInSourceZone;
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.Hand && e.Destination == ZoneType.Graveyard && Source.Id == e.CardInSourceZone;
         }
     }
 
@@ -32,7 +32,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {

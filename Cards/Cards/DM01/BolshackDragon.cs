@@ -15,7 +15,7 @@ namespace Cards.Cards.DM01
 
     class BolshackDragonEffect : PowerAttackerMultiplierEffect
     {
-        public BolshackDragonEffect() : base(1000)
+        public BolshackDragonEffect(int power = 1000) : base(power)
         {
         }
 
@@ -26,12 +26,12 @@ namespace Cards.Cards.DM01
 
         public override string ToString()
         {
-            return "While attacking, this creature gets +1000 power for each fire card in your graveyard.";
+            return $"While attacking, this creature gets +{Power} power for each fire card in your graveyard.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetController(game).Graveyard.GetCards(Civilization.Fire).Count();
+            return Controller.Graveyard.GetCards(Civilization.Fire).Count();
         }
     }
 }

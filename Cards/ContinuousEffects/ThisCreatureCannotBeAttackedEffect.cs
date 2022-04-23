@@ -11,7 +11,7 @@ namespace Cards.ContinuousEffects
 
         public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(targetOfAttack, game);
+            return IsSourceOfAbility(targetOfAttack);
         }
 
         public override IContinuousEffect Copy()

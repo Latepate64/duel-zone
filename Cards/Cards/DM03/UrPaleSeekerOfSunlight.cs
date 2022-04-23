@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public UrPaleSeekerOfSunlight() : base("Ur Pale, Seeker of Sunlight", 4, 2500, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {
-            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Engine.Civilization.Light, 2000));
+            AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(2000, Engine.Civilization.Light));
         }
     }
 }

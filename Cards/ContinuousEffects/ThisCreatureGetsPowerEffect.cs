@@ -3,19 +3,19 @@ using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
 {
-    class ThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect
+    class ThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
     {
-        private readonly int _power;
-
         public ThisCreatureGetsPowerEffect(ThisCreatureGetsPowerEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
 
         public ThisCreatureGetsPowerEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
+
+        public int Power { get; }
 
         public override IContinuousEffect Copy()
         {
@@ -24,12 +24,12 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += _power;
+            Source.Power += Power;
         }
 
         public override string ToString()
         {
-            return $"This creature gets +{_power} power.";
+            return $"This creature gets +{Power} power.";
         }
     }
 }

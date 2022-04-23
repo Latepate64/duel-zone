@@ -5,22 +5,25 @@ namespace Cards.OneShotEffects
 {
     class MayPutTopCardOfDeckIntoManaZoneEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public MayPutTopCardOfDeckIntoManaZoneEffect()
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+        }
+
+        public MayPutTopCardOfDeckIntoManaZoneEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).PutFromTopOfDeckIntoManaZone(game, 1, source);
-                return true;
-            }
-            else
-            {
-                return false;
+                Controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
             }
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MayPutTopCardOfDeckIntoManaZoneEffect();
+            return new MayPutTopCardOfDeckIntoManaZoneEffect(this);
         }
 
         public override string ToString()

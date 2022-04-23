@@ -40,7 +40,7 @@ namespace Engine.Zones
             }
         }
 
-        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
+        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<ICard> cards, IEnumerable<Civilization> civs)
         {
             if (cards.Any())
             {

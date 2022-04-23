@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -13,17 +14,27 @@ namespace Cards.Cards.DM10
 
     class HurricaneCrawlerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public HurricaneCrawlerEffect()
         {
-            var hand = source.GetController(game).Hand.Cards;
+        }
+
+        public HurricaneCrawlerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var player = Controller;
+            var hand = player.Hand.Cards;
             var amount = hand.Count;
-            game.Move(source, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
-            return new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(amount).Apply(game, source);
+            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            var cards = player.ChooseCards(player.ManaZone.Cards, amount, amount, ToString());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new HurricaneCrawlerEffect();
+            return new HurricaneCrawlerEffect(this);
         }
 
         public override string ToString()

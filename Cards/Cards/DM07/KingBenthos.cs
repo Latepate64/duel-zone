@@ -20,18 +20,21 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public KingBenthosEffect(IOneShotEffect effect) : base(effect)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller, Civilization.Water);
-            game.AddContinuousEffects(source, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+        }
+
+        public override void Apply(IGame game)
+        {
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller, Civilization.Water);
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
                 creatures.ToArray()));
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new KingBenthosEffect();
+            return new KingBenthosEffect(this);
         }
 
         public override string ToString()

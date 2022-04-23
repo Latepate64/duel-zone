@@ -14,15 +14,24 @@ namespace Cards.Cards.DM05
 
     class CataclysmicEruptionEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public CataclysmicEruptionEffect()
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.HasCivilization(Civilization.Nature));
-            return new OneShotEffects.ChooseUpToCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect(amount).Apply(game, source);
+        }
+
+        public CataclysmicEruptionEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Nature));
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new CataclysmicEruptionEffect();
+            return new CataclysmicEruptionEffect(this);
         }
 
         public override string ToString()

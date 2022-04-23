@@ -16,7 +16,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetOpponent(game).ManaZone.Cards;
+            return GetOpponent(game).ManaZone.Cards;
         }
     }
 }

@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect
+    class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMultiCivilizationable
     {
-        private readonly Civilization[] _civilizations;
-
         public CivilizationBlockerEffect(params Civilization[] civilizations) : base()
         {
-            _civilizations = civilizations;
+            Civilizations = civilizations;
         }
 
         public CivilizationBlockerEffect(CivilizationBlockerEffect effect) : base(effect)
         {
-            _civilizations = effect._civilizations;
+            Civilizations = effect.Civilizations;
         }
+
+        public Civilization[] Civilizations { get; }
 
         public bool CanBlock(ICard blocker, ICard attacker, IGame game)
         {
-            return IsSourceOfAbility(blocker, game) && attacker.Civilizations.Intersect(_civilizations).Any();
+            return IsSourceOfAbility(blocker) && attacker.Civilizations.Intersect(Civilizations).Any();
         }
 
         public override ContinuousEffect Copy()
@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"{string.Join(" and ", _civilizations.Select(x => x.ToString().ToLower()))} blocker";
+            return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} blocker";
         }
     }
 }

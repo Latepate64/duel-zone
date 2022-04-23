@@ -18,16 +18,23 @@ namespace Cards.Cards.DM08
 
     class LunarChargerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public LunarChargerEffect()
         {
-            var creatures = source.GetController(game).ChooseControlledCreaturesOptionally(2, game, ToString());
-            game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(source, creatures, game.CurrentTurn.Id));
-            return null;
+        }
+
+        public LunarChargerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var creatures = Controller.ChooseControlledCreaturesOptionally(2, game, ToString());
+            game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LunarChargerEffect();
+            return new LunarChargerEffect(this);
         }
 
         public override string ToString()

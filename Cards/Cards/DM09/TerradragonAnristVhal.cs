@@ -14,7 +14,7 @@ namespace Cards.Cards.DM09
 
     class TerradragonAnristVhalEffect : ContinuousEffects.PowerModifyingMultiplierEffect
     {
-        public TerradragonAnristVhalEffect() : base(2000)
+        public TerradragonAnristVhalEffect(int power = 2000) : base(power)
         {
         }
 
@@ -25,12 +25,12 @@ namespace Cards.Cards.DM09
 
         public override string ToString()
         {
-            return "This creature gets +2000 power for each of your other nature creatures in the battle zone.";
+            return $"This creature gets +{Power} power for each of your other nature creatures in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(GetController(game).Id, GetSourceCard(game).Id, Civilization.Nature).Count();
+            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id, Civilization.Nature).Count();
         }
     }
 }

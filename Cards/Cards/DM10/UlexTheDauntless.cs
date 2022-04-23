@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
 
         public bool PlayerCannotTapCreature(IPlayer player, ICard creature, IGame game)
         {
-            return player == GetSourceAbility(game).GetOpponent(game) && IsSourceOfAbility(creature, game);
+            return player == Ability.GetOpponent(game) && IsSourceOfAbility(creature);
         }
 
         public override string ToString()

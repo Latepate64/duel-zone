@@ -15,16 +15,23 @@ namespace Cards.Cards.DM09
 
     class RelentlessBlitzEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public RelentlessBlitzEffect()
         {
-            var race = source.GetController(game).ChooseRace(ToString());
-            game.AddContinuousEffects(source, new RelentlessBlitzContinuousEffect(race));
-            return null;
+        }
+
+        public RelentlessBlitzEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var race = Controller.ChooseRace(ToString());
+            game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new RelentlessBlitzEffect();
+            return new RelentlessBlitzEffect(this);
         }
 
         public override string ToString()

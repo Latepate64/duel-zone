@@ -35,12 +35,12 @@ namespace Cards.Cards.DM03
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            game.Move(source, ZoneType.ShieldZone, ZoneType.ManaZone, cards);
+            game.Move(Ability, ZoneType.ShieldZone, ZoneType.ManaZone, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 }

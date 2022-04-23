@@ -6,7 +6,7 @@ namespace Cards.OneShotEffects
 {
     class ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect : BounceEffect
     {
-        public ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect(int amount = 1) : base(amount, amount)
+        public ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect() : base(1, 1)
         {
         }
 
@@ -21,12 +21,12 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return Minimum == 1 ? "Choose a creature in the battle zone and return it to its owner's hand." : $"Choose {Minimum} creatures in the battle zone and return them to their owner's hands.";
+            return "Choose a creature in the battle zone and return it to its owner's hand.";
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
         }
     }
 }

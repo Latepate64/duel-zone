@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -14,18 +13,24 @@ namespace Cards.Cards.DM10
 
     class WindAxeTheWarriorSavageEffect : OneShotEffect
     {
-        public override IOneShotEffect Copy()
+        public WindAxeTheWarriorSavageEffect()
         {
-            return new WindAxeTheWarriorSavageEffect();
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public WindAxeTheWarriorSavageEffect(IOneShotEffect effect) : base(effect)
         {
-            foreach (var effect in new OneShotEffect[] { new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(), new PutTopCardsOfDeckIntoManaZoneEffect(1) })
-            {
-                effect.Apply(game, source);
-            }
-            return null;
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new WindAxeTheWarriorSavageEffect(this);
+        }
+
+        public override void Apply(IGame game)
+        {
+            var player = Controller;
+            player.DestroyOpponentsBlocker(game, Ability);
+            player.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
         }
 
         public override string ToString()

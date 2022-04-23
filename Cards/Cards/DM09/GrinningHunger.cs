@@ -14,20 +14,27 @@ namespace Cards.Cards.DM09
 
     class GrinningHungerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public GrinningHungerEffect()
         {
-            var opponent = source.GetOpponent(game);
+        }
+
+        public GrinningHungerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var opponent = GetOpponent(game);
             var card = opponent.ChooseCard(game.BattleZone.GetCreatures(opponent.Id).Union(opponent.ShieldZone.Cards), ToString());
             if (card != null)
             {
-                game.Move(source, game.GetZone(card).Type, ZoneType.Graveyard, card);
+                game.Move(Ability, game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new GrinningHungerEffect();
+            return new GrinningHungerEffect(this);
         }
 
         public override string ToString()

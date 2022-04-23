@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public AddCardFromYourHandToYourShieldsFaceDownEffect(ShieldAdditionEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new AddCardFromYourHandToYourShieldsFaceDownEffect();
+            return new AddCardFromYourHandToYourShieldsFaceDownEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.GetPlayer(source.Controller).Hand.Cards;
+            return Controller.Hand.Cards;
         }
     }
 }

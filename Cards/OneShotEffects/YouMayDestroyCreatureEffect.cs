@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public YouMayDestroyCreatureEffect(DestroyEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new YouMayDestroyCreatureEffect();
+            return new YouMayDestroyCreatureEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, source.GetOpponent(game).Id);
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
         }
     }
 }

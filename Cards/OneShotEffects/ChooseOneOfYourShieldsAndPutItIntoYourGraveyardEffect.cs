@@ -8,9 +8,13 @@ namespace Cards.OneShotEffects
     {
         public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect() : base(1, 1, true) { }
 
+        public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(ShieldBurnEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect();
+            return new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(this);
         }
 
         public override string ToString()
@@ -20,7 +24,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).ShieldZone.Cards;
+            return Controller.ShieldZone.Cards;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.OneShotEffects;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -18,9 +19,13 @@ namespace Cards.Cards.DM03
         {
         }
 
+        public GamilKnightOfHatredEffect(SalvageEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new GamilKnightOfHatredEffect();
+            return new GamilKnightOfHatredEffect(this);
         }
 
         public override string ToString()
@@ -30,7 +35,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.GetCreatures(Civilization.Darkness);
+            return Controller.Graveyard.GetCreatures(Civilization.Darkness);
         }
     }
 }

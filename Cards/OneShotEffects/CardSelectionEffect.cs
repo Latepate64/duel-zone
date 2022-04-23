@@ -19,24 +19,22 @@ namespace Cards.OneShotEffects
             ControllerChooses = controllerChooses;
         }
 
-        protected CardSelectionEffect(CardSelectionEffect effect)
+        protected CardSelectionEffect(CardSelectionEffect effect) : base(effect)
         {
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
             ControllerChooses = effect.ControllerChooses;
         }
 
-        public override IEnumerable<ICard> Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = GetSelectableCards(game, source);
-            var player = ControllerChooses ? source.GetController(game) : source.GetOpponent(game);
+            var cards = GetSelectableCards(game, Ability);
+            var player = ControllerChooses ? Controller : GetOpponent(game);
             if (player != null)
             {
                 var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
-                Apply(game, source, chosen.ToArray());
-                return chosen;
+                Apply(game, Ability, chosen.ToArray());
             }
-            return cards;
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

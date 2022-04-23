@@ -28,11 +28,10 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new BattleshipMutantContinuousEffect());
-            game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(source, game.BattleZone.GetCreatures(source.GetController(game).Id, Civilization.Darkness)));
-            return null;
+            game.AddContinuousEffects(Ability, new BattleshipMutantContinuousEffect());
+            game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(Ability, game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)));
         }
 
         public override IOneShotEffect Copy()
@@ -68,7 +67,7 @@ namespace Cards.Cards.DM07
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id, Civilization.Darkness).ToList();
+            return game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness).ToList();
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)

@@ -1,7 +1,6 @@
 ﻿using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM12
@@ -10,13 +9,13 @@ namespace Cards.Cards.DM12
     {
         public ClonedBlade() : base("Cloned Blade", 5, Civilization.Fire)
         {
-            AddSpellAbilities(new ClonedBladeEffect(Name));
+            AddSpellAbilities(new ClonedBladeEffect());
         }
     }
 
     class ClonedBladeEffect : ClonedEffect
     {
-        public ClonedBladeEffect(string name) : base(name)
+        public ClonedBladeEffect() : base("Cloned Blade")
         {
         }
 
@@ -24,9 +23,10 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            return new ClonedBladeDestroyEffect(GetAmount(game)).Apply(game, source);
+            var creatures = Controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
+            game.Destroy(Ability, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
@@ -37,33 +37,6 @@ namespace Cards.Cards.DM12
         public override string ToString()
         {
             return "Choose an opponent's creature in the battle zone that has power 3000 or less. Then, for each Cloned Blade in each graveyard, you may choose another opponent's creature in the battle zone that has power 3000 or less. Destroy all those creatures.";
-        }
-    }
-
-    class ClonedBladeDestroyEffect : DestroyEffect
-    {
-        public ClonedBladeDestroyEffect(int maximum) : base(1, maximum, true)
-        {
-        }
-
-        public ClonedBladeDestroyEffect(ClonedBladeDestroyEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ClonedBladeDestroyEffect(this);
-        }
-
-        public override string ToString()
-        {
-            var amount = Maximum == 1 ? "one" : $"1-{Maximum}";
-            return $"Destroy {amount} of your opponent's creatures in the battle zone that have power 3000 or less.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.Power <= 3000);
         }
     }
 }

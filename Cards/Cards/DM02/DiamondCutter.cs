@@ -16,15 +16,22 @@ namespace Cards.Cards.DM02
 
     class DiamondCutterOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public DiamondCutterOneShotEffect()
         {
-            game.AddContinuousEffects(source, new DiamondCutterContinuousEffect(source.Controller));
-            return null;
+        }
+
+        public DiamondCutterOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.AddContinuousEffects(Ability, new DiamondCutterContinuousEffect(Ability.Controller));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new DiamondCutterOneShotEffect();
+            return new DiamondCutterOneShotEffect(this);
         }
 
         public override string ToString()

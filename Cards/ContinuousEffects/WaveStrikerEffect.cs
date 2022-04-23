@@ -24,7 +24,7 @@ namespace Cards.ContinuousEffects
         {
             if (game.BattleZone.Creatures.Count(x => x.GetAbilities<WaveStrikerAbility>().Any()) >= 3)
             {
-                _abilities.ToList().ForEach(x => game.AddAbility(GetSourceCard(game), x.Copy()));
+                _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
             }
         }
 

@@ -1,6 +1,6 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -14,15 +14,28 @@ namespace Cards.Cards.DM08
 
     class LaserWhipEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public LaserWhipEffect()
         {
-            (new IOneShotEffect[] { new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect(), new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() }).ToList().ForEach(x => x.Apply(game, source));
-            return null;
+        }
+
+        public LaserWhipEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            controller.TapOpponentsCreature(game);
+            var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
+            if (creature != null)
+            {
+                game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
+            }
         }
 
         public override IOneShotEffect Copy()
         {
-            return new LaserWhipEffect();
+            return new LaserWhipEffect(this);
         }
 
         public override string ToString()

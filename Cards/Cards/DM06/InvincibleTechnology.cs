@@ -14,14 +14,13 @@ namespace Cards.Cards.DM06
 
     class InvincibleTechnologyEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = source.GetController(game).Deck.Cards;
-            var selectedCards = source.GetController(game).ChooseAnyNumberOfCards(cards, ToString()).ToArray();
-            source.GetController(game).Reveal(game, selectedCards);
-            game.Move(source, ZoneType.Deck, ZoneType.Hand, selectedCards);
-            source.GetController(game).ShuffleDeck(game);
-            return selectedCards;
+            var cards = Controller.Deck.Cards;
+            var selectedCards = Controller.ChooseAnyNumberOfCards(cards, ToString()).ToArray();
+            Controller.Reveal(game, selectedCards);
+            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, selectedCards);
+            Controller.ShuffleDeck(game);
         }
 
         public override IOneShotEffect Copy()

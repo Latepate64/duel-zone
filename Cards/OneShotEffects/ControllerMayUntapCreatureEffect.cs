@@ -15,16 +15,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                source.GetController(game).Untap(game, GetSelectableCards(game, source).ToArray());
-                return true;
-            }
-            else
-            {
-                return false;
+                Controller.Untap(game, GetSelectableCards(game, Ability).ToArray());
             }
         }
 
@@ -37,9 +32,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public YouMayUntapThisCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new YouMayUntapThisCreatureEffect();
+            return new YouMayUntapThisCreatureEffect(this);
         }
 
         public override string ToString()
@@ -49,7 +48,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return new ICard[] { game.GetCard(source.Source) };
+            return new ICard[] { game.GetCard(Ability.Source) };
         }
     }
 }

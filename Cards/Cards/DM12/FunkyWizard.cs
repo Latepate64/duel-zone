@@ -14,21 +14,28 @@ namespace Cards.Cards.DM12
 
     class FunkyWizardEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public FunkyWizardEffect()
+        {
+        }
+
+        public FunkyWizardEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
         {
             foreach (var player in game.Players)
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {
-                    player.DrawCards(1, game, source);
+                    player.DrawCards(1, game, Ability);
                 }
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new FunkyWizardEffect();
+            return new FunkyWizardEffect(this);
         }
 
         public override string ToString()

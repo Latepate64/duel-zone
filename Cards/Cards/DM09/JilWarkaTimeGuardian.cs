@@ -6,7 +6,7 @@
         {
             AddBlockerAbility();
             AddThisCreatureCannotAttackPlayersAbility();
-            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseUpToOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(2));
+            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect());
         }
     }
 }

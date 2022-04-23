@@ -6,7 +6,7 @@ namespace Cards.Cards.DM06
     {
         public FortMegacluster() : base("Fort Megacluster", 5, 5000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
-            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Water, new OneShotEffects.DrawCardsEffect(1)));
+            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Water, new OneShotEffects.DrawCardEffect()));
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -15,53 +14,30 @@ namespace Cards.Cards.DM09
 
     class DanceOfTheSproutlingsEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public DanceOfTheSproutlingsEffect()
         {
-            return new DanceOfTheSproutlingsSecondEffect(source.GetController(game).ChooseRace(ToString())).Apply(game, source);
+        }
+
+        public DanceOfTheSproutlingsEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            var race = controller.ChooseRace(ToString());
+            var creatures = controller.ChooseAnyNumberOfCards(controller.Hand.GetCreatures(race), ToString());
+            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new DanceOfTheSproutlingsEffect();
+            return new DanceOfTheSproutlingsEffect(this);
         }
 
         public override string ToString()
         {
             return "Choose a race. You may put any number of creatures of that race from your hand into your mana zone.";
-        }
-    }
-
-    class DanceOfTheSproutlingsSecondEffect : ChooseAnyNumberOfCardsEffect
-    {
-        private readonly Race _race;
-
-        public DanceOfTheSproutlingsSecondEffect(Race race) : base()
-        {
-            _race = race;
-        }
-
-        public DanceOfTheSproutlingsSecondEffect(DanceOfTheSproutlingsSecondEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new DanceOfTheSproutlingsSecondEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"You may put any number of {_race}s from your hand into your mana zone.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            game.Move(source, ZoneType.Hand, ZoneType.ManaZone, cards);
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).Hand.GetCreatures(_race);
         }
     }
 }

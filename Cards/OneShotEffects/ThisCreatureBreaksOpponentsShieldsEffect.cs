@@ -3,19 +3,14 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class ThisCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
+    abstract class ThisCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
     {
-        public ThisCreatureBreaksOpponentsShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
+        protected ThisCreatureBreaksOpponentsShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
         {
         }
 
-        public ThisCreatureBreaksOpponentsShieldsEffect(int amount = 1) : base(amount)
+        protected ThisCreatureBreaksOpponentsShieldsEffect(int amount) : base(amount)
         {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ThisCreatureBreaksOpponentsShieldsEffect(this);
         }
 
         public override string ToString()
@@ -25,7 +20,39 @@ namespace Cards.OneShotEffects
 
         protected override ICard GetBreaker(IGame game, IAbility source)
         {
-            return game.GetCard(source.Source);
+            return game.GetCard(Ability.Source);
+        }
+    }
+
+    class ThisCreatureBreaksOpponentsShieldEffect : ThisCreatureBreaksOpponentsShieldsEffect
+    {
+        public ThisCreatureBreaksOpponentsShieldEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
+        {
+        }
+
+        public ThisCreatureBreaksOpponentsShieldEffect() : base(1)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ThisCreatureBreaksOpponentsShieldEffect(this);
+        }
+    }
+
+    class ThisCreatureBreaksOpponentsTwoShieldsEffect : ThisCreatureBreaksOpponentsShieldsEffect
+    {
+        public ThisCreatureBreaksOpponentsTwoShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
+        {
+        }
+
+        public ThisCreatureBreaksOpponentsTwoShieldsEffect() : base(2)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ThisCreatureBreaksOpponentsTwoShieldsEffect(this);
         }
     }
 
@@ -43,42 +70,11 @@ namespace Cards.OneShotEffects
             _amount = amount;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            GetBreaker(game, source).Break(game, _amount);
-            return null;
+            GetBreaker(game, Ability).Break(game, _amount);
         }
 
         protected abstract ICard GetBreaker(IGame game, IAbility source);
-    }
-
-    class TargetCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
-    {
-        private readonly ICard _breaker;
-
-        public TargetCreatureBreaksOpponentsShieldsEffect(TargetCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
-        {
-            _breaker = effect._breaker.Copy();
-        }
-
-        public TargetCreatureBreaksOpponentsShieldsEffect(int amount, ICard breaker) : base(amount)
-        {
-            _breaker = breaker;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new TargetCreatureBreaksOpponentsShieldsEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{_breaker} breaks {_amount} of your opponent's shields.";
-        }
-
-        protected override ICard GetBreaker(IGame game, IAbility source)
-        {
-            return _breaker;
-        }
     }
 }

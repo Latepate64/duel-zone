@@ -16,11 +16,10 @@ namespace Cards.Cards.DM11
 
     class GankloakRogueCommandoOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller);
-            game.AddContinuousEffects(source, new GankloakRogueCommandoContinuousEffect(creatures.ToArray()));
-            return null;
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
+            game.AddContinuousEffects(Ability, new GankloakRogueCommandoContinuousEffect(creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

@@ -4,7 +4,7 @@
     {
         public HustleBerry() : base("Hustle Berry", 2, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
         {
-            AddSilentSkillAbility(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(1));
+            AddSilentSkillAbility(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect());
         }
     }
 }

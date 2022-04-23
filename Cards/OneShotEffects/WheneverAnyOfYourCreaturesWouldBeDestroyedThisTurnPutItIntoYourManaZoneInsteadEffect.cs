@@ -4,21 +4,27 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
-using System;
 
 namespace Cards.OneShotEffects
 {
     class WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect()
         {
-            game.AddContinuousEffects(source, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(source.Controller));
-            return null;
+        }
+
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.AddContinuousEffects(Ability, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect();
+            return new WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect(this);
         }
 
         public override string ToString()
@@ -30,16 +36,13 @@ namespace Cards.OneShotEffects
 
     class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect, IExpirable
     {
-        private readonly Guid _controller;
 
-        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(Guid controller) : base()
+        public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
         {
-            _controller = controller;
         }
 
         public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
         {
-            _controller = effect._controller;
         }
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
@@ -67,7 +70,7 @@ namespace Cards.OneShotEffects
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == _controller;
+            return card.OwnerPlayer == Controller;
         }
     }
 }

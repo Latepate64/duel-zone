@@ -1,8 +1,8 @@
 ﻿namespace Engine.Abilities
 {
-    public interface IOneShotEffect
+    public interface IOneShotEffect : IEffect
     {
-        object Apply(IGame game, IAbility source);
+        void Apply(IGame game);
         IOneShotEffect Copy();
         void Dispose();
         string ToString();

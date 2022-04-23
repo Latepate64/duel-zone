@@ -40,13 +40,11 @@ namespace Cards.Cards.DM09
 
     class IceVaporShadowOfAnguishEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            foreach (var effect in new IOneShotEffect[] { new OneShotEffects.YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(1), new OneShotEffects.YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1) })
-            {
-                effect.Apply(game, source);
-            }
-            return null;
+            var opponent = GetOpponent(game);
+            opponent.DiscardOwnCard(game, Ability);
+            opponent.BurnOwnMana(game, Ability);
         }
 
         public override IOneShotEffect Copy()

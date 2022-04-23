@@ -1,6 +1,6 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
@@ -14,18 +14,22 @@ namespace Cards.Cards.DM01
 
     class RothusTheTravelerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public RothusTheTravelerEffect()
         {
-            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new OpponentSacrificeEffect() })
-            {
-                effect.Apply(game, source);
-            }
-            return null;
+        }
+
+        public RothusTheTravelerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            new List<IPlayer> { Controller, GetOpponent(game) }.ForEach(x => x.Sacrifice(game, Ability));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new RothusTheTravelerEffect();
+            return new RothusTheTravelerEffect(this);
         }
 
         public override string ToString()

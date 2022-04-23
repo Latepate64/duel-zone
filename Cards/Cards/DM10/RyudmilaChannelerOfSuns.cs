@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            return new RyudmilaEvent(GetSourceCard(game));
+            return new RyudmilaEvent(Source);
         }
 
         public override IContinuousEffect Copy()
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM10
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game);
+            return IsSourceOfAbility(card);
         }
     }
 

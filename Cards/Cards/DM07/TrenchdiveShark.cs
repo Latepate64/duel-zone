@@ -1,7 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM07
@@ -16,14 +14,16 @@ namespace Cards.Cards.DM07
 
     class TrenchdiveSharkEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = new TrenchdiveSharkShieldAdditionEffect().Apply(game, source);
+            var player = Controller;
+            var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {
-                return new ShieldRecoveryCannotUseShieldTriggerEffect(cards.Count()).Apply(game, source);
+                game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards.ToArray());
+                var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
+                game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shields.ToArray());
             }
-            return cards;
         }
 
         public override IOneShotEffect Copy()
@@ -34,28 +34,6 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "You may add up to 2 cards from your hand to your shields face down. If you do, choose the same number of your shields and put them into your hand. You can't use the \"shield trigger\" ability of those shields.";
-        }
-    }
-
-    class TrenchdiveSharkShieldAdditionEffect : ShieldAdditionEffect
-    {
-        public TrenchdiveSharkShieldAdditionEffect() : base(0, 2, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new TrenchdiveSharkShieldAdditionEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may add up to 2 cards from your hand to your shields face down.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).Hand.Cards;
         }
     }
 }

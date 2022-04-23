@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetOtherCreatures(source.Controller, source.Source);
+            return game.BattleZone.GetOtherCreatures(Ability.Controller, Ability.Source);
         }
     }
 }

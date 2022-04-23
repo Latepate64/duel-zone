@@ -4,7 +4,7 @@
     {
         public SupersonicJetPack() : base("Supersonic Jet Pack", 1, Engine.Civilization.Fire)
         {
-            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.SpeedAttackerAbility()));
+            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect());
         }
     }
 }

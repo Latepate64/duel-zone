@@ -24,12 +24,12 @@ namespace Cards.Cards.DM08
 
         public void AddAbility(IGame game)
         {
-            GetSourceCard(game).AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
+            Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game);
+            return IsSourceOfAbility(attacker);
         }
 
         public override IContinuousEffect Copy()

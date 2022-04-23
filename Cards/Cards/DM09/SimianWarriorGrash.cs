@@ -7,7 +7,7 @@ namespace Cards.Cards.DM09
     {
         public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Race.Armorloid, Civilization.Fire)
         {
-            AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1)));
+            AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
         }
     }
 

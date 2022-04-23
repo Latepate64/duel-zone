@@ -22,16 +22,15 @@ namespace Cards.OneShotEffects
             _searchOpponentsDeck = effect._searchOpponentsDeck;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = GetAffectedCards(game, source);
+            var cards = GetAffectedCards(game, Ability);
             if (cards.Any())
             {
-                var selectedCards = source.GetController(game).ChooseCards(cards, 0, _maximum, ToString());
-                Apply(game, source, selectedCards.ToArray());
+                var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
+                Apply(game, Ability, selectedCards.ToArray());
             }
-            (_searchOpponentsDeck ? source.GetOpponent(game) : source.GetController(game)).ShuffleDeck(game);
-            return cards.Any();
+            (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleDeck(game);
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

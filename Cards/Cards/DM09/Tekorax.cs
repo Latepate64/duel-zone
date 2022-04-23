@@ -14,20 +14,27 @@ namespace Cards.Cards.DM09
 
     class TekoraxEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public TekoraxEffect()
         {
-            var cards = source.GetOpponent(game).ShieldZone.Cards;
+        }
+
+        public TekoraxEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var cards = GetOpponent(game).ShieldZone.Cards;
             if (cards.Any())
             {
-                source.GetController(game).Look(source.GetOpponent(game), game, cards.ToArray());
-                source.GetOpponent(game).Unreveal(cards);
+                Controller.Look(GetOpponent(game), game, cards.ToArray());
+                GetOpponent(game).Unreveal(cards);
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new TekoraxEffect();
+            return new TekoraxEffect(this);
         }
 
         public override string ToString()

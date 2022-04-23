@@ -4,7 +4,7 @@
     {
         public SkyCrusherTheAgitator() : base("Sky Crusher, the Agitator", 7, 4000, Engine.Race.Dragonoid, Engine.Civilization.Fire)
         {
-            AddTapAbility(new OneShotEffects.MutualManaSacrificeEffect(1));
+            AddTapAbility(new OneShotEffects.MutualSingleManaSacrificeEffect());
         }
     }
 }

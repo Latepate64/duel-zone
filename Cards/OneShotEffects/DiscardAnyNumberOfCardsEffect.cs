@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public DiscardAnyNumberOfCardsEffect(ChooseAnyNumberOfCardsEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new DiscardAnyNumberOfCardsEffect();
+            return new DiscardAnyNumberOfCardsEffect(this);
         }
 
         public override string ToString()
@@ -22,12 +26,12 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            source.GetController(game).Discard(source, game, cards);
+            Controller.Discard(source, game, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Hand.Cards;
+            return Controller.Hand.Cards;
         }
     }
 }

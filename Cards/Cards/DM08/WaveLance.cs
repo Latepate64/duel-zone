@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -14,19 +13,30 @@ namespace Cards.Cards.DM08
 
     class WaveLanceEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public WaveLanceEffect()
         {
-            var creature = new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect().Apply(game, source);
-            if (creature.Any(x => x.IsDragon))
+        }
+
+        public WaveLanceEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var creature = Controller.ChooseCard(game.BattleZone.Creatures, ToString());
+            if (creature != null)
             {
-                new OneShotEffects.YouMayDrawCardsEffect(1).Apply(game, source);
+                game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
+                if (creature.IsDragon)
+                {
+                    Controller.DrawCardsOptionally(game, Ability, 1);
+                }
             }
-            return creature;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new WaveLanceEffect();
+            return new WaveLanceEffect(this);
         }
 
         public override string ToString()

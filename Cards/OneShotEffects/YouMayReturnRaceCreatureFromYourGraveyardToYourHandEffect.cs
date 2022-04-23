@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect : SalvageEffect
+    class YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect : SalvageEffect, IRaceable
     {
-        private readonly Race _race;
-
-        public YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(Race race, int maximum = 1) : base(0, maximum, true)
+        public YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(Race race) : base(0, 1, true)
         {
-            _race = race;
+            Race = race;
         }
 
         public YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect effect) : base(effect)
         {
-            _race = effect._race;
+            Race = effect.Race;
         }
+
+        public Race Race { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -26,13 +26,13 @@ namespace Cards.OneShotEffects
         public override string ToString()
         {
             return Maximum == 1 ? 
-                $"You may return a {_race} from your graveyard to your hand." : 
-                $"Return up to {Maximum} {_race}s from your graveyard to your hand.";
+                $"You may return a {Race} from your graveyard to your hand." : 
+                $"Return up to {Maximum} {Race}s from your graveyard to your hand.";
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Graveyard.GetCreatures(_race);
+            return Controller.Graveyard.GetCreatures(Race);
         }
     }
 }

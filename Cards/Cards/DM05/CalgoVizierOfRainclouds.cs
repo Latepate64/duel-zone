@@ -20,7 +20,7 @@ namespace Cards.Cards.DM05
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return IsSourceOfAbility(attacker, game) && blocker.Power >= 4000;
+            return IsSourceOfAbility(attacker) && blocker.Power >= 4000;
         }
 
         public override IContinuousEffect Copy()

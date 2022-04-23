@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
+using Moq;
 using System;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace TestCards.TriggeredAbilities
         [Fact]
         public void CanTrigger_CardMovesToBattleZone_ReturnTrue()
         {
-            var card = new Card();
+            var card = Mock.Of<ICard>();
             Assert.True(
                 new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffectMock())
                 {
@@ -55,10 +56,10 @@ namespace TestCards.TriggeredAbilities
 
     class OneShotEffectMock : IOneShotEffect
     {
-        public object Apply(IGame game, IAbility source)
-        {
-            throw new NotImplementedException();
-        }
+        public Guid SourceAbility { get; set; }
+        public IPlayer Controller { get; set; }
+        public IAbility Ability { get; set; }
+        public ICard Source { get; }
 
         public IOneShotEffect Copy()
         {
@@ -66,6 +67,11 @@ namespace TestCards.TriggeredAbilities
         }
 
         public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IOneShotEffect.Apply(IGame game)
         {
             throw new NotImplementedException();
         }

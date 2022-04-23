@@ -19,15 +19,18 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public MarineScrambleEffect(IOneShotEffect effect) : base(effect)
         {
-            game.AddContinuousEffects(source, new YourCreaturesCannotBeBlockedThisTurnEffect());
-            return null;
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.AddContinuousEffects(Ability, new YourCreaturesCannotBeBlockedThisTurnEffect());
         }
 
         public override IOneShotEffect Copy()
         {
-            return new MarineScrambleEffect();
+            return new MarineScrambleEffect(this);
         }
 
         public override string ToString()
@@ -44,7 +47,7 @@ namespace Cards.Cards.DM08
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            return game.BattleZone.GetCreatures(GetController(game).Id).Contains(attacker);
+            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

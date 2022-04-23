@@ -1,6 +1,6 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -14,13 +14,9 @@ namespace Cards.Cards.DM10
 
     class DolmarksTheShadowWarriorEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            foreach (var effect in new OneShotEffect[] { new SacrificeEffect(), new PutCardsFromYourManaZoneIntoYourGraveyard(1), new OpponentSacrificeEffect(), new YourOpponentChoosesCardsInHisManaZoneAndPutsThemIntoHisGraveyardEffect(1) })
-            {
-                effect.Apply(game, source);
-            }
-            return null;
+            new List<IPlayer> { Controller, GetOpponent(game) }.ForEach(x => { x.Sacrifice(game, Ability); x.BurnOwnMana(game, Ability); });
         }
 
         public override IOneShotEffect Copy()

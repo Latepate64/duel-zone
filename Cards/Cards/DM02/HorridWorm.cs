@@ -6,7 +6,7 @@ namespace Cards.Cards.DM02
     {
         public HorridWorm() : base("Horrid Worm", 3, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
-            AddWheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect());
+            AddWheneverThisCreatureAttacksAbility(new OpponentDiscardsCardAtRandomEffect());
         }
     }
 }

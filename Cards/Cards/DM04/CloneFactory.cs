@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public CloneFactory() : base("Clone Factory", 3, Engine.Civilization.Water)
         {
-            AddSpellAbilities(new ReturnUpToCardsFromYourManaZoneToYourHandEffect(2));
+            AddSpellAbilities(new ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect());
         }
     }
 }

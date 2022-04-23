@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Moq;
 using System.Collections.Generic;
@@ -15,9 +16,17 @@ namespace TestEngine
         {
             Assert.Equal(
                 shouldBeAbleToEvolve,
-                new Card().CanEvolveFrom(
+                new CardMock().CanEvolveFrom(
                     new GameMock(shouldBeAbleToEvolve).Object,
-                    new Card()));
+                    new CardMock()));
+        }
+    }
+
+    class CardMock : Card
+    {
+        public override ICard Copy()
+        {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -33,6 +42,10 @@ namespace TestEngine
     {
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
+        public IPlayer Controller { get; set; }
+        public IAbility Ability { get; set; }
+        public ICard Source { get; }
+
         private readonly bool _shouldBeAbleToEvolve;
 
         public EvolutionEffectMock(bool shouldBeAbleToEvolve)

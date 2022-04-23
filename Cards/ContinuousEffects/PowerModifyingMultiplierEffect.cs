@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class PowerModifyingMultiplierEffect : ContinuousEffect, IPowerModifyingEffect
+    abstract class PowerModifyingMultiplierEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
     {
-        protected readonly int _power;
-
         protected PowerModifyingMultiplierEffect(int power) : base()
         {
-            _power = power;
+            Power = power;
         }
 
         protected PowerModifyingMultiplierEffect(PowerModifyingMultiplierEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
+
+        public int Power { get; }
 
         public virtual void ModifyPower(IGame game)
         {
-            GetSourceCard(game).Power += GetMultiplier(game) * _power;
+            Source.Power += GetMultiplier(game) * Power;
         }
 
         protected abstract int GetMultiplier(IGame game);
@@ -38,10 +38,10 @@ namespace Cards.ContinuousEffects
 
         public override void ModifyPower(IGame game)
         {
-            var creature = GetSourceCard(game);
+            var creature = Source;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
-                creature.Power += GetMultiplier(game) * _power;
+                creature.Power += GetMultiplier(game) * Power;
             }
         }
     }
@@ -63,12 +63,12 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"While attacking, this creature gets +{_power} power for each other tapped creature you have in the battle zone.";
+            return $"While attacking, this creature gets +{Power} power for each other tapped creature you have in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherTappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherTappedCreatures(Controller.Id, Source.Id).Count();
         }
     }
 
@@ -89,12 +89,12 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"This creature gets +{_power} power for each of your other untapped creatures in the battle zone.";
+            return $"This creature gets +{Power} power for each of your other untapped creatures in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherUntappedCreatures(GetController(game).Id, GetSourceCard(game).Id).Count();
+            return game.BattleZone.GetOtherUntappedCreatures(Controller.Id, Source.Id).Count();
         }
     }
 
@@ -115,12 +115,12 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"While attacking, this creature gets +{_power} power for each tapped card in your mana zone.";
+            return $"While attacking, this creature gets +{Power} power for each tapped card in your mana zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return GetSourceAbility(game).GetController(game).ManaZone.TappedCards.Count();
+            return Ability.GetController(game).ManaZone.TappedCards.Count();
         }
     }
 }

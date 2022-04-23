@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : ICard, ICopyable<ICard>, ITimestampable
+    abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
         private readonly IList<Race> _addedRaces = new List<Race>();
         private IList<Race> _printedRaces = new List<Race>();
@@ -22,30 +22,30 @@ namespace Engine
             PrintedPower = power;
         }
 
-        internal Card(ICard card, int timeStamp)
+        protected Card(ICard card, int timeStamp)
         {
+            AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
+            CardType = card.CardType;
+            Civilizations = card.Civilizations.ToList();
+            FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
-            Owner = card.Owner;
             KnownTo = card.KnownTo.ToList();
             ManaCost = card.ManaCost;
             Name = card.Name;
             OnTopOf = card.OnTopOf;
+            Owner = card.Owner;
+            OwnerPlayer = card.OwnerPlayer;
             Power = card.Power;
-            RulesText = card.RulesText;
-            ShieldTrigger = card.ShieldTrigger;
-            SummoningSickness = card.SummoningSickness;
-            Tapped = card.Tapped;
-            Underneath = card.Underneath;
-            FaceDown = card.FaceDown;
-
-            Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
-            AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
-            CardType = card.CardType;
-            Civilizations = card.Civilizations.ToList();
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
             Races = card.Races?.ToList();
+            RulesText = card.RulesText;
+            ShieldTrigger = card.ShieldTrigger;
+            SummoningSickness = card.SummoningSickness;
             Supertypes = card.Supertypes?.ToList();
+            Tapped = card.Tapped;
+            Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
+            Underneath = card.Underneath;
             InitializeAbilities();
         }
 
@@ -76,6 +76,7 @@ namespace Engine
         /// </summary>
         public Guid Owner { get; set; }
 
+        public IPlayer OwnerPlayer { get; internal set; }
         public int? Power { get; set; }
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public int? PrintedPower { get; }
@@ -155,10 +156,7 @@ namespace Engine
             return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
         }
 
-        public virtual ICard Copy()
-        {
-            return new Card(this, Timestamp);
-        }
+        public abstract ICard Copy();
 
         public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
         {
@@ -265,6 +263,7 @@ namespace Engine
         {
             ability.Controller = Owner;
             ability.Source = Id;
+            ability.SourceCard = this;
         }
 
         private void SetRulesText()

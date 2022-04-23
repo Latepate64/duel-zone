@@ -3,18 +3,18 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect
+    class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect, IPowerable
     {
-        private readonly int _power;
+        public int Power { get; }
 
         public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power)
         {
-            _power = power;
+            Power = power;
         }
 
         public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
         {
-            _power = effect._power;
+            Power = effect.Power;
         }
 
         public override IOneShotEffect Copy()
@@ -22,15 +22,14 @@ namespace Cards.OneShotEffects
             return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(source, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(_power, game.GetCard(source.Source)));
-            return null;
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, game.GetCard(Ability.Source)));
         }
 
         public override string ToString()
         {
-            return "This creature gets +3000 power until the end of the turn.";
+            return $"This creature gets +{Power} power until the end of the turn.";
         }
     }
 }

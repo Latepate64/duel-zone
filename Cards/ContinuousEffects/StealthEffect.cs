@@ -4,24 +4,24 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class StealthEffect : ContinuousEffect, IUnblockableEffect
+    class StealthEffect : ContinuousEffect, IUnblockableEffect, ICivilizationable
     {
-        private readonly Civilization _civilization;
-
         public StealthEffect(Civilization civilization) : base()
         {
-            _civilization = civilization;
+            Civilization = civilization;
         }
 
         public StealthEffect(StealthEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
+            Civilization = effect.Civilization;
         }
+
+        public Civilization Civilization { get; }
 
         public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
         {
-            var ability = GetSourceAbility(game);
-            return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(_civilization));
+            var ability = Ability;
+            return attacker.Id == ability.Source && ability.GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
         }
 
         public override IContinuousEffect Copy()
@@ -31,7 +31,7 @@ namespace Cards.ContinuousEffects
 
         public override string ToString()
         {
-            return $"{_civilization} stealth";
+            return $"{Civilization} stealth";
         }
     }
 }

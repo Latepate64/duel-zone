@@ -17,13 +17,12 @@ namespace Cards.Cards.DM04
 
     class KingAquakamuiOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            if (source.GetController(game).ChooseToTakeAction(ToString()))
+            if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.Move(source, ZoneType.Graveyard, ZoneType.Hand, source.GetController(game).Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
+                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
             }
-            return null;
         }
 
         public override IOneShotEffect Copy()

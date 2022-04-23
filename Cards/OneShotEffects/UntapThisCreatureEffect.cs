@@ -9,9 +9,13 @@ namespace Cards.OneShotEffects
     {
         public UntapThisCreatureEffect() : base() { }
 
+        public UntapThisCreatureEffect(UntapAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new UntapThisCreatureEffect();
+            return new UntapThisCreatureEffect(this);
         }
 
         public override string ToString()
@@ -21,7 +25,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return new List<ICard> { game.GetCard(source.Source) }.Where(x => x != null);
+            return new List<ICard> { game.GetCard(Ability.Source) }.Where(x => x != null);
         }
     }
 }

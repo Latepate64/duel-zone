@@ -14,15 +14,23 @@ namespace Cards.Cards.DM08
 
     class AquaGrapplerEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public AquaGrapplerEffect()
         {
-            var amount = game.BattleZone.GetCreatures(source.Controller).Count(x => x.Id != source.Source && x.Tapped == true);
-            return new OneShotEffects.YouMayDrawCardsEffect(amount).Apply(game, source);
+        }
+
+        public AquaGrapplerEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var amount = game.BattleZone.GetCreatures(Ability.Controller).Count(x => x.Id != Ability.Source && x.Tapped == true);
+            Controller.DrawCardsOptionally(game, Ability, amount);
         }
 
         public override IOneShotEffect Copy()
         {
-            return new AquaGrapplerEffect();
+            return new AquaGrapplerEffect(this);
         }
 
         public override string ToString()

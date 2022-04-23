@@ -4,7 +4,7 @@
     {
         public ColossusBoost() : base("Colossus Boost", 1, Engine.Civilization.Fire)
         {
-            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsUntilTheEndOfTheTurnEffect(4000));
+            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(4000));
         }
     }
 }

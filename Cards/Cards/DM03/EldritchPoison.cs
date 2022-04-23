@@ -1,8 +1,5 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -17,14 +14,15 @@ namespace Cards.Cards.DM03
 
     class EldritchPoisonEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = new EldritchPoisonSacrificeEffect().Apply(game, source);
-            if (cards.Any())
+            var controller = Controller;
+            var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
+            if (creature != null)
             {
-                return new ReturnCreatureFromYourManaZoneToYourHandEffect().Apply(game, source);
+                game.Destroy(Ability, creature);
+                controller.ReturnOwnManaCreature(game, Ability);
             }
-            return cards;
         }
 
         public override IOneShotEffect Copy()
@@ -35,28 +33,6 @@ namespace Cards.Cards.DM03
         public override string ToString()
         {
             return "You may destroy one of your darkness creatures. If you do, return a creature from your mana zone to your hand.";
-        }
-    }
-
-    class EldritchPoisonSacrificeEffect : DestroyEffect
-    {
-        public EldritchPoisonSacrificeEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new EldritchPoisonSacrificeEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may destroy one of your darkness creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(source.Controller, Civilization.Darkness);
         }
     }
 }

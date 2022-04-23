@@ -3,34 +3,60 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
+    abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
     {
         public int Amount { get; }
 
-        public PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
+        protected PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
         {
             Amount = amount;
         }
 
-        public PutTopCardsOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect)
+        protected PutTopCardsOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect)
         {
             Amount = effect.Amount;
         }
 
-        public override IOneShotEffect Copy()
+        public override void Apply(IGame game)
         {
-            return new PutTopCardsOfDeckIntoManaZoneEffect(this);
-        }
-
-        public override object Apply(IGame game, IAbility source)
-        {
-            source.GetController(game).PutFromTopOfDeckIntoManaZone(game, Amount, source);
-            return null;
+            Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
         }
 
         public override string ToString()
         {
             return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
+        }
+    }
+
+    class PutTopCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+    {
+        public PutTopCardOfDeckIntoManaZoneEffect() : base(1)
+        {
+        }
+
+        public PutTopCardOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new PutTopCardOfDeckIntoManaZoneEffect(this);
+        }
+    }
+
+    class PutTopTwoCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+    {
+        public PutTopTwoCardOfDeckIntoManaZoneEffect() : base(2)
+        {
+        }
+
+        public PutTopTwoCardOfDeckIntoManaZoneEffect(PutTopTwoCardOfDeckIntoManaZoneEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new PutTopTwoCardOfDeckIntoManaZoneEffect(this);
         }
     }
 }

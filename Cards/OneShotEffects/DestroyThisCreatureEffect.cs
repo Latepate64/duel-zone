@@ -10,9 +10,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public DestroyThisCreatureEffect(DestroyAreaOfEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new DestroyThisCreatureEffect();
+            return new DestroyThisCreatureEffect(this);
         }
 
         public override string ToString()
@@ -22,7 +26,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            var creature = game.GetCard(source.Source);
+            var creature = game.GetCard(Ability.Source);
             if (creature != null)
             {
                 return new ICard[] { creature };

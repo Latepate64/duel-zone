@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -15,19 +14,31 @@ namespace Cards.Cards.DM08
 
     class DracobarrierEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public DracobarrierEffect()
         {
-            var tapped = new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect().Apply(game, source);
-            if (tapped.Any(x => x.IsDragon))
+        }
+
+        public DracobarrierEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            var controller = Controller;
+            var tapped = controller.ChooseOpponentsCreature(game, ToString());
+            if (tapped != null)
             {
-                source.GetController(game).PutFromTopOfDeckIntoShieldZone(1, game, source);
+                controller.Tap(game, tapped);
+                if (tapped.IsDragon)
+                {
+                    controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+                }
             }
-            return tapped;
         }
 
         public override IOneShotEffect Copy()
         {
-            return new DracobarrierEffect();
+            return new DracobarrierEffect(this);
         }
 
         public override string ToString()

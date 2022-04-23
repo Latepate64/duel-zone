@@ -14,22 +14,21 @@ namespace Cards.Cards.Promo
 
     class BrigadeShellQEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = source.GetController(game).RevealTopCardsOfDeck(1, game).ToArray();
+            var cards = Controller.RevealTopCardsOfDeck(1, game).ToArray();
             if (cards.Length == 1)
             {
                 if (cards.Single().HasRace(Race.Survivor))
                 {
-                    game.Move(source, ZoneType.Deck, ZoneType.Hand, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards);
                 }
                 else
                 {
-                    game.Move(source, ZoneType.Deck, ZoneType.Graveyard, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards);
                 }
             }
-            source.GetController(game).Unreveal(cards);
-            return null;
+            Controller.Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()

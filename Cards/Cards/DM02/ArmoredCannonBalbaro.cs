@@ -14,7 +14,7 @@ namespace Cards.Cards.DM02
 
     class ArmoredCannonBalbaroEffect : ContinuousEffects.PowerAttackerMultiplierEffect
     {
-        public ArmoredCannonBalbaroEffect() : base(2000)
+        public ArmoredCannonBalbaroEffect(int power = 2000) : base(power)
         {
         }
 
@@ -25,12 +25,12 @@ namespace Cards.Cards.DM02
 
         public override string ToString()
         {
-            return "While attacking, this creature gets +2000 power for each other Human in the battle zone.";
+            return $"While attacking, this creature gets +{Power} power for each other Human in the battle zone.";
         }
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(GetSourceCard(game).Id, Race.Human).Count();
+            return game.BattleZone.GetOtherCreatures(Source.Id, Race.Human).Count();
         }
     }
 }

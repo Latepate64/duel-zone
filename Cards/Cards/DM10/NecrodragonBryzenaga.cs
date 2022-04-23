@@ -14,10 +14,9 @@ namespace Cards.Cards.DM10
 
     class NecrodragonBryzenagaEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            game.PutFromShieldZoneToHand(source.GetController(game).ShieldZone.Cards, true, source);
-            return null;
+            game.PutFromShieldZoneToHand(Controller.ShieldZone.Cards, true, Ability);
         }
 
         public override IOneShotEffect Copy()

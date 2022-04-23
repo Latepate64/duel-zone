@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect
+    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
     {
-        private readonly Civilization _civilization;
-        private readonly int _power;
-
         public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
         {
-            _civilization = effect._civilization;
-            _power = effect._power;
+            Civilization = effect.Civilization;
+            Power = effect.Power;
         }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(Civilization civilization, int power) : base()
+        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
         {
-            _civilization = civilization;
-            _power = power;
+            Civilization = civilization;
+            Power = power;
         }
+
+        public int Power { get; }
+        public Civilization Civilization { get; }
 
         public override IContinuousEffect Copy()
         {
@@ -28,15 +28,15 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (GetSourceAbility(game).GetController(game).ManaZone.Cards.All(x => x.HasCivilization(_civilization)))
+            if (Ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
             {
-                GetSourceCard(game).Power += _power;
+                Source.Power += Power;
             }
         }
 
         public override string ToString()
         {
-            return $"While all the cards in your mana zone are {_civilization.ToString().ToLower()} cards, this creature gets +{_power} power.";
+            return $"While all the cards in your mana zone are {Civilization.ToString().ToLower()} cards, this creature gets +{Power} power.";
         }
     }
 }

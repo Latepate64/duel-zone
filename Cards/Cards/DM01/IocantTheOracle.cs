@@ -28,9 +28,9 @@ namespace Cards.Cards.DM01
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(GetController(game).Id).Any(x => x.HasRace(Race.AngelCommand)))
+            if (game.BattleZone.GetCreatures(Controller.Id).Any(x => x.HasRace(Race.AngelCommand)))
             {
-                GetSourceCard(game).Power += 2000;
+                Source.Power += 2000;
             }
         }
 

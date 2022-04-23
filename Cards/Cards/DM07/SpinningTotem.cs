@@ -17,15 +17,22 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public SpinningTotemOneShotEffect()
         {
-            game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(source));
-            return null;
+        }
+
+        public SpinningTotemOneShotEffect(IOneShotEffect effect) : base(effect)
+        {
+        }
+
+        public override void Apply(IGame game)
+        {
+            game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
         {
-            return new SpinningTotemOneShotEffect();
+            return new SpinningTotemOneShotEffect(this);
         }
 
         public override string ToString()

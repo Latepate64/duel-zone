@@ -1,52 +1,38 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
     class EmeralEffect : OneShotEffect
     {
-        public override IOneShotEffect Copy()
+        public EmeralEffect()
         {
-            return new EmeralEffect();
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public EmeralEffect(IOneShotEffect effect) : base(effect)
         {
-            var cards = new EmeralShieldAdditionEffect().Apply(game, source);
-            if (cards.Any())
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new EmeralEffect(this);
+        }
+
+        public override void Apply(IGame game)
+        {
+            var player = Controller;
+            var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
+            if (card != null)
             {
-                return new ShieldRecoveryCannotUseShieldTriggerEffect().Apply(game, source);
+                game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, card);
+                var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
+                game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shield);
             }
-            return cards;
         }
 
         public override string ToString()
         {
             return "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
-        }
-    }
-
-    class EmeralShieldAdditionEffect : ShieldAdditionEffect
-    {
-        public EmeralShieldAdditionEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new EmeralShieldAdditionEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may add a card from your hand to your shields face down.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).Hand.Cards;
         }
     }
 }

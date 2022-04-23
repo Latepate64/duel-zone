@@ -15,12 +15,11 @@ namespace Cards.Cards.DM04
 
     class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(source.Controller);
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
             var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
-            game.AddContinuousEffects(source, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
-            return null;
+            game.AddContinuousEffects(Ability, new SwordOfMalevolentDeathContinuousEffect(power, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()

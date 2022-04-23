@@ -12,9 +12,13 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect effect) : base(effect)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect();
+            return new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(this);
         }
 
         public override string ToString()
@@ -24,7 +28,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, source.GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

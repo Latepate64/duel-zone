@@ -16,12 +16,11 @@ namespace Cards.Cards.DM09
 
     class VenomWormOneShotEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var race = source.GetController(game).ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(source.Controller).Where(x => x.HasRace(race)).ToArray();
-            game.AddContinuousEffects(source, new VenomWormContinuousEffect(race, creatures));
-            return null;
+            var race = Controller.ChooseRace(ToString());
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller).Where(x => x.HasRace(race)).ToArray();
+            game.AddContinuousEffects(Ability, new VenomWormContinuousEffect(race, creatures));
         }
 
         public override IOneShotEffect Copy()

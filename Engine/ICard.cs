@@ -6,51 +6,63 @@ namespace Engine
 {
     public interface ICard : ITimestampable, IAttackable
     {
-        bool IsEvolutionCreature { get; }
-        IList<IAbility> PrintedAbilities { get; }
         IList<IAbility> AddedAbilities { get; }
-        int? PrintedPower { get; }
-        bool IsDragon { get; }
-        bool LostInBattle { get; set; }
-        bool IsMultiColored { get; }
-        List<Race> Races { get; set; }
-        List<Civilization> Civilizations { get; set; }
         CardType CardType { get; set; }
-        List<Supertype> Supertypes { get; set; }
+        List<Civilization> Civilizations { get; set; }
+        bool FaceDown { get; set; }
+        Guid Id { get; set; }
+        bool IsDragon { get; }
+        bool IsEvolutionCreature { get; }
+        bool IsMultiColored { get; }
+        bool IsNonEvolutionCreature { get; }
         List<Guid> KnownTo { get; set; }
+        bool LostInBattle { get; set; }
         int ManaCost { get; set; }
         string Name { get; set; }
         Guid OnTopOf { get; set; }
         Guid Owner { get; set; }
+        IPlayer OwnerPlayer { get; }
         int? Power { get; set; }
+        IList<IAbility> PrintedAbilities { get; }
+        int? PrintedPower { get; }
+        List<Race> Races { get; set; }
         string RulesText { get; set; }
         bool ShieldTrigger { get; set; }
         bool SummoningSickness { get; set; }
+        List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
         Guid Underneath { get; set; }
-        Guid Id { get; set; }
-        bool FaceDown { get; set; }
-        bool IsNonEvolutionCreature { get; }
-
         void AddGrantedAbility(IAbility ability);
-        bool AffectedBySummoningSickness(IGame game);
-        bool CanAttackCreature(ICard creature, IGame game);
-        bool CanAttackAtLeastOneCreature(IGame game);
-        bool HasCivilization(params Civilization[] civilizations);
         void AddGrantedRace(Race race);
-        bool CanAttackPlayers(IGame game);
-        bool CanBePaid(IPlayer player);
-        bool CanBeUsedRegardlessOfManaCost(IGame game);
-        bool CanEvolveFrom(IGame game, ICard card);
-        ICard Copy();
-        IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
-        bool HasRace(Race race);
-        IEnumerable<T> GetAbilities<T>();
-        IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
+
+        bool AffectedBySummoningSickness(IGame game);
         void Break(IGame game, int breakAmount);
+
+        bool CanAttackAtLeastOneCreature(IGame game);
+
+        bool CanAttackCreature(ICard creature, IGame game);
+        bool CanAttackPlayers(IGame game);
+
+        bool CanBePaid(IPlayer player);
+
+        bool CanBeUsedRegardlessOfManaCost(IGame game);
+
+        bool CanEvolveFrom(IGame game, ICard card);
+
+        ICard Copy();
+
+        IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
+
+        IEnumerable<T> GetAbilities<T>();
+
+        IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
+
+        bool HasCivilization(params Civilization[] civilizations);
+        bool HasRace(Race race);
         void InitializeAbilities();
+        void MoveTopCard(IGame game, ZoneType destination, IAbility ability);
+
         void PutOnTopOf(ICard bait);
         void ResetToPrintedValues();
-        void MoveTopCard(IGame game, ZoneType destination, IAbility ability);
     }
 }

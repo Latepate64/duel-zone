@@ -23,12 +23,12 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                source.GetController(game).Reveal(game, cards);
+                Controller.Reveal(game, cards);
             }
-            game.Move(source, ZoneType.Deck, ZoneType.Hand, cards);
+            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards);
             if (Reveal)
             {
-                source.GetController(game)?.Unreveal(cards);
+                Controller?.Unreveal(cards);
             }
         }
     }
@@ -39,9 +39,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchSpellEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchSpellEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchSpellEffect();
+            return new SearchSpellEffect(this);
         }
 
         public override string ToString()
@@ -51,7 +59,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Spells;
+            return Controller.Deck.Spells;
         }
     }
 
@@ -61,9 +69,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchCardNoRevealEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchCardNoRevealEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchCardNoRevealEffect();
+            return new SearchCardNoRevealEffect(this);
         }
 
         public override string ToString()
@@ -73,7 +89,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Cards;
+            return Controller.Deck.Cards;
         }
     }
 
@@ -83,9 +99,17 @@ namespace Cards.OneShotEffects
         {
         }
 
+        public SearchCreatureEffect(SearchEffect effect) : base(effect)
+        {
+        }
+
+        public SearchCreatureEffect(bool reveal, int maximum = 1) : base(reveal, maximum)
+        {
+        }
+
         public override IOneShotEffect Copy()
         {
-            return new SearchCreatureEffect();
+            return new SearchCreatureEffect(this);
         }
 
         public override string ToString()
@@ -95,23 +119,23 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Creatures;
+            return Controller.Deck.Creatures;
         }
     }
 
-    class SearchRaceCreatureEffect : SearchEffect
+    class SearchRaceCreatureEffect : SearchEffect, IRaceable
     {
-        private readonly Race _race;
-
         public SearchRaceCreatureEffect(Race race) : base(true)
         {
-            _race = race;
+            Race = race;
         }
 
         public SearchRaceCreatureEffect(SearchRaceCreatureEffect effect) : base(effect)
         {
-            _race = effect._race;
+            Race = effect.Race;
         }
+
+        public Race Race { get; }
 
         public override IOneShotEffect Copy()
         {
@@ -120,32 +144,27 @@ namespace Cards.OneShotEffects
 
         public override string ToString()
         {
-            return $"When you put this creature into the battle zone, search your deck. You may take a {_race} from your deck, show that {_race} to your opponent, and put it into your hand. Then shuffle your deck.";
+            return $"When you put this creature into the battle zone, search your deck. You may take a {Race} from your deck, show that {Race} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.GetCreatures(_race);
+            return Controller.Deck.GetCreatures(Race);
         }
     }
 
-    class SearchCardWithNameEffect : SearchEffect
+    abstract class SearchCardWithNameEffect : SearchEffect
     {
         private readonly string _name;
 
-        public SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
+        protected SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
         {
             _name = effect._name;
         }
 
-        public SearchCardWithNameEffect(string name) : base(true)
+        protected SearchCardWithNameEffect(string name) : base(true)
         {
             _name = name;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SearchCardWithNameEffect(this);
         }
 
         public override string ToString()
@@ -155,37 +174,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return source.GetController(game).Deck.Cards.Where(x => x.Name == _name);
-        }
-    }
-
-    class BrutalChargeSearchEffect : SearchEffect
-    {
-        private readonly int _amount;
-
-        public BrutalChargeSearchEffect(BrutalChargeSearchEffect effect) : base(effect)
-        {
-            _amount = effect._amount;
-        }
-
-        public BrutalChargeSearchEffect(int amount) : base(true, amount)
-        {
-            _amount = amount;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BrutalChargeSearchEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Search your deck. Take up to {_amount} creatures from your deck, show them to your opponent, and put them into your hand. Then shuffle your deck.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return source.GetController(game).Deck.Creatures;
+            return Controller.Deck.Cards.Where(x => x.Name == _name);
         }
     }
 }

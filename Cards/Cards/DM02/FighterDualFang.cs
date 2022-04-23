@@ -4,7 +4,7 @@
     {
         public FighterDualFang() : base("Fighter Dual Fang", 6, 8000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutTopCardsOfDeckIntoManaZoneEffect(2));
+            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutTopTwoCardOfDeckIntoManaZoneEffect());
             AddDoubleBreakerAbility();
         }
     }

@@ -4,30 +4,24 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect : OneShotEffect
+    abstract class LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect : OneShotEffect
     {
         private readonly int _amount;
 
-        public LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(int amount)
+        protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(int amount)
         {
             _amount = amount;
         }
 
-        public LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(effect)
+        protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(effect)
         {
             _amount = effect._amount;
         }
 
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            var cards = source.GetController(game).LookAtTheTopCardsOfYourDeck(_amount, game);
-            source.GetController(game).ArrangeTopCardsOfDeck(cards.ToArray());
-            return null;
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(this);
+            var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
+            Controller.ArrangeTopCardsOfDeck(cards.ToArray());
         }
 
         public override string ToString()

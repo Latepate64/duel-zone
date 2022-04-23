@@ -1,5 +1,7 @@
 ﻿using Cards;
 using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +83,9 @@ namespace Simulator
         static List<Card> GetCards(Guid player)
         {
             var allCards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid());
+            var effects = CardFactory.CreateEffects().OrderBy(x => x.ToString());
+            var oneShotEffects = effects.OfType<IOneShotEffect>().ToArray();
+            var continuousEffects = effects.OfType<IContinuousEffect>().ToArray();
             var cardTexts = string.Join(Environment.NewLine, allCards.OrderBy(x => x.Name).Select(x => x.Name + ": " + string.Join("; ", x.PrintedAbilities.Select(x => x.ToString()))));
             var cards = allCards.Take(40).ToList();
             foreach (var card in cards)

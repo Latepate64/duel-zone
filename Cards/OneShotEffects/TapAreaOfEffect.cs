@@ -11,11 +11,14 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override object Apply(IGame game, IAbility source)
+        protected TapAreaOfEffect(IOneShotEffect effect) : base(effect)
         {
-            var cards = GetAffectedCards(game, source).ToArray();
-            source.GetController(game).Tap(game, cards);
-            return cards.Any();
+        }
+
+        public override void Apply(IGame game)
+        {
+            var cards = GetAffectedCards(game, Ability).ToArray();
+            Controller.Tap(game, cards);
         }
 
         protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);

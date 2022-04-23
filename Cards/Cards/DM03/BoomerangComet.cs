@@ -5,7 +5,7 @@
         public BoomerangComet() : base("Boomerang Comet", 6, Engine.Civilization.Light)
         {
             AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.ReturnCardsFromYourManaZoneToYourHandEffect(1));
+            AddSpellAbilities(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect());
         }
     }
 }

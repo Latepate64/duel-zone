@@ -26,12 +26,12 @@ namespace Cards.ContinuousEffects
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card, game);
+            return IsSourceOfAbility(card);
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)
         {
-            return new List<ICard> { GetSourceCard(game) };
+            return new List<ICard> { Source };
         }
     }
 

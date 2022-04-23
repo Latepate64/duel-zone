@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -13,9 +14,12 @@ namespace Cards.Cards.DM09
 
     class ZombieCarnivalEffect : OneShotEffect
     {
-        public override object Apply(IGame game, IAbility source)
+        public override void Apply(IGame game)
         {
-            return new OneShotEffects.YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(source.GetController(game).ChooseRace(ToString()), 3).Apply(game, source);
+            var controller = Controller;
+            var race = controller.ChooseRace(ToString());
+            var creatures = controller.Graveyard.GetCreatures(race);
+            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()

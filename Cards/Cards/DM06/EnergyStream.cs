@@ -4,7 +4,7 @@
     {
         public EnergyStream() : base("Energy Stream", 3, Engine.Civilization.Water)
         {
-            AddSpellAbilities(new OneShotEffects.DrawCardsEffect(2));
+            AddSpellAbilities(new OneShotEffects.DrawTwoCardsEffect());
         }
     }
 }
