@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
@@ -21,7 +20,7 @@ namespace Cards.OneShotEffects
             if (card != null)
             {
                 GetOpponent(game).Discard(Ability, game, card);
-                GetOpponent(game).Unreveal(new List<ICard>() { card });
+                GetOpponent(game).Unreveal(card);
             }
         }
 

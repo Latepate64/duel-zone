@@ -24,10 +24,10 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var cards = GetOpponent(game).Hand.Cards;
+            var cards = GetOpponent(game).Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Controller.Look(GetOpponent(game), game, cards.ToArray());
+                Controller.Look(GetOpponent(game), game, cards);
                 GetOpponent(game).Discard(Ability, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
                 GetOpponent(game).Unreveal(cards);
             }

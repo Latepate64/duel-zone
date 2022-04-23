@@ -367,20 +367,20 @@ namespace Engine
         public void LookAtOneOfOpponentsShields(IGame game, IAbility source)
         {
             var opponent = game.GetOpponent(this);
-            var cards = opponent.ShieldZone.Cards;
+            var cards = opponent.ShieldZone.Cards.ToArray();
             if (cards.Any())
             {
-                Look(opponent, game, cards.ToArray());
+                Look(opponent, game, cards);
                 opponent.Unreveal(cards);
             }
         }
 
         public void LookAtOpponentsHand(IGame game)
         {
-            var cards = game.GetOpponent(this).Hand.Cards;
+            var cards = game.GetOpponent(this).Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Look(game.GetOpponent(this), game, cards.ToArray());
+                Look(game.GetOpponent(this), game, cards);
                 game.GetOpponent(this).Unreveal(cards);
             }
         }
@@ -517,7 +517,7 @@ namespace Engine
             return Name;
         }
 
-        public void Unreveal(IEnumerable<ICard> cards)
+        public void Unreveal(params ICard[] cards)
         {
             // TODO: Implement reveal information on cards and remove them here.
         }

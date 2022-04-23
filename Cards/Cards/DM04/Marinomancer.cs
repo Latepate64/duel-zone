@@ -28,7 +28,7 @@ namespace Cards.Cards.DM04
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
-            Controller.Unreveal(cards);
+            Controller.Unreveal(cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

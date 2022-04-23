@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -34,7 +33,7 @@ namespace Cards.Cards.DM10
                 var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
                 game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
-            opponent.Unreveal(new List<ICard> { card });
+            opponent.Unreveal(card);
         }
 
         public override IOneShotEffect Copy()

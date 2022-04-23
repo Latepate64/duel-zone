@@ -126,7 +126,7 @@ namespace Engine
         void Tap(IGame game, params ICard[] cards);
 
         void TapOpponentsCreature(IGame game);
-        void Unreveal(IEnumerable<ICard> cards);
+        void Unreveal(params ICard[] cards);
         void Untap(IGame game, params ICard[] cards);
         void UseCard(ICard card, IGame game);
     }
