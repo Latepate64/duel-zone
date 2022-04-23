@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM12
 {
-    class CometEyeTheSpectralSpud : Creature
+    class CometEyeTheSpectralSpud : EvolutionCreature
     {
         public CometEyeTheSpectralSpud() : base("Comet Eye, The Spectral Spud", 4, 5500, Race.WildVeggies, Race.RainbowPhantom, Civilization.Light, Civilization.Nature)
         {
