@@ -1,5 +1,4 @@
-﻿using Cards.TriggeredAbilities;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
