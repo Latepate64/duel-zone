@@ -79,6 +79,7 @@ namespace Engine
         void Lose(params IPlayer[] players);
         IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards);
         IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType hand, ZoneType manaZone, params ICard[] cards);
+        void MoveTopCard(ICard card, ZoneType destination, IAbility ability);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);

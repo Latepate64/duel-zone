@@ -46,9 +46,8 @@ namespace Engine
         bool HasCivilization(params Civilization[] civilizations);
         bool HasRace(Race race);
         void InitializeAbilities();
-        void MoveTopCard(IGame game, ZoneType destination, IAbility ability);
-
         void PutOnTopOf(ICard bait);
         void ResetToPrintedValues();
+        void SeparateTopCard();
     }
 }

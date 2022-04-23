@@ -27,7 +27,7 @@ namespace Cards.Cards.DM06
             var card = Controller.ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, GetOpponent(game).Id), ToString());
             if (card != null)
             {
-                card.MoveTopCard(game, ZoneType.ManaZone, Ability);
+                game.MoveTopCard(card, ZoneType.ManaZone, Ability);
             }
         }
 

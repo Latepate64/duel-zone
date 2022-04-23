@@ -419,6 +419,12 @@ namespace Engine
             return ProcessEvents(cards.Select(x => new CardMovedEvent(GetPlayer(x.Owner), source, destination, x.Id, true, ability)).ToArray());
         }
 
+        public void MoveTopCard(ICard card, ZoneType destination, IAbility ability)
+        {
+            card.SeparateTopCard();
+            Move(ability, ZoneType.BattleZone, destination, card);
+        }
+
         public void Play(IPlayer startingPlayer, IPlayer otherPlayer)
         {
             // 103.1. At the start of a game, the players determine which one of them will choose who takes the first turn. In the first game of a match (including a single - game match), the players may use any mutually agreeable method (flipping a coin, rolling dice, etc.) to do so.In a match of several games, the loser of the previous game chooses who takes the first turn. If the previous game was a draw, the player who made the choice in that game makes the choice in this game.

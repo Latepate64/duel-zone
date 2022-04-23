@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            cards.ToList().ForEach(x => x.MoveTopCard(game, ZoneType.Graveyard, source));
+            cards.ToList().ForEach(x => game.MoveTopCard(x, ZoneType.Graveyard, source));
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

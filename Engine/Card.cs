@@ -163,17 +163,6 @@ namespace Engine
             SetRulesText();
         }
 
-        public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
-        {
-            if (OnTopOf != null)
-            {
-                var card = OnTopOf;
-                OnTopOf = null;
-                card.Underneath = null;
-            }
-            game.Move(ability, ZoneType.BattleZone, destination, this);
-        }
-
         public void PutOnTopOf(ICard bait)
         {
             OnTopOf = bait;
@@ -186,6 +175,16 @@ namespace Engine
             AddedAbilities.Clear();
             Races = _printedRaces.ToList();
             _addedRaces.Clear();
+        }
+
+        public void SeparateTopCard()
+        {
+            if (OnTopOf != null)
+            {
+                var card = OnTopOf;
+                OnTopOf = null;
+                card.Underneath = null;
+            }
         }
 
         public override string ToString()
