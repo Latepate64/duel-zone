@@ -37,7 +37,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card) && !Ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+            return IsSourceOfAbility(card) && !Ability.ControllerPlayer.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }
     }
 

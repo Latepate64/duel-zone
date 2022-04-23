@@ -80,7 +80,7 @@ namespace Cards.Cards.DM09
 
         public override void Resolve(IGame game)
         {
-            GetController(game).Untap(game, _creature);
+            ControllerPlayer.Untap(game, _creature);
         }
 
         public override string ToString()

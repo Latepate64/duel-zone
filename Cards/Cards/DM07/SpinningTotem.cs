@@ -88,7 +88,7 @@ namespace Cards.Cards.DM07
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == GetController(game) && e.Attacker.HasCivilization(Civilization.Nature);
+            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == ControllerPlayer && e.Attacker.HasCivilization(Civilization.Nature);
         }
 
         public override void Resolve(IGame game)

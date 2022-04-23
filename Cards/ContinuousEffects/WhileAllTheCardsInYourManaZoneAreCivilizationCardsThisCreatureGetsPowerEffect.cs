@@ -28,7 +28,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (Ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
+            if (Ability.ControllerPlayer.ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
             {
                 Source.Power += Power;
             }

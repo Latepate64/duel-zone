@@ -24,7 +24,7 @@ namespace Cards.Cards.DM05
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return GetOpponent(game).ManaZone.Cards.Count > GetController(game).ManaZone.Cards.Count;
+            return GetOpponent(game).ManaZone.Cards.Count > ControllerPlayer.ManaZone.Cards.Count;
         }
 
         public override IAbility Copy()

@@ -79,8 +79,8 @@ namespace Cards.Cards.DM08
 
         public override void Resolve(IGame game)
         {
-            var cards = GetController(game).ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
-            GetController(game).Untap(game, cards.ToArray());
+            var cards = ControllerPlayer.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
+            ControllerPlayer.Untap(game, cards.ToArray());
         }
 
         public override string ToString()

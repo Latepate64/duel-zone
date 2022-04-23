@@ -120,7 +120,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return Ability.GetController(game).ManaZone.TappedCards.Count();
+            return Ability.ControllerPlayer.ManaZone.TappedCards.Count();
         }
     }
 }

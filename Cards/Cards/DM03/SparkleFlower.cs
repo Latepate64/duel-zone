@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public bool CanBlock(ICard blocker, ICard attacker, IGame game)
         {
-            return IsSourceOfAbility(blocker) && Ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
+            return IsSourceOfAbility(blocker) && Ability.ControllerPlayer.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
         }
 
         public override IContinuousEffect Copy()

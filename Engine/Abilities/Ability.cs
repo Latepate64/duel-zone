@@ -47,18 +47,6 @@ namespace Engine.Abilities
         }
 
         /// <summary>
-        /// Returns the player who controls the ability.
-        /// Note that it should be checked that the player actually
-        /// exists as it is possible they have left the game.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <returns></returns>
-        public IPlayer GetController(IGame game)
-        {
-            return ControllerPlayer;
-        }
-
-        /// <summary>
         /// Returns the opponent of the player who controls the ability.
         /// Note that it should be checked that the player actually
         /// exists as it is possible they have left the game.
@@ -67,7 +55,7 @@ namespace Engine.Abilities
         /// <returns></returns>
         public IPlayer GetOpponent(IGame game)
         {
-            return game.GetOpponent(GetController(game));
+            return game.GetOpponent(ControllerPlayer);
         }
     }
 }

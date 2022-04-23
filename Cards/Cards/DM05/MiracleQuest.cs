@@ -64,7 +64,7 @@ namespace Cards.Cards.DM05
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == GetController(game).Id;
+            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == ControllerPlayer;
         }
 
         public override IAbility Copy()

@@ -20,14 +20,6 @@ namespace Engine.Abilities
         IAbility Copy();
 
         /// <summary>
-        /// Player who controls the ability.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        /// <returns>Player who controls the ability.</returns>
-        IPlayer GetController(IGame game);
-
-        /// <summary>
         /// Opponent of the player who controls the ability.
         /// </summary>
         /// <param name="game"></param>
