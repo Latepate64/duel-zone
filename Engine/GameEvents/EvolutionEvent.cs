@@ -1,26 +1,29 @@
-﻿namespace Engine.GameEvents
+﻿using System.Linq;
+
+namespace Engine.GameEvents
 {
     public class EvolutionEvent : GameEvent
     {
-        public EvolutionEvent(IPlayer player, ICard card, ICard bait)
+        public EvolutionEvent(IPlayer player, ICard card, params ICard[] baits)
         {
             Player = player;
             EvolutionCreature = card;
-            Bait = bait;
+            Baits = baits;
         }
 
         public IPlayer Player { get; }
         public ICard EvolutionCreature { get; }
-        public ICard Bait { get; }
+        public ICard[] Baits { get; }
 
         public override void Happen(IGame game)
         {
-            EvolutionCreature.PutOnTopOf(Bait);
+            EvolutionCreature.PutOnTopOf(Baits);
         }
 
         public override string ToString()
         {
-            return $"{Player} evolved {Bait} into {EvolutionCreature}.";
+            var baitText = string.Join(" and ", Baits.Select(x => x.Name));
+            return $"{Player} evolved {baitText} into {EvolutionCreature}.";
         }
     }
 }

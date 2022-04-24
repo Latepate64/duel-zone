@@ -46,7 +46,7 @@ namespace Engine
         bool HasCivilization(params Civilization[] civilizations);
         bool HasRace(Race race);
         void InitializeAbilities();
-        void PutOnTopOf(ICard bait);
+        void PutOnTopOf(IEnumerable<ICard> bait);
         void ResetToPrintedValues();
         void SeparateTopCard();
     }

@@ -1,8 +1,8 @@
 ﻿using Combinatorics.Collections;
 using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
@@ -28,11 +28,11 @@ namespace Cards.ContinuousEffects
         {
             var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
             var combinations = new Combinations<ICard>(baits, 2, GenerateOption.WithoutRepetition);
-            var foo = combinations.Where(x => CanEvolveFrom(game, evolutionCreature, x[0], x[x.Count - 1]));
-            return baits.Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
+            return validPairs.Any();
         }
 
-        private bool CanEvolveFrom(IGame game, ICard evolutionCreature, ICard bait1, ICard bait2)
+        private bool CanEvolveFrom(ICard evolutionCreature, ICard bait1, ICard bait2)
         {
             if (IsSourceOfAbility(evolutionCreature))
             {
@@ -55,11 +55,6 @@ namespace Cards.ContinuousEffects
             }
         }
 
-        public bool CanEvolveFrom(ICard bait, ICard evolutionCreature, IGame game)
-        {
-            throw new NotImplementedException();
-        }
-
         public override IContinuousEffect Copy()
         {
             return new VortexEvolutionEffect(this);
@@ -68,6 +63,18 @@ namespace Cards.ContinuousEffects
         public override string ToString()
         {
             return $"Vortex evolution — Put on one of your {Race1}s and one of your {Race2}s.";
+        }
+
+        public void Evolve(ICard evolutionCreature, IGame game)
+        {
+            var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+            System.Collections.Generic.IEnumerable<ICard> baits;
+            do
+            {
+                baits = evolutionCreature.Owner.ChooseCards(creatures, 2, 2, "Choose creatures to evolve from.");
+            }
+            while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
+            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, baits.ToArray()));
         }
     }
 }

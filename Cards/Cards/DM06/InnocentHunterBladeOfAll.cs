@@ -1,6 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.Cards.DM06
@@ -13,9 +14,9 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class InnocentHunterEffect : ContinuousEffect, IEvolutionEffect
+    class InnocentHunterEffect : SingleBaitEvolutionEffect
     {
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public override bool CanEvolve(IGame game, ICard evolutionCreature)
         {
             return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
@@ -33,6 +34,11 @@ namespace Cards.Cards.DM06
         public override string ToString()
         {
             return "You can put an evolution creature of any race on this creature.";
+        }
+
+        protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
+        {
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
     }
 }

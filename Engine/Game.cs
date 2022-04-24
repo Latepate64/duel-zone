@@ -206,11 +206,6 @@ namespace Engine
             return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolve(this, toEvolve));
         }
 
-        public bool CanEvolveFrom(ICard toEvolve, ICard bait)
-        {
-            return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(bait, toEvolve, this));
-        }
-
         /// <summary>
         /// 704.3.
         /// Whenever a player would get priority, the game checks for any of the listed conditions for state-based actions, then performs all applicable state-based actions simultaneously as a single event.
@@ -296,11 +291,6 @@ namespace Engine
         public IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect
         {
             return _continuousEffects.OfType<T>();
-        }
-
-        public IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard toEvolve)
-        {
-            return BattleZone.GetCreatures(toEvolve.Owner.Id).Where(x => CanEvolveFrom(toEvolve, x));
         }
 
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()

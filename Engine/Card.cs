@@ -154,10 +154,24 @@ namespace Engine
             SetRulesText();
         }
 
-        public void PutOnTopOf(ICard bait)
+        public void PutOnTopOf(IEnumerable<ICard> baits)
         {
-            OnTopOf = bait;
-            bait.Underneath = this;
+            var remainingBaits = baits.ToList();
+            List<ICard> toBeStacked = new();
+            while (remainingBaits.Count > 1)
+            {
+                var card = Owner.ChooseCard(remainingBaits, "Choose a card to be placed on a stack of cards. (the remaining cards will be stacked on top of it)");
+                toBeStacked.Add(card);
+                remainingBaits.Remove(card);
+            }
+            toBeStacked.Add(remainingBaits.Single());
+            toBeStacked.Add(this);
+            for (int i = 1; i < toBeStacked.Count; ++i)
+            {
+                var bait = toBeStacked.ElementAt(i - 1);
+                OnTopOf = bait;
+                bait.Underneath = this;
+            }
         }
 
         public void ResetToPrintedValues()

@@ -1,10 +1,12 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
+using Engine.GameEvents;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    public class RaceEvolutionEffect : ContinuousEffect, IEvolutionEffect, IMultiRaceable
+    public class RaceEvolutionEffect : SingleBaitEvolutionEffect, IMultiRaceable
     {
         public RaceEvolutionEffect(RaceEvolutionEffect effect) : base(effect)
         {
@@ -39,9 +41,36 @@ namespace Cards.ContinuousEffects
             return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
         }
 
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public override bool CanEvolve(IGame game, ICard evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return GetPossibleBaits(game, evolutionCreature).Any();
         }
+
+        protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
+        {
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
+        }
+    }
+
+    public abstract class SingleBaitEvolutionEffect : ContinuousEffect, IEvolutionEffect
+    {
+        protected SingleBaitEvolutionEffect()
+        {
+        }
+
+        protected SingleBaitEvolutionEffect(SingleBaitEvolutionEffect effect) : base(effect)
+        {
+        }
+
+        public abstract bool CanEvolve(IGame game, ICard evolutionCreature);
+
+        public void Evolve(ICard evolutionCreature, IGame game)
+        {
+            var baits = GetPossibleBaits(game, evolutionCreature);
+            var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
+            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
+        }
+
+        protected abstract IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature);
     }
 }

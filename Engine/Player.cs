@@ -640,11 +640,10 @@ namespace Engine
             game.Lose(this);
         }
 
-        private void Evolve(ICard card, IGame game)
+        private void Evolve(ICard evolutionCreature, IGame game)
         {
-            var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
-            var bait = ChooseCard(baits, "Choose a creature to evolve from.");
-            game.ProcessEvents(new EvolutionEvent(this, card, bait));
+            var effect = evolutionCreature.GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>().Single();
+            effect.Evolve(evolutionCreature, game);
         }
 
         private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)

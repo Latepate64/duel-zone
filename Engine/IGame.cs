@@ -50,8 +50,6 @@ namespace Engine
 
         bool CanEvolve(ICard card);
 
-        bool CanEvolveFrom(ICard toEvolve, ICard bait);
-
         bool CheckStateBasedActions();
 
         void Destroy(IAbility ability, params ICard[] cards);
@@ -66,7 +64,6 @@ namespace Engine
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
         IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;
-        IEnumerable<ICard> GetCreaturesCreatureCanEvolveFrom(ICard card);
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);
         Guid GetOpponent(Guid player);

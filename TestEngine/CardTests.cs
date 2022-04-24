@@ -66,5 +66,10 @@ namespace TestEngine
         {
             throw new System.NotImplementedException();
         }
+
+        public void Evolve(ICard evolutionCreature, IGame game)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
