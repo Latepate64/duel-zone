@@ -57,6 +57,7 @@
         Soltrooper,
         SpiritQuartz,
         StarlightTree,
+        Starnoid,
         Survivor,
         TreeFolk,
         VolcanoDragon,
