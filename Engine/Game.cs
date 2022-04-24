@@ -717,6 +717,7 @@ namespace Engine
                 CurrentTurn.CurrentPhase.GameEvents.Enqueue(gameEvent);
                 if (!Ended) //TODO: Consider better design
                 {
+                    NotifyWatchers(gameEvent);
                     CheckExpirations(gameEvent);
                     ApplyContinuousEffects();
                     TriggerAbilities(gameEvent);
@@ -726,6 +727,11 @@ namespace Engine
             {
                 PreGameEvents.Enqueue(gameEvent);
             }
+        }
+
+        private void NotifyWatchers(IGameEvent gameEvent)
+        {
+            BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
         }
 
         private void StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer)

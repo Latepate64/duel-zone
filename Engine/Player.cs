@@ -318,7 +318,7 @@ namespace Engine
             {
                 if (Deck.HasCards)
                 {
-                    game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
+                    game.ProcessEvents(new DrawCardEvent(this, Deck.Cards.Last(), ability));
                 }
             }
         }

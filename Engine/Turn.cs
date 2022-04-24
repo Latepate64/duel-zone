@@ -60,8 +60,7 @@ namespace Engine
             Number = number;
             if (!Phases.Any())
             {
-                Phases.Add(new StartOfTurnPhase(Number == 1));
-                StartCurrentPhase(game);
+                game.ProcessEvents(new PhaseBegunEvent(new StartOfTurnPhase(Number == 1), game.CurrentTurn));
             }
             else
             {
