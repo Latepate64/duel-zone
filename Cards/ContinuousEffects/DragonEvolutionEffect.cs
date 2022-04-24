@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -7,6 +8,11 @@ namespace Cards.ContinuousEffects
     {
         public DragonEvolutionEffect() : base()
         {
+        }
+
+        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        {
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
 
         public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)

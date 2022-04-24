@@ -46,6 +46,7 @@
         MeltWarrior,
         Merfolk,
         MysteryTotem,
+        Naga,
         PandorasBox,
         ParasiteWorm,
         RainbowPhantom,

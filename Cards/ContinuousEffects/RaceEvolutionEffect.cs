@@ -36,7 +36,12 @@ namespace Cards.ContinuousEffects
 
         public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
-            return bait.Races.Intersect(Races).Any() && IsSourceOfAbility(evolutionCard);
+            return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
+        }
+
+        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        {
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
     }
 }

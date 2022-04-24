@@ -203,7 +203,7 @@ namespace Engine
 
         public bool CanEvolve(ICard toEvolve)
         {
-            return BattleZone.GetCreatures(toEvolve.Owner.Id).Any(x => CanEvolveFrom(toEvolve, x));
+            return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolve(this, toEvolve));
         }
 
         public bool CanEvolveFrom(ICard toEvolve, ICard bait)

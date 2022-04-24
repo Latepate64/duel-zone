@@ -1,6 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
+using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -14,6 +15,11 @@ namespace Cards.Cards.DM06
 
     class InnocentHunterEffect : ContinuousEffect, IEvolutionEffect
     {
+        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        {
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
+        }
+
         public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
         {
             return bait == Source;
