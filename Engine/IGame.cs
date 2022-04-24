@@ -35,12 +35,12 @@ namespace Engine
         void AddReflexiveTriggeredAbility(IResolvableAbility ability);
 
         bool AffectedBySummoningSickness(ICard creature);
-
         void Battle(ICard attackingCreature, ICard defendingCreature);
 
         void Break(ICard creature, int breakAmount);
 
         bool CanAttackAtLeastOneCreature(ICard creature);
+        bool CanAttackAtLeastSomething(ICard creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
 
         bool CanAttackCreature(ICard attacker, ICard targetOfAttack);
 
