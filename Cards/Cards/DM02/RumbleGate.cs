@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new RumbleGateContinuousEffect(Ability.Controller));
+            game.AddContinuousEffects(Ability, new RumbleGateContinuousEffect(Ability.Controller.Id));
         }
 
         public override IOneShotEffect Copy()
@@ -49,7 +49,7 @@ namespace Cards.Cards.DM02
 
         public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
         {
-            return attacker.Owner == _controller && attacker.CanAttackAtLeastOneCreature(game);
+            return attacker.Owner.Id == _controller && game.CanAttackAtLeastOneCreature(attacker);
         }
 
         public override IContinuousEffect Copy()

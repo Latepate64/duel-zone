@@ -47,8 +47,8 @@ namespace Simulator
         private static void PlayGame(MatchUp matchUp, Simulator simulator, int simulationDepth)
         {
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
-            player1.Deck.Setup(GetCards(player1.Id, matchUp.StartingPlayer.DeckPath), player1.Id);
-            player2.Deck.Setup(GetCards(player2.Id, matchUp.Opponent.DeckPath), player2.Id);
+            player1.Deck.Setup(GetCards(player1, matchUp.StartingPlayer.DeckPath), player1);
+            player2.Deck.Setup(GetCards(player2, matchUp.Opponent.DeckPath), player2);
             using var game = simulator.PlayDuel(player1, player2);
 
             var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);
@@ -80,7 +80,7 @@ namespace Simulator
             //}
         }
 
-        static List<Card> GetCards(Guid player)
+        static List<Card> GetCards(IPlayer player)
         {
             var allCards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid());
             var effects = CardFactory.CreateEffects().OrderBy(x => x.ToString());
@@ -95,7 +95,7 @@ namespace Simulator
             return cards;
         }
 
-        static List<Card> GetCards(Guid player, string path)
+        static List<Card> GetCards(IPlayer player, string path)
         {
             if (path == null)
             {
@@ -116,7 +116,7 @@ namespace Simulator
             }
         }
 
-        static Card CreateCard(string name, Guid player)
+        static Card CreateCard(string name, IPlayer player)
         {
             var card = CardFactory.Create(name);
             card.Owner = player;

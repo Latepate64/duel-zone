@@ -60,7 +60,7 @@ namespace Cards.Cards.DM01
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeBlockedEvent e && e.Attacker == SourceCard && Controller == SourceCard.Owner;
+            return gameEvent is BecomeBlockedEvent e && e.Attacker == Source && Controller == Source.Owner;
         }
 
         public override IAbility Copy()

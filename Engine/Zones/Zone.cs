@@ -43,7 +43,7 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetCreatures(Guid owner)
         {
-            return Creatures.Where(x => x.Owner == owner);
+            return Creatures.Where(x => x.Owner.Id == owner);
         }
 
         public abstract override string ToString();

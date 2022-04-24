@@ -17,7 +17,7 @@ namespace TestCards.TriggeredAbilities
             Assert.True(
                 new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffectMock())
                 {
-                    Source = card.Id
+                    Source = card
                 }.CanTrigger(
                     new CardMovedEventMock(ZoneType.BattleZone)
                     {

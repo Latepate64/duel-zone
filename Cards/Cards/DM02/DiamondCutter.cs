@@ -26,7 +26,7 @@ namespace Cards.Cards.DM02
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new DiamondCutterContinuousEffect(Ability.Controller));
+            game.AddContinuousEffects(Ability, new DiamondCutterContinuousEffect(Ability.Controller.Id));
         }
 
         public override IOneShotEffect Copy()
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM02
 
         public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
         {
-            return attacker.Owner == _controller;
+            return attacker.Owner.Id == _controller;
         }
 
         public override IContinuousEffect Copy()

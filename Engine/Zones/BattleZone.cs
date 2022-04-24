@@ -52,7 +52,7 @@ namespace Engine.Zones
             else
             {
                 game.RemoveContinuousEffects(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
-                return card.Deconstruct(game, new List<ICard>()).ToList();
+                return card.Deconstruct(new List<ICard>()).ToList();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Engine.Abilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -11,17 +12,16 @@ namespace Engine
         List<Civilization> Civilizations { get; set; }
         bool FaceDown { get; set; }
         Guid Id { get; set; }
-        bool IsDragon { get; }
-        bool IsEvolutionCreature { get; }
-        bool IsMultiColored { get; }
-        bool IsNonEvolutionCreature { get; }
+        bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
+        bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
+        bool IsMultiColored => Civilizations.Count > 1;
+        bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
         List<Guid> KnownTo { get; set; }
         bool LostInBattle { get; set; }
         int ManaCost { get; set; }
         string Name { get; set; }
-        Guid OnTopOf { get; set; }
-        Guid Owner { get; set; }
-        IPlayer OwnerPlayer { get; }
+        ICard OnTopOf { get; set; }
+        IPlayer Owner { get; set; }
         int? Power { get; set; }
         IList<IAbility> PrintedAbilities { get; }
         int? PrintedPower { get; }
@@ -31,27 +31,13 @@ namespace Engine
         bool SummoningSickness { get; set; }
         List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
-        Guid Underneath { get; set; }
+        ICard Underneath { get; set; }
         void AddGrantedAbility(IAbility ability);
         void AddGrantedRace(Race race);
-
-        bool AffectedBySummoningSickness(IGame game);
-        void Break(IGame game, int breakAmount);
-
-        bool CanAttackAtLeastOneCreature(IGame game);
-
-        bool CanAttackCreature(ICard creature, IGame game);
-        bool CanAttackPlayers(IGame game);
-
         bool CanBePaid(IPlayer player);
-
-        bool CanBeUsedRegardlessOfManaCost(IGame game);
-
-        bool CanEvolveFrom(IGame game, ICard card);
-
         ICard Copy();
 
-        IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred);
+        IList<ICard> Deconstruct(IList<ICard> deconstructred);
 
         IEnumerable<T> GetAbilities<T>();
 
@@ -60,9 +46,8 @@ namespace Engine
         bool HasCivilization(params Civilization[] civilizations);
         bool HasRace(Race race);
         void InitializeAbilities();
-        void MoveTopCard(IGame game, ZoneType destination, IAbility ability);
-
-        void PutOnTopOf(ICard bait);
+        void PutOnTopOf(IEnumerable<ICard> bait);
         void ResetToPrintedValues();
+        void SeparateTopCard();
     }
 }

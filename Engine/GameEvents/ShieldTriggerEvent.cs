@@ -13,7 +13,7 @@
 
         public override void Happen(IGame game)
         {
-            if (Trigger.CanBeUsedRegardlessOfManaCost(game))
+            if (game.CanBeUsedRegardlessOfManaCost(Trigger))
             {
                 Player.UseCard(Trigger, game);
             }

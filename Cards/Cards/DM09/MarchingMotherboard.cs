@@ -35,7 +35,7 @@ namespace Cards.Cards.DM09
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.Id != Source && card.Races.Intersect(new Race[] { Race.CyberCluster, Race.CyberLord, Race.CyberMoon, Race.CyberVirus }).Any();
+            return card.Owner == Controller && card != Source && card.Races.Intersect(new Race[] { Race.CyberCluster, Race.CyberLord, Race.CyberMoon, Race.CyberVirus }).Any();
         }
     }
 }

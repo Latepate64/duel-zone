@@ -1,7 +1,5 @@
 ﻿using Combinatorics.Collections;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +32,6 @@ namespace Engine
             Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
-            OwnerPlayer = card.OwnerPlayer;
             Power = card.Power;
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
@@ -58,10 +55,6 @@ namespace Engine
         public bool FaceDown { get; set; }
 
         public Guid Id { get; set; }
-        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
-        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
-        public bool IsMultiColored => Civilizations.Count > 1;
-        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
         public List<Guid> KnownTo { get; set; } = new();
         public bool LostInBattle { get; set; }
         public int ManaCost { get; set; }
@@ -69,14 +62,12 @@ namespace Engine
         /// <summary>
         /// Id of the card this card is on top of.
         /// </summary>
-        public Guid OnTopOf { get; set; }
+        public ICard OnTopOf { get; set; }
 
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
-        public Guid Owner { get; set; }
-
-        public IPlayer OwnerPlayer { get; internal set; }
+        public IPlayer Owner { get; set; }
         public int? Power { get; set; }
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public int? PrintedPower { get; }
@@ -92,11 +83,11 @@ namespace Engine
         public bool Tapped { get; set; }
         public int Timestamp { get; set; }
         /// <summary>
-        /// Id of the card this card is underneath of.
+        /// The card this card is underneath of.
         /// </summary>
-        public Guid Underneath { get; set; }
+        public ICard Underneath { get; set; }
 
-        internal bool CountsAsIfExists => Underneath != Guid.Empty;
+        internal bool CountsAsIfExists => Underneath != null;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
         public void AddGrantedAbility(IAbility ability)
         {
@@ -112,64 +103,25 @@ namespace Engine
             }
         }
 
-        public bool AffectedBySummoningSickness(IGame game)
-        {
-            return SummoningSickness && (!game.GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(this, game)) || !game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game)));
-        }
-
-        public void Break(IGame game, int breakAmount)
-        {
-            game.ProcessEvents(new CreatureBreaksShieldsEvent(this, breakAmount));
-        }
-
-        public bool CanAttackAtLeastOneCreature(IGame game)
-        {
-            var canAttack = !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game));
-            var opponentsCreatures = game.BattleZone.GetCreatures(game.GetOpponent(game.GetPlayer(Owner)).Id);
-            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(x, game));
-        }
-
-        public bool CanAttackCreature(ICard targetOfAttack, IGame game)
-        {
-            return !game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) &&
-                !game.GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(this, targetOfAttack, game)) &&
-                !game.GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(this, targetOfAttack, game));
-        }
-
-        public bool CanAttackPlayers(IGame game)
-        {
-            return (!game.GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(this, game)) && !game.GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(this, game))) || game.GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(this, game));
-        }
-
         public bool CanBePaid(IPlayer player)
         {
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
         }
 
-        public bool CanBeUsedRegardlessOfManaCost(IGame game)
-        {
-            return (!Supertypes.Contains(Supertype.Evolution) || game.CanEvolve(this)) && !game.GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(this, game));
-        }
-
-        public bool CanEvolveFrom(IGame game, ICard card)
-        {
-            return game.GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolveFrom(card, this, game));
-        }
-
         public abstract ICard Copy();
 
-        public IList<ICard> Deconstruct(IGame game, IList<ICard> deconstructred)
+        public IList<ICard> Deconstruct(IList<ICard> deconstructred)
         {
-            if (Underneath != Guid.Empty)
+            if (Underneath != null)
             {
                 var list = deconstructred.ToList();
-                list.AddRange(game.GetCard(Underneath).Deconstruct(game, deconstructred));
-                Underneath = Guid.Empty;
+                list.AddRange(Underneath.Deconstruct(deconstructred));
+                Underneath = null;
                 return list;
             }
             else
             {
-                OnTopOf = Guid.Empty;
+                OnTopOf = null;
                 return new List<ICard> { this };
             }
         }
@@ -202,21 +154,24 @@ namespace Engine
             SetRulesText();
         }
 
-        public void MoveTopCard(IGame game, ZoneType destination, IAbility ability)
+        public void PutOnTopOf(IEnumerable<ICard> baits)
         {
-            if (OnTopOf != Guid.Empty)
+            var remainingBaits = baits.ToList();
+            List<ICard> toBeStacked = new();
+            while (remainingBaits.Count > 1)
             {
-                var card = game.GetCard(OnTopOf);
-                OnTopOf = Guid.Empty;
-                card.Underneath = Guid.Empty;
+                var card = Owner.ChooseCard(remainingBaits, "Choose a card to be placed on a stack of cards. (the remaining cards will be stacked on top of it)");
+                toBeStacked.Add(card);
+                remainingBaits.Remove(card);
             }
-            game.Move(ability, ZoneType.BattleZone, destination, this);
-        }
-
-        public void PutOnTopOf(ICard bait)
-        {
-            OnTopOf = bait.Id;
-            bait.Underneath = Id;
+            toBeStacked.Add(remainingBaits.Single());
+            toBeStacked.Add(this);
+            for (int i = 1; i < toBeStacked.Count; ++i)
+            {
+                var bait = toBeStacked.ElementAt(i - 1);
+                OnTopOf = bait;
+                bait.Underneath = this;
+            }
         }
 
         public void ResetToPrintedValues()
@@ -225,6 +180,16 @@ namespace Engine
             AddedAbilities.Clear();
             Races = _printedRaces.ToList();
             _addedRaces.Clear();
+        }
+
+        public void SeparateTopCard()
+        {
+            if (OnTopOf != null)
+            {
+                var card = OnTopOf;
+                OnTopOf = null;
+                card.Underneath = null;
+            }
         }
 
         public override string ToString()
@@ -262,8 +227,7 @@ namespace Engine
         private void InitializeAbility(IAbility ability)
         {
             ability.Controller = Owner;
-            ability.Source = Id;
-            ability.SourceCard = this;
+            ability.Source = this;
         }
 
         private void SetRulesText()

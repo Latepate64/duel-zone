@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller);
+            return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }
     }
 

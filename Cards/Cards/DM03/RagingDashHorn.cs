@@ -50,7 +50,7 @@ namespace Cards.Cards.DM03
             var ability = Ability;
             if (ability != null)
             {
-                return ability.GetController(game).ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
+                return ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
             }
             return false;
         }

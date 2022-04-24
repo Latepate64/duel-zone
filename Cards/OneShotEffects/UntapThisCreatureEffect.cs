@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return new List<ICard> { game.GetCard(Ability.Source) }.Where(x => x != null);
+            return new List<ICard> { Ability.Source }.Where(x => x != null);
         }
     }
 }

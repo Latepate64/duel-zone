@@ -27,10 +27,10 @@ namespace Cards.Cards.DM08
             if (Controller.ChooseToTakeAction(ToString()))
             {
                 Controller.LookAtOpponentsHand(game);
-                var cards = GetOpponent(game).Deck.GetTopCards(1);
+                var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
                 if (cards.Any())
                 {
-                    Controller.Look(GetOpponent(game), game, cards.ToArray());
+                    Controller.Look(GetOpponent(game), game, cards);
                     GetOpponent(game).Unreveal(cards);
                 }
             }

@@ -6,6 +6,8 @@ namespace Engine.Abilities
     {
         Guid Id { get; }
 
+        ICard Source { get; set; }
+
         /// <summary>
         /// 113.8.
         /// The controller of an activated ability on the stack is the player who activated it.
@@ -13,24 +15,9 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        Guid Controller { get; set; }
-
-        /// <summary>
-        /// 113.7.
-        /// The source of an ability is the object that generated it.
-        /// </summary>
-        Guid Source { get; set; }
-        ICard SourceCard { get; set; }
+        IPlayer Controller { get; set; }
 
         IAbility Copy();
-
-        /// <summary>
-        /// Player who controls the ability.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        /// <returns>Player who controls the ability.</returns>
-        IPlayer GetController(IGame game);
 
         /// <summary>
         /// Opponent of the player who controls the ability.

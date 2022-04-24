@@ -318,7 +318,7 @@ namespace Engine
             {
                 if (Deck.HasCards)
                 {
-                    game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.Cards.Last());
+                    game.ProcessEvents(new DrawCardEvent(this, Deck.Cards.Last(), ability));
                 }
             }
         }
@@ -340,7 +340,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game)
         {
-            return GetCardsThatCanBePaid().Where(x => x.CanBeUsedRegardlessOfManaCost(game));
+            return GetCardsThatCanBePaid().Where(x => game.CanBeUsedRegardlessOfManaCost(x));
         }
 
         public IZone GetZone(ZoneType zone)
@@ -367,20 +367,20 @@ namespace Engine
         public void LookAtOneOfOpponentsShields(IGame game, IAbility source)
         {
             var opponent = game.GetOpponent(this);
-            var cards = opponent.ShieldZone.Cards;
+            var cards = opponent.ShieldZone.Cards.ToArray();
             if (cards.Any())
             {
-                Look(opponent, game, cards.ToArray());
+                Look(opponent, game, cards);
                 opponent.Unreveal(cards);
             }
         }
 
         public void LookAtOpponentsHand(IGame game)
         {
-            var cards = game.GetOpponent(this).Hand.Cards;
+            var cards = game.GetOpponent(this).Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Look(game.GetOpponent(this), game, cards.ToArray());
+                Look(game.GetOpponent(this), game, cards);
                 game.GetOpponent(this).Unreveal(cards);
             }
         }
@@ -517,7 +517,7 @@ namespace Engine
             return Name;
         }
 
-        public void Unreveal(IEnumerable<ICard> cards)
+        public void Unreveal(params ICard[] cards)
         {
             // TODO: Implement reveal information on cards and remove them here.
         }
@@ -640,11 +640,10 @@ namespace Engine
             game.Lose(this);
         }
 
-        private void Evolve(ICard card, IGame game)
+        private void Evolve(ICard evolutionCreature, IGame game)
         {
-            var baits = game.GetCreaturesCreatureCanEvolveFrom(card);
-            var bait = ChooseCard(baits, "Choose a creature to evolve from.");
-            card.PutOnTopOf(bait);
+            var effect = evolutionCreature.GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>().Single();
+            effect.Evolve(evolutionCreature, game);
         }
 
         private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)

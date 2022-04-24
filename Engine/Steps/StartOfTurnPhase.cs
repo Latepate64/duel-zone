@@ -1,4 +1,5 @@
 ﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Linq;
 
 namespace Engine.Steps
@@ -44,16 +45,25 @@ namespace Engine.Steps
                 //game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
             }
             var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
-            var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
-            var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);
 
-            // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
-            player.Untap(game, creaturesWithoutSilentSkill.Union(player.ManaZone.Cards).ToArray());
+            if (!game.GetContinuousEffects<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(player)))
+            {
+                player.Untap(game, player.ManaZone.Cards.ToArray());
+            }
 
-            var keepTapped = player.ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
-            //var keepTapped = player.Choose(new Common.Choices.SilentSkillSelection(player.Id, creaturesWithoutSilentSkill), game).Decision.Select(x => game.GetCard(x));
-            player.Untap(game, creaturesWithSilentSkill.Except(keepTapped).ToArray());
-            game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetAbilities<SilentSkillAbility>()).ToArray());
+            if (!game.GetContinuousEffects<ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn>().Any())
+            {
+                var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
+                var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);
+
+                // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
+                player.Untap(game, creaturesWithoutSilentSkill.ToArray());
+
+                var keepTapped = player.ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
+                //var keepTapped = player.Choose(new Common.Choices.SilentSkillSelection(player.Id, creaturesWithoutSilentSkill), game).Decision.Select(x => game.GetCard(x));
+                player.Untap(game, creaturesWithSilentSkill.Except(keepTapped).ToArray());
+                game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetAbilities<SilentSkillAbility>()).ToArray());
+            }
         }
 
         internal bool SkipDrawStep { get; set; }

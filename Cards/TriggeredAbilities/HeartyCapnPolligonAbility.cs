@@ -14,7 +14,7 @@ namespace Cards.TriggeredAbilities
         public override bool CheckInterveningIfClause(IGame game)
         {
             // if this creature broke any shields that turn
-            return game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Any(x => x.Attacker.Id == Source);
+            return game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Any(x => x.Attacker == Source);
         }
     }
 
@@ -35,7 +35,7 @@ namespace Cards.TriggeredAbilities
 
         public override void Apply(IGame game)
         {
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, game.GetCard(Ability.Source));
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Ability.Source);
         }
 
         public override string ToString()

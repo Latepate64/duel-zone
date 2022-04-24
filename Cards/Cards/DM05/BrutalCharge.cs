@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using System.Linq;
@@ -45,12 +44,11 @@ namespace Cards.Cards.DM05
         public override void Apply(IGame game)
         {
             var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
-            var controller = Controller;
-            var creatures = controller.ChooseCards(controller.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
-            controller.Reveal(game, creatures);
+            var creatures = Controller.ChooseCards(Controller.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
+            Controller.Reveal(game, creatures);
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, creatures);
-            controller.ShuffleDeck(game);
-            controller.Unreveal(creatures);
+            Controller.ShuffleDeck(game);
+            Controller.Unreveal(creatures);
         }
 
         public override IOneShotEffect Copy()

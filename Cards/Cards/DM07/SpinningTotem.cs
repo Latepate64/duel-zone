@@ -1,5 +1,4 @@
-﻿using Cards.TriggeredAbilities;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
@@ -88,12 +87,12 @@ namespace Cards.Cards.DM07
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == GetController(game).Id && e.Attacker.HasCivilization(Civilization.Nature);
+            return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == Controller && e.Attacker.HasCivilization(Civilization.Nature);
         }
 
         public override void Resolve(IGame game)
         {
-            _breaker.Break(game, 1);
+            game.Break(_breaker, 1);
         }
     }
 }

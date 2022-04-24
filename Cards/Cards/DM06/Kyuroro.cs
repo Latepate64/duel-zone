@@ -31,7 +31,7 @@ namespace Cards.Cards.DM06
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == game.GetOpponent(Controller).Id;
+            return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == game.GetOpponent(Controller);
         }
 
         public override IContinuousEffect Copy()
@@ -53,7 +53,7 @@ namespace Cards.Cards.DM06
 
         public override void Happen(IGame game)
         {
-            var opponent = game.GetOpponent(game.GetPlayer(Attacker.Owner));
+            var opponent = game.GetOpponent(Attacker.Owner);
             var cards = opponent.ChooseCards(opponent.ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
             game.PutFromShieldZoneToHand(cards, true, null);
         }

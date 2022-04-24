@@ -42,7 +42,7 @@ namespace Engine.Steps
         {
             while (PendingAbilities.Any())
             {
-                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller);
+                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller.Id);
                 foreach (var abilities in abilityGroups)
                 {
                     var ability = game.GetPlayer(abilities.Key).ChooseAbility(abilities);

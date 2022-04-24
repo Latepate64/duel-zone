@@ -7,13 +7,9 @@ namespace Engine.Abilities
     /// </summary>
     public abstract class Ability : IAbility
     {
-        /// <summary>
-        /// 113.7.
-        /// The source of an ability is the object that generated it.
-        /// </summary>
-        public Guid Source { get; set; }
-
         public Guid Id { get; }
+
+        public ICard Source { get; set; }
 
         /// <summary>
         /// 113.8.
@@ -22,8 +18,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        public Guid Controller { get; set; }
-        public ICard SourceCard { get; set; }
+        public IPlayer Controller { get; set; }
 
         protected Ability()
         {
@@ -52,18 +47,6 @@ namespace Engine.Abilities
         }
 
         /// <summary>
-        /// Returns the player who controls the ability.
-        /// Note that it should be checked that the player actually
-        /// exists as it is possible they have left the game.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <returns></returns>
-        public IPlayer GetController(IGame game)
-        {
-            return game.GetPlayer(Controller);
-        }
-
-        /// <summary>
         /// Returns the opponent of the player who controls the ability.
         /// Note that it should be checked that the player actually
         /// exists as it is possible they have left the game.
@@ -72,7 +55,7 @@ namespace Engine.Abilities
         /// <returns></returns>
         public IPlayer GetOpponent(IGame game)
         {
-            return game.GetOpponent(GetController(game));
+            return game.GetOpponent(Controller);
         }
     }
 }

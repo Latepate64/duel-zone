@@ -28,7 +28,6 @@ namespace Engine
         T Choose<T>(T choice) where T : Choice;
 
         IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
-
         IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
 
         bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
@@ -126,7 +125,7 @@ namespace Engine
         void Tap(IGame game, params ICard[] cards);
 
         void TapOpponentsCreature(IGame game);
-        void Unreveal(IEnumerable<ICard> cards);
+        void Unreveal(params ICard[] cards);
         void Untap(IGame game, params ICard[] cards);
         void UseCard(ICard card, IGame game);
     }

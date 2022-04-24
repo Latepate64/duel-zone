@@ -31,7 +31,7 @@ namespace Cards.TriggeredAbilities
 
         protected override bool TriggersFrom(ICard card, IGame game)
         {
-            return card.Id == Source;
+            return card == Source;
         }
     }
 }

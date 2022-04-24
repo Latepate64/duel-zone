@@ -1,5 +1,4 @@
 ﻿using Cards.ContinuousEffects;
-using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -21,11 +20,11 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller, Ability.Source), ToString());
+            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id), ToString());
             if (creature != null)
             {
                 game.Destroy(Ability, creature);
-                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(game.GetCard(Ability.Source)));
+                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source));
             }
         }
 

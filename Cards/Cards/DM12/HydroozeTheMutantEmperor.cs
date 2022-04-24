@@ -9,29 +9,7 @@ namespace Cards.Cards.DM12
     {
         public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Race.CyberLord, Race.Hedrian, Civilization.Water, Civilization.Darkness)
         {
-            AddStaticAbilities(new HydroozeTheMutantEmperorPowerEffect(), new HydroozeTheMutantEmperorUnblockableEffect());
-        }
-    }
-
-    class HydroozeTheMutantEmperorPowerEffect : ContinuousEffect, IPowerModifyingEffect
-    {
-        public HydroozeTheMutantEmperorPowerEffect() : base()
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new HydroozeTheMutantEmperorPowerEffect();
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && (x.HasRace(Race.CyberLord) || x.HasRace(Race.Hedrian))).ToList().ForEach(x => x.Power += 2000);
-        }
-
-        public override string ToString()
-        {
-            return "Each of your other Cyber Lords and Hedrians in the battle zone gets +2000 power.";
+            AddStaticAbilities(new EachOfYourOtherRacesGetsPowerEffect(Race.CyberLord, Race.Hedrian), new HydroozeTheMutantEmperorUnblockableEffect());
         }
     }
 

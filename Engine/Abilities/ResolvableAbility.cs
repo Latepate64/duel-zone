@@ -20,7 +20,6 @@
         /// <param name="game"></param>
         public virtual void Resolve(IGame game)
         {
-            OneShotEffect.Controller = GetController(game);
             OneShotEffect.Ability = this;
             OneShotEffect.Apply(game);
         }

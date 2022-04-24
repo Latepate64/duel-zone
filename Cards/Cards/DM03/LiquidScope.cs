@@ -26,11 +26,11 @@ namespace Cards.Cards.DM03
         public override void Apply(IGame game)
         {
             var opponent = GetOpponent(game);
-            var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards);
+            var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards).ToArray();
             if (cards.Any())
             {
                 var revealer = game.GetOwner(cards.First());
-                Controller.Look(revealer, game, cards.ToArray());
+                Controller.Look(revealer, game, cards);
                 revealer.Unreveal(cards);
             }
         }

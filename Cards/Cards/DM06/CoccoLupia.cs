@@ -29,12 +29,12 @@ namespace Cards.Cards.DM06
 
         public int GetChange(ICard card, IGame game)
         {
-            return card.Owner == Controller.Id && card.IsDragon ? -2 : 0;
+            return card.Owner == Controller && card.IsDragon ? -2 : 0;
         }
 
         public int GetMinimumCost(ICard card, IGame game)
         {
-            return card.Owner == Controller.Id && card.IsDragon ? 2 : 0;
+            return card.Owner == Controller && card.IsDragon ? 2 : 0;
         }
 
         public override string ToString()
