@@ -68,10 +68,5 @@ namespace Cards.Cards.DM09
         {
             return card.Owner == Controller && card.HasRace(_race);
         }
-
-        protected override List<ICard> GetAffectedCards(IGame game)
-        {
-            return game.BattleZone.GetCreatures(Controller.Id, _race).ToList();
-        }
     }
 }

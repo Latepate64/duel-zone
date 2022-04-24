@@ -28,11 +28,6 @@ namespace Cards.ContinuousEffects
         {
             return IsSourceOfAbility(card);
         }
-
-        protected override List<ICard> GetAffectedCards(IGame game)
-        {
-            return new List<ICard> { Source };
-        }
     }
 
     abstract class WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
@@ -44,8 +39,6 @@ namespace Cards.ContinuousEffects
         protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base()
         {
         }
-
-        protected abstract List<ICard> GetAffectedCards(IGame game);
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
