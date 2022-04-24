@@ -49,6 +49,7 @@
         Naga,
         PandorasBox,
         ParasiteWorm,
+        Phoenix,
         RainbowPhantom,
         RockBeast,
         SeaHacker,
