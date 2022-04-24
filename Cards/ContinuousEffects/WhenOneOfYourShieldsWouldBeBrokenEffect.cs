@@ -38,7 +38,7 @@ namespace Cards.ContinuousEffects
             var shield = Controller.ChooseCardOptionally(e.Shields, ToString());
             if (shield != null)
             {
-                return new WheOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source, e.Shields.Where(x => x != shield));
+                return new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source, e.Shields.Where(x => x != shield));
             }
             else
             {
@@ -57,12 +57,12 @@ namespace Cards.ContinuousEffects
         }
     }
 
-    class WheOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent : GameEvent
+    class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent : GameEvent
     {
         private readonly ICard _creature;
         private readonly IEnumerable<ICard> _remainingShields;
 
-        public WheOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(ICard creature, IEnumerable<ICard> remainingShields)
+        public WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(ICard creature, IEnumerable<ICard> remainingShields)
         {
             _creature = creature;
             _remainingShields = remainingShields;
