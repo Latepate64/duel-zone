@@ -18,52 +18,14 @@ namespace Server
         {
         }
 
-        public override int ChooseNumber(string text, int minimum, int? maximum)
+        public override T ChooseAbstractly<T>(T choice)
         {
-            return Rnd.Next(minimum, 6);
+            throw new NotImplementedException();
         }
 
-        public override Common.Subtype ChooseRace(params Common.Subtype[] excluded)
+        public override IPlayer Copy()
         {
-            return Enum.GetValues(typeof(Common.Subtype)).Cast<Common.Subtype>().Except(excluded).OrderBy(x => Rnd.Next()).First();
-        }
-
-        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
-        {
-            return new YesNoDecision(true);
-        }
-
-        public override GuidDecision ClientChoose(GuidSelection guidSelection)
-        {
-            if (guidSelection is ChargeManaSelection cms)
-            {
-                if (Hand.Cards.Count > 1)
-                {
-                    return new GuidDecision { Decision = new List<Guid> { cms.Options.First() } };
-                }
-                else
-                {
-                    return new GuidDecision();
-                }
-            }
-            else if (guidSelection is UseCardSelection use)
-            {
-                return new GuidDecision { Decision = new List<Guid> { use.Options.First() } };
-            }
-            else
-            {
-                var amount = 0;
-                if (guidSelection is BoundedGuidSelection bounded)
-                {
-                    amount = Rnd.Next(bounded.MinimumSelection, bounded.MaximumSelection + 1);
-                }
-                else
-                {
-                    amount = Rnd.Next(0, guidSelection.Options.Count + 1);
-                }
-                var selected = guidSelection.Options.OrderBy(x => Rnd.Next()).Take(amount);
-                return new GuidDecision(selected);
-            }
+            throw new NotImplementedException();
         }
     }
 }

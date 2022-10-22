@@ -81,9 +81,10 @@ namespace Client
             choicePanel._client = client;
             choicePanel._tablePage = tablePage;
 
-            choicePanel.UpdateSize(new Size(tablePage.ZonePanelSize.Width, (int)(0.5 * tablePage.ZonePanelSize.Height)));
-            choicePanel.Left = ZonePanel.DefaultLeft;
-            choicePanel.Top = 2 * tablePage.ZonePanelSize.Height + TablePage.ZoneOffset;
+            throw new System.NotImplementedException();
+            //choicePanel.UpdateSize(new Size(tablePage.ZonePanelSize.Width, (int)(0.5 * tablePage.ZonePanelSize.Height)));
+            //choicePanel.Left = ZonePanel.DefaultLeft;
+            //choicePanel.Top = 2 * tablePage.ZonePanelSize.Height + TablePage.ZoneOffset;
         }
 
         private static void SetupClient(TablePage tablePage, Client client, LobbyPanel lobbyPanel, MenuPage menuPage)

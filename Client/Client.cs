@@ -5,7 +5,6 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using Common;
-using Common.GameEvents;
 using Common.Choices;
 using System.Linq;
 
@@ -89,10 +88,10 @@ namespace Client
             {
                 StartGame(startGame);
             }
-            else if (obj is GameEvent e)
-            {
-                Process(e);
-            }
+            //else if (obj is GameEvent e)
+            //{
+            //    Process(e);
+            //}
             else if (obj is Choice c)
             {
                 Process(c);
@@ -140,10 +139,10 @@ namespace Client
             _tablePage.Process(c);
         }
 
-        private void Process(GameEvent e)
-        {
-            _tablePage.Process(e);
-        }
+        //private void Process(GameEvent e)
+        //{
+        //    _tablePage.Process(e);
+        //}
 
         private void SetClientName(object obj, PlayerChangeName name)
         {

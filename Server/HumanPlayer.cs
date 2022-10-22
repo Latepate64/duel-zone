@@ -17,31 +17,12 @@ namespace Server
             Client = client;
         }
 
-        public override YesNoDecision ClientChoose(YesNoChoice yesNoChoice)
-        {
-            Server.Write(Serializer.Serialize(yesNoChoice), Client);
-            return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as YesNoDecision;
-        }
-
-        public override GuidDecision ClientChoose(GuidSelection guidSelection)
-        {
-            try
-            {
-                Server.Write(Serializer.Serialize(guidSelection), Client);
-                return Serializer.Deserialize(Server.ReadAsync(Client).Result).First() as GuidDecision;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
-        public override Subtype ChooseRace(params Subtype[] excluded)
+        public override T ChooseAbstractly<T>(T choice)
         {
             throw new NotImplementedException();
         }
 
-        public override int ChooseNumber(string text, int minimum, int? maximum)
+        public override Engine.IPlayer Copy()
         {
             throw new NotImplementedException();
         }
