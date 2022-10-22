@@ -1,5 +1,4 @@
-﻿using Common;
-using Common.Choices;
+﻿using Common.Choices;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -8,9 +7,9 @@ namespace Client
 {
     internal class PlayerPanel : TableLayoutPanel
     {
-        internal IEnumerable<KeyValuePair<ZoneType, Button>> ZoneButtons => _zoneButtons;
+        //internal IEnumerable<KeyValuePair<ZoneType, Button>> ZoneButtons => _zoneButtons;
 
-        private readonly Dictionary<ZoneType, Button> _zoneButtons = new();
+        //private readonly Dictionary<ZoneType, Button> _zoneButtons = new();
         internal readonly Button _attackButton = new() { Dock = DockStyle.Fill, Text = "Player" };
         private readonly TablePage _tablePage;
         internal Client _client;
@@ -36,10 +35,11 @@ namespace Client
 
         private void SetupZoneButtons()
         {
-            foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
-            {
-                _zoneButtons.Add(zoneType, new Button { Dock = DockStyle.Fill, Text = zoneType.ToString() });
-            }
+            throw new NotImplementedException();
+            //foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
+            //{
+            //    _zoneButtons.Add(zoneType, new Button { Dock = DockStyle.Fill, Text = zoneType.ToString() });
+            //}
         }
 
         private void SetColumnAndRowStyles()
@@ -61,12 +61,13 @@ namespace Client
 
         private void AddZoneButtons()
         {
-            Controls.Add(_zoneButtons[ZoneType.BattleZone], 0, 1);
-            Controls.Add(_zoneButtons[ZoneType.Graveyard], 1, 1);
-            Controls.Add(_zoneButtons[ZoneType.ManaZone], 0, 2);
-            Controls.Add(_zoneButtons[ZoneType.ShieldZone], 1, 2);
-            Controls.Add(_zoneButtons[ZoneType.Hand], 0, 3);
-            Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
+            throw new NotImplementedException();
+            //Controls.Add(_zoneButtons[ZoneType.BattleZone], 0, 1);
+            //Controls.Add(_zoneButtons[ZoneType.Graveyard], 1, 1);
+            //Controls.Add(_zoneButtons[ZoneType.ManaZone], 0, 2);
+            //Controls.Add(_zoneButtons[ZoneType.ShieldZone], 1, 2);
+            //Controls.Add(_zoneButtons[ZoneType.Hand], 0, 3);
+            //Controls.Add(_zoneButtons[ZoneType.Deck], 1, 3);
         }
 
         private void PlayerClick(object sender, EventArgs e)

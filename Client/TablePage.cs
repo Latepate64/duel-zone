@@ -1,6 +1,6 @@
 ﻿using Common;
 using Common.Choices;
-using Common.GameEvents;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -29,8 +29,8 @@ namespace Client
             Text = "Concede",
             Visible = false,
         };
-        internal Size ZonePanelSize => _zonePanels.First().Value.Size;
-        private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
+        //internal Size ZonePanelSize => _zonePanels.First().Value.Size;
+        //private readonly Dictionary<Tuple<ZoneType, bool>, ZonePanel> _zonePanels = new();
         internal TabControl _tabControl;
         internal LobbyPage _lobbyPage;
         internal LobbyPanel _lobbyPanel;
@@ -58,7 +58,7 @@ namespace Client
         {
             _choicePanel = choicePanel;
             Controls.Add(_choicePanel);
-            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
+            //_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Hand, true)].Top = _choicePanel.Bottom + ZoneOffset;
             _choicePanel.Left = _opponentPanel.Right + ZoneOffset;
         }
 
@@ -80,10 +80,11 @@ namespace Client
             _concedeButton.Top = _playerPanel.Bottom + ZoneOffset;
             _exitTableButton.Top = _gameSetupButton.Bottom + ZoneOffset;
             _phaseLabel.Top = _exitTableButton.Bottom + ZoneOffset;
-            foreach (var zone in _zonePanels.Values)
-            {
-                zone.Left = _opponentPanel.Right + ZoneOffset;
-            }
+            throw new NotImplementedException();
+            //foreach (var zone in _zonePanels.Values)
+            //{
+            //    zone.Left = _opponentPanel.Right + ZoneOffset;
+            //}
         }
 
         private void SetupPanels(Size size)
@@ -94,7 +95,8 @@ namespace Client
 
         private void SetupVisiblePanels()
         {
-            _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)].Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
+            throw new NotImplementedException();
+            //_zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, true)].Top = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)].Bottom;
         }
 
         private void SetupPlayerPanels()
@@ -118,45 +120,49 @@ namespace Client
 
         private void SetupZonePanels(Size size)
         {
-            foreach (var player in new[] { false, true })
-            {
-                foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
-                {
-                    var panel = new ZonePanel(zoneType, player);
-                    _zonePanels.Add(new Tuple<ZoneType, bool>(zoneType, player), panel);
-                    panel.SetSize(size);
-                    Controls.Add(panel);
-                }
-            }
+            throw new NotImplementedException();
+            //foreach (var player in new[] { false, true })
+            //{
+            //    foreach (var zoneType in new[] { ZoneType.BattleZone, ZoneType.Deck, ZoneType.Graveyard, ZoneType.Hand, ZoneType.ManaZone, ZoneType.ShieldZone })
+            //    {
+            //        var panel = new ZonePanel(zoneType, player);
+            //        _zonePanels.Add(new Tuple<ZoneType, bool>(zoneType, player), panel);
+            //        panel.SetSize(size);
+            //        Controls.Add(panel);
+            //    }
+            //}
         }
 
         private void SetupZoneTops()
         {
-            var index = 0;
-            var opponentBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)];
-            foreach (var zone in GetNonDefaultZones())
-            {
-                zone.Top = opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
-            }
+            throw new NotImplementedException();
+            //var index = 0;
+            //var opponentBattleZone = _zonePanels[new Tuple<ZoneType, bool>(ZoneType.BattleZone, false)];
+            //foreach (var zone in GetNonDefaultZones())
+            //{
+            //    zone.Top = opponentBattleZone.Bottom / 2 + ++index * ZoneOffset;
+            //}
         }
 
         private IEnumerable<ZonePanel> GetNonDefaultZones()
         {
-            return _zonePanels.Where(x => !(x.Key.Item1 == ZoneType.BattleZone || (x.Key.Item1 == ZoneType.Hand && x.Key.Item2))).Select(x => x.Value);
+            throw new NotImplementedException();
+            //return _zonePanels.Where(x => !(x.Key.Item1 == ZoneType.BattleZone || (x.Key.Item1 == ZoneType.Hand && x.Key.Item2))).Select(x => x.Value);
         }
 
         private void SetupClicks()
         {
-            foreach (var panel in new[] { _playerPanel, _opponentPanel })
-            {
-                foreach (var button in panel.ZoneButtons)
-                {
-                    SetupClick(button.Value, _zonePanels[new Tuple<ZoneType, bool>(button.Key, panel == _playerPanel)]);
-                }
-            }
-            _gameSetupButton.Click += SetupGame;
-            _exitTableButton.Click += ExitTable;
-            _concedeButton.Click += Concede;
+            throw new NotImplementedException();
+            //foreach (var panel in new[] { _playerPanel, _opponentPanel })
+            //{
+            //    foreach (var button in panel.ZoneButtons)
+            //    {
+            //        SetupClick(button.Value, _zonePanels[new Tuple<ZoneType, bool>(button.Key, panel == _playerPanel)]);
+            //    }
+            //}
+            //_gameSetupButton.Click += SetupGame;
+            //_exitTableButton.Click += ExitTable;
+            //_concedeButton.Click += Concede;
         }
 
         private void Concede(object sender, EventArgs e)
@@ -223,10 +229,11 @@ namespace Client
 
         private void AddDeckCards(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
         {
-            foreach (var card in playerDeck.Deck)
-            {
-                AddCard(_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, playerInsteadOfOpponent)], card);
-            }
+            throw new NotImplementedException();
+            //foreach (var card in playerDeck.Deck)
+            //{
+            //    AddCard(_zonePanels[new Tuple<ZoneType, bool>(ZoneType.Deck, playerInsteadOfOpponent)], card);
+            //}
         }
 
         private void SetupZoneNames(bool playerInsteadOfOpponent, PlayerDeck playerDeck)
@@ -239,108 +246,109 @@ namespace Client
 
         private IEnumerable<ZonePanel> GetZonePanels(bool playerInsteadOfOpponent)
         {
-            return _zonePanels.Where(x => x.Key.Item2 == playerInsteadOfOpponent).Select(x => x.Value);
+            throw new NotImplementedException();
+            //return _zonePanels.Where(x => x.Key.Item2 == playerInsteadOfOpponent).Select(x => x.Value);
         }
 
-        internal void Process(GameEvent e)
-        {
-            _textBox.Invoke(new MethodInvoker(delegate { _textBox.AppendText(e + Environment.NewLine); }));
-            if (e is CardMovedEvent cme && cme.Player != null)
-            {
-                Process(cme);
-            }
-            else if (e is TapEvent tap)
-            {
-                Process(tap);
-            }
-            else if (e is SummoningSicknessEvent sse)
-            {
-                Process(sse);
-            }
-            else if (e is WinEvent win)
-            {
-                if (win.Player.Id.ToString() == _playerPanel.Name)
-                {
-                    SetChoiceText("You won!");
-                }
-            }
-            else if (e is LoseEvent lose)
-            {
-                if (lose.Player.Id.ToString() == _playerPanel.Name)
-                {
-                    SetChoiceText("You lost!");
-                }
-            }
-            else if (e is PhaseBegunEvent phase)
-            {
-                _phaseLabel.Invoke(new MethodInvoker(delegate { _phaseLabel.Text = phase.ToString(); }));
-            }
-            else if (e is CreatureAttackedEvent attackEvent)
-            {
-                var panel = GetCardPanel(attackEvent.Card.Id.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Attacking"); }));
-                try
-                {
-                    var targetPanel = GetCardPanel(attackEvent.Attackable.ToString());
-                    targetPanel.Invoke(new MethodInvoker(delegate { targetPanel.DrawCombat("Target of attack"); }));
-                }
-                catch (Exception)
-                {
-                    // TODO: Should draw opponent as target of attack
-                }
-            }
-            else if (e is CreatureStoppedAttackingEvent stop)
-            {
-                var panel = GetCardPanel(stop.Attacker.Id.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
-            }
-            else if (e is BecomeBlockedEvent block)
-            {
-                var panel = GetCardPanel(block.Blocker.Id.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Blocking"); }));
-            }
-            else if (e is CreatureStoppedBlockingEvent stopBlock)
-            {
-                var panel = GetCardPanel(stopBlock.Blocker.Id.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
-            }
-            else if (e is AttackTargetRemovedEvent target)
-            {
-                if (target.TargetCard != null)
-                {
-                    var panel = GetCardPanel(target.TargetCard.Id.ToString());
-                    panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
-                }
-                else
-                {
-                    // TODO: Should antidraw opponent
-                }
-            }
-        }
+        //internal void Process(GameEvent e)
+        //{
+        //    _textBox.Invoke(new MethodInvoker(delegate { _textBox.AppendText(e + Environment.NewLine); }));
+        //    if (e is CardMovedEvent cme && cme.Player != null)
+        //    {
+        //        Process(cme);
+        //    }
+        //    else if (e is TapEvent tap)
+        //    {
+        //        Process(tap);
+        //    }
+        //    else if (e is SummoningSicknessEvent sse)
+        //    {
+        //        Process(sse);
+        //    }
+        //    else if (e is WinEvent win)
+        //    {
+        //        if (win.Player.Id.ToString() == _playerPanel.Name)
+        //        {
+        //            SetChoiceText("You won!");
+        //        }
+        //    }
+        //    else if (e is LoseEvent lose)
+        //    {
+        //        if (lose.Player.Id.ToString() == _playerPanel.Name)
+        //        {
+        //            SetChoiceText("You lost!");
+        //        }
+        //    }
+        //    else if (e is PhaseBegunEvent phase)
+        //    {
+        //        _phaseLabel.Invoke(new MethodInvoker(delegate { _phaseLabel.Text = phase.ToString(); }));
+        //    }
+        //    else if (e is CreatureAttackedEvent attackEvent)
+        //    {
+        //        var panel = GetCardPanel(attackEvent.Card.Id.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Attacking"); }));
+        //        try
+        //        {
+        //            var targetPanel = GetCardPanel(attackEvent.Attackable.ToString());
+        //            targetPanel.Invoke(new MethodInvoker(delegate { targetPanel.DrawCombat("Target of attack"); }));
+        //        }
+        //        catch (Exception)
+        //        {
+        //            // TODO: Should draw opponent as target of attack
+        //        }
+        //    }
+        //    else if (e is CreatureStoppedAttackingEvent stop)
+        //    {
+        //        var panel = GetCardPanel(stop.Attacker.Id.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+        //    }
+        //    else if (e is BecomeBlockedEvent block)
+        //    {
+        //        var panel = GetCardPanel(block.Blocker.Id.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.DrawCombat("Blocking"); }));
+        //    }
+        //    else if (e is CreatureStoppedBlockingEvent stopBlock)
+        //    {
+        //        var panel = GetCardPanel(stopBlock.Blocker.Id.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+        //    }
+        //    else if (e is AttackTargetRemovedEvent target)
+        //    {
+        //        if (target.TargetCard != null)
+        //        {
+        //            var panel = GetCardPanel(target.TargetCard.Id.ToString());
+        //            panel.Invoke(new MethodInvoker(delegate { panel.RemoveCombat(); }));
+        //        }
+        //        else
+        //        {
+        //            // TODO: Should antidraw opponent
+        //        }
+        //    }
+        //}
 
-        private void Process(SummoningSicknessEvent e)
-        {
-            foreach (var card in e.Cards.Select(x => x.Id))
-            {
-                var panel = GetCardPanel(card.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
-            }
-        }
+        //private void Process(SummoningSicknessEvent e)
+        //{
+        //    foreach (var card in e.Cards.Select(x => x.Id))
+        //    {
+        //        var panel = GetCardPanel(card.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.RemoveSummoningSickness(); }));
+        //    }
+        //}
 
-        private void Process(TapEvent e)
-        {
-            foreach (var card in e.Cards.Select(x => x.Id))
-            {
-                var panel = GetCardPanel(card.ToString());
-                panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(e.TapInsteadOfUntap); }));
-            }
-        }
+        //private void Process(TapEvent e)
+        //{
+        //    foreach (var card in e.Cards.Select(x => x.Id))
+        //    {
+        //        var panel = GetCardPanel(card.ToString());
+        //        panel.Invoke(new MethodInvoker(delegate { panel.TapOrUntap(e.TapInsteadOfUntap); }));
+        //    }
+        //}
 
-        private void Process(CardMovedEvent e)
-        {
-            RemoveCard(GetZonePanel(e.Player.Id.ToString(), e.Source), e.CardInSourceZone.ToString());
-            AddCard(GetZonePanel(e.Player.Id.ToString(), e.Destination), e.Card);
-        }
+        //private void Process(CardMovedEvent e)
+        //{
+        //    RemoveCard(GetZonePanel(e.Player.Id.ToString(), e.Source), e.CardInSourceZone.ToString());
+        //    AddCard(GetZonePanel(e.Player.Id.ToString(), e.Destination), e.Card);
+        //}
 
         internal void Process(Choice c)
         {
@@ -424,7 +432,8 @@ namespace Client
 
         private CardPanel GetCardPanel(string id)
         {
-            return _zonePanels.Values.Single(x => x.Controls.ContainsKey(id)).Controls.Find(id, true).OfType<CardPanel>().Single();
+            throw new NotImplementedException();
+            //return _zonePanels.Values.Single(x => x.Controls.ContainsKey(id)).Controls.Find(id, true).OfType<CardPanel>().Single();
         }
 
         private static void RemoveCard(ZonePanel zone, string cardId)
@@ -434,13 +443,14 @@ namespace Client
 
         private void AddCard(ZonePanel zone, ICard card)
         {
-            zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
+            throw new NotImplementedException();
+            //zone?.Invoke(new MethodInvoker(delegate { zone.Controls.Add(new CardPanel(card, _client, this, _zonePanels.First().Value.Height, zone.ZoneType == ZoneType.BattleZone || zone.ZoneType == ZoneType.ManaZone)); }));
         }
 
-        private ZonePanel GetZonePanel(string playerId, ZoneType zoneType)
-        {
-            return _zonePanels.SingleOrDefault(x => x.Value.Name == playerId && x.Key.Item1 == zoneType).Value;
-        }
+        //private ZonePanel GetZonePanel(string playerId, ZoneType zoneType)
+        //{
+        //    return _zonePanels.SingleOrDefault(x => x.Value.Name == playerId && x.Key.Item1 == zoneType).Value;
+        //}
 
         internal void ClearSelectedAndSelectableCards()
         {

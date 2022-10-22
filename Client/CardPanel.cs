@@ -91,16 +91,18 @@ namespace Client
 
         private void DrawSummoningSickness(ICard card, int height)
         {
-            if (card.CardType == CardType.Creature && card.SummoningSickness)
-            {
-                _summoningSicknessLabel = GetLabel("Summoning sickness", height);
-                _inner.Controls.Add(_summoningSicknessLabel);
-            }
+            throw new NotImplementedException();
+            //if (card.CardType == CardType.Creature && card.SummoningSickness)
+            //{
+            //    _summoningSicknessLabel = GetLabel("Summoning sickness", height);
+            //    _inner.Controls.Add(_summoningSicknessLabel);
+            //}
         }
 
         private void DrawSubtypes(ICard card, int height)
         {
-            _inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
+            throw new NotImplementedException();
+            //_inner.Controls.Add(GetLabel(string.Join(" / ", card.Subtypes.Select(x => SplitCamelCase(x.ToString()))), height));
         }
 
         private void DrawManaCostAndName(ICard card, int height)
@@ -124,14 +126,15 @@ namespace Client
 
         private void PaintBackColor(ICard card)
         {
-            if (card.Civilizations.Count == 1)
-            {
-                _inner.BackColor = GetColor(card.Civilizations.First());
-            }
-            else
-            {
-                _inner.BackColor = Color.Gold;
-            }
+            throw new NotImplementedException();
+            //if (card.Civilizations.Count == 1)
+            //{
+            //    _inner.BackColor = GetColor(card.Civilizations.First());
+            //}
+            //else
+            //{
+            //    _inner.BackColor = Color.Gold;
+            //}
         }
 
         internal void TapOrUntap(bool tapInsteadOfUntap)
@@ -197,18 +200,18 @@ namespace Client
             return new Label { Text = text, Font = new Font(FontFamily.GenericSansSerif, FontSize, FontStyle.Bold), Width = (int)(CardWidth * InnerSizeScale * height), Height = Height / 10 };
         }
 
-        private static Color GetColor(Civilization civilization)
-        {
-            return civilization switch
-            {
-                Civilization.Light => Color.Yellow,
-                Civilization.Water => Color.Aqua,
-                Civilization.Darkness => Color.DarkGray,
-                Civilization.Fire => Color.Red,
-                Civilization.Nature => Color.Green,
-                _ => throw new NotImplementedException(),
-            };
-        }
+        //private static Color GetColor(Civilization civilization)
+        //{
+        //    return civilization switch
+        //    {
+        //        Civilization.Light => Color.Yellow,
+        //        Civilization.Water => Color.Aqua,
+        //        Civilization.Darkness => Color.DarkGray,
+        //        Civilization.Fire => Color.Red,
+        //        Civilization.Nature => Color.Green,
+        //        _ => throw new NotImplementedException(),
+        //    };
+        //}
 
         private static string SplitCamelCase(string input)
         {

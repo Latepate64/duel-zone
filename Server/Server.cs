@@ -1,5 +1,5 @@
 ﻿using Common;
-using Common.GameEvents;
+using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +47,10 @@ namespace Server
             var client = await _listener.AcceptTcpClientAsync();
             var player = new HumanPlayer(this, client);
             _players.Add(player);
-            var conn = new ClientConnected { Tables = _tables, ConnectedPlayer = player.Convert() };
+            var conn = new ClientConnected {
+                Tables = _tables,
+                //ConnectedPlayer = player.Convert()
+            };
             //string text = Helper.ObjectToText(conn, client);
             var text = Serializer.Serialize(conn);
             Program.WriteConsole(text);
@@ -136,18 +139,19 @@ namespace Server
         private void StartGame(TcpClient client)
         {
             var player1 = _players.Single(x => x.Client == client);
-            var table = GetTable(player1);
-            Engine.Player player2;
-            if (table.HumanOpponent)
-            {
-                var playerTmp = table.GetPlayers().Single(x => x.Id != player1.Id);
-                player2 = _players.Single(x => x.Id == playerTmp.Id);
-            }
-            else
-            {
-                player2 = new ComputerPlayer { Name = "Bot" };
-            }
-            StartGame(player1, player2);
+            throw new NotImplementedException();
+            //var table = GetTable(player1);
+            //Engine.Player player2;
+            //if (table.HumanOpponent)
+            //{
+            //    var playerTmp = table.GetPlayers().Single(x => x.Id != player1.Id);
+            //    player2 = _players.Single(x => x.Id == playerTmp.Id);
+            //}
+            //else
+            //{
+            //    player2 = new ComputerPlayer { Name = "Bot" };
+            //}
+            //StartGame(player1, player2);
         }
 
         private void StartGame(Engine.Player player1, Engine.Player player2)
@@ -161,8 +165,8 @@ namespace Server
             {
                 Players = players.Select(x => new PlayerDeck
                 {
-                    Player = x.Convert(),
-                    Deck = x.Deck.Cards.Select(x => x.Convert(true)).ToList()
+                    //Player = x.Convert(),
+                    //Deck = x.Deck.Cards.Select(x => x.Convert(true)).ToList()
                 }).ToList(),
             };
             var text = Serializer.Serialize(startEvent);
@@ -185,16 +189,17 @@ namespace Server
             {
                 if (gameEvent is CardMovedEvent e)
                 {
-                    var copy = e.Copy() as CardMovedEvent;
-                    if (copy.Card != null && !copy.Card.KnownTo.Contains(player.Id))
-                    {
-                        copy.Card = new Card(copy.Card, true);
-                        WriteToConsoleAndClient(player, copy);
-                    }
-                    else
-                    {
-                        WriteToConsoleAndClient(player, copy);
-                    }
+                    throw new NotImplementedException();
+                    //var copy = e as CardMovedEvent;
+                    //if (copy.Card != null && !copy.Card.KnownTo.Contains(player.Id))
+                    //{
+                    //    copy.Card = new Card(copy.Card, true);
+                    //    WriteToConsoleAndClient(player, copy);
+                    //}
+                    //else
+                    //{
+                    //    WriteToConsoleAndClient(player, copy);
+                    //}
                 }
                 else
                 {
@@ -217,22 +222,23 @@ namespace Server
 
         private static void SetupPlayer(Engine.Player player)
         {
-            player.Deck.Setup(GetCards(player.Id), player.Id);
+            player.Deck.Setup(GetCards(player.Id), player);
         }
 
         private static List<Engine.Card> GetCards(Guid player)
         {
-            List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
+            throw new NotImplementedException();
+            //List<Engine.Card> cards = Cards.CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid()).Take(40).ToList();
             //List<Engine.Card> cards = new();
             //for (int i = 0; i < 40; ++i)
             //{
             //    cards.Add(Cards.CardFactory.Create("Quixotic Hero Swine Snout"));
             //}
-            foreach (var card in cards)
-            {
-                card.Owner = player;
-            }
-            return cards;
+            //foreach (var card in cards)
+            //{
+            //    card.Owner = player;
+            //}
+            //return cards;
         }
 
         internal void BroadcastMessage(string text)
