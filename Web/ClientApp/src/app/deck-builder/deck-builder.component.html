@@ -2,6 +2,23 @@
 
 <p>This is a simple example of a deck builder.</p>
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
+<p *ngIf="!cards"><em>Loading...</em></p>
 
-<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="cards">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mana cost</th>
+      <th>Civilization</th>
+      <th>Rules text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let card of cards">
+      <td>{{ card.name }}</td>
+      <td>{{ card.manaCost }}</td>
+      <td>{{ card.civilization }}</td>
+      <td>{{ card.rulesText }}</td>
+    </tr>
+  </tbody>
+</table>
