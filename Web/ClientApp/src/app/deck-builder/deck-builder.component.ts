@@ -16,8 +16,11 @@ export class DeckBuilderComponent {
 }
 
 interface Card {
-  name: string;
+  cardType: string;
+  civilizations: string;
   manaCost: number;
-  civilization: string;
+  name: string;
+  power: string;
+  races: string;
   rulesText: string;
 }

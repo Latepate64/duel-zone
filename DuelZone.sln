@@ -30,7 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEngine", "TestEngine\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCards", "TestCards\TestCards.csproj", "{F1EF56F9-143C-46E9-A689-339A2CCC81C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{3A584775-54EE-4A12-86F4-30461ED1D7CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{3A584775-54EE-4A12-86F4-30461ED1D7CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BEF64FF4-4652-44C7-8850-E5F3F1F835A3} = {BEF64FF4-4652-44C7-8850-E5F3F1F835A3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
