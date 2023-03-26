@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DeckComponent } from './../deck/deck.component';
 
 @Component({
   selector: 'app-card-collection',
@@ -7,11 +8,19 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CardCollectionComponent {
   public cards: Card[] = [];
+  @Output() added = new EventEmitter<string>();
+  deck: DeckComponent;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, deck: DeckComponent) {
     http.get<Card[]>(baseUrl + 'card').subscribe(result => {
       this.cards = result;
     }, error => console.error(error));
+    this.deck = deck;
+  }
+
+  public addCardToDeck(cardName: string) {
+    this.deck.onAdded(cardName);
+    //this.added.emit(cardName)
   }
 }
 

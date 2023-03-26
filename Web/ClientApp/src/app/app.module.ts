@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DeckBuilderComponent } from './deck-builder/deck-builder.component';
 import { CardCollectionComponent } from './card-collection/card-collection.component';
+import { DeckComponent } from './deck/deck.component';
+import { MatTableModule, MatTable, MatRow, MatTableDataSource } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { CardCollectionComponent } from './card-collection/card-collection.compo
     CounterComponent,
     FetchDataComponent,
     DeckBuilderComponent,
-    CardCollectionComponent
+    CardCollectionComponent,
+    DeckComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,7 +34,11 @@ import { CardCollectionComponent } from './card-collection/card-collection.compo
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'deck-builder', component: DeckBuilderComponent },
-    ])
+    ]),
+    MatTableModule,
+    //MatTable,
+    //MatRow,
+    //MatTableDataSource
   ],
   providers: [],
   bootstrap: [AppComponent]
