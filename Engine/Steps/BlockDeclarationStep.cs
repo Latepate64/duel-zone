@@ -59,7 +59,7 @@ namespace Engine.Steps
         {
             if (Phase.BlockingCreature != null)
             {
-                if (!game.GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(Phase.AttackingCreature, Phase.BlockingCreature, game)))
+                if (!game.SkipBattleAfterCreatureBlocks(Phase.AttackingCreature, Phase.BlockingCreature))
                 {
                     return new BattleStep(Phase);
                 }

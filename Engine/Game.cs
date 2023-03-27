@@ -811,7 +811,12 @@ namespace Engine
 
         public bool CreatureBlocksIfAble(ICard blocker, ICard attackingCreature)
         {
-            return GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(blocker, attackingCreature));
+            return GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(blocker, attackingCreature, this));
+        }
+
+        public bool SkipBattleAfterCreatureBlocks(ICard attackingCreature, ICard blockingCreature)
+        {
+            return GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature, this));
         }
     }
 }
