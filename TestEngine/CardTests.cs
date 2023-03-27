@@ -33,7 +33,7 @@ namespace TestEngine
     {
         public GameMock(bool shouldBeAbleToEvolve)
         {
-            Setup(x => x.GetContinuousEffects<IEvolutionEffect>()).Returns(new List<IEvolutionEffect> { new EvolutionEffectMock(shouldBeAbleToEvolve) });
+            //Setup(x => x.GetContinuousEffects<IEvolutionEffect>()).Returns(new List<IEvolutionEffect> { new EvolutionEffectMock(shouldBeAbleToEvolve) });
         }
     }
 
