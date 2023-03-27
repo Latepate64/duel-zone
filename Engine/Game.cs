@@ -787,5 +787,10 @@ namespace Engine
         {
             return GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, player.Id, this));
         }
+
+        public bool AnySlayerEffectApplies(ICard loser, ICard winner)
+        {
+            return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, this));
+        }
     }
 }
