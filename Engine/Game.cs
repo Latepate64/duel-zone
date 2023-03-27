@@ -808,5 +808,10 @@ namespace Engine
         {
             return GetContinuousEffects<IUnblockableEffect>().All(e => !e.CannotBeBlocked(attackingCreature, blocker, attackTarget, this));
         }
+
+        public bool CreatureBlocksIfAble(ICard blocker, ICard attackingCreature)
+        {
+            return GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(blocker, attackingCreature));
+        }
     }
 }
