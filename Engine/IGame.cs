@@ -85,5 +85,6 @@ namespace Engine
         bool PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
         bool CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn();
         bool CreatureAttacksIfAble(ICard creature);
+        bool PlayerCannotTapCreature(IPlayer player, ICard card);
     }
 }
