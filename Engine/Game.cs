@@ -782,5 +782,10 @@ namespace Engine
         {
             return GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(player, card, this));
         }
+
+        public bool PlayerCannotChooseCreature(IPlayer player, ICard card)
+        {
+            return GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, player.Id, this));
+        }
     }
 }

@@ -96,7 +96,7 @@ namespace Engine
 
         public bool CanChoose(ICard card, IGame game)
         {
-            return !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, Id, game));
+            return !game.PlayerCannotChooseCreature(this, card);
         }
 
         public void Cast(ICard spell, IGame game)
