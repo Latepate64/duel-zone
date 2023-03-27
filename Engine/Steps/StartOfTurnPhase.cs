@@ -45,7 +45,7 @@ namespace Engine.Steps
                 player.Untap(game, player.ManaZone.Cards.ToArray());
             }
 
-            if (!game.GetContinuousEffects<ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn>().Any())
+            if (!game.CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn())
             {
                 var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
                 var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);

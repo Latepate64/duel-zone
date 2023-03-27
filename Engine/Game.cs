@@ -767,5 +767,10 @@ namespace Engine
         {
             return GetContinuousEffects<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(player));
         }
+
+        public bool CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn()
+        {
+            return GetContinuousEffects<ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn>().Any();
+        }
     }
 }
