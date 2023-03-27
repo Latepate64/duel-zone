@@ -797,5 +797,10 @@ namespace Engine
         {
             return GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, this));
         }
+
+        public bool CanBlock(ICard blocker, ICard attackingCreature)
+        {
+            return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature, this));
+        }
     }
 }
