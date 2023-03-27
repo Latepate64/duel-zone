@@ -289,7 +289,7 @@ namespace Engine
             return GetAllCards().SingleOrDefault(c => c.Id == id);
         }
 
-        public IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect
+        private IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect
         {
             return _continuousEffects.OfType<T>();
         }

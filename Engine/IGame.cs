@@ -63,7 +63,6 @@ namespace Engine
         ICard GetCard(Guid id);
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
-        IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);
         Guid GetOpponent(Guid player);
