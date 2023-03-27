@@ -1,6 +1,7 @@
 ﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
+using Engine.Steps;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
@@ -801,6 +802,11 @@ namespace Engine
         public bool CanBlock(ICard blocker, ICard attackingCreature)
         {
             return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature, this));
+        }
+
+        public bool CannotBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget)
+        {
+            return GetContinuousEffects<IUnblockableEffect>().All(e => !e.CannotBeBlocked(attackingCreature, blocker, attackTarget, this));
         }
     }
 }

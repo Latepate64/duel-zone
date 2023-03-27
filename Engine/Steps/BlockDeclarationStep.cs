@@ -36,7 +36,7 @@ namespace Engine.Steps
         {
             return !blocker.Tapped &&
                 game.CanBlock(blocker, attackingCreature) &&
-                game.GetContinuousEffects<IUnblockableEffect>().All(e => !e.CannotBeBlocked(attackingCreature, blocker, Phase.AttackTarget, game));
+                game.CannotBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
