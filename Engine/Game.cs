@@ -818,5 +818,10 @@ namespace Engine
         {
             return GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature, this));
         }
+
+        public int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature)
+        {
+            return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(x => x.GetAmount(this, attackingCreature));
+        }
     }
 }

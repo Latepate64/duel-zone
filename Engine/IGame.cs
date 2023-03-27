@@ -93,5 +93,6 @@ namespace Engine
         bool CannotBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget);
         bool CreatureBlocksIfAble(ICard blocker, ICard attackingCreature);
         bool SkipBattleAfterCreatureBlocks(ICard attackingCreature, ICard blockingCreature);
+        int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature);
     }
 }
