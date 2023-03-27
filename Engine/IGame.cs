@@ -82,5 +82,6 @@ namespace Engine
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void ResolveReflexiveTriggeredAbilities();
+        bool PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
     }
 }

@@ -762,5 +762,10 @@ namespace Engine
 
             Leave(player); //TODO: Winner shouldn't leave?
         }
+
+        public bool PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player)
+        {
+            return GetContinuousEffects<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(player));
+        }
     }
 }
