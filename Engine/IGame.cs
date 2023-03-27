@@ -84,5 +84,6 @@ namespace Engine
         void ResolveReflexiveTriggeredAbilities();
         bool PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
         bool CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn();
+        bool CreatureAttacksIfAble(ICard creature);
     }
 }

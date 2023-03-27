@@ -772,5 +772,10 @@ namespace Engine
         {
             return GetContinuousEffects<ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn>().Any();
         }
+
+        public bool CreatureAttacksIfAble(ICard creature)
+        {
+            return GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(creature, this));
+        }
     }
 }
