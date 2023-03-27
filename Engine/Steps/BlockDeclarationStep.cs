@@ -19,9 +19,8 @@ namespace Engine.Steps
 
         private IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
         {
-            var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>
-                CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(x, attackingCreature, game)));
+            var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>  CanBlock(game, attackingCreature, blocker));
+            var mustBlockers = blockers.Where(blocker => game.CreatureBlocksIfAble(blocker, attackingCreature));
             if (mustBlockers.Any())
             {
                 return mustBlockers;

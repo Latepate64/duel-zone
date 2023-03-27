@@ -91,5 +91,6 @@ namespace Engine
         bool IsCreatureDestroyedInBattle(ICard against, ICard target);
         bool CanBlock(ICard blocker, ICard attackingCreature);
         bool CannotBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget);
+        bool CreatureBlocksIfAble(ICard blocker, ICard attackingCreature);
     }
 }
