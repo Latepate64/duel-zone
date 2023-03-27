@@ -777,5 +777,10 @@ namespace Engine
         {
             return GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(creature, this));
         }
+
+        public bool PlayerCannotTapCreature(IPlayer player, ICard card)
+        {
+            return GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(player, card, this));
+        }
     }
 }
