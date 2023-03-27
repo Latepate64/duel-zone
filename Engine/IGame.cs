@@ -89,5 +89,6 @@ namespace Engine
         bool PlayerCannotChooseCreature(IPlayer player, ICard card);
         bool AnySlayerEffectApplies(ICard loser, ICard winner);
         bool IsCreatureDestroyedInBattle(ICard against, ICard target);
+        bool CanBlock(ICard blocker, ICard attackingCreature);
     }
 }
