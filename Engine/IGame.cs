@@ -83,5 +83,6 @@ namespace Engine
         void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void ResolveReflexiveTriggeredAbilities();
         bool PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+        bool CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn();
     }
 }
