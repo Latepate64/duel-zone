@@ -792,5 +792,10 @@ namespace Engine
         {
             return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, this));
         }
+
+        public bool IsCreatureDestroyedInBattle(ICard against, ICard target)
+        {
+            return GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, this));
+        }
     }
 }

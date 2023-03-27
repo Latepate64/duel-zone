@@ -49,7 +49,7 @@ namespace Engine.GameEvents
 
         private static void CheckLoseInBattle(ICard target, ICard against, IGame game)
         {
-            if (!game.GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, game)))
+            if (!game.IsCreatureDestroyedInBattle(against, target))
             {
                 target.LostInBattle = true;
             }
