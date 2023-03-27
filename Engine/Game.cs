@@ -823,5 +823,16 @@ namespace Engine
         {
             return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(x => x.GetAmount(this, attackingCreature));
         }
+
+        public int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature)
+        {
+            int breakAmount = 1;
+            var breakerEffects = GetContinuousEffects<IBreakerEffect>();
+            if (breakerEffects.Any())
+            {
+                breakAmount = breakerEffects.Max(x => x.GetAmount(this, attackingCreature));
+            }
+            return breakAmount;
+        }
     }
 }

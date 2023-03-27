@@ -37,13 +37,7 @@ namespace Engine.Steps
 
         private static int GetAmountOfShieldsToBreak(IGame game, ICard attackingCreature)
         {
-            int breakAmount = 1;
-            var breakerEffects = game.GetContinuousEffects<IBreakerEffect>();
-            if (breakerEffects.Any())
-            {
-                breakAmount = breakerEffects.Max(x => x.GetAmount(game, attackingCreature));
-            }
-            return breakAmount + game.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
+            return game.GetAmountOfShieldsCreatureBreaks(attackingCreature) + game.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
         }
 
         public override IStep Copy()

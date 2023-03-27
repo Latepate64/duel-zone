@@ -94,5 +94,6 @@ namespace Engine
         bool CreatureBlocksIfAble(ICard blocker, ICard attackingCreature);
         bool SkipBattleAfterCreatureBlocks(ICard attackingCreature, ICard blockingCreature);
         int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature);
+        int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
     }
 }
