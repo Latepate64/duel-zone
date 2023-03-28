@@ -65,7 +65,7 @@ namespace Engine
         Race ChooseRace(string description, params Race[] excluded);
 
         bool ChooseToTakeAction(string description);
-
+        IEnumerable<ICard> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICard> creatures);
         ICard DestroyCreatureOptionally(IGame game, IAbility ability);
         ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
 

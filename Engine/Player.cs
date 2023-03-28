@@ -651,5 +651,10 @@ namespace Engine
         {
             game.ProcessEvents(new CreatureSummonedEvent(this, card));
         }
+
+        public IEnumerable<ICard> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICard> creaturesWithSilentSkill)
+        {
+            return ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
+        }
     }
 }
