@@ -44,9 +44,9 @@ namespace Engine.Steps
             }
         }
 
-        private static void UntapBattleZoneCreatures(IGame game, IPlayer player) //IGame IPlayer IEnumerable IBattleZone ICard 6
+        private static void UntapBattleZoneCreatures(IGame game, IPlayer player)
         {
-            IEnumerable<ICard> creaturesWithSilentSkill = game.BattleZone.GetCreaturesWithSilentSkill(player);
+            IEnumerable<ICard> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 
             // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
             player.Untap(game, game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill).ToArray());
