@@ -699,5 +699,10 @@ namespace Engine
         {
             ProcessEvents(new CreatureAttackedEvent(attacker, target));
         }
+
+        public void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards)
+        {
+            AddPendingAbilities(cards.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
+        }
     }
 }
