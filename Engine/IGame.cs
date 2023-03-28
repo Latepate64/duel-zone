@@ -80,5 +80,6 @@ namespace Engine
         void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
         void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
         IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
+        IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
     }
 }
