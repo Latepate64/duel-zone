@@ -234,5 +234,10 @@ namespace Engine
         {
             RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
         }
+
+        public IEnumerable<TapAbility> GetTapAbilities()
+        {
+            return GetAbilities<TapAbility>();
+        }
     }
 }

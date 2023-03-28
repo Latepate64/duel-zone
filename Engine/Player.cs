@@ -584,7 +584,7 @@ namespace Engine
             Tap(game, attacker);
             if (target is ICard card && card.Id == attacker.Id)
             {
-                game.AddPendingAbilities(attacker.GetAbilities<TapAbility>().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
+                game.AddPendingAbilities(attacker.GetTapAbilities().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
                 return true;
             }
             else
