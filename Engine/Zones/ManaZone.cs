@@ -56,5 +56,10 @@ namespace Engine.Zones
         {
             return "mana zone";
         }
+
+        public IManaZone Copy()
+        {
+            return new ManaZone(this);
+        }
     }
 }

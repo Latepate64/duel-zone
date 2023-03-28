@@ -23,11 +23,11 @@ namespace Engine
 
         protected Player(IPlayer player)
         {
-            Deck = new Deck(player.Deck);
-            Graveyard = new Graveyard(player.Graveyard);
-            Hand = new Hand(player.Hand);
-            ManaZone = new ManaZone(player.ManaZone);
-            ShieldZone = new ShieldZone(player.ShieldZone);
+            Deck = player.Deck.Copy();
+            Graveyard = player.Graveyard.Copy();
+            Hand = player.Hand.Copy();
+            ManaZone = player.ManaZone.Copy();
+            ShieldZone = player.ShieldZone.Copy();
             Id = player.Id;
             Name = player?.Name;
         }
@@ -58,12 +58,12 @@ namespace Engine
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; } = new();
+        public IGraveyard Graveyard { get; private set; } = new Graveyard();
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; } = new();
+        public IHand Hand { get; private set; } = new Hand();
 
         public Guid Id { get; set; }
 
@@ -77,7 +77,7 @@ namespace Engine
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; } = new();
+        public IShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
         public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 

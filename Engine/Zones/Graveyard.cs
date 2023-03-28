@@ -6,7 +6,7 @@ namespace Engine.Zones
     /// <summary>
     /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
     /// </summary>
-    public class Graveyard : Zone
+    public class Graveyard : Zone, IGraveyard
     {
         public Graveyard() : base(ZoneType.Graveyard) { }
 
@@ -18,6 +18,11 @@ namespace Engine.Zones
         {
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
+        }
+
+        public IGraveyard Copy()
+        {
+            return new Graveyard(this);
         }
 
         public override List<ICard> Remove(ICard card, IGame game)

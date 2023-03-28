@@ -72,5 +72,10 @@ namespace Engine.Zones
         {
             Cards.InsertRange(0, cards);
         }
+
+        public IDeck Copy()
+        {
+            return new Deck(this);
+        }
     }
 }
