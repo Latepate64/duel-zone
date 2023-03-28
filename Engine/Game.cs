@@ -694,5 +694,10 @@ namespace Engine
         {
             return ContinuousEffects.GetAmountsOfShieldsCreatureCanBreak(attackingCreature).DefaultIfEmpty(1).Max();
         }
+
+        public void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target)
+        {
+            ProcessEvents(new CreatureAttackedEvent(attacker, target));
+        }
     }
 }
