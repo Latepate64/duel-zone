@@ -21,7 +21,7 @@ namespace Engine.GameEvents
             Spell = Spell.Copy();
             Spell.Timestamp = game.GetTimestamp();
             game.SpellStack.Add(Spell, game);
-            game.AddContinuousEffects(Spell, Spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
+            game.ContinuousEffects.AddContinuousEffects(Spell, Spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere).ToArray());
             Spell.KnownTo = game.Players.Select(x => x.Id).ToList();
             ResolveSpellAbilities(Spell, game);
             FinishCastingSpell(Spell, game);

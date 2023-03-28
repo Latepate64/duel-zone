@@ -35,7 +35,7 @@ namespace Engine.GameEvents
             {
                 Winners = new ICard[] { winner };
                 CheckLoseInBattle(loser, winner, game);
-                if (game.DoesAnySlayerEffectApply(loser, winner))
+                if (game.ContinuousEffects.DoesAnySlayerEffectApply(loser, winner))
                 {
                     winner.LostInBattle = true; // TODO: Not sure if proper way to do
                 }
@@ -49,7 +49,7 @@ namespace Engine.GameEvents
 
         private static void CheckLoseInBattle(ICard target, ICard against, IGame game)
         {
-            if (!game.DoesCreatureGetDestroyedInBattle(against, target))
+            if (!game.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
             {
                 target.LostInBattle = true;
             }
