@@ -135,13 +135,9 @@ namespace Engine
 
         public bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
-            var minimum = attackers.Any(attacker => game.ContinuousEffects.DoesCreatureAttackIfAble(attacker)) ? 1 : 0;
-            var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
-            if (decision.Any())
-            {
-                return ChooseAttackTarget(game, attackers, decision.Single().Id);
-            }
-            return false;
+            int minimum = attackers.Any(game.ContinuousEffects.DoesCreatureAttackIfAble) ? 1 : 0;
+            IEnumerable<ICard> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
+            return decision.Any() && ChooseAttackTarget(game, attackers.Single(x => x.Id == decision.Single().Id));
         }
 
         public IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets)
@@ -579,10 +575,9 @@ namespace Engine
             }
         }
 
-        private bool ChooseAttackTarget(IGame game, IEnumerable<ICard> attackers, Guid id)
+        private bool ChooseAttackTarget(IGame game, ICard attacker)
         {
-            var attacker = attackers.Single(x => x.Id == id);
-            var possibleTargets = game.GetPossibleAttackTargets(attacker);
+            IEnumerable<IAttackable> possibleTargets = game.GetPossibleAttackTargets(attacker);
             IAttackable target = possibleTargets.Count() > 1
                 ? ChooseAttackTarget(possibleTargets)
                 : possibleTargets.Single();
