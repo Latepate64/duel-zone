@@ -165,7 +165,17 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(ICard creature)
         {
-            return creature.SummoningSickness && (!GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature, this)) || !GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this)));
+            return creature.SummoningSickness && (!CreatureHasSpeedAttacker(creature) || !IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(creature));
+        }
+
+        private bool IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(ICard creature)
+        {
+            return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this));
+        }
+
+        private bool CreatureHasSpeedAttacker(ICard creature)
+        {
+            return GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature, this));
         }
 
         public void Battle(ICard attackingCreature, ICard defendingCreature)
@@ -180,26 +190,50 @@ namespace Engine
 
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
-            var canAttack = !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
             var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(creature.Owner).Id);
-            return canAttack && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+            return !CreatureCannotAttack(creature) && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+        }
+
+        private bool CreatureCannotAttack(ICard creature)
+        {
+            return GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
         }
 
         public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
         {
-            return !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(attacker, this)) &&
-                !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, this)) &&
-                !GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, this));
+            return !CreatureCannotAttack(attacker) &&
+                !CreatureCannotAttackCreature(attacker, targetOfAttack) &&
+                !CreatureCannotBeAttacked(attacker, targetOfAttack);
+        }
+
+        private bool CreatureCannotBeAttacked(ICard attacker, ICard targetOfAttack)
+        {
+            return GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, this));
+        }
+
+        private bool CreatureCannotAttackCreature(ICard attacker, ICard targetOfAttack)
+        {
+            return GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, this));
         }
 
         public bool CanAttackPlayers(ICard creature)
         {
-            return (!GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this)) && !GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(creature, this))) || GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this));
+            return (!CreatureCannotAttack(creature) && !CreatureCannotAttackPlayers(creature)) || IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(creature);
+        }
+
+        private bool CreatureCannotAttackPlayers(ICard creature)
+        {
+            return GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(creature, this));
         }
 
         public bool CanBeUsedRegardlessOfManaCost(ICard card)
         {
-            return (!card.Supertypes.Contains(Supertype.Evolution) || CanEvolve(card)) && !GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(card, this));
+            return (!card.Supertypes.Contains(Supertype.Evolution) || CanEvolve(card)) && !CannotUseCard(card);
+        }
+
+        private bool CannotUseCard(ICard card)
+        {
+            return GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(card, this));
         }
 
         public bool CanEvolve(ICard toEvolve)
