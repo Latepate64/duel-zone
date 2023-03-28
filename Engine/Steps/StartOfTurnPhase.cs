@@ -29,16 +29,15 @@ namespace Engine.Steps
         /// <summary>
         /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
         /// </summary>
-        /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-            IPlayer player = game.CurrentTurn.ActivePlayer;
-            game.BattleZone.RemoveSummoningSicknesses(player);
-            if (game.ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
+            IPlayer player = game.ActivePlayer;
+            game.RemoveSummoningSicknesses(player);
+            if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
-                player.Untap(game, player.ManaZone.Cards.ToArray());
+                player.Untap(game, player.CardsInManaZone);
             }
-            if (game.ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
+            if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
                 UntapBattleZoneCreatures(game, player);
             }

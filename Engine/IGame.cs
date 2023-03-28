@@ -23,6 +23,8 @@ namespace Engine
         Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
+        IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
+
         void AddAbility(ICard card, IAbility ability);
 
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
@@ -81,5 +83,8 @@ namespace Engine
         void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
         IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
         IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
+        void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
+        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
+        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
     }
 }

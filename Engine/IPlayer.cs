@@ -18,6 +18,8 @@ namespace Engine
         string Name { get; set; }
         IShieldZone ShieldZone { get; }
         IEnumerable<IZone> Zones { get; }
+        ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
+
         void ArrangeTopCardsOfDeck(params ICard[] cards);
 
         void BurnOwnMana(IGame game, IAbility ability);
