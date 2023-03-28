@@ -51,7 +51,7 @@ namespace Engine.Steps
                 IEnumerable<ICard> keepTapped = player.ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
                 //var keepTapped = player.Choose(new Common.Choices.SilentSkillSelection(player.Id, creaturesWithoutSilentSkill), game).Decision.Select(x => game.GetCard(x));
                 player.Untap(game, creaturesWithSilentSkill.Except(keepTapped).ToArray());
-                game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetAbilities<SilentSkillAbility>()).ToArray());
+                game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
             }
         }
 

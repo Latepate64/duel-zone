@@ -239,5 +239,10 @@ namespace Engine
         {
             return GetAbilities<TapAbility>();
         }
+
+        public IEnumerable<SilentSkillAbility> GetSilentSkillAbilities()
+        {
+            return GetAbilities<SilentSkillAbility>();
+        }
     }
 }
