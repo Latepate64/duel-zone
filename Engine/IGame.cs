@@ -22,12 +22,10 @@ namespace Engine
         SpellStack SpellStack { get; }
         Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
+        public IContinuousEffects ContinuousEffects { get; }
         void AddAbility(ICard card, IAbility ability);
 
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
-
-        void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
-
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
 
         void AddPendingAbilities(params IResolvableAbility[] abilities);
@@ -47,8 +45,6 @@ namespace Engine
         bool CanAttackPlayers(ICard creature);
 
         bool CanBeUsedRegardlessOfManaCost(ICard card);
-
-        bool CanCreatureEvolve(ICard card);
 
         bool CheckStateBasedActions();
 
@@ -79,20 +75,7 @@ namespace Engine
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
-        void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void ResolveReflexiveTriggeredAbilities();
-        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
-        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-        bool DoesCreatureAttackIfAble(ICard creature);
-        bool CanPlayerTapCreature(IPlayer player, ICard card);
-        bool CanPlayerChooseCreature(IPlayer player, ICard card);
-        bool DoesAnySlayerEffectApply(ICard loser, ICard winner);
-        bool DoesCreatureGetDestroyedInBattle(ICard against, ICard target);
-        bool CanCreatureBlockCreature(ICard blocker, ICard attackingCreature);
-        bool CanCreatureBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget);
-        bool DoesCreatureBlockIfAble(ICard blocker, ICard attackingCreature);
-        bool DoesBattleHappenAfterCreatureBecomesBlocked(ICard attackingCreature, ICard blockingCreature);
-        int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature);
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
     }
 }
