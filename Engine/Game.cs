@@ -387,16 +387,30 @@ namespace Engine
             if (CanAttackAtLeastOneCreature(attacker))
             {
                 var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(attacker.Owner).Id).Where(x => CanAttackCreature(attacker, x));
-                var canAttackUntappedCreaturesEffects = GetContinuousEffects<ICanAttackUntappedCreaturesEffect>();
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
-                    canAttackUntappedCreaturesEffects.Any(e => e.CanAttackUntappedCreature(attacker, c, this)) ||
-                    GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>().Any(x => x.Applies(c))));
+                    CanCreatureAttackUntappedCreature(attacker, c) ||
+                    CreatureCanBeAttackedAsThoughItWereTapped(c)));
             }
-            if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any() && !GetContinuousEffects<IPlayersCannotUseTapAbilities>().Any())
+            if (attackables.Any() && attacker.GetAbilities<TapAbility>().Any() && !CanPlayersUseTapAbilities())
             {
                 attackables.Add(attacker);
             }
             return attackables;
+        }
+
+        private bool CanPlayersUseTapAbilities()
+        {
+            return GetContinuousEffects<IPlayersCannotUseTapAbilities>().Any();
+        }
+
+        private bool CreatureCanBeAttackedAsThoughItWereTapped(ICard c)
+        {
+            return GetContinuousEffects<ICanBeAttackedAsThoughTappedEffect>().Any(x => x.Applies(c));
+        }
+
+        private bool CanCreatureAttackUntappedCreature(ICard attacker, ICard untappedCreature)
+        {
+            return GetContinuousEffects<ICanAttackUntappedCreaturesEffect>().Any(e => e.CanAttackUntappedCreature(attacker, untappedCreature, this));
         }
 
         public int GetTimestamp()
@@ -687,7 +701,12 @@ namespace Engine
         {
             return events.GroupBy(
                 gameEvent => gameEvent,
-                gameEvent => GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent, this)));
+                gameEvent => GetReplacementEffectsThatCanBeApplied(gameEvent));
+        }
+
+        private IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent)
+        {
+            return GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent, this));
         }
 
         private IEnumerable<IZone> GetZones()
@@ -860,13 +879,12 @@ namespace Engine
 
         public int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature)
         {
-            int breakAmount = 1;
-            var breakerEffects = GetContinuousEffects<IBreakerEffect>();
-            if (breakerEffects.Any())
-            {
-                breakAmount = breakerEffects.Max(x => x.GetAmount(this, attackingCreature));
-            }
-            return breakAmount;
+            return GetAmountsOfShieldsCreatureCanBreak(attackingCreature).DefaultIfEmpty(1).Max();
+        }
+
+        private IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICard attackingCreature)
+        {
+            return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(this, attackingCreature));
         }
     }
 }
