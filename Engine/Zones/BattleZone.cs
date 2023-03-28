@@ -25,7 +25,7 @@ namespace Engine.Zones
             card.SummoningSickness = true;
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.AddContinuousEffects(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
         public override List<ICard> Remove(ICard card, IGame game)
@@ -51,14 +51,15 @@ namespace Engine.Zones
             }
             else
             {
-                game.RemoveContinuousEffects(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
+                game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
                 return card.Deconstruct(new List<ICard>()).ToList();
             }
         }
 
         public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Where(creature => !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(effect => effect.PlayerCannotChooseCreature(creature, game.GetOpponent(owner), game)));
+            IPlayer opponent = game.GetPlayer(game.GetOpponent(owner));
+            return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(opponent, creature));
         }
 
         public override string ToString()

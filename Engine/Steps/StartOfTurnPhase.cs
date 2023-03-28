@@ -33,25 +33,19 @@ namespace Engine.Steps
         /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-            var player = game.CurrentTurn.ActivePlayer;
-            var ownCreaturesWithSummoningSickness = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id).Where(x => x.SummoningSickness).ToList();
-            if (ownCreaturesWithSummoningSickness.Any())
-            {
-                foreach (var creature in ownCreaturesWithSummoningSickness)
-                {
-                    creature.SummoningSickness = false;
-                }
-                //TODO: event
-                //game.Process(new SummoningSicknessEvent { Cards = ownCreaturesWithSummoningSickness.Select(x => x.Convert()).ToList() });
-            }
+            IPlayer player = game.CurrentTurn.ActivePlayer;
             var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
+            foreach (ICard creature in battleZoneCreatures.Where(x => x.SummoningSickness).ToList())
+            {
+                creature.SummoningSickness = false;
+            }
 
-            if (!game.GetContinuousEffects<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(player)))
+            if (game.ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
                 player.Untap(game, player.ManaZone.Cards.ToArray());
             }
 
-            if (!game.GetContinuousEffects<ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn>().Any())
+            if (game.ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
                 var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
                 var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);

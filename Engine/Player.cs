@@ -96,7 +96,7 @@ namespace Engine
 
         public bool CanChoose(ICard card, IGame game)
         {
-            return !game.GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, Id, game));
+            return game.ContinuousEffects.CanPlayerChooseCreature(this, card);
         }
 
         public void Cast(ICard spell, IGame game)
@@ -135,7 +135,7 @@ namespace Engine
 
         public bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers)
         {
-            var minimum = attackers.Any(attacker => game.GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(attacker, game))) ? 1 : 0;
+            var minimum = attackers.Any(attacker => game.ContinuousEffects.DoesCreatureAttackIfAble(attacker)) ? 1 : 0;
             var decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
@@ -495,7 +495,7 @@ namespace Engine
 
         public void Tap(IGame game, params ICard[] cards)
         {
-            var untappedCards = cards.Where(x => x != null && !x.Tapped && !game.GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(this, x, game))).ToList();
+            var untappedCards = cards.Where(card => card != null && !card.Tapped && game.ContinuousEffects.CanPlayerTapCreature(this, card)).ToList();
             foreach (var card in untappedCards)
             {
                 card.Tapped = true;

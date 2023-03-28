@@ -19,9 +19,8 @@ namespace Engine.Steps
 
         private IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
         {
-            var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>
-                CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(x => game.GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(x, attackingCreature, game)));
+            var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>  CanBlock(game, attackingCreature, blocker));
+            var mustBlockers = blockers.Where(blocker => game.ContinuousEffects.DoesCreatureBlockIfAble(blocker, attackingCreature));
             if (mustBlockers.Any())
             {
                 return mustBlockers;
@@ -35,8 +34,8 @@ namespace Engine.Steps
         private bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
         {
             return !blocker.Tapped &&
-                game.GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature, game)) &&
-                game.GetContinuousEffects<IUnblockableEffect>().All(e => !e.CannotBeBlocked(attackingCreature, blocker, Phase.AttackTarget, game));
+                game.ContinuousEffects.CanCreatureBlockCreature(blocker, attackingCreature) &&
+                game.ContinuousEffects.CanCreatureBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
@@ -60,7 +59,7 @@ namespace Engine.Steps
         {
             if (Phase.BlockingCreature != null)
             {
-                if (!game.GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(Phase.AttackingCreature, Phase.BlockingCreature, game)))
+                if (!game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature))
                 {
                     return new BattleStep(Phase);
                 }

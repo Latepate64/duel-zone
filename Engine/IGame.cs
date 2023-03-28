@@ -22,12 +22,10 @@ namespace Engine
         SpellStack SpellStack { get; }
         Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
+        public IContinuousEffects ContinuousEffects { get; }
         void AddAbility(ICard card, IAbility ability);
 
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
-
-        void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
-
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
 
         void AddPendingAbilities(params IResolvableAbility[] abilities);
@@ -48,8 +46,6 @@ namespace Engine
 
         bool CanBeUsedRegardlessOfManaCost(ICard card);
 
-        bool CanEvolve(ICard card);
-
         bool CheckStateBasedActions();
 
         void Destroy(IAbility ability, params ICard[] cards);
@@ -63,7 +59,6 @@ namespace Engine
         ICard GetCard(Guid id);
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
-        IEnumerable<T> GetContinuousEffects<T>() where T : IContinuousEffect;
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);
         Guid GetOpponent(Guid player);
@@ -80,7 +75,7 @@ namespace Engine
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
-        void RemoveContinuousEffects(IEnumerable<Guid> staticAbilities);
         void ResolveReflexiveTriggeredAbilities();
+        int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
     }
 }
