@@ -30,7 +30,7 @@ namespace Cards.Cards.DM09
             {
                 game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
             }
-            player.ShuffleDeck(game);
+            player.ShuffleOwnDeck(game);
         }
 
         public override IOneShotEffect Copy()

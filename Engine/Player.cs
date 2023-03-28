@@ -444,7 +444,7 @@ namespace Engine
         /// </summary>
         /// <param name="game"></param>
         /// <param name="cards"></param>
-        public void Reveal(IGame game, params ICard[] cards)
+        public void ShowCardsToOpponent(IGame game, params ICard[] cards)
         {
             Reveal(game, game.Players, cards);
         }
@@ -461,7 +461,7 @@ namespace Engine
         {
             var index = Deck.Cards.FindLastIndex(x => x.IsNonEvolutionCreature);
             var revealed = Deck.Cards.Skip(index).ToArray();
-            Reveal(game, revealed);
+            ShowCardsToOpponent(game, revealed);
             var creature = index != -1 ? revealed.FirstOrDefault() : null;
             var toGraveyard = revealed.Where(x => x != creature).ToArray();
             if (creature != null)
@@ -474,7 +474,7 @@ namespace Engine
         public IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game)
         {
             var cards = Deck.GetTopCards(amount);
-            Reveal(game, cards.ToArray());
+            ShowCardsToOpponent(game, cards.ToArray());
             return cards;
         }
 
@@ -484,7 +484,7 @@ namespace Engine
             game.Destroy(ability, creature);
         }
 
-        public void ShuffleDeck(IGame game)
+        public void ShuffleOwnDeck(IGame game)
         {
             game.ProcessEvents(new ShuffleDeckEvent(this));
         }
@@ -655,6 +655,16 @@ namespace Engine
         public IEnumerable<ICard> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICard> creaturesWithSilentSkill)
         {
             return ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
+        }
+
+        public void SearchOwnDeck()
+        {
+            //TODO: Reveal deck cards to owner
+        }
+
+        public void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, ICard[] creatures)
+        {
+            game.Move(ability, ZoneType.Deck, ZoneType.Hand, creatures);
         }
     }
 }
