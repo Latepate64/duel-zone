@@ -11,12 +11,12 @@ namespace Engine
         IDeck Deck { get; }
         List<ICard> DeckCards => Deck.Cards;
         bool DirectlyAttacked { get; set; }
-        Graveyard Graveyard { get; }
-        Hand Hand { get; }
+        IGraveyard Graveyard { get; }
+        IHand Hand { get; }
         System.Guid Id { get; set; }
         IManaZone ManaZone { get; }
         string Name { get; set; }
-        ShieldZone ShieldZone { get; }
+        IShieldZone ShieldZone { get; }
         IEnumerable<IZone> Zones { get; }
         void ArrangeTopCardsOfDeck(params ICard[] cards);
 

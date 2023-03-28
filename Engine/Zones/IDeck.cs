@@ -2,7 +2,7 @@
 
 namespace Engine.Zones
 {
-    public interface IDeck : IZone
+    public interface IDeck : IZone, ICopyable<IDeck>
     {
         void Setup(IEnumerable<ICard> cards, IPlayer owner);
         void Shuffle();
