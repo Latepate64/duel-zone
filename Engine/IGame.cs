@@ -77,5 +77,6 @@ namespace Engine
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
         void ResolveReflexiveTriggeredAbilities();
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
+        void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
     }
 }

@@ -589,7 +589,7 @@ namespace Engine
             }
             else
             {
-                game.ProcessEvents(new CreatureAttackedEvent(attacker, target));
+                game.ProcessCreatureAttackedEvent(attacker, target);
                 return false;
             }
         }
