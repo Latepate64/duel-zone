@@ -78,5 +78,6 @@ namespace Engine
         void ResolveReflexiveTriggeredAbilities();
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
         void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
+        void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
     }
 }

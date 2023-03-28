@@ -44,7 +44,7 @@ namespace Engine.Steps
             }
         }
 
-        private static void UntapBattleZoneCreatures(IGame game, IPlayer player)
+        private static void UntapBattleZoneCreatures(IGame game, IPlayer player) //IGame IPlayer IEnumerable IBattleZone ICard Guid
         {
             IEnumerable<ICard> creaturesWithSilentSkill = game.BattleZone.GetCreaturesWithSilentSkill(player);
 
@@ -52,7 +52,7 @@ namespace Engine.Steps
             player.Untap(game, game.BattleZone.GetCreatures(player.Id).Except(creaturesWithSilentSkill).ToArray());
             IEnumerable<ICard> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
             player.Untap(game, creaturesWithSilentSkill.Except(cardsThatStayTapped).ToArray());
-            game.AddPendingAbilities(cardsThatStayTapped.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
+            game.AddPendingSilentSkillAbilities(cardsThatStayTapped);
         }
 
         internal bool SkipDrawStep { get; set; }
