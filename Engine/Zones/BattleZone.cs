@@ -59,7 +59,7 @@ namespace Engine.Zones
         public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
             IPlayer opponent = game.GetPlayer(game.GetOpponent(owner));
-            return GetCreatures(owner).Where(creature => !game.PlayerCannotChooseCreature(opponent, creature));
+            return GetCreatures(owner).Where(creature => game.CanPlayerChooseCreature(opponent, creature));
         }
 
         public override string ToString()
