@@ -165,15 +165,15 @@ namespace Engine
 
         public bool AffectedBySummoningSickness(ICard creature)
         {
-            return creature.SummoningSickness && (!CreatureHasSpeedAttacker(creature) || !IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(creature));
+            return creature.SummoningSickness && (!DoesCreatureHaveSpeedAttacker(creature) || !DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(creature));
         }
 
-        private bool IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(ICard creature)
+        private bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICard creature)
         {
             return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, this));
         }
 
-        private bool CreatureHasSpeedAttacker(ICard creature)
+        private bool DoesCreatureHaveSpeedAttacker(ICard creature)
         {
             return GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature, this));
         }
@@ -191,34 +191,28 @@ namespace Engine
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
             var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(creature.Owner).Id);
-            return !CreatureCannotAttack(creature) && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+            return CanCreatureAttack(creature) && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
         }
 
-        private bool CreatureCannotAttack(ICard creature)
+        private bool CanCreatureAttack(ICard creature)
         {
-            return GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
+            return !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, this));
         }
 
         public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
         {
-            return !CreatureCannotAttack(attacker) &&
-                !CreatureCannotAttackCreature(attacker, targetOfAttack) &&
-                !CreatureCannotBeAttacked(attacker, targetOfAttack);
+            return CanCreatureAttack(attacker) && CanCreatureAttackCreature(attacker, targetOfAttack);
         }
 
-        private bool CreatureCannotBeAttacked(ICard attacker, ICard targetOfAttack)
+        private bool CanCreatureAttackCreature(ICard attacker, ICard targetOfAttack)
         {
-            return GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, this));
-        }
-
-        private bool CreatureCannotAttackCreature(ICard attacker, ICard targetOfAttack)
-        {
-            return GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, this));
+            // TODO: Merge ICannotBeAttackedEffect and ICannotAttackCreaturesEffect
+            return !GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, this)) && !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, this));
         }
 
         public bool CanAttackPlayers(ICard creature)
         {
-            return (!CreatureCannotAttack(creature) && !CreatureCannotAttackPlayers(creature)) || IgnoreAnyEffectsThatWouldPreventCreatureFromAttackingYourOpponent(creature);
+            return (CanCreatureAttack(creature) && !CreatureCannotAttackPlayers(creature)) || DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(creature);
         }
 
         private bool CreatureCannotAttackPlayers(ICard creature)
