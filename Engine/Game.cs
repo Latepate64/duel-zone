@@ -638,13 +638,18 @@ namespace Engine
 
         private void CheckExpirations(IGameEvent gameEvent)
         {
-            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
-            {
-                _continuousEffects.Remove(remove);
-            }
+            RemoveExpiredContinuousEffects(gameEvent);
             foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
             {
                 _state.DelayedTriggeredAbilities.Remove(remove);
+            }
+        }
+
+        private void RemoveExpiredContinuousEffects(IGameEvent gameEvent)
+        {
+            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
+            {
+                _continuousEffects.Remove(remove);
             }
         }
 
@@ -770,6 +775,11 @@ namespace Engine
         private void NotifyWatchers(IGameEvent gameEvent)
         {
             BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
+            NotifyContinuousEffects(gameEvent);
+        }
+
+        private void NotifyContinuousEffects(IGameEvent gameEvent)
+        {
             _continuousEffects.OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
         }
 
