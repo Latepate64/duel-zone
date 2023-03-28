@@ -44,9 +44,7 @@ namespace Cards.Cards.Promo
         public override void Apply(IGame game)
         {
             Controller.SearchOwnDeck();
-            ICard[] creatures = Controller.ChooseCards(Controller.Deck.Creatures, 0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Controller), ToString()).ToArray();
-            Controller.ShowCardsToOpponent(game, creatures);
-            Controller.PutCardsFromOwnDeckIntoOwnHand(game, Ability, creatures);
+            Controller.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Controller), ToString(), game, Ability);
             Controller.ShuffleOwnDeck(game);
         }
 

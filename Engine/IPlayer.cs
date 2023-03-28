@@ -130,5 +130,6 @@ namespace Engine
         void Unreveal(params ICard[] cards);
         void Untap(IGame game, params ICard[] cards);
         void UseCard(ICard card, IGame game);
+        void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability);
     }
 }

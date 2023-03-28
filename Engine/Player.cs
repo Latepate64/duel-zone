@@ -666,5 +666,12 @@ namespace Engine
         {
             game.Move(ability, ZoneType.Deck, ZoneType.Hand, creatures);
         }
+
+        public void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability)
+        {
+            ICard[] creatures = ChooseCards(Deck.Creatures, minimum, maximum, description).ToArray();
+            ShowCardsToOpponent(game, creatures);
+            PutCardsFromOwnDeckIntoOwnHand(game, ability, creatures);
+        }
     }
 }
