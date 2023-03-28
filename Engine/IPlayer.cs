@@ -98,7 +98,7 @@ namespace Engine
         void LookAtOpponentsHand(IGame game);
 
         IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
-
+        void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, ICard[] creatures);
         void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability);
 
         void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability);
@@ -113,7 +113,7 @@ namespace Engine
 
         void ReturnOwnManaCreature(IGame game, IAbility source);
 
-        void Reveal(IGame game, params ICard[] cards);
+        void ShowCardsToOpponent(IGame game, params ICard[] cards);
 
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
 
@@ -121,8 +121,8 @@ namespace Engine
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
 
         void Sacrifice(IGame game, IAbility source);
-
-        void ShuffleDeck(IGame game);
+        void SearchOwnDeck();
+        void ShuffleOwnDeck(IGame game);
 
         void Tap(IGame game, params ICard[] cards);
 

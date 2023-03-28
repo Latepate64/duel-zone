@@ -18,9 +18,9 @@ namespace Cards.Cards.DM06
         {
             var cards = Controller.Deck.Cards;
             var selectedCards = Controller.ChooseAnyNumberOfCards(cards, ToString()).ToArray();
-            Controller.Reveal(game, selectedCards);
+            Controller.ShowCardsToOpponent(game, selectedCards);
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, selectedCards);
-            Controller.ShuffleDeck(game);
+            Controller.ShuffleOwnDeck(game);
         }
 
         public override IOneShotEffect Copy()
