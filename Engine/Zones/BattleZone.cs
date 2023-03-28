@@ -141,5 +141,10 @@ namespace Engine.Zones
         {
             return new BattleZone(this);
         }
+
+        public void RemoveSummoningSicknesses(IPlayer activePlayer)
+        {
+            GetCreatures(activePlayer.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
+        }
     }
 }
