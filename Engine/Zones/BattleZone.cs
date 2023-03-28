@@ -150,5 +150,10 @@ namespace Engine.Zones
         {
             return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
         }
+
+        public IEnumerable<ICard> GetCreatures(IPlayer player)
+        {
+            return GetCreatures(player.Id);
+        }
     }
 }
