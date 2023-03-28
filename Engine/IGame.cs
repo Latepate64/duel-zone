@@ -79,5 +79,6 @@ namespace Engine
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
         void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
         void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
+        IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
     }
 }
