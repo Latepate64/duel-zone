@@ -23,5 +23,6 @@ namespace Engine.Zones
         IEnumerable<ICard> GetOtherTappedCreatures(Guid controller, Guid creature);
         IEnumerable<ICard> GetOtherUntappedCreatures(Guid controller, Guid creature);
         IEnumerable<ICard> GetTappedCreatures(Guid controller);
+        void RemoveSummoningSicknesses(IPlayer activePlayer);
     }
 }
