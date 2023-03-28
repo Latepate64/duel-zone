@@ -48,25 +48,13 @@ namespace Engine.Steps
 
         public override IStep GetNextStep(IGame game)
         {
-            if (Phase.BlockingCreature != null)
-            {
-                if (!game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature))
-                {
-                    return new BattleStep(Phase);
-                }
-                else
-                {
-                    return new EndOfAttackStep(Phase);
-                }
-            }
-            else if (Phase.AttackTarget is ICard)
-            {
-                return new BattleStep(Phase);
-            }
-            else
-            {
-                return new DirectAttackStep(Phase);
-            }
+            return Phase.BlockingCreature != null
+                ? game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature)
+                    ? new BattleStep(Phase)
+                    : new EndOfAttackStep(Phase)
+                : Phase.AttackTarget is ICard
+                    ? new BattleStep(Phase)
+                    : new DirectAttackStep(Phase);
         }
 
         public override IStep Copy()
