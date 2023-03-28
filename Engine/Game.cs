@@ -110,13 +110,13 @@ namespace Engine
             card.AddGrantedAbility(ability);
             if (ability is IStaticAbility staticAbility)
             {
-                ContinuousEffects.AddContinuousEffects(card, staticAbility);
+                ContinuousEffects.Add(card, staticAbility);
             }
         }
 
         public void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects)
         {
-            ContinuousEffects.AddContinuousEffects(source, continuousEffects);
+            ContinuousEffects.Add(source, continuousEffects);
         }
 
         public void AddDelayedTriggeredAbility(DelayedTriggeredAbility delayedTriggeredAbility)
@@ -525,7 +525,7 @@ namespace Engine
 
         private void CheckExpirations(IGameEvent gameEvent)
         {
-            ContinuousEffects.RemoveExpiredContinuousEffects(gameEvent);
+            ContinuousEffects.RemoveExpired(gameEvent);
             foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
             {
                 _state.DelayedTriggeredAbilities.Remove(remove);
@@ -636,7 +636,7 @@ namespace Engine
                 {
                     NotifyWatchers(gameEvent);
                     CheckExpirations(gameEvent);
-                    ContinuousEffects.ApplyContinuousEffects();
+                    ContinuousEffects.Apply();
                     TriggerAbilities(gameEvent);
                 }
             }
@@ -649,7 +649,7 @@ namespace Engine
         private void NotifyWatchers(IGameEvent gameEvent)
         {
             BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
-            ContinuousEffects.NotifyContinuousEffects(gameEvent);
+            ContinuousEffects.Notify(gameEvent);
         }
 
         private void StartNewTurn(IPlayer activePlayer, IPlayer nonActivePlayer)

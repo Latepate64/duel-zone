@@ -9,9 +9,9 @@ namespace Engine.ContinuousEffects
     {
         IGame Game { get; }
 
-        void AddContinuousEffects(ICard source, params IStaticAbility[] staticAbilities);
-        void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
-        void ApplyContinuousEffects();
+        void Add(ICard source, params IStaticAbility[] staticAbilities);
+        void Add(IAbility source, params IContinuousEffect[] continuousEffects);
+        void Apply();
         bool CanCreatureAttack(ICard creature);
         bool CanCreatureAttackCreature(ICard attacker, ICard targetOfAttack);
         bool CanCreatureAttackPlayers(ICard creature);
@@ -36,8 +36,8 @@ namespace Engine.ContinuousEffects
         int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature);
         IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICard attackingCreature);
         IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
-        void NotifyContinuousEffects(IGameEvent gameEvent);
-        void RemoveContinuousEffects(IEnumerable<Guid> enumerable);
-        void RemoveExpiredContinuousEffects(IGameEvent gameEvent);
+        void Notify(IGameEvent gameEvent);
+        void Remove(IEnumerable<Guid> enumerable);
+        void RemoveExpired(IGameEvent gameEvent);
     }
 }
