@@ -1,5 +1,4 @@
-﻿using Engine.ContinuousEffects;
-using Engine.GameEvents;
+﻿using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,32 +12,24 @@ namespace Engine.Steps
 
         public override void PerformTurnBasedAction(IGame game)
         {
-            IEnumerable<ICard> possibleBlockers = GetPossibleBlockers(game, Phase.AttackingCreature);
-            ChooseBlocker(game, possibleBlockers);
+            ActivePlayerDeclaresBlocker(game, GetCreaturesThatCanBlock(game, Phase.AttackingCreature));
         }
 
-        private IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
+        private IEnumerable<ICard> GetCreaturesThatCanBlock(IGame game, ICard attackingCreature)
         {
-            var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>  CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(blocker => game.ContinuousEffects.DoesCreatureBlockIfAble(blocker, attackingCreature));
-            if (mustBlockers.Any())
-            {
-                return mustBlockers;
-            }
-            else
-            {
-                return blockers;
-            }
+            IEnumerable<ICard> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
+            IEnumerable<ICard> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
+            return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }
 
-        private bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
+        private bool CanCreatureBlockCreature(ICard blocker, ICard attackingCreature, IGame game)
         {
             return !blocker.Tapped &&
                 game.ContinuousEffects.CanCreatureBlockCreature(blocker, attackingCreature) &&
                 game.ContinuousEffects.CanCreatureBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
-        private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
+        private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
         {
             var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
             if (blocker != null)
