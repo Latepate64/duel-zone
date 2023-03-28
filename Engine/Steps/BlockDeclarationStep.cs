@@ -20,7 +20,7 @@ namespace Engine.Steps
         private IEnumerable<ICard> GetPossibleBlockers(IGame game, ICard attackingCreature)
         {
             var blockers = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(blocker =>  CanBlock(game, attackingCreature, blocker));
-            var mustBlockers = blockers.Where(blocker => game.CreatureBlocksIfAble(blocker, attackingCreature));
+            var mustBlockers = blockers.Where(blocker => game.DoesCreatureBlockIfAble(blocker, attackingCreature));
             if (mustBlockers.Any())
             {
                 return mustBlockers;
@@ -34,8 +34,8 @@ namespace Engine.Steps
         private bool CanBlock(IGame game, ICard attackingCreature, ICard blocker)
         {
             return !blocker.Tapped &&
-                game.CanBlock(blocker, attackingCreature) &&
-                game.CannotBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
+                game.CanCreatureBlockCreature(blocker, attackingCreature) &&
+                game.CanCreatureBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
         private void ChooseBlocker(IGame game, IEnumerable<ICard> possibleBlockers)
@@ -59,7 +59,7 @@ namespace Engine.Steps
         {
             if (Phase.BlockingCreature != null)
             {
-                if (!game.SkipBattleAfterCreatureBlocks(Phase.AttackingCreature, Phase.BlockingCreature))
+                if (!game.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature))
                 {
                     return new BattleStep(Phase);
                 }

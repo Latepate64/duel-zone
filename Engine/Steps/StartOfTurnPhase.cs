@@ -40,12 +40,12 @@ namespace Engine.Steps
                 creature.SummoningSickness = false;
             }
 
-            if (!game.PlayerCannotUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
+            if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
                 player.Untap(game, player.ManaZone.Cards.ToArray());
             }
 
-            if (!game.CreaturesInTheBattleZoneDoNotUntapAtTheStartOfEachPlayersTurn())
+            if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
                 var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
                 var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);
