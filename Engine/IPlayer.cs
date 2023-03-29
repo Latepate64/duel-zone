@@ -132,5 +132,6 @@ namespace Engine
         void UseCard(ICard card, IGame game);
         void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability);
         void PutCreatureFromOwnManaZoneIntoBattleZone(ICard mana, IGame game, IAbility ability);
+        void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICard creature, IGame game, IAbility ability);
     }
 }

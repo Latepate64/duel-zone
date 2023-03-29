@@ -678,5 +678,10 @@ namespace Engine
         {
             game.Move(ability, ZoneType.ManaZone, ZoneType.BattleZone, mana);
         }
+
+        public void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICard creature, IGame game, IAbility ability)
+        {
+            game.Move(ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
+        }
     }
 }

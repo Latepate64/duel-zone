@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
                     ICard creature = Controller.ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
                     if (creature != null)
                     {
-                        game.Move(Ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
+                        Controller.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, game, Ability);
 
                         // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
                         IEnumerable<ICard> manas = creature.Owner.ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= creature.Owner.ManaZone.Cards.Count);
