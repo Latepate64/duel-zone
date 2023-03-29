@@ -6,5 +6,7 @@ namespace Engine.Zones
     {
         IEnumerable<ICard> TappedCards { get; }
         IEnumerable<ICard> UntappedCards { get; }
+
+        IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum);
     }
 }

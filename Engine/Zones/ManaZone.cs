@@ -61,5 +61,10 @@ namespace Engine.Zones
         {
             return new ManaZone(this);
         }
+
+        public IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
+        {
+            return Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= maximum);
+        }
     }
 }
