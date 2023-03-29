@@ -20,11 +20,11 @@ namespace Cards.Cards.Promo
             {
                 if (card.HasRace(Race.Survivor))
                 {
-                    game.Move(Ability, ZoneType.Deck, ZoneType.Hand, card);
+                    Controller.PutTopCardOfOwnDeckIntoOwnHand(game, Ability);
                 }
                 else
                 {
-                    game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
+                    Controller.PutTopCardOfOwnDeckIntoOwnGraveyard(game, Ability);
                 }
             }
         }
