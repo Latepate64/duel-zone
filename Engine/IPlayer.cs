@@ -136,5 +136,6 @@ namespace Engine
         ICard ChooseCreatureInBattleZoneOptionally(IGame game, string v);
         void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability);
         void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
+        ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
     }
 }

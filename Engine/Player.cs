@@ -698,5 +698,12 @@ namespace Engine
         {
             Discard(ability, game, Hand.Creatures.Where(x => x.Power.HasValue && x.Power <= power).ToArray());
         }
+
+        public ICard DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)
+        {
+            ICard creature = ChooseControlledCreatureOptionally(game, description);
+            game.Destroy(ability, creature);
+            return creature;
+        }
     }
 }
