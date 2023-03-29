@@ -1,4 +1,5 @@
-﻿using Engine.Abilities;
+﻿using Common;
+using Engine.Abilities;
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
@@ -140,5 +141,7 @@ namespace Engine
         ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
         void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability);
         ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+        void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
+        void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
     }
 }
