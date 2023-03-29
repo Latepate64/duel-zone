@@ -15,11 +15,6 @@ namespace Engine
             Id = Guid.NewGuid();
         }
 
-        public Card(int? power) : this()
-        {
-            PrintedPower = power;
-        }
-
         protected Card(ICard card, int timeStamp)
         {
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
@@ -44,6 +39,19 @@ namespace Engine
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             Underneath = card.Underneath;
             InitializeAbilities();
+        }
+
+        protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
+        {
+            CardType = type;
+            Civilizations = civilizations.ToList();
+            ManaCost = manaCost;
+            Name = name;
+            PrintedPower = power;
+        }
+
+        protected Card(ICard card) : this(card, 0)
+        {
         }
 
         public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
@@ -243,6 +251,20 @@ namespace Engine
         public IEnumerable<SilentSkillAbility> GetSilentSkillAbilities()
         {
             return GetAbilities<SilentSkillAbility>();
+        }
+
+        protected void AddShieldTrigger()
+        {
+            ShieldTrigger = true;
+        }
+
+        /// <summary>
+        /// Creates a static ability for each continuous effect provided and add the abilities to the card.
+        /// </summary>
+        /// <param name="effects"></param>
+        protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
+        {
+            AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
         }
     }
 }

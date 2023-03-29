@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards
 {
-    class Creature : CardImplementation
+    class Creature : Card
     {
         /// <summary>
         /// This constructor should be used for cards with one race.
