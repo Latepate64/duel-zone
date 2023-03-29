@@ -135,5 +135,6 @@ namespace Engine
         void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICard creature, IGame game, IAbility ability);
         ICard ChooseCreatureInBattleZoneOptionally(IGame game, string v);
         void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability);
+        void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
     }
 }
