@@ -5,7 +5,7 @@
         public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
             AddBlockerAbility();
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureBlocksIfAble());
+            AddThisCreatureBlocksIfAble();
             AddThisCreatureCannotAttackPlayersAbility();
         }
     }

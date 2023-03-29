@@ -105,6 +105,11 @@ namespace Cards
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
         }
+
+        protected void AddThisCreatureBlocksIfAble()
+        {
+            AddStaticAbilities(new ThisCreatureBlocksIfAble());
+        }
         #endregion Static abilities
 
         #region Triggered abilities
