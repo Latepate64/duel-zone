@@ -683,5 +683,10 @@ namespace Engine
         {
             game.Move(ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
         }
+
+        public ICard ChooseCreatureInBattleZoneOptionally(IGame game, string description)
+        {
+            return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description);
+        }
     }
 }
