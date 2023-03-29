@@ -2,6 +2,7 @@
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -138,5 +139,6 @@ namespace Engine
         void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
         ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
         void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability);
+        ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.Promo
 {
@@ -16,19 +15,18 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            var cards = Controller.RevealTopCardsOfDeck(1, game).ToArray();
-            if (cards.Length == 1)
+            ICard card = Controller.RevealTopCardOfOwnDeck(game);
+            if (card != null)
             {
-                if (cards.Single().HasRace(Race.Survivor))
+                if (card.HasRace(Race.Survivor))
                 {
-                    game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Hand, card);
                 }
                 else
                 {
-                    game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards);
+                    game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
                 }
             }
-            Controller.Unreveal(cards);
         }
 
         public override IOneShotEffect Copy()
