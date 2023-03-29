@@ -705,5 +705,10 @@ namespace Engine
             game.Destroy(ability, creature);
             return creature;
         }
+
+        public void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability)
+        {
+            game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
+        }
     }
 }

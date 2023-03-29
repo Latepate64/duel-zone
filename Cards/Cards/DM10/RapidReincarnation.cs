@@ -17,11 +17,10 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            ICard creature = Controller.DestroyOwnCreatureOptionally(ToString(), game, Ability);
-            if (creature != null)
+            if (Controller.DestroyOwnCreatureOptionally(ToString(), game, Ability) != null)
             {
                 ICard card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Cards.Count), ToString());
-                game.Move(Ability, ZoneType.Hand, ZoneType.BattleZone, card);
+                Controller.PutCreatureFromOwnHandIntoBattleZone(card, game, Ability);
             }
         }
 
