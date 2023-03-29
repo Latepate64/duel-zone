@@ -688,5 +688,10 @@ namespace Engine
         {
             return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description);
         }
+
+        public void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
+        {
+            game.Destroy(ability, game.BattleZone.Creatures.Where(x => x.Power <= power).ToArray());
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            game.Destroy(Ability, game.BattleZone.Creatures.Where(x => x.Power <= 3000).ToArray());
-            var cards = GetOpponent(game).Hand.Cards.ToArray();
+            Controller.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
+            ICard[] cards = GetOpponent(game).Hand.Cards.ToArray();
             if (cards.Any())
             {
                 Controller.Look(GetOpponent(game), game, cards);
