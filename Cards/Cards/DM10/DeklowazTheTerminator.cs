@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM10
 {
@@ -17,13 +16,8 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             Controller.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
-            ICard[] cards = GetOpponent(game).Hand.Cards.ToArray();
-            if (cards.Any())
-            {
-                Controller.Look(GetOpponent(game), game, cards);
-                GetOpponent(game).Discard(Ability, game, cards.Where(x => x.Power.HasValue && x.Power <= 3000).ToArray());
-                GetOpponent(game).Unreveal(cards);
-            }
+            Controller.LookAtOpponentsHand(game);
+            GetOpponent(game).DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
         }
 
         public override IOneShotEffect Copy()

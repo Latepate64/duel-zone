@@ -693,5 +693,10 @@ namespace Engine
         {
             game.Destroy(ability, game.BattleZone.Creatures.Where(x => x.Power <= power).ToArray());
         }
+
+        public void DiscardAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
+        {
+            Discard(ability, game, Hand.Creatures.Where(x => x.Power.HasValue && x.Power <= power).ToArray());
+        }
     }
 }
