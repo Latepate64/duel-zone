@@ -673,5 +673,10 @@ namespace Engine
             ShowCardsToOpponent(game, creatures);
             PutCardsFromOwnDeckIntoOwnHand(game, ability, creatures);
         }
+
+        public void PutCreatureFromOwnManaZoneIntoBattleZone(ICard mana, IGame game, IAbility ability)
+        {
+            game.Move(ability, ZoneType.ManaZone, ZoneType.BattleZone, mana);
+        }
     }
 }
