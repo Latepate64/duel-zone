@@ -13,6 +13,9 @@ import { DeckBuilderComponent } from './deck-builder/deck-builder.component';
 import { CardCollectionComponent } from './card-collection/card-collection.component';
 import { DeckComponent } from './deck/deck.component';
 import { MatTableModule, MatTable, MatRow, MatTableDataSource } from '@angular/material/table';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
+import { SharedModule } from './shared'
 
 @NgModule({
   declarations: [
@@ -36,9 +39,10 @@ import { MatTableModule, MatTable, MatRow, MatTableDataSource } from '@angular/m
       { path: 'deck-builder', component: DeckBuilderComponent },
     ]),
     MatTableModule,
-    //MatTable,
-    //MatRow,
-    //MatTableDataSource
+    AuthModule.forRoot({
+      ...env.auth0,
+    }),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
