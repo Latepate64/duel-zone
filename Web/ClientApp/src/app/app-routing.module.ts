@@ -9,12 +9,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/home/home.module').then((m) => m.HomeModule),
   },
-  //{
-  //  path: 'deck-builder',
-  //  loadChildren: () =>
-  //    import('./features/admin/admin.module').then((m) => m.AdminModule),
-  //  canActivate: [AuthGuard],
-  //},
+  {
+    path: 'deck-builder',
+    loadChildren: () =>
+      import('./features/deck-builder/deck-builder.module').then((m) => m.DeckBuilderModule),
+    canActivate: [AuthGuard],
+  },
   //{
   //  path: 'profile',
   //  loadChildren: () =>
