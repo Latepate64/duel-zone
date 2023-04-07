@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './shared/components/navigation/desktop/nav-menu/nav-menu.component';
-import { MatTableModule } from '@angular/material/table';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
 import { SharedModule } from './shared'
@@ -20,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    MatTableModule,
     AuthModule.forRoot({
       ...env.auth0,
     }),

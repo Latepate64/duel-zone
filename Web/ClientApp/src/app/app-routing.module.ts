@@ -15,12 +15,12 @@ const routes: Routes = [
       import('./features/deck-builder/deck-builder.module').then((m) => m.DeckBuilderModule),
     canActivate: [AuthGuard],
   },
-  //{
-  //  path: 'profile',
-  //  loadChildren: () =>
-  //    import('./features/profile/profile.module').then((m) => m.ProfileModule),
-  //  canActivate: [AuthGuard],
-  //},
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
+  },
   //{
   //  path: 'public',
   //  loadChildren: () =>
