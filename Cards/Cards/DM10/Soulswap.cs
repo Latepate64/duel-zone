@@ -1,6 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
@@ -21,23 +21,13 @@ namespace Cards.Cards.DM10
 
             public override void Apply(IGame game)
             {
-                // You may choose a creature in the battle zone and put it into its owner's mana zone.
-                var creatures = game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Ability.Controller.Id);
-                if (creatures.Any())
+                ICard creature = Controller.ChooseCreatureInBattleZoneOptionally(game, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
+                if (creature != null)
                 {
-                    var creature = Controller.ChooseCardOptionally(creatures, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
-                    if (creature != null)
-                    {
-                        game.Move(Ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
-
-                        // If you do, choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.
-                        var manas = creature.Owner.ManaZone.Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= creature.Owner.ManaZone.Cards.Count);
-                        if (manas.Any())
-                        {
-                            var mana = Controller.ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
-                            game.Move(Ability, ZoneType.ManaZone, ZoneType.BattleZone, mana);
-                        }
-                    }
+                    Controller.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, game, Ability);
+                    IEnumerable<ICard> manas = creature.Owner.ManaZone.GetNonEvolutionCreaturesThatCostSameOrLessThan(creature.Owner.ManaZone.Cards.Count);
+                    ICard mana = Controller.ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
+                    mana?.Owner.PutCreatureFromOwnManaZoneIntoBattleZone(mana, game, Ability);
                 }
             }
 

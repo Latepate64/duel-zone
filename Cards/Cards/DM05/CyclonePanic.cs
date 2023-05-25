@@ -24,7 +24,7 @@ namespace Cards.Cards.DM05
         {
             var amount = player.Hand.Cards.Count;
             game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
-            player.ShuffleDeck(game);
+            player.ShuffleOwnDeck(game);
             player.DrawCards(amount, game, source);
         }
 

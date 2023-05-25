@@ -4,6 +4,7 @@ using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -23,6 +24,8 @@ namespace Engine
         Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
+        IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
+
         void AddAbility(ICard card, IAbility ability);
 
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
@@ -77,5 +80,13 @@ namespace Engine
         void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
         void ResolveReflexiveTriggeredAbilities();
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
+        void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
+        void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
+        IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
+        IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
+        void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
+        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
+        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+        int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
     }
 }

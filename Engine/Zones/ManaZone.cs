@@ -56,5 +56,15 @@ namespace Engine.Zones
         {
             return "mana zone";
         }
+
+        public IManaZone Copy()
+        {
+            return new ManaZone(this);
+        }
+
+        public IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
+        {
+            return Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= maximum);
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Cards.Cards.DM11
             {
                 var creature = controller.ChooseCard(controller.Deck.Creatures.Where(x => x.ManaCost == destroyed.ManaCost), ToString());
                 game.Move(Ability, ZoneType.Deck, ZoneType.BattleZone, creature);
-                controller.ShuffleDeck(game);
+                controller.ShuffleOwnDeck(game);
             }
         }
 

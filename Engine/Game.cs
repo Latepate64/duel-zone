@@ -385,7 +385,7 @@ namespace Engine
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            Players.ToList().ForEach(x => x.ShuffleDeck(this));
+            Players.ToList().ForEach(x => x.ShuffleOwnDeck(this));
 
             // Each player puts five card from to the top of their deck into their shield zone.
             Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this, null));
@@ -693,6 +693,16 @@ namespace Engine
         public int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature)
         {
             return ContinuousEffects.GetAmountsOfShieldsCreatureCanBreak(attackingCreature).DefaultIfEmpty(1).Max();
+        }
+
+        public void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target)
+        {
+            ProcessEvents(new CreatureAttackedEvent(attacker, target));
+        }
+
+        public void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards)
+        {
+            AddPendingAbilities(cards.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards
 {
-    class Creature : CardImplementation
+    class Creature : Card
     {
         /// <summary>
         /// This constructor should be used for cards with one race.
@@ -104,6 +104,11 @@ namespace Cards
         protected void AddThisCreatureCannotBeAttackedAbility()
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
+        }
+
+        protected void AddThisCreatureBlocksIfAble()
+        {
+            AddStaticAbilities(new ThisCreatureBlocksIfAble());
         }
         #endregion Static abilities
 

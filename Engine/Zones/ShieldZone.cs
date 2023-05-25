@@ -5,7 +5,7 @@ namespace Engine.Zones
     /// <summary>
     /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
     /// </summary>
-    public class ShieldZone : Zone
+    public class ShieldZone : Zone, IShieldZone
     {
         public ShieldZone() : base(ZoneType.ShieldZone) { }
 
@@ -16,6 +16,11 @@ namespace Engine.Zones
         public override void Add(ICard card, IGame game)
         {
             Cards.Add(card);
+        }
+
+        public IShieldZone Copy()
+        {
+            return new ShieldZone(this);
         }
 
         public override List<ICard> Remove(ICard card, IGame game)

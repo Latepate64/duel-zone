@@ -42,7 +42,8 @@ namespace Engine
         IEnumerable<T> GetAbilities<T>();
 
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
-
+        IEnumerable<SilentSkillAbility> GetSilentSkillAbilities();
+        IEnumerable<TapAbility> GetTapAbilities();
         bool HasCivilization(params Civilization[] civilizations);
         bool HasRace(Race race);
         void InitializeAbilities();

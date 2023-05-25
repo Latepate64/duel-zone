@@ -5,7 +5,7 @@
         public ArdentLunatron() : base("Ardent Lunatron", 3, 5000, Engine.Race.CyberMoon, Engine.Civilization.Water)
         {
             AddBlockerAbility();
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureBlocksIfAble());
+            AddThisCreatureBlocksIfAble();
             AddThisCreatureCannotAttackAbility();
         }
     }

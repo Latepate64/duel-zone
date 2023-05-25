@@ -1,5 +1,4 @@
-﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Steps
@@ -30,34 +29,29 @@ namespace Engine.Steps
         /// <summary>
         /// 501.1 The active player determines which cards they control will untap. Then they untap them all simultaneously. This is a turn-based action. Normally, all of a player’s cards untap, but effects can keep one or more of a player’s cards from untapping.
         /// </summary>
-        /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-            IPlayer player = game.CurrentTurn.ActivePlayer;
-            var battleZoneCreatures = game.BattleZone.GetCreatures(game.CurrentTurn.ActivePlayer.Id);
-            foreach (ICard creature in battleZoneCreatures.Where(x => x.SummoningSickness).ToList())
+            IPlayer player = game.ActivePlayer;
+            game.RemoveSummoningSicknesses(player);
+            if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
-                creature.SummoningSickness = false;
+                player.Untap(game, player.CardsInManaZone);
             }
-
-            if (game.ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
+            if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
-                player.Untap(game, player.ManaZone.Cards.ToArray());
+                UntapBattleZoneCreatures(game, player);
             }
+        }
 
-            if (game.ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
-            {
-                var creaturesWithSilentSkill = battleZoneCreatures.Where(x => x.GetAbilities<SilentSkillAbility>().Any());
-                var creaturesWithoutSilentSkill = battleZoneCreatures.Except(creaturesWithSilentSkill);
+        private static void UntapBattleZoneCreatures(IGame game, IPlayer player)
+        {
+            IEnumerable<ICard> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 
-                // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
-                player.Untap(game, creaturesWithoutSilentSkill.ToArray());
-
-                var keepTapped = player.ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
-                //var keepTapped = player.Choose(new Common.Choices.SilentSkillSelection(player.Id, creaturesWithoutSilentSkill), game).Decision.Select(x => game.GetCard(x));
-                player.Untap(game, creaturesWithSilentSkill.Except(keepTapped).ToArray());
-                game.AddPendingAbilities(keepTapped.SelectMany(x => x.GetAbilities<SilentSkillAbility>()).ToArray());
-            }
+            // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
+            player.Untap(game, game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill).ToArray());
+            IEnumerable<ICard> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
+            player.Untap(game, creaturesWithSilentSkill.Except(cardsThatStayTapped).ToArray());
+            game.AddPendingSilentSkillAbilities(cardsThatStayTapped);
         }
 
         internal bool SkipDrawStep { get; set; }

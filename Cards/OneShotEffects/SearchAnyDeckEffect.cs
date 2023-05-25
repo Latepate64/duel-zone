@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
                 var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
                 Apply(game, Ability, selectedCards.ToArray());
             }
-            (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleDeck(game);
+            (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleOwnDeck(game);
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

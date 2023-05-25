@@ -148,7 +148,7 @@ namespace Engine.ContinuousEffects
 
         public bool DoesBattleHappenAfterCreatureBecomesBlocked(ICard attackingCreature, ICard blockingCreature)
         {
-            return GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature, Game));
+            return !GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature, Game));
         }
 
         public int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature)

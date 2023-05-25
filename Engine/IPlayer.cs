@@ -1,7 +1,9 @@
-﻿using Engine.Abilities;
+﻿using Common;
+using Engine.Abilities;
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -11,13 +13,15 @@ namespace Engine
         IDeck Deck { get; }
         List<ICard> DeckCards => Deck.Cards;
         bool DirectlyAttacked { get; set; }
-        Graveyard Graveyard { get; }
-        Hand Hand { get; }
+        IGraveyard Graveyard { get; }
+        IHand Hand { get; }
         System.Guid Id { get; set; }
         IManaZone ManaZone { get; }
         string Name { get; set; }
-        ShieldZone ShieldZone { get; }
+        IShieldZone ShieldZone { get; }
         IEnumerable<IZone> Zones { get; }
+        ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
+
         void ArrangeTopCardsOfDeck(params ICard[] cards);
 
         void BurnOwnMana(IGame game, IAbility ability);
@@ -65,7 +69,7 @@ namespace Engine
         Race ChooseRace(string description, params Race[] excluded);
 
         bool ChooseToTakeAction(string description);
-
+        IEnumerable<ICard> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICard> creatures);
         ICard DestroyCreatureOptionally(IGame game, IAbility ability);
         ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
 
@@ -96,7 +100,7 @@ namespace Engine
         void LookAtOpponentsHand(IGame game);
 
         IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
-
+        void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, ICard[] creatures);
         void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability);
 
         void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability);
@@ -111,7 +115,7 @@ namespace Engine
 
         void ReturnOwnManaCreature(IGame game, IAbility source);
 
-        void Reveal(IGame game, params ICard[] cards);
+        void ShowCardsToOpponent(IGame game, params ICard[] cards);
 
         void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
 
@@ -119,8 +123,8 @@ namespace Engine
         IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
 
         void Sacrifice(IGame game, IAbility source);
-
-        void ShuffleDeck(IGame game);
+        void SearchOwnDeck();
+        void ShuffleOwnDeck(IGame game);
 
         void Tap(IGame game, params ICard[] cards);
 
@@ -128,5 +132,16 @@ namespace Engine
         void Unreveal(params ICard[] cards);
         void Untap(IGame game, params ICard[] cards);
         void UseCard(ICard card, IGame game);
+        void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability);
+        void PutCreatureFromOwnManaZoneIntoBattleZone(ICard mana, IGame game, IAbility ability);
+        void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICard creature, IGame game, IAbility ability);
+        ICard ChooseCreatureInBattleZoneOptionally(IGame game, string v);
+        void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability);
+        void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
+        ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
+        void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability);
+        ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+        void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
+        void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
     }
 }

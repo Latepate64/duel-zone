@@ -1,5 +1,4 @@
 ﻿using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Engine.Steps;
 using System;
 using System.Collections.Generic;
@@ -140,6 +139,21 @@ namespace Engine.Zones
         public IBattleZone Copy()
         {
             return new BattleZone(this);
+        }
+
+        public void RemoveSummoningSicknesses(IPlayer player)
+        {
+            GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
+        }
+
+        public IEnumerable<ICard> GetCreaturesWithSilentSkill(IPlayer player)
+        {
+            return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
+        }
+
+        public IEnumerable<ICard> GetCreatures(IPlayer player)
+        {
+            return GetCreatures(player.Id);
         }
     }
 }
