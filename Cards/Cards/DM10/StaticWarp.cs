@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             var chosen = game.Players.Select(x => x.ChooseCard(game.BattleZone.GetCreatures(x.Id), ToString()));
-            Controller.Tap(game, game.BattleZone.Creatures.Where(x => !chosen.Contains(x)).ToArray());
+            Applier.Tap(game, game.BattleZone.Creatures.Where(x => !chosen.Contains(x)).ToArray());
         }
 
         public override IOneShotEffect Copy()

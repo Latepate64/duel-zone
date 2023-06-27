@@ -23,7 +23,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var player = controller.ChoosePlayer(game, ToString());
             var card = controller.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)

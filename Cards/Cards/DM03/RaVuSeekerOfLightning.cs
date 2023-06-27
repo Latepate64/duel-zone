@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.Graveyard.Spells.Where(x => x.HasCivilization(Civilization.Light));
+            return Applier.Graveyard.Spells.Where(x => x.HasCivilization(Civilization.Light));
         }
     }
 }

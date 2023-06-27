@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && Races.Any(r => x.HasRace(r))).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.GetCreatures(Applier.Id).Where(x => !IsSourceOfAbility(x) && Races.Any(r => x.HasRace(r))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()

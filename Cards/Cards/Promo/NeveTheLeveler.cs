@@ -43,9 +43,9 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            Controller.SearchOwnDeck();
-            Controller.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Controller), ToString(), game, Ability);
-            Controller.ShuffleOwnDeck(game);
+            Applier.SearchOwnDeck();
+            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Applier), ToString(), game, Ability);
+            Applier.ShuffleOwnDeck(game);
         }
 
         public override IOneShotEffect Copy()

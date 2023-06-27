@@ -25,7 +25,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.Hand.Cards;
+            return Applier.Hand.Cards;
         }
     }
 }

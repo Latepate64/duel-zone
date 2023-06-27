@@ -40,7 +40,7 @@ namespace Cards.Cards.DM02
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.Deck.Cards;
+            return Applier.Deck.Cards;
         }
     }
 }

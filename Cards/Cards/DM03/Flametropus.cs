@@ -26,7 +26,7 @@ namespace Cards.Cards.DM03
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var card = player.ChooseCardOptionally(player.ManaZone.Cards, ToString());
             if (card != null)
             {

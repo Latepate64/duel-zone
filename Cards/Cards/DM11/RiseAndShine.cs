@@ -25,11 +25,11 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var cards = Controller.RevealTopCardsOfDeck(4, game);
+            var cards = Applier.RevealTopCardsOfDeck(4, game);
             var blockers = cards.Where(x => x.IsBlocker());
-            var chosen = Controller.ChooseCard(blockers, ToString());
+            var chosen = Applier.ChooseCard(blockers, ToString());
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, chosen);
-            Controller.PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != chosen).ToArray());
+            Applier.PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != chosen).ToArray());
         }
 
         public override IOneShotEffect Copy()

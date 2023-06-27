@@ -25,7 +25,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var number = Controller.ChooseNumber(new Engine.Choices.NumberChoice(Controller, ToString()));
+            var number = Applier.ChooseNumber(new Engine.Choices.NumberChoice(Applier, ToString()));
             foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
             {
                 game.GetPlayer(player).ShowCardsToOpponent(game, game.GetPlayer(player).Hand.Cards.ToArray());

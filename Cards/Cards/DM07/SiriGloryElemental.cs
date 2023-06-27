@@ -25,7 +25,7 @@ namespace Cards.Cards.DM07
 
         public void AddAbility(IGame game)
         {
-            if (!Controller.ShieldZone.HasCards)
+            if (!Applier.ShieldZone.HasCards)
             {
                 game.AddAbility(Source, new StaticAbilities.BlockerAbility());
                 game.AddAbility(Source, new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));

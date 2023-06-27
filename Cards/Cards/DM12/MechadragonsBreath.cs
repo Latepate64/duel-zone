@@ -17,7 +17,7 @@ namespace Cards.Cards.DM12
     {
         public override void Apply(IGame game)
         {
-            var power = Controller.ChooseNumber(new MechadragonsBreathChoice(Controller, ToString()));
+            var power = Applier.ChooseNumber(new MechadragonsBreathChoice(Applier, ToString()));
             game.Destroy(Ability, game.BattleZone.Creatures.Where(x => x.Power == power).ToArray());
         }
 

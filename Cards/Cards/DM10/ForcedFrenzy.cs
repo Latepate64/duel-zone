@@ -60,7 +60,7 @@ namespace Cards.Cards.DM10
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Controller;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Applier;
         }
 
         public override string ToString()

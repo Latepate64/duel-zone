@@ -25,7 +25,7 @@ namespace Cards.Cards.DM07
 
         public void AddAbility(IGame game)
         {
-            if (!Controller.ShieldZone.HasCards)
+            if (!Applier.ShieldZone.HasCards)
             {
                 Source.AddGrantedAbility(new DoubleBreakerAbility());
             }
@@ -38,7 +38,7 @@ namespace Cards.Cards.DM07
 
         public void ModifyPower(IGame game)
         {
-            if (!Controller.ShieldZone.HasCards)
+            if (!Applier.ShieldZone.HasCards)
             {
                 Source.Power += 4000;
             }

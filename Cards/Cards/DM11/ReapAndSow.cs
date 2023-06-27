@@ -23,7 +23,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var card = player.ChooseCard(game.GetOpponent(player).ManaZone.Cards, ToString());
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
             player.PutFromTopOfDeckIntoManaZone(game, 1, Ability);

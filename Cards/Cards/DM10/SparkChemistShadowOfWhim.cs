@@ -30,7 +30,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.ManaZone.Cards;
+            return Applier.ManaZone.Cards;
         }
     }
 }

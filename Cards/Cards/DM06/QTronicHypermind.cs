@@ -17,7 +17,7 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game)
         {
-            Controller.DrawCardsOptionally(game, Ability, game.BattleZone.Creatures.Count(x => x.HasRace(Race.Survivor)));
+            Applier.DrawCardsOptionally(game, Ability, game.BattleZone.Creatures.Count(x => x.HasRace(Race.Survivor)));
         }
 
         public override IOneShotEffect Copy()

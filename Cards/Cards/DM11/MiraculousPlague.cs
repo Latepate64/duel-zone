@@ -20,7 +20,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var opponent = GetOpponent(game);
 
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, opponent.Id), 2, 2, ToString());

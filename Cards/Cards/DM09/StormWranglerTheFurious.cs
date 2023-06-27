@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
-            var creature = Controller.ChooseCardOptionally(creatures, ToString());
+            var creature = Applier.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {
                 game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));

@@ -24,13 +24,13 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.LookAtOpponentsHand(game);
+                Applier.LookAtOpponentsHand(game);
                 var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
                 if (cards.Any())
                 {
-                    Controller.Look(GetOpponent(game), game, cards);
+                    Applier.Look(GetOpponent(game), game, cards);
                     GetOpponent(game).Unreveal(cards);
                 }
             }

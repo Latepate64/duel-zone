@@ -25,7 +25,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new GigiosHammerContinuousEffect(Controller.ChooseRace(ToString())));
+            game.AddContinuousEffects(Ability, new GigiosHammerContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()

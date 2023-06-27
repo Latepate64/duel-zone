@@ -27,7 +27,7 @@ namespace Cards.Cards.DM06
             var cards = GetOpponent(game).Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Controller.Look(GetOpponent(game), game, cards);
+                Applier.Look(GetOpponent(game), game, cards);
                 GetOpponent(game).Discard(Ability, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
                 GetOpponent(game).Unreveal(cards);
             }

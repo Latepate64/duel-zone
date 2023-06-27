@@ -44,11 +44,11 @@ namespace Cards.Cards.DM05
         public override void Apply(IGame game)
         {
             var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
-            var creatures = Controller.ChooseCards(Controller.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
-            Controller.ShowCardsToOpponent(game, creatures);
+            var creatures = Applier.ChooseCards(Applier.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
+            Applier.ShowCardsToOpponent(game, creatures);
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, creatures);
-            Controller.ShuffleOwnDeck(game);
-            Controller.Unreveal(creatures);
+            Applier.ShuffleOwnDeck(game);
+            Applier.Unreveal(creatures);
         }
 
         public override IOneShotEffect Copy()

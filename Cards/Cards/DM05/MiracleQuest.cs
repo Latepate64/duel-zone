@@ -94,9 +94,9 @@ namespace Cards.Cards.DM05
             var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == Ability.Source).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
-                if (Controller.ChooseToTakeAction("You may draw 2 cards."))
+                if (Applier.ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    Controller.DrawCards(2, game, Ability);
+                    Applier.DrawCards(2, game, Ability);
                 }
                 else
                 {

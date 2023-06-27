@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            (ControllerChooses ? Controller : GetOpponent(game)).Tap(game, cards);
+            (ControllerChooses ? Applier : GetOpponent(game)).Tap(game, cards);
         }
     }
 }

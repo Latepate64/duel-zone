@@ -20,8 +20,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
-            var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
+            var player = Applier;
+            var card = player.ChooseCardOptionally(Applier.Hand.Cards, ToString());
             if (card != null)
             {
                 game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, card);

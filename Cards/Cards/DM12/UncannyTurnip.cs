@@ -23,7 +23,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
             controller.ReturnOwnManaCreature(game, Ability);
         }

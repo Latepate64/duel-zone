@@ -27,10 +27,10 @@ namespace Cards.OneShotEffects
             var cards = GetAffectedCards(game, Ability);
             if (cards.Any())
             {
-                var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
+                var selectedCards = Applier.ChooseCards(cards, 0, _maximum, ToString());
                 Apply(game, Ability, selectedCards.ToArray());
             }
-            (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleOwnDeck(game);
+            (_searchOpponentsDeck ? GetOpponent(game) : Applier).ShuffleOwnDeck(game);
         }
 
         protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);

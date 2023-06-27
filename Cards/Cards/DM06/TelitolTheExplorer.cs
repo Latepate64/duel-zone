@@ -25,10 +25,10 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            if (Controller.ShieldZone.HasCards && Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ShieldZone.HasCards && Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.Look(Controller, game, Controller.ShieldZone.Cards.ToArray());
-                Controller.Unreveal(Controller.ShieldZone.Cards.ToArray());
+                Applier.Look(Applier, game, Applier.ShieldZone.Cards.ToArray());
+                Applier.Unreveal(Applier.ShieldZone.Cards.ToArray());
             }
         }
 

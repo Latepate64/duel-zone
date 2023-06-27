@@ -29,13 +29,13 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var cards = Controller.Deck.Creatures.Where(x => x.IsDragon);
-            var dragon = Controller.ChooseCardOptionally(cards, ToString());
+            var cards = Applier.Deck.Creatures.Where(x => x.IsDragon);
+            var dragon = Applier.ChooseCardOptionally(cards, ToString());
             if (dragon != null)
             {
                 game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
-            Controller.ShuffleOwnDeck(game);
+            Applier.ShuffleOwnDeck(game);
             if (dragon != null)
             {
                 game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var destroyed = controller.DestroyOpponentsCreatureWithMaxPower(5000, game, ToString());
             if (destroyed != null)
             {

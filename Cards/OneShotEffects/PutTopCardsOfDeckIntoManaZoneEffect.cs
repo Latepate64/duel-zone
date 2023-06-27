@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
         }
 
         public override string ToString()

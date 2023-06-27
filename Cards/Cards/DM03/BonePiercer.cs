@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.ManaZone.Creatures;
+            return Applier.ManaZone.Creatures;
         }
     }
 }

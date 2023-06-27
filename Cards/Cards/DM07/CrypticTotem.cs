@@ -25,7 +25,7 @@ namespace Cards.Cards.DM07
 
         public bool Applies(ICard shield, IGame game)
         {
-            return Source.Tapped && game.GetOpponent(Controller).Id == shield.Id;
+            return Source.Tapped && game.GetOpponent(Applier).Id == shield.Id;
         }
 
         public override IContinuousEffect Copy()

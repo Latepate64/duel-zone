@@ -31,7 +31,7 @@ namespace Cards.Cards.DM11
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
+            return Applier.ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
             var number = GetAmount(game);
             if (number > 1)
             {
-                number = Controller.ChooseNumber(new ClonedNightmareChoice(Controller, "Choose how many cards your opponent will discard at random from their hand.", number));
+                number = Applier.ChooseNumber(new ClonedNightmareChoice(Applier, "Choose how many cards your opponent will discard at random from their hand.", number));
             }
             GetOpponent(game).DiscardAtRandom(game, number, Ability);
         }

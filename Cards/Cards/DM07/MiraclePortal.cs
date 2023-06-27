@@ -25,7 +25,7 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
+            var creature = Applier.ChooseControlledCreature(game, ToString());
             if (creature != null)
             {
                 game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));

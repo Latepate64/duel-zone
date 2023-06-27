@@ -16,7 +16,7 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
             if (creature != null)
             {

@@ -24,8 +24,8 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var mana = Controller.ManaZone.Cards;
-            var hand = Controller.Hand.Cards;
+            var mana = Applier.ManaZone.Cards;
+            var hand = Applier.Hand.Cards;
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
             game.MoveTapped(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }

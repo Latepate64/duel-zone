@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Controller.DrawCards(2, game, Ability);
+            Applier.DrawCards(2, game, Ability);
         }
 
         public override IOneShotEffect Copy()
@@ -41,7 +41,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Controller.DrawCards(1, game, Ability);
+            Applier.DrawCards(1, game, Ability);
         }
 
         public override IOneShotEffect Copy()

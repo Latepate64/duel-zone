@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
         public bool Applies(ICard card, IGame game)
         {
             // If player cast no spells during the turn, the creature cannot be summoned.
-            return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
+            return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Applier);
         }
 
         public override IContinuousEffect Copy()

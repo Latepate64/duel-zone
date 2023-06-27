@@ -20,7 +20,7 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseOpponentsCreature(game, ToString());
+            var creature = Applier.ChooseOpponentsCreature(game, ToString());
             game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
         }
 
@@ -61,7 +61,7 @@ namespace Cards.Cards.DM10
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Controller;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Applier;
         }
 
         public override string ToString()

@@ -28,8 +28,8 @@ namespace Cards.Cards.DM07
         {
             game.Destroy(
                 Ability,
-                Controller.ChooseCards(
-                    new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).ToArray())
+                Applier.ChooseCards(
+                    new CardChoice(Applier, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).ToArray())
                     ).ToArray());
         }
 

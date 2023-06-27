@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.Graveyard.Creatures.Where(x => x.HasCivilization(Civilization.Water, Civilization.Fire));
+            return Applier.Graveyard.Creatures.Where(x => x.HasCivilization(Civilization.Water, Civilization.Fire));
         }
     }
 }

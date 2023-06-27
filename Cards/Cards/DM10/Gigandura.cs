@@ -23,7 +23,7 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var opponent = GetOpponent(game);
             controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());

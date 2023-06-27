@@ -42,7 +42,7 @@ namespace Cards.Cards.DM08
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return IsSourceOfAbility(card) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
+            return IsSourceOfAbility(card) && Applier.ManaZone.Creatures.Any(x => x.IsDragon);
         }
     }
 
@@ -64,7 +64,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
+            return Applier.ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

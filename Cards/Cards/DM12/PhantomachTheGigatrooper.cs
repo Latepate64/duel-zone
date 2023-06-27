@@ -31,7 +31,7 @@ namespace Cards.Cards.DM12
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller.Id, Race.Chimera, Race.Armorloid);
+            return game.BattleZone.GetCreatures(Applier.Id, Race.Chimera, Race.Armorloid);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace Cards.OneShotEffects
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == Controller;
+            return card.Owner == Applier;
         }
     }
 }

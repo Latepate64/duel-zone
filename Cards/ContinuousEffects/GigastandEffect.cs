@@ -16,7 +16,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
                 game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)

@@ -27,7 +27,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
+            var creature = Applier.ChooseControlledCreature(game, ToString());
             game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
         }
 

@@ -31,7 +31,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.Deck.GetCreatures(Civilization.Nature);
+            return Applier.Deck.GetCreatures(Civilization.Nature);
         }
     }
 }

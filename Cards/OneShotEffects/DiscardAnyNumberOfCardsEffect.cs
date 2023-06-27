@@ -26,12 +26,12 @@ namespace Cards.OneShotEffects
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            Controller.Discard(source, game, cards);
+            Applier.Discard(source, game, cards);
         }
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.Hand.Cards;
+            return Applier.Hand.Cards;
         }
     }
 }

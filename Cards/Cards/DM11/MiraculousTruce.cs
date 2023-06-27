@@ -28,8 +28,8 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var civilization = Controller.ChooseCivilization(ToString());
-            game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Controller));
+            var civilization = Applier.ChooseCivilization(ToString());
+            game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Applier));
         }
 
         public override IOneShotEffect Copy()

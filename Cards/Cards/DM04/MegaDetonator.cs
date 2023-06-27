@@ -25,7 +25,7 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var amount = player.DiscardAnyNumberOfCards(game, Ability);
             var creatures = player.ChooseControlledCreatures(game, ToString(), amount);
             game.AddContinuousEffects(Ability, new MegaDetonatorContinuousEffect(creatures.ToArray()));

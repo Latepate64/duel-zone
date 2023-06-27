@@ -15,9 +15,9 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+                Applier.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
             }
         }
 

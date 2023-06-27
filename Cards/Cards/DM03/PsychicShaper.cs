@@ -24,10 +24,10 @@ namespace Cards.Cards.DM03
 
         public override void Apply(IGame game)
         {
-            var cards = Controller.RevealTopCardsOfDeck(4, game);
+            var cards = Applier.RevealTopCardsOfDeck(4, game);
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards.Where(x => x.HasCivilization(Civilization.Water)).ToArray());
             game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards.Where(x => !x.HasCivilization(Civilization.Water)).ToArray());
-            Controller.Unreveal(cards.ToArray());
+            Applier.Unreveal(cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

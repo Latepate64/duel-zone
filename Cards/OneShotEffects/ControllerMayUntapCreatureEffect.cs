@@ -17,9 +17,9 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.Untap(game, GetSelectableCards(game, Ability).ToArray());
+                Applier.Untap(game, GetSelectableCards(game, Ability).ToArray());
             }
         }
 

@@ -35,7 +35,7 @@ namespace Cards.Cards.DM10
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone).Owner == Controller && game.GetCard(e.CardInSourceZone).GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone).Owner == Applier && game.GetCard(e.CardInSourceZone).GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
 
         public override IContinuousEffect Copy()
@@ -71,7 +71,7 @@ namespace Cards.Cards.DM10
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return card.Owner == Applier && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
     }
 }

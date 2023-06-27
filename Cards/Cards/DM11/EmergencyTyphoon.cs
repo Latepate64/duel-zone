@@ -25,8 +25,8 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            Controller.DrawCardsOptionally(game, Ability, 2);
-            Controller.DiscardOwnCards(game, Ability, 1);
+            Applier.DrawCardsOptionally(game, Ability, 2);
+            Applier.DiscardOwnCards(game, Ability, 1);
         }
 
         public override IOneShotEffect Copy()

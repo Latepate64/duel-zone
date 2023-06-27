@@ -41,7 +41,7 @@ namespace TestEngine
     {
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
-        public IPlayer Controller { get; set; }
+        public IPlayer Applier { get; set; }
         public IAbility Ability { get; set; }
         public ICard Source { get; }
 

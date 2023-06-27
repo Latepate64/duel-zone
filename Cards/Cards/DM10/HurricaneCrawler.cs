@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var hand = player.Hand.Cards;
             var amount = hand.Count;
             game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());

@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var cards = Controller.RevealTopCardsOfDeck(1, game);
+            var cards = Applier.RevealTopCardsOfDeck(1, game);
             game.Move(Ability, ZoneType.Deck, cards.All(x => x.IsNonEvolutionCreature) ? ZoneType.BattleZone : ZoneType.Hand, cards.ToArray());
         }
 

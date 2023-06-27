@@ -16,7 +16,7 @@ namespace Cards.Cards.DM07
     {
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             if (cards.Any())
             {

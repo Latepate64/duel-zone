@@ -15,8 +15,8 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Controller.Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
-            var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
+            Applier.Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
+            var card = Applier.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
             if (card != null)
             {
                 GetOpponent(game).Discard(Ability, game, card);

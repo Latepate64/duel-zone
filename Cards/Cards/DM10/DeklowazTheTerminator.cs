@@ -15,8 +15,8 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            Controller.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
-            Controller.LookAtOpponentsHand(game);
+            Applier.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
+            Applier.LookAtOpponentsHand(game);
             GetOpponent(game).DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
         }
 

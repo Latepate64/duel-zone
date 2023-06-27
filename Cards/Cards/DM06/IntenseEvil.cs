@@ -17,7 +17,7 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game)
         {
-            var player = Controller;
+            var player = Applier;
             var cards = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).ToArray();
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
             player.DrawCards(cards.Length, game, Ability);

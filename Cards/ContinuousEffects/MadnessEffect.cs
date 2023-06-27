@@ -32,7 +32,7 @@ namespace Cards.ContinuousEffects
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {

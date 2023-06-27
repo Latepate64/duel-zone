@@ -24,7 +24,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var race = controller.ChooseRace(ToString());
             var creatures = controller.ChooseAnyNumberOfCards(controller.Hand.GetCreatures(race), ToString());
             game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, creatures.ToArray());

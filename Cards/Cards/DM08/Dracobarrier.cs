@@ -24,7 +24,7 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var controller = Controller;
+            var controller = Applier;
             var tapped = controller.ChooseOpponentsCreature(game, ToString());
             if (tapped != null)
             {

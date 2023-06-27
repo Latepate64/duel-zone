@@ -24,9 +24,9 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var maximum = game.BattleZone.GetCreatures(Controller.Id).Count();
-            var shields = Controller.ShieldZone.Cards.Union(GetOpponent(game).ShieldZone.Cards);
-            var chosen = Controller.ChooseCards(shields, 0, maximum, ToString()).ToList();
+            var maximum = game.BattleZone.GetCreatures(Applier.Id).Count();
+            var shields = Applier.ShieldZone.Cards.Union(GetOpponent(game).ShieldZone.Cards);
+            var chosen = Applier.ChooseCards(shields, 0, maximum, ToString()).ToList();
             chosen.ForEach(x => x.FaceDown = false);
         }
 

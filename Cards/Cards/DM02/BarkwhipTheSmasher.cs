@@ -28,7 +28,7 @@ namespace Cards.Cards.DM02
         {
             if (Ability.Source.Tapped)
             {
-                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
+                game.BattleZone.GetCreatures(Applier.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 
