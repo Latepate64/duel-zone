@@ -21,13 +21,13 @@ namespace Cards.Cards.DM10
 
             public override void Apply(IGame game)
             {
-                ICard creature = Applier.ChooseCreatureInBattleZoneOptionally(game, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
+                ICard creature = Applier.ChooseCreatureInBattleZoneOptionally("You may choose a creature in the battle zone and put it into its owner's mana zone.");
                 if (creature != null)
                 {
-                    Applier.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, game, Ability);
+                    Applier.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, Ability);
                     IEnumerable<ICard> manas = creature.Owner.ManaZone.GetNonEvolutionCreaturesThatCostSameOrLessThan(creature.Owner.ManaZone.Cards.Count);
                     ICard mana = Applier.ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
-                    mana?.Owner.PutCreatureFromOwnManaZoneIntoBattleZone(mana, game, Ability);
+                    mana?.Owner.PutCreatureFromOwnManaZoneIntoBattleZone(mana, Ability);
                 }
             }
 

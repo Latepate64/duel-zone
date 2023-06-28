@@ -341,13 +341,13 @@ namespace Engine
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            Players.ToList().ForEach(x => x.ShuffleOwnDeck(this));
+            Players.ToList().ForEach(x => x.ShuffleOwnDeck());
 
             // Each player puts five card from to the top of their deck into their shield zone.
-            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this, null));
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, null));
 
             // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
-            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this, null));
+            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, null));
 
             // 103.7. The starting player takes their first turn.
             LoopTurns(startingPlayer, otherPlayer, MaximumNumberOfTurns);

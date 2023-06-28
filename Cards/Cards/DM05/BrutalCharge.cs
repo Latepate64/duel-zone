@@ -45,9 +45,9 @@ namespace Cards.Cards.DM05
         {
             var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
             var creatures = Applier.ChooseCards(Applier.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
-            Applier.ShowCardsToOpponent(game, creatures);
+            Applier.ShowCardsToOpponent(creatures);
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, creatures);
-            Applier.ShuffleOwnDeck(game);
+            Applier.ShuffleOwnDeck();
             Applier.Unreveal(creatures);
         }
 

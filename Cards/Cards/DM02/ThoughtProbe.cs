@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
         {
             if (game.BattleZone.GetCreatures(Applier.Opponent).Count() >= 3)
             {
-                Applier.DrawCards(3, game, Ability);
+                Applier.DrawCards(3, Ability);
             }
         }
 

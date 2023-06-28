@@ -23,7 +23,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            Applier.Opponent.DrawCards(1, game, Ability);
+            Applier.Opponent.DrawCards(1, Ability);
         }
 
         public override IOneShotEffect Copy()

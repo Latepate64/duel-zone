@@ -80,7 +80,7 @@ namespace Cards.Cards.DM11
         {
             var creature = Controller.ChooseCardOptionally(Controller.Deck.Creatures.Where(x => x.Name == _name), ToString());
             game.Move(this, ZoneType.Deck, ZoneType.BattleZone, creature);
-            Controller.ShuffleOwnDeck(game);
+            Controller.ShuffleOwnDeck();
         }
 
         public override string ToString()

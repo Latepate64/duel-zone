@@ -25,8 +25,8 @@ namespace Cards.Cards.DM06
         {
             var amount = Applier.Hand.Cards.Count;
             game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Applier.Hand.Cards.ToArray());
-            Applier.ShuffleOwnDeck(game);
-            Applier.DrawCards(amount, game, Ability);
+            Applier.ShuffleOwnDeck();
+            Applier.DrawCards(amount, Ability);
         }
 
         public override IOneShotEffect Copy()

@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var cards = GetAffectedCards(game, Ability).ToArray();
-            Applier.Tap(game, cards);
+            Applier.Tap(cards);
         }
 
         protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);

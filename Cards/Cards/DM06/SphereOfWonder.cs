@@ -25,7 +25,7 @@ namespace Cards.Cards.DM06
         {
             if (Applier.Opponent.ShieldZone.Cards.Count > Applier.ShieldZone.Cards.Count)
             {
-                Applier.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+                Applier.PutFromTopOfDeckIntoShieldZone(1, Ability);
             }
         }
 

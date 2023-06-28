@@ -96,7 +96,7 @@ namespace Cards.Cards.DM05
             {
                 if (Applier.ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    Applier.DrawCards(2, game, Ability);
+                    Applier.DrawCards(2, Ability);
                 }
                 else
                 {

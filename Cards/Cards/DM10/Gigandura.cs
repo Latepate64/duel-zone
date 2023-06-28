@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             var opponent = Applier.Opponent;
-            Applier.Look(opponent, game, opponent.Hand.Cards.ToArray());
+            Applier.Look(opponent, opponent.Hand.Cards.ToArray());
             var card = Applier.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {

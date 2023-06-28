@@ -25,7 +25,7 @@ namespace Cards.Cards.DM11
         {
             var card = Applier.ChooseCard(Applier.Opponent.ManaZone.Cards, ToString());
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
-            Applier.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
         }
 
         public override IOneShotEffect Copy()

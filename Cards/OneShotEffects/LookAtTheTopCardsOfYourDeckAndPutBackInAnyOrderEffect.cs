@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            var cards = Applier.LookAtTheTopCardsOfYourDeck(_amount, game);
+            var cards = Applier.LookAtTheTopCardsOfYourDeck(_amount);
             Applier.ArrangeTopCardsOfDeck(cards.ToArray());
         }
 

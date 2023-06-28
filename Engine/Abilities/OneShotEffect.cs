@@ -18,8 +18,6 @@ namespace Engine.Abilities
         /// Applies the effect.
         /// </summary>
         /// <param name="game"></param>
-        /// 
-        /// <returns>Any object that represents usable information of whatever happened during the effect (such as did the player take an action or what cards were affected). This information may be applied for reflexive triggered abilities (see rule 603.12.). Returns null if no information of what happened is of use.</returns>
         public abstract void Apply(IGame game);
 
         public abstract IOneShotEffect Copy();

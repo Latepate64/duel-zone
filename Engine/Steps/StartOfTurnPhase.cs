@@ -35,7 +35,7 @@ namespace Engine.Steps
             game.RemoveSummoningSicknesses(player);
             if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
-                player.Untap(game, player.ManaZone.Cards.ToArray());
+                player.Untap(player.ManaZone.Cards.ToArray());
             }
             if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
@@ -48,9 +48,9 @@ namespace Engine.Steps
             IEnumerable<ICard> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 
             // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
-            player.Untap(game, game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill).ToArray());
+            player.Untap(game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill).ToArray());
             IEnumerable<ICard> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
-            player.Untap(game, creaturesWithSilentSkill.Except(cardsThatStayTapped).ToArray());
+            player.Untap(creaturesWithSilentSkill.Except(cardsThatStayTapped).ToArray());
             game.AddPendingSilentSkillAbilities(cardsThatStayTapped);
         }
 

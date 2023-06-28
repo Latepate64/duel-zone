@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
         {
             if (Reveal)
             {
-                Applier.ShowCardsToOpponent(game, cards);
+                Applier.ShowCardsToOpponent(cards);
             }
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, cards);
             if (Reveal)

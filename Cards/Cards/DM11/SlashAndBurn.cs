@@ -74,7 +74,7 @@ namespace Cards.Cards.DM11
 
         public override void Resolve(IGame game)
         {
-            Controller.Opponent.BurnOwnMana(game, this);
+            Controller.Opponent.BurnOwnMana(this);
             var shield = Controller.Opponent.ChooseCard(Controller.Opponent.ShieldZone.Cards, ToString());
             game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
         }

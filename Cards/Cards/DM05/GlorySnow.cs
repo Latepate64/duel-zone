@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
         {
             if (Applier.Opponent.ManaZone.Cards.Count > Applier.ManaZone.Cards.Count)
             {
-                Applier.PutFromTopOfDeckIntoManaZone(game, 2, Ability);
+                Applier.PutFromTopOfDeckIntoManaZone(2, Ability);
             }
         }
 

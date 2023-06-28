@@ -27,7 +27,7 @@ namespace Cards.Cards.DM06
         {
             if (Applier.ShieldZone.HasCards && Applier.ChooseToTakeAction(ToString()))
             {
-                Applier.Look(Applier, game, Applier.ShieldZone.Cards.ToArray());
+                Applier.Look(Applier, Applier.ShieldZone.Cards.ToArray());
                 Applier.Unreveal(Applier.ShieldZone.Cards.ToArray());
             }
         }

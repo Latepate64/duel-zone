@@ -42,8 +42,8 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            Applier.Opponent.DiscardOwnCard(game, Ability);
-            Applier.Opponent.BurnOwnMana(game, Ability);
+            Applier.Opponent.DiscardOwnCard(Ability);
+            Applier.Opponent.BurnOwnMana(Ability);
         }
 
         public override IOneShotEffect Copy()

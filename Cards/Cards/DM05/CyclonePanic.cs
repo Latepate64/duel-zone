@@ -24,8 +24,8 @@ namespace Cards.Cards.DM05
         {
             var amount = player.Hand.Cards.Count;
             game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
-            player.ShuffleOwnDeck(game);
-            player.DrawCards(amount, game, source);
+            player.ShuffleOwnDeck();
+            player.DrawCards(amount, source);
         }
 
         public override IOneShotEffect Copy()

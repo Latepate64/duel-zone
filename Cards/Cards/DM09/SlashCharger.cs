@@ -24,13 +24,13 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var controller = Applier;
-            var player = controller.ChoosePlayer(game, ToString());
+            var player = controller.ChoosePlayer(ToString());
             var card = controller.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)
             {
                 game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
             }
-            player.ShuffleOwnDeck(game);
+            player.ShuffleOwnDeck();
         }
 
         public override IOneShotEffect Copy()

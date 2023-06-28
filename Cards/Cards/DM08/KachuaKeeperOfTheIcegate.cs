@@ -35,7 +35,7 @@ namespace Cards.Cards.DM08
             {
                 game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
-            Applier.ShuffleOwnDeck(game);
+            Applier.ShuffleOwnDeck();
             if (dragon != null)
             {
                 game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));

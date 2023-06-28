@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
         {
             var player = Applier;
             var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier), 1, GetAmount(game), ToString());
-            player.Tap(game, creatures.ToArray());
+            player.Tap(creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

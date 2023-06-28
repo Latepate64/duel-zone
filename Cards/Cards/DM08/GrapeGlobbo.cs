@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
     {
         public override void Apply(IGame game)
         {
-            Applier.LookAtOpponentsHand(game);
+            Applier.LookAtOpponentsHand();
         }
 
         public override IOneShotEffect Copy()

@@ -27,8 +27,8 @@ namespace Cards.Cards.DM06
             var cards = Applier.Opponent.Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Applier.Look(Applier.Opponent, game, cards);
-                Applier.Opponent.Discard(Ability, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.IsSpell).ToArray());
+                Applier.Look(Applier.Opponent, cards);
+                Applier.Opponent.Discard(Ability, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.IsSpell).ToArray());
                 Applier.Opponent.Unreveal(cards);
             }
         }

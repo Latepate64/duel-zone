@@ -20,7 +20,7 @@ namespace Cards.Cards.DM02
 
             if (amount > 0 && Applier.ChooseToTakeAction($"You may draw {amount} cards."))
             {
-                Applier.DrawCards(amount, game, Ability);
+                Applier.DrawCards(amount, Ability);
             }
         }
 

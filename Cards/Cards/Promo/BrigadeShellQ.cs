@@ -15,16 +15,16 @@ namespace Cards.Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            ICard card = Applier.RevealTopCardOfOwnDeck(game);
+            ICard card = Applier.RevealTopCardOfOwnDeck();
             if (card != null)
             {
                 if (card.HasRace(Race.Survivor))
                 {
-                    Applier.PutTopCardOfOwnDeckIntoOwnHand(game, Ability);
+                    Applier.PutTopCardOfOwnDeckIntoOwnHand(Ability);
                 }
                 else
                 {
-                    Applier.PutTopCardOfOwnDeckIntoOwnGraveyard(game, Ability);
+                    Applier.PutTopCardOfOwnDeckIntoOwnGraveyard(Ability);
                 }
             }
         }

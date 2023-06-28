@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             Applier.DestroyOpponentsBlocker(game, Ability);
-            Applier.Opponent.DiscardAtRandom(game, 1, Ability);
+            Applier.Opponent.DiscardAtRandom(1, Ability);
         }
 
         public override IOneShotEffect Copy()

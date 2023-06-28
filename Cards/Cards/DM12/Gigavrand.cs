@@ -40,7 +40,7 @@ namespace Cards.Cards.DM12
         {
             if (ValidInterveningIfClause)
             {
-                Controller.Opponent.Discard(this, game, Controller.Opponent.Hand.Cards.ToArray());
+                Controller.Opponent.Discard(this, Controller.Opponent.Hand.Cards.ToArray());
             }
         }
 

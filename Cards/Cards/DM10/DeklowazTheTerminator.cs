@@ -15,9 +15,9 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            Applier.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
-            Applier.LookAtOpponentsHand(game);
-            Applier.Opponent.DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
+            Applier.DestroyAllCreaturesThatHaveMaximumPower(3000, Ability);
+            Applier.LookAtOpponentsHand();
+            Applier.Opponent.DiscardAllCreaturesThatHaveMaximumPower(3000, Ability);
         }
 
         public override IOneShotEffect Copy()

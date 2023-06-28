@@ -28,7 +28,7 @@ namespace Cards.Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var creatures = Applier.ChooseControlledCreaturesOptionally(2, game, ToString());
+            var creatures = Applier.ChooseControlledCreaturesOptionally(2, ToString());
             game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
         }
 
@@ -80,7 +80,7 @@ namespace Cards.Cards.DM08
         public override void Resolve(IGame game)
         {
             var cards = Controller.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
-            Controller.Untap(game, cards.ToArray());
+            Controller.Untap(cards.ToArray());
         }
 
         public override string ToString()

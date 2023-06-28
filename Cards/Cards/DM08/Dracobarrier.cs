@@ -25,13 +25,13 @@ namespace Cards.Cards.DM08
         public override void Apply(IGame game)
         {
             var controller = Applier;
-            var tapped = controller.ChooseOpponentsCreature(game, ToString());
+            var tapped = controller.ChooseOpponentsCreature(ToString());
             if (tapped != null)
             {
-                controller.Tap(game, tapped);
+                controller.Tap(tapped);
                 if (tapped.IsDragon)
                 {
-                    controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+                    controller.PutFromTopOfDeckIntoShieldZone(1, Ability);
                 }
             }
         }

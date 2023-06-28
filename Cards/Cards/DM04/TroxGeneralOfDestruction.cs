@@ -18,7 +18,7 @@ namespace Cards.Cards.DM04
         public override void Apply(IGame game)
         {
             var amount = game.BattleZone.GetCreatures(Applier).Count(x => x != Source && x.HasCivilization(Civilization.Darkness));
-            Applier.Opponent.DiscardAtRandom(game, amount, Ability);
+            Applier.Opponent.DiscardAtRandom(amount, Ability);
         }
 
         public override IOneShotEffect Copy()

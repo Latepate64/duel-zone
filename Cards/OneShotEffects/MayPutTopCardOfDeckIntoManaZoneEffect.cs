@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {
-                Applier.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+                Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
             }
         }
 

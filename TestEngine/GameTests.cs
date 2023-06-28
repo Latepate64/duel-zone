@@ -9,13 +9,14 @@ namespace TestEngine
         [Fact]
         public void Play_NoCardsInDecks_Pass()
         {
-            new Game().Play(new PlayerMock(), new PlayerMock());
+            IGame game = new Game();
+            game.Play(new PlayerMock(game), new PlayerMock(game));
         }
     }
 
     class PlayerMock : Player
     {
-        public PlayerMock()
+        public PlayerMock(IGame game) : base(game)
         {
         }
 

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var cards = Applier.RevealTopCardsOfDeck(3, game);
+            var cards = Applier.RevealTopCardsOfDeck(3);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
             game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());

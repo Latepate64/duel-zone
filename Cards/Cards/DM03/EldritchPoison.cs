@@ -17,11 +17,11 @@ namespace Cards.Cards.DM03
         public override void Apply(IGame game)
         {
             var controller = Applier;
-            var creature = controller.ChooseControlledCreatureOptionally(game, ToString(), Civilization.Darkness);
+            var creature = controller.ChooseControlledCreatureOptionally(ToString(), Civilization.Darkness);
             if (creature != null)
             {
                 game.Destroy(Ability, creature);
-                controller.ReturnOwnManaCreature(game, Ability);
+                controller.ReturnOwnManaCreature(Ability);
             }
         }
 

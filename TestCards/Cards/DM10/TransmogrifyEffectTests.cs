@@ -15,7 +15,7 @@ namespace TestCards.Cards.DM10
             var controller = new Mock<IPlayer>();
             var ability = new Mock<IAbility>();
             ability.SetupGet(x => x.Controller).Returns(controller.Object);
-            controller.Setup(x => x.DestroyCreatureOptionally(game, ability.Object)).Returns((ICard)null);
+            controller.Setup(x => x.DestroyCreatureOptionally(ability.Object)).Returns((ICard)null);
             new TransmogrifyEffect { Ability = ability.Object }.Apply(game);
         }
 
@@ -28,9 +28,9 @@ namespace TestCards.Cards.DM10
             destroyed.SetupGet(x => x.Owner).Returns(controller.Object);
             var ability = new Mock<IAbility>();
             ability.SetupGet(x => x.Controller).Returns(controller.Object);
-            controller.Setup(x => x.DestroyCreatureOptionally(game, ability.Object)).Returns(destroyed.Object);
+            controller.Setup(x => x.DestroyCreatureOptionally(ability.Object)).Returns(destroyed.Object);
             new TransmogrifyEffect { Ability = ability.Object }.Apply(game);
-            controller.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, It.IsAny<IAbility>()), Times.Once);
+            controller.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(It.IsAny<IAbility>()), Times.Once);
         }
     }
 }

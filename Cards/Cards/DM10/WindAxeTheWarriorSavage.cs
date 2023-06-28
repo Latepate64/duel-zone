@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             Applier.DestroyOpponentsBlocker(game, Ability);
-            Applier.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
         }
 
         public override string ToString()

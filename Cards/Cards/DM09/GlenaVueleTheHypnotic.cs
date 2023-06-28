@@ -26,7 +26,7 @@ namespace Cards.Cards.DM09
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {
-                Applier.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+                Applier.PutFromTopOfDeckIntoShieldZone(1, Ability);
             }
         }
 

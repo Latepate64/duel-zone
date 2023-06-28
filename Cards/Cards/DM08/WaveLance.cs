@@ -29,7 +29,7 @@ namespace Cards.Cards.DM08
                 game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
                 if (creature.IsDragon)
                 {
-                    Applier.DrawCardsOptionally(game, Ability, 1);
+                    Applier.DrawCardsOptionally(Ability, 1);
                 }
             }
         }

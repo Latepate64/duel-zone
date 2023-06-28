@@ -39,7 +39,7 @@ namespace Cards.Cards.DM11
 
         public override void Resolve(IGame game)
         {
-            game.Destroy(this, _player.ChooseControlledCreature(game, ToString()));
+            game.Destroy(this, _player.ChooseControlledCreature(ToString()));
         }
 
         public override string ToString()

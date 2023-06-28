@@ -30,7 +30,7 @@ namespace Cards.Cards.DM12
             {
                 number = Applier.ChooseNumber(new ClonedNightmareChoice(Applier, "Choose how many cards your opponent will discard at random from their hand.", number));
             }
-            Applier.Opponent.DiscardAtRandom(game, number, Ability);
+            Applier.Opponent.DiscardAtRandom(number, Ability);
         }
 
         public override IOneShotEffect Copy()

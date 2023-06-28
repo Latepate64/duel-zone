@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {
-                Applier.Untap(game, GetSelectableCards(game, Ability).ToArray());
+                Applier.Untap(GetSelectableCards(game, Ability).ToArray());
             }
         }
 

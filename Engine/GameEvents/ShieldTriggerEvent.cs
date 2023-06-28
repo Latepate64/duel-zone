@@ -15,7 +15,7 @@
         {
             if (game.CanBeUsedRegardlessOfManaCost(Trigger))
             {
-                Player.UseCard(Trigger, game);
+                Player.UseCard(Trigger);
             }
         }
 

@@ -15,11 +15,11 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Applier.Look(Applier.Opponent, game, Applier.Opponent.Hand.Cards.ToArray());
+            Applier.Look(Applier.Opponent, Applier.Opponent.Hand.Cards.ToArray());
             var card = Applier.ChooseCard(Applier.Opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                Applier.Opponent.Discard(Ability, game, card);
+                Applier.Opponent.Discard(Ability, card);
                 Applier.Opponent.Unreveal(card);
             }
         }

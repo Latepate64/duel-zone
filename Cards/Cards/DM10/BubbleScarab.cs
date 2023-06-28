@@ -43,7 +43,7 @@ namespace Cards.Cards.DM10
             var card = Controller.ChooseCardOptionally(Controller.Hand.Cards, ToString());
             if (card != null)
             {
-                Controller.Discard(this, game, card);
+                Controller.Discard(this, card);
                 game.AddContinuousEffects(this, new CreatureGetsPowerUntilTheEndOfTheTurnEffect(_attackTarget, 3000));
             }
         }

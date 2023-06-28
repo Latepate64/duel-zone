@@ -19,7 +19,7 @@ namespace Cards.Cards.DM06
         {
             var cards = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier), ToString()).ToArray();
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
-            Applier.DrawCards(cards.Length, game, Ability);
+            Applier.DrawCards(cards.Length, Ability);
         }
 
         public override IOneShotEffect Copy()

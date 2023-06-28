@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
         {
             var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Water));
             var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier), 0, amount, ToString());
-            Applier.Tap(game, creatures.ToArray());
+            Applier.Tap(creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

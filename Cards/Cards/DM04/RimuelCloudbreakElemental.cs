@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         {
             var amount = Applier.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
             var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier), amount, amount, ToString());
-            Applier.Tap(game, creatures.ToArray());
+            Applier.Tap(creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

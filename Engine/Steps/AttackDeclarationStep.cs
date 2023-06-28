@@ -15,7 +15,7 @@ namespace Engine.Steps
             var attackers = game.GetCreaturesThatHaveAttackTargets();
             if (attackers.Any())
             {
-                _tapAbilityUsed = game.CurrentTurn.ActivePlayer.ChooseAttacker(game, attackers);
+                _tapAbilityUsed = game.CurrentTurn.ActivePlayer.ChooseAttacker(attackers);
             }
         }
 

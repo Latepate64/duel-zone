@@ -38,7 +38,7 @@ namespace Cards.Cards.DM12
         {
             if (InterveningIfClauseValid(game))
             {
-                Controller.DrawCardsOptionally(game, this, 1);
+                Controller.DrawCardsOptionally(this, 1);
             }
         }
 

@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Applier.DrawCardsOptionally(game, Ability, Maximum);
+            Applier.DrawCardsOptionally(Ability, Maximum);
         }
 
         public override string ToString()

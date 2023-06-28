@@ -36,7 +36,7 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            Applier.Look(Applier.Opponent, game, cards);
+            Applier.Look(Applier.Opponent, cards);
             Applier.Opponent.Unreveal(cards);
         }
 

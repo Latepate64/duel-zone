@@ -35,7 +35,7 @@ namespace Engine.Steps
             if (blocker != null)
             {
                 Phase.BlockingCreature = blocker;
-                game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
+                game.CurrentTurn.NonActivePlayer.Tap(blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
                 game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));

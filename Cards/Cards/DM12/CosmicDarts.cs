@@ -33,11 +33,11 @@ namespace Cards.Cards.DM12
         {
             if (cards.Length == 1)
             {
-                Applier.Look(Applier, game, cards);
+                Applier.Look(Applier, cards);
                 var card = cards.Single();
                 if (card.IsSpell && Applier.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
-                    Applier.Cast(card, game);
+                    Applier.Cast(card);
                 }
                 Applier.Unreveal(cards);
             }

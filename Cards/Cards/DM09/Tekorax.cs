@@ -27,7 +27,7 @@ namespace Cards.Cards.DM09
             var cards = Applier.Opponent.ShieldZone.Cards.ToArray();
             if (cards.Any())
             {
-                Applier.Look(Applier.Opponent, game, cards);
+                Applier.Look(Applier.Opponent, cards);
                 Applier.Opponent.Unreveal(cards);
             }
         }

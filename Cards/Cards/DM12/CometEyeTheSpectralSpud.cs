@@ -27,7 +27,7 @@ namespace Cards.Cards.DM12
         public override void Apply(IGame game)
         {
             var creatures = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier, Race.WildVeggies, Race.RainbowPhantom), ToString());
-            Applier.Untap(game, creatures.ToArray());
+            Applier.Untap(creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

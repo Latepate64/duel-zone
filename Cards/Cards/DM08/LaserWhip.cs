@@ -25,8 +25,8 @@ namespace Cards.Cards.DM08
         public override void Apply(IGame game)
         {
             var controller = Applier;
-            controller.TapOpponentsCreature(game);
-            var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
+            controller.TapOpponentsCreature();
+            var creature = controller.ChooseControlledCreatureOptionally(ToString());
             if (creature != null)
             {
                 game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
