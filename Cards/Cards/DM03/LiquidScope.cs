@@ -28,7 +28,7 @@ namespace Cards.Cards.DM03
             var cards = Applier.Opponent.Hand.Cards.Union(Applier.Opponent.ShieldZone.Cards).ToArray();
             if (cards.Any())
             {
-                var revealer = game.GetOwner(cards.First());
+                var revealer = cards.First().Owner;
                 Applier.Look(revealer, game, cards);
                 revealer.Unreveal(cards);
             }

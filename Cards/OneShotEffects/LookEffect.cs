@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
         {
             if (cards.Any())
             {
-                var revealer = game.GetOwner(cards.First());
+                var revealer = cards.First().Owner;
                 Applier.Look(revealer, game, cards);
                 revealer.Unreveal(cards);
             }

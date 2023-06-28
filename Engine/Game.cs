@@ -257,17 +257,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// 108.3. The owner of a card in the game is the player who started the game with it in their deck.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetOwner(ICard card)
-        {
-            return Players.Single(x => x.Id == card.Owner.Id);
-        }
-
-        /// <summary>
         /// Player with target id who is still in the game.
         /// </summary>
         /// <param name="id"></param>

@@ -63,7 +63,6 @@ namespace Engine
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
-        IPlayer GetOwner(ICard card);
         IPlayer GetPlayer(Guid id);
         IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
