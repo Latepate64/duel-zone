@@ -25,8 +25,7 @@ namespace Cards.Cards.DM03
 
         public override void Apply(IGame game)
         {
-            var opponent = GetOpponent(game);
-            var cards = opponent.Hand.Cards.Union(opponent.ShieldZone.Cards).ToArray();
+            var cards = Applier.Opponent.Hand.Cards.Union(Applier.Opponent.ShieldZone.Cards).ToArray();
             if (cards.Any())
             {
                 var revealer = game.GetOwner(cards.First());

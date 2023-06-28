@@ -16,10 +16,8 @@ namespace Cards.Cards.DM03
     {
         public override void Apply(IGame game)
         {
-            var controller = Applier;
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCard(controller.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
-            var opponent = game.GetOpponent(controller);
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, opponent.ChooseCard(opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.ChooseCard(Applier.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.Opponent.ChooseCard(Applier.Opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
         }
 
         public override IOneShotEffect Copy()

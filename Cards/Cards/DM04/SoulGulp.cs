@@ -24,9 +24,8 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var opponent = game.GetOpponent(Applier);
-            int amount = game.BattleZone.GetCreatures(opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
-            opponent.DiscardOwnCards(game, Ability, amount);
+            int amount = game.BattleZone.GetCreatures(Applier.Opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
+            Applier.Opponent.DiscardOwnCards(game, Ability, amount);
         }
 
         public override IOneShotEffect Copy()

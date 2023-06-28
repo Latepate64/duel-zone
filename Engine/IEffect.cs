@@ -44,10 +44,5 @@ namespace Engine
         {
             return card == Source;
         }
-
-        protected IPlayer GetOpponent(IGame game)
-        {
-            return game.GetOpponent(Applier);
-        }
     }
 }

@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            if (GetOpponent(game).ShieldZone.Cards.Count > Applier.ShieldZone.Cards.Count)
+            if (Applier.Opponent.ShieldZone.Cards.Count > Applier.ShieldZone.Cards.Count)
             {
                 Applier.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
             }

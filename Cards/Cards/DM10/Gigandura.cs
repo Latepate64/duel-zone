@@ -23,14 +23,13 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var controller = Applier;
-            var opponent = GetOpponent(game);
-            controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
-            var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
+            var opponent = Applier.Opponent;
+            Applier.Look(opponent, game, opponent.Hand.Cards.ToArray());
+            var card = Applier.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
                 game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, card);
-                var mana = controller.ChooseCard(opponent.ManaZone.Cards, ToString());
+                var mana = Applier.ChooseCard(opponent.ManaZone.Cards, ToString());
                 game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
             opponent.Unreveal(card);

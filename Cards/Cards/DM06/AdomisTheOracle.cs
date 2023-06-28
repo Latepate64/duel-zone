@@ -36,8 +36,8 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params ICard[] cards)
         {
-            Applier.Look(GetOpponent(game), game, cards);
-            GetOpponent(game).Unreveal(cards);
+            Applier.Look(Applier.Opponent, game, cards);
+            Applier.Opponent.Unreveal(cards);
         }
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)

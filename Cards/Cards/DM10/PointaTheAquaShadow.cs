@@ -15,9 +15,8 @@ namespace Cards.Cards.DM10
     {
         public override void Apply(IGame game)
         {
-            var controller = Applier;
-            controller.LookAtOneOfOpponentsShields(game, Ability);
-            game.GetOpponent(controller).DiscardAtRandom(game, 1, Ability);
+            Applier.LookAtOneOfOpponentsShields(game, Ability);
+            Applier.Opponent.DiscardAtRandom(game, 1, Ability);
         }
 
         public override IOneShotEffect Copy()

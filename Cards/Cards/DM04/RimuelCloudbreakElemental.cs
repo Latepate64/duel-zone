@@ -19,7 +19,7 @@ namespace Cards.Cards.DM04
         {
             var controller = Applier;
             var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
+            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id), amount, amount, ToString());
             controller.Tap(game, creatures.ToArray());
         }
 

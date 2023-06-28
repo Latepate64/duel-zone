@@ -34,8 +34,7 @@ namespace Cards.Cards.DM10
 
         private bool Applies(IGame game, ICard attacker)
         {
-            var opponent = GetOpponent(game);
-            return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
+            return Source.Tapped && game.CurrentTurn.ActivePlayer == Applier.Opponent && !_hasBeenAttacked && attacker.Owner == Applier.Opponent;
         }
 
         public bool CannotAttackCreature(ICard attacker, ICard target, IGame game)

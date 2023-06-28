@@ -22,6 +22,8 @@ namespace Engine
         IEnumerable<IZone> Zones { get; }
         ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
 
+        IPlayer Opponent { get; set; }
+
         void ArrangeTopCardsOfDeck(params ICard[] cards);
 
         void BurnOwnMana(IGame game, IAbility ability);

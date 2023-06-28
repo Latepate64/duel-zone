@@ -25,8 +25,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var player = Applier;
-            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id), 1, GetAmount(game), ToString());
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Applier.Opponent.Id), 1, GetAmount(game), ToString());
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 

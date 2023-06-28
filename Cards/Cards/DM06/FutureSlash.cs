@@ -35,7 +35,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return GetOpponent(game).Deck.Cards;
+            return Applier.Opponent.Deck.Cards;
         }
     }
 }

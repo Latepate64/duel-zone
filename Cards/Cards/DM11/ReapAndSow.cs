@@ -23,10 +23,9 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var player = Applier;
-            var card = player.ChooseCard(game.GetOpponent(player).ManaZone.Cards, ToString());
+            var card = Applier.ChooseCard(Applier.Opponent.ManaZone.Cards, ToString());
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
-            player.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
         }
 
         public override IOneShotEffect Copy()

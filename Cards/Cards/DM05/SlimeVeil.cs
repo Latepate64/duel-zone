@@ -27,7 +27,7 @@ namespace Cards.Cards.DM05
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new SlimeVeilContinuousEffect(GetOpponent(game)));
+            game.AddContinuousEffects(Ability, new SlimeVeilContinuousEffect(Applier.Opponent));
         }
 
         public override IOneShotEffect Copy()

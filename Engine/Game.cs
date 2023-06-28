@@ -151,8 +151,7 @@ namespace Engine
 
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
-            var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(creature.Owner).Id);
-            return ContinuousEffects.CanCreatureAttack(creature) && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+            return ContinuousEffects.CanCreatureAttack(creature) && BattleZone.GetCreatures(creature.Owner.Opponent.Id).Any(x => CanAttackCreature(creature, x));
         }
 
         public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
@@ -258,28 +257,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// 102.2. In a two-player game, a player’s opponent is the other player.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns>Opponent if they are still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetOpponent(IPlayer player)
-        {
-            return Players.Single(x => x.Id == GetOpponent(player.Id));
-        }
-
-        /// <summary>
-        /// 102.2. In a two-player game, a player’s opponent is the other player.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns>Opponent if they are still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public Guid GetOpponent(Guid player)
-        {
-            return Players.Single(x => x.Id != player).Id;
-        }
-
-        /// <summary>
         /// 108.3. The owner of a card in the game is the player who started the game with it in their deck.
         /// </summary>
         /// <param name="card"></param>
@@ -306,11 +283,11 @@ namespace Engine
             List<IAttackable> attackables = new();
             if (CanAttackPlayers(attacker))
             {
-                attackables.Add(GetOpponent(attacker.Owner));
+                attackables.Add(attacker.Owner.Opponent);
             }
             if (CanAttackAtLeastOneCreature(attacker))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(attacker.Owner).Id).Where(x => CanAttackCreature(attacker, x));
+                var opponentsCreatures = BattleZone.GetCreatures(attacker.Owner.Opponent.Id).Where(x => CanAttackCreature(attacker, x));
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     ContinuousEffects.CanCreatureAttackUntappedCreature(attacker, c) ||
                     ContinuousEffects.CanCreatureBeAttackedAsThoughItWereTapped(c)));

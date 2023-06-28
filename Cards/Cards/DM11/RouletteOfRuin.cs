@@ -26,7 +26,7 @@ namespace Cards.Cards.DM11
         public override void Apply(IGame game)
         {
             var number = Applier.ChooseNumber(new Engine.Choices.NumberChoice(Applier, ToString()));
-            foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
+            foreach (var player in new System.Guid[] { Applier.Id, Applier.Opponent.Id })
             {
                 game.GetPlayer(player).ShowCardsToOpponent(game, game.GetPlayer(player).Hand.Cards.ToArray());
                 game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());

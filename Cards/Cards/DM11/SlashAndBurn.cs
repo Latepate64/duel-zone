@@ -64,7 +64,7 @@ namespace Cards.Cards.DM11
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone.Owner == GetOpponent(game);
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone.Owner == Controller.Opponent;
         }
 
         public override IAbility Copy()
@@ -74,9 +74,8 @@ namespace Cards.Cards.DM11
 
         public override void Resolve(IGame game)
         {
-            var opponent = GetOpponent(game);
-            opponent.BurnOwnMana(game, this);
-            var shield = opponent.ChooseCard(opponent.ShieldZone.Cards, ToString());
+            Controller.Opponent.BurnOwnMana(game, this);
+            var shield = Controller.Opponent.ChooseCard(Controller.Opponent.ShieldZone.Cards, ToString());
             game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
         }
 

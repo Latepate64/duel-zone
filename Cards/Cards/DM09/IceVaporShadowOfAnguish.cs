@@ -24,7 +24,7 @@ namespace Cards.Cards.DM09
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
+            return gameEvent is SpellCastEvent e && e.Player.Id == Controller.Opponent.Id;
         }
 
         public override IAbility Copy()
@@ -42,9 +42,8 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            var opponent = GetOpponent(game);
-            opponent.DiscardOwnCard(game, Ability);
-            opponent.BurnOwnMana(game, Ability);
+            Applier.Opponent.DiscardOwnCard(game, Ability);
+            Applier.Opponent.BurnOwnMana(game, Ability);
         }
 
         public override IOneShotEffect Copy()

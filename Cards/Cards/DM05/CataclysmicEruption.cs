@@ -26,7 +26,7 @@ namespace Cards.Cards.DM05
         {
             var controller = Applier;
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Nature));
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCards(Applier.Opponent.ManaZone.Cards, 0, amount, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()

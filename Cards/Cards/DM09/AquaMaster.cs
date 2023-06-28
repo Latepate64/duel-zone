@@ -23,7 +23,7 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var shield = Applier.ChooseCard(GetOpponent(game).ShieldZone.Cards, ToString());
+            var shield = Applier.ChooseCard(Applier.Opponent.ShieldZone.Cards, ToString());
             if (shield != null)
             {
                 shield.FaceDown = false;

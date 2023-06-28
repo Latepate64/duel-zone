@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn && e.Turn.ActivePlayer == GetOpponent(game);
+            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn && e.Turn.ActivePlayer == Controller.Opponent;
         }
 
         public override IAbility Copy()

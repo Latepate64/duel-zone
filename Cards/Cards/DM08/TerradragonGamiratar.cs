@@ -31,7 +31,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return GetOpponent(game).Hand.Creatures;
+            return Applier.Opponent.Hand.Creatures;
         }
     }
 }

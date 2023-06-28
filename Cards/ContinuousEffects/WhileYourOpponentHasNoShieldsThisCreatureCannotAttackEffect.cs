@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
 
         public bool CannotAttack(ICard creature, IGame game)
         {
-            return IsSourceOfAbility(creature) && !GetOpponent(game).ShieldZone.HasCards;
+            return IsSourceOfAbility(creature) && !Applier.Opponent.ShieldZone.HasCards;
         }
 
         public override IContinuousEffect Copy()

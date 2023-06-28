@@ -57,8 +57,7 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            IPlayer opponent = game.GetPlayer(game.GetOpponent(owner));
-            return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(opponent, creature));
+            return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(game.GetPlayer(owner).Opponent, creature));
         }
 
         public override string ToString()
@@ -133,7 +132,7 @@ namespace Engine.Zones
 
         public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner)
         {
-            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
+            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetPlayer(owner).Opponent.Id));
         }
 
         public IBattleZone Copy()

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
 
         public bool AttacksIfAble(ICard creature, IGame game)
         {
-            return Source.Tapped && creature.Owner == GetOpponent(game);
+            return Source.Tapped && creature.Owner == Applier.Opponent;
         }
 
         public override IContinuousEffect Copy()

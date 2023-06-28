@@ -24,11 +24,11 @@ namespace Cards.Cards.DM09
 
         public override void Apply(IGame game)
         {
-            var cards = GetOpponent(game).ShieldZone.Cards.ToArray();
+            var cards = Applier.Opponent.ShieldZone.Cards.ToArray();
             if (cards.Any())
             {
-                Applier.Look(GetOpponent(game), game, cards);
-                GetOpponent(game).Unreveal(cards);
+                Applier.Look(Applier.Opponent, game, cards);
+                Applier.Opponent.Unreveal(cards);
             }
         }
 

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             game.Destroy(Ability, game.BattleZone.Creatures.Where(p => p != Ability.Source && p.Power.Value == 6000).ToArray());
-            Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = GetOpponent(game) };
+            Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = Applier.Opponent };
             game.ExtraTurns.Push(turn);
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), Ability.Source, Ability.Controller, true));
         }

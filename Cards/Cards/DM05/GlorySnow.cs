@@ -16,7 +16,7 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game)
         {
-            if (GetOpponent(game).ManaZone.Cards.Count > Applier.ManaZone.Cards.Count)
+            if (Applier.Opponent.ManaZone.Cards.Count > Applier.ManaZone.Cards.Count)
             {
                 Applier.PutFromTopOfDeckIntoManaZone(game, 2, Ability);
             }

@@ -40,8 +40,7 @@ namespace Cards.Cards.DM12
         {
             if (ValidInterveningIfClause)
             {
-                var opponent = GetOpponent(game);
-                opponent.Discard(this, game, opponent.Hand.Cards.ToArray());
+                Controller.Opponent.Discard(this, game, Controller.Opponent.Hand.Cards.ToArray());
             }
         }
 
@@ -57,7 +56,7 @@ namespace Cards.Cards.DM12
 
         public void Watch(IGame game, IGameEvent gameEvent)
         {
-            if (gameEvent is DrawCardEvent e && e.Player == GetOpponent(game))
+            if (gameEvent is DrawCardEvent e && e.Player == Controller.Opponent)
             {
                 ++_cardsDrawnByOpponent;
             }

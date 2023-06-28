@@ -25,7 +25,7 @@ namespace Cards.Cards.Promo
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return game.GetBattleZoneCreatures(GetOpponent(game)).Count() > game.GetBattleZoneCreatures(Controller).Count();
+            return game.GetBattleZoneCreatures(Controller.Opponent).Count() > game.GetBattleZoneCreatures(Controller).Count();
         }
 
         public override IAbility Copy()
@@ -44,7 +44,7 @@ namespace Cards.Cards.Promo
         public override void Apply(IGame game)
         {
             Applier.SearchOwnDeck();
-            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Applier), ToString(), game, Ability);
+            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(Applier.Opponent) - game.GetAmountOfBattleZoneCreatures(Applier), ToString(), game, Ability);
             Applier.ShuffleOwnDeck(game);
         }
 

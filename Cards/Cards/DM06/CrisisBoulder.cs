@@ -17,8 +17,8 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game)
         {
-            var cards = GetOpponent(game).ManaZone.Cards.Union(game.BattleZone.GetCreatures(GetOpponent(game).Id));
-            var card = GetOpponent(game).ChooseCard(cards, ToString());
+            var cards = Applier.Opponent.ManaZone.Cards.Union(game.BattleZone.GetCreatures(Applier.Opponent.Id));
+            var card = Applier.Opponent.ChooseCard(cards, ToString());
             if (card != null)
             {
                 game.Move(Ability, game.GetZone(card).Type, ZoneType.Graveyard, card);

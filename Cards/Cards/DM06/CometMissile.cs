@@ -34,7 +34,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any() && x.Power <= 6000);
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id).Where(x => x.GetAbilities<BlockerAbility>().Any() && x.Power <= 6000);
         }
     }
 }

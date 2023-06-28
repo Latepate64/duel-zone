@@ -26,7 +26,7 @@ namespace Cards.Cards.DM04
         {
             var controller = Applier;
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Light));
-            var cards = controller.ChooseCards(GetOpponent(game).ManaZone.Cards, 0, amount, ToString()).ToArray();
+            var cards = controller.ChooseCards(Applier.Opponent.ManaZone.Cards, 0, amount, ToString()).ToArray();
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards);
         }
 
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM04
         {
             var controller = Applier;
             var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Darkness));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 0, amount, ToString()).ToArray();
+            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id), 0, amount, ToString()).ToArray();
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 

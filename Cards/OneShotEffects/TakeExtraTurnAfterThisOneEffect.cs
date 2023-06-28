@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = GetOpponent(game) };
+            Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = Applier.Opponent };
             game.ExtraTurns.Push(turn);
         }
 

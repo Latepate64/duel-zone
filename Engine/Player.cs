@@ -81,6 +81,8 @@ namespace Engine
 
         public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
+        public IPlayer Opponent { get; set; }
+
         public void ArrangeTopCardsOfDeck(params ICard[] cards)
         {
             var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
@@ -231,12 +233,12 @@ namespace Engine
 
         public ICard ChooseOpponentsCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id), description);
         }
 
         public ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id).Where(x => x.IsNonEvolutionCreature), description);
         }
 
         public IPlayer ChoosePlayer(IGame game, string description)
@@ -265,7 +267,7 @@ namespace Engine
 
         public ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.Power <= power), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id).Where(x => x.Power <= power), description);
         }
 
         public void Discard(IAbility ability, IGame game, params ICard[] cards)
@@ -362,22 +364,21 @@ namespace Engine
 
         public void LookAtOneOfOpponentsShields(IGame game, IAbility source)
         {
-            var opponent = game.GetOpponent(this);
-            var cards = opponent.ShieldZone.Cards.ToArray();
+            var cards = Opponent.ShieldZone.Cards.ToArray();
             if (cards.Any())
             {
-                Look(opponent, game, cards);
-                opponent.Unreveal(cards);
+                Look(Opponent, game, cards);
+                Opponent.Unreveal(cards);
             }
         }
 
         public void LookAtOpponentsHand(IGame game)
         {
-            var cards = game.GetOpponent(this).Hand.Cards.ToArray();
+            var cards = Opponent.Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Look(game.GetOpponent(this), game, cards);
-                game.GetOpponent(this).Unreveal(cards);
+                Look(Opponent, game, cards);
+                Opponent.Unreveal(cards);
             }
         }
 

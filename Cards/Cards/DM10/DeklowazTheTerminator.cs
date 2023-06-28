@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
         {
             Applier.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
             Applier.LookAtOpponentsHand(game);
-            GetOpponent(game).DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
+            Applier.Opponent.DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
         }
 
         public override IOneShotEffect Copy()

@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
             var player = Applier;
             var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
             game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, cards.ToArray());
-            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id), cards.Count(), cards.Count(), ToString());
+            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Applier.Opponent.Id), cards.Count(), cards.Count(), ToString());
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creatures.ToArray());
         }
 

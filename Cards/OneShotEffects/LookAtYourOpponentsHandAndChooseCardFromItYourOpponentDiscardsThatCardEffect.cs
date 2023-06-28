@@ -15,12 +15,12 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            Applier.Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
-            var card = Applier.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
+            Applier.Look(Applier.Opponent, game, Applier.Opponent.Hand.Cards.ToArray());
+            var card = Applier.ChooseCard(Applier.Opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                GetOpponent(game).Discard(Ability, game, card);
-                GetOpponent(game).Unreveal(card);
+                Applier.Opponent.Discard(Ability, game, card);
+                Applier.Opponent.Unreveal(card);
             }
         }
 

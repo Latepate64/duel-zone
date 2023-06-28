@@ -25,7 +25,7 @@ namespace Cards.Cards.DM05
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ShieldTriggerEvent e && e.Player == GetOpponent(game) && game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == Source;
+            return gameEvent is ShieldTriggerEvent e && e.Player == Controller.Opponent && game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == Source;
         }
 
         public override IAbility Copy()

@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            GetOpponent(game).DiscardAtRandom(game, Amount, Ability);
+            Applier.Opponent.DiscardAtRandom(game, Amount, Ability);
         }
 
         public override string ToString()
