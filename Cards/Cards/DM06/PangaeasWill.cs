@@ -24,7 +24,7 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var card = Applier.ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, Applier.Opponent), ToString());
+            var card = Applier.ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByChoosersOpponent(game, Applier), ToString());
             if (card != null)
             {
                 game.MoveTopCard(card, ZoneType.ManaZone, Ability);

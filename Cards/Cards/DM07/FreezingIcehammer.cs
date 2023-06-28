@@ -31,7 +31,7 @@ namespace Cards.Cards.DM07
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent).Where(x => x.HasCivilization(Civilization.Water, Civilization.Darkness));
+            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier).Where(x => x.HasCivilization(Civilization.Water, Civilization.Darkness));
         }
     }
 }

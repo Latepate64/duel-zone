@@ -29,7 +29,7 @@ namespace Cards.Cards.DM07
             game.Destroy(
                 Ability,
                 Applier.ChooseCards(
-                    new CardChoice(Applier, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent).ToArray())
+                    new CardChoice(Applier, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier).ToArray())
                     ).ToArray());
         }
 

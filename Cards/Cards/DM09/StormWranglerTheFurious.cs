@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, Applier.Opponent).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(game, Applier).Where(x => x.GetAbilities<BlockerAbility>().Any());
             var creature = Applier.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {

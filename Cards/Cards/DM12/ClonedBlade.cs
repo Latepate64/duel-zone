@@ -25,7 +25,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply(IGame game)
         {
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
             game.Destroy(Ability, creatures.ToArray());
         }
 
