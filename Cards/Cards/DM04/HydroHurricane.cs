@@ -53,9 +53,8 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            var controller = Applier;
-            var amount = game.BattleZone.GetCreatures(controller.Id).Count(x => x.HasCivilization(Civilization.Darkness));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id), 0, amount, ToString()).ToArray();
+            var amount = game.BattleZone.GetCreatures(Applier.Id).Count(x => x.HasCivilization(Civilization.Darkness));
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent), 0, amount, ToString()).ToArray();
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 

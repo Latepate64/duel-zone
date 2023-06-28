@@ -9,7 +9,7 @@ namespace Cards
     {
         public static void DestroyOpponentsBlocker(this IPlayer player, IGame game, IAbility source)
         {
-            var blocker = player.ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, player.Opponent.Id).Where(x => x.IsBlocker()), source.ToString());
+            var blocker = player.ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, player.Opponent).Where(x => x.IsBlocker()), source.ToString());
             game.Destroy(source, blocker);
         }
 

@@ -233,12 +233,12 @@ namespace Engine
 
         public ICard ChooseOpponentsCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent), description);
         }
 
         public ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id).Where(x => x.IsNonEvolutionCreature), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent).Where(x => x.IsNonEvolutionCreature), description);
         }
 
         public IPlayer ChoosePlayer(IGame game, string description)
@@ -267,7 +267,7 @@ namespace Engine
 
         public ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent.Id).Where(x => x.Power <= power), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Opponent).Where(x => x.Power <= power), description);
         }
 
         public void Discard(IAbility ability, IGame game, params ICard[] cards)

@@ -40,7 +40,7 @@ namespace Cards.Cards.DM10
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id)).Union(game.BattleZone.GetCreatures(Ability.Controller.Id));
+            return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent)).Union(game.BattleZone.GetCreatures(Ability.Controller.Id));
         }
     }
 }

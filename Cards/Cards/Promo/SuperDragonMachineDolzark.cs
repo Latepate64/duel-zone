@@ -59,7 +59,7 @@ namespace Cards.Cards.Promo
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id).Where(x => x.Power <= 5000);
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent).Where(x => x.Power <= 5000);
         }
     }
 }

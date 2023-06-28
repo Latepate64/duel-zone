@@ -9,9 +9,9 @@ namespace Engine.Zones
         IEnumerable<ICard> EvolutionCreatures => Creatures.Where(x => x.IsEvolutionCreature);
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser);
-        IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);
-        IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner);
-        IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller);
+        IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, IPlayer controller);
+        IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, IPlayer controller);
+        IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, IPlayer controller);
         IEnumerable<ICard> GetCreatures(Guid controller, Race race);
         IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2);
         IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization);

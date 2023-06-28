@@ -55,9 +55,9 @@ namespace Engine.Zones
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, IPlayer controller)
         {
-            return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(game.GetPlayer(owner).Opponent, creature));
+            return GetCreatures(controller).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(controller.Opponent, creature));
         }
 
         public override string ToString()
@@ -65,9 +65,9 @@ namespace Engine.Zones
             return "battle zone";
         }
 
-        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, IPlayer controller)
         {
-            return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
+            return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => x.IsEvolutionCreature);
         }
 
         public IEnumerable<ICard> GetCreatures(Guid controller, Race race)
@@ -125,14 +125,14 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller)
+        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, IPlayer controller)
         {
             return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => !x.Tapped);
         }
 
         public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser)
         {
-            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByPlayer(game, chooser.Opponent.Id));
+            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByPlayer(game, chooser.Opponent));
         }
 
         public IBattleZone Copy()

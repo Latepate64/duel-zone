@@ -17,10 +17,9 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var controller = Applier;
-            var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent.Id), amount, amount, ToString());
-            controller.Tap(game, creatures.ToArray());
+            var amount = Applier.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, Applier.Opponent), amount, amount, ToString());
+            Applier.Tap(game, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()
