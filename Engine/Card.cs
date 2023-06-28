@@ -97,6 +97,12 @@ namespace Engine
 
         internal bool CountsAsIfExists => Underneath != null;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
+
+        public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
+        public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
+        public bool IsMultiColored => Civilizations.Count > 1;
+        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
+
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
