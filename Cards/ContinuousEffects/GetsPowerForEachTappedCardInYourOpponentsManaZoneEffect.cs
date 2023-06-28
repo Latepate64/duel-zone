@@ -26,7 +26,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(Applier.Opponent.Id).ManaZone.TappedCards.Count();
+            return Applier.Opponent.ManaZone.TappedCards.Count();
         }
     }
 }

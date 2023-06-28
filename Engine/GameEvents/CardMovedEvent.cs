@@ -39,7 +39,7 @@ namespace Engine.GameEvents
             if (Player != null)
             {
                 var card = game.GetCard(CardInSourceZone);
-                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : Source == ZoneType.SpellStack ? game.SpellStack : game.GetPlayer(Player.Id).GetZone(Source)).Remove(card, game);
+                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : Source == ZoneType.SpellStack ? game.SpellStack : Player.GetZone(Source)).Remove(card, game);
                 foreach (var removedCard in removed)
                 {
                     if (Destination != ZoneType.Anywhere)
@@ -52,7 +52,7 @@ namespace Engine.GameEvents
                         {
                             newObject.Tapped = true;
                         }
-                        (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
+                        (Destination == ZoneType.BattleZone ? game.BattleZone : Player.GetZone(Destination)).Add(newObject, game);
                         CardInDestinationZone = newObject;
                     }
                 }
