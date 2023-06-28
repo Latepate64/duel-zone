@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine.Zones
 {
     public interface IBattleZone : IZone, ICopyable<IBattleZone>
     {
-        IEnumerable<ICard> EvolutionCreatures => Creatures.Where(x => x.IsEvolutionCreature);
+        IEnumerable<ICard> EvolutionCreatures { get; }
 
         IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser);
         IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser);

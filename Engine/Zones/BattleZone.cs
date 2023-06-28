@@ -11,6 +11,8 @@ namespace Engine.Zones
     /// </summary>
     public class BattleZone : Zone, IBattleZone
     {
+        public IEnumerable<ICard> EvolutionCreatures => Creatures.Where(x => x.IsEvolutionCreature);
+
         public BattleZone() : base(ZoneType.BattleZone)
         {
         }
