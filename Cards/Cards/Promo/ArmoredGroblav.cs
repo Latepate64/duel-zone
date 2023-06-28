@@ -31,7 +31,7 @@ namespace Cards.Cards.Promo
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Source.Id, Civilization.Fire).Count();
+            return game.BattleZone.GetOtherCreatures(Source, Civilization.Fire).Count();
         }
     }
 }

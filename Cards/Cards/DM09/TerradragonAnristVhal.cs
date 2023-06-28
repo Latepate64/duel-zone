@@ -30,7 +30,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Applier, Source.Id, Civilization.Nature).Count();
+            return game.BattleZone.GetOtherCreatures(Applier, Source, Civilization.Nature).Count();
         }
     }
 }

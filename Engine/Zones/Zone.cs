@@ -60,9 +60,9 @@ namespace Engine.Zones
             return Creatures.Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature)
         {
-            return Creatures.Where(x => x.Id != creature);
+            return Creatures.Where(x => x.Id != creature.Id);
         }
 
         public IEnumerable<ICard> GetCreatures(IPlayer player)

@@ -16,12 +16,12 @@ namespace Engine.Zones
         IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization);
         IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization1, Civilization civilization2);
         IEnumerable<ICard> GetCreaturesWithSilentSkill(IPlayer player);
-        IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature);
-        IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature, Civilization civilization);
-        IEnumerable<ICard> GetOtherCreatures(Guid creature, Civilization civilization);
-        IEnumerable<ICard> GetOtherCreatures(Guid creature, Race race);
-        IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, Guid creature);
-        IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, Guid creature);
+        IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature);
+        IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature, Civilization civilization);
+        IEnumerable<ICard> GetOtherCreatures(ICard creature, Civilization civilization);
+        IEnumerable<ICard> GetOtherCreatures(ICard creature, Race race);
+        IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, ICard creature);
+        IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, ICard creature);
         IEnumerable<ICard> GetTappedCreatures(IPlayer controller);
         void RemoveSummoningSicknesses(IPlayer player);
     }

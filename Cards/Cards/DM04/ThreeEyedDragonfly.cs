@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var creature = Applier.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Applier, Source.Id), ToString());
+            var creature = Applier.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Applier, Source), ToString());
             if (creature != null)
             {
                 game.Destroy(Ability, creature);

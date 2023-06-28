@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Engine.Zones
 {
@@ -17,7 +16,7 @@ namespace Engine.Zones
         IEnumerable<ICard> GetCreatures(Civilization civilization);
         IEnumerable<ICard> GetCreatures(Race race);
         IEnumerable<ICard> GetCreatures(IPlayer player);
-        IEnumerable<ICard> GetOtherCreatures(Guid creature);
+        IEnumerable<ICard> GetOtherCreatures(ICard creature);
         List<ICard> Remove(ICard card, IGame game);
         string ToString();
     }

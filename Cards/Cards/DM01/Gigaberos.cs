@@ -22,7 +22,7 @@ namespace Cards.Cards.DM01
             var thisCreature = creatures.SingleOrDefault(IsSourceOfAbility);
             if (thisCreature == null)
             {
-                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Applier, Source.Id).ToArray());
+                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Applier, Source).ToArray());
             }
             else if (creatures.Where(x => !IsSourceOfAbility(x)).Count() < 2)
             {

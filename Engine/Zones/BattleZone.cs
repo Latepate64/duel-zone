@@ -1,6 +1,5 @@
 ﻿using Engine.Abilities;
 using Engine.Steps;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -92,32 +91,32 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.HasCivilization(civilization1, civilization2));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature)
         {
-            return GetCreatures(controller).Where(x => x.Id != creature);
+            return GetCreatures(controller).Where(x => x.Id != creature.Id);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature, Civilization civilization)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature, Civilization civilization)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, Guid creature)
+        public IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, ICard creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, Guid creature)
+        public IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, ICard creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Civilization civilization)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature, Civilization civilization)
         {
             return GetOtherCreatures(creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Race race)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature, Race race)
         {
             return GetOtherCreatures(creature).Where(x => x.HasRace(race));
         }
