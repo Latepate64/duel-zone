@@ -42,7 +42,7 @@ namespace Cards.Cards.DM11
 
     class SlashAndBurnDelayedAbility : DelayedTriggeredAbility, IExpirable
     {
-        public SlashAndBurnDelayedAbility(IAbility ability) : base(new SlashAndBurnAbility(), ability.Source, ability.Controller, false)
+        public SlashAndBurnDelayedAbility(IAbility ability) : base(new SlashAndBurnAbility(), false, ability)
         {
         }
 

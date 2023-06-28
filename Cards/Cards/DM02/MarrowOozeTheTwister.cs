@@ -22,9 +22,8 @@ namespace Cards.Cards.DM02
                     new AfterAttackAbility(
                         new OneShotEffects.DestroyThisCreatureEffect(),
                         Source.Id),
-                    Source,
-                    Applier,
-                    true));
+                    true,
+                    Ability));
         }
 
         public override IOneShotEffect Copy()

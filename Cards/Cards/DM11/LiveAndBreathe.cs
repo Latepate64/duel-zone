@@ -43,7 +43,7 @@ namespace Cards.Cards.DM11
 
     class LiveAndBreatheDelayedAbility : DelayedTriggeredAbility, IExpirable
     {
-        public LiveAndBreatheDelayedAbility(IAbility ability) : base(new LiveAndBreatheAbility(), ability.Source, ability.Controller, true)
+        public LiveAndBreatheDelayedAbility(IAbility ability) : base(new LiveAndBreatheAbility(), true, ability)
         {
         }
 

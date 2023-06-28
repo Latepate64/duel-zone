@@ -21,9 +21,8 @@ namespace Cards.Cards.DM07
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
-                        Source,
-                        Applier,
-                        true));
+                        true,
+                        Ability));
         }
 
         public override IOneShotEffect Copy()

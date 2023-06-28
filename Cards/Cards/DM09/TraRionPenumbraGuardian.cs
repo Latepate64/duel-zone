@@ -19,9 +19,8 @@ namespace Cards.Cards.DM09
         {
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Applier.ChooseRace(ToString()))),
-                Source,
-                Applier,
-                true));
+                true,
+                Ability));
         }
 
         public override IOneShotEffect Copy()
