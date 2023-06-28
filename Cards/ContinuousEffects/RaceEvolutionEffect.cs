@@ -36,19 +36,19 @@ namespace Cards.ContinuousEffects
             return string.Join(' ', System.Text.RegularExpressions.Regex.Split(text, @"(?<!^)(?=[A-Z])"));
         }
 
-        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
+        public bool CanEvolveFrom(ICard bait, ICard evolutionCard)
         {
             return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
         }
 
-        public override bool CanEvolve(IGame game, ICard evolutionCreature)
+        public override bool CanEvolve(ICard evolutionCreature)
         {
-            return GetPossibleBaits(game, evolutionCreature).Any();
+            return GetPossibleBaits(evolutionCreature).Any();
         }
 
-        protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
+        protected override IEnumerable<ICard> GetPossibleBaits(ICard evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return Game.BattleZone.GetCreatures(evolutionCreature.Owner).Where(bait => CanEvolveFrom(bait, evolutionCreature));
         }
     }
 
@@ -62,15 +62,15 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public abstract bool CanEvolve(IGame game, ICard evolutionCreature);
+        public abstract bool CanEvolve(ICard evolutionCreature);
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature)
         {
-            var baits = GetPossibleBaits(game, evolutionCreature);
+            var baits = GetPossibleBaits(evolutionCreature);
             var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
-            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
+            Game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
         }
 
-        protected abstract IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature);
+        protected abstract IEnumerable<ICard> GetPossibleBaits(ICard evolutionCreature);
     }
 }

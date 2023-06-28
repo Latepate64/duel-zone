@@ -29,9 +29,9 @@ namespace Cards.ContinuousEffects
             return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {AbilitiesAsText}";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Controller.Id, _civilization);
+            return Game.BattleZone.GetCreatures(Applier, _civilization);
         }
     }
 }

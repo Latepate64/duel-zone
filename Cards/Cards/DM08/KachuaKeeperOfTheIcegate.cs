@@ -27,19 +27,19 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = Controller.Deck.Creatures.Where(x => x.IsDragon);
-            var dragon = Controller.ChooseCardOptionally(cards, ToString());
+            var cards = Applier.Deck.Creatures.Where(x => x.IsDragon);
+            var dragon = Applier.ChooseCardOptionally(cards, ToString());
             if (dragon != null)
             {
-                game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
+                Game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
-            Controller.ShuffleOwnDeck(game);
+            Applier.ShuffleOwnDeck();
             if (dragon != null)
             {
-                game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
-                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
+                Game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
+                Game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, Game.CurrentTurn.Id));
             }
         }
 
@@ -68,7 +68,7 @@ namespace Cards.Cards.DM08
 
         public ICard Card { get; }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool Applies(ICard creature)
         {
             return creature == Card;
         }
@@ -86,7 +86,7 @@ namespace Cards.Cards.DM08
 
     class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
     {
-        public KachuaDelayedTriggeredAbility(IAbility source, ICard card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
+        public KachuaDelayedTriggeredAbility(IAbility source, ICard card, Guid turnId) : base(new KachuaAbility(card, turnId), true, source)
         {
         }
     }
@@ -107,7 +107,7 @@ namespace Cards.Cards.DM08
             _card = ability._card;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
         }
@@ -117,9 +117,9 @@ namespace Cards.Cards.DM08
             return new KachuaAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Destroy(this,  _card);
+            Game.Destroy(this,  _card);
         }
 
         public override string ToString()

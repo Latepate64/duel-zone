@@ -27,7 +27,7 @@ namespace Cards.Cards.DM11
             _player = ability._player;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn;
         }
@@ -37,9 +37,9 @@ namespace Cards.Cards.DM11
             return new EvilIncarnateAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Destroy(this, _player.ChooseControlledCreature(game, ToString()));
+            Game.Destroy(this, _player.ChooseControlledCreature(ToString()));
         }
 
         public override string ToString()

@@ -23,9 +23,9 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            if (!Controller.ShieldZone.HasCards)
+            if (!Applier.ShieldZone.HasCards)
             {
                 Source.AddGrantedAbility(new DoubleBreakerAbility());
             }
@@ -36,9 +36,9 @@ namespace Cards.Cards.DM07
             return new GazariasDragonEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (!Controller.ShieldZone.HasCards)
+            if (!Applier.ShieldZone.HasCards)
             {
                 Source.Power += 4000;
             }

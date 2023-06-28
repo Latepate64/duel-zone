@@ -14,12 +14,10 @@ namespace Cards.Cards.DM03
 
     class ArmoredWarriorQuelosEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, controller.ChooseCard(controller.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
-            var opponent = game.GetOpponent(controller);
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, opponent.ChooseCard(opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.ChooseCard(Applier.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.Opponent.ChooseCard(Applier.Opponent.ManaZone.Cards.Where(x => !x.HasCivilization(Civilization.Fire)), ToString()));
         }
 
         public override IOneShotEffect Copy()

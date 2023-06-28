@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -13,11 +12,11 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+                Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
             }
         }
 

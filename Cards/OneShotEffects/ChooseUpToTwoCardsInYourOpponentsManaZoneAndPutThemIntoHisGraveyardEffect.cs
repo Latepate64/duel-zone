@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return $"Choose up to {Maximum} cards in your opponent's mana zone and put them into his graveyard.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return GetOpponent(game).ManaZone.Cards;
+            return Applier.Opponent.ManaZone.Cards;
         }
     }
 }

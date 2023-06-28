@@ -29,9 +29,9 @@ namespace Cards.Cards.DM03
             return "You may put a nature card from your graveyard into your mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Graveyard.GetCards(Civilization.Nature);
+            return Applier.Graveyard.GetCards(Civilization.Nature);
         }
     }
 }

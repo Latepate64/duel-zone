@@ -18,9 +18,9 @@ namespace Cards.OneShotEffects
             return new ReturnThisCreatureToYourHandEffect(this);
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Ability.Source);
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Source);
         }
 
         public override string ToString()

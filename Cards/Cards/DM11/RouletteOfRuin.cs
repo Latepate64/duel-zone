@@ -23,14 +23,14 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var number = Controller.ChooseNumber(new Engine.Choices.NumberChoice(Controller, ToString()));
-            foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
+            var number = Applier.ChooseNumber(new Engine.Choices.NumberChoice(Applier, ToString()));
+            foreach (var player in new IPlayer[] { Applier, Applier.Opponent })
             {
-                game.GetPlayer(player).ShowCardsToOpponent(game, game.GetPlayer(player).Hand.Cards.ToArray());
-                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
-                game.GetPlayer(player).Unreveal(game.GetPlayer(player).Hand.Cards.ToArray());
+                player.ShowCardsToOpponent(player.Hand.Cards.ToArray());
+                Game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, player.Hand.Cards.Where(x => x.ManaCost == number).ToArray());
+                player.Unreveal(player.Hand.Cards.ToArray());
             }
         }
 

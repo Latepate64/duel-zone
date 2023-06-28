@@ -31,14 +31,14 @@ namespace Cards.Cards.DM06
             return "One of your creatures in the battle zone that has \"blocker\" gets +4000 power until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
+            Game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return Game.BattleZone.GetCreatures(Applier).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

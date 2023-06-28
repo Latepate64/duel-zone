@@ -22,12 +22,12 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack)
         {
             return IsSourceOfAbility(attacker);
         }

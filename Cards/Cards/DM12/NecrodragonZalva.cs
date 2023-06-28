@@ -21,9 +21,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            GetOpponent(game).DrawCards(1, game, Ability);
+            Applier.Opponent.DrawCards(1, Ability);
         }
 
         public override IOneShotEffect Copy()

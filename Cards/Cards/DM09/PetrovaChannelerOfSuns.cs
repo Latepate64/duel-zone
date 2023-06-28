@@ -24,13 +24,13 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
-            var race = Controller.ChooseRace(ToString(), Race.MechaDelSol);
+            var race = Applier.ChooseRace(ToString(), Race.MechaDelSol);
             return new PetrovaEvent(gameEvent as CardMovedEvent, race);
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is ICardMovedEvent e && Source.Id == e.CardInSourceZone && e.Destination == ZoneType.BattleZone;
         }
@@ -91,12 +91,12 @@ namespace Cards.Cards.DM09
             return new PetrovaBuffEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.Power += 4000);
+            Game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.Power += 4000);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             var sourceCard = Source;
             return gameEvent is CardMovedEvent e && e.CardInSourceZone == sourceCard.Id && e.Source == ZoneType.BattleZone;

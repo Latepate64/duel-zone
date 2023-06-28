@@ -21,11 +21,11 @@ namespace Cards.Cards.DM09
 
     class UnifiedResistanceOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var race = Controller.ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id).Where(x => x.HasRace(race));
-            game.AddContinuousEffects(Ability, new UnifiedResistanceContinuousEffect(Ability.Controller.Id, creatures.ToArray()));
+            var race = Applier.ChooseRace(ToString());
+            var creatures = Game.BattleZone.GetCreatures(Applier).Where(x => x.HasRace(race));
+            Game.AddContinuousEffects(Ability, new UnifiedResistanceContinuousEffect(Applier.Id, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -61,7 +61,7 @@ namespace Cards.Cards.DM09
             return new UnifiedResistanceContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer.Id == _player;
         }
@@ -71,7 +71,7 @@ namespace Cards.Cards.DM09
             return $"Until the start of your next turn, {_cards} have \"Blocker\".";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
             return _cards;
         }

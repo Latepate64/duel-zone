@@ -19,7 +19,7 @@ namespace Cards.Cards.DM02
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker.HasRace(Race.LiquidPeople);
         }

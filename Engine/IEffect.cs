@@ -6,8 +6,9 @@ namespace Engine
     public interface IEffect
     {
         IAbility Ability { get; set; }
-        IPlayer Controller { get; }
+        IPlayer Applier { get; }
         ICard Source { get; }
+        IGame Game { get; }
     }
 
     public abstract class Effect : IEffect
@@ -22,8 +23,9 @@ namespace Engine
         }
 
         public IAbility Ability { get; set; }
-        public IPlayer Controller => Ability.Controller;
+        public IPlayer Applier => Ability.Controller;
         public ICard Source => Ability.Source;
+        public IGame Game => Ability.Game;
 
         public void Dispose()
         {
@@ -43,11 +45,6 @@ namespace Engine
         protected bool IsSourceOfAbility(ICard card)
         {
             return card == Source;
-        }
-
-        protected IPlayer GetOpponent(IGame game)
-        {
-            return game.GetOpponent(Controller);
         }
     }
 }

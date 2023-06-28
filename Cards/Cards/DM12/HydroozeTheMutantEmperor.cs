@@ -19,9 +19,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker) && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
+            return Game.BattleZone.GetCreatures(Applier).Contains(attacker) && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
         }
 
         public override IContinuousEffect Copy()

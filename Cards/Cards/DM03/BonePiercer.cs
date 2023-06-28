@@ -28,9 +28,9 @@ namespace Cards.Cards.DM03
             return "You may return a creature from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.ManaZone.Creatures;
+            return Applier.ManaZone.Creatures;
         }
     }
 }

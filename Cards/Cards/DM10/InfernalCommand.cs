@@ -18,10 +18,10 @@ namespace Cards.Cards.DM10
 
     class InfernalCommandEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Controller.ChooseOpponentsCreature(game, ToString());
-            game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
+            var creature = Applier.ChooseOpponentsCreature(ToString());
+            Game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
         }
 
         public override IOneShotEffect Copy()
@@ -49,7 +49,7 @@ namespace Cards.Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature == _creature;
         }
@@ -59,9 +59,9 @@ namespace Cards.Cards.DM10
             return new InfernalCommandContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Controller;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Applier;
         }
 
         public override string ToString()

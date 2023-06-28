@@ -24,7 +24,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
@@ -42,9 +42,9 @@ namespace Cards.Cards.DM09
             return "When this creature would be destroyed, if another Kalute, Vizier of Eternity is in the battle zone, return this creature to your hand instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
-            return IsSourceOfAbility(card) && game.BattleZone.GetOtherCreatures(card.Id).Any(x => x.Name == "Kalute, Vizier of Eternity");
+            return IsSourceOfAbility(card) && Game.BattleZone.GetOtherCreatures(card).Any(x => x.Name == "Kalute, Vizier of Eternity");
         }
     }
 }

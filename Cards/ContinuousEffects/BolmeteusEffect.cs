@@ -15,13 +15,13 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var e = gameEvent as CreatureBreaksShieldsEvent;
             return new BolmeteusEvent(e.Attacker, e.BreakAmount);
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker == Source;
         }
@@ -45,8 +45,7 @@ namespace Cards.ContinuousEffects
 
         public override void Happen(IGame game)
         {
-            var owner = Attacker.Owner;
-            var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields. Your opponent puts those shields into his graveyard.");
+            var cards = Attacker.Owner.ChooseCards(Attacker.Owner.Opponent.ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields. Your opponent puts those shields into his graveyard.");
             game.Move(null, ZoneType.ShieldZone, ZoneType.Graveyard, cards.ToArray());
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IIgnoreCannotAttackPlayersEffects : IContinuousEffect
     {
-        bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game);
+        bool IgnoreCannotAttackPlayersEffects(ICard attacker);
     }
 }

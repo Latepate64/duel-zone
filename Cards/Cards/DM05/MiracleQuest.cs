@@ -24,9 +24,9 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -42,11 +42,11 @@ namespace Cards.Cards.DM05
 
     class MiracleQuestDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.Controller, false)
+        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), false, source)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == Controller;
         }
@@ -88,15 +88,15 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             // TODO: Should retrieve amount based on the actual attack, now calculates all attacks by attacker (in rare cases could be more than one attack)
-            var amount = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == Ability.Source).Sum(x => x.BreakAmount);
+            var amount = Game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Where(x => x.Attacker == Source).Sum(x => x.BreakAmount);
             for (int i = 0; i < amount; ++i)
             {
-                if (Controller.ChooseToTakeAction("You may draw 2 cards."))
+                if (Applier.ChooseToTakeAction("You may draw 2 cards."))
                 {
-                    Controller.DrawCards(2, game, Ability);
+                    Applier.DrawCards(2, Ability);
                 }
                 else
                 {

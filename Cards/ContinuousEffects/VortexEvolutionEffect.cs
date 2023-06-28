@@ -23,9 +23,9 @@ namespace Cards.ContinuousEffects
         public Race Race1 { get; }
         public Race Race2 { get; }
 
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public bool CanEvolve(ICard evolutionCreature)
         {
-            var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+            var baits = Game.BattleZone.GetCreatures(evolutionCreature.Owner);
             var combinations = new Combinations<ICard>(baits, 2, GenerateOption.WithoutRepetition);
             var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
             return validPairs.Any();
@@ -64,16 +64,16 @@ namespace Cards.ContinuousEffects
             return $"Vortex evolution — Put on one of your {Race1}s and one of your {Race2}s.";
         }
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature)
         {
-            var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+            var creatures = Game.BattleZone.GetCreatures(evolutionCreature.Owner);
             System.Collections.Generic.IEnumerable<ICard> baits;
             do
             {
                 baits = evolutionCreature.Owner.ChooseCards(creatures, 2, 2, "Choose creatures to evolve from.");
             }
             while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
-            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, baits.ToArray()));
+            Game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, baits.ToArray()));
         }
     }
 }

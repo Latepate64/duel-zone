@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "You may return a spell from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Graveyard.Spells;
+            return Applier.Graveyard.Spells;
         }
     }
 }

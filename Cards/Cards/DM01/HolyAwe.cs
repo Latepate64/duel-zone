@@ -29,9 +29,9 @@ namespace Cards.Cards.DM01
             return "Tap all your opponent's creatures in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(game.GetOpponent(Ability.Controller.Id));
+            return Game.BattleZone.GetCreatures(Applier.Opponent);
         }
     }
 }

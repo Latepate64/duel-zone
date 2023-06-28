@@ -71,21 +71,21 @@ namespace Engine.ContinuousEffects
             var orderedEffects = _continuousEffects.OrderBy(x => x.Timestamp);
 
             // TODO: 613.1d Layer 4: Type-changing effects are applied. These include effects that change an object’s card type, race, and / or supertype.
-            orderedEffects.OfType<IRaceAddingEffect>().ToList().ForEach(x => x.AddRace(Game));
+            orderedEffects.OfType<IRaceAddingEffect>().ToList().ForEach(x => x.AddRace());
 
             // 613.1f Layer 6: Ability-adding effects, ability-removing effects, and effects that say an object can’t have an ability are applied.
-            orderedEffects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility(Game));
+            orderedEffects.OfType<IAbilityAddingEffect>().ToList().ForEach(x => x.AddAbility());
 
             // 613.1g Layer 7: Power-changing effects are applied.
             // 613.4c Layer 7c: Effects that modify power (but don’t set power to a specific number or value) are applied.
-            orderedEffects.OfType<IPowerModifyingEffect>().ToList().ForEach(x => x.ModifyPower(Game));
+            orderedEffects.OfType<IPowerModifyingEffect>().ToList().ForEach(x => x.ModifyPower());
 
             // TODO: Should check if any characteristics have changed and provide that information as an event.
         }
 
         public void RemoveExpired(IGameEvent gameEvent)
         {
-            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, Game)).ToArray())
+            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent)).ToArray())
             {
                 _continuousEffects.Remove(remove);
             }
@@ -93,7 +93,7 @@ namespace Engine.ContinuousEffects
 
         public void Notify(IGameEvent gameEvent)
         {
-            _continuousEffects.OfType<IWatcher>().ToList().ForEach(x => x.Watch(Game, gameEvent));
+            _continuousEffects.OfType<IWatcher>().ToList().ForEach(x => x.Watch(gameEvent));
         }
 
         public bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player)
@@ -108,93 +108,93 @@ namespace Engine.ContinuousEffects
 
         public bool DoesCreatureAttackIfAble(ICard creature)
         {
-            return GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(creature, Game));
+            return GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(creature));
         }
 
         public bool CanPlayerTapCreature(IPlayer player, ICard card)
         {
-            return !GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(player, card, Game));
+            return !GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(player, card));
         }
 
         public bool CanPlayerChooseCreature(IPlayer player, ICard card)
         {
-            return !GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, player.Id, Game));
+            return !GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, player.Id));
         }
 
         public bool DoesAnySlayerEffectApply(ICard loser, ICard winner)
         {
-            return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner, Game));
+            return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(loser, winner));
         }
 
         public bool DoesCreatureGetDestroyedInBattle(ICard against, ICard target)
         {
-            return GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, Game));
+            return GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target));
         }
 
         public bool CanCreatureBlockCreature(ICard blocker, ICard attackingCreature)
         {
-            return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature, Game));
+            return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(blocker, attackingCreature));
         }
 
         public bool CanCreatureBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget)
         {
-            return !GetContinuousEffects<IUnblockableEffect>().Any(e => e.CannotBeBlocked(attackingCreature, blocker, attackTarget, Game));
+            return !GetContinuousEffects<IUnblockableEffect>().Any(e => e.CannotBeBlocked(attackingCreature, blocker, attackTarget));
         }
 
         public bool DoesCreatureBlockIfAble(ICard blocker, ICard attackingCreature)
         {
-            return GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(blocker, attackingCreature, Game));
+            return GetContinuousEffects<IBlocksIfAbleEffect>().Any(e => e.BlocksIfAble(blocker, attackingCreature));
         }
 
         public bool DoesBattleHappenAfterCreatureBecomesBlocked(ICard attackingCreature, ICard blockingCreature)
         {
-            return !GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature, Game));
+            return !GetContinuousEffects<ISkipBattleAfterBlockEffect>().Any(x => x.Applies(attackingCreature, blockingCreature));
         }
 
         public int GetAmountOfShieldsCreatureBreaksAdditionally(ICard attackingCreature)
         {
-            return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(x => x.GetAmount(Game, attackingCreature));
+            return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(x => x.GetAmount(attackingCreature));
         }
 
         public IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICard attackingCreature)
         {
-            return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(Game, attackingCreature));
+            return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(attackingCreature));
         }
 
         public bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICard creature)
         {
-            return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, Game));
+            return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature));
         }
 
         public bool DoesCreatureHaveSpeedAttacker(ICard creature)
         {
-            return GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature, Game));
+            return GetContinuousEffects<ISpeedAttackerEffect>().Any(x => x.Applies(creature));
         }
 
         public bool CanCreatureAttack(ICard creature)
         {
-            return !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature, Game));
+            return !GetContinuousEffects<ICannotAttackEffect>().Any(x => x.CannotAttack(creature));
         }
 
         public bool CanCreatureAttackCreature(ICard attacker, ICard targetOfAttack)
         {
             // TODO: Merge ICannotBeAttackedEffect and ICannotAttackCreaturesEffect
-            return !GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack, Game)) && !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack, Game));
+            return !GetContinuousEffects<ICannotBeAttackedEffect>().Any(x => x.Applies(attacker, targetOfAttack)) && !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(x => x.CannotAttackCreature(attacker, targetOfAttack));
         }
 
         public bool CanCreatureAttackPlayers(ICard creature)
         {
-            return !GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(creature, Game));
+            return !GetContinuousEffects<ICannotAttackPlayersEffect>().Any(x => x.CannotAttackPlayers(creature));
         }
 
         public bool CanPlayerUseCard(ICard card)
         {
-            return !GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(card, Game));
+            return !GetContinuousEffects<ICannotUseCardEffect>().Any(x => x.Applies(card));
         }
 
         public bool CanCreatureEvolve(ICard toEvolve)
         {
-            return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolve(Game, toEvolve));
+            return GetContinuousEffects<IEvolutionEffect>().Any(x => x.CanEvolve(toEvolve));
         }
 
         public bool CanPlayersUseTapAbilities()
@@ -209,12 +209,12 @@ namespace Engine.ContinuousEffects
 
         public bool CanCreatureAttackUntappedCreature(ICard attacker, ICard untappedCreature)
         {
-            return GetContinuousEffects<ICanAttackUntappedCreaturesEffect>().Any(e => e.CanAttackUntappedCreature(attacker, untappedCreature, Game));
+            return GetContinuousEffects<ICanAttackUntappedCreaturesEffect>().Any(e => e.CanAttackUntappedCreature(attacker, untappedCreature));
         }
 
         public IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent)
         {
-            return GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent, Game));
+            return GetContinuousEffects<IReplacementEffect>().Where(effect => effect.CanBeApplied(gameEvent));
         }
 
         public void Dispose()

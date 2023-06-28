@@ -33,14 +33,14 @@ namespace Cards.Cards.DM02
             return "Search your deck. You may take a card from your deck and put it into your mana zone. Then shuffle your deck.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.Move(Ability, ZoneType.Deck, ZoneType.ManaZone, cards);
+            Game.Move(Ability, ZoneType.Deck, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return Controller.Deck.Cards;
+            return Applier.Deck.Cards;
         }
     }
 }

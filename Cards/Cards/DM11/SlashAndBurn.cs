@@ -24,9 +24,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new SlashAndBurnDelayedAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new SlashAndBurnDelayedAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -42,11 +42,11 @@ namespace Cards.Cards.DM11
 
     class SlashAndBurnDelayedAbility : DelayedTriggeredAbility, IExpirable
     {
-        public SlashAndBurnDelayedAbility(IAbility ability) : base(new SlashAndBurnAbility(), ability.Source, ability.Controller, false)
+        public SlashAndBurnDelayedAbility(IAbility ability) : base(new SlashAndBurnAbility(), false, ability)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -62,9 +62,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone.Owner == GetOpponent(game);
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone.Owner == Controller.Opponent;
         }
 
         public override IAbility Copy()
@@ -72,12 +72,11 @@ namespace Cards.Cards.DM11
             return new SlashAndBurnAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            var opponent = GetOpponent(game);
-            opponent.BurnOwnMana(game, this);
-            var shield = opponent.ChooseCard(opponent.ShieldZone.Cards, ToString());
-            game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
+            Controller.Opponent.BurnOwnMana(this);
+            var shield = Controller.Opponent.ChooseCard(Controller.Opponent.ShieldZone.Cards, ToString());
+            Game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
         }
 
         public override string ToString()

@@ -23,9 +23,9 @@ namespace Cards.ContinuousEffects
             return new EachOfYourOtherRacesGetsPowerEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && Races.Any(r => x.HasRace(r))).ToList().ForEach(x => x.Power += 2000);
+            Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && Races.Any(r => x.HasRace(r))).ToList().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()

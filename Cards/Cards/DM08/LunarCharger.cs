@@ -26,10 +26,10 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creatures = Controller.ChooseControlledCreaturesOptionally(2, game, ToString());
-            game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
+            var creatures = Applier.ChooseControlledCreaturesOptionally(2, ToString());
+            Game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, Game.CurrentTurn.Id));
         }
 
         public override IOneShotEffect Copy()
@@ -45,7 +45,7 @@ namespace Cards.Cards.DM08
 
     class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbility
     {
-        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards, Guid turnId) : base(new LunarChargerAbility(cards, turnId), source.Source, source.Controller, true)
+        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards, Guid turnId) : base(new LunarChargerAbility(cards, turnId), true, source)
         {
         }
     }
@@ -67,7 +67,7 @@ namespace Cards.Cards.DM08
             _turnId = ability._turnId;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
         }
@@ -77,10 +77,10 @@ namespace Cards.Cards.DM08
             return new LunarChargerAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             var cards = Controller.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
-            Controller.Untap(game, cards.ToArray());
+            Controller.Untap(cards.ToArray());
         }
 
         public override string ToString()

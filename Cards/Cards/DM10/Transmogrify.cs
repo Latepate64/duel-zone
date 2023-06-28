@@ -22,12 +22,12 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
+            var destroyedCreature = Applier.DestroyCreatureOptionally(Ability);
             if (destroyedCreature != null)
             {
-                destroyedCreature.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
+                destroyedCreature.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(Ability);
             }
         }
 

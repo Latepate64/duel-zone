@@ -29,9 +29,9 @@ namespace Cards.Cards.DM01
             return "You may put a creature from your graveyard into your mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Graveyard.Creatures;
+            return Applier.Graveyard.Creatures;
         }
     }
 }

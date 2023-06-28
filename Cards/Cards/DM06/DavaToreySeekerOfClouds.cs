@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {

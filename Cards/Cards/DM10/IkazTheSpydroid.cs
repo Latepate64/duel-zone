@@ -32,14 +32,14 @@ namespace Cards.Cards.DM10
             return "Choose one of your creatures in the battle zone. Untap it after the battle.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), Ability.Source, Ability.Controller, true));
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new IkazTheSpydroidUntapEffect(cards.Single())), true, Ability));
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 
@@ -67,7 +67,7 @@ namespace Cards.Cards.DM10
             return $"Untap {Card} after the battle.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return new ICard[] { Card };
         }

@@ -30,9 +30,9 @@ namespace Cards.Cards.DM08
             return "You may put a creature that has Dragon in its race from your hand into the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Hand.Cards.Where(x => x.IsDragon);
+            return Applier.Hand.Cards.Where(x => x.IsDragon);
         }
     }
 }

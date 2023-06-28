@@ -28,10 +28,10 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new BattleshipMutantContinuousEffect());
-            game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(Ability, game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)));
+            Game.AddContinuousEffects(Ability, new BattleshipMutantContinuousEffect());
+            Game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(Ability, Game.BattleZone.GetCreatures(Applier, Civilization.Darkness)));
         }
 
         public override IOneShotEffect Copy()
@@ -65,12 +65,12 @@ namespace Cards.Cards.DM07
             return "Until the end of the turn, each of your darkness creatures in the battle zone gets +4000 power and \"double breaker.\"";
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness).ToList();
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Darkness).ToList();
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -78,11 +78,11 @@ namespace Cards.Cards.DM07
 
     class BattleshipMutantDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public BattleshipMutantDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards) : base(new BattleshipMutantAbility(cards), source.Source, source.Controller, false)
+        public BattleshipMutantDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards) : base(new BattleshipMutantAbility(cards), false, source)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -109,7 +109,7 @@ namespace Cards.Cards.DM07
             _toDestroy = ability._toDestroy;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BattleEvent e && _cards.Any(x => x == e.AttackingCreature || x == e.DefendingCreature);
         }
@@ -119,9 +119,9 @@ namespace Cards.Cards.DM07
             return new BattleshipMutantAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Destroy(this, _toDestroy);
+            Game.Destroy(this, _toDestroy);
         }
 
         public override string ToString()

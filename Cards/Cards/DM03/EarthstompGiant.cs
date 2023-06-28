@@ -29,9 +29,9 @@ namespace Cards.Cards.DM03
             return "Return all creatures from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return Controller.ManaZone.Creatures;
+            return Applier.ManaZone.Creatures;
         }
     }
 }

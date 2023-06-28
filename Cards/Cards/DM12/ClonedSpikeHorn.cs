@@ -28,9 +28,9 @@ namespace Cards.Cards.DM12
             return $"This creature gets +{Power} power for each Cloned Spike-Horn in each graveyard.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.Players.SelectMany(x => x.Graveyard.Cards).Count(x => x.Name == "Cloned Spike-Horn");
+            return Game.Players.SelectMany(x => x.Graveyard.Cards).Count(x => x.Name == "Cloned Spike-Horn");
         }
     }
 }

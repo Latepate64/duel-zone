@@ -35,9 +35,9 @@ namespace Cards.Cards.DM03
             return "You can cast this spell only if all the cards in your mana zone are fire cards.";
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(ICard card)
         {
-            return IsSourceOfAbility(card) && !Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+            return IsSourceOfAbility(card) && !Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }
     }
 
@@ -51,10 +51,10 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             
-            game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Ability.Controller.Id).ToArray()));
+            Game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(Game.BattleZone.GetCreatures(Applier).ToArray()));
         }
 
         public override IOneShotEffect Copy()

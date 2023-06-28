@@ -4,6 +4,6 @@ namespace Engine
 {
     public interface IExpirable
     {
-        bool ShouldExpire(IGameEvent gameEvent, IGame game);
+        bool ShouldExpire(IGameEvent gameEvent);
     }
 }

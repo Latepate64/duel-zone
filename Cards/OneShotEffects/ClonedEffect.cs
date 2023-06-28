@@ -18,9 +18,9 @@ namespace Cards.OneShotEffects
             _name = effect._name;
         }
 
-        protected int GetAmount(IGame game)
+        protected int GetAmount()
         {
-            return 1 + game.Players.SelectMany(x => x.Graveyard.Cards.Where(x => x.Name == _name)).Count();
+            return 1 + Game.Players.SelectMany(x => x.Graveyard.Cards.Where(x => x.Name == _name)).Count();
         }
     }
 }

@@ -15,15 +15,14 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(
+            Game.AddDelayedTriggeredAbility(
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
-                        Ability.Source,
-                        Ability.Controller,
-                        true));
+                        true,
+                        Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -53,9 +52,9 @@ namespace Cards.Cards.DM07
             return "Untap all your light creatures.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Light);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Light);
         }
     }
 }

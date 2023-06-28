@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "Return a spell from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.ManaZone.Spells;
+            return Applier.ManaZone.Spells;
         }
     }
 }

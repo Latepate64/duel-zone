@@ -22,9 +22,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new SilvermoonTrailblazerContinuousEffect(Controller.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new SilvermoonTrailblazerContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -52,7 +52,7 @@ namespace Cards.Cards.DM09
             _race = race;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker.HasRace(_race) && blocker.Power <= 3000;
         }

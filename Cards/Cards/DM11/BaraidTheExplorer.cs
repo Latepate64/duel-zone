@@ -19,9 +19,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new YourLightCreaturesCannotBeBlockedThisTurnEffect());
+            Game.AddContinuousEffects(Ability, new YourLightCreaturesCannotBeBlockedThisTurnEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -41,9 +41,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker) && attacker.HasCivilization(Civilization.Light);
+            return Game.BattleZone.GetCreatures(Applier).Contains(attacker) && attacker.HasCivilization(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

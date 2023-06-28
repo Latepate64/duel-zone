@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "Choose one of your opponent's creatures in the battle zone and tap it.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
         }
     }
 }

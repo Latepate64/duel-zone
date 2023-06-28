@@ -10,6 +10,6 @@
         /// 613.4c
         /// Layer 7c: Effects that modify power (but don’t set power to a specific number or value) are applied.
         /// </summary>
-        void ModifyPower(IGame game);
+        void ModifyPower();
     }
 }

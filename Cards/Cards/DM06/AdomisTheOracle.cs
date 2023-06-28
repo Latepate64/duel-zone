@@ -34,15 +34,15 @@ namespace Cards.Cards.DM06
             return "Choose a shield and look at it. Then put it back where it was.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            Controller.Look(GetOpponent(game), game, cards);
-            GetOpponent(game).Unreveal(cards);
+            Applier.Look(Applier.Opponent, cards);
+            Applier.Opponent.Unreveal(cards);
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.Players.SelectMany(x => x.ShieldZone.Cards);
+            return Game.Players.SelectMany(x => x.ShieldZone.Cards);
         }
     }
 }

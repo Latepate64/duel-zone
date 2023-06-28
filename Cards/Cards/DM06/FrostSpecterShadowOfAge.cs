@@ -29,9 +29,9 @@ namespace Cards.Cards.DM06
             return "Each of your Ghosts in the battle zone has \"slayer.\"";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Controller.Id, Race.Ghost);
+            return Game.BattleZone.GetCreatures(Applier, Race.Ghost);
         }
     }
 }

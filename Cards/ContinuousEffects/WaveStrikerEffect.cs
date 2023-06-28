@@ -20,11 +20,11 @@ namespace Cards.ContinuousEffects
             _abilities = abilities;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            if (game.BattleZone.Creatures.Count(x => x.GetAbilities<WaveStrikerAbility>().Any()) >= 3)
+            if (Game.BattleZone.Creatures.Count(x => x.GetAbilities<WaveStrikerAbility>().Any()) >= 3)
             {
-                _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
+                _abilities.ToList().ForEach(x => Game.AddAbility(Source, x.Copy()));
             }
         }
 

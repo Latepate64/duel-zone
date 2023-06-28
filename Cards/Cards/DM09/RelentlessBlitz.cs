@@ -23,10 +23,10 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var race = Controller.ChooseRace(ToString());
-            game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
+            var race = Applier.ChooseRace(ToString());
+            Game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
         }
 
         public override IOneShotEffect Copy()
@@ -54,12 +54,12 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack)
         {
             return attacker.HasRace(_race);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker.HasRace(_race) && targetOfAttack is ICard;
         }

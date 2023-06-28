@@ -18,13 +18,13 @@ namespace Cards.Cards.DM09
 
     class StormWranglerEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
-            var creature = Controller.ChooseCardOptionally(creatures, ToString());
+            var creatures = Game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(Applier).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            var creature = Applier.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
+                Game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
             }
         }
 
@@ -53,12 +53,12 @@ namespace Cards.Cards.DM09
             _blocker = effect._blocker;
         }
 
-        public bool BlocksIfAble(ICard blocker, ICard attacker, IGame game)
+        public bool BlocksIfAble(ICard blocker, ICard attacker)
         {
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return IsSourceOfAbility(attacker) && blocker != _blocker;
         }

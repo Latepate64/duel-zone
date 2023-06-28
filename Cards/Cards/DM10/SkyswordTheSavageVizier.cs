@@ -13,10 +13,10 @@ namespace Cards.Cards.DM10
 
     class SkyswordTheSavageVizierEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
-            Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
+            Applier.PutFromTopOfDeckIntoShieldZone(1, Ability);
         }
 
         public override IOneShotEffect Copy()

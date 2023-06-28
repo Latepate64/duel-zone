@@ -26,7 +26,7 @@ namespace Cards.ContinuousEffects
             return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _cards.ToList().ForEach(x => x.Power += _power);
         }

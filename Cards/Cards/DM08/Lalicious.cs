@@ -22,16 +22,16 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.LookAtOpponentsHand(game);
-                var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
+                Applier.LookAtOpponentsHand();
+                var cards = Applier.Opponent.Deck.GetTopCards(1).ToArray();
                 if (cards.Any())
                 {
-                    Controller.Look(GetOpponent(game), game, cards);
-                    GetOpponent(game).Unreveal(cards);
+                    Applier.Look(Applier.Opponent, cards);
+                    Applier.Opponent.Unreveal(cards);
                 }
             }
         }

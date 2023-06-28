@@ -28,9 +28,9 @@ namespace Cards.ContinuousEffects
             return $"This creature gets +{Power} power for each other {Civilization.ToString().ToLower()} creature you have in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id, Civilization).Count();
+            return Game.BattleZone.GetOtherCreatures(Applier, Source, Civilization).Count();
         }
     }
 }

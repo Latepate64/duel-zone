@@ -28,7 +28,7 @@ namespace Cards.Cards.DM10
             _attackTarget = ability._attackTarget;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureAttackedEvent e && e.Target is ICard creature && creature.Owner == Controller;
         }
@@ -38,13 +38,13 @@ namespace Cards.Cards.DM10
             return new BubbleScarabAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             var card = Controller.ChooseCardOptionally(Controller.Hand.Cards, ToString());
             if (card != null)
             {
-                Controller.Discard(this, game, card);
-                game.AddContinuousEffects(this, new CreatureGetsPowerUntilTheEndOfTheTurnEffect(_attackTarget, 3000));
+                Controller.Discard(this, card);
+                Game.AddContinuousEffects(this, new CreatureGetsPowerUntilTheEndOfTheTurnEffect(_attackTarget, 3000));
             }
         }
 
@@ -82,7 +82,7 @@ namespace Cards.Cards.DM10
             return new CreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _creature.Power += _power;
         }

@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization Civilization { get; }
 
-        public bool Applies(ICard against, ICard creature, IGame game)
+        public bool Applies(ICard against, ICard creature)
         {
             return IsSourceOfAbility(creature) && against.HasCivilization(Civilization);
         }

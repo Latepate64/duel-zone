@@ -31,9 +31,9 @@ namespace Cards.Cards.DM01
             return "Destroy all creatures that have \"blocker.\"";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return Game.BattleZone.Creatures.Where(x => x.GetAbilities<BlockerAbility>().Any());
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
             _cardsDrawnByOpponent = ability._cardsDrawnByOpponent;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.EndOfTurn && ValidInterveningIfClause;
         }
@@ -36,12 +36,11 @@ namespace Cards.Cards.DM12
             return new GigavrandAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             if (ValidInterveningIfClause)
             {
-                var opponent = GetOpponent(game);
-                opponent.Discard(this, game, opponent.Hand.Cards.ToArray());
+                Controller.Opponent.Discard(this, Controller.Opponent.Hand.Cards.ToArray());
             }
         }
 
@@ -55,9 +54,9 @@ namespace Cards.Cards.DM12
             return new GigavrandAbility(this);
         }
 
-        public void Watch(IGame game, IGameEvent gameEvent)
+        public void Watch(IGameEvent gameEvent)
         {
-            if (gameEvent is DrawCardEvent e && e.Player == GetOpponent(game))
+            if (gameEvent is DrawCardEvent e && e.Player == Controller.Opponent)
             {
                 ++_cardsDrawnByOpponent;
             }

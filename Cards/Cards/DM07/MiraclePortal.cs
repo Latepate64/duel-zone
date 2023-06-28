@@ -23,12 +23,12 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
+            var creature = Applier.ChooseControlledCreature(ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
+                Game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
             }
         }
 
@@ -57,12 +57,12 @@ namespace Cards.Cards.DM07
             _creature = effect._creature;
         }
 
-        public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
+        public bool IgnoreCannotAttackPlayersEffects(ICard attacker)
         {
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker == _creature;
         }

@@ -25,9 +25,9 @@ namespace Cards.Cards.Promo
             return new StarCryDragonEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
+            Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.ArmoredDragon)).ToList().ForEach(x => x.Power += 3000);
         }
 
         public override string ToString()

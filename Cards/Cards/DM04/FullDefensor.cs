@@ -29,9 +29,9 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new FullDefensorContinuousEffect(Ability.Controller.Id, game.BattleZone.GetCreatures(Ability.Controller.Id).ToArray()));
+            Game.AddContinuousEffects(Ability, new FullDefensorContinuousEffect(Applier.Id, Game.BattleZone.GetCreatures(Applier).ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -67,7 +67,7 @@ namespace Cards.Cards.DM04
             return new FullDefensorContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer.Id == _player;
         }
@@ -77,7 +77,7 @@ namespace Cards.Cards.DM04
             return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
             return _cards;
         }

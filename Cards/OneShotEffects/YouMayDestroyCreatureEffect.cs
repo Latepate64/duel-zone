@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "You may destroy a creature.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
+            return Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier);
         }
     }
 }

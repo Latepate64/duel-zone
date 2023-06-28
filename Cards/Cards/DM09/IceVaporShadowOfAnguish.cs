@@ -22,9 +22,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is SpellCastEvent e && e.Player.Id == GetOpponent(game).Id;
+            return gameEvent is SpellCastEvent e && e.Player.Id == Controller.Opponent.Id;
         }
 
         public override IAbility Copy()
@@ -40,11 +40,10 @@ namespace Cards.Cards.DM09
 
     class IceVaporShadowOfAnguishEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var opponent = GetOpponent(game);
-            opponent.DiscardOwnCard(game, Ability);
-            opponent.BurnOwnMana(game, Ability);
+            Applier.Opponent.DiscardOwnCard(Ability);
+            Applier.Opponent.BurnOwnMana(Ability);
         }
 
         public override IOneShotEffect Copy()

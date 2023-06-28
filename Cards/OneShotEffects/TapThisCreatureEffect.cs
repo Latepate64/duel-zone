@@ -25,9 +25,9 @@ namespace Cards.OneShotEffects
             return "Tap this creature.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return new List<ICard> { Ability.Source }.Where(x => x != null);
+            return new List<ICard> { Source }.Where(x => x != null);
         }
     }
 }

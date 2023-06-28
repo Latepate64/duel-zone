@@ -1,7 +1,4 @@
-﻿using Engine.ContinuousEffects;
-using System.Linq;
-
-namespace Engine.GameEvents
+﻿namespace Engine.GameEvents
 {
     public class BattleEvent : GameEvent
     {

@@ -28,9 +28,9 @@ namespace Cards.Cards.DM10
             return "Return all the cards from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return Controller.ManaZone.Cards;
+            return Applier.ManaZone.Cards;
         }
     }
 }

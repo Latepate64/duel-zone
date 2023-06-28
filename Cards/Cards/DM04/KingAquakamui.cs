@@ -17,11 +17,11 @@ namespace Cards.Cards.DM04
 
     class KingAquakamuiOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
+                Game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Applier.Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
             }
         }
 
@@ -56,9 +56,9 @@ namespace Cards.Cards.DM04
             return "Angel Commands and Demon Commands in the battle zone each get +2000 power.";
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
+            Game.BattleZone.Creatures.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
         }
     }
 }

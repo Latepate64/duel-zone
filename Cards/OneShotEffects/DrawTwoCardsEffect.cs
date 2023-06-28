@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -13,9 +12,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.DrawCards(2, game, Ability);
+            Applier.DrawCards(2, Ability);
         }
 
         public override IOneShotEffect Copy()
@@ -39,9 +38,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.DrawCards(1, game, Ability);
+            Applier.DrawCards(1, Ability);
         }
 
         public override IOneShotEffect Copy()

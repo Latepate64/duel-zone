@@ -29,9 +29,9 @@ namespace Cards.OneShotEffects
             return $"Destroy a creature that has power {_power} or less.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id).Where(x => x.Power <= _power);
+            return Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier).Where(x => x.Power <= _power);
         }
     }
 }

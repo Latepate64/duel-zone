@@ -21,12 +21,11 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            var creature = controller.ChooseOpponentsNonEvolutionCreature(game, ToString());
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
-            game.GetOpponent(controller).DiscardAtRandom(game, 1, Ability);
+            var creature = Applier.ChooseOpponentsNonEvolutionCreature(ToString());
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
+            Applier.Opponent.DiscardAtRandom(1, Ability);
         }
 
         public override IOneShotEffect Copy()

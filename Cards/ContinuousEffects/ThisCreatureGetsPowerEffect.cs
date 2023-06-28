@@ -22,7 +22,7 @@ namespace Cards.ContinuousEffects
             return new ThisCreatureGetsPowerEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             Source.Power += Power;
         }

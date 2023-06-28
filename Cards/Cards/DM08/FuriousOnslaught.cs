@@ -18,9 +18,9 @@ namespace Cards.Cards.DM08
 
     class FuriousOnslaughtOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(Ability.Controller.Id, Race.Dragonoid).ToList()));
+            Game.AddContinuousEffects(Ability, new FuriousOnslaughtContinuousEffect(Game.BattleZone.GetCreatures(Applier, Race.Dragonoid).ToList()));
         }
 
         public override IOneShotEffect Copy()
@@ -48,12 +48,12 @@ namespace Cards.Cards.DM08
             _cards = effect._cards.ToList();
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             _cards.ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
         }
 
-        public void AddRace(IGame game)
+        public void AddRace()
         {
             _cards.ForEach(x => x.AddGrantedRace(Race.ArmoredDragon));
         }
@@ -63,7 +63,7 @@ namespace Cards.Cards.DM08
             return new FuriousOnslaughtContinuousEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _cards.ForEach(x => x.Power += 4000);
         }

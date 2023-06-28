@@ -14,6 +14,6 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
+        protected abstract IEnumerable<ICard> GetAffectedCards(IAbility source);
     }
 }

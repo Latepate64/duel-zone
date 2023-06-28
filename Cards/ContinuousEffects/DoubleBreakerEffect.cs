@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
             return new DoubleBreakerEffect(this);
         }
 
-        public int GetAmount(IGame game, ICard creature)
+        public int GetAmount(ICard creature)
         {
             return IsSourceOfAbility(creature) ? 2 : 1;
         }

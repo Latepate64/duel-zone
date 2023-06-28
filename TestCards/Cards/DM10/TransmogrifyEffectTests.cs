@@ -11,26 +11,24 @@ namespace TestCards.Cards.DM10
         [Fact]
         public void Apply_CreatureNotDestroyed_Pass()
         {
-            var game = Mock.Of<IGame>();
             var controller = new Mock<IPlayer>();
             var ability = new Mock<IAbility>();
             ability.SetupGet(x => x.Controller).Returns(controller.Object);
-            controller.Setup(x => x.DestroyCreatureOptionally(game, ability.Object)).Returns((ICard)null);
-            new TransmogrifyEffect { Ability = ability.Object }.Apply(game);
+            controller.Setup(x => x.DestroyCreatureOptionally(ability.Object)).Returns((ICard)null);
+            new TransmogrifyEffect { Ability = ability.Object }.Apply();
         }
 
         [Fact]
         public void Apply_ControllersCreatureDestroyed_OwnerRevealCards()
         {
-            var game = Mock.Of<IGame>();
             var controller = new Mock<IPlayer>();
             var destroyed = new Mock<ICard>();
             destroyed.SetupGet(x => x.Owner).Returns(controller.Object);
             var ability = new Mock<IAbility>();
             ability.SetupGet(x => x.Controller).Returns(controller.Object);
-            controller.Setup(x => x.DestroyCreatureOptionally(game, ability.Object)).Returns(destroyed.Object);
-            new TransmogrifyEffect { Ability = ability.Object }.Apply(game);
-            controller.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, It.IsAny<IAbility>()), Times.Once);
+            controller.Setup(x => x.DestroyCreatureOptionally(ability.Object)).Returns(destroyed.Object);
+            new TransmogrifyEffect { Ability = ability.Object }.Apply();
+            controller.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(It.IsAny<IAbility>()), Times.Once);
         }
     }
 }

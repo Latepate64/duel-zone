@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -17,9 +16,9 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            GetOpponent(game).DiscardAtRandom(game, Amount, Ability);
+            Applier.Opponent.DiscardAtRandom(Amount, Ability);
         }
 
         public override string ToString()

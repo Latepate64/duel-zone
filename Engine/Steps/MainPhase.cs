@@ -16,10 +16,10 @@ namespace Engine.Steps
             var player = game.CurrentTurn.ActivePlayer;
             if (player != null)
             {
-                var cards = player.GetCardsThatCanBePaidAndUsed(game);
+                var cards = player.GetCardsThatCanBePaidAndUsed();
                 if (cards.Any())
                 {
-                    return player.ChooseCardToUse(game, cards);
+                    return player.ChooseCardToUse(cards);
                 }
                 else
                 {

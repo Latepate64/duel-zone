@@ -24,9 +24,9 @@ namespace Cards.ContinuousEffects
             return $"This creature gets +{Power} power for each tapped card in your opponent's mana zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.GetPlayer(game.GetOpponent(Controller.Id)).ManaZone.TappedCards.Count();
+            return Applier.Opponent.ManaZone.TappedCards.Count();
         }
     }
 }

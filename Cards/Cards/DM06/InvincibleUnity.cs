@@ -26,9 +26,9 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new InvincibleUnityContinuousEffect(game.BattleZone.GetCreatures(Ability.Controller.Id)));
+            Game.AddContinuousEffects(Ability, new InvincibleUnityContinuousEffect(Game.BattleZone.GetCreatures(Applier)));
         }
 
         public override IOneShotEffect Copy()
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM06
             _cards = effect._cards;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             _cards.ForEach(x => x.AddGrantedAbility(new TripleBreakerAbility()));
         }
@@ -66,7 +66,7 @@ namespace Cards.Cards.DM06
             return new InvincibleUnityContinuousEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _cards.ForEach(x => x.Power += 8000);
         }

@@ -29,9 +29,9 @@ namespace Cards.Cards.DM10
             return "Each of your darkness creatures and nature creatures in the battle zone has \"speed attacker.\"";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Controller.Id, Civilization.Water, Civilization.Nature);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Water, Civilization.Nature);
         }
     }
 }

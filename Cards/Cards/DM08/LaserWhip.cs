@@ -22,14 +22,14 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            controller.TapOpponentsCreature(game);
-            var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
+            var controller = Applier;
+            controller.TapOpponentsCreature();
+            var creature = controller.ChooseControlledCreatureOptionally(ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
+                Game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
             }
         }
 

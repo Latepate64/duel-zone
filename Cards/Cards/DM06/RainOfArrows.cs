@@ -22,14 +22,14 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = GetOpponent(game).Hand.Cards.ToArray();
+            var cards = Applier.Opponent.Hand.Cards.ToArray();
             if (cards.Any())
             {
-                Controller.Look(GetOpponent(game), game, cards);
-                GetOpponent(game).Discard(Ability, game, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.CardType == CardType.Spell).ToArray());
-                GetOpponent(game).Unreveal(cards);
+                Applier.Look(Applier.Opponent, cards);
+                Applier.Opponent.Discard(Ability, cards.Where(x => x.HasCivilization(Civilization.Darkness) && x.IsSpell).ToArray());
+                Applier.Opponent.Unreveal(cards);
             }
         }
 

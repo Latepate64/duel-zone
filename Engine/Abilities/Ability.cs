@@ -19,6 +19,7 @@ namespace Engine.Abilities
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
         public IPlayer Controller { get; set; }
+        public IGame Game { get; }
 
         protected Ability()
         {
@@ -44,18 +45,6 @@ namespace Engine.Abilities
         protected static string LowerCaseFirstCharacter(string text)
         {
             return char.ToLower(text[0]) + text[1..];
-        }
-
-        /// <summary>
-        /// Returns the opponent of the player who controls the ability.
-        /// Note that it should be checked that the player actually
-        /// exists as it is possible they have left the game.
-        /// </summary>
-        /// <param name="game"></param>
-        /// <returns></returns>
-        public IPlayer GetOpponent(IGame game)
-        {
-            return game.GetOpponent(Controller);
         }
     }
 }

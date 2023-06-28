@@ -19,10 +19,10 @@ namespace Cards.ContinuousEffects
             _ability = effect._ability;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            var events = game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
-            if (events.Any(e => game.BattleZone.GetCreatures(Controller.Id).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
+            var events = Game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
+            if (events.Any(e => Game.BattleZone.GetCreatures(Applier).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
             {
                 Source.AddGrantedAbility(_ability.Copy());
             }

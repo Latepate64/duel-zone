@@ -14,9 +14,9 @@ namespace Cards.Cards.DM04
 
     class WhiskingWhirlwindEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), Ability.Source, Ability.Controller, true));
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(Game.CurrentTurn.Id, new WhiskingWhirlwindUntapEffect()), true, Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -46,9 +46,9 @@ namespace Cards.Cards.DM04
             return "Untap all your creatures in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 }

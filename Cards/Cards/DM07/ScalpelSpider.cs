@@ -24,7 +24,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureAttackedEvent e && e.Target == Source;
         }
@@ -39,9 +39,9 @@ namespace Cards.Cards.DM07
             return "Whenever this creature is attacked, it gets \"slayer\" until the end of the turn.";
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(Source));
+            Game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(Source));
         }
 
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

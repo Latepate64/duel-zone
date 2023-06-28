@@ -13,11 +13,10 @@ namespace Cards.Cards.DM10
 
     class GalekTheShadowWarriorEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var player = Controller;
-            player.DestroyOpponentsBlocker(game, Ability);
-            game.GetOpponent(player).DiscardAtRandom(game, 1, Ability);
+            Applier.DestroyOpponentsBlocker(Game, Ability);
+            Applier.Opponent.DiscardAtRandom(1, Ability);
         }
 
         public override IOneShotEffect Copy()

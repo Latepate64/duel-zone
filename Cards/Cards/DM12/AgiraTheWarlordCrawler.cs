@@ -24,7 +24,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BecomeBlockedEvent e && e.Blocker.Owner == Controller && (e.Blocker.HasRace(Race.Gladiator) || e.Blocker.HasRace(Race.EarthEater));
         }

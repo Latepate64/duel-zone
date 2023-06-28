@@ -18,10 +18,10 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
+            var cards = Game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
         }
 
         public override string ToString()

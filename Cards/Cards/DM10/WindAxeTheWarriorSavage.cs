@@ -26,11 +26,10 @@ namespace Cards.Cards.DM10
             return new WindAxeTheWarriorSavageEffect(this);
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var player = Controller;
-            player.DestroyOpponentsBlocker(game, Ability);
-            player.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
+            Applier.DestroyOpponentsBlocker(Game, Ability);
+            Applier.PutFromTopOfDeckIntoManaZone(1, Ability);
         }
 
         public override string ToString()

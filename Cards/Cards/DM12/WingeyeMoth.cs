@@ -24,9 +24,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid(game);
+            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid();
         }
 
         public override IAbility Copy()
@@ -34,11 +34,11 @@ namespace Cards.Cards.DM12
             return new WingeyeMothAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            if (InterveningIfClauseValid(game))
+            if (InterveningIfClauseValid())
             {
-                Controller.DrawCardsOptionally(game, this, 1);
+                Controller.DrawCardsOptionally(this, 1);
             }
         }
 
@@ -52,9 +52,9 @@ namespace Cards.Cards.DM12
             return new WingeyeMothAbility(this);
         }
 
-        private bool InterveningIfClauseValid(IGame game)
+        private bool InterveningIfClauseValid()
         {
-            var strongest = game.BattleZone.Creatures.Where(x => x.Power == game.BattleZone.Creatures.Max(x => x.Power));
+            var strongest = Game.BattleZone.Creatures.Where(x => x.Power == Game.BattleZone.Creatures.Max(x => x.Power));
             return strongest.Any() && strongest.All(x => x.Owner == Controller);
 
         }

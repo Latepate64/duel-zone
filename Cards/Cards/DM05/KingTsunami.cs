@@ -29,9 +29,9 @@ namespace Cards.Cards.DM05
             return "Return all other creatures from the battle zone to their owners' hands.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetOtherCreatures(Ability.Source.Id);
+            return Game.BattleZone.GetOtherCreatures(Source);
         }
     }
 }

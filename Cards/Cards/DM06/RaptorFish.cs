@@ -21,12 +21,12 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = Controller.Hand.Cards.Count;
-            game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Controller.Hand.Cards.ToArray());
-            Controller.ShuffleOwnDeck(game);
-            Controller.DrawCards(amount, game, Ability);
+            var amount = Applier.Hand.Cards.Count;
+            Game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Applier.Hand.Cards.ToArray());
+            Applier.ShuffleOwnDeck();
+            Applier.DrawCards(amount, Ability);
         }
 
         public override IOneShotEffect Copy()

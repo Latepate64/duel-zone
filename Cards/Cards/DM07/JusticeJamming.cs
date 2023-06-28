@@ -22,10 +22,10 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var civilization = Controller.ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
-            Controller.Tap(game, game.BattleZone.GetCreatures(civilization).ToArray());
+            var civilization = Applier.ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
+            Applier.Tap(Game.BattleZone.GetCreatures(civilization).ToArray());
         }
 
         public override IOneShotEffect Copy()

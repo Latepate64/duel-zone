@@ -42,11 +42,11 @@ namespace Engine.Steps
         {
             while (PendingAbilities.Any())
             {
-                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller.Id);
+                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller);
                 foreach (var abilities in abilityGroups)
                 {
-                    var ability = game.GetPlayer(abilities.Key).ChooseAbility(abilities);
-                    ability.Resolve(game);
+                    var ability = abilities.Key.ChooseAbility(abilities);
+                    ability.Resolve();
 
                     // 608.2m As the final part of an ability’s resolution, the ability is removed from the stack and ceases to exist.
                     _ = PendingAbilities.Remove(ability);

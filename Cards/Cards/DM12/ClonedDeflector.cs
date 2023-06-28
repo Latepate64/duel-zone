@@ -24,11 +24,11 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var player = Controller;
-            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 1, GetAmount(game), ToString());
-            player.Tap(game, creatures.ToArray());
+            var player = Applier;
+            var creatures = player.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 1, GetAmount(), ToString());
+            player.Tap(creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

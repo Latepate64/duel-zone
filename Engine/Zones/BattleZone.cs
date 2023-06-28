@@ -1,6 +1,5 @@
 ﻿using Engine.Abilities;
 using Engine.Steps;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +10,8 @@ namespace Engine.Zones
     /// </summary>
     public class BattleZone : Zone, IBattleZone
     {
+        public IEnumerable<ICard> EvolutionCreatures => Creatures.Where(x => x.IsEvolutionCreature);
+
         public BattleZone() : base(ZoneType.BattleZone)
         {
         }
@@ -19,21 +20,21 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(ICard card)
         {
             card.SummoningSickness = true;
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = Game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            Game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<ICard> Remove(ICard card)
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
+            if (Game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
                 if (card == phase.AttackingCreature)
                 {
-                    phase.RemoveAttackingCreature(game);
+                    phase.RemoveAttackingCreature(Game);
                 }
                 else if (card == phase.AttackTarget)
                 {
@@ -50,15 +51,14 @@ namespace Engine.Zones
             }
             else
             {
-                game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
+                Game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
                 return card.Deconstruct(new List<ICard>()).ToList();
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            IPlayer opponent = game.GetPlayer(game.GetOpponent(owner));
-            return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(opponent, creature));
+            return GetCreatures(chooser.Opponent).Where(creature => Game.ContinuousEffects.CanPlayerChooseCreature(chooser, creature));
         }
 
         public override string ToString()
@@ -66,74 +66,74 @@ namespace Engine.Zones
             return "battle zone";
         }
 
-        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
+            return GetChoosableCreaturesControlledByChoosersOpponent(chooser).Where(x => x.IsEvolutionCreature);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Race race)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race)
         {
             return GetCreatures(controller).Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race1, Race race2)
         {
             return GetCreatures(controller).Where(x => x.HasRace(race1) || x.HasRace(race2));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization)
         {
             return GetCreatures(controller).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization1, Civilization civilization2)
         {
             return GetCreatures(controller).Where(x => x.HasCivilization(civilization1, civilization2));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature)
         {
-            return GetCreatures(controller).Where(x => x.Id != creature);
+            return GetCreatures(controller).Where(x => x.Id != creature.Id);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature, Civilization civilization)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, ICard creature, Civilization civilization)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherTappedCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, ICard creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherUntappedCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, ICard creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Civilization civilization)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature, Civilization civilization)
         {
             return GetOtherCreatures(creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature, Race race)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature, Race race)
         {
             return GetOtherCreatures(creature).Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetTappedCreatures(Guid controller)
+        public IEnumerable<ICard> GetTappedCreatures(IPlayer controller)
         {
             return GetCreatures(controller).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller)
+        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => !x.Tapped);
+            return GetChoosableCreaturesControlledByChoosersOpponent(chooser).Where(x => !x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IPlayer chooser)
         {
-            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
+            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByChoosersOpponent(chooser));
         }
 
         public IBattleZone Copy()
@@ -143,17 +143,12 @@ namespace Engine.Zones
 
         public void RemoveSummoningSicknesses(IPlayer player)
         {
-            GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
+            GetCreatures(player).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
         }
 
         public IEnumerable<ICard> GetCreaturesWithSilentSkill(IPlayer player)
         {
-            return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
-        }
-
-        public IEnumerable<ICard> GetCreatures(IPlayer player)
-        {
-            return GetCreatures(player.Id);
+            return GetCreatures(player).Where(x => x.GetSilentSkillAbilities().Any());
         }
     }
 }

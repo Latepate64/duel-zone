@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CanBlock(ICard blocker, ICard attacker, IGame game)
+        public bool CanBlock(ICard blocker, ICard attacker)
         {
             return IsSourceOfAbility(blocker);
         }

@@ -9,18 +9,20 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
+        public ICard TopCard => GetTopCards(1).SingleOrDefault();
+
         public Deck() : base(ZoneType.Deck) { }
 
         public Deck(IDeck zone) : base(zone)
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(ICard card)
         {
             Cards.Add(card);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<ICard> Remove(ICard card)
         {
             if (!Cards.Remove(card))
             {

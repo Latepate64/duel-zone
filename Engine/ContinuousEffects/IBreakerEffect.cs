@@ -2,6 +2,6 @@
 {
     public interface IBreakerEffect : IContinuousEffect
     {
-        int GetAmount(IGame game, ICard creature);
+        int GetAmount(ICard creature);
     }
 }

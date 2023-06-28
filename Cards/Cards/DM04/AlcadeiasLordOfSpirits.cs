@@ -33,9 +33,9 @@ namespace Cards.Cards.DM04
             return "Players can't cast spells other than light spells.";
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(ICard card)
         {
-            return card.CardType == CardType.Spell && !card.HasCivilization(Civilization.Light);
+            return card.IsSpell && !card.HasCivilization(Civilization.Light);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -17,9 +16,9 @@ namespace Cards.OneShotEffects
             Maximum = effect.Maximum;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.DrawCardsOptionally(game, Ability, Maximum);
+            Applier.DrawCardsOptionally(Ability, Maximum);
         }
 
         public override string ToString()

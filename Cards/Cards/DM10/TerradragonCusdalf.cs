@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         public bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(IPlayer player)
         {
-            return player == Controller;
+            return player == Applier;
         }
 
         public override string ToString()

@@ -22,11 +22,11 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+                Applier.PutFromTopOfDeckIntoShieldZone(1, Ability);
             }
         }
 

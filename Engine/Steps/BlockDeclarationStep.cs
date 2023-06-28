@@ -17,7 +17,7 @@ namespace Engine.Steps
 
         private IEnumerable<ICard> GetCreaturesThatCanBlock(IGame game, ICard attackingCreature)
         {
-            IEnumerable<ICard> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
+            IEnumerable<ICard> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
             IEnumerable<ICard> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
             return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }
@@ -35,7 +35,7 @@ namespace Engine.Steps
             if (blocker != null)
             {
                 Phase.BlockingCreature = blocker;
-                game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
+                game.CurrentTurn.NonActivePlayer.Tap(blocker);
                 //TODO: Event
                 //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
                 game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));

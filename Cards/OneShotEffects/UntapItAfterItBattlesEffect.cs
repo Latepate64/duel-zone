@@ -1,5 +1,4 @@
 ﻿using Cards.TriggeredAbilities;
-using Engine;
 using Engine.Abilities;
 
 namespace Cards.OneShotEffects
@@ -14,9 +13,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), Ability.Source, Ability.Controller, true));
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AfterBattleAbility(new UntapThisCreatureEffect()), true, Ability));
         }
 
         public override IOneShotEffect Copy()

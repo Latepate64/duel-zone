@@ -29,9 +29,9 @@ namespace Cards.Cards.DM08
             return $"This creature gets +{Power} power for each creature in your graveyard.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return Controller.Graveyard.Creatures.Count();
+            return Applier.Graveyard.Creatures.Count();
         }
     }
 }

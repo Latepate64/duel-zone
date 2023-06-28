@@ -26,9 +26,9 @@ namespace Cards.ContinuousEffects
             return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
+            if (Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
             {
                 Source.Power += Power;
             }

@@ -28,9 +28,9 @@ namespace Cards.Cards.DM10
             return $"This creature gets +{Power} power for each shield you and your opponent have.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.Players.SelectMany(x => x.ShieldZone.Cards).Count();
+            return Game.Players.SelectMany(x => x.ShieldZone.Cards).Count();
         }
     }
 }

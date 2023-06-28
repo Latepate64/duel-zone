@@ -24,7 +24,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
@@ -33,9 +33,9 @@ namespace Cards.Cards.DM10
             };
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone).Owner == Controller && game.GetCard(e.CardInSourceZone).GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && Game.GetCard(e.CardInSourceZone).Owner == Applier && Game.GetCard(e.CardInSourceZone).GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
 
         public override IContinuousEffect Copy()
@@ -69,9 +69,9 @@ namespace Cards.Cards.DM10
             return "Whenever one of your creatures that has \"silent skill\" would be destroyed, put it into your hand instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
-            return card.Owner == Controller && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return card.Owner == Applier && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
     }
 }

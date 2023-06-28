@@ -21,7 +21,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization Civilization { get; }
 
-        public int GetChange(ICard card, IGame game)
+        public int GetChange(ICard card)
         {
             return card.HasCivilization(Civilization) ? _increase : 0;
         }

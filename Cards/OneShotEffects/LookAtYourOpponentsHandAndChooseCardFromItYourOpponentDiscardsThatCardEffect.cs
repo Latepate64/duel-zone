@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -13,14 +12,14 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.Look(GetOpponent(game), game, GetOpponent(game).Hand.Cards.ToArray());
-            var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
+            Applier.Look(Applier.Opponent, Applier.Opponent.Hand.Cards.ToArray());
+            var card = Applier.ChooseCard(Applier.Opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                GetOpponent(game).Discard(Ability, game, card);
-                GetOpponent(game).Unreveal(card);
+                Applier.Opponent.Discard(Ability, card);
+                Applier.Opponent.Unreveal(card);
             }
         }
 

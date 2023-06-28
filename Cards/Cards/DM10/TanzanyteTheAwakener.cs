@@ -30,16 +30,16 @@ namespace Cards.Cards.DM10
             return "Choose a creature in your graveyard. Return all creatures that have that name from your graveyard to your hand.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
             var names = cards.Select(x => x.Name).Distinct();
-            var creatures = Controller.Graveyard.Creatures.Where(x => names.Contains(x.Name));
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, creatures.ToArray());
+            var creatures = Applier.Graveyard.Creatures.Where(x => names.Contains(x.Name));
+            Game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, creatures.ToArray());
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Graveyard.Creatures;
+            return Applier.Graveyard.Creatures;
         }
     }
 }

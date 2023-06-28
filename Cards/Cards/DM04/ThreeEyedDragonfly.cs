@@ -18,13 +18,13 @@ namespace Cards.Cards.DM04
 
     class ThreeEyedDragonflyOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id), ToString());
+            var creature = Applier.ChooseCardOptionally(Game.BattleZone.GetOtherCreatures(Applier, Source), ToString());
             if (creature != null)
             {
-                game.Destroy(Ability, creature);
-                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source));
+                Game.Destroy(Ability, creature);
+                Game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Source));
             }
         }
 
@@ -63,12 +63,12 @@ namespace Cards.Cards.DM04
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
             return new List<ICard> { _card };
         }

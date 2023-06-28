@@ -21,16 +21,15 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            var player = controller.ChoosePlayer(game, ToString());
-            var card = controller.ChooseCard(player.Deck.Cards, ToString());
+            var player = Applier.ChoosePlayer(ToString());
+            var card = Applier.ChooseCard(player.Deck.Cards, ToString());
             if (card != null)
             {
-                game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
+                Game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
             }
-            player.ShuffleOwnDeck(game);
+            player.ShuffleOwnDeck();
         }
 
         public override IOneShotEffect Copy()

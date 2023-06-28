@@ -33,9 +33,9 @@ namespace Cards.Cards.DM10
             return $"This creature gets +{Power} power for each civilization in your mana zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return Controller.ManaZone.Cards.SelectMany(x => x.Civilizations).Distinct().Count();
+            return Applier.ManaZone.Cards.SelectMany(x => x.Civilizations).Distinct().Count();
         }
     }
 }

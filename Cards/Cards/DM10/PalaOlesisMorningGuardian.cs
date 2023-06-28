@@ -26,11 +26,11 @@ namespace Cards.Cards.DM10
             return new PalaOlesisMorningGuardianEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.GetOpponent(Controller.Id) == game.CurrentTurn.ActivePlayer.Id)
+            if (Applier.Opponent.Id == Game.CurrentTurn.ActivePlayer.Id)
             {
-                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.Power += 2000);
+                Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

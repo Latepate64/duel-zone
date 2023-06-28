@@ -18,17 +18,17 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            if (YouHaveNoShields(game))
+            if (YouHaveNoShields())
             {
                 Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000));
             }
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack)
         {
-            return YouHaveNoShields(game) && IsSourceOfAbility(attacker);
+            return YouHaveNoShields() && IsSourceOfAbility(attacker);
         }
 
         public override IContinuousEffect Copy()
@@ -41,9 +41,9 @@ namespace Cards.Cards.DM07
             return "While you have no shields, this creature can attack untapped creatures and has \"Power attacker +3000.\"";
         }
 
-        private bool YouHaveNoShields(IGame game)
+        private bool YouHaveNoShields()
         {
-            return !Ability.Controller.ShieldZone.HasCards;
+            return !Applier.ShieldZone.HasCards;
         }
     }
 }

@@ -23,10 +23,10 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creatures = Controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
-            game.Destroy(Ability, creatures.ToArray());
+            var creatures = Applier.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.Power <= 3000), 1, GetAmount(), ToString());
+            Game.Destroy(Ability, creatures.ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -28,9 +28,9 @@ namespace Cards.Cards.DM10
             return $"This creature gets +{Power} power for each water card in your opponent's mana zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.GetPlayer(game.GetOpponent(Controller.Id)).ManaZone.GetCards(Civilization.Water).Count();
+            return Applier.Opponent.ManaZone.GetCards(Civilization.Water).Count();
         }
     }
 }

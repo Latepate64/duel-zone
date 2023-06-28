@@ -16,9 +16,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
-            return gameEvent is ShieldsBreakEvent e && e.Shields.First().Owner == Controller;
+            return gameEvent is ShieldsBreakEvent e && e.Shields.First().Owner == Applier;
         }
     }
 
@@ -32,10 +32,10 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var e = gameEvent as ShieldsBreakEvent;
-            var shield = Controller.ChooseCardOptionally(e.Shields, ToString());
+            var shield = Applier.ChooseCardOptionally(e.Shields, ToString());
             if (shield != null)
             {
                 return new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source, e.Shields.Where(x => x != shield));

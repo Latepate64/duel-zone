@@ -26,14 +26,14 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var e = gameEvent as ShieldsBreakEvent;
-            var maximum = Controller.Hand.Cards.Count() / 2;
-            var shields = Controller.ChooseCards(e.Shields, 0, maximum, ToString());
+            var maximum = Applier.Hand.Cards.Count() / 2;
+            var shields = Applier.ChooseCards(e.Shields, 0, maximum, ToString());
             if (shields.Any())
             {
-                var toDiscard = Controller.ChooseCards(Controller.Hand.Cards, 2 * shields.Count(), 2 * shields.Count(), ToString());
+                var toDiscard = Applier.ChooseCards(Applier.Hand.Cards, 2 * shields.Count(), 2 * shields.Count(), ToString());
                 return new GlaisMejiculaEvent(e.Shields.Where(x => x != shields), toDiscard, Ability);
             }
             else

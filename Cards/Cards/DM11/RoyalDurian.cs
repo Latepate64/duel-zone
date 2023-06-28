@@ -23,9 +23,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.BattleZone.EvolutionCreatures.ToList().ForEach(x => game.MoveTopCard(x, ZoneType.ManaZone, Ability));
+            Game.BattleZone.EvolutionCreatures.ToList().ForEach(x => Game.MoveTopCard(x, ZoneType.ManaZone, Ability));
         }
 
         public override IOneShotEffect Copy()

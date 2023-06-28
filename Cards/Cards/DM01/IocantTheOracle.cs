@@ -26,9 +26,9 @@ namespace Cards.Cards.DM01
             return new IocantTheOracleEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.BattleZone.GetCreatures(Controller.Id).Any(x => x.HasRace(Race.AngelCommand)))
+            if (Game.BattleZone.GetCreatures(Applier).Any(x => x.HasRace(Race.AngelCommand)))
             {
                 Source.Power += 2000;
             }

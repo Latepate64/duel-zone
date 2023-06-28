@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public Guid Id { get; }
 
-        public abstract bool CanBeApplied(IGameEvent gameEvent, IGame game);
-        public abstract IGameEvent Apply(IGameEvent gameEvent, IGame game);
+        public abstract bool CanBeApplied(IGameEvent gameEvent);
+        public abstract IGameEvent Apply(IGameEvent gameEvent);
     }
 }

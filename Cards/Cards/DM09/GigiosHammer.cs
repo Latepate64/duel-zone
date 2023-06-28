@@ -23,9 +23,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new GigiosHammerContinuousEffect(Controller.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new GigiosHammerContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -53,12 +53,12 @@ namespace Cards.Cards.DM09
             _race = race;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(_race)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            Game.BattleZone.Creatures.Where(x => x.HasRace(_race)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature.HasRace(_race);
         }

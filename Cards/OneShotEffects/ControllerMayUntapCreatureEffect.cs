@@ -15,15 +15,15 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            if (Applier.ChooseToTakeAction(ToString()))
             {
-                Controller.Untap(game, GetSelectableCards(game, Ability).ToArray());
+                Applier.Untap(GetSelectableCards(Ability).ToArray());
             }
         }
 
-        protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
+        protected abstract IEnumerable<ICard> GetSelectableCards(IAbility source);
     }
 
     class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
@@ -46,9 +46,9 @@ namespace Cards.OneShotEffects
             return "You may untap this creature.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return new ICard[] { Ability.Source };
+            return new ICard[] { Source };
         }
     }
 }

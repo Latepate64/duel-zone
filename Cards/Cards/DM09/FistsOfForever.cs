@@ -25,10 +25,10 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
-            game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
+            var creature = Applier.ChooseControlledCreature(ToString());
+            Game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -44,11 +44,11 @@ namespace Cards.Cards.DM09
 
     class FistsOfForeverDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public FistsOfForeverDelayedTriggeredAbility(ICard creature, IAbility source) : base(new FistsOfForeverAbility(creature), source.Source, source.Controller, false)
+        public FistsOfForeverDelayedTriggeredAbility(ICard creature, IAbility source) : base(new FistsOfForeverAbility(creature), false, source)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -68,7 +68,7 @@ namespace Cards.Cards.DM09
             _creature = ability._creature;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BattleEvent e && e.Winners.Contains(_creature);
         }
@@ -78,9 +78,9 @@ namespace Cards.Cards.DM09
             return new FistsOfForeverAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            Controller.Untap(game, _creature);
+            Controller.Untap(_creature);
         }
 
         public override string ToString()

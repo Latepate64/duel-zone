@@ -23,9 +23,9 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new YourCreaturesCannotBeBlockedThisTurnEffect());
+            Game.AddContinuousEffects(Ability, new YourCreaturesCannotBeBlockedThisTurnEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -45,9 +45,9 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker);
+            return Game.BattleZone.GetCreatures(Applier).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

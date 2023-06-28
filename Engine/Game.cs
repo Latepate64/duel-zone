@@ -104,6 +104,7 @@ namespace Engine
         public IList<ITurn> Turns { get; } = new List<ITurn>();
 
         public IPlayer Winner { get; private set; }
+        public IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
 
         public void AddAbility(ICard card, IAbility ability)
         {
@@ -151,8 +152,7 @@ namespace Engine
 
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
-            var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(creature.Owner).Id);
-            return ContinuousEffects.CanCreatureAttack(creature) && opponentsCreatures.Any(x => CanAttackCreature(creature, x));
+            return ContinuousEffects.CanCreatureAttack(creature) && BattleZone.GetCreatures(creature.Owner.Opponent).Any(x => CanAttackCreature(creature, x));
         }
 
         public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
@@ -210,7 +210,7 @@ namespace Engine
             var abilities = new List<ITriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner.Id, gameEvent)));
+                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent)).Select(x => x.Trigger(card.Id, card.Owner.Id, gameEvent)));
             }
             return abilities;
         }
@@ -235,7 +235,7 @@ namespace Engine
         {
             if (Players.Any(x => x.Id == id))
             {
-                return GetPlayer(id);
+                return Players.Single(x => x.Id == id);
             }
             else// if (BattleZone.Creatures.Any(x => x.Id == id))
             {
@@ -254,51 +254,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
         {
-            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
-        }
-
-        /// <summary>
-        /// 102.2. In a two-player game, a player’s opponent is the other player.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns>Opponent if they are still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetOpponent(IPlayer player)
-        {
-            return Players.Single(x => x.Id == GetOpponent(player.Id));
-        }
-
-        /// <summary>
-        /// 102.2. In a two-player game, a player’s opponent is the other player.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns>Opponent if they are still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public Guid GetOpponent(Guid player)
-        {
-            return Players.Single(x => x.Id != player).Id;
-        }
-
-        /// <summary>
-        /// 108.3. The owner of a card in the game is the player who started the game with it in their deck.
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetOwner(ICard card)
-        {
-            return Players.Single(x => x.Id == card.Owner.Id);
-        }
-
-        /// <summary>
-        /// Player with target id who is still in the game.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Player with target id who is still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetPlayer(Guid id)
-        {
-            return Players.Single(x => x.Id == id);
+            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
         }
 
         public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
@@ -306,11 +262,11 @@ namespace Engine
             List<IAttackable> attackables = new();
             if (CanAttackPlayers(attacker))
             {
-                attackables.Add(GetOpponent(attacker.Owner));
+                attackables.Add(attacker.Owner.Opponent);
             }
             if (CanAttackAtLeastOneCreature(attacker))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(GetOpponent(attacker.Owner).Id).Where(x => CanAttackCreature(attacker, x));
+                var opponentsCreatures = BattleZone.GetCreatures(attacker.Owner.Opponent).Where(x => CanAttackCreature(attacker, x));
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     ContinuousEffects.CanCreatureAttackUntappedCreature(attacker, c) ||
                     ContinuousEffects.CanCreatureBeAttackedAsThoughItWereTapped(c)));
@@ -385,13 +341,13 @@ namespace Engine
             }
 
             // 103.2. After the starting player has been determined, each player shuffles their deck so that the cards are in a random order.
-            Players.ToList().ForEach(x => x.ShuffleOwnDeck(this));
+            Players.ToList().ForEach(x => x.ShuffleOwnDeck());
 
             // Each player puts five card from to the top of their deck into their shield zone.
-            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, this, null));
+            Players.ToList().ForEach(x => x.PutFromTopOfDeckIntoShieldZone(StartingNumberOfShields, null));
 
             // 103.4. Each player draws a number of cards equal to their starting hand size, which is normally five.
-            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, this, null));
+            Players.ToList().ForEach(x => x.DrawCards(StartingHandSize, null));
 
             // 103.7. The starting player takes their first turn.
             LoopTurns(startingPlayer, otherPlayer, MaximumNumberOfTurns);
@@ -411,7 +367,7 @@ namespace Engine
             // TODO: See above comment. Current implementation defaults to first replacement effect for each event that can be replaced by more than one effect.
             var finalEvents = effectsByEvent.Select(group =>
                 group.Any(effects => effects.Any()) ?
-                    group.SelectMany(effects => effects).First().Apply(group.Key, this) :
+                    group.SelectMany(effects => effects).First().Apply(group.Key) :
                     group.Key
             );
             finalEvents.ToList().ForEach(x => ProcessEvent(x));
@@ -440,7 +396,7 @@ namespace Engine
                 //TODO: In rare cases there could be multiple reflexive triggered abilities, in that case those should be resolved in APNAP order
                 var ability = _reflexiveTriggeredAbilities.First();
                 _reflexiveTriggeredAbilities.RemoveAt(0);
-                ability.Resolve(this);
+                ability.Resolve();
             }
         }
 
@@ -526,7 +482,7 @@ namespace Engine
         private void CheckExpirations(IGameEvent gameEvent)
         {
             ContinuousEffects.RemoveExpired(gameEvent);
-            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
+            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent)).ToArray())
             {
                 _state.DelayedTriggeredAbilities.Remove(remove);
             }
@@ -541,14 +497,14 @@ namespace Engine
             var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
-                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner.Id);
+                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
-                    var trigger = GetPlayer(shieldTriggersByPlayer.Key).ChooseCardOptionally(shieldTriggersByPlayer, "You may use a shield trigger.");
+                    var trigger = shieldTriggersByPlayer.Key.ChooseCardOptionally(shieldTriggersByPlayer, "You may use a shield trigger.");
                     if (trigger != null)
                     {
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        ProcessEvents(new ShieldTriggerEvent(GetPlayer(shieldTriggersByPlayer.Key), trigger));
+                        ProcessEvents(new ShieldTriggerEvent(shieldTriggersByPlayer.Key, trigger));
                     }
                     else
                     {
@@ -648,7 +604,7 @@ namespace Engine
 
         private void NotifyWatchers(IGameEvent gameEvent)
         {
-            BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
+            BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(gameEvent));
             ContinuousEffects.Notify(gameEvent);
         }
 
@@ -669,7 +625,7 @@ namespace Engine
         {
             var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new();
-            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent)))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
                 if (ability.TriggersOnlyOnce)
@@ -704,5 +660,19 @@ namespace Engine
         {
             AddPendingAbilities(cards.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
         }
+
+        public bool CanAttackAtLeastSomething(ICard creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
+
+        public IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
+
+        public IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
+
+        public void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
+
+        public bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
+
+        public bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+
+        public int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
     }
 }

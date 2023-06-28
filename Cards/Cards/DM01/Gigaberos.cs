@@ -15,30 +15,30 @@ namespace Cards.Cards.DM01
 
     class GigaberosEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             // Destroy 2 of your other creatures or destroy this creature.
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
-            var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
+            var creatures = Game.BattleZone.GetCreatures(Applier);
+            var thisCreature = creatures.SingleOrDefault(IsSourceOfAbility);
             if (thisCreature == null)
             {
-                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id).ToArray());
+                Game.Destroy(Ability, Game.BattleZone.GetOtherCreatures(Applier, Source).ToArray());
             }
-            else if (creatures.Where(x => x != Ability.Source).Count() < 2)
+            else if (creatures.Where(x => !IsSourceOfAbility(x)).Count() < 2)
             {
-                game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
+                Game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
             }
             else
             {
-                var selection = Controller.ChooseCards(creatures, 1, 2, ToString());
+                var selection = Applier.ChooseCards(creatures, 1, 2, ToString());
                 if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
-                    game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
+                    Game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
                 }
                 else
                 {
                     // Selection was illegal, try selecting again.
-                    Apply(game);
+                    Apply();
                 }
             }
         }

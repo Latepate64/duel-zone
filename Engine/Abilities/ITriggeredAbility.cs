@@ -5,8 +5,8 @@ namespace Engine.Abilities
 {
     public interface ITriggeredAbility : IResolvableAbility
     {
-        bool CanTrigger(IGameEvent gameEvent, IGame game);
-        bool CheckInterveningIfClause(IGame game);
+        bool CanTrigger(IGameEvent gameEvent);
+        bool CheckInterveningIfClause();
         ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);
     }
 }

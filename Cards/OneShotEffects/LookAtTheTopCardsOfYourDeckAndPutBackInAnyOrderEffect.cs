@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -18,10 +17,10 @@ namespace Cards.OneShotEffects
             _amount = effect._amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
-            Controller.ArrangeTopCardsOfDeck(cards.ToArray());
+            var cards = Applier.LookAtTheTopCardsOfYourDeck(_amount);
+            Applier.ArrangeTopCardsOfDeck(cards.ToArray());
         }
 
         public override string ToString()

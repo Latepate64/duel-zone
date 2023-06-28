@@ -27,25 +27,24 @@ namespace Cards.Cards.DM10
             _hasBeenAttacked = effect._hasBeenAttacked;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
-            return Applies(game, creature);
+            return Applies(creature);
         }
 
-        private bool Applies(IGame game, ICard attacker)
+        private bool Applies(ICard attacker)
         {
-            var opponent = GetOpponent(game);
-            return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
+            return Source.Tapped && Game.CurrentTurn.ActivePlayer == Applier.Opponent && !_hasBeenAttacked && attacker.Owner == Applier.Opponent;
         }
 
-        public bool CannotAttackCreature(ICard attacker, ICard target, IGame game)
+        public bool CannotAttackCreature(ICard attacker, ICard target)
         {
-            return Applies(game, attacker) && target != Source;
+            return Applies(attacker) && target != Source;
         }
 
-        public bool CannotAttackPlayers(ICard attacker, IGame game)
+        public bool CannotAttackPlayers(ICard attacker)
         {
-            return Applies(game, attacker);
+            return Applies(attacker);
         }
 
         public override IContinuousEffect Copy()
@@ -58,7 +57,7 @@ namespace Cards.Cards.DM10
             return "While this creature is tapped during your opponent's turn, if it hasn't been attacked that turn, your opponent's creatures must attack it if able.";
         }
 
-        public void Watch(IGame game, IGameEvent gameEvent)
+        public void Watch(IGameEvent gameEvent)
         {
             if (gameEvent is CreatureAttackedEvent e && e.Target == Source)
             {

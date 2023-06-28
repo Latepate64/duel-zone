@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
@@ -23,10 +22,10 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.DrawCardsOptionally(game, Ability, 2);
-            Controller.DiscardOwnCards(game, Ability, 1);
+            Applier.DrawCardsOptionally(Ability, 2);
+            Applier.DiscardOwnCards(Ability, 1);
         }
 
         public override IOneShotEffect Copy()

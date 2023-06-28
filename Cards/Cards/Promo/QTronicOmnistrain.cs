@@ -15,9 +15,9 @@ namespace Cards.Cards.Promo
 
     class QTronicOmnistrainEffect : ContinuousEffects.ContinuousEffect, IRaceAddingEffect
     {
-        public void AddRace(IGame game)
+        public void AddRace()
         {
-            game.BattleZone.GetCreatures(Controller.Id).ToList().ForEach(x => x.AddGrantedRace(Race.Survivor));
+            Game.BattleZone.GetCreatures(Applier).ToList().ForEach(x => x.AddGrantedRace(Race.Survivor));
         }
 
         public override IContinuousEffect Copy()

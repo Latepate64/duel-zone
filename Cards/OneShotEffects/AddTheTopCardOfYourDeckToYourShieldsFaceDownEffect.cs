@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -13,9 +12,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+            Applier.PutFromTopOfDeckIntoShieldZone(1, Ability);
         }
 
         public override IOneShotEffect Copy()

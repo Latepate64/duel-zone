@@ -22,10 +22,10 @@ namespace Cards.ContinuousEffects
             return new PowerAttackerEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             var creature = Source;
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
+            if (Game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
                 creature.Power += Power;
             }

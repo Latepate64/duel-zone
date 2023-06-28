@@ -15,12 +15,12 @@ namespace Cards.Cards.DM10
 
     class RapidReincarnationEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (Controller.DestroyOwnCreatureOptionally(ToString(), game, Ability) != null)
+            if (Applier.DestroyOwnCreatureOptionally(ToString(), Ability) != null)
             {
-                ICard card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Cards.Count), ToString());
-                Controller.PutCreatureFromOwnHandIntoBattleZone(card, game, Ability);
+                ICard card = Applier.ChooseCard(Applier.Hand.Creatures.Where(x => x.ManaCost <= Applier.ManaZone.Cards.Count), ToString());
+                Applier.PutCreatureFromOwnHandIntoBattleZone(card, Ability);
             }
         }
 

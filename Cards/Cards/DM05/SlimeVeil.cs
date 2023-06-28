@@ -25,9 +25,9 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new SlimeVeilContinuousEffect(GetOpponent(game)));
+            Game.AddContinuousEffects(Ability, new SlimeVeilContinuousEffect(Applier.Opponent));
         }
 
         public override IOneShotEffect Copy()
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM05
             _player = effect._player;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature.Owner == _player;
         }
@@ -65,7 +65,7 @@ namespace Cards.Cards.DM05
             return new SlimeVeilContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn && phase.Turn.ActivePlayer == _player;
         }

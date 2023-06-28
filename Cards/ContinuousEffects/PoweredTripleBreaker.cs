@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
             return new PoweredTripleBreaker();
         }
 
-        public int GetAmount(IGame game, ICard creature)
+        public int GetAmount(ICard creature)
         {
             if (IsSourceOfAbility(creature))
             {

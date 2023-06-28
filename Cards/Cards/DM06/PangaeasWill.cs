@@ -22,12 +22,12 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var card = Controller.ChooseCard(game.BattleZone.GetChoosableEvolutionCreaturesControlledByPlayer(game, GetOpponent(game).Id), ToString());
+            var card = Applier.ChooseCard(Game.BattleZone.GetChoosableEvolutionCreaturesControlledByChoosersOpponent(Applier), ToString());
             if (card != null)
             {
-                game.MoveTopCard(card, ZoneType.ManaZone, Ability);
+                Game.MoveTopCard(card, ZoneType.ManaZone, Ability);
             }
         }
 

@@ -24,9 +24,9 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -42,11 +42,11 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
     {
-        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.Controller, false)
+        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), false, source)
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -85,14 +85,14 @@ namespace Cards.Cards.DM07
             return new SpinningTotemTriggeredAbility((gameEvent as BecomeBlockedEvent).Attacker);
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == Controller && e.Attacker.HasCivilization(Civilization.Nature);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Break(_breaker, 1);
+            Game.Break(_breaker, 1);
         }
     }
 }

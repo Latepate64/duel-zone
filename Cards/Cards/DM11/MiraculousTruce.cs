@@ -26,10 +26,10 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var civilization = Controller.ChooseCivilization(ToString());
-            game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Controller));
+            var civilization = Applier.ChooseCivilization(ToString());
+            Game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Applier));
         }
 
         public override IOneShotEffect Copy()
@@ -64,7 +64,7 @@ namespace Cards.Cards.DM11
             _player = effect._player;
         }
 
-        public bool CannotAttackPlayers(ICard attacker, IGame game)
+        public bool CannotAttackPlayers(ICard attacker)
         {
             return attacker.HasCivilization(_civilization);
         }
@@ -74,7 +74,7 @@ namespace Cards.Cards.DM11
             return new MiraculousTruceContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == _player;
         }

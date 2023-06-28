@@ -18,7 +18,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return IsSourceOfAbility(attacker) && blocker.Power >= 4000;
         }

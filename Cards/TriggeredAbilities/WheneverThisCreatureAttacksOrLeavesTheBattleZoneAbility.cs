@@ -1,7 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using System;
 
 namespace Cards.TriggeredAbilities
 {
@@ -15,9 +14,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return (gameEvent is CreatureAttackedEvent e && e.Attacker == Source) || (gameEvent is CardMovedEvent f && f.Source == ZoneType.BattleZone && game.GetCard(f.CardInSourceZone) == Source);
+            return (gameEvent is CreatureAttackedEvent e && e.Attacker == Source) || (gameEvent is CardMovedEvent f && f.Source == ZoneType.BattleZone && Game.GetCard(f.CardInSourceZone) == Source);
         }
 
         public override IAbility Copy()

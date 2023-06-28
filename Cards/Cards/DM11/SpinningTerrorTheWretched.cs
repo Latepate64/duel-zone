@@ -28,9 +28,9 @@ namespace Cards.Cards.DM11
             return $"This creature gets +{Power} power for each tapped creature your opponent has in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetTappedCreatures(game.GetOpponent(Controller.Id)).Count();
+            return Game.BattleZone.GetTappedCreatures(Applier.Opponent).Count();
         }
     }
 }

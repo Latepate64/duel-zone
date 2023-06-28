@@ -33,9 +33,9 @@ namespace Cards.Cards.DM03
             return "Return a creature that costs 6 or more from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.ManaZone.Creatures.Where(x => x.ManaCost >= 6);
+            return Applier.ManaZone.Creatures.Where(x => x.ManaCost >= 6);
         }
     }
 }

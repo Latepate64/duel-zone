@@ -13,18 +13,18 @@ namespace Cards.Cards.Promo
 
     class BrigadeShellQEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            ICard card = Controller.RevealTopCardOfOwnDeck(game);
+            ICard card = Applier.RevealTopCardOfOwnDeck();
             if (card != null)
             {
                 if (card.HasRace(Race.Survivor))
                 {
-                    Controller.PutTopCardOfOwnDeckIntoOwnHand(game, Ability);
+                    Applier.PutTopCardOfOwnDeckIntoOwnHand(Ability);
                 }
                 else
                 {
-                    Controller.PutTopCardOfOwnDeckIntoOwnGraveyard(game, Ability);
+                    Applier.PutTopCardOfOwnDeckIntoOwnGraveyard(Ability);
                 }
             }
         }

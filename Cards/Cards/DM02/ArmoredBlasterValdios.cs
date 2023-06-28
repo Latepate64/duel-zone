@@ -23,9 +23,9 @@ namespace Cards.Cards.DM02
             return new ArmoredBlasterValdiosEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.Human)).ToList().ForEach(x => x.Power += 1000);
+            Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.Human)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

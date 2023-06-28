@@ -2,7 +2,6 @@
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Moq;
-using System.Collections.Generic;
 
 namespace TestEngine
 {
@@ -41,9 +40,10 @@ namespace TestEngine
     {
         public System.Guid SourceAbility { get; set; }
         public int Timestamp { get; set; }
-        public IPlayer Controller { get; set; }
+        public IPlayer Applier { get; set; }
         public IAbility Ability { get; set; }
         public ICard Source { get; }
+        public IGame Game { get; }
 
         private readonly bool _shouldBeAbleToEvolve;
 
@@ -62,12 +62,12 @@ namespace TestEngine
             throw new System.NotImplementedException();
         }
 
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public bool CanEvolve(ICard evolutionCreature)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature)
         {
             throw new System.NotImplementedException();
         }

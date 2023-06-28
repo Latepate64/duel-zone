@@ -9,9 +9,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool PlayerCannotChooseCreature(ICard creature, System.Guid player, IGame game)
+        public bool PlayerCannotChooseCreature(ICard creature, System.Guid player)
         {
-            return IsSourceOfAbility(creature) && player == game.GetOpponent(Controller).Id;
+            return IsSourceOfAbility(creature) && player == Applier.Opponent.Id;
         }
 
         public override IContinuousEffect Copy()

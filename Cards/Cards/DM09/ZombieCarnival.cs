@@ -14,12 +14,11 @@ namespace Cards.Cards.DM09
 
     class ZombieCarnivalEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            var race = controller.ChooseRace(ToString());
-            var creatures = controller.Graveyard.GetCreatures(race);
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());
+            var race = Applier.ChooseRace(ToString());
+            var creatures = Applier.Graveyard.GetCreatures(race);
+            Game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Applier.ChooseCards(creatures, 0, 3, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -28,9 +28,9 @@ namespace Cards.OneShotEffects
             return $"Put {(_amount > 1 ? $"{_amount} cards" : "a card")} from your mana zone into your graveyard.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.ManaZone.Cards;
+            return Applier.ManaZone.Cards;
         }
     }
 }

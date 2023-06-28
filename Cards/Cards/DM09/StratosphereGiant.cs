@@ -29,9 +29,9 @@ namespace Cards.Cards.DM09
             return "Your opponent chooses up to 2 creatures in his hand and puts them into the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return GetOpponent(game).Hand.Creatures;
+            return Applier.Opponent.Hand.Creatures;
         }
     }
 }

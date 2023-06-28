@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
@@ -17,10 +16,10 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.ReturnOwnManaCards(game, Ability, Amount);
-            game.GetOpponent(Controller).ReturnOwnManaCards(game, Ability, Amount);
+            Applier.ReturnOwnManaCards(Ability, Amount);
+            Applier.Opponent.ReturnOwnManaCards(Ability, Amount);
         }
     }
 }

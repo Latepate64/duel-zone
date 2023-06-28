@@ -28,7 +28,7 @@ namespace Engine.Abilities
             return Copy() as ITriggeredAbility;
         }
 
-        public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
+        public abstract bool CanTrigger(IGameEvent gameEvent);
 
         /// <summary>
         /// 603.4. A triggered ability may read “When/Whenever/At [trigger event], if [condition], [effect].”
@@ -40,21 +40,21 @@ namespace Engine.Abilities
         /// This rule is referred to as the “intervening ‘if’ clause” rule.
         /// (The word “if” has only its normal English meaning anywhere else in the text of a card; this rule only applies to an “if” that immediately follows a trigger condition.)
         /// </summary>
-        public virtual bool CheckInterveningIfClause(IGame game)
+        public virtual bool CheckInterveningIfClause()
         {
             return true;
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             // 608.2a
             // If a triggered ability has an intervening “if” clause,
             // it checks whether the clause’s condition is true.
             // If it isn’t, the ability does nothing.
             // Otherwise, it continues to resolve. See rule 603.4.
-            if (CheckInterveningIfClause(game))
+            if (CheckInterveningIfClause())
             {
-                base.Resolve(game);
+                base.Resolve();
             }
         }
 
@@ -79,14 +79,14 @@ namespace Engine.Abilities
 
         public IOneShotEffect OneShotEffect { get; set; }
 
-        public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
+        public abstract bool CanTrigger(IGameEvent gameEvent);
 
-        public bool CheckInterveningIfClause(IGame game)
+        public bool CheckInterveningIfClause()
         {
             throw new NotImplementedException();
         }
 
-        public abstract void Resolve(IGame game);
+        public abstract void Resolve();
 
         public abstract ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);
     }

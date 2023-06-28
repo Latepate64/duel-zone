@@ -17,9 +17,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
+            Game.AddContinuousEffects(Ability, new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -45,7 +45,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
@@ -58,7 +58,7 @@ namespace Cards.OneShotEffects
             return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -68,9 +68,9 @@ namespace Cards.OneShotEffects
             return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
-            return card.Owner == Controller;
+            return card.Owner == Applier;
         }
     }
 }

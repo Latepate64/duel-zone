@@ -21,9 +21,9 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
-            game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
+            Game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
                 Destination = ZoneType.Hand
@@ -40,9 +40,9 @@ namespace Cards.Cards.DM08
             return "When this creature would be destroyed, if you have a creature that has Dragon in its race in your mana zone, put this creature into your mana zone instead of destroying it. Then return a creature that has Dragon in its race from your mana zone to your hand.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
-            return IsSourceOfAbility(card) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
+            return IsSourceOfAbility(card) && Applier.ManaZone.Creatures.Any(x => x.IsDragon);
         }
     }
 
@@ -62,9 +62,9 @@ namespace Cards.Cards.DM08
             return "Return a creature that has Dragon in its race from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
+            return Applier.ManaZone.Creatures.Where(x => x.IsDragon);
         }
     }
 }

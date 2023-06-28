@@ -1,7 +1,4 @@
-﻿using Engine.ContinuousEffects;
-using System.Linq;
-
-namespace Engine.Steps
+﻿namespace Engine.Steps
 {
     public class DirectAttackStep : Step
     {
@@ -23,14 +20,14 @@ namespace Engine.Steps
             var attackingCreature = Phase.AttackingCreature;
             if (attackingCreature != null)
             {
-                if (game.GetOpponent(attackingCreature.Owner).ShieldZone.HasCards)
+                if (attackingCreature.Owner.Opponent.ShieldZone.HasCards)
                 {
                     var breakAmount = GetAmountOfShieldsToBreak(game, attackingCreature);
                     game.Break(attackingCreature, breakAmount);
                 }
                 else
                 {
-                    game.GetOpponent(attackingCreature.Owner).DirectlyAttacked = true;
+                    attackingCreature.Owner.Opponent.DirectlyAttacked = true;
                 }
             }
         }

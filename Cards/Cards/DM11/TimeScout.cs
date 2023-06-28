@@ -14,13 +14,13 @@ namespace Cards.Cards.DM11
 
     class TimeScoutEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
+            var cards = Applier.Opponent.Deck.GetTopCards(1).ToArray();
             if (cards.Any())
             {
-                Controller.Look(GetOpponent(game), game, cards);
-                GetOpponent(game).Unreveal(cards);
+                Applier.Look(Applier.Opponent, cards);
+                Applier.Opponent.Unreveal(cards);
             }
         }
 

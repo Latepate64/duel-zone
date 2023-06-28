@@ -14,9 +14,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is ShieldTriggerEvent e && e.Player == GetOpponent(game);
+            return gameEvent is ShieldTriggerEvent e && e.Player == Controller.Opponent;
         }
 
         public override IAbility Copy()

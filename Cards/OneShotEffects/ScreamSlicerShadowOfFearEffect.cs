@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using System.Linq;
 
 namespace Cards.OneShotEffects
@@ -14,11 +13,10 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            var creatures = game.BattleZone.Creatures.Where(x => x.Power == game.BattleZone.Creatures.Min(x => x.Power.Value) && controller.CanChoose(x, game));
-            game.Destroy(Ability, controller.ChooseCard(creatures, ToString()));
+            var creatures = Game.BattleZone.Creatures.Where(x => x.Power == Game.BattleZone.Creatures.Min(x => x.Power.Value) && Applier.CanChoose(x));
+            Game.Destroy(Ability, Applier.ChooseCard(creatures, ToString()));
         }
 
         public override IOneShotEffect Copy()

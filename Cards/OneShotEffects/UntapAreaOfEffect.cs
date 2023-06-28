@@ -15,9 +15,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.Untap(game, GetAffectedCards(game, Ability).ToArray());
+            Applier.Untap(GetAffectedCards(Ability).ToArray());
         }
     }
 
@@ -41,9 +41,9 @@ namespace Cards.OneShotEffects
             return "Untap all the cards in your mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return Controller.ManaZone.Cards;
+            return Applier.ManaZone.Cards;
         }
     }
 }

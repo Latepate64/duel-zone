@@ -21,9 +21,9 @@ namespace Cards.ContinuousEffects
             _power = power;
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.Creatures.Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.Power += _power);
+            Game.BattleZone.Creatures.Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.Power += _power);
         }
 
         public override string ToString()

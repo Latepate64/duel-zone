@@ -24,9 +24,9 @@ namespace Cards.Cards.DM11
             return new MerleeTheOracleEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(Controller.Id).ToList().ForEach(x => x.Power += 1000);
+            Game.BattleZone.GetCreatures(Applier).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

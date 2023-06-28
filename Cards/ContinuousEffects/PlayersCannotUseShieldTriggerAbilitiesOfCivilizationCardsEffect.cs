@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization Civilization { get; }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(ICard card)
         {
             return card.HasCivilization(Civilization);
         }

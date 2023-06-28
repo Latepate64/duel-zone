@@ -18,9 +18,9 @@ namespace Cards.Cards.DM09
 
     class VreemahFreakyMojoTotemOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new VreemahFreakyMojoTotemContinuousEffect());
+            Game.AddContinuousEffects(Ability, new VreemahFreakyMojoTotemContinuousEffect());
         }
 
         public override IOneShotEffect Copy()
@@ -45,7 +45,7 @@ namespace Cards.Cards.DM09
             return new VreemahFreakyMojoTotemContinuousEffect();
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -55,9 +55,9 @@ namespace Cards.Cards.DM09
             return "Each Beast Folk in the battle zone gets +2000 power and \"double breaker\" until the end of the turn.";
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk)).ToList();
+            return Game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk)).ToList();
         }
     }
 }

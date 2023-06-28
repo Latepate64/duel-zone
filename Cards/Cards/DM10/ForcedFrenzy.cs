@@ -18,9 +18,9 @@ namespace Cards.Cards.DM10
 
     class ForcedFrenzyEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new ForcedFrenzyContinuousEffect(GetOpponent(game)));
+            Game.AddContinuousEffects(Ability, new ForcedFrenzyContinuousEffect(Applier.Opponent));
         }
 
         public override IOneShotEffect Copy()
@@ -48,7 +48,7 @@ namespace Cards.Cards.DM10
             _opponent = effect._opponent;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature.Owner == _opponent;
         }
@@ -58,9 +58,9 @@ namespace Cards.Cards.DM10
             return new ForcedFrenzyContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Controller;
+            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Applier;
         }
 
         public override string ToString()

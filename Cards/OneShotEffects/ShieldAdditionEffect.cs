@@ -13,9 +13,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards);
+            Game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards);
         }
     }
 }

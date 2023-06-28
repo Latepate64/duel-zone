@@ -15,13 +15,12 @@ namespace Cards.Cards.DM09
 
     class TraRionPenumbraGuardianEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
-                new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Controller.ChooseRace(ToString()))),
-                Ability.Source,
-                Ability.Controller,
-                true));
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
+                new TriggeredAbilities.AtTheEndOfTurnAbility(Game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Applier.ChooseRace(ToString()))),
+                true,
+                Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -59,9 +58,9 @@ namespace Cards.Cards.DM09
             return $"Untap all {Race}s in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Race);
+            return Game.BattleZone.GetCreatures(Race);
         }
     }
 }

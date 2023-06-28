@@ -24,12 +24,12 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Destroy(
+            Game.Destroy(
                 Ability,
-                Controller.ChooseCards(
-                    new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).ToArray())
+                Applier.ChooseCards(
+                    new CardChoice(Applier, ToString(), new ApocalypseViseChoiceMode(), Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).ToArray())
                     ).ToArray());
         }
 

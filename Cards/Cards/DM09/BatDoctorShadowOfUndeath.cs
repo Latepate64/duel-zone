@@ -28,9 +28,9 @@ namespace Cards.Cards.DM09
             return "You may return another creature from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return Controller.Graveyard.GetOtherCreatures(Ability.Source.Id);
+            return Applier.Graveyard.GetOtherCreatures(Source);
         }
     }
 }

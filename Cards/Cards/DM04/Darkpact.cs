@@ -22,12 +22,11 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var player = Controller;
-            var cards = player.ChooseAnyNumberOfCards(player.ManaZone.Cards, ToString()).ToArray();
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards);
-            player.DrawCards(cards.Length, game, Ability);
+            var cards = Applier.ChooseAnyNumberOfCards(Applier.ManaZone.Cards, ToString()).ToArray();
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards);
+            Applier.DrawCards(cards.Length, Ability);
         }
 
         public override IOneShotEffect Copy()

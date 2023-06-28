@@ -20,9 +20,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            GetAffectedCards(game).ForEach(x => { 
+            GetAffectedCards().ForEach(x => { 
                 x.AddGrantedAbility(new StaticAbilities.BlockerAbility());
                 x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
                 });
@@ -33,9 +33,9 @@ namespace Cards.Cards.DM12
             return new KilstineNebulaElementalEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            GetAffectedCards(game).ForEach(x => x.Power += 5000);
+            GetAffectedCards().ForEach(x => x.Power += 5000);
         }
 
         public override string ToString()
@@ -43,9 +43,9 @@ namespace Cards.Cards.DM12
             return "Each of your other creatures in battle zone gets +5000 power and has \"blocker\" and \"double breaker\".";
         }
 
-        private List<ICard> GetAffectedCards(IGame game)
+        private List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList();
+            return Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x)).ToList();
         }
     }
 }

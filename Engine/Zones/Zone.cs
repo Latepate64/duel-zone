@@ -11,11 +11,13 @@ namespace Engine.Zones
     {
         public List<ICard> Cards { get; private set; } = new List<ICard>();
 
-        public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
-        public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
+        public IEnumerable<ICard> Creatures => Cards.Where(x => x.IsCreature);
+        public IEnumerable<ICard> Spells => Cards.Where(x => x.IsSpell);
 
         public ZoneType Type { get; }
         public bool HasCards => Cards.Any();
+
+        public IGame Game { get; }
 
         protected Zone(ZoneType type)
         {
@@ -27,9 +29,9 @@ namespace Engine.Zones
             Cards = zone.Cards.Select(x => x.Copy()).ToList();
         }
 
-        public abstract void Add(ICard card, IGame game);
+        public abstract void Add(ICard card);
 
-        public abstract List<ICard> Remove(ICard card, IGame game);
+        public abstract List<ICard> Remove(ICard card);
 
         protected virtual void Dispose(bool disposing)
         {
@@ -41,10 +43,7 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid owner)
-        {
-            return Creatures.Where(x => x.Owner.Id == owner);
-        }
+        protected IEnumerable<ICard> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
 
         public abstract override string ToString();
 
@@ -63,9 +62,14 @@ namespace Engine.Zones
             return Creatures.Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        public IEnumerable<ICard> GetOtherCreatures(ICard creature)
         {
-            return Creatures.Where(x => x.Id != creature);
+            return Creatures.Where(x => x.Id != creature.Id);
+        }
+
+        public IEnumerable<ICard> GetCreatures(IPlayer player)
+        {
+            return GetCreatures(player.Id);
         }
     }
 }

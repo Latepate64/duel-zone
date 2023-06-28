@@ -14,10 +14,10 @@ namespace Cards.Cards.DM11
 
     class DiamondiaTheBlizzardRiderEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Controller.Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, Controller.ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            Game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Applier.Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, Applier.ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie)).ToArray());
         }
 
         public override IOneShotEffect Copy()

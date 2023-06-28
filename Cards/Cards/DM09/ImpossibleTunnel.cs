@@ -23,9 +23,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new ImpossibleTunnelContinuousEffect(Controller.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new ImpossibleTunnelContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -53,9 +53,9 @@ namespace Cards.Cards.DM09
             _race = race;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(_race)).Contains(attacker);
+            return Game.BattleZone.Creatures.Where(x => x.HasRace(_race)).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

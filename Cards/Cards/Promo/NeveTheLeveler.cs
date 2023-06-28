@@ -23,9 +23,9 @@ namespace Cards.Cards.Promo
         {
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
-            return game.GetBattleZoneCreatures(GetOpponent(game)).Count() > game.GetBattleZoneCreatures(Controller).Count();
+            return Game.GetBattleZoneCreatures(Controller.Opponent).Count() > Game.GetBattleZoneCreatures(Controller).Count();
         }
 
         public override IAbility Copy()
@@ -41,11 +41,11 @@ namespace Cards.Cards.Promo
 
     class NeveTheLevelerEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Controller.SearchOwnDeck();
-            Controller.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(GetOpponent(game)) - game.GetAmountOfBattleZoneCreatures(Controller), ToString(), game, Ability);
-            Controller.ShuffleOwnDeck(game);
+            Applier.SearchOwnDeck();
+            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, Game.GetAmountOfBattleZoneCreatures(Applier.Opponent) - Game.GetAmountOfBattleZoneCreatures(Applier), ToString(), Ability);
+            Applier.ShuffleOwnDeck();
         }
 
         public override IOneShotEffect Copy()

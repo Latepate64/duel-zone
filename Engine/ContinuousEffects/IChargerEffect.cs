@@ -2,6 +2,6 @@
 {
     public interface IChargerEffect : IReplacementEffect
     {
-        bool Applies(ICard card, IGame game);
+        bool Applies(ICard card);
     }
 }

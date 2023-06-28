@@ -22,9 +22,9 @@ namespace Cards.ContinuousEffects
             Abilities = abilities.ToList();
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            foreach (var card in GetAffectedCards(game))
+            foreach (var card in GetAffectedCards())
             {
                 Abilities.ForEach(x => card.AddGrantedAbility(x.Copy()));
             }
@@ -32,7 +32,7 @@ namespace Cards.ContinuousEffects
 
         protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game);
+        protected abstract IEnumerable<ICard> GetAffectedCards();
     }
 
     abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IExpirable
@@ -59,12 +59,12 @@ namespace Cards.ContinuousEffects
             _cards = new ICard[] { card };
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
             return _cards;
         }

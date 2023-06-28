@@ -22,8 +22,7 @@ namespace TestCards.TriggeredAbilities
                     new CardMovedEventMock(ZoneType.BattleZone)
                     {
                         CardInDestinationZone = card
-                    },
-                    new Game()));
+                    }));
         }
     }
 
@@ -57,9 +56,10 @@ namespace TestCards.TriggeredAbilities
     class OneShotEffectMock : IOneShotEffect
     {
         public Guid SourceAbility { get; set; }
-        public IPlayer Controller { get; set; }
+        public IPlayer Applier { get; set; }
         public IAbility Ability { get; set; }
         public ICard Source { get; }
+        public IGame Game { get; }
 
         public IOneShotEffect Copy()
         {
@@ -71,7 +71,7 @@ namespace TestCards.TriggeredAbilities
             throw new NotImplementedException();
         }
 
-        void IOneShotEffect.Apply(IGame game)
+        void IOneShotEffect.Apply()
         {
             throw new NotImplementedException();
         }

@@ -4,8 +4,6 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -19,9 +17,9 @@ namespace Cards.Cards.DM09
 
     class HokiraOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new HokiraContinuousEffect(Controller.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new HokiraContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()
@@ -54,7 +52,7 @@ namespace Cards.Cards.DM09
             return new HokiraContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -64,9 +62,9 @@ namespace Cards.Cards.DM09
             return $"Whenever one of your {_race}s would be destroyed this turn, return it to your hand instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
-            return card.Owner == Controller && card.HasRace(_race);
+            return card.Owner == Applier && card.HasRace(_race);
         }
     }
 }

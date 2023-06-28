@@ -18,20 +18,17 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Controller;
-            var opponent = GetOpponent(game);
+            var creatures = Applier.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 2, 2, ToString());
+            var toHand = Applier.Opponent.ChooseCard(creatures, ToString());
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, toHand);
+            Game.Destroy(Ability, creatures.Where(x => x != toHand).ToArray());
 
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, opponent.Id), 2, 2, ToString());
-            var toHand = opponent.ChooseCard(creatures, ToString());
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, toHand);
-            game.Destroy(Ability, creatures.Where(x => x != toHand).ToArray());
-
-            var cards = controller.ChooseCards(opponent.ManaZone.Cards, 2, 2, ToString());
-            var manaToHand = opponent.ChooseCard(cards, ToString());
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, manaToHand);
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
+            var cards = Applier.ChooseCards(Applier.Opponent.ManaZone.Cards, 2, 2, ToString());
+            var manaToHand = Applier.Opponent.ChooseCard(cards, ToString());
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, manaToHand);
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
         }
 
         public override IOneShotEffect Copy()

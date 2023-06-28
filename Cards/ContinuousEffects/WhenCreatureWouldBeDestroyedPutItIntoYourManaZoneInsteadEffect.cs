@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
@@ -39,7 +39,7 @@ namespace Cards.ContinuousEffects
             return "When this creature would be destroyed, put it into your mana zone instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
             return IsSourceOfAbility(card);
         }

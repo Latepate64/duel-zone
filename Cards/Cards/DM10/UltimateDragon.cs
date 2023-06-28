@@ -29,9 +29,9 @@ namespace Cards.Cards.DM10
             return $"This creature gets +{Power} power for each of your other creatures in the battle zone that has Dragon in its race.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id).Count(x => x.IsDragon);
+            return Game.BattleZone.GetOtherCreatures(Applier, Source).Count(x => x.IsDragon);
         }
     }
 
@@ -42,10 +42,9 @@ namespace Cards.Cards.DM10
             return new UltimateDragonBreakerEffect();
         }
 
-        public override int GetAmount(IGame game, ICard creature)
+        public override int GetAmount(ICard creature)
         {
-            var ability = Ability;
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.IsDragon) : 1;
+            return IsSourceOfAbility(creature) ? Game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x) && x.IsDragon) : 1;
         }
 
         public override string ToString()

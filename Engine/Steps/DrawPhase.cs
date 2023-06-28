@@ -20,7 +20,7 @@
         /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-           game.CurrentTurn.ActivePlayer.DrawCards(1, game, null);
+           game.CurrentTurn.ActivePlayer.DrawCards(1, null);
         }
 
         public override IPhase Copy()
