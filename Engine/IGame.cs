@@ -62,7 +62,6 @@ namespace Engine
         ICard GetCard(Guid id);
 
         IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
-        IPlayer GetPlayer(Guid id);
         IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
         IZone GetZone(ICard card);

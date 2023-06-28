@@ -234,7 +234,7 @@ namespace Engine
         {
             if (Players.Any(x => x.Id == id))
             {
-                return GetPlayer(id);
+                return Players.Single(x => x.Id == id);
             }
             else// if (BattleZone.Creatures.Any(x => x.Id == id))
             {
@@ -254,17 +254,6 @@ namespace Engine
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
         {
             return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
-        }
-
-        /// <summary>
-        /// Player with target id who is still in the game.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Player with target id who is still in the game.</returns>
-        /// <exception cref="PlayerNotInGameException"></exception>
-        public IPlayer GetPlayer(Guid id)
-        {
-            return Players.Single(x => x.Id == id);
         }
 
         public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
@@ -507,14 +496,14 @@ namespace Engine
             var allShieldTriggers = events.OfType<ICardMovedEvent>().Where(x => x.Destination == ZoneType.Hand).Select(x => GetCard(x.CardInDestinationZone.Id)).Where(x => x != null && x.ShieldTrigger);
             while (allShieldTriggers.Any())
             {
-                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner.Id);
+                var shieldTriggersByPlayers = allShieldTriggers.GroupBy(x => x.Owner);
                 foreach (var shieldTriggersByPlayer in shieldTriggersByPlayers)
                 {
-                    var trigger = GetPlayer(shieldTriggersByPlayer.Key).ChooseCardOptionally(shieldTriggersByPlayer, "You may use a shield trigger.");
+                    var trigger = shieldTriggersByPlayer.Key.ChooseCardOptionally(shieldTriggersByPlayer, "You may use a shield trigger.");
                     if (trigger != null)
                     {
                         allShieldTriggers = allShieldTriggers.Where(x => x.Id != trigger.Id);
-                        ProcessEvents(new ShieldTriggerEvent(GetPlayer(shieldTriggersByPlayer.Key), trigger));
+                        ProcessEvents(new ShieldTriggerEvent(shieldTriggersByPlayer.Key, trigger));
                     }
                     else
                     {
