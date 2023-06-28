@@ -15,9 +15,9 @@ namespace Cards.Cards.DM04
 
     class TroxGeneralOfDestructionEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier).Count(x => x != Source && x.HasCivilization(Civilization.Darkness));
+            var amount = Game.BattleZone.GetCreatures(Applier).Count(x => x != Source && x.HasCivilization(Civilization.Darkness));
             Applier.Opponent.DiscardAtRandom(amount, Ability);
         }
 

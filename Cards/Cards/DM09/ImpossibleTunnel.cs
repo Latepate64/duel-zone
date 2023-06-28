@@ -23,9 +23,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new ImpossibleTunnelContinuousEffect(Applier.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new ImpossibleTunnelContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()

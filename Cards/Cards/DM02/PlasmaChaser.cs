@@ -14,9 +14,9 @@ namespace Cards.Cards.DM02
 
     class PlasmaChaserEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier.Opponent).Count();
+            var amount = Game.BattleZone.GetCreatures(Applier.Opponent).Count();
 
             if (amount > 0 && Applier.ChooseToTakeAction($"You may draw {amount} cards."))
             {

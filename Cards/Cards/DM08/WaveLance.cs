@@ -21,12 +21,12 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Applier.ChooseCard(game.BattleZone.Creatures, ToString());
+            var creature = Applier.ChooseCard(Game.BattleZone.Creatures, ToString());
             if (creature != null)
             {
-                game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
+                Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
                 if (creature.IsDragon)
                 {
                     Applier.DrawCardsOptionally(Ability, 1);

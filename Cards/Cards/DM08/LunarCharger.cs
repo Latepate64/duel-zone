@@ -26,10 +26,10 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var creatures = Applier.ChooseControlledCreaturesOptionally(2, ToString());
-            game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
+            Game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, Game.CurrentTurn.Id));
         }
 
         public override IOneShotEffect Copy()

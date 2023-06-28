@@ -22,12 +22,12 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var cards = Applier.RevealTopCardsOfDeck(3);
             var toHand = cards.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness));
-            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
-            game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
+            Game.Move(Ability, ZoneType.Deck, ZoneType.Hand, toHand.ToArray());
+            Game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, cards.Except(toHand).ToArray());
             Applier.Unreveal(cards.ToArray());
         }
 

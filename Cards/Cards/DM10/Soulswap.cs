@@ -19,7 +19,7 @@ namespace Cards.Cards.DM10
                 return new SoulswapEffect();
             }
 
-            public override void Apply(IGame game)
+            public override void Apply()
             {
                 ICard creature = Applier.ChooseCreatureInBattleZoneOptionally("You may choose a creature in the battle zone and put it into its owner's mana zone.");
                 if (creature != null)

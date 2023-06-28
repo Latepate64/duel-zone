@@ -25,10 +25,10 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var creature = Applier.ChooseControlledCreature(ToString());
-            game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
+            Game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
         }
 
         public override IOneShotEffect Copy()

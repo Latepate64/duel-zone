@@ -27,19 +27,19 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var cards = Applier.Deck.Creatures.Where(x => x.IsDragon);
             var dragon = Applier.ChooseCardOptionally(cards, ToString());
             if (dragon != null)
             {
-                game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
+                Game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
             }
             Applier.ShuffleOwnDeck();
             if (dragon != null)
             {
-                game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
-                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
+                Game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
+                Game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, Game.CurrentTurn.Id));
             }
         }
 

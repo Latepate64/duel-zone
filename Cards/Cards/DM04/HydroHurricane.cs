@@ -22,11 +22,11 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Light));
+            var amount = Game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Light));
             var cards = Applier.ChooseCards(Applier.Opponent.ManaZone.Cards, 0, amount, ToString()).ToArray();
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards);
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, cards);
         }
 
         public override IOneShotEffect Copy()
@@ -50,11 +50,11 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Darkness));
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 0, amount, ToString()).ToArray();
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, creatures);
+            var amount = Game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Darkness));
+            var creatures = Applier.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 0, amount, ToString()).ToArray();
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, creatures);
         }
 
         public override IOneShotEffect Copy()

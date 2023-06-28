@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.Look(Applier.Opponent, Applier.Opponent.Hand.Cards.ToArray());
             var card = Applier.ChooseCard(Applier.Opponent.Hand.Cards, ToString());

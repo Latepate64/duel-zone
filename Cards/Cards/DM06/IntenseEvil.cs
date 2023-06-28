@@ -15,10 +15,10 @@ namespace Cards.Cards.DM06
 
     class IntenseEvilEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier), ToString()).ToArray();
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
+            var cards = Applier.ChooseAnyNumberOfCards(Game.BattleZone.GetCreatures(Applier), ToString()).ToArray();
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
             Applier.DrawCards(cards.Length, Ability);
         }
 

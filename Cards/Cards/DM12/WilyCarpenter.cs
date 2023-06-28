@@ -22,7 +22,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.DrawCardsOptionally(Ability, 2);
             Applier.DiscardOwnCards(Ability, 2);

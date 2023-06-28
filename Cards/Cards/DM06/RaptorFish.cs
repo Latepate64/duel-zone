@@ -21,10 +21,10 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var amount = Applier.Hand.Cards.Count;
-            game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Applier.Hand.Cards.ToArray());
+            Game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Applier.Hand.Cards.ToArray());
             Applier.ShuffleOwnDeck();
             Applier.DrawCards(amount, Ability);
         }

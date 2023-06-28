@@ -13,10 +13,10 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = Applier.Opponent };
-            game.ExtraTurns.Push(turn);
+            Game.ExtraTurns.Push(turn);
         }
 
         public override IOneShotEffect Copy()

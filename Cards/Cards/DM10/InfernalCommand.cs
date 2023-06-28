@@ -18,10 +18,10 @@ namespace Cards.Cards.DM10
 
     class InfernalCommandEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var creature = Applier.ChooseOpponentsCreature(ToString());
-            game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
+            Game.AddContinuousEffects(Ability, new InfernalCommandContinuousEffect(creature));
         }
 
         public override IOneShotEffect Copy()

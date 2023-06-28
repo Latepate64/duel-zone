@@ -15,9 +15,9 @@ namespace Cards.Cards.DM02
 
     class ThoughtProbeEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            if (game.BattleZone.GetCreatures(Applier.Opponent).Count() >= 3)
+            if (Game.BattleZone.GetCreatures(Applier.Opponent).Count() >= 3)
             {
                 Applier.DrawCards(3, Ability);
             }

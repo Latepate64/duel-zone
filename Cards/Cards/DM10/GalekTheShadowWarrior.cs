@@ -13,9 +13,9 @@ namespace Cards.Cards.DM10
 
     class GalekTheShadowWarriorEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            Applier.DestroyOpponentsBlocker(game, Ability);
+            Applier.DestroyOpponentsBlocker(Game, Ability);
             Applier.Opponent.DiscardAtRandom(1, Ability);
         }
 

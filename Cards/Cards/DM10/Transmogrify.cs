@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var destroyedCreature = Applier.DestroyCreatureOptionally(Ability);
             if (destroyedCreature != null)

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM10
 
     class DeklowazTheTerminatorEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.DestroyAllCreaturesThatHaveMaximumPower(3000, Ability);
             Applier.LookAtOpponentsHand();

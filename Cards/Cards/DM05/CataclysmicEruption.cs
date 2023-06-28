@@ -22,10 +22,10 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Nature));
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.ChooseCards(Applier.Opponent.ManaZone.Cards, 0, amount, ToString()).ToArray());
+            var amount = Game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Nature));
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, Applier.ChooseCards(Applier.Opponent.ManaZone.Cards, 0, amount, ToString()).ToArray());
         }
 
         public override IOneShotEffect Copy()

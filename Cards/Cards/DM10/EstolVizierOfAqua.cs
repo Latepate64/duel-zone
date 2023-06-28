@@ -13,7 +13,7 @@ namespace Cards.Cards.DM10
 
     class EstolVizierOfAquaEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var controller = Applier;
             controller.PutFromTopOfDeckIntoShieldZone(1, Ability);

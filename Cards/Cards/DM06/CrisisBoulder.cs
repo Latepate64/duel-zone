@@ -15,13 +15,13 @@ namespace Cards.Cards.DM06
 
     class CrisisBoulderEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var cards = Applier.Opponent.ManaZone.Cards.Union(game.BattleZone.GetCreatures(Applier.Opponent));
+            var cards = Applier.Opponent.ManaZone.Cards.Union(Game.BattleZone.GetCreatures(Applier.Opponent));
             var card = Applier.Opponent.ChooseCard(cards, ToString());
             if (card != null)
             {
-                game.Move(Ability, game.GetZone(card).Type, ZoneType.Graveyard, card);
+                Game.Move(Ability, Game.GetZone(card).Type, ZoneType.Graveyard, card);
             }
         }
 

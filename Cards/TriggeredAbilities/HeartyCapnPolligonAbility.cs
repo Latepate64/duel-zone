@@ -33,9 +33,9 @@ namespace Cards.TriggeredAbilities
             return new HeartyCapnPolligonEffect(this);
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Source);
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Source);
         }
 
         public override string ToString()

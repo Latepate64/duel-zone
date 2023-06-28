@@ -21,16 +21,16 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var opponent = Applier.Opponent;
             Applier.Look(opponent, opponent.Hand.Cards.ToArray());
             var card = Applier.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {
-                game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, card);
+                Game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, card);
                 var mana = Applier.ChooseCard(opponent.ManaZone.Cards, ToString());
-                game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
+                Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana);
             }
             opponent.Unreveal(card);
         }

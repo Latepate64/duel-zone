@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class SirenConcertoEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var controller = Applier;
             controller.ReturnOwnMana(Ability);

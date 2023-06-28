@@ -15,10 +15,10 @@ namespace Cards.Cards.DM12
 
     class MechadragonsBreathEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var power = Applier.ChooseNumber(new MechadragonsBreathChoice(Applier, ToString()));
-            game.Destroy(Ability, game.BattleZone.Creatures.Where(x => x.Power == power).ToArray());
+            Game.Destroy(Ability, Game.BattleZone.Creatures.Where(x => x.Power == power).ToArray());
         }
 
         public override IOneShotEffect Copy()

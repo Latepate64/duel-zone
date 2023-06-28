@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             Maximum = effect.Maximum;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.DrawCardsOptionally(Ability, Maximum);
         }

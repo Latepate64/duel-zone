@@ -22,15 +22,14 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var controller = Applier;
-            var destroyed = controller.DestroyOpponentsCreatureWithMaxPower(5000, ToString());
+            var destroyed = Applier.DestroyOpponentsCreatureWithMaxPower(5000, ToString());
             if (destroyed != null)
             {
-                var creature = controller.ChooseCard(controller.Deck.Creatures.Where(x => x.ManaCost == destroyed.ManaCost), ToString());
-                game.Move(Ability, ZoneType.Deck, ZoneType.BattleZone, creature);
-                controller.ShuffleOwnDeck();
+                var creature = Applier.ChooseCard(Applier.Deck.Creatures.Where(x => x.ManaCost == destroyed.ManaCost), ToString());
+                Game.Move(Ability, ZoneType.Deck, ZoneType.BattleZone, creature);
+                Applier.ShuffleOwnDeck();
             }
         }
 

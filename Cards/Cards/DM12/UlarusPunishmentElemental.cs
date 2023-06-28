@@ -22,9 +22,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var maximum = game.BattleZone.GetCreatures(Applier).Count();
+            var maximum = Game.BattleZone.GetCreatures(Applier).Count();
             var shields = Applier.ShieldZone.Cards.Union(Applier.Opponent.ShieldZone.Cards);
             var chosen = Applier.ChooseCards(shields, 0, maximum, ToString()).ToList();
             chosen.ForEach(x => x.FaceDown = false);

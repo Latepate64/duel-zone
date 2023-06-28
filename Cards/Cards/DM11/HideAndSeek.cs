@@ -21,10 +21,10 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var creature = Applier.ChooseOpponentsNonEvolutionCreature(ToString());
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
+            Game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);
             Applier.Opponent.DiscardAtRandom(1, Ability);
         }
 

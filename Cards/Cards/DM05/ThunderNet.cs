@@ -14,10 +14,10 @@ namespace Cards.Cards.DM05
 
     class ThunderNetEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Water));
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 0, amount, ToString());
+            var amount = Game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Water));
+            var creatures = Applier.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 0, amount, ToString());
             Applier.Tap(creatures.ToArray());
         }
 

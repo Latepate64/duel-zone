@@ -41,10 +41,10 @@ namespace Cards.Cards.Promo
 
     class NeveTheLevelerEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.SearchOwnDeck();
-            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, game.GetAmountOfBattleZoneCreatures(Applier.Opponent) - game.GetAmountOfBattleZoneCreatures(Applier), ToString(), Ability);
+            Applier.TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(0, Game.GetAmountOfBattleZoneCreatures(Applier.Opponent) - Game.GetAmountOfBattleZoneCreatures(Applier), ToString(), Ability);
             Applier.ShuffleOwnDeck();
         }
 

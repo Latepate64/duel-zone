@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var cards = Applier.Opponent.Hand.Cards.Union(Applier.Opponent.ShieldZone.Cards).ToArray();
             if (cards.Any())

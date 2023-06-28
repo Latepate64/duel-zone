@@ -17,7 +17,7 @@ namespace Cards.OneShotEffects
             Amount = effect.Amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.ReturnOwnManaCards(Ability, Amount);
             Applier.Opponent.ReturnOwnManaCards(Ability, Amount);

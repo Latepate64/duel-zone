@@ -15,9 +15,9 @@ namespace Cards.Cards.DM05
 
     class BrutalChargeEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), true, Ability));
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new TriggeredAbilities.AtTheEndOfTurnAbility(Game.CurrentTurn.Id, new BrutalChargeDelayedEffect()), true, Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -41,12 +41,12 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var shieldsBroken = game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
+            var shieldsBroken = Game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Sum(x => x.BreakAmount);
             var creatures = Applier.ChooseCards(Applier.Deck.Creatures, 0, shieldsBroken, ToString()).ToArray();
             Applier.ShowCardsToOpponent(creatures);
-            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, creatures);
+            Game.Move(Ability, ZoneType.Deck, ZoneType.Hand, creatures);
             Applier.ShuffleOwnDeck();
             Applier.Unreveal(creatures);
         }

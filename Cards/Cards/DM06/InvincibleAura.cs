@@ -21,7 +21,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             for (int i = 0; i < 3; ++i)
             {

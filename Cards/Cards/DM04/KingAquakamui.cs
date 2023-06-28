@@ -17,11 +17,11 @@ namespace Cards.Cards.DM04
 
     class KingAquakamuiOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {
-                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Applier.Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
+                Game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, Applier.Graveyard.Cards.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToArray());
             }
         }
 

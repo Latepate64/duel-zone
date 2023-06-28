@@ -8,6 +8,7 @@ namespace Engine
         IAbility Ability { get; set; }
         IPlayer Applier { get; }
         ICard Source { get; }
+        IGame Game { get; }
     }
 
     public abstract class Effect : IEffect
@@ -24,6 +25,7 @@ namespace Engine
         public IAbility Ability { get; set; }
         public IPlayer Applier => Ability.Controller;
         public ICard Source => Ability.Source;
+        public IGame Game => Ability.Game;
 
         public void Dispose()
         {

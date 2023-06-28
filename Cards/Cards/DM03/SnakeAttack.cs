@@ -18,9 +18,9 @@ namespace Cards.Cards.DM03
 
     class SnakeAttackEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(game.BattleZone.GetCreatures(Applier).ToArray()));
+            Game.AddContinuousEffects(Ability, new ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(Game.BattleZone.GetCreatures(Applier).ToArray()));
         }
 
         public override IOneShotEffect Copy()

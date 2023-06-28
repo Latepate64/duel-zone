@@ -13,7 +13,7 @@ namespace Cards.Cards.DM12
 
     class EnigmaticCascadeEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var player = Applier;
             int amount = player.DiscardAnyNumberOfCards(Ability);

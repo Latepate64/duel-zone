@@ -14,7 +14,7 @@ namespace Cards.Cards.DM05
 
     class GlorySnowEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             if (Applier.Opponent.ManaZone.Cards.Count > Applier.ManaZone.Cards.Count)
             {

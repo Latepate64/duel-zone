@@ -18,9 +18,9 @@ namespace Cards.Cards.DM08
 
     class FuriousOnslaughtOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new FuriousOnslaughtContinuousEffect(game.BattleZone.GetCreatures(Applier, Race.Dragonoid).ToList()));
+            Game.AddContinuousEffects(Ability, new FuriousOnslaughtContinuousEffect(Game.BattleZone.GetCreatures(Applier, Race.Dragonoid).ToList()));
         }
 
         public override IOneShotEffect Copy()

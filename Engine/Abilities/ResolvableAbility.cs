@@ -21,7 +21,7 @@
         public virtual void Resolve(IGame game)
         {
             OneShotEffect.Ability = this;
-            OneShotEffect.Apply(game);
+            OneShotEffect.Apply();
         }
     }
 }

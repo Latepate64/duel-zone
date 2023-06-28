@@ -15,7 +15,7 @@ namespace Cards.Cards.DM10
 
     class RapidReincarnationEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             if (Applier.DestroyOwnCreatureOptionally(ToString(), Ability) != null)
             {

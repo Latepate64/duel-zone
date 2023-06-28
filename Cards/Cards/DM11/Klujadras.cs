@@ -14,11 +14,11 @@ namespace Cards.Cards.DM11
 
     class KlujadrasEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            foreach (var player in game.Players)
+            foreach (var player in Game.Players)
             {
-                player.DrawCards(game.BattleZone.GetCreatures(player).Count(x => x.GetAbilities<StaticAbilities.WaveStrikerAbility>().Any()), Ability);
+                player.DrawCards(Game.BattleZone.GetCreatures(player).Count(x => x.GetAbilities<StaticAbilities.WaveStrikerAbility>().Any()), Ability);
             }
         }
 

@@ -25,9 +25,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new LiveAndBreatheDelayedAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new LiveAndBreatheDelayedAbility(Ability));
         }
 
         public override IOneShotEffect Copy()

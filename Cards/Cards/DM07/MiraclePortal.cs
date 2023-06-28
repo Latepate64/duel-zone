@@ -23,12 +23,12 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var creature = Applier.ChooseControlledCreature(ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
+                Game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
             }
         }
 

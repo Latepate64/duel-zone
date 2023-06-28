@@ -14,7 +14,7 @@ namespace Cards.Cards.DM10
 
     class DolmarksTheShadowWarriorEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             new List<IPlayer> { Applier, Applier.Opponent }.ForEach(x => { x.Sacrifice(Ability); x.BurnOwnMana(Ability); });
         }

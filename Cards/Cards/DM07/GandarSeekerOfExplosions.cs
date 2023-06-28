@@ -15,9 +15,9 @@ namespace Cards.Cards.DM07
 
     class GandarSeekerOfExplosionsEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(
+            Game.AddDelayedTriggeredAbility(
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),

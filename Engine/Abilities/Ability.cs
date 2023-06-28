@@ -19,6 +19,7 @@ namespace Engine.Abilities
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
         public IPlayer Controller { get; set; }
+        public IGame Game { get; }
 
         protected Ability()
         {

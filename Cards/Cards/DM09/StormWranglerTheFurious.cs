@@ -18,13 +18,13 @@ namespace Cards.Cards.DM09
 
     class StormWranglerEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(Applier).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            var creatures = Game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(Applier).Where(x => x.GetAbilities<BlockerAbility>().Any());
             var creature = Applier.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {
-                game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
+                Game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
             }
         }
 

@@ -13,7 +13,7 @@ namespace Cards.Cards.Promo
 
     class BrigadeShellQEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             ICard card = Applier.RevealTopCardOfOwnDeck();
             if (card != null)

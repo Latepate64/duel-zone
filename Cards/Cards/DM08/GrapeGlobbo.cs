@@ -13,7 +13,7 @@ namespace Cards.Cards.DM08
 
     class LookAtYourOpponentsHandEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.LookAtOpponentsHand();
         }

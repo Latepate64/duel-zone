@@ -24,9 +24,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creatures = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier, Race.WildVeggies, Race.RainbowPhantom), ToString());
+            var creatures = Applier.ChooseAnyNumberOfCards(Game.BattleZone.GetCreatures(Applier, Race.WildVeggies, Race.RainbowPhantom), ToString());
             Applier.Untap(creatures.ToArray());
         }
 

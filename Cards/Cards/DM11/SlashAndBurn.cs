@@ -24,9 +24,9 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new SlashAndBurnDelayedAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new SlashAndBurnDelayedAbility(Ability));
         }
 
         public override IOneShotEffect Copy()

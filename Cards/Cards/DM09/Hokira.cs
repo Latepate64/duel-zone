@@ -19,9 +19,9 @@ namespace Cards.Cards.DM09
 
     class HokiraOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new HokiraContinuousEffect(Applier.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new HokiraContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()

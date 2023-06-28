@@ -18,13 +18,13 @@ namespace Cards.Cards.DM04
 
     class ThreeEyedDragonflyOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            var creature = Applier.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Applier, Source), ToString());
+            var creature = Applier.ChooseCardOptionally(Game.BattleZone.GetOtherCreatures(Applier, Source), ToString());
             if (creature != null)
             {
-                game.Destroy(Ability, creature);
-                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Source));
+                Game.Destroy(Ability, creature);
+                Game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Source));
             }
         }
 

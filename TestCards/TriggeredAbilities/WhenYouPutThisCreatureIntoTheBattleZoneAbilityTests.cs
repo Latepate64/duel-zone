@@ -60,6 +60,7 @@ namespace TestCards.TriggeredAbilities
         public IPlayer Applier { get; set; }
         public IAbility Ability { get; set; }
         public ICard Source { get; }
+        public IGame Game { get; }
 
         public IOneShotEffect Copy()
         {
@@ -71,7 +72,7 @@ namespace TestCards.TriggeredAbilities
             throw new NotImplementedException();
         }
 
-        void IOneShotEffect.Apply(IGame game)
+        void IOneShotEffect.Apply()
         {
             throw new NotImplementedException();
         }

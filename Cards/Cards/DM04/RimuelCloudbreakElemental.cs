@@ -15,10 +15,10 @@ namespace Cards.Cards.DM04
 
     class RimuelCloudbreakElementalEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var amount = Applier.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), amount, amount, ToString());
+            var creatures = Applier.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), amount, amount, ToString());
             Applier.Tap(creatures.ToArray());
         }
 

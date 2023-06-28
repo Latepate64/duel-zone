@@ -22,12 +22,12 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var mana = Applier.ManaZone.Cards;
             var hand = Applier.Hand.Cards;
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
-            game.MoveTapped(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
+            Game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, mana.ToArray());
+            Game.MoveTapped(Ability, ZoneType.Hand, ZoneType.ManaZone, hand.ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -13,7 +13,7 @@ namespace Cards.Cards.DM10
 
     class PointaTheAquaShadowEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.LookAtOneOfOpponentsShields(Ability);
             Applier.Opponent.DiscardAtRandom(1, Ability);

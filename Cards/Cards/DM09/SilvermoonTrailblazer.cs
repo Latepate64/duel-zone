@@ -22,9 +22,9 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new SilvermoonTrailblazerContinuousEffect(Applier.ChooseRace(ToString())));
+            Game.AddContinuousEffects(Ability, new SilvermoonTrailblazerContinuousEffect(Applier.ChooseRace(ToString())));
         }
 
         public override IOneShotEffect Copy()

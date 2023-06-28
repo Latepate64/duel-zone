@@ -22,9 +22,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            foreach (var player in game.Players)
+            foreach (var player in Game.Players)
             {
                 if (player.ChooseToTakeAction("You may draw a card."))
                 {

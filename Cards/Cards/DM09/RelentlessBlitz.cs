@@ -23,10 +23,10 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var race = Applier.ChooseRace(ToString());
-            game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
+            Game.AddContinuousEffects(Ability, new RelentlessBlitzContinuousEffect(race));
         }
 
         public override IOneShotEffect Copy()

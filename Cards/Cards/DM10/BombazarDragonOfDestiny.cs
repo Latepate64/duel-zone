@@ -25,12 +25,12 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Destroy(Ability, game.BattleZone.Creatures.Where(p => !IsSourceOfAbility(p) && p.Power.Value == 6000).ToArray());
+            Game.Destroy(Ability, Game.BattleZone.Creatures.Where(p => !IsSourceOfAbility(p) && p.Power.Value == 6000).ToArray());
             Turn turn = new() { ActivePlayer = Applier, NonActivePlayer = Applier.Opponent };
-            game.ExtraTurns.Push(turn);
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), true, Ability));
+            Game.ExtraTurns.Push(turn);
+            Game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(new AtTheEndOfTurnAbility(turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()), true, Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -46,9 +46,9 @@ namespace Cards.Cards.DM10
 
     class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Lose(Applier);
+            Game.Lose(Applier);
         }
 
         public override IOneShotEffect Copy()

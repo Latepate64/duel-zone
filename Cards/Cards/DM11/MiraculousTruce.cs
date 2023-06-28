@@ -26,10 +26,10 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var civilization = Applier.ChooseCivilization(ToString());
-            game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Applier));
+            Game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Applier));
         }
 
         public override IOneShotEffect Copy()

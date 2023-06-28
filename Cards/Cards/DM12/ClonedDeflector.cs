@@ -24,10 +24,10 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var player = Applier;
-            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 1, GetAmount(game), ToString());
+            var creatures = player.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 1, GetAmount(Game), ToString());
             player.Tap(creatures.ToArray());
         }
 

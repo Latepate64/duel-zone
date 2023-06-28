@@ -24,10 +24,10 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var cards = Applier.RevealTopCardsOfDeck(1);
-            game.Move(Ability, ZoneType.Deck, cards.All(x => x.IsNonEvolutionCreature) ? ZoneType.BattleZone : ZoneType.Hand, cards.ToArray());
+            Game.Move(Ability, ZoneType.Deck, cards.All(x => x.IsNonEvolutionCreature) ? ZoneType.BattleZone : ZoneType.Hand, cards.ToArray());
         }
 
         public override IOneShotEffect Copy()

@@ -70,9 +70,9 @@ namespace Cards.OneShotEffects
             _amount = amount;
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.Break(GetBreaker(game, Ability), _amount);
+            Game.Break(GetBreaker(Game, Ability), _amount);
         }
 
         protected abstract ICard GetBreaker(IGame game, IAbility source);

@@ -24,9 +24,9 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
+            Game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
         }
 
         public override IOneShotEffect Copy()

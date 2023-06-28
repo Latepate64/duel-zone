@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.DrawCards(2, Ability);
         }
@@ -39,7 +39,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.DrawCards(1, Ability);
         }

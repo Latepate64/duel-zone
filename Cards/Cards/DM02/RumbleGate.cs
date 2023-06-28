@@ -17,9 +17,9 @@ namespace Cards.Cards.DM02
 
     class RumbleGateOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new RumbleGateContinuousEffect(Applier.Id));
+            Game.AddContinuousEffects(Ability, new RumbleGateContinuousEffect(Applier.Id));
         }
 
         public override IOneShotEffect Copy()

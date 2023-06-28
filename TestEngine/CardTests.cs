@@ -44,6 +44,7 @@ namespace TestEngine
         public IPlayer Applier { get; set; }
         public IAbility Ability { get; set; }
         public ICard Source { get; }
+        public IGame Game { get; }
 
         private readonly bool _shouldBeAbleToEvolve;
 

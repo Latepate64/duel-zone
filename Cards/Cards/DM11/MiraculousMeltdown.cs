@@ -51,12 +51,12 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var amount = Applier.ShieldZone.Cards.Count;
             var chosen = Applier.Opponent.ChooseCards(Applier.Opponent.ShieldZone.Cards, amount, amount, ToString());
             var toHand = Applier.Opponent.ShieldZone.Cards.Except(chosen);
-            game.PutFromShieldZoneToHand(toHand, true, Ability);
+            Game.PutFromShieldZoneToHand(toHand, true, Ability);
         }
 
         public override IOneShotEffect Copy()

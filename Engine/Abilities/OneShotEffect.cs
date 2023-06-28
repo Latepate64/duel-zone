@@ -18,7 +18,7 @@ namespace Engine.Abilities
         /// Applies the effect.
         /// </summary>
         /// <param name="game"></param>
-        public abstract void Apply(IGame game);
+        public abstract void Apply();
 
         public abstract IOneShotEffect Copy();
     }

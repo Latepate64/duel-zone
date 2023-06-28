@@ -18,9 +18,9 @@ namespace Cards.Cards.DM09
 
     class VreemahFreakyMojoTotemOneShotEffect : OneShotEffect
     {
-        public override void Apply(IGame game)
+        public override void Apply()
         {
-            game.AddContinuousEffects(Ability, new VreemahFreakyMojoTotemContinuousEffect());
+            Game.AddContinuousEffects(Ability, new VreemahFreakyMojoTotemContinuousEffect());
         }
 
         public override IOneShotEffect Copy()

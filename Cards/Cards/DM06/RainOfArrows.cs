@@ -22,7 +22,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             var cards = Applier.Opponent.Hand.Cards.ToArray();
             if (cards.Any())

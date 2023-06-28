@@ -21,7 +21,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override void Apply(IGame game)
+        public override void Apply()
         {
             Applier.PutFromTopOfDeckIntoManaZone(Applier.ManaZone.Cards.Count, Ability);
         }
