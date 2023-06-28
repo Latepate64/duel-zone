@@ -54,7 +54,7 @@ namespace Cards.Cards.DM12
             return new GigavrandAbility(this);
         }
 
-        public void Watch(IGame game, IGameEvent gameEvent)
+        public void Watch(IGameEvent gameEvent)
         {
             if (gameEvent is DrawCardEvent e && e.Player == Controller.Opponent)
             {

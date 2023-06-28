@@ -27,7 +27,7 @@ namespace Cards.Cards.DM12
         public override void Apply()
         {
             var player = Applier;
-            var creatures = player.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 1, GetAmount(Game), ToString());
+            var creatures = player.ChooseCards(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 1, GetAmount(), ToString());
             player.Tap(creatures.ToArray());
         }
 

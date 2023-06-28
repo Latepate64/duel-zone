@@ -16,7 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Attacker, Game);
+            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Attacker);
         }
     }
 
@@ -40,7 +40,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature becomes blocked, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return card == Source;
         }

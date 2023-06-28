@@ -10,6 +10,6 @@
         {
         }
 
-        protected abstract bool TriggersFrom(ICard card, IGame game);
+        protected abstract bool TriggersFrom(ICard card);
     }
 }

@@ -31,7 +31,7 @@ namespace Cards.Cards.DM09
             return $"Whenever one of your Armorloids is destroyed, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return card.Owner == Controller && card.HasRace(Race.Armorloid);
         }

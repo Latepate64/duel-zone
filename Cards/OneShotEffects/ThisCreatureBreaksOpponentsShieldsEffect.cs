@@ -18,7 +18,7 @@ namespace Cards.OneShotEffects
             return $"This creature breaks {_amount} of your opponent's shields.";
         }
 
-        protected override ICard GetBreaker(IGame game, IAbility source)
+        protected override ICard GetBreaker(IAbility source)
         {
             return Source;
         }
@@ -72,9 +72,9 @@ namespace Cards.OneShotEffects
 
         public override void Apply()
         {
-            Game.Break(GetBreaker(Game, Ability), _amount);
+            Game.Break(GetBreaker(Ability), _amount);
         }
 
-        protected abstract ICard GetBreaker(IGame game, IAbility source);
+        protected abstract ICard GetBreaker(IAbility source);
     }
 }

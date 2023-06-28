@@ -604,7 +604,7 @@ namespace Engine
 
         private void NotifyWatchers(IGameEvent gameEvent)
         {
-            BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(this, gameEvent));
+            BattleZone.Creatures.SelectMany(x => x.GetAbilities<IAbility>()).OfType<IWatcher>().ToList().ForEach(x => x.Watch(gameEvent));
             ContinuousEffects.Notify(gameEvent);
         }
 

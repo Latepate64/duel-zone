@@ -24,7 +24,7 @@ namespace Cards.TriggeredAbilities
             return $"When you put this creature into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return Source == card;
         }
@@ -50,7 +50,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever another creature is put into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return Source != card;
         }
@@ -76,7 +76,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return Controller == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
         }
@@ -102,7 +102,7 @@ namespace Cards.TriggeredAbilities
             return $"When you put another creature into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return Source != card && Controller == card.Owner;
         }
@@ -120,7 +120,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.CardInDestinationZone, Game);
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.CardInDestinationZone);
         }
     }
 
@@ -148,7 +148,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return Controller == card.Owner && card.HasRace(_race);
         }

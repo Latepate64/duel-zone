@@ -35,7 +35,7 @@ namespace Cards.Cards.Promo
             return $"Whenever one of your other creatures that has Dragon in its race attacks, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return card.Owner == Controller && card != Source && card.IsDragon;
         }

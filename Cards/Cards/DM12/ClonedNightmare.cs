@@ -25,7 +25,7 @@ namespace Cards.Cards.DM12
 
         public override void Apply()
         {
-            var number = GetAmount(Game);
+            var number = GetAmount();
             if (number > 1)
             {
                 number = Applier.ChooseNumber(new ClonedNightmareChoice(Applier, "Choose how many cards your opponent will discard at random from their hand.", number));

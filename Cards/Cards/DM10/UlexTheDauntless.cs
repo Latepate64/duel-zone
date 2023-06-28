@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
             return new YourOpponentCannotTapThisCreatureEffect(this);
         }
 
-        public bool PlayerCannotTapCreature(IPlayer player, ICard creature, IGame game)
+        public bool PlayerCannotTapCreature(IPlayer player, ICard creature)
         {
             return player == Applier.Opponent && IsSourceOfAbility(creature);
         }

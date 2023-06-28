@@ -15,7 +15,7 @@ namespace Cards.ContinuousEffects
             
         }
 
-        public abstract int GetAmount(IGame game, ICard creature);
+        public abstract int GetAmount(ICard creature);
     }
 
     class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
@@ -37,9 +37,9 @@ namespace Cards.ContinuousEffects
             return $"Crew breaker - {Race}";
         }
 
-        public override int GetAmount(IGame game, ICard creature)
+        public override int GetAmount(ICard creature)
         {
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x) && x.HasRace(Race)) : 1;
+            return IsSourceOfAbility(creature) ? Game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x) && x.HasRace(Race)) : 1;
         }
 
         public override IContinuousEffect Copy()

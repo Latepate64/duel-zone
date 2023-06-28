@@ -2,6 +2,6 @@
 {
     public interface IPlayerCannotChooseCreatureEffect : IContinuousEffect
     {
-        bool PlayerCannotChooseCreature(ICard creature, System.Guid player, IGame game);
+        bool PlayerCannotChooseCreature(ICard creature, System.Guid player);
     }
 }

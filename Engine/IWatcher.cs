@@ -4,6 +4,6 @@ namespace Engine
 {
     public interface IWatcher
     {
-        void Watch(IGame game, IGameEvent gameEvent);
+        void Watch(IGameEvent gameEvent);
     }
 }

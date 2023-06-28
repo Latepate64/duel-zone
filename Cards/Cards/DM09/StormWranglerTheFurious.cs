@@ -53,7 +53,7 @@ namespace Cards.Cards.DM09
             _blocker = effect._blocker;
         }
 
-        public bool BlocksIfAble(ICard blocker, ICard attacker, IGame game)
+        public bool BlocksIfAble(ICard blocker, ICard attacker)
         {
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }

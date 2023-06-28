@@ -33,7 +33,7 @@ namespace Cards.Cards.DM09
             return $"Whenever you put another creature that has Cyber in its race into the battle zone, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(ICard card)
         {
             return card.Owner == Controller && card != Source && card.Races.Intersect(new Race[] { Race.CyberCluster, Race.CyberLord, Race.CyberMoon, Race.CyberVirus }).Any();
         }

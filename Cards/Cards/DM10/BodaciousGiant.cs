@@ -57,7 +57,7 @@ namespace Cards.Cards.DM10
             return "While this creature is tapped during your opponent's turn, if it hasn't been attacked that turn, your opponent's creatures must attack it if able.";
         }
 
-        public void Watch(IGame game, IGameEvent gameEvent)
+        public void Watch(IGameEvent gameEvent)
         {
             if (gameEvent is CreatureAttackedEvent e && e.Target == Source)
             {
