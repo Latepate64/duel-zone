@@ -31,7 +31,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller).Where(x => x.Name != "Solar Grass");
+            return game.BattleZone.GetCreatures(Applier).Where(x => x.Name != "Solar Grass");
         }
     }
 }

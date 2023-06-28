@@ -20,7 +20,7 @@ namespace Cards.Cards.DM09
             game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
                 new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Applier.ChooseRace(ToString()))),
                 Ability.Source,
-                Ability.Controller,
+                Applier,
                 true));
         }
 

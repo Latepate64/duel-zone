@@ -47,10 +47,9 @@ namespace Cards.Cards.DM03
 
         private bool Applies(IGame game)
         {
-            var ability = Ability;
-            if (ability != null)
+            if (Ability != null)
             {
-                return ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
+                return Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
             }
             return false;
         }

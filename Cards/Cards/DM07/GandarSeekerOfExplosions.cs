@@ -22,7 +22,7 @@ namespace Cards.Cards.DM07
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
                         Ability.Source,
-                        Ability.Controller,
+                        Applier,
                         true));
         }
 

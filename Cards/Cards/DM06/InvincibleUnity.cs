@@ -28,7 +28,7 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new InvincibleUnityContinuousEffect(game.BattleZone.GetCreatures(Ability.Controller)));
+            game.AddContinuousEffects(Ability, new InvincibleUnityContinuousEffect(game.BattleZone.GetCreatures(Applier)));
         }
 
         public override IOneShotEffect Copy()

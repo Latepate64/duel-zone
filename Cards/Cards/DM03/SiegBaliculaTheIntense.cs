@@ -18,8 +18,7 @@ namespace Cards.Cards.DM03
 
         public bool CanBlock(ICard blocker, ICard attacker, IGame game)
         {
-            var ability = Ability;
-            return blocker.Owner == ability.Controller && blocker != ability.Source && blocker.HasCivilization(Civilization.Light);
+            return blocker.Owner == Applier && blocker != Ability.Source && blocker.HasCivilization(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

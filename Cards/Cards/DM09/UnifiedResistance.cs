@@ -24,8 +24,8 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var race = Applier.ChooseRace(ToString());
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller).Where(x => x.HasRace(race));
-            game.AddContinuousEffects(Ability, new UnifiedResistanceContinuousEffect(Ability.Controller.Id, creatures.ToArray()));
+            var creatures = game.BattleZone.GetCreatures(Applier).Where(x => x.HasRace(race));
+            game.AddContinuousEffects(Ability, new UnifiedResistanceContinuousEffect(Applier.Id, creatures.ToArray()));
         }
 
         public override IOneShotEffect Copy()
