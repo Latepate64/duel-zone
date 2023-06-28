@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return "Destroy this creature.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             if (Source != null)
             {

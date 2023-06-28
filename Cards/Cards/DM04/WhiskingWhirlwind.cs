@@ -46,9 +46,9 @@ namespace Cards.Cards.DM04
             return "Untap all your creatures in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 }

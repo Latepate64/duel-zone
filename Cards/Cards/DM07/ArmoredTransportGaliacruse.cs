@@ -23,7 +23,7 @@ namespace Cards.Cards.DM07
         {
             Game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
-                GetAffectedCards(Game, Ability).ToArray()));
+                GetAffectedCards(Ability).ToArray()));
         }
 
         public override IOneShotEffect Copy()
@@ -36,9 +36,9 @@ namespace Cards.Cards.DM07
             return "Each of your fire creatures gets \"This creature can attack untapped creatures\" until the end of the turn.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier, Civilization.Fire);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Fire);
         }
     }
 }

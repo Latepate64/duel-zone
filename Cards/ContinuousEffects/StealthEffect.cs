@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization Civilization { get; }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker == Source && Applier.Opponent.ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
         }

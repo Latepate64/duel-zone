@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return IsSourceOfAbility(attacker) && targetOfAttack is ICard;
         }

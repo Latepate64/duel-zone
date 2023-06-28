@@ -58,7 +58,7 @@ namespace Cards.Cards.DM09
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return IsSourceOfAbility(attacker) && blocker != _blocker;
         }

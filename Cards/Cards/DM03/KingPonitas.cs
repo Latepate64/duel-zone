@@ -28,7 +28,7 @@ namespace Cards.Cards.DM03
             return "Search your deck. You may take a water card from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return Applier.Deck.GetCards(Civilization.Water);
         }

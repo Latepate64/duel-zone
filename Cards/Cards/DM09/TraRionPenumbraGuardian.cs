@@ -58,9 +58,9 @@ namespace Cards.Cards.DM09
             return $"Untap all {Race}s in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Race);
+            return Game.BattleZone.GetCreatures(Race);
         }
     }
 }

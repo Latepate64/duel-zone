@@ -27,7 +27,7 @@ namespace Cards.Cards.DM08
             Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack)
         {
             return IsSourceOfAbility(attacker);
         }

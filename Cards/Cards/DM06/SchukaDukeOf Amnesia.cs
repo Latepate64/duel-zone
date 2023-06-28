@@ -29,9 +29,9 @@ namespace Cards.Cards.DM06
             return "Each player discards his hand.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.Players.SelectMany(x => x.Hand.Cards);
+            return Game.Players.SelectMany(x => x.Hand.Cards);
         }
     }
 }

@@ -29,9 +29,9 @@ namespace Cards.Cards.DM03
             return "Destroy all your opponent's creatures that have power 3000 or less.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier.Opponent).Where(x => x.Power <= 3000);
+            return Game.BattleZone.GetCreatures(Applier.Opponent).Where(x => x.Power <= 3000);
         }
     }
 }

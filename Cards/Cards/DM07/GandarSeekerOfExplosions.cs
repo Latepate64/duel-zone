@@ -52,9 +52,9 @@ namespace Cards.Cards.DM07
             return "Untap all your light creatures.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier, Civilization.Light);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Light);
         }
     }
 }

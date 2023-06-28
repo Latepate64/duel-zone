@@ -45,9 +45,9 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.GetCreatures(Applier).Contains(attacker);
+            return Game.BattleZone.GetCreatures(Applier).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()

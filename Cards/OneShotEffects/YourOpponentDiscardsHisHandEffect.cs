@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return "Your opponent discards his hand.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return Applier.Opponent.Hand.Cards;
         }

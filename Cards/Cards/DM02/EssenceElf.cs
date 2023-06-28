@@ -23,12 +23,12 @@ namespace Cards.Cards.DM02
             return new EssenceElfEffect();
         }
 
-        public int GetChange(ICard card, IGame game)
+        public int GetChange(ICard card)
         {
             return card.Owner == Applier && card.IsSpell ? -1 : 0;
         }
 
-        public int GetMinimumCost(ICard card, IGame game)
+        public int GetMinimumCost(ICard card)
         {
             return card.Owner == Applier && card.IsSpell ? 1 : 0;
         }

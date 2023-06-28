@@ -19,9 +19,9 @@ namespace Cards.Cards.DM01
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return IsSourceOfAbility(attacker) && game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x)) >= 2;
+            return IsSourceOfAbility(attacker) && Game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x)) >= 2;
         }
 
         public override IContinuousEffect Copy()

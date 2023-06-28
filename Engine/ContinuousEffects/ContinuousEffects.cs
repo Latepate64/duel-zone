@@ -138,7 +138,7 @@ namespace Engine.ContinuousEffects
 
         public bool CanCreatureBeBlocked(ICard attackingCreature, ICard blocker, IAttackable attackTarget)
         {
-            return !GetContinuousEffects<IUnblockableEffect>().Any(e => e.CannotBeBlocked(attackingCreature, blocker, attackTarget, Game));
+            return !GetContinuousEffects<IUnblockableEffect>().Any(e => e.CannotBeBlocked(attackingCreature, blocker, attackTarget));
         }
 
         public bool DoesCreatureBlockIfAble(ICard blocker, ICard attackingCreature)
@@ -163,7 +163,7 @@ namespace Engine.ContinuousEffects
 
         public bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICard creature)
         {
-            return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature, Game));
+            return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(x => x.IgnoreCannotAttackPlayersEffects(creature));
         }
 
         public bool DoesCreatureHaveSpeedAttacker(ICard creature)
@@ -209,7 +209,7 @@ namespace Engine.ContinuousEffects
 
         public bool CanCreatureAttackUntappedCreature(ICard attacker, ICard untappedCreature)
         {
-            return GetContinuousEffects<ICanAttackUntappedCreaturesEffect>().Any(e => e.CanAttackUntappedCreature(attacker, untappedCreature, Game));
+            return GetContinuousEffects<ICanAttackUntappedCreaturesEffect>().Any(e => e.CanAttackUntappedCreature(attacker, untappedCreature));
         }
 
         public IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent)

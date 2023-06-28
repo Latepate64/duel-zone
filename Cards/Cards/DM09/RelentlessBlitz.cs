@@ -54,12 +54,12 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack)
         {
             return attacker.HasRace(_race);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker.HasRace(_race) && targetOfAttack is ICard;
         }

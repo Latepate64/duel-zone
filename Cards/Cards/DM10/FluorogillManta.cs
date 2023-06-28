@@ -19,9 +19,9 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
-            return game.BattleZone.GetCreatures(Applier).Contains(attacker) && (attacker.HasCivilization(Civilization.Light) || attacker.HasCivilization(Civilization.Darkness));
+            return Game.BattleZone.GetCreatures(Applier).Contains(attacker) && (attacker.HasCivilization(Civilization.Light) || attacker.HasCivilization(Civilization.Darkness));
         }
 
         public override IContinuousEffect Copy()

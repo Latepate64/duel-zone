@@ -57,12 +57,12 @@ namespace Cards.Cards.DM07
             _creature = effect._creature;
         }
 
-        public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
+        public bool IgnoreCannotAttackPlayersEffects(ICard attacker)
         {
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack)
         {
             return attacker == _creature;
         }

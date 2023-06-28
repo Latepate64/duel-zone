@@ -67,7 +67,7 @@ namespace Cards.Cards.DM10
             return $"Untap {Card} after the battle.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return new ICard[] { Card };
         }

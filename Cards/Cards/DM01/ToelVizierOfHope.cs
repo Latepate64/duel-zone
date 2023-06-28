@@ -29,9 +29,9 @@ namespace Cards.Cards.DM01
             return "You may untap all your creatures in the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 }

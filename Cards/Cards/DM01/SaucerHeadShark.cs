@@ -30,9 +30,9 @@ namespace Cards.Cards.DM01
             return "Return each creature in the battle zone that has power 2000 or less to its owner's hand.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => x.Power <= 2000);
+            return Game.BattleZone.Creatures.Where(x => x.Power <= 2000);
         }
     }
 }
