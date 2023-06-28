@@ -9,6 +9,8 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
+        public ICard TopCard => GetTopCards(1).SingleOrDefault();
+
         public Deck() : base(ZoneType.Deck) { }
 
         public Deck(IDeck zone) : base(zone)
