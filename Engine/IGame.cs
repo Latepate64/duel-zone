@@ -24,7 +24,7 @@ namespace Engine
         Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
-        IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
+        IPlayer ActivePlayer { get; }
 
         void AddAbility(ICard card, IAbility ability);
 
@@ -41,7 +41,7 @@ namespace Engine
         void Break(ICard creature, int breakAmount);
 
         bool CanAttackAtLeastOneCreature(ICard creature);
-        bool CanAttackAtLeastSomething(ICard creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
+        bool CanAttackAtLeastSomething(ICard creature);
 
         bool CanAttackCreature(ICard attacker, ICard targetOfAttack);
 
@@ -77,11 +77,11 @@ namespace Engine
         int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
         void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
         void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
-        IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
-        IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
-        void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
-        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
-        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-        int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
+        IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player);
+        IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player);
+        void RemoveSummoningSicknesses(IPlayer player);
+        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+        int GetAmountOfBattleZoneCreatures(IPlayer player);
     }
 }

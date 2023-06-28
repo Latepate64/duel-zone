@@ -104,6 +104,7 @@ namespace Engine
         public IList<ITurn> Turns { get; } = new List<ITurn>();
 
         public IPlayer Winner { get; private set; }
+        public IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
 
         public void AddAbility(ICard card, IAbility ability)
         {
@@ -659,5 +660,19 @@ namespace Engine
         {
             AddPendingAbilities(cards.SelectMany(x => x.GetSilentSkillAbilities()).ToArray());
         }
+
+        public bool CanAttackAtLeastSomething(ICard creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
+
+        public IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
+
+        public IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
+
+        public void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
+
+        public bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
+
+        public bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+
+        public int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
     }
 }
