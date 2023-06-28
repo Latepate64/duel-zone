@@ -12,7 +12,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(ICard card)
         {
             Cards.Add(card);
         }
@@ -22,7 +22,7 @@ namespace Engine.Zones
             return new SpellStack(this);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<ICard> Remove(ICard card)
         {
             Cards.Remove(card);
             return new List<ICard> { card };

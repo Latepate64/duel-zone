@@ -17,6 +17,8 @@ namespace Engine.Zones
         public ZoneType Type { get; }
         public bool HasCards => Cards.Any();
 
+        public IGame Game { get; }
+
         protected Zone(ZoneType type)
         {
             Type = type;
@@ -27,9 +29,9 @@ namespace Engine.Zones
             Cards = zone.Cards.Select(x => x.Copy()).ToList();
         }
 
-        public abstract void Add(ICard card, IGame game);
+        public abstract void Add(ICard card);
 
-        public abstract List<ICard> Remove(ICard card, IGame game);
+        public abstract List<ICard> Remove(ICard card);
 
         protected virtual void Dispose(bool disposing)
         {

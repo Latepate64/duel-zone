@@ -20,21 +20,21 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(ICard card)
         {
             card.SummoningSickness = true;
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = Game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
-            game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            Game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<ICard> Remove(ICard card)
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
+            if (Game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {
                 if (card == phase.AttackingCreature)
                 {
-                    phase.RemoveAttackingCreature(game);
+                    phase.RemoveAttackingCreature(Game);
                 }
                 else if (card == phase.AttackTarget)
                 {
@@ -51,7 +51,7 @@ namespace Engine.Zones
             }
             else
             {
-                game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
+                Game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
                 return card.Deconstruct(new List<ICard>()).ToList();
             }
         }

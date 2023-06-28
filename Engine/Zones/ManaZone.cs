@@ -18,9 +18,9 @@ namespace Engine.Zones
         public IEnumerable<ICard> TappedCards => new ReadOnlyCollection<ICard>(Cards.Where(card => card.Tapped).ToList());
         public IEnumerable<ICard> UntappedCards => new ReadOnlyCollection<ICard>(Cards.Where(card => !card.Tapped).ToList());
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(ICard card)
         {
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = Game.Players.Select(x => x.Id).ToList();
             if (card.IsMultiColored)
             {
                 card.Tapped = true;
@@ -28,7 +28,7 @@ namespace Engine.Zones
             Cards.Add(card);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<ICard> Remove(ICard card)
         {
             if (Cards.Remove(card))
             {
