@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return $"Your opponent chooses {(Minimum > 1 ? $"{Minimum} cards" : "a card")} in his mana zone and puts {(Minimum > 1 ? "them" : "it")} into his graveyard.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.Opponent.ManaZone.Cards;
         }

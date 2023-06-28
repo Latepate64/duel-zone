@@ -25,9 +25,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Ability);
+            Game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Ability);
         }
     }
 
@@ -51,7 +51,7 @@ namespace Cards.OneShotEffects
             return "Choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.ShieldZone.Cards;
         }
@@ -77,7 +77,7 @@ namespace Cards.OneShotEffects
             return "Choose one of your shields and put it into your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.ShieldZone.Cards;
         }

@@ -28,7 +28,7 @@ namespace Cards.Cards.DM02
             return "Look at up to 3 of your opponent's shields.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.Opponent.ShieldZone.Cards;
         }

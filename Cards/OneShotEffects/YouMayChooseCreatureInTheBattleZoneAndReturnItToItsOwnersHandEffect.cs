@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "You may choose a creature in the battle zone and return it to its owner's hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier);
+            return Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier);
         }
     }
 }

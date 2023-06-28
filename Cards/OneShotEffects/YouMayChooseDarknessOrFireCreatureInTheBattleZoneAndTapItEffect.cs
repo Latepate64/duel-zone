@@ -25,9 +25,9 @@ namespace Cards.OneShotEffects
             return "You may choose a darkness or fire creature in the battle zone and tap it.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier).Where(x => x.HasCivilization(Civilization.Darkness, Civilization.Fire));
+            return Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier).Where(x => x.HasCivilization(Civilization.Darkness, Civilization.Fire));
         }
     }
 }

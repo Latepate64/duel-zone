@@ -28,9 +28,9 @@ namespace Cards.Cards.DM02
             return $"While attacking, this creature gets +{Power} power for each other Human in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Source, Race.Human).Count();
+            return Game.BattleZone.GetOtherCreatures(Source, Race.Human).Count();
         }
     }
 }

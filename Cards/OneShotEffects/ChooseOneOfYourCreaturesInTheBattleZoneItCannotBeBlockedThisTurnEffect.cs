@@ -25,14 +25,14 @@ namespace Cards.OneShotEffects
             return "Choose one of your creatures in the battle zone. It can't be blocked this turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
+            Game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 }

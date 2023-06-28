@@ -29,9 +29,9 @@ namespace Cards.Cards.DM03
             return "You may choose a creature in the battle zone that has power 2000 or less and return it to its owner's hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier).Where(x => x.Power <= 2000);
+            return Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Applier).Where(x => x.Power <= 2000);
         }
     }
 }

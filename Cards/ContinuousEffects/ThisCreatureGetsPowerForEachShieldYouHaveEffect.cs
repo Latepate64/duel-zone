@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
             return $"This creature gets +{Power} power for each shield you have.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
             return Applier.ShieldZone.Cards.Count;
         }

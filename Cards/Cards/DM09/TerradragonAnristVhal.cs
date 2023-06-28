@@ -28,9 +28,9 @@ namespace Cards.Cards.DM09
             return $"This creature gets +{Power} power for each of your other nature creatures in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Applier, Source, Civilization.Nature).Count();
+            return Game.BattleZone.GetOtherCreatures(Applier, Source, Civilization.Nature).Count();
         }
     }
 }

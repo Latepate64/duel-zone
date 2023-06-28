@@ -29,9 +29,9 @@ namespace Cards.Cards.DM04
             return "Destroy up to 2 of your opponent's creatures.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Cards.OneShotEffects
                 $"Return up to {Maximum} {Race}s from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.Graveyard.GetCreatures(Race);
         }

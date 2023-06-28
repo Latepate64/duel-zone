@@ -32,17 +32,17 @@ namespace Cards.Cards.DM01
             return "Choose one of your opponent's untapped creatures in the battle zone. Your creatures can attack it this turn as though it were tapped.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
             if (cards.Length == 1)
             {
-                game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards.Single().Id));
+                Game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards.Single().Id));
             }
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(Applier);
+            return Game.BattleZone.GetChoosableUntappedCreaturesControlledByChoosersOpponent(Applier);
         }
     }
 

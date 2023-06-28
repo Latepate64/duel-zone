@@ -24,9 +24,9 @@ namespace Cards.OneShotEffects
             return "Put one of your creatures from the battle zone into your mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier);
+            return Game.BattleZone.GetCreatures(Applier);
         }
     }
 }

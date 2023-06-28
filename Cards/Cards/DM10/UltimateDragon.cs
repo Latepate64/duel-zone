@@ -29,9 +29,9 @@ namespace Cards.Cards.DM10
             return $"This creature gets +{Power} power for each of your other creatures in the battle zone that has Dragon in its race.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Applier, Source).Count(x => x.IsDragon);
+            return Game.BattleZone.GetOtherCreatures(Applier, Source).Count(x => x.IsDragon);
         }
     }
 

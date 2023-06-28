@@ -24,9 +24,9 @@ namespace Cards.ContinuousEffects
             return $"While attacking, this creature gets +{Power} power for each other creature you have in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherTappedCreatures(Applier, Source).Count();
+            return Game.BattleZone.GetOtherTappedCreatures(Applier, Source).Count();
         }
     }
 }

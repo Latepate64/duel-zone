@@ -30,17 +30,17 @@ namespace Cards.Cards.DM11
             return "Choose up to 2 of your opponent's tapped creatures in the battle zone. If they have total power less than this creature's power, destroy them.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
             if (cards.Sum(x => x.Power) < Source.Power)
             {
-                game.Destroy(source, cards);
+                Game.Destroy(source, cards);
             }
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.Tapped);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.Tapped);
         }
     }
 }

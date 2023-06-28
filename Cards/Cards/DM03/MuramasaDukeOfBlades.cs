@@ -29,9 +29,9 @@ namespace Cards.Cards.DM03
             return "You may destroy one of your opponent's creatures that has power 2000 or less.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.Power <= 2000);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.Power <= 2000);
         }
     }
 }

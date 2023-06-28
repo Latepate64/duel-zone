@@ -30,9 +30,9 @@ namespace Cards.Cards.DM12
             return "Your opponent chooses one of his creatures in the battle zone, and returns it to his hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier.Opponent);
+            return Game.BattleZone.GetCreatures(Applier.Opponent);
         }
     }
 }

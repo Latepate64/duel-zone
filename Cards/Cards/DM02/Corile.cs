@@ -33,9 +33,9 @@ namespace Cards.Cards.DM02
             return "Choose one of your opponent's creatures in the battle zone and put it on top of his deck.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
         }
     }
 }

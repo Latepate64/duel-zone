@@ -30,9 +30,9 @@ namespace Cards.Cards.DM01
             return "Choose one of your opponent's creatures in the battle zone and put it into his mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier);
         }
     }
 }

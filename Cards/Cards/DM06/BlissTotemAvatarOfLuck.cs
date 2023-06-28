@@ -28,7 +28,7 @@ namespace Cards.Cards.DM06
             return "Put up to 3 cards from your graveyard into your mana zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.Graveyard.Cards;
         }

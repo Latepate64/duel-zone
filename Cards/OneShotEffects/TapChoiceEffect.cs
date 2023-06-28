@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
             (ControllerChooses ? Applier : Applier.Opponent).Tap(cards);
         }

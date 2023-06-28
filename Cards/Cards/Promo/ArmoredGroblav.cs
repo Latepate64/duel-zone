@@ -29,9 +29,9 @@ namespace Cards.Cards.Promo
             return $"While attacking, this creature gets +{Power} power for each other fire creature in the battle zone.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
-            return game.BattleZone.GetOtherCreatures(Source, Civilization.Fire).Count();
+            return Game.BattleZone.GetOtherCreatures(Source, Civilization.Fire).Count();
         }
     }
 }

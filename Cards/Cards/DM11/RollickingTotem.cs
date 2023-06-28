@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
             return "Put a creature that has Dragon in its race from your mana zone into the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.ManaZone.Creatures.Where(x => x.IsDragon);
         }

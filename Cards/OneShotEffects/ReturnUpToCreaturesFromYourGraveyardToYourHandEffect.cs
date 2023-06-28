@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             return Maximum == 1 ? "You may return a creature from your graveyard to your hand." : $"Return up to {Maximum} creatures from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.Graveyard.Creatures;
         }

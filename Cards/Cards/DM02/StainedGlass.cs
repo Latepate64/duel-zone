@@ -30,9 +30,9 @@ namespace Cards.Cards.DM02
             return "You may choose one of your opponent's fire or nature creatures in the battle zone and return it to its owner's hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.HasCivilization(Civilization.Fire, Civilization.Nature));
+            return Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.HasCivilization(Civilization.Fire, Civilization.Nature));
         }
     }
 }

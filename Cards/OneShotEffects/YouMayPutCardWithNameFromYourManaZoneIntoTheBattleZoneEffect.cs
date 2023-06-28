@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return $"You may choose an {_name} in your mana zone and put it into the battle zone.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IAbility source)
         {
             return Applier.ManaZone.Cards.Where(x => x.Name == _name);
         }

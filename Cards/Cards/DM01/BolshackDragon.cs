@@ -29,7 +29,7 @@ namespace Cards.Cards.DM01
             return $"While attacking, this creature gets +{Power} power for each fire card in your graveyard.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
             return Applier.Graveyard.GetCards(Civilization.Fire).Count();
         }

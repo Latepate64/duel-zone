@@ -28,7 +28,7 @@ namespace Cards.Cards.DM09
             return $"This creature gets +{Power} power for each card in your hand.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
             return Applier.Hand.Cards.Count();
         }

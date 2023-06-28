@@ -29,7 +29,7 @@ namespace Cards.Cards.DM09
             return $"This creature gets +{Power} power for each darkness creature in your graveyard.";
         }
 
-        protected override int GetMultiplier(IGame game)
+        protected override int GetMultiplier()
         {
             return Applier.Graveyard.GetCreatures(Civilization.Darkness).Count();
         }
