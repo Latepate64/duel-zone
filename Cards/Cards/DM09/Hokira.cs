@@ -52,7 +52,7 @@ namespace Cards.Cards.DM09
             return new HokiraContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

@@ -24,11 +24,11 @@ namespace Cards.Cards.DM02
             return new BarkwhipTheSmasherEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             if (Source.Tapped)
             {
-                game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
+                Game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.Power += 2000);
             }
         }
 

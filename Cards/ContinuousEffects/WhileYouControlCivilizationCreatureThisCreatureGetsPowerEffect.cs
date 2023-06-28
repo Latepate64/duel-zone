@@ -31,9 +31,9 @@ namespace Cards.ContinuousEffects
             return $"While you have a {Civilization} creature in the battle zone, this creature gets +{Power} power.";
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.BattleZone.GetCreatures(Applier).Any(x => x.HasCivilization(Civilization)))
+            if (Game.BattleZone.GetCreatures(Applier).Any(x => x.HasCivilization(Civilization)))
             {
                 Source.Power += Power;
             }

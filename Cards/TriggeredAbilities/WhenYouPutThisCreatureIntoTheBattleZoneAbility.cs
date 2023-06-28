@@ -118,9 +118,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.CardInDestinationZone, game);
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && TriggersFrom(e.CardInDestinationZone, Game);
         }
     }
 

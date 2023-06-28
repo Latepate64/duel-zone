@@ -15,9 +15,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is BattleEvent e && (TriggersFrom(e.AttackingCreature, game) || TriggersFrom(e.DefendingCreature, game)) && e.Winners.Any(x => x == Source);
+            return gameEvent is BattleEvent e && (TriggersFrom(e.AttackingCreature, Game) || TriggersFrom(e.DefendingCreature, Game)) && e.Winners.Any(x => x == Source);
         }
 
         public override IAbility Copy()

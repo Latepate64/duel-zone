@@ -22,7 +22,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
             return Controller.Opponent.ManaZone.Cards.Count > Controller.ManaZone.Cards.Count;
         }

@@ -23,9 +23,9 @@ namespace Cards.ContinuousEffects
             GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            GetAffectedCards(game).ForEach(x => x.Power += _power);
+            GetAffectedCards(Game).ForEach(x => x.Power += _power);
         }
 
         protected abstract List<ICard> GetAffectedCards(IGame game);

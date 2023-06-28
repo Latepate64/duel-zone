@@ -38,7 +38,7 @@ namespace Engine.GameEvents
             {
                 //ability.Source = spell.Id;
                 //ability.Controller = spell.Owner;
-                ability.Resolve(game);
+                ability.Resolve();
             }
         }
 

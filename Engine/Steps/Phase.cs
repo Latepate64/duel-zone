@@ -46,7 +46,7 @@ namespace Engine.Steps
                 foreach (var abilities in abilityGroups)
                 {
                     var ability = abilities.Key.ChooseAbility(abilities);
-                    ability.Resolve(game);
+                    ability.Resolve();
 
                     // 608.2m As the final part of an ability’s resolution, the ability is removed from the stack and ceases to exist.
                     _ = PendingAbilities.Remove(ability);

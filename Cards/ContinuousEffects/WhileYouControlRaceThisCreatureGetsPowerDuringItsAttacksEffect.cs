@@ -31,9 +31,9 @@ namespace Cards.ContinuousEffects
             return new WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Applier).Any(x => x.HasRace(Race)))
+            if (Game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && Game.BattleZone.GetCreatures(Applier).Any(x => x.HasRace(Race)))
             {
                 Source.Power += Power;
             }

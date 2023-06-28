@@ -2,6 +2,6 @@
 {
     public interface IResolvableAbility : IAbility
     {
-        void Resolve(IGame game);
+        void Resolve();
     }
 }

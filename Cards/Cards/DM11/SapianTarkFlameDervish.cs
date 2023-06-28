@@ -18,7 +18,7 @@ namespace Cards.Cards.DM11
             return new SapianTarkFlameDervishEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             Source.Power += 4000;
         }

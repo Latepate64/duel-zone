@@ -18,7 +18,7 @@
         /// 608.2c The controller of the ability follows its instructions in the order written.
         /// </summary>
         /// <param name="game"></param>
-        public virtual void Resolve(IGame game)
+        public virtual void Resolve()
         {
             OneShotEffect.Ability = this;
             OneShotEffect.Apply();

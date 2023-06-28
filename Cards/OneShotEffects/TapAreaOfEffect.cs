@@ -17,10 +17,10 @@ namespace Cards.OneShotEffects
 
         public override void Apply()
         {
-            var cards = GetAffectedCards(Game, Ability).ToArray();
+            var cards = GetAffectedCards(Ability).ToArray();
             Applier.Tap(cards);
         }
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
+        protected abstract IEnumerable<ICard> GetAffectedCards(IAbility source);
     }
 }

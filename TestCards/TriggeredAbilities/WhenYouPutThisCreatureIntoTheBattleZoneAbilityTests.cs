@@ -22,8 +22,7 @@ namespace TestCards.TriggeredAbilities
                     new CardMovedEventMock(ZoneType.BattleZone)
                     {
                         CardInDestinationZone = card
-                    },
-                    new Game()));
+                    }));
         }
     }
 

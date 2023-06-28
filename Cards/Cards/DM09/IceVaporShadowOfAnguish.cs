@@ -22,7 +22,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is SpellCastEvent e && e.Player.Id == Controller.Opponent.Id;
         }

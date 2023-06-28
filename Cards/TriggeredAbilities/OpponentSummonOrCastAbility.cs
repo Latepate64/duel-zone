@@ -14,7 +14,7 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureSummonedEvent summon && summon.Player == Controller.Opponent || gameEvent is SpellCastEvent cast && cast.Player == Controller.Opponent;
         }

@@ -16,9 +16,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer == Controller && CheckInterveningIfClause(game);
+            return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && Game.Turns.Single(x => x.Id == e.Turn.Id).ActivePlayer == Controller && CheckInterveningIfClause();
         }
 
         public override IAbility Copy()

@@ -29,9 +29,9 @@ namespace Cards.Cards.DM01
             return new IllusionaryMerfolkAbility(this);
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
-            return game.BattleZone.GetCreatures(Controller).Any(x => x.HasRace(Race.CyberLord));
+            return Game.BattleZone.GetCreatures(Controller).Any(x => x.HasRace(Race.CyberLord));
         }
 
         public override string ToString()

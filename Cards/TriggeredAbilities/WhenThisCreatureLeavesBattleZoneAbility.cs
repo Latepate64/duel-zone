@@ -14,9 +14,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone) == Source;
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && Game.GetCard(e.CardInSourceZone) == Source;
         }
 
         public override IAbility Copy()

@@ -46,7 +46,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -85,14 +85,14 @@ namespace Cards.Cards.DM07
             return new SpinningTotemTriggeredAbility((gameEvent as BecomeBlockedEvent).Attacker);
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == Controller && e.Attacker.HasCivilization(Civilization.Nature);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Break(_breaker, 1);
+            Game.Break(_breaker, 1);
         }
     }
 }

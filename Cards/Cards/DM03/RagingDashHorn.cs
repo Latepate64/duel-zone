@@ -32,7 +32,7 @@ namespace Cards.Cards.DM03
             return new RagingDashHornEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             if (Applies())
             {

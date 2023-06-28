@@ -26,9 +26,9 @@ namespace Cards.ContinuousEffects
             return new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            Source.Power += game.BattleZone.GetCreatures(Applier.Opponent).Count(x => x.HasCivilization(Civilizations)) * Power;
+            Source.Power += Game.BattleZone.GetCreatures(Applier.Opponent).Count(x => x.HasCivilization(Civilizations)) * Power;
         }
 
         public override string ToString()

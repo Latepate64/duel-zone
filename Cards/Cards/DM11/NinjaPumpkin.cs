@@ -27,7 +27,7 @@ namespace Cards.Cards.DM11
             return new NinjaPumpkinEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             Source.Power += 4000;
         }

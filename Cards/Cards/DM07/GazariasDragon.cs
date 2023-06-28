@@ -36,7 +36,7 @@ namespace Cards.Cards.DM07
             return new GazariasDragonEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             if (!Applier.ShieldZone.HasCards)
             {

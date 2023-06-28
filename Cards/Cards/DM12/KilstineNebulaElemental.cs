@@ -33,9 +33,9 @@ namespace Cards.Cards.DM12
             return new KilstineNebulaElementalEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            GetAffectedCards(game).ForEach(x => x.Power += 5000);
+            GetAffectedCards(Game).ForEach(x => x.Power += 5000);
         }
 
         public override string ToString()

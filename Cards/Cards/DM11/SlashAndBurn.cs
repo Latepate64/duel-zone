@@ -46,7 +46,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone.Owner == Controller.Opponent;
         }
@@ -72,11 +72,11 @@ namespace Cards.Cards.DM11
             return new SlashAndBurnAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             Controller.Opponent.BurnOwnMana(this);
             var shield = Controller.Opponent.ChooseCard(Controller.Opponent.ShieldZone.Cards, ToString());
-            game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
+            Game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);
         }
 
         public override string ToString()

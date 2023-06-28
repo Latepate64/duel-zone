@@ -63,7 +63,7 @@ namespace Cards.Cards.DM04
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }

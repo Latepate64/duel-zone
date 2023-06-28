@@ -22,7 +22,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller;
         }

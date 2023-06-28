@@ -67,7 +67,7 @@ namespace Cards.Cards.DM04
             return new FullDefensorContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer.Id == _player;
         }

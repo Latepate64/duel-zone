@@ -23,9 +23,9 @@ namespace Cards.Cards.Promo
         {
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
-            return game.GetBattleZoneCreatures(Controller.Opponent).Count() > game.GetBattleZoneCreatures(Controller).Count();
+            return Game.GetBattleZoneCreatures(Controller.Opponent).Count() > Game.GetBattleZoneCreatures(Controller).Count();
         }
 
         public override IAbility Copy()

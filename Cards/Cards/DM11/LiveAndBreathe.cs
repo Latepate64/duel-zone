@@ -47,7 +47,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -66,7 +66,7 @@ namespace Cards.Cards.DM11
             _name = ability._name;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureSummonedEvent e && e.Player == Controller;
         }
@@ -76,10 +76,10 @@ namespace Cards.Cards.DM11
             return new LiveAndBreatheAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             var creature = Controller.ChooseCardOptionally(Controller.Deck.Creatures.Where(x => x.Name == _name), ToString());
-            game.Move(this, ZoneType.Deck, ZoneType.BattleZone, creature);
+            Game.Move(this, ZoneType.Deck, ZoneType.BattleZone, creature);
             Controller.ShuffleOwnDeck();
         }
 

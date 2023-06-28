@@ -70,7 +70,7 @@ namespace Cards.Cards.DM07
             return game.BattleZone.GetCreatures(Applier, Civilization.Darkness).ToList();
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -82,7 +82,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -109,7 +109,7 @@ namespace Cards.Cards.DM07
             _toDestroy = ability._toDestroy;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BattleEvent e && _cards.Any(x => x == e.AttackingCreature || x == e.DefendingCreature);
         }
@@ -119,9 +119,9 @@ namespace Cards.Cards.DM07
             return new BattleshipMutantAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Destroy(this, _toDestroy);
+            Game.Destroy(this, _toDestroy);
         }
 
         public override string ToString()

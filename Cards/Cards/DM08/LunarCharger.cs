@@ -67,7 +67,7 @@ namespace Cards.Cards.DM08
             _turnId = ability._turnId;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
         }
@@ -77,7 +77,7 @@ namespace Cards.Cards.DM08
             return new LunarChargerAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             var cards = Controller.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
             Controller.Untap(cards.ToArray());

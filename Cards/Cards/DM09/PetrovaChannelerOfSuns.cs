@@ -91,12 +91,12 @@ namespace Cards.Cards.DM09
             return new PetrovaBuffEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.Power += 4000);
+            Game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.Power += 4000);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             var sourceCard = Source;
             return gameEvent is CardMovedEvent e && e.CardInSourceZone == sourceCard.Id && e.Source == ZoneType.BattleZone;

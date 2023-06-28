@@ -19,7 +19,7 @@ namespace Cards.TriggeredAbilities
             Attacker = ability.Attacker;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
         }

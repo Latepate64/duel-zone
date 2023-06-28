@@ -74,7 +74,7 @@ namespace Cards.Cards.DM11
             return new MiraculousTruceContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == _player;
         }

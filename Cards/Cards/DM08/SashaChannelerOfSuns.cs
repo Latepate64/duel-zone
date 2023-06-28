@@ -47,9 +47,9 @@ namespace Cards.Cards.DM08
             return new SashaPowerEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase a)
+            if (Game.CurrentTurn.CurrentPhase is AttackPhase a)
             {
                 var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.IsDragon)

@@ -14,9 +14,9 @@ namespace Cards.TriggeredAbilities
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
+            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, Game);
         }
 
         public override Ability Copy()

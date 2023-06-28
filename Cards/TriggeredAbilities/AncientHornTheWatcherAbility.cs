@@ -18,7 +18,7 @@ namespace Cards.TriggeredAbilities
             return new AncientHornTheWatcherAbility(this);
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
             return Controller.ShieldZone.Cards.Count >= 5;
         }
@@ -48,7 +48,7 @@ namespace Cards.TriggeredAbilities
             return new DedreenTheHiddenCorrupterAbility(this);
         }
 
-        public override bool CheckInterveningIfClause(IGame game)
+        public override bool CheckInterveningIfClause()
         {
             return Controller.Opponent.ShieldZone.Cards.Count <= _shieldsMaximum;
         }

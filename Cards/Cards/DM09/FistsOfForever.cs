@@ -48,7 +48,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -68,7 +68,7 @@ namespace Cards.Cards.DM09
             _creature = ability._creature;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BattleEvent e && e.Winners.Contains(_creature);
         }
@@ -78,7 +78,7 @@ namespace Cards.Cards.DM09
             return new FistsOfForeverAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             Controller.Untap(_creature);
         }

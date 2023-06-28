@@ -52,7 +52,7 @@ namespace Cards.Cards.DM11
             _player = ability._player;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn; //TODO: Not sure if works as is 
         }
@@ -62,11 +62,11 @@ namespace Cards.Cards.DM11
             return new WarpedLunatronAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             var cards = _player.ChooseAnyNumberOfCards(_player.ManaZone.UntappedCards, ToString());
             var amount = cards.Count() / 2;
-            var toUntap = _player.ChooseCards(game.BattleZone.GetCreatures(_player), amount, amount, ToString());
+            var toUntap = _player.ChooseCards(Game.BattleZone.GetCreatures(_player), amount, amount, ToString());
             _player.Untap(toUntap.ToArray());
         }
 

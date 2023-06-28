@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             _player = ability._player;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn && e.Turn.ActivePlayer == Controller.Opponent;
         }
@@ -39,10 +39,10 @@ namespace Cards.Cards.DM10
             return new SpinalParasiteAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player).Where(x => game.CanAttackAtLeastSomething(x)), ToString());
-            game.AddContinuousEffects(this, new SpinalParasiteContinuousEffect(creature));
+            var creature = _player.ChooseCard(Game.BattleZone.GetCreatures(_player).Where(x => Game.CanAttackAtLeastSomething(x)), ToString());
+            Game.AddContinuousEffects(this, new SpinalParasiteContinuousEffect(creature));
         }
 
         public override string ToString()

@@ -22,9 +22,9 @@ namespace Cards.Cards.DM04
             return new KeeperOfTheSunlitAbyssEffect();
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
+            Game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
         }
 
         public override string ToString()

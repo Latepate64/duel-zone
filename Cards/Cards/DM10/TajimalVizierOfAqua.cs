@@ -30,9 +30,9 @@ namespace Cards.Cards.DM10
             return new TajimalEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase a)
+            if (Game.CurrentTurn.CurrentPhase is AttackPhase a)
             {
                 var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.HasCivilization(Civilization.Fire))

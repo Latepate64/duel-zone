@@ -107,7 +107,7 @@ namespace Cards.Cards.DM08
             _card = ability._card;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
         }
@@ -117,9 +117,9 @@ namespace Cards.Cards.DM08
             return new KachuaAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.Destroy(this,  _card);
+            Game.Destroy(this,  _card);
         }
 
         public override string ToString()

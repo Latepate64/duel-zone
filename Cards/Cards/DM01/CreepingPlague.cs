@@ -39,7 +39,7 @@ namespace Cards.Cards.DM01
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -58,7 +58,7 @@ namespace Cards.Cards.DM01
             _creature = ability._creature;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is BecomeBlockedEvent e && e.Attacker == Source && Controller == Source.Owner;
         }
@@ -68,9 +68,9 @@ namespace Cards.Cards.DM01
             return new CreepingPlagueTriggeredAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(_creature));
+            Game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(_creature));
         }
 
         public override string ToString()

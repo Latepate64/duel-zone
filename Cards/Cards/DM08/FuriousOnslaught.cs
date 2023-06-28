@@ -63,7 +63,7 @@ namespace Cards.Cards.DM08
             return new FuriousOnslaughtContinuousEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _cards.ForEach(x => x.Power += 4000);
         }

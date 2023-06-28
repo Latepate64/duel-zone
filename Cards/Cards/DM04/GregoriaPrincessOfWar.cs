@@ -32,9 +32,9 @@ namespace Cards.Cards.DM04
             return new GregoriaPrincessOfWarEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            GetAffectedCards(game).ForEach(x => x.Power += 2000);
+            GetAffectedCards(Game).ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()

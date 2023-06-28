@@ -58,7 +58,7 @@ namespace Cards.Cards.DM10
             return new ForcedFrenzyContinuousEffect(this);
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn && phase.Turn.ActivePlayer == Applier;
         }

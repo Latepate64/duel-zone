@@ -210,7 +210,7 @@ namespace Engine
             var abilities = new List<ITriggeredAbility>();
             foreach (var card in BattleZone.Cards)
             {
-                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent, this)).Select(x => x.Trigger(card.Id, card.Owner.Id, gameEvent)));
+                abilities.AddRange(card.GetAbilities<ITriggeredAbility>().Where(x => x.CanTrigger(gameEvent)).Select(x => x.Trigger(card.Id, card.Owner.Id, gameEvent)));
             }
             return abilities;
         }
@@ -396,7 +396,7 @@ namespace Engine
                 //TODO: In rare cases there could be multiple reflexive triggered abilities, in that case those should be resolved in APNAP order
                 var ability = _reflexiveTriggeredAbilities.First();
                 _reflexiveTriggeredAbilities.RemoveAt(0);
-                ability.Resolve(this);
+                ability.Resolve();
             }
         }
 
@@ -482,7 +482,7 @@ namespace Engine
         private void CheckExpirations(IGameEvent gameEvent)
         {
             ContinuousEffects.RemoveExpired(gameEvent);
-            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, this)).ToArray())
+            foreach (var remove in _state.DelayedTriggeredAbilities.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent)).ToArray())
             {
                 _state.DelayedTriggeredAbilities.Remove(remove);
             }
@@ -625,7 +625,7 @@ namespace Engine
         {
             var abilities = GetAbilitiesThatTriggerFromCardsInBattleZone(gameEvent).ToList();
             List<DelayedTriggeredAbility> toBeRemoved = new();
-            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent, this)))
+            foreach (var ability in _state.DelayedTriggeredAbilities.Where(x => x.TriggeredAbility.CanTrigger(gameEvent)))
             {
                 abilities.Add(ability.TriggeredAbility.Copy() as ITriggeredAbility);
                 if (ability.TriggersOnlyOnce)

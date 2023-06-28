@@ -24,9 +24,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
-            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid(game);
+            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid(Game);
         }
 
         public override IAbility Copy()
@@ -34,9 +34,9 @@ namespace Cards.Cards.DM12
             return new WingeyeMothAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
-            if (InterveningIfClauseValid(game))
+            if (InterveningIfClauseValid(Game))
             {
                 Controller.DrawCardsOptionally(this, 1);
             }

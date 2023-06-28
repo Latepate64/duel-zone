@@ -33,9 +33,9 @@ namespace Cards.Cards.DM04
             return "Each Armored Dragon in the battle zone gets +1000 power.";
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(Race.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
+            Game.BattleZone.Creatures.Where(x => x.HasRace(Race.ArmoredDragon)).ToList().ForEach(x => x.Power += 1000);
         }
     }
 }

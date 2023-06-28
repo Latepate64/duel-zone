@@ -66,7 +66,7 @@ namespace Cards.Cards.DM06
             return new InvincibleUnityContinuousEffect(this);
         }
 
-        public void ModifyPower(IGame game)
+        public void ModifyPower()
         {
             _cards.ForEach(x => x.Power += 8000);
         }

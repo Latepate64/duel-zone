@@ -46,7 +46,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+        public bool ShouldExpire(IGameEvent gameEvent)
         {
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM05
         {
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == Controller;
         }

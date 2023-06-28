@@ -33,7 +33,7 @@ namespace Cards.Cards.DM05
             _card = ability._card;
         }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+        public override bool CanTrigger(IGameEvent gameEvent)
         {
             return gameEvent is CardMovedEvent e && e.Ability?.Controller == Controller && e.Source == ZoneType.ManaZone && e.Destination == ZoneType.Graveyard;
         }
@@ -43,11 +43,11 @@ namespace Cards.Cards.DM05
             return new SnorkLaAbility(this);
         }
 
-        public override void Resolve(IGame game)
+        public override void Resolve()
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.Move(this, ZoneType.Graveyard, ZoneType.ManaZone, _card);
+                Game.Move(this, ZoneType.Graveyard, ZoneType.ManaZone, _card);
             }
         }
 

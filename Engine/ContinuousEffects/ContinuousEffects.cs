@@ -78,14 +78,14 @@ namespace Engine.ContinuousEffects
 
             // 613.1g Layer 7: Power-changing effects are applied.
             // 613.4c Layer 7c: Effects that modify power (but don’t set power to a specific number or value) are applied.
-            orderedEffects.OfType<IPowerModifyingEffect>().ToList().ForEach(x => x.ModifyPower(Game));
+            orderedEffects.OfType<IPowerModifyingEffect>().ToList().ForEach(x => x.ModifyPower());
 
             // TODO: Should check if any characteristics have changed and provide that information as an event.
         }
 
         public void RemoveExpired(IGameEvent gameEvent)
         {
-            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent, Game)).ToArray())
+            foreach (var remove in _continuousEffects.Where(x => x is IExpirable d && d.ShouldExpire(gameEvent)).ToArray())
             {
                 _continuousEffects.Remove(remove);
             }
