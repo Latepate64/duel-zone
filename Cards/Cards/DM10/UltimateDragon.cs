@@ -44,7 +44,7 @@ namespace Cards.Cards.DM10
 
         public override int GetAmount(IGame game, ICard creature)
         {
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(Applier).Count(x => x != Ability.Source && x.IsDragon) : 1;
+            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(Applier).Count(x => !IsSourceOfAbility(x) && x.IsDragon) : 1;
         }
 
         public override string ToString()

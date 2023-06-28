@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Ability.Source);
+            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, Source);
         }
 
         public override string ToString()

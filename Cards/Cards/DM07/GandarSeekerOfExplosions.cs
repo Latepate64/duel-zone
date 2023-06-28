@@ -21,7 +21,7 @@ namespace Cards.Cards.DM07
                 new DelayedTriggeredAbility(
                     new TriggeredAbilities.AtTheEndOfYourTurnAbility(
                         new GandarSeekerOfExplosionsUntapEffect()),
-                        Ability.Source,
+                        Source,
                         Applier,
                         true));
         }

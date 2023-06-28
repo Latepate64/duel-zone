@@ -21,8 +21,8 @@ namespace Cards.Cards.DM02
                 new DelayedTriggeredAbility(
                     new AfterAttackAbility(
                         new OneShotEffects.DestroyThisCreatureEffect(),
-                        Ability.Source.Id),
-                    Ability.Source,
+                        Source.Id),
+                    Source,
                     Applier,
                     true));
         }

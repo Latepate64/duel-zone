@@ -20,11 +20,11 @@ namespace Cards.Cards.DM04
     {
         public override void Apply(IGame game)
         {
-            var creature = Applier.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Applier, Ability.Source.Id), ToString());
+            var creature = Applier.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Applier, Source.Id), ToString());
             if (creature != null)
             {
                 game.Destroy(Ability, creature);
-                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source));
+                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Source));
             }
         }
 
