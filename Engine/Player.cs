@@ -260,7 +260,7 @@ namespace Engine
 
         public ICard DestroyCreatureOptionally(IGame game, IAbility ability)
         {
-            var card = ChooseCardOptionally(game.GetChoosableCreaturesControlledByAnyone(game, Id), ability.ToString());
+            var card = ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, this), ability.ToString());
             game.Destroy(ability, card);
             return card;
         }
@@ -687,7 +687,7 @@ namespace Engine
 
         public ICard ChooseCreatureInBattleZoneOptionally(IGame game, string description)
         {
-            return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description);
+            return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, this), description);
         }
 
         public void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)

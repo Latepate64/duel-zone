@@ -31,7 +31,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Applier.Opponent.Id).Where(x => x.Power <= _power);
+            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Applier).Where(x => x.Power <= _power);
         }
     }
 }

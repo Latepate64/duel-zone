@@ -130,9 +130,9 @@ namespace Engine.Zones
             return GetChoosableCreaturesControlledByPlayer(game, controller).Where(x => !x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser)
         {
-            return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetPlayer(owner).Opponent.Id));
+            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByPlayer(game, chooser.Opponent.Id));
         }
 
         public IBattleZone Copy()
