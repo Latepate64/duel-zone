@@ -68,7 +68,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherTappedCreatures(Applier.Id, Source.Id).Count();
+            return game.BattleZone.GetOtherTappedCreatures(Applier, Source.Id).Count();
         }
     }
 
@@ -94,7 +94,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherUntappedCreatures(Applier.Id, Source.Id).Count();
+            return game.BattleZone.GetOtherUntappedCreatures(Applier, Source.Id).Count();
         }
     }
 

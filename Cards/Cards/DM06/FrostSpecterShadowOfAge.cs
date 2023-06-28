@@ -31,7 +31,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Applier.Id, Race.Ghost);
+            return game.BattleZone.GetCreatures(Applier, Race.Ghost);
         }
     }
 }

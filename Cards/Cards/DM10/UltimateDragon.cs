@@ -31,7 +31,7 @@ namespace Cards.Cards.DM10
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Applier.Id, Source.Id).Count(x => x.IsDragon);
+            return game.BattleZone.GetOtherCreatures(Applier, Source.Id).Count(x => x.IsDragon);
         }
     }
 

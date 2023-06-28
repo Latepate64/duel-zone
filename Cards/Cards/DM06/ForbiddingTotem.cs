@@ -60,7 +60,7 @@ namespace Cards.Cards.DM06
 
         private bool AttackableMysteryTotemExists(ICard attacker, IGame game)
         {
-            return game.BattleZone.GetCreatures(Applier.Id, Race.MysteryTotem).Any(x => game.CanAttackCreature(attacker, x));
+            return game.BattleZone.GetCreatures(Applier, Race.MysteryTotem).Any(x => game.CanAttackCreature(attacker, x));
         }
     }
 }

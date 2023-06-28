@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
         {
             if (Source.Tapped)
             {
-                game.BattleZone.GetOtherCreatures(Applier.Id, Source.Id).ToList().ForEach(x => x.AddGrantedAbility(new PowerAttackerAbility(1500)));
+                game.BattleZone.GetOtherCreatures(Applier, Source.Id).ToList().ForEach(x => x.AddGrantedAbility(new PowerAttackerAbility(1500)));
             }
         }
 

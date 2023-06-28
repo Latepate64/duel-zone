@@ -72,42 +72,42 @@ namespace Engine.Zones
             return GetChoosableCreaturesControlledByChoosersOpponent(game, chooser).Where(x => x.IsEvolutionCreature);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Race race)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race)
         {
             return GetCreatures(controller).Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race1, Race race2)
         {
             return GetCreatures(controller).Where(x => x.HasRace(race1) || x.HasRace(race2));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization)
         {
             return GetCreatures(controller).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2)
+        public IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization1, Civilization civilization2)
         {
             return GetCreatures(controller).Where(x => x.HasCivilization(civilization1, civilization2));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature)
         {
             return GetCreatures(controller).Where(x => x.Id != creature);
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature, Civilization civilization)
+        public IEnumerable<ICard> GetOtherCreatures(IPlayer controller, Guid creature, Civilization civilization)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherTappedCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherTappedCreatures(IPlayer controller, Guid creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetOtherUntappedCreatures(Guid controller, Guid creature)
+        public IEnumerable<ICard> GetOtherUntappedCreatures(IPlayer controller, Guid creature)
         {
             return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
         }
@@ -122,7 +122,7 @@ namespace Engine.Zones
             return GetOtherCreatures(creature).Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetTappedCreatures(Guid controller)
+        public IEnumerable<ICard> GetTappedCreatures(IPlayer controller)
         {
             return GetCreatures(controller).Where(x => x.Tapped);
         }

@@ -208,7 +208,7 @@ namespace Engine
 
         public ICard ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id, civilization), 0, 1, description).SingleOrDefault();
+            return ChooseCards(game.BattleZone.GetCreatures(this, civilization), 0, 1, description).SingleOrDefault();
         }
 
         public ICard ChooseControlledCreatureOptionally(IGame game, string description)
