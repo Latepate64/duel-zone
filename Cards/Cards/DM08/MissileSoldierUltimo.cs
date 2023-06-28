@@ -22,7 +22,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
         }

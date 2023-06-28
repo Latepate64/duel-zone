@@ -77,7 +77,7 @@ namespace Cards.Cards.DM04
             return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
             return _cards;
         }

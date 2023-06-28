@@ -33,12 +33,12 @@ namespace Cards.Cards.DM03
             return "Choose any number of your shields and put them into your mana zone.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
-            game.Move(Ability, ZoneType.ShieldZone, ZoneType.ManaZone, cards);
+            Game.Move(Ability, ZoneType.ShieldZone, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return Applier.ShieldZone.Cards;
         }

@@ -17,13 +17,13 @@ namespace Cards.Cards.DM05
     {
         public override void Apply()
         {
-            Game.Players.ToList().ForEach(x => Apply(x, Game, Ability));
+            Game.Players.ToList().ForEach(x => Apply(x, Ability));
         }
 
-        private static void Apply(IPlayer player, IGame game, IAbility source)
+        private void Apply(IPlayer player, IAbility source)
         {
             var amount = player.Hand.Cards.Count;
-            game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
+            Game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
             player.ShuffleOwnDeck();
             player.DrawCards(amount, source);
         }

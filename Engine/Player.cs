@@ -645,7 +645,7 @@ namespace Engine
         private void Evolve(ICard evolutionCreature)
         {
             var effect = evolutionCreature.GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>().Single();
-            effect.Evolve(evolutionCreature, Game);
+            effect.Evolve(evolutionCreature);
         }
 
         private void PayManaCostAndUseCard(IEnumerable<ICard> manaCards, ICard toUse)

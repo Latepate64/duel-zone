@@ -24,13 +24,13 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var race = Applier.ChooseRace(ToString(), Race.MechaDelSol);
             return new PetrovaEvent(gameEvent as CardMovedEvent, race);
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is ICardMovedEvent e && Source.Id == e.CardInSourceZone && e.Destination == ZoneType.BattleZone;
         }

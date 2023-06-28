@@ -18,7 +18,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             if (YouHaveNoShields())
             {

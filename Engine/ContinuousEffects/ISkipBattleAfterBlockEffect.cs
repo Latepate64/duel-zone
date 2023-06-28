@@ -2,6 +2,6 @@
 {
     public interface ISkipBattleAfterBlockEffect : IContinuousEffect
     {
-        bool Applies(ICard attacker, ICard blocker, IGame game);
+        bool Applies(ICard attacker, ICard blocker);
     }
 }

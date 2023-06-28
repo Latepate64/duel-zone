@@ -65,9 +65,9 @@ namespace Cards.Cards.DM07
             return "Until the end of the turn, each of your darkness creatures in the battle zone gets +4000 power and \"double breaker.\"";
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Applier, Civilization.Darkness).ToList();
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Darkness).ToList();
         }
 
         public bool ShouldExpire(IGameEvent gameEvent)

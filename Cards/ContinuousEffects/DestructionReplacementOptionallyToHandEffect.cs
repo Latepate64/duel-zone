@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {

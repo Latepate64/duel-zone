@@ -27,24 +27,24 @@ namespace Cards.Cards.DM10
             _hasBeenAttacked = effect._hasBeenAttacked;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
-            return Applies(game, creature);
+            return Applies(creature);
         }
 
-        private bool Applies(IGame game, ICard attacker)
+        private bool Applies(ICard attacker)
         {
-            return Source.Tapped && game.CurrentTurn.ActivePlayer == Applier.Opponent && !_hasBeenAttacked && attacker.Owner == Applier.Opponent;
+            return Source.Tapped && Game.CurrentTurn.ActivePlayer == Applier.Opponent && !_hasBeenAttacked && attacker.Owner == Applier.Opponent;
         }
 
-        public bool CannotAttackCreature(ICard attacker, ICard target, IGame game)
+        public bool CannotAttackCreature(ICard attacker, ICard target)
         {
-            return Applies(game, attacker) && target != Source;
+            return Applies(attacker) && target != Source;
         }
 
-        public bool CannotAttackPlayers(ICard attacker, IGame game)
+        public bool CannotAttackPlayers(ICard attacker)
         {
-            return Applies(game, attacker);
+            return Applies(attacker);
         }
 
         public override IContinuousEffect Copy()

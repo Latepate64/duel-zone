@@ -25,7 +25,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
@@ -34,9 +34,9 @@ namespace Cards.Cards.DM06
             };
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone).IsEvolutionCreature;
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && Game.GetCard(e.CardInSourceZone).IsEvolutionCreature;
         }
 
         public override IContinuousEffect Copy()

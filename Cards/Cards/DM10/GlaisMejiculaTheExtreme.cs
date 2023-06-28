@@ -26,7 +26,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var e = gameEvent as ShieldsBreakEvent;
             var maximum = Applier.Hand.Cards.Count() / 2;

@@ -62,12 +62,12 @@ namespace TestEngine
             throw new System.NotImplementedException();
         }
 
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public bool CanEvolve(ICard evolutionCreature)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature)
         {
             throw new System.NotImplementedException();
         }

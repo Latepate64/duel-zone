@@ -13,7 +13,7 @@ namespace Engine.ContinuousEffects
     {
         Guid Id { get; }
 
-        bool CanBeApplied(IGameEvent gameEvent, IGame game);
-        IGameEvent Apply(IGameEvent gameEvent, IGame game);
+        bool CanBeApplied(IGameEvent gameEvent);
+        IGameEvent Apply(IGameEvent gameEvent);
     }
 }

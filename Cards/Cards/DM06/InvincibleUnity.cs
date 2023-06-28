@@ -56,7 +56,7 @@ namespace Cards.Cards.DM06
             _cards = effect._cards;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             _cards.ForEach(x => x.AddGrantedAbility(new TripleBreakerAbility()));
         }

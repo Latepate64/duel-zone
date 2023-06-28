@@ -68,7 +68,7 @@ namespace Cards.Cards.DM04
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
             return new List<ICard> { _card };
         }

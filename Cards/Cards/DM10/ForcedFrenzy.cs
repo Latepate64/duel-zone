@@ -48,7 +48,7 @@ namespace Cards.Cards.DM10
             _opponent = effect._opponent;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature.Owner == _opponent;
         }

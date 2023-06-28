@@ -18,16 +18,16 @@ namespace Cards.ContinuousEffects
             _power = power;
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
+            GetAffectedCards().ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
         }
 
         public void ModifyPower()
         {
-            GetAffectedCards(Game).ForEach(x => x.Power += _power);
+            GetAffectedCards().ForEach(x => x.Power += _power);
         }
 
-        protected abstract List<ICard> GetAffectedCards(IGame game);
+        protected abstract List<ICard> GetAffectedCards();
     }
 }

@@ -23,12 +23,12 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             if (!Applier.ShieldZone.HasCards)
             {
-                game.AddAbility(Source, new StaticAbilities.BlockerAbility());
-                game.AddAbility(Source, new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
+                Game.AddAbility(Source, new StaticAbilities.BlockerAbility());
+                Game.AddAbility(Source, new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
             }
         }
 

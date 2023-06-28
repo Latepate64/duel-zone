@@ -71,7 +71,7 @@ namespace Cards.Cards.DM09
             return $"Until the start of your next turn, {_cards} have \"Blocker\".";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
             return _cards;
         }

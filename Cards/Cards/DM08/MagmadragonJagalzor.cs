@@ -19,7 +19,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool Applies(ICard creature)
         {
             return creature.Owner == Applier;
         }

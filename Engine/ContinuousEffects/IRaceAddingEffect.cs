@@ -2,6 +2,6 @@
 {
     public interface IRaceAddingEffect : IContinuousEffect
     {
-        void AddRace(IGame game);
+        void AddRace();
     }
 }

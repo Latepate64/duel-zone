@@ -20,7 +20,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             Source.AddGrantedAbility(new StaticAbilities.BlockerAbility());
         }

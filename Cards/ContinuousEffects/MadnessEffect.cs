@@ -14,7 +14,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is CardMovedEvent e && e.Source == ZoneType.Hand && e.Destination == ZoneType.Graveyard && Source.Id == e.CardInSourceZone;
         }
@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {

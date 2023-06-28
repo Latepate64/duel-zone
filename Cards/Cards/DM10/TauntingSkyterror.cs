@@ -22,7 +22,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return Source.Tapped && creature.Owner == Applier.Opponent;
         }

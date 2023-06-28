@@ -23,13 +23,13 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             var e = gameEvent as CreatureBreaksShieldsEvent;
             return new KyuroroEvent(e.Attacker, e.BreakAmount);
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == Applier.Opponent;
         }

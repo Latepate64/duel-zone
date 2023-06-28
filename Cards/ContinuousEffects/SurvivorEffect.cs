@@ -25,9 +25,9 @@ namespace Cards.ContinuousEffects
             return $"Survivor : {AbilitiesAsText}";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Applier, Race.Survivor);
+            return Game.BattleZone.GetCreatures(Applier, Race.Survivor);
         }
     }
 }

@@ -22,9 +22,9 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.BlockerAbility()));
+            GetAffectedCards().ForEach(x => x.AddGrantedAbility(new StaticAbilities.BlockerAbility()));
         }
 
         public override IContinuousEffect Copy()
@@ -34,7 +34,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower()
         {
-            GetAffectedCards(Game).ForEach(x => x.Power += 2000);
+            GetAffectedCards().ForEach(x => x.Power += 2000);
         }
 
         public override string ToString()
@@ -42,9 +42,9 @@ namespace Cards.Cards.DM04
             return "Each Demon Command in the battle zone gets +2000 power and has \"blocker.\"";
         }
 
-        private static List<ICard> GetAffectedCards(IGame game)
+        private List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand)).ToList();
+            return Game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand)).ToList();
         }
     }
 }

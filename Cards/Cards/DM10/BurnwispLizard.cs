@@ -19,7 +19,7 @@ namespace Cards.Cards.DM10
         {
         }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool Applies(ICard creature)
         {
             return creature.Owner == Applier && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }

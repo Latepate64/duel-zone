@@ -19,7 +19,7 @@ namespace Cards.Cards.DM03
 
         public RagingDashHornEffect(RagingDashHornEffect effect) : base(effect) { }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             if (Applies())
             {

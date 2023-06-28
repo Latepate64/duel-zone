@@ -11,9 +11,9 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            if (!game.BattleZone.GetCreatures(Applier).Any(x => !IsSourceOfAbility(x)))
+            if (!Game.BattleZone.GetCreatures(Applier).Any(x => !IsSourceOfAbility(x)))
             {
                 Source.AddGrantedAbility(new PowerAttackerAbility(4000));
                 Source.AddGrantedAbility(new DoubleBreakerAbility());

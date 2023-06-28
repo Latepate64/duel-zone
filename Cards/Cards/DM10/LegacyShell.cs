@@ -29,9 +29,9 @@ namespace Cards.Cards.DM10
             return "Each of your light creatures and fire creatures has \"power attacker +3000.\"";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Applier, Civilization.Light, Civilization.Fire);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Light, Civilization.Fire);
         }
     }
 }

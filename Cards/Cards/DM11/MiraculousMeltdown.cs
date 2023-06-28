@@ -25,7 +25,7 @@ namespace Cards.Cards.DM11
         {
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(ICard card)
         {
             return card == Source && Applier.ShieldZone.Cards.Count >= Applier.Opponent.ShieldZone.Cards.Count;
         }

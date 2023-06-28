@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        public bool Applies(ICard attacker, ICard blocker)
         {
             return attacker == Source;
         }

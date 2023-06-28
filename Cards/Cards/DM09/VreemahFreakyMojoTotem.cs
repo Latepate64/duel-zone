@@ -55,9 +55,9 @@ namespace Cards.Cards.DM09
             return "Each Beast Folk in the battle zone gets +2000 power and \"double breaker\" until the end of the turn.";
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<ICard> GetAffectedCards()
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk)).ToList();
+            return Game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk)).ToList();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public bool CannotAttack(ICard attacker, IGame game)
+        public bool CannotAttack(ICard attacker)
         {
             return IsSourceOfAbility(attacker) && !Applier.Hand.HasCards;
         }

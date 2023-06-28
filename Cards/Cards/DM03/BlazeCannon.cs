@@ -35,7 +35,7 @@ namespace Cards.Cards.DM03
             return "You can cast this spell only if all the cards in your mana zone are fire cards.";
         }
 
-        public bool Applies(ICard card, IGame game)
+        public bool Applies(ICard card)
         {
             return IsSourceOfAbility(card) && !Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
         }

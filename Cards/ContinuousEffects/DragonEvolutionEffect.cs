@@ -11,12 +11,12 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool CanEvolve(IGame game, ICard evolutionCreature)
+        public override bool CanEvolve(ICard evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return Game.BattleZone.GetCreatures(evolutionCreature.Owner).Any(bait => CanEvolveFrom(bait, evolutionCreature));
         }
 
-        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
+        public bool CanEvolveFrom(ICard bait, ICard evolutionCard)
         {
             return bait.IsDragon && IsSourceOfAbility(evolutionCard);
         }
@@ -31,9 +31,9 @@ namespace Cards.ContinuousEffects
             return $"Evolution - Put on one of your creatures that has Dragon in its race.";
         }
 
-        protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
+        protected override IEnumerable<ICard> GetPossibleBaits(ICard evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return Game.BattleZone.GetCreatures(evolutionCreature.Owner).Where(bait => CanEvolveFrom(bait, evolutionCreature));
         }
     }
 }

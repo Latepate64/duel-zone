@@ -29,9 +29,9 @@ namespace Cards.Cards.DM10
             return "Each of your water creatures and fire creatures in the battle zone has \"slayer.\"";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards()
         {
-            return game.BattleZone.GetCreatures(Applier, Civilization.Water, Civilization.Fire);
+            return Game.BattleZone.GetCreatures(Applier, Civilization.Water, Civilization.Fire);
         }
     }
 }

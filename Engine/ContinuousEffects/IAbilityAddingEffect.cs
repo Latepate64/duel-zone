@@ -10,6 +10,6 @@
         /// 613.1f
         /// Layer 6: Ability-adding effects are applied.
         /// </summary>
-        void AddAbility(IGame game);
+        void AddAbility();
     }
 }

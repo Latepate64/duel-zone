@@ -24,7 +24,7 @@ namespace Cards.ContinuousEffects
             return new ThisSpellHasChargerEffect(this);
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             return gameEvent is ICardMovedEvent e && e.Source == ZoneType.SpellStack && e.Destination == ZoneType.Graveyard && e.CardInSourceZone == Source.Id;
         }
@@ -34,7 +34,7 @@ namespace Cards.ContinuousEffects
             return "Charger";
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {

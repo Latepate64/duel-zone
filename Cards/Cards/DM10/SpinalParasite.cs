@@ -71,7 +71,7 @@ namespace Cards.Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return creature == _creature;
         }

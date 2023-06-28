@@ -48,12 +48,12 @@ namespace Cards.Cards.DM08
             _cards = effect._cards.ToList();
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
             _cards.ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
         }
 
-        public void AddRace(IGame game)
+        public void AddRace()
         {
             _cards.ForEach(x => x.AddGrantedRace(Race.ArmoredDragon));
         }

@@ -20,9 +20,9 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            GetAffectedCards(game).ForEach(x => { 
+            GetAffectedCards(Game).ForEach(x => { 
                 x.AddGrantedAbility(new StaticAbilities.BlockerAbility());
                 x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
                 });

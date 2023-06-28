@@ -14,11 +14,11 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+        public override IGameEvent Apply(IGameEvent gameEvent)
         {
             if (Applier.ChooseToTakeAction(ToString()))
             {
-                game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
+                Game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
                     Destination = ZoneType.Hand
@@ -40,7 +40,7 @@ namespace Cards.ContinuousEffects
             return "When this creature would be destroyed, you may return it to your hand instead. If you do, discard a card from your hand.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(ICard card)
         {
             return IsSourceOfAbility(card);
         }

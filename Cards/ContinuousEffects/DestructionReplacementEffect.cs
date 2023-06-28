@@ -13,15 +13,15 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+        public override bool CanBeApplied(IGameEvent gameEvent)
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone), game);
+                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(Game.GetCard(e.CardInSourceZone));
             }
             return false;
         }
 
-        protected abstract bool Applies(ICard card, IGame game);
+        protected abstract bool Applies(ICard card);
     }
 }

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM09
         {
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(ICard creature)
         {
             return true;
         }

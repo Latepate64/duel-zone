@@ -24,12 +24,11 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public void AddAbility(IGame game)
+        public void AddAbility()
         {
-            var creature = Source;
-            if (game.BattleZone.GetOtherCreatures(Applier, creature, Civilization.Fire).Any())
+            if (Game.BattleZone.GetOtherCreatures(Applier, Source, Civilization.Fire).Any())
             {
-                creature.AddGrantedAbility(new PowerAttackerAbility(3000));
+                Source.AddGrantedAbility(new PowerAttackerAbility(3000));
             }
         }
 

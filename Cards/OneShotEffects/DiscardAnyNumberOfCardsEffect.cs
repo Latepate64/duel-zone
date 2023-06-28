@@ -24,12 +24,12 @@ namespace Cards.OneShotEffects
             return "Discard any number of cards from your hand.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IAbility source, params ICard[] cards)
         {
             Applier.Discard(source, cards);
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IAbility source)
         {
             return Applier.Hand.Cards;
         }

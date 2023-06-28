@@ -367,7 +367,7 @@ namespace Engine
             // TODO: See above comment. Current implementation defaults to first replacement effect for each event that can be replaced by more than one effect.
             var finalEvents = effectsByEvent.Select(group =>
                 group.Any(effects => effects.Any()) ?
-                    group.SelectMany(effects => effects).First().Apply(group.Key, this) :
+                    group.SelectMany(effects => effects).First().Apply(group.Key) :
                     group.Key
             );
             finalEvents.ToList().ForEach(x => ProcessEvent(x));
