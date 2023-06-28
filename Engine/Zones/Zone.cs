@@ -11,8 +11,8 @@ namespace Engine.Zones
     {
         public List<ICard> Cards { get; private set; } = new List<ICard>();
 
-        public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
-        public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
+        public IEnumerable<ICard> Creatures => Cards.Where(x => x.IsCreature);
+        public IEnumerable<ICard> Spells => Cards.Where(x => x.IsSpell);
 
         public ZoneType Type { get; }
         public bool HasCards => Cards.Any();

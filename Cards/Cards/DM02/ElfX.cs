@@ -23,12 +23,12 @@ namespace Cards.Cards.DM02
 
         public int GetChange(ICard card, IGame game)
         {
-            return card.Owner == Applier && card.CardType == CardType.Creature ? -1 : 0;
+            return card.Owner == Applier && card.IsCreature ? -1 : 0;
         }
 
         public int GetMinimumCost(ICard card, IGame game)
         {
-            return card.Owner == Applier && card.CardType == CardType.Creature ? 1 : 0;
+            return card.Owner == Applier && card.IsCreature ? 1 : 0;
         }
 
         public override string ToString()

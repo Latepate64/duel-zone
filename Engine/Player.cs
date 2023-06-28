@@ -536,7 +536,7 @@ namespace Engine
         public void UseCard(ICard card, IGame game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
-            if (card.CardType == CardType.Creature)
+            if (card.IsCreature)
             {
                 if (card.Supertypes.Contains(Supertype.Evolution))
                 {
@@ -544,7 +544,7 @@ namespace Engine
                 }
                 Summon(card, game);
             }
-            else if (card.CardType == CardType.Spell)
+            else if (card.IsSpell)
             {
                 Cast(card, game);
             }

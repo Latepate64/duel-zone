@@ -35,7 +35,7 @@ namespace Cards.Cards.DM04
 
         public bool Applies(ICard card, IGame game)
         {
-            return card.CardType == CardType.Spell && !card.HasCivilization(Civilization.Light);
+            return card.IsSpell && !card.HasCivilization(Civilization.Light);
         }
     }
 }

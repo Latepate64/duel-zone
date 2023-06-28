@@ -101,7 +101,10 @@ namespace Engine
         public bool IsDragon => Races.Intersect(new Race[] { Race.ArmoredDragon, Race.EarthDragon, Race.VolcanoDragon, Race.ZombieDragon }).Any();
         public bool IsEvolutionCreature => Supertypes.Any(x => x == Supertype.Evolution);
         public bool IsMultiColored => Civilizations.Count > 1;
-        public bool IsNonEvolutionCreature => CardType == CardType.Creature && !IsEvolutionCreature;
+        public bool IsNonEvolutionCreature => IsCreature && !IsEvolutionCreature;
+
+        public bool IsCreature => CardType == CardType.Creature;
+        public bool IsSpell => CardType == CardType.Spell;
 
         public void AddGrantedAbility(IAbility ability)
         {

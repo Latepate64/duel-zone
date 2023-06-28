@@ -11,10 +11,12 @@ namespace Engine
         List<Civilization> Civilizations { get; set; }
         bool FaceDown { get; set; }
         Guid Id { get; set; }
+        bool IsCreature { get; }
         bool IsDragon { get; }
         bool IsEvolutionCreature { get; }
         bool IsMultiColored { get; }
         bool IsNonEvolutionCreature { get; }
+        bool IsSpell { get; }
         List<Guid> KnownTo { get; set; }
         bool LostInBattle { get; set; }
         int ManaCost { get; set; }

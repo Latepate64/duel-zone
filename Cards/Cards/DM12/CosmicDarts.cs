@@ -35,7 +35,7 @@ namespace Cards.Cards.DM12
             {
                 Applier.Look(Applier, game, cards);
                 var card = cards.Single();
-                if (card.CardType == CardType.Spell && Applier.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
+                if (card.IsSpell && Applier.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
                     Applier.Cast(card, game);
                 }
