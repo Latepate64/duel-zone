@@ -16,7 +16,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(Applier.Opponent.Id).Count();
+            var amount = game.BattleZone.GetCreatures(Applier.Opponent).Count();
 
             if (amount > 0 && Applier.ChooseToTakeAction($"You may draw {amount} cards."))
             {

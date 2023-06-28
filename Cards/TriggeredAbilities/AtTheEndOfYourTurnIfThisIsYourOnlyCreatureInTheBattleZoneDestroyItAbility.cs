@@ -16,7 +16,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return !game.BattleZone.GetCreatures(Controller.Id).Any(x => x != Source);
+            return !game.BattleZone.GetCreatures(Controller).Any(x => x != Source);
         }
 
         public override IAbility Copy()

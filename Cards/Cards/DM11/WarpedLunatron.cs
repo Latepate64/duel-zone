@@ -66,7 +66,7 @@ namespace Cards.Cards.DM11
         {
             var cards = _player.ChooseAnyNumberOfCards(_player.ManaZone.UntappedCards, ToString());
             var amount = cards.Count() / 2;
-            var toUntap = _player.ChooseCards(game.BattleZone.GetCreatures(_player.Id), amount, amount, ToString());
+            var toUntap = _player.ChooseCards(game.BattleZone.GetCreatures(_player), amount, amount, ToString());
             _player.Untap(game, toUntap.ToArray());
         }
 

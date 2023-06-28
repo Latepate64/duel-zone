@@ -24,7 +24,7 @@ namespace Cards.Cards.DM06
 
         public override void Apply(IGame game)
         {
-            var amount = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier.Id), ToString()).Count();
+            var amount = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier), ToString()).Count();
             var choosableAmount = game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier).Count();
             if (amount > 0 && amount <= choosableAmount)
             {

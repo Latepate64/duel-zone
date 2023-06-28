@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public bool CanEvolve(IGame game, ICard evolutionCreature)
         {
-            var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+            var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner);
             var combinations = new Combinations<ICard>(baits, 2, GenerateOption.WithoutRepetition);
             var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
             return validPairs.Any();
@@ -66,7 +66,7 @@ namespace Cards.ContinuousEffects
 
         public void Evolve(ICard evolutionCreature, IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+            var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner);
             System.Collections.Generic.IEnumerable<ICard> baits;
             do
             {

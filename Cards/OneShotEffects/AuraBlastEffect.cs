@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(Power, game.BattleZone.GetCreatures(Ability.Controller.Id).ToArray()));
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(Power, game.BattleZone.GetCreatures(Applier).ToArray()));
         }
 
         public override IOneShotEffect Copy()

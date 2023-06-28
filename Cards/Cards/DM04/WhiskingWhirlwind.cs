@@ -48,7 +48,7 @@ namespace Cards.Cards.DM04
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id);
+            return game.BattleZone.GetCreatures(Applier);
         }
     }
 }

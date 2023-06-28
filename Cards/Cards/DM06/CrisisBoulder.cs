@@ -17,7 +17,7 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game)
         {
-            var cards = Applier.Opponent.ManaZone.Cards.Union(game.BattleZone.GetCreatures(Applier.Opponent.Id));
+            var cards = Applier.Opponent.ManaZone.Cards.Union(game.BattleZone.GetCreatures(Applier.Opponent));
             var card = Applier.Opponent.ChooseCard(cards, ToString());
             if (card != null)
             {

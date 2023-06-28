@@ -33,7 +33,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasCivilization(Civilization)))
+            if (game.BattleZone.GetCreatures(Applier).Any(x => x.HasCivilization(Civilization)))
             {
                 Source.Power += Power;
             }

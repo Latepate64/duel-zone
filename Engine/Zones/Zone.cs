@@ -41,10 +41,7 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid owner)
-        {
-            return Creatures.Where(x => x.Owner.Id == owner);
-        }
+        protected IEnumerable<ICard> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
 
         public abstract override string ToString();
 
@@ -66,6 +63,11 @@ namespace Engine.Zones
         public IEnumerable<ICard> GetOtherCreatures(Guid creature)
         {
             return Creatures.Where(x => x.Id != creature);
+        }
+
+        public IEnumerable<ICard> GetCreatures(IPlayer player)
+        {
+            return GetCreatures(player.Id);
         }
     }
 }

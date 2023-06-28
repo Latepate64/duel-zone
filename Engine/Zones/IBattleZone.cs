@@ -15,7 +15,6 @@ namespace Engine.Zones
         IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2);
         IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization);
         IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
-        IEnumerable<ICard> GetCreatures(IPlayer player);
         IEnumerable<ICard> GetCreaturesWithSilentSkill(IPlayer player);
         IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature);
         IEnumerable<ICard> GetOtherCreatures(Guid controller, Guid creature, Civilization civilization);

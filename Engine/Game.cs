@@ -151,7 +151,7 @@ namespace Engine
 
         public bool CanAttackAtLeastOneCreature(ICard creature)
         {
-            return ContinuousEffects.CanCreatureAttack(creature) && BattleZone.GetCreatures(creature.Owner.Opponent.Id).Any(x => CanAttackCreature(creature, x));
+            return ContinuousEffects.CanCreatureAttack(creature) && BattleZone.GetCreatures(creature.Owner.Opponent).Any(x => CanAttackCreature(creature, x));
         }
 
         public bool CanAttackCreature(ICard attacker, ICard targetOfAttack)
@@ -253,7 +253,7 @@ namespace Engine
 
         public IEnumerable<ICard> GetCreaturesThatHaveAttackTargets()
         {
-            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer.Id).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
+            return BattleZone.GetCreatures(CurrentTurn.ActivePlayer).Where(c => !c.Tapped && !AffectedBySummoningSickness(c) && GetPossibleAttackTargets(c).Any());
         }
 
         public IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker)
@@ -265,7 +265,7 @@ namespace Engine
             }
             if (CanAttackAtLeastOneCreature(attacker))
             {
-                var opponentsCreatures = BattleZone.GetCreatures(attacker.Owner.Opponent.Id).Where(x => CanAttackCreature(attacker, x));
+                var opponentsCreatures = BattleZone.GetCreatures(attacker.Owner.Opponent).Where(x => CanAttackCreature(attacker, x));
                 attackables.AddRange(opponentsCreatures.Where(c => c.Tapped ||
                     ContinuousEffects.CanCreatureAttackUntappedCreature(attacker, c) ||
                     ContinuousEffects.CanCreatureBeAttackedAsThoughItWereTapped(c)));

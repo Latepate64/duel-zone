@@ -48,7 +48,7 @@ namespace Cards.ContinuousEffects
 
         protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
     }
 

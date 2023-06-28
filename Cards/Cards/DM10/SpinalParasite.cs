@@ -41,7 +41,7 @@ namespace Cards.Cards.DM10
 
         public override void Resolve(IGame game)
         {
-            var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player.Id).Where(x => game.CanAttackAtLeastSomething(x)), ToString());
+            var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player).Where(x => game.CanAttackAtLeastSomething(x)), ToString());
             game.AddContinuousEffects(this, new SpinalParasiteContinuousEffect(creature));
         }
 

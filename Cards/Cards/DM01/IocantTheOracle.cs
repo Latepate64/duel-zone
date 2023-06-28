@@ -28,7 +28,7 @@ namespace Cards.Cards.DM01
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(Applier.Id).Any(x => x.HasRace(Race.AngelCommand)))
+            if (game.BattleZone.GetCreatures(Applier).Any(x => x.HasRace(Race.AngelCommand)))
             {
                 Source.Power += 2000;
             }

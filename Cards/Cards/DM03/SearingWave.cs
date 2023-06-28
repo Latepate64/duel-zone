@@ -31,7 +31,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(Applier.Opponent.Id).Where(x => x.Power <= 3000);
+            return game.BattleZone.GetCreatures(Applier.Opponent).Where(x => x.Power <= 3000);
         }
     }
 }

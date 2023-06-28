@@ -22,7 +22,7 @@ namespace Cards.ContinuousEffects
         public void AddAbility(IGame game)
         {
             var events = game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
-            if (events.Any(e => game.BattleZone.GetCreatures(Applier.Id).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
+            if (events.Any(e => game.BattleZone.GetCreatures(Applier).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
             {
                 Source.AddGrantedAbility(_ability.Copy());
             }

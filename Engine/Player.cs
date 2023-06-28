@@ -203,7 +203,7 @@ namespace Engine
 
         public ICard ChooseControlledCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetCreatures(Id), description);
+            return ChooseCard(game.BattleZone.GetCreatures(this), description);
         }
 
         public ICard ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
@@ -213,17 +213,17 @@ namespace Engine
 
         public ICard ChooseControlledCreatureOptionally(IGame game, string description)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault();
+            return ChooseCards(game.BattleZone.GetCreatures(this), 0, 1, description).SingleOrDefault();
         }
 
         public IEnumerable<ICard> ChooseControlledCreatures(IGame game, string description, int amount)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description);
+            return ChooseCards(game.BattleZone.GetCreatures(this), amount, amount, description);
         }
 
         public IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description);
+            return ChooseCards(game.BattleZone.GetCreatures(this), 0, max, description);
         }
 
         public int ChooseNumber(NumberChoice choice)

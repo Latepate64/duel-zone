@@ -30,7 +30,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<Engine.ICard> GetAffectedCards(Engine.IGame game)
         {
-            return game.BattleZone.GetCreatures(Applier.Id).Where(x => !IsSourceOfAbility(x) && x.HasCivilization(Engine.Civilization.Fire));
+            return game.BattleZone.GetCreatures(Applier).Where(x => !IsSourceOfAbility(x) && x.HasCivilization(Engine.Civilization.Fire));
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Engine.Zones
         void Dispose();
         IEnumerable<ICard> GetCards(Civilization civilization);
         IEnumerable<ICard> GetCreatures(Civilization civilization);
-        IEnumerable<ICard> GetCreatures(Guid owner);
         IEnumerable<ICard> GetCreatures(Race race);
+        IEnumerable<ICard> GetCreatures(IPlayer player);
         IEnumerable<ICard> GetOtherCreatures(Guid creature);
         List<ICard> Remove(ICard card, IGame game);
         string ToString();

@@ -144,17 +144,12 @@ namespace Engine.Zones
 
         public void RemoveSummoningSicknesses(IPlayer player)
         {
-            GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
+            GetCreatures(player).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
         }
 
         public IEnumerable<ICard> GetCreaturesWithSilentSkill(IPlayer player)
         {
-            return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
-        }
-
-        public IEnumerable<ICard> GetCreatures(IPlayer player)
-        {
-            return GetCreatures(player.Id);
+            return GetCreatures(player).Where(x => x.GetSilentSkillAbilities().Any());
         }
     }
 }

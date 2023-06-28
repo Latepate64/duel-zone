@@ -24,7 +24,7 @@ namespace Cards.Cards.DM04
 
         public override void Apply(IGame game)
         {
-            int amount = game.BattleZone.GetCreatures(Applier.Opponent.Id).Count(x => x.HasCivilization(Civilization.Light));
+            int amount = game.BattleZone.GetCreatures(Applier.Opponent).Count(x => x.HasCivilization(Civilization.Light));
             Applier.Opponent.DiscardOwnCards(game, Ability, amount);
         }
 

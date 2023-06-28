@@ -18,7 +18,7 @@ namespace Cards.Cards.DM01
         public override void Apply(IGame game)
         {
             // Destroy 2 of your other creatures or destroy this creature.
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
+            var creatures = game.BattleZone.GetCreatures(Applier);
             var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
             if (thisCreature == null)
             {

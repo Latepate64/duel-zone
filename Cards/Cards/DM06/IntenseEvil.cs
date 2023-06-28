@@ -17,10 +17,9 @@ namespace Cards.Cards.DM06
     {
         public override void Apply(IGame game)
         {
-            var player = Applier;
-            var cards = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).ToArray();
+            var cards = Applier.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(Applier), ToString()).ToArray();
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
-            player.DrawCards(cards.Length, game, Ability);
+            Applier.DrawCards(cards.Length, game, Ability);
         }
 
         public override IOneShotEffect Copy()

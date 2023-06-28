@@ -31,7 +31,7 @@ namespace Cards.Cards.DM01
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Any(x => x.HasRace(Race.CyberLord));
+            return game.BattleZone.GetCreatures(Controller).Any(x => x.HasRace(Race.CyberLord));
         }
 
         public override string ToString()

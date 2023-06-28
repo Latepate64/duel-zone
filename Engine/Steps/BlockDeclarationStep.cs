@@ -17,7 +17,7 @@ namespace Engine.Steps
 
         private IEnumerable<ICard> GetCreaturesThatCanBlock(IGame game, ICard attackingCreature)
         {
-            IEnumerable<ICard> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
+            IEnumerable<ICard> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
             IEnumerable<ICard> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
             return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }

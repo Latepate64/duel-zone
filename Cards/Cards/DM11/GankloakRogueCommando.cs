@@ -18,7 +18,7 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
+            var creatures = game.BattleZone.GetCreatures(Ability.Controller);
             game.AddContinuousEffects(Ability, new GankloakRogueCommandoContinuousEffect(creatures.ToArray()));
         }
 
