@@ -35,7 +35,7 @@ namespace Engine.Steps
             game.RemoveSummoningSicknesses(player);
             if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
-                player.Untap(game, player.CardsInManaZone);
+                player.Untap(game, player.ManaZone.Cards.ToArray());
             }
             if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {

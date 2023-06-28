@@ -707,9 +707,12 @@ namespace Engine
             return creature;
         }
 
-        public void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability)
-        {
-            game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
-        }
+        public void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability) => game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
+
+        public ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+
+        public void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
+
+        public void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
     }
 }

@@ -2,7 +2,6 @@
 using Engine.Choices;
 using Engine.Zones;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine
 {
@@ -10,7 +9,6 @@ namespace Engine
     {
         IEnumerable<ICard> CardsInNonsharedZones { get; }
         IDeck Deck { get; }
-        List<ICard> DeckCards => Deck.Cards;
         bool DirectlyAttacked { get; set; }
         IGraveyard Graveyard { get; }
         IHand Hand { get; }
@@ -19,7 +17,6 @@ namespace Engine
         string Name { get; set; }
         IShieldZone ShieldZone { get; }
         IEnumerable<IZone> Zones { get; }
-        ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
 
         IPlayer Opponent { get; set; }
 
@@ -141,8 +138,8 @@ namespace Engine
         void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
         ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
         void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability);
-        ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
-        void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
-        void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
+        ICard RevealTopCardOfOwnDeck(IGame game);
+        void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability);
+        void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability);
     }
 }
