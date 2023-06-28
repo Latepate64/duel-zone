@@ -21,7 +21,7 @@ namespace Cards.Cards.DM03
 
         public void AddAbility(IGame game)
         {
-            if (Applies(game))
+            if (Applies())
             {
                 Source.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
             }
@@ -34,7 +34,7 @@ namespace Cards.Cards.DM03
 
         public void ModifyPower(IGame game)
         {
-            if (Applies(game))
+            if (Applies())
             {
                 Source.Power += 3000;
             }
@@ -45,13 +45,9 @@ namespace Cards.Cards.DM03
             return "While all the cards in your mana zone are nature cards, this creature gets +3000 power and has \"double breaker.\"";
         }
 
-        private bool Applies(IGame game)
+        private bool Applies()
         {
-            if (Ability != null)
-            {
-                return Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
-            }
-            return false;
+            return Ability != null && Applier.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
         }
     }
 }
