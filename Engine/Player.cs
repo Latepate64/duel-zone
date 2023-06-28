@@ -239,12 +239,12 @@ namespace Engine
 
         public ICard ChooseOpponentsCreature(string description)
         {
-            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Game, this), description);
+            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(this), description);
         }
 
         public ICard ChooseOpponentsNonEvolutionCreature(string description)
         {
-            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Game, this).Where(x => x.IsNonEvolutionCreature), description);
+            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(this).Where(x => x.IsNonEvolutionCreature), description);
         }
 
         public IPlayer ChoosePlayer(string description)
@@ -266,14 +266,14 @@ namespace Engine
 
         public ICard DestroyCreatureOptionally(IAbility ability)
         {
-            var card = ChooseCardOptionally(Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Game, this), ability.ToString());
+            var card = ChooseCardOptionally(Game.BattleZone.GetChoosableCreaturesControlledByAnyone(this), ability.ToString());
             Game.Destroy(ability, card);
             return card;
         }
 
         public ICard DestroyOpponentsCreatureWithMaxPower(int power, string description)
         {
-            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Game, this).Where(x => x.Power <= power), description);
+            return ChooseCard(Game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(this).Where(x => x.Power <= power), description);
         }
 
         public void Discard(IAbility ability, params ICard[] cards)
@@ -693,7 +693,7 @@ namespace Engine
 
         public ICard ChooseCreatureInBattleZoneOptionally(string description)
         {
-            return ChooseCardOptionally(Game.BattleZone.GetChoosableCreaturesControlledByAnyone(Game, this), description);
+            return ChooseCardOptionally(Game.BattleZone.GetChoosableCreaturesControlledByAnyone(this), description);
         }
 
         public void DestroyAllCreaturesThatHaveMaximumPower(int power, IAbility ability)

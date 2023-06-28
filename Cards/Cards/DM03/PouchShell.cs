@@ -36,7 +36,7 @@ namespace Cards.Cards.DM03
 
         protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier).Where(x => x.IsEvolutionCreature);
+            return game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier).Where(x => x.IsEvolutionCreature);
         }
     }
 }

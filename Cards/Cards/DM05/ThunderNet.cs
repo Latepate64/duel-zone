@@ -17,7 +17,7 @@ namespace Cards.Cards.DM05
         public override void Apply(IGame game)
         {
             var amount = game.BattleZone.GetCreatures(Applier).Count(x => x.HasCivilization(Civilization.Water));
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier), 0, amount, ToString());
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 0, amount, ToString());
             Applier.Tap(creatures.ToArray());
         }
 

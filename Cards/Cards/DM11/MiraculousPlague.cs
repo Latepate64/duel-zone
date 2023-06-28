@@ -20,7 +20,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(game, Applier), 2, 2, ToString());
+            var creatures = Applier.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByChoosersOpponent(Applier), 2, 2, ToString());
             var toHand = Applier.Opponent.ChooseCard(creatures, ToString());
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, toHand);
             game.Destroy(Ability, creatures.Where(x => x != toHand).ToArray());

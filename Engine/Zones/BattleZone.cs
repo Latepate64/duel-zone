@@ -56,9 +56,9 @@ namespace Engine.Zones
             }
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            return GetCreatures(chooser.Opponent).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(chooser, creature));
+            return GetCreatures(chooser.Opponent).Where(creature => Game.ContinuousEffects.CanPlayerChooseCreature(chooser, creature));
         }
 
         public override string ToString()
@@ -66,9 +66,9 @@ namespace Engine.Zones
             return "battle zone";
         }
 
-        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser)
+        public IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            return GetChoosableCreaturesControlledByChoosersOpponent(game, chooser).Where(x => x.IsEvolutionCreature);
+            return GetChoosableCreaturesControlledByChoosersOpponent(chooser).Where(x => x.IsEvolutionCreature);
         }
 
         public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race)
@@ -126,14 +126,14 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser)
+        public IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByChoosersOpponent(IPlayer chooser)
         {
-            return GetChoosableCreaturesControlledByChoosersOpponent(game, chooser).Where(x => !x.Tapped);
+            return GetChoosableCreaturesControlledByChoosersOpponent(chooser).Where(x => !x.Tapped);
         }
 
-        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser)
+        public IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IPlayer chooser)
         {
-            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByChoosersOpponent(game, chooser));
+            return GetCreatures(chooser).Union(GetChoosableCreaturesControlledByChoosersOpponent(chooser));
         }
 
         public IBattleZone Copy()

@@ -6,10 +6,10 @@ namespace Engine.Zones
     {
         IEnumerable<ICard> EvolutionCreatures { get; }
 
-        IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, IPlayer chooser);
-        IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser);
-        IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser);
-        IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByChoosersOpponent(IGame game, IPlayer chooser);
+        IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IPlayer chooser);
+        IEnumerable<ICard> GetChoosableCreaturesControlledByChoosersOpponent(IPlayer chooser);
+        IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByChoosersOpponent(IPlayer chooser);
+        IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByChoosersOpponent(IPlayer chooser);
         IEnumerable<ICard> GetCreatures(IPlayer controller, Race race);
         IEnumerable<ICard> GetCreatures(IPlayer controller, Race race1, Race race2);
         IEnumerable<ICard> GetCreatures(IPlayer controller, Civilization civilization);
