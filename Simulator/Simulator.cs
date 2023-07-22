@@ -56,6 +56,9 @@ namespace Simulator
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
             player1.Deck.Setup(GetCards(player1, matchUp.StartingPlayer.DeckPath), player1);
             player2.Deck.Setup(GetCards(player2, matchUp.Opponent.DeckPath), player2);
+            int counter = 0;
+            player1.Deck.Cards.ForEach(x => x.PhysicalCardId = counter++);
+            player2.Deck.Cards.ForEach(x => x.PhysicalCardId = counter++);
             using var game = simulator.PlayDuel(player1, player2);
 
             var usedCards = game.Turns.SelectMany(x => x.Phases).SelectMany(x => x.UsedCards);
@@ -110,16 +113,13 @@ namespace Simulator
             }
             else
             {
-                int id = 0;
                 List<Card> cards = new();
                 using var reader = XmlReader.Create(path);
                 foreach (var cardGroup in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
                 {
                     for (int i = 0; i < cardGroup.Quantity; ++i)
                     {
-                        Card card = CreateCard(cardGroup.Name, player);
-                        card.PhysicalCardId = id++;
-                        cards.Add(card);
+                        cards.Add(CreateCard(cardGroup.Name, player));
                     }
                 }
                 return cards;

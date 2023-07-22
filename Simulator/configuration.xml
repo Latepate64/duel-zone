@@ -3,11 +3,11 @@
 	<players>
 		<player>
 			<name>Shobu</name>
-			 <deck_path>Decks/fn_rush.o8d</deck_path>
+			 <!--<deck_path>Decks/fn_rush.o8d</deck_path>-->
 		</player>
 		<player>
 			<name>Kokujo</name>
-      <deck_path>Decks/highlander.o8d</deck_path>
+      <!--<deck_path>Decks/highlander.o8d</deck_path>-->
 		</player>
 	</players>
 </configuration>
