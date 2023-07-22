@@ -1,5 +1,6 @@
 ﻿using Combinatorics.Collections;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -267,6 +268,11 @@ namespace Engine
         protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
         {
             AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
+        }
+
+        public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
+        {
+            return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
         }
     }
 }

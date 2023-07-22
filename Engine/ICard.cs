@@ -1,4 +1,5 @@
 ﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace Engine
         IList<ICard> Deconstruct(IList<ICard> deconstructred);
 
         IEnumerable<T> GetAbilities<T>();
-
+        IEnumerable<IEvolutionEffect> GetEvolutionEffects();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         IEnumerable<SilentSkillAbility> GetSilentSkillAbilities();
         IEnumerable<TapAbility> GetTapAbilities();

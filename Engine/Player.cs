@@ -640,9 +640,9 @@ namespace Engine
             game.Lose(this);
         }
 
-        private void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature, IGame game)
         {
-            var effect = evolutionCreature.GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>().Single();
+            var effect = evolutionCreature.GetEvolutionEffects().Single();
             effect.Evolve(evolutionCreature, game);
         }
 
