@@ -219,7 +219,7 @@ namespace Engine.ContinuousEffects
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _continuousEffects.Clear();
         }
 
         public IContinuousEffects Copy()
