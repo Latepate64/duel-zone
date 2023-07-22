@@ -13,7 +13,11 @@ namespace Cards
 
         static public Card Create(string name)
         {
-            string set = "DM08"; //TODO: improve
+            return Activator.CreateInstance(System.Reflection.Assembly.GetExecutingAssembly().GetTypes().First(type => type.Namespace != null && type.Namespace.StartsWith("Cards.Cards") && type.Name == ToPascalCase(name))) as Card;
+        }
+
+        static public Card Create(string name, string set)
+        {
             return Activator.CreateInstance(null, $"Cards.Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
         }
 

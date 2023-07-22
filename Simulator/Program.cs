@@ -27,8 +27,7 @@ namespace Simulator
         static void Main(string[] args)
         {
             var simulator = new Simulator();
-
-            using var reader = XmlReader.Create(args[0]);
+            using var reader = XmlReader.Create(args.Any() ? args[0] : "configuration.xml");
             var conf = new XmlSerializer(typeof(SimulationConfiguration)).Deserialize(reader) as SimulationConfiguration;
             foreach (var p in conf.Players)
             {
