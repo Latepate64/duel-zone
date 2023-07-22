@@ -32,6 +32,8 @@ namespace Engine
         List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
         ICard Underneath { get; set; }
+        int PhysicalCardId { get; set; }
+
         void AddGrantedAbility(IAbility ability);
         void AddGrantedRace(Race race);
         bool CanBePaid(IPlayer player);

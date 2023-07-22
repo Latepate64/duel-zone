@@ -4,6 +4,7 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -110,13 +111,16 @@ namespace Simulator
             }
             else
             {
+                int id = 0;
                 List<Card> cards = new();
                 using var reader = XmlReader.Create(path);
-                foreach (var card in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
+                foreach (var cardGroup in (new XmlSerializer(typeof(DeckConfiguration)).Deserialize(reader) as DeckConfiguration).Sections.Single(x => x.Name == "Main").Cards)
                 {
-                    for (int i = 0; i < card.Quantity; ++i)
+                    for (int i = 0; i < cardGroup.Quantity; ++i)
                     {
-                        cards.Add(CreateCard(card.Name, player));
+                        Card card = CreateCard(cardGroup.Name, player);
+                        card.PhysicalCardId = id++;
+                        cards.Add(card);
                     }
                 }
                 return cards;
