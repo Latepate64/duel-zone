@@ -10,8 +10,15 @@ using System.Xml.Serialization;
 
 namespace Simulator
 {
-    public class Simulator
+    public class Simulator : ISimulator
     {
+        private readonly ICardFactory _cardFactory;
+
+        public Simulator(ICardFactory cardFactory)
+        {
+            _cardFactory = cardFactory;
+        }
+
         public Game PlayDuel(Player player1, Player player2)
         {
             Game game = new();
@@ -19,7 +26,7 @@ namespace Simulator
             return game;
         }
 
-        internal void PlayRoundOfGames(SimulationConfiguration conf, List<MatchUp> matchUps)
+        public void PlayRoundOfGames(SimulationConfiguration conf, List<MatchUp> matchUps)
         {
             foreach (var matchUp in matchUps)
             {
@@ -44,7 +51,7 @@ namespace Simulator
             PrintCardStatistics(cards);
         }
 
-        private static void PlayGame(MatchUp matchUp, Simulator simulator, int simulationDepth)
+        private void PlayGame(MatchUp matchUp, Simulator simulator, int simulationDepth)
         {
             using Player player1 = new SimulationPlayer { Name = matchUp.StartingPlayer.Name }, player2 = new SimulationPlayer { Name = matchUp.Opponent.Name };
             player1.Deck.Setup(GetCards(player1, matchUp.StartingPlayer.DeckPath), player1);
@@ -80,7 +87,7 @@ namespace Simulator
             //}
         }
 
-        static List<Card> GetCards(IPlayer player)
+        private static List<Card> GetCards(IPlayer player)
         {
             var allCards = CardFactory.CreateAll().OrderBy(arg => Guid.NewGuid());
             var effects = CardFactory.CreateEffects().OrderBy(x => x.ToString());
@@ -95,7 +102,7 @@ namespace Simulator
             return cards;
         }
 
-        static List<Card> GetCards(IPlayer player, string path)
+        private List<Card> GetCards(IPlayer player, string path)
         {
             if (path == null)
             {
@@ -116,14 +123,14 @@ namespace Simulator
             }
         }
 
-        static Card CreateCard(string name, IPlayer player)
+        private Card CreateCard(string name, IPlayer player)
         {
-            var card = CardFactory.Create(name);
+            var card = _cardFactory.Create(name);
             card.Owner = player;
             return card;
         }
 
-        static void PrintCardStatistics(Dictionary<string, Tuple<int, int>> cards)
+        private static void PrintCardStatistics(Dictionary<string, Tuple<int, int>> cards)
         {
             foreach (var c in cards.OrderByDescending(x => GetCardPoints(x.Value.Item1, x.Value.Item2)))
             {
@@ -136,7 +143,7 @@ namespace Simulator
             return Math.Round((double)wins / (wins + losses), 2);
         }
 
-        static double GetCardPoints(double wins, double losses)
+        private static double GetCardPoints(double wins, double losses)
         {
             var rate = wins / (wins + losses);
             var fo = rate - (rate - 0.5) * Math.Pow(2, -1 * Math.Log10(wins + losses + 1));

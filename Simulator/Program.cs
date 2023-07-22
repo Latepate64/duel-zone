@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -8,6 +9,8 @@ namespace Simulator
 {
     public class Program
     {
+        private static ISimulator Simulator;
+
         static List<MatchUp> GetMatchUps(IEnumerable<PlayerConfiguration> players)
         {
             List<MatchUp> matchUps = new();
@@ -26,7 +29,7 @@ namespace Simulator
 
         static void Main(string[] args)
         {
-            var simulator = new Simulator();
+            Simulator = new Simulator(new CardFactory());
             using var reader = XmlReader.Create(args.Any() ? args[0] : "configuration.xml");
             var conf = new XmlSerializer(typeof(SimulationConfiguration)).Deserialize(reader) as SimulationConfiguration;
             foreach (var p in conf.Players)
@@ -39,7 +42,7 @@ namespace Simulator
             {
                 try
                 {
-                    simulator.PlayRoundOfGames(conf, matchUps);
+                    Simulator.PlayRoundOfGames(conf, matchUps);
                 }
                 catch (Exception e)
                 {
