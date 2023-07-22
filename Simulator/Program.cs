@@ -38,16 +38,24 @@ namespace Simulator
             }
             List<MatchUp> matchUps = GetMatchUps(conf.Players);
             var exceptions = new List<Exception>();
+            bool catchExceptions = false;
             for (int i = 0; i < 999999; ++i)
             {
-                try
+                if (catchExceptions)
+                {
+                    try
+                    {
+                        Simulator.PlayRoundOfGames(conf, matchUps);
+                    }
+                    catch (Exception e)
+                    {
+                        exceptions.Add(e);
+                        System.IO.File.AppendAllText("exceptions.txt", e.ToString() + Environment.NewLine);
+                    }
+                }
+                else
                 {
                     Simulator.PlayRoundOfGames(conf, matchUps);
-                }
-                catch (Exception e)
-                {
-                    exceptions.Add(e);
-                    System.IO.File.AppendAllText("exceptions.txt", e.ToString() + Environment.NewLine);
                 }
             }
         }

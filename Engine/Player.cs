@@ -137,7 +137,12 @@ namespace Engine
         {
             int minimum = attackers.Any(game.ContinuousEffects.DoesCreatureAttackIfAble) ? 1 : 0;
             IEnumerable<ICard> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
-            return decision.Any() && ChooseAttackTarget(game, attackers.Single(x => x.Id == decision.Single().Id));
+            if (decision.Any())
+            {
+                var id = decision.Single().Id;
+                return ChooseAttackTarget(game, attackers.Where(x => x.Id == id).ToList().Single());
+            }
+            return false;
         }
 
         public IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets)
