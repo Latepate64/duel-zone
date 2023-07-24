@@ -5,7 +5,7 @@ import { SharedModule } from '../../shared';
 import { DeckBuilderComponent } from './deck-builder.component';
 import { CardCollectionComponent } from './card-collection/card-collection.component';
 import { DeckComponent } from './deck/deck.component';
-import { MatTableModule } from '@angular/material/table';
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 
 @NgModule({
   declarations: [DeckBuilderComponent, CardCollectionComponent, DeckComponent],
