@@ -1,0 +1,7 @@
+services:
+  clientapp:
+    build: web/clientapp
+    ports:
+      - "4200:80"
+    environment:
+    - TZ=Europe/Helsinki
