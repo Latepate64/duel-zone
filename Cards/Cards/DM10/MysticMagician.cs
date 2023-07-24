@@ -71,7 +71,7 @@ namespace Cards.Cards.DM10
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            return card != null && card.Owner == Controller && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }
     }
 }
