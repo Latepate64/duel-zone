@@ -1,0 +1,28 @@
+<h2>Card collection</h2>
+<p *ngIf="!cards"><em>Loading...</em></p>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="cards">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Card type</th>
+      <th>Civilizations</th>
+      <th>Mana cost</th>
+      <th>Rules text</th>
+      <th>Power</th>
+      <th>Races</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let card of cards">
+      <td>{{ card.name }}</td>
+      <td>{{ card.cardType }}</td>
+      <td>{{ card.civilizations }}</td>
+      <td>{{ card.manaCost }}</td>
+      <td>{{ card.rulesText }}</td>
+      <td>{{ card.power }}</td>
+      <td>{{ card.races }}</td>
+      <td><button class="btn btn-primary" (click)="addCardToDeck(card.name)">Add</button></td>
+    </tr>
+  </tbody>
+</table>

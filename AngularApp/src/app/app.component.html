@@ -1,0 +1,11 @@
+<div class="page-layout" *ngIf="isAuth0Loading$ | async; else auth0Loaded">
+  <app-page-loader></app-page-loader>
+</div>
+<ng-template #auth0Loaded>
+  <body>
+    <app-nav-menu></app-nav-menu>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </body>
+</ng-template>

@@ -1,6 +1,6 @@
 services:
   clientapp:
-    build: web/clientapp
+    build: angularapp
     ports:
       - "4200:80"
     environment:
