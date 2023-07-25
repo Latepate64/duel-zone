@@ -6,9 +6,24 @@ export const environment = {
   production: false,
   auth0: {
     domain: 'dev-otd2luzvi36lw2nh.us.auth0.com',
-    clientId: 'vtjasg67th7LJwC6mPcV0BuyLORvbLEP',
+    clientId: 'vdD4hTh2bypsew1sr0ooLokAfbJ2MP80',
     authorizationParams: {
-      redirect_uri: 'http://localhost:4200/',
+      redirect_uri: window.location.origin,
+      audience: 'https://localhost:7034/',
+      // scope: 'read:current_user',
+    },
+    httpInterceptor: {
+      allowedList: [
+        {
+          uri: 'http://localhost:4200/*',
+          tokenOptions: {
+            authorizationParams: {
+              audience: 'https://localhost:7034/',
+              // scope: 'read:current_user'
+            }
+          }
+        }
+      ]
     },
   },
   api: {

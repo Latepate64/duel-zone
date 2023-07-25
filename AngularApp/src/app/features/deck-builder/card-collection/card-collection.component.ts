@@ -22,21 +22,9 @@ export class CardCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.user$
-      .pipe(
-        concatMap((user) =>
-          // Use HttpClient to make the call
-          //this.http.get(
-          //  encodeURI(`https://{yourDomain}/api/v2/users/${user?.sub}`)
-          //)
-          this.http.get<Card[]>(this.baseUrl + 'card/' + user?.sub)
-        ),
-        map((user: any) => user.user_metadata),
-        tap((meta) => (this.metadata = meta))
-      )
-      .subscribe(result => {
-        this.cards = result;
-      }, error => console.error(error));
+    this.http.get<Card[]>(this.baseUrl + 'card').subscribe(result => {
+     this.cards = result;
+    }, error => console.error(error));
   }
 
   public addCardToDeck(cardName: string) {
