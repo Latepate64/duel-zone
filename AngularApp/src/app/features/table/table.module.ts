@@ -5,13 +5,15 @@ import { PlaymatComponent } from '../playmat/playmat.component';
 import { ZoneComponent } from '../zone/zone.component';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
+import { CardComponent } from '../card/card.component';
 
 
 @NgModule({
   declarations: [
     TableComponent,
     PlaymatComponent,
-    ZoneComponent
+    ZoneComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
