@@ -1,11 +1,13 @@
 ﻿//using Cards;
 //using Engine;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class CardController : ControllerBase
     {
         private readonly ILogger<CardController> _logger;
