@@ -1,7 +1,13 @@
 services:
   clientapp:
-    build: web/clientapp
+    build: angularapp
     ports:
       - "4200:80"
+    environment:
+    - TZ=Europe/Helsinki
+  server:
+    build: server
+    ports:
+      - "5195:80"
     environment:
     - TZ=Europe/Helsinki

@@ -1,0 +1,33 @@
+<h2>Deck</h2>
+<p *ngIf="!deckCards"><em>Loading...</em></p>
+<!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="deckCards" [dataSource]=deckCards>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let card of deckCards; trackBy: identify">
+      <td>{{ card.quantity }}</td>
+      <td>{{ card.name }}</td>
+      <td><button class="btn btn-primary">Remove</button></td>
+    </tr>
+  </tbody>
+</table>-->
+<mat-table><!--[dataSource]="deckCards"-->
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.quantity}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.name}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="remove">
+    <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <!--<mat-row *matRowDef="let deckCards; columns: columnsToDisplay"></mat-row>-->
+</mat-table>
