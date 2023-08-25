@@ -22,7 +22,7 @@ namespace Engine.Abilities
             TriggersOnlyOnce = triggersOnlyOnce;
         }
 
-        internal DelayedTriggeredAbility(DelayedTriggeredAbility ability)
+        public DelayedTriggeredAbility(DelayedTriggeredAbility ability)
         {
             TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
             TriggersOnlyOnce = ability.TriggersOnlyOnce;

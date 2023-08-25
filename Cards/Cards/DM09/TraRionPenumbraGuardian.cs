@@ -17,11 +17,10 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new DelayedTriggeredAbility(
-                new TriggeredAbilities.AtTheEndOfTurnAbility(game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Controller.ChooseRace(ToString()))),
+            game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(
                 Ability.Source,
                 Ability.Controller,
-                true));
+                game.CurrentTurn.Id, new TraRionPenumbraGuardianUntapEffect(Controller.ChooseRace(ToString()))));
         }
 
         public override IOneShotEffect Copy()
