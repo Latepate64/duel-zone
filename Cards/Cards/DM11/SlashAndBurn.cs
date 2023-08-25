@@ -1,7 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 
 namespace Cards.Cards.DM11
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new SlashAndBurnDelayedAbility(Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new SlashAndBurnAbility(), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -37,18 +36,6 @@ namespace Cards.Cards.DM11
         public override string ToString()
         {
             return "Whenever any of your opponent's creatures is destroyed this turn, your opponent chooses a card in his mana zone and puts it into his graveyard. Then he chooses one of his shields and puts it into his graveyard.";
-        }
-    }
-
-    class SlashAndBurnDelayedAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public SlashAndBurnDelayedAbility(IAbility ability) : base(new SlashAndBurnAbility(), ability.Source, ability.Controller, false)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 

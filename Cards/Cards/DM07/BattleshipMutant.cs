@@ -31,7 +31,7 @@ namespace Cards.Cards.DM07
         public override void Apply(IGame game)
         {
             game.AddContinuousEffects(Ability, new BattleshipMutantContinuousEffect());
-            game.AddDelayedTriggeredAbility(new BattleshipMutantDelayedTriggeredAbility(Ability, game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new BattleshipMutantAbility(game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -68,18 +68,6 @@ namespace Cards.Cards.DM07
         protected override List<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness).ToList();
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
-        }
-    }
-
-    class BattleshipMutantDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public BattleshipMutantDelayedTriggeredAbility(IAbility source, IEnumerable<ICard> cards) : base(new BattleshipMutantAbility(cards), source.Source, source.Controller, false)
-        {
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)

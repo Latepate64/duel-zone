@@ -1,7 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 using System.Linq;
 
@@ -28,7 +27,7 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var creature = Controller.ChooseControlledCreature(game, ToString());
-            game.AddDelayedTriggeredAbility(new FistsOfForeverDelayedTriggeredAbility(creature, Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new FistsOfForeverAbility(creature), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -39,18 +38,6 @@ namespace Cards.Cards.DM09
         public override string ToString()
         {
             return "Choose one of your creatures in the battle zone. Whenever that creature wins a battle this turn, untap it.";
-        }
-    }
-
-    class FistsOfForeverDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public FistsOfForeverDelayedTriggeredAbility(ICard creature, IAbility source) : base(new FistsOfForeverAbility(creature), source.Source, source.Controller, false)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 

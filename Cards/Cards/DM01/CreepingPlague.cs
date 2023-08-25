@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 
 namespace Cards.Cards.DM01
@@ -19,7 +18,7 @@ namespace Cards.Cards.DM01
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new CreepingPlagueDelayedTriggeredAbility(Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new CreepingPlagueTriggeredAbility(), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -30,18 +29,6 @@ namespace Cards.Cards.DM01
         public override string ToString()
         {
             return "Whenever any of your creatures becomes blocked this turn, it gets \"slayer\" until the end of the turn.";
-        }
-    }
-
-    class CreepingPlagueDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public CreepingPlagueDelayedTriggeredAbility(IAbility source) : base(new CreepingPlagueTriggeredAbility(), source.Source, source.Controller, false)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 
