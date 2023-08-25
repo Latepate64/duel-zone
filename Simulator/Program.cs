@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -8,6 +9,8 @@ namespace Simulator
 {
     public class Program
     {
+        private static ISimulator Simulator;
+
         static List<MatchUp> GetMatchUps(IEnumerable<PlayerConfiguration> players)
         {
             List<MatchUp> matchUps = new();
@@ -26,9 +29,8 @@ namespace Simulator
 
         static void Main(string[] args)
         {
-            var simulator = new Simulator();
-
-            using var reader = XmlReader.Create(args[0]);
+            Simulator = new Simulator(new CardFactory());
+            using var reader = XmlReader.Create(args.Any() ? args[0] : "configuration.xml");
             var conf = new XmlSerializer(typeof(SimulationConfiguration)).Deserialize(reader) as SimulationConfiguration;
             foreach (var p in conf.Players)
             {
@@ -36,16 +38,24 @@ namespace Simulator
             }
             List<MatchUp> matchUps = GetMatchUps(conf.Players);
             var exceptions = new List<Exception>();
+            bool catchExceptions = false;
             for (int i = 0; i < 999999; ++i)
             {
-                try
+                if (catchExceptions)
                 {
-                    simulator.PlayRoundOfGames(conf, matchUps);
+                    try
+                    {
+                        Simulator.PlayRoundOfGames(conf, matchUps);
+                    }
+                    catch (Exception e)
+                    {
+                        exceptions.Add(e);
+                        System.IO.File.AppendAllText("exceptions.txt", e.ToString() + Environment.NewLine);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    exceptions.Add(e);
-                    System.IO.File.AppendAllText("exceptions.txt", e.ToString() + Environment.NewLine);
+                    Simulator.PlayRoundOfGames(conf, matchUps);
                 }
             }
         }

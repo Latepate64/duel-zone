@@ -1,4 +1,5 @@
 ﻿using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace Engine
         List<Supertype> Supertypes { get; set; }
         bool Tapped { get; set; }
         ICard Underneath { get; set; }
+        int PhysicalCardId { get; set; }
+
         void AddGrantedAbility(IAbility ability);
         void AddGrantedRace(Race race);
         bool CanBePaid(IPlayer player);
@@ -40,7 +43,7 @@ namespace Engine
         IList<ICard> Deconstruct(IList<ICard> deconstructred);
 
         IEnumerable<T> GetAbilities<T>();
-
+        IEnumerable<IEvolutionEffect> GetEvolutionEffects();
         IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player);
         IEnumerable<SilentSkillAbility> GetSilentSkillAbilities();
         IEnumerable<TapAbility> GetTapAbilities();
