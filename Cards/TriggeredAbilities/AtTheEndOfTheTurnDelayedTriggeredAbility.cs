@@ -12,5 +12,10 @@ namespace Engine.Abilities
         public AtTheEndOfTheTurnDelayedTriggeredAbility(AtTheEndOfTheTurnDelayedTriggeredAbility ability) : base(ability)
         {
         }
+
+        public override DelayedTriggeredAbility Copy()
+        {
+            return new AtTheEndOfTheTurnDelayedTriggeredAbility(this);
+        }
     }
 }

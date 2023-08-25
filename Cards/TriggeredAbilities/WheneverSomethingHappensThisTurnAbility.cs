@@ -10,8 +10,17 @@ namespace Cards.TriggeredAbilities
     /// </summary>
     public class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAbility, IExpirable
     {
+        public WheneverSomethingHappensThisTurnAbility(WheneverSomethingHappensThisTurnAbility ability) : base(ability)
+        {
+        }
+
         public WheneverSomethingHappensThisTurnAbility(ITriggeredAbility triggeredAbility, IAbility source) : base(triggeredAbility, source.Source, source.Controller, false)
         {
+        }
+
+        public override DelayedTriggeredAbility Copy()
+        {
+            return new WheneverSomethingHappensThisTurnAbility(this);
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)

@@ -2,7 +2,7 @@
 
 namespace Engine.Abilities
 {
-    public class DelayedTriggeredAbility : IDisposable, ICopyable<DelayedTriggeredAbility>
+    public abstract class DelayedTriggeredAbility : IDisposable, ICopyable<DelayedTriggeredAbility>
     {
         internal ITriggeredAbility TriggeredAbility { get; private set; }
 
@@ -44,9 +44,6 @@ namespace Engine.Abilities
             }
         }
 
-        public DelayedTriggeredAbility Copy()
-        {
-            return new DelayedTriggeredAbility(this);
-        }
+        public abstract DelayedTriggeredAbility Copy();
     }
 }

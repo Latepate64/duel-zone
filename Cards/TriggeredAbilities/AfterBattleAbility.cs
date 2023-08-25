@@ -39,5 +39,10 @@ namespace Cards.TriggeredAbilities
         public AfterBattleDelayedTriggeredAbility(OneShotEffect effect, IAbility ability) : base(new AfterBattleAbility(effect), ability.Source, ability.Controller, true)
         {
         }
+
+        public override DelayedTriggeredAbility Copy()
+        {
+            return new AfterBattleDelayedTriggeredAbility(this);
+        }
     }
 }
