@@ -37,7 +37,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect, IExpirable
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
         private readonly ICard _card;
 

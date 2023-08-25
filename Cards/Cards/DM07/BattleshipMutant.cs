@@ -45,7 +45,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect, IExpirable
+    class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
         public BattleshipMutantContinuousEffect(BattleshipMutantContinuousEffect effect) : base(effect)
         {
