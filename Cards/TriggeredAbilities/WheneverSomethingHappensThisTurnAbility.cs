@@ -1,7 +1,9 @@
-﻿using Engine.GameEvents;
+﻿using Engine;
+using Engine.Abilities;
+using Engine.GameEvents;
 using Engine.Steps;
 
-namespace Engine.Abilities
+namespace Cards.TriggeredAbilities
 {
     /// <summary>
     /// Delayed triggered ability that reads "Whenever X happens this turn, Y happens.".
