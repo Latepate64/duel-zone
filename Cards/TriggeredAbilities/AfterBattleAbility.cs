@@ -29,4 +29,15 @@ namespace Cards.TriggeredAbilities
             return "After the battle";
         }
     }
+
+    class AfterBattleDelayedTriggeredAbility : DelayedTriggeredAbility
+    {
+        public AfterBattleDelayedTriggeredAbility(AfterBattleDelayedTriggeredAbility ability) : base(ability)
+        {
+        }
+
+        public AfterBattleDelayedTriggeredAbility(OneShotEffect effect, IAbility ability) : base(new AfterBattleAbility(effect), ability.Source, ability.Controller, true)
+        {
+        }
+    }
 }
