@@ -4,7 +4,6 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +45,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerEffect, IExpirable
+    class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect, IExpirable
     {
         public BattleshipMutantContinuousEffect(BattleshipMutantContinuousEffect effect) : base(effect)
         {
@@ -69,11 +68,6 @@ namespace Cards.Cards.DM07
         protected override List<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness).ToList();
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 
