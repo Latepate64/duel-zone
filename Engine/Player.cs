@@ -1,6 +1,5 @@
 ﻿using Engine.Abilities;
 using Engine.Choices;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Zones;
 using System;
@@ -137,7 +136,12 @@ namespace Engine
         {
             int minimum = attackers.Any(game.ContinuousEffects.DoesCreatureAttackIfAble) ? 1 : 0;
             IEnumerable<ICard> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
-            return decision.Any() && ChooseAttackTarget(game, attackers.Single(x => x.Id == decision.Single().Id));
+            if (decision.Any())
+            {
+                var id = decision.Single().Id;
+                return ChooseAttackTarget(game, attackers.Where(x => x.Id == id).ToList().Single());
+            }
+            return false;
         }
 
         public IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets)
@@ -635,9 +639,9 @@ namespace Engine
             game.Lose(this);
         }
 
-        private void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(ICard evolutionCreature, IGame game)
         {
-            var effect = evolutionCreature.GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>().Single();
+            var effect = evolutionCreature.GetEvolutionEffects().Single();
             effect.Evolve(evolutionCreature, game);
         }
 

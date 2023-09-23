@@ -86,8 +86,17 @@ namespace Cards.Cards.DM08
 
     class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
     {
+        public KachuaDelayedTriggeredAbility(KachuaDelayedTriggeredAbility ability) : base(ability)
+        {
+        }
+
         public KachuaDelayedTriggeredAbility(IAbility source, ICard card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
         {
+        }
+
+        public override DelayedTriggeredAbility Copy()
+        {
+            return new KachuaDelayedTriggeredAbility(this);
         }
     }
 

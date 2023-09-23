@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<deck game="bb784fc6-fe21-4603-90d7-82c049908a74">
+  <section name="Main" shared="False">
+    <card qty="4" id="dfe767f5-8883-4d3c-80ee-df3b277ff425">Gonta, the Warrior Savage</card>
+    <card qty="4" id="c5a869f4-a959-4667-a352-92df5369e0b9">Deadly Fighter Braid Claw</card>
+    <card qty="4" id="76da3804-df25-4773-ba2f-ea17bab89f2d">Comet Missile</card>
+    <card qty="4" id="0a5600c5-65a0-439d-b19c-4bf5ee036e32">Volcanic Arrows</card>
+    <card qty="4" id="1b83ff2c-3095-40d5-bd76-e1566836a8ea">Rikabu's Screwdriver</card>
+    <card qty="4" id="708d2e3a-76dd-40d6-9278-345383b3047a">Pyrofighter Magnus</card>
+    <card qty="4" id="2967d4cc-b4da-4511-b9e7-95b4844216f9">Hearty Cap'n Polligon</card>
+    <card qty="4" id="8dab06d5-93c3-4ac7-abfb-3ce2e63d77e5">Sniper Mosquito</card>
+    <card qty="4" id="701500bb-7ade-4d3d-9938-8367fa3a71bd">Quixotic Hero Swine Snout</card>
+    <card qty="4" id="aa5deaa8-4935-47ee-a6dc-a036398886a1">Torcon</card>
+  </section>
+  <section name="Hyperspatial Deck" shared="False" />
+  <notes><![CDATA[]]></notes>
+</deck>

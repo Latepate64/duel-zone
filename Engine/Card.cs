@@ -1,5 +1,6 @@
 ﻿using Combinatorics.Collections;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Engine
     {
         private readonly IList<Race> _addedRaces = new List<Race>();
         private IList<Race> _printedRaces = new List<Race>();
+
         public Card()
         {
             Id = Guid.NewGuid();
@@ -27,6 +29,7 @@ namespace Engine
             Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
+            PhysicalCardId = card.PhysicalCardId;
             Power = card.Power;
             PrintedAbilities = card.PrintedAbilities.Select(x => x.Copy()).ToList();
             PrintedPower = card.PrintedPower;
@@ -76,6 +79,7 @@ namespace Engine
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
         public IPlayer Owner { get; set; }
+        public int PhysicalCardId { get; set; }
         public int? Power { get; set; }
         public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
         public int? PrintedPower { get; }
@@ -202,8 +206,7 @@ namespace Engine
 
         public override string ToString()
         {
-            return Name;
-            //return Name + " " + Id.ToString();
+            return $"{Name} ({PhysicalCardId})";
         }
         internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
         {
@@ -265,6 +268,11 @@ namespace Engine
         protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
         {
             AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
+        }
+
+        public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
+        {
+            return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
         }
     }
 }

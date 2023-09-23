@@ -1,8 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
-using Engine.Steps;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,7 +32,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect, IExpirable
+    class VreemahFreakyMojoTotemContinuousEffect : ContinuousEffects.GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
         public VreemahFreakyMojoTotemContinuousEffect() : base(2000)
         {
@@ -43,11 +41,6 @@ namespace Cards.Cards.DM09
         public override IContinuousEffect Copy()
         {
             return new VreemahFreakyMojoTotemContinuousEffect();
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
         public override string ToString()

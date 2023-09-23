@@ -2,8 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
-using Engine.Steps;
 using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
@@ -39,7 +37,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerEffect, IExpirable
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
         private readonly ICard _card;
 
@@ -61,11 +59,6 @@ namespace Cards.Cards.DM04
         public override string ToString()
         {
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
         protected override List<ICard> GetAffectedCards(IGame game)

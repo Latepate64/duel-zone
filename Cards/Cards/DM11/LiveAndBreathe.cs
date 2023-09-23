@@ -1,7 +1,7 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 using System.Linq;
 
@@ -27,7 +27,7 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new LiveAndBreatheDelayedAbility(Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new LiveAndBreatheAbility(), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -38,18 +38,6 @@ namespace Cards.Cards.DM11
         public override string ToString()
         {
             return "Whenever you summon a creature this turn, search your deck. You may take a creature from your deck that has the same name as that creature and put it into the battle zone. Then shuffle your deck.";
-        }
-    }
-
-    class LiveAndBreatheDelayedAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public LiveAndBreatheDelayedAbility(IAbility ability) : base(new LiveAndBreatheAbility(), ability.Source, ability.Controller, true)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 

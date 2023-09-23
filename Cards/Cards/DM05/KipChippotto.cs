@@ -50,7 +50,7 @@ namespace Cards.Cards.DM05
 
         protected override bool Applies(ICard card, IGame game)
         {
-            return card.Owner == Controller && card.HasRace(Race.ArmoredDragon);
+            return card != null && card.Owner == Controller && card.HasRace(Race.ArmoredDragon);
         }
     }
 }

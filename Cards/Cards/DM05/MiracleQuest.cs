@@ -1,7 +1,7 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System.Linq;
 
 namespace Cards.Cards.DM05
@@ -26,7 +26,7 @@ namespace Cards.Cards.DM05
 
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new MiracleQuestDelayedTriggeredAbility(Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -37,18 +37,6 @@ namespace Cards.Cards.DM05
         public override string ToString()
         {
             return "Whenever any of your creatures finishes attacking this turn, you may draw 2 cards for each shield it broke.";
-        }
-    }
-
-    class MiracleQuestDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public MiracleQuestDelayedTriggeredAbility(IAbility source) : base(new WheneverAnyOfYourCreaturesFinishesAttackingAbility(), source.Source, source.Controller, false)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 

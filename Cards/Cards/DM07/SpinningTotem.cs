@@ -1,7 +1,7 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using Engine.Steps;
 using System;
 
 namespace Cards.Cards.DM07
@@ -26,7 +26,7 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new SpinningTotemDelayedTriggeredAbility(Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new SpinningTotemTriggeredAbility(), Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -37,18 +37,6 @@ namespace Cards.Cards.DM07
         public override string ToString()
         {
             return "This turn, whenever any of your nature creatures is attacking your opponent and becomes blocked, it breaks one of his shields.";
-        }
-    }
-
-    class SpinningTotemDelayedTriggeredAbility : DelayedTriggeredAbility, IExpirable
-    {
-        public SpinningTotemDelayedTriggeredAbility(IAbility source) : base(new SpinningTotemTriggeredAbility(), source.Source, source.Controller, false)
-        {
-        }
-
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
     }
 

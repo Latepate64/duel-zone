@@ -34,4 +34,20 @@ namespace Cards.TriggeredAbilities
             return "After the attack";
         }
     }
+
+    class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
+    {
+        public AfterAttackDelayedTriggeredAbility(AfterAttackDelayedTriggeredAbility ability) : base(ability)
+        {
+        }
+
+        public AfterAttackDelayedTriggeredAbility(OneShotEffect effect, IAbility ability, Guid attacker) : base(new AfterAttackAbility(effect, attacker), ability.Source, ability.Controller, true)
+        {
+        }
+
+        public override DelayedTriggeredAbility Copy()
+        {
+            return new AfterAttackDelayedTriggeredAbility(this);
+        }
+    }
 }
