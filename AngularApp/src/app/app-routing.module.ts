@@ -21,6 +21,11 @@ const routes: Routes = [
       import('./features/profile/profile.module').then((m) => m.ProfileModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'table',
+    loadChildren: () =>
+      import('./features/table/table.module').then((m) => m.TableModule),
+  },
   //{
   //  path: 'public',
   //  loadChildren: () =>
