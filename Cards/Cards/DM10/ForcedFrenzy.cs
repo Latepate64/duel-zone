@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM10
 {
-    class ForcedFrenzy : Spell
+    public class ForcedFrenzy : Spell
     {
         public ForcedFrenzy() : base("Forced Frenzy", 3, Civilization.Fire)
         {

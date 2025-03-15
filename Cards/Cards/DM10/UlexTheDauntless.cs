@@ -4,7 +4,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM10
 {
-    class UlexTheDauntless : Creature
+    public class UlexTheDauntless : Creature
     {
         public UlexTheDauntless() : base("Ulex, the Dauntless", 3, 3000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
         {

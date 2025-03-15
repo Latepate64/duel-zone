@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class PointaTheAquaShadow : Creature
+    public class PointaTheAquaShadow : Creature
     {
         public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, Race.LiquidPeople, Race.Ghost, Civilization.Water, Civilization.Darkness)
         {

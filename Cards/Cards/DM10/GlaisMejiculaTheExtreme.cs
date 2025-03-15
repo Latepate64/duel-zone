@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class GlaisMejiculaTheExtreme : EvolutionCreature
+    public class GlaisMejiculaTheExtreme : EvolutionCreature
     {
         public GlaisMejiculaTheExtreme() : base("Glais Mejicula, the Extreme", 2, 5500, Race.Initiate, Civilization.Light)
         {

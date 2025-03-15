@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class AquaStrummer : Creature
+    public class AquaStrummer : Creature
     {
         public AquaStrummer() : base("Aqua Strummer", 3, 2000, Race.LiquidPeople, Civilization.Water)
         {

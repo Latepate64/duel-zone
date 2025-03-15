@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class EarthRipperTalonOfRage : EvolutionCreature
+    public class EarthRipperTalonOfRage : EvolutionCreature
     {
         public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4, 6000, Race.BeastFolk, Civilization.Nature)
         {

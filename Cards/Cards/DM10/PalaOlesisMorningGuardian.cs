@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class PalaOlesisMorningGuardian : Creature
+    public class PalaOlesisMorningGuardian : Creature
     {
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Race.Guardian, Civilization.Light)
         {

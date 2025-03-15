@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class GalekTheShadowWarrior : Creature
+    public class GalekTheShadowWarrior : Creature
     {
         public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, Race.Ghost, Race.Human, Civilization.Darkness, Civilization.Fire)
         {

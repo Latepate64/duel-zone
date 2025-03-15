@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class UltimateDragon : Creature
+    public class UltimateDragon : Creature
     {
         public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
         {

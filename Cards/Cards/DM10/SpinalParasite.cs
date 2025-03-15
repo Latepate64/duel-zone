@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class SpinalParasite : Creature
+    public class SpinalParasite : Creature
     {
         public SpinalParasite() : base("Spinal Parasite", 5, 2000, Race.BrainJacker, Civilization.Darkness)
         {

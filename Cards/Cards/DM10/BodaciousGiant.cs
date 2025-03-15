@@ -5,7 +5,7 @@ using Engine.GameEvents;
 
 namespace Cards.Cards.DM10
 {
-    class BodaciousGiant : Creature
+    public class BodaciousGiant : Creature
     {
         public BodaciousGiant() : base("Bodacious Giant", 8, 12000, Race.Giant, Civilization.Nature)
         {

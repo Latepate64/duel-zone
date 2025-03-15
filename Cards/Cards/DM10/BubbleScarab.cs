@@ -7,7 +7,7 @@ using System;
 
 namespace Cards.Cards.DM10
 {
-    class BubbleScarab : Creature
+    public class BubbleScarab : Creature
     {
         public BubbleScarab() : base("Bubble Scarab", 5, 4000, Race.GiantInsect, Civilization.Nature)
         {

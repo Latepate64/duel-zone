@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class PinpointLunatron : SilentSkillCreature
+    public class PinpointLunatron : SilentSkillCreature
     {
         public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Race.CyberMoon, Civilization.Water)
         {

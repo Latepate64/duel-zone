@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class MysticMagician : Creature
+    public class MysticMagician : Creature
     {
         public MysticMagician() : base("Mystic Magician", 5, 3000, Race.Merfolk, Civilization.Water)
         {

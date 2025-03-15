@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class StaticWarp : Spell
+    public class StaticWarp : Spell
     {
         public StaticWarp() : base("Static Warp", 2, Civilization.Light)
         {

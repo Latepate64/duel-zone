@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class MummyWrapShadowOfFatigue : Creature
+    public class MummyWrapShadowOfFatigue : Creature
     {
         public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Race.Ghost, Civilization.Darkness)
         {

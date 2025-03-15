@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class FluorogillManta : Creature
+    public class FluorogillManta : Creature
     {
         public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Race.GelFish, Civilization.Water)
         {

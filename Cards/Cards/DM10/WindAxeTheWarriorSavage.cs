@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class WindAxeTheWarriorSavage : Creature
+    public class WindAxeTheWarriorSavage : Creature
     {
         public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, Race.Human, Race.BeastFolk, Civilization.Fire, Civilization.Nature)
         {

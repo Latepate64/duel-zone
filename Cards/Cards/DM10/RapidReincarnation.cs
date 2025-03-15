@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class RapidReincarnation : Spell
+    public class RapidReincarnation : Spell
     {
         public RapidReincarnation() : base("Rapid Reincarnation", 3, Civilization.Light)
         {

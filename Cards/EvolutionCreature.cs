@@ -3,7 +3,7 @@ using Engine;
 
 namespace Cards
 {
-    class EvolutionCreature : Creature
+    public class EvolutionCreature : Creature
     {
         public EvolutionCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
         {

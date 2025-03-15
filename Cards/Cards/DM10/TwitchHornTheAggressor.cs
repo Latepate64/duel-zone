@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM10
 {
-    class TwitchHornTheAggressor : Creature
+    public class TwitchHornTheAggressor : Creature
     {
         public TwitchHornTheAggressor() : base("Twitch Horn, the Aggressor", 6, 2000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {

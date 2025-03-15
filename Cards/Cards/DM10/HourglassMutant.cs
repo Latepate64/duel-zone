@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class HourglassMutant : Creature
+    public class HourglassMutant : Creature
     {
         public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Race.Hedrian, Civilization.Darkness)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class DolmarksTheShadowWarrior : Creature
+    public class DolmarksTheShadowWarrior : Creature
     {
         public DolmarksTheShadowWarrior() : base("Dolmarks, the Shadow Warrior", 4, 4000, Race.Ghost, Race.Human, Civilization.Darkness, Civilization.Fire)
         {

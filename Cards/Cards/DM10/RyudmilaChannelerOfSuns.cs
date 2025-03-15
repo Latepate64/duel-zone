@@ -4,7 +4,7 @@ using Engine.GameEvents;
 
 namespace Cards.Cards.DM10
 {
-    class RyudmilaChannelerOfSuns : Creature
+    public class RyudmilaChannelerOfSuns : Creature
     {
         public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Race.MechaDelSol, Civilization.Light)
         {

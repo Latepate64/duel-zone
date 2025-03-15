@@ -4,7 +4,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM10
 {
-    class TauntingSkyterror : Creature
+    public class TauntingSkyterror : Creature
     {
         public TauntingSkyterror() : base("Taunting Skyterror", 5, 3000, Race.ArmoredWyvern, Civilization.Fire)
         {

@@ -4,7 +4,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM10
 {
-    class TerradragonCusdalf : Creature
+    public class TerradragonCusdalf : Creature
     {
         public TerradragonCusdalf() : base("Terradragon Cusdalf", 5, 7000, Race.EarthDragon, Civilization.Nature)
         {

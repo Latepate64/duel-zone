@@ -4,7 +4,7 @@ using Engine.GameEvents;
 
 namespace Cards.Cards.DM10
 {
-    class SmashWarriorStagrandu : Creature
+    public class SmashWarriorStagrandu : Creature
     {
         public SmashWarriorStagrandu() : base("Smash Warrior Stagrandu", 2, 1000, Race.Armorloid, Civilization.Fire)
         {

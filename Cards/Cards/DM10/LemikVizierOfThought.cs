@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class LemikVizierOfThought : Creature
+    public class LemikVizierOfThought : Creature
     {
         public LemikVizierOfThought() : base("Lemik, Vizier of Thought", 5, 3000, Race.Initiate, Civilization.Light)
         {

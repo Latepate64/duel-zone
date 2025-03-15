@@ -5,7 +5,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM10
 {
-    class TajimalVizierOfAqua : Creature
+    public class TajimalVizierOfAqua : Creature
     {
         public TajimalVizierOfAqua() : base("Tajimal, Vizier of Aqua", 3, 4000, Race.Initiate, Race.LiquidPeople, Civilization.Light, Civilization.Water)
         {

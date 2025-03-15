@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class Zaltan : Creature
+    public class Zaltan : Creature
     {
         public Zaltan() : base("Zaltan", 5, 3000, Race.CyberLord, Civilization.Water)
         {

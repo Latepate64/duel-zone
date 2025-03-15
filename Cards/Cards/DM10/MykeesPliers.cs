@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class MykeesPliers : Creature
+    public class MykeesPliers : Creature
     {
         public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Race.Xenoparts, Civilization.Fire)
         {

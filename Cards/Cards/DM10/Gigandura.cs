@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class Gigandura : Creature
+    public class Gigandura : Creature
     {
         public Gigandura() : base("Gigandura", 5, 3000, Race.Chimera, Civilization.Darkness)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class SparkChemistShadowOfWhim : Creature
+    public class SparkChemistShadowOfWhim : Creature
     {
         public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Race.Ghost, Civilization.Darkness)
         {
