@@ -1,36 +1,26 @@
 using Engine;
-using System;
+using Engine.Zones;
+using Moq;
 using Xunit;
 
-namespace TestEngine
+namespace TestEngine;
+
+public class GameTests
 {
-    public class GameTests
+    [Fact]
+    public void EndsWhenDecksAreEmpty()
     {
-        [Fact]
-        public void Play_NoCardsInDecks_Pass()
-        {
-            new Game().Play(new PlayerMock(), new PlayerMock());
-        }
-    }
+        // Arrange
+        var game = new Game();
+        var player1 = new Mock<IPlayer>();
+        player1.SetupGet(x => x.Deck).Returns(new Deck());
+        var player2 = new Mock<IPlayer>();
+        player2.SetupGet(x => x.Deck).Returns(new Deck());
 
-    class PlayerMock : Player
-    {
-        public PlayerMock()
-        {
-        }
+        // Act
+        game.Play(player1.Object, player2.Object);
 
-        public PlayerMock(IPlayer player) : base(player)
-        {
-        }
-
-        public override T ChooseAbstractly<T>(T choice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IPlayer Copy()
-        {
-            return new PlayerMock(this);
-        }
+        // Assert
+        Assert.True(game.Ended);
     }
 }
