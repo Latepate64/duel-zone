@@ -57,5 +57,18 @@ namespace Engine.Abilities
         {
             return game.GetOpponent(Controller);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Ability ability
+                && ((Controller == null && ability.Controller == null)
+                || (Controller != null && Controller.Equals(
+                    ability.Controller)));
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Controller);
+        }
     }
 }

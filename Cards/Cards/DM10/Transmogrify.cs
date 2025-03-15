@@ -13,21 +13,14 @@ public class Transmogrify : Spell
 
     class TransmogrifyEffect : OneShotEffect
     {
-        public TransmogrifyEffect()
-        {
-        }
+        internal TransmogrifyEffect() {}
 
-        public TransmogrifyEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
+        TransmogrifyEffect(IOneShotEffect effect) : base(effect) {}
 
         public override void Apply(IGame game)
         {
-            var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
-            if (destroyedCreature != null)
-            {
-                destroyedCreature.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
-            }
+            Controller.DestroyCreatureOptionally(game, Ability)?.Owner
+                .RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
         }
 
         public override IOneShotEffect Copy()

@@ -9,7 +9,7 @@ namespace TestCards.Cards.DM10;
 public class TransmogrifyTests
 {
     [Fact]
-    public void NothingHappensWhenPlayerDoesNotDestroyAnyCreature()
+    public void ResolveChangesNothingWhenPlayerDoesNotDestroyAnyCreature()
     {
         // Arrange
         var game = Mock.Of<IGame>();
@@ -21,7 +21,7 @@ public class TransmogrifyTests
     }
 
     [Fact]
-    public void PlayerRevealsCardsFromTheTopOfHisDeckWhenHeDestroysOneOfHisCreatures()
+    public void ResolveCausesPlayerToRevealCardsFromTheTopOfHisDeckWhenHeDestroysOneOfHisCreatures()
     {
         // Arrange
         var game = Mock.Of<IGame>();
@@ -37,6 +37,19 @@ public class TransmogrifyTests
         // Assert
         player.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(
             game, It.IsAny<IAbility>()), Times.Once);
+    }
+
+    [Fact]
+    public void Copy()
+    {
+        // Arrange
+        var transmogrify = new Transmogrify();
+
+        // Act
+        var copy = transmogrify.Copy();
+
+        // Assert
+        Assert.Equal(transmogrify, copy);
     }
 
     static Transmogrify SetupTransmogrify(IGame game, Mock<IPlayer> player,

@@ -6,7 +6,7 @@ namespace Cards
 {
     public class Spell : Card
     {
-        public Spell(ICard card) : base(card)
+        Spell(ICard card) : base(card)
         {
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Engine.Abilities
+﻿using System;
+
+namespace Engine.Abilities
 {
     public abstract class ResolvableAbility : Ability, IResolvableAbility
     {
@@ -22,6 +24,19 @@
         {
             OneShotEffect.Ability = this;
             OneShotEffect.Apply(game);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj)
+                && obj is ResolvableAbility ability
+                && OneShotEffect.Equals(ability.OneShotEffect);
+            
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), OneShotEffect);
         }
     }
 }

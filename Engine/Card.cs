@@ -274,5 +274,18 @@ namespace Engine
         {
             return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
         }
+
+        public override bool Equals(object obj)
+        {
+            // TODO: Check all properties
+            return obj is Card card
+                && PrintedAbilities.SequenceEqual(card.PrintedAbilities);
+        }
+
+        public override int GetHashCode()
+        {
+            // TODO: Check all properties
+            return HashCode.Combine(PrintedAbilities);
+        }
     }
 }
