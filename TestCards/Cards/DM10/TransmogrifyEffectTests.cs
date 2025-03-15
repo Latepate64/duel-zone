@@ -14,11 +14,7 @@ public class TransmogrifyEffectTests
         // Arrange
         var game = Mock.Of<IGame>();
         var player = new Mock<IPlayer>();
-        var ability = new Mock<IAbility>();
-        ability.SetupGet(x => x.Controller).Returns(player.Object);
-        player.Setup(x => x.DestroyCreatureOptionally(game, ability.Object))
-            .Returns((ICard)null);
-        var effect = new TransmogrifyEffect { Ability = ability.Object };
+        var effect = Arrange(game, player, null);
 
         // Act + Assert
         effect.Apply(game);
@@ -30,13 +26,9 @@ public class TransmogrifyEffectTests
         // Arrange
         var game = Mock.Of<IGame>();
         var player = new Mock<IPlayer>();
-        var destroyedCreature = new Mock<ICard>();
-        destroyedCreature.SetupGet(x => x.Owner).Returns(player.Object);
-        var ability = new Mock<IAbility>();
-        ability.SetupGet(x => x.Controller).Returns(player.Object);
-        player.Setup(x => x.DestroyCreatureOptionally(game, ability.Object))
-            .Returns(destroyedCreature.Object);
-        var effect = new TransmogrifyEffect { Ability = ability.Object };
+        var creatureToDestroy = new Mock<ICard>();
+        creatureToDestroy.SetupGet(x => x.Owner).Returns(player.Object);
+        var effect = Arrange(game, player, creatureToDestroy.Object);
 
         // Act
         effect.Apply(game);
@@ -44,5 +36,18 @@ public class TransmogrifyEffectTests
         // Assert
         player.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(
             game, It.IsAny<IAbility>()), Times.Once);
+    }
+
+    static IOneShotEffect Arrange(IGame game, Mock<IPlayer> player,
+        ICard creatureToDestroy)
+    {
+        var transmogrify = new Transmogrify();
+        var ability = transmogrify.PrintedAbilities[0] as ResolvableAbility;
+        ability.Controller = player.Object;
+        player.Setup(x => x.DestroyCreatureOptionally(game, ability))
+            .Returns(creatureToDestroy);
+        var effect = ability.OneShotEffect;
+        effect.Ability = ability;
+        return effect;
     }
 }

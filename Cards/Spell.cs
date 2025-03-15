@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards
 {
-    class Spell : Card
+    public class Spell : Card
     {
         public Spell(ICard card) : base(card)
         {

@@ -1,18 +1,17 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.Cards.DM10
+namespace Cards.Cards.DM10;
+
+public class Transmogrify : Spell
 {
-    class Transmogrify : Spell
+    public Transmogrify() : base("Transmogrify", 3, Civilization.Water)
     {
-        public Transmogrify() : base("Transmogrify", 3, Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new TransmogrifyEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new TransmogrifyEffect());
     }
 
-    public class TransmogrifyEffect : OneShotEffect
+    class TransmogrifyEffect : OneShotEffect
     {
         public TransmogrifyEffect()
         {
