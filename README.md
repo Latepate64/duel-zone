@@ -1,21 +1,6 @@
 # Duel Zone
 
-## Prerequisites
-[Download and install Docker](https://www.docker.com/)
-
-## Building the solution
-Execute the following command at the command line:
-```
-docker compose build
-```
-
-## Starting the application
-Execute the following command at the command line:
-```
-docker compose up
-```
-
-Then the application should run on http://localhost:4200/
+The goal of this project is to provide an engine and models to simulate gameplay of Duel Masters trading card game.
 
 ## [Discord](https://discord.com/channels/952488769431433256/952488769431433259)
 
