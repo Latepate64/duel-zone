@@ -1,0 +1,65 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="cards">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creature" type="creature" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="spell" type="spell" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="card">
+        <xs:sequence>
+            <xs:element name="civilizations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="civilization" type="civilization" minOccurs="1"
+                            maxOccurs="2" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="cost" type="xs:positiveInteger" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="creature">
+        <xs:complexContent>
+            <xs:extension base="card">
+                <xs:sequence>
+                    <xs:element name="races">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="race" type="race" minOccurs="1"
+                                    maxOccurs="2" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="power" type="xs:positiveInteger" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="spell">
+        <xs:complexContent>
+            <xs:extension base="card" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="civilization" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Light" />
+            <xs:enumeration value="Water" />
+            <xs:enumeration value="Darkness" />
+            <xs:enumeration value="Fire" />
+            <xs:enumeration value="Nature" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="race" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Liquid People" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml-model href="cards.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<cards>
+    <creature name="Aqua Hulcus" cost="3" power="2000">
+        <civilizations>
+            <civilization>Water</civilization>
+        </civilizations>
+        <races>
+            <race>Liquid People</race>
+        </races>
+    </creature>
+    <spell name="Aura Blast" cost="4">
+        <civilizations>
+            <civilization>Nature</civilization>
+        </civilizations>
+    </spell>
+</cards>
