@@ -6,7 +6,7 @@ using Xunit;
 
 namespace TestCards.Cards.DM10;
 
-public class TransmogrifyEffectTests
+public class TransmogrifyTests
 {
     [Fact]
     public void NothingHappensWhenPlayerDoesNotDestroyAnyCreature()
@@ -14,10 +14,10 @@ public class TransmogrifyEffectTests
         // Arrange
         var game = Mock.Of<IGame>();
         var player = new Mock<IPlayer>();
-        var effect = Arrange(game, player, null);
+        var transmogrify = SetupTransmogrify(game, player, null);
 
         // Act + Assert
-        effect.Apply(game);
+        transmogrify.Resolve(game);
     }
 
     [Fact]
@@ -28,17 +28,18 @@ public class TransmogrifyEffectTests
         var player = new Mock<IPlayer>();
         var creatureToDestroy = new Mock<ICard>();
         creatureToDestroy.SetupGet(x => x.Owner).Returns(player.Object);
-        var effect = Arrange(game, player, creatureToDestroy.Object);
+        var transmogrify = SetupTransmogrify(game, player,
+            creatureToDestroy.Object);
 
         // Act
-        effect.Apply(game);
+        transmogrify.Resolve(game);
 
         // Assert
         player.Verify(x => x.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(
             game, It.IsAny<IAbility>()), Times.Once);
     }
 
-    static IOneShotEffect Arrange(IGame game, Mock<IPlayer> player,
+    static Transmogrify SetupTransmogrify(IGame game, Mock<IPlayer> player,
         ICard creatureToDestroy)
     {
         var transmogrify = new Transmogrify();
@@ -46,8 +47,6 @@ public class TransmogrifyEffectTests
         ability.Controller = player.Object;
         player.Setup(x => x.DestroyCreatureOptionally(game, ability))
             .Returns(creatureToDestroy);
-        var effect = ability.OneShotEffect;
-        effect.Ability = ability;
-        return effect;
+        return transmogrify;
     }
 }

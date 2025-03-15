@@ -31,6 +31,14 @@ namespace Cards
         {
             AddAbilities(oneShotEffects.Select(x => new SpellAbility(x)).ToArray());
         }
+
+        public void Resolve(IGame game)
+        {
+            foreach (var ability in GetAbilities<SpellAbility>())
+            {
+                ability.Resolve(game);
+            }
+        }
     }
 
     abstract class Charger : Spell
