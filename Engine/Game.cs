@@ -453,16 +453,8 @@ public class Game : IDisposable, IGame
     {
         if (disposing)
         {
-            foreach (var x in ExtraTurns)
-            {
-                x.Dispose();
-            }
             ExtraTurns = null;
             foreach (var x in Players)
-            {
-                x.Dispose();
-            }
-            foreach (var x in Turns)
             {
                 x.Dispose();
             }

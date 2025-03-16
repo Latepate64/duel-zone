@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Engine;
 
-public class Turn : ITurn, IDisposable
+public class Turn : ITurn
 {
     public Turn(IPlayer activePlayer, IPlayer nonActivePlayer)
     {
@@ -56,12 +56,6 @@ public class Turn : ITurn, IDisposable
     public IEnumerable<IPhase> Phases => [.. phases];
     readonly List<IPhase> phases = [];
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
     public void Play(IGame game, int number)
     {
         Number = number;
@@ -85,19 +79,6 @@ public class Turn : ITurn, IDisposable
             {
                 game.ProcessEvents(new PhaseBegunEvent(nextPhase, game.CurrentTurn));
             }
-        }
-    }
-
-    public override string ToString()
-    {
-        return $"Turn {Number}";
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            phases.Clear();
         }
     }
 

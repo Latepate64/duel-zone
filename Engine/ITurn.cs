@@ -14,7 +14,6 @@ namespace Engine
         IEnumerable<IPhase> Phases { get; }
         IEnumerable<IGameEvent> GameEvents { get; }
 
-        void Dispose();
         void Play(IGame game, int number);
 
         void StartCurrentPhase(IGame game);
