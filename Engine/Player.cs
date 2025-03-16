@@ -84,7 +84,7 @@ public abstract class Player : IPlayer, IDisposable
     {
         var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
         Deck.Cards.RemoveAll(x => arranged.Contains(x));
-        arranged.ToList().ForEach(x => Deck.Cards.Add(x));
+        arranged.ToList().ForEach(Deck.Cards.Add);
     }
 
     public void BurnOwnMana(IGame game, IAbility ability)
