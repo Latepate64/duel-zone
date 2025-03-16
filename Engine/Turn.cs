@@ -17,7 +17,7 @@ public class Turn : ITurn, IDisposable
 
     Turn(ITurn turn)
     {
-        Phases = [.. turn.Phases.Select(x => x.Copy())];
+        phases = [.. turn.Phases.Select(x => x.Copy())];
         ActivePlayer = turn.ActivePlayer;
         NonActivePlayer = turn.NonActivePlayer;
         Number = turn.Number;
@@ -53,7 +53,8 @@ public class Turn : ITurn, IDisposable
     /// <summary>
     /// All the phases in the turn that have been or are processed, in order.
     /// </summary>
-    public IList<IPhase> Phases { get; private set; } = [];
+    public IEnumerable<IPhase> Phases => [.. phases];
+    readonly List<IPhase> phases = [];
 
     public void Dispose()
     {
@@ -96,7 +97,7 @@ public class Turn : ITurn, IDisposable
     {
         if (disposing)
         {
-            Phases = null;
+            phases.Clear();
         }
     }
 
@@ -114,5 +115,10 @@ public class Turn : ITurn, IDisposable
     {
         return HashCode.Combine(ActivePlayer, Id, NonActivePlayer, Number,
             Phases);
+    }
+
+    public void AddPhase(IPhase phase)
+    {
+        phases.Add(phase);
     }
 }

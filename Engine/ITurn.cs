@@ -11,7 +11,7 @@ namespace Engine
         System.Guid Id { get; set; }
         IPlayer NonActivePlayer { get; }
         int Number { get; set; }
-        IList<IPhase> Phases { get; }
+        IEnumerable<IPhase> Phases { get; }
         IEnumerable<IGameEvent> GameEvents { get; }
 
         void Dispose();
@@ -19,5 +19,6 @@ namespace Engine
 
         void StartCurrentPhase(IGame game);
         ITurn Copy();
+        void AddPhase(IPhase phase);
     }
 }

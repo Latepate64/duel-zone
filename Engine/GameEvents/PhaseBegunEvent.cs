@@ -15,7 +15,7 @@ namespace Engine.GameEvents
 
         public override void Happen(IGame game)
         {
-            Turn.Phases.Add(Phase);
+            Turn.AddPhase(Phase);
             Turn.StartCurrentPhase(game);
         }
 
