@@ -28,7 +28,7 @@ public class Game : IDisposable, IGame
 
     public Game(Game game)
     {
-        ExtraTurns = new Stack<ITurn>(game.ExtraTurns.Select(x => new Turn(x)));
+        ExtraTurns = new Stack<ITurn>(game.ExtraTurns.Select(x => x.Copy()));
         StartingHandSize = game.StartingHandSize;
         StartingNumberOfShields = game.StartingNumberOfShields;
         //Losers = game.Losers.Select(x => x.Copy()).ToList();
@@ -37,7 +37,7 @@ public class Game : IDisposable, IGame
         //{
         //    Winner = game.Winner.Copy();
         //}
-        Turns = game.Turns.Select(x => new Turn(x)).Cast<ITurn>().ToList();
+        Turns = [.. game.Turns.Select(x => x.Copy())];
         ContinuousEffects = ContinuousEffects.Copy();
         _state = _state.Copy();
         States = new Queue<IGameState>(States.Select(x => x.Copy()));
@@ -660,7 +660,7 @@ public class Game : IDisposable, IGame
         }
         else
         {
-            Turns.Add(new Turn { ActivePlayer = activePlayer, NonActivePlayer = nonActivePlayer });
+            Turns.Add(new Turn(activePlayer, nonActivePlayer));
         }
         Turns.Last().Play(this, Turns.Count);
     }
