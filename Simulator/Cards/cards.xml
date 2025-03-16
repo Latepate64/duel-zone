@@ -7,6 +7,13 @@
         <races>
             <race>Liquid People</race>
         </races>
+        <abilities>
+            <ability>
+                <triggered_ability>
+                    <when_you_put_this_creature_into_the_battle_zone />
+                </triggered_ability>
+            </ability>
+        </abilities>
     </creature>
     <spell name="Aura Blast" cost="4">
         <civilizations>

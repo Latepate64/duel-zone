@@ -1,0 +1,11 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="civilization" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Light" />
+            <xs:enumeration value="Water" />
+            <xs:enumeration value="Darkness" />
+            <xs:enumeration value="Fire" />
+            <xs:enumeration value="Nature" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

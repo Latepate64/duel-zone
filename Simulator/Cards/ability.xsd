@@ -1,0 +1,36 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="effect.xsd" />
+    <xs:complexType name="ability">
+        <xs:choice>
+            <xs:element name="triggered_ability" type="triggered_ability"/>
+            <xs:element name="activated_ability" type="activated_ability"/>
+            <xs:element name="static_ability" type="static_ability"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="resolvable_ability" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="ability">
+                <xs:sequence>
+                    <xs:element name="effect" type="effect"></xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="triggered_ability">
+    <xs:complexContent><xs:extension base="resolvable_ability"></xs:extension></xs:complexContent>
+        <xs:choice>
+            <xs:element name="when_you_put_this_creature_into_the_battle_zone" type="when_you_put_this_creature_into_the_battle_zone"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="activated_ability" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="resolvable_ability" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="static_ability" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="ability" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="when_you_put_this_creature_into_the_battle_zone" />
+</xs:schema>

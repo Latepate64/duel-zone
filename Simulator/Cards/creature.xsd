@@ -1,0 +1,32 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="card.xsd" />
+    <xs:include schemaLocation="race.xsd" />
+    <xs:include schemaLocation="ability.xsd" />
+    <xs:complexType name="creature">
+        <xs:complexContent>
+            <xs:extension base="card">
+                <xs:sequence>
+                    <xs:element name="races">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="race" type="race" minOccurs="1"
+                                    maxOccurs="2" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="triggered_abilities">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="ability"
+                                    type="ability"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="power" type="xs:positiveInteger" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

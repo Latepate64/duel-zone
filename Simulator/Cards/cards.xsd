@@ -1,0 +1,12 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="creature.xsd"/>
+    <xs:include schemaLocation="spell.xsd"/>
+    <xs:element name="cards">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creature" type="creature" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="spell" type="spell" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
