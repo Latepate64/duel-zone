@@ -1,17 +1,17 @@
-using Cards.Cards.DM01;
+using Cards.ContinuousEffects.PowerModifyingEffects;
 using Engine;
 using Engine.Abilities;
 using Moq;
 using Xunit;
 
-namespace TestCards.Cards.DM01;
+namespace TestCards.ContinuousEffects.PowerModifyingEffects;
 
-public class IocantTheOracleEffectTests
+public class ModifyPowerIfPlayerControlsRaceCreatureEffectTestsTests
 {
     [Theory]
     [InlineData(Race.AngelCommand, 2000, 2000)]
     [InlineData(Race.ArmoredDragon, 1000, 3000)]
-    public void GrantsPowerWhilePlayerHasCreatureOfSpecificRaceInTheBattleZone(
+    public void ModifiesPowerWhilePlayerHasCreatureOfSpecificRaceInTheBattleZone(
         Race race, int powerToAdd, int initialPower)
     {
         // Arrange
@@ -23,7 +23,8 @@ public class IocantTheOracleEffectTests
         expectedCreature.SetupGet(x => x.Races).Returns([race]);
         var ability = new Mock<IAbility>();
         ability.SetupGet(x => x.Source).Returns(card);
-        var effect = new IocantTheOracleEffect(race, powerToAdd)
+        var effect = new ModifyPowerIfPlayerControlsRaceCreatureEffect(race,
+            powerToAdd)
         {
             Ability = ability.Object
         };
@@ -39,7 +40,7 @@ public class IocantTheOracleEffectTests
     }
 
     [Fact]
-    public void DoesNotGrantPowerWhilePlayerDoesNotHaveCreatureOfSpecificRaceInTheBattleZone()
+    public void DoesNotModifyPowerWhilePlayerDoesNotHaveCreatureOfSpecificRaceInTheBattleZone()
     {
         // Arrange
         const int initialPower = 2000;
@@ -50,7 +51,8 @@ public class IocantTheOracleEffectTests
         card.Owner = player;
         var ability = new Mock<IAbility>();
         ability.SetupGet(x => x.Source).Returns(card);
-        var effect = new IocantTheOracleEffect(race, 3000)
+        var effect = new ModifyPowerIfPlayerControlsRaceCreatureEffect(race,
+            3000)
         {
             Ability = ability.Object
         };
@@ -67,7 +69,8 @@ public class IocantTheOracleEffectTests
     [Fact]
     public void Copy()
     {
-        var effect = new IocantTheOracleEffect(Race.ZombieDragon, 2000);
+        var effect = new ModifyPowerIfPlayerControlsRaceCreatureEffect(
+            Race.ZombieDragon, 2000);
         var copy = effect.Copy();
         Assert.Equal(effect, copy);
         Assert.Equal(effect.GetHashCode(), copy.GetHashCode());
@@ -77,7 +80,9 @@ public class IocantTheOracleEffectTests
     public void EffectsNotEqual()
     {
         Assert.NotEqual(
-            new IocantTheOracleEffect(Race.ZombieDragon, 2000),
-            new IocantTheOracleEffect(Race.AngelCommand, 2000));
+            new ModifyPowerIfPlayerControlsRaceCreatureEffect(Race.ZombieDragon,
+                2000),
+            new ModifyPowerIfPlayerControlsRaceCreatureEffect(Race.AngelCommand,
+                2000));
     }
 }

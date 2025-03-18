@@ -1,13 +1,16 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects.PowerModifyingEffects;
+using Engine;
 
 namespace Cards.Cards.DM01;
 
 class IocantTheOracle : Creature
 {
-    public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Race.LightBringer, Civilization.Light)
+    public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000,
+        Race.LightBringer, Civilization.Light)
     {
         AddBlockerAbility();
-        AddStaticAbilities(new IocantTheOracleEffect(Race.AngelCommand, 2000));
+        AddStaticAbilities(new ModifyPowerIfPlayerControlsRaceCreatureEffect(
+            Race.AngelCommand, 2000));
         AddThisCreatureCannotAttackPlayersAbility();
     }
 }

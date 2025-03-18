@@ -1,12 +1,12 @@
-using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 using System;
 using System.Linq;
 
-namespace Cards.Cards.DM01;
+namespace Cards.ContinuousEffects.PowerModifyingEffects;
 
-public class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
+public class ModifyPowerIfPlayerControlsRaceCreatureEffect : ContinuousEffect,
+    IPowerModifyingEffect
 {
     readonly Race race;
     readonly int power;
@@ -19,13 +19,15 @@ public class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     /// have in the battle zone.</param>
     /// <param name="power">The amount of power that the creature can
     /// get.</param>
-    public IocantTheOracleEffect(Race race, int power) : base()
+    public ModifyPowerIfPlayerControlsRaceCreatureEffect(Race race, int power) :
+        base()
     {
         this.race = race;
         this.power = power;
     }
 
-    IocantTheOracleEffect(IocantTheOracleEffect effect) : base(effect)
+    ModifyPowerIfPlayerControlsRaceCreatureEffect(
+        ModifyPowerIfPlayerControlsRaceCreatureEffect effect) : base(effect)
     {
         race = effect.race;
         power = effect.power;
@@ -33,7 +35,7 @@ public class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
 
     public override IContinuousEffect Copy()
     {
-        return new IocantTheOracleEffect(this);
+        return new ModifyPowerIfPlayerControlsRaceCreatureEffect(this);
     }
 
     public void ModifyPower(IGame game)
@@ -47,7 +49,7 @@ public class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     public override bool Equals(object obj)
     {
         return base.Equals(obj)
-            && obj is IocantTheOracleEffect effect
+            && obj is ModifyPowerIfPlayerControlsRaceCreatureEffect effect
             && race == effect.race
             && power == effect.power;
     }
