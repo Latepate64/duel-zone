@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class AgiraAbility : TriggeredAbility
     {
-        public AgiraAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
+        public AgiraAbility() : base(new OneShotEffects.YouMayDrawCardsEffect(1))
         {
         }
 

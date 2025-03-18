@@ -4,7 +4,7 @@
     {
         public HypersquidWalter() : base("Hypersquid Walter", 3, 1000, Engine.Race.CyberLord, Engine.Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayDrawCardEffect());
+            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayDrawCardsEffect(1));
         }
     }
 }

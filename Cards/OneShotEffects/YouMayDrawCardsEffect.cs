@@ -1,78 +1,42 @@
-﻿using Engine;
+﻿using System;
+using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class YouMayDrawCardsEffect : OneShotEffect
 {
-    abstract class YouMayDrawCardsEffect : OneShotEffect
+    public int Maximum { get; }
+
+    public YouMayDrawCardsEffect(int maximum) : base()
     {
-        public int Maximum { get; }
-
-        protected YouMayDrawCardsEffect(int maximum) : base()
-        {
-            Maximum = maximum;
-        }
-
-        protected YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
-        {
-            Maximum = effect.Maximum;
-        }
-
-        public override void Apply(IGame game)
-        {
-            Controller.DrawCardsOptionally(game, Ability, Maximum);
-        }
-
-        public override string ToString()
-        {
-            return Maximum == 1 ? "You may draw a card." : $"You may draw up to {Maximum} cards.";
-        }
+        Maximum = maximum;
     }
 
-    class YouMayDrawCardEffect : YouMayDrawCardsEffect
+    YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
     {
-        public YouMayDrawCardEffect() : base(1)
-        {
-        }
-
-        public YouMayDrawCardEffect(YouMayDrawCardsEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayDrawCardEffect(this);
-        }
+        Maximum = effect.Maximum;
     }
 
-    class YouMayDrawUpToTwoCardsEffect : YouMayDrawCardsEffect
+    public override void Apply(IGame game)
     {
-        public YouMayDrawUpToTwoCardsEffect() : base(2)
-        {
-        }
-
-        public YouMayDrawUpToTwoCardsEffect(YouMayDrawUpToTwoCardsEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayDrawUpToTwoCardsEffect(this);
-        }
+        Controller.DrawCardsOptionally(game, Ability, Maximum);
     }
 
-    class YouMayDrawUpToThreeCardsEffect : YouMayDrawCardsEffect
+    public override YouMayDrawCardsEffect Copy()
     {
-        public YouMayDrawUpToThreeCardsEffect() : base(3)
-        {
-        }
+        return new YouMayDrawCardsEffect(this);
+    }
 
-        public YouMayDrawUpToThreeCardsEffect(YouMayDrawUpToThreeCardsEffect effect) : base(effect)
-        {
-        }
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj)
+            && obj is YouMayDrawCardsEffect effect
+            && Maximum == effect.Maximum;
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayDrawUpToThreeCardsEffect(this);
-        }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), Maximum);
     }
 }

@@ -4,7 +4,7 @@
     {
         public Cetibols() : base("Cetibols", 3, 2000, Engine.Race.SeaHacker, Engine.Civilization.Water)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayDrawCardEffect());
+            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayDrawCardsEffect(1));
         }
     }
 }

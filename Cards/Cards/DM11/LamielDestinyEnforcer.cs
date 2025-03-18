@@ -14,7 +14,7 @@ namespace Cards.Cards.DM11
 
     class LamielAbility : TriggeredAbility
     {
-        public LamielAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
+        public LamielAbility() : base(new OneShotEffects.YouMayDrawCardsEffect(1))
         {
         }
 
