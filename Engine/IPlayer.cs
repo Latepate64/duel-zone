@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Engine;
 
+/// <summary>
+/// 102.1. One of the people in a Duel Masters game.
+/// </summary>
 public interface IPlayer : IAttackable, ICopyable<IPlayer>
 {
     IEnumerable<ICard> CardsInNonsharedZones { get; }

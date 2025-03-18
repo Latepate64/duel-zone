@@ -4,7 +4,6 @@ using Engine.GameEvents;
 using Engine.Zones;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Engine;
@@ -12,35 +11,13 @@ namespace Engine;
 public class Game : IDisposable, IGame
 {
     public IContinuousEffects ContinuousEffects { get; }
-    private readonly List<IResolvableAbility> _reflexiveTriggeredAbilities = new();
+    private readonly List<IResolvableAbility> _reflexiveTriggeredAbilities = [];
 
     private IGameState _state;
     private int _timestamp = 0;
     public Game()
     {
         ContinuousEffects = new ContinuousEffects.ContinuousEffects(this);
-    }
-
-    public Game(IGameState state)
-    {
-        _state = state;
-    }
-
-    public Game(Game game)
-    {
-        ExtraTurns = new Stack<ITurn>(game.ExtraTurns.Select(x => x.Copy()));
-        StartingHandSize = game.StartingHandSize;
-        StartingNumberOfShields = game.StartingNumberOfShields;
-        //Losers = game.Losers.Select(x => x.Copy()).ToList();
-        //Players = game.Players.Select(x => x.Copy()).ToList();
-        //if (game.Winner != null)
-        //{
-        //    Winner = game.Winner.Copy();
-        //}
-        Turns = [.. game.Turns.Select(x => x.Copy())];
-        ContinuousEffects = ContinuousEffects.Copy();
-        _state = _state.Copy();
-        States = new Queue<IGameState>(States.Select(x => x.Copy()));
     }
 
     public delegate void GameEventHandler(IGameEvent gameEvent);
@@ -72,7 +49,7 @@ public class Game : IDisposable, IGame
 
     public string GameEventsText => string.Join(Environment.NewLine, GameEvents.Select(x => x.ToString()));
 
-    public ICollection<IPlayer> Losers { get; } = new Collection<IPlayer>();
+    public ICollection<IPlayer> Losers { get; } = [];
 
     public int MaximumNumberOfTurns { get; set; } = 100;
 
@@ -104,15 +81,6 @@ public class Game : IDisposable, IGame
     public IList<ITurn> Turns { get; } = new List<ITurn>();
 
     public IPlayer Winner { get; private set; }
-
-    public void AddAbility(ICard card, IAbility ability)
-    {
-        card.AddGrantedAbility(ability);
-        if (ability is IStaticAbility staticAbility)
-        {
-            ContinuousEffects.Add(card, staticAbility);
-        }
-    }
 
     public void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects)
     {

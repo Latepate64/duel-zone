@@ -7,10 +7,14 @@ using System.Collections.Generic;
 
 namespace Engine;
 
+/// <summary>
+/// A Duel Masters game.
+/// </summary>
 public interface IGame
 {
     IBattleZone BattleZone { get; }
     ITurn CurrentTurn { get; }
+
     /// <summary>
     /// 104.1. A game ends immediately when a player wins, when the game is a
     // draw, or when the game is restarted.
@@ -25,8 +29,6 @@ public interface IGame
     IList<ITurn> Turns { get; }
     public IContinuousEffects ContinuousEffects { get; }
     IPlayer ActivePlayer { get; }
-
-    void AddAbility(ICard card, IAbility ability);
 
     void AddContinuousEffects(IAbility source,
         params IContinuousEffect[] continuousEffects);

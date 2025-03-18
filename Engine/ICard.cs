@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Engine;
 
+/// <summary>
+/// A Duel Masters card.
+/// </summary>
 public interface ICard : ITimestampable, IAttackable
 {
     IList<IAbility> AddedAbilities { get; }
@@ -21,6 +24,10 @@ public interface ICard : ITimestampable, IAttackable
     int ManaCost { get; set; }
     string Name { get; set; }
     ICard OnTopOf { get; set; }
+
+    /// <summary>
+    /// 108.3 The player who started the game with this card in their deck.
+    /// </summary>
     IPlayer Owner { get; set; }
     int? Power { get; set; }
     IList<IAbility> PrintedAbilities { get; }
@@ -34,6 +41,10 @@ public interface ICard : ITimestampable, IAttackable
     ICard Underneath { get; set; }
     int PhysicalCardId { get; set; }
 
+    /// <summary>
+    /// 113.1a Abilities can also be granted to objects by rules or effects.
+    /// </summary>
+    /// <param name="ability">An ability that is granted to the object.</param>
     void AddGrantedAbility(IAbility ability);
     void AddGrantedRace(Race race);
     bool CanBePaid(IPlayer player);

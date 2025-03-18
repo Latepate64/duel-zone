@@ -3,6 +3,11 @@ using System;
 
 namespace Engine;
 
+/// <summary>
+/// 609.1.
+/// An effect is something that happens in the game as a result of a spell or
+/// ability.
+/// </summary>
 public abstract class Effect : IEffect
 {
     protected Effect()
@@ -14,8 +19,16 @@ public abstract class Effect : IEffect
         Ability = effect.Ability;
     }
 
+    /// <summary>
+    /// 609.1. The ability that generated this effect.
+    /// </summary>
     public IAbility Ability { get; set; }
     public IPlayer Controller => Ability.Controller;
+
+    /// <summary>
+    /// 113.7. 609.1.
+    /// The card that generated the ability that generated this effect.
+    /// </summary>
     public ICard Source => Ability.Source;
 
     public void Dispose()

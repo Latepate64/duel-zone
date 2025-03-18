@@ -1,15 +1,15 @@
 ﻿namespace Engine.ContinuousEffects
 {
     /// <summary>
-    /// 613.1f
-    /// Layer 6: Ability-adding effects are applied.
+    /// 113.10.
+    /// An effect that adds an ability to a card.
     /// </summary>
     public interface IAbilityAddingEffect : IContinuousEffect
     {
         /// <summary>
-        /// 613.1f
-        /// Layer 6: Ability-adding effects are applied.
+        /// 113.10. Adds an ability to a card.
         /// </summary>
+        /// <param name="game">A Duel Masters game.</param>
         void AddAbility(IGame game);
     }
 }
