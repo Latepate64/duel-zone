@@ -31,4 +31,11 @@ public class BexTheOracleEffectTests
         card.Verify(x => x.AddGrantedAbility(It.IsAny<BlockerAbility>()),
             Times.Once);
     }
+
+    [Fact]
+    public void Copy()
+    {
+        var effect = new BexTheOracleEffect();
+        Assert.Equal(effect, effect.Copy());
+    }
 }

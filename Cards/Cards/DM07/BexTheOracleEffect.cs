@@ -30,9 +30,4 @@ public class BexTheOracleEffect : ContinuousEffect, IAbilityAddingEffect
     {
         return new BexTheOracleEffect(this);
     }
-
-    public override string ToString()
-    {
-        return "While you have no shields, this creature has \"Blocker.\"";
-    }
 }

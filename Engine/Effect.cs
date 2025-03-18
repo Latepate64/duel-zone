@@ -44,8 +44,6 @@ public abstract class Effect : IEffect
         }
     }
 
-    public override abstract string ToString();
-
     protected bool IsSourceOfAbility(ICard card)
     {
         return card == Source;
