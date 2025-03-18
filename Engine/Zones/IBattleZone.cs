@@ -11,7 +11,7 @@ public interface IBattleZone : IZone, ICopyable<IBattleZone>
     IEnumerable<ICard> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICard> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICard> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller);
-    IEnumerable<ICard> GetCreatures(Guid controller, Race race);
+    IEnumerable<ICard> GetCreatures(IPlayer controller, Race race);
     IEnumerable<ICard> GetCreatures(Guid controller, Race race1, Race race2);
     IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization);
     IEnumerable<ICard> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);

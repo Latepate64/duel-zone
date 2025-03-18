@@ -71,7 +71,7 @@ public class BattleZone : Zone, IBattleZone
         return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);
     }
 
-    public IEnumerable<ICard> GetCreatures(Guid controller, Race race)
+    public IEnumerable<ICard> GetCreatures(IPlayer controller, Race race)
     {
         return GetCreatures(controller).Where(x => x.HasRace(race));
     }

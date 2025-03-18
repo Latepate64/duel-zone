@@ -1,0 +1,83 @@
+using Cards.Cards.DM01;
+using Engine;
+using Engine.Abilities;
+using Moq;
+using Xunit;
+
+namespace TestCards.Cards.DM01;
+
+public class IocantTheOracleEffectTests
+{
+    [Theory]
+    [InlineData(Race.AngelCommand, 2000, 2000)]
+    [InlineData(Race.ArmoredDragon, 1000, 3000)]
+    public void GrantsPowerWhilePlayerHasCreatureOfSpecificRaceInTheBattleZone(
+        Race race, int powerToAdd, int initialPower)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var card = Mock.Of<ICard>();
+        card.Power = initialPower;
+        card.Owner = player;
+        var expectedCreature = new Mock<ICard>();
+        expectedCreature.SetupGet(x => x.Races).Returns([race]);
+        var ability = new Mock<IAbility>();
+        ability.SetupGet(x => x.Source).Returns(card);
+        var effect = new IocantTheOracleEffect(race, powerToAdd)
+        {
+            Ability = ability.Object
+        };
+        var game = new Mock<IGame>();
+        game.Setup(x => x.BattleZone.GetCreatures(player, race)).Returns(
+            [expectedCreature.Object]);
+
+        // Act
+        effect.ModifyPower(game.Object);
+
+        // Assert
+        Assert.Equal(initialPower + powerToAdd, card.Power);
+    }
+
+    [Fact]
+    public void DoesNotGrantPowerWhilePlayerDoesNotHaveCreatureOfSpecificRaceInTheBattleZone()
+    {
+        // Arrange
+        const int initialPower = 2000;
+        const Race race = Race.ArmoredDragon;
+        var player = Mock.Of<IPlayer>();
+        var card = Mock.Of<ICard>();
+        card.Power = initialPower;
+        card.Owner = player;
+        var ability = new Mock<IAbility>();
+        ability.SetupGet(x => x.Source).Returns(card);
+        var effect = new IocantTheOracleEffect(race, 3000)
+        {
+            Ability = ability.Object
+        };
+        var game = new Mock<IGame>();
+        game.Setup(x => x.BattleZone.GetCreatures(player, race)).Returns([]);
+
+        // Act
+        effect.ModifyPower(game.Object);
+
+        // Assert
+        Assert.Equal(initialPower, card.Power);
+    }
+
+    [Fact]
+    public void Copy()
+    {
+        var effect = new IocantTheOracleEffect(Race.ZombieDragon, 2000);
+        var copy = effect.Copy();
+        Assert.Equal(effect, copy);
+        Assert.Equal(effect.GetHashCode(), copy.GetHashCode());
+    }
+
+    [Fact]
+    public void EffectsNotEqual()
+    {
+        Assert.NotEqual(
+            new IocantTheOracleEffect(Race.ZombieDragon, 2000),
+            new IocantTheOracleEffect(Race.AngelCommand, 2000));
+    }
+}
