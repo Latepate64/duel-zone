@@ -1,21 +1,20 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class ShieldAdditionEffect : CardSelectionEffect
 {
-    abstract class ShieldAdditionEffect : CardSelectionEffect
+    protected ShieldAdditionEffect(ShieldAdditionEffect effect) : base(effect)
     {
-        protected ShieldAdditionEffect(ShieldAdditionEffect effect) : base(effect)
-        {
-        }
+    }
 
-        protected ShieldAdditionEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses)
-        {
-        }
+    protected ShieldAdditionEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses)
+    {
+    }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards);
-        }
+    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+    {
+        game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards);
     }
 }
