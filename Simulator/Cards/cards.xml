@@ -4,20 +4,38 @@
         <civilizations>
             <civilization>Water</civilization>
         </civilizations>
+        <abilities>
+            <ability trigger="When you put this creature into the battle zone"
+                effect="You may draw a card." />
+        </abilities>
         <races>
             <race>Liquid People</race>
         </races>
+    </creature>
+    <creature power="5000" name="Kilstine, Nebula Elemental" cost="7">
+        <civilizations>
+            <civilization>Light</civilization>
+        </civilizations>
         <abilities>
-            <ability>
-                <triggered_ability>
-                    <when_you_put_this_creature_into_the_battle_zone />
-                </triggered_ability>
+            <ability
+                effect="Each of your other creatures in battle zone gets +$1 power and has blocker and double breaker."
+                type="wave striker">
+                <param1>5000</param1>
             </ability>
         </abilities>
+        <races>
+            <race>Angel Command</race>
+        </races>
     </creature>
     <spell name="Aura Blast" cost="4">
         <civilizations>
             <civilization>Nature</civilization>
         </civilizations>
+        <abilities>
+            <ability
+                effect="Each of your creatures in the battle zone gets power attacker +$1 until the end of the turn.">
+                <param1>2000</param1>
+            </ability>
+        </abilities>
     </spell>
 </cards>

@@ -1,14 +1,9 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:complexType name="effect" />
-    <xs:complexType name="oneshot_effect">
-        <xs:complexContent>
-            <xs:extension base="effect">
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="aquahulcus_effect">
-        <xs:complexContent>
-            <xs:extension base="oneshot_effect" />
-        </xs:complexContent>
-    </xs:complexType>
+    <xs:simpleType name="effect" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Each of your creatures in the battle zone gets power attacker +$1 until the end of the turn." />
+            <xs:enumeration value="Each of your other creatures in battle zone gets +$1 power and has blocker and double breaker."/>
+            <xs:enumeration value="You may draw a card." />
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

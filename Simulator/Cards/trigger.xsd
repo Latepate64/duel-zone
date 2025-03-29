@@ -1,0 +1,7 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="trigger" final="restriction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="When you put this creature into the battle zone" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

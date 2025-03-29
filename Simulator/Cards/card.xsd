@@ -1,5 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:include schemaLocation="civilization.xsd"/>
+    <xs:include schemaLocation="civilization.xsd" />
+    <xs:include schemaLocation="ability.xsd" />
     <xs:complexType name="card">
         <xs:sequence>
             <xs:element name="civilizations">
@@ -8,6 +9,18 @@
                         <xs:element name="civilization" type="civilization" minOccurs="1"
                             maxOccurs="2" />
                     </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="abilities" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ability"
+                            type="ability"
+                            minOccurs="1"
+                            maxOccurs="unbounded">
+                            </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="trigger" type="trigger" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
