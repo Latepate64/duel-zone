@@ -19,7 +19,9 @@ internal static class CardConverter
     {
         return new Card
         {
-            PrintedAbilities = [.. card.abilities.Select(x => AbilityConverter.ToAbility(x, cardType))],
+            PrintedAbilities = card.abilities != null
+                ? [.. card.abilities.Select(x => AbilityConverter.ToAbility(x, cardType))]
+                : [],
             Civilizations = [.. card.civilizations.Select(ToCivilization)],
             ManaCost = int.Parse(card.cost),
             Name = card.name,
@@ -48,6 +50,13 @@ internal static class CardConverter
         {
             race.AngelCommand => Race.AngelCommand,
             race.LiquidPeople => Race.LiquidPeople,
+            race.BeastFolk => Race.BeastFolk,
+            race.Berserker => Race.Berserker,
+            race.GiantInsect => Race.GiantInsect,
+            race.Human => Race.Human,
+            race.Initiate => Race.Initiate,
+            race.LightBringer => Race.LightBringer,
+            race.LivingDead => Race.LivingDead,
             _ => throw new InvalidEnumArgumentException(),
         };
     }

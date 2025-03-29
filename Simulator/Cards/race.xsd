@@ -2,7 +2,14 @@
     <xs:simpleType name="race" final="restriction">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Angel Command" />
+            <xs:enumeration value="Beast Folk" />
+            <xs:enumeration value="Berserker" />
+            <xs:enumeration value="Giant Insect" />
+            <xs:enumeration value="Human" />
+            <xs:enumeration value="Initiate" />
+            <xs:enumeration value="Light Bringer" />
             <xs:enumeration value="Liquid People" />
+            <xs:enumeration value="Living Dead" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

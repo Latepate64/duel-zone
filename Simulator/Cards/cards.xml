@@ -12,6 +12,14 @@
             <race>Liquid People</race>
         </races>
     </creature>
+    <creature power="1000" name="Aqua Vehicle" cost="2">
+        <civilizations>
+            <civilization>Water</civilization>
+        </civilizations>
+        <races>
+            <race>Liquid People</race>
+        </races>
+    </creature>
     <creature power="5000" name="Kilstine, Nebula Elemental" cost="7">
         <civilizations>
             <civilization>Light</civilization>
@@ -25,6 +33,94 @@
         </abilities>
         <races>
             <race>Angel Command</race>
+        </races>
+    </creature>
+    <creature power="4000" name="Lok, Vizier of Hunting" cost="4">
+        <civilizations>
+            <civilization>Light</civilization>
+        </civilizations>
+        <races>
+            <race>Initiate</race>
+        </races>
+    </creature>
+    <creature power="2000" name="Reusol, the Oracle" cost="2">
+        <civilizations>
+            <civilization>Light</civilization>
+        </civilizations>
+        <races>
+            <race>Light Bringer</race>
+        </races>
+    </creature>
+    <creature power="3000" name="Skeleton Soldier, the Defiled" cost="4">
+        <civilizations>
+            <civilization>Darkness</civilization>
+        </civilizations>
+        <races>
+            <race>Living Dead</race>
+        </races>
+    </creature>
+    <creature power="5000" name="Tri-Horn Shepherd" cost="5">
+        <civilizations>
+            <civilization>Nature</civilization>
+        </civilizations>
+        <races>
+            <race>Beast Folk</race>
+        </races>
+    </creature>
+    <creature power="2000" name="Writhing Bone Ghoul" cost="2">
+        <civilizations>
+            <civilization>Darkness</civilization>
+        </civilizations>
+        <races>
+            <race>Living Dead</race>
+        </races>
+    </creature>
+    <creature power="5500" name="Lah, Purification Enforcer" cost="5">
+        <civilizations>
+            <civilization>Light</civilization>
+        </civilizations>
+        <races>
+            <race>Berserker</race>
+        </races>
+    </creature>
+    <creature power="2000" name="Burning Mane" cost="2">
+        <civilizations>
+            <civilization>Nature</civilization>
+        </civilizations>
+        <races>
+            <race>Beast Folk</race>
+        </races>
+    </creature>
+    <creature power="3000" name="Fear Fang" cost="3">
+        <civilizations>
+            <civilization>Nature</civilization>
+        </civilizations>
+        <races>
+            <race>Beast Folk</race>
+        </races>
+    </creature>
+    <creature power="4000" name="Forest Hornet" cost="4">
+        <civilizations>
+            <civilization>Nature</civilization>
+        </civilizations>
+        <races>
+            <race>Giant Insect</race>
+        </races>
+    </creature>
+    <creature power="3000" name="Iere, Vizier of Bullets" cost="3">
+        <civilizations>
+            <civilization>Light</civilization>
+        </civilizations>
+        <races>
+            <race>Initiate</race>
+        </races>
+    </creature>
+    <creature power="2000" name="Immortal Baron, Vorg" cost="2">
+        <civilizations>
+            <civilization>Fire</civilization>
+        </civilizations>
+        <races>
+            <race>Human</race>
         </races>
     </creature>
     <spell name="Aura Blast" cost="4">

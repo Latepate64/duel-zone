@@ -96,8 +96,33 @@ public enum race {
     AngelCommand,
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Beast Folk")]
+    BeastFolk,
+    
+    /// <remarks/>
+    Berserker,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Giant Insect")]
+    GiantInsect,
+    
+    /// <remarks/>
+    Human,
+    
+    /// <remarks/>
+    Initiate,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Light Bringer")]
+    LightBringer,
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Liquid People")]
     LiquidPeople,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Living Dead")]
+    LivingDead,
 }
 
 /// <remarks/>
