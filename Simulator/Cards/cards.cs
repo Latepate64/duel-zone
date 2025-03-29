@@ -319,6 +319,15 @@ public enum effect {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("You may draw a card.")]
     Youmaydrawacard,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("When this creature would be destroyed, return it to your hand instead.")]
+    Whenthiscreaturewouldbedestroyedreturnittoyourhandinstead,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Choose up to 2 creatures in the battle zone and return them to their owners\' hand" +
+        "s.")]
+    Chooseupto2creaturesinthebattlezoneandreturnthemtotheirownershands,
 }
 
 /// <remarks/>

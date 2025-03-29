@@ -4,6 +4,8 @@
             <xs:enumeration value="Each of your creatures in the battle zone gets power attacker +$1 until the end of the turn." />
             <xs:enumeration value="Each of your other creatures in battle zone gets +$1 power and has blocker and double breaker."/>
             <xs:enumeration value="You may draw a card." />
+            <xs:enumeration value="When this creature would be destroyed, return it to your hand instead." />
+            <xs:enumeration value="Choose up to 2 creatures in the battle zone and return them to their owners' hands." />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

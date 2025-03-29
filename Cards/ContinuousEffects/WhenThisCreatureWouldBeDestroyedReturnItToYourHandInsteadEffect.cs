@@ -1,10 +1,9 @@
 ﻿using Engine;
 using Engine.GameEvents;
-using System.Collections.Generic;
 
 namespace Cards.ContinuousEffects
 {
-    class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
+    public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
     {
         public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base()
         {
@@ -30,7 +29,7 @@ namespace Cards.ContinuousEffects
         }
     }
 
-    abstract class WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
+    public abstract class WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : DestructionReplacementEffect
     {
         protected WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect effect) : base(effect)
         {

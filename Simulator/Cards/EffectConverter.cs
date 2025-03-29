@@ -14,6 +14,8 @@ internal static class EffectConverter
             effect.Eachofyourcreaturesinthebattlezonegetspowerattacker1untiltheendoftheturn => new AuraBlastEffect(int.Parse(param)),
             effect.Eachofyourothercreaturesinbattlezonegets1powerandhasblockeranddoublebreaker => new KilstineNebulaElementalEffect(int.Parse(param)),
             effect.Youmaydrawacard => new YouMayDrawCardsEffect(1),
+            effect.Whenthiscreaturewouldbedestroyedreturnittoyourhandinstead => new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(),
+            effect.Chooseupto2creaturesinthebattlezoneandreturnthemtotheirownershands => new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect(),
             _ => throw new InvalidEnumArgumentException(),
         };
     }

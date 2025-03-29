@@ -3,7 +3,7 @@ using Engine.GameEvents;
 
 namespace Cards.ContinuousEffects
 {
-    abstract class DestructionReplacementEffect : ReplacementEffect
+    public abstract class DestructionReplacementEffect : ReplacementEffect
     {
         protected DestructionReplacementEffect() : base()
         {

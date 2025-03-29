@@ -123,6 +123,41 @@
             <race>Human</race>
         </races>
     </creature>
+    <creature power="4000" name="Aqua Knight" cost="5">
+        <civilizations>
+            <civilization>Water</civilization>
+        </civilizations>
+        <abilities>
+            <ability effect="When this creature would be destroyed, return it to your hand instead." />
+        </abilities>
+        <races>
+            <race>Liquid People</race>
+        </races>
+    </creature>
+    <creature power="5000" name="Aqua Sniper" cost="8">
+        <civilizations>
+            <civilization>Water</civilization>
+        </civilizations>
+        <abilities>
+            <ability
+                effect="Choose up to 2 creatures in the battle zone and return them to their owners' hands."
+                trigger="When you put this creature into the battle zone" />
+        </abilities>
+        <races>
+            <race>Liquid People</race>
+        </races>
+    </creature>
+    <creature power="1000" name="Aqua Soldier" cost="3">
+        <civilizations>
+            <civilization>Water</civilization>
+        </civilizations>
+        <abilities>
+            <ability effect="When this creature would be destroyed, return it to your hand instead." />
+        </abilities>
+        <races>
+            <race>Liquid People</race>
+        </races>
+    </creature>
     <spell name="Aura Blast" cost="4">
         <civilizations>
             <civilization>Nature</civilization>
