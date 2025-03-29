@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Cards.Cards.DM12;
+using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
