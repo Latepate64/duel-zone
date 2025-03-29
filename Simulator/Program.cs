@@ -1,4 +1,5 @@
 ﻿using Cards;
+using Simulator.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,11 @@ namespace Simulator
 
         static void Main(string[] args)
         {
+            using var reader2 = XmlReader.Create(args.Length != 0 ? args[0] : "Cards\\cards.xml");
+            var cards = new XmlSerializer(typeof(cards)).Deserialize(reader2) as cards;
+            var converted = CardConverter.Convert(cards);
+            return;
+
             Simulator = new Simulator(new CardFactory());
             using var reader = XmlReader.Create(args.Any() ? args[0] : "configuration.xml");
             var conf = new XmlSerializer(typeof(SimulationConfiguration)).Deserialize(reader) as SimulationConfiguration;

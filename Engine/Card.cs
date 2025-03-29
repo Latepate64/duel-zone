@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Engine;
 
-abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
+public class Card : ICard, ICopyable<ICard>, ITimestampable
 {
     private readonly IList<Race> _addedRaces = new List<Race>();
     private IList<Race> _printedRaces = new List<Race>();
@@ -44,7 +44,7 @@ abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
         InitializeAbilities();
     }
 
-    protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
+    public Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
     {
         CardType = type;
         Civilizations = civilizations.ToList();
@@ -82,7 +82,7 @@ abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
     public int PhysicalCardId { get; set; }
     public int? Power { get; set; }
     public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
-    public int? PrintedPower { get; }
+    public int? PrintedPower { get; set; }
     /// <summary>
     /// Also known as race for creatures.
     /// </summary>
@@ -120,7 +120,10 @@ abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
         return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
     }
 
-    public abstract ICard Copy();
+    public virtual ICard Copy()
+    {
+        throw new NotImplementedException();
+    }
 
     public IList<ICard> Deconstruct(IList<ICard> deconstructred)
     {
