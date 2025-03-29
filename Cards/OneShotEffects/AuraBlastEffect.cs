@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    class AuraBlastEffect : OneShotEffect, IPowerable
+    public class AuraBlastEffect : OneShotEffect, IPowerable
     {
         public AuraBlastEffect(int power) : base()
         {

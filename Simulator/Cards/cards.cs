@@ -111,7 +111,7 @@ public partial class card {
     
     private civilization[] civilizationsField;
     
-    private cardAbilities abilitiesField;
+    private ability[] abilitiesField;
     
     private string nameField;
     
@@ -130,8 +130,9 @@ public partial class card {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public cardAbilities abilities {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ability[] abilities {
         get {
             return this.abilitiesField;
         }
@@ -182,54 +183,6 @@ public enum civilization {
     
     /// <remarks/>
     Nature,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class cardAbilities {
-    
-    private ability[] abilityField;
-    
-    private trigger triggerField;
-    
-    private bool triggerFieldSpecified;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("ability", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public ability[] ability {
-        get {
-            return this.abilityField;
-        }
-        set {
-            this.abilityField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public trigger trigger {
-        get {
-            return this.triggerField;
-        }
-        set {
-            this.triggerField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool triggerSpecified {
-        get {
-            return this.triggerFieldSpecified;
-        }
-        set {
-            this.triggerFieldSpecified = value;
-        }
-    }
 }
 
 /// <remarks/>
@@ -314,6 +267,9 @@ public partial class ability {
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
 public enum trigger {
+    
+    /// <remarks/>
+    none,
     
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("When you put this creature into the battle zone")]

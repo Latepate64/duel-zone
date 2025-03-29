@@ -81,17 +81,17 @@ public class Card : ICard, ICopyable<ICard>, ITimestampable
     public IPlayer Owner { get; set; }
     public int PhysicalCardId { get; set; }
     public int? Power { get; set; }
-    public IList<IAbility> PrintedAbilities { get; } = new List<IAbility>();
+    public IList<IAbility> PrintedAbilities { get; set; } = [];
     public int? PrintedPower { get; set; }
     /// <summary>
     /// Also known as race for creatures.
     /// </summary>
-    public List<Race> Races { get; set; } = new();
+    public List<Race> Races { get; set; } = [];
 
     public string RulesText { get; set; }
     public bool ShieldTrigger { get; set; }
     public bool SummoningSickness { get; set; }
-    public List<Supertype> Supertypes { get; set; } = new();
+    public List<Supertype> Supertypes { get; set; } = [];
     public bool Tapped { get; set; }
     public int Timestamp { get; set; }
     /// <summary>

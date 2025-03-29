@@ -10,14 +10,17 @@ namespace Cards.Cards.DM12
     {
         public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Race.AngelCommand, Civilization.Light)
         {
-            AddWaveStrikerAbility(new KilstineNebulaElementalEffect());
+            AddWaveStrikerAbility(new KilstineNebulaElementalEffect(5000));
         }
     }
 
-    class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    public class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        public KilstineNebulaElementalEffect() : base()
+        private readonly int power;
+
+        public KilstineNebulaElementalEffect(int power) : base()
         {
+            this.power = power;
         }
 
         public void AddAbility(IGame game)
@@ -30,12 +33,12 @@ namespace Cards.Cards.DM12
 
         public override IContinuousEffect Copy()
         {
-            return new KilstineNebulaElementalEffect();
+            return new KilstineNebulaElementalEffect(power);
         }
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ForEach(x => x.Power += 5000);
+            GetAffectedCards(game).ForEach(x => x.Power += power);
         }
 
         public override string ToString()

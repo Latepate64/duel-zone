@@ -20,7 +20,6 @@
                             maxOccurs="unbounded">
                             </xs:element>
                     </xs:sequence>
-                    <xs:attribute name="trigger" type="trigger" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
