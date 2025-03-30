@@ -1,10 +1,23 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="Cards.TriggeredAbilities"
-    xmlns:oe="Cards.OneShotEffects">
+    xmlns:oe="Cards.OneShotEffects" xmlns:ta="Cards.TriggeredAbilities">
     <xs:import namespace="Cards.OneShotEffects" schemaLocation="YouMayDrawCardsEffect.xsd" />
-    <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
+    <xs:include schemaLocation="TriggeredAbility.xsd" />
+    <xs:element name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" type="ta:FishType"
+        substitutionGroup="ta:TriggeredAbility" />
+    <xs:complexType name="FishType">
         <xs:sequence>
             <xs:element name="YouMayDrawCardsEffect" minOccurs="0"
-            type="oe:YouMayDrawCardsEffect" />
+                type="oe:YouMayDrawCardsEffect" />
         </xs:sequence>
     </xs:complexType>
+    <!-- <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
+        <xs:complexContent>
+            <xs:extension base="ta:TriggeredAbility">
+                <xs:sequence>
+                    <xs:element name="YouMayDrawCardsEffect" minOccurs="0"
+                        type="oe:YouMayDrawCardsEffect" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType> -->
 </xs:schema>

@@ -1,15 +1,17 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ta="Cards.TriggeredAbilities" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ta="Cards.TriggeredAbilities">
     <xs:include schemaLocation="civilization.xsd" />
     <xs:include schemaLocation="ability.xsd" />
-    <!-- <xs:import namespace="Cards.OneShotEffects" schemaLocation="YouMayDrawCardsEffect.xsd" /> -->
-    <xs:import namespace="Cards.TriggeredAbilities" schemaLocation="WhenYouPutThisCreatureIntoTheBattleZoneAbility.xsd" />
+    <xs:import namespace="Cards.TriggeredAbilities"
+        schemaLocation="TriggeredAbility.xsd" />
+    <xs:import namespace="Cards.TriggeredAbilities"
+        schemaLocation="WhenYouPutThisCreatureIntoTheBattleZoneAbility.xsd" />
     <xs:complexType name="card">
         <xs:sequence>
             <xs:element name="civilizations">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="civilization" type="civilization" minOccurs="1"
-                            maxOccurs="2"/>
+                            maxOccurs="2" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -24,7 +26,34 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" minOccurs="0" type="ta:WhenYouPutThisCreatureIntoTheBattleZoneAbility"/>
+            <!-- <xs:all>
+                        <xs:element name="triggeredAbility"
+                            type="ta:TriggeredAbility"
+                            minOccurs="1"
+                            maxOccurs="1">
+                        </xs:element>
+                    </xs:all> -->
+            <!-- type="ta:TriggeredAbility" -->
+            <xs:element name="triggeredAbilities" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ta:TriggeredAbility"
+                            minOccurs="0"
+                            maxOccurs="unbounded">
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+            <!-- <xs:element name="triggeredAbilities" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                    <xs:any minOccurs="1"></xs:any>
+                    </xs:sequence>
+                    
+                </xs:complexType>
+            </xs:element> -->
+            <!-- <xs:element minOccurs="0" type="ta:TriggeredAbility"/> -->
         </xs:sequence>
         <xs:attribute name="name" type="xs:string" use="required" />
         <xs:attribute name="cost" type="xs:int" use="required" />

@@ -141,13 +141,15 @@ public partial class card {
     
     private ability[] abilitiesField;
     
-    private WhenYouPutThisCreatureIntoTheBattleZoneAbility whenYouPutThisCreatureIntoTheBattleZoneAbilityField;
+    private System.Xml.XmlElement triggeredAbilitiesField;
     
     private string nameField;
     
     private int costField;
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
     public civilization[] civilizations {
         get {
             return this.civilizationsField;
@@ -158,7 +160,8 @@ public partial class card {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
     public ability[] abilities {
         get {
             return this.abilitiesField;
@@ -169,12 +172,13 @@ public partial class card {
     }
     
     /// <remarks/>
-    public WhenYouPutThisCreatureIntoTheBattleZoneAbility WhenYouPutThisCreatureIntoTheBattleZoneAbility {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public System.Xml.XmlElement triggeredAbilities {
         get {
-            return this.whenYouPutThisCreatureIntoTheBattleZoneAbilityField;
+            return this.triggeredAbilitiesField;
         }
         set {
-            this.whenYouPutThisCreatureIntoTheBattleZoneAbilityField = value;
+            this.triggeredAbilitiesField = value;
         }
     }
     
@@ -382,50 +386,6 @@ public enum abilityType {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("wave striker")]
     wavestriker,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards.OneShotEffects")]
-public partial class YouMayDrawCardsEffect {
-    
-    private int maximumField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public int Maximum {
-        get {
-            return this.maximumField;
-        }
-        set {
-            this.maximumField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards.TriggeredAbilities")]
-public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility {
-    
-    private YouMayDrawCardsEffect youMayDrawCardsEffectField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public YouMayDrawCardsEffect YouMayDrawCardsEffect {
-        get {
-            return this.youMayDrawCardsEffectField;
-        }
-        set {
-            this.youMayDrawCardsEffectField = value;
-        }
-    }
 }
 
 /// <remarks/>

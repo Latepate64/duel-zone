@@ -4,9 +4,12 @@
         <civilizations>
             <civilization>Water</civilization>
         </civilizations>
-        <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
-            <YouMayDrawCardsEffect Maximum="1" />
-        </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+        <!-- <triggeredAbilities>
+            <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+                <YouMayDrawCardsEffect Maximum="1" />
+            </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+        </triggeredAbilities> -->
+        <triggeredAbilities></triggeredAbilities>
         <races>
             <race>Liquid People</race>
         </races>
