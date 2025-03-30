@@ -96,6 +96,9 @@ public enum race {
     AngelCommand,
     
     /// <remarks/>
+    Armorloid,
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Beast Folk")]
     BeastFolk,
     
@@ -219,6 +222,8 @@ public partial class ability {
     
     private string param1Field;
     
+    private string param2Field;
+    
     private trigger triggerField;
     
     private bool triggerFieldSpecified;
@@ -239,6 +244,17 @@ public partial class ability {
         }
         set {
             this.param1Field = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string param2 {
+        get {
+            return this.param2Field;
+        }
+        set {
+            this.param2Field = value;
         }
     }
     
@@ -328,6 +344,11 @@ public enum effect {
     [System.Xml.Serialization.XmlEnumAttribute("Choose up to 2 creatures in the battle zone and return them to their owners\' hand" +
         "s.")]
     Chooseupto2creaturesinthebattlezoneandreturnthemtotheirownershands,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("While you have at least one $1 in the battle zone, this creature gets +$2 power d" +
+        "uring its attacks.")]
+    Whileyouhaveatleastone1inthebattlezonethiscreaturegets2powerduringitsattacks,
 }
 
 /// <remarks/>

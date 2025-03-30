@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
-    class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IRaceable
+    public class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IRaceable
     {
         public int Power { get; }
         public Race Race { get; }

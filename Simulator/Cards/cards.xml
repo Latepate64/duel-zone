@@ -158,6 +158,36 @@
             <race>Liquid People</race>
         </races>
     </creature>
+    <creature power="3000" name="Armored Walker Urherion" cost="4">
+        <civilizations>
+            <civilization>Fire</civilization>
+        </civilizations>
+        <abilities>
+            <ability
+                effect="While you have at least one $1 in the battle zone, this creature gets +$2 power during its attacks.">
+                <param1>Human</param1>
+                <param2>2000</param2>
+            </ability>
+        </abilities>
+        <races>
+            <race>Armorloid</race>
+        </races>
+    </creature>
+    <creature power="2000" name="Fatal Attacker Horvath" cost="3">
+        <civilizations>
+            <civilization>Fire</civilization>
+        </civilizations>
+        <abilities>
+            <ability
+                effect="While you have at least one $1 in the battle zone, this creature gets +$2 power during its attacks.">
+                <param1>Armorloid</param1>
+                <param2>2000</param2>
+            </ability>
+        </abilities>
+        <races>
+            <race>Human</race>
+        </races>
+    </creature>
     <spell name="Aura Blast" cost="4">
         <civilizations>
             <civilization>Nature</civilization>

@@ -4,6 +4,7 @@
     <xs:complexType name="ability">
         <xs:sequence>
             <xs:element name="param1" type="xs:string" minOccurs="0" />
+            <xs:element name="param2" type="xs:string" minOccurs="0" />
         </xs:sequence>
         <xs:attribute name="trigger" type="trigger" use="optional"/>
         <xs:attribute name="effect" type="effect" use="required" />

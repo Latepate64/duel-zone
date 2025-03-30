@@ -11,7 +11,7 @@ internal static class AbilityConverter
 {
     public static IAbility ToAbility(ability ability, CardType cardType)
     {
-        var effect = EffectConverter.ToEffect(ability.effect, ability.param1);
+        var effect = EffectConverter.ToEffect(ability.effect, ability.param1, ability.param2);
         if (cardType == CardType.Spell)
         {
             return new SpellAbility(effect as IOneShotEffect);

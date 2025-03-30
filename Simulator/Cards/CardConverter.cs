@@ -49,6 +49,7 @@ internal static class CardConverter
         return race switch
         {
             race.AngelCommand => Race.AngelCommand,
+            race.Armorloid => Race.Armorloid,
             race.LiquidPeople => Race.LiquidPeople,
             race.BeastFolk => Race.BeastFolk,
             race.Berserker => Race.Berserker,

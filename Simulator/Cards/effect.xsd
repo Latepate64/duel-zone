@@ -6,6 +6,7 @@
             <xs:enumeration value="You may draw a card." />
             <xs:enumeration value="When this creature would be destroyed, return it to your hand instead." />
             <xs:enumeration value="Choose up to 2 creatures in the battle zone and return them to their owners' hands." />
+            <xs:enumeration value="While you have at least one $1 in the battle zone, this creature gets +$2 power during its attacks."/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

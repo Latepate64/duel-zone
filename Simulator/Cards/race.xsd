@@ -2,6 +2,7 @@
     <xs:simpleType name="race" final="restriction">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Angel Command" />
+            <xs:enumeration value="Armorloid" />
             <xs:enumeration value="Beast Folk" />
             <xs:enumeration value="Berserker" />
             <xs:enumeration value="Giant Insect" />
