@@ -1,13 +1,14 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:include schemaLocation="civilization.xsd" />
     <xs:include schemaLocation="ability.xsd" />
+    <xs:include schemaLocation="YouMayDrawCardsEffect.xsd" />
     <xs:complexType name="card">
         <xs:sequence>
             <xs:element name="civilizations">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="civilization" type="civilization" minOccurs="1"
-                            maxOccurs="2" />
+                            maxOccurs="2"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -18,10 +19,11 @@
                             type="ability"
                             minOccurs="1"
                             maxOccurs="unbounded">
-                            </xs:element>
+                        </xs:element>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="YouMayDrawCardsEffect" minOccurs="0" type="YouMayDrawCardsEffect"/>
         </xs:sequence>
         <xs:attribute name="name" type="xs:string" use="required" />
         <xs:attribute name="cost" type="xs:positiveInteger" use="required" />

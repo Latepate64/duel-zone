@@ -14,7 +14,7 @@ internal static class EffectConverter
         {
             effect.Eachofyourcreaturesinthebattlezonegetspowerattacker1untiltheendoftheturn => new AuraBlastEffect(int.Parse(param1)),
             effect.Eachofyourothercreaturesinbattlezonegets1powerandhasblockeranddoublebreaker => new KilstineNebulaElementalEffect(int.Parse(param1)),
-            effect.Youmaydrawacard => new YouMayDrawCardsEffect(1),
+            // effect.Youmaydrawacard => new Cards.OneShotEffects.YouMayDrawCardsEffect(1),
             effect.Whenthiscreaturewouldbedestroyedreturnittoyourhandinstead => new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect(),
             effect.Chooseupto2creaturesinthebattlezoneandreturnthemtotheirownershands => new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect(),
             effect.Whileyouhaveatleastone1inthebattlezonethiscreaturegets2powerduringitsattacks => new WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect(int.Parse(param2), Enum.Parse<Race>(param1)),

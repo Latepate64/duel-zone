@@ -8,6 +8,7 @@
             <ability trigger="When you put this creature into the battle zone"
                 effect="You may draw a card." />
         </abilities>
+        <YouMayDrawCardsEffect Maximum="1" />
         <races>
             <race>Liquid People</race>
         </races>

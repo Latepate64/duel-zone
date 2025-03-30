@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects;
 
-public class YouMayDrawCardsEffect : OneShotEffect
+public partial class YouMayDrawCardsEffect : OneShotEffect
 {
     public int Maximum { get; }
 
