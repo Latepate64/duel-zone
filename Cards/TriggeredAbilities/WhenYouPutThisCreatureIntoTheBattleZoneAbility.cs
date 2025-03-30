@@ -4,8 +4,12 @@ using Engine.GameEvents;
 
 namespace Cards.TriggeredAbilities
 {
-    public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
     {
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility() : base()
+        {
+        }
+
         public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
         {
         }
@@ -110,6 +114,10 @@ namespace Cards.TriggeredAbilities
 
     public abstract class WheneverCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
     {
+        protected WheneverCreatureIsPutIntoTheBattleZoneAbility() : base()
+        {
+        }
+
         protected WheneverCreatureIsPutIntoTheBattleZoneAbility(WheneverCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
         {
         }

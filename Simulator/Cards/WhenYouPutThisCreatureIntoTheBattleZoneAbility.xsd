@@ -1,0 +1,10 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="Cards.TriggeredAbilities"
+    xmlns:oe="Cards.OneShotEffects">
+    <xs:import namespace="Cards.OneShotEffects" schemaLocation="YouMayDrawCardsEffect.xsd" />
+    <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
+        <xs:sequence>
+            <xs:element name="YouMayDrawCardsEffect" minOccurs="0"
+            type="oe:YouMayDrawCardsEffect" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

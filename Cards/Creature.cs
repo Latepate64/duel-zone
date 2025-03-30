@@ -120,7 +120,7 @@ namespace Cards
 
         protected void AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect)
         {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect));
+            AddTriggeredAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect));
         }
 
         protected void AddAtTheEndOfYourTurnAbility(IOneShotEffect effect)

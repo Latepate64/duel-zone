@@ -1,7 +1,8 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ta="Cards.TriggeredAbilities" elementFormDefault="qualified">
     <xs:include schemaLocation="civilization.xsd" />
     <xs:include schemaLocation="ability.xsd" />
-    <xs:include schemaLocation="YouMayDrawCardsEffect.xsd" />
+    <!-- <xs:import namespace="Cards.OneShotEffects" schemaLocation="YouMayDrawCardsEffect.xsd" /> -->
+    <xs:import namespace="Cards.TriggeredAbilities" schemaLocation="WhenYouPutThisCreatureIntoTheBattleZoneAbility.xsd" />
     <xs:complexType name="card">
         <xs:sequence>
             <xs:element name="civilizations">
@@ -23,9 +24,9 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="YouMayDrawCardsEffect" minOccurs="0" type="YouMayDrawCardsEffect"/>
+            <xs:element name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" minOccurs="0" type="ta:WhenYouPutThisCreatureIntoTheBattleZoneAbility"/>
         </xs:sequence>
         <xs:attribute name="name" type="xs:string" use="required" />
-        <xs:attribute name="cost" type="xs:positiveInteger" use="required" />
+        <xs:attribute name="cost" type="xs:int" use="required" />
     </xs:complexType>
 </xs:schema>

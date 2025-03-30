@@ -13,8 +13,10 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class NeveTheLevelerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    class NeveTheLevelerAbility : TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
+        public NeveTheLevelerAbility() : base() {}
+
         public NeveTheLevelerAbility(IOneShotEffect effect) : base(effect)
         {
         }

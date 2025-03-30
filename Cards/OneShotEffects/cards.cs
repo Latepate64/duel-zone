@@ -60,7 +60,7 @@ namespace Cards.OneShotEffects {
         
         private race[] racesField;
         
-        private string powerField;
+        private int powerField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -75,8 +75,8 @@ namespace Cards.OneShotEffects {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
-        public string power {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int power {
             get {
                 return this.powerField;
             }
@@ -141,11 +141,11 @@ namespace Cards.OneShotEffects {
         
         private ability[] abilitiesField;
         
-        private YouMayDrawCardsEffect youMayDrawCardsEffectField;
+        private WhenYouPutThisCreatureIntoTheBattleZoneAbility whenYouPutThisCreatureIntoTheBattleZoneAbilityField;
         
         private string nameField;
         
-        private string costField;
+        private int costField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -173,12 +173,12 @@ namespace Cards.OneShotEffects {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public YouMayDrawCardsEffect YouMayDrawCardsEffect {
+        public WhenYouPutThisCreatureIntoTheBattleZoneAbility WhenYouPutThisCreatureIntoTheBattleZoneAbility {
             get {
-                return this.youMayDrawCardsEffectField;
+                return this.whenYouPutThisCreatureIntoTheBattleZoneAbilityField;
             }
             set {
-                this.youMayDrawCardsEffectField = value;
+                this.whenYouPutThisCreatureIntoTheBattleZoneAbilityField = value;
             }
         }
         
@@ -194,8 +194,8 @@ namespace Cards.OneShotEffects {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
-        public string cost {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int cost {
             get {
                 return this.costField;
             }
@@ -395,16 +395,37 @@ namespace Cards.OneShotEffects {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class YouMayDrawCardsEffect {
         
-        private string maximumField;
+        private int maximumField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
-        public string Maximum {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Maximum {
             get {
                 return this.maximumField;
             }
             set {
                 this.maximumField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility {
+        
+        private YouMayDrawCardsEffect youMayDrawCardsEffectField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public YouMayDrawCardsEffect YouMayDrawCardsEffect {
+            get {
+                return this.youMayDrawCardsEffectField;
+            }
+            set {
+                this.youMayDrawCardsEffectField = value;
             }
         }
     }

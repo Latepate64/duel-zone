@@ -8,7 +8,9 @@ namespace Engine.Abilities
     /// </summary>
     public abstract class OneShotEffect : Effect, IOneShotEffect, IDisposable
     {
-        protected OneShotEffect() { }
+        protected OneShotEffect() : base()
+        {
+        }
 
         protected OneShotEffect(IOneShotEffect effect) : base(effect)
         {

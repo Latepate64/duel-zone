@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Cards.OneShotEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
 using Engine;
@@ -32,7 +33,7 @@ internal static class AbilityConverter
         return trigger switch
         {
             trigger.none => throw new InvalidEnumArgumentException(),
-            trigger.Whenyouputthiscreatureintothebattlezone => new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect),
+            // trigger.Whenyouputthiscreatureintothebattlezone => new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect),
             _ => throw new InvalidEnumArgumentException(),
         };
     }

@@ -1,5 +1,6 @@
 using Engine.Abilities;
 using System;
+using System.Xml.Serialization;
 
 namespace Engine;
 
@@ -22,6 +23,7 @@ public abstract class Effect : IEffect
     /// <summary>
     /// 609.1. The ability that generated this effect.
     /// </summary>
+    [XmlIgnore]
     public IAbility Ability { get; set; }
     public IPlayer Controller => Ability.Controller;
 

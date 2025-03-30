@@ -1,5 +1,4 @@
-﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
+﻿using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
@@ -7,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
-            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new YouMayDrawCardsEffect(1)));
+            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawCardsEffect(1)));
         }
     }
 }

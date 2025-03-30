@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Cards.OneShotEffects;
 using Engine;
 
 namespace Simulator.Cards;
@@ -23,7 +24,7 @@ internal static class CardConverter
                 ? [.. card.abilities.Select(x => AbilityConverter.ToAbility(x, cardType))]
                 : [],
             Civilizations = [.. card.civilizations.Select(ToCivilization)],
-            ManaCost = int.Parse(card.cost),
+            ManaCost = card.cost,
             Name = card.name,
         };
     }
@@ -39,7 +40,7 @@ internal static class CardConverter
     {
         var card = ToCard(creature, CardType.Creature);
         card.CardType = CardType.Creature;
-        card.PrintedPower = int.Parse(creature.power);
+        card.PrintedPower = creature.power;
         card.Races = [.. creature.races.Select(ToRace)];
         return card;
     }

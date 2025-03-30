@@ -6,6 +6,10 @@ namespace Engine.Abilities
     {
         public IOneShotEffect OneShotEffect { get; set; }
 
+        protected ResolvableAbility() : base()
+        {
+        }
+
         protected ResolvableAbility(IOneShotEffect effect) : base()
         {
             OneShotEffect = effect;

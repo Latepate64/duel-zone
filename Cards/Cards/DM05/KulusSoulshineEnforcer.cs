@@ -1,5 +1,4 @@
-﻿using Cards.TriggeredAbilities;
-using Engine;
+﻿using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
@@ -12,7 +11,7 @@ namespace Cards.Cards.DM05
         }
     }
 
-    class KulusSoulshineEnforcerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    class KulusSoulshineEnforcerAbility : TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         public KulusSoulshineEnforcerAbility() : base(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect())
         {

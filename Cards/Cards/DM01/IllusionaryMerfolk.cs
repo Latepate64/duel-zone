@@ -14,9 +14,9 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class IllusionaryMerfolkAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+    class IllusionaryMerfolkAbility : TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
-        public IllusionaryMerfolkAbility() : base(new YouMayDrawCardsEffect(3))
+        public IllusionaryMerfolkAbility() : base()
         {
         }
 

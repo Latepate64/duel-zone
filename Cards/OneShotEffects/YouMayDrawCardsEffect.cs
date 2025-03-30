@@ -6,11 +6,13 @@ namespace Cards.OneShotEffects;
 
 public partial class YouMayDrawCardsEffect : OneShotEffect
 {
-    public int Maximum { get; }
-
-    public YouMayDrawCardsEffect(int maximum) : base()
+    public YouMayDrawCardsEffect(int maximum)
     {
         Maximum = maximum;
+    }
+
+    public YouMayDrawCardsEffect() : base()
+    {
     }
 
     YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)

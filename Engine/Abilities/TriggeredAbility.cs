@@ -8,6 +8,10 @@ namespace Engine.Abilities
     /// </summary>
     public abstract class TriggeredAbility : ResolvableAbility, ITriggeredAbility
     {
+        protected TriggeredAbility() : base()
+        {
+        }
+
         protected TriggeredAbility(IOneShotEffect effect) : base(effect)
         {
         }

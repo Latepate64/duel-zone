@@ -4,11 +4,9 @@
         <civilizations>
             <civilization>Water</civilization>
         </civilizations>
-        <abilities>
-            <ability trigger="When you put this creature into the battle zone"
-                effect="You may draw a card." />
-        </abilities>
-        <YouMayDrawCardsEffect Maximum="1" />
+        <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+            <YouMayDrawCardsEffect Maximum="1" />
+        </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
         <races>
             <race>Liquid People</race>
         </races>
@@ -139,11 +137,11 @@
         <civilizations>
             <civilization>Water</civilization>
         </civilizations>
-        <abilities>
+        <!-- <abilities>
             <ability
                 effect="Choose up to 2 creatures in the battle zone and return them to their owners' hands."
                 trigger="When you put this creature into the battle zone" />
-        </abilities>
+        </abilities> -->
         <races>
             <race>Liquid People</race>
         </races>

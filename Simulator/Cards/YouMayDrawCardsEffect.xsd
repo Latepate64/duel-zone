@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="Cards.OneShotEffects">
     <xs:complexType name="YouMayDrawCardsEffect">
-        <xs:attribute name="Maximum" type="xs:positiveInteger" use="required" />
+        <xs:attribute name="Maximum" type="xs:int" use="required" />
     </xs:complexType>
 </xs:schema>

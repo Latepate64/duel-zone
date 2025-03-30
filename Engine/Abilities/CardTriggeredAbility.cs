@@ -2,6 +2,10 @@
 {
     public abstract class CardTriggeredAbility : TriggeredAbility
     {
+        protected CardTriggeredAbility() : base()
+        {
+        }
+
         protected CardTriggeredAbility(IOneShotEffect effect) : base(effect)
         {
         }
