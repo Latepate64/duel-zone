@@ -1,22 +1,23 @@
-﻿namespace Engine.GameEvents
+﻿using System.Linq;
+
+namespace Engine.GameEvents;
+
+public class ShuffleDeckEvent(PlayerV2 player, IRandomizer randomizer) :
+    PlayerAction(player)
 {
-    class ShuffleDeckEvent : GameEvent
+    readonly IRandomizer randomizer = randomizer;
+
+    internal override GameState Happen(GameState state, PlayerAction action)
     {
-        private readonly IPlayer _player;
-
-        public ShuffleDeckEvent(IPlayer player)
+        // 701.16c If cards in a player’s library are shuffled or otherwise
+        // reordered, any revealed cards that are reordered stop being revealed
+        // and become new objects.
+        // TODO: Become new objects
+        var cards = randomizer.Shuffle([.. Player.Deck]);
+        return state with
         {
-            _player = player;
-        }
-
-        public override void Happen(IGame game)
-        {
-            _player.Deck.Shuffle();
-        }
-
-        public override string ToString()
-        {
-            return $"{_player} shuffled their deck.";
-        }
+            Players = [.. state.Players.Select(
+            x => x == Player ? Player with { Deck = cards } : x  )]
+        };
     }
 }

@@ -490,7 +490,8 @@ namespace Engine
 
         public void ShuffleOwnDeck(IGame game)
         {
-            game.ProcessEvents(new ShuffleDeckEvent(this));
+            throw new NotImplementedException();
+            //game.ProcessEvents(new ShuffleDeckEvent(this, null));
         }
 
         public void Tap(IGame game, params ICard[] cards)

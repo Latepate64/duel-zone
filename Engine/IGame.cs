@@ -21,7 +21,6 @@ namespace Engine
         IEnumerable<IPlayer> Players { get; }
         Queue<IGameEvent> PreGameEvents { get; }
         SpellStack SpellStack { get; }
-        Queue<IGameState> States { get; }
         IList<ITurn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
         IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
