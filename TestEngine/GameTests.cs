@@ -16,7 +16,7 @@ public class GameTests
     public void StartingAGameSetupsTheGameCorrectly()
     {
         // Arrange
-        
+
         const int ShieldCount = 5;
         const int HandSize = 5;
         const int DeckSizeAfterSetup = DeckSize - (ShieldCount + HandSize);
@@ -62,52 +62,30 @@ public class GameTests
     public void StartingAGameThatWasCreatedWithAStateThrows()
     {
         // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer]);
+        var state = CreateGameState();
 
         // Act
         var game = new Game(Mock.Of<IRandomizer>(), state);
 
         // Assert
         Assert.Equal(state, game.State);
-        _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
+        _ = Assert.Throws<InvalidOperationException>(() => game.Start(state.ActivePlayer,
+            state.NonActivePlayers.Single()));
     }
 
-    [Fact]
-    public void IllegalActionDuringChargePhaseThrows()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void IllegalActionDuringChargePhaseThrows(bool shuffleInsteadOfInvalidCharge)
     {
         // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer])
-        {
-            HappeningEvent = new ChargePhaseEvent(startingPlayer)
-        };
+        var state = CreateGameState();
+        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
         var randomizer = Mock.Of<IRandomizer>();
         var game = new Game(randomizer, state);
-        var action = new ShuffleDeckEvent(startingPlayer, randomizer);
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(action));
-
-        // Assert
-        Assert.Equal(action, ex.PlayerAction);
-    }
-
-    [Fact]
-    public void ChargeWithoutCardDuringChargePhaseThrows()
-    {
-        // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer])
-        {
-            HappeningEvent = new ChargePhaseEvent(startingPlayer)
-        };
-        var randomizer = Mock.Of<IRandomizer>();
-        var game = new Game(randomizer, state);
-        var action = new ChargeEvent(startingPlayer);
+        PlayerAction action = shuffleInsteadOfInvalidCharge
+            ? new ShuffleDeckEvent(state.ActivePlayer, randomizer)
+            : new ChargeEvent(state.ActivePlayer);
 
         // Act
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(action));
@@ -122,15 +100,11 @@ public class GameTests
     public void ConcedingPlayerLosesAndOpponentWins(bool startingPlayerConcedesInsteadOfAnother)
     {
         // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer])
-        {
-            HappeningEvent = new ChargePhaseEvent(startingPlayer)
-        };
+        var state = CreateGameState();
+        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
         var game = new Game(Mock.Of<IRandomizer>(), state);
-        var conceder = startingPlayerConcedesInsteadOfAnother ? startingPlayer : otherPlayer;
-        var winner = startingPlayerConcedesInsteadOfAnother ? otherPlayer : startingPlayer;
+        var conceder = startingPlayerConcedesInsteadOfAnother ? state.ActivePlayer : state.NonActivePlayers.Single();
+        var winner = startingPlayerConcedesInsteadOfAnother ? state.NonActivePlayers.Single() : state.ActivePlayer;
         var action = new ConcedeEvent(conceder);
 
         // Act
@@ -141,35 +115,24 @@ public class GameTests
         Assert.Equal(winner, game.State.Winner);
     }
 
-    [Fact]
-    public void PlayingAGameThatHasWinnerThrows()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void PlayingAGameThatHasWinnerOrAllPlayersLostThrows(bool winInsteadOfLose)
     {
         // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer])
+        var state = CreateGameState();
+        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
+        if (winInsteadOfLose)
         {
-            HappeningEvent = new ChargePhaseEvent(startingPlayer),
-            Winner = startingPlayer,
-            Losers = [otherPlayer]
-        };
-        var game = new Game(Mock.Of<IRandomizer>(), state);
-
-        // Act + Assert
-        _ = Assert.Throws<InvalidOperationException>(() => game.Play(null));
-    }
-
-    [Fact]
-    public void PlayingAGameWhereAllPlayersHaveLostThrows()
-    {
-        // Arrange
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
-        var state = new GameState([startingPlayer, otherPlayer])
+            state.Winner = state.ActivePlayer;
+            state.Losers.Add(state.NonActivePlayers.Single());
+        }
+        else
         {
-            HappeningEvent = new ChargePhaseEvent(startingPlayer),
-            Losers = [startingPlayer, otherPlayer]
-        };
+            state.Losers.AddRange(state.Players);
+        }
+        
         var game = new Game(Mock.Of<IRandomizer>(), state);
 
         // Act + Assert
@@ -184,5 +147,10 @@ public class GameTests
             cards.Add(Mock.Of<ICard>());
         }
         return new PlayerV2(cards);
+    }
+
+    static GameState CreateGameState()
+    {
+        return new GameState([(CreatePlayer(DeckSize)), (CreatePlayer(DeckSize))]);
     }
 }
