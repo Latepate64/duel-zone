@@ -9,6 +9,11 @@ public class Game(IRandomizer randomizer)
 
     public GameState State { get; private set; }
 
+    public Game(IRandomizer randomizer, GameState state) : this(randomizer)
+    {
+        State = state;
+    }
+
     public void Start(PlayerV2 startingPlayer, PlayerV2 otherPlayer)
     {
         if (State != null)

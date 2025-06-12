@@ -58,6 +58,22 @@ public class GameTests
         _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
     }
 
+    [Fact]
+    public void StartingAGameThatWasCreatedWithAStateThrows()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer]);
+
+        // Act
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Assert
+        Assert.Equal(state, game.State);
+        _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
+    }
+
     static PlayerV2 CreatePlayer(int deckSize)
     {
         var cards = new List<ICard>();

@@ -35,4 +35,11 @@ public class GameState(PlayerV2[] players)
         }
         parent.HappeningEvent = null;
     }
+
+    public override bool Equals(object obj)
+    {
+        return obj is GameState state
+            && Players.SequenceEqual(state.Players)
+            && HappeningEvent == state.HappeningEvent;
+    }
 }
