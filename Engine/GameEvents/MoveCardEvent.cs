@@ -6,7 +6,7 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination) : Pla
 {
     public ZoneType Destination { get; } = destination;
 
-    public abstract ICard RemoveCardFromCurrentZone();
+    internal abstract ICard RemoveCardFromCurrentZone();
 
     internal override bool Happen(GameState state, PlayerAction action)
     {

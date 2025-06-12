@@ -4,7 +4,7 @@ public class ChargeEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.ManaZ
 {
     public Card ChosenCard { get; set; }
 
-    public override ICard RemoveCardFromCurrentZone()
+    internal override ICard RemoveCardFromCurrentZone()
     {
         // TODO: Consider that card may not be in hand
         Player.Hand.Remove(ChosenCard, game: null);

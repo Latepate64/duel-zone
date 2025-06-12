@@ -74,6 +74,48 @@ public class GameTests
         _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
     }
 
+    [Fact]
+    public void IllegalActionDuringChargePhaseThrows()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            HappeningEvent = new ChargePhaseEvent(startingPlayer)
+        };
+        var randomizer = Mock.Of<IRandomizer>();
+        var game = new Game(randomizer, state);
+        var action = new ShuffleDeckEvent(startingPlayer, randomizer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(action));
+
+        // Assert
+        Assert.Equal(action, ex.PlayerAction);
+    }
+
+    [Fact]
+    public void ChargeWithoutCardDuringChargePhaseThrows()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            HappeningEvent = new ChargePhaseEvent(startingPlayer)
+        };
+        var randomizer = Mock.Of<IRandomizer>();
+        var game = new Game(randomizer, state);
+        var action = new ChargeEvent(startingPlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(action));
+
+        // Assert
+        Assert.Equal(action, ex.PlayerAction);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize)
     {
         var cards = new List<ICard>();
