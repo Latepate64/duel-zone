@@ -9,7 +9,7 @@ namespace Engine.Zones
     /// </summary>
     public abstract class Zone : IDisposable, IZone
     {
-        public List<ICard> Cards { get; private set; } = new List<ICard>();
+        public List<ICard> Cards { get; init; } = new List<ICard>();
 
         public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
         public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);

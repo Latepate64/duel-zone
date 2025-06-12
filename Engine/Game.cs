@@ -11,9 +11,12 @@ public class Game(IRandomizer randomizer)
     public void Start(PlayerV2 startingPlayer, PlayerV2 otherPlayer)
     {
         State = new GameState([startingPlayer, otherPlayer]);
-        State = new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State, 
-            action: null);
-        State = new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State,
-            action: null);
+        new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State);
+        new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State);
+        for (int i = 0; i < 5; ++i)
+        {
+            new TopCardOfDeckIntoShieldZoneEvent(startingPlayer).Happen(State);
+            new TopCardOfDeckIntoShieldZoneEvent(otherPlayer).Happen(State);
+        }
     }
 }

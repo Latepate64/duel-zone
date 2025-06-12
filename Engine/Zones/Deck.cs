@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Zones
@@ -9,7 +8,10 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
-        public Deck() : base(ZoneType.Deck) { }
+        public Deck(List<ICard> cards) : base(ZoneType.Deck)
+        {
+            Cards = cards;
+        }
 
         public Deck(IDeck zone) : base(zone)
         {
@@ -29,26 +31,6 @@ namespace Engine.Zones
             else
             {
                 return new List<ICard> { card };
-            }
-        }
-
-        public void Shuffle()
-        {
-            // 701.16c If cards in a player’s library are shuffled or otherwise reordered, any revealed cards that are reordered stop being revealed and become new objects.
-            // TODO: Become new objects
-            foreach (var card in Cards)
-            {
-                card.KnownTo = new List<Guid>();
-            }
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            int n = Cards.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = random.Next(n + 1);
-                var value = Cards[k];
-                Cards[k] = Cards[n];
-                Cards[n] = value;
             }
         }
 
@@ -77,5 +59,12 @@ namespace Engine.Zones
         {
             return new Deck(this);
         }
+
+        public void Shuffle(IRandomizer randomizer)
+        {
+            randomizer.Shuffle(Cards);
+        }
+
+        public ICard TopCard => GetTopCards(1).SingleOrDefault();
     }
 }

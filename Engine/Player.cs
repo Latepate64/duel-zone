@@ -50,7 +50,7 @@ namespace Engine
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public IDeck Deck { get; private set; } = new Deck();
+        public IDeck Deck { get; private set; } = new Deck([]);
 
         public bool DirectlyAttacked { get; set; }
 

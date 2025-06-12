@@ -1,3 +1,6 @@
 ﻿namespace Engine;
 
-public record GameState(PlayerV2[] Players);
+public class GameState(PlayerV2[] Players)
+{
+    public PlayerV2[] Players { get; } = Players;
+}

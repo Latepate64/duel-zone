@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Engine;
 using Moq;
 using Xunit;
@@ -7,32 +9,41 @@ namespace TestEngine;
 public class GameTests
 {
     [Fact]
-    public void PlayersShuffleTheirDecksWhenStartingAGame()
+    public void StartingAGameSetupsTheGameCorrectly()
     {
         // Arrange
-        var card1 = Mock.Of<ICard>();
-        var card2 = Mock.Of<ICard>();
-        var card3 = Mock.Of<ICard>();
-        var card4 = Mock.Of<ICard>();
-        var startingPlayer = new PlayerV2(Deck: [card1, card2]);
-        var otherPlayer = new PlayerV2(Deck: [card3, card4]);
+        const int DeckSize = 15;
+        const int ShieldCount = 5;
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
         var randomizer = new Mock<IRandomizer>();
-        var expectedStartingPlayer = startingPlayer with
-        {
-            Deck = [card2, card1]
-        };
-        var expectedOtherPlayer = otherPlayer with { Deck = [card3, card4] };
-        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck)).Returns(
-            expectedStartingPlayer.Deck);
-        randomizer.Setup(x => x.Shuffle(otherPlayer.Deck)).Returns(
-            expectedOtherPlayer.Deck);
+        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards)).Callback((List<ICard> cards) => cards.Reverse());
+        randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards));
         var game = new Game(randomizer.Object);
+        var toReverse = startingPlayer.Deck.Cards.ToList();
+        toReverse.Reverse();
+        var expectedStartingPlayerDeckCards = toReverse.Take(DeckSize - ShieldCount);
+        var expectedStartingPlayerShields = toReverse.TakeLast(ShieldCount).Reverse();
+        var expectedOtherPlayerDeckCards = otherPlayer.Deck.Cards.Take(DeckSize - ShieldCount).ToList();
+        var expectedOtherPlayerShields = otherPlayer.Deck.Cards.TakeLast(ShieldCount).Reverse().ToList();
 
         // Act
         game.Start(startingPlayer, otherPlayer);
 
         // Assert
-        Assert.Equal([expectedStartingPlayer, expectedOtherPlayer],
-            game.State.Players);
+        Assert.Equal(expectedStartingPlayerDeckCards, game.State.Players[0].Deck.Cards);
+        Assert.Equal(expectedStartingPlayerShields, game.State.Players[0].ShieldZone.Cards);
+        Assert.Equal(expectedOtherPlayerDeckCards, game.State.Players[1].Deck.Cards);
+        Assert.Equal(expectedOtherPlayerShields, game.State.Players[1].ShieldZone.Cards);
+    }
+
+    static PlayerV2 CreatePlayer(int deckSize)
+    {
+        var cards = new List<ICard>();
+        for (int i = 0; i < deckSize; ++i)
+        {
+            cards.Add(Mock.Of<ICard>());
+        }
+        return new PlayerV2(cards);
     }
 }

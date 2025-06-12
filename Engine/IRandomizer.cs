@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Engine;
 
 public interface IRandomizer
 {
-    ICard[] Shuffle(ICard[] cards);
+    void Shuffle(List<ICard> cards);
 }
