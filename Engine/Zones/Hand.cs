@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Engine.Zones
 {
@@ -16,7 +15,7 @@ namespace Engine.Zones
 
         public override void Add(ICard card, IGame game)
         {
-            card.KnownTo = new List<Guid> { card.Owner.Id };
+            // card.KnownTo = new List<Guid> { card.Owner.Id };
             Cards.Add(card);
         }
 

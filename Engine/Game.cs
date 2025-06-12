@@ -15,8 +15,13 @@ public class Game(IRandomizer randomizer)
         new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State);
         for (int i = 0; i < 5; ++i)
         {
-            new TopCardOfDeckIntoShieldZoneEvent(startingPlayer).Happen(State);
-            new TopCardOfDeckIntoShieldZoneEvent(otherPlayer).Happen(State);
+            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.ShieldZone).Happen(State);
+            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.ShieldZone).Happen(State);
+        }
+        for (int i = 0; i < 5; ++i)
+        {
+            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
+            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
         }
     }
 }

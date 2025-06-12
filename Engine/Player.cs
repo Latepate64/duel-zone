@@ -318,7 +318,7 @@ namespace Engine
             {
                 if (Deck.HasCards)
                 {
-                    game.ProcessEvents(new DrawCardEvent(this, Deck.Cards.Last(), ability));
+                    throw new NotImplementedException();
                 }
             }
         }

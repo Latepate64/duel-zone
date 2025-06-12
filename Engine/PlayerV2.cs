@@ -7,4 +7,5 @@ public class PlayerV2(List<ICard> deckCards)
 {
     public Deck Deck { get; } = new Deck(deckCards);
     public ShieldZone ShieldZone { get; } = new ShieldZone();
+    public Hand Hand { get; } = new Hand();
 }

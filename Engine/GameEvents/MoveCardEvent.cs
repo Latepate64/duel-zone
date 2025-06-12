@@ -16,7 +16,11 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination) :
         {
             return;
         }
-        if (Destination == ZoneType.ShieldZone)
+        if (Destination == ZoneType.Hand)
+        {
+            Player.Hand.Add(card, game: null);
+        }
+        else if (Destination == ZoneType.ShieldZone)
         {
             Player.ShieldZone.Add(card, game: null);
         }
