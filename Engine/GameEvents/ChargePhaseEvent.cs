@@ -18,10 +18,10 @@ public class ChargePhaseEvent(PlayerV2 player) : PlayerAction(player)
         {
             if (chargeEvent.ChosenCard == null)
             {
-                throw new IllegalActionException();
+                throw new IllegalActionException(action);
             }
             AddEventThatWouldHappen(chargeEvent);
         }
-        throw new IllegalActionException();
+        throw new IllegalActionException(action);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Engine;
@@ -9,11 +10,13 @@ namespace TestEngine;
 
 public class GameTests
 {
+    const int DeckSize = 15;
+
     [Fact]
     public void StartingAGameSetupsTheGameCorrectly()
     {
         // Arrange
-        const int DeckSize = 15;
+        
         const int ShieldCount = 5;
         const int HandSize = 5;
         const int DeckSizeAfterSetup = DeckSize - (ShieldCount + HandSize);
@@ -38,6 +41,21 @@ public class GameTests
         Assert.Equal(otherDeck.TakeLast(ShieldCount).Reverse(), game.State.Players[1].ShieldZone.Cards);
         Assert.Equal(otherDeck.Skip(DeckSizeAfterSetup).Take(HandSize).Reverse(), game.State.Players[1].Hand.Cards);
         Assert.Equal(new ChargeEvent(startingPlayer), game.State.LeafHappeningEvent.PromptedAction);
+    }
+
+    [Fact]
+    public void StartingAnAlreadyStartedGameThrows()
+    {
+        // Arrange
+        var game = new Game(Mock.Of<IRandomizer>());
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+
+        // Act
+        game.Start(startingPlayer, otherPlayer);
+
+        // Assert
+        _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
     }
 
     static PlayerV2 CreatePlayer(int deckSize)

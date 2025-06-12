@@ -11,6 +11,10 @@ public class Game(IRandomizer randomizer)
 
     public void Start(PlayerV2 startingPlayer, PlayerV2 otherPlayer)
     {
+        if (State != null)
+        {
+            throw new System.InvalidOperationException();
+        }
         State = new GameState([startingPlayer, otherPlayer]);
         new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State, null);
         new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State, null);
