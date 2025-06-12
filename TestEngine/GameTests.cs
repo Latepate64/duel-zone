@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine;
+using Engine.GameEvents;
 using Moq;
 using Xunit;
 
@@ -36,6 +37,7 @@ public class GameTests
         Assert.Equal(otherDeck.Take(DeckSizeAfterSetup), game.State.Players[1].Deck.Cards);
         Assert.Equal(otherDeck.TakeLast(ShieldCount).Reverse(), game.State.Players[1].ShieldZone.Cards);
         Assert.Equal(otherDeck.Skip(DeckSizeAfterSetup).Take(HandSize).Reverse(), game.State.Players[1].Hand.Cards);
+        Assert.Equal(new ChargeEvent(startingPlayer), game.State.LeafHappeningEvent.PromptedAction);
     }
 
     static PlayerV2 CreatePlayer(int deckSize)
