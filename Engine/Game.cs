@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Engine.GameEvents;
 
 namespace Engine;
@@ -18,7 +19,7 @@ public class Game(IRandomizer randomizer)
     {
         if (State != null)
         {
-            throw new System.InvalidOperationException();
+            throw new InvalidOperationException();
         }
         State = new GameState([startingPlayer, otherPlayer]);
         new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State, null);
@@ -34,10 +35,26 @@ public class Game(IRandomizer randomizer)
             new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State, null);
         }
         State.HappeningEvent = new PlayGameEvent();
-        Play(playerAction: null);
+        Continue();
     }
 
     public void Play(PlayerAction playerAction)
+    {
+        if (State.Winner != null || State.Losers.Count == State.Players.Length)
+        {
+            throw new InvalidOperationException();
+        }
+        else if (playerAction is ConcedeEvent concede)
+        {
+            concede.Happen(State, null);
+        }
+        else
+        {
+            Continue(playerAction);
+        }
+    }
+
+    void Continue(PlayerAction playerAction = null)
     {
         if (State.LeafHappeningEvent.EventsThatWouldHappen.Any())
         {
@@ -54,7 +71,7 @@ public class Game(IRandomizer randomizer)
         }
         if (State.LeafHappeningEvent.PromptedAction == null)
         {
-            Play(null);
+            Continue();
         }
     }
 }

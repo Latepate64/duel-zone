@@ -8,6 +8,8 @@ public class GameState(PlayerV2[] players)
 {
     public PlayerV2[] Players { get; } = players;
     public GameEventV2 HappeningEvent { get; set; }
+    public PlayerV2 Winner { get; set; }
+    public List<PlayerV2> Losers { get; init; } = [];
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);

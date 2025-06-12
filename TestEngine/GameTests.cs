@@ -116,6 +116,66 @@ public class GameTests
         Assert.Equal(action, ex.PlayerAction);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ConcedingPlayerLosesAndOpponentWins(bool startingPlayerConcedesInsteadOfAnother)
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            HappeningEvent = new ChargePhaseEvent(startingPlayer)
+        };
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var conceder = startingPlayerConcedesInsteadOfAnother ? startingPlayer : otherPlayer;
+        var winner = startingPlayerConcedesInsteadOfAnother ? otherPlayer : startingPlayer;
+        var action = new ConcedeEvent(conceder);
+
+        // Act
+        game.Play(action);
+
+        // Assert
+        Assert.Equal([conceder], game.State.Losers);
+        Assert.Equal(winner, game.State.Winner);
+    }
+
+    [Fact]
+    public void PlayingAGameThatHasWinnerThrows()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            HappeningEvent = new ChargePhaseEvent(startingPlayer),
+            Winner = startingPlayer,
+            Losers = [otherPlayer]
+        };
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Act + Assert
+        _ = Assert.Throws<InvalidOperationException>(() => game.Play(null));
+    }
+
+    [Fact]
+    public void PlayingAGameWhereAllPlayersHaveLostThrows()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            HappeningEvent = new ChargePhaseEvent(startingPlayer),
+            Losers = [startingPlayer, otherPlayer]
+        };
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Act + Assert
+        _ = Assert.Throws<InvalidOperationException>(() => game.Play(null));
+    }
+
     static PlayerV2 CreatePlayer(int deckSize)
     {
         var cards = new List<ICard>();
