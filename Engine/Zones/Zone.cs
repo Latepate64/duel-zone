@@ -9,13 +9,13 @@ namespace Engine.Zones
     /// </summary>
     public abstract class Zone : IDisposable, IZone
     {
-        public List<ICard> Cards { get; init; } = new List<ICard>();
+        public List<ICard> Cards { get; init; } = [];
 
         public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
         public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
 
         public ZoneType Type { get; }
-        public bool HasCards => Cards.Any();
+        public bool HasCards => Cards.Count != 0;
 
         protected Zone(ZoneType type)
         {

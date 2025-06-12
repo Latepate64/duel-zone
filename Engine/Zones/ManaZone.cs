@@ -15,12 +15,11 @@ namespace Engine.Zones
         {
         }
 
-        public IEnumerable<ICard> TappedCards => new ReadOnlyCollection<ICard>(Cards.Where(card => card.Tapped).ToList());
-        public IEnumerable<ICard> UntappedCards => new ReadOnlyCollection<ICard>(Cards.Where(card => !card.Tapped).ToList());
+        public IEnumerable<ICard> TappedCards => new ReadOnlyCollection<ICard>([.. Cards.Where(card => card.Tapped)]);
+        public IEnumerable<ICard> UntappedCards => new ReadOnlyCollection<ICard>([.. Cards.Where(card => !card.Tapped)]);
 
         public override void Add(ICard card, IGame game)
         {
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
             if (card.IsMultiColored)
             {
                 card.Tapped = true;

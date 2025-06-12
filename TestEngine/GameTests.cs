@@ -20,8 +20,8 @@ public class GameTests
         const int ShieldCount = 5;
         const int HandSize = 5;
         const int DeckSizeAfterSetup = DeckSize - (ShieldCount + HandSize);
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
+        var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
+        var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
         var randomizer = new Mock<IRandomizer>();
         randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards)).Callback((List<ICard> cards) => cards.Reverse());
         randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards));
@@ -48,8 +48,8 @@ public class GameTests
     {
         // Arrange
         var game = new Game(Mock.Of<IRandomizer>());
-        var startingPlayer = CreatePlayer(DeckSize);
-        var otherPlayer = CreatePlayer(DeckSize);
+        var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
+        var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
 
         // Act
         game.Start(startingPlayer, otherPlayer);
@@ -139,18 +139,49 @@ public class GameTests
         _ = Assert.Throws<InvalidOperationException>(() => game.Play(null));
     }
 
-    static PlayerV2 CreatePlayer(int deckSize)
+    [Fact]
+    public void ActivePlayerChargesDuringChargePhase()
+    {
+        // Arrange
+        var state = CreateGameState();
+        state.HappeningEvent = new TakeTurnEvent(state.ActivePlayer, 1)
+        {
+            NextPhase = PhaseType.Main,
+            HappeningEvent = new ChargePhaseEvent(state.ActivePlayer)
+        };
+        var randomizer = Mock.Of<IRandomizer>();
+        var game = new Game(randomizer, state);
+        var card = state.ActivePlayer.Hand.Cards.First();
+        var action = new ChargeEvent(state.ActivePlayer) { ChosenCard = card };
+
+        // Act
+        game.Play(action);
+
+        // Assert
+        Assert.DoesNotContain(card, state.ActivePlayer.Hand.Cards);
+        Assert.Contains(card, state.ActivePlayer.ManaZone.Cards);
+        Assert.Equal(new UseCardEvent(state.ActivePlayer), game.State.LeafHappeningEvent.PromptedAction);
+    }
+
+    static PlayerV2 CreatePlayer(int deckSize, int handSize)
     {
         var cards = new List<ICard>();
         for (int i = 0; i < deckSize; ++i)
         {
             cards.Add(Mock.Of<ICard>());
         }
-        return new PlayerV2(cards);
+        var player = new PlayerV2(cards);
+        for (int i = 0; i < handSize; ++i)
+        {
+            player.Hand.Cards.Add(Mock.Of<ICard>());
+        }
+        return player;
     }
 
     static GameState CreateGameState()
     {
-        return new GameState([(CreatePlayer(DeckSize)), (CreatePlayer(DeckSize))]);
+        var startingPlayer = CreatePlayer(DeckSize, handSize: 5);
+        var otherPlayer = CreatePlayer(DeckSize, handSize: 5);
+        return new GameState([startingPlayer, otherPlayer]);
     }
 }

@@ -1,32 +1,55 @@
 namespace Engine.GameEvents;
 
+public enum PhaseType
+{
+    StartOfTurn,
+    Draw,
+    Charge,
+    Main
+}
+
 public class TakeTurnEvent(PlayerV2 player, int turnNumber) : PlayerAction(player)
 {
     public int TurnNumber { get; } = turnNumber;
+    public PhaseType NextPhase { get; set; }
 
     internal override bool Happen(GameState state, PlayerAction action)
     {
-        if (index == 0)
+        if (NextPhase == PhaseType.StartOfTurn)
         {
-            ++index;
+            NextPhase = PhaseType.Draw;
             AddEventThatWouldHappen(new StartOfTurnEvent(Player));
             return false;
         }
-        if (index == 1)
+        if (NextPhase == PhaseType.Draw)
         {
-            ++index;
+            NextPhase = PhaseType.Charge;
             if (TurnNumber > 1)
             {
                 AddEventThatWouldHappen(new DrawPhaseEvent(Player));
                 return false;
             }
         }
-        if (index == 2)
+        if (NextPhase == PhaseType.Charge)
         {
-            ++index;
+            NextPhase = PhaseType.Main;
             AddEventThatWouldHappen(new ChargePhaseEvent(Player));
             return false;
         }
+        if (NextPhase == PhaseType.Main)
+        {
+            // NextPhase = Phase.Main;
+            AddEventThatWouldHappen(new MainPhaseEvent(Player));
+            return false;
+        }
         return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj)
+            && obj is TakeTurnEvent e
+            && TurnNumber == e.TurnNumber
+            && NextPhase == e.NextPhase;
     }
 }

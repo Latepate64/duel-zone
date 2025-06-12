@@ -1,8 +1,8 @@
 namespace Engine.GameEvents;
 
-public class ChargeEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.ManaZone)
+public class UseCardEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.SpellStack)
 {
-    public ICard ChosenCard { get; set; }
+    public Card ChosenCard { get; set; }
 
     internal override ICard RemoveCardFromCurrentZone()
     {
@@ -14,7 +14,7 @@ public class ChargeEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.ManaZ
     public override bool Equals(object obj)
     {
         return base.Equals(obj)
-            && obj is ChargeEvent e
+            && obj is UseCardEvent e
             && ChosenCard == e.ChosenCard;
     }
 }

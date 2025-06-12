@@ -69,7 +69,7 @@ public class Game(IRandomizer randomizer)
         {
             State.RemoveLeafHappeningEvent();
         }
-        if (State.LeafHappeningEvent.PromptedAction == null)
+        if (State.HappeningEvent != null && State.LeafHappeningEvent.PromptedAction == null)
         {
             Continue();
         }

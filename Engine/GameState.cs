@@ -28,14 +28,21 @@ public class GameState(PlayerV2[] players)
 
     public void RemoveLeafHappeningEvent()
     {
-        var parent = HappeningEvent;
-        var child = parent.HappeningEvent;
-        while (child != null && child.HappeningEvent != null)
+        var e = HappeningEvent;
+        var events = new List<GameEventV2> { e };
+        while (e.HappeningEvent != null)
         {
-            parent = child;
-            child = child.HappeningEvent;
+            e = e.HappeningEvent;
+            events.Add(e);
         }
-        parent.HappeningEvent = null;
+        if (events.Count == 1)
+        {
+            HappeningEvent = null;
+        }
+        if (events.Count > 1)
+        {
+            events[^2].HappeningEvent = null;
+        }
     }
 
     public override bool Equals(object obj)
