@@ -2,8 +2,11 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public abstract class GameEventV2
+public abstract class GameEventV2(PlayerV2 player, bool passable)
 {
+    public PlayerV2 Player { get; } = player;
+    public bool Passable { get; } = passable;
+
     protected int index;
 
     /// <param name="state">The current state of the game.</param>
@@ -13,6 +16,8 @@ public abstract class GameEventV2
     public override bool Equals(object obj)
     {
         return obj is GameEventV2 e
-            && index == e.index;
+            && index == e.index
+            && Player == e.Player
+            && Passable == e.Passable;
     }
 }

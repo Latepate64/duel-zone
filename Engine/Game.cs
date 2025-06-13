@@ -38,11 +38,10 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
             new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
         }
-        State.EventsThatWouldHappen.Add(new PlayGameEvent());
         Continue();
     }
 
-    public void Play(PlayerAction action)
+    public void Play(GameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (State.Winner != null || State.Losers.Count == State.Players.Length)
@@ -61,7 +60,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
         _originalState = State;
     }
 
-    void Continue(PlayerAction action)
+    void Continue(GameEventV2 action)
     {
         if (action is ConcedeEvent concede)
         {
@@ -94,7 +93,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
 
     void Continue(int loopCounter = 0)
     {
-        if (loopCounter > maxLoopCount)
+        if (loopCounter++ > maxLoopCount)
         {
             throw new InvalidOperationException("Looped too many times");
         }
@@ -106,21 +105,31 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             State.EventsThatWouldHappen.Clear();
             State.EventsHappening.Push(happeningEvent);
         }
+        if (State.EventsHappening.IsEmpty)
+        {
+            if (State.TurnNumber > 0)
+            {
+                State.UpdatePlayerOrder();
+            }
+            State.EventsThatWouldHappen.Add(new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber));
+            Continue(loopCounter);
+            return;
+        }
         var events = State.EventsHappening.Peek().Happen(State);
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
             // TODO: Broadcast happened event to clients, triggers and watchers
-            Continue(++loopCounter);
+            Continue(loopCounter);
             return;
         }
         var gameEvent = events.Single(); // TODO: May include multiple events
-        if (gameEvent is PlayerAction action && action.Passable)
+        if (gameEvent.Passable)
         {
-            State.PassableAction = action;
+            State.PassableAction = gameEvent;
             return;
         }
         State.EventsThatWouldHappen.Add([.. events]);
-        Continue(++loopCounter);
+        Continue(loopCounter);
     }
 }

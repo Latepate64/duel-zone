@@ -2,7 +2,7 @@
 
 namespace Engine.GameEvents;
 
-public class ShuffleDeckEvent(PlayerV2 player, IRandomizer randomizer) : PlayerAction(player, false)
+public class ShuffleDeckEvent(PlayerV2 player, IRandomizer randomizer) : GameEventV2(player, false)
 {
     readonly IRandomizer randomizer = randomizer;
 

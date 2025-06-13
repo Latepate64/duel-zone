@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public class ChargePhaseEvent : GameEventV2
+public class ChargePhaseEvent(PlayerV2 player) : GameEventV2(player, false)
 {
     bool prompted;
 
@@ -11,7 +11,7 @@ public class ChargePhaseEvent : GameEventV2
         if (!prompted)
         {
             prompted = true;
-            return [new ChargeEvent(state.ActivePlayer, true)];
+            return [new ChargeEvent(Player, true)];
         }
         return [];
     }

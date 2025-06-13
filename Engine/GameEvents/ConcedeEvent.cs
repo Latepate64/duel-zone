@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Engine.GameEvents;
 
-public class ConcedeEvent(PlayerV2 player) : PlayerAction(player, false)
+public class ConcedeEvent(PlayerV2 player) : GameEventV2(player, false)
 {
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {

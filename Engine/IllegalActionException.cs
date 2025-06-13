@@ -3,7 +3,7 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class IllegalActionException(PlayerAction playerAction, string message) : Exception(message)
+public class IllegalActionException(GameEventV2 gameEvent, string message) : Exception(message)
 {
-    public PlayerAction PlayerAction { get; } = playerAction;
+    public GameEventV2 PlayerAction { get; } = gameEvent;
 }

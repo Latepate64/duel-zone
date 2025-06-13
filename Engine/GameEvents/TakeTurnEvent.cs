@@ -10,7 +10,7 @@ public enum PhaseType
     Main
 }
 
-public class TakeTurnEvent(int turnNumber) : GameEventV2
+public class TakeTurnEvent(PlayerV2 player, int turnNumber) : GameEventV2(player, false)
 {
     public int TurnNumber { get; } = turnNumber;
     public PhaseType NextPhase { get; set; }
@@ -20,25 +20,25 @@ public class TakeTurnEvent(int turnNumber) : GameEventV2
         if (NextPhase == PhaseType.StartOfTurn)
         {
             NextPhase = PhaseType.Draw;
-            return [new StartOfTurnEvent()];
+            return [new StartOfTurnEvent(Player)];
         }
         if (NextPhase == PhaseType.Draw)
         {
             NextPhase = PhaseType.Charge;
             if (TurnNumber > 1)
             {
-                return [new DrawPhaseEvent()];
+                return [new DrawPhaseEvent(Player)];
             }
         }
         if (NextPhase == PhaseType.Charge)
         {
             NextPhase = PhaseType.Main;
-            return [new ChargePhaseEvent()];
+            return [new ChargePhaseEvent(Player)];
         }
         if (NextPhase == PhaseType.Main)
         {
             // NextPhase = Phase.Main;
-            return [new MainPhaseEvent()];
+            return [new MainPhaseEvent(Player)];
         }
         return [];
     }

@@ -7,7 +7,10 @@ namespace Engine;
 
 public class GameState(PlayerV2[] players)
 {
-    public PlayerV2[] Players { get; } = players;
+    /// <summary>
+    /// People in the game in an APNAP order.
+    /// </summary>
+    public PlayerV2[] Players { get; private set; } = players;
     public PlayerV2 Winner { get; set; }
     public List<PlayerV2> Losers { get; init; } = [];
     public EventStack EventsHappening { get; init; } = new();
@@ -15,15 +18,22 @@ public class GameState(PlayerV2[] players)
     /// <summary>
     /// An action that a player either takes or passes (eg. if a player may draw a card)
     /// </summary>
-    public PlayerAction PassableAction { get; set; }
+    public GameEventV2 PassableAction { get; set; }
+    public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
+    public int TurnNumber { get; internal set; }
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
-    public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
 
     internal void RemovePassableAction()
     {
         PassableAction = null;
+    }
+
+    internal void UpdatePlayerOrder()
+    {
+        // TODO: This doesn't work correctly with over two players
+        Players = [.. Players.Reverse()];
     }
 
     public override bool Equals(object obj)
@@ -33,7 +43,8 @@ public class GameState(PlayerV2[] players)
             && Winner == state.Winner
             && Losers.SequenceEqual(state.Losers)
             && EventsHappening == state.EventsHappening
+            && PassableAction == state.PassableAction
             && EventsThatWouldHappen == state.EventsThatWouldHappen
-            && PassableAction == state.PassableAction;
+            && TurnNumber == state.TurnNumber;
     }
 }

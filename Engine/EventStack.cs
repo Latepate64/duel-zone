@@ -19,10 +19,9 @@ public class EventStack(params GameEventV2[] events)
         return events.Pop();
     }
 
-    internal GameEventV2 Peek()
-    {
-        return events.Peek();
-    }
+    internal GameEventV2 Peek() => events.Peek();
+
+    internal bool IsEmpty => events.Count == 0;
 
     public override bool Equals(object obj)
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Engine.GameEvents;
 
 public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool passable) :
-    PlayerAction(player, passable)
+    GameEventV2(player, passable)
 {
     public ZoneType Destination { get; } = destination;
 
