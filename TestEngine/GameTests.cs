@@ -40,7 +40,7 @@ public class GameTests
         Assert.Equal(otherDeck.Take(DeckSizeAfterSetup), game.State.Players[1].Deck.Cards);
         Assert.Equal(otherDeck.TakeLast(ShieldCount).Reverse(), game.State.Players[1].ShieldZone.Cards);
         Assert.Equal(otherDeck.Skip(DeckSizeAfterSetup).Take(HandSize).Reverse(), game.State.Players[1].Hand.Cards);
-        Assert.Equal(new ChargeEvent(startingPlayer), game.State.LeafHappeningEvent.PassableAction);
+        Assert.Equal(new ChargeEvent(startingPlayer), game.State.PassableAction);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
+        state.Events.Push(new ChargePhaseEvent(state.ActivePlayer));
         var game = new Game(Mock.Of<IRandomizer>(), state);
         var conceder = startingPlayerConcedesInsteadOfAnother ? state.ActivePlayer : state.NonActivePlayers.Single();
         var winner = startingPlayerConcedesInsteadOfAnother ? state.NonActivePlayers.Single() : state.ActivePlayer;
@@ -101,7 +101,7 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
+        state.Events.Push(new ChargePhaseEvent(state.ActivePlayer));
         if (winInsteadOfLose)
         {
             state.Winner = state.ActivePlayer;

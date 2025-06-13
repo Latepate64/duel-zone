@@ -34,7 +34,7 @@ public class Game(IRandomizer randomizer)
             new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
             new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
         }
-        State.HappeningEvent = new PlayGameEvent();
+        State.Events.Push(new PlayGameEvent());
         Continue();
     }
 
@@ -52,38 +52,38 @@ public class Game(IRandomizer randomizer)
         }
         if (action is PassAction)
         {
-            if (State.LeafHappeningEvent.PassableAction == null)
+            if (State.PassableAction == null)
             {
                 throw new IllegalActionException(action);
             }
-            State.LeafHappeningEvent.RemovePassableAction();
+            State.RemovePassableAction();
             Continue();
             return;
         }
-        if (action.GetType() != State.LeafHappeningEvent.PassableAction.GetType())
+        if (action.GetType() != State.PassableAction.GetType())
         {
             throw new IllegalActionException(action);
         }
-        State.LeafHappeningEvent.AddEventThatWouldHappen(action);
+        State.AddEventThatWouldHappen(action);
         Continue();  
     }
 
     void Continue()
     {
-        if (State.LeafHappeningEvent.EventsThatWouldHappen.Any())
+        if (State.EventsThatWouldHappen.Any())
         {
             // TODO: Check if any event could be replaced
             // TODO: Consider multiple events happening simultaneously
-            var happeningEvent = State.LeafHappeningEvent.EventsThatWouldHappen.First();
-            State.LeafHappeningEvent.ClearEventsThatWouldHappen();
-            State.LeafHappeningEvent.HappeningEvent = happeningEvent;
+            var happeningEvent = State.EventsThatWouldHappen.First();
+            State.ClearEventsThatWouldHappen();
+            State.Events.Push(happeningEvent);
         }
-        var happenedCompletely = State.LeafHappeningEvent.Happen(State);
+        var happenedCompletely = State.Events.Peek().Happen(State);
         if (happenedCompletely)
         {
-            State.RemoveLeafHappeningEvent();
+            State.Events.Pop();
         }
-        if (State.HappeningEvent != null && State.LeafHappeningEvent.PassableAction == null)
+        if (State.PassableAction == null)
         {
             Continue();
         }

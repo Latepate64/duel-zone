@@ -8,7 +8,7 @@ public class ChargePhaseEvent(PlayerV2 player) : PlayerAction(player)
     {
         if (!prompted)
         {
-            PassableAction = new ChargeEvent(Player);
+            state.PassableAction = new ChargeEvent(Player);
             prompted = true;
             return false;
         }

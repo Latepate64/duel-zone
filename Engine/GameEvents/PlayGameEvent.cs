@@ -6,7 +6,7 @@ public class PlayGameEvent() : GameEventV2()
 
     internal override bool Happen(GameState state)
     {
-        AddEventThatWouldHappen(new TakeTurnEvent(state.ActivePlayer, ++turnNumber));
+        state.AddEventThatWouldHappen(new TakeTurnEvent(state.ActivePlayer, ++turnNumber));
         return false;
     }
 }
