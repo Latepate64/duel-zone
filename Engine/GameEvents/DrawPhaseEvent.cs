@@ -2,7 +2,7 @@ namespace Engine.GameEvents;
 
 public class DrawPhaseEvent(PlayerV2 player) : PlayerAction(player)
 {
-    internal override bool Happen(GameState state, PlayerAction action)
+    internal override bool Happen(GameState state)
     {
         if (index == 0)
         {

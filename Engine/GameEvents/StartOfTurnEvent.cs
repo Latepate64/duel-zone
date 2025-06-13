@@ -2,7 +2,7 @@ namespace Engine.GameEvents;
 
 public class StartOfTurnEvent(PlayerV2 player) : PlayerAction(player)
 {
-    internal override bool Happen(GameState state, PlayerAction action)
+    internal override bool Happen(GameState state)
     {
         // 1.1) Remove any summoning sickness from your creatures in the battle zone.
         // 1.2) You must untap each of your cards in the battle zone and your mana zone.

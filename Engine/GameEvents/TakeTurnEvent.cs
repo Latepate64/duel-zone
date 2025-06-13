@@ -13,7 +13,7 @@ public class TakeTurnEvent(PlayerV2 player, int turnNumber) : PlayerAction(playe
     public int TurnNumber { get; } = turnNumber;
     public PhaseType NextPhase { get; set; }
 
-    internal override bool Happen(GameState state, PlayerAction action)
+    internal override bool Happen(GameState state)
     {
         if (NextPhase == PhaseType.StartOfTurn)
         {

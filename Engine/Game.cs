@@ -22,39 +22,53 @@ public class Game(IRandomizer randomizer)
             throw new InvalidOperationException();
         }
         State = new GameState([startingPlayer, otherPlayer]);
-        new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State, null);
-        new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State, null);
+        new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State);
+        new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State);
         for (int i = 0; i < 5; ++i)
         {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.ShieldZone).Happen(State, null);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.ShieldZone).Happen(State, null);
+            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.ShieldZone).Happen(State);
+            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.ShieldZone).Happen(State);
         }
         for (int i = 0; i < 5; ++i)
         {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State, null);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State, null);
+            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
+            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
         }
         State.HappeningEvent = new PlayGameEvent();
         Continue();
     }
 
-    public void Play(PlayerAction playerAction)
+    public void Play(PlayerAction action)
     {
+        ArgumentNullException.ThrowIfNull(action);
         if (State.Winner != null || State.Losers.Count == State.Players.Length)
         {
             throw new InvalidOperationException();
         }
-        else if (playerAction is ConcedeEvent concede)
+        if (action is ConcedeEvent concede)
         {
-            concede.Happen(State, null);
+            concede.Happen(State);
+            return;
         }
-        else
+        if (action is PassAction)
         {
-            Continue(playerAction);
+            if (State.LeafHappeningEvent.PassableAction == null)
+            {
+                throw new IllegalActionException(action);
+            }
+            State.LeafHappeningEvent.RemovePassableAction();
+            Continue();
+            return;
         }
+        if (action.GetType() != State.LeafHappeningEvent.PassableAction.GetType())
+        {
+            throw new IllegalActionException(action);
+        }
+        State.LeafHappeningEvent.AddEventThatWouldHappen(action);
+        Continue();  
     }
 
-    void Continue(PlayerAction playerAction = null)
+    void Continue()
     {
         if (State.LeafHappeningEvent.EventsThatWouldHappen.Any())
         {
@@ -64,12 +78,12 @@ public class Game(IRandomizer randomizer)
             State.LeafHappeningEvent.ClearEventsThatWouldHappen();
             State.LeafHappeningEvent.HappeningEvent = happeningEvent;
         }
-        var happenedCompletely = State.LeafHappeningEvent.Happen(State, playerAction);
+        var happenedCompletely = State.LeafHappeningEvent.Happen(State);
         if (happenedCompletely)
         {
             State.RemoveLeafHappeningEvent();
         }
-        if (State.HappeningEvent != null && State.LeafHappeningEvent.PromptedAction == null)
+        if (State.HappeningEvent != null && State.LeafHappeningEvent.PassableAction == null)
         {
             Continue();
         }

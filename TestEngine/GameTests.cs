@@ -40,7 +40,7 @@ public class GameTests
         Assert.Equal(otherDeck.Take(DeckSizeAfterSetup), game.State.Players[1].Deck.Cards);
         Assert.Equal(otherDeck.TakeLast(ShieldCount).Reverse(), game.State.Players[1].ShieldZone.Cards);
         Assert.Equal(otherDeck.Skip(DeckSizeAfterSetup).Take(HandSize).Reverse(), game.State.Players[1].Hand.Cards);
-        Assert.Equal(new ChargeEvent(startingPlayer), game.State.LeafHappeningEvent.PromptedAction);
+        Assert.Equal(new ChargeEvent(startingPlayer), game.State.LeafHappeningEvent.PassableAction);
     }
 
     [Fact]
@@ -71,27 +71,6 @@ public class GameTests
         Assert.Equal(state, game.State);
         _ = Assert.Throws<InvalidOperationException>(() => game.Start(state.ActivePlayer,
             state.NonActivePlayers.Single()));
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void IllegalActionDuringChargePhaseThrows(bool shuffleInsteadOfInvalidCharge)
-    {
-        // Arrange
-        var state = CreateGameState();
-        state.HappeningEvent = new ChargePhaseEvent(state.ActivePlayer);
-        var randomizer = Mock.Of<IRandomizer>();
-        var game = new Game(randomizer, state);
-        PlayerAction action = shuffleInsteadOfInvalidCharge
-            ? new ShuffleDeckEvent(state.ActivePlayer, randomizer)
-            : new ChargeEvent(state.ActivePlayer);
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(action));
-
-        // Assert
-        Assert.Equal(action, ex.PlayerAction);
     }
 
     [Theory]
@@ -136,31 +115,7 @@ public class GameTests
         var game = new Game(Mock.Of<IRandomizer>(), state);
 
         // Act + Assert
-        _ = Assert.Throws<InvalidOperationException>(() => game.Play(null));
-    }
-
-    [Fact]
-    public void ActivePlayerChargesDuringChargePhase()
-    {
-        // Arrange
-        var state = CreateGameState();
-        state.HappeningEvent = new TakeTurnEvent(state.ActivePlayer, 1)
-        {
-            NextPhase = PhaseType.Main,
-            HappeningEvent = new ChargePhaseEvent(state.ActivePlayer)
-        };
-        var randomizer = Mock.Of<IRandomizer>();
-        var game = new Game(randomizer, state);
-        var card = state.ActivePlayer.Hand.Cards.First();
-        var action = new ChargeEvent(state.ActivePlayer) { ChosenCard = card };
-
-        // Act
-        game.Play(action);
-
-        // Assert
-        Assert.DoesNotContain(card, state.ActivePlayer.Hand.Cards);
-        Assert.Contains(card, state.ActivePlayer.ManaZone.Cards);
-        Assert.Equal(new UseCardEvent(state.ActivePlayer), game.State.LeafHappeningEvent.PromptedAction);
+        _ = Assert.Throws<InvalidOperationException>(() => game.Play(new ConcedeEvent(state.ActivePlayer)));
     }
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize)

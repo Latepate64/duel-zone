@@ -8,7 +8,7 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination) : Pla
 
     internal abstract ICard RemoveCardFromCurrentZone();
 
-    internal override bool Happen(GameState state, PlayerAction action)
+    internal override bool Happen(GameState state)
     {
         var card = RemoveCardFromCurrentZone();
         if (card == null)

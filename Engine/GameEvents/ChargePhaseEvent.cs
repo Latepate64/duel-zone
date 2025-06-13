@@ -2,28 +2,21 @@ namespace Engine.GameEvents;
 
 public class ChargePhaseEvent(PlayerV2 player) : PlayerAction(player)
 {
-    internal override bool Happen(GameState state, PlayerAction action)
+    bool prompted;
+
+    internal override bool Happen(GameState state)
     {
-        if (action == null)
+        if (!prompted)
         {
-            var complete = index > 0;
-            if (!complete)
-            {
-                PromptedAction = new ChargeEvent(Player);
-            }
-            ++index;
-            return complete;
-        }
-        else if (action is ChargeEvent chargeEvent)
-        {
-            if (chargeEvent.ChosenCard == null)
-            {
-                throw new IllegalActionException(action);
-            }
-            AddEventThatWouldHappen(chargeEvent);
-            ++index;
+            PassableAction = new ChargeEvent(Player);
+            prompted = true;
             return false;
         }
-        throw new IllegalActionException(action);
+        return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj) && obj is ChargePhaseEvent e && e.prompted == prompted;
     }
 }

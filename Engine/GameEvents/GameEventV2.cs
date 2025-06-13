@@ -7,7 +7,11 @@ public abstract class GameEventV2
 {
     public IEnumerable<GameEventV2> EventsThatWouldHappen => _eventsThatWouldHappen;
     public GameEventV2 HappeningEvent { get; set; }
-    public PlayerAction PromptedAction { get; protected set; }
+
+    /// <summary>
+    /// An action that a player either takes or passes (eg. if a player may draw a card)
+    /// </summary>
+    public PlayerAction PassableAction { get; protected set; }
 
     protected int index;
     readonly List<GameEventV2> _eventsThatWouldHappen = [];
@@ -18,11 +22,11 @@ public abstract class GameEventV2
     /// <param name="state"></param>
     /// <param name="action"></param>
     /// <returns>true if the event has happened completely, false otherwise</returns>
-    internal abstract bool Happen(GameState state, PlayerAction action);
+    internal abstract bool Happen(GameState state);
 
-    protected void AddEventThatWouldHappen(GameEventV2 gameEvent)
+    internal void AddEventThatWouldHappen(GameEventV2 gameEvent)
     {
-        PromptedAction = null;
+        PassableAction = null;
         _eventsThatWouldHappen.Add(gameEvent);
     }
 
@@ -31,11 +35,16 @@ public abstract class GameEventV2
         _eventsThatWouldHappen.Clear();
     }
 
+    internal void RemovePassableAction()
+    {
+        PassableAction = null;
+    }
+
     public override bool Equals(object obj)
     {
         return obj is GameEventV2 e
             && HappeningEvent == e.HappeningEvent
-            && PromptedAction == e.PromptedAction
+            && PassableAction == e.PassableAction
             && index == e.index
             && _eventsThatWouldHappen.SequenceEqual(e._eventsThatWouldHappen);
     }
