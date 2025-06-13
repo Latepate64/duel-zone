@@ -4,13 +4,13 @@ namespace Engine.GameEvents;
 
 public class ChargePhaseEvent(PlayerV2 player) : GameEventV2(player, false)
 {
-    bool prompted;
+    bool shouldEnd;
 
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        if (!prompted)
+        if (!shouldEnd)
         {
-            prompted = true;
+            shouldEnd = true;
             return [new ChargeEvent(Player, true)];
         }
         return [];
@@ -18,6 +18,6 @@ public class ChargePhaseEvent(PlayerV2 player) : GameEventV2(player, false)
 
     public override bool Equals(object obj)
     {
-        return base.Equals(obj) && obj is ChargePhaseEvent e && e.prompted == prompted;
+        return base.Equals(obj) && obj is ChargePhaseEvent e && e.shouldEnd == shouldEnd;
     }
 }
