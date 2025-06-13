@@ -82,7 +82,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue();
             return;
         }
-        if (action.GetType() != State.PassableAction.GetType())
+        if (!State.PassableAction.IsLegal(action))
         {
             throw new IllegalActionException(action, "Unexpected type of action");
         }

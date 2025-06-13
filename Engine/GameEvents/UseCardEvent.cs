@@ -11,6 +11,11 @@ public class UseCardEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.Spel
         return ChosenCard;
     }
 
+    internal override bool IsLegal(GameEventV2 gameEvent)
+    {
+        return gameEvent is UseCardEvent use && Player.Hand.Cards.Contains(use.ChosenCard);
+    }
+
     public override bool Equals(object obj)
     {
         return base.Equals(obj)

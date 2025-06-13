@@ -11,6 +11,11 @@ public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(
         return ChosenCard;
     }
 
+    internal override bool IsLegal(GameEventV2 gameEvent)
+    {
+        return gameEvent is ChargeEvent charge && Player.Hand.Cards.Contains(charge.ChosenCard);
+    }
+
     public override bool Equals(object obj)
     {
         return base.Equals(obj)

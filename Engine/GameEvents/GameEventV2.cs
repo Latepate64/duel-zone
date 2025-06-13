@@ -11,6 +11,11 @@ public abstract class GameEventV2(PlayerV2 player, bool passable)
     /// <returns>Events that would happen during the event.</returns>
     internal abstract IEnumerable<GameEventV2> Happen(GameState state);
 
+    internal virtual bool IsLegal(GameEventV2 gameEvent)
+    {
+        return false;
+    }
+
     public override bool Equals(object obj)
     {
         return obj is GameEventV2 e
