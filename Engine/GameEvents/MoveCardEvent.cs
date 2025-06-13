@@ -1,19 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination) : PlayerAction(player)
+public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool passable) :
+    PlayerAction(player, passable)
 {
     public ZoneType Destination { get; } = destination;
 
     internal abstract ICard RemoveCardFromCurrentZone();
 
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
         var card = RemoveCardFromCurrentZone();
         if (card == null)
         {
-            return true;
+            return [];
         }
         if (Destination == ZoneType.Hand)
         {
@@ -31,7 +33,7 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination) : Pla
         {
             throw new NotImplementedException();
         }
-        return true;
+        return [];
     }
 
     public override bool Equals(object obj)

@@ -4,7 +4,7 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class Game(IRandomizer randomizer, int maxLoopCount = 999)
+public class Game(IRandomizer randomizer, int maxLoopCount = 5)
 {
     readonly IRandomizer randomizer = randomizer;
     readonly int maxLoopCount = maxLoopCount;
@@ -12,9 +12,8 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 999)
     public GameState State { get; private set; }
 
     GameState _originalState;
-    int loopCounter;
 
-    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 999) : this(randomizer, maxLoopCount)
+    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 5) : this(randomizer, maxLoopCount)
     {
         State = state;
         _originalState = state;
@@ -93,7 +92,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 999)
         Continue();
     }
 
-    void Continue()
+    void Continue(int loopCounter = 0)
     {
         if (loopCounter > maxLoopCount)
         {
@@ -107,15 +106,21 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 999)
             State.EventsThatWouldHappen.Clear();
             State.EventsHappening.Push(happeningEvent);
         }
-        if (State.EventsHappening.Peek().Happen(State))
+        var events = State.EventsHappening.Peek().Happen(State);
+        if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
             // TODO: Broadcast happened event to clients, triggers and watchers
+            Continue(++loopCounter);
+            return;
         }
-        if (State.PassableAction == null)
+        var gameEvent = events.Single(); // TODO: May include multiple events
+        if (gameEvent is PlayerAction action && action.Passable)
         {
-            ++loopCounter;
-            Continue();
+            State.PassableAction = action;
+            return;
         }
+        State.EventsThatWouldHappen.Add([.. events]);
+        Continue(++loopCounter);
     }
 }

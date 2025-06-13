@@ -1,13 +1,14 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
 public abstract class GameEventV2
 {
     protected int index;
 
-    /// <param name="state"></param>
-    /// <param name="action"></param>
-    /// <returns>true if the event has happened completely, false otherwise</returns>
-    internal abstract bool Happen(GameState state);
+    /// <param name="state">The current state of the game.</param>
+    /// <returns>Events that would happen during the event.</returns>
+    internal abstract IEnumerable<GameEventV2> Happen(GameState state);
 
     public override bool Equals(object obj)
     {

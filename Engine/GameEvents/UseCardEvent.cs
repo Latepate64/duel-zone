@@ -1,6 +1,6 @@
 namespace Engine.GameEvents;
 
-public class UseCardEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.SpellStack)
+public class UseCardEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.SpellStack, true)
 {
     public Card ChosenCard { get; set; }
 

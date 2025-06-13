@@ -1,18 +1,19 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
-public class ChargePhaseEvent(PlayerV2 player) : PlayerAction(player)
+public class ChargePhaseEvent : GameEventV2
 {
     bool prompted;
 
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
         if (!prompted)
         {
-            state.PassableAction = new ChargeEvent(Player);
             prompted = true;
-            return false;
+            return [new ChargeEvent(state.ActivePlayer, true)];
         }
-        return true;
+        return [];
     }
 
     public override bool Equals(object obj)

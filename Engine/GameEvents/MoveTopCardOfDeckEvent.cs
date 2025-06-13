@@ -1,6 +1,6 @@
 namespace Engine.GameEvents;
 
-public class MoveTopCardOfDeckEvent(PlayerV2 player, ZoneType zoneType) : MoveCardEvent(player, zoneType)
+public class MoveTopCardOfDeckEvent(PlayerV2 player, ZoneType zoneType) : MoveCardEvent(player, zoneType, false)
 {
     internal override ICard RemoveCardFromCurrentZone()
     {

@@ -1,15 +1,16 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
-public class DrawPhaseEvent(PlayerV2 player) : PlayerAction(player)
+public class DrawPhaseEvent : GameEventV2
 {
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
         if (index == 0)
         {
-            state.EventsThatWouldHappen.Add(new MoveTopCardOfDeckEvent(Player, ZoneType.Hand));
             ++index;
-            return false;
+            return [new MoveTopCardOfDeckEvent(state.ActivePlayer, ZoneType.Hand)];
         }
-        return true;
+        return [];
     }
 }

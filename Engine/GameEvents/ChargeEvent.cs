@@ -1,6 +1,6 @@
 namespace Engine.GameEvents;
 
-public class ChargeEvent(PlayerV2 player) : MoveCardEvent(player, ZoneType.ManaZone)
+public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
 {
     public ICard ChosenCard { get; set; }
 

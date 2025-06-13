@@ -1,11 +1,12 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
-public class MainPhaseEvent(PlayerV2 player) : PlayerAction(player)
+public class MainPhaseEvent : GameEventV2
 {
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        state.PassableAction = new UseCardEvent(Player);
-        // TODO: Return true if nothing can be used
-        return false;
+        return [new UseCardEvent(state.ActivePlayer)];
+        // TODO: Return empty if nothing can be used
     }
 }

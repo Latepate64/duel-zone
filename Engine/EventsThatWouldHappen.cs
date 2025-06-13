@@ -7,9 +7,9 @@ public class EventsThatWouldHappen
 {
     readonly List<GameEventV2> _eventsThatWouldHappen = [];
 
-    internal void Add(GameEventV2 gameEvent)
+    internal void Add(params GameEventV2[] events)
     {
-        _eventsThatWouldHappen.Add(gameEvent);
+        _eventsThatWouldHappen.AddRange(events);
     }
 
     internal IEnumerable<GameEventV2> Get()

@@ -1,12 +1,13 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
 public class PlayGameEvent() : GameEventV2()
 {
     int turnNumber;
 
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        state.EventsThatWouldHappen.Add(new TakeTurnEvent(state.ActivePlayer, ++turnNumber));
-        return false;
+        return [new TakeTurnEvent(++turnNumber)];
     }
 }

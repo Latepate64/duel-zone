@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.GameEvents;
 
-public class ConcedeEvent(PlayerV2 player) : PlayerAction(player)
+public class ConcedeEvent(PlayerV2 player) : PlayerAction(player, false)
 {
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
         state.Losers.Add(Player);
         var remainingPlayers = state.Players.Where(x => x != Player);
@@ -12,6 +13,6 @@ public class ConcedeEvent(PlayerV2 player) : PlayerAction(player)
         {
             state.Winner = remainingPlayers.Single();
         }
-        return true;
+        return [];
     }
 }

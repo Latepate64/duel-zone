@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
-public class PassAction(PlayerV2 player) : PlayerAction(player)
+public class PassAction(PlayerV2 player) : PlayerAction(player, false)
 {
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        return true;
+        return [];
     }
 }

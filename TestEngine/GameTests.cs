@@ -203,7 +203,7 @@ public class GameTests
         var otherPlayer = CreatePlayer(DeckSize, handSize: 5);
         return new GameState([startingPlayer, otherPlayer])
         {
-            EventsHappening = new(new TakeTurnEvent(startingPlayer, 1))
+            EventsHappening = new(new TakeTurnEvent(1))
         };
     }
 }

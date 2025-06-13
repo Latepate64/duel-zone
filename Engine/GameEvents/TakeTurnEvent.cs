@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Engine.GameEvents;
 
 public enum PhaseType
@@ -8,41 +10,37 @@ public enum PhaseType
     Main
 }
 
-public class TakeTurnEvent(PlayerV2 player, int turnNumber) : PlayerAction(player)
+public class TakeTurnEvent(int turnNumber) : GameEventV2
 {
     public int TurnNumber { get; } = turnNumber;
     public PhaseType NextPhase { get; set; }
 
-    internal override bool Happen(GameState state)
+    internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
         if (NextPhase == PhaseType.StartOfTurn)
         {
             NextPhase = PhaseType.Draw;
-            state.EventsThatWouldHappen.Add(new StartOfTurnEvent(Player));
-            return false;
+            return [new StartOfTurnEvent()];
         }
         if (NextPhase == PhaseType.Draw)
         {
             NextPhase = PhaseType.Charge;
             if (TurnNumber > 1)
             {
-                state.EventsThatWouldHappen.Add(new DrawPhaseEvent(Player));
-                return false;
+                return [new DrawPhaseEvent()];
             }
         }
         if (NextPhase == PhaseType.Charge)
         {
             NextPhase = PhaseType.Main;
-            state.EventsThatWouldHappen.Add(new ChargePhaseEvent(Player));
-            return false;
+            return [new ChargePhaseEvent()];
         }
         if (NextPhase == PhaseType.Main)
         {
             // NextPhase = Phase.Main;
-            state.EventsThatWouldHappen.Add(new MainPhaseEvent(Player));
-            return false;
+            return [new MainPhaseEvent()];
         }
-        return true;
+        return [];
     }
 
     public override bool Equals(object obj)
