@@ -10,8 +10,7 @@ public class GameState(PlayerV2[] players)
     public PlayerV2[] Players { get; } = players;
     public PlayerV2 Winner { get; set; }
     public List<PlayerV2> Losers { get; init; } = [];
-    readonly List<GameEventV2> _eventsThatWouldHappen = [];
-    public EventStack Events { get; }
+    public EventStack EventsHappening { get; } = new();
 
     /// <summary>
     /// An action that a player either takes or passes (eg. if a player may draw a card)
@@ -20,18 +19,7 @@ public class GameState(PlayerV2[] players)
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
-    public IEnumerable<GameEventV2> EventsThatWouldHappen => _eventsThatWouldHappen;
-
-    internal void ClearEventsThatWouldHappen()
-    {
-        _eventsThatWouldHappen.Clear();
-    }
-
-    internal void AddEventThatWouldHappen(GameEventV2 gameEvent)
-    {
-        PassableAction = null;
-        _eventsThatWouldHappen.Add(gameEvent);
-    }
+    public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
 
     internal void RemovePassableAction()
     {
@@ -44,8 +32,8 @@ public class GameState(PlayerV2[] players)
             && Players.SequenceEqual(state.Players)
             && Winner == state.Winner
             && Losers.SequenceEqual(state.Losers)
-            && Events == state.Events
-            && _eventsThatWouldHappen.SequenceEqual(state._eventsThatWouldHappen)
+            && EventsHappening == state.EventsHappening
+            && EventsThatWouldHappen == state.EventsThatWouldHappen
             && PassableAction == state.PassableAction;
     }
 }

@@ -18,7 +18,7 @@ public class TakeTurnEvent(PlayerV2 player, int turnNumber) : PlayerAction(playe
         if (NextPhase == PhaseType.StartOfTurn)
         {
             NextPhase = PhaseType.Draw;
-            state.AddEventThatWouldHappen(new StartOfTurnEvent(Player));
+            state.EventsThatWouldHappen.Add(new StartOfTurnEvent(Player));
             return false;
         }
         if (NextPhase == PhaseType.Draw)
@@ -26,20 +26,20 @@ public class TakeTurnEvent(PlayerV2 player, int turnNumber) : PlayerAction(playe
             NextPhase = PhaseType.Charge;
             if (TurnNumber > 1)
             {
-                state.AddEventThatWouldHappen(new DrawPhaseEvent(Player));
+                state.EventsThatWouldHappen.Add(new DrawPhaseEvent(Player));
                 return false;
             }
         }
         if (NextPhase == PhaseType.Charge)
         {
             NextPhase = PhaseType.Main;
-            state.AddEventThatWouldHappen(new ChargePhaseEvent(Player));
+            state.EventsThatWouldHappen.Add(new ChargePhaseEvent(Player));
             return false;
         }
         if (NextPhase == PhaseType.Main)
         {
             // NextPhase = Phase.Main;
-            state.AddEventThatWouldHappen(new MainPhaseEvent(Player));
+            state.EventsThatWouldHappen.Add(new MainPhaseEvent(Player));
             return false;
         }
         return true;

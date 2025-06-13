@@ -6,7 +6,7 @@ public class DrawPhaseEvent(PlayerV2 player) : PlayerAction(player)
     {
         if (index == 0)
         {
-            state.AddEventThatWouldHappen(new MoveTopCardOfDeckEvent(Player, ZoneType.Hand));
+            state.EventsThatWouldHappen.Add(new MoveTopCardOfDeckEvent(Player, ZoneType.Hand));
             ++index;
             return false;
         }

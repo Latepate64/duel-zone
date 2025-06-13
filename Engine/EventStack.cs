@@ -9,7 +9,7 @@ public class EventStack
 {
     readonly Stack<GameEventV2> events = new();
 
-    public void Push(GameEventV2 gameEvent)
+    internal void Push(GameEventV2 gameEvent)
     {
         events.Push(gameEvent);
     }

@@ -80,7 +80,6 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        state.Events.Push(new ChargePhaseEvent(state.ActivePlayer));
         var game = new Game(Mock.Of<IRandomizer>(), state);
         var conceder = startingPlayerConcedesInsteadOfAnother ? state.ActivePlayer : state.NonActivePlayers.Single();
         var winner = startingPlayerConcedesInsteadOfAnother ? state.NonActivePlayers.Single() : state.ActivePlayer;
@@ -101,7 +100,6 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        state.Events.Push(new ChargePhaseEvent(state.ActivePlayer));
         if (winInsteadOfLose)
         {
             state.Winner = state.ActivePlayer;

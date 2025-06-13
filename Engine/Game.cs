@@ -34,7 +34,7 @@ public class Game(IRandomizer randomizer)
             new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
             new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
         }
-        State.Events.Push(new PlayGameEvent());
+        State.EventsThatWouldHappen.Add(new PlayGameEvent());
         Continue();
     }
 
@@ -50,12 +50,17 @@ public class Game(IRandomizer randomizer)
             concede.Happen(State);
             return;
         }
+        if (State.PassableAction == null)
+        {
+            throw new InvalidOperationException();
+        }
+        if (action.Player != State.PassableAction.Player)
+        {
+            throw new IllegalActionException(action);
+        }
         if (action is PassAction)
         {
-            if (State.PassableAction == null)
-            {
-                throw new IllegalActionException(action);
-            }
+            // TODO: Throw if there was no action to be passed
             State.RemovePassableAction();
             Continue();
             return;
@@ -64,24 +69,24 @@ public class Game(IRandomizer randomizer)
         {
             throw new IllegalActionException(action);
         }
-        State.AddEventThatWouldHappen(action);
+        State.RemovePassableAction();
+        State.EventsThatWouldHappen.Add(action);
         Continue();  
     }
 
     void Continue()
     {
-        if (State.EventsThatWouldHappen.Any())
+        if (State.EventsThatWouldHappen.Get().Any())
         {
             // TODO: Check if any event could be replaced
             // TODO: Consider multiple events happening simultaneously
-            var happeningEvent = State.EventsThatWouldHappen.First();
-            State.ClearEventsThatWouldHappen();
-            State.Events.Push(happeningEvent);
+            var happeningEvent = State.EventsThatWouldHappen.Get().First();
+            State.EventsThatWouldHappen.Clear();
+            State.EventsHappening.Push(happeningEvent);
         }
-        var happenedCompletely = State.Events.Peek().Happen(State);
-        if (happenedCompletely)
+        if (State.EventsHappening.Peek().Happen(State))
         {
-            State.Events.Pop();
+            State.EventsHappening.Pop();
         }
         if (State.PassableAction == null)
         {
