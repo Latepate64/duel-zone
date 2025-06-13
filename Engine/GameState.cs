@@ -10,12 +10,12 @@ public class GameState(PlayerV2[] players)
     public PlayerV2[] Players { get; } = players;
     public PlayerV2 Winner { get; set; }
     public List<PlayerV2> Losers { get; init; } = [];
-    public EventStack EventsHappening { get; } = new();
+    public EventStack EventsHappening { get; init; } = new();
 
     /// <summary>
     /// An action that a player either takes or passes (eg. if a player may draw a card)
     /// </summary>
-    public PlayerAction PassableAction { get; internal set; }
+    public PlayerAction PassableAction { get; set; }
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);

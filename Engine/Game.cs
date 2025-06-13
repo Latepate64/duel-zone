@@ -4,22 +4,27 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class Game(IRandomizer randomizer)
+public class Game(IRandomizer randomizer, int maxLoopCount = 999)
 {
     readonly IRandomizer randomizer = randomizer;
+    readonly int maxLoopCount = maxLoopCount;
 
     public GameState State { get; private set; }
 
-    public Game(IRandomizer randomizer, GameState state) : this(randomizer)
+    GameState _originalState;
+    int loopCounter;
+
+    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 999) : this(randomizer, maxLoopCount)
     {
         State = state;
+        _originalState = state;
     }
 
     public void Start(PlayerV2 startingPlayer, PlayerV2 otherPlayer)
     {
         if (State != null)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Game has started already");
         }
         State = new GameState([startingPlayer, otherPlayer]);
         new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State);
@@ -43,8 +48,22 @@ public class Game(IRandomizer randomizer)
         ArgumentNullException.ThrowIfNull(action);
         if (State.Winner != null || State.Losers.Count == State.Players.Length)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Game has ended already");
         }
+        try
+        {
+            Continue(action);
+        }
+        catch
+        {
+            State = _originalState;
+            throw;
+        }
+        _originalState = State;
+    }
+
+    void Continue(PlayerAction action)
+    {
         if (action is ConcedeEvent concede)
         {
             concede.Happen(State);
@@ -52,11 +71,11 @@ public class Game(IRandomizer randomizer)
         }
         if (State.PassableAction == null)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("No passable action found");
         }
         if (action.Player != State.PassableAction.Player)
         {
-            throw new IllegalActionException(action);
+            throw new IllegalActionException(action, "Unexpected player");
         }
         if (action is PassAction)
         {
@@ -67,15 +86,19 @@ public class Game(IRandomizer randomizer)
         }
         if (action.GetType() != State.PassableAction.GetType())
         {
-            throw new IllegalActionException(action);
+            throw new IllegalActionException(action, "Unexpected type of action");
         }
         State.RemovePassableAction();
         State.EventsThatWouldHappen.Add(action);
-        Continue();  
+        Continue();
     }
 
     void Continue()
     {
+        if (loopCounter > maxLoopCount)
+        {
+            throw new InvalidOperationException("Looped too many times");
+        }
         if (State.EventsThatWouldHappen.Get().Any())
         {
             // TODO: Check if any event could be replaced
@@ -86,10 +109,12 @@ public class Game(IRandomizer randomizer)
         }
         if (State.EventsHappening.Peek().Happen(State))
         {
-            State.EventsHappening.Pop();
+            _ = State.EventsHappening.Pop();
+            // TODO: Broadcast happened event to clients, triggers and watchers
         }
         if (State.PassableAction == null)
         {
+            ++loopCounter;
             Continue();
         }
     }

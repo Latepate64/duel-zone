@@ -5,18 +5,18 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class EventStack
+public class EventStack(params GameEventV2[] events)
 {
-    readonly Stack<GameEventV2> events = new();
+    readonly Stack<GameEventV2> events = new(events);
 
     internal void Push(GameEventV2 gameEvent)
     {
         events.Push(gameEvent);
     }
 
-    internal void Pop()
+    internal GameEventV2 Pop()
     {
-        events.Pop();
+        return events.Pop();
     }
 
     internal GameEventV2 Peek()

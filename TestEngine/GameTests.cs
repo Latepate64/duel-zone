@@ -55,7 +55,8 @@ public class GameTests
         game.Start(startingPlayer, otherPlayer);
 
         // Assert
-        _ = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Start(startingPlayer, otherPlayer));
+        Assert.Equal("Game has started already", ex.Message);
     }
 
     [Fact]
@@ -69,8 +70,9 @@ public class GameTests
 
         // Assert
         Assert.Equal(state, game.State);
-        _ = Assert.Throws<InvalidOperationException>(() => game.Start(state.ActivePlayer,
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Start(state.ActivePlayer,
             state.NonActivePlayers.Single()));
+        Assert.Equal("Game has started already", ex.Message);
     }
 
     [Theory]
@@ -109,11 +111,75 @@ public class GameTests
         {
             state.Losers.AddRange(state.Players);
         }
-        
+
         var game = new Game(Mock.Of<IRandomizer>(), state);
 
         // Act + Assert
-        _ = Assert.Throws<InvalidOperationException>(() => game.Play(new ConcedeEvent(state.ActivePlayer)));
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new ConcedeEvent(state.ActivePlayer)));
+        Assert.Equal("Game has ended already", ex.Message);
+    }
+
+    [Fact]
+    public void PlayingAGameWithoutPassableActionThrows()
+    {
+        // Arrange
+        var state = CreateGameState();
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Act
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new PassAction(state.ActivePlayer)));
+
+        // Assert
+        Assert.Equal("No passable action found", ex.Message);
+        Assert.Equal(state, game.State);
+    }
+
+    [Fact]
+    public void PlayingAGameWithWrongPlayerTakingActionThrows()
+    {
+        // Arrange
+        var state = CreateGameState();
+        state.PassableAction = new ChargeEvent(state.ActivePlayer);
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new PassAction(state.NonActivePlayers.First())));
+
+        // Assert
+        Assert.Equal("Unexpected player", ex.Message);
+        Assert.Equal(state, game.State);
+    }
+
+    [Fact]
+    public void TakenActionNotMatchingPassableActionThrows()
+    {
+        // Arrange
+        var state = CreateGameState();
+        state.PassableAction = new ChargeEvent(state.ActivePlayer);
+        var game = new Game(Mock.Of<IRandomizer>(), state);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(state.ActivePlayer)));
+
+        // Assert
+        Assert.Equal("Unexpected type of action", ex.Message);
+        Assert.Equal(state, game.State);
+    }
+
+    [Fact]
+    public void LoopCounterReachingMaxThrows()
+    {
+        // Arrange
+        var state = CreateGameState();
+        state.PassableAction = new ChargeEvent(state.ActivePlayer);
+        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+
+        // Act
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new PassAction(state.ActivePlayer)));
+
+        // Assert
+        Assert.Equal("Looped too many times", ex.Message);
+        Assert.Equal(state, game.State);
     }
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize)
@@ -135,6 +201,9 @@ public class GameTests
     {
         var startingPlayer = CreatePlayer(DeckSize, handSize: 5);
         var otherPlayer = CreatePlayer(DeckSize, handSize: 5);
-        return new GameState([startingPlayer, otherPlayer]);
+        return new GameState([startingPlayer, otherPlayer])
+        {
+            EventsHappening = new(new TakeTurnEvent(startingPlayer, 1))
+        };
     }
 }
