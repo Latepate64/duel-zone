@@ -80,7 +80,7 @@ namespace Engine
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
-        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+        public IEnumerable<Zone> Zones => [Deck, Graveyard, Hand, ManaZone, ShieldZone];
 
         public void ArrangeTopCardsOfDeck(params Card[] cards)
         {
@@ -336,7 +336,7 @@ namespace Engine
             // 701.16d Some effects instruct a player to look at one or more cards.
             // Looking at a card follows the same rules as revealing a card,
             // except that the card is shown only to the specified player.
-            owner.Reveal(game, new List<IPlayer> { this }, cards);
+            owner.Reveal(game, [this], cards);
         }
 
         public void LookAtOneOfOpponentsShields(IGame game, IAbility source)

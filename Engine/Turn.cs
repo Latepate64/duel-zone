@@ -47,7 +47,7 @@ namespace Engine
         /// <summary>
         /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
-        public IList<IPhase> Phases { get; private set; } = new Collection<IPhase>();
+        public IList<IPhase> Phases { get; private set; } = [];
 
         public void Dispose()
         {

@@ -43,7 +43,7 @@ namespace Engine.Zones
         {
             if (cards.Any())
             {
-                return new List<IEnumerable<Civilization>> { civs.Distinct() };
+                return [civs.Distinct()];
             }
             else
             {

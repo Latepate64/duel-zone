@@ -53,7 +53,7 @@ namespace Cards.Cards.DM07
 
         public IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> choosableCards)
         {
-            return new List<Card>();
+            return [];
         }
 
         public bool IsValid(IEnumerable<Card> chosenCards)
