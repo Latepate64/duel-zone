@@ -7,7 +7,7 @@
             Choice = choice.Choice;
         }
 
-        public BooleanChoice(IPlayer maker, string description) : base(maker, description)
+        public BooleanChoice(Player maker, string description) : base(maker, description)
         {
         }
 

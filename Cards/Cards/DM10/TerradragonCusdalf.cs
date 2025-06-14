@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             return new TerradragonCusdalfEffect(this);
         }
 
-        public bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(IPlayer player)
+        public bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(Player player)
         {
             return player == Controller;
         }

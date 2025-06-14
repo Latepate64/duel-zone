@@ -57,7 +57,7 @@ namespace Cards.Cards.DM12
 
         public void Watch(IGame game, IGameEvent gameEvent)
         {
-            if (gameEvent is MoveTopCardOfDeckEvent e &&
+            if (gameEvent is CardMovedEvent e &&
                 e.Player == GetOpponent(game) &&
                 e.Destination == ZoneType.Hand)
             {

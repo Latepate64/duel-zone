@@ -16,7 +16,7 @@ namespace Engine.Choices
             Excluded = choice.Excluded;
         }
 
-        public CivilizationChoice(IPlayer maker, string description, params Civilization[] excluded) : base(maker, description)
+        public CivilizationChoice(Player maker, string description, params Civilization[] excluded) : base(maker, description)
         {
             Excluded = excluded;
         }

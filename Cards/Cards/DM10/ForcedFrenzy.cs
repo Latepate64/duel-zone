@@ -36,9 +36,9 @@ namespace Cards.Cards.DM10
 
     class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        private readonly IPlayer _opponent;
+        private readonly Player _opponent;
 
-        public ForcedFrenzyContinuousEffect(IPlayer opponent)
+        public ForcedFrenzyContinuousEffect(Player opponent)
         {
             _opponent = opponent;
         }

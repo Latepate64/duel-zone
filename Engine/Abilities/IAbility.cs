@@ -15,7 +15,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        IPlayer Controller { get; set; }
+        Player Controller { get; set; }
 
         IAbility Copy();
 
@@ -25,7 +25,7 @@ namespace Engine.Abilities
         /// <param name="game"></param>
         /// <exception cref="PlayerNotInGameException"></exception>
         /// <returns>Opponent of the player who controls the ability.</returns>
-        IPlayer GetOpponent(IGame game);
+        Player GetOpponent(IGame game);
 
         string ToString();
     }

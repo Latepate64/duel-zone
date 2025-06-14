@@ -18,12 +18,12 @@ namespace Engine
         bool Ended { get; }
 
         Stack<ITurn> ExtraTurns { get; }
-        IEnumerable<IPlayer> Players { get; }
+        IEnumerable<Player> Players { get; }
         Queue<IGameEvent> PreGameEvents { get; }
         SpellStack SpellStack { get; }
         IList<ITurn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
-        IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
+        Player ActivePlayer => CurrentTurn.ActivePlayer;
 
         void AddAbility(Card card, IAbility ability);
 
@@ -62,30 +62,30 @@ namespace Engine
 
         IEnumerable<Card> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
         IEnumerable<Card> GetCreaturesThatHaveAttackTargets();
-        IPlayer GetOpponent(IPlayer player);
+        Player GetOpponent(Player player);
         Guid GetOpponent(Guid player);
-        IPlayer GetOwner(Card card);
-        IPlayer GetPlayer(Guid id);
+        Player GetOwner(Card card);
+        Player GetPlayer(Guid id);
         IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker);
         int GetTimestamp();
         Zone GetZone(Card card);
 
-        void Lose(params IPlayer[] players);
+        void Lose(params Player[] players);
         IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params Card[] cards);
         IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType hand, ZoneType manaZone, params Card[] cards);
         void MoveTopCard(Card card, ZoneType destination, IAbility ability);
-        void Play(IPlayer startingPlayer, IPlayer otherPlayer);
+        void Play(Player startingPlayer, Player otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
         void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger, IAbility ability);
         void ResolveReflexiveTriggeredAbilities();
         int GetAmountOfShieldsCreatureBreaks(Card attackingCreature);
         void ProcessCreatureAttackedEvent(Card attacker, IAttackable target);
         void AddPendingSilentSkillAbilities(IEnumerable<Card> cards);
-        IEnumerable<Card> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
-        IEnumerable<Card> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
-        void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
-        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
+        IEnumerable<Card> GetBattleZoneCreatures(Player player) => BattleZone.GetCreatures(player);
+        IEnumerable<Card> GetBattleZoneCreaturesWithSilentSkill(Player player) => BattleZone.GetCreaturesWithSilentSkill(player);
+        void RemoveSummoningSicknesses(Player player) => BattleZone.RemoveSummoningSicknesses(player);
+        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(Player player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
         bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-        int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
+        int GetAmountOfBattleZoneCreatures(Player player) => GetBattleZoneCreatures(player).Count();
     }
 }

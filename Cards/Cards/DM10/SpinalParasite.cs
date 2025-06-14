@@ -18,7 +18,7 @@ namespace Cards.Cards.DM10
 
     class SpinalParasiteAbility : LinkedTriggeredAbility
     {
-        private IPlayer _player;
+        private Player _player;
 
         public SpinalParasiteAbility()
         {

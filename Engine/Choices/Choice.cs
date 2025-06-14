@@ -2,7 +2,7 @@
 {
     public abstract class Choice : IChoice
     {
-        protected Choice(IPlayer maker, string description)
+        protected Choice(Player maker, string description)
         {
             Description = description;
             Maker = maker;
@@ -15,7 +15,7 @@
         }
 
         public string Description { get; }
-        public IPlayer Maker { get; }
+        public Player Maker { get; }
 
         public abstract bool IsValid();
 

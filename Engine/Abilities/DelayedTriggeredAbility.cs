@@ -14,7 +14,7 @@ namespace Engine.Abilities
         /// </summary>
         internal bool TriggersOnlyOnce { get; private set; }
 
-        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Card source, IPlayer owner, bool triggersOnlyOnce)
+        public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, Card source, Player owner, bool triggersOnlyOnce)
         {
             TriggeredAbility = triggeredAbility;
             TriggeredAbility.Source = source;

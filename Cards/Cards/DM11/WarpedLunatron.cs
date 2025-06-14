@@ -41,7 +41,7 @@ namespace Cards.Cards.DM11
 
     class WarpedLunatronAbility : LinkedTriggeredAbility
     {
-        private IPlayer _player;
+        private Player _player;
 
         public WarpedLunatronAbility()
         {

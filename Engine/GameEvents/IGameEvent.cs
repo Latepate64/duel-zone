@@ -14,6 +14,6 @@
         /// </summary>
         /// <param name="game"></param>
         /// <returns></returns>
-        IPlayer GetApplier(IGame game);
+        Player GetApplier(IGame game);
     }
 }

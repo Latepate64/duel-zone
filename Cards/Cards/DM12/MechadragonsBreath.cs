@@ -38,7 +38,7 @@ namespace Cards.Cards.DM12
         {
         }
 
-        public MechadragonsBreathChoice(IPlayer maker, string description) : base(maker, description)
+        public MechadragonsBreathChoice(Player maker, string description) : base(maker, description)
         {
         }
 

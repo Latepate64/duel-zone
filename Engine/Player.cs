@@ -11,7 +11,7 @@ namespace Engine
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : IPlayer, IDisposable
+    public abstract class Player : IDisposable
     {
         private static readonly Random Random = new();
 
@@ -20,7 +20,7 @@ namespace Engine
             Id = Guid.NewGuid();
         }
 
-        protected Player(IPlayer player)
+        protected Player(Player player)
         {
             Deck = player.Deck.Copy();
             Graveyard = player.Graveyard.Copy();
@@ -223,7 +223,7 @@ namespace Engine
             return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
         }
 
-        public IPlayer ChoosePlayer(IGame game, string description)
+        public Player ChoosePlayer(IGame game, string description)
         {
             return Choose(new PlayerChoice(this, description, game.Players)).Choice;
         }
@@ -238,7 +238,7 @@ namespace Engine
             return Choose(new BooleanChoice(this, description)).Choice.Value;
         }
 
-        public abstract IPlayer Copy();
+        public abstract Player Copy();
 
         public Card DestroyCreatureOptionally(IGame game, IAbility ability)
         {
@@ -331,7 +331,7 @@ namespace Engine
             };
         }
 
-        public void Look(IPlayer owner, IGame game, params Card[] cards)
+        public void Look(Player owner, IGame game, params Card[] cards)
         {
             // 701.16d Some effects instruct a player to look at one or more cards.
             // Looking at a card follows the same rules as revealing a card,
@@ -428,7 +428,7 @@ namespace Engine
             Reveal(game, game.Players, cards);
         }
 
-        public void Reveal(IGame game, IEnumerable<IPlayer> players, params Card[] cards)
+        public void Reveal(IGame game, IEnumerable<Player> players, params Card[] cards)
         {
             // TODO: Implement reveal information on cards and add them here.
             cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
@@ -672,5 +672,13 @@ namespace Engine
         {
             game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
         }
+
+        public Card RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+
+        public void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(
+            ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
+
+        public void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(
+            ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
     }
 }

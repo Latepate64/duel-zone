@@ -46,13 +46,13 @@ namespace Cards.Cards.DM11
     class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
     {
         private readonly Civilization _civilization;
-        private readonly IPlayer _player;
+        private readonly Player _player;
 
         public MiraculousTruceContinuousEffect()
         {
         }
 
-        public MiraculousTruceContinuousEffect(Civilization civilization, IPlayer player)
+        public MiraculousTruceContinuousEffect(Civilization civilization, Player player)
         {
             _civilization = civilization;
             _player = player;

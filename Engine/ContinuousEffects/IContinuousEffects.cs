@@ -20,10 +20,10 @@ namespace Engine.ContinuousEffects
         bool CanCreatureBeBlocked(Card attackingCreature, Card blocker, IAttackable attackTarget);
         bool CanCreatureBlockCreature(Card blocker, Card attackingCreature);
         bool CanCreatureEvolve(Card card);
-        bool CanPlayerChooseCreature(IPlayer player, Card card);
+        bool CanPlayerChooseCreature(Player player, Card card);
         bool CanPlayersUseTapAbilities();
-        bool CanPlayerTapCreature(IPlayer player, Card card);
-        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+        bool CanPlayerTapCreature(Player player, Card card);
+        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(Player player);
         bool CanPlayerUseCard(Card card);
         bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
         bool DoesAnySlayerEffectApply(Card loser, Card winner);

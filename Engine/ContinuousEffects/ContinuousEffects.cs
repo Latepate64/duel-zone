@@ -96,7 +96,7 @@ namespace Engine.ContinuousEffects
             _continuousEffects.OfType<IWatcher>().ToList().ForEach(x => x.Watch(Game, gameEvent));
         }
 
-        public bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player)
+        public bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(Player player)
         {
             return !GetContinuousEffects<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(player));
         }
@@ -111,12 +111,12 @@ namespace Engine.ContinuousEffects
             return GetContinuousEffects<IAttacksIfAbleEffect>().Any(effect => effect.AttacksIfAble(creature, Game));
         }
 
-        public bool CanPlayerTapCreature(IPlayer player, Card card)
+        public bool CanPlayerTapCreature(Player player, Card card)
         {
             return !GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(e => e.PlayerCannotTapCreature(player, card, Game));
         }
 
-        public bool CanPlayerChooseCreature(IPlayer player, Card card)
+        public bool CanPlayerChooseCreature(Player player, Card card)
         {
             return !GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(x => x.PlayerCannotChooseCreature(card, player.Id, Game));
         }

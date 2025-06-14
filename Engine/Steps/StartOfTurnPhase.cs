@@ -31,11 +31,11 @@ namespace Engine.Steps
         /// </summary>
         public void PerformTurnBasedAction(IGame game)
         {
-            IPlayer player = game.ActivePlayer;
+            Player player = game.ActivePlayer;
             game.RemoveSummoningSicknesses(player);
             if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
             {
-                player.Untap(game, player.CardsInManaZone);
+                player.Untap(game, [.. player.ManaZone.Cards]);
             }
             if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
             {
@@ -43,7 +43,7 @@ namespace Engine.Steps
             }
         }
 
-        private static void UntapBattleZoneCreatures(IGame game, IPlayer player)
+        private static void UntapBattleZoneCreatures(IGame game, Player player)
         {
             IEnumerable<Card> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 

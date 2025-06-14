@@ -2,6 +2,6 @@
 {
     public interface IPlayerCannotUntapCardsInManaZoneAtStartOfTurn : IContinuousEffect
     {
-        bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(IPlayer player);
+        bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(Player player);
     }
 }

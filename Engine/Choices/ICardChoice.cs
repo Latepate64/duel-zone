@@ -22,7 +22,7 @@ namespace Engine.Choices
             Mode = choice.Mode;
         }
 
-        public CardChoice(IPlayer maker, string description, ICardChoiceMode mode, params Card[] cards) : base(maker, description)
+        public CardChoice(Player maker, string description, ICardChoiceMode mode, params Card[] cards) : base(maker, description)
         {
             Cards = cards;
             Mode = mode;

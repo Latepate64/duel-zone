@@ -43,9 +43,9 @@ namespace Cards.Cards.DM05
 
     class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        private readonly IPlayer _player;
+        private readonly Player _player;
 
-        public SlimeVeilContinuousEffect(IPlayer player)
+        public SlimeVeilContinuousEffect(Player player)
         {
             _player = player;
         }

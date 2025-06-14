@@ -18,7 +18,7 @@ namespace Engine.Choices
             Choice = choice.Choice;
         }
 
-        public AbilityChoice(IPlayer maker, IEnumerable<IResolvableAbility> abilities) : base(maker, "Choose an ability to resolve.")
+        public AbilityChoice(Player maker, IEnumerable<IResolvableAbility> abilities) : base(maker, "Choose an ability to resolve.")
         {
             Abilities = abilities;
         }

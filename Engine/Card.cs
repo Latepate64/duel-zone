@@ -28,7 +28,7 @@ namespace Engine
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
-        public IPlayer Owner { get; }
+        public Player Owner { get; }
         public int PhysicalCardId { get; }
         public int? Power { get; private set; }
         public IList<IAbility> PrintedAbilities { get; } = [];

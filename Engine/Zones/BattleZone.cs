@@ -56,7 +56,7 @@ namespace Engine.Zones
 
         public IEnumerable<Card> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
         {
-            IPlayer opponent = game.GetPlayer(game.GetOpponent(owner));
+            Player opponent = game.GetPlayer(game.GetOpponent(owner));
             return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(opponent, creature));
         }
 
@@ -138,17 +138,17 @@ namespace Engine.Zones
             return new BattleZone(this);
         }
 
-        public void RemoveSummoningSicknesses(IPlayer player)
+        public void RemoveSummoningSicknesses(Player player)
         {
             GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.RemoveSummoningSickness());
         }
 
-        public IEnumerable<Card> GetCreaturesWithSilentSkill(IPlayer player)
+        public IEnumerable<Card> GetCreaturesWithSilentSkill(Player player)
         {
             return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
         }
 
-        public IEnumerable<Card> GetCreatures(IPlayer player)
+        public IEnumerable<Card> GetCreatures(Player player)
         {
             return GetCreatures(player.Id);
         }

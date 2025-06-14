@@ -6,10 +6,10 @@ namespace Engine
 {
     public interface ITurn
     {
-        IPlayer ActivePlayer { get; set; }
+        Player ActivePlayer { get; set; }
         IPhase CurrentPhase { get; }
         System.Guid Id { get; set; }
-        IPlayer NonActivePlayer { get; set; }
+        Player NonActivePlayer { get; set; }
         int Number { get; set; }
         IList<IPhase> Phases { get; }
         IEnumerable<IGameEvent> GameEvents { get; }

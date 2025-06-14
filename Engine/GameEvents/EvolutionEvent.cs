@@ -2,9 +2,9 @@
 
 namespace Engine.GameEvents
 {
-    public class EvolutionEvent(IPlayer player, Card card, params Card[] baits) : GameEvent
+    public class EvolutionEvent(Player player, Card card, params Card[] baits) : GameEvent
     {
-        public IPlayer Player { get; } = player;
+        public Player Player { get; } = player;
         public Card EvolutionCreature { get; } = card;
         public Card[] Baits { get; } = baits;
 

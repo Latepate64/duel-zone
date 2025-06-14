@@ -4,7 +4,7 @@
     {
         public System.Guid Id { get; }
 
-        public virtual IPlayer GetApplier(IGame game)
+        public virtual Player GetApplier(IGame game)
         {
             throw new System.NotImplementedException();
         }

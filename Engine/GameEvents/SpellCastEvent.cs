@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Engine.GameEvents
 {
-    public class SpellCastEvent(IPlayer player, Card spell) : GameEvent
+    public class SpellCastEvent(Player player, Card spell) : GameEvent
     {
-        public IPlayer Player { get; } = player;
+        public Player Player { get; } = player;
         public Card Spell { get; private set; } = spell;
 
         public override void Happen(IGame game)

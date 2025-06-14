@@ -5,7 +5,7 @@ namespace Engine.GameEvents
 {
     public class CardMovedEvent : GameEvent, ICardMovedEvent
     {
-        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped, IAbility ability)
+        public CardMovedEvent(Player player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped, IAbility ability)
         {
             Player = player;
             Source = source;
@@ -30,7 +30,7 @@ namespace Engine.GameEvents
         public Guid CardInSourceZone { get; set; }
         public ZoneType Destination { get; set; }
         public bool EntersTapped { get; set; }
-        public IPlayer Player { get; }
+        public Player Player { get; }
         public ZoneType Source { get; }
         public IAbility Ability { get; }
 
@@ -80,7 +80,7 @@ namespace Engine.GameEvents
             return $"{Player} put {CardInDestinationZone} from {ToString(Source)} into {ToString(Destination)}.";
         }
 
-        public override IPlayer GetApplier(IGame game)
+        public override Player GetApplier(IGame game)
         {
             return Player;
         }

@@ -17,7 +17,7 @@ namespace Engine.Choices
             Rearranged = choice.Rearranged;
         }
 
-        public ArrangeChoice(IPlayer maker, IEnumerable<Card> cards) : base(maker, "Put back in any order.")
+        public ArrangeChoice(Player maker, IEnumerable<Card> cards) : base(maker, "Put back in any order.")
         {
             Cards = cards;
         }
