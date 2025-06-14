@@ -40,7 +40,7 @@ namespace Engine.Steps
 
         private void ResolveAbilities(IGame game)
         {
-            while (PendingAbilities.Any())
+            while (PendingAbilities.Count != 0)
             {
                 var abilityGroups = PendingAbilities.GroupBy(x => x.Controller.Id);
                 foreach (var abilities in abilityGroups)

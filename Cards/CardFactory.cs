@@ -60,7 +60,7 @@ namespace Cards
             else
             {
                 List<object> arguments = GetArguments(interfaces);
-                if (arguments.Any())
+                if (arguments.Count != 0)
                 {
                     return Activator.CreateInstance(type, [.. arguments]) as IEffect;
                 }

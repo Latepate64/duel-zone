@@ -476,7 +476,7 @@ namespace Engine
             {
                 card.Tap();
             }
-            if (untappedCards.Any())
+            if (untappedCards.Count != 0)
             {
                 //TODO: event
                 //game.Process(new TapEvent(Convert(), untappedCards.Select(x => x.Convert()).ToList(), true));
@@ -505,7 +505,7 @@ namespace Engine
             {
                 //card.Tapped = false;
             }
-            if (tappedCards.Any())
+            if (tappedCards.Count != 0)
             {
                 //TODO: event
                 //game.Process(new TapEvent(Convert(), tappedCards.Select(x => x.Convert()).ToList(), false));
