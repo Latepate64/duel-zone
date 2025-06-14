@@ -9,16 +9,16 @@ namespace Engine
     public interface IPlayer : IAttackable, ICopyable<IPlayer>
     {
         IEnumerable<ICard> CardsInNonsharedZones { get; }
-        IDeck Deck { get; }
+        Deck Deck { get; }
         List<ICard> DeckCards => Deck.Cards;
         bool DirectlyAttacked { get; set; }
-        IGraveyard Graveyard { get; }
-        IHand Hand { get; }
+        Graveyard Graveyard { get; }
+        Hand Hand { get; }
         System.Guid Id { get; set; }
-        IManaZone ManaZone { get; }
+        ManaZone ManaZone { get; }
         string Name { get; set; }
-        IShieldZone ShieldZone { get; }
-        IEnumerable<IZone> Zones { get; }
+        ShieldZone ShieldZone { get; }
+        IEnumerable<Zone> Zones { get; }
         ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
 
         void ArrangeTopCardsOfDeck(params ICard[] cards);
@@ -90,7 +90,7 @@ namespace Engine
 
         IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game);
 
-        IZone GetZone(ZoneType zone);
+        Zone GetZone(ZoneType zone);
 
         void Look(IPlayer owner, IGame game, params ICard[] cards);
 

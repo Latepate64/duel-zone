@@ -10,7 +10,7 @@ namespace Engine
 {
     public interface IGame
     {
-        IBattleZone BattleZone { get; }
+        BattleZone BattleZone { get; }
         ITurn CurrentTurn { get; }
         /// <summary>
         /// 104.1. A game ends immediately when a player wins, when the game is a draw, or when the game is restarted.
@@ -68,7 +68,7 @@ namespace Engine
         IPlayer GetPlayer(Guid id);
         IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
         int GetTimestamp();
-        IZone GetZone(ICard card);
+        Zone GetZone(ICard card);
 
         void Lose(params IPlayer[] players);
         IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards);

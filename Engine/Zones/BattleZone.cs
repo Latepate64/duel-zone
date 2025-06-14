@@ -9,13 +9,13 @@ namespace Engine.Zones
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone, IBattleZone
+    public class BattleZone : Zone
     {
         public BattleZone(params ICard[] cards) : base(ZoneType.BattleZone, cards)
         {
         }
 
-        public BattleZone(IBattleZone zone) : base(zone)
+        public BattleZone(BattleZone zone) : base(zone)
         {
         }
 
@@ -136,7 +136,7 @@ namespace Engine.Zones
             return GetCreatures(owner).Union(GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(owner)));
         }
 
-        public IBattleZone Copy()
+        public BattleZone Copy()
         {
             return new BattleZone(this);
         }

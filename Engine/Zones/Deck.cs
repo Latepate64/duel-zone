@@ -6,13 +6,13 @@ namespace Engine.Zones
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone, IDeck
+    public class Deck : Zone
     {
         public Deck(params ICard[] cards) : base(ZoneType.Deck, cards)
         {
         }
 
-        public Deck(IDeck zone) : base(zone)
+        public Deck(Deck zone) : base(zone)
         {
         }
 
@@ -54,7 +54,7 @@ namespace Engine.Zones
             Cards.InsertRange(0, cards);
         }
 
-        public IDeck Copy()
+        public Deck Copy()
         {
             return new Deck(this);
         }

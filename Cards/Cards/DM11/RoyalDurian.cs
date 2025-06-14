@@ -25,7 +25,8 @@ namespace Cards.Cards.DM11
 
         public override void Apply(IGame game)
         {
-            game.BattleZone.EvolutionCreatures.ToList().ForEach(x => game.MoveTopCard(x, ZoneType.ManaZone, Ability));
+            game.BattleZone.Creatures.Where(x => x.Supertypes.Contains(Supertype.Evolution)).ToList()
+                .ForEach(x => game.MoveTopCard(x, ZoneType.ManaZone, Ability));
         }
 
         public override IOneShotEffect Copy()

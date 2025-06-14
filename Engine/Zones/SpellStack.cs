@@ -8,7 +8,7 @@ namespace Engine.Zones
         {
         }
 
-        public SpellStack(IZone zone) : base(zone)
+        public SpellStack(Zone zone) : base(zone)
         {
         }
 

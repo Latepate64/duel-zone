@@ -50,35 +50,35 @@ namespace Engine
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public IDeck Deck { get; private set; } = new Deck([]);
+        public Deck Deck { get; private set; } = new Deck([]);
 
         public bool DirectlyAttacked { get; set; }
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public IGraveyard Graveyard { get; private set; } = new Graveyard();
+        public Graveyard Graveyard { get; private set; } = new Graveyard();
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public IHand Hand { get; private set; } = new Hand();
+        public Hand Hand { get; private set; } = new Hand();
 
         public Guid Id { get; set; }
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public IManaZone ManaZone { get; private set; } = new ManaZone();
+        public ManaZone ManaZone { get; private set; } = new ManaZone();
 
         public string Name { get; set; }
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public IShieldZone ShieldZone { get; private set; } = new ShieldZone();
+        public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
-        public IEnumerable<IZone> Zones => new List<IZone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
+        public IEnumerable<Zone> Zones => new List<Zone> { Deck, Graveyard, Hand, ManaZone, ShieldZone };
 
         public void ArrangeTopCardsOfDeck(params ICard[] cards)
         {
@@ -343,7 +343,7 @@ namespace Engine
             return GetCardsThatCanBePaid().Where(x => game.CanBeUsedRegardlessOfManaCost(x));
         }
 
-        public IZone GetZone(ZoneType zone)
+        public Zone GetZone(ZoneType zone)
         {
             return zone switch
             {
