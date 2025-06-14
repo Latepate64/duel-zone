@@ -27,7 +27,7 @@ namespace Cards.Cards.DM12
             var maximum = game.BattleZone.GetCreatures(Controller.Id).Count();
             var shields = Controller.ShieldZone.Cards.Union(GetOpponent(game).ShieldZone.Cards);
             var chosen = Controller.ChooseCards(shields, 0, maximum, ToString()).ToList();
-            chosen.ForEach(x => x.FaceDown = false);
+            chosen.ForEach(x => x.TurnFaceUp());
         }
 
         public override IOneShotEffect Copy()

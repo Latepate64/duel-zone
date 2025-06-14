@@ -6,23 +6,24 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card : ICopyable<Card>, ITimestampable
+    public class Card(bool tapped, List<Civilization> civilizations, int manaCost) : ICopyable<Card>, ITimestampable
     {
         readonly IList<Race> addedRaces = [];
         IList<Race> printedRaces = [];
 
         public IList<IAbility> AddedAbilities { get; } = [];
         readonly CardType cardType;
-        public List<Civilization> Civilizations { get; set; } = [];
+        public List<Civilization> Civilizations { get; } = civilizations;
+        
         /// <summary>
         /// TODO: Apply in logic
         /// </summary>
-        public bool FaceDown { get; set; }
+        public bool FaceDown { get; private set; }
 
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public List<Guid> KnownTo { get; set; } = [];
         public bool LostInBattle { get; set; }
-        public int ManaCost { get; set; }
+        public int ManaCost { get; } = manaCost;
         public string Name { get; set; }
         /// <summary>
         /// Id of the card this card is on top of.
@@ -46,28 +47,20 @@ namespace Engine
         public bool ShieldTrigger { get; set; }
         public bool SummoningSickness { get; set; }
         public List<Supertype> Supertypes { get; set; } = [];
-        public bool Tapped { get; private set; }
+        public bool Tapped { get; private set; } = tapped;
         public int Timestamp { get; set; }
         /// <summary>
         /// The card this card is underneath of.
         /// </summary>
         public Card Underneath { get; set; }
 
-        public Card(bool tapped = false)
-        {
-            Id = Guid.NewGuid();
-            Tapped = tapped;
-        }
-
-        protected Card(Card card, int timeStamp)
+        protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost)
         {
             AddedAbilities = [.. card.AddedAbilities.Select(x => x.Copy())];
             cardType = card.cardType;
-            Civilizations = [.. card.Civilizations];
             FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
             KnownTo = [.. card.KnownTo];
-            ManaCost = card.ManaCost;
             Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
@@ -80,17 +73,15 @@ namespace Engine
             ShieldTrigger = card.ShieldTrigger;
             SummoningSickness = card.SummoningSickness;
             Supertypes = card.Supertypes?.ToList();
-            Tapped = card.Tapped;
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             Underneath = card.Underneath;
             InitializeAbilities();
         }
 
-        protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
+        protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) :
+            this(false, [.. civilizations], manaCost)
         {
             cardType = type;
-            Civilizations = [.. civilizations];
-            ManaCost = manaCost;
             Name = name;
             PrintedPower = power;
         }
@@ -295,6 +286,11 @@ namespace Engine
         internal void Tap()
         {
             Tapped = true;
+        }
+
+        public void TurnFaceUp()
+        {
+            FaceDown = false;
         }
     }
 }

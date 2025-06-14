@@ -26,7 +26,7 @@ namespace Cards.Cards.DM09
             var shield = Controller.ChooseCard(GetOpponent(game).ShieldZone.Cards, ToString());
             if (shield != null)
             {
-                shield.FaceDown = false;
+                shield.TurnFaceUp();
             }
         }
 

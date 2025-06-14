@@ -312,13 +312,9 @@ public class GameTests
         };
     }
 
-    static Card CreateCard(Civilization civilization = Civilization.Light, bool tapped = false)
+    static Card CreateCard(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1)
     {
-        return new Card(tapped)
-        {
-            ManaCost = 1,
-            Civilizations = [civilization]
-        };
+        return new Card(tapped, [civilization], manaCost);
     }
 
     static GameState CreateGameState()
