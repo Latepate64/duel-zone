@@ -25,10 +25,8 @@ namespace Cards.Cards.DM10
         public override void Apply(IGame game)
         {
             var destroyedCreature = Controller.DestroyCreatureOptionally(game, Ability);
-            if (destroyedCreature != null)
-            {
-                destroyedCreature.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(game, Ability);
-            }
+            destroyedCreature?.Owner.RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(
+                game, Ability);
         }
 
         public override IOneShotEffect Copy()

@@ -24,10 +24,7 @@ namespace Cards.Cards.DM09
         public override void Apply(IGame game)
         {
             var shield = Controller.ChooseCard(GetOpponent(game).ShieldZone.Cards, ToString());
-            if (shield != null)
-            {
-                shield.TurnFaceUp();
-            }
+            shield?.TurnFaceUp();
         }
 
         public override IOneShotEffect Copy()
