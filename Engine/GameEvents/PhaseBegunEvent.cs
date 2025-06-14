@@ -2,9 +2,9 @@
 
 namespace Engine.GameEvents
 {
-    public class PhaseBegunEvent(IPhase nextPhase, ITurn currentTurn) : GameEvent
+    public class PhaseBegunEvent(IPhase nextPhase, Turn currentTurn) : GameEvent
     {
-        public ITurn Turn { get; } = currentTurn;
+        public Turn Turn { get; } = currentTurn;
         public IPhase Phase { get; } = nextPhase;
 
         public override void Happen(IGame game)

@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Turn : ITurn, IDisposable
+    public class Turn : IDisposable
     {
         public Turn() : base()
         {
             Id = Guid.NewGuid();
         }
 
-        public Turn(ITurn turn)
+        public Turn(Turn turn)
         {
             Phases = [.. turn.Phases.Select(x => x.Copy())];
             ActivePlayer = turn.ActivePlayer;

@@ -11,17 +11,17 @@ namespace Engine
     public interface IGame
     {
         BattleZone BattleZone { get; }
-        ITurn CurrentTurn { get; }
+        Turn CurrentTurn { get; }
         /// <summary>
         /// 104.1. A game ends immediately when a player wins, when the game is a draw, or when the game is restarted.
         /// </summary>
         bool Ended { get; }
 
-        Stack<ITurn> ExtraTurns { get; }
+        Stack<Turn> ExtraTurns { get; }
         IEnumerable<Player> Players { get; }
         Queue<IGameEvent> PreGameEvents { get; }
         SpellStack SpellStack { get; }
-        IList<ITurn> Turns { get; }
+        IList<Turn> Turns { get; }
         public IContinuousEffects ContinuousEffects { get; }
         Player ActivePlayer => CurrentTurn.ActivePlayer;
 
