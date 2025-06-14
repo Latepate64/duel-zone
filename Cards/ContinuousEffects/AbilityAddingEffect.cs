@@ -44,19 +44,19 @@ namespace Cards.ContinuousEffects
             _cards = effect._cards;
         }
 
-        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability, params Card[] cards) : base(new IAbility[] { ability })
+        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability, params Card[] cards) : base([ability])
         {
             _cards = cards;
         }
 
-        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params Card[] cards) : base(new IAbility[] { ability1, ability2 })
+        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params Card[] cards) : base([ability1, ability2])
         {
             _cards = cards;
         }
 
         protected AddAbilitiesUntilEndOfTurnEffect(Card card, params IAbility[] abilities) : base(abilities)
         {
-            _cards = new Card[] { card };
+            _cards = [card];
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)

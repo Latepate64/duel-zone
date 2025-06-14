@@ -27,7 +27,7 @@ namespace Engine.GameEvents
 
             void Outcome(Card winner, Card loser)
             {
-                Winners = new Card[] { winner };
+                Winners = [winner];
                 CheckLoseInBattle(loser, winner, game);
                 if (game.ContinuousEffects.DoesAnySlayerEffectApply(loser, winner))
                 {

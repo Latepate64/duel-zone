@@ -21,11 +21,11 @@ namespace Cards
             SetPrintedRaces(race);
         }
 
-        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
+        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name, manaCost, power, race, [civilization])
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, [civilization1, civilization2])
         {
             SetPrintedRaces(race1, race2);
         }
@@ -41,7 +41,7 @@ namespace Cards
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, [civilization])
         {
             SetPrintedRaces(race1, race2);
         }
