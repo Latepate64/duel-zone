@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM01
 
         protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => x.Power <= 2000);
+            return game.BattleZone.GetCreaturesWithMaxPower(2000);
         }
     }
 }

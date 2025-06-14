@@ -1,7 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.OneShotEffects
 {
@@ -31,7 +30,7 @@ namespace Cards.OneShotEffects
 
         protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.Creatures.Where(x => x.Power <= Power);
+            return game.BattleZone.GetCreaturesWithMaxPower(Power);
         }
     }
 }

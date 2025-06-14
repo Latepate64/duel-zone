@@ -653,12 +653,12 @@ namespace Engine
 
         public void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
         {
-            game.Destroy(ability, [.. game.BattleZone.Creatures.Where(x => x.Power <= power)]);
+            game.Destroy(ability, [.. game.BattleZone.GetCreaturesWithMaxPower(power)]);
         }
 
         public void DiscardAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
         {
-            Discard(ability, game, [.. Hand.Creatures.Where(x => x.Power.HasValue && x.Power <= power)]);
+            Discard(ability, game, [.. Hand.GetCreaturesWithMaxPower(power)]);
         }
 
         public Card DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)

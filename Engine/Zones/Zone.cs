@@ -78,5 +78,10 @@ namespace Engine.Zones
         {
             return Creatures.Where(x => x.Id != creature);
         }
+
+        public IEnumerable<Card> GetCreaturesWithMaxPower(int maxPower)
+        {
+            return Creatures.Where(x => x.Power <= maxPower);
+        }
     }
 }
