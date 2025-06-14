@@ -240,6 +240,33 @@ public class GameTests
     }
 
     [Fact]
+    public void PayingWithTappedManaThrows()
+    {
+        // Arrange
+        var player = new PlayerV2()
+        {
+            Hand = new Engine.Zones.Hand([CreateCard()]),
+            ManaZone = new Engine.Zones.ManaZone([CreateCard(tapped: true)]),
+        };
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new MainPhaseEvent(player))
+        };
+        state.PassableAction = new UseCardEvent(state.ActivePlayer);
+        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
+        {
+            Card = player.Hand.Cards.Single(),
+            PaymentCards = player.ManaZone.Cards
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.UseCardTappedManaForPayment, ex.Type);
+    }
+
+    [Fact]
     public void UsingCardWithInsufficientPaymentForCivilizationsThrows()
     {
         // Arrange
@@ -285,9 +312,9 @@ public class GameTests
         };
     }
 
-    static Card CreateCard(Civilization civilization = Civilization.Light)
+    static Card CreateCard(Civilization civilization = Civilization.Light, bool tapped = false)
     {
-        return new Card
+        return new Card(tapped)
         {
             ManaCost = 1,
             Civilizations = [civilization]

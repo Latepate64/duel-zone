@@ -53,9 +53,10 @@ namespace Engine
         /// </summary>
         public Card Underneath { get; set; }
 
-        public Card()
+        public Card(bool tapped = false)
         {
             Id = Guid.NewGuid();
+            Tapped = tapped;
         }
 
         protected Card(Card card, int timeStamp)
@@ -291,7 +292,7 @@ namespace Engine
             return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
         }
 
-        public void Tap()
+        internal void Tap()
         {
             Tapped = true;
         }
