@@ -96,10 +96,8 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.Id != creature);
         }
 
-        public IEnumerable<Card> GetOtherCreatures(Guid controller, Guid creature, Civilization civilization)
-        {
-            return GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization));
-        }
+        public int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization) =>
+            GetOtherCreatures(controller, creature).Where(x => x.HasCivilization(civilization)).Count();
 
         public IEnumerable<Card> GetOtherTappedCreatures(Guid controller, Guid creature)
         {

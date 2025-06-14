@@ -2,7 +2,6 @@
 using Cards.StaticAbilities;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM06
         public void AddAbility(IGame game)
         {
             var creature = Source;
-            if (!game.BattleZone.GetOtherCreatures(Controller.Id, creature.Id, Civilization.Fire).Any())
+            if (game.BattleZone.GetOtherCreatureCount(Controller.Id, creature.Id, Civilization.Fire) == 0)
             {
                 creature.AddGrantedAbility(new PowerAttackerAbility(3000));
                 creature.AddGrantedAbility(new DoubleBreakerAbility());
