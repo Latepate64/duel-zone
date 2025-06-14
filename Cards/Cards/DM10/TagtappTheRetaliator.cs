@@ -12,12 +12,8 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class TagtappTheRetaliatorEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class TagtappTheRetaliatorEffect(int power = 1000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public TagtappTheRetaliatorEffect(int power = 1000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new TagtappTheRetaliatorEffect();

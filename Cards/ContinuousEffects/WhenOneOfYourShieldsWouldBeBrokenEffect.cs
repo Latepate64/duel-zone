@@ -57,16 +57,10 @@ namespace Cards.ContinuousEffects
         }
     }
 
-    class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent : GameEvent
+    class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Card creature, IEnumerable<Card> remainingShields) : GameEvent
     {
-        private readonly Card _creature;
-        private readonly IEnumerable<Card> _remainingShields;
-
-        public WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Card creature, IEnumerable<Card> remainingShields)
-        {
-            _creature = creature;
-            _remainingShields = remainingShields;
-        }
+        private readonly Card _creature = creature;
+        private readonly IEnumerable<Card> _remainingShields = remainingShields;
 
         public override void Happen(IGame game)
         {

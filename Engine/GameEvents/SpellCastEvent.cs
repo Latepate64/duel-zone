@@ -3,16 +3,10 @@ using System.Linq;
 
 namespace Engine.GameEvents
 {
-    public class SpellCastEvent : GameEvent
+    public class SpellCastEvent(IPlayer player, Card spell) : GameEvent
     {
-        public SpellCastEvent(IPlayer player, Card spell)
-        {
-            Player = player;
-            Spell = spell;
-        }
-
-        public IPlayer Player { get; }
-        public Card Spell { get; private set; }
+        public IPlayer Player { get; } = player;
+        public Card Spell { get; private set; } = spell;
 
         public override void Happen(IGame game)
         {

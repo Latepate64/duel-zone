@@ -12,12 +12,8 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class TerradragonDakmaBalgarowEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class TerradragonDakmaBalgarowEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public TerradragonDakmaBalgarowEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new TerradragonDakmaBalgarowEffect();

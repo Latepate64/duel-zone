@@ -12,12 +12,8 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class SpinningTerrorTheWretchedEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class SpinningTerrorTheWretchedEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public SpinningTerrorTheWretchedEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new SpinningTerrorTheWretchedEffect();

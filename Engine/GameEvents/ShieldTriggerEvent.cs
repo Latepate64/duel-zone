@@ -1,15 +1,9 @@
 ﻿namespace Engine.GameEvents
 {
-    public class ShieldTriggerEvent : GameEvent
+    public class ShieldTriggerEvent(IPlayer player, Card trigger) : GameEvent
     {
-        public ShieldTriggerEvent(IPlayer player, Card trigger)
-        {
-            Player = player;
-            Trigger = trigger;
-        }
-
-        public IPlayer Player { get; }
-        public Card Trigger { get; }
+        public IPlayer Player { get; } = player;
+        public Card Trigger { get; } = trigger;
 
         public override void Happen(IGame game)
         {

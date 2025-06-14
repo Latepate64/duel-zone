@@ -3,10 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.StaticAbilities
 {
-    class WaveStrikerAbility : StaticAbility
+    class WaveStrikerAbility(params IAbility[] abilities) : StaticAbility(new WaveStrikerEffect(abilities))
     {
-        public WaveStrikerAbility(params IAbility[] abilities) : base(new WaveStrikerEffect(abilities))
-        {
-        }
     }
 }

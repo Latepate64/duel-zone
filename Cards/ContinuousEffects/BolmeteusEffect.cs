@@ -37,12 +37,8 @@ namespace Cards.ContinuousEffects
         }
     }
 
-    class BolmeteusEvent : CreatureMightBreakShieldsEvent
+    class BolmeteusEvent(Card attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
     {
-        public BolmeteusEvent(Card attacker, int breakAmount) : base(attacker, breakAmount)
-        {
-        }
-
         public override void Happen(IGame game)
         {
             var owner = Attacker.Owner;

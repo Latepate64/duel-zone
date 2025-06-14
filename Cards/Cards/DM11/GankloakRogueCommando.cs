@@ -33,12 +33,8 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class GankloakRogueCommandoContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+    class GankloakRogueCommandoContinuousEffect(params Card[] cards) : AddAbilitiesUntilEndOfTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards)
     {
-        public GankloakRogueCommandoContinuousEffect(params Card[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new GankloakRogueCommandoContinuousEffect();

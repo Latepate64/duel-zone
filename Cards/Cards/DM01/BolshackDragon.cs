@@ -13,12 +13,8 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class BolshackDragonEffect : PowerAttackerMultiplierEffect
+    class BolshackDragonEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
     {
-        public BolshackDragonEffect(int power = 1000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new BolshackDragonEffect();

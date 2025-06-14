@@ -12,12 +12,8 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class MagmadragonOgristVhalEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class MagmadragonOgristVhalEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public MagmadragonOgristVhalEffect(int power = 3000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new MagmadragonOgristVhalEffect();

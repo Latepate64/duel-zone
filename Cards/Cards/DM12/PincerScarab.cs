@@ -12,12 +12,8 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class PincerScarabEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class PincerScarabEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public PincerScarabEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new PincerScarabEffect();

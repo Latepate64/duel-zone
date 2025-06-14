@@ -13,12 +13,8 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class NecrodragonIzoristVhalEffect : PowerModifyingMultiplierEffect
+    class NecrodragonIzoristVhalEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
     {
-        public NecrodragonIzoristVhalEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new NecrodragonIzoristVhalEffect();

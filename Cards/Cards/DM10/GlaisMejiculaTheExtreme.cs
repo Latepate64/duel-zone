@@ -53,18 +53,11 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class GlaisMejiculaEvent : GameEvent
+    class GlaisMejiculaEvent(IEnumerable<Card> remainingShields, IEnumerable<Card> discard, IAbility ability) : GameEvent
     {
-        private readonly IAbility _ability;
-        private readonly IEnumerable<Card> _discard;
-        private readonly IEnumerable<Card> _remainingShields;
-
-        public GlaisMejiculaEvent(IEnumerable<Card> remainingShields, IEnumerable<Card> discard, IAbility ability)
-        {
-            _ability = ability;
-            _discard = discard;
-            _remainingShields = remainingShields;
-        }
+        private readonly IAbility _ability = ability;
+        private readonly IEnumerable<Card> _discard = discard;
+        private readonly IEnumerable<Card> _remainingShields = remainingShields;
 
         public override void Happen(IGame game)
         {

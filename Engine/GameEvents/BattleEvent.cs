@@ -3,16 +3,10 @@ using System.Linq;
 
 namespace Engine.GameEvents
 {
-    public class BattleEvent : GameEvent
+    public class BattleEvent(Card attackingCreature, Card defendingCreature) : GameEvent
     {
-        public BattleEvent(Card attackingCreature, Card defendingCreature)
-        {
-            AttackingCreature = attackingCreature;
-            DefendingCreature = defendingCreature;
-        }
-
-        public Card AttackingCreature { get; }
-        public Card DefendingCreature { get; }
+        public Card AttackingCreature { get; } = attackingCreature;
+        public Card DefendingCreature { get; } = defendingCreature;
         public Card[] Winners { get; private set; } = System.Array.Empty<Card>();
 
         public override void Happen(IGame game)

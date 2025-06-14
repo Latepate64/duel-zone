@@ -12,12 +12,8 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class ArmoredCannonBalbaroEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    class ArmoredCannonBalbaroEffect(int power = 2000) : ContinuousEffects.PowerAttackerMultiplierEffect(power)
     {
-        public ArmoredCannonBalbaroEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new ArmoredCannonBalbaroEffect();

@@ -39,14 +39,9 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class RyudmilaEvent : GameEvent
+    class RyudmilaEvent(Card card) : GameEvent
     {
-        private readonly Card _card;
-
-        public RyudmilaEvent(Card card)
-        {
-            _card = card;
-        }
+        private readonly Card _card = card;
 
         public override void Happen(IGame game)
         {

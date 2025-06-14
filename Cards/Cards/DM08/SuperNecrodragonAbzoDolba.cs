@@ -13,12 +13,8 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class SuperNecrodragonAbzoDolbaEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class SuperNecrodragonAbzoDolbaEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public SuperNecrodragonAbzoDolbaEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new SuperNecrodragonAbzoDolbaEffect();

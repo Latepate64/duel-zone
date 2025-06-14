@@ -2,12 +2,8 @@
 
 namespace Engine.GameEvents
 {
-    public sealed class CreatureBreaksShieldsEvent : CreatureMightBreakShieldsEvent
+    public sealed class CreatureBreaksShieldsEvent(Card attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
     {
-        public CreatureBreaksShieldsEvent(Card attacker, int breakAmount) : base(attacker, breakAmount)
-        {
-        }
-
         public override void Happen(IGame game)
         {
             var owner = Attacker.Owner;
@@ -21,34 +17,19 @@ namespace Engine.GameEvents
         }
     }
 
-    public abstract class CreatureMightBreakShieldsEvent : GameEvent
+    public abstract class CreatureMightBreakShieldsEvent(Card attacker, int breakAmount) : GameEvent
     {
-        public Card Attacker { get; }
-        public int BreakAmount { get; }
-
-        protected CreatureMightBreakShieldsEvent(Card attacker, int breakAmount)
-        {
-            Attacker = attacker;
-            BreakAmount = breakAmount;
-        }
+        public Card Attacker { get; } = attacker;
+        public int BreakAmount { get; } = breakAmount;
     }
 
-    public abstract class ShieldsMightBreakEvent : GameEvent
+    public abstract class ShieldsMightBreakEvent(IEnumerable<Card> shields) : GameEvent
     {
-        public IEnumerable<Card> Shields { get; }
-
-        protected ShieldsMightBreakEvent(IEnumerable<Card> shields)
-        {
-            Shields = shields;
-        }
+        public IEnumerable<Card> Shields { get; } = shields;
     }
 
-    public class ShieldsBreakEvent : ShieldsMightBreakEvent
+    public class ShieldsBreakEvent(IEnumerable<Card> shields) : ShieldsMightBreakEvent(shields)
     {
-        public ShieldsBreakEvent(IEnumerable<Card> shields) : base(shields)
-        {
-        }
-
         public override void Happen(IGame game)
         {
             game.PutFromShieldZoneToHand(Shields, true, null);

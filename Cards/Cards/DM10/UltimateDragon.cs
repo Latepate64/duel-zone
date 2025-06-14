@@ -13,12 +13,8 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class UltimateDragonPowerEffect : PowerModifyingMultiplierEffect
+    class UltimateDragonPowerEffect(int power = 5000) : PowerModifyingMultiplierEffect(power)
     {
-        public UltimateDragonPowerEffect(int power = 5000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new UltimateDragonPowerEffect();

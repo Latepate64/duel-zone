@@ -3,10 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.StaticAbilities
 {
-    public class PowerAttackerAbility : StaticAbility
+    public class PowerAttackerAbility(int power) : StaticAbility(new PowerAttackerEffect(power))
     {
-        public PowerAttackerAbility(int power) : base(new PowerAttackerEffect(power))
-        {
-        }
     }
 }

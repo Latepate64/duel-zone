@@ -12,12 +12,8 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class TerradragonAnristVhalEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class TerradragonAnristVhalEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public TerradragonAnristVhalEffect(int power = 2000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new TerradragonAnristVhalEffect();

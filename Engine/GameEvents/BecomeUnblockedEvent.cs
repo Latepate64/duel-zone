@@ -1,13 +1,8 @@
 ﻿namespace Engine.GameEvents
 {
-    public class BecomeUnblockedEvent : GameEvent
+    public class BecomeUnblockedEvent(Card attacker) : GameEvent
     {
-        public BecomeUnblockedEvent(Card attacker)
-        {
-            Attacker = attacker;
-        }
-
-        public Card Attacker { get; }
+        public Card Attacker { get; } = attacker;
 
         public override void Happen(IGame game)
         {

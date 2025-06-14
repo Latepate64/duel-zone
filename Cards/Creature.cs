@@ -155,12 +155,8 @@ namespace Cards
         }
     }
 
-    class TurboRushCreature : Creature
+    class TurboRushCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : Creature(name, manaCost, power, race, civilizations)
     {
-        public TurboRushCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
-        {
-        }
-
         protected void AddTurboRushAbility(ITriggeredAbility ability)
         {
             AddStaticAbilities(new TurboRushEffect(ability));
@@ -188,12 +184,8 @@ namespace Cards
         }
     }
 
-    class WaveStrikerCreature : Creature
+    class WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : Creature(name, manaCost, power, race, civilization)
     {
-        public WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
-        {
-        }
-
         protected void AddWaveStrikerAbility(params Engine.ContinuousEffects.IContinuousEffect[] effects)
         {
             AddAbilities(new StaticAbilities.WaveStrikerAbility(effects.Select(x => new StaticAbility(x)).ToArray()));

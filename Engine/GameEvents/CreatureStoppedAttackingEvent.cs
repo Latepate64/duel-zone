@@ -2,16 +2,10 @@
 
 namespace Engine.GameEvents
 {
-    public class CreatureStoppedAttackingEvent : GameEvent
+    public class CreatureStoppedAttackingEvent(Card card, AttackPhase attackPhase) : GameEvent
     {
-        public CreatureStoppedAttackingEvent(Card card, AttackPhase attackPhase)
-        {
-            AttackingCreature = card;
-            AttackPhase = attackPhase;
-        }
-
-        public Card AttackingCreature { get; }
-        public AttackPhase AttackPhase { get; }
+        public Card AttackingCreature { get; } = card;
+        public AttackPhase AttackPhase { get; } = attackPhase;
 
         public override void Happen(IGame game)
         {

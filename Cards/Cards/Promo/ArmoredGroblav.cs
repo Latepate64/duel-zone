@@ -13,12 +13,8 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class ArmoredGroblavEffect : ContinuousEffects.PowerAttackerMultiplierEffect
+    class ArmoredGroblavEffect(int power = 1000) : ContinuousEffects.PowerAttackerMultiplierEffect(power)
     {
-        public ArmoredGroblavEffect(int power = 1000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new ArmoredGroblavEffect();

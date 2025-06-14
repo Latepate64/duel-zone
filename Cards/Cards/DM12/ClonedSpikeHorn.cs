@@ -12,12 +12,8 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class ClonedSpikeHornEffect : ContinuousEffects.PowerModifyingMultiplierEffect
+    class ClonedSpikeHornEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
-        public ClonedSpikeHornEffect(int power = 3000) : base(power)
-        {
-        }
-
         public override IContinuousEffect Copy()
         {
             return new ClonedSpikeHornEffect();

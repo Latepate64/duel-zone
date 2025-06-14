@@ -2,16 +2,10 @@
 
 namespace Engine.GameEvents
 {
-    public class CreatureAttackedEvent : GameEvent
+    public class CreatureAttackedEvent(Card attacker, IAttackable id) : GameEvent
     {
-        public Card Attacker { get; }
-        public IAttackable Target { get; }
-
-        public CreatureAttackedEvent(Card attacker, IAttackable id)
-        {
-            Attacker = attacker;
-            Target = id;
-        }
+        public Card Attacker { get; } = attacker;
+        public IAttackable Target { get; } = id;
 
         public override void Happen(IGame game)
         {
