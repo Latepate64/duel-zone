@@ -9,14 +9,14 @@
         {
         }
 
-        public override IPhase GetNextPhase(IGame game)
+        public override Phase GetNextPhase(IGame game)
         {
             return null;
         }
 
         public EndOfTurnPhase(EndOfTurnPhase step) : base(step) { }
 
-        public override IPhase Copy()
+        public override Phase Copy()
         {
             return new EndOfTurnPhase(this);
         }

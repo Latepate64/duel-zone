@@ -9,7 +9,7 @@
         {
         }
 
-        public override IPhase GetNextPhase(IGame game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new MainPhase();
         }
@@ -24,7 +24,7 @@
             return true;
         }
 
-        public override IPhase Copy()
+        public override Phase Copy()
         {
             return new ChargePhase(this);
         }

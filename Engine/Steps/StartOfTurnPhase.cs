@@ -13,7 +13,7 @@ namespace Engine.Steps
             SkipDrawStep = skipDrawStep;
         }
 
-        public override IPhase GetNextPhase(IGame game)
+        public override Phase GetNextPhase(IGame game)
         {
             // 500.6. The player who plays first skips the draw step of their first turn.
             if (SkipDrawStep)
@@ -61,7 +61,7 @@ namespace Engine.Steps
             SkipDrawStep = step.SkipDrawStep;
         }
 
-        public override IPhase Copy()
+        public override Phase Copy()
         {
             return new StartOfTurnPhase(this);
         }

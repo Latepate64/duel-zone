@@ -16,14 +16,14 @@ namespace Engine.Steps
             throw new NotImplementedException();
         }
 
-        public override IPhase GetNextPhase(IGame game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new AttackPhase();
         }
 
         public MainPhase(MainPhase step) : base(step) { }
 
-        public override IPhase Copy()
+        public override Phase Copy()
         {
             return new MainPhase(this);
         }

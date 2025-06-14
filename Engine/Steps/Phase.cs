@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Engine.Steps
 {
-    public abstract class Phase : ICopyable<IPhase>, IPhase
+    public abstract class Phase : ICopyable<Phase>
     {
-        public abstract IPhase GetNextPhase(IGame game);
+        public abstract Phase GetNextPhase(IGame game);
 
         public virtual void Play(IGame game)
         {
@@ -54,7 +54,7 @@ namespace Engine.Steps
             }
         }
 
-        protected Phase(IPhase phase)
+        protected Phase(Phase phase)
         {
             PendingAbilities = [.. phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>()];
             GameEvents = new Queue<IGameEvent>(phase.GameEvents);
@@ -73,6 +73,6 @@ namespace Engine.Steps
         public Queue<IGameEvent> GameEvents { get; } = new Queue<IGameEvent>();
         public PhaseOrStep Type { get; }
 
-        public abstract IPhase Copy();
+        public abstract Phase Copy();
     }
 }

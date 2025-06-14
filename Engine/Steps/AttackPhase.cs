@@ -18,7 +18,7 @@ namespace Engine.Steps
             AttackingCreature = step.AttackingCreature;
         }
 
-        public override IPhase Copy()
+        public override Phase Copy()
         {
             return new AttackPhase(this);
         }
@@ -80,7 +80,7 @@ namespace Engine.Steps
             }
         }
 
-        public override IPhase GetNextPhase(IGame game)
+        public override Phase GetNextPhase(IGame game)
         {
             return new EndOfTurnPhase();
         }

@@ -30,7 +30,7 @@ namespace Engine
         /// <summary>
         /// The phase that is currently being processed.
         /// </summary>
-        public IPhase CurrentPhase => Phases.Last();
+        public Phase CurrentPhase => Phases.Last();
 
         public IEnumerable<IGameEvent> GameEvents => Phases.SelectMany(x => x.GameEvents);
 
@@ -46,7 +46,7 @@ namespace Engine
         /// <summary>
         /// All the phases in the turn that have been or are processed, in order.
         /// </summary>
-        public IList<IPhase> Phases { get; private set; } = [];
+        public IList<Phase> Phases { get; private set; } = [];
 
         public void Dispose()
         {
@@ -72,7 +72,7 @@ namespace Engine
             CurrentPhase.Play(game);
             if (!game.Ended)
             {
-                IPhase nextPhase = CurrentPhase.GetNextPhase(game);
+                Phase nextPhase = CurrentPhase.GetNextPhase(game);
                 if (nextPhase != null)
                 {
                     game.ProcessEvents(new PhaseBegunEvent(nextPhase, game.CurrentTurn));
