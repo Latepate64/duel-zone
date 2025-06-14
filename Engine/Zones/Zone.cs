@@ -64,6 +64,11 @@ namespace Engine.Zones
             return GetCards(civilization).Count();
         }
 
+        public int GetCreatureCount(Civilization civilization)
+        {
+            return GetCreatures(civilization).Count();
+        }
+
         public IEnumerable<Card> GetCreatures(Civilization civilization)
         {
             return Creatures.Where(x => x.HasCivilization(civilization));

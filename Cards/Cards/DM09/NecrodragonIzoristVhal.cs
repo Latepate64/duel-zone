@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return Controller.Graveyard.GetCreatures(Civilization.Darkness).Count();
+            return Controller.Graveyard.GetCreatureCount(Civilization.Darkness);
         }
     }
 }
