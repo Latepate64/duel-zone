@@ -21,8 +21,7 @@ namespace Engine.Zones
 
         internal override void Add(Card card, IGame game)
         {
-            card.SummoningSickness = true;
-            card.KnownTo = [.. game.Players.Select(x => x.Id)];
+            card.SetKnownTo([.. game.Players.Select(x => x.Id)]);
             Cards.Add(card);
             game.ContinuousEffects.Add(card, [.. card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone)]);
         }
@@ -141,7 +140,7 @@ namespace Engine.Zones
 
         public void RemoveSummoningSicknesses(IPlayer player)
         {
-            GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.SummoningSickness = false);
+            GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList().ForEach(x => x.RemoveSummoningSickness());
         }
 
         public IEnumerable<Card> GetCreaturesWithSilentSkill(IPlayer player)

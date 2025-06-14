@@ -24,7 +24,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.Power += 1000);
+            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.IncreasePower(1000));
         }
 
         public override string ToString()

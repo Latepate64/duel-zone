@@ -30,7 +30,7 @@ namespace Cards.ContinuousEffects
         {
             if (Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
             {
-                Source.Power += Power;
+                Source.IncreasePower(Power);
             }
         }
 

@@ -93,7 +93,7 @@ namespace Cards.Cards.DM09
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.Power += 4000);
+            game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.IncreasePower(4000));
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)

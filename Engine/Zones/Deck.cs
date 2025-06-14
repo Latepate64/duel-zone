@@ -33,16 +33,7 @@ namespace Engine.Zones
             }
         }
 
-        public void Setup(IEnumerable<Card> cards, IPlayer owner)
-        {
-            cards.ToList().ForEach(x => x.Owner = owner);
-            Cards.AddRange(cards);
-        }
-
-        public IEnumerable<Card> GetTopCards(int amount)
-        {
-            return Cards.TakeLast(amount);
-        }
+        public IEnumerable<Card> GetTopCards(int amount) => Cards.TakeLast(amount);
 
         public void PutOnBottom(Card[] cards)
         {

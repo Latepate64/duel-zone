@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card(bool tapped, List<Civilization> civilizations, int manaCost) : ICopyable<Card>, ITimestampable
+    public class Card(bool tapped, List<Civilization> civilizations, int manaCost) : ICopyable<Card>
     {
         readonly IList<Race> addedRaces = [];
         IList<Race> printedRaces = [];
@@ -14,45 +14,36 @@ namespace Engine
         public IList<IAbility> AddedAbilities { get; } = [];
         readonly CardType cardType;
         public List<Civilization> Civilizations { get; } = civilizations;
-        
-        /// <summary>
-        /// TODO: Apply in logic
-        /// </summary>
         public bool FaceDown { get; private set; }
-
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public List<Guid> KnownTo { get; set; } = [];
-        public bool LostInBattle { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
+        public List<Guid> KnownTo { get; private set; } = [];
+        public bool LostInBattle { get; private set; }
         public int ManaCost { get; } = manaCost;
-        public string Name { get; set; }
+        public string Name { get; }
         /// <summary>
         /// Id of the card this card is on top of.
         /// </summary>
-        public Card OnTopOf { get; set; }
+        public Card OnTopOf { get; private set; }
 
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
-        public IPlayer Owner { get; set; }
-        public int PhysicalCardId { get; set; }
-        public int? Power { get; set; }
+        public IPlayer Owner { get; }
+        public int PhysicalCardId { get; }
+        public int? Power { get; private set; }
         public IList<IAbility> PrintedAbilities { get; } = [];
         public int? PrintedPower { get; }
-        /// <summary>
-        /// Also known as race for creatures.
-        /// </summary>
-        public List<Race> Races { get; set; } = [];
-
-        public string RulesText { get; set; }
-        public bool ShieldTrigger { get; set; }
-        public bool SummoningSickness { get; set; }
-        public List<Supertype> Supertypes { get; set; } = [];
+        public List<Race> Races { get; private set; } = [];
+        public string RulesText { get; private set; }
+        public bool ShieldTrigger { get; private set; }
+        public bool SummoningSickness { get; private set; } = true;
+        public List<Supertype> Supertypes { get; } = [];
         public bool Tapped { get; private set; } = tapped;
-        public int Timestamp { get; set; }
+        public int Timestamp { get; private set; }
         /// <summary>
         /// The card this card is underneath of.
         /// </summary>
-        public Card Underneath { get; set; }
+        public Card Underneath { get; private set; }
 
         protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost)
         {
@@ -291,6 +282,31 @@ namespace Engine
         public void TurnFaceUp()
         {
             FaceDown = false;
+        }
+
+        internal void RemoveSummoningSickness()
+        {
+            SummoningSickness = false;
+        }
+
+        internal void SetLostInBattle()
+        {
+            LostInBattle = true;
+        }
+
+        public void IncreasePower(int power)
+        {
+            Power += power;
+        }
+
+        internal void SetKnownTo(List<Guid> ids)
+        {
+            KnownTo = ids;
+        }
+
+        internal void SetTimestamp(int timestamp)
+        {
+            Timestamp = timestamp;
         }
     }
 }

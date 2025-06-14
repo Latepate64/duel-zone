@@ -58,7 +58,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToList().ForEach(x => x.Power += 2000);
+            game.BattleZone.Creatures.Where(x => x.HasRace(Race.AngelCommand) || x.HasRace(Race.DemonCommand)).ToList().ForEach(x => x.IncreasePower(2000));
         }
     }
 }

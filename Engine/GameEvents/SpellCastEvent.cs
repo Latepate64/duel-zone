@@ -13,10 +13,10 @@ namespace Engine.GameEvents
             // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
             game.GetZone(Spell).Remove(Spell, game);
             Spell = Spell.Copy();
-            Spell.Timestamp = game.GetTimestamp();
+            Spell.SetTimestamp(game.GetTimestamp());
             game.SpellStack.Add(Spell, game);
             game.ContinuousEffects.Add(Spell, [.. Spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere)]);
-            Spell.KnownTo = [.. game.Players.Select(x => x.Id)];
+            Spell.SetKnownTo([.. game.Players.Select(x => x.Id)]);
             ResolveSpellAbilities(Spell, game);
             FinishCastingSpell(Spell, game);
         }

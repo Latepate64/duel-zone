@@ -84,7 +84,7 @@ namespace Cards.Cards.DM10
 
         public void ModifyPower(IGame game)
         {
-            _creature.Power += _power;
+            _creature.IncreasePower(_power);
         }
 
         public override string ToString()

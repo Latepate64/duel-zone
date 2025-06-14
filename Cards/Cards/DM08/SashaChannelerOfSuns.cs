@@ -54,7 +54,7 @@ namespace Cards.Cards.DM08
                 var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.IsDragon)
                 {
-                    Source.Power += 6000;
+                    Source.IncreasePower(6000);
                 }
             }
         }

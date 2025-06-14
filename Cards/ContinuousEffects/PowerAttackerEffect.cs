@@ -27,7 +27,7 @@ namespace Cards.ContinuousEffects
             var creature = Source;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
-                creature.Power += Power;
+                creature.IncreasePower(Power);
             }
         }
 

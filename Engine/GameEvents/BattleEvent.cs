@@ -31,7 +31,7 @@ namespace Engine.GameEvents
                 CheckLoseInBattle(loser, winner, game);
                 if (game.ContinuousEffects.DoesAnySlayerEffectApply(loser, winner))
                 {
-                    winner.LostInBattle = true; // TODO: Not sure if proper way to do
+                    winner.SetLostInBattle(); // TODO: Not sure if proper way to do
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Engine.GameEvents
         {
             if (!game.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
             {
-                target.LostInBattle = true;
+                target.SetLostInBattle();
             }
         }
     }

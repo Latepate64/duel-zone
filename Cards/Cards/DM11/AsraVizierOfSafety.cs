@@ -32,7 +32,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            Source.Power += 4000;
+            Source.IncreasePower(4000);
         }
 
         public override string ToString()

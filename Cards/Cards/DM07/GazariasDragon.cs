@@ -40,7 +40,7 @@ namespace Cards.Cards.DM07
         {
             if (!Controller.ShieldZone.HasCards)
             {
-                Source.Power += 4000;
+                Source.IncreasePower(4000);
             }
         }
 

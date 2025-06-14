@@ -65,7 +65,7 @@ namespace Cards.Cards.DM08
 
         public void ModifyPower(IGame game)
         {
-            _cards.ForEach(x => x.Power += 4000);
+            _cards.ForEach(x => x.IncreasePower(4000));
         }
 
         public override string ToString()

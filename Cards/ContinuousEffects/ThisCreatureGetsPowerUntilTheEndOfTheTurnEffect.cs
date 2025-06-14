@@ -28,7 +28,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            _cards.ToList().ForEach(x => x.Power += _power);
+            _cards.ToList().ForEach(x => x.IncreasePower(_power));
         }
 
         public override string ToString()

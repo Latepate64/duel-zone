@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ForEach(x => x.Power += _power);
+            GetAffectedCards(game).ForEach(x => x.IncreasePower(_power));
         }
 
         protected abstract List<Card> GetAffectedCards(IGame game);

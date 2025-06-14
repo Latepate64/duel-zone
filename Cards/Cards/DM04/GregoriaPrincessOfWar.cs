@@ -34,7 +34,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            GetAffectedCards(game).ForEach(x => x.Power += 2000);
+            GetAffectedCards(game).ForEach(x => x.IncreasePower(2000));
         }
 
         public override string ToString()

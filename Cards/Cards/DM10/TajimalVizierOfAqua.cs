@@ -37,7 +37,7 @@ namespace Cards.Cards.DM10
                 var against = a.GetCreatureBattlingAgainst(Source);
                 if (against != null && against.HasCivilization(Civilization.Fire))
                 {
-                    Source.Power += 4000;
+                    Source.IncreasePower(4000);
                 }
             }
         }
