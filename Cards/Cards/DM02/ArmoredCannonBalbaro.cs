@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM02
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.BattleZone.GetOtherCreatures(Source.Id, Race.Human).Count();
+            return game.BattleZone.GetOtherCreatureCount(Source.Id, Race.Human);
         }
     }
 }
