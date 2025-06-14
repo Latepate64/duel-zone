@@ -1,5 +1,4 @@
-﻿using Combinatorics.Collections;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
@@ -153,11 +152,6 @@ namespace Engine
             }
         }
 
-        public bool CanBePaid(IPlayer player)
-        {
-            return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
-        }
-
         public Card Copy()
         {
             return new Card(this);
@@ -182,10 +176,6 @@ namespace Engine
         public IEnumerable<T> GetAbilities<T>()
         {
             return Abilities.OfType<T>();
-        }
-        public IEnumerable<IEnumerable<Card>> GetManaCombinations(IPlayer player)
-        {
-            return new Combinations<Card>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
         public bool HasCivilization(params Civilization[] civilizations)
@@ -248,21 +238,6 @@ namespace Engine
         public override string ToString()
         {
             return $"{Name} ({PhysicalCardId})";
-        }
-        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
-        {
-            if (!civs.Any())
-            {
-                return true;
-            }
-            else if (!manas.Any())
-            {
-                return false;
-            }
-            else
-            {
-                return manas.First().Civilizations.Any(x => HasCivilizations(manas.Skip(1), civs.Where(c => c != x)));
-            }
         }
 
         protected void AddAbilities(params IAbility[] abilities)

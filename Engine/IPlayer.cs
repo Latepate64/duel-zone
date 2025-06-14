@@ -45,8 +45,6 @@ namespace Engine
 
         IEnumerable<Card> ChooseCards(CardChoice choice);
 
-        bool ChooseCardToUse(IGame game, IEnumerable<Card> usableCards);
-
         Civilization ChooseCivilization(string description, params Civilization[] excluded);
 
         Card ChooseControlledCreature(IGame game, string description);
@@ -87,8 +85,6 @@ namespace Engine
         void DrawCards(int amount, IGame game, IAbility ability);
 
         void DrawCardsOptionally(IGame game, IAbility source, int maximum);
-
-        IEnumerable<Card> GetCardsThatCanBePaidAndUsed(IGame game);
 
         Zone GetZone(ZoneType zone);
 

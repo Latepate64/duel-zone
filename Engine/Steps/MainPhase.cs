@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 
 namespace Engine.Steps
 {
@@ -13,23 +13,7 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(IGame game)
         {
-            var player = game.CurrentTurn.ActivePlayer;
-            if (player != null)
-            {
-                var cards = player.GetCardsThatCanBePaidAndUsed(game);
-                if (cards.Any())
-                {
-                    return player.ChooseCardToUse(game, cards);
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
+            throw new NotImplementedException();
         }
 
         public override IPhase GetNextPhase(IGame game)

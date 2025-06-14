@@ -178,28 +178,6 @@ namespace Engine
             }
         }
 
-        public bool ChooseCardToUse(IGame game, IEnumerable<Card> usableCards)
-        {
-            var toUse = ChooseCardOptionally(usableCards, "You may use a card from your hand.");
-            if (toUse != null)
-            {
-                var manaCombinations = toUse.GetManaCombinations(this);
-                if (manaCombinations.Count() > 1)
-                {
-                    ChooseCardsToPayManaCost(game, toUse);
-                }
-                else
-                {
-                    PayManaCostAndUseCard(game, manaCombinations.Single(), toUse);
-                }
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
         public Civilization ChooseCivilization(string description, params Civilization[] excluded)
         {
             return Choose(new CivilizationChoice(this, description, excluded)).Choice.Value;
@@ -338,11 +316,6 @@ namespace Engine
                     break;
                 }
             }
-        }
-
-        public IEnumerable<Card> GetCardsThatCanBePaidAndUsed(IGame game)
-        {
-            return GetCardsThatCanBePaid().Where(x => game.CanBeUsedRegardlessOfManaCost(x));
         }
 
         public Zone GetZone(ZoneType zone)
@@ -560,11 +533,6 @@ namespace Engine
             }
         }
 
-        internal IEnumerable<Card> GetCardsThatCanBePaid()
-        {
-            return Hand.Cards.Where(card => card.CanBePaid(this));
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -598,19 +566,6 @@ namespace Engine
             {
                 game.ProcessCreatureAttackedEvent(attacker, target);
                 return false;
-            }
-        }
-
-        private void ChooseCardsToPayManaCost(IGame game, Card toUse)
-        {
-            var manaDecision = ChooseCards(ManaZone.UntappedCards, toUse.ManaCost, toUse.ManaCost, "Choose cards to pay the mana cost with.");
-            if (Card.HasCivilizations(manaDecision, toUse.Civilizations))
-            {
-                PayManaCostAndUseCard(game, manaDecision, toUse);
-            }
-            else
-            {
-                ChooseCardsToPayManaCost(game, toUse);
             }
         }
 
