@@ -268,25 +268,30 @@ public class GameTests
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
-        var cards = new List<Card>();
+        var deckCards = new List<Card>();
         for (int i = 0; i < deckSize; ++i)
         {
-            cards.Add(CreateCard());
+            deckCards.Add(CreateCard());
         }
-        var player = new PlayerV2 { Deck = new Engine.Zones.Deck([.. cards]) } ;
+        var handCards = new List<Card>();
         for (int i = 0; i < handSize; ++i)
         {
-            player.Hand.Cards.Add(CreateCard());
+            handCards.Add(CreateCard());
         }
-        return player;
+        return new PlayerV2
+        {
+            Deck = new Engine.Zones.Deck([.. deckCards]),
+            Hand = new Engine.Zones.Hand([.. handCards])
+        };
     }
 
     static Card CreateCard(Civilization civilization = Civilization.Light)
     {
-        var card = Mock.Of<Card>();
-        card.ManaCost = 1;
-        card.Civilizations = [civilization];
-        return card;
+        return new Card
+        {
+            ManaCost = 1,
+            Civilizations = [civilization]
+        };
     }
 
     static GameState CreateGameState()

@@ -153,11 +153,6 @@ namespace Cards
         {
             AddStaticAbilities(new SurvivorEffect(ability));
         }
-
-        public override Card Copy()
-        {
-            return new Creature(this);
-        }
     }
 
     class TurboRushCreature : Creature

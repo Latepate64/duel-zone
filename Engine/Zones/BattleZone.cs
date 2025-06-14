@@ -19,7 +19,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, IGame game)
+        internal override void Add(Card card, IGame game)
         {
             card.SummoningSickness = true;
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
@@ -27,7 +27,7 @@ namespace Engine.Zones
             game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
         }
 
-        public override List<Card> Remove(Card card, IGame game)
+        internal override List<Card> Remove(Card card, IGame game)
         {
             if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
             {

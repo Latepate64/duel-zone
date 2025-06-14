@@ -14,7 +14,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, IGame game)
+        internal override void Add(Card card, IGame game)
         {
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
@@ -25,15 +25,15 @@ namespace Engine.Zones
             return new Graveyard(this);
         }
 
-        public override List<Card> Remove(Card card, IGame game)
+        internal override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {
-                return new List<Card> { card };
+                return [card];
             }
             else
             {
-                return new List<Card>();
+                return [];
             }
         }
 

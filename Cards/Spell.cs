@@ -18,11 +18,6 @@ namespace Cards
         {
         }
 
-        public override Card Copy()
-        {
-            return new Spell(this);
-        }
-
         /// <summary>
         /// Adds a spell ability for each one-shot effect provided.
         /// </summary>

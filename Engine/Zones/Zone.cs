@@ -28,9 +28,9 @@ namespace Engine.Zones
             Cards = [.. zone.Cards.Select(x => x.Copy())];
         }
 
-        public abstract void Add(Card card, IGame game);
+        internal abstract void Add(Card card, IGame game);
 
-        public abstract List<Card> Remove(Card card, IGame game);
+        internal abstract List<Card> Remove(Card card, IGame game);
 
         protected virtual void Dispose(bool disposing)
         {

@@ -15,7 +15,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, IGame game)
+        internal override void Add(Card card, IGame game)
         {
             // card.KnownTo = new List<Guid> { card.Owner.Id };
             Cards.Add(card);
@@ -26,7 +26,7 @@ namespace Engine.Zones
             return new Hand(this);
         }
 
-        public override List<Card> Remove(Card card, IGame game)
+        internal override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {

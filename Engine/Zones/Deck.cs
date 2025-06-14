@@ -16,12 +16,12 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(Card card, IGame game)
+        internal override void Add(Card card, IGame game)
         {
             Cards.Add(card);
         }
 
-        public override List<Card> Remove(Card card, IGame game)
+        internal override List<Card> Remove(Card card, IGame game)
         {
             if (!Cards.Remove(card))
             {
