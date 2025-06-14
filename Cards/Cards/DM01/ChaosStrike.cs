@@ -4,7 +4,6 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -36,7 +35,7 @@ namespace Cards.Cards.DM01
         {
             if (cards.Length == 1)
             {
-                game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards.Single().Id));
+                game.AddContinuousEffects(Ability, new ChaosStrikeContinousEffect(cards[0].Id));
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -28,7 +27,7 @@ namespace Cards.Cards.DM01
 
         public void ModifyPower(IGame game)
         {
-            if (game.BattleZone.GetCreatures(Controller.Id).Any(x => x.HasRace(Race.AngelCommand)))
+            if (game.BattleZone.GetCreatureCount(Controller.Id, Race.AngelCommand) > 0)
             {
                 Source.Power += 2000;
             }

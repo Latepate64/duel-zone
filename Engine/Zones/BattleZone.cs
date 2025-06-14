@@ -76,6 +76,11 @@ namespace Engine.Zones
             return GetCreatures(controller).Where(x => x.HasRace(race));
         }
 
+        public int GetCreatureCount(Guid controller, Race race)
+        {
+            return GetCreatures(controller, race).Count();
+        }
+
         public IEnumerable<Card> GetCreatures(Guid controller, Race race1, Race race2)
         {
             return GetCreatures(controller).Where(x => x.HasRace(race1) || x.HasRace(race2));
