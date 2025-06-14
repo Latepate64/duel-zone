@@ -25,7 +25,7 @@ namespace Cards.Cards.DM10
         {
             var controller = Controller;
             var opponent = GetOpponent(game);
-            controller.Look(opponent, game, opponent.Hand.Cards.ToArray());
+            controller.Look(opponent, game, [.. opponent.Hand.Cards]);
             var card = controller.ChooseCardOptionally(opponent.Hand.Cards, ToString());
             if (card != null)
             {

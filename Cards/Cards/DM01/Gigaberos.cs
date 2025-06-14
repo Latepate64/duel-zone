@@ -22,7 +22,7 @@ namespace Cards.Cards.DM01
             var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
             if (thisCreature == null)
             {
-                game.Destroy(Ability, game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id).ToArray());
+                game.Destroy(Ability, [.. game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id)]);
             }
             else if (creatures.Where(x => x != Ability.Source).Count() < 2)
             {
@@ -33,7 +33,7 @@ namespace Cards.Cards.DM01
                 var selection = Controller.ChooseCards(creatures, 1, 2, ToString());
                 if ((selection.Count() == 1 && selection.Single().Id == thisCreature.Id) || (selection.Count() == 2 && selection.All(x => x.Id != thisCreature.Id)))
                 {
-                    game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, selection.ToArray());
+                    game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, [.. selection]);
                 }
                 else
                 {

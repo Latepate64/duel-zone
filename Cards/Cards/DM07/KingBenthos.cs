@@ -29,7 +29,7 @@ namespace Cards.Cards.DM07
             var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Water);
             game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
-                creatures.ToArray()));
+                [.. creatures]));
         }
 
         public override IOneShotEffect Copy()

@@ -16,7 +16,7 @@ namespace Engine
 
         public Turn(ITurn turn)
         {
-            Phases = turn.Phases.Select(x => x.Copy()).ToList();
+            Phases = [.. turn.Phases.Select(x => x.Copy())];
             ActivePlayer = turn.ActivePlayer;
             NonActivePlayer = turn.NonActivePlayer;
             Number = turn.Number;

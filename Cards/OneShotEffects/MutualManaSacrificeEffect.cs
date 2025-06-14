@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var cards = game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.ToArray());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, [.. cards]);
         }
 
         public override string ToString()

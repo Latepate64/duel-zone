@@ -19,7 +19,7 @@ namespace Cards.Cards.DM09
             var controller = Controller;
             var race = controller.ChooseRace(ToString());
             var creatures = controller.Graveyard.GetCreatures(race);
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, controller.ChooseCards(creatures, 0, 3, ToString()).ToArray());
+            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. controller.ChooseCards(creatures, 0, 3, ToString())]);
         }
 
         public override IOneShotEffect Copy()

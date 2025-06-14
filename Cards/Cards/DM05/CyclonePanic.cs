@@ -23,7 +23,7 @@ namespace Cards.Cards.DM05
         private static void Apply(IPlayer player, IGame game, IAbility source)
         {
             var amount = player.Hand.Cards.Count;
-            game.Move(source, ZoneType.Hand, ZoneType.Deck, player.Hand.Cards.ToArray());
+            game.Move(source, ZoneType.Hand, ZoneType.Deck, [.. player.Hand.Cards]);
             player.ShuffleOwnDeck(game);
             player.DrawCards(amount, game, source);
         }

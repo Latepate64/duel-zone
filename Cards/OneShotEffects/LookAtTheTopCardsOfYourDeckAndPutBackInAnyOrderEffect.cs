@@ -21,7 +21,7 @@ namespace Cards.OneShotEffects
         public override void Apply(IGame game)
         {
             var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
-            Controller.ArrangeTopCardsOfDeck(cards.ToArray());
+            Controller.ArrangeTopCardsOfDeck([.. cards]);
         }
 
         public override string ToString()

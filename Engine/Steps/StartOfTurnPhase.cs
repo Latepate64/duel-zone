@@ -48,9 +48,9 @@ namespace Engine.Steps
             IEnumerable<Card> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 
             // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
-            player.Untap(game, game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill).ToArray());
+            player.Untap(game, [.. game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill)]);
             IEnumerable<Card> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
-            player.Untap(game, creaturesWithSilentSkill.Except(cardsThatStayTapped).ToArray());
+            player.Untap(game, [.. creaturesWithSilentSkill.Except(cardsThatStayTapped)]);
             game.AddPendingSilentSkillAbilities(cardsThatStayTapped);
         }
 

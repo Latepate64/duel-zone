@@ -48,7 +48,7 @@ namespace Cards.Cards.DM06
 
         public InvincibleUnityContinuousEffect(IEnumerable<Card> cards)
         {
-            _cards = cards.ToList();
+            _cards = [.. cards];
         }
 
         public InvincibleUnityContinuousEffect(InvincibleUnityContinuousEffect effect) : base(effect)

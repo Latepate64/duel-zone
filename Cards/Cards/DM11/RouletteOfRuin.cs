@@ -28,9 +28,9 @@ namespace Cards.Cards.DM11
             var number = Controller.ChooseNumber(new Engine.Choices.NumberChoice(Controller, ToString()));
             foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
             {
-                game.GetPlayer(player).ShowCardsToOpponent(game, game.GetPlayer(player).Hand.Cards.ToArray());
-                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number).ToArray());
-                game.GetPlayer(player).Unreveal(game.GetPlayer(player).Hand.Cards.ToArray());
+                game.GetPlayer(player).ShowCardsToOpponent(game, [.. game.GetPlayer(player).Hand.Cards]);
+                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, [.. game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number)]);
+                game.GetPlayer(player).Unreveal([.. game.GetPlayer(player).Hand.Cards]);
             }
         }
 

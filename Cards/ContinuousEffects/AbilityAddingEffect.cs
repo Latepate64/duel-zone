@@ -14,12 +14,12 @@ namespace Cards.ContinuousEffects
 
         protected AbilityAddingEffect(AbilityAddingEffect effect) : base(effect)
         {
-            Abilities = effect.Abilities.Select(x => x.Copy()).ToList();
+            Abilities = [.. effect.Abilities.Select(x => x.Copy())];
         }
 
         protected AbilityAddingEffect(params IAbility[] abilities) : base()
         {
-            Abilities = abilities.ToList();
+            Abilities = [.. abilities];
         }
 
         public void AddAbility(IGame game)

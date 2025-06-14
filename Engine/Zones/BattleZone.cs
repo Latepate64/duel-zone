@@ -22,9 +22,9 @@ namespace Engine.Zones
         internal override void Add(Card card, IGame game)
         {
             card.SummoningSickness = true;
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = [.. game.Players.Select(x => x.Id)];
             Cards.Add(card);
-            game.ContinuousEffects.Add(card, card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).ToArray());
+            game.ContinuousEffects.Add(card, [.. card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone)]);
         }
 
         internal override List<Card> Remove(Card card, IGame game)
@@ -51,7 +51,7 @@ namespace Engine.Zones
             else
             {
                 game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
-                return card.Deconstruct(new List<Card>()).ToList();
+                return [.. card.Deconstruct(new List<Card>())];
             }
         }
 

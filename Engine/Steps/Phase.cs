@@ -56,9 +56,9 @@ namespace Engine.Steps
 
         protected Phase(IPhase phase)
         {
-            PendingAbilities = phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>().ToList();
+            PendingAbilities = [.. phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>()];
             GameEvents = new Queue<IGameEvent>(phase.GameEvents);
-            UsedCards = phase.UsedCards.ToList();
+            UsedCards = [.. phase.UsedCards];
             Type = phase.Type;
         }
 

@@ -33,7 +33,7 @@ namespace Engine.Abilities
 
         private StaticAbility(StaticAbility ability) : base(ability)
         {
-            _continuousEffects = ability._continuousEffects.Select(x => x.Copy()).ToList();
+            _continuousEffects = [.. ability._continuousEffects.Select(x => x.Copy())];
             FunctionZone = ability.FunctionZone;
         }
 

@@ -68,7 +68,7 @@ namespace Cards.Cards.DM10
 
         public override void Happen(IGame game)
         {
-            game.Move(_ability, ZoneType.Hand, ZoneType.Graveyard, _discard.ToArray());
+            game.Move(_ability, ZoneType.Hand, ZoneType.Graveyard, [.. _discard]);
             game.PutFromShieldZoneToHand(_remainingShields, true, null);
         }
 

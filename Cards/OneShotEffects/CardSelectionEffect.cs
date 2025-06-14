@@ -33,7 +33,7 @@ namespace Cards.OneShotEffects
             if (player != null)
             {
                 var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
-                Apply(game, Ability, chosen.ToArray());
+                Apply(game, Ability, [.. chosen]);
             }
         }
 

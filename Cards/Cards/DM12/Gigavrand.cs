@@ -41,7 +41,7 @@ namespace Cards.Cards.DM12
             if (ValidInterveningIfClause)
             {
                 var opponent = GetOpponent(game);
-                opponent.Discard(this, game, opponent.Hand.Cards.ToArray());
+                opponent.Discard(this, game, [.. opponent.Hand.Cards]);
             }
         }
 

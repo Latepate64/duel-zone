@@ -47,7 +47,7 @@ namespace Cards.ContinuousEffects
         {
             var owner = Attacker.Owner;
             var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields. Your opponent puts those shields into his graveyard.");
-            game.Move(null, ZoneType.ShieldZone, ZoneType.Graveyard, cards.ToArray());
+            game.Move(null, ZoneType.ShieldZone, ZoneType.Graveyard, [.. cards]);
         }
 
         public override string ToString()

@@ -16,7 +16,7 @@ namespace Engine.Zones
 
         internal override void Add(Card card, IGame game)
         {
-            card.KnownTo = game.Players.Select(x => x.Id).ToList();
+            card.KnownTo = [.. game.Players.Select(x => x.Id)];
             Cards.Add(card);
         }
 

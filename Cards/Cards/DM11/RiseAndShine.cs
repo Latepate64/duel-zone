@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
             var blockers = cards.Where(x => x.IsBlocker());
             var chosen = Controller.ChooseCard(blockers, ToString());
             game.Move(Ability, ZoneType.Deck, ZoneType.Hand, chosen);
-            Controller.PutOnTheBottomOfDeckInAnyOrder(cards.Where(x => x != chosen).ToArray());
+            Controller.PutOnTheBottomOfDeckInAnyOrder([.. cards.Where(x => x != chosen)]);
         }
 
         public override IOneShotEffect Copy()

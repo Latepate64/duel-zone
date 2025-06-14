@@ -73,7 +73,7 @@ namespace Cards.ContinuousEffects
                 baits = evolutionCreature.Owner.ChooseCards(creatures, 2, 2, "Choose creatures to evolve from.");
             }
             while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
-            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, baits.ToArray()));
+            game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, [.. baits]));
         }
     }
 }

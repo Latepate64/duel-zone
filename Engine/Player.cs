@@ -129,7 +129,7 @@ namespace Engine
 
         public IEnumerable<Card> ChooseAnyNumberOfCards(IEnumerable<Card> cards, string description)
         {
-            return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), cards.ToArray()));
+            return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), [.. cards]));
         }
 
         public bool ChooseAttacker(IGame game, IEnumerable<Card> attackers)
@@ -161,7 +161,7 @@ namespace Engine
 
         public IEnumerable<Card> ChooseCards(IEnumerable<Card> cards, int min, int max, string description)
         {
-            return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), cards.ToArray()));
+            return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), [.. cards]));
         }
 
         public IEnumerable<Card> ChooseCards(CardChoice choice)
@@ -288,7 +288,7 @@ namespace Engine
         {
             if (Hand.HasCards)
             {
-                _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount).ToArray());
+                _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, [.. Hand.Cards.OrderBy(x => Guid.NewGuid()).Take(amount)]);
             }
         }
 
@@ -300,7 +300,7 @@ namespace Engine
 
         public void DiscardOwnCards(IGame game, IAbility ability, int amount)
         {
-            Discard(ability, game, ChooseOwnHandCards(amount, ability.ToString()).ToArray());
+            Discard(ability, game, [.. ChooseOwnHandCards(amount, ability.ToString())]);
         }
 
         public void Dispose()
@@ -433,7 +433,7 @@ namespace Engine
 
         public void ReturnOwnManaCards(IGame game, IAbility source, int amount)
         {
-            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, ChooseCards(ManaZone.Cards, amount, amount, source.ToString()).ToArray());
+            game.Move(source, ZoneType.ManaZone, ZoneType.Hand, [.. ChooseCards(ManaZone.Cards, amount, amount, source.ToString())]);
         }
 
         public void ReturnOwnManaCreature(IGame game, IAbility source)
@@ -478,7 +478,7 @@ namespace Engine
         public IEnumerable<Card> RevealTopCardsOfDeck(int amount, IGame game)
         {
             var cards = Deck.GetTopCards(amount);
-            ShowCardsToOpponent(game, cards.ToArray());
+            ShowCardsToOpponent(game, [.. cards]);
             return cards;
         }
 
@@ -589,7 +589,7 @@ namespace Engine
             Tap(game, attacker);
             if (target is Card card && card.Id == attacker.Id)
             {
-                game.AddPendingAbilities(attacker.GetTapAbilities().Select(x => x.Copy()).Cast<IResolvableAbility>().ToArray());
+                game.AddPendingAbilities([.. attacker.GetTapAbilities().Select(x => x.Copy()).Cast<IResolvableAbility>()]);
                 return true;
             }
             else
@@ -648,7 +648,7 @@ namespace Engine
 
         private void PayManaCostAndUseCard(IGame game, IEnumerable<Card> manaCards, Card toUse)
         {
-            Tap(game, manaCards.ToArray());
+            Tap(game, [.. manaCards]);
             UseCard(toUse, game);
         }
 
@@ -674,7 +674,7 @@ namespace Engine
 
         public void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability)
         {
-            Card[] creatures = ChooseCards(Deck.Creatures, minimum, maximum, description).ToArray();
+            Card[] creatures = [.. ChooseCards(Deck.Creatures, minimum, maximum, description)];
             ShowCardsToOpponent(game, creatures);
             PutCardsFromOwnDeckIntoOwnHand(game, ability, creatures);
         }
@@ -696,12 +696,12 @@ namespace Engine
 
         public void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
         {
-            game.Destroy(ability, game.BattleZone.Creatures.Where(x => x.Power <= power).ToArray());
+            game.Destroy(ability, [.. game.BattleZone.Creatures.Where(x => x.Power <= power)]);
         }
 
         public void DiscardAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
         {
-            Discard(ability, game, Hand.Creatures.Where(x => x.Power.HasValue && x.Power <= power).ToArray());
+            Discard(ability, game, [.. Hand.Creatures.Where(x => x.Power.HasValue && x.Power <= power)]);
         }
 
         public Card DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)

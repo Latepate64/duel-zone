@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
             var controller = Controller;
             var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
-            controller.Tap(game, creatures.ToArray());
+            controller.Tap(game, [.. creatures]);
         }
 
         public override IOneShotEffect Copy()

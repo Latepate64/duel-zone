@@ -34,7 +34,7 @@ namespace Cards.Cards.DM10
         {
             var names = cards.Select(x => x.Name).Distinct();
             var creatures = Controller.Graveyard.Creatures.Where(x => names.Contains(x.Name));
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, creatures.ToArray());
+            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. creatures]);
         }
 
         protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)

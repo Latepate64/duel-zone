@@ -26,12 +26,12 @@ namespace Cards.Cards.DM11
             var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, opponent.Id), 2, 2, ToString());
             var toHand = opponent.ChooseCard(creatures, ToString());
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, toHand);
-            game.Destroy(Ability, creatures.Where(x => x != toHand).ToArray());
+            game.Destroy(Ability, [.. creatures.Where(x => x != toHand)]);
 
             var cards = controller.ChooseCards(opponent.ManaZone.Cards, 2, 2, ToString());
             var manaToHand = opponent.ChooseCard(cards, ToString());
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, manaToHand);
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, cards.Where(x => x != manaToHand).ToArray());
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, [.. cards.Where(x => x != manaToHand)]);
         }
 
         public override IOneShotEffect Copy()

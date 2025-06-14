@@ -24,7 +24,7 @@ namespace Cards.Cards.DM06
         public override void Apply(IGame game)
         {
             var amount = Controller.Hand.Cards.Count;
-            game.Move(Ability, ZoneType.Hand, ZoneType.Deck, Controller.Hand.Cards.ToArray());
+            game.Move(Ability, ZoneType.Hand, ZoneType.Deck, [.. Controller.Hand.Cards]);
             Controller.ShuffleOwnDeck(game);
             Controller.DrawCards(amount, game, Ability);
         }

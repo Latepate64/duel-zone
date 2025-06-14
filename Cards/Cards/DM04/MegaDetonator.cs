@@ -28,7 +28,7 @@ namespace Cards.Cards.DM04
             var player = Controller;
             var amount = player.DiscardAnyNumberOfCards(game, Ability);
             var creatures = player.ChooseControlledCreatures(game, ToString(), amount);
-            game.AddContinuousEffects(Ability, new MegaDetonatorContinuousEffect(creatures.ToArray()));
+            game.AddContinuousEffects(Ability, new MegaDetonatorContinuousEffect([.. creatures]));
         }
 
         public override IOneShotEffect Copy()

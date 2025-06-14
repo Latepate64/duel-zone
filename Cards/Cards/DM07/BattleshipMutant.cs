@@ -67,7 +67,7 @@ namespace Cards.Cards.DM07
 
         protected override List<Card> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness).ToList();
+            return [.. game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)];
         }
     }
 

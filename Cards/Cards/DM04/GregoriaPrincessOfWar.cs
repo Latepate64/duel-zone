@@ -44,7 +44,7 @@ namespace Cards.Cards.DM04
 
         private static List<Card> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand)).ToList();
+            return [.. game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand))];
         }
     }
 }

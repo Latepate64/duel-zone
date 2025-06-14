@@ -23,7 +23,7 @@ namespace Cards.Cards.DM07
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
                 new StaticAbilities.ThisCreatureCanAttackUntappedCreaturesAbility(),
-                GetAffectedCards(game, Ability).ToArray()));
+                [.. GetAffectedCards(game, Ability)]));
         }
 
         public override IOneShotEffect Copy()

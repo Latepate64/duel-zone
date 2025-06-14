@@ -19,7 +19,7 @@ namespace Engine
         string Name { get; set; }
         ShieldZone ShieldZone { get; }
         IEnumerable<Zone> Zones { get; }
-        Card[] CardsInManaZone => ManaZone.Cards.ToArray();
+        Card[] CardsInManaZone => [.. ManaZone.Cards];
 
         void ArrangeTopCardsOfDeck(params Card[] cards);
 

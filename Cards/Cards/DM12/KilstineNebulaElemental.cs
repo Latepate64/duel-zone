@@ -45,7 +45,7 @@ namespace Cards.Cards.DM12
 
         private List<Card> GetAffectedCards(IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList();
+            return [.. game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x))];
         }
     }
 }

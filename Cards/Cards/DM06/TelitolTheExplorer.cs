@@ -27,8 +27,8 @@ namespace Cards.Cards.DM06
         {
             if (Controller.ShieldZone.HasCards && Controller.ChooseToTakeAction(ToString()))
             {
-                Controller.Look(Controller, game, Controller.ShieldZone.Cards.ToArray());
-                Controller.Unreveal(Controller.ShieldZone.Cards.ToArray());
+                Controller.Look(Controller, game, [.. Controller.ShieldZone.Cards]);
+                Controller.Unreveal([.. Controller.ShieldZone.Cards]);
             }
         }
 

@@ -89,7 +89,7 @@ namespace Cards.Cards.DM08
         public override void Resolve(IGame game)
         {
             var cards = Controller.ChooseAnyNumberOfCards(_cards, "Choose which creatures to untap.");
-            Controller.Untap(game, cards.ToArray());
+            Controller.Untap(game, [.. cards]);
         }
 
         public override string ToString()

@@ -28,7 +28,7 @@ namespace Cards.OneShotEffects
             if (cards.Any())
             {
                 var selectedCards = Controller.ChooseCards(cards, 0, _maximum, ToString());
-                Apply(game, Ability, selectedCards.ToArray());
+                Apply(game, Ability, [.. selectedCards]);
             }
             (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleOwnDeck(game);
         }

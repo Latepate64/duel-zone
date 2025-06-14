@@ -25,7 +25,7 @@ namespace Cards.Cards.DM07
         public override void Apply(IGame game)
         {
             var civilization = Controller.ChooseCivilization(ToString(), Civilization.Light, Civilization.Water, Civilization.Nature);
-            Controller.Tap(game, game.BattleZone.GetCreatures(civilization).ToArray());
+            Controller.Tap(game, [.. game.BattleZone.GetCreatures(civilization)]);
         }
 
         public override IOneShotEffect Copy()

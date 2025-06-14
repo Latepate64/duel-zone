@@ -23,7 +23,7 @@ namespace Engine.ContinuousEffects
 
         public ContinuousEffects(ContinuousEffects effects)
         {
-            _continuousEffects = effects._continuousEffects.Select(x => x.Copy()).ToList();
+            _continuousEffects = [.. effects._continuousEffects.Select(x => x.Copy())];
             Game = effects.Game;
         }
 

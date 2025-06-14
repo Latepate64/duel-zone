@@ -28,9 +28,9 @@ namespace Cards.Cards.DM07
         {
             game.Destroy(
                 Ability,
-                Controller.ChooseCards(
-                    new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).ToArray())
-                    ).ToArray());
+                [.. Controller.ChooseCards(
+                    new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
+                    )]);
         }
 
         public override IOneShotEffect Copy()
