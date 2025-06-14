@@ -1,7 +1,4 @@
-﻿using Engine.ContinuousEffects;
-using System.Linq;
-
-namespace Engine.Steps
+﻿namespace Engine.Steps
 {
     public class DirectAttackStep : Step
     {

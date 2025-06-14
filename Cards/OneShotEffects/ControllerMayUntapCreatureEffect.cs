@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Cards.OneShotEffects

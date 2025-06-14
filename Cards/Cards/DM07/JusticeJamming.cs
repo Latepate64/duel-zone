@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM07
 {
