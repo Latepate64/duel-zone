@@ -30,7 +30,7 @@ namespace Cards.Cards.DM08
 
         protected override List<Card> GetAffectedCards(IGame game)
         {
-            return new List<Card> { Source };
+            return [Source];
         }
     }
 }

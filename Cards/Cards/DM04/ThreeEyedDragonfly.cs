@@ -63,7 +63,7 @@ namespace Cards.Cards.DM04
 
         protected override List<Card> GetAffectedCards(IGame game)
         {
-            return new List<Card> { _card };
+            return [_card];
         }
     }
 }

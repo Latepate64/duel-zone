@@ -175,7 +175,7 @@ namespace Engine
             else
             {
                 OnTopOf = null;
-                return new List<Card> { this };
+                return [this];
             }
         }
 
@@ -210,7 +210,7 @@ namespace Engine
         public void PutOnTopOf(IEnumerable<Card> baits)
         {
             var remainingBaits = baits.ToList();
-            List<Card> toBeStacked = new();
+            List<Card> toBeStacked = [];
             while (remainingBaits.Count > 1)
             {
                 var card = Owner.ChooseCard(remainingBaits, "Choose a card to be placed on a stack of cards. (the remaining cards will be stacked on top of it)");

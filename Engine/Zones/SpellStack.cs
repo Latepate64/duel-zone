@@ -25,7 +25,7 @@ namespace Engine.Zones
         internal override List<Card> Remove(Card card, IGame game)
         {
             Cards.Remove(card);
-            return new List<Card> { card };
+            return [card];
         }
 
         public override string ToString()

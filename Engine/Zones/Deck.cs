@@ -25,11 +25,11 @@ namespace Engine.Zones
         {
             if (!Cards.Remove(card))
             {
-                return new List<Card>();
+                return [];
             }
             else
             {
-                return new List<Card> { card };
+                return [card];
             }
         }
 

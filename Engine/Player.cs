@@ -37,12 +37,14 @@ namespace Engine
         {
             get
             {
-                List<Card> cards = new();
-                cards.AddRange(Deck.Cards);
-                cards.AddRange(Graveyard.Cards);
-                cards.AddRange(Hand.Cards);
-                cards.AddRange(ManaZone.Cards);
-                cards.AddRange(ShieldZone.Cards);
+                List<Card> cards =
+                [
+                    .. Deck.Cards,
+                    .. Graveyard.Cards,
+                    .. Hand.Cards,
+                    .. ManaZone.Cards,
+                    .. ShieldZone.Cards,
+                ];
                 return cards;
             }
         }

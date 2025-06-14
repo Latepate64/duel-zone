@@ -11,7 +11,7 @@ namespace Engine.Abilities
     /// </summary>
     public class StaticAbility : Ability, IStaticAbility
     {
-        private readonly List<IContinuousEffect> _continuousEffects = new();
+        private readonly List<IContinuousEffect> _continuousEffects = [];
 
         /// <summary>
         /// 604.2.

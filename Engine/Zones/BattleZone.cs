@@ -46,12 +46,12 @@ namespace Engine.Zones
             }
             if (!Cards.Remove(card))
             {
-                return new List<Card>();
+                return [];
             }
             else
             {
                 game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
-                return [.. card.Deconstruct(new List<Card>())];
+                return [.. card.Deconstruct([])];
             }
         }
 

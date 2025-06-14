@@ -112,6 +112,6 @@ namespace Engine.Steps
             }
         }
 
-        private readonly Collection<IStep> _steps = new();
+        private readonly Collection<IStep> _steps = [];
     }
 }
