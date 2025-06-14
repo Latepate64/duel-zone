@@ -19,7 +19,7 @@ namespace Engine.Steps
             }
         }
 
-        public override IStep GetNextStep(IGame game)
+        public override Step GetNextStep(IGame game)
         {
             if (Phase.AttackingCreature != null)
             {
@@ -39,7 +39,7 @@ namespace Engine.Steps
             }
         }
 
-        public override IStep Copy()
+        public override Step Copy()
         {
             return new AttackDeclarationStep(this);
         }

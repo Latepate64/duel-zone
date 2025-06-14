@@ -46,7 +46,7 @@ namespace Engine.Steps
             }
         }
 
-        public override IStep GetNextStep(IGame game)
+        public override Step GetNextStep(IGame game)
         {
             return Phase.BlockingCreature != null
                 ? game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature)
@@ -57,7 +57,7 @@ namespace Engine.Steps
                     : new DirectAttackStep(Phase);
         }
 
-        public override IStep Copy()
+        public override Step Copy()
         {
             return new BlockDeclarationStep(this);
         }

@@ -100,7 +100,7 @@ namespace Engine.Steps
 
         public override void Play(IGame game)
         {
-            IStep step = new AttackDeclarationStep(this);
+            Step step = new AttackDeclarationStep(this);
             while (step != null && !game.Ended)
             {
                 _steps.Add(step);
@@ -112,6 +112,6 @@ namespace Engine.Steps
             }
         }
 
-        private readonly Collection<IStep> _steps = [];
+        private readonly Collection<Step> _steps = [];
     }
 }
