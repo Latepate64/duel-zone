@@ -42,46 +42,24 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Card> GetCreatures(Guid owner)
-        {
-            return Creatures.Where(x => x.Owner.Id == owner);
-        }
+        public IEnumerable<Card> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
 
-        public abstract override string ToString();
+        public int GetCreatureCount(Guid owner) => GetCreatures(owner).Count();
 
-        public IEnumerable<Card> GetCreatures(Race race)
-        {
-            return Creatures.Where(x => x.HasRace(race));
-        }
+        public IEnumerable<Card> GetCreatures(Race race) => Creatures.Where(x => x.HasRace(race));
 
-        public IEnumerable<Card> GetCards(Civilization civilization)
-        {
-            return Cards.Where(x => x.HasCivilization(civilization));
-        }
+        public IEnumerable<Card> GetCards(Civilization civilization) => Cards.Where(x => x.HasCivilization(
+            civilization));
 
-        public int GetCardCount(Civilization civilization)
-        {
-            return GetCards(civilization).Count();
-        }
+        public int GetCardCount(Civilization civilization) => GetCards(civilization).Count();
 
-        public int GetCreatureCount(Civilization civilization)
-        {
-            return GetCreatures(civilization).Count();
-        }
+        public int GetCreatureCount(Civilization civilization) => GetCreatures(civilization).Count();
 
-        public IEnumerable<Card> GetCreatures(Civilization civilization)
-        {
-            return Creatures.Where(x => x.HasCivilization(civilization));
-        }
+        public IEnumerable<Card> GetCreatures(Civilization civilization) => Creatures.Where(x => x.HasCivilization(
+            civilization));
 
-        public IEnumerable<Card> GetOtherCreatures(Guid creature)
-        {
-            return Creatures.Where(x => x.Id != creature);
-        }
+        public IEnumerable<Card> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
 
-        public IEnumerable<Card> GetCreaturesWithMaxPower(int maxPower)
-        {
-            return Creatures.Where(x => x.Power <= maxPower);
-        }
+        public IEnumerable<Card> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
     }
 }

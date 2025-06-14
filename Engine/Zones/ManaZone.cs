@@ -51,11 +51,6 @@ namespace Engine.Zones
             }
         }
 
-        public override string ToString()
-        {
-            return "mana zone";
-        }
-
         public ManaZone Copy()
         {
             return new ManaZone(this);

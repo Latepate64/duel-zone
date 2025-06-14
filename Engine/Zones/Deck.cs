@@ -33,11 +33,6 @@ namespace Engine.Zones
             }
         }
 
-        public override string ToString()
-        {
-            return "deck";
-        }
-
         public void Setup(IEnumerable<Card> cards, IPlayer owner)
         {
             cards.ToList().ForEach(x => x.Owner = owner);

@@ -27,10 +27,5 @@ namespace Engine.Zones
             Cards.Remove(card);
             return [card];
         }
-
-        public override string ToString()
-        {
-            return "spell stack";
-        }
     }
 }

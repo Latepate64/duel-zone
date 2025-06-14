@@ -61,11 +61,6 @@ namespace Engine.Zones
             return GetCreatures(owner).Where(creature => game.ContinuousEffects.CanPlayerChooseCreature(opponent, creature));
         }
 
-        public override string ToString()
-        {
-            return "battle zone";
-        }
-
         public IEnumerable<Card> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
         {
             return GetChoosableCreaturesControlledByPlayer(game, owner).Where(x => x.IsEvolutionCreature);

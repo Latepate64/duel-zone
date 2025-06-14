@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -17,7 +16,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game)
         {
-            if (game.BattleZone.GetCreatures(GetOpponent(game).Id).Count() >= 3)
+            if (game.BattleZone.GetCreatureCount(GetOpponent(game).Id) >= 3)
             {
                 Controller.DrawCards(3, game, Ability);
             }

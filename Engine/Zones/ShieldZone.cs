@@ -34,10 +34,5 @@ namespace Engine.Zones
                 return [];
             }
         }
-
-        public override string ToString()
-        {
-            return "shield zone";
-        }
     }
 }

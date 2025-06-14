@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM02
 {
@@ -16,7 +15,7 @@ namespace Cards.Cards.DM02
     {
         public override void Apply(IGame game)
         {
-            var amount = game.BattleZone.GetCreatures(GetOpponent(game).Id).Count();
+            var amount = game.BattleZone.GetCreatureCount(GetOpponent(game).Id);
 
             if (amount > 0 && Controller.ChooseToTakeAction($"You may draw {amount} cards."))
             {

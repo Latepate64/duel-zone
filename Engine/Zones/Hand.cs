@@ -37,10 +37,5 @@ namespace Engine.Zones
                 return [];
             }
         }
-
-        public override string ToString()
-        {
-            return "hand";
-        }
     }
 }
