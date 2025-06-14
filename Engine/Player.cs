@@ -499,7 +499,7 @@ namespace Engine
             var untappedCards = cards.Where(card => card != null && !card.Tapped && game.ContinuousEffects.CanPlayerTapCreature(this, card)).ToList();
             foreach (var card in untappedCards)
             {
-                card.Tapped = true;
+                card.Tap();
             }
             if (untappedCards.Any())
             {
@@ -528,7 +528,7 @@ namespace Engine
             var tappedCards = cards.Where(x => x.Tapped).ToList();
             foreach (var card in tappedCards)
             {
-                card.Tapped = false;
+                //card.Tapped = false;
             }
             if (tappedCards.Any())
             {

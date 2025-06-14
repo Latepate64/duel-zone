@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using Engine.Zones;
 
 namespace Engine;
 
-public class PlayerV2(List<ICard> deckCards)
+public class PlayerV2
 {
-    public Deck Deck { get; } = new Deck(deckCards);
-    public ShieldZone ShieldZone { get; } = new ShieldZone();
-    public Hand Hand { get; } = new Hand();
-    public ManaZone ManaZone { get; } = new ManaZone();
+    public Deck Deck { get; init; } = new Deck();
+    public ShieldZone ShieldZone { get; init; } = new ShieldZone();
+    public Hand Hand { get; init; } = new Hand();
+    public ManaZone ManaZone { get; init; } = new ManaZone();
+    public Graveyard Graveyard { get; init; } = new Graveyard();
 }

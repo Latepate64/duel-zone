@@ -17,14 +17,15 @@ namespace Engine.Zones
         public ZoneType Type { get; }
         public bool HasCards => Cards.Count != 0;
 
-        protected Zone(ZoneType type)
+        protected Zone(ZoneType type, params ICard[] cards)
         {
             Type = type;
+            Cards = [.. cards];
         }
 
         protected Zone(IZone zone)
         {
-            Cards = zone.Cards.Select(x => x.Copy()).ToList();
+            Cards = [.. zone.Cards.Select(x => x.Copy())];
         }
 
         public abstract void Add(ICard card, IGame game);

@@ -16,7 +16,6 @@ public class GameTests
     public void StartingAGameSetupsTheGameCorrectly()
     {
         // Arrange
-
         const int ShieldCount = 5;
         const int HandSize = 5;
         const int DeckSizeAfterSetup = DeckSize - (ShieldCount + HandSize);
@@ -146,7 +145,7 @@ public class GameTests
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new PassAction(state.NonActivePlayers.First())));
 
         // Assert
-        Assert.Equal("Unexpected player", ex.Message);
+        Assert.Equal(IllegalActionType.UnexpectedPlayer, ex.Type);
         Assert.Equal(state, game.State);
     }
 
@@ -162,7 +161,7 @@ public class GameTests
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(state.ActivePlayer)));
 
         // Assert
-        Assert.Equal("Unexpected type of action", ex.Message);
+        Assert.Equal(IllegalActionType.UnexpectedType, ex.Type);
         Assert.Equal(state, game.State);
     }
 
@@ -182,28 +181,130 @@ public class GameTests
         Assert.Equal(state, game.State);
     }
 
-    static PlayerV2 CreatePlayer(int deckSize, int handSize)
+    [Fact]
+    public void CardIsPutFromHandIntoManaZoneDuringChargePhase()
+    {
+        // Arrange
+        var game = CreateAndStartGame();
+        var player = game.State.ActivePlayer;
+        var toCharge = player.Hand.Cards[3];
+
+        // Act
+        game.Play(new ChargeEvent(player) { ChosenCard = toCharge });
+
+        // Assert
+        Assert.DoesNotContain(toCharge, player.Hand.Cards);
+        Assert.Contains(toCharge, player.ManaZone.Cards);
+        Assert.Equal(new UseCardEvent(player), game.State.PassableAction);
+    }
+
+    [Fact]
+    public void UsingCardOutsideOfHandThrows()
+    {
+        // Arrange
+        var game = CreateAndStartGame();
+        var player = game.State.ActivePlayer;
+        var mana = player.Hand.Cards.Last();
+        game.Play(new ChargeEvent(player) { ChosenCard = mana });
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
+        {
+            Card = mana,
+            PaymentCards = [mana]
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.HandDoesNotContainCard, ex.Type);
+    }
+
+    [Fact]
+    public void UsingCardWithInsufficientPaymentForManaCostThrows()
+    {
+        // Arrange
+        var game = CreateAndStartGame();
+        var player = game.State.ActivePlayer;
+        var mana = player.Hand.Cards.Last();
+        game.Play(new ChargeEvent(player) { ChosenCard = mana });
+        var useCard = player.Hand.Cards.Last();
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
+        {
+            Card = useCard,
+            PaymentCards = []
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.UseCardPaymentForManaCost, ex.Type);
+    }
+
+    [Fact]
+    public void UsingCardWithInsufficientPaymentForCivilizationsThrows()
+    {
+        // Arrange
+        var player = new PlayerV2()
+        {
+            Hand = new Engine.Zones.Hand([CreateCard(Civilization.Light)]),
+            ManaZone = new Engine.Zones.ManaZone([CreateCard(Civilization.Water)]),
+        };
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new MainPhaseEvent(player))
+        };
+        state.PassableAction = new UseCardEvent(state.ActivePlayer);
+        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
+        {
+            Card = player.Hand.Cards.Single(),
+            PaymentCards = player.ManaZone.Cards
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.UseCardPaymentForCivilizations, ex.Type);
+    }
+
+    static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var cards = new List<ICard>();
         for (int i = 0; i < deckSize; ++i)
         {
-            cards.Add(Mock.Of<ICard>());
+            cards.Add(CreateCard());
         }
-        var player = new PlayerV2(cards);
+        var player = new PlayerV2 { Deck = new Engine.Zones.Deck([.. cards]) } ;
         for (int i = 0; i < handSize; ++i)
         {
-            player.Hand.Cards.Add(Mock.Of<ICard>());
+            player.Hand.Cards.Add(CreateCard());
         }
         return player;
     }
 
+    static ICard CreateCard(Civilization civilization = Civilization.Light)
+    {
+        var card = Mock.Of<ICard>();
+        card.ManaCost = 1;
+        card.Civilizations = [civilization];
+        return card;
+    }
+
     static GameState CreateGameState()
     {
-        var startingPlayer = CreatePlayer(DeckSize, handSize: 5);
-        var otherPlayer = CreatePlayer(DeckSize, handSize: 5);
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
         return new GameState([startingPlayer, otherPlayer])
         {
             EventsHappening = new(new TakeTurnEvent(startingPlayer, 1))
         };
+    }
+
+    static Game CreateAndStartGame()
+    {
+        var game = new Game(Mock.Of<IRandomizer>());
+        var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
+        var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
+        game.Start(startingPlayer, otherPlayer);
+        return game;
     }
 }

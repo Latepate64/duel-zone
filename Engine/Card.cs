@@ -9,8 +9,8 @@ namespace Engine
 {
     abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
     {
-        private readonly IList<Race> _addedRaces = new List<Race>();
-        private IList<Race> _printedRaces = new List<Race>();
+        private readonly IList<Race> _addedRaces = [];
+        private IList<Race> _printedRaces = [];
 
         public Card()
         {
@@ -47,7 +47,7 @@ namespace Engine
         protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
         {
             CardType = type;
-            Civilizations = civilizations.ToList();
+            Civilizations = [.. civilizations];
             ManaCost = manaCost;
             Name = name;
             PrintedPower = power;
@@ -57,16 +57,16 @@ namespace Engine
         {
         }
 
-        public IList<IAbility> AddedAbilities { get; } = new List<IAbility>();
+        public IList<IAbility> AddedAbilities { get; } = [];
         public CardType CardType { get; set; }
-        public List<Civilization> Civilizations { get; set; } = new();
+        public List<Civilization> Civilizations { get; set; } = [];
         /// <summary>
         /// TODO: Apply in logic
         /// </summary>
         public bool FaceDown { get; set; }
 
         public Guid Id { get; set; }
-        public List<Guid> KnownTo { get; set; } = new();
+        public List<Guid> KnownTo { get; set; } = [];
         public bool LostInBattle { get; set; }
         public int ManaCost { get; set; }
         public string Name { get; set; }
@@ -86,13 +86,13 @@ namespace Engine
         /// <summary>
         /// Also known as race for creatures.
         /// </summary>
-        public List<Race> Races { get; set; } = new();
+        public List<Race> Races { get; set; } = [];
 
         public string RulesText { get; set; }
         public bool ShieldTrigger { get; set; }
         public bool SummoningSickness { get; set; }
-        public List<Supertype> Supertypes { get; set; } = new();
-        public bool Tapped { get; set; }
+        public List<Supertype> Supertypes { get; set; } = [];
+        public bool Tapped { get; private set; }
         public int Timestamp { get; set; }
         /// <summary>
         /// The card this card is underneath of.
@@ -273,6 +273,11 @@ namespace Engine
         public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
         {
             return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
+        }
+
+        public void Tap()
+        {
+            Tapped = true;
         }
     }
 }

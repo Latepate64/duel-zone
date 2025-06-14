@@ -73,7 +73,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
         }
         if (action.Player != State.PassableAction.Player)
         {
-            throw new IllegalActionException(action, "Unexpected player");
+            throw new IllegalActionException(action, IllegalActionType.UnexpectedPlayer);
         }
         if (action is PassAction)
         {
@@ -82,10 +82,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue();
             return;
         }
-        if (!State.PassableAction.IsLegal(action))
-        {
-            throw new IllegalActionException(action, "Unexpected type of action");
-        }
+        State.PassableAction.Validate(action);
         State.RemovePassableAction();
         State.EventsThatWouldHappen.Add(action);
         Continue();

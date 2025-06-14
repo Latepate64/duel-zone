@@ -20,20 +20,24 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool 
         if (Destination == ZoneType.Hand)
         {
             Player.Hand.Add(card, game: null);
+            return [];
         }
-        else if (Destination == ZoneType.ManaZone)
+        if (Destination == ZoneType.ManaZone)
         {
             Player.ManaZone.Add(card, game: null);
+            return [];
         }
-        else if (Destination == ZoneType.ShieldZone)
+        if (Destination == ZoneType.ShieldZone)
         {
             Player.ShieldZone.Add(card, game: null);
+            return [];
         }
-        else
+        if (Destination == ZoneType.BattleZone)
         {
-            throw new NotImplementedException();
+            state.BattleZone.Add(card, game: null);
+            return [];
         }
-        return [];
+        throw new NotImplementedException();
     }
 
     public override bool Equals(object obj)

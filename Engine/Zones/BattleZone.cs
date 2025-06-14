@@ -11,7 +11,7 @@ namespace Engine.Zones
     /// </summary>
     public class BattleZone : Zone, IBattleZone
     {
-        public BattleZone() : base(ZoneType.BattleZone)
+        public BattleZone(params ICard[] cards) : base(ZoneType.BattleZone, cards)
         {
         }
 

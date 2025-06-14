@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine.GameEvents;
+using Engine.Zones;
 
 namespace Engine;
 
@@ -21,6 +22,7 @@ public class GameState(PlayerV2[] players)
     public GameEventV2 PassableAction { get; set; }
     public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
     public int TurnNumber { get; internal set; }
+    public BattleZone BattleZone { get; } = new BattleZone();
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
@@ -45,6 +47,7 @@ public class GameState(PlayerV2[] players)
             && EventsHappening == state.EventsHappening
             && PassableAction == state.PassableAction
             && EventsThatWouldHappen == state.EventsThatWouldHappen
-            && TurnNumber == state.TurnNumber;
+            && TurnNumber == state.TurnNumber
+            && BattleZone == state.BattleZone;
     }
 }

@@ -31,7 +31,7 @@ namespace Engine
         bool ShieldTrigger { get; set; }
         bool SummoningSickness { get; set; }
         List<Supertype> Supertypes { get; set; }
-        bool Tapped { get; set; }
+        bool Tapped { get; }
         ICard Underneath { get; set; }
         int PhysicalCardId { get; set; }
 
@@ -53,5 +53,6 @@ namespace Engine
         void PutOnTopOf(IEnumerable<ICard> bait);
         void ResetToPrintedValues();
         void SeparateTopCard();
+        void Tap();
     }
 }

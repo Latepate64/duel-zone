@@ -9,7 +9,7 @@ namespace Engine.Zones
     /// </summary>
     public class ManaZone : Zone, IManaZone
     {
-        public ManaZone() : base(ZoneType.ManaZone) { }
+        public ManaZone(params ICard[] cards) : base(ZoneType.ManaZone, cards) { }
 
         public ManaZone(IManaZone zone) : base(zone)
         {
@@ -22,7 +22,7 @@ namespace Engine.Zones
         {
             if (card.IsMultiColored)
             {
-                card.Tapped = true;
+                // card.Tapped = true;
             }
             Cards.Add(card);
         }

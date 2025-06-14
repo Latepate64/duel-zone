@@ -50,7 +50,7 @@ namespace Engine.GameEvents
                         newObject.Timestamp = game.GetTimestamp();
                         if (EntersTapped)
                         {
-                            newObject.Tapped = true;
+                            // newObject.Tapped = true;
                         }
                         (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
                         CardInDestinationZone = newObject;

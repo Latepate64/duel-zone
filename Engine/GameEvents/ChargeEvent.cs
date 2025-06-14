@@ -11,9 +11,12 @@ public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(
         return ChosenCard;
     }
 
-    internal override bool IsLegal(GameEventV2 gameEvent)
+    internal override void Validate(GameEventV2 gameEvent)
     {
-        return gameEvent is ChargeEvent charge && Player.Hand.Cards.Contains(charge.ChosenCard);
+        var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
+        // TODO: Consider that card may not be in hand
+        IllegalActionException.ThrowIf(gameEvent, !Player.Hand.Cards.Contains(charge.ChosenCard),
+            IllegalActionType.HandDoesNotContainCard);
     }
 
     public override bool Equals(object obj)

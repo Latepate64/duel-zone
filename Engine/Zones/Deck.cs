@@ -8,9 +8,8 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
-        public Deck(List<ICard> cards) : base(ZoneType.Deck)
+        public Deck(params ICard[] cards) : base(ZoneType.Deck, cards)
         {
-            Cards = cards;
         }
 
         public Deck(IDeck zone) : base(zone)

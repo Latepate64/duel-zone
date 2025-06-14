@@ -3,7 +3,25 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class IllegalActionException(GameEventV2 gameEvent, string message) : Exception(message)
+public class IllegalActionException(GameEventV2 gameEvent, IllegalActionType type) : Exception
 {
-    public GameEventV2 PlayerAction { get; } = gameEvent;
+    public GameEventV2 GameEvent { get; } = gameEvent;
+    public IllegalActionType Type { get; } = type;
+
+    internal static T ThrowIfNotOfType<T>(GameEventV2 gameEvent)
+    {
+        if (gameEvent is not T expected)
+        {
+            throw new IllegalActionException(gameEvent, IllegalActionType.UnexpectedType);
+        }
+        return expected;
+    }
+
+    internal static void ThrowIf(GameEventV2 gameEvent, bool condition, IllegalActionType type)
+    {
+        if (condition)
+        {
+            throw new IllegalActionException(gameEvent, type);
+        }
+    }
 }
