@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             Reveal = effect.Reveal;
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params Card[] cards)
         {
             if (Reveal)
             {
@@ -57,7 +57,7 @@ namespace Cards.OneShotEffects
             return "Search your deck. You may take a spell from your deck, show that spell to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.Spells;
         }
@@ -87,7 +87,7 @@ namespace Cards.OneShotEffects
             return "Search your deck. You may take a card from your deck and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.Cards;
         }
@@ -117,7 +117,7 @@ namespace Cards.OneShotEffects
             return "Search your deck. You may take a creature from your deck, show that creature to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.Creatures;
         }
@@ -147,7 +147,7 @@ namespace Cards.OneShotEffects
             return $"When you put this creature into the battle zone, search your deck. You may take a {Race} from your deck, show that {Race} to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.GetCreatures(Race);
         }
@@ -172,7 +172,7 @@ namespace Cards.OneShotEffects
             return $"Search your deck. You may take a {_name} from your deck, show that card to your opponent, and put it into your hand. Then shuffle your deck.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.Cards.Where(x => x.Name == _name);
         }

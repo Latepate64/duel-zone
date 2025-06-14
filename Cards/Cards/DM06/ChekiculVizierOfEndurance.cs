@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public bool Applies(ICard attacker, ICard blocker, IGame game)
+        public bool Applies(Card attacker, Card blocker, IGame game)
         {
             return blocker == Source;
         }

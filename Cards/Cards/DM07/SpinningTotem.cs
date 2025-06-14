@@ -42,13 +42,13 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
     {
-        private readonly ICard _breaker;
+        private readonly Card _breaker;
 
         public SpinningTotemTriggeredAbility() : base()
         {
         }
 
-        public SpinningTotemTriggeredAbility(ICard breaker) : base()
+        public SpinningTotemTriggeredAbility(Card breaker) : base()
         {
             _breaker = breaker;
         }

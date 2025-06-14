@@ -22,7 +22,7 @@
         {
             if (Phase.AttackingCreature != null)
             {
-                game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == null ? Phase.AttackTarget as ICard : Phase.BlockingCreature);
+                game.Battle(Phase.AttackingCreature, Phase.BlockingCreature == null ? Phase.AttackTarget as Card : Phase.BlockingCreature);
             }
         }
 

@@ -29,7 +29,7 @@ namespace Cards.Cards.DM05
             return "Destroy all your other creatures.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id);
         }

@@ -7,7 +7,7 @@ namespace Engine
     {
         IAbility Ability { get; set; }
         IPlayer Controller { get; }
-        ICard Source { get; }
+        Card Source { get; }
     }
 
     public abstract class Effect : IEffect
@@ -23,7 +23,7 @@ namespace Engine
 
         public IAbility Ability { get; set; }
         public IPlayer Controller => Ability.Controller;
-        public ICard Source => Ability.Source;
+        public Card Source => Ability.Source;
 
         public void Dispose()
         {
@@ -40,7 +40,7 @@ namespace Engine
 
         public override abstract string ToString();
 
-        protected bool IsSourceOfAbility(ICard card)
+        protected bool IsSourceOfAbility(Card card)
         {
             return card == Source;
         }

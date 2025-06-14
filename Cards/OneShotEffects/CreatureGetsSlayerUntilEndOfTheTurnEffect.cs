@@ -10,7 +10,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public CreatureGetsSlayerUntilEndOfTheTurnEffect(ICard card) : base(card, new StaticAbilities.SlayerAbility())
+        public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(card, new StaticAbilities.SlayerAbility())
         {
         }
 

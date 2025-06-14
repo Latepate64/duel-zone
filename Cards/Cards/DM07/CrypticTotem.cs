@@ -23,7 +23,7 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public bool Applies(ICard shield, IGame game)
+        public bool Applies(Card shield, IGame game)
         {
             return Source.Tapped && game.GetOpponent(Controller).Id == shield.Id;
         }

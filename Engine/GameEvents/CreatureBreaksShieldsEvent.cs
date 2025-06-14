@@ -4,7 +4,7 @@ namespace Engine.GameEvents
 {
     public sealed class CreatureBreaksShieldsEvent : CreatureMightBreakShieldsEvent
     {
-        public CreatureBreaksShieldsEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
+        public CreatureBreaksShieldsEvent(Card attacker, int breakAmount) : base(attacker, breakAmount)
         {
         }
 
@@ -23,10 +23,10 @@ namespace Engine.GameEvents
 
     public abstract class CreatureMightBreakShieldsEvent : GameEvent
     {
-        public ICard Attacker { get; }
+        public Card Attacker { get; }
         public int BreakAmount { get; }
 
-        protected CreatureMightBreakShieldsEvent(ICard attacker, int breakAmount)
+        protected CreatureMightBreakShieldsEvent(Card attacker, int breakAmount)
         {
             Attacker = attacker;
             BreakAmount = breakAmount;
@@ -35,9 +35,9 @@ namespace Engine.GameEvents
 
     public abstract class ShieldsMightBreakEvent : GameEvent
     {
-        public IEnumerable<ICard> Shields { get; }
+        public IEnumerable<Card> Shields { get; }
 
-        protected ShieldsMightBreakEvent(IEnumerable<ICard> shields)
+        protected ShieldsMightBreakEvent(IEnumerable<Card> shields)
         {
             Shields = shields;
         }
@@ -45,7 +45,7 @@ namespace Engine.GameEvents
 
     public class ShieldsBreakEvent : ShieldsMightBreakEvent
     {
-        public ShieldsBreakEvent(IEnumerable<ICard> shields) : base(shields)
+        public ShieldsBreakEvent(IEnumerable<Card> shields) : base(shields)
         {
         }
 

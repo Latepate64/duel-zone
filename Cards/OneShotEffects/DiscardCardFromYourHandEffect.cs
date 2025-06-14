@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return "Discard a card from your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.Hand.Cards;
         }

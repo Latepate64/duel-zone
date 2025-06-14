@@ -30,7 +30,7 @@ namespace Cards.Cards.DM07
             return "Destroy one of your opponent's untapped light or untapped nature creatures.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Light, Civilization.Nature));
         }

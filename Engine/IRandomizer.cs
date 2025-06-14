@@ -4,5 +4,5 @@ namespace Engine;
 
 public interface IRandomizer
 {
-    void Shuffle(List<ICard> cards);
+    void Shuffle(List<Card> cards);
 }

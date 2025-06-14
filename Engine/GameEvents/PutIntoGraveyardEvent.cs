@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public class PutIntoGraveyardEvent(PlayerV2 player, ICard card) : GameEventV2(player, false)
+public class PutIntoGraveyardEvent(PlayerV2 player, Card card) : GameEventV2(player, false)
 {
-    public ICard Card { get; } = card;
+    public Card Card { get; } = card;
 
     public override bool Equals(object obj)
     {

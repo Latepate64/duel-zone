@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             }
         }
 
-        protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
+        protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
     }
 
     class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
@@ -46,9 +46,9 @@ namespace Cards.OneShotEffects
             return "You may untap this creature.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
-            return new ICard[] { Ability.Source };
+            return new Card[] { Ability.Source };
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Cards.Cards.DM08
 
     class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
     {
-        public KachuaContinuousEffect(ICard card)
+        public KachuaContinuousEffect(Card card)
         {
             Card = card;
         }
@@ -66,9 +66,9 @@ namespace Cards.Cards.DM08
             Card = effect.Card;
         }
 
-        public ICard Card { get; }
+        public Card Card { get; }
 
-        public bool Applies(ICard creature, IGame game)
+        public bool Applies(Card creature, IGame game)
         {
             return creature == Card;
         }
@@ -90,7 +90,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public KachuaDelayedTriggeredAbility(IAbility source, ICard card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
+        public KachuaDelayedTriggeredAbility(IAbility source, Card card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
         {
         }
 
@@ -102,10 +102,10 @@ namespace Cards.Cards.DM08
 
     class KachuaAbility : LinkedTriggeredAbility
     {
-        private readonly ICard _card;
+        private readonly Card _card;
         private readonly Guid _turnId;
 
-        public KachuaAbility(ICard card, Guid turnId)
+        public KachuaAbility(Card card, Guid turnId)
         {
             _card = card;
             _turnId = turnId;

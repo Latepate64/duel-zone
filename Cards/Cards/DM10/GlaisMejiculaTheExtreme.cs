@@ -56,10 +56,10 @@ namespace Cards.Cards.DM10
     class GlaisMejiculaEvent : GameEvent
     {
         private readonly IAbility _ability;
-        private readonly IEnumerable<ICard> _discard;
-        private readonly IEnumerable<ICard> _remainingShields;
+        private readonly IEnumerable<Card> _discard;
+        private readonly IEnumerable<Card> _remainingShields;
 
-        public GlaisMejiculaEvent(IEnumerable<ICard> remainingShields, IEnumerable<ICard> discard, IAbility ability)
+        public GlaisMejiculaEvent(IEnumerable<Card> remainingShields, IEnumerable<Card> discard, IAbility ability)
         {
             _ability = ability;
             _discard = discard;

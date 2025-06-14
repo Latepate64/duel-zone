@@ -23,14 +23,14 @@ namespace Cards.Cards.DM02
             return new EssenceElfEffect();
         }
 
-        public int GetChange(ICard card, IGame game)
+        public int GetChange(Card card, IGame game)
         {
-            return card.Owner == Controller && card.CardType == CardType.Spell ? -1 : 0;
+            return card.Owner == Controller && card.IsSpell ? -1 : 0;
         }
 
-        public int GetMinimumCost(ICard card, IGame game)
+        public int GetMinimumCost(Card card, IGame game)
         {
-            return card.Owner == Controller && card.CardType == CardType.Spell ? 1 : 0;
+            return card.Owner == Controller && card.IsSpell ? 1 : 0;
         }
 
         public override string ToString()

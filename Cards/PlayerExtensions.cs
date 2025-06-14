@@ -13,7 +13,7 @@ namespace Cards
             game.Destroy(source, blocker);
         }
 
-        public static bool IsBlocker(this ICard card)
+        public static bool IsBlocker(this Card card)
         {
             return card.GetAbilities<BlockerAbility>().Any();
         }

@@ -39,14 +39,14 @@ namespace Cards.Cards.DM04
 
     class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
-        private readonly ICard _card;
+        private readonly Card _card;
 
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
             _card = effect._card;
         }
 
-        public ThreeEyedDragonflyContinuousEffect(ICard card) : base(2000)
+        public ThreeEyedDragonflyContinuousEffect(Card card) : base(2000)
         {
             _card = card;
         }
@@ -61,9 +61,9 @@ namespace Cards.Cards.DM04
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
 
-        protected override List<ICard> GetAffectedCards(IGame game)
+        protected override List<Card> GetAffectedCards(IGame game)
         {
-            return new List<ICard> { _card };
+            return new List<Card> { _card };
         }
     }
 }

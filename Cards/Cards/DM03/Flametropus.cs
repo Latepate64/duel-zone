@@ -52,7 +52,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public FlametropusContinuousEffect(ICard card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(Card card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
         {
         }
 

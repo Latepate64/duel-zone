@@ -29,6 +29,6 @@ namespace Cards
 
     interface ICardAffectable
     {
-        ICard Card { get; }
+        Card Card { get; }
     }
 }

@@ -27,12 +27,12 @@ namespace Cards.Cards.DM06
             return new CoccoLupiaEffect(this);
         }
 
-        public int GetChange(ICard card, IGame game)
+        public int GetChange(Card card, IGame game)
         {
             return card.Owner == Controller && card.IsDragon ? -2 : 0;
         }
 
-        public int GetMinimumCost(ICard card, IGame game)
+        public int GetMinimumCost(Card card, IGame game)
         {
             return card.Owner == Controller && card.IsDragon ? 2 : 0;
         }

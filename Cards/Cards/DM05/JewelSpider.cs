@@ -29,7 +29,7 @@ namespace Cards.Cards.DM05
             return new YouMayChooseOneOfYourShieldsAndPutItIntoYourHandEffect();
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.ShieldZone.Cards;
         }

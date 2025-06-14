@@ -24,7 +24,7 @@ namespace Engine.Steps
         Queue<IGameEvent> GameEvents { get; }
         List<IResolvableAbility> PendingAbilities { get; }
         PhaseOrStep Type { get; }
-        List<ICard> UsedCards { get; }
+        List<Card> UsedCards { get; }
 
         IPhase Copy();
         IPhase GetNextPhase(IGame game);

@@ -8,7 +8,7 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool 
 {
     public ZoneType Destination { get; } = destination;
 
-    internal abstract ICard RemoveCardFromCurrentZone();
+    internal abstract Card RemoveCardFromCurrentZone();
 
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {

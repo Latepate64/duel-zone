@@ -4,7 +4,7 @@ namespace Engine.GameEvents
 {
     public class EvolutionEvent : GameEvent
     {
-        public EvolutionEvent(IPlayer player, ICard card, params ICard[] baits)
+        public EvolutionEvent(IPlayer player, Card card, params Card[] baits)
         {
             Player = player;
             EvolutionCreature = card;
@@ -12,8 +12,8 @@ namespace Engine.GameEvents
         }
 
         public IPlayer Player { get; }
-        public ICard EvolutionCreature { get; }
-        public ICard[] Baits { get; }
+        public Card EvolutionCreature { get; }
+        public Card[] Baits { get; }
 
         public override void Happen(IGame game)
         {

@@ -7,13 +7,13 @@ namespace Engine.Zones
     /// </summary>
     public class ShieldZone : Zone
     {
-        public ShieldZone(params ICard[] cards) : base(ZoneType.ShieldZone, cards) { }
+        public ShieldZone(params Card[] cards) : base(ZoneType.ShieldZone, cards) { }
 
         public ShieldZone(ShieldZone zone) : base(zone)
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(Card card, IGame game)
         {
             Cards.Add(card);
         }
@@ -23,15 +23,15 @@ namespace Engine.Zones
             return new ShieldZone(this);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {
-                return new List<ICard> { card };
+                return new List<Card> { card };
             }
             else
             {
-                return new List<ICard>();
+                return new List<Card>();
             }
         }
 

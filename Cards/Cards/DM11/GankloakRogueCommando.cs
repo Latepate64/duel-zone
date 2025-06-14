@@ -35,7 +35,7 @@ namespace Cards.Cards.DM11
 
     class GankloakRogueCommandoContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
-        public GankloakRogueCommandoContinuousEffect(params ICard[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
+        public GankloakRogueCommandoContinuousEffect(params Card[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
         {
         }
 

@@ -31,7 +31,7 @@ namespace Cards.ContinuousEffects
             return "When this creature would be destroyed, add it to your shields face down instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(Card card, IGame game)
         {
             return IsSourceOfAbility(card);
         }

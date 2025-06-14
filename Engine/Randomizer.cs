@@ -5,7 +5,7 @@ namespace Engine;
 
 public class Randomizer : IRandomizer
 {
-    public void Shuffle(List<ICard> cards)
+    public void Shuffle(List<Card> cards)
     {
         Random random = new(Guid.NewGuid().GetHashCode());
         int n = cards.Count;

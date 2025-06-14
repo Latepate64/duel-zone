@@ -23,7 +23,7 @@ namespace TestEngine
 
     class CardMock : Card
     {
-        public override ICard Copy()
+        public override Card Copy()
         {
             throw new System.NotImplementedException();
         }
@@ -43,7 +43,7 @@ namespace TestEngine
         public int Timestamp { get; set; }
         public IPlayer Controller { get; set; }
         public IAbility Ability { get; set; }
-        public ICard Source { get; }
+        public Card Source { get; }
 
         private readonly bool _shouldBeAbleToEvolve;
 
@@ -52,7 +52,7 @@ namespace TestEngine
             _shouldBeAbleToEvolve = shouldBeAbleToEvolve;
         }
 
-        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
+        public bool CanEvolveFrom(Card bait, Card evolutionCard, IGame game)
         {
             return _shouldBeAbleToEvolve;
         }
@@ -62,12 +62,12 @@ namespace TestEngine
             throw new System.NotImplementedException();
         }
 
-        public bool CanEvolve(IGame game, ICard evolutionCreature)
+        public bool CanEvolve(IGame game, Card evolutionCreature)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(Card evolutionCreature, IGame game)
         {
             throw new System.NotImplementedException();
         }

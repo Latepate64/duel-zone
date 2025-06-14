@@ -6,7 +6,7 @@ namespace Engine.Abilities
     {
         Guid Id { get; }
 
-        ICard Source { get; set; }
+        Card Source { get; set; }
 
         /// <summary>
         /// 113.8.

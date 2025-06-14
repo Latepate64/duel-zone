@@ -9,15 +9,15 @@ namespace Engine.Zones
     /// </summary>
     public abstract class Zone : IDisposable
     {
-        public List<ICard> Cards { get; init; } = [];
+        public List<Card> Cards { get; init; } = [];
 
-        public IEnumerable<ICard> Creatures => Cards.Where(x => x.CardType == CardType.Creature);
-        public IEnumerable<ICard> Spells => Cards.Where(x => x.CardType == CardType.Spell);
+        public IEnumerable<Card> Creatures => Cards.Where(x => x.IsCreature);
+        public IEnumerable<Card> Spells => Cards.Where(x => x.IsSpell);
 
         public ZoneType Type { get; }
         public bool HasCards => Cards.Count != 0;
 
-        protected Zone(ZoneType type, params ICard[] cards)
+        protected Zone(ZoneType type, params Card[] cards)
         {
             Type = type;
             Cards = [.. cards];
@@ -28,9 +28,9 @@ namespace Engine.Zones
             Cards = [.. zone.Cards.Select(x => x.Copy())];
         }
 
-        public abstract void Add(ICard card, IGame game);
+        public abstract void Add(Card card, IGame game);
 
-        public abstract List<ICard> Remove(ICard card, IGame game);
+        public abstract List<Card> Remove(Card card, IGame game);
 
         protected virtual void Dispose(bool disposing)
         {
@@ -42,29 +42,29 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<ICard> GetCreatures(Guid owner)
+        public IEnumerable<Card> GetCreatures(Guid owner)
         {
             return Creatures.Where(x => x.Owner.Id == owner);
         }
 
         public abstract override string ToString();
 
-        public IEnumerable<ICard> GetCreatures(Race race)
+        public IEnumerable<Card> GetCreatures(Race race)
         {
             return Creatures.Where(x => x.HasRace(race));
         }
 
-        public IEnumerable<ICard> GetCards(Civilization civilization)
+        public IEnumerable<Card> GetCards(Civilization civilization)
         {
             return Cards.Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetCreatures(Civilization civilization)
+        public IEnumerable<Card> GetCreatures(Civilization civilization)
         {
             return Creatures.Where(x => x.HasCivilization(civilization));
         }
 
-        public IEnumerable<ICard> GetOtherCreatures(Guid creature)
+        public IEnumerable<Card> GetOtherCreatures(Guid creature)
         {
             return Creatures.Where(x => x.Id != creature);
         }

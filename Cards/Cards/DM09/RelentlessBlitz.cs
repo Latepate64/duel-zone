@@ -54,14 +54,14 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(Card attacker, Card targetOfAttack, IGame game)
         {
             return attacker.HasRace(_race);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
-            return attacker.HasRace(_race) && targetOfAttack is ICard;
+            return attacker.HasRace(_race) && targetOfAttack is Card;
         }
 
         public override IContinuousEffect Copy()

@@ -1,11 +1,11 @@
 namespace Engine.GameEvents;
 
-public class PutIntoBattleZoneEvent(PlayerV2 player, bool passable, ICard card) :
+public class PutIntoBattleZoneEvent(PlayerV2 player, bool passable, Card card) :
     MoveCardEvent(player, ZoneType.BattleZone, passable)
 {
-    public ICard Card { get; } = card;
+    public Card Card { get; } = card;
 
-    internal override ICard RemoveCardFromCurrentZone()
+    internal override Card RemoveCardFromCurrentZone()
     {
         Player.Hand.Remove(Card, null); // TODO: May not be in hand always
         return Card;

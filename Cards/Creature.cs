@@ -46,7 +46,7 @@ namespace Cards
             SetPrintedRaces(race1, race2);
         }
 
-        public Creature(ICard card) : base(card)
+        public Creature(Card card) : base(card)
         {
         }
 
@@ -154,7 +154,7 @@ namespace Cards
             AddStaticAbilities(new SurvivorEffect(ability));
         }
 
-        public override ICard Copy()
+        public override Card Copy()
         {
             return new Creature(this);
         }

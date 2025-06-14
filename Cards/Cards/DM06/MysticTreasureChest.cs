@@ -34,12 +34,12 @@ namespace Cards.Cards.DM06
             return "Search your deck. You may take a non-nature card from your deck and put it into your mana zone. Then shuffle your deck.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params Card[] cards)
         {
             game.Move(Ability, ZoneType.Deck, ZoneType.ManaZone, cards);
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return Controller.Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
         }

@@ -22,7 +22,7 @@ public class GameTests
         var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
         var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
         var randomizer = new Mock<IRandomizer>();
-        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards)).Callback((List<ICard> cards) => cards.Reverse());
+        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards)).Callback((List<Card> cards) => cards.Reverse());
         randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards));
         var game = new Game(randomizer.Object);
         var startingDeck = startingPlayer.Deck.Cards.ToList();
@@ -268,7 +268,7 @@ public class GameTests
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
-        var cards = new List<ICard>();
+        var cards = new List<Card>();
         for (int i = 0; i < deckSize; ++i)
         {
             cards.Add(CreateCard());
@@ -281,9 +281,9 @@ public class GameTests
         return player;
     }
 
-    static ICard CreateCard(Civilization civilization = Civilization.Light)
+    static Card CreateCard(Civilization civilization = Civilization.Light)
     {
-        var card = Mock.Of<ICard>();
+        var card = Mock.Of<Card>();
         card.ManaCost = 1;
         card.Civilizations = [civilization];
         return card;

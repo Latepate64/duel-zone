@@ -43,7 +43,7 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public VenomWormContinuousEffect(Race race, params ICard[] cards) : base(new StaticAbilities.SlayerAbility(), cards)
+        public VenomWormContinuousEffect(Race race, params Card[] cards) : base(new StaticAbilities.SlayerAbility(), cards)
         {
             _race = race;
         }

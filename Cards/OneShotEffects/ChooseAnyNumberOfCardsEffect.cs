@@ -15,7 +15,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
 
         public override void Apply(IGame game)
         {
@@ -27,6 +27,6 @@ namespace Cards.OneShotEffects
             }
         }
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
+        protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
     }
 }

@@ -8,13 +8,13 @@ namespace Engine.Zones
     /// </summary>
     public class Graveyard : Zone
     {
-        public Graveyard(params ICard[] cards) : base(ZoneType.Graveyard, cards) { }
+        public Graveyard(params Card[] cards) : base(ZoneType.Graveyard, cards) { }
 
         public Graveyard(Graveyard zone) : base(zone)
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(Card card, IGame game)
         {
             card.KnownTo = game.Players.Select(x => x.Id).ToList();
             Cards.Add(card);
@@ -25,15 +25,15 @@ namespace Engine.Zones
             return new Graveyard(this);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {
-                return new List<ICard> { card };
+                return new List<Card> { card };
             }
             else
             {
-                return new List<ICard>();
+                return new List<Card>();
             }
         }
 

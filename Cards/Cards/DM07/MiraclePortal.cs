@@ -45,9 +45,9 @@ namespace Cards.Cards.DM07
 
     class MiraclePortalContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect, IIgnoreCannotAttackPlayersEffects
     {
-        private readonly ICard _creature;
+        private readonly Card _creature;
 
-        public MiraclePortalContinuousEffect(ICard creature)
+        public MiraclePortalContinuousEffect(Card creature)
         {
             _creature = creature;
         }
@@ -57,12 +57,12 @@ namespace Cards.Cards.DM07
             _creature = effect._creature;
         }
 
-        public bool IgnoreCannotAttackPlayersEffects(ICard attacker, IGame game)
+        public bool IgnoreCannotAttackPlayersEffects(Card attacker, IGame game)
         {
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker == _creature;
         }

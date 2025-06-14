@@ -5,14 +5,14 @@ namespace Engine.GameEvents
 {
     public class SpellCastEvent : GameEvent
     {
-        public SpellCastEvent(IPlayer player, ICard spell)
+        public SpellCastEvent(IPlayer player, Card spell)
         {
             Player = player;
             Spell = spell;
         }
 
         public IPlayer Player { get; }
-        public ICard Spell { get; private set; }
+        public Card Spell { get; private set; }
 
         public override void Happen(IGame game)
         {
@@ -32,7 +32,7 @@ namespace Engine.GameEvents
             return $"{Player} cast {Spell}.";
         }
 
-        private static void ResolveSpellAbilities(ICard spell, IGame game)
+        private static void ResolveSpellAbilities(Card spell, IGame game)
         {
             foreach (var ability in spell.GetAbilities<SpellAbility>())
             {
@@ -47,7 +47,7 @@ namespace Engine.GameEvents
         /// </summary>
         /// <param name="spell"></param>
         /// <param name="game"></param>
-        private void FinishCastingSpell(ICard spell, IGame game)
+        private void FinishCastingSpell(Card spell, IGame game)
         {
             game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false, null));
         }

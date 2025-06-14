@@ -37,8 +37,8 @@ namespace Cards.OneShotEffects
             }
         }
 
-        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
 
-        protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
+        protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
     }
 }

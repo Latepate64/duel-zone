@@ -47,7 +47,7 @@ namespace Cards.Cards.DM06
 
     class KyuroroEvent : CreatureMightBreakShieldsEvent
     {
-        public KyuroroEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
+        public KyuroroEvent(Card attacker, int breakAmount) : base(attacker, breakAmount)
         {
         }
 

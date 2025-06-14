@@ -2,14 +2,14 @@
 {
     public class CreatureSummonedEvent : GameEvent
     {
-        public CreatureSummonedEvent(IPlayer player, ICard creature)
+        public CreatureSummonedEvent(IPlayer player, Card creature)
         {
             Player = player;
             Creature = creature;
         }
 
         public IPlayer Player { get; }
-        public ICard Creature { get; }
+        public Card Creature { get; }
 
         public override void Happen(IGame game)
         {

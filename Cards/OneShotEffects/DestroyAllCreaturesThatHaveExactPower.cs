@@ -29,7 +29,7 @@ namespace Cards.OneShotEffects
             return $"Destroy all creatures that have power {_power}.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.Creatures.Where(x => x.Power == _power);
         }

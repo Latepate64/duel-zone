@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Engine
 {
-    abstract public class Card : ICard, ICopyable<ICard>, ITimestampable
+    abstract public class Card : ICopyable<Card>, ITimestampable
     {
         private readonly IList<Race> _addedRaces = [];
         private IList<Race> _printedRaces = [];
@@ -17,10 +17,10 @@ namespace Engine
             Id = Guid.NewGuid();
         }
 
-        protected Card(ICard card, int timeStamp)
+        protected Card(Card card, int timeStamp)
         {
             AddedAbilities = card.AddedAbilities.Select(x => x.Copy()).ToList();
-            CardType = card.CardType;
+            cardType = card.cardType;
             Civilizations = card.Civilizations.ToList();
             FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
@@ -46,19 +46,19 @@ namespace Engine
 
         protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) : this()
         {
-            CardType = type;
+            cardType = type;
             Civilizations = [.. civilizations];
             ManaCost = manaCost;
             Name = name;
             PrintedPower = power;
         }
 
-        protected Card(ICard card) : this(card, 0)
+        protected Card(Card card) : this(card, 0)
         {
         }
 
         public IList<IAbility> AddedAbilities { get; } = [];
-        public CardType CardType { get; set; }
+        readonly CardType cardType;
         public List<Civilization> Civilizations { get; set; } = [];
         /// <summary>
         /// TODO: Apply in logic
@@ -73,7 +73,7 @@ namespace Engine
         /// <summary>
         /// Id of the card this card is on top of.
         /// </summary>
-        public ICard OnTopOf { get; set; }
+        public Card OnTopOf { get; set; }
 
         /// <summary>
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
@@ -97,10 +97,19 @@ namespace Engine
         /// <summary>
         /// The card this card is underneath of.
         /// </summary>
-        public ICard Underneath { get; set; }
+        public Card Underneath { get; set; }
 
         internal bool CountsAsIfExists => Underneath != null;
         private IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
+
+        public bool IsSpell => cardType == CardType.Spell;
+        public bool IsCreature => cardType == CardType.Creature;
+        public bool IsNonEvolutionCreature => IsCreature && !Supertypes.Contains(Supertype.Evolution);
+        public bool IsEvolutionCreature => IsCreature && Supertypes.Contains(Supertype.Evolution);
+        public bool IsMultiColored => Civilizations.Count > 1;
+        public bool IsDragon => IsCreature && Races.Intersect([Race.EarthDragon, Race.ZombieDragon, Race.ArmoredDragon,
+            Race.VolcanoDragon ]).Any();
+
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
@@ -120,9 +129,9 @@ namespace Engine
             return ManaCost <= player.ManaZone.UntappedCards.Count() && HasCivilizations(player.ManaZone.UntappedCards, Civilizations);
         }
 
-        public abstract ICard Copy();
+        public abstract Card Copy();
 
-        public IList<ICard> Deconstruct(IList<ICard> deconstructred)
+        public IList<Card> Deconstruct(IList<Card> deconstructred)
         {
             if (Underneath != null)
             {
@@ -134,7 +143,7 @@ namespace Engine
             else
             {
                 OnTopOf = null;
-                return new List<ICard> { this };
+                return new List<Card> { this };
             }
         }
 
@@ -142,9 +151,9 @@ namespace Engine
         {
             return Abilities.OfType<T>();
         }
-        public IEnumerable<IEnumerable<ICard>> GetManaCombinations(IPlayer player)
+        public IEnumerable<IEnumerable<Card>> GetManaCombinations(IPlayer player)
         {
-            return new Combinations<ICard>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
+            return new Combinations<Card>(player.ManaZone.UntappedCards, ManaCost, GenerateOption.WithoutRepetition).Where(x => HasCivilizations(x, Civilizations));//.Select(x => x.Select(y => y.Id)));
         }
 
         public bool HasCivilization(params Civilization[] civilizations)
@@ -166,10 +175,10 @@ namespace Engine
             SetRulesText();
         }
 
-        public void PutOnTopOf(IEnumerable<ICard> baits)
+        public void PutOnTopOf(IEnumerable<Card> baits)
         {
             var remainingBaits = baits.ToList();
-            List<ICard> toBeStacked = new();
+            List<Card> toBeStacked = new();
             while (remainingBaits.Count > 1)
             {
                 var card = Owner.ChooseCard(remainingBaits, "Choose a card to be placed on a stack of cards. (the remaining cards will be stacked on top of it)");
@@ -208,7 +217,7 @@ namespace Engine
         {
             return $"{Name} ({PhysicalCardId})";
         }
-        internal static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
+        internal static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
         {
             if (!civs.Any())
             {

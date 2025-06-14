@@ -8,9 +8,9 @@ namespace Engine
 {
     public interface IPlayer : IAttackable, ICopyable<IPlayer>
     {
-        IEnumerable<ICard> CardsInNonsharedZones { get; }
+        IEnumerable<Card> CardsInNonsharedZones { get; }
         Deck Deck { get; }
-        List<ICard> DeckCards => Deck.Cards;
+        List<Card> DeckCards => Deck.Cards;
         bool DirectlyAttacked { get; set; }
         Graveyard Graveyard { get; }
         Hand Hand { get; }
@@ -19,60 +19,60 @@ namespace Engine
         string Name { get; set; }
         ShieldZone ShieldZone { get; }
         IEnumerable<Zone> Zones { get; }
-        ICard[] CardsInManaZone => ManaZone.Cards.ToArray();
+        Card[] CardsInManaZone => ManaZone.Cards.ToArray();
 
-        void ArrangeTopCardsOfDeck(params ICard[] cards);
+        void ArrangeTopCardsOfDeck(params Card[] cards);
 
         void BurnOwnMana(IGame game, IAbility ability);
 
-        bool CanChoose(ICard card, IGame game);
-        void Cast(ICard spell, IGame game);
+        bool CanChoose(Card card, IGame game);
+        void Cast(Card spell, IGame game);
 
         T Choose<T>(T choice) where T : Choice;
 
         IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
-        IEnumerable<ICard> ChooseAnyNumberOfCards(IEnumerable<ICard> cards, string description);
+        IEnumerable<Card> ChooseAnyNumberOfCards(IEnumerable<Card> cards, string description);
 
-        bool ChooseAttacker(IGame game, IEnumerable<ICard> attackers);
+        bool ChooseAttacker(IGame game, IEnumerable<Card> attackers);
 
         IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
 
-        ICard ChooseCard(IEnumerable<ICard> cards, string description);
+        Card ChooseCard(IEnumerable<Card> cards, string description);
 
-        ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
+        Card ChooseCardOptionally(IEnumerable<Card> cards, string description);
 
-        IEnumerable<ICard> ChooseCards(IEnumerable<ICard> cards, int min, int max, string description);
+        IEnumerable<Card> ChooseCards(IEnumerable<Card> cards, int min, int max, string description);
 
-        IEnumerable<ICard> ChooseCards(CardChoice choice);
+        IEnumerable<Card> ChooseCards(CardChoice choice);
 
-        bool ChooseCardToUse(IGame game, IEnumerable<ICard> usableCards);
+        bool ChooseCardToUse(IGame game, IEnumerable<Card> usableCards);
 
         Civilization ChooseCivilization(string description, params Civilization[] excluded);
 
-        ICard ChooseControlledCreature(IGame game, string description);
+        Card ChooseControlledCreature(IGame game, string description);
 
-        ICard ChooseControlledCreatureOptionally(IGame game, string description);
+        Card ChooseControlledCreatureOptionally(IGame game, string description);
 
-        ICard ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization);
+        Card ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization);
 
-        IEnumerable<ICard> ChooseControlledCreatures(IGame game, string description, int amount);
+        IEnumerable<Card> ChooseControlledCreatures(IGame game, string description, int amount);
 
-        IEnumerable<ICard> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
+        IEnumerable<Card> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
         int ChooseNumber(NumberChoice choice);
 
-        ICard ChooseOpponentsCreature(IGame game, string description);
+        Card ChooseOpponentsCreature(IGame game, string description);
 
-        ICard ChooseOpponentsNonEvolutionCreature(IGame game, string description);
+        Card ChooseOpponentsNonEvolutionCreature(IGame game, string description);
         IPlayer ChoosePlayer(IGame game, string description);
 
         Race ChooseRace(string description, params Race[] excluded);
 
         bool ChooseToTakeAction(string description);
-        IEnumerable<ICard> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICard> creatures);
-        ICard DestroyCreatureOptionally(IGame game, IAbility ability);
-        ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
+        IEnumerable<Card> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<Card> creatures);
+        Card DestroyCreatureOptionally(IGame game, IAbility ability);
+        Card DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description);
 
-        void Discard(IAbility ability, IGame game, params ICard[] cards);
+        void Discard(IAbility ability, IGame game, params Card[] cards);
 
         int DiscardAnyNumberOfCards(IGame game, IAbility ability);
 
@@ -88,23 +88,23 @@ namespace Engine
 
         void DrawCardsOptionally(IGame game, IAbility source, int maximum);
 
-        IEnumerable<ICard> GetCardsThatCanBePaidAndUsed(IGame game);
+        IEnumerable<Card> GetCardsThatCanBePaidAndUsed(IGame game);
 
         Zone GetZone(ZoneType zone);
 
-        void Look(IPlayer owner, IGame game, params ICard[] cards);
+        void Look(IPlayer owner, IGame game, params Card[] cards);
 
         void LookAtOneOfOpponentsShields(IGame game, IAbility source);
 
         void LookAtOpponentsHand(IGame game);
 
-        IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
-        void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, ICard[] creatures);
+        IEnumerable<Card> LookAtTheTopCardsOfYourDeck(int amount, IGame game);
+        void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, Card[] creatures);
         void PutFromTopOfDeckIntoManaZone(IGame game, int amount, IAbility ability);
 
         void PutFromTopOfDeckIntoShieldZone(int amount, IGame game, IAbility ability);
 
-        void PutOnTheBottomOfDeckInAnyOrder(ICard[] cards);
+        void PutOnTheBottomOfDeckInAnyOrder(Card[] cards);
 
         void PutOwnHandCardIntoMana(IGame game, IAbility source);
 
@@ -114,32 +114,32 @@ namespace Engine
 
         void ReturnOwnManaCreature(IGame game, IAbility source);
 
-        void ShowCardsToOpponent(IGame game, params ICard[] cards);
+        void ShowCardsToOpponent(IGame game, params Card[] cards);
 
-        void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards);
+        void Reveal(IGame game, IEnumerable<IPlayer> players, params Card[] cards);
 
         void RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(IGame game, IAbility source);
-        IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game);
+        IEnumerable<Card> RevealTopCardsOfDeck(int amount, IGame game);
 
         void Sacrifice(IGame game, IAbility source);
         void SearchOwnDeck();
         void ShuffleOwnDeck(IGame game);
 
-        void Tap(IGame game, params ICard[] cards);
+        void Tap(IGame game, params Card[] cards);
 
         void TapOpponentsCreature(IGame game);
-        void Unreveal(params ICard[] cards);
-        void Untap(IGame game, params ICard[] cards);
-        void UseCard(ICard card, IGame game);
+        void Unreveal(params Card[] cards);
+        void Untap(IGame game, params Card[] cards);
+        void UseCard(Card card, IGame game);
         void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability);
-        void PutCreatureFromOwnManaZoneIntoBattleZone(ICard mana, IGame game, IAbility ability);
-        void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICard creature, IGame game, IAbility ability);
-        ICard ChooseCreatureInBattleZoneOptionally(IGame game, string v);
+        void PutCreatureFromOwnManaZoneIntoBattleZone(Card mana, IGame game, IAbility ability);
+        void PutCreatureFromBattleZoneIntoItsOwnersManaZone(Card creature, IGame game, IAbility ability);
+        Card ChooseCreatureInBattleZoneOptionally(IGame game, string v);
         void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability);
         void DiscardAllCreaturesThatHaveMaximumPower(int v, IGame game, IAbility ability);
-        ICard DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
-        void PutCreatureFromOwnHandIntoBattleZone(ICard card, IGame game, IAbility ability);
-        ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+        Card DestroyOwnCreatureOptionally(string v, IGame game, IAbility ability);
+        void PutCreatureFromOwnHandIntoBattleZone(Card card, IGame game, IAbility ability);
+        Card RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
         void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
         void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
     }

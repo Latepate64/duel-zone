@@ -64,7 +64,7 @@ namespace Cards.Cards.DM11
             _player = effect._player;
         }
 
-        public bool CannotAttackPlayers(ICard attacker, IGame game)
+        public bool CannotAttackPlayers(Card attacker, IGame game)
         {
             return attacker.HasCivilization(_civilization);
         }

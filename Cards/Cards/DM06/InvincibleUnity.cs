@@ -44,9 +44,9 @@ namespace Cards.Cards.DM06
 
     class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect, IPowerModifyingEffect
     {
-        private readonly List<ICard> _cards;
+        private readonly List<Card> _cards;
 
-        public InvincibleUnityContinuousEffect(IEnumerable<ICard> cards)
+        public InvincibleUnityContinuousEffect(IEnumerable<Card> cards)
         {
             _cards = cards.ToList();
         }

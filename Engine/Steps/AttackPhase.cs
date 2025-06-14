@@ -5,9 +5,9 @@ namespace Engine.Steps
 {
     public class AttackPhase : Phase
     {
-        public ICard AttackingCreature { get; internal set; }
+        public Card AttackingCreature { get; internal set; }
         public IAttackable AttackTarget { get; set; }
-        public ICard BlockingCreature { get; set; }
+        public Card BlockingCreature { get; set; }
 
         public AttackPhase() : base(PhaseOrStep.Attack)
         {
@@ -31,7 +31,7 @@ namespace Engine.Steps
                 AttackTarget = null;
                 //TODO: Event
                 //var e = new AttackTargetRemovedEvent();
-                //if (target is ICard card)
+                //if (target is Card card)
                 //{
                 //    e.TargetCard = card.Convert();
                 //}
@@ -53,7 +53,7 @@ namespace Engine.Steps
             }
         }
 
-        public ICard GetCreatureBattlingAgainst(ICard card)
+        public Card GetCreatureBattlingAgainst(Card card)
         {
             if (card == AttackingCreature)
             {
@@ -61,7 +61,7 @@ namespace Engine.Steps
                 {
                     return BlockingCreature;
                 }
-                else if (AttackTarget is ICard target)
+                else if (AttackTarget is Card target)
                 {
                     return target;
                 }
@@ -93,7 +93,7 @@ namespace Engine.Steps
             }
         }
 
-        internal void SetAttackingCreature(ICard attacker)
+        internal void SetAttackingCreature(Card attacker)
         {
             AttackingCreature = attacker;
         }

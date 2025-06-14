@@ -6,8 +6,8 @@ namespace Engine.GameEvents;
 
 public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
-    public ICard Card { get; set; }
-    public List<ICard> PaymentCards { get; set; } = [];
+    public Card Card { get; set; }
+    public List<Card> PaymentCards { get; set; } = [];
     bool shouldEnd;
 
     public override bool Equals(object obj)
@@ -32,7 +32,7 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
             IllegalActionType.UseCardPaymentForCivilizations);
     }
 
-    static bool HasCivilizations(IEnumerable<ICard> manas, IEnumerable<Civilization> civs)
+    static bool HasCivilizations(IEnumerable<Card> manas, IEnumerable<Civilization> civs)
     {
         if (!civs.Any())
         {
@@ -56,13 +56,13 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
         {
             card.Tap();
         }
-        if (Card.CardType == CardType.Creature)
+        if (Card.IsCreature)
         {
             // TODO: Consider evolution creature (supertype)
             // TODO: Create a separate event for putting
             return [new PutIntoBattleZoneEvent(Player, false, Card)];
         }
-        if (Card.CardType == CardType.Spell)
+        if (Card.IsSpell)
         {
             Player.Hand.Remove(Card, null); // TODO: May not be in hand always
             // TODO: Resolve spell

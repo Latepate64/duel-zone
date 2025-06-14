@@ -29,7 +29,7 @@ namespace Cards.Cards.DM12
             return "Return one of your creatures that costs 4 or less from the battle zone to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id).Where(x => x.ManaCost <= 4);
         }

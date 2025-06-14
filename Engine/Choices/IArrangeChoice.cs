@@ -5,8 +5,8 @@ namespace Engine.Choices
 {
     public interface IArrangeChoice
     {
-        IEnumerable<ICard> Cards { get; }
-        ICard[] Rearranged { get; }
+        IEnumerable<Card> Cards { get; }
+        Card[] Rearranged { get; }
     }
 
     public class ArrangeChoice : Choice, IArrangeChoice
@@ -17,13 +17,13 @@ namespace Engine.Choices
             Rearranged = choice.Rearranged;
         }
 
-        public ArrangeChoice(IPlayer maker, IEnumerable<ICard> cards) : base(maker, "Put back in any order.")
+        public ArrangeChoice(IPlayer maker, IEnumerable<Card> cards) : base(maker, "Put back in any order.")
         {
             Cards = cards;
         }
 
-        public IEnumerable<ICard> Cards { get; }
-        public ICard[] Rearranged { get; set; }
+        public IEnumerable<Card> Cards { get; }
+        public Card[] Rearranged { get; set; }
 
         public override bool IsValid()
         {

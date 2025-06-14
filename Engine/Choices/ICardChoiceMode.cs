@@ -5,9 +5,9 @@ namespace Engine.Choices
 {
     public interface ICardChoiceMode
     {
-        bool CanBeChosenAutomatically(IEnumerable<ICard> cards);
-        IEnumerable<ICard> ChooseAutomatically(IEnumerable<ICard> choosableCards);
-        bool IsValid(IEnumerable<ICard> chosenCards);
+        bool CanBeChosenAutomatically(IEnumerable<Card> cards);
+        IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> choosableCards);
+        bool IsValid(IEnumerable<Card> chosenCards);
     }
 
     public interface IBoundedCardChoiceMode : ICardChoiceMode
@@ -33,17 +33,17 @@ namespace Engine.Choices
         public int Min { get; }
         public int Max { get; }
 
-        public bool IsValid(IEnumerable<ICard> chosenCards)
+        public bool IsValid(IEnumerable<Card> chosenCards)
         {
             return chosenCards.Count() >= Min && chosenCards.Count() <= Max;
         }
 
-        public bool CanBeChosenAutomatically(IEnumerable<ICard> choosableCards)
+        public bool CanBeChosenAutomatically(IEnumerable<Card> choosableCards)
         {
             return choosableCards.Count() <= Min;
         }
 
-        public IEnumerable<ICard> ChooseAutomatically(IEnumerable<ICard> cards)
+        public IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> cards)
         {
             return cards;
         }
@@ -51,17 +51,17 @@ namespace Engine.Choices
 
     public class AnyNumberOfCardsChoiceMode : ICardChoiceMode
     {
-        public bool CanBeChosenAutomatically(IEnumerable<ICard> cards)
+        public bool CanBeChosenAutomatically(IEnumerable<Card> cards)
         {
             return !cards.Any();
         }
 
-        public IEnumerable<ICard> ChooseAutomatically(IEnumerable<ICard> choosableCards)
+        public IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> choosableCards)
         {
             return choosableCards;
         }
 
-        public bool IsValid(IEnumerable<ICard> chosenCards)
+        public bool IsValid(IEnumerable<Card> chosenCards)
         {
             return true;
         }

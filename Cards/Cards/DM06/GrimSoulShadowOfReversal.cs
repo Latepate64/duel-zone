@@ -28,7 +28,7 @@ namespace Cards.Cards.DM06
             return "Return a darkness creature from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.Graveyard.GetCreatures(Civilization.Darkness);
         }

@@ -9,7 +9,7 @@ namespace Engine.Abilities
     {
         public Guid Id { get; }
 
-        public ICard Source { get; set; }
+        public Card Source { get; set; }
 
         /// <summary>
         /// 113.8.

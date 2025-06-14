@@ -4,10 +4,10 @@ namespace Engine.GameEvents
 {
     public class CreatureAttackedEvent : GameEvent
     {
-        public ICard Attacker { get; }
+        public Card Attacker { get; }
         public IAttackable Target { get; }
 
-        public CreatureAttackedEvent(ICard attacker, IAttackable id)
+        public CreatureAttackedEvent(Card attacker, IAttackable id)
         {
             Attacker = attacker;
             Target = id;

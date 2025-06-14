@@ -53,7 +53,7 @@ namespace Cards.Cards.DM09
             _race = race;
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
             return game.BattleZone.Creatures.Where(x => x.HasRace(_race)).Contains(attacker);
         }

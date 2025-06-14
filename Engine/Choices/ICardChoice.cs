@@ -6,11 +6,11 @@ namespace Engine.Choices
     public interface ICardChoice : IChoice
     {
         bool CanBeChosenAutomatically { get; }
-        IEnumerable<ICard> Cards { get; set; }
-        IEnumerable<ICard> Choice { get; set; }
+        IEnumerable<Card> Cards { get; set; }
+        IEnumerable<Card> Choice { get; set; }
         ICardChoiceMode Mode { get; set; }
 
-        IEnumerable<ICard> ChooseAutomatically();
+        IEnumerable<Card> ChooseAutomatically();
     }
 
     public class CardChoice : Choice, ICardChoice
@@ -22,18 +22,18 @@ namespace Engine.Choices
             Mode = choice.Mode;
         }
 
-        public CardChoice(IPlayer maker, string description, ICardChoiceMode mode, params ICard[] cards) : base(maker, description)
+        public CardChoice(IPlayer maker, string description, ICardChoiceMode mode, params Card[] cards) : base(maker, description)
         {
             Cards = cards;
             Mode = mode;
         }
 
-        public IEnumerable<ICard> Cards { get; set; }
-        public IEnumerable<ICard> Choice { get; set; }
+        public IEnumerable<Card> Cards { get; set; }
+        public IEnumerable<Card> Choice { get; set; }
         public ICardChoiceMode Mode { get; set; }
         public bool CanBeChosenAutomatically => Mode.CanBeChosenAutomatically(Cards);
 
-        public IEnumerable<ICard> ChooseAutomatically()
+        public IEnumerable<Card> ChooseAutomatically()
         {
             return Mode.ChooseAutomatically(Cards);
         }

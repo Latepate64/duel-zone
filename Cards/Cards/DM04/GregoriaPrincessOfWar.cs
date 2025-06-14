@@ -42,7 +42,7 @@ namespace Cards.Cards.DM04
             return "Each Demon Command in the battle zone gets +2000 power and has \"blocker.\"";
         }
 
-        private static List<ICard> GetAffectedCards(IGame game)
+        private static List<Card> GetAffectedCards(IGame game)
         {
             return game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand)).ToList();
         }

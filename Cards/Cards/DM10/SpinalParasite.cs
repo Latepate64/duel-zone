@@ -59,9 +59,9 @@ namespace Cards.Cards.DM10
 
     class SpinalParasiteContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect
     {
-        private readonly ICard _creature;
+        private readonly Card _creature;
 
-        public SpinalParasiteContinuousEffect(ICard creature)
+        public SpinalParasiteContinuousEffect(Card creature)
         {
             _creature = creature;
         }
@@ -71,7 +71,7 @@ namespace Cards.Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(Card creature, IGame game)
         {
             return creature == _creature;
         }

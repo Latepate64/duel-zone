@@ -35,7 +35,7 @@ namespace Engine.Steps
             }
         }
 
-        private static int GetAmountOfShieldsToBreak(IGame game, ICard attackingCreature)
+        private static int GetAmountOfShieldsToBreak(IGame game, Card attackingCreature)
         {
             return game.GetAmountOfShieldsCreatureBreaks(attackingCreature) + game.ContinuousEffects.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
         }

@@ -23,7 +23,7 @@ namespace Cards.OneShotEffects
             return $"Your opponent chooses and discards {(_amount > 1 ? $"{_amount} cards" : "a card")} from his hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return GetOpponent(game).Hand.Cards;
         }

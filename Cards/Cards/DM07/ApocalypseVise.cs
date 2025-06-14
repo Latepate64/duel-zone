@@ -46,17 +46,17 @@ namespace Cards.Cards.DM07
 
     public class ApocalypseViseChoiceMode : ICardChoiceMode
     {
-        public bool CanBeChosenAutomatically(IEnumerable<ICard> cards)
+        public bool CanBeChosenAutomatically(IEnumerable<Card> cards)
         {
             return !cards.Any() || cards.All(x => x.Power > 8000);
         }
 
-        public IEnumerable<ICard> ChooseAutomatically(IEnumerable<ICard> choosableCards)
+        public IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> choosableCards)
         {
-            return new List<ICard>();
+            return new List<Card>();
         }
 
-        public bool IsValid(IEnumerable<ICard> chosenCards)
+        public bool IsValid(IEnumerable<Card> chosenCards)
         {
             return chosenCards.Sum(x => x.Power) <= 8000;
         }

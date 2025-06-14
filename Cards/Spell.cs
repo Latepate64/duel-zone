@@ -6,7 +6,7 @@ namespace Cards
 {
     class Spell : Card
     {
-        public Spell(ICard card) : base(card)
+        public Spell(Card card) : base(card)
         {
         }
 
@@ -18,7 +18,7 @@ namespace Cards
         {
         }
 
-        public override ICard Copy()
+        public override Card Copy()
         {
             return new Spell(this);
         }

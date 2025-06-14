@@ -35,7 +35,7 @@ namespace Cards.Cards.DM01
 
     class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
     {
-        private ICard _creature;
+        private Card _creature;
 
         public CreepingPlagueTriggeredAbility()
         {

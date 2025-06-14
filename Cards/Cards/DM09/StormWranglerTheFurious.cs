@@ -41,9 +41,9 @@ namespace Cards.Cards.DM09
 
     class StormWranglerContinuousEffect : UntilEndOfTurnEffect, IBlocksIfAbleEffect, IUnblockableEffect
     {
-        private readonly ICard _blocker;
+        private readonly Card _blocker;
 
-        public StormWranglerContinuousEffect(ICard blocker)
+        public StormWranglerContinuousEffect(Card blocker)
         {
             _blocker = blocker;
         }
@@ -53,12 +53,12 @@ namespace Cards.Cards.DM09
             _blocker = effect._blocker;
         }
 
-        public bool BlocksIfAble(ICard blocker, ICard attacker, IGame game)
+        public bool BlocksIfAble(Card blocker, Card attacker, IGame game)
         {
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker) && blocker != _blocker;
         }

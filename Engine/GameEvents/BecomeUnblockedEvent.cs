@@ -2,12 +2,12 @@
 {
     public class BecomeUnblockedEvent : GameEvent
     {
-        public BecomeUnblockedEvent(ICard attacker)
+        public BecomeUnblockedEvent(Card attacker)
         {
             Attacker = attacker;
         }
 
-        public ICard Attacker { get; }
+        public Card Attacker { get; }
 
         public override void Happen(IGame game)
         {

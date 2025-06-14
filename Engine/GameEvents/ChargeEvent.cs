@@ -2,9 +2,9 @@ namespace Engine.GameEvents;
 
 public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
 {
-    public ICard ChosenCard { get; set; }
+    public Card ChosenCard { get; set; }
 
-    internal override ICard RemoveCardFromCurrentZone()
+    internal override Card RemoveCardFromCurrentZone()
     {
         // TODO: Consider that card may not be in hand
         Player.Hand.Remove(ChosenCard, game: null);

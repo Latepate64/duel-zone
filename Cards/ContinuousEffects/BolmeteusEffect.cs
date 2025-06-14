@@ -39,7 +39,7 @@ namespace Cards.ContinuousEffects
 
     class BolmeteusEvent : CreatureMightBreakShieldsEvent
     {
-        public BolmeteusEvent(ICard attacker, int breakAmount) : base(attacker, breakAmount)
+        public BolmeteusEvent(Card attacker, int breakAmount) : base(attacker, breakAmount)
         {
         }
 

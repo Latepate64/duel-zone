@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool PlayerCannotChooseCreature(ICard creature, System.Guid player, IGame game)
+        public bool PlayerCannotChooseCreature(Card creature, System.Guid player, IGame game)
         {
             return IsSourceOfAbility(creature) && player == game.GetOpponent(Controller).Id;
         }

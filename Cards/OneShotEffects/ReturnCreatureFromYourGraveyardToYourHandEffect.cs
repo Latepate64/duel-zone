@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return "Return a creature from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.Graveyard.Creatures;
         }

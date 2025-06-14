@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
             return "Choose a creature in the battle zone or a card in either player's mana zone and return it to its owner's hand.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+        protected override void Apply(IGame game, IAbility source, params Card[] cards)
         {
             foreach (var card in cards)
             {
@@ -38,7 +38,7 @@ namespace Cards.Cards.DM10
             }
         }
 
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.ManaZone.Cards).Union(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)).Union(game.BattleZone.GetCreatures(Ability.Controller.Id));
         }

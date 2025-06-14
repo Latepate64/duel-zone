@@ -17,7 +17,7 @@ namespace Cards.ContinuousEffects
 
         public int Power { get; }
 
-        public bool CannotBeBlocked(ICard attacker, ICard blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker) && blocker.Power <= Power;
         }

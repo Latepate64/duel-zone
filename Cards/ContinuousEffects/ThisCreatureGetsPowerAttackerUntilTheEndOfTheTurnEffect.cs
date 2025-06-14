@@ -13,7 +13,7 @@ namespace Cards.ContinuousEffects
             _power = effect._power;
         }
 
-        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(new PowerAttackerAbility(power), cards)
+        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params Card[] cards) : base(new PowerAttackerAbility(power), cards)
         {
             _power = power;
         }

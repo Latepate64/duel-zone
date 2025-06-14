@@ -48,7 +48,7 @@ namespace Cards.Cards.DM04
     class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
     {
         private readonly Guid _player;
-        private readonly ICard[] _cards;
+        private readonly Card[] _cards;
 
         public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
         {
@@ -56,7 +56,7 @@ namespace Cards.Cards.DM04
             _cards = effect._cards;
         }
 
-        public FullDefensorContinuousEffect(Guid player, params ICard[] cards) : base(new StaticAbilities.BlockerAbility())
+        public FullDefensorContinuousEffect(Guid player, params Card[] cards) : base(new StaticAbilities.BlockerAbility())
         {
             _player = player;
             _cards = cards;
@@ -77,7 +77,7 @@ namespace Cards.Cards.DM04
             return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game)
         {
             return _cards;
         }

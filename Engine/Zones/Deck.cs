@@ -8,7 +8,7 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone
     {
-        public Deck(params ICard[] cards) : base(ZoneType.Deck, cards)
+        public Deck(params Card[] cards) : base(ZoneType.Deck, cards)
         {
         }
 
@@ -16,20 +16,20 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(Card card, IGame game)
         {
             Cards.Add(card);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<Card> Remove(Card card, IGame game)
         {
             if (!Cards.Remove(card))
             {
-                return new List<ICard>();
+                return new List<Card>();
             }
             else
             {
-                return new List<ICard> { card };
+                return new List<Card> { card };
             }
         }
 
@@ -38,18 +38,18 @@ namespace Engine.Zones
             return "deck";
         }
 
-        public void Setup(IEnumerable<ICard> cards, IPlayer owner)
+        public void Setup(IEnumerable<Card> cards, IPlayer owner)
         {
             cards.ToList().ForEach(x => x.Owner = owner);
             Cards.AddRange(cards);
         }
 
-        public IEnumerable<ICard> GetTopCards(int amount)
+        public IEnumerable<Card> GetTopCards(int amount)
         {
             return Cards.TakeLast(amount);
         }
 
-        public void PutOnBottom(ICard[] cards)
+        public void PutOnBottom(Card[] cards)
         {
             Cards.InsertRange(0, cards);
         }
@@ -64,6 +64,6 @@ namespace Engine.Zones
             randomizer.Shuffle(Cards);
         }
 
-        public ICard TopCard => GetTopCards(1).SingleOrDefault();
+        public Card TopCard => GetTopCards(1).SingleOrDefault();
     }
 }

@@ -42,7 +42,7 @@ namespace Cards.Cards.DM10
             return new UltimateDragonBreakerEffect();
         }
 
-        public override int GetAmount(IGame game, ICard creature)
+        public override int GetAmount(IGame game, Card creature)
         {
             var ability = Ability;
             return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.IsDragon) : 1;

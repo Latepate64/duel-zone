@@ -47,7 +47,7 @@ namespace Cards.Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool CanAttackUntappedCreature(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(Card attacker, Card targetOfAttack, IGame game)
         {
             return attacker.Owner.Id == _controller && game.CanAttackAtLeastOneCreature(attacker);
         }

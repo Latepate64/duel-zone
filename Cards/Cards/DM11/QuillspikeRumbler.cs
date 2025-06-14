@@ -24,7 +24,7 @@ namespace Cards.Cards.DM11
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target is ICard;
+            return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target is Card;
         }
 
         public override string ToString()

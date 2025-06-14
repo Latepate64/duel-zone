@@ -64,7 +64,7 @@ namespace Cards.Cards.DM09
             return $"Whenever one of your {_race}s would be destroyed this turn, return it to your hand instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(Card card, IGame game)
         {
             return card.Owner == Controller && card.HasRace(_race);
         }

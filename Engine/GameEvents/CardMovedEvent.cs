@@ -26,7 +26,7 @@ namespace Engine.GameEvents
             Ability = e.Ability?.Copy();
         }
 
-        public ICard CardInDestinationZone { get; set; }
+        public Card CardInDestinationZone { get; set; }
         public Guid CardInSourceZone { get; set; }
         public ZoneType Destination { get; set; }
         public bool EntersTapped { get; set; }

@@ -21,6 +21,6 @@ namespace Cards.OneShotEffects
             Controller.Tap(game, cards);
         }
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
+        protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
     }
 }

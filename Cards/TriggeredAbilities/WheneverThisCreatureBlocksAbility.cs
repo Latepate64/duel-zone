@@ -29,7 +29,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature blocks, {OneShotEffect}.";
         }
 
-        protected override bool TriggersFrom(ICard card, IGame game)
+        protected override bool TriggersFrom(Card card, IGame game)
         {
             return card == Source;
         }

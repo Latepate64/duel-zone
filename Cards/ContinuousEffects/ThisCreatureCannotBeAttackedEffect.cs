@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool Applies(ICard attacker, ICard targetOfAttack, IGame game)
+        public bool Applies(Card attacker, Card targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(targetOfAttack);
         }

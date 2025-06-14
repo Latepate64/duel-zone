@@ -24,15 +24,15 @@ namespace Cards.OneShotEffects
             return "Destroy this creature.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             if (Ability.Source != null)
             {
-                return new ICard[] { Ability.Source };
+                return new Card[] { Ability.Source };
             }
             else
             {
-                return System.Array.Empty<ICard>();
+                return System.Array.Empty<Card>();
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Cards.Cards.DM10
             return "When this creature would be destroyed, shuffle it into your deck instead.";
         }
 
-        protected override bool Applies(ICard card, IGame game)
+        protected override bool Applies(Card card, IGame game)
         {
             return IsSourceOfAbility(card);
         }
@@ -41,9 +41,9 @@ namespace Cards.Cards.DM10
 
     class RyudmilaEvent : GameEvent
     {
-        private readonly ICard _card;
+        private readonly Card _card;
 
-        public RyudmilaEvent(ICard card)
+        public RyudmilaEvent(Card card)
         {
             _card = card;
         }

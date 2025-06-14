@@ -55,7 +55,7 @@ namespace Cards.Cards.DM05
             _player = effect._player;
         }
 
-        public bool AttacksIfAble(ICard creature, IGame game)
+        public bool AttacksIfAble(Card creature, IGame game)
         {
             return creature.Owner == _player;
         }

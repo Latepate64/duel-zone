@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
             return $"Survivor : {AbilitiesAsText}";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id, Race.Survivor);
         }

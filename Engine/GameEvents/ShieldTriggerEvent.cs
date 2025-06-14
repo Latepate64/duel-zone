@@ -2,14 +2,14 @@
 {
     public class ShieldTriggerEvent : GameEvent
     {
-        public ShieldTriggerEvent(IPlayer player, ICard trigger)
+        public ShieldTriggerEvent(IPlayer player, Card trigger)
         {
             Player = player;
             Trigger = trigger;
         }
 
         public IPlayer Player { get; }
-        public ICard Trigger { get; }
+        public Card Trigger { get; }
 
         public override void Happen(IGame game)
         {

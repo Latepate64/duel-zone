@@ -32,31 +32,31 @@ namespace Cards.ContinuousEffects
 
         protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game);
+        protected abstract IEnumerable<Card> GetAffectedCards(IGame game);
     }
 
     abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IExpirable
     {
-        private readonly ICard[] _cards;
+        private readonly Card[] _cards;
 
         protected AddAbilitiesUntilEndOfTurnEffect(AddAbilitiesUntilEndOfTurnEffect effect) : base(effect)
         {
             _cards = effect._cards;
         }
 
-        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability, params ICard[] cards) : base(new IAbility[] { ability })
+        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability, params Card[] cards) : base(new IAbility[] { ability })
         {
             _cards = cards;
         }
 
-        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params ICard[] cards) : base(new IAbility[] { ability1, ability2 })
+        protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params Card[] cards) : base(new IAbility[] { ability1, ability2 })
         {
             _cards = cards;
         }
 
-        protected AddAbilitiesUntilEndOfTurnEffect(ICard card, params IAbility[] abilities) : base(abilities)
+        protected AddAbilitiesUntilEndOfTurnEffect(Card card, params IAbility[] abilities) : base(abilities)
         {
-            _cards = new ICard[] { card };
+            _cards = new Card[] { card };
         }
 
         public bool ShouldExpire(IGameEvent gameEvent, IGame game)
@@ -64,7 +64,7 @@ namespace Cards.ContinuousEffects
             return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game)
         {
             return _cards;
         }

@@ -7,7 +7,7 @@ namespace Engine.Zones
     /// </summary>
     public class Hand : Zone
     {
-        public Hand(params ICard[] cards) : base(ZoneType.Hand, cards)
+        public Hand(params Card[] cards) : base(ZoneType.Hand, cards)
         {
         }
 
@@ -15,7 +15,7 @@ namespace Engine.Zones
         {
         }
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(Card card, IGame game)
         {
             // card.KnownTo = new List<Guid> { card.Owner.Id };
             Cards.Add(card);
@@ -26,7 +26,7 @@ namespace Engine.Zones
             return new Hand(this);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {

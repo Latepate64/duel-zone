@@ -25,7 +25,7 @@ namespace Engine
         public IContinuousEffects ContinuousEffects { get; }
         IPlayer ActivePlayer => CurrentTurn.ActivePlayer;
 
-        void AddAbility(ICard card, IAbility ability);
+        void AddAbility(Card card, IAbility ability);
 
         void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
         void AddDelayedTriggeredAbility(DelayedTriggeredAbility ability);
@@ -34,55 +34,55 @@ namespace Engine
 
         void AddReflexiveTriggeredAbility(IResolvableAbility ability);
 
-        bool AffectedBySummoningSickness(ICard creature);
-        void Battle(ICard attackingCreature, ICard defendingCreature);
+        bool AffectedBySummoningSickness(Card creature);
+        void Battle(Card attackingCreature, Card defendingCreature);
 
-        void Break(ICard creature, int breakAmount);
+        void Break(Card creature, int breakAmount);
 
-        bool CanAttackAtLeastOneCreature(ICard creature);
-        bool CanAttackAtLeastSomething(ICard creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
+        bool CanAttackAtLeastOneCreature(Card creature);
+        bool CanAttackAtLeastSomething(Card creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
 
-        bool CanAttackCreature(ICard attacker, ICard targetOfAttack);
+        bool CanAttackCreature(Card attacker, Card targetOfAttack);
 
-        bool CanAttackPlayers(ICard creature);
+        bool CanAttackPlayers(Card creature);
 
-        bool CanBeUsedRegardlessOfManaCost(ICard card);
+        bool CanBeUsedRegardlessOfManaCost(Card card);
 
         bool CheckStateBasedActions();
 
-        void Destroy(IAbility ability, params ICard[] cards);
+        void Destroy(IAbility ability, params Card[] cards);
 
         IAbility GetAbility(Guid id);
 
-        IEnumerable<ICard> GetAllCards();
+        IEnumerable<Card> GetAllCards();
 
         IAttackable GetAttackable(Guid id);
 
-        ICard GetCard(Guid id);
+        Card GetCard(Guid id);
 
-        IEnumerable<ICard> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
-        IEnumerable<ICard> GetCreaturesThatHaveAttackTargets();
+        IEnumerable<Card> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
+        IEnumerable<Card> GetCreaturesThatHaveAttackTargets();
         IPlayer GetOpponent(IPlayer player);
         Guid GetOpponent(Guid player);
-        IPlayer GetOwner(ICard card);
+        IPlayer GetOwner(Card card);
         IPlayer GetPlayer(Guid id);
-        IEnumerable<IAttackable> GetPossibleAttackTargets(ICard attacker);
+        IEnumerable<IAttackable> GetPossibleAttackTargets(Card attacker);
         int GetTimestamp();
-        Zone GetZone(ICard card);
+        Zone GetZone(Card card);
 
         void Lose(params IPlayer[] players);
-        IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params ICard[] cards);
-        IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType hand, ZoneType manaZone, params ICard[] cards);
-        void MoveTopCard(ICard card, ZoneType destination, IAbility ability);
+        IEnumerable<IGameEvent> Move(IAbility ability, ZoneType source, ZoneType destination, params Card[] cards);
+        IEnumerable<IGameEvent> MoveTapped(IAbility ability, ZoneType hand, ZoneType manaZone, params Card[] cards);
+        void MoveTopCard(Card card, ZoneType destination, IAbility ability);
         void Play(IPlayer startingPlayer, IPlayer otherPlayer);
         IEnumerable<IGameEvent> ProcessEvents(params IGameEvent[] gameEvents);
-        void PutFromShieldZoneToHand(IEnumerable<ICard> cards, bool canUseShieldTrigger, IAbility ability);
+        void PutFromShieldZoneToHand(IEnumerable<Card> cards, bool canUseShieldTrigger, IAbility ability);
         void ResolveReflexiveTriggeredAbilities();
-        int GetAmountOfShieldsCreatureBreaks(ICard attackingCreature);
-        void ProcessCreatureAttackedEvent(ICard attacker, IAttackable target);
-        void AddPendingSilentSkillAbilities(IEnumerable<ICard> cards);
-        IEnumerable<ICard> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
-        IEnumerable<ICard> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
+        int GetAmountOfShieldsCreatureBreaks(Card attackingCreature);
+        void ProcessCreatureAttackedEvent(Card attacker, IAttackable target);
+        void AddPendingSilentSkillAbilities(IEnumerable<Card> cards);
+        IEnumerable<Card> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
+        IEnumerable<Card> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
         void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
         bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
         bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();

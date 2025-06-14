@@ -33,8 +33,8 @@ namespace Cards.OneShotEffects
             (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleOwnDeck(game);
         }
 
-        protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
 
-        protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
+        protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
     }
 }

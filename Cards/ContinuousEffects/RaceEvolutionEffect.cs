@@ -36,17 +36,17 @@ namespace Cards.ContinuousEffects
             return string.Join(' ', System.Text.RegularExpressions.Regex.Split(text, @"(?<!^)(?=[A-Z])"));
         }
 
-        public bool CanEvolveFrom(ICard bait, ICard evolutionCard, IGame game)
+        public bool CanEvolveFrom(Card bait, Card evolutionCard, IGame game)
         {
             return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
         }
 
-        public override bool CanEvolve(IGame game, ICard evolutionCreature)
+        public override bool CanEvolve(IGame game, Card evolutionCreature)
         {
             return GetPossibleBaits(game, evolutionCreature).Any();
         }
 
-        protected override IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature)
+        protected override IEnumerable<Card> GetPossibleBaits(IGame game, Card evolutionCreature)
         {
             return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
@@ -62,15 +62,15 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public abstract bool CanEvolve(IGame game, ICard evolutionCreature);
+        public abstract bool CanEvolve(IGame game, Card evolutionCreature);
 
-        public void Evolve(ICard evolutionCreature, IGame game)
+        public void Evolve(Card evolutionCreature, IGame game)
         {
             var baits = GetPossibleBaits(game, evolutionCreature);
             var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
             game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
         }
 
-        protected abstract IEnumerable<ICard> GetPossibleBaits(IGame game, ICard evolutionCreature);
+        protected abstract IEnumerable<Card> GetPossibleBaits(IGame game, Card evolutionCreature);
     }
 }

@@ -30,7 +30,7 @@ namespace Cards.Cards.DM04
             return "Destroy all creatures except darkness creatures.";
         }
 
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Darkness));
         }

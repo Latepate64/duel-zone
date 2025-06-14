@@ -44,9 +44,9 @@ namespace Cards.Cards.DM09
 
     class FistsOfForeverAbility : LinkedTriggeredAbility
     {
-        private readonly ICard _creature;
+        private readonly Card _creature;
 
-        public FistsOfForeverAbility(ICard creature)
+        public FistsOfForeverAbility(Card creature)
         {
             _creature = creature;
         }

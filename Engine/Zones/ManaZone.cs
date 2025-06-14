@@ -9,16 +9,16 @@ namespace Engine.Zones
     /// </summary>
     public class ManaZone : Zone
     {
-        public ManaZone(params ICard[] cards) : base(ZoneType.ManaZone, cards) { }
+        public ManaZone(params Card[] cards) : base(ZoneType.ManaZone, cards) { }
 
         public ManaZone(ManaZone zone) : base(zone)
         {
         }
 
-        public IEnumerable<ICard> TappedCards => new ReadOnlyCollection<ICard>([.. Cards.Where(card => card.Tapped)]);
-        public IEnumerable<ICard> UntappedCards => new ReadOnlyCollection<ICard>([.. Cards.Where(card => !card.Tapped)]);
+        public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => card.Tapped)]);
+        public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => !card.Tapped)]);
 
-        public override void Add(ICard card, IGame game)
+        public override void Add(Card card, IGame game)
         {
             if (card.IsMultiColored)
             {
@@ -27,19 +27,19 @@ namespace Engine.Zones
             Cards.Add(card);
         }
 
-        public override List<ICard> Remove(ICard card, IGame game)
+        public override List<Card> Remove(Card card, IGame game)
         {
             if (Cards.Remove(card))
             {
-                return new List<ICard> { card };
+                return new List<Card> { card };
             }
             else
             {
-                return new List<ICard>();
+                return new List<Card>();
             }
         }
 
-        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<ICard> cards, IEnumerable<Civilization> civs)
+        private static IEnumerable<IEnumerable<Civilization>> GetCivilizationSubsequences(IEnumerable<Card> cards, IEnumerable<Civilization> civs)
         {
             if (cards.Any())
             {
@@ -61,7 +61,7 @@ namespace Engine.Zones
             return new ManaZone(this);
         }
 
-        public IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
+        public IEnumerable<Card> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
         {
             return Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= maximum);
         }
