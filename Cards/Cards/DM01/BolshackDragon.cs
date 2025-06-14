@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM01
 {
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM01
 
         protected override int GetMultiplier(IGame game)
         {
-            return Controller.Graveyard.GetCards(Civilization.Fire).Count();
+            return Controller.Graveyard.GetCardCount(Civilization.Fire);
         }
     }
 }
