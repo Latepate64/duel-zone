@@ -520,6 +520,33 @@ public class GameTests
         Assert.Contains(defendingCreature, opponent.Graveyard.Creatures);
     }
 
+    [Fact]
+    public void AttackingAPlayerWhoHasNoShieldsLoses()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var opponent = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false, owner: player);
+        var state = new GameState([player, opponent])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new BattleZone([attackingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature,
+            AttackedPlayer = opponent,
+        });
+
+        // Assert
+        Assert.Equal(player, state.Winner);
+        Assert.Contains(opponent, state.Losers);
+        Assert.True(state.GameOver);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<Card>();

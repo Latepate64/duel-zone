@@ -29,6 +29,7 @@ public class GameState(PlayerV2[] players)
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
+    public bool GameOver => Winner != null || Losers.Count == Players.Length;
 
     internal void RemovePassableAction()
     {

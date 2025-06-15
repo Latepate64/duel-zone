@@ -51,10 +51,14 @@ public class AttackEvent(PlayerV2 player, bool passable = true) : GameEventV2(pl
         {
             return [new BattleEventV2(Player, AttackingCreature, AttackedCreature)];
         }
-        if (AttackedPlayer != null)
+        if (AttackedPlayer == null)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
-        throw new InvalidOperationException();
+        if (!AttackedPlayer.ShieldZone.HasCards)
+        {
+            return [new LoseGameEvent(AttackedPlayer)];
+        }
+        throw new NotImplementedException();
     }
 }

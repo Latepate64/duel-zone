@@ -44,7 +44,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
     public void Play(GameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
-        if (State.Winner != null || State.Losers.Count == State.Players.Length)
+        if (State.GameOver)
         {
             throw new InvalidOperationException("Game has ended already");
         }
@@ -112,6 +112,10 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             return;
         }
         var events = State.EventsHappening.Happen(State);
+        if (State.GameOver)
+        {
+            return;
+        }
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
