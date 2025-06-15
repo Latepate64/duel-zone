@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -29,7 +28,7 @@ namespace Cards.Cards.DM11
             foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
             {
                 game.GetPlayer(player).ShowCardsToOpponent(game, [.. game.GetPlayer(player).Hand.Cards]);
-                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, [.. game.GetPlayer(player).Hand.Cards.Where(x => x.ManaCost == number)]);
+                game.Move(Ability, ZoneType.Hand, ZoneType.Graveyard, [.. game.GetPlayer(player).Hand.CardsWithManaCost(number)]);
                 game.GetPlayer(player).Unreveal([.. game.GetPlayer(player).Hand.Cards]);
             }
         }
