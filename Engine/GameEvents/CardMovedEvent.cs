@@ -52,7 +52,7 @@ namespace Engine.GameEvents
                         {
                             // newObject.Tapped = true;
                         }
-                        (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject, game);
+                        (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject);
                         CardInDestinationZone = newObject;
                     }
                 }

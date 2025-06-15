@@ -15,7 +15,7 @@ public class PutIntoGraveyardEvent(PlayerV2 player, Card card) : GameEventV2(pla
 
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        Player.Graveyard.Add(card, game: null);
+        Player.Graveyard.Add(Card);
         return [];
     }
 }

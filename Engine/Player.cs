@@ -430,10 +430,7 @@ namespace Engine
 
         public void Reveal(IGame game, IEnumerable<Player> players, params Card[] cards)
         {
-            // TODO: Implement reveal information on cards and add them here.
-            cards.ToList().ForEach(x => x.KnownTo.AddRange(players.Select(x => x.Id)));
-            //TODO: Event
-            //game.Process(new RevealEvent { Revealer = Copy(), Cards = cards.Select(x => x.Convert()).ToList(), RevealedTo = players.Select(x => x.Copy()).ToList() });
+            throw new NotImplementedException();
         }
 
         public void RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(IGame game, IAbility source)

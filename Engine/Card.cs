@@ -16,7 +16,6 @@ namespace Engine
         public List<Civilization> Civilizations { get; } = civilizations;
         public bool FaceDown { get; private set; }
         public Guid Id { get; } = Guid.NewGuid();
-        public List<Guid> KnownTo { get; private set; } = [];
         public bool LostInBattle { get; private set; }
         public int ManaCost { get; } = manaCost;
         public string Name { get; }
@@ -51,7 +50,6 @@ namespace Engine
             cardType = card.cardType;
             FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
-            KnownTo = [.. card.KnownTo];
             Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
@@ -90,7 +88,6 @@ namespace Engine
                 && c.Civilizations.SequenceEqual(Civilizations)
                 && c.FaceDown == FaceDown
                 && c.Id == Id
-                && c.KnownTo.SequenceEqual(KnownTo)
                 && c.LostInBattle == LostInBattle
                 && c.ManaCost == ManaCost
                 && c.Name == Name
@@ -297,11 +294,6 @@ namespace Engine
         public void IncreasePower(int power)
         {
             Power += power;
-        }
-
-        internal void SetKnownTo(List<Guid> ids)
-        {
-            KnownTo = ids;
         }
 
         internal void SetTimestamp(int timestamp)

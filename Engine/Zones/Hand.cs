@@ -15,7 +15,7 @@ namespace Engine.Zones
         {
         }
 
-        internal override void Add(Card card, IGame game)
+        internal override void Add(Card card)
         {
             // card.KnownTo = new List<Guid> { card.Owner.Id };
             Cards.Add(card);

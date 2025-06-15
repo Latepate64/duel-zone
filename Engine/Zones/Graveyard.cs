@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine.Zones
 {
@@ -14,9 +13,8 @@ namespace Engine.Zones
         {
         }
 
-        internal override void Add(Card card, IGame game)
+        internal override void Add(Card card)
         {
-            card.SetKnownTo([.. game.Players.Select(x => x.Id)]);
             Cards.Add(card);
         }
 

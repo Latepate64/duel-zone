@@ -14,9 +14,8 @@ namespace Engine.GameEvents
             game.GetZone(Spell).Remove(Spell, game);
             Spell = Spell.Copy();
             Spell.SetTimestamp(game.GetTimestamp());
-            game.SpellStack.Add(Spell, game);
+            game.SpellStack.Add(Spell);
             game.ContinuousEffects.Add(Spell, [.. Spell.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.Anywhere)]);
-            Spell.SetKnownTo([.. game.Players.Select(x => x.Id)]);
             ResolveSpellAbilities(Spell, game);
             FinishCastingSpell(Spell, game);
         }

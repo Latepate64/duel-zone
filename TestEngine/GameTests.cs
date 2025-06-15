@@ -65,7 +65,7 @@ public class GameTests
         var state = CreateGameState();
 
         // Act
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
 
         // Assert
         Assert.Equal(state, game.State);
@@ -81,7 +81,7 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
         var conceder = startingPlayerConcedesInsteadOfAnother ? state.ActivePlayer : state.NonActivePlayers.Single();
         var winner = startingPlayerConcedesInsteadOfAnother ? state.NonActivePlayers.Single() : state.ActivePlayer;
         var action = new ConcedeEvent(conceder);
@@ -111,7 +111,7 @@ public class GameTests
             state.Losers.AddRange(state.Players);
         }
 
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
 
         // Act + Assert
         var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new ConcedeEvent(state.ActivePlayer)));
@@ -123,7 +123,7 @@ public class GameTests
     {
         // Arrange
         var state = CreateGameState();
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
 
         // Act
         var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new PassAction(state.ActivePlayer)));
@@ -139,7 +139,7 @@ public class GameTests
         // Arrange
         var state = CreateGameState();
         state.PassableAction = new ChargeEvent(state.ActivePlayer);
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
 
         // Act
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new PassAction(state.NonActivePlayers.First())));
@@ -155,7 +155,7 @@ public class GameTests
         // Arrange
         var state = CreateGameState();
         state.PassableAction = new ChargeEvent(state.ActivePlayer);
-        var game = new Game(Mock.Of<IRandomizer>(), state);
+        var game = CreateGame(state);
 
         // Act
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(state.ActivePlayer)));
@@ -171,7 +171,7 @@ public class GameTests
         // Arrange
         var state = CreateGameState();
         state.PassableAction = new ChargeEvent(state.ActivePlayer);
-        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+        var game = CreateGame(state, 0);
 
         // Act
         var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new PassAction(state.ActivePlayer)));
@@ -245,15 +245,15 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCard()]),
-            ManaZone = new Engine.Zones.ManaZone([CreateCard(tapped: true)]),
+            Hand = new Engine.Zones.Hand([CreateCreature()]),
+            ManaZone = new Engine.Zones.ManaZone([CreateCreature(tapped: true)]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+        var game = CreateGame(state);
 
         // Act
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
@@ -272,15 +272,15 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCard(Civilization.Light)]),
-            ManaZone = new Engine.Zones.ManaZone([CreateCard(Civilization.Water)]),
+            Hand = new Engine.Zones.Hand([CreateCreature(Civilization.Light)]),
+            ManaZone = new Engine.Zones.ManaZone([CreateCreature(Civilization.Water)]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var game = new Game(Mock.Of<IRandomizer>(), state, 0);
+        var game = CreateGame(state);
 
         // Act
         var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
@@ -293,17 +293,47 @@ public class GameTests
         Assert.Equal(IllegalActionType.UseCardPaymentForCivilizations, ex.Type);
     }
 
+    [Fact]
+    public void SummoningACreaturePutsItFromHandIntoTheBattleZoneAndTapsPaymentCards()
+    {
+        // Arrange
+        var player = new PlayerV2()
+        {
+            Hand = new Engine.Zones.Hand([CreateCreature()]),
+            ManaZone = new Engine.Zones.ManaZone([CreateCreature()]),
+        };
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new MainPhaseEvent(player))
+        };
+        state.PassableAction = new UseCardEvent(state.ActivePlayer);
+        var toUse = player.Hand.Cards.Single();
+
+        // Act
+        CreateGame(state).Play(new UseCardEvent(player)
+        {
+            Card = toUse,
+            PaymentCards = player.ManaZone.Cards
+        });
+
+        // Assert
+        Assert.True(player.ManaZone.Cards.Single().Tapped);
+        Assert.DoesNotContain(toUse, player.Hand.Cards);
+        Assert.Contains(toUse, state.BattleZone.Cards);
+        Assert.Equal(new UseCardEvent(state.ActivePlayer), state.PassableAction);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<Card>();
         for (int i = 0; i < deckSize; ++i)
         {
-            deckCards.Add(CreateCard());
+            deckCards.Add(CreateCreature());
         }
         var handCards = new List<Card>();
         for (int i = 0; i < handSize; ++i)
         {
-            handCards.Add(CreateCard());
+            handCards.Add(CreateCreature());
         }
         return new PlayerV2
         {
@@ -312,7 +342,7 @@ public class GameTests
         };
     }
 
-    static Card CreateCard(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1)
+    static Card CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1)
     {
         return new Card(tapped, [civilization], manaCost);
     }
@@ -335,4 +365,6 @@ public class GameTests
         game.Start(startingPlayer, otherPlayer);
         return game;
     }
+
+    static Game CreateGame(GameState state, int maxloopCount = 5) => new(Mock.Of<IRandomizer>(), state, maxloopCount);
 }

@@ -18,7 +18,7 @@ namespace Engine.Zones
         public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => card.Tapped)]);
         public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => !card.Tapped)]);
 
-        internal override void Add(Card card, IGame game)
+        internal override void Add(Card card)
         {
             if (card.IsMultiColored)
             {

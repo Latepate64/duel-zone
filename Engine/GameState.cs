@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Zones;
 
@@ -23,6 +24,8 @@ public class GameState(PlayerV2[] players)
     public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
     public int TurnNumber { get; internal set; }
     public BattleZone BattleZone { get; } = new BattleZone();
+    public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
+        game: null);
 
     public PlayerV2 ActivePlayer => Players.First();
     public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
@@ -48,6 +51,7 @@ public class GameState(PlayerV2[] players)
             && PassableAction == state.PassableAction
             && EventsThatWouldHappen == state.EventsThatWouldHappen
             && TurnNumber == state.TurnNumber
-            && BattleZone == state.BattleZone;
+            && BattleZone == state.BattleZone
+            && ContinuousEffects == state.ContinuousEffects;
     }
 }

@@ -19,11 +19,9 @@ namespace Engine.Zones
         {
         }
 
-        internal override void Add(Card card, IGame game)
+        internal override void Add(Card card)
         {
-            card.SetKnownTo([.. game.Players.Select(x => x.Id)]);
             Cards.Add(card);
-            game.ContinuousEffects.Add(card, [.. card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone)]);
         }
 
         internal override List<Card> Remove(Card card, IGame game)
