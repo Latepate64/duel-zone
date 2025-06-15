@@ -7,7 +7,9 @@ public enum PhaseType
     StartOfTurn,
     Draw,
     Charge,
-    Main
+    Main,
+    Attack,
+    EndOfTurn
 }
 
 public class TakeTurnEvent(PlayerV2 player, int turnNumber) : GameEventV2(player, false)
@@ -37,8 +39,13 @@ public class TakeTurnEvent(PlayerV2 player, int turnNumber) : GameEventV2(player
         }
         if (NextPhase == PhaseType.Main)
         {
-            // NextPhase = Phase.Main;
+            NextPhase = PhaseType.Attack;
             return [new MainPhaseEvent(Player)];
+        }
+        if (NextPhase == PhaseType.Attack)
+        {
+            NextPhase = PhaseType.EndOfTurn;
+            return [new AttackPhaseEvent(Player)];
         }
         return [];
     }

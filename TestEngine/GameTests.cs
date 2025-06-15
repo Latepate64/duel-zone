@@ -324,6 +324,119 @@ public class GameTests
         Assert.Equal(new UseCardEvent(state.ActivePlayer), state.PassableAction);
     }
 
+    [Fact]
+    public void AttackingCreatureIsNullThrows()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player))
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => CreateGame(state).Play(new AttackEvent(player)));
+
+        // Assert
+        Assert.Equal(IllegalActionType.AttackingCreatureIsNull, ex.Type);
+    }
+
+    [Fact]
+    public void AttackingCreatureIsTappedThrows()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(tapped: true);
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.AttackingCreatureIsTapped, ex.Type);
+    }
+
+    [Fact]
+    public void AttackingCreatureHasSummoningSicknessThrows()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature();
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.AttackingCreatureHasSummoningSickness, ex.Type);
+    }
+
+    [Fact]
+    public void AttackedCreatureAndAttackedPlayerAreNullThrows()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false);
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.AttackedCreatureAndAttackedPlayerAreNull, ex.Type);
+    }
+
+    [Fact]
+    public void AttackedCreatureAndAttackedPlayerAreNotNullThrows()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false);
+        var attackedCreature = CreateCreature();
+        var state = new GameState([player, (CreatePlayer(DeckSize))])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        var ex = Assert.Throws<IllegalActionException>(() => CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature,
+            AttackedCreature = attackedCreature,
+            AttackedPlayer = state.NonActivePlayers.Single()
+        }));
+
+        // Assert
+        Assert.Equal(IllegalActionType.AttackedCreatureAndAttackedPlayerAreNotNull, ex.Type);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<Card>();
@@ -343,9 +456,10 @@ public class GameTests
         };
     }
 
-    static Card CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1)
+    static Card CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1,
+        bool summoningSickness = true)
     {
-        return new Card(tapped, [civilization], manaCost);
+        return new Card(tapped, [civilization], manaCost, summoningSickness);
     }
 
     static GameState CreateGameState()

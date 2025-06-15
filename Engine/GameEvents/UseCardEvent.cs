@@ -6,8 +6,8 @@ namespace Engine.GameEvents;
 
 public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
-    public Card Card { get; set; }
-    public IEnumerable<Card> PaymentCards { get; set; } = [];
+    public Card Card { get; init; }
+    public IEnumerable<Card> PaymentCards { get; init; } = [];
     bool shouldEnd;
 
     public override bool Equals(object obj)
@@ -22,13 +22,13 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
     internal override void Validate(GameEventV2 gameEvent)
     {
         var use = IllegalActionException.ThrowIfNotOfType<UseCardEvent>(gameEvent);
-        IllegalActionException.ThrowIf(gameEvent, !Player.Hand.Cards.Contains(use.Card),
+        IllegalActionException.ThrowIf(use, !Player.Hand.Cards.Contains(use.Card),
             IllegalActionType.HandDoesNotContainCard);
-        IllegalActionException.ThrowIf(gameEvent, use.PaymentCards.Any(x => x.Tapped),
+        IllegalActionException.ThrowIf(use, use.PaymentCards.Any(x => x.Tapped),
             IllegalActionType.UseCardTappedManaForPayment);
-        IllegalActionException.ThrowIf(gameEvent, use.PaymentCards.Count() != use.Card.ManaCost,
+        IllegalActionException.ThrowIf(use, use.PaymentCards.Count() != use.Card.ManaCost,
             IllegalActionType.UseCardPaymentForManaCost);
-        IllegalActionException.ThrowIf(gameEvent, !HasCivilizations(use.PaymentCards, use.Card.Civilizations),
+        IllegalActionException.ThrowIf(use, !HasCivilizations(use.PaymentCards, use.Card.Civilizations),
             IllegalActionType.UseCardPaymentForCivilizations);
     }
 

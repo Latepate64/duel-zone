@@ -6,7 +6,8 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card(bool tapped, List<Civilization> civilizations, int manaCost) : ICopyable<Card>
+    public class Card(bool tapped, List<Civilization> civilizations, int manaCost, bool summoningSickness) :
+        ICopyable<Card>
     {
         readonly IList<Race> addedRaces = [];
         IList<Race> printedRaces = [];
@@ -28,6 +29,7 @@ namespace Engine
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
         public Player Owner { get; }
+        public PlayerV2 OwnerV2 { get; }
         public int PhysicalCardId { get; }
         public int? Power { get; private set; }
         public IList<IAbility> PrintedAbilities { get; } = [];
@@ -35,7 +37,7 @@ namespace Engine
         public List<Race> Races { get; private set; } = [];
         public string RulesText { get; private set; }
         public bool ShieldTrigger { get; private set; }
-        public bool SummoningSickness { get; private set; } = true;
+        public bool SummoningSickness { get; private set; } = summoningSickness;
         public List<Supertype> Supertypes { get; } = [];
         public bool Tapped { get; private set; } = tapped;
         public int Timestamp { get; private set; }
@@ -44,7 +46,8 @@ namespace Engine
         /// </summary>
         public Card Underneath { get; private set; }
 
-        protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost)
+        protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost,
+            card.SummoningSickness)
         {
             AddedAbilities = [.. card.AddedAbilities.Select(x => x.Copy())];
             cardType = card.cardType;
@@ -53,6 +56,7 @@ namespace Engine
             Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
+            OwnerV2 = card.OwnerV2;
             PhysicalCardId = card.PhysicalCardId;
             Power = card.Power;
             PrintedAbilities = [.. card.PrintedAbilities.Select(x => x.Copy())];
@@ -60,7 +64,6 @@ namespace Engine
             Races = card.Races?.ToList();
             RulesText = card.RulesText;
             ShieldTrigger = card.ShieldTrigger;
-            SummoningSickness = card.SummoningSickness;
             Supertypes = card.Supertypes?.ToList();
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             Underneath = card.Underneath;
@@ -68,7 +71,7 @@ namespace Engine
         }
 
         protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) :
-            this(false, [.. civilizations], manaCost)
+            this(false, [.. civilizations], manaCost, summoningSickness: true)
         {
             cardType = type;
             Name = name;
@@ -93,6 +96,7 @@ namespace Engine
                 && c.Name == Name
                 && c.OnTopOf == OnTopOf
                 && c.Owner == Owner
+                && c.OwnerV2 == OwnerV2
                 && c.PhysicalCardId == PhysicalCardId
                 && c.Power == Power
                 && c.PrintedAbilities.SequenceEqual(PrintedAbilities)

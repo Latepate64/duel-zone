@@ -9,4 +9,9 @@ public enum IllegalActionType
     UseCardTappedManaForPayment,
     UseCardPaymentForManaCost,
     UseCardPaymentForCivilizations,
+    AttackingCreatureIsNull,
+    AttackingCreatureIsTapped,
+    AttackingCreatureHasSummoningSickness,
+    AttackedCreatureAndAttackedPlayerAreNull,
+    AttackedCreatureAndAttackedPlayerAreNotNull,
 }

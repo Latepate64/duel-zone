@@ -15,7 +15,7 @@ public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(
     {
         var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
         // TODO: Consider that card may not be in hand
-        IllegalActionException.ThrowIf(gameEvent, !Player.Hand.Contains(charge.ChosenCard),
+        IllegalActionException.ThrowIf(charge, !Player.Hand.Contains(charge.ChosenCard),
             IllegalActionType.HandDoesNotContainCard);
     }
 

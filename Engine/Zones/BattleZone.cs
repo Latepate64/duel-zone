@@ -112,5 +112,9 @@ namespace Engine.Zones
         }
 
         public IEnumerable<Card> GetCreatures(Player player) => GetCreatures(player.Id);
+
+        IEnumerable<Card> GetCreatures(PlayerV2 player) => Creatures.Where(c => c.OwnerV2 == player);
+
+        internal IEnumerable<Card> GetUntappedCreatures(PlayerV2 player) => GetCreatures(player).Where(x => !x.Tapped);
     }
 }

@@ -23,7 +23,7 @@ public class GameState(PlayerV2[] players)
     public GameEventV2 PassableAction { get; set; }
     public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
     public int TurnNumber { get; internal set; }
-    public BattleZone BattleZone { get; } = new BattleZone();
+    public BattleZone BattleZone { get; init; } = new BattleZone();
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);
 
