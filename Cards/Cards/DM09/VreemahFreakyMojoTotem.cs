@@ -50,7 +50,7 @@ namespace Cards.Cards.DM09
 
         protected override List<Card> GetAffectedCards(IGame game)
         {
-            return [.. game.BattleZone.Creatures.Where(x => x.HasRace(Race.BeastFolk))];
+            return [.. game.BattleZone.GetCreatures(Race.BeastFolk)];
         }
     }
 }

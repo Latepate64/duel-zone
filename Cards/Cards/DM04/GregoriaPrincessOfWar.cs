@@ -2,7 +2,6 @@
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM04
 {
@@ -44,7 +43,7 @@ namespace Cards.Cards.DM04
 
         private static List<Card> GetAffectedCards(IGame game)
         {
-            return [.. game.BattleZone.Creatures.Where(x => x.HasRace(Race.DemonCommand))];
+            return [.. game.BattleZone.GetCreatures(Race.DemonCommand)];
         }
     }
 }

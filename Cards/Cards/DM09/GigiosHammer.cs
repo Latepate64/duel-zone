@@ -55,7 +55,8 @@ namespace Cards.Cards.DM09
 
         public void AddAbility(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(_race)).ToList().ForEach(x => x.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000)));
+            game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.AddGrantedAbility(
+                new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
         public bool AttacksIfAble(Card creature, IGame game)

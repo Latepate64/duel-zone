@@ -300,7 +300,7 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCreature()]),
+            Hand = new Engine.Zones.Hand([CreateCreature(), CreateCreature()]),
             ManaZone = new Engine.Zones.ManaZone([CreateCreature()]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
@@ -308,7 +308,7 @@ public class GameTests
             EventsHappening = new(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var toUse = player.Hand.Cards.Single();
+        var toUse = player.Hand.Cards.Last();
 
         // Act
         CreateGame(state).Play(new UseCardEvent(player)

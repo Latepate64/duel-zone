@@ -8,7 +8,7 @@ public class ChargePhaseEvent(PlayerV2 player) : GameEventV2(player, false)
 
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {
-        if (!shouldEnd)
+        if (!shouldEnd && Player.Hand.HasCards)
         {
             shouldEnd = true;
             return [new ChargeEvent(Player, true)];

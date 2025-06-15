@@ -35,7 +35,7 @@ namespace Cards.Cards.DM04
 
         public void ModifyPower(IGame game)
         {
-            game.BattleZone.Creatures.Where(x => x.HasRace(Race.ArmoredDragon)).ToList().ForEach(x => x.IncreasePower(1000));
+            game.BattleZone.GetCreatures(Race.ArmoredDragon).ToList().ForEach(x => x.IncreasePower(1000));
         }
     }
 }

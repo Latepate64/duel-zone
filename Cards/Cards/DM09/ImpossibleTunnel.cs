@@ -55,7 +55,7 @@ namespace Cards.Cards.DM09
 
         public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
         {
-            return game.BattleZone.Creatures.Where(x => x.HasRace(_race)).Contains(attacker);
+            return game.BattleZone.GetCreatures(_race).Contains(attacker);
         }
 
         public override IContinuousEffect Copy()
