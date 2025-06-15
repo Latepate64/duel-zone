@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -32,7 +31,7 @@ namespace Cards.Cards.DM08
 
         protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.Hand.Cards.Where(x => x.IsDragon);
+            return Controller.Hand.Dragons;
         }
     }
 }

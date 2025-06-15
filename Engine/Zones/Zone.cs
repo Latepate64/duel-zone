@@ -78,5 +78,7 @@ namespace Engine.Zones
         {
             randomizer.Shuffle(cards);
         }
+
+        public IEnumerable<Card> Dragons => Creatures.Where(x => x.IsDragon);
     }
 }

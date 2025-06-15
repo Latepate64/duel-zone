@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM08
 {
@@ -18,7 +17,7 @@ namespace Cards.Cards.DM08
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. Controller.Graveyard.Cards.Where(x => x.IsDragon)]);
+                game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. Controller.Graveyard.Dragons]);
             }
         }
 
