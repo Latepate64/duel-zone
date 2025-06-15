@@ -80,5 +80,7 @@ namespace Engine.Zones
         }
 
         public IEnumerable<Card> Dragons => Creatures.Where(x => x.IsDragon);
+
+        public IEnumerable<Card> CardsWithName(string name) => cards.Where(x => x.Name == name);
     }
 }

@@ -20,7 +20,7 @@ namespace Cards.OneShotEffects
 
         protected int GetAmount(IGame game)
         {
-            return 1 + game.Players.SelectMany(x => x.Graveyard.Cards.Where(x => x.Name == _name)).Count();
+            return 1 + game.Players.SelectMany(x => x.Graveyard.CardsWithName(_name)).Count();
         }
     }
 }
