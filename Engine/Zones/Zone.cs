@@ -58,7 +58,8 @@ namespace Engine.Zones
 
         public int GetCreatureCount(Guid owner) => GetCreatures(owner).Count();
 
-        public IEnumerable<Card> GetCreatures(Race race) => Creatures.Where(x => x.HasRace(race));
+        public IEnumerable<Card> GetCreatures(params Race[] races) => Creatures.Where(creature => creature.Races.Any(
+            race => races.Contains(race)));
 
         public IEnumerable<Card> GetCards(Civilization civilization) => cards.Where(x => x.HasCivilization(
             civilization));

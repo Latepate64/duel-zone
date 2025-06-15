@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
 namespace Cards.Cards.DM11
 {
@@ -16,8 +15,8 @@ namespace Cards.Cards.DM11
     {
         public override void Apply(IGame game)
         {
-            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. Controller.Graveyard.Cards.Where(x => x.HasRace(Race.SnowFaerie))]);
-            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, [.. Controller.ManaZone.Cards.Where(x => x.HasRace(Race.SnowFaerie))]);
+            game.Move(Ability, ZoneType.Graveyard, ZoneType.Hand, [.. Controller.Graveyard.GetCreatures(Race.SnowFaerie)]);
+            game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, [.. Controller.ManaZone.GetCreatures(Race.SnowFaerie)]);
         }
 
         public override IOneShotEffect Copy()
