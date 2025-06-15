@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -37,7 +36,7 @@ namespace Cards.Cards.DM03
 
         public bool Applies(Card card, IGame game)
         {
-            return IsSourceOfAbility(card) && !Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Fire));
+            return IsSourceOfAbility(card) && !Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Fire);
         }
     }
 

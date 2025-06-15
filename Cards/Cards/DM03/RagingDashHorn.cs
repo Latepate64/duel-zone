@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -47,12 +46,7 @@ namespace Cards.Cards.DM03
 
         private bool Applies(IGame game)
         {
-            var ability = Ability;
-            if (ability != null)
-            {
-                return ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Nature));
-            }
-            return false;
+            return Ability != null && Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Nature);
         }
     }
 }

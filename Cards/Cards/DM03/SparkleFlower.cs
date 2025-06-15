@@ -1,7 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM03
 {
@@ -21,7 +20,7 @@ namespace Cards.Cards.DM03
 
         public bool CanBlock(Card blocker, Card attacker, IGame game)
         {
-            return IsSourceOfAbility(blocker) && Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization.Light));
+            return IsSourceOfAbility(blocker) && Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Light);
         }
 
         public override IContinuousEffect Copy()

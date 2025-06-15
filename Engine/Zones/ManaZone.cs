@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Engine.Zones
@@ -15,8 +14,10 @@ namespace Engine.Zones
         {
         }
 
-        public IEnumerable<Card> TappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => card.Tapped)]);
-        public IEnumerable<Card> UntappedCards => new ReadOnlyCollection<Card>([.. Cards.Where(card => !card.Tapped)]);
+        public IEnumerable<Card> TappedCards => Cards.Where(card => card.Tapped);
+        public IEnumerable<Card> UntappedCards => Cards.Where(card => !card.Tapped);
+
+        public bool AreAllCivilizationCards(Civilization civ) => Cards.All(x => x.HasCivilization(civ));
 
         public ManaZone Copy()
         {

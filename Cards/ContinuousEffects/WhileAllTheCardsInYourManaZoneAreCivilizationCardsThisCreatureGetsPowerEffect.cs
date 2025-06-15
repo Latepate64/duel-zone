@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.ContinuousEffects
 {
@@ -28,7 +27,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            if (Ability.Controller.ManaZone.Cards.All(x => x.HasCivilization(Civilization)))
+            if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
             {
                 Source.IncreasePower(Power);
             }
