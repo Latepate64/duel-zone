@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Engine;
 using Engine.GameEvents;
+using Engine.Zones;
 using Moq;
 using Xunit;
 
@@ -246,8 +247,8 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCreature()]),
-            ManaZone = new Engine.Zones.ManaZone([CreateCreature(tapped: true)]),
+            Hand = new Hand([CreateCreature()]),
+            ManaZone = new ManaZone([CreateCreature(tapped: true)]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
@@ -273,8 +274,8 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCreature(Civilization.Light)]),
-            ManaZone = new Engine.Zones.ManaZone([CreateCreature(Civilization.Water)]),
+            Hand = new Hand([CreateCreature(Civilization.Light)]),
+            ManaZone = new ManaZone([CreateCreature(Civilization.Water)]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
@@ -300,8 +301,8 @@ public class GameTests
         // Arrange
         var player = new PlayerV2()
         {
-            Hand = new Engine.Zones.Hand([CreateCreature(), CreateCreature()]),
-            ManaZone = new Engine.Zones.ManaZone([CreateCreature()]),
+            Hand = new Hand([CreateCreature(), CreateCreature()]),
+            ManaZone = new ManaZone([CreateCreature()]),
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
@@ -351,7 +352,7 @@ public class GameTests
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new AttackPhaseEvent(player)),
-            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+            BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
 
@@ -374,7 +375,7 @@ public class GameTests
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new AttackPhaseEvent(player)),
-            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+            BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
 
@@ -397,7 +398,7 @@ public class GameTests
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new AttackPhaseEvent(player)),
-            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+            BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
 
@@ -421,7 +422,7 @@ public class GameTests
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
             EventsHappening = new(new AttackPhaseEvent(player)),
-            BattleZone = new Engine.Zones.BattleZone([attackingCreature]),
+            BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
 
@@ -437,6 +438,88 @@ public class GameTests
         Assert.Equal(IllegalActionType.AttackedCreatureAndAttackedPlayerAreNotNull, ex.Type);
     }
 
+    [Fact]
+    public void AttackingACreatureWithLowerPowerDestroysTheDefendingCreature()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var opponent = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false, power: 2000, owner: player);
+        var defendingCreature = CreateCreature(power: 1000, owner: opponent);
+        var state = new GameState([player, opponent])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature,
+            AttackedCreature = defendingCreature,
+        });
+
+        // Assert
+        Assert.Contains(attackingCreature, state.BattleZone.Creatures);
+        Assert.True(attackingCreature.Tapped);
+        Assert.Contains(defendingCreature, opponent.Graveyard.Creatures);
+    }
+
+    [Fact]
+    public void AttackingACreatureWithHigherPowerDestroysTheAttackingCreature()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var opponent = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false, power: 1000, owner: player);
+        var defendingCreature = CreateCreature(power: 2000, owner: opponent);
+        var state = new GameState([player, opponent])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature,
+            AttackedCreature = defendingCreature,
+        });
+
+        // Assert
+        Assert.Contains(defendingCreature, state.BattleZone.Creatures);
+        Assert.Contains(attackingCreature, player.Graveyard.Creatures);
+    }
+
+    [Fact]
+    public void AttackingACreatureWithEqualPowerDestroysBothCreatures()
+    {
+        // Arrange
+        var player = CreatePlayer(DeckSize);
+        var opponent = CreatePlayer(DeckSize);
+        var attackingCreature = CreateCreature(summoningSickness: false, power: 1000, owner: player);
+        var defendingCreature = CreateCreature(power: 1000, owner: opponent);
+        var state = new GameState([player, opponent])
+        {
+            EventsHappening = new(new AttackPhaseEvent(player)),
+            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
+        };
+        state.PassableAction = new AttackEvent(state.ActivePlayer);
+
+        // Act
+        CreateGame(state).Play(new AttackEvent(player)
+        {
+            AttackingCreature = attackingCreature,
+            AttackedCreature = defendingCreature,
+        });
+
+        // Assert
+        Assert.Contains(attackingCreature, player.Graveyard.Creatures);
+        Assert.Contains(defendingCreature, opponent.Graveyard.Creatures);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<Card>();
@@ -449,17 +532,19 @@ public class GameTests
         {
             handCards.Add(CreateCreature());
         }
-        return new PlayerV2
+        var player = new PlayerV2
         {
-            Deck = new Engine.Zones.Deck([.. deckCards]),
-            Hand = new Engine.Zones.Hand([.. handCards])
+            Deck = new Deck([.. deckCards]),
+            Hand = new Hand([.. handCards])
         };
+        player.SetOwnerForCards();
+        return player;
     }
 
-    static Card CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false, int manaCost = 1,
-        bool summoningSickness = true)
+    static Card CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false,
+        int manaCost = 1, bool summoningSickness = true, int power = 1000, PlayerV2 owner = null)
     {
-        return new Card(tapped, [civilization], manaCost, summoningSickness);
+        return new Card(tapped, [civilization], manaCost, summoningSickness, power) { OwnerV2 = owner };
     }
 
     static GameState CreateGameState()
@@ -481,5 +566,5 @@ public class GameTests
         return game;
     }
 
-    static Game CreateGame(GameState state, int maxloopCount = 5) => new(Mock.Of<IRandomizer>(), state, maxloopCount);
+    static Game CreateGame(GameState state, int maxloopCount = 99) => new(Mock.Of<IRandomizer>(), state, maxloopCount);
 }

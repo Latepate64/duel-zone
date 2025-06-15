@@ -128,7 +128,7 @@ namespace Engine.ContinuousEffects
 
         public bool DoesCreatureGetDestroyedInBattle(Card against, Card target)
         {
-            return GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, Game));
+            return !GetContinuousEffects<INotDestroyedInBattleEffect>().Any(x => x.Applies(against, target, Game));
         }
 
         public bool CanCreatureBlockCreature(Card blocker, Card attackingCreature)

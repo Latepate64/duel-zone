@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card(bool tapped, List<Civilization> civilizations, int manaCost, bool summoningSickness) :
+    public class Card(bool tapped, List<Civilization> civilizations, int manaCost, bool summoningSickness, int? power) :
         ICopyable<Card>
     {
         readonly IList<Race> addedRaces = [];
@@ -17,7 +17,6 @@ namespace Engine
         public List<Civilization> Civilizations { get; } = civilizations;
         public bool FaceDown { get; private set; }
         public Guid Id { get; } = Guid.NewGuid();
-        public bool LostInBattle { get; private set; }
         public int ManaCost { get; } = manaCost;
         public string Name { get; }
         /// <summary>
@@ -29,9 +28,9 @@ namespace Engine
         /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
         /// </summary>
         public Player Owner { get; }
-        public PlayerV2 OwnerV2 { get; }
+        public PlayerV2 OwnerV2 { get; set; }
         public int PhysicalCardId { get; }
-        public int? Power { get; private set; }
+        public int? Power { get; private set; } = power;
         public IList<IAbility> PrintedAbilities { get; } = [];
         public int? PrintedPower { get; }
         public List<Race> Races { get; private set; } = [];
@@ -47,7 +46,7 @@ namespace Engine
         public Card Underneath { get; private set; }
 
         protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost,
-            card.SummoningSickness)
+            card.SummoningSickness, card.Power)
         {
             AddedAbilities = [.. card.AddedAbilities.Select(x => x.Copy())];
             cardType = card.cardType;
@@ -71,7 +70,7 @@ namespace Engine
         }
 
         protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) :
-            this(false, [.. civilizations], manaCost, summoningSickness: true)
+            this(false, [.. civilizations], manaCost, summoningSickness: true, power)
         {
             cardType = type;
             Name = name;
@@ -91,7 +90,6 @@ namespace Engine
                 && c.Civilizations.SequenceEqual(Civilizations)
                 && c.FaceDown == FaceDown
                 && c.Id == Id
-                && c.LostInBattle == LostInBattle
                 && c.ManaCost == ManaCost
                 && c.Name == Name
                 && c.OnTopOf == OnTopOf
@@ -292,7 +290,7 @@ namespace Engine
 
         internal void SetLostInBattle()
         {
-            LostInBattle = true;
+            throw new NotImplementedException("TODO: delete when BattleEvent is deleted");
         }
 
         public void IncreasePower(int power)

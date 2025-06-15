@@ -89,5 +89,10 @@ namespace Engine.Zones
         public IEnumerable<Card> NonCivilizationCards(Civilization civ) => cards.Where(x => !x.HasCivilization(civ));
 
         public IEnumerable<Card> CardsWithManaCost(int manaCost) => cards.Where(x => x.ManaCost == manaCost);
+
+        public void SetOwner(PlayerV2 owner)
+        {
+            cards.ForEach(c => c.OwnerV2 = owner);
+        }
     }
 }

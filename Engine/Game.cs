@@ -120,11 +120,15 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue(loopCounter);
             return;
         }
-        var gameEvent = events.Single(); // TODO: May include multiple events
-        if (gameEvent.Passable)
+        var passables = events.Where(x => x.Passable);
+        if (passables.Count() == 1)
         {
-            State.PassableAction = gameEvent;
+            State.PassableAction = passables.Single();
             return;
+        }
+        if (passables.Count() > 1)
+        {
+            throw new NotImplementedException();
         }
         State.EventsThatWouldHappen.Add([.. events]);
         Continue(loopCounter);
