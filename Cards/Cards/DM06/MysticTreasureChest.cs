@@ -2,7 +2,6 @@
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cards.Cards.DM06
 {
@@ -41,7 +40,7 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
-            return Controller.Deck.Cards.Where(x => !x.HasCivilization(Civilization.Nature));
+            return Controller.Deck.NonCivilizationCards(Civilization.Nature);
         }
     }
 }
