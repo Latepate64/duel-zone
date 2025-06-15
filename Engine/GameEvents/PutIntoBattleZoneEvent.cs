@@ -7,7 +7,7 @@ public class PutIntoBattleZoneEvent(PlayerV2 player, bool passable, Card card) :
 
     internal override Card RemoveCardFromCurrentZone()
     {
-        Player.Hand.Remove(Card, null); // TODO: May not be in hand always
+        Player.Hand.Remove(Card); // TODO: May not be in hand always
         return Card;
     }
 

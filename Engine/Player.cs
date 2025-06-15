@@ -85,8 +85,7 @@ namespace Engine
         public void ArrangeTopCardsOfDeck(params Card[] cards)
         {
             var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
-            Deck.Cards.RemoveAll(x => arranged.Contains(x));
-            arranged.ToList().ForEach(x => Deck.Cards.Add(x));
+            throw new NotImplementedException();
         }
 
         public void BurnOwnMana(IGame game, IAbility ability)
@@ -392,8 +391,7 @@ namespace Engine
         public void PutOnTheBottomOfDeckInAnyOrder(Card[] cards)
         {
             var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
-            Deck.Cards.RemoveAll(x => arranged.Contains(x));
-            Deck.PutOnBottom(arranged);
+            throw new NotImplementedException();
         }
 
         public void PutOwnHandCardIntoMana(IGame game, IAbility source)
@@ -435,7 +433,7 @@ namespace Engine
 
         public void RevealFromTopDeckUntilNonEvolutionCreaturePutIntoBattleZoneRestIntoGraveyard(IGame game, IAbility source)
         {
-            var index = Deck.Cards.FindLastIndex(x => x.IsNonEvolutionCreature);
+            var index = 0; //Deck.Cards.FindLastIndex(x => x.IsNonEvolutionCreature);
             var revealed = Deck.Cards.Skip(index).ToArray();
             ShowCardsToOpponent(game, revealed);
             var creature = index != -1 ? revealed.FirstOrDefault() : null;

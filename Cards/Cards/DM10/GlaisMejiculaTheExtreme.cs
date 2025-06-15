@@ -29,7 +29,7 @@ namespace Cards.Cards.DM10
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
             var e = gameEvent as ShieldsBreakEvent;
-            var maximum = Controller.Hand.Cards.Count() / 2;
+            var maximum = Controller.Hand.Size / 2;
             var shields = Controller.ChooseCards(e.Shields, 0, maximum, ToString());
             if (shields.Any())
             {

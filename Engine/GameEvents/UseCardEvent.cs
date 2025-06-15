@@ -7,7 +7,7 @@ namespace Engine.GameEvents;
 public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
     public Card Card { get; set; }
-    public List<Card> PaymentCards { get; set; } = [];
+    public IEnumerable<Card> PaymentCards { get; set; } = [];
     bool shouldEnd;
 
     public override bool Equals(object obj)
@@ -26,7 +26,7 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
             IllegalActionType.HandDoesNotContainCard);
         IllegalActionException.ThrowIf(gameEvent, use.PaymentCards.Any(x => x.Tapped),
             IllegalActionType.UseCardTappedManaForPayment);
-        IllegalActionException.ThrowIf(gameEvent, use.PaymentCards.Count != use.Card.ManaCost,
+        IllegalActionException.ThrowIf(gameEvent, use.PaymentCards.Count() != use.Card.ManaCost,
             IllegalActionType.UseCardPaymentForManaCost);
         IllegalActionException.ThrowIf(gameEvent, !HasCivilizations(use.PaymentCards, use.Card.Civilizations),
             IllegalActionType.UseCardPaymentForCivilizations);
@@ -64,7 +64,7 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
         }
         if (Card.IsSpell)
         {
-            Player.Hand.Remove(Card, null); // TODO: May not be in hand always
+            Player.Hand.Remove(Card); // TODO: May not be in hand always
             // TODO: Resolve spell
             return [new PutIntoGraveyardEvent(Player, Card)];
         }

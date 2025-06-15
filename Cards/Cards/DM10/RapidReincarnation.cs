@@ -19,7 +19,7 @@ namespace Cards.Cards.DM10
         {
             if (Controller.DestroyOwnCreatureOptionally(ToString(), game, Ability) != null)
             {
-                Card card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Cards.Count), ToString());
+                Card card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Size), ToString());
                 Controller.PutCreatureFromOwnHandIntoBattleZone(card, game, Ability);
             }
         }

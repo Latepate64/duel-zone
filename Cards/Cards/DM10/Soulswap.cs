@@ -25,7 +25,7 @@ namespace Cards.Cards.DM10
                 if (creature != null)
                 {
                     Controller.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, game, Ability);
-                    IEnumerable<Card> manas = creature.Owner.ManaZone.GetNonEvolutionCreaturesThatCostSameOrLessThan(creature.Owner.ManaZone.Cards.Count);
+                    IEnumerable<Card> manas = creature.Owner.ManaZone.GetNonEvolutionCreaturesThatCostSameOrLessThan(creature.Owner.ManaZone.Size);
                     Card mana = Controller.ChooseCard(manas, "Choose a non-evolution creature in that player's mana zone that costs the same as or less than the number of cards in that mana zone. That player puts that creature into the battle zone.");
                     mana?.Owner.PutCreatureFromOwnManaZoneIntoBattleZone(mana, game, Ability);
                 }

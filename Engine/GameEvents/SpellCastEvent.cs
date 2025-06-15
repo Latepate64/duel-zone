@@ -11,7 +11,7 @@ namespace Engine.GameEvents
         public override void Happen(IGame game)
         {
             // 601.2a To propose the casting of a spell, a player first moves that card from where it is to the stack.
-            game.GetZone(Spell).Remove(Spell, game);
+            game.GetZone(Spell).Remove(Spell);
             Spell = Spell.Copy();
             Spell.SetTimestamp(game.GetTimestamp());
             game.SpellStack.Add(Spell);

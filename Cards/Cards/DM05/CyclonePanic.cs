@@ -22,7 +22,7 @@ namespace Cards.Cards.DM05
 
         private static void Apply(Player player, IGame game, IAbility source)
         {
-            var amount = player.Hand.Cards.Count;
+            var amount = player.Hand.Size;
             game.Move(source, ZoneType.Hand, ZoneType.Deck, [.. player.Hand.Cards]);
             player.ShuffleOwnDeck(game);
             player.DrawCards(amount, game, source);

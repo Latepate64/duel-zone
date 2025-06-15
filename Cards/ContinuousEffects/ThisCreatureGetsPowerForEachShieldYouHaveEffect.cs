@@ -25,7 +25,7 @@ namespace Cards.ContinuousEffects
 
         protected override int GetMultiplier(IGame game)
         {
-            return Controller.ShieldZone.Cards.Count;
+            return Controller.ShieldZone.Size;
         }
     }
 }

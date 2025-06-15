@@ -26,11 +26,13 @@ public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool 
         }
         if (Destination == ZoneType.ManaZone)
         {
+            // TODO: Multicolored tapped
             Player.ManaZone.Add(card);
             return [];
         }
         if (Destination == ZoneType.ShieldZone)
         {
+            // TODO: Face down
             Player.ShieldZone.Add(card);
             return [];
         }

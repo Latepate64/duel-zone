@@ -22,8 +22,9 @@ public class GameTests
         var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
         var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
         var randomizer = new Mock<IRandomizer>();
-        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards)).Callback((List<Card> cards) => cards.Reverse());
-        randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards));
+        randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards.ToList())).Callback(
+            (List<Card> cards) => cards.Reverse());
+        randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards.ToList()));
         var game = new Game(randomizer.Object);
         var startingDeck = startingPlayer.Deck.Cards.ToList();
         startingDeck.Reverse();
@@ -187,7 +188,7 @@ public class GameTests
         // Arrange
         var game = CreateAndStartGame();
         var player = game.State.ActivePlayer;
-        var toCharge = player.Hand.Cards[3];
+        var toCharge = player.Hand.Cards.ElementAt(3);
 
         // Act
         game.Play(new ChargeEvent(player) { ChosenCard = toCharge });

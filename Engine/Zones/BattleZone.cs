@@ -1,6 +1,4 @@
-﻿using Engine.Abilities;
-using Engine.Steps;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,39 +15,6 @@ namespace Engine.Zones
 
         public BattleZone(BattleZone zone) : base(zone)
         {
-        }
-
-        internal override void Add(Card card)
-        {
-            Cards.Add(card);
-        }
-
-        internal override List<Card> Remove(Card card, IGame game)
-        {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase phase)
-            {
-                if (card == phase.AttackingCreature)
-                {
-                    phase.RemoveAttackingCreature(game);
-                }
-                else if (card == phase.AttackTarget)
-                {
-                    phase.AttackTarget = null;
-                }
-                else if (card == phase.BlockingCreature)
-                {
-                    phase.BlockingCreature = null;
-                }
-            }
-            if (!Cards.Remove(card))
-            {
-                return [];
-            }
-            else
-            {
-                game.ContinuousEffects.Remove(card.GetAbilities<IStaticAbility>().Where(x => x.FunctionZone == ZoneType.BattleZone).Select(x => x.Id));
-                return [.. card.Deconstruct([])];
-            }
         }
 
         public IEnumerable<Card> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner)
@@ -146,9 +111,6 @@ namespace Engine.Zones
             return GetCreatures(player.Id).Where(x => x.GetSilentSkillAbilities().Any());
         }
 
-        public IEnumerable<Card> GetCreatures(Player player)
-        {
-            return GetCreatures(player.Id);
-        }
+        public IEnumerable<Card> GetCreatures(Player player) => GetCreatures(player.Id);
     }
 }

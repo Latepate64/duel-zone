@@ -23,11 +23,10 @@ namespace Cards.Cards.DM10
 
         public override void Apply(IGame game)
         {
-            var player = Controller;
-            var hand = player.Hand.Cards;
-            var amount = hand.Count;
-            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, [.. hand]);
-            var cards = player.ChooseCards(player.ManaZone.Cards, amount, amount, ToString());
+            var hand = Controller.Hand;
+            var amount = hand.Size;
+            game.Move(Ability, ZoneType.Hand, ZoneType.ManaZone, [.. hand.Cards]);
+            var cards = Controller.ChooseCards(Controller.ManaZone.Cards, amount, amount, ToString());
             game.Move(Ability, ZoneType.ManaZone, ZoneType.Hand, [.. cards]);
         }
 

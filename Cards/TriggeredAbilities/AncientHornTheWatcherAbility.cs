@@ -20,7 +20,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return Controller.ShieldZone.Cards.Count >= 5;
+            return Controller.ShieldZone.Size >= 5;
         }
 
         public override string ToString()
@@ -50,7 +50,7 @@ namespace Cards.TriggeredAbilities
 
         public override bool CheckInterveningIfClause(IGame game)
         {
-            return GetOpponent(game).ShieldZone.Cards.Count <= _shieldsMaximum;
+            return GetOpponent(game).ShieldZone.Size <= _shieldsMaximum;
         }
 
         public override string ToString()

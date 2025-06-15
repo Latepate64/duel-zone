@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM09
 {
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM09
 
         protected override int GetMultiplier(IGame game)
         {
-            return Controller.Hand.Cards.Count();
+            return Controller.Hand.Size;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Engine.Zones
+﻿namespace Engine.Zones
 {
     /// <summary>
     /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
@@ -15,27 +13,9 @@ namespace Engine.Zones
         {
         }
 
-        internal override void Add(Card card)
-        {
-            // card.KnownTo = new List<Guid> { card.Owner.Id };
-            Cards.Add(card);
-        }
-
         public Hand Copy()
         {
             return new Hand(this);
-        }
-
-        internal override List<Card> Remove(Card card, IGame game)
-        {
-            if (Cards.Remove(card))
-            {
-                return [card];
-            }
-            else
-            {
-                return [];
-            }
         }
     }
 }

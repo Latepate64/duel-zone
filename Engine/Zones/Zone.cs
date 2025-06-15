@@ -9,28 +9,38 @@ namespace Engine.Zones
     /// </summary>
     public abstract class Zone : IDisposable
     {
-        public List<Card> Cards { get; init; } = [];
-
-        public IEnumerable<Card> Creatures => Cards.Where(x => x.IsCreature);
-        public IEnumerable<Card> Spells => Cards.Where(x => x.IsSpell);
-
+        readonly List<Card> cards = [];
         public ZoneType Type { get; }
-        public bool HasCards => Cards.Count != 0;
+
+        public IEnumerable<Card> Creatures => cards.Where(x => x.IsCreature);
+        public IEnumerable<Card> Spells => cards.Where(x => x.IsSpell);
+
+        public int Size => cards.Count;
+        public bool HasCards => Size != 0;
+        public IEnumerable<Card> Cards => cards;
 
         protected Zone(ZoneType type, params Card[] cards)
         {
             Type = type;
-            Cards = [.. cards];
+            this.cards = [.. cards];
         }
 
         protected Zone(Zone zone)
         {
-            Cards = [.. zone.Cards.Select(x => x.Copy())];
+            cards = [.. zone.Cards.Select(x => x.Copy())];
         }
 
-        internal abstract void Add(Card card);
+        public override bool Equals(object obj)
+        {
+            return obj is Zone zone && cards.SequenceEqual(zone.cards) && Type == zone.Type;
+        }
 
-        internal abstract List<Card> Remove(Card card, IGame game);
+        internal void Add(Card card)
+        {
+            cards.Add(card);
+        }
+
+        internal IEnumerable<Card> Remove(Card card) => cards.Remove(card) ? [card] : [];
 
         protected virtual void Dispose(bool disposing)
         {
@@ -48,7 +58,7 @@ namespace Engine.Zones
 
         public IEnumerable<Card> GetCreatures(Race race) => Creatures.Where(x => x.HasRace(race));
 
-        public IEnumerable<Card> GetCards(Civilization civilization) => Cards.Where(x => x.HasCivilization(
+        public IEnumerable<Card> GetCards(Civilization civilization) => cards.Where(x => x.HasCivilization(
             civilization));
 
         public int GetCardCount(Civilization civilization) => GetCards(civilization).Count();
@@ -61,5 +71,12 @@ namespace Engine.Zones
         public IEnumerable<Card> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
 
         public IEnumerable<Card> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
+
+        internal bool Contains(Card card) => cards.Contains(card);
+
+        internal void Shuffle(IRandomizer randomizer)
+        {
+            randomizer.Shuffle(cards);
+        }
     }
 }

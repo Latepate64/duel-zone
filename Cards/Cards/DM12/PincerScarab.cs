@@ -1,6 +1,5 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.Cards.DM12
 {
@@ -26,7 +25,7 @@ namespace Cards.Cards.DM12
 
         protected override int GetMultiplier(IGame game)
         {
-            return game.GetPlayer(game.GetOpponent(Controller.Id)).Hand.Cards.Count();
+            return game.GetPlayer(game.GetOpponent(Controller.Id)).Hand.Size;
         }
     }
 }

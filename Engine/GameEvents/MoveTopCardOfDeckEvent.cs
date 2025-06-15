@@ -5,7 +5,7 @@ public class MoveTopCardOfDeckEvent(PlayerV2 player, ZoneType zoneType) : MoveCa
     internal override Card RemoveCardFromCurrentZone()
     {
         var card = Player.Deck.TopCard;
-        Player.Deck.Remove(card, game: null);
+        Player.Deck.Remove(card);
         return card;
     }
 }

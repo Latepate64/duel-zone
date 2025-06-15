@@ -7,7 +7,7 @@ public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(
     internal override Card RemoveCardFromCurrentZone()
     {
         // TODO: Consider that card may not be in hand
-        Player.Hand.Remove(ChosenCard, game: null);
+        Player.Hand.Remove(ChosenCard);
         return ChosenCard;
     }
 
@@ -15,7 +15,7 @@ public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(
     {
         var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
         // TODO: Consider that card may not be in hand
-        IllegalActionException.ThrowIf(gameEvent, !Player.Hand.Cards.Contains(charge.ChosenCard),
+        IllegalActionException.ThrowIf(gameEvent, !Player.Hand.Contains(charge.ChosenCard),
             IllegalActionType.HandDoesNotContainCard);
     }
 

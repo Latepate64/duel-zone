@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Engine.Zones
+﻿namespace Engine.Zones
 {
     public class SpellStack : Zone, ICopyable<SpellStack>
     {
@@ -12,20 +10,9 @@ namespace Engine.Zones
         {
         }
 
-        internal override void Add(Card card)
-        {
-            Cards.Add(card);
-        }
-
         public SpellStack Copy()
         {
             return new SpellStack(this);
-        }
-
-        internal override List<Card> Remove(Card card, IGame game)
-        {
-            Cards.Remove(card);
-            return [card];
         }
     }
 }
