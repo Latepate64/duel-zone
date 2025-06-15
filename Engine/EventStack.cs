@@ -7,19 +7,17 @@ namespace Engine;
 
 public class EventStack(params GameEventV2[] events)
 {
-    readonly Stack<GameEventV2> events = new(events);
+    readonly Stack<GameEventV2[]> events = new([events]);
 
-    internal void Push(GameEventV2 gameEvent)
+    internal void Push(params GameEventV2[] gameEvents)
     {
-        events.Push(gameEvent);
+        events.Push(gameEvents);
     }
 
-    internal GameEventV2 Pop()
+    internal GameEventV2[] Pop()
     {
         return events.Pop();
     }
-
-    internal GameEventV2 Peek() => events.Peek();
 
     internal bool IsEmpty => events.Count == 0;
 
@@ -27,5 +25,10 @@ public class EventStack(params GameEventV2[] events)
     {
         return obj is EventStack stack
             && events.SequenceEqual(stack.events);
+    }
+
+    internal IEnumerable<GameEventV2> Happen(GameState state)
+    {
+        return [.. events.Peek().SelectMany(x => x.Happen(state))];
     }
 }

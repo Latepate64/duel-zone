@@ -14,7 +14,7 @@ public class EventsThatWouldHappen
 
     internal IEnumerable<GameEventV2> Get()
     {
-        return _eventsThatWouldHappen;
+        return [.. _eventsThatWouldHappen];
     }
 
     internal void Clear()

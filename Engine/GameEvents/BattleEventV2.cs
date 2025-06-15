@@ -40,7 +40,7 @@ public class BattleEventV2(PlayerV2 player, Card attackingCreature, Card defendi
         {
             return [
                 .. GetDestroyEvents(state, AttackingCreature, DefendingCreature),
-            .. GetDestroyEvents(state, DefendingCreature, AttackingCreature)];
+                .. GetDestroyEvents(state, DefendingCreature, AttackingCreature)];
         }
     }
 

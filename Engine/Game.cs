@@ -94,13 +94,12 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             throw new InvalidOperationException("Looped too many times");
         }
-        if (State.EventsThatWouldHappen.Get().Any())
+        var eventsThatWouldHappen = State.EventsThatWouldHappen.Get();
+        if (eventsThatWouldHappen.Any())
         {
             // TODO: Check if any event could be replaced
-            // TODO: Consider multiple events happening simultaneously
-            var happeningEvent = State.EventsThatWouldHappen.Get().First();
             State.EventsThatWouldHappen.Clear();
-            State.EventsHappening.Push(happeningEvent);
+            State.EventsHappening.Push([.. eventsThatWouldHappen]);
         }
         if (State.EventsHappening.IsEmpty)
         {
@@ -112,7 +111,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue(loopCounter);
             return;
         }
-        var events = State.EventsHappening.Peek().Happen(State);
+        var events = State.EventsHappening.Happen(State);
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
