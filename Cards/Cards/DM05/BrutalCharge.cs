@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM05
 {
-    class BrutalCharge : Spell
+    class BrutalCharge : Engine.Spell
     {
         public BrutalCharge() : base("Brutal Charge", 2, Civilization.Nature)
         {

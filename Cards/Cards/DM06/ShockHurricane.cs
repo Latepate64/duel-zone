@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class ShockHurricane : Spell
+    class ShockHurricane : Engine.Spell
     {
         public ShockHurricane() : base("Shock Hurricane", 5, Civilization.Water)
         {

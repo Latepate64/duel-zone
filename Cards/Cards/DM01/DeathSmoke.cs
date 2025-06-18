@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class DeathSmoke : Spell
+    class DeathSmoke : Engine.Spell
     {
         public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
         {

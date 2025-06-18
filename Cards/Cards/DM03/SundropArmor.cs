@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM03
 {
-    class SundropArmor : Spell
+    class SundropArmor : Engine.Spell
     {
         public SundropArmor() : base("Sundrop Armor", 4, Engine.Civilization.Light)
         {

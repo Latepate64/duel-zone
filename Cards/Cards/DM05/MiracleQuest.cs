@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM05
 {
-    class MiracleQuest : Spell
+    class MiracleQuest : Engine.Spell
     {
         public MiracleQuest() : base("Miracle Quest", 3, Civilization.Water)
         {

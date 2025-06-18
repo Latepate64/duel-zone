@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM04
 {
-    class Darkpact : Spell
+    class Darkpact : Engine.Spell
     {
         public Darkpact() : base("Darkpact", 2, Civilization.Darkness)
         {

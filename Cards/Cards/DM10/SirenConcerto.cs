@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class SirenConcerto : Spell
+    class SirenConcerto : Engine.Spell
     {
         public SirenConcerto() : base("Siren Concerto", 1, Civilization.Water)
         {

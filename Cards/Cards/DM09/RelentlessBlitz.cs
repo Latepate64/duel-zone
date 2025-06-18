@@ -5,7 +5,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM09
 {
-    class RelentlessBlitz : Spell
+    class RelentlessBlitz : Engine.Spell
     {
         public RelentlessBlitz() : base("Relentless Blitz", 3, Civilization.Fire)
         {

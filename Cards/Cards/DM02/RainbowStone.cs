@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM02
 {
-    class RainbowStone : Spell
+    class RainbowStone : Engine.Spell
     {
         public RainbowStone() : base("Rainbow Stone", 4, Civilization.Nature)
         {

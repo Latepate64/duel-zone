@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
-    class SphereOfWonder : Spell
+    class SphereOfWonder : Engine.Spell
     {
         public SphereOfWonder() : base("Sphere of Wonder", 4, Civilization.Light)
         {

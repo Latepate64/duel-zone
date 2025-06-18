@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class CrimsonHammer : Spell
+    class CrimsonHammer : Engine.Spell
     {
         public CrimsonHammer() : base("Crimson Hammer", 2, Engine.Civilization.Fire)
         {

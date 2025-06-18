@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class SonicWing : Spell
+    class SonicWing : Engine.Spell
     {
         public SonicWing() : base("Sonic Wing", 3, Engine.Civilization.Light)
         {

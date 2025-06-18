@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM12
 {
-    class CosmicDarts : Spell
+    class CosmicDarts : Engine.Spell
     {
         public CosmicDarts() : base("Cosmic Darts", 1, Civilization.Light)
         {

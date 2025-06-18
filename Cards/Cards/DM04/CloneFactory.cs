@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class CloneFactory : Spell
+    class CloneFactory : Engine.Spell
     {
         public CloneFactory() : base("Clone Factory", 3, Engine.Civilization.Water)
         {

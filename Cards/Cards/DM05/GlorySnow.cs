@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
-    class GlorySnow : Spell
+    class GlorySnow : Engine.Spell
     {
         public GlorySnow() : base("Glory Snow", 4, Civilization.Light)
         {

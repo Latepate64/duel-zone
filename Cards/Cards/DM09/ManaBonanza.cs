@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    class ManaBonanza : Spell
+    class ManaBonanza : Engine.Spell
     {
         public ManaBonanza() : base("Mana Bonanza", 8, Civilization.Nature)
         {

@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
-    class PangaeasWill : Spell
+    class PangaeasWill : Engine.Spell
     {
         public PangaeasWill() : base("Pangaea's Will", 3, Civilization.Nature)
         {

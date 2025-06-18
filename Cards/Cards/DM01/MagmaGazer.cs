@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class MagmaGazer : Spell
+    class MagmaGazer : Engine.Spell
     {
         public MagmaGazer() : base("Magma Gazer", 3, Civilization.Fire)
         {

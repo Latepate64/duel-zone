@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class ProtectiveForce : Spell
+    class ProtectiveForce : Engine.Spell
     {
         public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
         {

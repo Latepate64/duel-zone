@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
-    class ChainsOfSacrifice : Spell
+    class ChainsOfSacrifice : Engine.Spell
     {
         public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
         {

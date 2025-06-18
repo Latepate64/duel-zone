@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
-    class GhastlyDrain : Spell
+    class GhastlyDrain : Engine.Spell
     {
         public GhastlyDrain() : base("Ghastly Drain", 3, Civilization.Darkness)
         {

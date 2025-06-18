@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM10
 {
-    class Soulswap : Spell
+    class Soulswap : Engine.Spell
     {
         public Soulswap() : base("Soulswap", 3, Civilization.Nature)
         {

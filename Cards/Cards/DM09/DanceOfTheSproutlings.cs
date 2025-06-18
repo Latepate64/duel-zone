@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    class DanceOfTheSproutlings : Spell
+    class DanceOfTheSproutlings : Engine.Spell
     {
         public DanceOfTheSproutlings() : base("Dance of the Sproutlings", 3, Civilization.Nature)
         {

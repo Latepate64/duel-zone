@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM03
 {
-    class LogicSphere : Spell
+    class LogicSphere : Engine.Spell
     {
         public LogicSphere() : base("Logic Sphere", 3, Engine.Civilization.Light)
         {

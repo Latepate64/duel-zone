@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM09
 {
-    class CosmicWing : Spell
+    class CosmicWing : Engine.Spell
     {
         public CosmicWing() : base("Cosmic Wing", 3, Engine.Civilization.Light)
         {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM11
 {
-    class MiraculousMeltdown : Spell
+    class MiraculousMeltdown : Engine.Spell
     {
         public MiraculousMeltdown() : base("Miraculous Meltdown", 6, Civilization.Darkness, Civilization.Fire)
         {

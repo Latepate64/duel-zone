@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class InvincibleTechnology : Spell
+    class InvincibleTechnology : Engine.Spell
     {
         public InvincibleTechnology() : base("Invincible Technology", 13, Civilization.Water)
         {

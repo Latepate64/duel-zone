@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class DarkReversal : Spell
+    class DarkReversal : Engine.Spell
     {
         public DarkReversal() : base("Dark Reversal", 2, Engine.Civilization.Darkness)
         {

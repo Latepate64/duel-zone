@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class ChaosStrike : Spell
+    class ChaosStrike : Engine.Spell
     {
         public ChaosStrike() : base("Chaos Strike", 2, Civilization.Fire)
         {

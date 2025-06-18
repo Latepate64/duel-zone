@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class LaserWing : Spell
+    class LaserWing : Engine.Spell
     {
         public LaserWing() : base("Laser Wing", 5, Civilization.Light)
         {

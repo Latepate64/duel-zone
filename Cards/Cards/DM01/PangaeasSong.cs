@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class PangaeasSong : Spell
+    class PangaeasSong : Engine.Spell
     {
         public PangaeasSong() : base("Pangaea's Song", 1, Engine.Civilization.Nature)
         {

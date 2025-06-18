@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class TornadoFlame : Spell
+    class TornadoFlame : Engine.Spell
     {
         public TornadoFlame() : base("Tornado Flame", 5, Engine.Civilization.Fire)
         {

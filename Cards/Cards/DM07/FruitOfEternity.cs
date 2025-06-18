@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM07
 {
-    class FruitOfEternity : Spell
+    class FruitOfEternity : Engine.Spell
     {
         public FruitOfEternity() : base("Fruit of Eternity", 4, Engine.Civilization.Nature)
         {

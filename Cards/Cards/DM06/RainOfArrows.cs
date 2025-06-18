@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class RainOfArrows : Spell
+    class RainOfArrows : Engine.Spell
     {
         public RainOfArrows() : base("Rain of Arrows", 2, Civilization.Light)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM07
 {
-    class FreezingIcehammer : Spell
+    class FreezingIcehammer : Engine.Spell
     {
         public FreezingIcehammer() : base("Freezing Icehammer", 3, Civilization.Nature)
         {

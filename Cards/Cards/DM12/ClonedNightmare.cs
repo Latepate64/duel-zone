@@ -5,7 +5,7 @@ using Engine.Choices;
 
 namespace Cards.Cards.DM12
 {
-    class ClonedNightmare : Spell
+    class ClonedNightmare : Engine.Spell
     {
         public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
         {

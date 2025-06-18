@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM02
 {
-    class ReconOperation : Spell
+    class ReconOperation : Engine.Spell
     {
         public ReconOperation() : base("Recon Operation", 2, Civilization.Water)
         {

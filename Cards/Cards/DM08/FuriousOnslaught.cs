@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM08
 {
-    class FuriousOnslaught : Spell
+    class FuriousOnslaught : Engine.Spell
     {
         public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
         {

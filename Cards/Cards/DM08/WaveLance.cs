@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM08
 {
-    class WaveLance : Spell
+    class WaveLance : Engine.Spell
     {
         public WaveLance() : base("Wave Lance", 3, Civilization.Water)
         {

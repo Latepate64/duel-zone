@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
-    class ReapAndSow : Spell
+    class ReapAndSow : Engine.Spell
     {
         public ReapAndSow() : base("Reap and Sow", 5, Civilization.Fire, Civilization.Nature)
         {

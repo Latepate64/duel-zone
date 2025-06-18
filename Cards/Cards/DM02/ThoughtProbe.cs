@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM02
 {
-    class ThoughtProbe : Spell
+    class ThoughtProbe : Engine.Spell
     {
         public ThoughtProbe() : base("Thought Probe", 4, Civilization.Water)
         {

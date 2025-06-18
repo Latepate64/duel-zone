@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
-    class WhiskingWhirlwind : Spell
+    class WhiskingWhirlwind : Engine.Spell
     {
         public WhiskingWhirlwind() : base("Whisking Whirlwind", 1, Civilization.Light)
         {

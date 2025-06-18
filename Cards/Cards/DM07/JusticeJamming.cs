@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
-    class JusticeJamming : Spell
+    class JusticeJamming : Engine.Spell
     {
         public JusticeJamming() : base("Justice Jamming", 3, Civilization.Light)
         {

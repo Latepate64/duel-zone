@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class GhostTouch : Spell
+    class GhostTouch : Engine.Spell
     {
         public GhostTouch() : base("Ghost Touch", 2, Engine.Civilization.Darkness)
         {

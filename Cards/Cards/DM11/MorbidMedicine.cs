@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM11
 {
-    class MorbidMedicine : Spell
+    class MorbidMedicine : Engine.Spell
     {
         public MorbidMedicine() : base("Morbid Medicine", 4, Engine.Civilization.Darkness)
         {

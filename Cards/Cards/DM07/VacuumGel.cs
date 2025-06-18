@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM07
 {
-    class VacuumGel : Spell
+    class VacuumGel : Engine.Spell
     {
         public VacuumGel() : base("Vacuum Gel", 4, Civilization.Darkness)
         {

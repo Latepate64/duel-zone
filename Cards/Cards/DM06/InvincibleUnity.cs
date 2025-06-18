@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
-    class InvincibleUnity : Spell
+    class InvincibleUnity : Engine.Spell
     {
         public InvincibleUnity() : base("Invincible Unity", 13, Civilization.Nature)
         {

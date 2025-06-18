@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class Teleportation : Spell
+    class Teleportation : Engine.Spell
     {
         public Teleportation() : base("Teleportation", 5, Engine.Civilization.Water)
         {

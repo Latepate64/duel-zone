@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
-    class RouletteOfRuin : Spell
+    class RouletteOfRuin : Engine.Spell
     {
         public RouletteOfRuin() : base("Roulette of Ruin", 5, Civilization.Darkness)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM04
 {
-    class ScreamingSunburst : Spell
+    class ScreamingSunburst : Engine.Spell
     {
         public ScreamingSunburst() : base("Screaming Sunburst", 3, Civilization.Light)
         {

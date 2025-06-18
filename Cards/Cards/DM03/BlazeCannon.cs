@@ -5,7 +5,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
-    class BlazeCannon : Spell
+    class BlazeCannon : Engine.Spell
     {
         public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
         {

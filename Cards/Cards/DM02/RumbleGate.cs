@@ -7,7 +7,7 @@ using System;
 
 namespace Cards.Cards.DM02
 {
-    class RumbleGate : Spell
+    class RumbleGate : Engine.Spell
     {
         public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
         {

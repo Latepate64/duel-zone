@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM07
 {
-    class HopelessVortex : Spell
+    class HopelessVortex : Engine.Spell
     {
         public HopelessVortex() : base("Hopeless Vortex", 5, Engine.Civilization.Darkness)
         {

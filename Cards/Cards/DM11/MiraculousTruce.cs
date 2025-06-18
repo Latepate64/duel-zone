@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM11
 {
-    class MiraculousTruce : Spell
+    class MiraculousTruce : Engine.Spell
     {
         public MiraculousTruce() : base("Miraculous Truce", 5, Civilization.Light, Civilization.Nature)
         {

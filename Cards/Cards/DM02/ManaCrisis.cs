@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM02
 {
-    class ManaCrisis : Spell
+    class ManaCrisis : Engine.Spell
     {
         public ManaCrisis() : base("Mana Crisis", 4, Engine.Civilization.Nature)
         {

@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM10
 {
-    class InfernalCommand : Spell
+    class InfernalCommand : Engine.Spell
     {
         public InfernalCommand() : base("Infernal Command", 1, Civilization.Darkness)
         {

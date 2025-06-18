@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM04
 {
-    class SwordOfBenevolentLife : Spell
+    class SwordOfBenevolentLife : Engine.Spell
     {
         public SwordOfBenevolentLife() : base("Sword of Benevolent Life", 2, Civilization.Nature)
         {

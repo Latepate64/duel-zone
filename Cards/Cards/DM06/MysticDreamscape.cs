@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM06
 {
-    class MysticDreamscape : Spell
+    class MysticDreamscape : Engine.Spell
     {
         public MysticDreamscape() : base("Mystic Dreamscape", 4, Engine.Civilization.Water)
         {

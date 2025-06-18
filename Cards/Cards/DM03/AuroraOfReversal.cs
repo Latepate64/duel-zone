@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM03
 {
-    class AuroraOfReversal : Spell
+    class AuroraOfReversal : Engine.Spell
     {
         public AuroraOfReversal() : base("Aurora of Reversal", 5, Civilization.Nature)
         {

@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
-    class EnigmaticCascade : Spell
+    class EnigmaticCascade : Engine.Spell
     {
         public EnigmaticCascade() : base("Enigmatic Cascade", 4, Civilization.Water)
         {

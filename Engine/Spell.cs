@@ -1,16 +1,16 @@
-using System.Collections.Generic;
+using System.Linq;
+using Engine.Abilities;
 
 namespace Engine;
 
 public class Spell : Card
 {
-    public Spell(bool tapped, List<Civilization> civilizations, int manaCost, string name) : base(tapped,
-        civilizations, manaCost, name)
+    protected Spell(string name, int manaCost, Civilization civilization) : base(false, [civilization], manaCost, name)
     {
     }
 
-    public Spell(string name, int manaCost, List<Civilization> civilizations) : this(false, civilizations, manaCost,
-        name)
+    protected Spell(string name, int manaCost, Civilization civilization1, Civilization civilization2) : base(false,
+        [civilization1, civilization2], manaCost, name)
     {
     }
 
@@ -21,5 +21,14 @@ public class Spell : Card
     public override Spell Copy()
     {
         return new Spell(this);
+    }
+
+    /// <summary>
+    /// Adds a spell ability for each one-shot effect provided.
+    /// </summary>
+    /// <param name="oneShotEffects"></param>
+    protected void AddSpellAbilities(params IOneShotEffect[] oneShotEffects)
+    {
+        AddAbilities([.. oneShotEffects.Select(x => new SpellAbility(x))]);
     }
 }

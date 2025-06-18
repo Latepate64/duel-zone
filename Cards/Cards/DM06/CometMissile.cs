@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class CometMissile : Spell
+    class CometMissile : Engine.Spell
     {
         public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
         {

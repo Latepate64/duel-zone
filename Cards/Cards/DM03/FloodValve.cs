@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM03
 {
-    class FloodValve : Spell
+    class FloodValve : Engine.Spell
     {
         public FloodValve() : base("Flood Valve", 2, Engine.Civilization.Water)
         {

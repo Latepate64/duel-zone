@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
-    class HideAndSeek : Spell
+    class HideAndSeek : Engine.Spell
     {
         public HideAndSeek() : base("Hide and Seek", 4, Civilization.Water, Civilization.Darkness)
         {

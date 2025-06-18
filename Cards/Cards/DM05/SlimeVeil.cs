@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM05
 {
-    class SlimeVeil : Spell
+    class SlimeVeil : Engine.Spell
     {
         public SlimeVeil() : base("Slime Veil", 1, Civilization.Darkness)
         {

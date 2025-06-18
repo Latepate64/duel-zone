@@ -6,7 +6,7 @@ using System;
 
 namespace Cards.Cards.DM11
 {
-    class SlashAndBurn : Spell
+    class SlashAndBurn : Engine.Spell
     {
         public SlashAndBurn() : base("Slash and Burn", 4, Civilization.Darkness, Civilization.Fire)
         {

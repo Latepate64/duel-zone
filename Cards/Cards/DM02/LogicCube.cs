@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM02
 {
-    class LogicCube : Spell
+    class LogicCube : Engine.Spell
     {
         public LogicCube() : base("Logic Cube", 3, Engine.Civilization.Light)
         {

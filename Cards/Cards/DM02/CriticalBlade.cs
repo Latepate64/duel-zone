@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM02
 {
-    class CriticalBlade : Spell
+    class CriticalBlade : Engine.Spell
     {
         public CriticalBlade() : base("Critical Blade", 2, Engine.Civilization.Darkness)
         {

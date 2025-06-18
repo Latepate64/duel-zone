@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM03
 {
-    class ManaNexus : Spell
+    class ManaNexus : Engine.Spell
     {
         public ManaNexus() : base("Mana Nexus", 4, Engine.Civilization.Nature)
         {

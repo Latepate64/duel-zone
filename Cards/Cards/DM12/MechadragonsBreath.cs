@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM12
 {
-    class MechadragonsBreath : Spell
+    class MechadragonsBreath : Engine.Spell
     {
         public MechadragonsBreath() : base("Mechadragon's Breath", 6, Civilization.Fire)
         {

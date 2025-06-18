@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class VolcanicArrows : Spell
+    class VolcanicArrows : Engine.Spell
     {
         public VolcanicArrows() : base("Volcanic Arrows", 2, Engine.Civilization.Fire)
         {

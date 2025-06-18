@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
-    class MysticTreasureChest : Spell
+    class MysticTreasureChest : Engine.Spell
     {
         public MysticTreasureChest() : base("Mystic Treasure Chest", 3, Civilization.Nature)
         {

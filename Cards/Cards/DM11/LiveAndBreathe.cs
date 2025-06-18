@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM11
 {
-    class LiveAndBreathe : Spell
+    class LiveAndBreathe : Engine.Spell
     {
         public LiveAndBreathe() : base("Live and Breathe", 3, Civilization.Light, Civilization.Nature)
         {

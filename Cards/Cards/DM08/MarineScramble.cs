@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM08
 {
-    class MarineScramble : Spell
+    class MarineScramble : Engine.Spell
     {
         public MarineScramble() : base("Marine Scramble", 7, Civilization.Water)
         {

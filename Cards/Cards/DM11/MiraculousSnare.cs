@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM11
 {
-    class MiraculousSnare : Spell
+    class MiraculousSnare : Engine.Spell
     {
         public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
         {

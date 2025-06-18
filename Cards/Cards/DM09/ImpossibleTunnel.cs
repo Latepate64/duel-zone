@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM09
 {
-    class ImpossibleTunnel : Spell
+    class ImpossibleTunnel : Engine.Spell
     {
         public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
         {

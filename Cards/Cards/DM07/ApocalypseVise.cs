@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM07
 {
-    class ApocalypseVise : Spell
+    class ApocalypseVise : Engine.Spell
     {
         public ApocalypseVise() : base("Apocalypse Vise", 7, Civilization.Fire)
         {

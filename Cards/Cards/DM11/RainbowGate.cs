@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM11
 {
-    class RainbowGate : Spell
+    class RainbowGate : Engine.Spell
     {
         public RainbowGate() : base("Rainbow Gate", 2, Civilization.Nature)
         {

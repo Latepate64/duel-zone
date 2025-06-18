@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class UltimateForce : Spell
+    class UltimateForce : Engine.Spell
     {
         public UltimateForce() : base("Ultimate Force", 5, Engine.Civilization.Nature)
         {

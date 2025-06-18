@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
-    class ClonedSpiral : Spell
+    class ClonedSpiral : Engine.Spell
     {
         public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
         {

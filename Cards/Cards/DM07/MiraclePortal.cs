@@ -5,7 +5,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM07
 {
-    class MiraclePortal : Spell
+    class MiraclePortal : Engine.Spell
     {
         public MiraclePortal() : base("Miracle Portal", 4, Civilization.Light)
         {
