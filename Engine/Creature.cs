@@ -80,9 +80,14 @@ public class Creature(bool tapped, List<Civilization> civilizations, int manaCos
     {
         SummoningSickness = false;
     }
-    
+
     public void IncreasePower(int power)
     {
         Power += power;
+    }
+    
+    public override Creature Copy()
+    {
+        return new Creature(this);
     }
 }
