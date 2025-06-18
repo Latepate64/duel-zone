@@ -35,13 +35,13 @@ namespace Cards.Cards.Promo
             return $"Whenever one of your other creatures that has Dragon in its race attacks, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Card card, IGame game)
+        protected override bool TriggersFrom(Engine.Creature card, IGame game)
         {
             return card.Owner == Controller && card != Source && card.IsDragon;
         }
     }
 
-    class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect
+    class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect<Engine.Creature>
     {
         public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
         {
@@ -57,7 +57,7 @@ namespace Cards.Cards.Promo
             return "You may choose one of your opponent's creatures in the battle zone that has power 5000 or less and put it into his mana zone.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Power <= 5000);
         }

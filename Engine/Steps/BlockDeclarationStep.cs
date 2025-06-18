@@ -15,21 +15,21 @@ namespace Engine.Steps
             ActivePlayerDeclaresBlocker(game, GetCreaturesThatCanBlock(game, Phase.AttackingCreature));
         }
 
-        private IEnumerable<Card> GetCreaturesThatCanBlock(IGame game, Card attackingCreature)
+        private IEnumerable<Creature> GetCreaturesThatCanBlock(IGame game, Creature attackingCreature)
         {
-            IEnumerable<Card> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
-            IEnumerable<Card> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
+            IEnumerable<Creature> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
+            IEnumerable<Creature> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
             return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }
 
-        private bool CanCreatureBlockCreature(Card blocker, Card attackingCreature, IGame game)
+        private bool CanCreatureBlockCreature(Creature blocker, Creature attackingCreature, IGame game)
         {
             return !blocker.Tapped &&
                 game.ContinuousEffects.CanCreatureBlockCreature(blocker, attackingCreature) &&
                 game.ContinuousEffects.CanCreatureBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
-        private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<Card> possibleBlockers)
+        private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<Creature> possibleBlockers)
         {
             var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
             if (blocker != null)
@@ -52,7 +52,7 @@ namespace Engine.Steps
                 ? game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature)
                     ? new BattleStep(Phase)
                     : new EndOfAttackStep(Phase)
-                : Phase.AttackTarget is Card
+                : Phase.AttackTarget is Creature
                     ? new BattleStep(Phase)
                     : new DirectAttackStep(Phase);
         }

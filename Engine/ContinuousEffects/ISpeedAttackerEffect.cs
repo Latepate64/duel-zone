@@ -2,6 +2,6 @@
 {
     public interface ISpeedAttackerEffect : IContinuousEffect
     {
-        bool Applies(Card creature, IGame game);
+        bool Applies(Creature creature, IGame game);
     }
 }

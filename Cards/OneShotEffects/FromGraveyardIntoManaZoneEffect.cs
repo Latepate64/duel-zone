@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class FromGraveyardIntoManaZoneEffect : CardMovingChoiceEffect
+    abstract class FromGraveyardIntoManaZoneEffect : CardMovingChoiceEffect<Card>
     {
         protected FromGraveyardIntoManaZoneEffect(FromGraveyardIntoManaZoneEffect effect) : base(effect)
         {

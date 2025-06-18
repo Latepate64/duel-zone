@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public class BattleEventV2(PlayerV2 player, Card attackingCreature, Card defendingCreature) : GameEventV2(
+public class BattleEventV2(PlayerV2 player, Creature attackingCreature, Creature defendingCreature) : GameEventV2(
     player, passable: false)
 {
-    public Card AttackingCreature { get; } = attackingCreature;
-    public Card DefendingCreature { get; } = defendingCreature;
+    public Creature AttackingCreature { get; } = attackingCreature;
+    public Creature DefendingCreature { get; } = defendingCreature;
     readonly List<Card> winners = [];
     bool shouldEnd;
     public IEnumerable<Card> Winners => winners;
@@ -44,13 +44,13 @@ public class BattleEventV2(PlayerV2 player, Card attackingCreature, Card defendi
         }
     }
 
-    IEnumerable<GameEventV2> SetWinnerAndGetDestroyEvents(GameState state, Card winner, Card loser)
+    IEnumerable<GameEventV2> SetWinnerAndGetDestroyEvents(GameState state, Creature winner, Creature loser)
     {
         winners.Add(winner);
         return GetDestroyEvents(state, loser, winner);
     }
 
-    static IEnumerable<GameEventV2> GetDestroyEvents(GameState state, Card target, Card against)
+    static IEnumerable<GameEventV2> GetDestroyEvents(GameState state, Creature target, Creature against)
     {
         if (state.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
         {

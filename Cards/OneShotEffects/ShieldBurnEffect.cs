@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class ShieldBurnEffect : CardMovingChoiceEffect
+    abstract class ShieldBurnEffect : CardMovingChoiceEffect<Card>
     {
         protected ShieldBurnEffect(ShieldBurnEffect effect) : base(effect)
         {

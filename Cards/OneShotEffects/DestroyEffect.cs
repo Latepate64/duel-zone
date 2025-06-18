@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class DestroyEffect : CardMovingChoiceEffect
+    abstract class DestroyEffect : CardMovingChoiceEffect<Engine.Creature>
     {
         protected DestroyEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.BattleZone, ZoneType.Graveyard)
         {

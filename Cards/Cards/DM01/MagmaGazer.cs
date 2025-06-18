@@ -13,7 +13,7 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class MagmaGazerEffect : CardSelectionEffect
+    class MagmaGazerEffect : CreatureSelectionEffect
     {
         public MagmaGazerEffect() : base(1, 1, true)
         {
@@ -29,12 +29,12 @@ namespace Cards.Cards.DM01
             return "One of your creatures gets \"power attacker +4000\" and \"double breaker\" until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(cards));
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

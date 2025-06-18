@@ -12,7 +12,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class SalivaWormEffect : ContinuousEffects.StealthEffect, IPowerModifyingEffect
+    class SalivaWormEffect : StealthEffect, IPowerModifyingEffect
     {
         public SalivaWormEffect(Civilization civilization = Civilization.Darkness) : base(civilization)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            Source.IncreasePower(4000);
+            (Source as Engine.Creature).IncreasePower(4000);
         }
 
         public override string ToString()

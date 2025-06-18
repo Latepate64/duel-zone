@@ -14,9 +14,9 @@ namespace Cards.ContinuousEffects
             return new PoweredDoubleBreaker();
         }
 
-        public int GetAmount(IGame game, Card creature)
+        public int GetAmount(IGame game, Engine.Creature creature)
         {
-            return IsSourceOfAbility(creature) && Source.Power >= 6000 ? 2 : 1;
+            return IsSourceOfAbility(creature) && (Source as Creature).Power >= 6000 ? 2 : 1;
         }
 
         public override string ToString()

@@ -17,7 +17,7 @@ namespace Cards.Cards.DM01
         {
         }
 
-        public PoisonousMushroomEffect(YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
+        public PoisonousMushroomEffect(PoisonousMushroomEffect effect) : base(effect)
         {
         }
 

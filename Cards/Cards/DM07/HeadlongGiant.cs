@@ -24,9 +24,9 @@ namespace Cards.Cards.DM07
         {
         }
 
-        public bool CannotAttack(Card attacker, IGame game)
+        public bool CannotAttack(Engine.Creature creature, IGame game)
         {
-            return IsSourceOfAbility(attacker) && !Controller.Hand.HasCards;
+            return IsSourceOfAbility(creature) && !Controller.Hand.HasCards;
         }
 
         public override IContinuousEffect Copy()

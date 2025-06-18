@@ -29,7 +29,7 @@ namespace Cards.Cards.DM01
         {
             if (game.BattleZone.GetCreatureCount(Controller.Id, Race.AngelCommand) > 0)
             {
-                Source.IncreasePower(2000);
+                (Source as Creature).IncreasePower(2000);
             }
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IBreaksAdditionalShieldsEffect : IContinuousEffect
     {
-        int GetAmount(IGame game, Card creature);
+        int GetAmount(IGame game, Creature creature);
     }
 }

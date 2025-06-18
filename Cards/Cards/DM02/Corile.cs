@@ -13,7 +13,7 @@ namespace Cards.Cards.DM02
         }
     }
 
-    class CorileEffect : CardMovingChoiceEffect
+    class CorileEffect : CardMovingChoiceEffect<Engine.Creature>
     {
         public CorileEffect(CorileEffect effect) : base(effect)
         {
@@ -33,7 +33,7 @@ namespace Cards.Cards.DM02
             return "Choose one of your opponent's creatures in the battle zone and put it on top of his deck.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
         }

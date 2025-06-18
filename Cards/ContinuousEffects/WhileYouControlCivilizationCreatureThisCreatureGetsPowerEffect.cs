@@ -35,7 +35,7 @@ namespace Cards.ContinuousEffects
         {
             if (game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasCivilization(Civilization)))
             {
-                Source.IncreasePower(Power);
+                (Source as Engine.Creature).IncreasePower(Power);
             }
         }
     }

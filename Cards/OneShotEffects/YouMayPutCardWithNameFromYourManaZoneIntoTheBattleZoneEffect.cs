@@ -1,10 +1,11 @@
 ﻿using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect : CardMovingChoiceEffect
+    abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect : CardMovingChoiceEffect<Engine.Creature>
     {
         private readonly string _name;
 
@@ -23,9 +24,9 @@ namespace Cards.OneShotEffects
             return $"You may choose an {_name} in your mana zone and put it into the battle zone.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
-            return Controller.ManaZone.CardsWithName(_name);
+            return Controller.ManaZone.CardsWithName(_name).OfType<Engine.Creature>();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Cards.Cards.DM09
             return "When this creature would be destroyed, if another Kalute, Vizier of Eternity is in the battle zone, return this creature to your hand instead.";
         }
 
-        protected override bool Applies(Card card, IGame game)
+        protected override bool Applies(Engine.Creature card, IGame game)
         {
             return IsSourceOfAbility(card) && game.BattleZone.GetOtherCreatures(card.Id).Any(x => x.Name == "Kalute, Vizier of Eternity");
         }

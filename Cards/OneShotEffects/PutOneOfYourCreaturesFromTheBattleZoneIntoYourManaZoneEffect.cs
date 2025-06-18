@@ -10,7 +10,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(CardMovingChoiceEffect effect) : base(effect)
+        public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect effect) : base(effect)
         {
         }
 
@@ -24,7 +24,7 @@ namespace Cards.OneShotEffects
             return "Put one of your creatures from the battle zone into your mana zone.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

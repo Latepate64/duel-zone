@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    abstract class ShieldAdditionEffect : CardSelectionEffect
+    abstract class ShieldAdditionEffect : CardSelectionEffect<Card>
     {
         protected ShieldAdditionEffect(ShieldAdditionEffect effect) : base(effect)
         {

@@ -35,7 +35,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                Source.IncreasePower(3000);
+                (Source as Engine.Creature).IncreasePower(3000);
             }
         }
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    public abstract class CardSelectionEffect : OneShotEffect
+    public abstract class CardSelectionEffect<T> : OneShotEffect where T : Card
     {
         public int Minimum { get; }
         public int Maximum { get; }
@@ -19,7 +19,7 @@ namespace Cards.OneShotEffects
             ControllerChooses = controllerChooses;
         }
 
-        protected CardSelectionEffect(CardSelectionEffect effect) : base(effect)
+        protected CardSelectionEffect(CardSelectionEffect<T> effect) : base(effect)
         {
             Minimum = effect.Minimum;
             Maximum = effect.Maximum;
@@ -37,8 +37,20 @@ namespace Cards.OneShotEffects
             }
         }
 
-        protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
+        protected abstract void Apply(IGame game, IAbility source, params T[] cards);
 
-        protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
+        protected abstract IEnumerable<T> GetSelectableCards(IGame game, IAbility source);
+    }
+
+    public abstract class CreatureSelectionEffect : CardSelectionEffect<Engine.Creature>
+    {
+        protected CreatureSelectionEffect(CreatureSelectionEffect effect) : base(effect)
+        {
+        }
+
+        protected CreatureSelectionEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum,
+            controllerChooses)
+        {
+        }
     }
 }

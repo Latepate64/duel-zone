@@ -2,6 +2,6 @@
 {
     public interface IBlockerEffect : IContinuousEffect
     {
-        bool CanBlock(Card blocker, Card attacker, IGame game);
+        bool CanBlock(Creature blocker, Creature attacker, IGame game);
     }
 }

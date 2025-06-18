@@ -12,7 +12,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class NinjaPumpkinEffect : ContinuousEffects.ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect, IPowerModifyingEffect
+    class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect, IPowerModifyingEffect
     {
         public NinjaPumpkinEffect(int blockerMaxPower = 5000) : base(blockerMaxPower)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            Source.IncreasePower(4000);
+            (Source as Engine.Creature).IncreasePower(4000);
         }
 
         public override string ToString()

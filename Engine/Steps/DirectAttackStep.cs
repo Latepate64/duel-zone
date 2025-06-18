@@ -32,7 +32,7 @@
             }
         }
 
-        private static int GetAmountOfShieldsToBreak(IGame game, Card attackingCreature)
+        private static int GetAmountOfShieldsToBreak(IGame game, Creature attackingCreature)
         {
             return game.GetAmountOfShieldsCreatureBreaks(attackingCreature) + game.ContinuousEffects.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
         }

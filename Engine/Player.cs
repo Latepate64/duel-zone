@@ -94,7 +94,7 @@ namespace Engine
             game.Move(ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
         }
 
-        public bool CanChoose(Card card, IGame game)
+        public bool CanChoose(Creature card, IGame game)
         {
             return game.ContinuousEffects.CanPlayerChooseCreature(this, card);
         }
@@ -128,12 +128,12 @@ namespace Engine
 
         public abstract T ChooseAbstractly<T>(T choice) where T : Choice;
 
-        public IEnumerable<Card> ChooseAnyNumberOfCards(IEnumerable<Card> cards, string description)
+        public IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description)
         {
-            return ChooseCards(new CardChoice(this, description, new AnyNumberOfCardsChoiceMode(), [.. cards]));
+            return ChooseCards(new CardChoice<T>(this, description, new AnyNumberOfCardsChoiceMode<T>(), [.. cards]));
         }
 
-        public bool ChooseAttacker(IGame game, IEnumerable<Card> attackers)
+        public bool ChooseAttacker(IGame game, IEnumerable<Creature> attackers)
         {
             int minimum = attackers.Any(game.ContinuousEffects.DoesCreatureAttackIfAble) ? 1 : 0;
             IEnumerable<Card> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
@@ -150,22 +150,22 @@ namespace Engine
             return Choose(new AttackTargetChoice(this, targets)).Choice;
         }
 
-        public Card ChooseCard(IEnumerable<Card> cards, string description)
+        public T ChooseCard<T>(IEnumerable<T> cards, string description)
         {
             return ChooseCards(cards, 1, 1, description).SingleOrDefault();
         }
 
-        public Card ChooseCardOptionally(IEnumerable<Card> cards, string description)
+        public T ChooseCardOptionally<T>(IEnumerable<T> cards, string description)
         {
             return ChooseCards(cards, 0, 1, description).SingleOrDefault();
         }
 
-        public IEnumerable<Card> ChooseCards(IEnumerable<Card> cards, int min, int max, string description)
+        public IEnumerable<T> ChooseCards<T>(IEnumerable<T> cards, int min, int max, string description)
         {
-            return ChooseCards(new CardChoice(this, description, new BoundedCardChoiceMode(min, max), [.. cards]));
+            return ChooseCards(new CardChoice<T>(this, description, new BoundedCardChoiceMode<T>(min, max), [.. cards]));
         }
 
-        public IEnumerable<Card> ChooseCards(CardChoice choice)
+        public IEnumerable<T> ChooseCards<T>(CardChoice<T> choice)
         {
             if (choice.CanBeChosenAutomatically)
             {
@@ -182,27 +182,27 @@ namespace Engine
             return Choose(new CivilizationChoice(this, description, excluded)).Choice.Value;
         }
 
-        public Card ChooseControlledCreature(IGame game, string description)
+        public Creature ChooseControlledCreature(IGame game, string description)
         {
             return ChooseCard(game.BattleZone.GetCreatures(Id), description);
         }
 
-        public Card ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
+        public Creature ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id, civilization), 0, 1, description).SingleOrDefault();
         }
 
-        public Card ChooseControlledCreatureOptionally(IGame game, string description)
+        public Creature ChooseControlledCreatureOptionally(IGame game, string description)
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault();
         }
 
-        public IEnumerable<Card> ChooseControlledCreatures(IGame game, string description, int amount)
+        public IEnumerable<Creature> ChooseControlledCreatures(IGame game, string description, int amount)
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description);
         }
 
-        public IEnumerable<Card> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
+        public IEnumerable<Creature> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
         {
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description);
         }
@@ -212,12 +212,12 @@ namespace Engine
             return Choose(choice).Choice.Value;
         }
 
-        public Card ChooseOpponentsCreature(IGame game, string description)
+        public Creature ChooseOpponentsCreature(IGame game, string description)
         {
             return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)), description);
         }
 
-        public Card ChooseOpponentsNonEvolutionCreature(IGame game, string description)
+        public Creature ChooseOpponentsNonEvolutionCreature(IGame game, string description)
         {
             return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
         }
@@ -466,7 +466,8 @@ namespace Engine
 
         public void Tap(IGame game, params Card[] cards)
         {
-            var untappedCards = cards.Where(card => card != null && !card.Tapped && game.ContinuousEffects.CanPlayerTapCreature(this, card)).ToList();
+            var untappedCards = cards.Where(card => card != null && !card.Tapped && (card is not Creature creature ||
+                game.ContinuousEffects.CanPlayerTapCreature(this, creature))).ToList();
             foreach (var card in untappedCards)
             {
                 card.Tap();
@@ -510,17 +511,17 @@ namespace Engine
         public void UseCard(Card card, IGame game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
-            if (card.IsCreature)
+            if (card is Creature creature)
             {
-                if (card.Supertypes.Contains(Supertype.Evolution))
+                if (creature.Supertypes.Contains(Supertype.Evolution))
                 {
-                    Evolve(card, game);
+                    Evolve(creature, game);
                 }
-                Summon(card, game);
+                Summon(creature, game);
             }
-            else if (card.IsSpell)
+            else if (card is Spell spell)
             {
-                Cast(card, game);
+                Cast(spell, game);
             }
             else
             {
@@ -545,7 +546,7 @@ namespace Engine
             }
         }
 
-        private bool ChooseAttackTarget(IGame game, Card attacker)
+        private bool ChooseAttackTarget(IGame game, Creature attacker)
         {
             IEnumerable<IAttackable> possibleTargets = game.GetPossibleAttackTargets(attacker);
             IAttackable target = possibleTargets.Count() > 1
@@ -592,7 +593,7 @@ namespace Engine
             game.Lose(this);
         }
 
-        public void Evolve(Card evolutionCreature, IGame game)
+        public void Evolve(Creature evolutionCreature, IGame game)
         {
             var effect = evolutionCreature.GetEvolutionEffects().Single();
             effect.Evolve(evolutionCreature, game);
@@ -604,12 +605,12 @@ namespace Engine
             UseCard(toUse, game);
         }
 
-        private void Summon(Card card, IGame game)
+        private void Summon(Creature creature, IGame game)
         {
-            game.ProcessEvents(new CreatureSummonedEvent(this, card));
+            game.ProcessEvents(new CreatureSummonedEvent(this, creature));
         }
 
-        public IEnumerable<Card> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<Card> creaturesWithSilentSkill)
+        public IEnumerable<Creature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<Creature> creaturesWithSilentSkill)
         {
             return ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
         }
@@ -636,12 +637,12 @@ namespace Engine
             game.Move(ability, ZoneType.ManaZone, ZoneType.BattleZone, mana);
         }
 
-        public void PutCreatureFromBattleZoneIntoItsOwnersManaZone(Card creature, IGame game, IAbility ability)
+        public void PutCreatureFromBattleZoneIntoItsOwnersManaZone(Creature creature, IGame game, IAbility ability)
         {
             game.Move(ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
         }
 
-        public Card ChooseCreatureInBattleZoneOptionally(IGame game, string description)
+        public Creature ChooseCreatureInBattleZoneOptionally(IGame game, string description)
         {
             return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description);
         }
@@ -656,14 +657,14 @@ namespace Engine
             Discard(ability, game, [.. Hand.GetCreaturesWithMaxPower(power)]);
         }
 
-        public Card DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)
+        public Creature DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)
         {
-            Card creature = ChooseControlledCreatureOptionally(game, description);
+            Creature creature = ChooseControlledCreatureOptionally(game, description);
             game.Destroy(ability, creature);
             return creature;
         }
 
-        public void PutCreatureFromOwnHandIntoBattleZone(Card card, IGame game, IAbility ability)
+        public void PutCreatureFromOwnHandIntoBattleZone(Creature card, IGame game, IAbility ability)
         {
             game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
         }

@@ -18,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool CannotAttack(Card creature, IGame game)
+        public bool CannotAttack(Engine.Creature creature, IGame game)
         {
             return creature.Power >= 3000;
         }

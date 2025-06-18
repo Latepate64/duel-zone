@@ -2,6 +2,6 @@
 {
     public interface ISlayerEffect : IContinuousEffect
     {
-        bool Applies(Card creature, Card against, IGame game);
+        bool Applies(Creature creature, Card against, IGame game);
     }
 }

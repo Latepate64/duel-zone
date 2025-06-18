@@ -35,7 +35,7 @@ namespace Cards.ContinuousEffects
         {
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
             {
-                Source.IncreasePower(Power);
+                (Source as Engine.Creature).IncreasePower(Power);
             }
         }
     }

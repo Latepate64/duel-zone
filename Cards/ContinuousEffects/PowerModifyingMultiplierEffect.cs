@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public virtual void ModifyPower(IGame game)
         {
-            Source.IncreasePower(GetMultiplier(game) * Power);
+            (Source as Engine.Creature).IncreasePower(GetMultiplier(game) * Power);
         }
 
         protected abstract int GetMultiplier(IGame game);
@@ -38,7 +38,7 @@ namespace Cards.ContinuousEffects
 
         public override void ModifyPower(IGame game)
         {
-            var creature = Source;
+            var creature = Source as Creature;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
                 creature.IncreasePower(GetMultiplier(game) * Power);

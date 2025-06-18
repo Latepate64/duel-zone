@@ -21,7 +21,7 @@ namespace Cards.Cards.DM10
 
             public override void Apply(IGame game)
             {
-                Card creature = Controller.ChooseCreatureInBattleZoneOptionally(game, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
+                Engine.Creature creature = Controller.ChooseCreatureInBattleZoneOptionally(game, "You may choose a creature in the battle zone and put it into its owner's mana zone.");
                 if (creature != null)
                 {
                     Controller.PutCreatureFromBattleZoneIntoItsOwnersManaZone(creature, game, Ability);

@@ -14,8 +14,8 @@ namespace Engine.Zones
         readonly List<Card> cards = [];
         public ZoneType Type { get; }
 
-        public IEnumerable<Card> Creatures => cards.Where(x => x.IsCreature);
-        public IEnumerable<Card> Spells => cards.Where(x => x.IsSpell);
+        public IEnumerable<Creature> Creatures => cards.OfType<Creature>();
+        public IEnumerable<Spell> Spells => cards.OfType<Spell>();
 
         public int Size => cards.Count;
         public bool HasCards => Size != 0;
@@ -54,11 +54,11 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Card> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
+        public IEnumerable<Creature> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
 
         public int GetCreatureCount(Guid owner) => GetCreatures(owner).Count();
 
-        public IEnumerable<Card> GetCreatures(params Race[] races) => Creatures.Where(creature => creature.Races.Any(
+        public IEnumerable<Creature> GetCreatures(params Race[] races) => Creatures.Where(creature => creature.Races.Any(
             race => races.Contains(race)));
 
         public IEnumerable<Card> GetCards(Civilization civilization) => cards.Where(x => x.HasCivilization(
@@ -68,12 +68,12 @@ namespace Engine.Zones
 
         public int GetCreatureCount(Civilization civilization) => GetCreatures(civilization).Count();
 
-        public IEnumerable<Card> GetCreatures(Civilization civilization) => Creatures.Where(x => x.HasCivilization(
+        public IEnumerable<Creature> GetCreatures(Civilization civilization) => Creatures.Where(x => x.HasCivilization(
             civilization));
 
-        public IEnumerable<Card> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
+        public IEnumerable<Creature> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
 
-        public IEnumerable<Card> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
+        public IEnumerable<Creature> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
 
         internal bool Contains(Card card) => cards.Contains(card);
 
@@ -82,7 +82,7 @@ namespace Engine.Zones
             randomizer.Shuffle(cards);
         }
 
-        public IEnumerable<Card> Dragons => Creatures.Where(x => x.IsDragon);
+        public IEnumerable<Creature> Dragons => Creatures.Where(x => x.IsDragon);
 
         public IEnumerable<Card> CardsWithName(string name) => cards.Where(x => x.Name == name);
 

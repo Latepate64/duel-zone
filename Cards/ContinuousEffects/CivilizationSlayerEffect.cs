@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization[] Civilizations { get; }
 
-        public bool Applies(Card creature, Card against, IGame game)
+        public bool Applies(Engine.Creature creature, Card against, IGame game)
         {
             return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
         }

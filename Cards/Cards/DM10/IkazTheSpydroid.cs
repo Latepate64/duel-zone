@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class IkazTheSpydroidEffect : CardSelectionEffect
+    class IkazTheSpydroidEffect : CreatureSelectionEffect
     {
         public IkazTheSpydroidEffect() : base(1, 1, true)
         {
@@ -32,12 +32,12 @@ namespace Cards.Cards.DM10
             return "Choose one of your creatures in the battle zone. Untap it after the battle.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
         {
             game.AddDelayedTriggeredAbility(new AfterBattleDelayedTriggeredAbility(new IkazTheSpydroidUntapEffect(cards.Single()), Ability));
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

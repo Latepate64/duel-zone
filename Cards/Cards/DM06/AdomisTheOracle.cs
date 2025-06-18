@@ -14,7 +14,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class AdomisTheOracleEffect : CardSelectionEffect
+    class AdomisTheOracleEffect : CardSelectionEffect<Card>
     {
         public AdomisTheOracleEffect() : base(1, 1, true)
         {

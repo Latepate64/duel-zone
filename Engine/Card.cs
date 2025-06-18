@@ -6,19 +6,14 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Card(bool tapped, List<Civilization> civilizations, int manaCost, bool summoningSickness, int? power) :
-        ICopyable<Card>
+    public class Card(bool tapped, List<Civilization> civilizations, int manaCost, string name) : ICopyable<Card>
     {
-        readonly IList<Race> addedRaces = [];
-        IList<Race> printedRaces = [];
-
         public IList<IAbility> AddedAbilities { get; } = [];
-        readonly CardType cardType;
         public List<Civilization> Civilizations { get; } = civilizations;
         public bool FaceDown { get; private set; }
         public Guid Id { get; } = Guid.NewGuid();
         public int ManaCost { get; } = manaCost;
-        public string Name { get; }
+        public string Name { get; } = name;
         /// <summary>
         /// Id of the card this card is on top of.
         /// </summary>
@@ -30,14 +25,9 @@ namespace Engine
         public Player Owner { get; }
         public PlayerV2 OwnerV2 { get; set; }
         public int PhysicalCardId { get; }
-        public int? Power { get; private set; } = power;
         public IList<IAbility> PrintedAbilities { get; } = [];
-        public int? PrintedPower { get; }
-        public List<Race> Races { get; private set; } = [];
         public string RulesText { get; private set; }
         public bool ShieldTrigger { get; private set; }
-        public bool SummoningSickness { get; private set; } = summoningSickness;
-        public List<Supertype> Supertypes { get; } = [];
         public bool Tapped { get; private set; } = tapped;
         public int Timestamp { get; private set; }
         /// <summary>
@@ -45,36 +35,26 @@ namespace Engine
         /// </summary>
         public Card Underneath { get; private set; }
 
-        protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost,
-            card.SummoningSickness, card.Power)
+        protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost, card.Name)
         {
             AddedAbilities = [.. card.AddedAbilities.Select(x => x.Copy())];
-            cardType = card.cardType;
             FaceDown = card.FaceDown;
             Id = Guid.NewGuid();
-            Name = card.Name;
             OnTopOf = card.OnTopOf;
             Owner = card.Owner;
             OwnerV2 = card.OwnerV2;
             PhysicalCardId = card.PhysicalCardId;
-            Power = card.Power;
             PrintedAbilities = [.. card.PrintedAbilities.Select(x => x.Copy())];
-            PrintedPower = card.PrintedPower;
-            Races = card.Races?.ToList();
             RulesText = card.RulesText;
             ShieldTrigger = card.ShieldTrigger;
-            Supertypes = card.Supertypes?.ToList();
             Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
             Underneath = card.Underneath;
             InitializeAbilities();
         }
 
-        protected Card(CardType type, string name, int manaCost, int? power, params Civilization[] civilizations) :
-            this(false, [.. civilizations], manaCost, summoningSickness: true, power)
+        protected Card(string name, int manaCost, int? power, params Civilization[] civilizations) :
+            this(false, [.. civilizations], manaCost, name)
         {
-            cardType = type;
-            Name = name;
-            PrintedPower = power;
         }
 
         protected Card(Card card) : this(card, 0)
@@ -85,8 +65,6 @@ namespace Engine
         {
             return obj is Card c
                 && c.AddedAbilities.SequenceEqual(AddedAbilities)
-                && c.addedRaces.SequenceEqual(addedRaces)
-                && c.cardType == cardType
                 && c.Civilizations.SequenceEqual(Civilizations)
                 && c.FaceDown == FaceDown
                 && c.Id == Id
@@ -96,42 +74,22 @@ namespace Engine
                 && c.Owner == Owner
                 && c.OwnerV2 == OwnerV2
                 && c.PhysicalCardId == PhysicalCardId
-                && c.Power == Power
                 && c.PrintedAbilities.SequenceEqual(PrintedAbilities)
-                && c.PrintedPower == PrintedPower
-                && c.printedRaces.SequenceEqual(printedRaces)
-                && c.Races.SequenceEqual(Races)
                 && c.RulesText == RulesText
                 && c.ShieldTrigger == ShieldTrigger
-                && c.SummoningSickness == SummoningSickness
-                && c.Supertypes.SequenceEqual(Supertypes)
                 && c.Tapped == Tapped
                 && c.Timestamp == Timestamp
                 && c.Underneath == Underneath;
         }
 
-        public bool IsSpell => cardType == CardType.Spell;
-        public bool IsCreature => cardType == CardType.Creature;
-        public bool IsNonEvolutionCreature => IsCreature && !Supertypes.Contains(Supertype.Evolution);
-        public bool IsEvolutionCreature => IsCreature && Supertypes.Contains(Supertype.Evolution);
         public bool IsMultiColored => Civilizations.Count > 1;
-        public bool IsDragon => IsCreature && Races.Intersect([Race.EarthDragon, Race.ZombieDragon, Race.ArmoredDragon,
-            Race.VolcanoDragon ]).Any();
+        
         internal bool CountsAsIfExists => Underneath != null;
         IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
 
         public void AddGrantedAbility(IAbility ability)
         {
             AddedAbilities.Add(ability);
-        }
-
-        public void AddGrantedRace(Race race)
-        {
-            addedRaces.Add(race);
-            if (!Races.Contains(race))
-            {
-                Races.Add(race);
-            }
         }
 
         public Card Copy()
@@ -165,11 +123,6 @@ namespace Engine
             return Civilizations.Intersect(civilizations).Any();
         }
 
-        public bool HasRace(Race race)
-        {
-            return Races.Contains(race);
-        }
-
         /// <summary>
         /// Initializes the sources and controllers of all abilities and related abstractions of the card.
         /// </summary>
@@ -199,12 +152,9 @@ namespace Engine
             }
         }
 
-        public void ResetToPrintedValues()
+        public virtual void ResetToPrintedValues()
         {
-            Power = PrintedPower;
             AddedAbilities.Clear();
-            Races = [.. printedRaces];
-            addedRaces.Clear();
         }
 
         public void SeparateTopCard()
@@ -225,12 +175,6 @@ namespace Engine
         protected void AddAbilities(params IAbility[] abilities)
         {
             abilities.ToList().ForEach(x => PrintedAbilities.Add(x));
-        }
-
-        protected void SetPrintedRaces(params Race[] races)
-        {
-            printedRaces = races;
-            Races = [.. races];
         }
 
         void InitializeAbility(IAbility ability)
@@ -263,7 +207,7 @@ namespace Engine
         /// Creates a static ability for each continuous effect provided and add the abilities to the card.
         /// </summary>
         /// <param name="effects"></param>
-        protected void AddStaticAbilities(params Engine.ContinuousEffects.IContinuousEffect[] effects)
+        protected void AddStaticAbilities(params IContinuousEffect[] effects)
         {
             AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
         }
@@ -283,19 +227,9 @@ namespace Engine
             FaceDown = false;
         }
 
-        internal void RemoveSummoningSickness()
-        {
-            SummoningSickness = false;
-        }
-
         internal void SetLostInBattle()
         {
             throw new NotImplementedException("TODO: delete when BattleEvent is deleted");
-        }
-
-        public void IncreasePower(int power)
-        {
-            Power += power;
         }
 
         internal void SetTimestamp(int timestamp)

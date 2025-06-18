@@ -15,7 +15,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class RoarOfTheEarthEffect : OneShotEffects.SelfManaRecoveryEffect
+    class RoarOfTheEarthEffect : SelfManaRecoveryEffect
     {
         public RoarOfTheEarthEffect() : base(1, 1, true) { }
 

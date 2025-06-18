@@ -5,8 +5,8 @@ namespace Engine.GameEvents;
 
 public class AttackEvent(PlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
-    public Card AttackingCreature { get; init; }
-    public Card AttackedCreature { get; init; }
+    public Creature AttackingCreature { get; init; }
+    public Creature AttackedCreature { get; init; }
     public PlayerV2 AttackedPlayer { get; init; }
     bool shouldEnd;
 

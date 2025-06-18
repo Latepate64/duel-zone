@@ -39,7 +39,7 @@ namespace Cards.Cards.DM10
     {
         private readonly Card _creature;
 
-        public InfernalCommandContinuousEffect(Card creature)
+        public InfernalCommandContinuousEffect(Engine.Creature creature)
         {
             _creature = creature;
         }
@@ -49,7 +49,7 @@ namespace Cards.Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(Card creature, IGame game)
+        public bool AttacksIfAble(Engine.Creature creature, IGame game)
         {
             return creature == _creature;
         }

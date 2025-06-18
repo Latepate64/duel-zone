@@ -1,10 +1,10 @@
 ﻿namespace Engine.GameEvents
 {
-    public class BattleEvent(Card attackingCreature, Card defendingCreature) : GameEvent
+    public class BattleEvent(Creature attackingCreature, Creature defendingCreature) : GameEvent
     {
-        public Card AttackingCreature { get; } = attackingCreature;
-        public Card DefendingCreature { get; } = defendingCreature;
-        public Card[] Winners { get; private set; } = System.Array.Empty<Card>();
+        public Creature AttackingCreature { get; } = attackingCreature;
+        public Creature DefendingCreature { get; } = defendingCreature;
+        public Creature[] Winners { get; private set; } = [];
 
         public override void Happen(IGame game)
         {
@@ -22,7 +22,7 @@
                 CheckLoseInBattle(DefendingCreature, AttackingCreature, game);
             }
 
-            void Outcome(Card winner, Card loser)
+            void Outcome(Creature winner, Creature loser)
             {
                 Winners = [winner];
                 CheckLoseInBattle(loser, winner, game);
@@ -38,7 +38,7 @@
             return $"{AttackingCreature} battled {DefendingCreature}.";
         }
 
-        private static void CheckLoseInBattle(Card target, Card against, IGame game)
+        private static void CheckLoseInBattle(Creature target, Creature against, IGame game)
         {
             if (!game.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
             {

@@ -28,6 +28,6 @@ namespace Cards.ContinuousEffects
             GetAffectedCards(game).ForEach(x => x.IncreasePower(_power));
         }
 
-        protected abstract List<Card> GetAffectedCards(IGame game);
+        protected abstract List<Engine.Creature> GetAffectedCards(IGame game);
     }
 }

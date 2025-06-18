@@ -13,7 +13,7 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class PinpointLunatronEffect : OneShotEffects.CardSelectionEffect
+    class PinpointLunatronEffect : OneShotEffects.CardSelectionEffect<Card>
     {
         public PinpointLunatronEffect() : base(1, 1, true)
         {

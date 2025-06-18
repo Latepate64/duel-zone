@@ -19,7 +19,7 @@ namespace Cards.Cards.DM01
         {
         }
 
-        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker == Ability.Source && game.BattleZone.GetCreatures(Controller.Id).Count(x => x != Ability.Source) >= 2;
         }

@@ -12,7 +12,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class MightyBanditAceOfThievesEffect : OneShotEffects.CardSelectionEffect
+    class MightyBanditAceOfThievesEffect : OneShotEffects.CreatureSelectionEffect
     {
         public MightyBanditAceOfThievesEffect() : base(1, 1, true)
         {
@@ -28,12 +28,12 @@ namespace Cards.Cards.DM06
             return "One of your creatures in the battle zone gets +5000 power until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(5000, cards));
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

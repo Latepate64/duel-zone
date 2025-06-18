@@ -65,7 +65,7 @@ namespace Cards.Cards.DM07
             return "Until the end of the turn, each of your darkness creatures in the battle zone gets +4000 power and \"double breaker.\"";
         }
 
-        protected override List<Card> GetAffectedCards(IGame game)
+        protected override List<Engine.Creature> GetAffectedCards(IGame game)
         {
             return [.. game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)];
         }
@@ -73,15 +73,15 @@ namespace Cards.Cards.DM07
 
     class BattleshipMutantAbility : LinkedTriggeredAbility
     {
-        private readonly IEnumerable<Card> _cards;
-        private readonly Card _toDestroy;
+        private readonly IEnumerable<Engine.Creature> _cards;
+        private readonly Engine.Creature _toDestroy;
 
-        public BattleshipMutantAbility(IEnumerable<Card> cards)
+        public BattleshipMutantAbility(IEnumerable<Engine.Creature> cards)
         {
             _cards = cards;
         }
 
-        public BattleshipMutantAbility(Card toDestroy)
+        public BattleshipMutantAbility(Engine.Creature toDestroy)
         {
             _toDestroy = toDestroy;
         }

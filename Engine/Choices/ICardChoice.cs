@@ -3,37 +3,37 @@ using System.Linq;
 
 namespace Engine.Choices
 {
-    public interface ICardChoice : IChoice
+    public interface ICardChoice<T> : IChoice
     {
         bool CanBeChosenAutomatically { get; }
-        IEnumerable<Card> Cards { get; set; }
-        IEnumerable<Card> Choice { get; set; }
-        ICardChoiceMode Mode { get; set; }
+        IEnumerable<T> Cards { get; set; }
+        IEnumerable<T> Choice { get; set; }
+        ICardChoiceMode<T> Mode { get; set; }
 
-        IEnumerable<Card> ChooseAutomatically();
+        IEnumerable<T> ChooseAutomatically();
     }
 
-    public class CardChoice : Choice, ICardChoice
+    public class CardChoice<T> : Choice, ICardChoice<T>
     {
-        public CardChoice(ICardChoice choice) : base(choice)
+        public CardChoice(ICardChoice<T> choice) : base(choice)
         {
             Cards = choice.Cards;
             Choice = choice.Choice;
             Mode = choice.Mode;
         }
 
-        public CardChoice(Player maker, string description, ICardChoiceMode mode, params Card[] cards) : base(maker, description)
+        public CardChoice(Player maker, string description, ICardChoiceMode<T> mode, params T[] cards) : base(maker, description)
         {
             Cards = cards;
             Mode = mode;
         }
 
-        public IEnumerable<Card> Cards { get; set; }
-        public IEnumerable<Card> Choice { get; set; }
-        public ICardChoiceMode Mode { get; set; }
+        public IEnumerable<T> Cards { get; set; }
+        public IEnumerable<T> Choice { get; set; }
+        public ICardChoiceMode<T> Mode { get; set; }
         public bool CanBeChosenAutomatically => Mode.CanBeChosenAutomatically(Cards);
 
-        public IEnumerable<Card> ChooseAutomatically()
+        public IEnumerable<T> ChooseAutomatically()
         {
             return Mode.ChooseAutomatically(Cards);
         }

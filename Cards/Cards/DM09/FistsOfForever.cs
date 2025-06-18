@@ -46,7 +46,7 @@ namespace Cards.Cards.DM09
     {
         private readonly Card _creature;
 
-        public FistsOfForeverAbility(Card creature)
+        public FistsOfForeverAbility(Engine.Creature creature)
         {
             _creature = creature;
         }

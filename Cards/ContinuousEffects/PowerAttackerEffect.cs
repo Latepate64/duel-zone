@@ -24,7 +24,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            var creature = Source;
+            var creature = Source as Creature;
             if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
             {
                 creature.IncreasePower(Power);

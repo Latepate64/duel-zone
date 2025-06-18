@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class ManaRecoveryEffect : CardMovingChoiceEffect
+    abstract class ManaRecoveryEffect : CardMovingChoiceEffect<Card>
     {
         protected ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
         {

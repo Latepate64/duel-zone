@@ -69,7 +69,7 @@ namespace Cards.Cards.DM10
             return "Whenever one of your creatures that has \"silent skill\" would be destroyed, put it into your hand instead.";
         }
 
-        protected override bool Applies(Card card, IGame game)
+        protected override bool Applies(Engine.Creature card, IGame game)
         {
             return card != null && card.Owner == Controller && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
         }

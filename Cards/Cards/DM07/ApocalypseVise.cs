@@ -29,7 +29,7 @@ namespace Cards.Cards.DM07
             game.Destroy(
                 Ability,
                 [.. Controller.ChooseCards(
-                    new CardChoice(Controller, ToString(), new ApocalypseViseChoiceMode(), [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
+                    new CardChoice<Engine.Creature>(Controller, ToString(), new ApocalypseViseChoiceMode<Engine.Creature>(), [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
                     )]);
         }
 
@@ -44,19 +44,19 @@ namespace Cards.Cards.DM07
         }
     }
 
-    public class ApocalypseViseChoiceMode : ICardChoiceMode
+    public class ApocalypseViseChoiceMode<T> : ICardChoiceMode<T> where T : Engine.Creature
     {
-        public bool CanBeChosenAutomatically(IEnumerable<Card> cards)
+        public bool CanBeChosenAutomatically(IEnumerable<T> cards)
         {
             return !cards.Any() || cards.All(x => x.Power > 8000);
         }
 
-        public IEnumerable<Card> ChooseAutomatically(IEnumerable<Card> choosableCards)
+        public IEnumerable<T> ChooseAutomatically(IEnumerable<T> choosableCards)
         {
             return [];
         }
 
-        public bool IsValid(IEnumerable<Card> chosenCards)
+        public bool IsValid(IEnumerable<T> chosenCards)
         {
             return chosenCards.Sum(x => x.Power) <= 8000;
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    abstract class ShieldRecoveryEffect : CardSelectionEffect
+    abstract class ShieldRecoveryEffect : CardSelectionEffect<Card>
     {
         public bool CanUseShieldTrigger { get; }
 

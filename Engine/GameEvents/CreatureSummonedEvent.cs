@@ -1,9 +1,9 @@
 ﻿namespace Engine.GameEvents
 {
-    public class CreatureSummonedEvent(Player player, Card creature) : GameEvent
+    public class CreatureSummonedEvent(Player player, Creature creature) : GameEvent
     {
         public Player Player { get; } = player;
-        public Card Creature { get; } = creature;
+        public Creature Creature { get; } = creature;
 
         public override void Happen(IGame game)
         {

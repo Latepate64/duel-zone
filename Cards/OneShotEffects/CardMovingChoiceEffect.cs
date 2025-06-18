@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    public abstract class CardMovingChoiceEffect : CardSelectionEffect
+    public abstract class CardMovingChoiceEffect<T> : CardSelectionEffect<T> where T : Card
     {
         public ZoneType SourceZone { get; }
         public ZoneType DestinationZone { get; }
@@ -14,13 +14,13 @@ namespace Cards.OneShotEffects
             DestinationZone = destination;
         }
 
-        public CardMovingChoiceEffect(CardMovingChoiceEffect effect) : base(effect)
+        public CardMovingChoiceEffect(CardMovingChoiceEffect<T> effect) : base(effect)
         {
             SourceZone = effect.SourceZone;
             DestinationZone = effect.DestinationZone;
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params T[] cards)
         {
             game.Move(Ability, SourceZone, DestinationZone, cards);
         }

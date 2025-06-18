@@ -13,7 +13,7 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class CosmicDartsEffect : OneShotEffects.CardSelectionEffect
+    class CosmicDartsEffect : OneShotEffects.CardSelectionEffect<Card>
     {
         public CosmicDartsEffect() : base(1, 1, false)
         {
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM12
             {
                 Controller.Look(Controller, game, cards);
                 var card = cards.Single();
-                if (card.IsSpell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
+                if (card is Engine.Spell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
                     Controller.Cast(card, game);
                 }

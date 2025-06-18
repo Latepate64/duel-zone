@@ -45,11 +45,11 @@ namespace Engine.Steps
 
         private static void UntapBattleZoneCreatures(IGame game, Player player)
         {
-            IEnumerable<Card> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
+            IEnumerable<Creature> creaturesWithSilentSkill = game.GetBattleZoneCreaturesWithSilentSkill(player);
 
             // After your other creatures untap, if creature with Silent skill is tapped, you may keep it tapped instead and use its ​Silent Skill ability.
             player.Untap(game, [.. game.GetBattleZoneCreatures(player).Except(creaturesWithSilentSkill)]);
-            IEnumerable<Card> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
+            IEnumerable<Creature> cardsThatStayTapped = player.ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(creaturesWithSilentSkill);
             player.Untap(game, [.. creaturesWithSilentSkill.Except(cardsThatStayTapped)]);
             game.AddPendingSilentSkillAbilities(cardsThatStayTapped);
         }

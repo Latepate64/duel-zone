@@ -23,7 +23,7 @@ namespace Cards.Cards.DM06
         {
         }
 
-        public bool CannotAttackCreature(Card attacker, Card target, IGame game)
+        public bool CannotAttackCreature(Engine.Creature attacker, Engine.Creature target, IGame game)
         {
             // Your opponent's attacking creatures can't attack creatures other than Mystery Totems if a Mystery Totem could be attacked this way.
             if (attacker.Id == game.GetOpponent(Controller).Id)
@@ -43,7 +43,7 @@ namespace Cards.Cards.DM06
             }
         }
 
-        public bool CannotAttackPlayers(Card attacker, IGame game)
+        public bool CannotAttackPlayers(Engine.Creature attacker, IGame game)
         {
             return attacker.Id == game.GetOpponent(Controller).Id && AttackableMysteryTotemExists(attacker, game);
         }

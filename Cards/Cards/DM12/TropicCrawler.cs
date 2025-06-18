@@ -14,7 +14,7 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class TropicCrawlerEffect : OneShotEffects.CardMovingChoiceEffect
+    class TropicCrawlerEffect : OneShotEffects.CardMovingChoiceEffect<Engine.Creature>
     {
         public TropicCrawlerEffect() : base(1, 1, false, ZoneType.BattleZone, ZoneType.Hand)
         {
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM12
             return "Your opponent chooses one of his creatures in the battle zone, and returns it to his hand.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(GetOpponent(game).Id);
         }

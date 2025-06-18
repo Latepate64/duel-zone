@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards
 {
-    class Creature : Card
+    class Creature : Engine.Creature
     {
         /// <summary>
         /// This constructor should be used for cards with one race.
@@ -25,7 +25,7 @@ namespace Cards
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, [civilization1, civilization2])
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, [civilization1, civilization2])
         {
             SetPrintedRaces(race1, race2);
         }
@@ -36,18 +36,14 @@ namespace Cards
         /// <param name="name"></param>
         /// <param name="manaCost"></param>
         /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(
-            CardType.Creature, name, manaCost, power, civilizations)
+        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(name,
+            manaCost, power, civilizations)
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, [civilization])
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(name, manaCost, power, [civilization])
         {
             SetPrintedRaces(race1, race2);
-        }
-
-        public Creature(Card card) : base(card)
-        {
         }
 
         #region Static abilities

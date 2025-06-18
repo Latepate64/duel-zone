@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CardSelectionEffect, IPowerable
+    class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CreatureSelectionEffect, IPowerable
     {
         public int Power { get; }
 
@@ -28,12 +28,12 @@ namespace Cards.OneShotEffects
             return $"One of your creatures gets +{Power} power until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

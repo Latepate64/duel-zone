@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
             _hasBeenAttacked = effect._hasBeenAttacked;
         }
 
-        public bool AttacksIfAble(Card creature, IGame game)
+        public bool AttacksIfAble(Engine.Creature creature, IGame game)
         {
             return Applies(game, creature);
         }
@@ -38,12 +38,12 @@ namespace Cards.Cards.DM10
             return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
         }
 
-        public bool CannotAttackCreature(Card attacker, Card target, IGame game)
+        public bool CannotAttackCreature(Engine.Creature attacker, Engine.Creature target, IGame game)
         {
             return Applies(game, attacker) && target != Source;
         }
 
-        public bool CannotAttackPlayers(Card attacker, IGame game)
+        public bool CannotAttackPlayers(Engine.Creature attacker, IGame game)
         {
             return Applies(game, attacker);
         }

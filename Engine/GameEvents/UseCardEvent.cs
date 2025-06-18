@@ -56,17 +56,17 @@ public class UseCardEvent(PlayerV2 player, bool passable = true) : GameEventV2(p
         {
             card.Tap();
         }
-        if (Card.IsCreature)
+        if (Card is Creature creature)
         {
             // TODO: Consider evolution creature (supertype)
             // TODO: Create a separate event for putting
-            return [new PutIntoBattleZoneEvent(Player, false, Card)];
+            return [new PutIntoBattleZoneEvent(Player, false, creature)];
         }
-        if (Card.IsSpell)
+        if (Card is Spell spell)
         {
-            Player.Hand.Remove(Card); // TODO: May not be in hand always
+            Player.Hand.Remove(spell); // TODO: May not be in hand always
             // TODO: Resolve spell
-            return [new PutIntoGraveyardEvent(Player, Card)];
+            return [new PutIntoGraveyardEvent(Player, spell)];
         }
         throw new InvalidOperationException();
     }

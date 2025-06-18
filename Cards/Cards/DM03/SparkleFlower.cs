@@ -18,7 +18,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool CanBlock(Card blocker, Card attacker, IGame game)
+        public bool CanBlock(Engine.Creature blocker, Engine.Creature attacker, IGame game)
         {
             return IsSourceOfAbility(blocker) && Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Light);
         }

@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CannotAttackCreature(Card attacker, Card target, IGame game)
+        public bool CannotAttackCreature(Engine.Creature attacker, Engine.Creature target, IGame game)
         {
             return IsSourceOfAbility(attacker);
         }

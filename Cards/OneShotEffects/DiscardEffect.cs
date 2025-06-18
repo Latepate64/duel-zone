@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class DiscardEffect : CardMovingChoiceEffect
+    abstract class DiscardEffect : CardMovingChoiceEffect<Card>
     {
         protected DiscardEffect(DiscardEffect effect) : base(effect)
         {

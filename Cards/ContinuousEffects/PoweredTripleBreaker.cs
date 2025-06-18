@@ -14,11 +14,11 @@ namespace Cards.ContinuousEffects
             return new PoweredTripleBreaker();
         }
 
-        public int GetAmount(IGame game, Card creature)
+        public int GetAmount(IGame game, Engine.Creature creature)
         {
             if (IsSourceOfAbility(creature))
             {
-                var power = Source.Power;
+                var power = (Source as Engine.Creature).Power;
                 return power >= 15000 ?
                     3 :
                     power >= 6000 ?

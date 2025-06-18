@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect
+    abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<Card>
     {
         private readonly int _maximum;
 

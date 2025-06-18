@@ -47,7 +47,7 @@ namespace Cards.Cards.DM07
     {
         private readonly Card _creature;
 
-        public MiraclePortalContinuousEffect(Card creature)
+        public MiraclePortalContinuousEffect(Engine.Creature creature)
         {
             _creature = creature;
         }
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM07
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(Card attacker, Card blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker == _creature;
         }

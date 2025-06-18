@@ -21,7 +21,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever another creature is destroyed, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Card card, IGame game)
+        protected override bool TriggersFrom(Engine.Creature card, IGame game)
         {
             return card != Source;
         }

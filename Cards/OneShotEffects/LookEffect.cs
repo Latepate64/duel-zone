@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.OneShotEffects
 {
-    abstract class LookEffect : CardSelectionEffect
+    abstract class LookEffect : CardSelectionEffect<Card>
     {
         protected LookEffect(LookEffect effect) : base(effect)
         {

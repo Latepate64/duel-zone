@@ -2,7 +2,7 @@
 {
     public interface IEvolutionEffect : IContinuousEffect
     {
-        bool CanEvolve(IGame game, Card evolutionCreature);
-        void Evolve(Card evolutionCreature, IGame game);
+        bool CanEvolve(IGame game, Creature evolutionCreature);
+        void Evolve(Creature evolutionCreature, IGame game);
     }
 }

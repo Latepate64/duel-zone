@@ -2,6 +2,6 @@
 {
     public interface ICannotAttackPlayersEffect : IContinuousEffect
     {
-        bool CannotAttackPlayers(Card attacker, IGame game);
+        bool CannotAttackPlayers(Creature attacker, IGame game);
     }
 }

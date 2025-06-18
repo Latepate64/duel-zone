@@ -40,7 +40,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature becomes blocked, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Card card, IGame game)
+        protected override bool TriggersFrom(Engine.Creature card, IGame game)
         {
             return card == Source;
         }

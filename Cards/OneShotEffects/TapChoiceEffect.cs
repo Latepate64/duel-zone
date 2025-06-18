@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.OneShotEffects
 {
-    abstract class TapChoiceEffect : CardSelectionEffect
+    abstract class TapChoiceEffect : CardSelectionEffect<Engine.Creature>
     {
         protected TapChoiceEffect(int minimum, int maximum, bool ownerChooses) : base(minimum, maximum, ownerChooses)
         {
@@ -13,7 +13,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        protected override void Apply(IGame game, IAbility source, params Card[] cards)
+        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
         {
             (ControllerChooses ? Controller : GetOpponent(game)).Tap(game, cards);
         }

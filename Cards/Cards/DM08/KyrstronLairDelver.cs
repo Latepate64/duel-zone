@@ -13,7 +13,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class KyrstronLairDelverEffect : CardMovingChoiceEffect
+    class KyrstronLairDelverEffect : CardMovingChoiceEffect<Engine.Creature>
     {
         public KyrstronLairDelverEffect() : base(0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM08
             return "You may put a creature that has Dragon in its race from your hand into the battle zone.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.Hand.Dragons;
         }

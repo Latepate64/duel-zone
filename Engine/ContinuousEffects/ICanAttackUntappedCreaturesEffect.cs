@@ -2,6 +2,6 @@
 {
     public interface ICanAttackUntappedCreaturesEffect : IContinuousEffect
     {
-        bool CanAttackUntappedCreature(Card attacker, Card targetOfAttack, IGame game);
+        bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game);
     }
 }

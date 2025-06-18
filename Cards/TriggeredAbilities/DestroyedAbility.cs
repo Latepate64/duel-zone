@@ -16,7 +16,9 @@ namespace Cards.TriggeredAbilities
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && TriggersFrom(e.CardInDestinationZone, game);
+            return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone
+            && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone is Creature creature
+            && TriggersFrom(creature, game);
         }
     }
 
@@ -40,7 +42,7 @@ namespace Cards.TriggeredAbilities
             return $"When this creature is destroyed, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Card card, IGame game)
+        protected override bool TriggersFrom(Engine.Creature card, IGame game)
         {
             return card == Source;
         }

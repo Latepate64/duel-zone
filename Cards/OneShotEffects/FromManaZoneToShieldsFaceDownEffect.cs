@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.OneShotEffects
 {
-    class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect
+    class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect<Card>
     {
         public FromManaZoneToShieldsFaceDownEffect(FromManaZoneToShieldsFaceDownEffect effect) : base(effect)
         {

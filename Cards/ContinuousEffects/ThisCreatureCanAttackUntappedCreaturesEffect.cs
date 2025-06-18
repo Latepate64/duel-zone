@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
             return "This creature can attack untapped creatures.";
         }
 
-        public bool CanAttackUntappedCreature(Card attacker, Card targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(Engine.Creature attacker, Engine.Creature targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker);
         }
