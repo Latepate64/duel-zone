@@ -101,7 +101,7 @@ namespace Engine
 
         public void Cast(Card spell, IGame game)
         {
-            game.ProcessEvents(new SpellCastEvent(this, spell));
+            throw new NotImplementedException();
         }
 
         public T Choose<T>(T choice) where T : Choice

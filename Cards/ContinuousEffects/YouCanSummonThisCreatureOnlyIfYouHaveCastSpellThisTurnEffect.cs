@@ -2,6 +2,7 @@
 using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
+using GameEvents;
 using System.Linq;
 
 namespace Cards.ContinuousEffects

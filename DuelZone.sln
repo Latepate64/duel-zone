@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects", "Effects\Effects.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abilities", "Abilities\Abilities.csproj", "{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEvents", "GameEvents\GameEvents.csproj", "{69AB4BC8-6674-4062-80A0-77A9563DDFDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,18 @@ Global
 		{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}.Release|x64.Build.0 = Release|Any CPU
 		{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}.Release|x86.Build.0 = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|x64.Build.0 = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Debug|x86.Build.0 = Debug|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|x64.Build.0 = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|x86.ActiveCfg = Release|Any CPU
+		{69AB4BC8-6674-4062-80A0-77A9563DDFDF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
