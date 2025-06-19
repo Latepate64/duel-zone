@@ -1,4 +1,5 @@
-﻿using Effects.OneShot;
+﻿using Effects.Continuous;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

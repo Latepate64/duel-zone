@@ -1,0 +1,38 @@
+﻿using Engine;
+using Engine.ContinuousEffects;
+
+namespace Effects.Continuous;
+
+public class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
+{
+    public PowerAttackerEffect(PowerAttackerEffect effect) : base(effect)
+    {
+        Power = effect.Power;
+    }
+
+    public PowerAttackerEffect(int power) : base()
+    {
+        Power = power;
+    }
+
+    public int Power { get; }
+
+    public override ContinuousEffect Copy()
+    {
+        return new PowerAttackerEffect(this);
+    }
+
+    public void ModifyPower(IGame game)
+    {
+        var creature = Source as Creature;
+        if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
+        {
+            creature.IncreasePower(Power);
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"Power attacker +{Power}";
+    }
+}

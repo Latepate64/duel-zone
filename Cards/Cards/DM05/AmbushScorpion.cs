@@ -1,6 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
+using Effects.Continuous;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05

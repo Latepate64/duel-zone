@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -25,7 +26,7 @@ namespace Cards.Cards.DM08
 
         public void AddAbility(IGame game)
         {
-            Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(4000));
+            Source.AddGrantedAbility(new PowerAttackerAbility(4000));
         }
 
         public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)

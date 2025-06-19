@@ -12,11 +12,6 @@ namespace Cards
         Race[] Races { get; }
     }
 
-    interface IPowerable
-    {
-        int Power { get; }
-    }
-
     interface ICivilizationable
     {
         Civilization Civilization { get; }

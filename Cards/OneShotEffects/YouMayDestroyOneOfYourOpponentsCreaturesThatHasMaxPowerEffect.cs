@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.Continuous;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;

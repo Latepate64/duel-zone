@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Static;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace Cards.Cards.DM09
         public void AddAbility(IGame game)
         {
             game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.AddGrantedAbility(
-                new StaticAbilities.PowerAttackerAbility(4000)));
+                new PowerAttackerAbility(4000)));
         }
 
         public bool AttacksIfAble(Creature creature, IGame game)

@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -23,7 +24,7 @@ namespace Cards.Cards.DM07
         {
             if (YouHaveNoShields(game))
             {
-                Source.AddGrantedAbility(new StaticAbilities.PowerAttackerAbility(3000));
+                Source.AddGrantedAbility(new PowerAttackerAbility(3000));
             }
         }
 

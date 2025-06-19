@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.Continuous;
 using Engine;
 using System;
 using System.Collections.Generic;

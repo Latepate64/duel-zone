@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public ChaoticSkyterrorEffect() : base(new StaticAbilities.PowerAttackerAbility(4000), new DoubleBreakerAbility())
+        public ChaoticSkyterrorEffect() : base(new PowerAttackerAbility(4000), new DoubleBreakerAbility())
         {
         }
 
