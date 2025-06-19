@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
-    class ThrashCrawler : Creature
+    class ThrashCrawler : Engine.Creature
     {
         public ThrashCrawler() : base("Thrash Crawler", 4, 5000, Engine.Race.EarthEater, Engine.Civilization.Water)
         {

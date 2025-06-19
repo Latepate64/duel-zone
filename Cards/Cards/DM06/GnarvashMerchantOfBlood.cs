@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class GnarvashMerchantOfBlood : Creature
+    class GnarvashMerchantOfBlood : Engine.Creature
     {
         public GnarvashMerchantOfBlood() : base("Gnarvash, Merchant of Blood", 6, 8000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {

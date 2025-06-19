@@ -13,7 +13,7 @@ namespace Cards.Cards.DM09
         public StormWranglerTheFurious() : base("Storm Wrangler, the Furious", 4, 5000, Race.BeastFolk, Civilization.Nature)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new StormWranglerEffect()));
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
+            AddTriggeredAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
         }
     }
 
@@ -59,7 +59,7 @@ namespace Cards.Cards.DM09
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker) && blocker != _blocker;
         }

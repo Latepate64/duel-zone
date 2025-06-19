@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
-    class SmashHornQ : Creature
+    class SmashHornQ : Engine.Creature
     {
         public SmashHornQ() : base("Smash Horn Q", 3, 2000, [Engine.Race.Survivor, Engine.Race.HornedBeast], Engine.Civilization.Nature)
         {

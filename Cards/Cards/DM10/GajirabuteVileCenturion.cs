@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM10
 {
-    class GajirabuteVileCenturion : Creature
+    class GajirabuteVileCenturion : Engine.Creature
     {
         public GajirabuteVileCenturion() : base("Gajirabute, Vile Centurion", 6, 3000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
     {

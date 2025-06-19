@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class CannonShell : Creature
+    class CannonShell : Engine.Creature
     {
         public CannonShell() : base("Cannon Shell", 4, 1000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {

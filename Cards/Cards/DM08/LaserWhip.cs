@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM08
 {
-    class LaserWhip : Engine.Spell
+    class LaserWhip : Spell
     {
         public LaserWhip() : base("Laser Whip", 4, Civilization.Light)
         {

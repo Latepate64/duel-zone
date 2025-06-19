@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class KaratePotato : Creature
+    class KaratePotato : Engine.Creature
     {
         public KaratePotato() : base("Karate Potato", 4, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
         {

@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM12
 {
-    class ClonedDeflector : Engine.Spell
+    class ClonedDeflector : Spell
     {
         public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
         {

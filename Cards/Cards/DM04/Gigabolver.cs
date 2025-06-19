@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class Gigabolver : Creature
+    class Gigabolver : Engine.Creature
     {
         public Gigabolver() : base("Gigabolver", 4, 3000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {

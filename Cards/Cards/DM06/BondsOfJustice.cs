@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class BondsOfJustice : Engine.Spell
+    class BondsOfJustice : Spell
     {
         public BondsOfJustice() : base("Bonds of Justice", 4, Civilization.Light)
         {

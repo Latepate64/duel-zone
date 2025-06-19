@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM10
 {
-    class BuoyantBlowfish : Creature
+    class BuoyantBlowfish : Engine.Creature
     {
         public BuoyantBlowfish() : base("Buoyant Blowfish", 5, 1000, Engine.Race.GelFish, Engine.Civilization.Water)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.Promo
 {
-    class GiliamTheTormentor : Creature
+    class GiliamTheTormentor : Engine.Creature
     {
         public GiliamTheTormentor() : base("Giliam, the Tormentor", 7, 5000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {

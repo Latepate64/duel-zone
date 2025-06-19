@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class RazaVegaThunderGuardian : Creature
+    class RazaVegaThunderGuardian : Engine.Creature
     {
         public RazaVegaThunderGuardian() : base("Raza Vega, Thunder Guardian", 10, 3000, Engine.Race.Guardian, Engine.Civilization.Light)
         {

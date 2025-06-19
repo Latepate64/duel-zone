@@ -9,7 +9,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public bool CanBlock(Engine.Creature blocker, Engine.Creature attacker, IGame game)
+        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
         {
             return IsSourceOfAbility(blocker);
         }

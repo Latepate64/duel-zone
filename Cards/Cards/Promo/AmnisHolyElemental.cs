@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.Promo
 {
-    class AmnisHolyElemental : Creature
+    class AmnisHolyElemental : Engine.Creature
     {
         public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {

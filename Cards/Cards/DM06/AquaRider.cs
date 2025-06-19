@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM06
 {
-    class AquaRider : Creature
+    class AquaRider : Engine.Creature
     {
         public AquaRider() : base("Aqua Rider", 4, 2000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {

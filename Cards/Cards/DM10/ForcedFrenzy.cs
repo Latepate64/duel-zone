@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM10
 {
-    class ForcedFrenzy : Engine.Spell
+    class ForcedFrenzy : Spell
     {
         public ForcedFrenzy() : base("Forced Frenzy", 3, Civilization.Fire)
         {
@@ -48,7 +48,7 @@ namespace Cards.Cards.DM10
             _opponent = effect._opponent;
         }
 
-        public bool AttacksIfAble(Engine.Creature creature, IGame game)
+        public bool AttacksIfAble(Creature creature, IGame game)
         {
             return creature.Owner == _opponent;
         }

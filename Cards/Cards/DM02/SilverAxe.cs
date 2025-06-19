@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM02
 {
-    class SilverAxe : Creature
+    class SilverAxe : Engine.Creature
     {
         public SilverAxe() : base("Silver Axe", 3, 1000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {

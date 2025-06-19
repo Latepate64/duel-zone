@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
-    class SmileAngler : Creature
+    class SmileAngler : Engine.Creature
     {
         public SmileAngler() : base("Smile Angler", 6, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
         {

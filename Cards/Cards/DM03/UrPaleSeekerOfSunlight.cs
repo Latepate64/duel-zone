@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class UrPaleSeekerOfSunlight : Creature
+    class UrPaleSeekerOfSunlight : Engine.Creature
     {
         public UrPaleSeekerOfSunlight() : base("Ur Pale, Seeker of Sunlight", 4, 2500, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {

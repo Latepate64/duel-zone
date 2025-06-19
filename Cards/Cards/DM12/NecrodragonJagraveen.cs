@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM12
 {
-    class NecrodragonJagraveen : Creature
+    class NecrodragonJagraveen : Engine.Creature
     {
         public NecrodragonJagraveen() : base("Necrodragon Jagraveen", 6, 6000, Engine.Race.ZombieDragon, Engine.Civilization.Darkness)
         {

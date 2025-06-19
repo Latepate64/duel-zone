@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM08
 {
-    class Dracobarrier : Engine.Spell
+    class Dracobarrier : Spell
     {
         public Dracobarrier() : base("Dracobarrier", 3, Civilization.Light)
         {

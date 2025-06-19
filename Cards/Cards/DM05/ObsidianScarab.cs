@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
-    class ObsidianScarab : Creature
+    class ObsidianScarab : Engine.Creature
     {
         public ObsidianScarab() : base("Obsidian Scarab", 6, 5000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {

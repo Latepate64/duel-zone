@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM04
 {
-    class SwordOfMalevolentDeath : Engine.Spell
+    class SwordOfMalevolentDeath : Spell
     {
         public SwordOfMalevolentDeath() : base("Sword of Malevolent Death", 4, Civilization.Darkness)
         {

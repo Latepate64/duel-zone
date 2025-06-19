@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
-    class ChainsOfSacrifice : Engine.Spell
+    class ChainsOfSacrifice : Spell
     {
         public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM04
             return "Destroy up to 2 of your opponent's creatures.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
         }

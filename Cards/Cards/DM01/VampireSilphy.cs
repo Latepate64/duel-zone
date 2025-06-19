@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class VampireSilphy : Creature
+    class VampireSilphy : Engine.Creature
     {
         public VampireSilphy() : base("Vampire Silphy", 8, 4000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
         {

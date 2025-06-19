@@ -29,7 +29,7 @@ namespace Cards.ContinuousEffects
         {
             if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
             {
-                (Source as Engine.Creature).IncreasePower(Power);
+                (Source as Creature).IncreasePower(Power);
             }
         }
 

@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
-    class GeneralDarkFiend : Creature
+    class GeneralDarkFiend : Engine.Creature
     {
         public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
         {

@@ -4,7 +4,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
-    class MegaDetonator : Engine.Spell
+    class MegaDetonator : Spell
     {
         public MegaDetonator() : base("Mega Detonator", 2, Civilization.Fire)
         {

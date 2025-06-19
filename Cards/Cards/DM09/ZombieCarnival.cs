@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM09
 {
-    class ZombieCarnival : Engine.Spell
+    class ZombieCarnival : Spell
     {
         public ZombieCarnival() : base("Zombie Carnival", 5, Civilization.Darkness)
         {

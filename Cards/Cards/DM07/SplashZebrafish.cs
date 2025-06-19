@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM07
 {
-    class SplashZebrafish : Creature
+    class SplashZebrafish : Engine.Creature
     {
         public SplashZebrafish() : base("Splash Zebrafish", 4, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
         {

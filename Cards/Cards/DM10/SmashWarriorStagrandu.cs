@@ -27,7 +27,7 @@ namespace Cards.Cards.DM10
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
             return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e
-                && e.Target is Engine.Creature c && c.Power >= 6000;
+                && e.Target is Creature c && c.Power >= 6000;
         }
     }
 }

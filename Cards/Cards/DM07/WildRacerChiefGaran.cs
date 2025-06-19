@@ -2,12 +2,12 @@
 
 namespace Cards.Cards.DM07
 {
-    class WildRacerChiefGaran : Creature
+    class WildRacerChiefGaran : Engine.Creature
     {
         public WildRacerChiefGaran() : base("Wild Racer Chief Garan", 3, 2000, Engine.Race.Human, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new PowerAttackerEffect(1000));
-            AddStaticAbilities(new ContinuousEffects.StealthEffect(Engine.Civilization.Light));
+            AddStaticAbilities(new StealthEffect(Engine.Civilization.Light));
         }
     }
 }

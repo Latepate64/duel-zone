@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class RainOfArrows : Engine.Spell
+    class RainOfArrows : Spell
     {
         public RainOfArrows() : base("Rain of Arrows", 2, Civilization.Light)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM06
             {
                 Controller.Look(GetOpponent(game), game, cards);
                 GetOpponent(game).Discard(Ability, game, [.. cards.Where(x => x.HasCivilization(Civilization.Darkness)
-                    && x is Engine.Spell)]);
+                    && x is Spell)]);
                 GetOpponent(game).Unreveal(cards);
             }
         }

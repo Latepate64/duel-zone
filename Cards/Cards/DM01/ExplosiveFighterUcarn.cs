@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class ExplosiveFighterUcarn : Creature
+    class ExplosiveFighterUcarn : Engine.Creature
     {
         public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, 9000, Engine.Race.Dragonoid, Engine.Civilization.Fire)
         {

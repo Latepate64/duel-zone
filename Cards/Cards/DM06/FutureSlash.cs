@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
-    class FutureSlash : Engine.Spell
+    class FutureSlash : Spell
     {
         public FutureSlash() : base("Future Slash", 7, Civilization.Darkness)
         {

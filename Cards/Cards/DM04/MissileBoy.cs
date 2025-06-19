@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
-    class MissileBoy : Creature
+    class MissileBoy : Engine.Creature
     {
         public MissileBoy() : base("Missile Boy", 3, 1000, Engine.Race.Human, Engine.Civilization.Fire)
         {

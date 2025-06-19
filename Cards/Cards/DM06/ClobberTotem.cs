@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class ClobberTotem : Creature
+    class ClobberTotem : Engine.Creature
     {
         public ClobberTotem() : base("Clobber Totem", 6, 4000, Engine.Race.MysteryTotem, Engine.Civilization.Nature)
         {

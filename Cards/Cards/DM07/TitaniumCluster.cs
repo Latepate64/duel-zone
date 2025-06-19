@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM07
 {
-    class TitaniumCluster : Creature
+    class TitaniumCluster : Engine.Creature
     {
         public TitaniumCluster() : base("Titanium Cluster", 4, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {

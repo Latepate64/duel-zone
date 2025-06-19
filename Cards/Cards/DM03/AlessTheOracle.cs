@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class AlessTheOracle : Creature
+    class AlessTheOracle : Engine.Creature
     {
         public AlessTheOracle() : base("Aless, the Oracle", 6, 1000, Engine.Race.LightBringer, Engine.Civilization.Light)
         {

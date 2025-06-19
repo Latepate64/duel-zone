@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class CrowWinger : Creature
+    class CrowWinger : Engine.Creature
     {
         public CrowWinger() : base("Crow Winger", 2, 1000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {

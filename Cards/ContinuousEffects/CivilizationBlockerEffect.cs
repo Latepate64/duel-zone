@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
 
         public Civilization[] Civilizations { get; }
 
-        public bool CanBlock(Engine.Creature blocker, Engine.Creature attacker, IGame game)
+        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
         {
             return IsSourceOfAbility(blocker) && attacker.Civilizations.Intersect(Civilizations).Any();
         }

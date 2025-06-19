@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
-    class TangleFistTheWeaver : Creature
+    class TangleFistTheWeaver : Engine.Creature
     {
         public TangleFistTheWeaver() : base("Tangle Fist, the Weaver", 4, 2000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {

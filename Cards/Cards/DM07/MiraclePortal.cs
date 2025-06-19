@@ -5,7 +5,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM07
 {
-    class MiraclePortal : Engine.Spell
+    class MiraclePortal : Spell
     {
         public MiraclePortal() : base("Miracle Portal", 4, Civilization.Light)
         {
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM07
     {
         private readonly Card _creature;
 
-        public MiraclePortalContinuousEffect(Engine.Creature creature)
+        public MiraclePortalContinuousEffect(Creature creature)
         {
             _creature = creature;
         }
@@ -62,7 +62,7 @@ namespace Cards.Cards.DM07
             return attacker == _creature;
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker == _creature;
         }

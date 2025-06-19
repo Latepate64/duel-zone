@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM02
 {
-    class XenoMantis : Creature
+    class XenoMantis : Engine.Creature
     {
         public XenoMantis() : base("Xeno Mantis", 7, 6000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {

@@ -18,9 +18,9 @@ namespace Cards.OneShotEffects
             return $"This creature breaks {_amount} of your opponent's shields.";
         }
 
-        protected override Engine.Creature GetBreaker(IGame game, IAbility source)
+        protected override Creature GetBreaker(IGame game, IAbility source)
         {
-            return Ability.Source as Engine.Creature;
+            return Ability.Source as Creature;
         }
     }
 
@@ -75,6 +75,6 @@ namespace Cards.OneShotEffects
             game.Break(GetBreaker(game, Ability), _amount);
         }
 
-        protected abstract Engine.Creature GetBreaker(IGame game, IAbility source);
+        protected abstract Creature GetBreaker(IGame game, IAbility source);
     }
 }

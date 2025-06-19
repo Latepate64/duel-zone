@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
-    class MilieusTheDaystretcher : Creature
+    class MilieusTheDaystretcher : Engine.Creature
     {
         public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Engine.Race.Berserker, Engine.Civilization.Light)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class VashunaSwordDancer : Creature
+    class VashunaSwordDancer : Engine.Creature
     {
         public VashunaSwordDancer() : base("Vashuna, Sword Dancer", 5, 7000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {

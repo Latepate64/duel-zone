@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class CharmiliaTheEnticer : Creature
+    class CharmiliaTheEnticer : Engine.Creature
     {
         public CharmiliaTheEnticer() : base("Charmilia, the Enticer", 4, 3000, Engine.Race.SnowFaerie, Engine.Civilization.Nature)
         {

@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class BloodySquito : Creature
+    class BloodySquito : Engine.Creature
     {
         public BloodySquito() : base("Bloody Squito", 2, 4000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
         {

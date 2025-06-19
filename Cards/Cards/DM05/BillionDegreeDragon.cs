@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class BillionDegreeDragon : Creature
+    class BillionDegreeDragon : Engine.Creature
     {
         public BillionDegreeDragon() : base("Billion-Degree Dragon", 10, 15000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {

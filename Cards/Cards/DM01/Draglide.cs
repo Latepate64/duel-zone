@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class Draglide : Creature
+    class Draglide : Engine.Creature
     {
         public Draglide() : base("Draglide", 5, 5000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {

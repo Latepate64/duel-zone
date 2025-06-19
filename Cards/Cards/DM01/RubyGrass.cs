@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class RubyGrass : Creature
+    class RubyGrass : Engine.Creature
     {
         public RubyGrass() : base("Ruby Grass", 3, 3000, Engine.Race.StarlightTree, Engine.Civilization.Light)
         {

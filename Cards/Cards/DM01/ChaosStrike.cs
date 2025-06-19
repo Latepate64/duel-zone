@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class ChaosStrike : Engine.Spell
+    class ChaosStrike : Spell
     {
         public ChaosStrike() : base("Chaos Strike", 2, Civilization.Fire)
         {
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM01
             return "Choose one of your opponent's untapped creatures in the battle zone. Your creatures can attack it this turn as though it were tapped.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
+        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
         {
             if (cards.Length == 1)
             {
@@ -39,7 +39,7 @@ namespace Cards.Cards.DM01
             }
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id);
         }

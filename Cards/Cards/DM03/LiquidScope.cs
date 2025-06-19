@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM03
 {
-    class LiquidScope : Engine.Spell
+    class LiquidScope : Spell
     {
         public LiquidScope() : base("Liquid Scope", 4, Civilization.Water)
         {

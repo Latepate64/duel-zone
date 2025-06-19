@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM11
 {
-    class RiseAndShine : Engine.Spell
+    class RiseAndShine : Spell
     {
         public RiseAndShine() : base("Rise and Shine", 4, Civilization.Light, Civilization.Water)
         {

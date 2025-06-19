@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.Promo
 {
-    class Gigagrax : Creature
+    class Gigagrax : Engine.Creature
     {
         public Gigagrax() : base("Gigagrax", 8, 5000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {

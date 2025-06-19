@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM07
 {
-    class SkyCrusherTheAgitator : Creature
+    class SkyCrusherTheAgitator : Engine.Creature
     {
         public SkyCrusherTheAgitator() : base("Sky Crusher, the Agitator", 7, 4000, Engine.Race.Dragonoid, Engine.Civilization.Fire)
         {

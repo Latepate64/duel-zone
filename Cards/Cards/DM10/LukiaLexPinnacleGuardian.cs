@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM10
 {
-    class LukiaLexPinnacleGuardian : Creature
+    class LukiaLexPinnacleGuardian : Engine.Creature
     {
         public LukiaLexPinnacleGuardian() : base("Lukia Lex, Pinnacle Guardian", 3, 2500, Engine.Race.Guardian, Engine.Civilization.Light, Engine.Civilization.Nature)
         {

@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM05
 {
-    class SlimeVeil : Engine.Spell
+    class SlimeVeil : Spell
     {
         public SlimeVeil() : base("Slime Veil", 1, Civilization.Darkness)
         {
@@ -55,7 +55,7 @@ namespace Cards.Cards.DM05
             _player = effect._player;
         }
 
-        public bool AttacksIfAble(Engine.Creature creature, IGame game)
+        public bool AttacksIfAble(Creature creature, IGame game)
         {
             return creature.Owner == _player;
         }

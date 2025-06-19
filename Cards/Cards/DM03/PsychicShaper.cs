@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM03
 {
-    class PsychicShaper : Engine.Spell
+    class PsychicShaper : Spell
     {
         public PsychicShaper() : base("Psychic Shaper", 6, Civilization.Water)
         {

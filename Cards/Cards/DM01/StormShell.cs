@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class StormShell : Creature
+    class StormShell : Engine.Creature
     {
         public StormShell() : base("Storm Shell", 7, 2000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {

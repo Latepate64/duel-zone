@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class DarkClown : Creature
+    class DarkClown : Engine.Creature
     {
         public DarkClown() : base("Dark Clown", 4, 6000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
         {

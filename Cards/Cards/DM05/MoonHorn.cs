@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class MoonHorn : Creature
+    class MoonHorn : Engine.Creature
     {
         public MoonHorn() : base("Moon Horn", 6, 6000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {

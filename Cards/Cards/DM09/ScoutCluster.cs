@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM09
 {
-    class ScoutCluster : Creature
+    class ScoutCluster : Engine.Creature
     {
         public ScoutCluster() : base("Scout Cluster", 3, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {

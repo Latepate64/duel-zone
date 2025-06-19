@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM05
 {
-    class EnchantedSoil : Engine.Spell
+    class EnchantedSoil : Spell
     {
         public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
         {

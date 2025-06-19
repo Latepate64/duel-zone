@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM12
 {
-    class HypersprintWariorUzesol : Creature
+    class HypersprintWariorUzesol : Engine.Creature
     {
         public HypersprintWariorUzesol() : base("Hypersprint Warior Uzesol", 4, 1000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {

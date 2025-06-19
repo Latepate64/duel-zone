@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM05
 {
-    class AquaSurfer : Creature
+    class AquaSurfer : Engine.Creature
     {
         public AquaSurfer() : base("Aqua Surfer", 6, 2000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM04
 {
-    class SoulGulp : Engine.Spell
+    class SoulGulp : Spell
     {
         public SoulGulp() : base("Soul Gulp", 4, Civilization.Darkness)
         {

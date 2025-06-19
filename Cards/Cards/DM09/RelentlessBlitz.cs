@@ -5,7 +5,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM09
 {
-    class RelentlessBlitz : Engine.Spell
+    class RelentlessBlitz : Spell
     {
         public RelentlessBlitz() : base("Relentless Blitz", 3, Civilization.Fire)
         {
@@ -54,12 +54,12 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public bool CanAttackUntappedCreature(Engine.Creature attacker, Engine.Creature targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
         {
             return attacker.HasRace(_race);
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return attacker.HasRace(_race) && targetOfAttack is Card;
         }

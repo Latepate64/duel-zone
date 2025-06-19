@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM12
 {
-    class Gigaslug : Creature
+    class Gigaslug : Engine.Creature
     {
         public Gigaslug() : base("Gigaslug", 3, 1000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {

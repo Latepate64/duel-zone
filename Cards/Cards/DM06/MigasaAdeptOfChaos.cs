@@ -28,12 +28,12 @@ namespace Cards.Cards.DM06
             return "One of your fire creatures in the battle zone gets \"double breaker\" until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
+        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards));
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Fire);
         }

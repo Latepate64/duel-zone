@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM06
 {
-    class OverloadCluster : Creature
+    class OverloadCluster : Engine.Creature
     {
         public OverloadCluster() : base("Overload Cluster", 5, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {

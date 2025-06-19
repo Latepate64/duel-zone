@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM11
 {
-    class EmergencyTyphoon : Engine.Spell
+    class EmergencyTyphoon : Spell
     {
         public EmergencyTyphoon() : base("Emergency Typhoon", 2, Engine.Civilization.Water)
         {

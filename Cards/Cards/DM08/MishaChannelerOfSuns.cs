@@ -18,7 +18,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool Applies(Engine.Creature attacker, Engine.Creature targetOfAttack, IGame game)
+        public bool Applies(Creature attacker, Creature targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(targetOfAttack) && attacker.IsDragon;
         }

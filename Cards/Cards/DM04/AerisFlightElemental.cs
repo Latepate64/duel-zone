@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class AerisFlightElemental : Creature
+    class AerisFlightElemental : Engine.Creature
     {
         public AerisFlightElemental() : base("Aeris, Flight Elemental", 5, 9000, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {

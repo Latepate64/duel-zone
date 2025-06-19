@@ -16,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class SashaBlockerEffect : ContinuousEffect, IBlockerEffect
     {
-        public bool CanBlock(Engine.Creature blocker, Engine.Creature attacker, IGame game)
+        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
         {
             return attacker.IsDragon;
         }
@@ -54,7 +54,7 @@ namespace Cards.Cards.DM08
                 var against = a.GetCreatureBattlingAgainst(Source as Creature);
                 if (against != null && against.IsDragon)
                 {
-                    (Source as Engine.Creature).IncreasePower(6000);
+                    (Source as Creature).IncreasePower(6000);
                 }
             }
         }

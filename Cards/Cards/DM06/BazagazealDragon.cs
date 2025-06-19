@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
-    class BazagazealDragon : Creature
+    class BazagazealDragon : Engine.Creature
     {
         public BazagazealDragon() : base("Bazagazeal Dragon", 8, 8000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {

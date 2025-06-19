@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM05
 {
-    class HornedMutant : Creature
+    class HornedMutant : Engine.Creature
     {
         public HornedMutant() : base("Horned Mutant", 5, 3000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {

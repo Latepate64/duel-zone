@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM07
 {
-    class Gigabuster : Creature
+    class Gigabuster : Engine.Creature
     {
         public Gigabuster() : base("Gigabuster", 5, 5000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {

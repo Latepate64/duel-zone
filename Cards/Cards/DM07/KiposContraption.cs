@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM07
 {
-    class KiposContraption : Creature
+    class KiposContraption : Engine.Creature
     {
         public KiposContraption() : base("Kipo's Contraption", 6, 3000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
         {

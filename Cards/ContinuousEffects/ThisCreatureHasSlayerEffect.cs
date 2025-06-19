@@ -23,7 +23,7 @@ namespace Cards.ContinuousEffects
             return "Slayer";
         }
 
-        public bool Applies(Engine.Creature creature, Card against, IGame game)
+        public bool Applies(Creature creature, Card against, IGame game)
         {
             return IsSourceOfAbility(creature);
         }

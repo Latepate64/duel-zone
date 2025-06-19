@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
             _cards = effect._cards;
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return _cards.Any(x => x.Id == attacker.Id);
 ;        }

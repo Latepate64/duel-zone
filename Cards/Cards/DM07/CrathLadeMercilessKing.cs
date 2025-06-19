@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
-    class CrathLadeMercilessKing : Creature
+    class CrathLadeMercilessKing : Engine.Creature
     {
         public CrathLadeMercilessKing() : base("Crath Lade, Merciless King", 8, 4000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
         {

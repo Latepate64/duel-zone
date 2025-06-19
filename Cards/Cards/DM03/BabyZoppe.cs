@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class BabyZoppe : Creature
+    class BabyZoppe : Engine.Creature
     {
         public BabyZoppe() : base("Baby Zoppe", 3, 2000, Engine.Race.FireBird, Engine.Civilization.Fire)
         {

@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM11
 {
-    class MiraculousTruce : Engine.Spell
+    class MiraculousTruce : Spell
     {
         public MiraculousTruce() : base("Miraculous Truce", 5, Civilization.Light, Civilization.Nature)
         {
@@ -64,7 +64,7 @@ namespace Cards.Cards.DM11
             _player = effect._player;
         }
 
-        public bool CannotAttackPlayers(Engine.Creature attacker, IGame game)
+        public bool CannotAttackPlayers(Creature attacker, IGame game)
         {
             return attacker.HasCivilization(_civilization);
         }

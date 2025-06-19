@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class LurkingEel : Creature
+    class LurkingEel : Engine.Creature
     {
         public LurkingEel() : base("Lurking Eel", 6, 4000, Engine.Race.GelFish, Engine.Civilization.Water)
         {

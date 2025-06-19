@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM08
 {
-    class TyrantWorm : Creature
+    class TyrantWorm : Engine.Creature
     {
         public TyrantWorm() : base("Tyrant Worm", 1, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {

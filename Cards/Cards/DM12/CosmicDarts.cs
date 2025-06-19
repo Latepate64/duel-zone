@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM12
 {
-    class CosmicDarts : Engine.Spell
+    class CosmicDarts : Spell
     {
         public CosmicDarts() : base("Cosmic Darts", 1, Civilization.Light)
         {
@@ -35,7 +35,7 @@ namespace Cards.Cards.DM12
             {
                 Controller.Look(Controller, game, cards);
                 var card = cards.Single();
-                if (card is Engine.Spell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
+                if (card is Spell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
                 {
                     Controller.Cast(card, game);
                 }

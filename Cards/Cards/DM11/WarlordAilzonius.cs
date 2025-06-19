@@ -7,7 +7,7 @@ namespace Cards.Cards.DM11
         public WarlordAilzonius() : base("Warlord Ailzonius", 5, 8000, Engine.Race.Gladiator, Engine.Civilization.Light)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddStaticAbilities(new ContinuousEffects.OpponentCannotChooseThisCreatureEffect());
+            AddStaticAbilities(new OpponentCannotChooseThisCreatureEffect());
         }
     }
 }

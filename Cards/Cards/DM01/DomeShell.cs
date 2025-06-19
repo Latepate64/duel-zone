@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class DomeShell : Creature
+    class DomeShell : Engine.Creature
     {
         public DomeShell() : base("Dome Shell", 4, 3000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {

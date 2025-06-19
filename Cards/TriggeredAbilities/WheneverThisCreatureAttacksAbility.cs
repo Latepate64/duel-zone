@@ -24,7 +24,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever this creature attacks, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.Creature card, IGame game)
+        protected override bool TriggersFrom(Creature card, IGame game)
         {
             return card == Source;
         }
@@ -66,7 +66,7 @@ namespace Cards.TriggeredAbilities
             return $"Whenever any of your creatures attacks, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.Creature card, IGame game)
+        protected override bool TriggersFrom(Creature card, IGame game)
         {
             return card.Owner == Controller;
         }

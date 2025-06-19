@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
-    class InvincibleAura : Engine.Spell
+    class InvincibleAura : Spell
     {
         public InvincibleAura() : base("Invincible Aura", 13, Civilization.Light)
         {

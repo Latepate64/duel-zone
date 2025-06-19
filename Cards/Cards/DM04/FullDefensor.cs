@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
 {
-    class FullDefensor : Engine.Spell
+    class FullDefensor : Spell
     {
         public FullDefensor() : base("Full Defensor", 2, Civilization.Light)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM09
 {
-    class CyclolinkSpectralKnight : Creature
+    class CyclolinkSpectralKnight : Engine.Creature
     {
         public CyclolinkSpectralKnight() : base("Cyclolink, Spectral Knight", 4, 3000, Engine.Race.RainbowPhantom, Engine.Civilization.Light)
         {

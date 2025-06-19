@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM09
 {
-    class TentacleCluster : Creature
+    class TentacleCluster : Engine.Creature
     {
         public TentacleCluster() : base("Tentacle Cluster", 5, 2000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {

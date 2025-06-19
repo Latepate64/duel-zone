@@ -17,11 +17,11 @@ namespace Cards.ContinuousEffects
         {
             if (gameEvent is CardMovedEvent e)
             {
-                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone) as Engine.Creature, game);
+                return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone) as Creature, game);
             }
             return false;
         }
 
-        protected abstract bool Applies(Engine.Creature creature, IGame game);
+        protected abstract bool Applies(Creature creature, IGame game);
     }
 }

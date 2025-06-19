@@ -2,7 +2,7 @@
 
 namespace Cards.OneShotEffects
 {
-    abstract class BounceEffect : CardMovingChoiceEffect<Engine.Creature>
+    abstract class BounceEffect : CardMovingChoiceEffect<Creature>
     {
         protected BounceEffect(int minimum, int maximum) : base(minimum, maximum, true, ZoneType.BattleZone, ZoneType.Hand)
         {

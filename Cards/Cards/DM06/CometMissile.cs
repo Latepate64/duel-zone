@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class CometMissile : Engine.Spell
+    class CometMissile : Spell
     {
         public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
         {
@@ -32,7 +32,7 @@ namespace Cards.Cards.DM06
             return "Destroy one of your opponent's creatures that has \"blocker\" and power 6000 or less.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any() && x.Power <= 6000);
         }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM09
 {
-    class ImpossibleTunnel : Engine.Spell
+    class ImpossibleTunnel : Spell
     {
         public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
         {
@@ -53,7 +53,7 @@ namespace Cards.Cards.DM09
             _race = race;
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return game.BattleZone.GetCreatures(_race).Contains(attacker);
         }

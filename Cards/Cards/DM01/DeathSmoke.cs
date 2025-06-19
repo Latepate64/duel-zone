@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class DeathSmoke : Engine.Spell
+    class DeathSmoke : Spell
     {
         public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM01
             return "Destroy one of your opponent's untapped creatures.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, game.GetOpponent(Ability.Controller.Id));
         }

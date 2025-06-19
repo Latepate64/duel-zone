@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class NaturalSnare : Engine.Spell
+    class NaturalSnare : Spell
     {
         public NaturalSnare() : base("Natural Snare", 6, Civilization.Nature)
         {
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM01
             return "Choose one of your opponent's creatures in the battle zone and put it into his mana zone.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
         }

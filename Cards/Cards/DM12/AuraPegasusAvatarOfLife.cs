@@ -28,7 +28,7 @@ namespace Cards.Cards.DM12
         public override void Apply(IGame game)
         {
             var cards = Controller.RevealTopCardsOfDeck(1, game);
-            game.Move(Ability, ZoneType.Deck, cards.All(x => x is Engine.Creature c && c.IsNonEvolutionCreature) ? ZoneType.BattleZone : ZoneType.Hand, [.. cards]);
+            game.Move(Ability, ZoneType.Deck, cards.All(x => x is Creature c && c.IsNonEvolutionCreature) ? ZoneType.BattleZone : ZoneType.Hand, [.. cards]);
         }
 
         public override IOneShotEffect Copy()

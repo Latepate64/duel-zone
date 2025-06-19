@@ -23,12 +23,12 @@ namespace Cards.Cards.DM12
 
         public int GetChange(Card card, IGame game)
         {
-            return card is Engine.Creature ? -1 : 0;
+            return card is Creature ? -1 : 0;
         }
 
         public int GetMinimumCost(Card card, IGame game)
         {
-            return card is Engine.Creature ? 1 : 0;
+            return card is Creature ? 1 : 0;
         }
 
         public override string ToString()

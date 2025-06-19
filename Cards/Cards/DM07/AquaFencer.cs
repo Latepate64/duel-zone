@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM07
 {
-    class AquaFencer : Creature
+    class AquaFencer : Engine.Creature
     {
         public AquaFencer() : base("Aqua Fencer", 7, 3000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {

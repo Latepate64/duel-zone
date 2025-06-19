@@ -68,7 +68,7 @@ namespace Cards.Cards.DM08
 
         public Card Card { get; }
 
-        public bool Applies(Engine.Creature creature, IGame game)
+        public bool Applies(Creature creature, IGame game)
         {
             return creature == Card;
         }
@@ -90,7 +90,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public KachuaDelayedTriggeredAbility(IAbility source, Engine.Creature card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
+        public KachuaDelayedTriggeredAbility(IAbility source, Creature card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
         {
         }
 
@@ -102,10 +102,10 @@ namespace Cards.Cards.DM08
 
     class KachuaAbility : LinkedTriggeredAbility
     {
-        private readonly Engine.Creature _card;
+        private readonly Creature _card;
         private readonly Guid _turnId;
 
-        public KachuaAbility(Engine.Creature card, Guid turnId)
+        public KachuaAbility(Creature card, Guid turnId)
         {
             _card = card;
             _turnId = turnId;

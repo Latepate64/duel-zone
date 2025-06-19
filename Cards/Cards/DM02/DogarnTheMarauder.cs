@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM02
 {
-    class DogarnTheMarauder : Creature
+    class DogarnTheMarauder : Engine.Creature
     {
         public DogarnTheMarauder() : base("Dogarn, the Marauder", 3, 2000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM09
 {
-    class TrixoWickedDoll : Creature
+    class TrixoWickedDoll : Engine.Creature
     {
         public TrixoWickedDoll() : base("Trixo, Wicked Doll", 4, 2000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
         {

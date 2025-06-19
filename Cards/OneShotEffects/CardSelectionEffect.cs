@@ -42,7 +42,7 @@ namespace Cards.OneShotEffects
         protected abstract IEnumerable<T> GetSelectableCards(IGame game, IAbility source);
     }
 
-    public abstract class CreatureSelectionEffect : CardSelectionEffect<Engine.Creature>
+    public abstract class CreatureSelectionEffect : CardSelectionEffect<Creature>
     {
         protected CreatureSelectionEffect(CreatureSelectionEffect effect) : base(effect)
         {

@@ -24,7 +24,7 @@ namespace Cards.ContinuousEffects
 
         public void ModifyPower(IGame game)
         {
-            (Source as Engine.Creature).IncreasePower(Power);
+            (Source as Creature).IncreasePower(Power);
         }
 
         public override string ToString()

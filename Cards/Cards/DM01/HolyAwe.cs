@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM01
 {
-    class HolyAwe : Engine.Spell
+    class HolyAwe : Spell
     {
         public HolyAwe() : base("Holy Awe", 6, Civilization.Light)
         {

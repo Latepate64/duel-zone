@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
-    class Shtra : Creature
+    class Shtra : Engine.Creature
     {
         public Shtra() : base("Shtra", 4, 2000, Engine.Race.CyberLord, Engine.Civilization.Water)
         {

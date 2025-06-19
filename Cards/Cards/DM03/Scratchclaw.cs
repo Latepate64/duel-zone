@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class Scratchclaw : Creature
+    class Scratchclaw : Engine.Creature
     {
         public Scratchclaw() : base("Scratchclaw", 4, 1000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {

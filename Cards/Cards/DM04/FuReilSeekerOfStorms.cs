@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class FuReilSeekerOfStorms : Creature
+    class FuReilSeekerOfStorms : Engine.Creature
     {
         public FuReilSeekerOfStorms() : base("Fu Reil, Seeker of Storms", 6, 5000, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {

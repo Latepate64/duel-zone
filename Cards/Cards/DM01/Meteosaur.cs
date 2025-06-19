@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class Meteosaur : Creature
+    class Meteosaur : Engine.Creature
     {
         public Meteosaur() : base("Meteosaur", 5, 2000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {

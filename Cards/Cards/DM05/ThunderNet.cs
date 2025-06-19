@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM05
 {
-    class ThunderNet : Engine.Spell
+    class ThunderNet : Spell
     {
         public ThunderNet() : base("Thunder Net", 2, Civilization.Water)
         {

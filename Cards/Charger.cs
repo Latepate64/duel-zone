@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards;
 
-abstract class Charger : Engine.Spell
+abstract class Charger : Spell
 {
     protected Charger(string name, int manaCost, Civilization civilization) : base(name, manaCost, civilization)
     {

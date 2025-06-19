@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM05
 {
-    class DivineRiptide : Engine.Spell
+    class DivineRiptide : Spell
     {
         public DivineRiptide() : base("Divine Riptide", 9, Civilization.Water)
         {

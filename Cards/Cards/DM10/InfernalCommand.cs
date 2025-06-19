@@ -7,7 +7,7 @@ using Engine.Steps;
 
 namespace Cards.Cards.DM10
 {
-    class InfernalCommand : Engine.Spell
+    class InfernalCommand : Spell
     {
         public InfernalCommand() : base("Infernal Command", 1, Civilization.Darkness)
         {
@@ -39,7 +39,7 @@ namespace Cards.Cards.DM10
     {
         private readonly Card _creature;
 
-        public InfernalCommandContinuousEffect(Engine.Creature creature)
+        public InfernalCommandContinuousEffect(Creature creature)
         {
             _creature = creature;
         }
@@ -49,7 +49,7 @@ namespace Cards.Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(Engine.Creature creature, IGame game)
+        public bool AttacksIfAble(Creature creature, IGame game)
         {
             return creature == _creature;
         }

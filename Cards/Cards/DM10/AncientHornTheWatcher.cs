@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM10
 {
-    class AncientHornTheWatcher : Creature
+    class AncientHornTheWatcher : Engine.Creature
     {
         public AncientHornTheWatcher() : base("Ancient Horn, the Watcher", 5, 5000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {

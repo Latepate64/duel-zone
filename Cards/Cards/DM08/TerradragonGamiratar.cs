@@ -15,7 +15,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class TerradragonGamiratarEffect : OneShotEffects.CardMovingChoiceEffect<Engine.Creature>
+    class TerradragonGamiratarEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
     {
         public TerradragonGamiratarEffect() : base(0, 1, false, ZoneType.Hand, ZoneType.BattleZone)
         {
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM08
             return "Your opponent may choose a creature in his hand and put it into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return GetOpponent(game).Hand.Creatures;
         }

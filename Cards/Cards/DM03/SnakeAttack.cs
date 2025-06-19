@@ -7,7 +7,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM03
 {
-    class SnakeAttack : Engine.Spell
+    class SnakeAttack : Spell
     {
         public SnakeAttack() : base("Snake Attack", 4, Civilization.Darkness)
         {

@@ -20,7 +20,7 @@ namespace Cards.Cards.DM11
 
         public void ModifyPower(IGame game)
         {
-            (Source as Engine.Creature).IncreasePower(4000);
+            (Source as Creature).IncreasePower(4000);
         }
 
         public override string ToString()

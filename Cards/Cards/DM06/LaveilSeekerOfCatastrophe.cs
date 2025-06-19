@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
-    class LaveilSeekerOfCatastrophe : Creature
+    class LaveilSeekerOfCatastrophe : Engine.Creature
     {
         public LaveilSeekerOfCatastrophe() : base("Laveil, Seeker of Catastrophe", 8, 8500, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {

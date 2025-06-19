@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class RapidReincarnation : Engine.Spell
+    class RapidReincarnation : Spell
     {
         public RapidReincarnation() : base("Rapid Reincarnation", 3, Civilization.Light)
         {
@@ -19,7 +19,7 @@ namespace Cards.Cards.DM10
         {
             if (Controller.DestroyOwnCreatureOptionally(ToString(), game, Ability) != null)
             {
-                Engine.Creature card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Size), ToString());
+                Creature card = Controller.ChooseCard(Controller.Hand.Creatures.Where(x => x.ManaCost <= Controller.ManaZone.Size), ToString());
                 Controller.PutCreatureFromOwnHandIntoBattleZone(card, game, Ability);
             }
         }

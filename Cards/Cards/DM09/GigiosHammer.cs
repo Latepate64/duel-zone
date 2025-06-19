@@ -59,7 +59,7 @@ namespace Cards.Cards.DM09
                 new StaticAbilities.PowerAttackerAbility(4000)));
         }
 
-        public bool AttacksIfAble(Engine.Creature creature, IGame game)
+        public bool AttacksIfAble(Creature creature, IGame game)
         {
             return creature.HasRace(_race);
         }

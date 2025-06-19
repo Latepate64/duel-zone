@@ -7,7 +7,7 @@ using System;
 
 namespace Cards.Cards.DM01
 {
-    class CreepingPlague : Engine.Spell
+    class CreepingPlague : Spell
     {
         public CreepingPlague() : base("Creeping Plague", 1, Civilization.Darkness)
         {

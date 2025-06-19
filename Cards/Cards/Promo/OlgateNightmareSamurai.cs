@@ -34,7 +34,7 @@ namespace Cards.Cards.Promo
             return "Whenever one of your creatures is destroyed, you may untap this creature.";
         }
 
-        protected override bool TriggersFrom(Engine.Creature card, IGame game)
+        protected override bool TriggersFrom(Creature card, IGame game)
         {
             return card.Owner == Controller && card != Source;
         }

@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM11
 {
-    class LuckyBall : Creature
+    class LuckyBall : Engine.Creature
     {
         public LuckyBall() : base("Lucky Ball", 4, 3000, Engine.Race.CyberVirus, Engine.Civilization.Water)
         {

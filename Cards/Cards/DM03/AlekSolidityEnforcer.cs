@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM03
 {
-    class AlekSolidityEnforcer : Creature
+    class AlekSolidityEnforcer : Engine.Creature
     {
         public AlekSolidityEnforcer() : base("Alek, Solidity Enforcer", 7, 4000, Engine.Race.Berserker, Engine.Civilization.Light)
         {

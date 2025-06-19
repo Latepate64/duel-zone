@@ -18,7 +18,7 @@ namespace Cards.ContinuousEffects
             return new TripleBreakerEffect(this);
         }
 
-        public int GetAmount(IGame game, Engine.Creature creature)
+        public int GetAmount(IGame game, Creature creature)
         {
             return IsSourceOfAbility(creature) ? 3 : 1;
         }

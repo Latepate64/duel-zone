@@ -36,17 +36,17 @@ namespace Cards.ContinuousEffects
             return string.Join(' ', System.Text.RegularExpressions.Regex.Split(text, @"(?<!^)(?=[A-Z])"));
         }
 
-        public bool CanEvolveFrom(Engine.Creature bait, Engine.Creature evolutionCard, IGame game)
+        public bool CanEvolveFrom(Creature bait, Creature evolutionCard, IGame game)
         {
             return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
         }
 
-        public override bool CanEvolve(IGame game, Engine.Creature evolutionCreature)
+        public override bool CanEvolve(IGame game, Creature evolutionCreature)
         {
             return GetPossibleBaits(game, evolutionCreature).Any();
         }
 
-        protected override IEnumerable<Engine.Creature> GetPossibleBaits(IGame game, Engine.Creature evolutionCreature)
+        protected override IEnumerable<Creature> GetPossibleBaits(IGame game, Creature evolutionCreature)
         {
             return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
@@ -62,15 +62,15 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public abstract bool CanEvolve(IGame game, Engine.Creature evolutionCreature);
+        public abstract bool CanEvolve(IGame game, Creature evolutionCreature);
 
-        public void Evolve(Engine.Creature evolutionCreature, IGame game)
+        public void Evolve(Creature evolutionCreature, IGame game)
         {
             var baits = GetPossibleBaits(game, evolutionCreature);
             var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
             game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
         }
 
-        protected abstract IEnumerable<Engine.Creature> GetPossibleBaits(IGame game, Engine.Creature evolutionCreature);
+        protected abstract IEnumerable<Creature> GetPossibleBaits(IGame game, Creature evolutionCreature);
     }
 }

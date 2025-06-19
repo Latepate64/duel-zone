@@ -23,7 +23,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return !IsSourceOfAbility(attacker) && attacker.HasCivilization(Civilization.Water);
         }

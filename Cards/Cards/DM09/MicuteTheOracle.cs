@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM09
 {
-    class MicuteTheOracle : Creature
+    class MicuteTheOracle : Engine.Creature
     {
         public MicuteTheOracle() : base("Micute, the Oracle", 5, 4000, Engine.Race.LightBringer, Engine.Civilization.Light)
         {

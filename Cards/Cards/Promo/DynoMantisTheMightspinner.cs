@@ -13,14 +13,14 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class DynoMantisEffect : ContinuousEffects.ContinuousEffect, IBreaksAdditionalShieldsEffect
+    class DynoMantisEffect : ContinuousEffect, IBreaksAdditionalShieldsEffect
     {
         public override IContinuousEffect Copy()
         {
             return new DynoMantisEffect();
         }
 
-        public int GetAmount(IGame game, Engine.Creature creature)
+        public int GetAmount(IGame game, Creature creature)
         {
             return creature.Owner == Controller && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
         }

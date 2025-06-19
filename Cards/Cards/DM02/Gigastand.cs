@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM02
 {
-    class Gigastand : Creature
+    class Gigastand : Engine.Creature
     {
         public Gigastand() : base("Gigastand", 4, 3000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {

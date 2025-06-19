@@ -29,7 +29,7 @@ namespace Cards.OneShotEffects
             return $"Destroy one of your opponent's creatures that has power {Power} or less.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.Power <= Power);
         }

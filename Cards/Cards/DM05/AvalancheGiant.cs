@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM05
 {
-    class AvalancheGiant : Creature
+    class AvalancheGiant : Engine.Creature
     {
         public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Engine.Race.Giant, Engine.Civilization.Nature)
         {

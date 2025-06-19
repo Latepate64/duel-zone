@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM02
 {
-    class FonchTheOracle : Creature
+    class FonchTheOracle : Engine.Creature
     {
         public FonchTheOracle() : base("Fonch, the Oracle", 4, 2000, Engine.Race.LightBringer, Engine.Civilization.Light)
         {

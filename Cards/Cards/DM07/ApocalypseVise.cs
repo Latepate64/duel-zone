@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM07
 {
-    class ApocalypseVise : Engine.Spell
+    class ApocalypseVise : Spell
     {
         public ApocalypseVise() : base("Apocalypse Vise", 7, Civilization.Fire)
         {
@@ -29,7 +29,7 @@ namespace Cards.Cards.DM07
             game.Destroy(
                 Ability,
                 [.. Controller.ChooseCards(
-                    new CardChoice<Engine.Creature>(Controller, ToString(), new ApocalypseViseChoiceMode<Engine.Creature>(), [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
+                    new CardChoice<Creature>(Controller, ToString(), new ApocalypseViseChoiceMode<Creature>(), [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
                     )]);
         }
 
@@ -44,7 +44,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    public class ApocalypseViseChoiceMode<T> : ICardChoiceMode<T> where T : Engine.Creature
+    public class ApocalypseViseChoiceMode<T> : ICardChoiceMode<T> where T : Creature
     {
         public bool CanBeChosenAutomatically(IEnumerable<T> cards)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class PhantomFish : Creature
+    class PhantomFish : Engine.Creature
     {
         public PhantomFish() : base("Phantom Fish", 3, 4000, Engine.Race.GelFish, Engine.Civilization.Water)
         {

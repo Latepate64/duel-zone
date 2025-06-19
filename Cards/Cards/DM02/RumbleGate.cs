@@ -7,7 +7,7 @@ using System;
 
 namespace Cards.Cards.DM02
 {
-    class RumbleGate : Engine.Spell
+    class RumbleGate : Spell
     {
         public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
         {
@@ -47,7 +47,7 @@ namespace Cards.Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool CanAttackUntappedCreature(Engine.Creature attacker, Engine.Creature targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
         {
             return attacker.Owner.Id == _controller && game.CanAttackAtLeastOneCreature(attacker);
         }

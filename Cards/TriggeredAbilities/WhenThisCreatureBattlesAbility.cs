@@ -29,7 +29,7 @@ namespace Cards.TriggeredAbilities
             return $"When this creature battles, {GetEffectText()}";
         }
 
-        protected override bool TriggersFrom(Engine.Creature card, IGame game)
+        protected override bool TriggersFrom(Creature card, IGame game)
         {
             return card == Source;
         }

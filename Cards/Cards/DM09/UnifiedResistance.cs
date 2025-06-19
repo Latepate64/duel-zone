@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM09
 {
-    class UnifiedResistance : Engine.Spell
+    class UnifiedResistance : Spell
     {
         public UnifiedResistance() : base("Unified Resistance", 2, Civilization.Light)
         {

@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class RaylaTruthEnforcer : Creature
+    class RaylaTruthEnforcer : Engine.Creature
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000, Engine.Race.Berserker, Engine.Civilization.Light)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class PurplePiercer : Creature
+    class PurplePiercer : Engine.Creature
     {
         public PurplePiercer() : base("Purple Piercer", 3, 2000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
         {

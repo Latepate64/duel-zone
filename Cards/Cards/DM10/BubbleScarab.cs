@@ -17,7 +17,7 @@ namespace Cards.Cards.DM10
 
     class BubbleScarabAbility : LinkedTriggeredAbility
     {
-        private Engine.Creature _attackTarget;
+        private Creature _attackTarget;
 
         public BubbleScarabAbility()
         {
@@ -30,7 +30,7 @@ namespace Cards.Cards.DM10
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureAttackedEvent e && e.Target is Engine.Creature creature && creature.Owner == Controller;
+            return gameEvent is CreatureAttackedEvent e && e.Target is Creature creature && creature.Owner == Controller;
         }
 
         public override IAbility Copy()
@@ -55,14 +55,14 @@ namespace Cards.Cards.DM10
 
         public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
         {
-            _attackTarget = (gameEvent as CreatureAttackedEvent).Target as Engine.Creature;
+            _attackTarget = (gameEvent as CreatureAttackedEvent).Target as Creature;
             return new BubbleScarabAbility(this);
         }
     }
 
     class CreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
     {
-        private readonly Engine.Creature _creature;
+        private readonly Creature _creature;
         private readonly int _power;
 
         public CreatureGetsPowerUntilTheEndOfTheTurnEffect(CreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
@@ -71,7 +71,7 @@ namespace Cards.Cards.DM10
             _power = effect._power;
         }
 
-        public CreatureGetsPowerUntilTheEndOfTheTurnEffect(Engine.Creature creature, int power)
+        public CreatureGetsPowerUntilTheEndOfTheTurnEffect(Creature creature, int power)
         {
             _creature = creature;
             _power = power;

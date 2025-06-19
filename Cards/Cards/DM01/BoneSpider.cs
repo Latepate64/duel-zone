@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM01
 {
-    class BoneSpider : Creature
+    class BoneSpider : Engine.Creature
     {
         public BoneSpider() : base("Bone Spider", 3, 5000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
         {

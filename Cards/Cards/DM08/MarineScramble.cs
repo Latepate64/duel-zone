@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM08
 {
-    class MarineScramble : Engine.Spell
+    class MarineScramble : Spell
     {
         public MarineScramble() : base("Marine Scramble", 7, Civilization.Water)
         {
@@ -45,7 +45,7 @@ namespace Cards.Cards.DM08
         {
         }
 
-        public bool CannotBeBlocked(Engine.Creature attacker, Engine.Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker);
         }

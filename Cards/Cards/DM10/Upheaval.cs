@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM10
 {
-    class Upheaval : Engine.Spell
+    class Upheaval : Spell
     {
         public Upheaval() : base("Upheaval", 6, Civilization.Darkness)
         {

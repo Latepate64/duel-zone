@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM08
 {
-    class NecrodragonGalbazeek : Creature
+    class NecrodragonGalbazeek : Engine.Creature
     {
         public NecrodragonGalbazeek() : base("Necrodragon Galbazeek", 6, 9000, Engine.Race.ZombieDragon, Engine.Civilization.Darkness)
         {

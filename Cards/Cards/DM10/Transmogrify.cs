@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM10
 {
-    class Transmogrify : Engine.Spell
+    class Transmogrify : Spell
     {
         public Transmogrify() : base("Transmogrify", 3, Civilization.Water)
         {

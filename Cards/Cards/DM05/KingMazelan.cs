@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM05
 {
-    class KingMazelan : Creature
+    class KingMazelan : Engine.Creature
     {
         public KingMazelan() : base("King Mazelan", 8, 7000, Engine.Race.Leviathan, Engine.Civilization.Water)
         {

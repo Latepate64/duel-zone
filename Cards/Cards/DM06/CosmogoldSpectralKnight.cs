@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class CosmogoldSpectralKnight : Creature
+    class CosmogoldSpectralKnight : Engine.Creature
     {
         public CosmogoldSpectralKnight() : base("Cosmogold, Spectral Knight", 4, 3000, Engine.Race.RainbowPhantom, Engine.Civilization.Light)
         {

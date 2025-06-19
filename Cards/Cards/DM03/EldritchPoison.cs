@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM03
 {
-    class EldritchPoison : Engine.Spell
+    class EldritchPoison : Spell
     {
         public EldritchPoison() : base("Eldritch Poison", 1, Civilization.Darkness)
         {

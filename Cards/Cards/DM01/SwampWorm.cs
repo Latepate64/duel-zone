@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
-    class SwampWorm : Creature
+    class SwampWorm : Engine.Creature
     {
         public SwampWorm() : base("Swamp Worm", 7, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {

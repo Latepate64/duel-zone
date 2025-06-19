@@ -26,6 +26,16 @@ public class Creature(
     public bool SummoningSickness { get; private set; } = summoningSickness;
     public List<Supertype> Supertypes { get; } = [];
 
+    protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(
+        tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
+    {
+    }
+
+    protected Creature(string name, int manaCost, int power, List<Race> races, params Civilization[] civilizations)
+        : this(tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, races)
+    {
+    }
+
     protected Creature(Creature creature) : this(creature.Tapped, creature.Civilizations, creature.ManaCost,
         creature.SummoningSickness, creature.Power, creature.Name, creature.Races)
     {

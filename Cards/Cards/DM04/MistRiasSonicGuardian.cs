@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
-    class MistRiasSonicGuardian : Creature
+    class MistRiasSonicGuardian : Engine.Creature
     {
         public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
         {

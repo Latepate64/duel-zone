@@ -6,7 +6,7 @@ using System;
 
 namespace Cards.Cards.DM02
 {
-    class DiamondCutter : Engine.Spell
+    class DiamondCutter : Spell
     {
         public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
         {

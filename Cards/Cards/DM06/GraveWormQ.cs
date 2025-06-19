@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class GraveWormQ : Creature
+    class GraveWormQ : Engine.Creature
     {
         public GraveWormQ() : base("Grave Worm Q", 5, 3000, [Engine.Race.Survivor, Engine.Race.ParasiteWorm], Engine.Civilization.Darkness)
         {

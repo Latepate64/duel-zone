@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM09
 {
-    class FistsOfForever : Engine.Spell
+    class FistsOfForever : Spell
     {
         public FistsOfForever() : base("Fists of Forever", 1, Civilization.Fire)
         {
@@ -46,7 +46,7 @@ namespace Cards.Cards.DM09
     {
         private readonly Card _creature;
 
-        public FistsOfForeverAbility(Engine.Creature creature)
+        public FistsOfForeverAbility(Creature creature)
         {
             _creature = creature;
         }

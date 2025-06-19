@@ -6,7 +6,7 @@ namespace Cards.Cards.DM10
     {
         public ArmoredRaiderGandaval() : base("Armored Raider Gandaval", 5, 6000, Engine.Race.Human, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new ContinuousEffects.DogarnTheMarauderEffect(2000));
+            AddStaticAbilities(new DogarnTheMarauderEffect(2000));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

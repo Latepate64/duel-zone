@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
-    class DewMushroom : Creature
+    class DewMushroom : Engine.Creature
     {
         public DewMushroom() : base("Dew Mushroom", 3, 1000, Engine.Race.BalloonMushroom, Engine.Civilization.Nature)
         {

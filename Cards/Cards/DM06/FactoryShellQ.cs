@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM06
 {
-    class FactoryShellQ : Creature
+    class FactoryShellQ : Engine.Creature
     {
         public FactoryShellQ() : base("Factory Shell Q", 6, 2000, [Engine.Race.Survivor, Engine.Race.ColonyBeetle], Engine.Civilization.Nature)
         {

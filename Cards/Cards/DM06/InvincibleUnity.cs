@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
-    class InvincibleUnity : Engine.Spell
+    class InvincibleUnity : Spell
     {
         public InvincibleUnity() : base("Invincible Unity", 13, Civilization.Nature)
         {
@@ -43,9 +43,9 @@ namespace Cards.Cards.DM06
 
     class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect, IPowerModifyingEffect
     {
-        private readonly List<Engine.Creature> _cards;
+        private readonly List<Creature> _cards;
 
-        public InvincibleUnityContinuousEffect(IEnumerable<Engine.Creature> cards)
+        public InvincibleUnityContinuousEffect(IEnumerable<Creature> cards)
         {
             _cards = [.. cards];
         }

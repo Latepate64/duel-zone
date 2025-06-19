@@ -5,7 +5,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
-    class AmbushScorpion : Creature
+    class AmbushScorpion : Engine.Creature
     {
         public AmbushScorpion() : base("Ambush Scorpion", 5, 3000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {

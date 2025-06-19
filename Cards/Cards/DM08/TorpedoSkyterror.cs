@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM08
 {
-    class TorpedoSkyterror : Creature
+    class TorpedoSkyterror : Engine.Creature
     {
         public TorpedoSkyterror() : base("Torpedo Skyterror", 5, 4000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {

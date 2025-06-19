@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM04
 {
-    class GulanRiasSpeedGuardian : Creature
+    class GulanRiasSpeedGuardian : Engine.Creature
     {
         public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
         {

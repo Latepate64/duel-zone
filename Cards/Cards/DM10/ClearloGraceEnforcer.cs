@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM10
 {
-    class ClearloGraceEnforcer : Creature
+    class ClearloGraceEnforcer : Engine.Creature
     {
         public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000, Engine.Race.Berserker, Engine.Civilization.Light)
         {

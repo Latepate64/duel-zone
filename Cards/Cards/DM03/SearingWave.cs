@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM03
 {
-    class SearingWave : Engine.Spell
+    class SearingWave : Spell
     {
         public SearingWave() : base("Searing Wave", 5, Civilization.Fire)
         {

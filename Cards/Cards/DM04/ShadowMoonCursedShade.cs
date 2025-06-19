@@ -3,7 +3,7 @@ using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM04
 {
-    class ShadowMoonCursedShade : Creature
+    class ShadowMoonCursedShade : Engine.Creature
     {
         public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Engine.Race.Ghost, Engine.Civilization.Darkness)
         {

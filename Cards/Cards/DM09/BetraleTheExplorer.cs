@@ -4,7 +4,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM09
 {
-    class BetraleTheExplorer : Creature
+    class BetraleTheExplorer : Engine.Creature
     {
         public BetraleTheExplorer() : base("Betrale, the Explorer", 5, 5000, Engine.Race.Gladiator, Engine.Civilization.Light)
         {

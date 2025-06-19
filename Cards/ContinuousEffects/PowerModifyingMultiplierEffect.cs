@@ -20,7 +20,7 @@ namespace Cards.ContinuousEffects
 
         public virtual void ModifyPower(IGame game)
         {
-            (Source as Engine.Creature).IncreasePower(GetMultiplier(game) * Power);
+            (Source as Creature).IncreasePower(GetMultiplier(game) * Power);
         }
 
         protected abstract int GetMultiplier(IGame game);

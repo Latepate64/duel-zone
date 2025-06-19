@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM06
 {
-    class ProtectiveForce : Engine.Spell
+    class ProtectiveForce : Spell
     {
         public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
         {
@@ -31,12 +31,12 @@ namespace Cards.Cards.DM06
             return "One of your creatures in the battle zone that has \"blocker\" gets +4000 power until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Engine.Creature[] cards)
+        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
         }

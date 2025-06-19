@@ -42,13 +42,13 @@ namespace Cards.Cards.DM07
 
     class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
     {
-        private readonly Engine.Creature _breaker;
+        private readonly Creature _breaker;
 
         public SpinningTotemTriggeredAbility() : base()
         {
         }
 
-        public SpinningTotemTriggeredAbility(Engine.Creature breaker) : base()
+        public SpinningTotemTriggeredAbility(Creature breaker) : base()
         {
             _breaker = breaker;
         }

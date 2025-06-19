@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
-    class Biancus : Creature
+    class Biancus : Engine.Creature
     {
         public Biancus() : base("Biancus", 6, 3000, Engine.Race.SeaHacker, Engine.Civilization.Water)
         {

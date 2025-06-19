@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM06
 {
-    class InvincibleAbyss : Engine.Spell
+    class InvincibleAbyss : Spell
     {
         public InvincibleAbyss() : base("Invincible Abyss", 13, Civilization.Darkness)
         {

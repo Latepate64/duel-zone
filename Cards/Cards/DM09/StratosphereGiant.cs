@@ -15,7 +15,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class StratosphereGiantEffect : OneShotEffects.CardMovingChoiceEffect<Engine.Creature>
+    class StratosphereGiantEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
     {
         public StratosphereGiantEffect() : base(0, 2, false, ZoneType.Hand, ZoneType.BattleZone)
         {
@@ -31,7 +31,7 @@ namespace Cards.Cards.DM09
             return "Your opponent chooses up to 2 creatures in his hand and puts them into the battle zone.";
         }
 
-        protected override IEnumerable<Engine.Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
             return GetOpponent(game).Hand.Creatures;
         }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Cards.DM03
 {
-    class RoarOfTheEarth : Engine.Spell
+    class RoarOfTheEarth : Spell
     {
         public RoarOfTheEarth() : base("Roar of the Earth", 2, Civilization.Nature)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Cards.DM11
 {
-    class HysteriaLizard : Creature
+    class HysteriaLizard : Engine.Creature
     {
         public HysteriaLizard() : base("Hysteria Lizard", 4, 3000, Engine.Race.MeltWarrior, Engine.Civilization.Fire)
         {

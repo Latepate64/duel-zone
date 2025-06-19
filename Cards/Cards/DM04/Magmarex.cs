@@ -3,7 +3,7 @@ using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
-    class Magmarex : Creature
+    class Magmarex : Engine.Creature
     {
         public Magmarex() : base("Magmarex", 5, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {

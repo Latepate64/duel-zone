@@ -1,6 +1,6 @@
 ﻿namespace Cards.Cards.DM01
 {
-    class ArmoredWalkerUrherion : Creature
+    class ArmoredWalkerUrherion : Engine.Creature
     {
         public ArmoredWalkerUrherion() : base("Armored Walker Urherion", 4, 3000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {

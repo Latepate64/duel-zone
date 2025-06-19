@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.Cards.DM08
 {
-    class FuriousOnslaught : Engine.Spell
+    class FuriousOnslaught : Spell
     {
         public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
         {
@@ -35,9 +35,9 @@ namespace Cards.Cards.DM08
 
     class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRaceAddingEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        private readonly List<Engine.Creature> _cards;
+        private readonly List<Creature> _cards;
 
-        public FuriousOnslaughtContinuousEffect(List<Engine.Creature> cards)
+        public FuriousOnslaughtContinuousEffect(List<Creature> cards)
         {
             _cards = cards;
         }
