@@ -1,39 +1,13 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Abilities.Triggered;
+using Engine;
 
-namespace Cards.Cards.DM09
+namespace Cards.Cards.DM09;
+
+public class SimianWarriorGrash : Creature
 {
-    class SimianWarriorGrash : Creature
+    public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Race.Armorloid, Civilization.Fire)
     {
-        public SimianWarriorGrash() : base("Simian Warrior Grash", 4, 3000, Race.Armorloid, Civilization.Fire)
-        {
-            AddTriggeredAbility(new SimianWarriorGrashAbility(new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
-        }
-    }
-
-    class SimianWarriorGrashAbility : TriggeredAbilities.DestroyedAbility
-    {
-        public SimianWarriorGrashAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public SimianWarriorGrashAbility(SimianWarriorGrashAbility ability) : base(ability)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new SimianWarriorGrashAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever one of your Armorloids is destroyed, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return card.Owner == Controller && card.HasRace(Race.Armorloid);
-        }
+        AddTriggeredAbility(new SimianWarriorGrashAbility(
+            new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM08
 {

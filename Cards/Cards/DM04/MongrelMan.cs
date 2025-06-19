@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Abilities.Triggered;
+using Cards.OneShotEffects;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public MongrelMan() : base("Mongrel Man", 5, 2000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverAnotherCreatureIsDestroyedAbility(new YouMayDrawCardEffect()));
+            AddTriggeredAbility(new WheneverAnotherCreatureIsDestroyedAbility(new YouMayDrawCardEffect()));
         }
     }
 }

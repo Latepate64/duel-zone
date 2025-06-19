@@ -1,42 +1,15 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Cards.OneShotEffects;
 using Effects.Continuous;
 using Engine;
-using Engine.Abilities;
 
-namespace Cards.Cards.Promo
+namespace Cards.Cards.Promo;
+
+public class OlgateNightmareSamurai : Creature
 {
-    class OlgateNightmareSamurai : Creature
+    public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Race.DemonCommand, Civilization.Darkness)
     {
-        public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Race.DemonCommand, Civilization.Darkness)
-        {
-            AddStaticAbilities(new DoubleBreakerEffect());
-            AddTriggeredAbility(new OlgateAbility());
-        }
-    }
-
-    class OlgateAbility : DestroyedAbility
-    {
-        public OlgateAbility() : base(new OneShotEffects.YouMayUntapThisCreatureEffect())
-        {
-        }
-
-        public OlgateAbility(OlgateAbility ability) : base(ability)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new OlgateAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return "Whenever one of your creatures is destroyed, you may untap this creature.";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return card.Owner == Controller && card != Source;
-        }
+        AddStaticAbilities(new DoubleBreakerEffect());
+        AddTriggeredAbility(new OlgateAbility(new YouMayUntapThisCreatureEffect()));
     }
 }

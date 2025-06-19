@@ -1,3 +1,4 @@
+using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
@@ -6,7 +7,8 @@ namespace Cards.TriggeredAbilities;
 
 public abstract class WheneverCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
 {
-    protected WheneverCreatureIsPutIntoTheBattleZoneAbility(WheneverCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
+    protected WheneverCreatureIsPutIntoTheBattleZoneAbility(WheneverCreatureIsPutIntoTheBattleZoneAbility ability)
+        : base(ability)
     {
     }
 

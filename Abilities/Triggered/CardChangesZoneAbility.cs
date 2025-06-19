@@ -1,6 +1,6 @@
 ﻿using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public abstract class CardChangesZoneAbility : CardTriggeredAbility
 {
