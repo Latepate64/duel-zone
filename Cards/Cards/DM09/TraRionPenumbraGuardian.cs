@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Abilities.Triggered;
+using Cards.OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

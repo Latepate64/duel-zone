@@ -1,7 +1,6 @@
 using Engine.Abilities;
-using System;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
 {
@@ -9,7 +8,8 @@ public class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
     {
     }
 
-    public AfterAttackDelayedTriggeredAbility(OneShotEffect effect, IAbility ability, Guid attacker) : base(new AfterAttackAbility(effect, attacker), ability.Source, ability.Controller, true)
+    public AfterAttackDelayedTriggeredAbility(OneShotEffect effect, IAbility ability, Guid attacker) : base(
+        new AfterAttackAbility(effect, attacker), ability.Source, ability.Controller, true)
     {
     }
 

@@ -1,11 +1,11 @@
-﻿using System;
-using Cards.TriggeredAbilities;
+﻿using Engine.Abilities;
 
-namespace Engine.Abilities;
+namespace Abilities.Triggered;
 
 public class AtTheEndOfTheTurnDelayedTriggeredAbility : DelayedTriggeredAbility
 {
-    public AtTheEndOfTheTurnDelayedTriggeredAbility(IAbility ability, Guid turn, OneShotEffect effect) : base(new AtTheEndOfTurnAbility(turn, effect), ability.Source, ability.Controller, true)
+    public AtTheEndOfTheTurnDelayedTriggeredAbility(IAbility ability, Guid turn, OneShotEffect effect) : base(
+        new AtTheEndOfTurnAbility(turn, effect), ability.Source, ability.Controller, true)
     {
     }
 

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace Cards.Cards.DM05
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(Ability, game.CurrentTurn.Id, new BrutalChargeDelayedEffect()));
+            game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(Ability, game.CurrentTurn.Id,
+                new BrutalChargeDelayedEffect()));
         }
 
         public override IOneShotEffect Copy()
