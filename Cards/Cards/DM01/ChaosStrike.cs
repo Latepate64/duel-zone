@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM01
         }
     }
 
-    class ChaosStrikeOneShotEffect : OneShotEffects.CreatureSelectionEffect
+    class ChaosStrikeOneShotEffect : CreatureSelectionEffect
     {
         public ChaosStrikeOneShotEffect() : base(1, 1, true)
         {

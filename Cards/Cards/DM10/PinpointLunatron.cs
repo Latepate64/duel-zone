@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class PinpointLunatronEffect : OneShotEffects.CardSelectionEffect<Card>
+    class PinpointLunatronEffect : CardSelectionEffect<Card>
     {
         public PinpointLunatronEffect() : base(1, 1, true)
         {

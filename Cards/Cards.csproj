@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Effects\Effects.csproj" />
     <ProjectReference Include="..\Engine\Engine.csproj" />
   </ItemGroup>
 

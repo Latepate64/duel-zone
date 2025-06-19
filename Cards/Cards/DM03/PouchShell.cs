@@ -1,4 +1,5 @@
 ﻿using Cards.TriggeredAbilities;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class PouchShellEffect : OneShotEffects.CreatureSelectionEffect
+    class PouchShellEffect : CreatureSelectionEffect
     {
         public PouchShellEffect() : base(0, 1, true)
         {

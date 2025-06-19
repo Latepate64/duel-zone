@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class CosmicDartsEffect : OneShotEffects.CardSelectionEffect<Card>
+    class CosmicDartsEffect : CardSelectionEffect<Card>
     {
         public CosmicDartsEffect() : base(1, 1, false)
         {

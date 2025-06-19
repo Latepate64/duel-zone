@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class HeavyweightDragonEffect : OneShotEffects.CreatureSelectionEffect
+    class HeavyweightDragonEffect : CreatureSelectionEffect
     {
         public HeavyweightDragonEffect() : base(0, 2, true)
         {

@@ -1,4 +1,5 @@
 ﻿using Cards.StaticAbilities;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class ProtectiveForceEffect : OneShotEffects.CreatureSelectionEffect
+    class ProtectiveForceEffect : CreatureSelectionEffect
     {
         public ProtectiveForceEffect() : base(1, 1, true)
         {

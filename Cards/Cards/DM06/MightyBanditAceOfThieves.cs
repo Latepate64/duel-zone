@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace Cards.Cards.DM06
         }
     }
 
-    class MightyBanditAceOfThievesEffect : OneShotEffects.CreatureSelectionEffect
+    class MightyBanditAceOfThievesEffect : CreatureSelectionEffect
     {
         public MightyBanditAceOfThievesEffect() : base(1, 1, true)
         {

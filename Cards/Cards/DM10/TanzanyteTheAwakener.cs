@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM10
         }
     }
 
-    class TanzanyteTheAwakenerEffect : OneShotEffects.CreatureSelectionEffect
+    class TanzanyteTheAwakenerEffect : CreatureSelectionEffect
     {
         public TanzanyteTheAwakenerEffect() : base(1, 1, true)
         {
