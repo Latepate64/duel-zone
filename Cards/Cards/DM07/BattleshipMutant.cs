@@ -14,7 +14,7 @@ namespace Cards.Cards.DM07
     {
         public BattleshipMutant() : base("Battleship Mutant", 6, 5000, Race.Hedrian, Civilization.Darkness)
         {
-            AddTapAbility(new BattleshipMutantEffect());
+            AddAbilities(new TapAbility(new BattleshipMutantEffect()));
         }
     }
 

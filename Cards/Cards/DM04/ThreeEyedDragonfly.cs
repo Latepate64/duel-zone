@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Race.GiantInsect, Civilization.Nature)
         {
-            AddWheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect()));
         }
     }
 

@@ -8,7 +8,7 @@ namespace Cards.Cards.DM08
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-            AddPowerAttackerAbility(1000);
+            AddStaticAbilities(new PowerAttackerEffect(1000));
         }
     }
 }

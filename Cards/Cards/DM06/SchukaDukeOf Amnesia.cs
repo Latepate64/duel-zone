@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM06
     {
         public SchukaDukeOfAmnesia() : base("Schuka, Duke of Amnesia", 6, 5000, Race.DarkLord, Civilization.Darkness)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new SchukaDukeOfAmnesiaEffect()));
         }
     }
 

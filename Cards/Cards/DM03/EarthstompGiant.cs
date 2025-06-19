@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM03
         public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Race.Giant, Civilization.Nature)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddWheneverThisCreatureAttacksAbility(new EarthstompGiantEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new EarthstompGiantEffect()));
         }
     }
 

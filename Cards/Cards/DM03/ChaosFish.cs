@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM03
         public ChaosFish() : base("Chaos Fish", 7, 1000, Race.GelFish, Civilization.Water)
         {
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Civilization.Water));
-            AddWheneverThisCreatureAttacksAbility(new ChaosFishEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new ChaosFishEffect()));
         }
     }
 

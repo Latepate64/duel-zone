@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
         public HypersprintWariorUzesol() : base("Hypersprint Warior Uzesol", 4, 1000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
-            AddPowerAttackerAbility(4000);
+            AddStaticAbilities(new PowerAttackerEffect(4000));
         }
     }
 }

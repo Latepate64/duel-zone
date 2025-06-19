@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public ArmoredWarriorQuelos() : base("Armored Warrior Quelos", 5, 2000, Race.Armorloid, Civilization.Fire)
         {
-            AddWheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new ArmoredWarriorQuelosEffect()));
         }
     }
 

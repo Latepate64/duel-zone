@@ -10,7 +10,7 @@ namespace Cards.Cards.DM09
     {
         public VenomWorm() : base("Venom Worm", 3, 1000, Race.ParasiteWorm, Civilization.Darkness)
         {
-            AddTapAbility(new VenomWormOneShotEffect());
+            AddAbilities(new TapAbility(new VenomWormOneShotEffect()));
         }
     }
 

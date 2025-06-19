@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM07
+﻿using Engine.Abilities;
+
+namespace Cards.Cards.DM07
 {
     class KiposContraption : Creature
     {
         public KiposContraption() : base("Kipo's Contraption", 6, 3000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
         {
-            AddTapAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
+            AddAbilities(new TapAbility(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000)));
         }
     }
 }

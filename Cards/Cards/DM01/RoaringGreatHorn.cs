@@ -6,7 +6,7 @@ namespace Cards.Cards.DM01
     {
         public RoaringGreatHorn() : base("Roaring Great-Horn", 7, 8000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {
-            AddPowerAttackerAbility(2000);
+            AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM06
         public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, 3000, Engine.Race.Dragonoid, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
-            AddAtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect());
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
         }
     }
 }

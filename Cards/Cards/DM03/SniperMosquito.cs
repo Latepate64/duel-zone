@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM03
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM03
     {
         public SniperMosquito() : base("Sniper Mosquito", 1, 2000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
-            AddWheneverThisCreatureAttacksAbility(new ReturnCardFromYourManaZoneToYourHandEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new ReturnCardFromYourManaZoneToYourHandEffect()));
         }
     }
 }

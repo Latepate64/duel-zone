@@ -18,12 +18,6 @@ namespace Cards
         {
         }
 
-        protected void AddPowerAttackerAbility(int power)
-        {
-            AddStaticAbilities(new PowerAttackerEffect(power));
-        }
-
-        #region Triggered abilities
         protected void AddTriggeredAbility(ITriggeredAbility ability)
         {
             AddAbilities(ability);
@@ -32,27 +26,6 @@ namespace Cards
         protected void AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect));
-        }
-
-        protected void AddAtTheEndOfYourTurnAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(effect));
-        }
-
-        protected void AddWheneverThisCreatureAttacksAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(effect));
-        }
-
-        protected void AddWhenThisCreatureIsDestroyedAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(effect));
-        }
-        #endregion Triggered abilities
-
-        protected void AddTapAbility(IOneShotEffect effect)
-        {
-            AddAbilities(new TapAbility(effect));
         }
     }
 }

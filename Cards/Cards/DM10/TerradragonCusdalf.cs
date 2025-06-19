@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public TerradragonCusdalf() : base("Terradragon Cusdalf", 5, 7000, Race.EarthDragon, Civilization.Nature)
         {
-            AddPowerAttackerAbility(4000);
+            AddStaticAbilities(new PowerAttackerEffect(4000));
             AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new TerradragonCusdalfEffect());
         }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public MuramasaDukeOfBlades() : base("Muramasa, Duke of Blades", 6, 3000, Race.Human, Civilization.Fire)
         {
-            AddWheneverThisCreatureAttacksAbility(new MuramasaDukeOfBladesEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new MuramasaDukeOfBladesEffect()));
         }
     }
 

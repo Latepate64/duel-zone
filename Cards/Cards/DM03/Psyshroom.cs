@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public Psyshroom() : base("Psyshroom", 4, 2000, Race.BalloonMushroom, Civilization.Nature)
         {
-            AddWheneverThisCreatureAttacksAbility(new PsyshroomEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new PsyshroomEffect()));
         }
     }
 

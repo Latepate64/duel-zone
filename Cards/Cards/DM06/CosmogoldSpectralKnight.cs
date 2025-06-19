@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM06
+﻿using Engine.Abilities;
+
+namespace Cards.Cards.DM06
 {
     class CosmogoldSpectralKnight : Creature
     {
         public CosmogoldSpectralKnight() : base("Cosmogold, Spectral Knight", 4, 3000, Engine.Race.RainbowPhantom, Engine.Civilization.Light)
         {
-            AddTapAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());
+            AddAbilities(new TapAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect()));
         }
     }
 }

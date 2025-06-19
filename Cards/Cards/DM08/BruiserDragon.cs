@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM08
+﻿using Cards.TriggeredAbilities;
+
+namespace Cards.Cards.DM08
 {
     class BruiserDragon : Creature
     {
         public BruiserDragon() : base("Bruiser Dragon", 5, 5000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
         public NocturnalGiant() : base("Nocturnal Giant", 7, 7000, Engine.Race.Giant, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddPowerAttackerAbility(7000);
+            AddStaticAbilities(new PowerAttackerEffect(7000));
             AddStaticAbilities(new TripleBreakerEffect());
         }
     }

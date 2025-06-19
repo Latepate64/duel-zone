@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM09
 {
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM09
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-            AddAtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect());
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }
     }
 }

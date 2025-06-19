@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public BonePiercer() : base("Bone Piercer", 2, 1000, Race.BrainJacker, Civilization.Darkness)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new BonePiercerEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new BonePiercerEffect()));
         }
     }
 

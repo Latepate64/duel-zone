@@ -10,7 +10,7 @@ namespace Cards.Cards.DM07
         public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTapAbility(new GandarSeekerOfExplosionsEffect());
+            AddAbilities(new TapAbility(new GandarSeekerOfExplosionsEffect()));
         }
     }
 

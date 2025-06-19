@@ -1,4 +1,5 @@
-﻿using Engine.Abilities;
+﻿using Cards.TriggeredAbilities;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM04
     {
         public SmileAngler() : base("Smile Angler", 6, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new SmileAnglerEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new SmileAnglerEffect()));
         }
     }
 

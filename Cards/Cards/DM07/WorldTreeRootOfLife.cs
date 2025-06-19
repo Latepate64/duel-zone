@@ -6,7 +6,7 @@ namespace Cards.Cards.DM07
     {
         public WorldTreeRootOfLife() : base("World Tree, Root of Life", 6, 7000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
         {
-            AddPowerAttackerAbility(2000);
+            AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new StealthEffect(Engine.Civilization.Darkness));
             AddStaticAbilities(new DoubleBreakerEffect());
         }

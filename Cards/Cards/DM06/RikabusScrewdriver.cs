@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, 1000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
         {
-            AddTapAbility(new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect());
+            AddAbilities(new TapAbility(new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect()));
         }
     }
 }

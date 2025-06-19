@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM01
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM01
 {
     class Stonesaur : Creature
     {
         public Stonesaur() : base("Stonesaur", 5, 4000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
-            AddPowerAttackerAbility(2000);
+            AddStaticAbilities(new PowerAttackerEffect(2000));
         }
     }
 }

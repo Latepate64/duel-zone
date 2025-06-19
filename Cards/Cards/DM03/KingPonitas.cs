@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM03
     {
         public KingPonitas() : base("King Ponitas", 8, 4000, Race.Leviathan, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new KingPonitasEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new KingPonitasEffect()));
         }
     }
 

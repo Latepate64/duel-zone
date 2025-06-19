@@ -13,7 +13,7 @@ namespace Cards.Cards.DM08
     {
         public KachuaKeeperOfTheIcegate() : base("Kachua, Keeper of the Icegate", 7, 3000, Race.SnowFaerie, Civilization.Nature)
         {
-            AddTapAbility(new KachuaEffect());
+            AddAbilities(new TapAbility(new KachuaEffect()));
         }
     }
 

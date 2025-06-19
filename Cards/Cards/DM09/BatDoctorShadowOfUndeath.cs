@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM09
     {
         public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Race.Ghost, Civilization.Darkness)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new BatDoctorShadowOfUndeathEffect()));
         }
     }
 

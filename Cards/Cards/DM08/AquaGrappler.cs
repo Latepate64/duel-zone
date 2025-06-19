@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM08
     {
         public AquaGrappler() : base("Aqua Grappler", 5, 3000, Race.LiquidPeople, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new AquaGrapplerEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new AquaGrapplerEffect()));
         }
     }
 

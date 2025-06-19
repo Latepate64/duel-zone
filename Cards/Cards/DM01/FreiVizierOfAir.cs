@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public FreiVizierOfAir() : base("Frei, Vizier of Air", 4, 3000, Engine.Race.Initiate, Engine.Civilization.Light)
         {
-            AddAtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect());
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }
     }
 }

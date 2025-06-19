@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM08
     {
         public KyrstronLairDelver() : base("Kyrstron, Lair Delver", 5, 1000, Race.Dragonoid, Civilization.Fire)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new KyrstronLairDelverEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new KyrstronLairDelverEffect()));
         }
     }
 

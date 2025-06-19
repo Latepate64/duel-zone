@@ -9,7 +9,7 @@ namespace Cards.Cards.DM07
         public KingBenthos() : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTapAbility(new KingBenthosEffect());
+            AddAbilities(new TapAbility(new KingBenthosEffect()));
         }
     }
 

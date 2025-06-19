@@ -6,7 +6,7 @@ namespace Cards.Cards.DM08
     {
         public TerradragonRegarion() : base("Terradragon Regarion", 5, 4000, Engine.Race.EarthDragon, Engine.Civilization.Nature)
         {
-            AddPowerAttackerAbility(3000);
+            AddStaticAbilities(new PowerAttackerEffect(3000));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

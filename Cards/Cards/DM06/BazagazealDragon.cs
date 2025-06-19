@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM06
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
             AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddAtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect());
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new ReturnThisCreatureToYourHandEffect()));
         }
     }
 }

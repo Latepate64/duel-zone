@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public BadlandsLizard() : base("Badlands Lizard", 5, 3000, Race.DuneGecko, Civilization.Fire)
         {
-            AddPowerAttackerAbility(3000);
+            AddStaticAbilities(new PowerAttackerEffect(3000));
             AddStaticAbilities(new SkipBattleAfterBecomesBlockedEffect());
         }
     }

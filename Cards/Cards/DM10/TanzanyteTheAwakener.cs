@@ -11,7 +11,7 @@ namespace Cards.Cards.DM10
         public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Race.SpiritQuartz, Civilization.Water, Civilization.Darkness)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTapAbility(new TanzanyteTheAwakenerEffect());
+            AddAbilities(new TapAbility(new TanzanyteTheAwakenerEffect()));
         }
     }
 

@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM07
+﻿using Cards.TriggeredAbilities;
+
+namespace Cards.Cards.DM07
 {
     class PropellerMutant : Creature
     {
         public PropellerMutant() : base("Propeller Mutant", 2, 1000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.OpponentDiscardsCardAtRandomEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.OpponentDiscardsCardAtRandomEffect()));
         }
     }
 }

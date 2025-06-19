@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public KingNeptas() : base("King Neptas", 6, 5000, Race.Leviathan, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new KingNeptasEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new KingNeptasEffect()));
         }
     }
 

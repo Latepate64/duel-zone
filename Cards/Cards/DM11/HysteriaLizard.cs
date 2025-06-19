@@ -1,11 +1,13 @@
-﻿namespace Cards.Cards.DM11
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM11
 {
     class HysteriaLizard : Creature
     {
         public HysteriaLizard() : base("Hysteria Lizard", 4, 3000, Engine.Race.MeltWarrior, Engine.Civilization.Fire)
         {
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureAttacksEachTurnIfAbleEffect());
-            AddPowerAttackerAbility(3000);
+            AddStaticAbilities(new ThisCreatureAttacksEachTurnIfAbleEffect());
+            AddStaticAbilities(new PowerAttackerEffect(3000));
         }
     }
 }

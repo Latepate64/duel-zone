@@ -1,6 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM10
         public TechnoTotem() : base("Techno Totem", 4, 5000, Race.MysteryTotem, Civilization.Light, Civilization.Nature)
         {
             AddStaticAbilities(new TechnoTotemEffect());
-            AddTapAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
+            AddAbilities(new TapAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
         }
     }
 

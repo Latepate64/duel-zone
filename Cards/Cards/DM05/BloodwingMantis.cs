@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM05
     {
         public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Race.GiantInsect, Civilization.Nature)
         {
-            AddWheneverThisCreatureAttacksAbility(new BloodwingMantisEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new BloodwingMantisEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM08
     {
         public Lalicious() : base("Lalicious", 6, 4000, Race.SeaHacker, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new LaliciousEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new LaliciousEffect()));
         }
     }
 

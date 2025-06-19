@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM02
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM02
     {
         public PlasmaChaser() : base("Plasma Chaser", 6, 4000, Race.GelFish, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new PlasmaChaserEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new PlasmaChaserEffect()));
         }
     }
 

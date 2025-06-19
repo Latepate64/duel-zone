@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM02
     {
         public StainedGlass() : base("Stained Glass", 3, 1000, Race.CyberVirus, Civilization.Water)
         {
-            AddWheneverThisCreatureAttacksAbility(new StainedGlassEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new StainedGlassEffect()));
         }
     }
 

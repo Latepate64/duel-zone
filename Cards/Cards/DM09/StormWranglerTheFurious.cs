@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM09
     {
         public StormWranglerTheFurious() : base("Storm Wrangler, the Furious", 4, 5000, Race.BeastFolk, Civilization.Nature)
         {
-            AddWheneverThisCreatureAttacksAbility(new StormWranglerEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new StormWranglerEffect()));
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
         }
     }

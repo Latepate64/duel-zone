@@ -11,7 +11,7 @@ namespace Cards.Cards.DM11
         public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Race.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTapAbility(new HeavyweightDragonEffect());
+            AddAbilities(new TapAbility(new HeavyweightDragonEffect()));
         }
     }
 

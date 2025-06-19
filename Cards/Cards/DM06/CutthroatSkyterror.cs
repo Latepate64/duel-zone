@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM06
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-            AddAtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect());
+            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM07
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM07
         public Biancus() : base("Biancus", 6, 3000, Engine.Race.SeaHacker, Engine.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddTapAbility(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect());
+            AddAbilities(new TapAbility(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect()));
         }
     }
 }

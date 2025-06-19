@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM07
         public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant, Civilization.Nature)
         {
             AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
-            AddWheneverThisCreatureAttacksAbility(new OneShotEffects.DiscardCardFromYourHandEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.DiscardCardFromYourHandEffect()));
             AddStaticAbilities(new TripleBreakerEffect());
         }
     }

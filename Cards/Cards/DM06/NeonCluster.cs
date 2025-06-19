@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM06
+﻿using Engine.Abilities;
+
+namespace Cards.Cards.DM06
 {
     class NeonCluster : Creature
     {
         public NeonCluster() : base("Neon Cluster", 7, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
-            AddTapAbility(new OneShotEffects.DrawTwoCardsEffect());
+            AddAbilities(new TapAbility(new OneShotEffects.DrawTwoCardsEffect()));
         }
     }
 }

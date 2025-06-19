@@ -10,7 +10,7 @@ namespace Cards.Cards.DM07
     {
         public SpinningTotem() : base("Spinning Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
-            AddTapAbility(new SpinningTotemOneShotEffect());
+            AddAbilities(new TapAbility(new SpinningTotemOneShotEffect()));
         }
     }
 

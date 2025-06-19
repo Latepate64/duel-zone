@@ -11,7 +11,7 @@ namespace Cards.Cards.DM09
     {
         public Hokira() : base("Hokira", 4, 3000, Race.CyberLord, Civilization.Water)
         {
-            AddTapAbility(new HokiraOneShotEffect());
+            AddAbilities(new TapAbility(new HokiraOneShotEffect()));
         }
     }
 

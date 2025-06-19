@@ -8,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public MummyWrapShadowOfFatigue() : base("Mummy Wrap, Shadow of Fatigue", 3, 1000, Race.Ghost, Civilization.Darkness)
         {
-            AddTapAbility(new MummyWrapShadowOfFatigueEffect());
+            AddAbilities(new TapAbility(new MummyWrapShadowOfFatigueEffect()));
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
@@ -8,9 +9,9 @@ namespace Cards.Cards.DM05
     {
         public ObsidianScarab() : base("Obsidian Scarab", 6, 5000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
-            AddPowerAttackerAbility(3000);
+            AddStaticAbilities(new PowerAttackerEffect(3000));
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddWhenThisCreatureIsDestroyedAbility(new ObsidianScarabEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new ObsidianScarabEffect()));
         }
     }
 

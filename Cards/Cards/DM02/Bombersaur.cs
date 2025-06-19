@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM02
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM02
     {
         public Bombersaur() : base("Bombersaur", 5, 5000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
-            AddWhenThisCreatureIsDestroyedAbility(new BombersaurEffect());
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new BombersaurEffect()));
         }
     }
 

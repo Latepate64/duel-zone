@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM12
     {
         public WindmillMutant() : base("Windmill Mutant", 3, 2000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddWheneverThisCreatureAttacksAbility(new OpponentDiscardsCardAtRandomEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OpponentDiscardsCardAtRandomEffect()));
         }
     }
 }

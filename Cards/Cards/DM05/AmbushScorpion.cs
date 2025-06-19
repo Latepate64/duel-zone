@@ -1,4 +1,6 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
@@ -7,8 +9,8 @@ namespace Cards.Cards.DM05
     {
         public AmbushScorpion() : base("Ambush Scorpion", 5, 3000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
         {
-            AddPowerAttackerAbility(3000);
-            AddWhenThisCreatureIsDestroyedAbility(new AmbushScorpionEffect());
+            AddStaticAbilities(new PowerAttackerEffect(3000));
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new AmbushScorpionEffect()));
         }
     }
 

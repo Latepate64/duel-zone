@@ -9,7 +9,7 @@ namespace Cards.Cards.DM09
     {
         public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Race.Xenoparts, Civilization.Fire)
         {
-            AddTapAbility(new GigiosHammerOneShotEffect());
+            AddAbilities(new TapAbility(new GigiosHammerOneShotEffect()));
         }
     }
 

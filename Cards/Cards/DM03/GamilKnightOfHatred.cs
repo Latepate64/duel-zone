@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public GamilKnightOfHatred() : base("Gamil, Knight of Hatred", 6, 4000, Race.DemonCommand, Civilization.Darkness)
         {
-            AddWheneverThisCreatureAttacksAbility(new GamilKnightOfHatredEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new GamilKnightOfHatredEffect()));
         }
     }
 

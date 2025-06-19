@@ -9,7 +9,7 @@ namespace Cards.Cards.DM09
     {
         public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Race.Guardian, Civilization.Light)
         {
-            AddTapAbility(new TraRionPenumbraGuardianEffect());
+            AddAbilities(new TapAbility(new TraRionPenumbraGuardianEffect()));
         }
     }
 

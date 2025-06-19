@@ -8,7 +8,7 @@ namespace Cards.Cards.DM09
     {
         public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Race.BeastFolk, Civilization.Nature)
         {
-            AddTapAbility(new SilvermoonTrailblazerOneShotEffect());
+            AddAbilities(new TapAbility(new SilvermoonTrailblazerOneShotEffect()));
         }
     }
 

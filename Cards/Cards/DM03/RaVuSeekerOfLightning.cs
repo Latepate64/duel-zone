@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM03
     {
         public RaVuSeekerOfLightning() : base("Ra Vu, Seeker of Lightning", 6, 4000, Race.MechaThunder, Civilization.Light)
         {
-            AddWheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect());
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new RaVuSeekerOfLightningEffect()));
         }
     }
 

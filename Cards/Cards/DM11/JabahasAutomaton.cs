@@ -6,7 +6,7 @@ namespace Cards.Cards.DM11
     {
         public JabahasAutomaton() : base("Jabaha's Automaton", 5, 6000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
         {
-            AddPowerAttackerAbility(4000);
+            AddStaticAbilities(new PowerAttackerEffect(4000));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

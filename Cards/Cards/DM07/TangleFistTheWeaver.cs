@@ -7,7 +7,7 @@ namespace Cards.Cards.DM07
     {
         public TangleFistTheWeaver() : base("Tangle Fist, the Weaver", 4, 2000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
-            AddTapAbility(new TangleFistEffect());
+            AddAbilities(new TapAbility(new TangleFistEffect()));
         }
     }
 
