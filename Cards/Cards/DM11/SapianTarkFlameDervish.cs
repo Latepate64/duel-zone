@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.Continuous;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM11
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class SapianTarkFlameDervishEffect : ContinuousEffects.ThisCreatureCanAttackUntappedCreaturesEffect, IPowerModifyingEffect
+    class SapianTarkFlameDervishEffect : ThisCreatureCanAttackUntappedCreaturesEffect, IPowerModifyingEffect
     {
         public override IContinuousEffect Copy()
         {

@@ -38,7 +38,7 @@ namespace Cards.OneShotEffects
 
     class OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect : OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
     {
-        public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect() : base(new StaticAbilities.SpeedAttackerAbility())
+        public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect() : base(new SpeedAttackerAbility())
         {
         }
 
