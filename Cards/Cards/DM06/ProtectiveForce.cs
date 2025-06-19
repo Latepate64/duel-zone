@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Abilities.Static;
+using Cards.StaticAbilities;
 using Effects.OneShot;
 using Engine;
 using Engine.Abilities;

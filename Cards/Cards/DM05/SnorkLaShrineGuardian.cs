@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.Continuous;
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;

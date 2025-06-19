@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Static;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
@@ -9,7 +10,7 @@ namespace Cards.ContinuousEffects
         {
         }
 
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params Card[] cards) : base(new StaticAbilities.BlockerAbility(), cards)
+        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params Card[] cards) : base(new BlockerAbility(), cards)
         {
         }
 

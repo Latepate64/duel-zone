@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -27,7 +28,7 @@ namespace Cards.Cards.DM07
         {
             if (!Controller.ShieldZone.HasCards)
             {
-                game.AddAbility(Source, new StaticAbilities.BlockerAbility());
+                game.AddAbility(Source, new BlockerAbility());
             }
         }
 

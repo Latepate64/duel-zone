@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -24,7 +25,7 @@ namespace Cards.Cards.DM04
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.BlockerAbility()));
+            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new BlockerAbility()));
         }
 
         public override IContinuousEffect Copy()
